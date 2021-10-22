@@ -1,63 +1,64 @@
-import * as assert from 'assert';
-import * as http from 'http';
+import assert = require('assert');
+import { IncomingMessage } from 'http';
 import setCookie = require('set-cookie-parser');
+import { Cookie, CookieMap } from 'set-cookie-parser';
 
 // Call parse function on imported object
-var input = 'foo=bar;';
-var cookies = setCookie.parse(input);
-assert.equal(cookies.length, 1);
-assert.equal(cookies[0].name, 'foo');
-assert.equal(cookies[0].value, 'bar');
+const input = 'foo=bar;';
+let cookies = setCookie.parse(input);
+assert.strictEqual(cookies.length, 1);
+assert.strictEqual(cookies[0].name, 'foo');
+assert.strictEqual(cookies[0].value, 'bar');
 
 // Required properties only test
-var requiredOnly = 'foo=bar;';
+const requiredOnly = 'foo=bar;';
 cookies = setCookie(requiredOnly);
-assert.equal(cookies.length, 1);
-assert.equal(cookies[0].name, 'foo');
-assert.equal(cookies[0].value, 'bar');
+assert.strictEqual(cookies.length, 1);
+assert.strictEqual(cookies[0].name, 'foo');
+assert.strictEqual(cookies[0].value, 'bar');
 
 // Optional properties included test
-var optionalIncluded =
+const optionalIncluded =
     'foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=Strict';
 cookies = setCookie(optionalIncluded);
-assert.equal(cookies.length, 1);
-assert.equal(cookies[0].name, 'foo');
-assert.equal(cookies[0].value, 'bar');
-assert.equal(cookies[0].domain, '.example.com');
-assert.equal(cookies[0].path, '/');
-assert.deepEqual(cookies[0].expires, new Date('Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)'));
-assert.equal(cookies[0].maxAge, 1000);
-assert.equal(cookies[0].httpOnly, true);
-assert.equal(cookies[0].secure, true);
-assert.equal(cookies[0].sameSite, 'Strict');
+assert.strictEqual(cookies.length, 1);
+assert.strictEqual(cookies[0].name, 'foo');
+assert.strictEqual(cookies[0].value, 'bar');
+assert.strictEqual(cookies[0].domain, '.example.com');
+assert.strictEqual(cookies[0].path, '/');
+assert.deepStrictEqual(cookies[0].expires, new Date('Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)'));
+assert.strictEqual(cookies[0].maxAge, 1000);
+assert.strictEqual(cookies[0].httpOnly, true);
+assert.strictEqual(cookies[0].secure, true);
+assert.strictEqual(cookies[0].sameSite, 'Strict');
 
 // Array of strings test
-var arrayOfCookies = ['bam=baz', 'foo=bar'];
+const arrayOfCookies = ['bam=baz', 'foo=bar'];
 cookies = setCookie(arrayOfCookies);
-assert.equal(cookies.length, 2);
-assert.equal(cookies[0].name, 'bam');
-assert.equal(cookies[0].value, 'baz');
-assert.equal(cookies[1].name, 'foo');
-assert.equal(cookies[1].value, 'bar');
+assert.strictEqual(cookies.length, 2);
+assert.strictEqual(cookies[0].name, 'bam');
+assert.strictEqual(cookies[0].value, 'baz');
+assert.strictEqual(cookies[1].name, 'foo');
+assert.strictEqual(cookies[1].value, 'bar');
 
 // HTTP response message test
-var message = {} as http.IncomingMessage;
+declare const message: IncomingMessage;
 message.headers = { 'set-cookie': ['bam=baz', 'foo=bar'] };
 cookies = setCookie(message);
-assert.equal(cookies.length, 2);
-assert.equal(cookies[0].name, 'bam');
-assert.equal(cookies[0].value, 'baz');
-assert.equal(cookies[1].name, 'foo');
-assert.equal(cookies[1].value, 'bar');
+assert.strictEqual(cookies.length, 2);
+assert.strictEqual(cookies[0].name, 'bam');
+assert.strictEqual(cookies[0].value, 'baz');
+assert.strictEqual(cookies[1].name, 'foo');
+assert.strictEqual(cookies[1].value, 'bar');
 
 // Create new cookie with only required properties
-var requiredOnlyCookie: setCookie.Cookie = {
+const requiredOnlyCookie: Cookie = {
     name: 'Foo',
     value: 'Bar',
 };
 
 // Create new cookie with all properties included optional ones
-var optionalIncludedCookie: setCookie.Cookie = {
+const optionalIncludedCookie: Cookie = {
     name: 'Bam',
     value: 'Baz',
     domain: '.example.com',
@@ -68,7 +69,7 @@ var optionalIncludedCookie: setCookie.Cookie = {
     secure: true,
 };
 
-var cookiesString = setCookie.splitCookiesString(null);
+let cookiesString = setCookie.splitCookiesString(undefined);
 assert.deepStrictEqual(cookiesString, []);
 
 cookiesString = setCookie.splitCookiesString([]);
@@ -84,7 +85,8 @@ assert.deepStrictEqual(cookiesString, [
 ]);
 
 cookiesString = setCookie.splitCookiesString(
-    'foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure, baz=buz; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure',
+    'foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure, ' +
+        'baz=buz; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure',
 );
 assert.deepStrictEqual(cookiesString, [
     'foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure',
@@ -92,20 +94,20 @@ assert.deepStrictEqual(cookiesString, [
 ]);
 
 // Use decodeValues=false option
-var notDecodedValueCookies = setCookie.parse(
+const notDecodedValueCookies = setCookie.parse(
     'user=%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 3000 10:01:11 GMT; HttpOnly; Secure',
     { decodeValues: false },
 );
-assert.equal(notDecodedValueCookies[0].value, '%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2');
+assert.strictEqual(notDecodedValueCookies[0].value, '%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2');
 
-var decodedValueCookies = setCookie.parse(
+const decodedValueCookies = setCookie.parse(
     'user=%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 3000 10:01:11 GMT; HttpOnly; Secure',
     { decodeValues: true },
 );
-assert.equal(decodedValueCookies[0].value, 'Илья Зайцев');
+assert.strictEqual(decodedValueCookies[0].value, 'Илья Зайцев');
 
 // Use map=true option
-var expectedCookiesMap: setCookie.CookieMap = {
+const expectedCookiesMap: CookieMap = {
     foo: {
         name: 'foo',
         value: 'bar',
@@ -113,15 +115,20 @@ var expectedCookiesMap: setCookie.CookieMap = {
         domain: '.example.com',
     },
 };
-var cookiesMap = setCookie.parse('foo=bar; Max-Age=1000; Domain=.example.com;', { map: true });
+// $ExpectType CookieMap
+const cookiesMap = setCookie.parse('foo=bar; Max-Age=1000; Domain=.example.com;', {
+    map: true,
+    decodeValues: false,
+    silent: true,
+});
 assert.deepStrictEqual(cookiesMap, expectedCookiesMap);
 
 // Call parseString function
-var individualSetCookieHeader =
+const individualSetCookieHeader =
     'user=%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=Strict';
-var decodedValueCookie = setCookie.parseString(individualSetCookieHeader);
-var notDecodedValueCookie = setCookie.parseString(individualSetCookieHeader, { decodeValues: false });
-var expectedCookie: setCookie.Cookie = {
+const decodedValueCookie = setCookie.parseString(individualSetCookieHeader);
+const notDecodedValueCookie = setCookie.parseString(individualSetCookieHeader, { decodeValues: false });
+const expectedCookie: setCookie.Cookie = {
     name: 'user',
     value: 'Илья Зайцев',
     maxAge: 1000,
@@ -133,4 +140,4 @@ var expectedCookie: setCookie.Cookie = {
     sameSite: 'Strict',
 };
 assert.deepStrictEqual(decodedValueCookie, expectedCookie);
-assert.equal(notDecodedValueCookie.value, '%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2');
+assert.strictEqual(notDecodedValueCookie.value, '%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2');

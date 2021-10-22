@@ -1,11 +1,11 @@
-import * as auth0 from 'auth0-js';
+import * as auth0 from "auth0-js";
 
 auth0.version.raw; // $ExpectType string
 auth0.version; // $ExpectType { raw: string; }
 
 const webAuth = new auth0.WebAuth({
-    domain: 'mine.auth0.com',
-    clientID: 'dsa7d77dsa7d7',
+    domain: "mine.auth0.com",
+    clientID: "dsa7d77dsa7d7",
     maxAge: 40,
     responseType: "code",
     responseMode: "mode",
@@ -17,10 +17,10 @@ const webAuth = new auth0.WebAuth({
     overrides: {
         __tenant: "tenant",
         __token_issuer: "mine.auth0.com",
-        __jwks_uri: "/jwks.json"
+        __jwks_uri: "/jwks.json",
     },
     plugins: {
-        plugins: []
+        plugins: [],
     },
     popupOrigin: "http://example.com/popup",
     protocol: "oauth2",
@@ -38,13 +38,13 @@ const webAuth = new auth0.WebAuth({
 });
 
 webAuth.authorize({
-    audience: 'https://mystore.com/api/v2',
-    scope: 'read:order write:order',
-    responseType: 'token',
-    redirectUri: 'https://example.com/auth/callback',
-    language: 'en',
+    audience: "https://mystore.com/api/v2",
+    scope: "read:order write:order",
+    responseType: "token",
+    redirectUri: "https://example.com/auth/callback",
+    language: "en",
     login_hint: "email@email.com",
-    prompt: 'login',
+    prompt: "login",
 });
 
 webAuth.parseHash((err, authResult) => {
@@ -52,11 +52,11 @@ webAuth.parseHash((err, authResult) => {
         console.log(err);
     }
 
-  // The contents of authResult depend on which authentication parameters were used.
-  // It can include the following:
-  // authResult.accessToken - access token for the API specified by `audience`
-  // authResult.expiresIn - string with the access token's expiration time in seconds
-  // authResult.idToken - ID token JWT containing user profile information
+    // The contents of authResult depend on which authentication parameters were used.
+    // It can include the following:
+    // authResult.accessToken - access token for the API specified by `audience`
+    // authResult.expiresIn - string with the access token's expiration time in seconds
+    // authResult.idToken - ID token JWT containing user profile information
 
     webAuth.client.userInfo(authResult.accessToken, (err, user) => {
         // Now you have the user's information
@@ -68,11 +68,11 @@ webAuth.parseHash((err, authResult) => {
         console.log(err);
     }
 
-  // The contents of authResult depend on which authentication parameters were used.
-  // It can include the following:
-  // authResult.accessToken - access token for the API specified by `audience`
-  // authResult.expiresIn - string with the access token's expiration time in seconds
-  // authResult.idToken - ID token JWT containing user profile information
+    // The contents of authResult depend on which authentication parameters were used.
+    // It can include the following:
+    // authResult.accessToken - access token for the API specified by `audience`
+    // authResult.expiresIn - string with the access token's expiration time in seconds
+    // authResult.idToken - ID token JWT containing user profile information
 
     webAuth.client.userInfo(authResult.accessToken, (err, user) => {
         // Now you have the user's information
@@ -81,8 +81,9 @@ webAuth.parseHash((err, authResult) => {
 
 webAuth.parseHash(
     {
-        nonce: 'asfd',
-        hash: "#access_token=VjubIMBmpgQ2W2& \
+        nonce: "asfd",
+        hash:
+            "#access_token=VjubIMBmpgQ2W2& \
             id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6RTROMFpCTTBWRFF6RTJSVVUwTnpJMVF6WTFNelE0UVRrMU16QXdNRUk0UkRneE56RTRSZyJ9. \
             eyJpc3MiOiJodHRwczovL3dwdGVzdC5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTVkNDhjNTdkNWIwYWQwMjIzYzQwOGQ3IiwiYXVkIjoiZ1lTTmxVNFlDNFYxWVBkcXE \
             4elBRY3VwNnJKdzFNYnQiLCJleHAiOjE0ODI5NjkwMzEsImlhdCI6MTQ4MjkzMzAzMSwibm9uY2UiOiJhc2ZkIn0. \
@@ -93,106 +94,128 @@ webAuth.parseHash(
         __enableIdPInitiatedLogin: true,
     },
     (err, authResult) => {
-    if (err) {
-        console.log(err);
-    }
+        if (err) {
+            console.log(err);
+        }
 
-  // The contents of authResult depend on which authentication parameters were used.
-  // It can include the following:
-  // authResult.accessToken - access token for the API specified by `audience`
-  // authResult.expiresIn - string with the access token's expiration time in seconds
-  // authResult.idToken - ID token JWT containing user profile information
+        // The contents of authResult depend on which authentication parameters were used.
+        // It can include the following:
+        // authResult.accessToken - access token for the API specified by `audience`
+        // authResult.expiresIn - string with the access token's expiration time in seconds
+        // authResult.idToken - ID token JWT containing user profile information
 
-    webAuth.client.userInfo(authResult.accessToken, (err, user) => {
-        // Now you have the user's information
-    });
-});
+        webAuth.client.userInfo(authResult.accessToken, (err, user) => {
+            // Now you have the user's information
+        });
+    },
+);
 
 webAuth.parseHash(
     {
-        nonce: 'asfd'
+        nonce: "asfd",
     },
     (err, authResult) => {
-    if (err) {
-        console.log(err);
-    }
+        if (err) {
+            console.log(err);
+        }
 
-  // The contents of authResult depend on which authentication parameters were used.
-  // It can include the following:
-  // authResult.accessToken - access token for the API specified by `audience`
-  // authResult.expiresIn - string with the access token's expiration time in seconds
-  // authResult.idToken - ID token JWT containing user profile information
+        // The contents of authResult depend on which authentication parameters were used.
+        // It can include the following:
+        // authResult.accessToken - access token for the API specified by `audience`
+        // authResult.expiresIn - string with the access token's expiration time in seconds
+        // authResult.idToken - ID token JWT containing user profile information
 
-    webAuth.client.userInfo(authResult.accessToken, (err, user) => {
-        // Now you have the user's information
-    });
+        webAuth.client.userInfo(authResult.accessToken, (err, user) => {
+            // Now you have the user's information
+        });
+    },
+);
+
+webAuth.renewAuth({}, (err, authResult) => {
+    // Renewed tokens or error
 });
 
-webAuth.renewAuth({
-}, (err, authResult) => {
-      // Renewed tokens or error
-});
-
-webAuth.renewAuth({
-    nonce: '123',
-    state: '456'
-}, (err, authResult)  => {
-      // Renewed tokens or error
-});
+webAuth.renewAuth(
+    {
+        nonce: "123",
+        state: "456",
+    },
+    (err, authResult) => {
+        // Renewed tokens or error
+    },
+);
 
 webAuth.renewAuth({}, (err, authResult) => {});
 
-webAuth.renewAuth({
-    nonce: '123',
-    state: '456',
-    postMessageDataType: 'auth0:silent-authentication',
-    usePostMessage: true,
-    timeout: 30 * 1000
-}, (err, authResult) => {
-      // Renewed tokens or error
-});
+webAuth.renewAuth(
+    {
+        nonce: "123",
+        state: "456",
+        postMessageDataType: "auth0:silent-authentication",
+        usePostMessage: true,
+        timeout: 30 * 1000,
+    },
+    (err, authResult) => {
+        // Renewed tokens or error
+    },
+);
 
-webAuth.renewAuth({
-  audience: 'urn:site:demo:blog',
-  redirectUri: 'http://page.com/callback',
-  usePostMessage: true
-}, (err, authResult) => {});
+webAuth.renewAuth(
+    {
+        audience: "urn:site:demo:blog",
+        redirectUri: "http://page.com/callback",
+        usePostMessage: true,
+    },
+    (err, authResult) => {},
+);
 
-webAuth.changePassword({connection: 'the_connection',
-    email: 'me@example.com'
-}, (err) => {});
+webAuth.changePassword({ connection: "the_connection", email: "me@example.com" }, err => {});
 
-webAuth.passwordlessStart({
-    connection: 'the_connection',
-    email: 'me@example.com',
-    send: 'code'
-}, (err, data) => {});
+webAuth.passwordlessStart(
+    {
+        connection: "the_connection",
+        email: "me@example.com",
+        send: "code",
+    },
+    (err, data) => {},
+);
 
-webAuth.passwordlessLogin({
-    connection: 'the_connection',
-    phoneNumber: '123',
-    verificationCode: '456',
-    state: '12313eqwasdadaasd'
-}, (err, data) => {});
+webAuth.passwordlessLogin(
+    {
+        connection: "the_connection",
+        phoneNumber: "123",
+        verificationCode: "456",
+        state: "12313eqwasdadaasd",
+    },
+    (err, data) => {},
+);
 
-webAuth.signupAndAuthorize({
-    connection: 'the_connection',
-    email: 'me@example.com',
-    password: '123456',
-    scope: 'openid',
-    username: "blabla",
-    userMetadata: {
-        foo: 'bar'
-    }
-}, (err, data) => {});
+webAuth.signupAndAuthorize(
+    {
+        connection: "the_connection",
+        email: "me@example.com",
+        password: "123456",
+        scope: "openid",
+        username: "blabla",
+        userMetadata: {
+            foo: "bar",
+        },
+    },
+    (err, data) => {},
+);
 
-webAuth.client.login({
-    realm: 'Username-Password-Authentication', // connection name or HRD domain
-    username: 'info@auth0.com',
-    password: 'areallystrongpassword',
-    audience: 'https://mystore.com/api/v2',
-    scope: 'read:order write:order',
-}, (err, authResult) => {/*Auth tokens in the result or an error*/});
+webAuth.client.login(
+    {
+        realm: "Username-Password-Authentication", // connection name or HRD domain
+        username: "info@auth0.com",
+        password: "areallystrongpassword",
+        audience: "https://mystore.com/api/v2",
+        scope: "read:order write:order",
+    },
+    (err, authResult) => {
+        /*Auth tokens in the result or an error*/
+    },
+);
 
 webAuth.popup.buildPopupHandler(); // $ExpectError
 webAuth.popup.preload({});
@@ -207,36 +230,60 @@ webAuth.popup.loginWithCredentials({}, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
-webAuth.popup.passwordlessVerify({ type: "sms", phoneNumber: "", connection: "", verificationCode: "" }, (err, data) => {
-    if (err) /* handle error */ return;
-    // do something with data
-});
+webAuth.popup.passwordlessVerify(
+    { type: "sms", phoneNumber: "", connection: "", verificationCode: "" },
+    (err, data) => {
+        if (err) /* handle error */ return;
+        // do something with data
+    },
+);
 webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
 
-webAuth.login({username: 'bar', password: 'foo', state: '1234'}, (err, data) => {});
+webAuth.redirect.signupAndLogin(
+    {
+        email: "",
+        password: "",
+        connection: "",
+        userMetadata: {
+            foo: "bar",
+        },
+    },
+    (err, data) => {
+        if (err) /* handle error */ return;
+        // do something with data
+    },
+);
+
+webAuth.login({ username: "bar", password: "foo", state: "1234" }, (err, data) => {});
 
 // cross-origin verification
 webAuth.crossOriginVerification();
 
-webAuth.checkSession({
-  audience: 'https://mystore.com/api/v2',
-  scope: 'read:order write:order',
-  redirectUri: 'https://example.com/auth/silent-callback'
-  }, (err, authResult) => {
-    // Authentication tokens or error
-});
+webAuth.checkSession(
+    {
+        audience: "https://mystore.com/api/v2",
+        scope: "read:order write:order",
+        redirectUri: "https://example.com/auth/silent-callback",
+    },
+    (err, authResult) => {
+        // Authentication tokens or error
+    },
+);
 
-webAuth.checkSession({
-  audience: 'https://mystore.com/api/v2',
-  scope: 'read:order write:order',
-  redirectUri: 'https://example.com/auth/silent-callback',
-  usePostMessage: true
-  }, (err, authResult) => {
-    // Renewed tokens or error
-});
+webAuth.checkSession(
+    {
+        audience: "https://mystore.com/api/v2",
+        scope: "read:order write:order",
+        redirectUri: "https://example.com/auth/silent-callback",
+        usePostMessage: true,
+    },
+    (err, authResult) => {
+        // Renewed tokens or error
+    },
+);
 
 //  use case; get a new token for the API
 webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
@@ -248,83 +295,107 @@ webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
 });
 
 const input: HTMLInputElement = document.querySelector('input[name="captcha"]');
+// $ExpectType Captcha
 webAuth.renderCaptcha(input);
+// $ExpectType Captcha
 webAuth.renderCaptcha(input, {});
+// $ExpectType Captcha
 webAuth.renderCaptcha(input, {
-    lang: 'pl',
+    lang: "pl",
     templates: {
         error: error => {
-            return 'error';
+            return "error";
         },
-        auth0: challenge => 'auth0',
-        recaptcha_v2: challenge => 'recaptcha_v2',
+        auth0: challenge => "auth0",
+        recaptcha_v2: challenge => "recaptcha_v2",
     },
 });
-webAuth.renderCaptcha(input, {
-    lang: 'pl',
-    templates: {
-        error: error => {
-            return 'error';
+// $ExpectType Captcha
+webAuth.renderCaptcha(
+    input,
+    {
+        lang: "pl",
+        templates: {
+            error: error => {
+                return "error";
+            },
+            auth0: challenge => "auth0",
+            recaptcha_v2: challenge => "recaptcha_v2",
         },
-        auth0: challenge => 'auth0',
-        recaptcha_v2: challenge => 'recaptcha_v2',
     },
-}, error => {
-    if (error) {
+    error => {
+        if (error) {
+            // handle error
+        }
+    },
+);
+
+// $ExpectType void
+webAuth.renderCaptcha(input).reload((err) => {
+    if (err) {
         // handle error
     }
 });
 
 const authentication = new auth0.Authentication({
-    domain: 'me.auth0.com',
-    clientID: '...',
-    redirectUri: 'http://page.com/callback',
-    responseType: 'code',
-    _sendTelemetry: false
+    domain: "me.auth0.com",
+    clientID: "...",
+    redirectUri: "http://page.com/callback",
+    responseType: "code",
+    _sendTelemetry: false,
 });
 
 // $ExpectError
-authentication.buildAuthorizeUrl({state: '1234'});
+authentication.buildAuthorizeUrl({ state: "1234" });
 // $ExpectError
 authentication.buildAuthorizeUrl();
 // $ExpectType string
 authentication.buildAuthorizeUrl({
-    audience: 'audience',
-    clientID: 'clientID',
-    nonce: '1234',
-    redirectUri: 'http://anotherpage.com/callback2',
-    responseMode: 'query',
-    responseType: 'code token',
-    scope: 'openid email',
-    state: '1234',
+    audience: "audience",
+    clientID: "clientID",
+    nonce: "1234",
+    redirectUri: "http://anotherpage.com/callback2",
+    responseMode: "query",
+    responseType: "code token",
+    scope: "openid email",
+    state: "1234",
 });
 
-authentication.buildLogoutUrl({ clientID: 'asdfasdfds' });
+authentication.buildLogoutUrl({ clientID: "asdfasdfds" });
 authentication.buildLogoutUrl();
-authentication.userInfo('abcd1234', (err, data) => {
-  // user info retrieved
+authentication.userInfo("abcd1234", (err, data) => {
+    // user info retrieved
 });
 
-authentication.delegation({
-    grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-    refresh_token: 'your_refresh_token',
-    api_type: 'app'
-}, (err, data) => {
-    if (!err) {
-        localStorage.setItem('token', data.idToken);
-    }
-});
+authentication.delegation(
+    {
+        grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+        refresh_token: "your_refresh_token",
+        api_type: "app",
+    },
+    (err, data) => {
+        if (!err) {
+            localStorage.setItem("token", data.idToken);
+        }
+    },
+);
 
-authentication.loginWithDefaultDirectory({
-    username: 'someUsername',
-    password: '123456'
-}, (err, data) => {});
+authentication.loginWithDefaultDirectory(
+    {
+        username: "someUsername",
+        password: "123456",
+    },
+    (err, data) => {},
+);
 
-authentication.oauthToken({
-    username: 'someUsername',
-    password: '123456',
-    grantType: 'password'
-}, (err, data) => {});
+authentication.oauthToken(
+    {
+        username: "someUsername",
+        password: "123456",
+        grantType: "password",
+    },
+    (err, data) => {},
+);
 
 authentication.getUserCountry((err, data) => {});
 
@@ -336,11 +407,11 @@ authentication.dbConnection.signup();
 // $ExpectError
 authentication.dbConnection.signup({});
 // $ExpectError
-authentication.dbConnection.signup({ connection: 'bla', email: 'blabla' });
+authentication.dbConnection.signup({ connection: "bla", email: "blabla" });
 // $ExpectError
-authentication.dbConnection.signup({ connection: 'bla', email: 'blabla', password: '123456' });
+authentication.dbConnection.signup({ connection: "bla", email: "blabla", password: "123456" });
 authentication.dbConnection.signup(
-    { connection: 'bla', email: 'blabla', password: '123456', username: 'blabla' },
+    { connection: "bla", email: "blabla", password: "123456", username: "blabla" },
     (auth0Error, results) => {
         if (auth0Error) {
             const { error, errorDescription } = auth0Error;
@@ -352,13 +423,13 @@ authentication.dbConnection.signup(
 );
 authentication.dbConnection.signup(
     {
-        email: 'the email',
-        password: 'the password',
-        connection: 'the_connection',
+        email: "the email",
+        password: "the password",
+        connection: "the_connection",
         userMetadata: {
-            firstName: 'Toon',
-            lastName: 'De Coninck',
-            last_location: 'Mexico',
+            firstName: "Toon",
+            lastName: "De Coninck",
+            last_location: "Mexico",
         },
     },
     (err, data) => {
@@ -366,32 +437,38 @@ authentication.dbConnection.signup(
         console.assert(data.email !== null);
     },
 );
-authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla'}, () => {});
+authentication.dbConnection.changePassword({ connection: "bla", email: "blabla" }, () => {});
 
-authentication.passwordless.start({ connection: 'bla', send: 'blabla' }, () => {});
-authentication.passwordless.verify({ connection: 'bla', verificationCode: 'asdfasd', email: 'me@example.com' }, () => {});
+authentication.passwordless.start({ connection: "bla", send: "blabla" }, () => {});
+authentication.passwordless.verify(
+    { connection: "bla", verificationCode: "asdfasd", email: "me@example.com" },
+    () => {},
+);
 
-authentication.loginWithResourceOwner({
-    username: 'the username',
-    password: 'the password',
-    connection: 'the_connection',
-    scope: 'openid'
-}, (err, data) => {});
+authentication.loginWithResourceOwner(
+    {
+        username: "the username",
+        password: "the password",
+        connection: "the_connection",
+        scope: "openid",
+    },
+    (err, data) => {},
+);
 
 const management = new auth0.Management({
-    domain: 'me.auth0.com',
-    token: 'token'
+    domain: "me.auth0.com",
+    token: "token",
 });
 
-management.getUser('asd', (err, user) => {});
+management.getUser("asd", (err, user) => {});
 
-management.patchUserMetadata('asd', {role: 'admin'}, (err, user) => {
+management.patchUserMetadata("asd", { role: "admin" }, (err, user) => {
     if (!err && user.email_verified) return; // do something
 });
 
 // tslint:disable-next-line: prefer-const
 let user: auth0.Auth0UserProfile;
 management.patchUserAttributes(); // $ExpectError
-management.patchUserAttributes('...'); // $ExpectError
-management.patchUserAttributes('...', {}); // $ExpectError
-management.patchUserAttributes('auth0|123', user, (err, user) => {}); // $ExpectType void
+management.patchUserAttributes("..."); // $ExpectError
+management.patchUserAttributes("...", {}); // $ExpectError
+management.patchUserAttributes("auth0|123", user, (err, user) => {}); // $ExpectType void

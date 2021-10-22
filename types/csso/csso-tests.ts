@@ -44,8 +44,8 @@ csso.minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000', {
     },
 });
 
-csso.compress({ type: 'CDC' }).ast; // $ExpectType CssNode
-csso.compress({ type: 'CDC' }, {
+csso.syntax.compress({ type: 'CDC' }).ast; // $ExpectType CssNode
+csso.syntax.compress({ type: 'CDC' }, {
     restructure: false,
     forceMediaMerge: true,
     clone: false,
@@ -54,3 +54,5 @@ csso.compress({ type: 'CDC' }, {
 }).ast; // $ExpectType CssNode
 
 csso.syntax.parse('.b {font-weight: bold}'); // $ExpectType CssNode
+
+csso.version; // $ExpectType string

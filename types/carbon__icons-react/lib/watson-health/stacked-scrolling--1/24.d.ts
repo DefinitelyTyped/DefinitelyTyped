@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const WatsonHealthStackedScrolling_124: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WatsonHealthStackedScrolling_124;
+import { WatsonHealthStackedScrolling_124 } from "../../../";
+
+export = WatsonHealthStackedScrolling_124;

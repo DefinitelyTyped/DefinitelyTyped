@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const SignalStrength24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default SignalStrength24;
+import { SignalStrength24 } from "../../";
+
+export = SignalStrength24;

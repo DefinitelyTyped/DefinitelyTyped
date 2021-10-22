@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RotateCounterclockwiseFilled32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RotateCounterclockwiseFilled32;
+import { RotateCounterclockwiseFilled32 } from "../../";
+
+export = RotateCounterclockwiseFilled32;

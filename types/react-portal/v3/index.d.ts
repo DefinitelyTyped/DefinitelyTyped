@@ -6,15 +6,18 @@
 
 import * as React from "react";
 
-interface CallBackProps extends React.Props<any> {
+interface CallBackProps {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<any> | undefined;
     closePortal(): void;
 }
 
 interface ReactPortalProps {
-    isOpened?: boolean;
-    openByClickOn?: React.ReactElement<CallBackProps>;
-    closeOnEsc?: boolean;
-    closeOnOutsideClick?: boolean;
+    children: React.ReactElement;
+    isOpened?: boolean | undefined;
+    openByClickOn?: React.ReactElement<CallBackProps> | undefined;
+    closeOnEsc?: boolean | undefined;
+    closeOnOutsideClick?: boolean | undefined;
     onOpen?(node: HTMLDivElement): void;
     beforeClose?(node: HTMLDivElement, resetPortalState: () => void): void;
     onClose?(): void;

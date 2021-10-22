@@ -236,8 +236,8 @@ export default class ValueAxis extends AxisBase {
         handler: (
             e: {
                 type: string;
-                startValue?: Date;
-                endValue?: Date;
+                startValue?: Date | undefined;
+                endValue?: Date | undefined;
                 chart: AmChart;
             },
         ) => void,

@@ -1,4 +1,4 @@
-// Type definitions for bn.js 4.11
+// Type definitions for bn.js 5.1
 // Project: https://github.com/indutny/bn.js
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
@@ -26,6 +26,9 @@ declare namespace BN {
 }
 
 declare class BN {
+    static BN: typeof BN;
+    static wordSize: 26;
+
     constructor(
         number: number | string | number[] | Uint8Array | Buffer | BN,
         base?: number | 'hex',
@@ -337,10 +340,15 @@ declare class BN {
     umod(b: BN): BN;
 
     /**
-     * @see API consistency https://github.com/indutny/bn.js/pull/130
+     * @deprecated
      * @description reduct
      */
     modn(b: number): number;
+
+    /**
+     * @description reduct
+     */
+    modrn(b: number): number;
 
     /**
      * @description  rounded division

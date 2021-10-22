@@ -1,5 +1,5 @@
 // Type definitions for a2hs.js 0.4
-// Project: https://github.io/koddr/a2hs.js
+// Project: https://github.com/koddr/a2hs.js/
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -16,50 +16,50 @@ declare namespace AddToHomeScreen {
          * Background color for container
          * @default '#f9f9f9'
          */
-        backgroundColor?: string;
+        backgroundColor?: string | undefined;
         /**
          * Padding for container
          * @default '10px'
          */
-        padding?: string;
+        padding?: string | undefined;
         /**
          * Shadow color for top of container
          * @default '#e9e9e9'
          */
-        shadowColor?: string;
+        shadowColor?: string | undefined;
         /**
          * Shadow size for top of container
          * @default '10px'
          */
-        shadowSize?: string;
+        shadowSize?: string | undefined;
         /**
          * Font family for content in container
          * @default '-apple-system, sans-serif'
          */
-        fontFamily?: string;
+        fontFamily?: string | undefined;
         /**
          * Font color for content in container
          * @default '#5d5d5d'
          */
-        color?: string;
+        color?: string | undefined;
         /**
          * Font size for content in container
          * @default '0.9rem'
          */
-        fontSize?: string;
+        fontSize?: string | undefined;
         /**
          * Brand for default `htmlContent`
          * @default ''
          */
-        brandName?: string;
+        brandName?: string | undefined;
         /**
          * Logo for container
          */
-        logoImage?: string;
+        logoImage?: string | undefined;
         /**
          * Content for container with HTML
          */
-        htmlContent?: string;
+        htmlContent?: string | undefined;
     }
 }
 export = AddToHomeScreen;

@@ -105,7 +105,7 @@ namespace HttpAndRegularPromiseTests {
         theAnswer: number;
         letters: string[];
         snack: string;
-        nothing?: string;
+        nothing?: string | undefined;
     }
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
@@ -253,6 +253,30 @@ angular.module('qprovider-test', [])
         const provider: ng.IQProvider = $qProvider.errorOnUnhandledRejections(false);
         const currentValue: boolean = $qProvider.errorOnUnhandledRejections();
     }]);
+
+let $compileProvider: ng.ICompileProvider;
+let urlListRegex: RegExp;
+
+urlListRegex = $compileProvider.aHrefSanitizationWhitelist();
+$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.aHrefSanitizationTrustedUrlList();
+$compileProvider.aHrefSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+urlListRegex = $compileProvider.imgSrcSanitizationWhitelist();
+$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.imgSrcSanitizationTrustedUrlList();
+$compileProvider.imgSrcSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+let $httpProvider: ng.IHttpProvider;
+$httpProvider.xsrfWhitelistedOrigins = ['https://example.com'];
+$httpProvider.xsrfTrustedOrigins = ['https://example.com'];
+
+let $sceDelegateProvider: ng.ISCEDelegateProvider;
+let urlList: any[];
+urlList = $sceDelegateProvider.bannedResourceUrlList();
+$sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
+urlList = $sceDelegateProvider.trustedResourceUrlList();
+$sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
 
 // Promise signature tests
 let foo: ng.IPromise<number>;
@@ -1221,9 +1245,9 @@ const componentModule = angular.module('componentExample', [])
     });
 
 interface ICopyExampleUser {
-    name?: string;
-    email?: string;
-    gender?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+    gender?: string | undefined;
 }
 
 interface ICopyExampleScope {

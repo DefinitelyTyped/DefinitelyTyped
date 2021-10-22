@@ -5,78 +5,78 @@
 // TypeScript Version: 2.3
 
 interface SwiperOptions {
-    speed?: number;
-    autoplay?: number;
-    mode?: string;
-    loop?: boolean;
-    loopAdditionalSlides?: number;
+    speed?: number | undefined;
+    autoplay?: number | undefined;
+    mode?: string | undefined;
+    loop?: boolean | undefined;
+    loopAdditionalSlides?: number | undefined;
     slidesPerView?: any;
-    slidesPerGroup?: number;
-    calculateHeight?: boolean;
-    updateOnImagesReady?: boolean;
-    releaseFormElements?: boolean;
-    watchActiveIndex?: boolean;
-    visibilityFullFit?: boolean;
-    autoResize?: boolean;
-    resizeReInit?: boolean;
-    DOMAnimation?: boolean;
+    slidesPerGroup?: number | undefined;
+    calculateHeight?: boolean | undefined;
+    updateOnImagesReady?: boolean | undefined;
+    releaseFormElements?: boolean | undefined;
+    watchActiveIndex?: boolean | undefined;
+    visibilityFullFit?: boolean | undefined;
+    autoResize?: boolean | undefined;
+    resizeReInit?: boolean | undefined;
+    DOMAnimation?: boolean | undefined;
     resistance?: any;
-    noSwiping?: boolean;
-    preventLinks?: boolean;
-    initialSlide?: number;
-    useCSS3Transforms?: boolean;
+    noSwiping?: boolean | undefined;
+    preventLinks?: boolean | undefined;
+    initialSlide?: number | undefined;
+    useCSS3Transforms?: boolean | undefined;
 
     // Free Mode and Scroll Container
-    freeMode?: boolean;
-    freeModeFluid?: boolean;
-    scrollContainer?: boolean;
-    momentumRatio?: number;
-    momentumBounce?: boolean;
-    momentumBounceRatio?: number;
+    freeMode?: boolean | undefined;
+    freeModeFluid?: boolean | undefined;
+    scrollContainer?: boolean | undefined;
+    momentumRatio?: number | undefined;
+    momentumBounce?: boolean | undefined;
+    momentumBounceRatio?: number | undefined;
 
     // Slides offset
-    centeredSlides?: boolean;
-    offsetPxBefore?: number;
-    offsetPxAfter?: number;
-    offsetSlidesBefore?: number;
-    offsetSlidesAfter?: number;
+    centeredSlides?: boolean | undefined;
+    offsetPxBefore?: number | undefined;
+    offsetPxAfter?: number | undefined;
+    offsetSlidesBefore?: number | undefined;
+    offsetSlidesAfter?: number | undefined;
 
     // Touch/mouse interactions
-    touchRatio?: number;
-    simulateTouch?: boolean;
-    onlyExternal?: boolean;
-    followFinger?: boolean;
-    grabCursor?: boolean;
-    shortSwipes?: boolean;
-    moveStartThreshold?: number;
+    touchRatio?: number | undefined;
+    simulateTouch?: boolean | undefined;
+    onlyExternal?: boolean | undefined;
+    followFinger?: boolean | undefined;
+    grabCursor?: boolean | undefined;
+    shortSwipes?: boolean | undefined;
+    moveStartThreshold?: number | undefined;
 
     // Navigation
-    keyboardControl?: boolean;
-    mousewheelControl?: boolean;
-    nextButton?: string | HTMLElement;
-    prevButton?: string | HTMLElement;
+    keyboardControl?: boolean | undefined;
+    mousewheelControl?: boolean | undefined;
+    nextButton?: string | HTMLElement | undefined;
+    prevButton?: string | HTMLElement | undefined;
 
     // Pagination
     pagination?: any;
-    paginationClickable?: boolean;
-    paginationAsRange?: boolean;
-    createPagination?: boolean;
+    paginationClickable?: boolean | undefined;
+    paginationAsRange?: boolean | undefined;
+    createPagination?: boolean | undefined;
 
     // Namespace
-    wrapperClass?: string;
-    slideClass?: string;
-    slideActiveClass?: string;
-    slideVisibleClass?: string;
-    slideElement?: string;
-    noSwipingClass?: string;
-    paginationElement?: string;
-    paginationElementClass?: string;
-    paginationActiveClass?: string;
-    paginationVisibleClass?: string;
+    wrapperClass?: string | undefined;
+    slideClass?: string | undefined;
+    slideActiveClass?: string | undefined;
+    slideVisibleClass?: string | undefined;
+    slideElement?: string | undefined;
+    noSwipingClass?: string | undefined;
+    paginationElement?: string | undefined;
+    paginationElementClass?: string | undefined;
+    paginationActiveClass?: string | undefined;
+    paginationVisibleClass?: string | undefined;
 
     // Callbacks
-    queueStartCallbacks?: boolean;
-    queueEndCallbacks?: boolean;
+    queueStartCallbacks?: boolean | undefined;
+    queueEndCallbacks?: boolean | undefined;
     onTouchStart?(swiper: Swiper): void;
     onTouchMove?(swiper: Swiper): void;
     onTouchEnd?(swiper: Swiper): void;
@@ -92,22 +92,22 @@ interface SwiperOptions {
 
     // Slides Loader
     loader?: {
-        slides?: any[];
-        slidesHTMLType?: string;
-        surroundGroups?: number;
-        logic?: string;
-        loadAllSlides?: boolean;
-    };
+        slides?: any[] | undefined;
+        slidesHTMLType?: string | undefined;
+        surroundGroups?: number | undefined;
+        logic?: string | undefined;
+        loadAllSlides?: boolean | undefined;
+    } | undefined;
 
     // Plugins
-    scrollbar?: SwiperScrollbarOptions;
+    scrollbar?: SwiperScrollbarOptions | undefined;
 }
 
 interface SwiperScrollbarOptions {
     container: string;          // Default: '.swiper-scrollbar'
-    draggable?: boolean;        // Default: true
-    hide?: boolean;             // Default: true
-    snapOnRelease?: boolean;    // Default: false
+    draggable?: boolean | undefined;        // Default: true
+    hide?: boolean | undefined;             // Default: true
+    snapOnRelease?: boolean | undefined;    // Default: false
 }
 
 declare class SwiperSlide {

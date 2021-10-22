@@ -4,15 +4,47 @@
     const a = new Alert();
     a.title = 'Some title';
     a.message = 'Some message';
-    a.addTextField('user id');
+    const tf1 = a.addTextField('user id');
+    // $ExpectType TextField
     a.addTextField('username', 'pre filled text');
+    // $ExpectType TextField
     a.addSecureTextField('password');
     a.addAction('OK');
     a.addCancelAction('Cancel');
     a.present();
     a.presentAlert();
     a.presentSheet();
-    const textFieldValue = a.textFieldValue(0);
+    // $ExpectType string
+    a.textFieldValue(0);
+
+    tf1.centerAlignText();
+    tf1.font = Font.systemFont(16);
+    tf1.isSecure = false;
+    tf1.leftAlignText();
+    tf1.placeholder = 'id';
+    tf1.rightAlignText();
+    tf1.setDecimalPadKeyboard();
+    tf1.setDefaultKeyboard();
+    tf1.setEmailAddressKeyboard();
+    tf1.setNumberPadKeyboard();
+    tf1.setNumbersAndPunctuationKeyboard();
+    tf1.setPhonePadKeyboard();
+    tf1.setTwitterKeyboard();
+    tf1.setURLKeyboard();
+    tf1.setWebSearchKeyboard();
+    tf1.text = 'Chuck Norris';
+    tf1.textColor = Color.red();
+}
+
+{
+    const c = new Color('ffffff', 1);
+    c.red = 42;
+    c.green = 42;
+    c.blue = 42;
+    c.alpha = 0.42;
+
+    // $ExpectType Color
+    Color.dynamic(c, Color.black());
 }
 
 {
@@ -40,7 +72,21 @@
 }
 
 {
-    const font = new Font("Helvetica", 12);
+    const fm = FileManager.iCloud();
+    // $ExpectError
+    const error = new FileManager();
+    // $ExpectType string
+    fm.documentsDirectory();
+    // $ExpectType string
+    fm.libraryDirectory();
+    // $ExpectType string
+    fm.temporaryDirectory();
+    // $ExpectType string
+    fm.cacheDirectory();
+}
+
+{
+    const font = new Font('Helvetica', 12);
     // $ExpectType Font
     Font.largeTitle();
     // $ExpectType Font
@@ -64,9 +110,9 @@
     // $ExpectError
     listWidget.backgroundColor = 5;
 
-    listWidget.backgroundImage = Image.fromFile("some/image.png");
+    listWidget.backgroundImage = Image.fromFile('some/image.png');
     // $ExpectError
-    listWidget.backgroundImage = "foo";
+    listWidget.backgroundImage = 'foo';
 
     const gradient = new LinearGradient();
     gradient.colors = [Color.white(), Color.gray(), Color.white()];
@@ -77,37 +123,46 @@
     // $ExpectError
     gradient.locations = 1;
 
+    gradient.startPoint = new Point(0, 1);
+    // $ExpectError
+    gradient.startPoint = 1;
+
+    gradient.endPoint = new Point(0, 1);
+    // $ExpectError
+    gradient.endPoint = 1;
+
     listWidget.backgroundGradient = gradient;
     // $ExpectError
-    listWidget.backgroundGradient = "bar";
+    listWidget.backgroundGradient = 'bar';
 
     listWidget.spacing = 5;
     // $ExpectError
-    listWidget.spacing = "5";
+    listWidget.spacing = '5';
 
-    listWidget.url = "https://scriptable.app";
+    listWidget.url = 'https://scriptable.app';
     // $ExpectError
     listWidget.url = /https:\/\/scriptable.app/;
 
     listWidget.refreshAfterDate = new Date();
     // $ExpectError
-    listWidget.refreshAfterDate = "2020-01-01T00:00:00Z";
+    listWidget.refreshAfterDate = '2020-01-01T00:00:00Z';
 
-    const widgetText = listWidget.addText("some text");
+    const widgetText = listWidget.addText('some text');
     // $ExpectError
     listWidget.addText(42);
 
     const widgetDate = listWidget.addDate(new Date());
     // $ExpectError
-    listWidget.addDate("2020-01-01T00:00:00Z");
+    listWidget.addDate('2020-01-01T00:00:00Z');
 
-    const widgetImage = listWidget.addImage(Image.fromData(Data.fromBase64String("foobar")));
+    const widgetImage = listWidget.addImage(Image.fromData(Data.fromBase64String('foobar')));
     // $ExpectError
-    listWidget.addImage("42");
+    listWidget.addImage('42');
 
     const widgetSpacer = listWidget.addSpacer(10);
+    listWidget.addSpacer();
     // $ExpectError
-    listWidget.addSpacer("10");
+    listWidget.addSpacer('10');
 
     const widgetStack = listWidget.addStack();
     // $ExpectError
@@ -116,12 +171,12 @@
     // $ExpectType void
     listWidget.setPadding(0, 1, 2, 3);
     // $ExpectError
-    listWidget.setPadding("0", "1", "2", "3");
+    listWidget.setPadding('0', '1', '2', '3');
 
     // $ExpectType void
     listWidget.useDefaultPadding();
     // $ExpectError
-    listWidget.useDefaultPadding("qux");
+    listWidget.useDefaultPadding('qux');
 
     // $ExpectType Promise<void>
     listWidget.presentSmall();
@@ -134,9 +189,9 @@
 
     // $ExpectType Image
     widgetImage.image;
-    widgetImage.image = Image.fromFile("some/image.png");
+    widgetImage.image = Image.fromFile('some/image.png');
     // $ExpectError
-    widgetImage.image = "42";
+    widgetImage.image = '42';
 
     // $ExpectType boolean
     widgetImage.resizable;
@@ -148,7 +203,7 @@
     widgetImage.imageOpacity;
     widgetImage.imageOpacity = 42;
     // $ExpectError
-    widgetImage.imageOpacity = "42";
+    widgetImage.imageOpacity = '42';
 
     // $ExpectType Size
     widgetImage.imageSize;
@@ -160,19 +215,19 @@
     widgetImage.cornerRadius;
     widgetImage.cornerRadius = 13;
     // $ExpectError
-    widgetImage.cornerRadius = "13";
+    widgetImage.cornerRadius = '13';
 
     // $ExpectType number
     widgetImage.borderWidth;
     widgetImage.borderWidth = 13;
     // $ExpectError
-    widgetImage.borderWidth = "13";
+    widgetImage.borderWidth = '13';
 
     // $ExpectType Color
     widgetImage.borderColor;
     widgetImage.borderColor = Color.white();
     // $ExpectError
-    widgetImage.borderColor = "13";
+    widgetImage.borderColor = '13';
 
     // $ExpectType boolean
     widgetImage.containerRelativeShape;
@@ -184,11 +239,11 @@
     widgetImage.tintColor;
     widgetImage.tintColor = Color.black();
     // $ExpectError
-    widgetImage.tintColor = "black";
+    widgetImage.tintColor = 'black';
 
     // $ExpectType string
     widgetImage.url;
-    widgetImage.url = "https://localhost:80/";
+    widgetImage.url = 'https://localhost:80/';
     // $ExpectError
     widgetImage.url = 42;
 
@@ -207,11 +262,11 @@
     widgetSpacer.length;
     widgetSpacer.length = 3;
     // $ExpectError
-    widgetSpacer.length = "3";
+    widgetSpacer.length = '3';
 
     // $ExpectType string
     widgetText.text;
-    widgetText.text = "The quick brwon fox jumps over the lazy dog";
+    widgetText.text = 'The quick brwon fox jumps over the lazy dog';
     // $ExpectError
     widgetText.text = 42;
 
@@ -229,31 +284,31 @@
     widgetText.textOpacity;
     widgetText.textOpacity = 0.9;
     // $ExpectError
-    widgetText.textOpacity = "1";
+    widgetText.textOpacity = '1';
 
     // $ExpectType number
     widgetText.lineLimit;
     widgetText.lineLimit = 3;
     // $ExpectError
-    widgetText.lineLimit = "3";
+    widgetText.lineLimit = '3';
 
     // $ExpectType number
     widgetText.minimumScaleFactor;
     widgetText.minimumScaleFactor = 3;
     // $ExpectError
-    widgetText.minimumScaleFactor = "3";
+    widgetText.minimumScaleFactor = '3';
 
     // $ExpectType Color
     widgetText.shadowColor;
     widgetText.shadowColor = Color.black();
     // $ExpectError
-    widgetText.shadowColor = "black";
+    widgetText.shadowColor = 'black';
 
     // $ExpectType number
     widgetText.shadowRadius;
     widgetText.shadowRadius = 3;
     // $ExpectError
-    widgetText.shadowRadius = "3";
+    widgetText.shadowRadius = '3';
 
     // $ExpectType Point
     widgetText.shadowOffset;
@@ -263,7 +318,7 @@
 
     // $ExpectType string
     widgetText.url;
-    widgetText.url = "http://localhost/";
+    widgetText.url = 'http://localhost/';
     // $ExpectError
     widgetText.url = 0;
 
@@ -278,13 +333,13 @@
     widgetDate.date;
     widgetDate.date = new Date();
     // $ExpectError
-    widgetDate.date = "2020-01-01T00:00:00Z";
+    widgetDate.date = '2020-01-01T00:00:00Z';
 
     // $ExpectType Color
     widgetDate.textColor;
     widgetDate.textColor = Color.black();
     // $ExpectError
-    widgetDate.textColor = "black";
+    widgetDate.textColor = 'black';
 
     // $ExpectType Font
     widgetDate.font;
@@ -294,31 +349,31 @@
     widgetDate.textOpacity;
     widgetDate.textOpacity = 0.4;
     // $ExpectError
-    widgetDate.textOpacity = "1";
+    widgetDate.textOpacity = '1';
 
     // $ExpectType number
     widgetDate.lineLimit;
     widgetDate.lineLimit = 42;
     // $ExpectError
-    widgetDate.lineLimit = "42";
+    widgetDate.lineLimit = '42';
 
     // $ExpectType number
     widgetDate.minimumScaleFactor;
     widgetDate.minimumScaleFactor = 0.01;
     // $ExpectError
-    widgetDate.minimumScaleFactor = "42";
+    widgetDate.minimumScaleFactor = '42';
 
     // $ExpectType Color
     widgetDate.shadowColor;
     widgetDate.shadowColor = Color.gray();
     // $ExpectError
-    widgetDate.shadowColor = "gray";
+    widgetDate.shadowColor = 'gray';
 
     // $ExpectType number
     widgetDate.shadowRadius;
     widgetDate.shadowRadius = 42;
     // $ExpectError
-    widgetDate.shadowRadius = "42";
+    widgetDate.shadowRadius = '42';
 
     // $ExpectType Point
     widgetDate.shadowOffset;
@@ -328,7 +383,7 @@
 
     // $ExpectType string
     widgetDate.url;
-    widgetDate.url = "http://localhost:80/";
+    widgetDate.url = 'http://localhost:80/';
     // $ExpectError
     widgetDate.url = 42;
 
@@ -353,13 +408,13 @@
     widgetStack.backgroundColor;
     widgetStack.backgroundColor = Color.black();
     // $ExpectError
-    widgetStack.backgroundColor = "black";
+    widgetStack.backgroundColor = 'black';
 
     // $ExpectType Image
     widgetStack.backgroundImage;
-    widgetStack.backgroundImage = Image.fromFile("some/file.png");
+    widgetStack.backgroundImage = Image.fromFile('some/file.png');
     // $ExpectError
-    widgetStack.backgroundImage = "black";
+    widgetStack.backgroundImage = 'black';
 
     // $ExpectType LinearGradient
     widgetStack.backgroundGradient;
@@ -371,7 +426,7 @@
     widgetStack.spacing;
     widgetStack.spacing = 42;
     // $ExpectError
-    widgetStack.spacing = "42";
+    widgetStack.spacing = '42';
 
     // $ExpectType Size
     widgetStack.size;
@@ -383,34 +438,36 @@
     widgetStack.cornerRadius;
     widgetStack.cornerRadius = 10;
     // $ExpectError
-    widgetStack.cornerRadius = "10";
+    widgetStack.cornerRadius = '10';
 
     // $ExpectType number
     widgetStack.borderWidth;
     widgetStack.borderWidth = 3;
     // $ExpectError
-    widgetStack.borderWidth = "3";
+    widgetStack.borderWidth = '3';
 
     // $ExpectType Color
     widgetStack.borderColor;
     widgetStack.borderColor = Color.black();
     // $ExpectError
-    widgetStack.borderColor = "black";
+    widgetStack.borderColor = 'black';
 
     // $ExpectType string
     widgetStack.url;
-    widgetStack.url = "http://localhost:80/";
+    widgetStack.url = 'http://localhost:80/';
     // $ExpectError
     widgetStack.url = 21;
 
     // $ExpectType WidgetText
-    widgetStack.addText("foo");
+    widgetStack.addText('foo');
     // $ExpectType WidgetDate
     widgetStack.addDate(new Date());
     // $ExpectType WidgetImage
-    widgetStack.addImage(Image.fromFile("some/image.png"));
+    widgetStack.addImage(Image.fromFile('some/image.png'));
     // $ExpectType WidgetSpacer
     widgetStack.addSpacer(4);
+    // $ExpectType WidgetSpacer
+    widgetStack.addSpacer();
     // $ExpectType WidgetStack
     widgetStack.addStack();
     // $ExpectType void
@@ -430,7 +487,23 @@
 }
 
 {
-    const sf = SFSymbol.named("car");
+    const url = 'http://httpbin.org/POST';
+    const req = new Request(url);
+    req.url === url;
+    req.method = 'POST';
+    req.headers = {
+        'Content-Type': 'application/json',
+    };
+    req.body = '{"answer":42}';
+    req.timeoutInterval = 5;
+    req.allowInsecureRequest = true;
+    // $ExpectType Promise<any>
+    const res = req.loadJSON();
+    res.then(() => {});
+}
+
+{
+    const sf = SFSymbol.named('car');
     // $ExpectError
     const err = new SFSymbol();
 

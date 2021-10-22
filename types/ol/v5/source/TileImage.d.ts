@@ -13,24 +13,24 @@ import { TileSourceEvent } from './Tile';
 import UrlTile from './UrlTile';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    crossOrigin?: string;
-    opaque?: boolean;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    state?: State;
-    tileClass?: ImageTile;
-    tileGrid?: TileGrid;
-    tileLoadFunction?: LoadFunction;
-    tilePixelRatio?: number;
-    tileUrlFunction?: UrlFunction;
-    url?: string;
-    urls?: string[];
-    wrapX?: boolean;
-    transition?: number;
-    key?: string;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: string | undefined;
+    opaque?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    state?: State | undefined;
+    tileClass?: ImageTile | undefined;
+    tileGrid?: TileGrid | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    tilePixelRatio?: number | undefined;
+    tileUrlFunction?: UrlFunction | undefined;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
+    key?: string | undefined;
 }
 export default class TileImage extends UrlTile {
     constructor(options: Options);

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const IsoOutline24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default IsoOutline24;
+import { IsoOutline24 } from "../../";
+
+export = IsoOutline24;

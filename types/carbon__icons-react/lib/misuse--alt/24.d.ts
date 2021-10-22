@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const MisuseAlt24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default MisuseAlt24;
+import { MisuseAlt24 } from "../../";
+
+export = MisuseAlt24;

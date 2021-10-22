@@ -1,16 +1,15 @@
-declare module "readline" {
-    import * as events from "events";
-    import * as stream from "stream";
+declare module 'readline' {
+    import EventEmitter = require('events');
 
     interface Key {
-        sequence?: string;
-        name?: string;
-        ctrl?: boolean;
-        meta?: boolean;
-        shift?: boolean;
+        sequence?: string | undefined;
+        name?: string | undefined;
+        ctrl?: boolean | undefined;
+        meta?: boolean | undefined;
+        shift?: boolean | undefined;
     }
 
-    class Interface extends events.EventEmitter {
+    class Interface extends EventEmitter {
         readonly terminal: boolean;
 
         // Need direct access to line/cursor data, for use in external processes
@@ -123,14 +122,14 @@ declare module "readline" {
 
     interface ReadLineOptions {
         input: NodeJS.ReadableStream;
-        output?: NodeJS.WritableStream;
-        completer?: Completer | AsyncCompleter;
-        terminal?: boolean;
-        historySize?: number;
-        prompt?: string;
-        crlfDelay?: number;
-        removeHistoryDuplicates?: boolean;
-        escapeCodeTimeout?: number;
+        output?: NodeJS.WritableStream | undefined;
+        completer?: Completer | AsyncCompleter | undefined;
+        terminal?: boolean | undefined;
+        historySize?: number | undefined;
+        prompt?: string | undefined;
+        crlfDelay?: number | undefined;
+        removeHistoryDuplicates?: boolean | undefined;
+        escapeCodeTimeout?: number | undefined;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;

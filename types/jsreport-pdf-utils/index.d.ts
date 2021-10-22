@@ -5,31 +5,22 @@
 
 import { ExtensionDefinition, Template } from 'jsreport-core';
 
-declare module 'jsreport-core' {
-    interface Template {
-        pdfOperations?: JsReportPdfUtils.PdfOperation[];
-        pdfMeta?: JsReportPdfUtils.PdfMeta;
-        pdfSign?: JsReportPdfUtils.PdfSign;
-        pdfPassword?: JsReportPdfUtils.PdfPassword;
-    }
-}
-
 declare namespace JsReportPdfUtils {
     interface PdfOperation {
         type: "merge" | "append" | "prepend";
-        mergeWholeDocument?: boolean;
-        renderForEveryPage?: boolean;
-        templateShortid?: string;
-        template?: Template;
+        mergeWholeDocument?: boolean | undefined;
+        renderForEveryPage?: boolean | undefined;
+        templateShortid?: string | undefined;
+        template?: Template | undefined;
     }
 
     interface PdfMeta {
-        title?: string;
-        author?: string;
-        subject?: string;
-        keywords?: string;
-        creator?: string;
-        producer?: string;
+        title?: string | undefined;
+        author?: string | undefined;
+        subject?: string | undefined;
+        keywords?: string | undefined;
+        creator?: string | undefined;
+        producer?: string | undefined;
     }
 
     interface PdfSign {
@@ -51,8 +42,21 @@ declare namespace JsReportPdfUtils {
         contentAccessibility: boolean;
         documentAssembly: true;
     }
+
+    interface PdfTemplate extends Template {
+        pdfOperations?: PdfOperation[] | undefined;
+        pdfMeta?: PdfMeta | undefined;
+        pdfSign?: PdfSign | undefined;
+        pdfPassword?: PdfPassword | undefined;
+    }
 }
 
-declare function JSReportPdfUtils(): ExtensionDefinition;
+declare module 'jsreport-core' {
+    interface TemplateRegistry {
+        PdfTemplate: JsReportPdfUtils.PdfTemplate;
+    }
+}
 
-export = JSReportPdfUtils;
+declare function JsReportPdfUtils(): ExtensionDefinition;
+
+export = JsReportPdfUtils;

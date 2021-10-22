@@ -5,10 +5,10 @@ import { ObjectEvent } from '../Object';
 import DragBox, { DragBoxEvent } from './DragBox';
 
 export interface Options {
-    className?: string;
-    condition?: Condition;
-    duration?: number;
-    out?: boolean;
+    className?: string | undefined;
+    condition?: Condition | undefined;
+    duration?: number | undefined;
+    out?: boolean | undefined;
 }
 export default class DragZoom extends DragBox {
     constructor(opt_options?: Options);

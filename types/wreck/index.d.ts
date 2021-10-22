@@ -15,29 +15,29 @@ import * as stream from "stream";
 import * as Url from "url";
 
 interface RequestOptions {
-    baseUrl?: string;
-    socketPath? : string;
+    baseUrl?: string | undefined;
+    socketPath? : string | undefined;
     payload?: any;
-    headers?: { [key: string]: any };
-    redirects?: number;
-    redirect303?: boolean;
-    beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void;
-    redirected?: (statusCode: number, location: string, req: http.ClientRequest) => void;
-    timeout?: number;
-    maxBytes?: number;
-    rejectUnauthorized?: boolean;
+    headers?: { [key: string]: any } | undefined;
+    redirects?: number | undefined;
+    redirect303?: boolean | undefined;
+    beforeRedirect?: ((redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void) | undefined;
+    redirected?: ((statusCode: number, location: string, req: http.ClientRequest) => void) | undefined;
+    timeout?: number | undefined;
+    maxBytes?: number | undefined;
+    rejectUnauthorized?: boolean | undefined;
     downstreamRes?: any;
-    agent?: WreckObject["agents"] | false;
-    secureProtocol?: string;
-    ciphers?: string;
-    events?: boolean;
+    agent?: WreckObject["agents"] | false | undefined;
+    secureProtocol?: string | undefined;
+    ciphers?: string | undefined;
+    events?: boolean | undefined;
 }
 
 interface ReadOptions {
-    timeout?: number;
-    json?: true | "strict" | "force";
-    gunzip?: boolean | "force";
-    maxBytes?: number;
+    timeout?: number | undefined;
+    json?: true | "strict" | "force" | undefined;
+    gunzip?: boolean | "force" | undefined;
+    maxBytes?: number | undefined;
 }
 
 interface RequestResponse {
@@ -76,7 +76,7 @@ interface WreckObject {
         httpsAllowUnauthorized: http.Agent
     };
 
-    events?: WreckEventEmitter;
+    events?: WreckEventEmitter | undefined;
 }
 
 declare var wreck: WreckObject;

@@ -24,15 +24,15 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
    */
   export interface IWallabyConfig {
-    compilers?: IWallabyCompilers;
-    debug?: boolean;
-    env?: IWallabyEnvironment;
+    compilers?: IWallabyCompilers | undefined;
+    debug?: boolean | undefined;
+    env?: IWallabyEnvironment | undefined;
     files: string[] | IWallabyFilePattern[];
-    postprocessor?: IWallabyProcessor;
-    preprocessors?: IWallabyProcessor;
-    testFramework?: string;
+    postprocessor?: IWallabyProcessor | undefined;
+    preprocessors?: IWallabyProcessor | undefined;
+    testFramework?: string | undefined;
     tests: string[] | IWallabyFilePattern[];
-    workers?: IWallabyWorkers;
+    workers?: IWallabyWorkers | undefined;
   }
 
   /**
@@ -115,8 +115,8 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/preprocessors.html} for details.
    */
   export interface IWallabyFile {
-    content?: string;
-    path?: string;
+    content?: string | undefined;
+    path?: string | undefined;
     rename(newPath: string): void;
     changeExt(newExt: string): void;
   }
@@ -135,9 +135,9 @@ declare module 'wallabyjs' {
    */
   export interface IWallabyFilePattern {
     pattern: string;
-    ignore?: boolean;
-    instrument?: boolean;
-    load?: boolean;
+    ignore?: boolean | undefined;
+    instrument?: boolean | undefined;
+    load?: boolean | undefined;
   }
 
   /**
@@ -152,10 +152,10 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/runner.html} for details.
    */
   export interface IWallabyEnvironment {
-    params?: IWallabyEnvironmentParameters;
-    runner?: string;
-    type?: string;
-    viewportSize?: IWallabyEnvironmentViewportSize
+    params?: IWallabyEnvironmentParameters | undefined;
+    runner?: string | undefined;
+    type?: string | undefined;
+    viewportSize?: IWallabyEnvironmentViewportSize | undefined
   }
 
   /**
@@ -169,8 +169,8 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/runner.html} for details.
    */
   export interface IWallabyEnvironmentParameters {
-    env?: string;
-    runner?: string;
+    env?: string | undefined;
+    runner?: string | undefined;
   }
 
   /**
@@ -182,8 +182,8 @@ declare module 'wallabyjs' {
    * @property  {number=} height - height in pixels for the viewport size in PhantomJs/Electron.
    */
   export interface IWallabyEnvironmentViewportSize {
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
   }
 
   /**
@@ -197,7 +197,7 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/workers.html} for details.
    */
   export interface IWallabyWorkers {
-    recycle?: boolean;
+    recycle?: boolean | undefined;
   }
 
   /**
@@ -213,9 +213,9 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
    */
   export interface IWallaby {
-    localProjectDir?: string;
-    projectCacheDir?: string;
-    compilers?: IWallabyBuiltInCompilers;
+    localProjectDir?: string | undefined;
+    projectCacheDir?: string | undefined;
+    compilers?: IWallabyBuiltInCompilers | undefined;
     defaults?: any;
   }
 }

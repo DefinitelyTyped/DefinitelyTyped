@@ -5,15 +5,15 @@ import { PassThrough, Readable } from 'stream';
 declare namespace DKIM {
     interface OptionalOptions {
         /** optional location for cached messages. If not set then caching is not used. */
-        cacheDir?: string | false;
+        cacheDir?: string | false | undefined;
         /** optional size in bytes, if message is larger than this treshold it gets cached to disk (assuming cacheDir is set and writable). Defaults to 131072 (128 kB). */
-        cacheTreshold?: number;
+        cacheTreshold?: number | undefined;
         /** optional algorithm for the body hash, defaults to ‘sha256’ */
-        hashAlgo?: string;
+        hashAlgo?: string | undefined;
         /** an optional colon separated list of header keys to sign (eg. message-id:date:from:to...') */
-        headerFieldNames?: string;
+        headerFieldNames?: string | undefined;
         /** optional colon separated list of header keys not to sign. This is useful if you want to sign all the relevant keys but your provider changes some values, ie Message-ID and Date. In this case you should use 'message-id:date' to prevent signing these values. */
-        skipFields?: string;
+        skipFields?: string | undefined;
     }
 
     interface SingleKeyOptions extends OptionalOptions {

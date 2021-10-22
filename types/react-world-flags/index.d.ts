@@ -5,16 +5,16 @@
 
 import * as React from 'react';
 
-export interface FlagProps extends React.HTMLProps<HTMLElement> {
+export interface FlagProps extends React.HTMLProps<HTMLImageElement> {
     /**
      * code is the two letter, three letter or three digit country code.
      */
-    code?: string;
+    code?: string | undefined;
 
     /**
      * You can also pass an optional fallback which renders if the given code doesn't correspond to a flag
      */
-    fallback?: Element | null;
+    fallback?: React.ReactNode | null | undefined;
 }
 
 /**

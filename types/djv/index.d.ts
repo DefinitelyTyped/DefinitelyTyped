@@ -13,20 +13,20 @@ interface DjvStatic {
 declare namespace DjvStatic {
     interface DjvConfig {
         /** a handler to use for generating custom error messages */
-        errorHandler?: () => void;
+        errorHandler?: (() => void) | undefined;
         /** an object containing list of formatters to add for environment */
-        formats?: Record<string, (...values: string[]) => string>;
+        formats?: Record<string, (...values: string[]) => string> | undefined;
         /**
          * generating object should be considered as inner
          *
          * Default value is `false`/`undefined`. If `true`, then it avoid creating variables in a
          * generated function body, however without proper wrapper function approach will not work.
          */
-        inner?: boolean;
+        inner?: boolean | undefined;
         /** defines which version of json-schema draft to use, draft-04 by default */
-        version?: string;
+        version?: string | undefined;
         /** handler to apply for environment version */
-        versionConfigure?: (object: object) => void;
+        versionConfigure?: ((object: object) => void) | undefined;
     }
 
     interface Resolved {

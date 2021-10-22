@@ -13,45 +13,58 @@ import { TileSourceEvent } from './Tile';
 import UrlTile from './UrlTile';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    crossOrigin?: string;
-    imageSmoothing?: boolean;
-    opaque?: boolean;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    state?: State;
-    tileClass?: ImageTile;
-    tileGrid?: TileGrid;
-    tileLoadFunction?: LoadFunction;
-    tilePixelRatio?: number;
-    tileUrlFunction?: UrlFunction;
-    url?: string;
-    urls?: string[];
-    wrapX?: boolean;
-    transition?: number;
-    key?: string;
-    zDirection?: number;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    opaque?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    state?: State | undefined;
+    tileClass?: typeof ImageTile | undefined;
+    tileGrid?: TileGrid | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    tilePixelRatio?: number | undefined;
+    tileUrlFunction?: UrlFunction | undefined;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
+    key?: string | undefined;
+    zDirection?: number | undefined;
 }
 export default class TileImage extends UrlTile {
     constructor(options: Options);
     protected crossOrigin: string;
     protected tileCacheForProjection: { [key: string]: TileCache };
-    protected tileClass: ImageTile;
+    protected tileClass: typeof ImageTile;
     protected tileGridForProjection: { [key: string]: TileGrid };
+    /**
+     * Return the key to be used for all tiles in the source.
+     */
     protected getKey(): string;
     protected getTileInternal(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
     canExpireCache(): boolean;
     expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
-    getContextOptions(): any;
+    getContextOptions(): object | undefined;
     getGutter(): number;
     getGutterForProjection(projection: Projection): number;
     getOpaque(projection: Projection): boolean;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
     getTileCacheForProjection(projection: Projection): TileCache;
     getTileGridForProjection(projection: Projection): TileGrid;
+    /**
+     * Sets whether to render reprojection edges or not (usually for debugging).
+     */
     setRenderReprojectionEdges(render: boolean): void;
+    /**
+     * Sets the tile grid to use when reprojecting the tiles to the given
+     * projection instead of the default tile grid for the projection.
+     * This can be useful when the default tile grid cannot be created
+     * (e.g. projection has no extent defined) or
+     * for optimization reasons (custom tile size, resolutions, ...).
+     */
     setTileGridForProjection(projection: ProjectionLike, tilegrid: TileGrid): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

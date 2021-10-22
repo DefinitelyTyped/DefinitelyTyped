@@ -31,33 +31,33 @@ declare module 'meteor/mongo' {
             // - replaced T with Data<T> everywhere the user provides a T
 
             allow(options: {
-                insert?: (userId: string, doc: Full<T> & T) => boolean;
-                update?: (userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean;
-                remove?: (userId: string, doc: Full<T> & T) => boolean;
-                fetch?: string[];
+                insert?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
+                update?: ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean) | undefined;
+                remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
+                fetch?: string[] | undefined;
                 // ditto
                 // tslint:disable-next-line ban-types
-                transform?: Function | null;
+                transform?: Function | null | undefined;
             }): boolean;
             deny(options: {
-                insert?: (userId: string, doc: Full<T> & T) => boolean;
-                update?: (userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean;
-                remove?: (userId: string, doc: Full<T> & T) => boolean;
-                fetch?: string[];
+                insert?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
+                update?: ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean) | undefined;
+                remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
+                fetch?: string[] | undefined;
                 // ditto
                 // tslint:disable-next-line ban-types
-                transform?: Function | null;
+                transform?: Function | null | undefined;
             }): boolean;
             findOne(
                 selector?: Selector<T> | ObjectID | string,
                 options?: {
-                    sort?: SortSpecifier;
-                    skip?: number;
-                    fields?: FieldSpecifier;
-                    reactive?: boolean;
+                    sort?: SortSpecifier | undefined;
+                    skip?: number | undefined;
+                    fields?: FieldSpecifier | undefined;
+                    reactive?: boolean | undefined;
                     // ditto
                     // tslint:disable-next-line ban-types
-                    transform?: Function | null;
+                    transform?: Function | null | undefined;
                 },
             ): (Full<T> & T) | undefined;
             // ditto
@@ -67,9 +67,9 @@ declare module 'meteor/mongo' {
                 selector: Selector<T> | ObjectID | string,
                 modifier: Modifier<Data<T>>,
                 options?: {
-                    multi?: boolean;
-                    upsert?: boolean;
-                    arrayFilters?: Array<{ [identifier: string]: any }>;
+                    multi?: boolean | undefined;
+                    upsert?: boolean | undefined;
+                    arrayFilters?: Array<{ [identifier: string]: any }> | undefined;
                 },
                 // ditto
                 // tslint:disable-next-line ban-types
@@ -79,14 +79,14 @@ declare module 'meteor/mongo' {
                 selector: Selector<T> | ObjectID | string,
                 modifier: Modifier<Data<T>>,
                 options?: {
-                    multi?: boolean;
+                    multi?: boolean | undefined;
                 },
                 // ditto
                 // tslint:disable-next-line ban-types
                 callback?: Function,
             ): {
-                numberAffected?: number;
-                insertedId?: string;
+                numberAffected?: number | undefined;
+                insertedId?: string | undefined;
             };
         }
 

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const SummaryKpi32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default SummaryKpi32;
+import { SummaryKpi32 } from "../../";
+
+export = SummaryKpi32;

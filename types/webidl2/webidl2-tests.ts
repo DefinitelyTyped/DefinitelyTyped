@@ -315,7 +315,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
             logIdlType(t);
         }
     } else if (idlType.generic) {
-        idlType; // $ExpectType GenericTypeDescription
+        idlType; // $ExpectType GenericTypeDescription || FrozenArrayTypeDescription | ObservableArrayTypeDescription | PromiseTypeDescription | RecordTypeDescription | SequenceTypeDescription
         idlType.generic; // $ExpectType "FrozenArray" | "ObservableArray" | "Promise" | "record" | "sequence"
         console.log(idlType);
         switch (idlType.generic) {

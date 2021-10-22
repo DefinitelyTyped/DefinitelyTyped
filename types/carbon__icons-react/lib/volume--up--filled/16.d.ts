@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VolumeUpFilled16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VolumeUpFilled16;
+import { VolumeUpFilled16 } from "../../";
+
+export = VolumeUpFilled16;

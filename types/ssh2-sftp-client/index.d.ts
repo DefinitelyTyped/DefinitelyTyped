@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 5.3
+// Type definitions for ssh2-sftp-client 7.0
 // Project: https://github.com/theophilusx/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
@@ -10,18 +10,22 @@
 //                 Sam Galizia <https://github.com/sgalizia>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Joseph Burger <https://github.com/candyapplecorn>
+//                 Emma Milner <https://github.com/tsop14>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
 
 export = sftp;
 
+type FileInfoType = 'd' | '-' | 'l';
+
 declare class sftp {
+    constructor(name?: string);
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
 
-    exists(remotePath: string): Promise<false | 'd' | '-' | 'l'>;
+    exists(remotePath: string): Promise<false | FileInfoType>;
 
     stat(remotePath: string): Promise<sftp.FileStats>;
 
@@ -30,7 +34,7 @@ declare class sftp {
     get(
         path: string,
         dst?: string | NodeJS.WritableStream,
-        options?: sftp.GetTransferOptions,
+        options?: sftp.TransferOptions,
     ): Promise<string | NodeJS.WritableStream | Buffer>;
 
     fastGet(remoteFilePath: string, localPath: string, options?: sftp.FastGetTransferOptions): Promise<string>;
@@ -49,7 +53,7 @@ declare class sftp {
 
     rmdir(remoteFilePath: string, recursive?: boolean): Promise<string>;
 
-    delete(remoteFilePath: string): Promise<string>;
+    delete(remoteFilePath: string, noErrorOK?: boolean): Promise<string>;
 
     rename(remoteSourcePath: string, remoteDestPath: string): Promise<string>;
 
@@ -58,12 +62,12 @@ declare class sftp {
     append(
         input: Buffer | NodeJS.ReadableStream,
         remotePath: string,
-        options?: sftp.TransferOptions,
+        options?: sftp.WriteStreamOptions,
     ): Promise<string>;
 
-    uploadDir(srcDir: string, destDir: string): Promise<string>;
+    uploadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
 
-    downloadDir(srcDir: string, destDir: string): Promise<string>;
+    downloadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
 
     end(): Promise<void>;
 
@@ -82,17 +86,30 @@ declare namespace sftp {
     }
 
     interface ModeOption {
-        mode?: number;
+        mode?: number | string;
     }
 
-    interface TransferOptions extends ModeOption {
+    interface PipeOptions {
+        end?: boolean;
+    }
+
+    interface ReadStreamOptions extends ModeOption {
+        flags?: 'r';
+        encoding?: null | string;
+        handle?: null | string;
+        autoClose?: boolean;
+    }
+
+    interface WriteStreamOptions extends ModeOption {
         flags?: 'w' | 'a';
         encoding?: null | string;
-        autoClose?: true | boolean;
+        autoClose?: boolean;
     }
 
-    interface GetTransferOptions extends TransferOptions {
-        handle?: null | string;
+    interface TransferOptions {
+        pipeOptions?: PipeOptions;
+        writeStreamOptions?: WriteStreamOptions;
+        readStreamOptions?: ReadStreamOptions;
     }
 
     interface FastGetTransferOptions {
@@ -104,7 +121,7 @@ declare namespace sftp {
     interface FastPutTransferOptions extends FastGetTransferOptions, ModeOption {}
 
     interface FileInfo {
-        type: string;
+        type: FileInfoType;
         name: string;
         size: number;
         modifyTime: number;

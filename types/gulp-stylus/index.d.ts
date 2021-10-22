@@ -12,10 +12,10 @@ declare namespace gulpStylus {
         [variableName: string]: any;
     }
     interface Options {
-        compress?: boolean;
-        linenos?: boolean;
-        'include css'?: boolean;
-        rawDefine?: VariableDefinitions;
+        compress?: boolean | undefined;
+        linenos?: boolean | undefined;
+        'include css'?: boolean | undefined;
+        rawDefine?: VariableDefinitions | undefined;
     }
 }
 

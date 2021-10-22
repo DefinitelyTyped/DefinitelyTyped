@@ -17,6 +17,7 @@ declare namespace proxy {
 
     interface Options {
         host?: string;
+        encoding?: string | null;
         url?: string;
         map?: IndexedObject | MapFunction;
         match?: RegExp;

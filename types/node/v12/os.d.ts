@@ -1,4 +1,4 @@
-declare module "os" {
+declare module 'os' {
     interface CpuInfo {
         model: string;
         speed: number;

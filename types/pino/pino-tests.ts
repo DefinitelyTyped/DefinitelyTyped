@@ -18,7 +18,7 @@ error(new Error('an error'));
 const writeSym = pino.symbols.writeSym;
 
 const testUniqSymbol = {
-    [pino.symbols.needsMetadataGsym]: true
+    [pino.symbols.needsMetadataGsym]: true,
 }[pino.symbols.needsMetadataGsym];
 
 const log2: pino.Logger = pino({
@@ -93,7 +93,7 @@ child.info('nope again');
 child.level = 'info';
 child.info('hooray');
 log.info('nope nope nope');
-log.child({ foo: 'bar', level: 'debug' }).debug('debug!');
+log.child({ foo: 'bar' }, { level: 'debug' }).debug('debug!');
 child.bindings();
 const customSerializers = {
     test() {
@@ -165,6 +165,25 @@ anotherRedacted.info({
     anotherPath: 'Not shown',
 });
 
+const withLogFormatter = pino({
+    formatters: {
+        log: payload => {
+            if (payload.canAccessAnyKey) {
+                payload.works = true;
+            }
+            return payload;
+        },
+    },
+});
+
+const withLogFormatterBackwardCompatible = pino({
+    formatters: {
+        log: (payload: object) => {
+            return payload;
+        },
+    },
+});
+
 const pretty = pino({
     prettyPrint: {
         colorize: true,
@@ -182,6 +201,17 @@ const pretty = pino({
     },
 });
 
+const withMessageFormatFunc = pino({
+    prettyPrint: {
+        ignore: 'requestId',
+        messageFormat: (log, messageKey) => {
+            const message = log[messageKey];
+            if (log.requestId) return `[${log.requestId}] ${message}`;
+            return message;
+        },
+    },
+});
+
 const withTimeFn = pino({
     timestamp: pino.stdTimeFunctions.isoTime,
 });
@@ -192,7 +222,7 @@ const withNestedKey = pino({
 
 const withHooks = pino({
     hooks: {
-        logMethod(args, method) {
+        logMethod(args, method, level) {
             return method.apply(this, args);
         },
     },
@@ -242,9 +272,16 @@ pino({ name: 'my-logger' }, destinationViaOptionsObject);
 
 interface StrictShape {
     activity: string;
-    err?: unknown;
+    err?: unknown | undefined;
 }
 
 info<StrictShape>({
     activity: 'Required property',
 });
+
+const logLine: pino.LogDescriptor = {
+    level: 20,
+    msg: 'A log message',
+    time: new Date().getTime(),
+    aCustomProperty: true,
+};

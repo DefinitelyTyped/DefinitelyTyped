@@ -34,6 +34,6 @@ loadGoogleMapsApi({
     v: '3.33',
 }).then(gm => {
     gm; // $ExpectType typeof maps
-    const map = new gm.Map(document.createElement('div')); // $ExpectType Map<HTMLDivElement>
+    const map = new gm.Map(document.createElement('div')); // $ExpectType Map
     const polygon = new gm.Polygon(); // $ExpectType Polygon
 });

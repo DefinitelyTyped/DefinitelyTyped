@@ -13,6 +13,7 @@ const options: styleSearch.Options = {
 
 styleSearch(options, (match, count) => {
     const {
+        insideParens, // $ExpectType boolean
         endIndex, // $ExpectType number
         insideComment, // $ExpectType boolean
         insideFunctionArguments, // $ExpectType boolean

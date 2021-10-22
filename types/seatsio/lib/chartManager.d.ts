@@ -14,21 +14,21 @@ declare namespace Seatsio {
         secretKey: string;
         chart: string;
         mode: 'manageRulesets';
-        language?: string;
-        messages?: { [key: string]: string };
-        tooltipInfo?: (object: BookableObject) => string;
-        showFullScreenButton?: boolean;
-        colorScheme?: ColorScheme;
-        colors?: Colors;
-        stylePreset?: StylePreset;
-        style?: Style;
+        language?: string | undefined;
+        messages?: { [key: string]: string } | undefined;
+        tooltipInfo?: ((object: BookableObject) => string) | undefined;
+        showFullScreenButton?: boolean | undefined;
+        colorScheme?: ColorScheme | undefined;
+        colors?: Colors | undefined;
+        stylePreset?: StylePreset | undefined;
+        style?: Style | undefined;
 
-        onChartRendered?: (chart: ChartManager) => void;
-        onChartRenderingFailed?: (chart: ChartManager) => void;
-        onObjectSelected?: (object: BookableObject, selectedTicketType?: { price: number; ticketType?: string }) => void;
-        onObjectDeselected?: (object: BookableObject, deselectedTicketType?: { price: number; ticketType?: string }) => void;
-        onObjectClicked?: (object: BookableObject) => void;
-        onFullScreenOpened?: () => void;
-        onFullScreenClosed?: () => void;
+        onChartRendered?: ((chart: ChartManager) => void) | undefined;
+        onChartRenderingFailed?: ((chart: ChartManager) => void) | undefined;
+        onObjectSelected?: ((object: BookableObject, selectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
+        onObjectDeselected?: ((object: BookableObject, deselectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
+        onObjectClicked?: ((object: BookableObject) => void) | undefined;
+        onFullScreenOpened?: (() => void) | undefined;
+        onFullScreenClosed?: (() => void) | undefined;
     }
 }

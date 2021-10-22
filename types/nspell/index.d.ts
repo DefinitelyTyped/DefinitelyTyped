@@ -20,7 +20,7 @@ interface SpellCheck {
 
 interface Dictionary {
     aff: Buffer | string;
-    dic?: Buffer | string;
+    dic?: Buffer | string | undefined;
 }
 
 declare function NSpell(aff: Buffer | string, dic?: Buffer | string): NSpell;

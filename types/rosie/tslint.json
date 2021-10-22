@@ -10,6 +10,7 @@
         "no-any-union": false,
         "no-duplicate-variable": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,

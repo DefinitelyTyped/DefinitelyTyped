@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const QOperationIf32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default QOperationIf32;
+import { QOperationIf32 } from "../../../";
+
+export = QOperationIf32;

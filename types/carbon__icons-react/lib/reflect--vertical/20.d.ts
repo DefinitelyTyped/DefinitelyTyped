@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ReflectVertical20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ReflectVertical20;
+import { ReflectVertical20 } from "../../";
+
+export = ReflectVertical20;

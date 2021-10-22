@@ -1,8 +1,9 @@
-import * as workerThreads from "worker_threads";
-import assert = require("assert");
-import { createContext } from "vm";
-import { Readable } from "stream";
-import * as fs from "fs";
+import * as workerThreads from 'node:worker_threads';
+import assert = require('node:assert');
+import { createContext } from 'node:vm';
+import { Readable } from 'node:stream';
+import * as fs from 'node:fs';
+import { EventLoopUtilization } from 'node:perf_hooks';
 
 {
     if (workerThreads.isMainThread) {
@@ -103,4 +104,30 @@ import * as fs from "fs";
         const worker = new workerThreads.Worker(__filename);
         worker.postMessage("some message", [ fileHandle ] as ReadonlyArray<workerThreads.TransferListItem>);
     })();
+}
+
+{
+    const worker = new workerThreads.Worker(__filename);
+    const utilization: EventLoopUtilization = worker.performance.eventLoopUtilization();
+}
+
+{
+    const bc: workerThreads.BroadcastChannel = new workerThreads.BroadcastChannel('test');
+    const name: string = bc.name;
+    bc.postMessage({
+        test: 1.
+    });
+
+    bc.close();
+    bc.ref();
+    bc.unref();
+    bc.onmessage = (msg: unknown) => { };
+    bc.onmessageerror = (msg: unknown) => { };
+}
+
+{
+    workerThreads.setEnvironmentData('test', 1);
+    workerThreads.setEnvironmentData(123, { a: 1 });
+    workerThreads.getEnvironmentData('test'); // $ExpectType Serializable
+    workerThreads.getEnvironmentData(1); // $ExpectType Serializable
 }

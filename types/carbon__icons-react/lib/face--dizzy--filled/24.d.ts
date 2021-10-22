@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FaceDizzyFilled24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FaceDizzyFilled24;
+import { FaceDizzyFilled24 } from "../../";
+
+export = FaceDizzyFilled24;

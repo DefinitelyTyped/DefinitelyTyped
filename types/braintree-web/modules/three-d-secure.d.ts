@@ -14,6 +14,98 @@ export interface ThreeDSecureVerifyPayload {
     liabilityShifted: boolean;
 }
 
+export interface ThreeDSecureBillingAddress {
+    givenName?: string | undefined;
+    surname?: string | undefined;
+    phoneNumber?: string | undefined;
+    streetAddress?: string | undefined;
+    extendedAddress?: string | undefined;
+    line3?: string | undefined;
+    locality?: string | undefined;
+    region?: string | undefined;
+    postalCode?: string | undefined;
+    countryCodeAlpha2?: string | undefined;
+}
+
+export interface ThreeDSecureShippingAddress {
+    streetAddress: string;
+    extendedAddress: string;
+    line3: string;
+    locality: string;
+    region: string;
+    postalCode: string;
+    countryCodeAlpha2: string;
+}
+
+export interface ThreeDSecureAdditionalInformation {
+    workPhoneNumber?: string | undefined;
+    shippingGivenName?: string | undefined;
+    shippingSurname?: string | undefined;
+    shippingAddress?: ThreeDSecureShippingAddress | undefined;
+    streetAddress?: string | undefined;
+    extendedAddress?: string | undefined;
+    line3?: string | undefined;
+    locality?: string | undefined;
+    region?: string | undefined;
+    postalCode?: string | undefined;
+    countryCodeAlpha2?: string | undefined;
+    shippingPhone?: string | undefined;
+    shippingMethod?: string | undefined;
+    shippingMethodIndicator?: string | undefined;
+    productCode?: string | undefined;
+    deliveryTimeframe?: string | undefined;
+    deliveryEmail?: string | undefined;
+    reorderindicator?: string | undefined;
+    preorderIndicator?: string | undefined;
+    preorderDate?: string | undefined;
+    giftCardAmount?: string | undefined;
+    giftCardCurrencyCode?: string | undefined;
+    giftCardCount?: string | undefined;
+    accountAgeIndicator?: string | undefined;
+    accountCreateDate?: string | undefined;
+    accountChangeIndicator?: string | undefined;
+    accountChangeDate?: string | undefined;
+    accountPwdChangeIndicator?: string | undefined;
+    accountPwdChangeDate?: string | undefined;
+    shippingAddressUsageIndicator?: string | undefined;
+    shippingAddressUsageDate?: string | undefined;
+    transactionCountDay?: string | undefined;
+    transactionCountYear?: string | undefined;
+    addCardAttempts?: string | undefined;
+    accountPurchases?: string | undefined;
+    fraudActivity?: string | undefined;
+    shippingNameIndicator?: string | undefined;
+    paymentAccountIndicator?: string | undefined;
+    paymentAccountAge?: string | undefined;
+    acsWindowSize?: string | undefined;
+    sdkMaxTimeout?: string | undefined;
+    addressMatch?: string | undefined;
+    accountId?: string | undefined;
+    ipAddress?: string | undefined;
+    orderDescription?: string | undefined;
+    taxAmount?: string | undefined;
+    userAgent?: string | undefined;
+    authenticationIndicator?: string | undefined;
+    installment?: string | undefined;
+    purchaseDate?: string | undefined;
+    recurringEnd?: string | undefined;
+    recurringFrequency?: string | undefined;
+}
+
+export interface ThreeDSecureVerifyOptions {
+    nonce: string;
+    amount: number;
+    bin: string;
+    challengeRequested?: boolean | undefined;
+    exemptionRequested?: boolean | undefined;
+    email?: string | undefined;
+    mobilePhoneNumber?: string | undefined;
+    billingAddress?: ThreeDSecureBillingAddress | undefined;
+    additionalInformation?: ThreeDSecureAdditionalInformation | undefined;
+    addFrame?: ((err?: BraintreeError, iframe?: HTMLIFrameElement) => void) | undefined;
+    removeFrame?: (() => void) | undefined;
+}
+
 export interface ThreeDSecure {
     /**
      * braintree.threeDSecure.create({
@@ -21,15 +113,15 @@ export interface ThreeDSecure {
      * }, callback);
      */
     create(options: {
-        authorization?: string;
-        version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe';
-        client?: Client;
+        authorization?: string | undefined;
+        version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
+        client?: Client | undefined;
     }): Promise<ThreeDSecure>;
     create(
         options: {
-            authorization?: string;
-            version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe';
-            client?: Client;
+            authorization?: string | undefined;
+            version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
+            client?: Client | undefined;
         },
         callback: callback,
     ): void;
@@ -83,21 +175,8 @@ export interface ThreeDSecure {
      *   }
      * });
      */
-    verifyCard(options: {
-        nonce: string;
-        amount: number;
-        addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
-        removeFrame?: () => void;
-    }): Promise<ThreeDSecureVerifyPayload>;
-    verifyCard(
-        options: {
-            nonce: string;
-            amount: number;
-            addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
-            removeFrame: () => void;
-        },
-        callback: callback,
-    ): void;
+    verifyCard(options: ThreeDSecureVerifyOptions): Promise<ThreeDSecureVerifyPayload>;
+    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback): void;
 
     /**
      * Cancel the 3DS flow and return the verification payload if available.     * @example

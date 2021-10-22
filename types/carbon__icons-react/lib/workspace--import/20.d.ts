@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const WorkspaceImport20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WorkspaceImport20;
+import { WorkspaceImport20 } from "../../";
+
+export = WorkspaceImport20;

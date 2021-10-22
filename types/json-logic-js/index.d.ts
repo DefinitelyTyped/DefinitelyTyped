@@ -57,4 +57,6 @@ export type RulesLogic =
     // MiscOperations
     | { log: RulesLogic };
 
+export function add_operation(name: string, code: (...args: any[]) => any): void;
 export function apply(logic: RulesLogic, data?: unknown): any;
+export function rm_operation(name: string): void;

@@ -1,6 +1,7 @@
-// Type definitions for non-npm package scriptable-ios 1.5
+// Type definitions for non-npm package scriptable-ios 1.6
 // Project: https://scriptable.app/
 // Definitions by: schl3ck <https://github.com/schl3ck>
+//                 FuJuntao <https://github.com/FuJuntao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -50,6 +51,8 @@ declare class Alert {
      *
      * Adds a cancel action to the alert. When a cancel action is selected, the index provided by presentAlert() or presentSheet() will always be -1. Please note that when running on the
      * iPad and presenting using presentSheet(), the action will not be shown in the list of actions. The operation is cancelled by tapping outside the sheet.
+     *
+     * An alert can only contain a single cancel action. Attempting to add more cancel actions will remove any previously added cancel actions.
      * @param title - Title of the action.
      * @see https://docs.scriptable.app/alert/#-addcancelaction
      */
@@ -58,15 +61,15 @@ declare class Alert {
     /**
      * _Adds a text field prompting for user input._
      *
-     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices for
-     * text fields are assigned in the same order as they are added to the alert starting at 0.
+     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices
+     * for text fields are assigned in the same order as they are added to the alert starting at 0.
      *
      * Text fields are not supported when using the sheet presentation.
      * @param placeholder - Optional placeholder that will be displayed when the text field is empty.
      * @param text - Optional default value for the text field.
      * @see https://docs.scriptable.app/alert/#-addtextfield
      */
-    addTextField(placeholder?: string, text?: string): void;
+    addTextField(placeholder?: string, text?: string): TextField;
 
     /**
      * _Adds a secure text field prompting for user input._
@@ -77,7 +80,7 @@ declare class Alert {
      * @param text - Optional default value for the text field.
      * @see https://docs.scriptable.app/alert/#-addsecuretextfield
      */
-    addSecureTextField(placeholder?: string, text?: string): void;
+    addSecureTextField(placeholder?: string, text?: string): TextField;
 
     /**
      * _Retrieves value of a text field._
@@ -739,6 +742,18 @@ declare class Color {
      * @see https://docs.scriptable.app/color/#clear
      */
     static clear(): Color;
+
+    /**
+     * _Creates a dynamic color._
+     *
+     * The dynamic color will use either its light or dark variant depending on the appearance of the system.
+     *
+     * Dynamic colors are not supported when used with `DrawContext`.
+     * @param lightColor - Color used in light appearance.
+     * @param darkColor - Color used in dark appearance.
+     * @see https://docs.scriptable.app/color/#dynamic
+     */
+    static dynamic(lightColor: Color, darkColor: Color): Color;
 }
 
 /**
@@ -1009,7 +1024,7 @@ declare class Contact {
     /**
      * _Note for the contact._
      *
-     * For security reasons, a contacts notes cannot be accessed in Siri, the Shortcuts app and in a notification.
+     * For security reasons, a contact's notes cannot be accessed in Siri, the Shortcuts app and in a notification.
      * @see https://docs.scriptable.app/contact/#note
      */
     note: string;
@@ -1043,7 +1058,7 @@ declare class Contact {
     departmentName: string;
 
     /**
-     * _The contacts job title._
+     * _The contact's job title._
      * @see https://docs.scriptable.app/contact/#jobtitle
      */
     jobTitle: string;
@@ -1569,7 +1584,7 @@ declare class DateFormatter {
      * @param str - The string to parse into a date.
      * @see https://docs.scriptable.app/dateformatter/#-date
      */
-    date(str: string): string;
+    date(str: string): Date;
 
     /**
      * _Use no style for the date._
@@ -2082,7 +2097,7 @@ declare class DrawContext {
     /**
      * _Retrieves the image._
      *
-     * Call this to retrieve the image you have drawn to the context. Note that this should be called before calling endDrawing().
+     * Call this to retrieve the image you have drawn to the context.
      * @see https://docs.scriptable.app/drawcontext/#-getimage
      */
     getImage(): Image;
@@ -2308,6 +2323,8 @@ declare class FileManager {
      */
     static iCloud(): FileManager;
 
+    private constructor();
+
     /**
      * _Read contents of a file as data._
      *
@@ -2431,11 +2448,26 @@ declare class FileManager {
     /**
      * _Path of temporary directory._
      *
-     * Used to retrieve the path of a temporary directory on disk. The operating system may at any time delete files stored in this directory and therefore you should not rely on it for
-     * long time storage. If you need long time storage, see documentsDirectory() or libraryDirectory(). This directory is not shared between the app, the action extension and Siri.
+     * Used to retrieve the path of a temporary directory on disk. Data persisted in a temporary directory will generally live shorter than data persisted in the cache directory.
+     *
+     * The operating system may at any time delete files stored in this directory and therefore you should not rely on it for long time storage. If you need long time storage, see
+     * documentsDirectory() or libraryDirectory(). This directory is not shared between the app, the action extension and Siri.
      * @see https://docs.scriptable.app/filemanager/#-temporarydirectory
      */
     temporaryDirectory(): string;
+
+    /**
+     * _Path of cache directory._
+     *
+     * Used to retrieve the path of a cache directory on disk. The operating system may at any time delete files stored in this directory and therefore you should not rely on it for long
+     * time storage.
+     *
+     * Data persisted in the cache directory will generally live longer than data persisted in a temporary directory.
+     *
+     * If you need long time storage, see documentsDirectory() or libraryDirectory(). This directory is not shared between the app, the action extension and Siri.
+     * @see https://docs.scriptable.app/filemanager/#-cachedirectory
+     */
+    cacheDirectory(): string;
 
     /**
      * _Path of documents directory._
@@ -3082,6 +3114,24 @@ declare class LinearGradient {
     locations: number[];
 
     /**
+     * _Point to start the gradient._
+     *
+     * The normalized starting point of the gradient. The `endPoint` and `startPoint` together controls the direction of the gradient. The X and Y component should each range from 0 to 1.
+     * Defaults to (0, 1).
+     * @see https://docs.scriptable.app/lineargradient/#startpoint
+     */
+    startPoint: Point;
+
+    /**
+     * _Point to end the gradient._
+     *
+     * The normalized ending point of the gradient. The `endPoint` and `startPoint` together controls the direction of the gradient. The X and Y component should each range from 0 to 1.
+     * Defaults to (0, 1).
+     * @see https://docs.scriptable.app/lineargradient/#endpoint
+     */
+    endPoint: Point;
+
+    /**
      * _Linear gradient._
      * @see https://docs.scriptable.app/lineargradient/#-new-lineargradient
      */
@@ -3182,7 +3232,7 @@ declare class ListWidget {
      * @param length - Length of the spacer. Pass null to create a spacer with a flexible length.
      * @see https://docs.scriptable.app/listwidget/#-addspacer
      */
-    addSpacer(length: number): WidgetSpacer;
+    addSpacer(length?: number): WidgetSpacer;
 
     /**
      * _Add stack._
@@ -4614,10 +4664,16 @@ declare class Reminder {
     notes: string;
 
     /**
-     * _Whether the reminder is completed_
+     * _Whether the reminder is completed._
      * @see https://docs.scriptable.app/reminder/#iscompleted
      */
     isCompleted: boolean;
+
+    /**
+     * _Whether the reminder is overdue._
+     * @see https://docs.scriptable.app/reminder/#isoverdue
+     */
+    isOverdue: boolean;
 
     /**
      * _Priority of reminder._
@@ -4964,6 +5020,16 @@ declare class Request {
     body: any;
 
     /**
+     * _Timeout interval of the request._
+     *
+     * If a request remains idle for longer than the timeout interval, the request is considered timed out.
+     *
+     * The timeout interval is measured in seconds and defaults to 60 seconds.
+     * @see https://docs.scriptable.app/request/#timeoutinterval
+     */
+    timeoutInterval: number;
+
+    /**
      * _Response of the request._
      *
      * The response is not populated until the request has been completed. The response is an object that looks like the following example.
@@ -5130,7 +5196,7 @@ declare class SFSymbol {
      *
      * SF symbols are Apple's configurable icons that are designed to look great with the San Francisco font.
      *
-     * Symbols are referenced by their name. You can find the symbol names in [Apples SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
+     * Symbols are referenced by their name. You can find the symbol names in [Apple's SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
      * in the [SF Symbols Browser](https://apps.apple.com/us/app/sf-symbols-browser/id1491161336) and [San Fransymbols](https://apps.apple.com/us/app/san-fransymbols/id1504761986) apps
      * for iOS.
      * @param symbolName - Name of the symbol.
@@ -5254,7 +5320,7 @@ declare var Script: {
      * Use this function to pass values to other actions in the Shortcuts app. The output can be a text, a number, a boolean, a dictionary or a file path pointing to a file stored in
      * iCloud.
      *
-     * You can also use JavaScripts `return` keyword to output a value to a shortcut.
+     * You can also use JavaScript's `return` keyword to output a value to a shortcut.
      * @param value - Value to provide as output.
      * @see https://docs.scriptable.app/script/#setshortcutoutput
      */
@@ -5321,6 +5387,118 @@ declare var Speech: {
      */
     speak(text: string): void;
 };
+
+/**
+ * _Text field in an alert._
+ * @see https://docs.scriptable.app/textfield
+ */
+declare class TextField {
+    /**
+     * _Text in the text field._
+     * @see https://docs.scriptable.app/textfield/#text
+     */
+    text: string;
+
+    /**
+     * _Placeholder shown in the text field while it is empty._
+     * @see https://docs.scriptable.app/textfield/#placeholder
+     */
+    placeholder: string;
+
+    /**
+     * _Hides the text that is entered when set to true._
+     *
+     * The default value is false.
+     * @see https://docs.scriptable.app/textfield/#issecure
+     */
+    isSecure: boolean;
+
+    /**
+     * _Color of the text._
+     * @see https://docs.scriptable.app/textfield/#textcolor
+     */
+    textColor: Color;
+
+    /**
+     * _Font of the text._
+     * @see https://docs.scriptable.app/textfield/#font
+     */
+    font: Font;
+
+    /**
+     * _Use the default keyboard for entering text._
+     * @see https://docs.scriptable.app/textfield/#-setdefaultkeyboard
+     */
+    setDefaultKeyboard(): void;
+
+    /**
+     * _Use a keyboard that prominently features the numbers 0 through 9._
+     * @see https://docs.scriptable.app/textfield/#-setnumberpadkeyboard
+     */
+    setNumberPadKeyboard(): void;
+
+    /**
+     * _Use a numeric keyboard with a decimal point for entering text._
+     * @see https://docs.scriptable.app/textfield/#-setdecimalpadkeyboard
+     */
+    setDecimalPadKeyboard(): void;
+
+    /**
+     * _Use a numeric keyboard with punctuation for entering text._
+     * @see https://docs.scriptable.app/textfield/#-setnumbersandpunctuationkeyboard
+     */
+    setNumbersAndPunctuationKeyboard(): void;
+
+    /**
+     * _Use a keyboard that prominently features the numbers 0 through 9 and the * and # characters._
+     * @see https://docs.scriptable.app/textfield/#-setphonepadkeyboard
+     */
+    setPhonePadKeyboard(): void;
+
+    /**
+     * _Use a keyboard that prominently features the space and period characters._
+     * @see https://docs.scriptable.app/textfield/#-setwebsearchkeyboard
+     */
+    setWebSearchKeyboard(): void;
+
+    /**
+     * _Use a keyboard that prominently features the @, period and space characters._
+     * @see https://docs.scriptable.app/textfield/#-setemailaddresskeyboard
+     */
+    setEmailAddressKeyboard(): void;
+
+    /**
+     * _Use a keyboard that prominently features the period and slash characters and the ".com" string._
+     * @see https://docs.scriptable.app/textfield/#-seturlkeyboard
+     */
+    setURLKeyboard(): void;
+
+    /**
+     * _Use a keyboard that prominently features the @ and # characters._
+     * @see https://docs.scriptable.app/textfield/#-settwitterkeyboard
+     */
+    setTwitterKeyboard(): void;
+
+    /**
+     * _Left aligns the text._
+     *
+     * This is the default text alignment.
+     * @see https://docs.scriptable.app/textfield/#-leftaligntext
+     */
+    leftAlignText(): void;
+
+    /**
+     * _Center aligns the text._
+     * @see https://docs.scriptable.app/textfield/#-centeraligntext
+     */
+    centerAlignText(): void;
+
+    /**
+     * _Right aligns the text._
+     * @see https://docs.scriptable.app/textfield/#-rightaligntext
+     */
+    rightAlignText(): void;
+}
 
 /**
  * _A timer that fires after a time interval has elapsed._
@@ -5682,7 +5860,7 @@ declare class UITableRow {
      * Rows cannot be tapped when the tables is presented in Siri.
      * @see https://docs.scriptable.app/uitablerow/#onselect
      */
-    onSelect: (arg0: number) => void;
+    onSelect: () => void;
 }
 
 /**
@@ -6282,7 +6460,7 @@ declare class WidgetStack {
      * @param length - Length of the spacer. Pass null to create a spacer with a flexible length.
      * @see https://docs.scriptable.app/widgetstack/#-addspacer
      */
-    addSpacer(length: number): WidgetSpacer;
+    addSpacer(length?: number): WidgetSpacer;
 
     /**
      * _Add stack._
@@ -6530,7 +6708,7 @@ declare class XMLParser {
      * Called by the parser when it encounters an end tag for an element. The function takes the element name as a parameter.
      * @see https://docs.scriptable.app/xmlparser/#didendelement
      */
-    didEndElement: (arg0: string) => void;
+    didEndElement: (name: string) => void;
 
     /**
      * _Function called when the parser finds characters of an element._
@@ -6538,7 +6716,7 @@ declare class XMLParser {
      * The parser calls this function with a string whenever it finds characters for the current element. This function may be called several times for a single element.
      * @see https://docs.scriptable.app/xmlparser/#foundcharacters
      */
-    foundCharacters: (arg0: string) => void;
+    foundCharacters: (str: string) => void;
 
     /**
      * _Function called when the parser encounters an error._
@@ -6546,7 +6724,7 @@ declare class XMLParser {
      * The parser will call this function when it encounters a fatal error preventing it from continuing to parse. When the function is called the parsing is stopped.
      * @see https://docs.scriptable.app/xmlparser/#parseerroroccurred
      */
-    parseErrorOccurred: (arg0: string) => void;
+    parseErrorOccurred: (error: string) => void;
 }
 
 /**

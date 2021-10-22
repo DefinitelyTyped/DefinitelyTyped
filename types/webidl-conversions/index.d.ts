@@ -16,21 +16,21 @@ declare namespace WebIDLConversions {
     }
 
     interface Options {
-        context?: string;
-        globals?: Globals;
+        context?: string | undefined;
+        globals?: Globals | undefined;
     }
 
     interface IntegerOptions extends Options {
-        enforceRange?: boolean;
-        clamp?: boolean;
+        enforceRange?: boolean | undefined;
+        clamp?: boolean | undefined;
     }
 
     interface StringOptions extends Options {
-        treatNullAsEmptyString?: boolean;
+        treatNullAsEmptyString?: boolean | undefined;
     }
 
     interface BufferSourceOptions extends Options {
-        allowShared?: boolean;
+        allowShared?: boolean | undefined;
     }
 
     type IntegerConversion = (V: any, opts?: IntegerOptions) => number;
@@ -66,7 +66,7 @@ declare const WebIDLConversions: {
     USVString(V: any, opts?: WebIDLConversions.StringOptions): string;
 
     object<V>(V: V, opts?: WebIDLConversions.Options): V extends object ? V : V & object;
-    ArrayBuffer(V: any, opts?: WebIDLConversions.BufferSourceOptions & { allowShared?: false }): ArrayBuffer;
+    ArrayBuffer(V: any, opts?: WebIDLConversions.BufferSourceOptions & { allowShared?: false | undefined }): ArrayBuffer;
     ArrayBuffer(V: any, opts?: WebIDLConversions.BufferSourceOptions): ArrayBufferLike;
     DataView(V: any, opts?: WebIDLConversions.BufferSourceOptions): DataView;
 
@@ -83,7 +83,7 @@ declare const WebIDLConversions: {
     Float64Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Float64Array;
 
     ArrayBufferView(V: any, opts?: WebIDLConversions.BufferSourceOptions): ArrayBufferView;
-    BufferSource(V: any, opts?: WebIDLConversions.BufferSourceOptions & { allowShared?: false }): ArrayBuffer | ArrayBufferView;
+    BufferSource(V: any, opts?: WebIDLConversions.BufferSourceOptions & { allowShared?: false | undefined }): ArrayBuffer | ArrayBufferView;
     BufferSource(V: any, opts?: WebIDLConversions.BufferSourceOptions): ArrayBufferLike | ArrayBufferView;
 
     DOMTimeStamp(V: any, opts?: WebIDLConversions.Options): number;

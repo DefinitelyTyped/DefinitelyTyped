@@ -1,9 +1,10 @@
 // Type definitions for jest-when 2.7
 // Project: https://github.com/timkindberg/jest-when#readme
-// Definitions by: Alden Taylor <https://github.com/aldentaylor>
-//                 Trung Dang <https://github.com/immanuel192>
-//                 Gregor Stamać <https://github.com/gstamac>
-//                 Valentin Stern <https://github.com/sehsyha>
+// Definitions by: Alden Taylor <https://github.com/aldentaylor>,
+//                 Trung Dang <https://github.com/immanuel192>,
+//                 Gregor Stamać <https://github.com/gstamac>,
+//                 Valentin Stern <https://github.com/sehsyha>,
+//                 Nicholas Hehr <https://github.com/hipsterbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
@@ -23,7 +24,7 @@ export interface WhenMock<T = any, Y extends any[] = any>
   mockImplementationOnce(fn?: (...args: Y) => T): this;
 }
 
-export type When = <T, Y extends any[]>(fn: jest.MockInstance<T, Y>) => WhenMock<T, Y>;
+export type When = <T, Y extends any[]>(fn: ((...args: Y) => T) | jest.MockInstance<T, Y>) => WhenMock<T, Y>;
 
 export const when: When;
 export function resetAllWhenMocks(): void;

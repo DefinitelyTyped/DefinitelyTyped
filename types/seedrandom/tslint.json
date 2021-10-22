@@ -1,14 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "interface-over-type-literal": false,
-        "no-consecutive-blank-lines": false,
-        "no-misused-new": false,
-        "no-padding": false,
-        "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false
-    }
-}
+{ "extends": "dtslint/dt.json" }

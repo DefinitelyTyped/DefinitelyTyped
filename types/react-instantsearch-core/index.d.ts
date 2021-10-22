@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch-core 6.3
+// Type definitions for react-instantsearch-core 6.10
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -6,22 +6,23 @@
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 import * as React from 'react';
 import { SearchParameters } from 'algoliasearch-helper';
 
 // Core
 export interface InstantSearchProps {
+  children?: React.ReactNode;
   searchClient: any;
   indexName: string;
-  createURL?: (...args: any[]) => any;
+  createURL?: ((...args: any[]) => any) | undefined;
   searchState?: any;
-  refresh?: boolean;
-  onSearchStateChange?: (...args: any[]) => any;
-  onSearchParameters?: (...args: any[]) => any;
+  refresh?: boolean | undefined;
+  onSearchStateChange?: ((...args: any[]) => any) | undefined;
+  onSearchParameters?: ((...args: any[]) => any) | undefined;
+  widgetsCollector?: ((...args: any[]) => any) | undefined;
   resultsState?: any;
-  stalledSearchDelay?: number;
+  stalledSearchDelay?: number | undefined;
 }
 
 /**
@@ -31,7 +32,13 @@ export interface InstantSearchProps {
  */
 export class InstantSearch extends React.Component<InstantSearchProps> {}
 
-export class Index extends React.Component<any> {}
+export interface IndexProps {
+  children?: React.ReactNode;
+  indexName: string;
+  indexId?: string | undefined;
+}
+
+export class Index extends React.Component<IndexProps> {}
 
 export interface ConnectorSearchResults<TDoc = BasicDoc> {
   results: AllSearchResults<TDoc>;
@@ -39,6 +46,16 @@ export interface ConnectorSearchResults<TDoc = BasicDoc> {
   searchingForFacetValues: boolean;
   isSearchStalled: boolean;
   error: any;
+}
+
+interface ConnectedWidget {
+  getProvidedProps(props: any): any;
+  getSearchParameters(searchParameters: SearchParameters): SearchState;
+  getMetadata(nextWidgetsState: SearchState): any;
+  transitionState(prevWidgetsState: SearchState, nextWidgetsState: SearchState): SearchState;
+  refine(...args: any[]): void;
+  createURL(...args: any[]): string;
+  searchForFacetValues(...args: any[]): void;
 }
 
 export interface ConnectorDescription<TProvided, TExposed> {
@@ -56,7 +73,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * searchForFacetValuesResults holds the search for facet values results.
    */
   getProvidedProps(
-    this: React.Component<TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     props: TExposed,
     searchState: SearchState,
     searchResults: ConnectorSearchResults<any>,
@@ -69,7 +86,12 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * It takes in the current props of the higher-order component, the search state of all widgets, as well as all arguments passed
    * to the refine and createURL props of stateful widgets, and returns a new state.
    */
-  refine?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState, ...args: any[]): SearchState;
+  refine?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    props: TExposed,
+    searchState: SearchState,
+    ...args: any[]
+  ): SearchState;
 
   /**
    * This method applies the current props and state to the provided SearchParameters, and returns a new SearchParameters. The SearchParameters
@@ -79,7 +101,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * As such, the getSearchParameters method allows you to describe how the state and props of a widget should affect the search parameters.
    */
   getSearchParameters?(
-    this: React.Component<TExposed>,
+    this: React.Component<TExposed> & ConnectedWidget,
     searchParameters: SearchParameters,
     props: TExposed,
     searchState: SearchState
@@ -94,7 +116,12 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * The CurrentRefinements widget leverages this mechanism in order to allow any widget to declare the filters it has applied. If you want to add
    * your own filter, declare a filters property on your widget’s metadata
    */
-  getMetadata?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState, ...args: any[]): any;
+  getMetadata?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    props: TExposed,
+    searchState: SearchState,
+    ...args: any[]
+  ): any;
 
   /**
    * This method needs to be implemented if you want to have the ability to perform a search for facet values inside your widget.
@@ -102,7 +129,11 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * props of stateful widgets, and returns an object of the shape: {facetName: string, query: string, maxFacetHits?: number}. The default value for the
    * maxFacetHits is the one set by the API which is 10.
    */
-  searchForFacetValues?(this: React.Component<TExposed>, searchState: SearchState, nextRefinement?: any): any;
+  searchForFacetValues?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    searchState: SearchState,
+    nextRefinement?: any
+  ): any;
 
   /**
    * This method is called when a widget is about to unmount in order to clean the searchState.
@@ -111,7 +142,11 @@ export interface ConnectorDescription<TProvided, TExposed> {
    * searchState holds the searchState of all widgets, with the shape {[widgetId]: widgetState}. Stateful widgets describe the format of their searchState
    * in their respective documentation entry.
    */
-  cleanUp?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState): SearchState;
+  cleanUp?(
+    this: React.Component<TExposed> & ConnectedWidget,
+    props: TExposed,
+    searchState: SearchState
+  ): SearchState;
 }
 
 export type ConnectorProvided<TProvided> = TProvided & {
@@ -147,7 +182,7 @@ export interface TranslatableProvided {
   translate(key: string, ...params: any[]): string;
 }
 export interface TranslatableExposed {
-  translations?: { [key: string]: string | ((...args: any[]) => string) };
+  translations?: { [key: string]: string | ((...args: any[]) => string) } | undefined;
 }
 
 export function translatable(defaultTranslations: {
@@ -181,11 +216,13 @@ export interface AutocompleteProvided<TDoc = BasicDoc> {
 }
 
 export interface AutocompleteExposed {
-  defaultRefinement?: string;
+  defaultRefinement?: string | undefined;
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
-export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.FunctionComponent<AutocompleteProvided<TDoc>>): React.ComponentClass<AutocompleteExposed>;
+export function connectAutoComplete<TDoc = BasicDoc>(
+  // tslint:disable-next-line:no-unnecessary-generics
+  stateless: React.FunctionComponent<AutocompleteProvided<TDoc>>
+): React.ComponentClass<AutocompleteExposed>;
 export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc = BasicDoc>(
   Composed: React.ComponentType<Props>
 ): ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
@@ -217,9 +254,9 @@ export interface CurrentRefinementsExposed {
    * Function to modify the items being displayed, e.g. for filtering or sorting them.
    * Takes an items as parameter and expects it back in return.
    */
-  transformItems?: (...args: any[]) => any;
+  transformItems?: ((...args: any[]) => any) | undefined;
   /** Pass true to also clear the search query */
-  clearsQuery?: boolean;
+  clearsQuery?: boolean | undefined;
 }
 
 export interface CurrentRefinementsProvided {
@@ -249,7 +286,7 @@ export interface NESW {
 }
 
 export interface GeoSearchExposed {
-  defaultRefinement?: NESW;
+  defaultRefinement?: NESW | undefined;
 }
 export interface GeoSearchProvided<THit = any> {
   /** a function to toggle the refinement */
@@ -302,15 +339,15 @@ export interface HighlightProvided<TDoc = any> {
     attribute: string;
     hit: Hit<TDoc>;
     highlightProperty: string;
-    preTag?: string;
-    postTag?: string;
+    preTag?: string | undefined;
+    postTag?: string | undefined;
   }): Array<{ value: string; isHighlighted: boolean }>;
 }
 
 interface HighlightPassedThru<TDoc = any> {
   hit: Hit<TDoc>;
   attribute: string;
-  highlightProperty?: string;
+  highlightProperty?: string | undefined;
 }
 
 export type HighlightProps<TDoc = any> = HighlightProvided<TDoc> & HighlightPassedThru<TDoc>;
@@ -337,8 +374,10 @@ export interface HitsProvided<THit> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
-// tslint:disable-next-line:no-unnecessary-generics
-export function connectHits<THit = BasicDoc>(stateless: React.FunctionComponent<HitsProvided<THit>>): React.ComponentClass;
+export function connectHits<THit = BasicDoc>(
+  // tslint:disable-next-line:no-unnecessary-generics
+  stateless: React.FunctionComponent<HitsProvided<THit>>
+): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, HitsProvided<THit>>;
@@ -376,12 +415,12 @@ export interface MenuProvided {
 }
 export interface MenuExposed {
   attribute: string;
-  showMore?: boolean;
-  limit?: number;
-  showMoreLimit?: number;
-  defaultRefinement?: string;
-  transformItems?: (...args: any[]) => any;
-  searchable?: boolean;
+  showMore?: boolean | undefined;
+  limit?: number | undefined;
+  showMoreLimit?: number | undefined;
+  defaultRefinement?: string | undefined;
+  transformItems?: ((...args: any[]) => any) | undefined;
+  searchable?: boolean | undefined;
 }
 /**
  * connectMenu connector provides the logic to build a widget that will give the user the ability to choose a single value for a specific facet.
@@ -408,19 +447,19 @@ export interface NumericMenuProvided {
   createURL: (...args: any[]) => any;
 }
 export interface NumericMenuExposed {
-  id?: string;
+  id?: string | undefined;
   /** the name of the attribute in the records */
   attribute: string;
   /** List of options. With a text label, and upper and lower bounds. */
   items: Array<{
     label: string | JSX.Element;
-    start?: number;
-    end?: number;
+    start?: number | undefined;
+    end?: number | undefined;
   }>;
   /** the value of the item selected by default, follow the shape of a string with a pattern of '{start}:{end}'. */
-  defaultRefinement?: string;
+  defaultRefinement?: string | undefined;
   /** (...args: any[]) => any to modify the items being displayed, e.g. for filtering or sorting them. Takes an items as parameter and expects it back in return. */
-  transformItems?: (...args: any[]) => any;
+  transformItems?: ((...args: any[]) => any) | undefined;
 }
 /**
  * connectNumericMenu connector provides the logic to build a widget that will give the user the ability to select a range value for a numeric attribute.
@@ -462,23 +501,23 @@ export interface RefinementListExposed {
   /** the name of the attribute in the record */
   attribute: string;
   /** allow search inside values */
-  searchable?: boolean;
+  searchable?: boolean | undefined;
   /** How to apply the refinements. Possible values: ‘or’ or ‘and’. */
-  operator?: 'or' | 'and';
+  operator?: 'or' | 'and' | undefined;
   /** true if the component should display a button that will expand the number of items */
-  showMore?: boolean;
+  showMore?: boolean | undefined;
   /** the minimum number of displayed items */
-  limit?: number;
+  limit?: number | undefined;
   /** the maximun number of displayed items. Only used when showMore is set to true */
-  showMoreLimit?: number;
+  showMoreLimit?: number | undefined;
   /**
    * the values of the items selected by default. The searchState of this widget takes the form of a list of strings,
    * which correspond to the values of all selected refinements. However, when there are no refinements selected,
    * the value of the searchState is an empty string.
    */
-  defaultRefinement?: string[];
+  defaultRefinement?: string[] | undefined;
   /** (...args: any[]) => any to modify the items being displayed, e.g. for filtering or sorting them. Takes an items as parameter and expects it back in return. */
-  transformItems?: (...args: any[]) => any;
+  transformItems?: ((...args: any[]) => any) | undefined;
 }
 
 /**
@@ -505,7 +544,7 @@ export interface SearchBoxProvided {
 }
 export interface SearchBoxExposed {
   /** Provide a default value for the query */
-  defaultRefinement?: string;
+  defaultRefinement?: string | undefined;
 }
 export function connectSearchBox(
   stateless: React.FunctionComponent<SearchBoxProvided>
@@ -514,6 +553,7 @@ export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, SearchBoxProvided, SearchBoxExposed>;
 
+export function connectRelevantSort(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {
@@ -547,9 +587,11 @@ export function connectStateResults<TProps extends Partial<StateResultsProvided<
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, StateResultsProvided>;
 
-interface StatsProvided {
+export interface StatsProvided {
   nbHits: number;
+  nbSortedHits: number;
   processingTimeMS: number;
+  areHitsSorted: boolean;
 }
 
 export function connectStats(stateless: React.FunctionComponent<StatsProvided>): React.ComponentClass;
@@ -587,30 +629,31 @@ export interface SearchState {
       min: number;
       max: number;
     };
-  };
+  } | undefined;
   configure?: {
     aroundLatLng: boolean;
     [key: string]: any;
-  };
+  } | undefined;
+  relevancyStrictness?: number | undefined;
   refinementList?: {
     [key: string]: string[];
-  };
+  } | undefined;
   hierarchicalMenu?: {
     [key: string]: string;
-  };
+  } | undefined;
   menu?: {
     [key: string]: string;
-  };
+  } | undefined;
   multiRange?: {
     [key: string]: string;
-  };
+  } | undefined;
   toggle?: {
     [key: string]: boolean;
-  };
-  hitsPerPage?: number;
-  sortBy?: string;
-  query?: string;
-  page?: number;
+  } | undefined;
+  hitsPerPage?: number | undefined;
+  sortBy?: string | undefined;
+  query?: string | undefined;
+  page?: number | undefined;
 
   indices?: {
     [index: string]: {
@@ -618,7 +661,7 @@ export interface SearchState {
         hitsPerPage: number;
       };
     };
-  };
+  } | undefined;
 }
 
 /**
@@ -640,6 +683,8 @@ export interface SearchResults<TDoc = BasicDoc> {
   index: string;
   hitsPerPage: number;
   nbHits: number;
+  nbSortedHits?: number | undefined;
+  appliedRelevancyStrictness?: number | undefined;
   nbPages: number;
   page: number;
   processingTimeMS: number;
@@ -647,8 +692,8 @@ export interface SearchResults<TDoc = BasicDoc> {
   disjunctiveFacets: any[];
   hierarchicalFacets: any[];
   facets: any[];
-  aroundLatLng?: string;
-  automaticRadius?: string;
+  aroundLatLng?: string | undefined;
+  automaticRadius?: string | undefined;
 }
 
 /**
@@ -694,12 +739,36 @@ interface HighlightResultPrimitive {
   /** full, partial or none depending on how the query terms match */
   matchLevel: 'none' | 'partial' | 'full';
   matchedWords: string[];
-  fullyHighlighted?: boolean;
+  fullyHighlighted?: boolean | undefined;
 }
 
-export function EXPERIMENTAL_connectConfigureRelatedItems(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export type InsightsClient = (method: InsightsClientMethod, payload: InsightsClientPayload) => void;
+
+export type InsightsClientMethod = 'clickedObjectIDsAfterSearch' | 'convertedObjectIDsAfterSearch';
+
+export interface InsightsClientPayload {
+    index: string;
+    queryID: string;
+    eventName: string;
+    objectIDs: string[];
+    positions?: number[] | undefined;
+}
+
+export type WrappedInsightsClient = (method: InsightsClientMethod, payload: Partial<InsightsClientPayload>) => void;
+export interface ConnectHitInsightsProvided {
+    hit: Hit;
+    insights: WrappedInsightsClient;
+}
+
+export function EXPERIMENTAL_connectConfigureRelatedItems(
+  Composed: React.ComponentType<any>
+): React.ComponentClass<any>;
 export function connectQueryRules(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectHitInsights(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectHitInsights(
+    insightsClient: InsightsClient,
+): (
+    hitComponent: React.ComponentType<any>,
+) => React.ComponentType<Omit<ConnectHitInsightsProvided, { insights: WrappedInsightsClient }>>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 // Turn off automatic exports - so we don't export internal types like Omit<>

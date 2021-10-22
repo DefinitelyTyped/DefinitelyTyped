@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RulerAlt16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RulerAlt16;
+import { RulerAlt16 } from "../../";
+
+export = RulerAlt16;

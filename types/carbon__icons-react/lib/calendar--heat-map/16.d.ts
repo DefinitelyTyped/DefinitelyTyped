@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CalendarHeatMap16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CalendarHeatMap16;
+import { CalendarHeatMap16 } from "../../";
+
+export = CalendarHeatMap16;

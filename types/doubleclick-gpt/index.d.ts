@@ -1,10 +1,11 @@
-// Type definitions for non-npm package Google Publisher Tag 2019041801.0
+// Type definitions for non-npm package Google Publisher Tag 2019111201.0
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 Vanessa Garcia <https://github.com/vanessa-lyn>
 //                 Krishna Glick <https://github.com/krishnaglick>
+//                 Linus Thiel <https://github.com/linus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -29,26 +30,46 @@ declare namespace googletag {
 
     interface Service {
         addEventListener(
-          eventType: "slotRenderEnded",
+            eventType: "slotRenderEnded",
             listener: (event: events.SlotRenderEndedEvent) => void
         ): Service;
         addEventListener(
             eventType: "slotRequested",
-              listener: (event: events.SlotRequestedEvent) => void
+            listener: (event: events.SlotRequestedEvent) => void
         ): Service;
         addEventListener(
             eventType: "slotResponseReceived",
-              listener: (event: events.SlotResponseReceived) => void
+            listener: (event: events.SlotResponseReceived) => void
         ): Service;
         addEventListener(
-          eventType: "slotVisibilityChanged",
+            eventType: "slotVisibilityChanged",
             listener: (event: events.SlotVisibilityChangedEvent) => void
         ): Service;
         addEventListener(
-          eventType: string,
+            eventType: string,
             listener: (event: events.Event) => void
         ): Service;
         getSlots(): Slot[];
+        removeEventListener(
+            eventType: "slotRenderEnded",
+            listener: (event: events.SlotRenderEndedEvent) => void
+          ): Service;
+        removeEventListener(
+            eventType: "slotRequested",
+            listener: (event: events.SlotRequestedEvent) => void
+        ): Service;
+        removeEventListener(
+            eventType: "slotResponseReceived",
+            listener: (event: events.SlotResponseReceived) => void
+        ): Service;
+        removeEventListener(
+            eventType: "slotVisibilityChanged",
+            listener: (event: events.SlotVisibilityChangedEvent) => void
+        ): Service;
+        removeEventListener(
+            eventType: string,
+            listener: (event: events.Event) => void
+        ): Service;
     }
 
     interface CompanionAdsService extends Service {
@@ -61,23 +82,24 @@ declare namespace googletag {
     }
 
     interface LazyLoadOptionsConfig {
-        fetchMarginPercent?: number;
-        renderMarginPercent?: number;
-        mobileScaling?: number;
+        fetchMarginPercent?: number | undefined;
+        renderMarginPercent?: number | undefined;
+        mobileScaling?: number | undefined;
     }
 
     interface ResponseInformation {
         advertiserId: string;
         campaignId: string;
-        creativeId?: number;
-        creativeTemplateId?: number;
-        lineItemId?: number;
+        creativeId?: number | undefined;
+        creativeTemplateId?: number | undefined;
+        lineItemId?: number | undefined;
     }
 
     interface SafeFrameConfig {
-        allowOverlayExpansion?: boolean;
-        allowPushExpansion?: boolean;
-        sandbox?: boolean;
+        allowOverlayExpansion?: boolean | undefined;
+        allowPushExpansion?: boolean | undefined;
+        sandbox?: boolean | undefined;
+        useUniqueDomain?: boolean | null | undefined;
     }
 
     interface Googletag {
@@ -119,6 +141,7 @@ declare namespace googletag {
         setForceSafeFrame(forceSafeFrame: boolean): Slot;
         setSafeFrameConfig(config: SafeFrameConfig): Slot;
         setTargeting(key: string, value: string | string[]): Slot;
+        updateTargetingFromMap(map: object): Slot;
     }
 
     interface PassbackSlot {
@@ -167,7 +190,14 @@ declare namespace googletag {
         setTargeting(key: string, value: string | string[]): PubAdsService;
         setVideoContent(videoContentId: string, videoCmsId: string): void;
         updateCorrelator(): PubAdsService;
-        setPrivacySettings(settings: { restrictDataProcessing: boolean }): Slot;
+        setPrivacySettings(settings: PrivacySettingsConfig): Slot;
+    }
+
+    interface PrivacySettingsConfig {
+        childDirectedTreatment?: boolean | null | undefined;
+        limitedAds?: boolean | null | undefined;
+        restrictDataProcessing?: boolean | null | undefined;
+        underAgeOfConsent?: boolean | null | undefined;
     }
 
     interface SizeMappingBuilder {
@@ -188,14 +218,14 @@ declare namespace googletag {
         interface SlotOnloadEvent extends Event {}
 
         interface SlotRenderEndedEvent extends Event {
-            advertiserId?: number;
-            campaignId?: number;
-            creativeId?: number;
+            advertiserId?: number | undefined;
+            campaignId?: number | undefined;
+            creativeId?: number | undefined;
             isEmpty: boolean;
-            lineItemId?: number;
+            lineItemId?: number | undefined;
             size: number[] | string;
-            sourceAgnosticCreativeId?: number;
-            sourceAgnosticLineItemId?: number;
+            sourceAgnosticCreativeId?: number | undefined;
+            sourceAgnosticLineItemId?: number | undefined;
         }
 
         // tslint:disable-next-line:no-empty-interface

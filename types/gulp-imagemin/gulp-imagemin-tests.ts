@@ -22,6 +22,18 @@ gulp.task('build', () => {
 
 gulp.task('build', () => {
     return gulp.src('*.{gif,jpg,png,svg}')
+        .pipe(gulpImagemin({ silent: true }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', () => {
+    return gulp.src('*.{gif,jpg,png,svg}')
+        .pipe(gulpImagemin(plugins, { silent: true }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', () => {
+    return gulp.src('*.{gif,jpg,png,svg}')
         .pipe(gulpImagemin({ verbose: true }))
         .pipe(gulp.dest('dist'));
 });

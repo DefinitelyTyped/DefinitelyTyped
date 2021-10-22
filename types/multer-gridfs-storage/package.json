@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/mongodb": "^3.6.20",
+        "@types/mongoose": "^5.10.5"
+    }
+}

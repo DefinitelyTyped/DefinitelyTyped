@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const WorshipMuslim16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WorshipMuslim16;
+import { WorshipMuslim16 } from "../../";
+
+export = WorshipMuslim16;

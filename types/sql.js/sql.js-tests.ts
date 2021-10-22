@@ -1,12 +1,19 @@
 import fs = require('fs');
 
-import * as initSqlJs from 'sql.js';
-import initSqlJs2 from 'sql.js';
-import initSqlJs3 = require('sql.js');
+import initSqlJs, { Database as SqlJsDatabase } from 'sql.js';
+import initAsmDebugSqlJs, { Database as AsmDebugSqlJsDatabase } from 'sql.js/dist/sql-asm-debug.js';
+import initAsmMemoryGrowthSqlJs, {
+    Database as AsmMemoryGrowthSqlJsDatabase,
+} from 'sql.js/dist/sql-asm-memory-growth.js';
+import initAsmSqlJs, { Database as AsmSqlJsDatabase } from 'sql.js/dist/sql-asm.js';
+import initWasmDebugSqlJs, { Database as WasmDebugSqlJsDatabase } from 'sql.js/dist/sql-wasm-debug.js';
+import initWasmSqlJs, { Database as WasmSqlJsDatabase } from 'sql.js/dist/sql-wasm.js';
 
 const DB_PATH = 'data.db';
 
-initSqlJs().then(SQL => {
+type Database = SqlJsDatabase;
+
+initSqlJs().then(SqlJs => {
     function createFile(path: string): void {
         const fd = fs.openSync(path, 'a');
         fs.closeSync(fd);
@@ -14,7 +21,7 @@ initSqlJs().then(SQL => {
 
     // Open the database file. If it does not exist, create a blank database in memory.
     const databaseData = fs.existsSync(DB_PATH) ? fs.readFileSync(DB_PATH) : null;
-    const db = new SQL.Database(databaseData);
+    const db: Database = new SqlJs.Database(databaseData);
 
     // Create a new table 'test_table' in the database in memory.
     const createTableStatement =
@@ -79,7 +86,7 @@ initSqlJs().then(SQL => {
     }
 
     // Create a database
-    const db2 = new SQL.Database();
+    const db2: Database = new SqlJs.Database();
 
     // You can also use javascript functions inside your SQL code
     // Create the js function you need
@@ -91,5 +98,39 @@ initSqlJs().then(SQL => {
     // Run a query in which the function is used
     db2.run("INSERT INTO hello VALUES (add_js(7, 3), add_js('Hello ', 'world'));"); // Inserts 10 and 'Hello world'
 
-    new SQL.Database(null);
+    new SqlJs.Database(null);
+
+    const it = db2.iterateStatements(selectRecordStatement);
+
+    let x = it.next();
+
+    x = it.next();
+    x.value.step();
+
+    db.run('DROP TABLE test;');
+});
+
+initAsmDebugSqlJs().then(async SqlJs => {
+    const db: AsmDebugSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initAsmMemoryGrowthSqlJs().then(async SqlJs => {
+    const db: AsmMemoryGrowthSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initAsmSqlJs().then(async SqlJs => {
+    const db: AsmSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initWasmDebugSqlJs().then(async SqlJs => {
+    const db: WasmDebugSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initWasmSqlJs().then(async SqlJs => {
+    const db: WasmSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
 });

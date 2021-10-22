@@ -20,10 +20,10 @@ export interface KnexDbManager {
 }
 
 export interface DbManagerConfig {
-    collate?: string[];
-    superUser?: string;
-    superPassword?: string;
-    populatePathPattern?: string;
+    collate?: string[] | undefined;
+    superUser?: string | undefined;
+    superPassword?: string | undefined;
+    populatePathPattern?: string | undefined;
 }
 
 export interface DbanagerFactoryConfig {

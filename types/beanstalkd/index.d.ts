@@ -14,9 +14,9 @@ export type UnPromise<T> = T extends Promise<infer R> ? R : T;
 export type MergePromise<T> = Promise<UnPromise<T>>;
 
 export default class BeanstalkdClient {
-    host?: string;
-    port?: number;
-    options?: {};
+    host?: string | undefined;
+    port?: number | undefined;
+    options?: {} | undefined;
 
     closed: boolean;
     protocol: BeanstalkdProtocol;
@@ -185,7 +185,7 @@ export default class BeanstalkdClient {
      *
      * @param tube The Tube name to watch.
      */
-    watch(tube: number): Promise<number>;
+    watch(tube: string): Promise<number>;
 
     /**
      * Ignore the named tube.
@@ -193,7 +193,7 @@ export default class BeanstalkdClient {
      *
      * @param tube The Tube name to ignore.
      */
-    ignore(tube: number): Promise<number>;
+    ignore(tube: string): Promise<number>;
 
     /**
      * Responds with an array containing the names of the tubes currently watched by the client.

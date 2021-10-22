@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VisualRecognition24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VisualRecognition24;
+import { VisualRecognition24 } from "../../";
+
+export = VisualRecognition24;

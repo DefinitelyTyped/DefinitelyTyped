@@ -19,9 +19,9 @@ type QueryParamScopeTypes = 'controller' | 'model';
 
 // tslint:disable-next-line strict-export-declare-modifiers
 interface QueryParamConfig {
-    type?: QueryParamTypes;
-    scope?: QueryParamScopeTypes;
-    as?: string;
+    type?: QueryParamTypes | undefined;
+    scope?: QueryParamScopeTypes | undefined;
+    as?: string | undefined;
 }
 
 /**
@@ -29,10 +29,16 @@ interface QueryParamConfig {
  */
 export interface ControllerMixin extends ActionHandler {
     replaceRoute(name: string, ...args: any[]): void;
+    /**
+     * @deprecated use transitionTo method of RouterService
+     */
     transitionToRoute(name: string, ...args: any[]): void;
+    /**
+     * @deprecated use transitionTo method of RouterService
+     */
     transitionToRoute(...args: any[]): void;
     model: any;
-    queryParams: Array<string | Record<string, QueryParamConfig | undefined>>;
+    queryParams: Array<string | Record<string, QueryParamConfig | string | undefined>>;
     target: object;
 }
 export const ControllerMixin: Mixin<ControllerMixin>;

@@ -2,7 +2,7 @@
 
 import * as temp from "temp";
 
-function testCleanup() {
+async function testCleanup() {
     temp.cleanup(result => {
         if (typeof result === "boolean") {
             const x = result;
@@ -12,6 +12,19 @@ function testCleanup() {
             files.toPrecision(4);
         }
     });
+
+    try {
+        const result = await temp.cleanup();
+        if (typeof result === "boolean") {
+            const x = result;
+        } else {
+            const { files, dirs } = result;
+            files.toPrecision(4);
+            files.toPrecision(4);
+        }
+    } catch (err) {
+        throw err;
+    }
 }
 
 function testCleanupSync() {
@@ -25,7 +38,7 @@ function testCleanupSync() {
     }
 }
 
-function testOpen() {
+async function testOpen() {
     temp.open({ dir: "tempDir", prefix: "pref", suffix: "suff" }, (err, result) => {
         const { path, fd } = result;
         path.length;
@@ -37,6 +50,14 @@ function testOpen() {
         path.length;
         fd.toPrecision(5);
     });
+
+    try {
+        const { path, fd } = await temp.open("strPrefix");
+        path.length;
+        fd.toPrecision(5);
+    } catch (err) {
+        throw err;
+    }
 }
 
 function testOpenSync() {
@@ -50,10 +71,17 @@ function testCreateWriteStream() {
     const stream2 = temp.createWriteStream();
 }
 
-function testMkdir() {
+async function testMkdir() {
     temp.mkdir("prefix", (err, dirPath) => {
         dirPath.length;
     });
+
+    try {
+        const dirPath = await temp.mkdir("prefix");
+        dirPath.length;
+    } catch (err) {
+        throw err;
+    }
 }
 
 function testMkdirSync() {

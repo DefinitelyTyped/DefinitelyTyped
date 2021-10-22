@@ -423,36 +423,36 @@ declare class MeteorCollection<T> {
 
     //ONLY MONGO/METEOR COLLECTION METHODS START
     allow(options: {
-        insert?: (userId: string, doc: T) => boolean;
-        update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
-        remove?: (userId: string, doc: T) => boolean;
-        fetch?: string[];
-        transform?: Function;
+        insert?: ((userId: string, doc: T) => boolean) | undefined;
+        update?: ((userId: string, doc: T, fieldNames: string[], modifier: any) => boolean) | undefined;
+        remove?: ((userId: string, doc: T) => boolean) | undefined;
+        fetch?: string[] | undefined;
+        transform?: Function | undefined;
     }): boolean;
 
     deny(options: {
-        insert?: (userId: string, doc: T) => boolean;
-        update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
-        remove?: (userId: string, doc: T) => boolean;
-        fetch?: string[];
-        transform?: Function;
+        insert?: ((userId: string, doc: T) => boolean) | undefined;
+        update?: ((userId: string, doc: T, fieldNames: string[], modifier: any) => boolean) | undefined;
+        remove?: ((userId: string, doc: T) => boolean) | undefined;
+        fetch?: string[] | undefined;
+        transform?: Function | undefined;
     }): boolean;
 
     find(selector?: any, options?: {
         sort?: any;
-        skip?: number;
-        limit?: number;
+        skip?: number | undefined;
+        limit?: number | undefined;
         fields?: any;
-        reactive?: boolean;
-        transform?: Function;
+        reactive?: boolean | undefined;
+        transform?: Function | undefined;
     }): Mongo.Cursor<T>;
 
     findOne(selector?: any, options?: {
         sort?: any;
-        skip?: number;
+        skip?: number | undefined;
         fields?: any;
-        reactive?: boolean;
-        transform?: Function;
+        reactive?: boolean | undefined;
+        transform?: Function | undefined;
     }): T;
 
     //ONLY MONGO/METEOR COLLECTION METHODS FINISH.
@@ -761,8 +761,8 @@ declare class MeteorTable<T>{
     remove(selector: any, callback?: () => DeleteAnswer): DeleteAnswer;
 
     update(selector: any, modifier: any, options?: {
-        multi?: boolean;
-        upsert?: boolean;
+        multi?: boolean | undefined;
+        upsert?: boolean | undefined;
     }, callback?: (result: T) => any): number;
 
     collection(nameOfCollection?: string, fillWithCriteria?: any): Mongo.Collection<T>;

@@ -25,12 +25,12 @@ declare namespace Babelify {
         /** These are passed to babel.util.canCompile() for each filename
          * default: null
          */
-        extensions?: string | string[];
+        extensions?: string | string[] | undefined;
 
         /** if true, a 'sourceFileName' property with a value equal to the current file being transformed is included with the options passed to babel.transform()
          * default: false
          */
-        sourceMapsAbsolute?: boolean;
+        sourceMapsAbsolute?: boolean | undefined;
     }
 
     export class BabelifyObject extends stream.Transform {

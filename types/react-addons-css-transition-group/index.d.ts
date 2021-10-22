@@ -10,21 +10,21 @@ import { ComponentClass, CSSTransitionGroupProps } from 'react';
 declare module 'react' {
     interface CSSTransitionGroupTransitionName {
         enter: string;
-        enterActive?: string;
+        enterActive?: string | undefined;
         leave: string;
-        leaveActive?: string;
-        appear?: string;
-        appearActive?: string;
+        leaveActive?: string | undefined;
+        appear?: string | undefined;
+        appearActive?: string | undefined;
     }
 
     export interface CSSTransitionGroupProps extends HTMLTransitionGroupProps<ReactCSSTransitionGroup> {
         transitionName: string | CSSTransitionGroupTransitionName;
-        transitionAppear?: boolean;
-        transitionAppearTimeout?: number;
-        transitionEnter?: boolean;
-        transitionEnterTimeout?: number;
-        transitionLeave?: boolean;
-        transitionLeaveTimeout?: number;
+        transitionAppear?: boolean | undefined;
+        transitionAppearTimeout?: number | undefined;
+        transitionEnter?: boolean | undefined;
+        transitionEnterTimeout?: number | undefined;
+        transitionLeave?: boolean | undefined;
+        transitionLeaveTimeout?: number | undefined;
     }
 }
 

@@ -46,11 +46,11 @@ export interface S3EventRecord {
             key: string;
             size: number;
             eTag: string;
-            versionId?: string;
+            versionId?: string | undefined;
             sequencer: string;
         };
     };
-    glacierEventData?: S3EventRecordGlacierEventData;
+    glacierEventData?: S3EventRecordGlacierEventData | undefined;
 }
 
 export interface S3Event {

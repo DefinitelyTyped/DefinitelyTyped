@@ -14,10 +14,10 @@ export interface GoogleLoginInfo {
 
 export interface GoogleLoginProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     socialId: string;
-    scope?: string;
-    fetchBasicProfile?: boolean;
-    buttonText?: string;
-    prompt?: string;
+    scope?: string | undefined;
+    fetchBasicProfile?: boolean | undefined;
+    buttonText?: string | undefined;
+    prompt?: string | undefined;
     responseHandler: (response: GoogleLoginInfo) => void;
 }
 

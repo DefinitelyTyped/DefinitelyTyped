@@ -1,20 +1,23 @@
-import * as useragent from 'useragent';
+import useragent =  require('useragent');
+
+useragent();
+useragent(true);
 
 // useragent.parse(useragent string[, js useragent]);
 let agent = useragent.parse('');
-let agent2 = useragent.parse('', '');
+const agent2 = useragent.parse('', '');
 
 // useragent.lookup(useragent string[, js useragent]);
 agent = useragent.lookup('');
 
 // useragent.fromJSON(obj);
 agent = useragent.parse('');
-let another = useragent.fromJSON(JSON.stringify(agent));
+const another = useragent.fromJSON(JSON.stringify(agent));
 
 // useragent.is(useragent string).browsername;
 useragent.is('').firefox; // true
 useragent.is('').safari; // false
-let ua = useragent.is('');
+const ua = useragent.is('');
 
 // Agent.toAgent();
 agent = useragent.parse('');

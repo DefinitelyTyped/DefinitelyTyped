@@ -21,7 +21,7 @@ interface Options extends busboy.BusboyConfig {
 type AsyncBusboy = (
   req: http.IncomingMessage,
   options?: Options
-) => Promise<{fields: {[key: string]: any}; files?: fs.ReadStream[]}>;
+) => Promise<{fields: {[key: string]: any}; files?: fs.ReadStream[] | undefined}>;
 
 declare const asyncBusboy: AsyncBusboy;
 

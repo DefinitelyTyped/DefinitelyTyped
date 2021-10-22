@@ -72,30 +72,30 @@ declare namespace fetchMock {
         /**
          * Set the response body
          */
-        body?: string | {};
+        body?: string | {} | undefined;
 
         /**
          * Set the response status
          * @default 200
          */
-        status?: number;
+        status?: number | undefined;
 
         /**
          * Set the response headers.
          */
-        headers?: { [key: string]: string };
+        headers?: { [key: string]: string } | undefined;
 
         /**
          * If this property is present then a Promise rejected with the value
          * of throws is returned
          */
-        throws?: Error;
+        throws?: Error | undefined;
 
         /**
          * The URL the response should be from (to imitate followed redirects
          *  - will set redirected: true on the response)
          */
-        redirectUrl?: string;
+        redirectUrl?: string | undefined;
     }
 
     /**
@@ -132,54 +132,54 @@ declare namespace fetchMock {
          *  (because names are optional, auto-generated ones may legitimately
          *  clash)
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * http method to match
          */
-        method?: string;
+        method?: string | undefined;
 
         /**
          * key/value map of headers to match
          */
-        headers?: { [key: string]: string | number };
+        headers?: { [key: string]: string | number } | undefined;
 
         /**
          * body to match
          */
-        body?: string | {};
+        body?: string | {} | undefined;
 
         /**
          * key/value map of query strings to match, in any order
          */
-        query?: { [key: string]: string };
+        query?: { [key: string]: string } | undefined;
 
         /**
          * key/value map of express style path params to match
          */
-        params?: { [key: string]: string };
+        params?: { [key: string]: string } | undefined;
 
         /**
          * A function for arbitrary matching
          */
-        functionMatcher?: MockMatcherFunction;
+        functionMatcher?: MockMatcherFunction | undefined;
 
         /**
          * as specified above
          */
-        matcher?: MockMatcher;
+        matcher?: MockMatcher | undefined;
 
         /**
          * This option allows for existing routes in a mock to be overwritten.
          * It’s also possible to define multiple routes with ‘the same’ matcher.
          * Default behaviour is to error
          */
-        overwriteRoutes?: boolean;
+        overwriteRoutes?: boolean | undefined;
 
         /**
          * as specified above
          */
-        response?: MockResponse | MockResponseFunction;
+        response?: MockResponse | MockResponseFunction | undefined;
 
         /**
          * integer, n, limiting the number of times the matcher can be used.
@@ -188,7 +188,7 @@ declare namespace fetchMock {
          * any other routes defined (which may eventually result in an error
          * if nothing matches it).
          */
-        repeat?: number;
+        repeat?: number | undefined;
 
         /**
          * Convert objects into JSON before delivering as stub responses. Can
@@ -197,13 +197,13 @@ declare namespace fetchMock {
          * header.
          * @default true
          */
-        sendAsJson?: boolean;
+        sendAsJson?: boolean | undefined;
 
         /**
          * Automatically sets a content-length header on each response.
          * @default true
          */
-        includeContentLength?: boolean;
+        includeContentLength?: boolean | undefined;
     }
 
     interface MockCall extends Array<string | RequestInit | undefined> {
@@ -215,23 +215,23 @@ declare namespace fetchMock {
     }
 
     interface MockOptionsMethodGet extends MockOptions {
-        method?: 'GET';
+        method?: 'GET' | undefined;
     }
 
     interface MockOptionsMethodPost extends MockOptions {
-        method?: 'POST';
+        method?: 'POST' | undefined;
     }
 
     interface MockOptionsMethodPut extends MockOptions {
-        method?: 'PUT';
+        method?: 'PUT' | undefined;
     }
 
     interface MockOptionsMethodDelete extends MockOptions {
-        method?: 'DELETE';
+        method?: 'DELETE' | undefined;
     }
 
     interface MockOptionsMethodHead extends MockOptions {
-        method?: 'HEAD';
+        method?: 'HEAD' | undefined;
     }
 
     interface FetchMockStatic {
@@ -547,13 +547,13 @@ declare namespace fetchMock {
              * content-type: application/json header.
              * @default true
              */
-            sendAsJson?: boolean;
+            sendAsJson?: boolean | undefined;
 
             /**
              * Automatically sets a content-length header on each response.
              * @default true
              */
-            includeContentLength?: boolean;
+            includeContentLength?: boolean | undefined;
 
             /**
              * - true: Unhandled calls fall through to the network
@@ -562,7 +562,7 @@ declare namespace fetchMock {
              * disabling fetch-mock.
              * @default false
              */
-            fallbackToNetwork?: boolean | 'always';
+            fallbackToNetwork?: boolean | 'always' | undefined;
 
             /**
              * Determines behaviour if a new route has the same name (or
@@ -572,14 +572,14 @@ declare namespace fetchMock {
              * - false: Appends the new route to the list of routes
              * @default undefined
              */
-            overwriteRoutes?: boolean;
+            overwriteRoutes?: boolean | undefined;
 
             /**
              * Print a warning if any call is caught by a fallback handler (set
              * using the fallbackToNetwork option or catch())
              * @default true
              */
-            warnOnFallback?: boolean;
+            warnOnFallback?: boolean | undefined;
 
             /**
              * Reference to the Promise constructor of a custom Promise
@@ -588,33 +588,33 @@ declare namespace fetchMock {
             Promise?: new (executor: (
                 resolve: (value: Response | PromiseLike<Response>) => void,
                 reject: (reason?: any) => void,
-            ) => void) => Promise<Response>;
+            ) => void) => Promise<Response> | undefined | undefined;
 
             /**
              * Reference to a custom fetch implementation.
              */
-            fetch?: (
+            fetch?: ((
                 input?: string | Request,
                 init?: RequestInit,
-            ) => Promise<Response>;
+            ) => Promise<Response>) | undefined;
 
             /**
              * Reference to the Headers constructor of a custom fetch
              * implementation.
              */
-            Headers?: new () => Headers;
+            Headers?: (new () => Headers | undefined) | undefined;
 
             /**
              * Reference to the Request constructor of a custom fetch
              * implementation.
              */
-            Request?: new (input: string | Request, init?: RequestInit) => Request;
+            Request?: (new (input: string | Request, init?: RequestInit) => Request | undefined) | undefined;
 
             /**
              * Reference to the Response constructor of a custom fetch
              * implementation.
              */
-            Response?: new () => Response;
+            Response?: (new () => Response | undefined) | undefined;
         };
     }
 

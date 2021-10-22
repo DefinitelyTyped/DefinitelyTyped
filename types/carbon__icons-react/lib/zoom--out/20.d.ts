@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ZoomOut20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ZoomOut20;
+import { ZoomOut20 } from "../../";
+
+export = ZoomOut20;

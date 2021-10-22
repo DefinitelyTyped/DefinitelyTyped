@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const IncreaseLevel24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default IncreaseLevel24;
+import { IncreaseLevel24 } from "../../";
+
+export = IncreaseLevel24;

@@ -1,12 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "no-declare-current-package": false,
-        "no-single-declare-module": false,
-        "no-var-keyword": false,
-        "one-line": false,
-        "prefer-const": false,
-        "unified-signatures": false
-    }
+    "extends": "dtslint/dt.json"
 }

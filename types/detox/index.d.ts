@@ -1,4 +1,4 @@
-// Type definitions for detox 16.4
+// Type definitions for detox 17.14
 // Project: https://github.com/wix/detox
 // Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
 //                 Steve Chun <https://github.com/stevechun>
@@ -6,6 +6,8 @@
 //                 pera <https://github.com/santiagofm>
 //                 Max Komarychev <https://github.com/maxkomarychev>
 //                 Dor Ben Baruch <https://github.com/Dor256>
+//                 dkrk <https://github.com/grgr-dkrk>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
     const device: Detox.Device;
@@ -46,6 +48,56 @@ declare global {
              * });
              */
             cleanup(): Promise<void>;
+            /**
+             * Trace a subprocess of your test's runtime such that it would leave traces inside the Timeline artifact, for a later inspection.
+             * @param label
+             * @param callback
+             * @example
+             * it('Verify sanity things', async () => {
+             *   // Instead of this typical direct call:
+             *   // await element(by.id('sanityButton')).tap()
+             *   // Use traceCall() as a wrapper:
+             *   await detox.traceCall('Navigate to sanity', () =>
+             *     element(by.id('sanityButton')).tap());
+             * });
+             */
+            traceCall(label: string, callback: () => void): Promise<void>;
+            trace: {
+                /**
+                 * This is similar to the `traceCall()` API, except that it gives more freedom with respect to when a section's start and ending times are defined, so as to monitor a nontrivial flow.
+                 * @param label
+                 * @param @optional args
+                 * @example
+                 * it('Verify sanity things', async () => {
+                 *   try {
+                 *     detox.trace.startSection('Turn off notifications');
+                 *     await element(by.id('gotoNotifications')).tap();
+                 *     await element(by.id('notificationsToggle')).tap();
+                 *     await device.pressBack();
+                 *   } finally {
+                 *     detox.trace.endSection('Turn off notifications');
+                 *   }
+                 * });
+                 */
+                startSection(label: string, args?: Record<string, any>): void;
+                /**
+                 * This is similar to the `traceCall()` API, except that it gives more freedom with respect to when a section's start and ending times are defined, so as to monitor a nontrivial flow.
+                 * @param label
+                 * @param @optional args
+                 * @example
+                 * it('Verify sanity things', async () => {
+                 *   try {
+                 *     detox.trace.startSection('Turn off notifications');
+                 *     await element(by.id('gotoNotifications')).tap();
+                 *     await element(by.id('notificationsToggle')).tap();
+                 *     await device.pressBack();
+                 *   } finally {
+                 *     detox.trace.endSection('Turn off notifications');
+                 *   }
+                 * });
+                 */
+                endSection(label: string, args?: Record<string, any>): void;
+            };
         }
 
         // Detox exports all methods from detox global and all of the global constants.
@@ -72,7 +124,7 @@ declare global {
             name: string;
             /**
              * Launch the app
-             * @param config
+             * @param params
              * @example // Terminate the app and launch it again. If set to false, the simulator will try to bring app from background,
              * // if the app isn't running, it will launch a new instance. default is false
              * await device.launchApp({newInstance: true});
@@ -81,7 +133,7 @@ declare global {
              * // Mock opening the app from URL to test your app's deep link handling mechanism.
              * await device.launchApp({url: url});
              */
-            launchApp(config: DeviceLanchAppConfig): Promise<void>;
+            launchApp(params: DeviceLanchAppParams): Promise<void>;
             /**
              * By default, terminateApp() with no params will terminate the app
              * To terminate another app, specify its bundle id
@@ -119,7 +171,7 @@ declare global {
              * Mock opening the app from URL. sourceApp is an optional parameter to specify source application bundle id.
              * @param url
              */
-            openURL(url: { url: string; sourceApp?: string }): Promise<void>;
+            openURL(url: { url: string; sourceApp?: string | undefined }): Promise<void>;
             /**
              * Mock handling of received user notification when app is in foreground.
              * @param params
@@ -219,6 +271,23 @@ declare global {
              */
             clearKeychain(): Promise<void>;
             /**
+             * Override simulator's status bar.
+             */
+            setStatusBar(options: StatusBarOptionsOfIOS): Promise<void>;
+            /**
+             * Resets any override in simulator's status bar.
+             */
+            resetStatusBar(): Promise<void>;
+            /**
+             * Reverse a TCP port from the device (guest) back to the host-computer, as typically done with the adb reverse command.
+             * The end result would be that all network requests going from the device to the specified port will be forwarded to the computer.
+             */
+            reverseTcpPort(): Promise<void>;
+            /**
+             * Clear a reversed TCP-port (e.g. previously set using device.reverseTcpPort()).
+             */
+            unreverseTcpPort(): Promise<void>;
+            /**
              * Simulate press back button (Android Only)
              * @example
              * await device.pressBack();
@@ -309,7 +378,13 @@ declare global {
              */
             toBeVisible(): R;
             /**
+             * Negate the expectation.
+             * @example await expect(element(by.id('UniqueId205'))).not.toBeVisible();
+             */
+            not: Expect<R>;
+            /**
              * Expect the view to not be visible.
+             * @deprecated Use `.not.toBeVisible()` instead.
              * @example await expect(element(by.id('UniqueId205'))).toBeNotVisible();
              */
             toBeNotVisible(): R;
@@ -320,6 +395,7 @@ declare global {
             toExist(): R;
             /**
              * Expect the view to not exist in the UI hierarchy.
+             * @deprecated Use `.not.toExist()` instead.
              * @example await expect(element(by.id('RandomJunk959'))).toNotExist();
              */
             toNotExist(): R;
@@ -349,7 +425,21 @@ declare global {
              * @param value
              * @example await expect(element(by.id('UniqueId533'))).toHaveValue('0');
              */
-            toHaveValue(value: any): R;
+            toHaveValue(value: '0' | '1'): R;
+            /**
+             * Expects the slider element (iOS Only)
+             * @param normalizedPosition specified normalized position ([0, 1])
+             * @param @optional within the provided tolerance ([0, 1])
+             * @example
+             * await expect(element(by.id('slider'))).toHaveSliderPosition(0.75);
+             * await expect(element(by.id('slider'))).toHaveSliderPosition(0.3113, 0.00001);
+             */
+            toHaveSliderPosition(normalizedPosition: number, tolerance?: number): R;
+            /**
+             * Expects a toggle-able element (e.g. a Switch or a Check-Box) to be on/checked or off/unchecked. As a reference, in react-native, this is the equivalent switch component.
+             * @param value
+             */
+            toHaveToggleValue(value: boolean): R;
         }
         interface WaitFor {
             /**
@@ -374,16 +464,20 @@ declare global {
         interface Actions<R> {
             /**
              * Simulate tap on an element
+             * @param @optional point a point in the element's coordinate space (valid input: object with x and y numerical values, default is null)
              * @example
              * await element(by.id('tappable')).tap();
+             * await element(by.id('tappable')).tap({x:5, y:10});
              */
-            tap(): Promise<Actions<R>>;
+            tap(point?: Point): Promise<Actions<R>>;
             /**
              * Simulate long press on an element
+             * @param @optional duration to press for, in ms (default is 1000)
              * @example
              * await element(by.id('tappable')).longPress();
+             * await element(by.id('tappable')).longPress(1500);
              */
-            longPress(): Promise<Actions<R>>;
+            longPress(duration?: number): Promise<Actions<R>>;
             /**
              * Simulate multiple taps on an element.
              * @param times number of times to tap
@@ -394,11 +488,12 @@ declare global {
             /**
              * Simulate tap at a specific point on an element.
              * Note: The point coordinates are relative to the matched element and the element size could changes on different devices or even when changing the device font size.
+             * @deprecated Use .tap({x, y}) instead.
              * @param point
              * @example
              * await element(by.id('tappable')).tapAtPoint({ x:5, y:10 });
              */
-            tapAtPoint(point: { x: number; y: number }): Promise<Actions<R>>;
+            tapAtPoint(point: Point): Promise<Actions<R>>;
             /**
              * Use the builtin keyboard to type text into a text field.
              * @param text
@@ -433,7 +528,7 @@ declare global {
             tapReturnKey(): Promise<Actions<R>>;
             /**
              * Scrolls a given amount of pixels in the provided direction, starting from the provided start positions.
-             * @param pixels - independent device pixels
+             * @param offset - the offset to scroll, in points
              * @param direction - left/right/up/down
              * @param @optional startPositionX - the X starting scroll position, in percentage; valid input: `[0.0, 1.0]`, `NaN`; default: `NaN`—choose the best value automatically
              * @param @optional startPositionY - the Y starting scroll position, in percentage; valid input: `[0.0, 1.0]`, `NaN`; default: `NaN`—choose the best value automatically
@@ -442,7 +537,7 @@ declare global {
              * await element(by.id('scrollView')).scroll(100, 'up');
              */
             scroll(
-                pixels: number,
+                offset: number,
                 direction: Direction,
                 startPositionX?: number,
                 startPositionY?: number,
@@ -454,18 +549,39 @@ declare global {
              * await element(by.id('scrollView')).scrollTo('bottom');
              * await element(by.id('scrollView')).scrollTo('top');
              */
-            scrollTo(edge: Direction): Promise<Actions<R>>;
+            scrollTo(edge: ScrollDirection): Promise<Actions<R>>;
             /**
              * Swipes in the provided direction at the provided speed, started from percentage.
              * @param direction
              * @param speed default: `fast`
-             * @param @optional percentage screen percentage to swipe; valid input: `[0.0, 1.0]`
+             * @param @optional normalizedOffset swipe amount relative to the screen width/height (a number between 0.0 and 1.0, default is NaN — choose an optimal value automatically)
+             * @param @optional normalizedStartingPointX X coordinate of swipe starting point, relative to the view width; valid input: `[0.0, 1.0]`
+             * @param @optional normalizedStartingPointY Y coordinate of swipe starting point, relative to the view height; valid input: `[0.0, 1.0]`
              * @example
              * await element(by.id('scrollView')).swipe('down');
              * await element(by.id('scrollView')).swipe('down', 'fast');
              * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
+             * await element(by.id('scrollView')).swipe('down', 'fast', 0.5, 0.2);
+             * await element(by.id('scrollView')).swipe('down', 'fast', 0.5, 0.2, 0.5);
              */
-            swipe(direction: Direction, speed?: Speed, percentage?: number): Promise<Actions<R>>;
+            swipe(
+                direction: Direction,
+                speed?: Speed,
+                normalizedOffset?: number,
+                normalizedStartingPointX?: number,
+                normalizedStartingPointY?: number,
+            ): Promise<Actions<R>>;
+            /**
+             * Simulates a swipe on the element with the provided options. (iOS only)
+             * @param scale valid input: `[0.0, inf]`
+             * @param @optional speed default: `slow`
+             * @param @optional angle default: NaN; valid input: `[0.0, 1.0]`
+             * @example
+             * await element(by.id('PinchableScrollView')).pinch(1.1); //Zooms in a little bit
+             * await element(by.id('PinchableScrollView')).pinch(2.0); //Zooms in a lot
+             * await element(by.id('PinchableScrollView')).pinch(0.001); //Zooms out a lot
+             */
+            pinch(scale: number, speed?: Speed, angle?: number): Promise<Actions<R>>;
             /**
              * Sets a picker view’s column to the given value. This function supports both date pickers and general picker views. (iOS Only)
              * @param column number of datepicker column (starts from 0)
@@ -490,6 +606,7 @@ declare global {
             setDatePickerDate(dateString: string, dateFormat: string): Promise<Actions<R>>;
             /**
              * Pinches in the given direction with speed and angle. (iOS only)
+             * @deprecated Use .pinch() instead.
              * @param direction
              * @param speed
              * @param angle value in radiant, default is `0`
@@ -497,51 +614,69 @@ declare global {
              * await expect(element(by.id('PinchableScrollView'))).toBeVisible();
              * await element(by.id('PinchableScrollView')).pinchWithAngle('outward', 'slow', 0);
              */
-            pinchWithAngle(direction: Direction, speed: Speed, angle: number): Promise<Actions<R>>;
+            pinchWithAngle(direction: 'inward' | 'outward', speed: Speed, angle: number): Promise<Actions<R>>;
+            /**
+             * Manipulates the UI to change the displayed value of the slider element to a new value, based on a normalized position. (iOS only)
+             * @param normalizedPosition valid input: [0, 1], 0 corresponds to the minimum value of the slider, and 1 corresponds to the maximum value.
+             * @example
+             * await element(by.id('slider')).adjustSliderToPosition(0.75);
+             */
+            adjustSliderToPosition(normalizedPosition: number): Promise<Actions<R>>;
+            /**
+             * Returns an object, representing the attributes of the element.
+             * @example
+             * const attributes = await element(by.text('Tap Me')).getAttributes();
+             * jestExpect(attributes.text).toBe('Tap Me');
+             * const multipleMatchedElements = await element(by.text('Multiple')).getAttributes();
+             * jestExpect(multipleMatchedElements.elements.length).toBe(5);
+             * jestExpect(multipleMatchedElements.elements[0].identifier).toBe('FirstElement');
+             */
+            getAttributes(): Promise<AttributesOfIOS | AttributesOfAndroid>;
         }
 
-        type Direction = 'left' | 'right' | 'top' | 'bottom' | 'up' | 'down';
+        type Direction = 'left' | 'right' | 'up' | 'down';
+        type ScrollDirection = 'left' | 'right' | 'top' | 'bottom';
         type Orientation = 'portrait' | 'landscape';
         type Speed = 'fast' | 'slow';
         interface LanguageAndLocale {
-            language?: string;
-            locale?: string;
+            language?: string | undefined;
+            locale?: string | undefined;
         }
         interface DetoxInitOptions {
             /**
              * Detox exports device, expect, element, by and waitFor as globals by default, if you want to control their initialization manually, set init detox with initGlobals set to false.
              * This is useful when during E2E tests you also need to run regular expectations in node. jest Expect for instance, will not be overriden by Detox when this option is used.
              */
-            initGlobals?: boolean;
+            initGlobals?: boolean | undefined;
             /**
              * By default await detox.init(config); will launch the installed app. If you wish to control when your app is launched, add {launchApp: false} param to your init.
              */
-            launchApp?: boolean;
+            launchApp?: boolean | undefined;
             /**
              * By default await detox.init(config); will uninstall and install the app. If you wish to reuse the existing app for a faster run, add {reuse: true} param to your init.
              */
-            reuse?: boolean;
+            reuse?: boolean | undefined;
         }
 
         /**
          *  Source for string definitions is https://github.com/wix/AppleSimulatorUtils
          */
         interface DevicePermissions {
-            location?: LocationPermission;
-            notifications?: NotificationsPermission;
-            calendar?: CalendarPermission;
-            camera?: CameraPermission;
-            contacts?: ContactsPermission;
-            health?: HealthPermission;
-            homekit?: HomekitPermission;
-            medialibrary?: MediaLibraryPermission;
-            microphone?: MicrophonePermission;
-            motion?: MotionPermission;
-            photos?: PhotosPermission;
-            reminders?: RemindersPermission;
-            siri?: SiriPermission;
-            speech?: SpeechPermission;
-            faceid?: FaceIDPermission;
+            location?: LocationPermission | undefined;
+            notifications?: NotificationsPermission | undefined;
+            calendar?: CalendarPermission | undefined;
+            camera?: CameraPermission | undefined;
+            contacts?: ContactsPermission | undefined;
+            health?: HealthPermission | undefined;
+            homekit?: HomekitPermission | undefined;
+            medialibrary?: MediaLibraryPermission | undefined;
+            microphone?: MicrophonePermission | undefined;
+            motion?: MotionPermission | undefined;
+            photos?: PhotosPermission | undefined;
+            reminders?: RemindersPermission | undefined;
+            siri?: SiriPermission | undefined;
+            speech?: SpeechPermission | undefined;
+            faceid?: FaceIDPermission | undefined;
         }
 
         type LocationPermission = 'always' | 'inuse' | 'never' | 'unset';
@@ -561,17 +696,17 @@ declare global {
         type NotificationsPermission = PermissionState;
         type FaceIDPermission = PermissionState;
 
-        interface DeviceLanchAppConfig {
+        interface DeviceLanchAppParams {
             /**
              * Restart the app
              * Terminate the app and launch it again. If set to false, the simulator will try to bring app from background, if the app isn't running, it will launch a new instance. default is false
              */
-            newInstance?: boolean;
+            newInstance?: boolean | undefined;
             /**
              * Set runtime permissions
              * Grant or deny runtime permissions for your application.
              */
-            permissions?: DevicePermissions;
+            permissions?: DevicePermissions | undefined;
             /**
              * Launch from URL
              * Mock opening the app from URL to test your app's deep link handling mechanism.
@@ -589,16 +724,218 @@ declare global {
              * Launch into a fresh installation
              * A flag that enables relaunching into a fresh installation of the app (it will uninstall and install the binary again), default is false.
              */
-            delete?: boolean;
+            delete?: boolean | undefined;
             /**
              * Detox can start the app with additional launch arguments
              * The added launchArgs will be passed through the launch command to the device and be accessible via [[NSProcessInfo processInfo] arguments]
              */
             launchArgs?: any;
             /**
-             * Launch config for specifying the native language and locale
+             * Disables touch indicators on iOS. Default is false.
              */
-            languageAndLocale?: LanguageAndLocale;
+            disableTouchIndicators?: boolean | undefined;
+            /**
+             * Launch the app with a specific system language.
+             * @see https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/LanguageandLocaleIDs/LanguageandLocaleIDs.html
+             */
+            languageAndLocale?: LanguageAndLocale | undefined;
+            /**
+             * Launches the app with the synchronization mechanism enabled or disabled. Synchronization can later be enabled using `device.enableSynchronization()`.
+             */
+            detoxEnableSynchronization?: number | undefined;
+            /**
+             * Launches the app with a URL blacklist to disable network synchronization on certain endpoints. Useful if the app makes frequent network calls to blacklisted endpoints upon startup.
+             */
+            detoxURLBlacklistRegex?: number | undefined;
+            /**
+             * Mock opening the app from URL. sourceApp is an optional iOS-only parameter to specify source application bundle id. (iOS only)
+             */
+            sourceApp?: string | undefined;
+        }
+
+        interface StatusBarOptionsOfIOS {
+            /**
+             * Set the date or time to a fixed value.
+             * If the string is a valid ISO date string it will also set the date on relevant devices.
+             */
+            time?: string | undefined;
+            /**
+             * If specified must be one of `wifi`, `3g`, `4g`, `lte`, `lte-a`, or `lte+`.
+             */
+            dataNetwork?: DataNetwork | undefined;
+            /**
+             * If specified must be one of `searching`, `failed`, or `active`.
+             */
+            wifiMode?: WifiMode | undefined;
+            /**
+             * If specified must be 0-3.
+             */
+            wifiBars?: 0 | 1 | 2 | 3 | undefined;
+            /**
+             * If specified must be one of `notSupported`, `searching`, `failed`, or `active`.
+             */
+            cellularMode?: CellularMode | undefined;
+            /**
+             * If specified must be 0-3.
+             */
+            cellularBars?: 0 | 1 | 2 | 3 | undefined;
+            /**
+             * If specified must be one of `charging`, `charged`, or `discharging`.
+             */
+            batteryState?: BatteryState | undefined;
+            /**
+             * If specified must be 0-100.
+             */
+            batteryLevel?: number | undefined;
+        }
+
+        interface AttributeIOSFrame {
+            y: number;
+            x: number;
+            width: number;
+            height: number;
+        }
+
+        interface AttributeIOSInsets {
+            right: number;
+            top: number;
+            left: number;
+            bottom: number;
+        }
+
+        // Shared iOS and Android Attributes
+        interface SharedAttributes {
+            /**
+             * the text value of the element
+             */
+            text: string;
+            /**
+             * the label of the element (matches `accessibilityLabel`)
+             */
+            label: string;
+            /**
+             * the placeholder text value of the element
+             */
+            placeholder: string;
+            /**
+             * whether or not the element is enabled for user interaction
+             */
+            enabled: boolean;
+            /**
+             * the identifier of the element (matches `accessibilityIdentifier`)
+             */
+            identifier: string;
+            /**
+             * whether the element is visible at the activation point
+             */
+            visible: boolean;
+            /**
+             * the value of the element (matches `accessibilityValue`)
+             */
+            value: string;
+        }
+
+        // iOS Specific Attributes
+        interface AttributesOfIOS extends SharedAttributes {
+            /**
+             * the activation point of the element, in element coordinate space (iOS Only)
+             */
+            activationPoint: Point;
+            /**
+             * the activation point of the element, in normalized percentage ([0.0, 1.0]) (iOS Only)
+             */
+            normalizedActivationPoint: Point;
+            /**
+             * whether the element is hittable at the activation point (iOS Only)
+             */
+            hittable: boolean;
+            /**
+             * the frame of the element, in screen coordinate space (iOS Only)
+             */
+            frame: AttributeIOSFrame;
+            /**
+             * the frame of the element, in container coordinate space (iOS Only)
+             */
+            elementFrame: AttributeIOSFrame;
+            /**
+             * the bounds of the element, in element coordinate space (iOS Only)
+             */
+            elementBounds: AttributeIOSFrame;
+            /**
+             * the safe area insets of the element, in element coordinate space (iOS Only)
+             */
+            safeAreaInsets: AttributeIOSInsets;
+            /**
+             * the safe area bounds of the element, in element coordinate space (iOS Only)
+             */
+            elementSafeBounds: AttributeIOSFrame;
+            /**
+             * the date of the element (in case the element is a date picker) (iOS Only)
+             */
+            date: string;
+            /**
+             * the normalized slider position (in case the element is a slider) (iOS Only)
+             */
+            normalizedSliderPosition: number;
+            /**
+             * the content offset (in case the element is a scroll view) (iOS Only)
+             */
+            contentOffset: number;
+            /**
+             * the content inset (in case the element is a scroll view) (iOS Only)
+             */
+            contentInset: number;
+            /**
+             * the adjusted content inset (in case the element is a scroll view) (iOS Only)
+             */
+            adjustedContentInset: number;
+            layer: string;
+        }
+
+        // Android Specific Attributes
+        interface AttributesOfAndroid extends SharedAttributes {
+            /**
+             * The OS visibility type associated with the element: visible, invisible or gone. (Android Only)
+             */
+            visibility: 'visible' | 'invisible' | 'gone';
+            /**
+             * width: Width of the element, in pixels. (Android Only)
+             */
+            width: number;
+            /**
+             * height: Height of the element, in pixels. (Android Only)
+             */
+            height: number;
+            /**
+             * elevation: Elevation of the element. (Android Only)
+             */
+            elevation: number;
+            /**
+             * alpha: Alpha value for the element. (Android Only)
+             */
+            alpha: number;
+            /**
+             * focused: Whether the element is the one currently in focus. (Android Only)
+             */
+            focused: number;
+            /**
+             * textSize: The text size for the text element. (Android Only)
+             */
+            textSize: number;
+            /**
+             * length: The length of the text element (character count). (Android Only)
+             */
+            length: number;
+        }
+
+        type DataNetwork = 'wifi' | '3g' | '4g' | 'lte' | 'lte-a' | 'lte+';
+        type WifiMode = 'searching' | 'failed' | 'active';
+        type CellularMode = 'notSupported' | 'searching' | 'failed' | 'active';
+        type BatteryState = 'charging' | 'charged' | 'discharging';
+
+        interface Point {
+            x: number;
+            y: number;
         }
 
         interface CircusTestEventListenerBase {
@@ -617,7 +954,7 @@ declare global {
                  * detoxCircus.getEnv().addEventsListener(adapter)
                  * detoxCircus.getEnv().addEventsListener(assignReporter)
                  */
-                addEventsListener(listener: CircusTestEventListenerBase): void
+                addEventsListener(listener: CircusTestEventListenerBase): void;
             };
         }
     }

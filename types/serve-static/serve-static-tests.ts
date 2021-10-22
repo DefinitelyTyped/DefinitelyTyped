@@ -15,7 +15,7 @@ app.use(serveStatic('/3', {
     maxAge: 0,
     redirect: true,
     setHeaders: function(res, path: string, stat: any) {
-        // $ExpectType Response<any, number>
+        // $ExpectType Response<any, Record<string, any>, number>
         res;
         res.setHeader('Server', 'server-static middleware');
     }
@@ -32,6 +32,8 @@ serveStatic.mime.define({
 
 serveStatic('/does-not-assume-express', {
     setHeaders: function(res) {
+        // ServerResponse
+        res;
         // $ExpectError
         res.set("foo", "bar");
     }
@@ -43,7 +45,7 @@ http.createServer((req, res) => {
 
 app.use(serveStatic('/infers-express-response-when-passed-to-express-use', {
     setHeaders: function(res) {
-        // $ExpectType Response<any, number>
+        // $ExpectType Response<any, Record<string, any>, number>
         res;
         res.set('foo', 'bar');
     }

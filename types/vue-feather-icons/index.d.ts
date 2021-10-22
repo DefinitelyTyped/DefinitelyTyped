@@ -103,6 +103,7 @@ export const CrosshairIcon: FeatherIconComponent;
 export const DatabaseIcon: FeatherIconComponent;
 export const DeleteIcon: FeatherIconComponent;
 export const DiscIcon: FeatherIconComponent;
+export const DivideIcon: FeatherIconComponent;
 export const DollarSignIcon: FeatherIconComponent;
 export const DownloadCloudIcon: FeatherIconComponent;
 export const DownloadIcon: FeatherIconComponent;

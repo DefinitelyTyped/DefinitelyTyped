@@ -39,9 +39,11 @@
         "test/NavigateWithContext.tsx",
         "test/MemoryRouter.tsx",
         "test/Prompt.tsx",
+        "test/Route.tsx",
         "test/Switch.tsx",
         "test/InheritingRoute.tsx",
         "test/WithRouter.tsx",
-        "test/RouterContext.tsx"
+        "test/RouterContext.tsx",
+        "test/generatePath.ts"
     ]
 }

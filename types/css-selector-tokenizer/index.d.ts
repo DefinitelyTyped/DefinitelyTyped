@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface BaseNode {
-    name?: string;
-    before?: string;
-    after?: string;
+    name?: string | undefined;
+    before?: string | undefined;
+    after?: string | undefined;
 }
 
 /** Any node returned by `parse`. Useful for `walk` implementations. */
@@ -40,7 +40,7 @@ export type SelectorNodeType =
 export interface ElementNode extends BaseNode {
     type: 'element';
     name: string;
-    namespace?: string;
+    namespace?: string | undefined;
 }
 
 export interface PseudoElementNode extends BaseNode {
@@ -56,7 +56,7 @@ export interface ClassNode extends BaseNode {
 export interface PseudoClassNode extends BaseNode {
     type: 'pseudo-class';
     name: string;
-    content?: string;
+    content?: string | undefined;
 }
 
 export interface AttributeNode extends BaseNode {
@@ -87,7 +87,7 @@ export interface SpacingNode extends BaseNode {
 
 export interface UniversalNode extends BaseNode {
     type: 'universal';
-    namespace?: string;
+    namespace?: string | undefined;
 }
 
 export interface OperatorNode extends BaseNode {
@@ -130,9 +130,9 @@ export interface NestedItemNode extends BaseNode {
 export interface UrlNode extends BaseNode {
     type: 'url';
     url: string;
-    stringType?: string;
-    innerSpacingBefore?: string;
-    innerSpacingAfter?: string;
+    stringType?: string | undefined;
+    innerSpacingBefore?: string | undefined;
+    innerSpacingAfter?: string | undefined;
 }
 
 export interface StringNode extends BaseNode {

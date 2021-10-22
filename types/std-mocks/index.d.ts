@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    stdout?: boolean;
-    stderr?: boolean;
+    stdout?: boolean | undefined;
+    stderr?: boolean | undefined;
 }
 
 /**
  * Start mocking std output
  */
-export function use(opts?: Options & {print?: boolean}): void;
+export function use(opts?: Options & {print?: boolean | undefined}): void;
 
 /**
  * Restore std output

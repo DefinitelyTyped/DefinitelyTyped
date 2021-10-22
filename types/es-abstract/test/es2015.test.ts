@@ -64,7 +64,7 @@ ES2015.Call(iterNext, generable());
 
 // $ExpectType IteratorResult<number, boolean>
 ES2015.Invoke(generable(), 'next', args as IArguments & [string]);
-ES2015.Invoke(generable(), Symbol.iterator, args);
+ES2015.Invoke(generable(), Symbol.iterator, args as IArguments & []);
 
 // $ExpectType boolean
 ES2015.Invoke(Reflect, 'has', args as IArguments & [object, PropertyKey]);
@@ -79,7 +79,7 @@ ES2015.GetIterator(null, generable);
 ES2015.IteratorNext(generable()); // $ExpectType IteratorResult<number, boolean>
 ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise<IteratorResult<number, void>>
 
-// $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>>
+// $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>> || IteratorResult<number, void> | Promise<IteratorResult<number, void>>
 expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
     ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
 );
@@ -135,13 +135,13 @@ completeRequiredValueDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeRequiredValueDescriptor['[[Writable]]']; // $ExpectType boolean
 completeRequiredValueDescriptor['[[Value]]']; // $ExpectType string
 
-const completeDataDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Value]]'?: number }>());
+const completeDataDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Value]]'?: number | undefined }>());
 completeDataDescriptor['[[Configurable]]']; // $ExpectType boolean
 completeDataDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeDataDescriptor['[[Writable]]']; // $ExpectType boolean
 completeDataDescriptor['[[Value]]']; // $ExpectType number | undefined
 
-const completeAccessorDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Get]]'?: () => symbol }>());
+const completeAccessorDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Get]]'?: (() => symbol) | undefined }>());
 completeAccessorDescriptor['[[Configurable]]']; // $ExpectType boolean
 completeAccessorDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeAccessorDescriptor['[[Get]]']; // $ExpectType (() => symbol) | undefined
@@ -175,11 +175,11 @@ declare const Bar: {
 declare const Baz: {
     (foo: number): any;
     new (bar: string): object;
-    readonly prototype?: unknown;
+    readonly prototype?: unknown | undefined;
 };
 
 // tslint:disable-next-line: ban-types
-declare const Biz: { readonly prototype?: null } & Omit<Function, 'prototype'>;
+declare const Biz: { readonly prototype?: null | undefined } & Omit<Function, 'prototype'>;
 
 ES2015.GetPrototypeFromConstructor(Foo, '%Object.prototype%'); // $ExpectType Foo
 ES2015.GetPrototypeFromConstructor(Bar, '%Object.prototype%'); // $ExpectType Object

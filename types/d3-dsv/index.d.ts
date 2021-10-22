@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-dsv module 2.0
+// Type definitions for D3JS d3-dsv module 3.0
 // Project: https://github.com/d3/d3-dsv/, https://d3js.org/d3-dsv
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.1
 
 // ------------------------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -156,7 +155,7 @@ export function csvParseRows<ParsedRow extends object>(
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function csvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function csvFormat<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // csvFormatBody(...) ============================================================================
 
@@ -166,7 +165,7 @@ export function csvFormat<T extends object>(rows: T[], columns?: Array<keyof T>)
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function csvFormatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function csvFormatBody<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // csvFormatRows(...) ========================================================================
 
@@ -183,7 +182,7 @@ export function csvFormatBody<T extends object>(rows: T[], columns?: Array<keyof
  *
  * @param rows An array of array of string rows.
  */
-export function csvFormatRows(rows: string[][]): string;
+export function csvFormatRows(rows: readonly string[][]): string;
 
 // csvFormatRow(...) ========================================================================
 
@@ -192,7 +191,7 @@ export function csvFormatRows(rows: string[][]): string;
  *
  * @param row An array of strings representing a row.
  */
-export function csvFormatRow(row: string[]): string;
+export function csvFormatRow(row: readonly string[]): string;
 
 // csvFormatValue(...) ========================================================================
 
@@ -297,7 +296,7 @@ export function tsvParseRows<ParsedRow extends object>(
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function tsvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function tsvFormat<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // tsvFormatBody(...) ============================================================================
 
@@ -307,7 +306,7 @@ export function tsvFormat<T extends object>(rows: T[], columns?: Array<keyof T>)
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function tsvFormatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+export function tsvFormatBody<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
 // tsvFormatRows(...) ========================================================================
 
@@ -324,7 +323,7 @@ export function tsvFormatBody<T extends object>(rows: T[], columns?: Array<keyof
  *
  * @param rows An array of array of string rows.
  */
-export function tsvFormatRows(rows: string[][]): string;
+export function tsvFormatRows(rows: readonly string[][]): string;
 
 // tsvFormatRow(...) ========================================================================
 
@@ -333,7 +332,7 @@ export function tsvFormatRows(rows: string[][]): string;
  *
  * @param row An array of strings representing a row.
  */
-export function tsvFormatRow(row: string[]): string;
+export function tsvFormatRow(row: readonly string[]): string;
 
 // tsvFormatValue(...) ========================================================================
 
@@ -432,7 +431,7 @@ export interface DSV {
      * @param rows Array of object rows.
      * @param columns An array of strings representing the column names.
      */
-    format<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+    format<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
     /**
      * Equivalent to dsv.format, but omits the header row.
@@ -441,7 +440,7 @@ export interface DSV {
      * @param rows Array of object rows.
      * @param columns An array of strings representing the column names.
      */
-    formatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+    formatBody<T extends object>(rows: readonly T[], columns?: ReadonlyArray<keyof T>): string;
 
     /**
      * Formats the specified array of array of string rows as delimiter-separated values, returning a string.
@@ -454,7 +453,7 @@ export interface DSV {
      *
      * @param rows An array of array of string rows.
      */
-    formatRows(rows: string[][]): string;
+    formatRows(rows: readonly string[][]): string;
 
     /**
      * Formats a single array row of strings as delimiter-separated values, returning a string.
@@ -463,7 +462,7 @@ export interface DSV {
      *
      * @param row An array of strings representing a row.
      */
-    formatRow(row: string[]): string;
+    formatRow(row: readonly string[]): string;
 
     /**
      * Format a single value or string as a delimiter-separated value, returning a string.
@@ -490,6 +489,6 @@ export function dsvFormat(delimiter: string): DSV;
  */
 export function autoType<ParsedRow extends object | undefined | null, Columns extends string>(
     // tslint:disable-next-line:no-unnecessary-generics
-    object: DSVRowString<Columns> | string[]
+    object: DSVRowString<Columns> | readonly string[]
 // tslint:disable-next-line:no-unnecessary-generics
 ): ParsedRow;

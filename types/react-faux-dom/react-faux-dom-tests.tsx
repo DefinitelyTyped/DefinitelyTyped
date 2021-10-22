@@ -28,14 +28,16 @@ interface ChartProps extends ReactFauxDomProps {
 
 class MyReactComponent extends React.Component<ChartProps> {
   componentDidMount() {
-    if (this.props.connectFauxDOM && this.props.animateFauxDOM) {
-      const faux = this.props.connectFauxDOM('div', 'chart');
-      d3.select(faux)
-        .append('div')
-        .html('Hello World!');
-      this.props.animateFauxDOM(800);
-      console.log(this.props.isAnimatingFauxDOM());
-    }
+      if (this.props.connectFauxDOM) {
+          if (this.props.animateFauxDOM) {
+              const faux = this.props.connectFauxDOM('div', 'chart');
+              d3.select(faux)
+                  .append('div')
+                  .html('Hello World!');
+              this.props.animateFauxDOM(800);
+              console.log(this.props.isAnimatingFauxDOM());
+          }
+      }
   }
 
   componentDidUpdate() {

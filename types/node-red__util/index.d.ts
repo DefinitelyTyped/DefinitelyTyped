@@ -17,10 +17,10 @@ export = util;
 declare namespace util {
     interface LogMessageObject {
         level: number;
-        msg?: LogMessage;
-        type?: string;
-        id?: string;
-        name?: string;
+        msg?: LogMessage | undefined;
+        type?: string | undefined;
+        id?: string | undefined;
+        name?: string | undefined;
     }
 
     type LogMessage = any;
@@ -246,7 +246,7 @@ declare namespace util {
          * @param key - the context property string to parse
          * @returns The parsed property
          */
-        parseContextStore(key: string): { store?: string; key: string };
+        parseContextStore(key: string): { store?: string | undefined; key: string };
         /**
          * Evaluates a property value according to its type.
          *
@@ -309,7 +309,7 @@ declare namespace util {
          * @param opts
          * @returns the encoded object
          */
-        encodeObject(msg: { msg: any }, opts?: { maxLength?: number }): { format: string; msg: string };
+        encodeObject(msg: { msg: any }, opts?: { maxLength?: number | undefined }): { format: string; msg: string };
     }
 
     interface UtilModule {

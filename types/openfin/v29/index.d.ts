@@ -180,15 +180,15 @@ declare namespace fin {
         /**
          * application has a shortcut on the desktop
          */
-        desktop?: boolean;
+        desktop?: boolean | undefined;
         /**
          * application has no shortcut in the start menu
          */
-        startMenu?: boolean;
+        startMenu?: boolean | undefined;
         /**
          * application will be launched on system startup
          */
-        systemStartup?: boolean;
+        systemStartup?: boolean | undefined;
     }
 
     interface SuccessObj {
@@ -208,23 +208,23 @@ declare namespace fin {
         /**
          * The name of the application.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * The url to the application.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * The UUID of the application, unique within the set of all other applications running in the OpenFin Runtime. name and uuid must match.
          */
-        uuid?: string;
+        uuid?: string | undefined;
         /**
          * Enable Flash at the application level. Default: false.
          */
-        plugins?: boolean;
+        plugins?: boolean | undefined;
         /**
          * The options of the main window of the application.
          */
-        mainWindowOptions?: WindowOptions;
+        mainWindowOptions?: WindowOptions | undefined;
     }
 
     interface WindowOptions {
@@ -232,33 +232,33 @@ declare namespace fin {
          * Enable keyboard shortcuts for devtools and zoom. Default: false for both.
          */
         accelerator?: {
-            devtools?: boolean,
-            zoom?: boolean,
-            reload?: boolean,
-            reloadIgnoreCache?: boolean,
-        };
+            devtools?: boolean | undefined,
+            zoom?: boolean | undefined,
+            reload?: boolean | undefined,
+            reloadIgnoreCache?: boolean | undefined,
+        } | undefined;
         /**
          * A flag to always position the window at the top of the window stack. Default: false.
          * Updatable
          */
-        alwaysOnTop?: boolean;
+        alwaysOnTop?: boolean | undefined;
         /**
          * A flag to automatically show the Window when it is created. Default: false.
          */
-        autoShow?: boolean;
+        autoShow?: boolean | undefined;
         /**
          * A flag to show the context menu when right-clicking on a window. Gives access to the Developer Console for the Window. Default: true
          * Updatable
          */
-        contextMenu?: boolean;
+        contextMenu?: boolean | undefined;
         /**
          * This defines and applies rounded corners for a frameless window. Default for both width and height: 0.
          * Updatable
          */
         cornerRounding?: {
-            width?: number;
-            height?: number;
-        };
+            width?: number | undefined;
+            height?: number | undefined;
+        } | undefined;
         /**
          * A field that the user can attach serializable data to to be ferried around with the window options. Default: ''.
          */
@@ -268,84 +268,84 @@ declare namespace fin {
          * When the window corresponding to that id is loaded again, the position from before the window was closed is used.
          * This option overrides defaultLeft and defaultTop. Default: false.
          */
-        defaultCentered?: boolean;
+        defaultCentered?: boolean | undefined;
         /**
          * The default height of the window. Specifies the height of the window when loaded for the first time on a machine.
          *  When the window corresponding to that id is loaded again, the height is taken to be the last height of the window before it was closed. Default: 500.
          */
-        defaultHeight?: number;
+        defaultHeight?: number | undefined;
         /**
          * The default left position of the window. Specifies the position of the left of the window when loaded for the first time on a machine.
          *  When the window corresponding to that id is loaded again, the value of left is taken to be the last value before the window was closed. Default: 100.
          */
-        defaultWidth?: number;
+        defaultWidth?: number | undefined;
         /**
          * The default top position of the window. Specifies the position of the top of the window when loaded for the first time on a machine.
          * When the window corresponding to that id is loaded again, the value of top is taken to be the last value before the window was closed. Default: 100.
          */
-        defaultTop?: number;
+        defaultTop?: number | undefined;
         /**
          * The default width of the window. Specifies the width of the window when loaded for the first time on a machine.
          * When the window corresponding to that id is loaded again, the width is taken to be the last width of the window before it was closed. Default: 800.
          */
-        defaultLeft?: number;
+        defaultLeft?: number | undefined;
         /**
          * A flag to show the frame. Default: true.
          * Updatable
          */
-        frame?: boolean;
+        frame?: boolean | undefined;
         /**
          * A flag to allow a window to be hidden when the close button is clicked.Default: false.
          * Updatable
          */
-        hideOnClose?: boolean;
+        hideOnClose?: boolean | undefined;
         /**
          * A URL for the icon to be shown in the window title bar and the taskbar.Default: The parent application's applicationIcon.
          * Updatable
          */
-        icon?: string;
+        icon?: string | undefined;
         /**
          * The maximum height of a window.Will default to the OS defined value if set to - 1. Default: -1.
          * Updatable
          */
-        maxHeight?: number;
+        maxHeight?: number | undefined;
         /**
          * A flag that lets the window be maximized.Default: true.
          * Updatable
          */
-        maximizable?: boolean;
+        maximizable?: boolean | undefined;
         /**
          * The maximum width of a window.Will default to the OS defined value if set to - 1. Default: -1.
          * Updatable
          */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
         /**
          * The minimum height of a window.Default: 0.
          * Updatable
          */
-        minHeight?: number;
+        minHeight?: number | undefined;
         /**
          * A flag that lets the window be minimized.Default: true.
          */
-        minimizable?: boolean;
+        minimizable?: boolean | undefined;
         /**
          * The minimum width of a window.Default: 0.
          */
-        minWidth?: number;
+        minWidth?: number | undefined;
         /**
          * The name for the window which must be unique within the context of the invoking Application.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * A flag that specifies how transparent the window will be.This value is clamped between 0.0 and 1.0.Default: 1.0.
          * Updatable
          */
-        opacity?: number;
+        opacity?: number | undefined;
         /**
          * A flag to drop to allow the user to resize the window.Default: true.
          * Updatable
          */
-        resizable?: boolean;
+        resizable?: boolean | undefined;
         /**
          * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window.
          * Updatable
@@ -354,40 +354,40 @@ declare namespace fin {
             /**
              * The size in pixels (Default: 2),
              */
-            size?: number;
+            size?: number | undefined;
             /**
              * The size in pixels of an additional
              * square resizable region located at the
              * bottom right corner of a
              * frameless window. (Default: 4)
              */
-            bottomRightCorner?: number;
-        };
+            bottomRightCorner?: number | undefined;
+        } | undefined;
         /**
          * A flag to show the Window's icon in the taskbar. Default: true.
          */
-        showTaskbarIcon?: boolean;
+        showTaskbarIcon?: boolean | undefined;
         /**
          * A flag to cache the location of the window or not. Default: true.
          */
-        saveWindowState?: boolean;
+        saveWindowState?: boolean | undefined;
         /**
          * Specify a taskbar group for the window. Default: app's uuid.
          */
-        taskbarIconGroup?: string;
+        taskbarIconGroup?: string | undefined;
         /**
          * A string that sets the window to be "minimized", "maximized", or "normal" on creation. Default: "normal".
          */
-        state?: string;
+        state?: string | undefined;
         /**
          * The URL of the window. Default: "about:blank".
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * When set to false, the window will render before the "load" event is fired on the content's window.
          * Caution, when false you will see an initial empty white window. Default: true.
          */
-        waitForPageLoad?: boolean;
+        waitForPageLoad?: boolean | undefined;
     }
 
     /**
@@ -564,7 +564,7 @@ declare namespace fin {
         /**
          * A boolean that will force dismissal even if the mouse is hovering over the notification
          */
-        ignoreMouseOver?: boolean;
+        ignoreMouseOver?: boolean | undefined;
         /**
          * A message of any primitive or composite-primitive type to be passed to the notification upon creation.
          */
@@ -572,11 +572,11 @@ declare namespace fin {
         /**
          * The timeout for displaying a notification.Can be in milliseconds or "never".
          */
-        duration?: number | "never";
+        duration?: number | "never" | undefined;
         /**
          * The url of the notification
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * A function that is called when a notification is clicked.
          */
@@ -818,20 +818,20 @@ declare namespace fin {
     }
 
     interface CacheOptions {
-        cache?: boolean;
-        cookies?: boolean;
-        localStorage?: boolean;
-        appcache?: boolean;
-        userData?: boolean;
+        cache?: boolean | undefined;
+        cookies?: boolean | undefined;
+        localStorage?: boolean | undefined;
+        appcache?: boolean | undefined;
+        userData?: boolean | undefined;
     }
 
     interface AppAssetInfo {
-        src?: string;
-        alias?: string;
-        version?: string;
-        target?: string;
-        args?: string;
-        mandatory?: boolean;
+        src?: string | undefined;
+        alias?: string | undefined;
+        version?: string | undefined;
+        target?: string | undefined;
+        args?: string | undefined;
+        mandatory?: boolean | undefined;
     }
 
     interface AppAssetOptions {
@@ -842,15 +842,15 @@ declare namespace fin {
         /**
          * true when the application is running.
          */
-        isRunning?: boolean;
+        isRunning?: boolean | undefined;
         /**
          * uuid of the application.
          */
-        uuid?: string;
+        uuid?: string | undefined;
         /**
          * uuid of the application that launches this application.
          */
-        parentUuid?: string;
+        parentUuid?: string | undefined;
     }
 
     interface Identity {
@@ -871,7 +871,7 @@ declare namespace fin {
 
     interface DownloadPreloadInfo {
         success: boolean;
-        url?: string;
+        url?: string | undefined;
         error: string;
     }
 
@@ -904,32 +904,32 @@ declare namespace fin {
     }
 
     interface WindowDetails {
-        uuid?: string;
-        mainWindow?: WindowInfo;
-        childWindows?: WindowInfo[];
+        uuid?: string | undefined;
+        mainWindow?: WindowInfo | undefined;
+        childWindows?: WindowInfo[] | undefined;
     }
 
     interface WindowInfo {
         /**
          * name of the child window
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * top-most coordinate of the child window
          */
-        top?: number;
+        top?: number | undefined;
         /**
          * right-most coordinate of the child window
          */
-        right?: number;
+        right?: number | undefined;
         /**
          * bottom-most coordinate of the child window
          */
-        bottom?: number;
+        bottom?: number | undefined;
         /**
          * left-most coordinate of the child window
          */
-        left?: number;
+        left?: number | undefined;
     }
 
     interface HostSpecInfo {
@@ -991,100 +991,100 @@ declare namespace fin {
         /**
          * the filename of the log
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * the size of the log in bytes
          */
-        size?: number;
+        size?: number | undefined;
         /**
          * the unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
          */
-        date?: string;
+        date?: string | undefined;
     }
 
     interface ProcessInfo {
         /**
          * the percentage of total CPU usage
          */
-        cpuUsage?: number;
+        cpuUsage?: number | undefined;
         /**
          * the application name
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * the current nonpaged pool usage in bytes
          */
-        nonPagedPoolUsage?: number;
+        nonPagedPoolUsage?: number | undefined;
         /**
          * the number of page faults
          */
-        pageFaultCount?: number;
+        pageFaultCount?: number | undefined;
         /**
          * the current paged pool usage in bytes
          */
-        pagedPoolUsage?: number;
+        pagedPoolUsage?: number | undefined;
         /**
          * the total amount of memory in bytes that the memory manager has committed
          */
-        pagefileUsage?: number;
+        pagefileUsage?: number | undefined;
         /**
          * the peak nonpaged pool usage in bytes
          */
-        peakNonPagedPoolUsage?: number;
+        peakNonPagedPoolUsage?: number | undefined;
         /**
          * the peak paged pool usage in bytes
          */
-        peakPagedPoolUsage?: number;
+        peakPagedPoolUsage?: number | undefined;
         /**
          * the peak value in bytes of pagefileUsage during the lifetime of this process
          */
-        peakPagefileUsage?: number;
+        peakPagefileUsage?: number | undefined;
         /**
          * the peak working set size in bytes
          */
-        peakWorkingSetSize?: number;
+        peakWorkingSetSize?: number | undefined;
         /**
          * the native process identifier
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * the application UUID
          */
-        uuid?: string;
+        uuid?: string | undefined;
         /**
          * the current working set size (both shared and private data) in bytes
          */
-        workingSetSize?: number;
+        workingSetSize?: number | undefined;
     }
 
     interface ProxyInfo {
         /**
          * the configured Proxy Address
          */
-        proxyAddress?: string;
+        proxyAddress?: string | undefined;
         /**
          * the configured Proxy port
          */
-        proxyPort?: number;
+        proxyPort?: number | undefined;
         /**
          * Proxy Type
          */
-        type?: string;
+        type?: string | undefined;
     }
 
     interface RvmInfo {
-        version?: string;
-        "start-time"?: string;
+        version?: string | undefined;
+        "start-time"?: string | undefined;
     }
 
     interface ExternalProcessLaunchInfo {
-        path?: string;
+        path?: string | undefined;
         /**
          * Additionally note that the executable found in the zip file specified in appAssets
          * will default to the one mentioned by appAssets.target
          * If the the path below refers to a specific path it will override this default
          */
-        alias?: string;
+        alias?: string | undefined;
         /**
          * When using alias; if no arguments are passed then the arguments (if any)
          * are taken from the 'app.json' file, from the  'args' parameter
@@ -1092,62 +1092,62 @@ declare namespace fin {
          * If 'arguments' is passed as a parameter it takes precedence
          * over any 'args' set in the 'app.json'.
          */
-        arguments?: string;
+        arguments?: string | undefined;
         listener?(result: {
             /**
              * "Exited" Or "released" on a call to releaseExternalProcess
              */
-            topic?: string;
+            topic?: string | undefined;
             /**
              * The mapped UUID which identifies the launched process
              */
-            uuid?: string;
+            uuid?: string | undefined;
             /*
              * Process exit code
              */
-            exitCode?: number;
+            exitCode?: number | undefined;
         }): void;
-        certificate?: CertificationInfo;
+        certificate?: CertificationInfo | undefined;
     }
 
     interface CertificationInfo {
         /**
          * A hex string with or without spaces
          */
-        serial?: string;
+        serial?: string | undefined;
         /**
          * An internally tokenized and comma delimited string allowing partial or full checks of the subject fields
          */
-        subject?: string;
+        subject?: string | undefined;
         /**
          * A hex string with or without spaces
          */
-        publickey?: string;
+        publickey?: string | undefined;
         /**
          * A hex string with or without spaces
          */
-        thumbprint?: string;
+        thumbprint?: string | undefined;
         /**
          * A boolean indicating that the certificate is trusted and not revoked
          */
-        trusted?: boolean;
+        trusted?: boolean | undefined;
     }
 
     interface ExternalProcessInfo {
-        pid?: number;
+        pid?: number | undefined;
         listener?(result: {
             /**
              * "Exited" Or "released" on a call to releaseExternalProcess
              */
-            topic?: string;
+            topic?: string | undefined;
             /**
              * The mapped UUID which identifies the launched process
              */
-            uuid?: string;
+            uuid?: string | undefined;
             /*
              * Process exit code
              */
-            exitCode?: number;
+            exitCode?: number | undefined;
         }): void;
     }
 
@@ -1706,82 +1706,82 @@ declare namespace fin {
             /**
              * This value is clamped from 0.0 to 1.0
              */
-            opacity?: number;
+            opacity?: number | undefined;
             /**
              * The total time in milliseconds this transition should take.
              */
-            duration?: number;
+            duration?: number | undefined;
             /**
              * Treat 'opacity' as absolute or as a delta. Defaults to false.
              */
-            relative?: boolean;
-        };
+            relative?: boolean | undefined;
+        } | undefined;
         position?: {
             /**
              * Defaults to the window's current left position in virtual screen coordinates.
              */
-            left?: number;
+            left?: number | undefined;
             /**
              * Defaults to the window's current top position in virtual screen coordinates.
              */
-            top?: number;
+            top?: number | undefined;
             /**
              * The total time in milliseconds this transition should take.
              */
-            duration?: number;
+            duration?: number | undefined;
             /**
              * Treat 'left' and 'top' as absolute or as deltas. Defaults to false.
              */
-            relative?: boolean;
-        };
+            relative?: boolean | undefined;
+        } | undefined;
         size?: {
             /**
              * Optional if height is present. Defaults to the window's current width.
              */
-            width?: number;
+            width?: number | undefined;
             /**
              * Optional if width is present. Defaults to the window's current height.
              */
-            height?: number;
+            height?: number | undefined;
             /**
              * The total time in milliseconds this transition should take.
              */
-            duration?: number;
+            duration?: number | undefined;
             /**
              * Treat 'width' and 'height' as absolute or as deltas. Defaults to false.
              */
-            relative?: boolean;
-        };
+            relative?: boolean | undefined;
+        } | undefined;
     }
 
     interface AnimationOptions {
         /**
          * This option interrupts the current animation. When false it pushes this animation onto the end of the animation queue.
          */
-        interrupt?: boolean;
+        interrupt?: boolean | undefined;
         /**
          * Transition effect. Defaults to 'ease-in-out'.
          */
-        tween?: OpenFinTweenType;
+        tween?: OpenFinTweenType | undefined;
     }
 
     interface WindowBounds {
         /**
          * the height of the window.
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * left-most coordinate of the window.
          */
-        left?: number;
+        left?: number | undefined;
         /**
          * top-most coordinate of the window.
          */
-        top?: number;
+        top?: number | undefined;
         /**
          * the width of the window.
          */
-        width?: number;
+        width?: number | undefined;
     }
 
     interface ExternalApplicationInfo {

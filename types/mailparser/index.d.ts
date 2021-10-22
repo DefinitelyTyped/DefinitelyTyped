@@ -1,9 +1,9 @@
-// Type definitions for mailparser 2.7
+// Type definitions for mailparser 3.0
 // Project: https://github.com/nodemailer/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Andrey Volynkin <https://github.com/Avol-V>
+//                 Pior Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import StreamModule = require('stream');
@@ -22,7 +22,7 @@ import Stream = StreamModule.Stream;
  * }
  * ```
  */
-interface StructuredHeader {
+export interface StructuredHeader {
     /**
      * The main value.
      */
@@ -52,11 +52,11 @@ export type HeaderLines = ReadonlyArray<{
 /**
  * Address details.
  */
-interface EmailAddress {
+export interface EmailAddress {
     /**
      * The email address.
      */
-    address?: string;
+    address?: string | undefined;
     /**
      * The name part of the email/group.
      */
@@ -64,13 +64,13 @@ interface EmailAddress {
     /**
      * An array of grouped addresses.
      */
-    group?: EmailAddress[];
+    group?: EmailAddress[] | undefined;
 }
 
 /**
  * Address object.
  */
-interface AddressObject {
+export interface AddressObject {
     /**
      * An array with address details.
      */
@@ -88,7 +88,7 @@ interface AddressObject {
 /**
  * COmmon part of the Attachment object.
  */
-interface AttachmentCommon {
+export interface AttachmentCommon {
     /**
      * Message type.
      */
@@ -109,7 +109,7 @@ interface AttachmentCommon {
     /**
      * File name of the attachment.
      */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * A Map value that holds MIME headers for the attachment node.
      */
@@ -129,22 +129,22 @@ interface AttachmentCommon {
     /**
      * The header value from `Content-ID`.
      */
-    contentId?: string;
+    contentId?: string | undefined;
     /**
      * `contentId` without `<` and `>`.
      */
-    cid?: string;   // e.g. '5.1321281380971@localhost'
+    cid?: string | undefined;   // e.g. '5.1321281380971@localhost'
     /**
      * If true then this attachment should not be offered for download
      * (at least not in the main attachments list).
      */
-    related?: boolean;
+    related?: boolean | undefined;
 }
 
 /**
  * Attachment object.
  */
-interface Attachment extends AttachmentCommon {
+export interface Attachment extends AttachmentCommon {
     /**
      * A Buffer that contains the attachment contents.
      */
@@ -159,7 +159,7 @@ interface Attachment extends AttachmentCommon {
 /**
  * MailParser Attachment object.
  */
-interface AttachmentStream extends AttachmentCommon {
+export interface AttachmentStream extends AttachmentCommon {
     /**
      * A Buffer that contains the attachment contents.
      */
@@ -173,7 +173,7 @@ interface AttachmentStream extends AttachmentCommon {
 /**
  * Parsed mail object.
  */
-interface ParsedMail {
+export interface ParsedMail {
     /**
      * An array of attachments.
      */
@@ -203,63 +203,64 @@ interface ParsedMail {
     /**
      * The plaintext body of the message.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * The plaintext body of the message formatted as HTML.
      */
-    textAsHtml?: string;
+    textAsHtml?: string | undefined;
     /**
      * The subject line.
      */
-    subject?: string;
+    subject?: string | undefined;
     /**
-     * An array of referenced Message-ID values.
+     * Either an array of two or more referenced Message-ID values or a single Message-ID value.
      *
      * Not set if no reference values present.
      */
-    references?: string[];
+    references?: string[] | string | undefined;
     /**
      * A Date object for the `Date:` header.
      */
-    date?: Date;
+    date?: Date | undefined;
     /**
-     * An address object for the `To:` header.
+     * An address object or array of address objects for the `To:` header.
      */
-    to?: AddressObject;
+    to?: AddressObject | AddressObject[] | undefined;
     /**
      * An address object for the `From:` header.
      */
-    from?: AddressObject;
+    from?: AddressObject | undefined;
     /**
-     * An address object for the `Cc:` header.
+     * An address object or array of address objects for the `Cc:` header.
      */
-    cc?: AddressObject;
+    cc?: AddressObject | AddressObject[] | undefined;
     /**
-     * An address object for the `Bcc:` header (usually not present).
+     * An address object or array of address objects for the `Bcc:` header.
+     * (usually not present)
      */
-    bcc?: AddressObject;
+    bcc?: AddressObject | AddressObject[] | undefined;
     /**
      * An address object for the `Reply-To:` header.
      */
-    replyTo?: AddressObject;
+    replyTo?: AddressObject | undefined;
     /**
      * The Message-ID value string.
      */
-    messageId?: string;
+    messageId?: string | undefined;
     /**
      * The In-Reply-To value string.
      */
-    inReplyTo?: string;
+    inReplyTo?: string | undefined;
     /**
      * Priority of the e-mail.
      */
-    priority?: 'normal' | 'low' | 'high';
+    priority?: 'normal' | 'low' | 'high' | undefined;
 }
 
 /**
  * Text message content.
  */
-interface MessageText {
+export interface MessageText {
     /**
      * Message type.
      */
@@ -269,19 +270,19 @@ interface MessageText {
      *
      * Is set if the message has at least one `text/html` node.
      */
-    html?: string | boolean;
+    html?: string | boolean | undefined;
     /**
      * Includes the plaintext version of the message.
      *
      * Is set if the message has at least one `text/plain` node.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * Includes the plaintext version of the message in HTML format.
      *
      * Is set if the message has at least one `text/plain` node.
      */
-    textAsHtml?: string;
+    textAsHtml?: string | undefined;
 }
 
 /**
@@ -294,8 +295,7 @@ export class MailParser extends StreamModule.Transform {
     constructor(options?: StreamModule.TransformOptions);
     on(event: string, callback: (any: any) => void): this;
     on(event: 'headers', callback: (headers: Headers) => void): this;
-    on(event: 'data', callback: (data: AttachmentStream | MessageText) => void): this;
-    on(event: 'readable', callback: (data: AttachmentStream | MessageText) => void): this;
+    on(event: 'data' | 'readable', callback: (data: AttachmentStream | MessageText) => void): this;
 }
 
 /**
@@ -307,7 +307,7 @@ export type Source = Buffer | Stream | string;
  * Options object for simpleParser.
  */
 export interface SimpleParserOptions extends StreamModule.TransformOptions {
-    keepCidLinks?: boolean;
+    keepCidLinks?: boolean | undefined;
 }
 
 /**
@@ -326,7 +326,6 @@ export function simpleParser(source: Source, callback: (err: any, mail: ParsedMa
  * @param callback Function to get a structured email object.
  */
 export function simpleParser(source: Source, options: SimpleParserOptions, callback: (err: any, mail: ParsedMail) => void): void;
-
 
 /**
  * Parse email message to structure object.

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace sha256File {
-    type CallbackFunction = (error: Error | null, sum: string) => void;
+    type CallbackFunction = (error: Error | null, sum: string | null) => void;
 }
 
 declare function sha256File(filename: string, callback: sha256File.CallbackFunction): void;

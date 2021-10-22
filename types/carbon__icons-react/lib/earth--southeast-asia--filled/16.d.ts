@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const EarthSoutheastAsiaFilled16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default EarthSoutheastAsiaFilled16;
+import { EarthSoutheastAsiaFilled16 } from "../../";
+
+export = EarthSoutheastAsiaFilled16;

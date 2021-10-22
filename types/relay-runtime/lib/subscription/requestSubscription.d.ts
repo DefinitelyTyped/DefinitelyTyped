@@ -4,13 +4,13 @@ import { Disposable, OperationType } from '../util/RelayRuntimeTypes';
 import { SelectorStoreUpdater, Environment } from '../store/RelayStoreTypes';
 
 export interface GraphQLSubscriptionConfig<TSubscription extends OperationType> {
-    configs?: ReadonlyArray<DeclarativeMutationConfig>;
+    configs?: ReadonlyArray<DeclarativeMutationConfig> | undefined;
     subscription: GraphQLTaggedNode;
     variables: TSubscription['variables'];
-    onCompleted?: () => void;
-    onError?: (error: Error) => void;
-    onNext?: (response: TSubscription['response'] | null | undefined) => void;
-    updater?: SelectorStoreUpdater<TSubscription['response']>;
+    onCompleted?: (() => void) | undefined;
+    onError?: ((error: Error) => void) | undefined;
+    onNext?: ((response: TSubscription['response'] | null | undefined) => void) | undefined;
+    updater?: SelectorStoreUpdater<TSubscription['response']> | undefined;
 }
 
 export function requestSubscription<TSubscription extends OperationType = OperationType>(

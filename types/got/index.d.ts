@@ -67,13 +67,13 @@ declare class TimeoutError extends StdError {
 }
 
 declare class StdError extends Error {
-    code?: string;
-    host?: string;
-    hostname?: string;
-    method?: string;
-    path?: string;
-    protocol?: string;
-    url?: string;
+    code?: string | undefined;
+    host?: string | undefined;
+    hostname?: string | undefined;
+    method?: string | undefined;
+    path?: string | undefined;
+    protocol?: string | undefined;
+    url?: string | undefined;
     response?: any;
 }
 
@@ -146,12 +146,12 @@ declare namespace got {
      * @template Body Response body type.
      */
     interface Hooks<Options, Body extends Buffer | string | object> {
-        init?: Array<InitHook<Options>>;
-        beforeRequest?: Array<BeforeRequestHook<Options>>;
-        beforeRedirect?: Array<BeforeRedirectHook<Options>>;
-        beforeRetry?: Array<BeforeRetryHook<Options>>;
-        beforeError?: BeforeErrorHook[];
-        afterResponse?: Array<AfterResponseHook<Options, Body>>;
+        init?: Array<InitHook<Options>> | undefined;
+        beforeRequest?: Array<BeforeRequestHook<Options>> | undefined;
+        beforeRedirect?: Array<BeforeRedirectHook<Options>> | undefined;
+        beforeRetry?: Array<BeforeRetryHook<Options>> | undefined;
+        beforeError?: BeforeErrorHook[] | undefined;
+        afterResponse?: Array<AfterResponseHook<Options, Body>> | undefined;
     }
 
     /**
@@ -188,41 +188,41 @@ declare namespace got {
     ) => Response<Body> | Promise<Response<Body>>;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
-        body?: string | Buffer | nodeStream.Readable;
-        hooks?: Hooks<GotBodyOptions<E>, string | Buffer | nodeStream.Readable>;
+        body?: string | Buffer | nodeStream.Readable | undefined;
+        hooks?: Hooks<GotBodyOptions<E>, string | Buffer | nodeStream.Readable> | undefined;
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
         // Body must be an object or array. See https://github.com/sindresorhus/got/issues/511
-        body?: object;
-        form?: boolean;
+        body?: object | undefined;
+        form?: boolean | undefined;
         json: true;
-        hooks?: Hooks<GotJSONOptions, object>;
+        hooks?: Hooks<GotJSONOptions, object> | undefined;
     }
 
     interface GotFormOptions<E extends string | null> extends GotOptions<E> {
-        body?: Record<string, any>;
+        body?: Record<string, any> | undefined;
         form: true;
-        json?: boolean;
-        hooks?: Hooks<GotFormOptions<E>, Record<string, any>>;
+        json?: boolean | undefined;
+        hooks?: Hooks<GotFormOptions<E>, Record<string, any>> | undefined;
     }
 
     type RequestFunction = typeof https.request;
 
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
-        baseUrl?: string;
-        cookieJar?: CookieJar;
-        encoding?: E;
-        query?: Record<string, any> | URLSearchParams | string;
-        timeout?: number | TimeoutOptions;
-        retry?: number | RetryOptions;
-        followRedirect?: boolean;
-        decompress?: boolean;
-        useElectronNet?: boolean;
-        throwHttpErrors?: boolean;
-        agent?: http.Agent | boolean | AgentOptions;
-        cache?: Cache;
-        request?: RequestFunction;
+        baseUrl?: string | undefined;
+        cookieJar?: CookieJar | undefined;
+        encoding?: E | undefined;
+        query?: Record<string, any> | URLSearchParams | string | undefined;
+        timeout?: number | TimeoutOptions | undefined;
+        retry?: number | RetryOptions | undefined;
+        followRedirect?: boolean | undefined;
+        decompress?: boolean | undefined;
+        useElectronNet?: boolean | undefined;
+        throwHttpErrors?: boolean | undefined;
+        agent?: http.Agent | boolean | AgentOptions | undefined;
+        cache?: Cache | undefined;
+        request?: RequestFunction | undefined;
     }
 
     /**
@@ -235,48 +235,48 @@ declare namespace got {
          * Starts when a socket is assigned and ends when the hostname has been resolved. Does not
          * apply when using a Unix domain socket.
          */
-        lookup?: number;
+        lookup?: number | undefined;
         /**
          * Starts when `lookup` completes (or when the socket is assigned if lookup does not apply
          * to the request) and ends when the socket is connected.
          */
-        connect?: number;
+        connect?: number | undefined;
         /**
          * Starts when `connect` completes and ends when the handshaking process completes (HTTPS
          * only).
          */
-        secureConnect?: number;
+        secureConnect?: number | undefined;
         /**
          * Starts when the socket is connected. See [request.setTimeout](https://nodejs.org/api/http.html#http_request_settimeout_timeout_callback).
          */
-        socket?: number;
+        socket?: number | undefined;
         /**
          * Starts when the request has been written to the socket and ends when the response headers
          * are received.
          */
-        response?: number;
+        response?: number | undefined;
         /**
          * Starts when the socket is connected and ends with the request has been written to the
          * socket.
          */
-        send?: number;
+        send?: number | undefined;
         /**
          * Starts when the request is initiated and ends when the response's end event fires.
          */
-        request?: number;
+        request?: number | undefined;
     }
 
     type RetryFunction = (retry: number, error: any) => number;
 
     interface RetryOptions {
-        retries?: number | RetryFunction;
-        methods?: Array<'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
-        statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504>;
-        maxRetryAfter?: number;
+        retries?: number | RetryFunction | undefined;
+        methods?: Array<'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'> | undefined;
+        statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504> | undefined;
+        maxRetryAfter?: number | undefined;
         /**
          * Allowed error codes.
          */
-        errorCodes?: string[];
+        errorCodes?: string[] | undefined;
     }
 
     interface AgentOptions {
@@ -318,7 +318,7 @@ declare namespace got {
         requestUrl: string;
         timings: GotTimings;
         fromCache: boolean;
-        redirectUrls?: string[];
+        redirectUrls?: string[] | undefined;
         retryCount: number;
 
         // got's Response is always a "response obtained from http.ClientRequest", therefore these two properties are never undefined

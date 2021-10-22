@@ -36,17 +36,17 @@ declare namespace BPMNModdle {
         /**
          * Documentation for the element
          */
-        documentation?: Documentation[];
+        documentation?: Documentation[] | undefined;
 
         /**
          * Reference to the extension definitions for this element
          */
-        extensionDefinitions?: ExtensionDefinition[];
+        extensionDefinitions?: ExtensionDefinition[] | undefined;
 
         /**
          * Extension Elements
          */
-        extensionElements?: ExtensionElements;
+        extensionElements?: ExtensionElements | undefined;
 
         /**
          * Attributes that aren't defined by the BPMN Spec such
@@ -54,7 +54,7 @@ declare namespace BPMNModdle {
          */
         $attrs?: {
             [key: string]: any;
-        };
+        } | undefined;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -442,7 +442,7 @@ declare namespace BPMNModdle {
         import: Import;
     }
     interface FlowElement extends RootElement {
-        name?: string;
+        name?: string | undefined;
         auditing: Auditing;
         monitoring: Monitoring;
         categoryValueRef: CategoryValue[];
@@ -1060,6 +1060,35 @@ declare namespace BPMNModdle {
             options: Option,
             done: ImportFn
         ): void;
+
+        /**
+         * Instantiates a BPMN model tree from a given xml string.
+         *
+         * @param xmlStr
+         * XML string
+         *
+         * @param options
+         * Options to pass to the underlying reader
+         */
+        fromXML(xmlStr: string, options?: Option): Promise<Definitions>;
+
+        /**
+         * Instantiates a BPMN model tree from a given xml string.
+         *
+         * @param xmlStr
+         * XML string
+         *
+         * @param typeName
+         * Name of the root element
+         *
+         * @param options
+         * Options to pass to the underlying reader
+         */
+        fromXML(
+            xmlStr: string,
+            typeName: string,
+            options: Option,
+        ): Promise<Definitions>;
     }
 }
 

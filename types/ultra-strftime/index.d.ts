@@ -43,8 +43,8 @@ declare namespace strftime {
     }
 
     interface Options {
-        timezone?: string | number;
-        utc?: boolean;
+        timezone?: string | number | undefined;
+        utc?: boolean | undefined;
     }
 
     function strftimeUTC(fmt: string, d?: Date, locale?: Locale): string;

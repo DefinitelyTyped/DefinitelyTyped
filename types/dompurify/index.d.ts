@@ -1,12 +1,12 @@
-// Type definitions for DOM Purify 2.0
+// Type definitions for DOM Purify 2.3
 // Project: https://github.com/cure53/DOMPurify
 // Definitions by: Dave Taylor https://github.com/davetayls
 //                 Samira Bazuzi <https://github.com/bazuzi>
 //                 FlowCrypt <https://github.com/FlowCrypt>
 //                 Exigerr <https://github.com/Exigerr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Nicholas Ellul <https://github.com/NicholasEllul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
 /// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;
@@ -21,10 +21,10 @@ interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
 declare namespace DOMPurify {
     interface DOMPurifyI {
         sanitize(source: string | Node): string;
-        sanitize(source: string | Node, config: Config & { RETURN_TRUSTED_TYPE: true, }): TrustedHTML;
-        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false, RETURN_DOM?: false, }): string;
-        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT: true, }): DocumentFragment;
-        sanitize(source: string | Node, config: Config & { RETURN_DOM: true, }): HTMLElement;
+        sanitize(source: string | Node, config: Config & { RETURN_TRUSTED_TYPE: true }): TrustedHTML;
+        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false | undefined; RETURN_DOM?: false | undefined }): string;
+        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT: true }): DocumentFragment;
+        sanitize(source: string | Node, config: Config & { RETURN_DOM: true }): HTMLElement;
         sanitize(source: string | Node, config: Config): string | HTMLElement | DocumentFragment;
 
         addHook(hook: 'uponSanitizeElement', cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => void): void;
@@ -45,32 +45,51 @@ declare namespace DOMPurify {
     }
 
     interface Config {
-        ADD_ATTR?: string[];
-        ADD_DATA_URI_TAGS?: string[];
-        ADD_TAGS?: string[];
-        ALLOW_DATA_ATTR?: boolean;
-        ALLOWED_ATTR?: string[];
-        ALLOWED_TAGS?: string[];
-        FORBID_ATTR?: string[];
-        FORBID_TAGS?: string[];
-        FORCE_BODY?: boolean;
-        KEEP_CONTENT?: boolean;
-        RETURN_DOM?: boolean;
-        RETURN_DOM_FRAGMENT?: boolean;
-        RETURN_DOM_IMPORT?: boolean;
-        RETURN_TRUSTED_TYPE?: boolean;
-        SAFE_FOR_JQUERY?: boolean;
-        SANITIZE_DOM?: boolean;
-        WHOLE_DOCUMENT?: boolean;
-        ALLOWED_URI_REGEXP?: RegExp;
-        SAFE_FOR_TEMPLATES?: boolean;
-        ALLOW_UNKNOWN_PROTOCOLS?: boolean;
-        USE_PROFILES?: false | { mathMl?: boolean, svg?: boolean, svgFilters?: boolean, html?: boolean };
-        IN_PLACE?: boolean;
+        ADD_ATTR?: string[] | undefined;
+        ADD_DATA_URI_TAGS?: string[] | undefined;
+        ADD_TAGS?: string[] | undefined;
+        ADD_URI_SAFE_ATTR?: string[] | undefined;
+        ALLOW_DATA_ATTR?: boolean | undefined;
+        ALLOW_UNKNOWN_PROTOCOLS?: boolean | undefined;
+        ALLOWED_ATTR?: string[] | undefined;
+        ALLOWED_TAGS?: string[] | undefined;
+        ALLOWED_URI_REGEXP?: RegExp | undefined;
+        FORBID_ATTR?: string[] | undefined;
+        FORBID_CONTENTS?: string[] | undefined;
+        FORBID_TAGS?: string[] | undefined;
+        FORCE_BODY?: boolean | undefined;
+        IN_PLACE?: boolean | undefined;
+        KEEP_CONTENT?: boolean | undefined;
+        /**
+         * change the default namespace from HTML to something different
+         */
+        NAMESPACE?: string | undefined;
+        PARSER_MEDIA_TYPE?: string | undefined;
+        RETURN_DOM_FRAGMENT?: boolean | undefined;
+        /**
+         * This defaults to `true` starting DOMPurify 2.2.0. Note that setting it to `false`
+         * might cause XSS from attacks hidden in closed shadowroots in case the browser
+         * supports Declarative Shadow: DOM https://web.dev/declarative-shadow-dom/
+         */
+        RETURN_DOM_IMPORT?: boolean | undefined;
+        RETURN_DOM?: boolean | undefined;
+        RETURN_TRUSTED_TYPE?: boolean | undefined;
+        SAFE_FOR_TEMPLATES?: boolean | undefined;
+        SANITIZE_DOM?: boolean | undefined;
+        USE_PROFILES?:
+            | false
+            | {
+                  mathMl?: boolean | undefined;
+                  svg?: boolean | undefined;
+                  svgFilters?: boolean | undefined;
+                  html?: boolean | undefined;
+              }
+            | undefined;
+        WHOLE_DOCUMENT?: boolean | undefined;
     }
 
-    type HookName
-        = 'beforeSanitizeElements'
+    type HookName =
+        | 'beforeSanitizeElements'
         | 'uponSanitizeElement'
         | 'afterSanitizeElements'
         | 'beforeSanitizeAttributes'
@@ -80,10 +99,7 @@ declare namespace DOMPurify {
         | 'uponSanitizeShadowNode'
         | 'afterSanitizeShadowDOM';
 
-    type HookEvent
-        = SanitizeElementHookEvent
-        | SanitizeAttributeHookEvent
-        | null;
+    type HookEvent = SanitizeElementHookEvent | SanitizeAttributeHookEvent | null;
 
     interface SanitizeElementHookEvent {
         tagName: string;
@@ -95,5 +111,6 @@ declare namespace DOMPurify {
         attrValue: string;
         keepAttr: boolean;
         allowedAttributes: { [key: string]: boolean };
+        forceKeepAttr?: boolean | undefined;
     }
 }

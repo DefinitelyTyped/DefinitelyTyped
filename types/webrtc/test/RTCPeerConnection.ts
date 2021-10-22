@@ -20,7 +20,7 @@ window.RTCPeerConnection.generateCertificate("sha-256").then((cert: RTCCertifica
         iceServers: [ice1],
         iceTransportPolicy: 'relay',
         bundlePolicy: 'max-compat',
-        rtcpMuxPolicy: 'negotiate',
+        rtcpMuxPolicy: 'require',
         peerIdentity: 'dude',
         certificates: [cert],
         iceCandidatePoolSize: 5,
@@ -48,7 +48,7 @@ pc.createOffer({iceRestart: true})
 // Event handlers
 pc.onnegotiationneeded = ev => console.log(ev.type);
 pc.onicecandidate = ev => console.log(ev.candidate);
-pc.onicecandidateerror = ev => console.log(ev.errorText);
+pc.onicecandidateerror = ev => console.log(ev.type);
 pc.onsignalingstatechange = ev => console.log(ev.type);
 pc.oniceconnectionstatechange = ev => console.log(ev.type);
 pc.onicegatheringstatechange = ev => console.log(ev.type);

@@ -9,23 +9,30 @@ import { Size } from '../size';
 import ImageSource, { ImageSourceEvent } from './Image';
 
 export interface Options {
-    url?: string;
-    crossOrigin?: string;
-    displayDpi?: number;
-    metersPerUnit?: number;
-    hidpi?: boolean;
-    useOverlay?: boolean;
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    imageLoadFunction?: LoadFunction;
-    imageSmoothing?: boolean;
+    url?: string | undefined;
+    crossOrigin?: null | string | undefined;
+    displayDpi?: number | undefined;
+    metersPerUnit?: number | undefined;
+    hidpi?: boolean | undefined;
+    useOverlay?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    ratio?: number | undefined;
+    resolutions?: number[] | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
+    imageSmoothing?: boolean | undefined;
     params?: any;
 }
 export default class ImageMapGuide extends ImageSource {
     constructor(options: Options);
     getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageWrapper;
+    /**
+     * Return the image load function of the source.
+     */
     getImageLoadFunction(): LoadFunction;
+    /**
+     * Get the user-provided params, i.e. those passed to the constructor through
+     * the "params" option, and possibly updated using the updateParams method.
+     */
     getParams(): any;
     getUrl(
         baseUrl: string,
@@ -34,7 +41,13 @@ export default class ImageMapGuide extends ImageSource {
         size: Size,
         projection: Projection,
     ): string;
+    /**
+     * Set the image load function of the MapGuide source.
+     */
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
+    /**
+     * Update the user-provided params.
+     */
     updateParams(params: any): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

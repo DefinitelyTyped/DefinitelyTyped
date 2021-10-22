@@ -2,17 +2,19 @@
 // Project: https://github.com/aackerman/circular-dependency-plugin
 // Definitions by: Olegs Jeremejevs <https://github.com/jeremejevs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
-import { Plugin, Module, compilation } from 'webpack';
+import { Compiler, WebpackPluginInstance, Module, compilation } from 'webpack';
 
 export = CircularDependencyPlugin;
 
 /**
  * Detect modules with circular dependencies when bundling with webpack.
  */
-declare class CircularDependencyPlugin extends Plugin {
+declare class CircularDependencyPlugin implements WebpackPluginInstance {
   constructor(options?: CircularDependencyPlugin.Options);
+
+  apply(compiler: Compiler): void;
   // Not exposing `isCyclic` because it isn't meant to be public, I believe
 }
 
@@ -21,23 +23,23 @@ declare namespace CircularDependencyPlugin {
     /**
      * @default false
      */
-    allowAsyncCycles?: boolean;
+    allowAsyncCycles?: boolean | undefined;
     /**
      * @default process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
     /**
      * @default /$^/
      */
-    exclude?: RegExp;
+    exclude?: RegExp | undefined;
     /**
      * @default /.*\/
      */
-    include?: RegExp;
+    include?: RegExp | undefined;
     /**
      * @default false
      */
-    failOnError?: boolean;
+    failOnError?: boolean | undefined;
     /**
      * @default false
      */
@@ -45,8 +47,8 @@ declare namespace CircularDependencyPlugin {
       module: Module;
       paths: string[];
       compilation: compilation.Compilation;
-    }) => void);
-    onEnd?: (x: { compilation: compilation.Compilation }) => void;
-    onStart?: (x: { compilation: compilation.Compilation }) => void;
+    }) => void) | undefined;
+    onEnd?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
+    onStart?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
   }
 }

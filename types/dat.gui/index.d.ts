@@ -10,22 +10,22 @@ export interface GUIParams {
      * Handles GUI's element placement for you.
      * @default true
      */
-    autoPlace?: boolean;
+    autoPlace?: boolean | undefined;
     /**
      * If true, starts closed.
      * @default false
      */
-    closed?: boolean;
+    closed?: boolean | undefined;
     /**
      * If true, close/open button shows on top of the GUI.
      * @default false
      */
-    closeOnTop?: boolean;
+    closeOnTop?: boolean | undefined;
     /**
      * If true, GUI is closed by the "h" keypress.
      * @default false
      */
-    hideable?: boolean;
+    hideable?: boolean | undefined;
     /**
      * JSON object representing the saved state of this GUI.
      */
@@ -33,15 +33,15 @@ export interface GUIParams {
     /**
      * The name of this GUI.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The identifier for a set of saved values.
      */
-    preset?: string;
+    preset?: string | undefined;
     /**
      * The width of GUI element.
      */
-    width?: number;
+    width?: number | undefined;
 }
 
 export class GUI {
@@ -62,7 +62,7 @@ export class GUI {
     constructor(option?: GUIParams);
 
     __controllers: GUIController[];
-    __folders: GUI[];
+    __folders: {[folderName: string]: GUI};
     domElement: HTMLElement;
 
     add(target: Object, propName:string, min?: number, max?: number, step?: number): GUIController;

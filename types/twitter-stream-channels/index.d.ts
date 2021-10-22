@@ -20,12 +20,12 @@ declare module 'twitter-stream-channels' {
       }
 
       export interface StreamChannelsOptions {
-        track?: {},
-        follow?: string,
-        locations?: string,
-        enableChannelsEvents?: boolean,
-        enableRootChannelsEvent?: boolean,
-        enableKeywordsEvents?: boolean
+        track?: {} | undefined,
+        follow?: string | undefined,
+        locations?: string | undefined,
+        enableChannelsEvents?: boolean | undefined,
+        enableRootChannelsEvent?: boolean | undefined,
+        enableKeywordsEvents?: boolean | undefined
       }
 
     }

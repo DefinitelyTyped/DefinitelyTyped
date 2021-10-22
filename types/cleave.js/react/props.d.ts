@@ -10,8 +10,8 @@ export interface ChangeEvent<T> extends React.ChangeEvent<T> {
 export type ChangeEventHandler<T = Element> = React.EventHandler<ChangeEvent<T>>;
 
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-    onInit?: InitHandler;
+    onInit?: InitHandler | undefined;
     options: CleaveOptions;
-    htmlRef?: (i: any) => void;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
+    htmlRef?: ((i: any) => void) | undefined;
+    onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
 }

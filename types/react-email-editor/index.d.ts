@@ -1,4 +1,4 @@
-// Type definitions for react-email-editor 1.0
+// Type definitions for react-email-editor 1.1
 // Project: https://github.com/unlayer/react-email-editor
 // Definitions by: Nikita Granko <https://github.com/ngranko>
 //                 Vladimir Penyazkov <https://github.com/mindtraveller>
@@ -10,18 +10,18 @@ import { Component as ReactComponent, CSSProperties } from 'react';
 export type ThemeColor = 'light' | 'dark';
 export type DockPosition = 'right' | 'left';
 export interface AppearanceConfig {
-    readonly theme?: ThemeColor;
+    readonly theme?: ThemeColor | undefined;
     readonly panels?: {
         readonly tools?: {
             readonly dock: DockPosition;
-        };
-    };
+        } | undefined;
+    } | undefined;
 }
 
 export interface User {
-    readonly id?: number;
-    readonly name?: string;
-    readonly email?: string;
+    readonly id?: number | undefined;
+    readonly name?: string | undefined;
+    readonly email?: string | undefined;
 }
 
 export interface GroupedMergeTag {
@@ -43,7 +43,7 @@ export interface ConditionalMergeTagRule {
 export interface ConditionalMergeTag {
     readonly name: string;
     readonly rules: ConditionalMergeTagRule[];
-    readonly mergeTags?: SimpleMergeTag[];
+    readonly mergeTags?: SimpleMergeTag[] | undefined;
 }
 
 export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
@@ -52,10 +52,20 @@ export interface DesignTagConfig {
     readonly delimeter: [string, string];
 }
 
+export interface DisplayCondition {
+    readonly type: string;
+    readonly label: string;
+    readonly description: string;
+    readonly before: string;
+    readonly after: string;
+}
+
+export type EmptyDisplayCondition = object;
+
 export interface ToolConfig {
-    readonly enabled?: boolean;
-    readonly position?: number;
-    readonly data?: StringList;
+    readonly enabled?: boolean | undefined;
+    readonly position?: number | undefined;
+    readonly data?: StringList | undefined;
 }
 
 export interface ToolsConfig {
@@ -63,55 +73,56 @@ export interface ToolsConfig {
 }
 
 export interface EditorConfig {
-    readonly minRows?: number;
-    readonly maxRows?: number;
+    readonly minRows?: number | undefined;
+    readonly maxRows?: number | undefined;
 }
 
 export interface Features {
-    readonly preview?: boolean;
-    readonly imageEditor?: boolean;
-    readonly undoRedo?: boolean;
-    readonly stockImages?: boolean;
-    readonly textEditor?: TextEditor;
+    readonly preview?: boolean | undefined;
+    readonly imageEditor?: boolean | undefined;
+    readonly undoRedo?: boolean | undefined;
+    readonly stockImages?: boolean | undefined;
+    readonly textEditor?: TextEditor | undefined;
 }
 
 export interface TextEditor {
-    readonly spellChecker?: boolean;
-    readonly tables?: boolean;
-    readonly cleanPaste?: boolean;
-    readonly emojis?: boolean;
+    readonly spellChecker?: boolean | undefined;
+    readonly tables?: boolean | undefined;
+    readonly cleanPaste?: boolean | undefined;
+    readonly emojis?: boolean | undefined;
 }
 
 export type Translations = Record<string, Record<string, string>>;
 
 export type DisplayMode = 'email' | 'web';
 export interface UnlayerOptions {
-    readonly id?: string;
-    readonly displayMode?: DisplayMode;
-    readonly projectId?: number;
-    readonly locale?: string;
-    readonly appearance?: AppearanceConfig;
-    readonly user?: User;
-    readonly mergeTags?: MergeTag[];
-    readonly designTags?: StringList;
-    readonly designTagsConfig?: DesignTagConfig;
-    readonly tools?: ToolsConfig;
-    readonly blocks?: object[];
-    readonly editor?: EditorConfig;
-    readonly safeHtml?: boolean;
-    readonly customJS?: string[];
-    readonly customCSS?: string[];
-    readonly features?: Features;
-    readonly translations?: Translations;
+    readonly id?: string | undefined;
+    readonly displayMode?: DisplayMode | undefined;
+    readonly projectId?: number | undefined;
+    readonly locale?: string | undefined;
+    readonly appearance?: AppearanceConfig | undefined;
+    readonly user?: User | undefined;
+    readonly mergeTags?: MergeTag[] | undefined;
+    readonly designTags?: StringList | undefined;
+    readonly designTagsConfig?: DesignTagConfig | undefined;
+    readonly tools?: ToolsConfig | undefined;
+    readonly blocks?: object[] | undefined;
+    readonly editor?: EditorConfig | undefined;
+    readonly safeHtml?: boolean | undefined;
+    readonly customJS?: string[] | undefined;
+    readonly customCSS?: string[] | undefined;
+    readonly features?: Features | undefined;
+    readonly translations?: Translations | undefined;
+    readonly displayConditions?: DisplayCondition[] | undefined;
 }
 
 export interface EmailEditorProps {
-    readonly style?: CSSProperties;
-    readonly minHeight?: number;
-    readonly options?: UnlayerOptions;
-    readonly tools?: ToolsConfig;
-    readonly appearance?: AppearanceConfig;
-    readonly projectId?: number;
+    readonly style?: CSSProperties | undefined;
+    readonly minHeight?: number | undefined;
+    readonly options?: UnlayerOptions | undefined;
+    readonly tools?: ToolsConfig | undefined;
+    readonly appearance?: AppearanceConfig | undefined;
+    readonly projectId?: number | undefined;
     onLoad?(): void;
 }
 
@@ -127,14 +138,14 @@ export interface FileInfo {
 
 export interface FileUploadDoneData {
     readonly progress: number;
-    readonly url?: string;
+    readonly url?: string | undefined;
 }
 
 export interface Design {
-    readonly counters?: object;
+    readonly counters?: object | undefined;
     readonly body: {
         readonly rows: object[];
-        readonly values?: object;
+        readonly values?: object | undefined;
     };
 }
 
@@ -144,9 +155,13 @@ export type EventCallback = (data: object) => void;
 export type FileUploadCallback = (file: FileInfo, done: FileUploadDoneCallback) => void;
 export type FileUploadDoneCallback = (data: FileUploadDoneData) => void;
 
+export type DisplayConditionDoneCallback = (data: DisplayCondition | null) => void;
+export type DisplayConditionCallback = (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => void;
+
 export default class Component extends ReactComponent<EmailEditorProps> {
     private unlayerReady(): void;
     registerCallback(type: 'image', callback: FileUploadCallback): void;
+    registerCallback(type: 'displayCondition', callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;

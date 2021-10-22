@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DiagramReference24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DiagramReference24;
+import { DiagramReference24 } from "../../";
+
+export = DiagramReference24;

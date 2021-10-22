@@ -4,13 +4,13 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    label?: string | Text | HTMLElement;
-    labelActive?: string | Text | HTMLElement;
-    tipLabel?: string;
-    keys?: boolean;
-    target?: HTMLElement | string;
-    source?: HTMLElement | string;
+    className?: string | undefined;
+    label?: string | Text | HTMLElement | undefined;
+    labelActive?: string | Text | HTMLElement | undefined;
+    tipLabel?: string | undefined;
+    keys?: boolean | undefined;
+    target?: HTMLElement | string | undefined;
+    source?: HTMLElement | string | undefined;
 }
 export default class FullScreen extends Control {
     constructor(opt_options?: Options);

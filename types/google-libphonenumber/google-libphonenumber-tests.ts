@@ -15,6 +15,14 @@ import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-l
     // Print number in the international format.
     console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
     // => +1 202-456-1414
+
+    // Print number in the original format.
+    console.log(phoneUtil.formatInOriginalFormat(phoneNumber));
+    // => (202) 456-1414
+
+    // Print number in the original format with specified region.
+    console.log(phoneUtil.formatInOriginalFormat(phoneNumber, 'US'));
+    // => (202) 456-1414
 }
 
 () => {
@@ -33,3 +41,9 @@ import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-l
 
     formatter.clear();
 }
+
+// Get instance of `PhoneNumberUtil`
+var phoneNumberUtil = PhoneNumberUtil.getInstance();
+
+// phone code should be a number
+phoneNumberUtil.getCountryCodeForRegion('IT'); // $ExpectType number

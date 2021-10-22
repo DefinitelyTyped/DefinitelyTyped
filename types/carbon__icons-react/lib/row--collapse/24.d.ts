@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RowCollapse24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RowCollapse24;
+import { RowCollapse24 } from "../../";
+
+export = RowCollapse24;

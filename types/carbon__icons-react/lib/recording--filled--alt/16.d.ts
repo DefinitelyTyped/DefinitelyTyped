@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RecordingFilledAlt16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RecordingFilledAlt16;
+import { RecordingFilledAlt16 } from "../../";
+
+export = RecordingFilledAlt16;

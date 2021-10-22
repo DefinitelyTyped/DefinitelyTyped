@@ -1,4 +1,4 @@
-// Type definitions for bookshelfjs v1.1.1
+// Type definitions for bookshelfjs v1.2.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
@@ -37,9 +37,9 @@ declare namespace Bookshelf {
 
     interface IModelBase {
         /** Should be declared as a getter instead of a plain property. */
-        hasTimestamps?: boolean | string[];
+        hasTimestamps?: boolean | string[] | undefined;
         /** Should be declared as a getter instead of a plain property. Should be required, but cannot have abstract properties yet. */
-        tableName?: string;
+        tableName?: string | undefined;
     }
 
     interface ModelBase<T extends Model<any>> extends IModelBase {}
@@ -134,7 +134,7 @@ declare namespace Bookshelf {
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
-        load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
+        load(relations: string | string[], options?: SyncOptions): BlueBird<T>;
         morphMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             name?: string,
@@ -164,7 +164,7 @@ declare namespace Bookshelf {
          */
         save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
         save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
-        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): R;
+        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string, throughForeignKeyTarget?: string, otherKeyTarget?: string): R;
         where(properties: { [key: string]: any }): T;
         where(
             key: string,
@@ -182,6 +182,7 @@ declare namespace Bookshelf {
     abstract class CollectionBase<T extends Model<any>> extends Events<T> {
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L573
         length: number;
+        models: T[];
 
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L21
         constructor(models?: T[], options?: CollectionOptions<T>);
@@ -311,20 +312,16 @@ declare namespace Bookshelf {
     }
 
     interface ModelOptions {
-        tableName?: string;
-        hasTimestamps?: boolean;
-        parse?: boolean;
-    }
-
-    interface LoadOptions extends SyncOptions {
-        withRelated: (string | WithRelatedQuery)[];
+        tableName?: string | undefined;
+        hasTimestamps?: boolean | undefined;
+        parse?: boolean | undefined;
     }
 
     interface FetchOptions extends SyncOptions {
         /** @default true */
-        require?: boolean;
-        columns?: string | string[];
-        withRelated?: (string | WithRelatedQuery)[];
+        require?: boolean | undefined;
+        columns?: string | string[] | undefined;
+        withRelated?: (string | WithRelatedQuery)[] | undefined;
     }
 
     interface WithRelatedQuery {
@@ -334,71 +331,73 @@ declare namespace Bookshelf {
     interface FetchAllOptions extends FetchOptions {}
 
     interface SaveOptions extends SyncOptions {
-        method?: string;
-        defaults?: string;
-        patch?: boolean;
+        method?: string | undefined;
+        defaults?: string | undefined;
+        patch?: boolean | undefined;
         /** @default true */
-        require?: boolean;
+        require?: boolean | undefined;
+        /** @default true */
+        autoRefresh?: boolean | undefined;
     }
 
     interface DestroyOptions extends SyncOptions {
         /** @default true */
-        require?: boolean;
+        require?: boolean | undefined;
     }
 
     interface SerializeOptions {
-        shallow?: boolean;
-        omitPivot?: boolean;
+        shallow?: boolean | undefined;
+        omitPivot?: boolean | undefined;
         /** @default true */
-        visibility?: boolean;
+        visibility?: boolean | undefined;
     }
 
     interface SetOptions {
-        unset?: boolean;
+        unset?: boolean | undefined;
     }
 
     interface TimestampOptions {
-        method?: string;
+        method?: string | undefined;
     }
 
     interface SyncOptions {
-        transacting?: Knex.Transaction;
-        debug?: boolean;
-        withSchema?: string;
+        transacting?: Knex.Transaction | undefined;
+        debug?: boolean | undefined;
+        withSchema?: string | undefined;
     }
 
     interface CollectionOptions<T> {
-        comparator?: boolean | string | ((a: T, b: T) => number);
+        comparator?: boolean | string | ((a: T, b: T) => number) | undefined;
     }
 
     interface CollectionAddOptions extends EventOptions {
-        at?: number;
-        merge?: boolean;
+        at?: number | undefined;
+        merge?: boolean | undefined;
     }
 
     interface CollectionFetchOptions {
-        require?: boolean;
-        withRelated?: string | string[];
+        require?: boolean | undefined;
+        withRelated?: string | string[] | undefined;
     }
 
     interface CollectionFetchOneOptions {
-        require?: boolean;
-        columns?: string | string[];
+        require?: boolean | undefined;
+        columns?: string | string[] | undefined;
     }
 
     interface CollectionSetOptions extends EventOptions {
-        add?: boolean;
-        remove?: boolean;
-        merge?: boolean;
+        add?: boolean | undefined;
+        remove?: boolean | undefined;
+        merge?: boolean | undefined;
     }
 
     interface PivotOptions {
-        query?: Function | any;
-        require?: boolean;
+        query?: Function | any | undefined;
+        require?: boolean | undefined;
     }
 
     interface EventOptions {
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     interface EventFunction<T> {

@@ -7,15 +7,15 @@ import { EventEmitter } from "events";
 
 declare namespace TarantoolConnection {
   interface TarantoolOptions {
-    host?: string;
-    port?: number;
-    username?: string;
-    password?: string;
-    reserveHosts?: string[];
-    beforeReserve?: number;
-    timeout?: number;
-    retryStrategy?: (times: number) => number;
-    lazyConnect?: boolean;
+    host?: string | undefined;
+    port?: number | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    reserveHosts?: string[] | undefined;
+    beforeReserve?: number | undefined;
+    timeout?: number | undefined;
+    retryStrategy?: ((times: number) => number) | undefined;
+    lazyConnect?: boolean | undefined;
   }
 }
 

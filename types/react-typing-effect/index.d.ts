@@ -7,14 +7,14 @@ import { Component } from 'react';
 
 export interface ReactTypingEffectProps {
     text: string | string[];
-    staticText?: string;
-    className?: string;
-    speed?: number;
-    eraseDelay?: number;
-    eraseSpeed?: number;
-    typingDelay?: number;
-    cursor?: string;
-    cursorClassName?: string;
+    staticText?: string | undefined;
+    className?: string | undefined;
+    speed?: number | undefined;
+    eraseDelay?: number | undefined;
+    eraseSpeed?: number | undefined;
+    typingDelay?: number | undefined;
+    cursor?: string | undefined;
+    cursorClassName?: string | undefined;
 }
 
 export default class ReactTypingEffect extends Component<ReactTypingEffectProps> {}

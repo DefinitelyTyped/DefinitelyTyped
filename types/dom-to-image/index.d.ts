@@ -13,14 +13,14 @@ export interface DomToImage {
 }
 
 export interface Options {
-  filter?: (node: Node) => boolean;
-  bgcolor?: string;
-  width?: number;
-  height?: number;
-  style?: {};
-  quality?: number;
-  imagePlaceholder?: string;
-  cacheBust?: boolean;
+  filter?: ((node: Node) => boolean) | undefined;
+  bgcolor?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  style?: {} | undefined;
+  quality?: number | undefined;
+  imagePlaceholder?: string | undefined;
+  cacheBust?: boolean | undefined;
 }
 
 export const DomToImage: DomToImage;

@@ -53,40 +53,40 @@ export interface Application {
     /**
      * The version of the app. Please use [semantic versioning](https://semver.org/).
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * The human-readable title of the app, typically used by the launcher UI. If not provided, [[name]] is used.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * A short explanatory text string. For use in tooltips shown by any UIs that display app information.
      */
-    tooltip?: string;
+    tooltip?: string | undefined;
     /**
      * Longer description of the app.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * Images that can be displayed as part of the app directory entry. Use these for screenshots, previews or similar. These are not the
      * application icons - use [[icons]] for that.
      */
-    images?: AppImage[];
+    images?: AppImage[] | undefined;
     /**
      * Contact email address.
      */
-    contactEmail?: string;
+    contactEmail?: string | undefined;
     /**
      * The email address to send your support requests to.
      */
-    supportEmail?: string;
+    supportEmail?: string | undefined;
     /**
      * Name of the publishing company, organization, or individual.
      */
-    publisher?: string;
+    publisher?: string | undefined;
     /**
      * Icons used in the app directory display. A launcher may be able to use various sizes.
      */
-    icons?: Icon[];
+    icons?: Icon[] | undefined;
     /**
      * Additional config.
      *
@@ -98,11 +98,11 @@ export interface Application {
      * Any additional fields will still be accessible to applications (via APIs such as [[findIntent]]), but will not
      * have any impact on the operation of the service.
      */
-    customConfig?: NameValuePair[];
+    customConfig?: NameValuePair[] | undefined;
     /**
      * The set of intents associated with this application directory entry.
      */
-    intents?: AppDirIntent[];
+    intents?: AppDirIntent[] | undefined;
 }
 /**
  * An image for an app in the app directory.
@@ -115,11 +115,11 @@ export interface AppImage {
     /**
      * Alt text to be displayed with the image.
      */
-    tooltip?: string;
+    tooltip?: string | undefined;
     /**
      * Additional text description.
      */
-    description?: string;
+    description?: string | undefined;
 }
 /**
  * An icon for an app in the app directory.
@@ -148,12 +148,12 @@ export interface AppDirIntent {
     /**
      * A short, human-readable description of this intent.
      */
-    displayName?: string;
+    displayName?: string | undefined;
     /**
      * The context types that this intent supports. A context type is a namespaced name;
      * examples are given [here](https://fdc3.finos.org/docs/1.0/context-spec).
      */
-    contexts?: string[];
+    contexts?: string[] | undefined;
     /**
      * Custom configuration for the intent. Currently unused, reserved for future use.
      */

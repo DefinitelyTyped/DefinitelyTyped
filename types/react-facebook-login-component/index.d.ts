@@ -9,16 +9,16 @@ import * as React from "react";
 export interface FacebookLoginInfo {
     id: string;
     accessToken: string;
-    name?: string;
-    email?: string;
+    name?: string | undefined;
+    email?: string | undefined;
 }
 
 export interface FacebookLoginProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     socialId: string;
-    xfbml?: boolean;
-    version?: string;
-    fields?: string;
-    buttonText?: string;
+    xfbml?: boolean | undefined;
+    version?: string | undefined;
+    fields?: string | undefined;
+    buttonText?: string | undefined;
     responseHandler: (response: FacebookLoginInfo) => void;
 }
 

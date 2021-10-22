@@ -10,52 +10,63 @@
 //                 Andriy2 <https://github.com/Andriy2>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 interface OtherElementAttributes {
     [key: string]: string | number | boolean | null | undefined;
 }
 
-type HtmlProps = JSX.IntrinsicElements['html'] & OtherElementAttributes;
+type HtmlProps = JSX.IntrinsicElements["html"] & OtherElementAttributes;
 
-type BodyProps = JSX.IntrinsicElements['body'] & OtherElementAttributes;
+type BodyProps = JSX.IntrinsicElements["body"] & OtherElementAttributes;
 
-type LinkProps = JSX.IntrinsicElements['link'];
+type LinkProps = JSX.IntrinsicElements["link"];
 
-type MetaProps = JSX.IntrinsicElements['meta'];
+type MetaProps = JSX.IntrinsicElements["meta"];
 
 export interface HelmetTags {
-    baseTag: Array<any>;
-    linkTags: Array<HTMLLinkElement>;
-    metaTags: Array<HTMLMetaElement>;
-    noscriptTags: Array<any>;
-    scriptTags: Array<HTMLScriptElement>;
-    styleTags: Array<HTMLStyleElement>;
+    baseTag: any[];
+    linkTags: HTMLLinkElement[];
+    metaTags: HTMLMetaElement[];
+    noscriptTags: any[];
+    scriptTags: HTMLScriptElement[];
+    styleTags: HTMLStyleElement[];
 }
 
 export interface HelmetProps {
-    async?: boolean;
+    async?: boolean | undefined;
     base?: any;
-    bodyAttributes?: BodyProps;
-    defaultTitle?: string;
-    defer?: boolean;
-    encodeSpecialCharacters?: boolean;
-    htmlAttributes?: HtmlProps;
-    onChangeClientState?: (newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void;
-    link?: LinkProps[];
-    meta?: MetaProps[];
-    noscript?: Array<any>;
-    script?: Array<any>;
-    style?: Array<any>;
-    title?: string;
-    titleAttributes?: Object;
-    titleTemplate?: string;
+    bodyAttributes?: BodyProps | undefined;
+    children?: React.ReactNode;
+    defaultTitle?: string | undefined;
+    defer?: boolean | undefined;
+    encodeSpecialCharacters?: boolean | undefined;
+    htmlAttributes?: HtmlProps | undefined;
+    onChangeClientState?: ((newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void) | undefined;
+    link?: LinkProps[] | undefined;
+    meta?: MetaProps[] | undefined;
+    noscript?: any[] | undefined;
+    script?: any[] | undefined;
+    style?: any[] | undefined;
+    title?: string | undefined;
+    titleAttributes?: object | undefined;
+    titleTemplate?: string | undefined;
 }
 
+/**
+ * Used by Helmet.peek()
+ */
+export type HelmetPropsToState = HelmetTags &
+    Pick<
+        HelmetProps,
+        "bodyAttributes" | "defer" | "htmlAttributes" | "onChangeClientState" | "title" | "titleAttributes"
+    > & {
+        encode: Required<HelmetProps["encodeSpecialCharacters"]>;
+    };
+
 declare class Helmet extends React.Component<HelmetProps> {
-    static peek(): HelmetData;
+    static peek(): HelmetPropsToState;
     static rewind(): HelmetData;
     static renderStatic(): HelmetData;
     static canUseDOM: boolean;
@@ -81,7 +92,7 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.Component<any>;
+    toComponent(): React.ReactElement;
 }
 
 export interface HelmetHTMLBodyDatum {
@@ -94,7 +105,4 @@ export interface HelmetHTMLElementDatum {
     toComponent(): React.HTMLAttributes<HTMLHtmlElement>;
 }
 
-export const peek: () => HelmetData;
-export const rewind: () => HelmetData;
-export const renderStatic: () => HelmetData;
 export const canUseDOM: boolean;

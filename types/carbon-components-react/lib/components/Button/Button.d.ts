@@ -7,43 +7,47 @@ import {
     ForwardRefProps,
     TooltipAlignment,
     TooltipPosition,
+    ReactComponentConstructor,
 } from "../../../typings/shared";
 
-export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "secondary" | "tertiary";
-export type ButtonSize = "default" | "field" | "small";
+export type ButtonKind = "danger" | "danger--ghost" | "danger--primary" | "danger--tertiary" | "ghost" | "primary" | "secondary" | "tertiary";
+export type ButtonSize = "default" | "field" | "lg" | "md" | "sm" | "small" | "xl" | "2xl";
 
 export interface ButtonRenderIconRenderProps {
-    "aria-hidden"?: boolean;
-    "aria-label"?: string;
-    className?: string;
+    "aria-hidden"?: boolean | undefined;
+    "aria-label"?: string | undefined;
+    className?: string | undefined;
 }
 
 // this is split due to a typing issue with the specialized buttons (SecondaryButton, etc)
-interface ButtonKindProps {
-    kind?: ButtonKind;  // required by has default value
+export interface ButtonKindProps {
+    kind?: ButtonKind | undefined;  // required by has default value
 }
 
 // these props are not passed to the general createElement call
 interface ButtonBaseIsolatedProps {
-    hasIconOnly?: boolean;
-    iconDescription?: string;
+    dangerDescription?: string | undefined;
+    hasIconOnly?: boolean | undefined;
+    iconDescription?: string | undefined;
+    isExpressive?: boolean | undefined;
+    isSelected?: boolean | undefined;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.
     renderIcon?: any;
-    size?: ButtonSize;
+    size?: ButtonSize | undefined;
     /**
      * @deprecated
      */
-    small?: boolean;
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
+    small?: boolean | undefined;
+    tooltipAlignment?: TooltipAlignment | undefined;
+    tooltipPosition?: TooltipPosition | undefined;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof ButtonBaseIsolatedProps>;
 
 interface ButtonBaseProps extends ButtonBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: string;
-    disabled?: boolean;
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
 }
 
 export interface ButtonDefaultProps extends ButtonBaseProps, ReactButtonAttr {
@@ -64,8 +68,8 @@ export type ButtonIntrinsicProps<K extends keyof JSX.IntrinsicElements> = Button
     };
 
 export type ButtonCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
+    C extends ReactComponentConstructor<never>
+> = C extends ReactComponentConstructor<infer P>
     ? ButtonBaseProps &
             SafeProps<P> & {
                 as: C;
@@ -87,6 +91,6 @@ declare function Button(props: ForwardRefProps<HTMLButtonElement, ButtonDefaultP
 // tslint:disable:unified-signatures breaks certain usages
 declare function Button(props: ForwardRefProps<HTMLAnchorElement, ButtonAnchorProps & ButtonKindProps>): FCReturn;
 declare function Button<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(props: ForwardRefProps<R, ButtonIntrinsicProps<T> & ButtonKindProps>): FCReturn;
-declare function Button<T extends React.JSXElementConstructor<any>, R = unknown>(props: ForwardRefProps<R, ButtonCustomComponentProps<T> & ButtonKindProps>): FCReturn;
+declare function Button<T extends ReactComponentConstructor<never>, R = unknown>(props: ForwardRefProps<R, ButtonCustomComponentProps<T> & ButtonKindProps>): FCReturn;
 
 export default Button;

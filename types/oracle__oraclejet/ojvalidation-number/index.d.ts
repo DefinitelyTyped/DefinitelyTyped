@@ -10,26 +10,26 @@ export class IntlNumberConverter extends NumberConverter {
 export namespace IntlNumberConverter {
     // tslint:disable-next-line interface-over-type-literal
     type ConverterOptions = {
-        style?: 'decimal' | 'currency' | 'percent' | 'unit';
-        currency?: string;
-        unit?: 'byte' | 'bit';
-        currencyDisplay?: 'code' | 'symbol' | 'name';
-        decimalFormat?: 'standard' | 'short' | 'long';
-        currencyFormat?: 'standard' | 'short' | 'long';
-        minimumIntegerDigits?: number;
-        minimumFractionDigits?: number;
-        maximumFractionDigits?: number;
-        useGrouping?: boolean;
-        pattern?: string;
-        roundingMode?: 'HALF_UP' | 'HALF_DOWN' | 'HALF_EVEN';
-        roundDuringParse?: boolean;
-        separators?: Separators;
-        lenientParse?: 'full' | 'none';
+        style?: 'decimal' | 'currency' | 'percent' | 'unit' | undefined;
+        currency?: string | undefined;
+        unit?: 'byte' | 'bit' | undefined;
+        currencyDisplay?: 'code' | 'symbol' | 'name' | undefined;
+        decimalFormat?: 'standard' | 'short' | 'long' | undefined;
+        currencyFormat?: 'standard' | 'short' | 'long' | undefined;
+        minimumIntegerDigits?: number | undefined;
+        minimumFractionDigits?: number | undefined;
+        maximumFractionDigits?: number | undefined;
+        useGrouping?: boolean | undefined;
+        pattern?: string | undefined;
+        roundingMode?: 'HALF_UP' | 'HALF_DOWN' | 'HALF_EVEN' | undefined;
+        roundDuringParse?: boolean | undefined;
+        separators?: Separators | undefined;
+        lenientParse?: 'full' | 'none' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Separators = {
-        decimal?: string;
-        group?: string;
+        decimal?: string | undefined;
+        group?: string | undefined;
     };
 }
 export class NumberConverter implements Converter<number> {
@@ -47,24 +47,24 @@ export class NumberRangeValidator implements Validator<string | number> {
 export namespace NumberRangeValidator {
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        converter?: NumberConverter;
-        min?: number;
-        max?: number;
+        converter?: NumberConverter | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         hint?: {
-            max?: string;
-            min?: string;
-            inRange?: string;
-            exact?: string;
-        };
+            max?: string | undefined;
+            min?: string | undefined;
+            inRange?: string | undefined;
+            exact?: string | undefined;
+        } | undefined;
         messageDetail?: {
-            rangeUnderflow?: string;
-            rangeOverflow?: string;
-            exact?: string;
-        };
+            rangeUnderflow?: string | undefined;
+            rangeOverflow?: string | undefined;
+            exact?: string | undefined;
+        } | undefined;
         messageSummary?: {
-            rangeUnderflow?: string;
-            rangeOverflow?: string;
-        };
+            rangeUnderflow?: string | undefined;
+            rangeOverflow?: string | undefined;
+        } | undefined;
     };
 }
 export interface NumberRangeValidatorFactory {

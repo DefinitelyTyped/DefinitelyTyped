@@ -10,7 +10,7 @@ export function find(dir: string, options?: Options): Results;
 
 export interface Options {
     /** Array of strings of the variables to ignore, e.g. `['$my-var', '$my-second-var']` */
-    ignore?: string[];
+    ignore?: string[] | undefined;
 }
 
 export interface Results {

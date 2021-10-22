@@ -1657,7 +1657,7 @@ QUnit.test( "QUnit.extend", function( assert ) {
   assert.ok( !( "z" in newBase ), "Values specified as `undefined` are removed" );
 });
 
-// Example QUnit.extend usage taken from: http://stackoverflow.com/a/33439774/419956
+// Example QUnit.extend usage taken from: https://stackoverflow.com/a/33439774/419956
 QUnit.extend(QUnit.assert, {
     matches: function (actual, regex, message) {
         var success = !!regex && !!actual && (new RegExp(regex)).test(actual);

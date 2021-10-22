@@ -1,9 +1,9 @@
 import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface ojSwipeActions extends baseComponent<ojSwipeActionsSettableProperties> {
     translations: {
-        ariaHideActionsDescription?: string;
-        ariaShowEndActionsDescription?: string;
-        ariaShowStartActionsDescription?: string;
+        ariaHideActionsDescription?: string | undefined;
+        ariaShowEndActionsDescription?: string | undefined;
+        ariaShowStartActionsDescription?: string | undefined;
     };
     onOjAction: ((event: ojSwipeActions.ojAction) => any) | null;
     addEventListener<T extends keyof ojSwipeActionsEventMap>(type: T, listener: (this: HTMLElement, ev: ojSwipeActionsEventMap[T]) => any, useCapture?: boolean): void;
@@ -26,9 +26,9 @@ export interface ojSwipeActionsEventMap extends baseComponentEventMap<ojSwipeAct
 }
 export interface ojSwipeActionsSettableProperties extends baseComponentSettableProperties {
     translations: {
-        ariaHideActionsDescription?: string;
-        ariaShowEndActionsDescription?: string;
-        ariaShowStartActionsDescription?: string;
+        ariaHideActionsDescription?: string | undefined;
+        ariaShowEndActionsDescription?: string | undefined;
+        ariaShowStartActionsDescription?: string | undefined;
     };
 }
 export interface ojSwipeActionsSettablePropertiesLenient extends Partial<ojSwipeActionsSettableProperties> {

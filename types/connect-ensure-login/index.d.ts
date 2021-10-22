@@ -10,17 +10,17 @@ export interface LoggedInOptions {
     /**
      * URL to redirect to for login, defaults to _/login_
      */
-    redirectTo?: string;
+    redirectTo?: string | undefined;
     /**
      * set redirectTo in session, defaults to _true_
      */
-    setRedirectTo?: boolean;
+    setRedirectTo?: boolean | undefined;
 }
 export interface LoggedOutOptions {
     /**
      * URL to redirect to in logged in, defaults to _/_
      */
-    redirectTo?: string;
+    redirectTo?: string | undefined;
 }
 
 /**

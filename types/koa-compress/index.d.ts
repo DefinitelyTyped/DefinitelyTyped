@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/compress
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 //                 Joel Gallant <https://github.com/joelgallant>
-// Definitions: https://github.com/hellopao/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
@@ -30,33 +30,33 @@ declare namespace koaCompress {
         /**
          * An optional function that checks the response content type to decide whether to compress. By default, it uses compressible.
          */
-        filter?: (mimeType: string) => boolean;
+        filter?: ((mimeType: string) => boolean) | undefined;
 
         /**
          * Minimum response size in bytes to compress. Default 1024 bytes or 1kb.
          */
-        threshold?: number | string;
+        threshold?: number | string | undefined;
 
         /**
          * An optional string, which specifies what encoders to use for requests
          * without Accept-Encoding. Default: 'idenity'.
          */
-        defaultEncoding?: string
+        defaultEncoding?: string | undefined
 
         /**
          * Options for brotli compression.
          */
-        br?: zlib.BrotliOptions | false;
+        br?: zlib.BrotliOptions | false | undefined;
 
         /**
          * Options for gzip compression.
          */
-        gzip?: zlib.ZlibOptions | false;
+        gzip?: zlib.ZlibOptions | false | undefined;
 
         /**
          * Options for deflate compression.
          */
-        deflate?: zlib.ZlibOptions | false;
+        deflate?: zlib.ZlibOptions | false | undefined;
     }
 }
 

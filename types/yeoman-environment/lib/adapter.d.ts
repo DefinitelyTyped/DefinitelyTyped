@@ -10,7 +10,7 @@ declare namespace TerminalAdapter {
         /**
          * A console-object for logging messages.
          */
-        console?: Console;
+        console?: Console | undefined;
     }
 
     /**

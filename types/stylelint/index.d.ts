@@ -1,42 +1,32 @@
-// Type definitions for stylelint 9.10
+// Type definitions for stylelint 13.13
 // Project: https://github.com/stylelint/stylelint, https://stylelint.io
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Filips Alpe <https://github.com/filipsalpe>
 //                 James Garbutt <https://github.com/43081j>
 //                 Bob Matcuk <https://github.com/bmatcuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.8
 
+import { GlobbyOptions } from 'globby';
 import * as postcss from 'postcss';
 
-export type FormatterType =
-    | "json"
-    | "string"
-    | "verbose"
-    | "compact"
-    | "unix"
-    | ((results: LintResult[]) => string);
+export type FormatterType = 'json' | 'string' | 'verbose' | 'compact' | 'unix' | ((results: LintResult[]) => string);
 
-export type SyntaxType = "css-in-js"
-    | "html"
-    | "less"
-    | "markdown"
-    | "sass"
-    | "scss"
-    | "sugarss";
+export type SyntaxType = 'css-in-js' | 'html' | 'less' | 'markdown' | 'sass' | 'scss' | 'sugarss';
 
-export type Severity = "warning" | "error";
+export type Severity = 'warning' | 'error';
 
 export interface Configuration {
     rules: Record<string, any>;
     extends: string | string[];
     plugins: string[];
     processors: string[];
-    ignoreFiles: string|string[];
+    ignoreFiles: string | string[];
     defaultSeverity: Severity;
 }
 
 export interface LinterOptions {
+    allowEmptyInput: boolean;
     cache: boolean;
     cacheLocation: string;
     code: string;
@@ -50,9 +40,12 @@ export interface LinterOptions {
     files: string | string[];
     fix: boolean;
     formatter: FormatterType;
+    globbyOptions: GlobbyOptions;
     ignoreDisables: boolean;
     ignorePath: string;
     maxWarnings: number;
+    reportDescriptionlessDisables: boolean;
+    reportInvalidScopeDisables: boolean;
     reportNeedlessDisables: boolean;
     syntax: SyntaxType;
 }
@@ -90,15 +83,17 @@ export namespace formatters {
 
 export function lint(options?: Partial<LinterOptions>): Promise<LinterResult>;
 
-export type ValidateOptionsAssertion = {
-    actual: any;
-    possible?: any;
-    optional?: false;
-} | {
-    actual?: any;
-    possible: any;
-    optional: true;
-};
+export type ValidateOptionsAssertion =
+    | {
+          actual: any;
+          possible?: any;
+          optional?: false;
+      }
+    | {
+          actual?: any;
+          possible: any;
+          optional: true;
+      };
 
 export type RuleMessageValue = string | ((...args: any[]) => string);
 
@@ -113,61 +108,23 @@ export namespace utils {
         line?: number;
     }): void;
 
-    function ruleMessages<T extends {[key: string]: RuleMessageValue}>(
-        ruleName: string,
-        messages: T): T;
+    function ruleMessages<T extends { [key: string]: RuleMessageValue }>(ruleName: string, messages: T): T;
 
-    function validateOptions(result: postcss.Result, ruleName: string,
-        ...options: ValidateOptionsAssertion[]): boolean;
+    function validateOptions(result: postcss.Result, ruleName: string, ...options: ValidateOptionsAssertion[]): boolean;
 
-    function checkAgainstRule(options: {
-        ruleName: string;
-        ruleSettings: any;
-        root: any;
-    }, callback: (warning: string) => void): void;
+    function checkAgainstRule(
+        options: {
+            ruleName: string;
+            ruleSettings: any;
+            root: any;
+        },
+        callback: (warning: string) => void,
+    ): void;
 }
 
-export type Plugin = (primaryOption: any, secondaryOptions?: object) =>
-    (root: postcss.Root, result: postcss.Result) => void|PromiseLike<void>;
+export type Plugin = (
+    primaryOption: any,
+    secondaryOptions?: object,
+) => (root: postcss.Root, result: postcss.Result) => void | PromiseLike<void>;
 
-export function createPlugin(
-    ruleName: string,
-    plugin: Plugin
-): any;
-
-export interface RuleTesterResult {
-    expected: number;
-    actual: number;
-    description: string;
-}
-
-export interface RuleTesterTest {
-    code: string;
-    description?: string;
-}
-
-export interface RuleTesterTestRejected extends RuleTesterTest {
-    line?: number;
-    column?: number;
-    only?: boolean;
-    message?: string;
-}
-
-export interface RuleTesterSchema {
-    ruleName: string;
-    syntax?: SyntaxType;
-    config?: any;
-    accept?: RuleTesterTest[];
-    reject?: RuleTesterTestRejected[];
-}
-
-export interface RuleTesterContext {
-    comparisonCount: number;
-    completeAssertionDescription: string;
-    caseDescription: string;
-    only?: boolean;
-}
-
-export function createRuleTester(
-    fn: (result: Promise<RuleTesterResult[]>, context: RuleTesterContext) => void
-): (rule: Plugin, schema: RuleTesterSchema) => void;
+export function createPlugin(ruleName: string, plugin: Plugin): any;

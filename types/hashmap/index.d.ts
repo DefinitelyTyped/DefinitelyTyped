@@ -27,9 +27,9 @@ declare class HashMap<TKey, TValue> {
      * Return value from hashmap.
      *
      * @param key Key.
-     * @return Value stored under given key.
+     * @return Value stored under given key. If no value is stored for the key, returns undefined.
      */
-    get(key: TKey): TValue;
+    get(key: TKey): TValue | undefined;
 
     /**
      * Store value in hashmap.

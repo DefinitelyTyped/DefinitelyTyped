@@ -53,27 +53,27 @@ declare namespace begin {
         /**
          * Adapter name e.g. 'mysql'
          */
-        adapter?: anyDB.Adapter;
+        adapter?: anyDB.Adapter | undefined;
         /**
          * SQL statement for beginning a transaction, default 'BEGIN'
          */
-        begin?: string;
+        begin?: string | undefined;
         /**
          * SQL statement for committing a transaction, default 'COMMIT'
          */
-        commit?: string;
+        commit?: string | undefined;
         /**
          * SQL statement for rolling back a transaction, default 'ROLLBACK'
          */
-        rollback?: string;
+        rollback?: string | undefined;
         /**
          * Callback for transaction
          */
-        callback?: (error: Error, transaction: Transaction) => void;
+        callback?: ((error: Error, transaction: Transaction) => void) | undefined;
         /**
          * Rollback automatically on error, default true
          */
-        autoRollback?: boolean;
+        autoRollback?: boolean | undefined;
     }
 }
 

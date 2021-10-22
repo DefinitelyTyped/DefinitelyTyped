@@ -13,20 +13,20 @@ declare module '@hapi/hapi' {
             /**
              * The name of the cookie to store the CSRF crumb into.
              */
-            key?: string;
+            key?: string | undefined;
 
             /**
              * Specifies how the crumb will be sent in requests.
              *
              * @default 'payload'
              */
-            source?: 'payload' | 'query';
+            source?: 'payload' | 'query' | undefined;
 
             /**
              * Override for the server's 'restful' setting
              */
-            restful?: boolean;
-        };
+            restful?: boolean | undefined;
+        } | undefined;
     }
 }
 
@@ -39,7 +39,7 @@ declare namespace crumb {
          *
          * @default 'crumb'
          */
-        key?: string;
+        key?: string | undefined;
 
         /**
          * The length of the crumb to generate.
@@ -47,35 +47,35 @@ declare namespace crumb {
          *
          * @default 43
          */
-        size?: number;
+        size?: number | undefined;
 
         /**
          * Whether to automatically generate a new crumb for requests.
          *
          * @default true
          */
-        autoGenerate?: boolean;
+        autoGenerate?: boolean | undefined;
 
         /**
          * Whether to automatically add the crumb to view contexts as the given key.
          *
          * @default true
          */
-        addToViewContext?: boolean;
+        addToViewContext?: boolean | undefined;
 
         /**
          * Storage options for the cookie containing the crumb
          *
          * @default { path: '/' }
          */
-        cookieOptions?: ServerStateCookieOptions;
+        cookieOptions?: ServerStateCookieOptions | undefined;
 
         /**
          * Specify the name of the custom CSRF header.
          *
          * @default 'X-CSRF-Token'
          */
-        headerName?: string;
+        headerName?: string | undefined;
 
         /**
          * RESTful mode that validates crumb tokens from 'X-CSRF-Token' request header for POST, PUT, PATCH and DELETE server routes.
@@ -83,7 +83,7 @@ declare namespace crumb {
          *
          * @default false
          */
-        restful?: boolean;
+        restful?: boolean | undefined;
 
         /**
          * A function which when provided, is called for every request.
@@ -91,21 +91,21 @@ declare namespace crumb {
          *
          * @default false
          */
-        skip?: boolean | SkipFunction;
+        skip?: boolean | SkipFunction | undefined;
 
         /**
          * Using enforce with false will set the CSRF header cookie but won't execute the validation.
          *
          * @default true
          */
-        enforce?: boolean;
+        enforce?: boolean | undefined;
 
         /**
          * Whether to add to the request log with tag 'crumb' and data 'validation failed'.
          *
          * @default false
          */
-        logUnauthorized?: boolean;
+        logUnauthorized?: boolean | undefined;
     }
 }
 

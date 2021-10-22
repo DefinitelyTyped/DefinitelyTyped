@@ -15,7 +15,8 @@ import {
     HighlightArea,
     VerticalRectSeries,
     Treemap,
-    Sunburst
+    Sunburst,
+    AreaSeries
 } from 'react-vis';
 
 export function Example() {
@@ -264,4 +265,18 @@ export function TreemapExample(): JSX.Element {
 
 export function SunburstExample(): JSX.Element {
   return <Sunburst data={treemapData} mode={"partition"} height={150} width={150}/>;
+}
+
+export function AreaSeriesExample(): JSX.Element {
+    return (
+        <AreaSeries
+            className="area-series-example"
+            curve={'curveMonotoneX'}
+            data={[
+                { x: 1, y: 11 },
+                { x: 1.5, y: 29 },
+                { x: 3, y: 7 },
+            ]}
+        />
+    );
 }

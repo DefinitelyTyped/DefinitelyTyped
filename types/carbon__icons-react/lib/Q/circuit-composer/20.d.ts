@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const QCircuitComposer20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default QCircuitComposer20;
+import { QCircuitComposer20 } from "../../../";
+
+export = QCircuitComposer20;

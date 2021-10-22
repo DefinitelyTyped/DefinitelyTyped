@@ -8,18 +8,18 @@
 /// <reference types="iscroll" />
 
 interface JQueryDrawerClassOptions {
-    nav?: string;
-    toggle?: string;
-    overlay?: string;
-    open?: string;
-    close?: string;
-    dropdown?: string;
+    nav?: string | undefined;
+    toggle?: string | undefined;
+    overlay?: string | undefined;
+    open?: string | undefined;
+    close?: string | undefined;
+    dropdown?: string | undefined;
 }
 
 interface JQueryDrawerOptions {
-    class?: JQueryDrawerClassOptions;
-    iscroll?: IScrollOptions;
-    showOverlay?: boolean;
+    class?: JQueryDrawerClassOptions | undefined;
+    iscroll?: IScrollOptions | undefined;
+    showOverlay?: boolean | undefined;
 }
 
 interface JQuery {

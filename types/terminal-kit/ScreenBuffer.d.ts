@@ -30,7 +30,7 @@ declare class ScreenBuffer extends NextGenEvents {
       shrink?: {
         width: number;
         height: number;
-      };
+      } | undefined;
     },
     calback: (error: any, image: ScreenBufferHD) => void
   ): void;
@@ -50,7 +50,7 @@ declare class ScreenBuffer extends NextGenEvents {
 
   fill(options?: {
     attr: ScreenBuffer.Attributes | number;
-    char?: string;
+    char?: string | undefined;
   }): void;
 
   clear(): void;
@@ -85,46 +85,46 @@ export = ScreenBuffer;
 
 declare namespace ScreenBuffer {
   interface Options {
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     dst: Terminal | ScreenBuffer;
-    x?: number;
-    y?: number;
-    blending?: boolean;
-    wrap?: boolean;
-    noFill?: boolean;
+    x?: number | undefined;
+    y?: number | undefined;
+    blending?: boolean | undefined;
+    wrap?: boolean | undefined;
+    noFill?: boolean | undefined;
   }
 
   interface DrawOptions {
-    dst?: Terminal | ScreenBuffer;
-    x?: number;
-    y?: number;
-    srcClipRect?: Rect;
-    dstClipRect?: Rect;
-    blending?: boolean;
-    delta?: boolean;
-    wrap?: boolean | "x" | "y";
-    tile?: boolean;
+    dst?: Terminal | ScreenBuffer | undefined;
+    x?: number | undefined;
+    y?: number | undefined;
+    srcClipRect?: Rect | undefined;
+    dstClipRect?: Rect | undefined;
+    blending?: boolean | undefined;
+    delta?: boolean | undefined;
+    wrap?: boolean | "x" | "y" | undefined;
+    tile?: boolean | undefined;
   }
 
   interface Attributes {
-    color?: number;
-    defaultColor?: boolean;
-    bgColor?: number;
-    bgDefaultColor?: boolean;
-    bold?: boolean;
-    dim?: boolean;
-    italic?: boolean;
-    underline?: boolean;
-    blink?: boolean;
-    inverse?: boolean;
-    hidden?: boolean;
-    strike?: boolean;
-    transparency?: boolean;
-    fgTransparency?: boolean;
-    bgTransparency?: boolean;
-    styleTransparency?: boolean;
-    charTransparency?: boolean;
+    color?: number | undefined;
+    defaultColor?: boolean | undefined;
+    bgColor?: number | undefined;
+    bgDefaultColor?: boolean | undefined;
+    bold?: boolean | undefined;
+    dim?: boolean | undefined;
+    italic?: boolean | undefined;
+    underline?: boolean | undefined;
+    blink?: boolean | undefined;
+    inverse?: boolean | undefined;
+    hidden?: boolean | undefined;
+    strike?: boolean | undefined;
+    transparency?: boolean | undefined;
+    fgTransparency?: boolean | undefined;
+    bgTransparency?: boolean | undefined;
+    styleTransparency?: boolean | undefined;
+    charTransparency?: boolean | undefined;
   }
 
   interface PutOptions {
@@ -132,7 +132,7 @@ declare namespace ScreenBuffer {
     y: number;
     attr: Attributes | number;
     wrap: boolean;
-    direction?: "right" | "left" | "up" | "down" | null;
+    direction?: "right" | "left" | "up" | "down" | null | undefined;
     dx: number;
     dy: number;
   }

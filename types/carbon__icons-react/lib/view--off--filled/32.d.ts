@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ViewOffFilled32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ViewOffFilled32;
+import { ViewOffFilled32 } from "../../";
+
+export = ViewOffFilled32;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DataRefineryReference24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DataRefineryReference24;
+import { DataRefineryReference24 } from "../../";
+
+export = DataRefineryReference24;

@@ -1,4 +1,4 @@
-// Type definitions for koa-joi-router 5.2
+// Type definitions for koa-joi-router 8.0
 // Project: https://github.com/koajs/joi-router
 // Definitions by: Matthew Bull <https://github.com/wingsbob>
 //                 Dave Welsh <https://github.com/move-zig>
@@ -12,6 +12,7 @@ import * as Koa from 'koa';
 import * as Joi from 'joi';
 import * as KoaRouter from 'koa-router';
 import * as CoBody from 'co-body';
+import * as busboy from 'busboy';
 
 declare module "koa" {
     interface Request {
@@ -35,21 +36,22 @@ declare namespace createRouter {
     type OutputValidation = { body: Joi.SchemaLike } | { headers: Joi.SchemaLike };
 
     interface Config {
-      pre?: Handler;
+      pre?: Handler | undefined;
       validate?: {
-          header?: Joi.SchemaLike;
-          query?: Joi.SchemaLike;
-          params?: Joi.SchemaLike;
-          body?: Joi.SchemaLike;
-          maxBody?: number;
-          failure?: number;
-          type?: 'form'|'json'|'multipart';
-          formOptions?: CoBody.Options;
-          jsonOptions?: CoBody.Options;
-          multipartOptions?: CoBody.Options;
-          output?: {[status: string]: OutputValidation};
-          continueOnError?: boolean;
-      };
+          header?: Joi.SchemaLike | undefined;
+          query?: Joi.SchemaLike | undefined;
+          params?: Joi.SchemaLike | undefined;
+          body?: Joi.SchemaLike | undefined;
+          maxBody?: number | string | undefined;
+          failure?: number | undefined;
+          type?: 'form'|'json'|'multipart' | undefined;
+          formOptions?: CoBody.Options | undefined;
+          jsonOptions?: CoBody.Options | undefined;
+          multipartOptions?: busboy.BusboyConfig | undefined;
+          output?: {[status: string]: OutputValidation} | undefined;
+          continueOnError?: boolean | undefined;
+          validateOptions?: Joi.ValidationOptions | undefined;
+      } | undefined;
       meta?: any;
     }
 

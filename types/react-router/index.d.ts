@@ -38,32 +38,33 @@ export interface RouterChildContext<Params extends { [K in keyof Params]?: strin
     };
 }
 export interface MemoryRouterProps {
-    initialEntries?: H.LocationDescriptor[];
-    initialIndex?: number;
-    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
-    keyLength?: number;
+    children?: React.ReactNode;
+    initialEntries?: H.LocationDescriptor[] | undefined;
+    initialIndex?: number | undefined;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
+    keyLength?: number | undefined;
 }
 
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> {}
 
 export interface PromptProps {
     message: string | ((location: H.Location, action: H.Action) => string | boolean);
-    when?: boolean;
+    when?: boolean | undefined;
 }
 export class Prompt extends React.Component<PromptProps, any> {}
 
 export interface RedirectProps {
     to: H.LocationDescriptor;
-    push?: boolean;
-    from?: string;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
+    push?: boolean | undefined;
+    from?: string | undefined;
+    path?: string | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
 }
 export class Redirect extends React.Component<RedirectProps, any> {}
 
 export interface StaticContext {
-    statusCode?: number;
+    statusCode?: number | undefined;
 }
 
 export interface RouteComponentProps<
@@ -74,7 +75,7 @@ export interface RouteComponentProps<
     history: H.History<S>;
     location: H.Location<S>;
     match: match<Params>;
-    staticContext?: C;
+    staticContext?: C | undefined;
 }
 
 export interface RouteChildrenProps<Params extends { [K in keyof Params]?: string } = {}, S = H.LocationState> {
@@ -83,38 +84,46 @@ export interface RouteChildrenProps<Params extends { [K in keyof Params]?: strin
     match: match<Params> | null;
 }
 
-export interface RouteProps {
-    location?: H.Location;
-    component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-    render?: (props: RouteComponentProps<any>) => React.ReactNode;
-    children?: ((props: RouteChildrenProps<any>) => React.ReactNode) | React.ReactNode;
-    path?: string | string[];
-    exact?: boolean;
-    sensitive?: boolean;
-    strict?: boolean;
+export interface RouteProps<
+    Path extends string = string,
+    Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>
+> {
+    location?: H.Location | undefined;
+    component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any> | undefined;
+    render?: ((props: RouteComponentProps<Params>) => React.ReactNode) | undefined;
+    children?: ((props: RouteChildrenProps<Params>) => React.ReactNode) | React.ReactNode | undefined;
+    path?: Path | readonly Path[] | undefined;
+    exact?: boolean | undefined;
+    sensitive?: boolean | undefined;
+    strict?: boolean | undefined;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> {}
+export class Route<T extends {} = {}, Path extends string = string> extends React.Component<
+    RouteProps<Path> & OmitNative<T, keyof RouteProps>,
+    any
+> {}
 
 export interface RouterProps {
+    children?: React.ReactNode;
     history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> {}
 
 export interface StaticRouterContext extends StaticContext {
-    url?: string;
-    action?: 'PUSH' | 'REPLACE';
-    location?: object;
+    url?: string | undefined;
+    action?: 'PUSH' | 'REPLACE' | undefined;
+    location?: object | undefined;
 }
 export interface StaticRouterProps {
-    basename?: string;
-    location?: string | object;
-    context?: StaticRouterContext;
+    basename?: string | undefined;
+    children?: React.ReactNode;
+    location?: string | object | undefined;
+    context?: StaticRouterContext | undefined;
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> {}
 export interface SwitchProps {
-    children?: React.ReactNode;
-    location?: H.Location;
+    children?: React.ReactNode | undefined;
+    location?: H.Location | undefined;
 }
 export class Switch extends React.Component<SwitchProps, any> {}
 
@@ -128,19 +137,39 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
 // Omit taken from https://github.com/Microsoft/TypeScript/issues/28339#issuecomment-467220238
 export type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
+// Newer Omit type: as the previous one is being exported, removing it would be a breaking change
+export type OmitNative<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
+
 export function matchPath<Params extends { [K in keyof Params]?: string }>(
     pathname: string,
     props: string | string[] | RouteProps,
     parent?: match<Params> | null,
 ): match<Params> | null;
 
-export function generatePath(
-    pattern: string,
-    params?: { [paramName: string]: string | number | boolean | undefined },
-): string;
+export type ExtractRouteOptionalParam<T extends string, U = string | number | boolean> = T extends `${infer Param}?`
+    ? { [k in Param]?: U }
+    : T extends `${infer Param}*`
+    ? { [k in Param]?: U }
+    : T extends `${infer Param}+`
+    ? { [k in Param]: U }
+    : { [k in T]: U };
+
+export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
+    ? { [k in string]?: U }
+    : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
+    : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
+    : {};
+
+export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
-    ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }
+    ? { wrappedComponentRef?: React.Ref<InstanceType<C>> | undefined }
     : {};
 
 export interface WithRouterStatics<C extends React.ComponentType<any>> {

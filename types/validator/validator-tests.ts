@@ -13,6 +13,7 @@ import isAfterFunc from 'validator/lib/isAfter';
 import isAlphaFunc from 'validator/lib/isAlpha';
 import isAlphanumericFunc from 'validator/lib/isAlphanumeric';
 import isAsciiFunc from 'validator/lib/isAscii';
+import isBase58Func from 'validator/lib/isBase58';
 import isBase64Func from 'validator/lib/isBase64';
 import isBeforeFunc from 'validator/lib/isBefore';
 import isIBANFunc from 'validator/lib/isIBAN';
@@ -24,6 +25,7 @@ import isCurrencyFunc from 'validator/lib/isCurrency';
 import isEthereumAddressFunc from 'validator/lib/isEthereumAddress';
 import isBtcAddressFunc from 'validator/lib/isBtcAddress';
 import isDataURIFunc from 'validator/lib/isDataURI';
+import isDateFunc from 'validator/lib/isDate';
 import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
 import isEmailFunc from 'validator/lib/isEmail';
@@ -38,6 +40,7 @@ import isHSLFunc from 'validator/lib/isHSL';
 import isRgbColorFunc from 'validator/lib/isRgbColor';
 import isHexadecimalFunc from 'validator/lib/isHexadecimal';
 import isIPFunc from 'validator/lib/isIP';
+import isIPRange from 'validator/lib/isIPRange';
 import isISBNFunc from 'validator/lib/isISBN';
 import isEANFunc from 'validator/lib/isEAN';
 import isISSNFunc from 'validator/lib/isISSN';
@@ -66,6 +69,7 @@ import isPassportNumberFunc from 'validator/lib/isPassportNumber';
 import isPortFunc from 'validator/lib/isPort';
 import isPostalCodeFunc from 'validator/lib/isPostalCode';
 import isSemVerFunc from 'validator/lib/isSemVer';
+import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
@@ -85,6 +89,7 @@ import trimFunc from 'validator/lib/trim';
 import unescapeFunc from 'validator/lib/unescape';
 import whitelistFunc from 'validator/lib/whitelist';
 import isSlugFunc from 'validator/lib/isSlug';
+import isVatFunc from 'validator/lib/isVAT';
 
 {
     let _blacklist = validator.blacklist;
@@ -144,6 +149,9 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isDataURI = validator.isDataURI;
     _isDataURI = isDataURIFunc;
 
+    let _isDate = validator.isDate;
+    _isDate = isDateFunc;
+
     let _isDecimal = validator.isDecimal;
     _isDecimal = isDecimalFunc;
 
@@ -185,6 +193,9 @@ import isSlugFunc from 'validator/lib/isSlug';
 
     let _isIP = validator.isIP;
     _isIP = isIPFunc;
+
+    let _isIPRange = validator.isIPRange;
+    _isIPRange = isIPRange;
 
     let _isISBN = validator.isISBN;
     _isISBN = isISBNFunc;
@@ -270,6 +281,9 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isSemVer = validator.isSemVer;
     _isSemVer = isSemVerFunc;
 
+    let _isStrongPassword = validator.isStrongPassword;
+    _isStrongPassword = isStrongPasswordFunc;
+
     let _isSurrogatePair = validator.isSurrogatePair;
     _isSurrogatePair = isSurrogatePairFunc;
 
@@ -352,6 +366,7 @@ import isCurrencyFuncEs from 'validator/es/lib/isCurrency';
 import isEthereumAddressFuncEs from 'validator/es/lib/isEthereumAddress';
 import isBtcAddressFuncEs from 'validator/es/lib/isBtcAddress';
 import isDataURIFuncEs from 'validator/es/lib/isDataURI';
+import isDateFuncEs from 'validator/es/lib/isDate';
 import isDecimalFuncEs from 'validator/es/lib/isDecimal';
 import isDivisibleByFuncEs from 'validator/es/lib/isDivisibleBy';
 import isEmailFuncEs from 'validator/es/lib/isEmail';
@@ -366,6 +381,7 @@ import isHSLFuncEs from 'validator/es/lib/isHSL';
 import isRgbColorFuncEs from 'validator/es/lib/isRgbColor';
 import isHexadecimalFuncEs from 'validator/es/lib/isHexadecimal';
 import isIPFuncEs from 'validator/es/lib/isIP';
+import isIPRangeFuncEs from 'validator/es/lib/isIPRange';
 import isISBNFuncEs from 'validator/es/lib/isISBN';
 import isEANFuncEs from 'validator/es/lib/isEAN';
 import isISSNFuncEs from 'validator/es/lib/isISSN';
@@ -394,6 +410,7 @@ import isPassportNumberFuncEs from 'validator/es/lib/isPassportNumber';
 import isPortFuncEs from 'validator/es/lib/isPort';
 import isPostalCodeFuncEs from 'validator/es/lib/isPostalCode';
 import isSemVerFuncEs from 'validator/es/lib/isSemVer';
+import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
@@ -413,6 +430,8 @@ import trimFuncEs from 'validator/es/lib/trim';
 import unescapeFuncEs from 'validator/es/lib/unescape';
 import whitelistFuncEs from 'validator/es/lib/whitelist';
 import isSlugFuncEs from 'validator/es/lib/isSlug';
+import isBase58FuncEs from 'validator/es/lib/isBase58';
+import isVATFuncEs from 'validator/es/lib/isVAT';
 
 /************************************************
  *                                               *
@@ -484,6 +503,9 @@ const any: any = null;
     result = validator.isAlpha('sample', 'sv-SE');
     result = validator.isAlpha('sample', 'tr-TR');
     result = validator.isAlpha('sample', 'uk-UA');
+    result = validator.isAlpha('sample', undefined, {ignore: /[\s!?]/g});
+    result = validator.isAlpha('sample', 'fr-FR', {ignore: /[\s!?]/g});
+    result = validator.isAlpha('sample', 'fr-FR', {ignore: ' !?'});
 
     result = validator.isAlphanumeric('sample');
     result = validator.isAlphanumeric('sample', 'ar');
@@ -534,10 +556,16 @@ const any: any = null;
     result = validator.isAlphanumeric('sample', 'sv-SE');
     result = validator.isAlphanumeric('sample', 'tr-TR');
     result = validator.isAlphanumeric('sample', 'uk-UA');
+    result = validator.isAlphanumeric('sample', undefined, {ignore: /[\s!?]/g});
+    result = validator.isAlphanumeric('sample', 'fr-FR', {ignore: /[\s!?]/g});
+    result = validator.isAlphanumeric('sample', 'fr-FR', {ignore: ' !?'});
 
     result = validator.isAscii('sample');
 
+    isBase58Func('sample'); // $ExpectType boolean
+    const isBase64Options: validator.IsBase64Options = {};
     result = validator.isBase64('sample');
+    result = validator.isBase64('sample', isBase64Options);
 
     result = validator.isBefore('sample');
     result = validator.isBefore('sample', new Date().toString());
@@ -562,6 +590,10 @@ const any: any = null;
     result = validator.isBtcAddress('sample');
 
     result = validator.isDataURI('sample');
+
+    const isDateOptions: validator.IsDateOptions = {};
+    result = validator.isDate('sample');
+    result = validator.isDate('sample', isDateOptions);
 
     const isDecimalOptions: validator.IsDecimalOptions = {};
     result = validator.isDecimal('sample');
@@ -614,6 +646,9 @@ const any: any = null;
 
     result = validator.isIP('sample');
     result = validator.isIP('sample', '6');
+
+    result = validator.isIPRange('sample');
+    result = validator.isIPRange('sample', '6');
 
     result = validator.isISBN('sample');
     result = validator.isISBN('sample', '13');
@@ -786,9 +821,13 @@ const any: any = null;
 
     result = validator.isSemVer('sample');
 
+    result = validator.isStrongPassword('sample');
+
     result = validator.isSurrogatePair('sample');
 
-    const isURLOptions: validator.IsURLOptions = {};
+    const isURLOptions: validator.IsURLOptions = {
+        require_host: true,
+    };
     result = validator.isURL('sample');
     result = validator.isURL('sample', isURLOptions);
 
@@ -799,6 +838,8 @@ const any: any = null;
     result = validator.isUppercase('sample');
 
     result = validator.isVariableWidth('sample');
+    validator.isVAT('GB999 9999 00', 'GB'); // $ExpectType boolean
+    isVatFunc('foo', 'GB'); // $ExpectType boolean
 
     result = validator.isWhitelisted('sample', 'abc');
     result = validator.isWhitelisted('sample', ['a', 'b', 'c']);

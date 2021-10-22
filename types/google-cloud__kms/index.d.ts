@@ -111,9 +111,9 @@ export namespace v1 {
     }
 
     interface Digest {
-        sha256?: Buffer;
-        sha384?: Buffer;
-        sha512?: Buffer;
+        sha256?: Buffer | undefined;
+        sha384?: Buffer | undefined;
+        sha512?: Buffer | undefined;
     }
 
     interface KeyOperationAttestation {
@@ -125,11 +125,11 @@ export namespace v1 {
         state: CryptoKeyVersionState;
         protectionLevel: ProtectionLevel;
         algorithm: CryptoKeyVersionAlgorithm;
-        attestation?: KeyOperationAttestation;
+        attestation?: KeyOperationAttestation | undefined;
         createTime: google_protobuf_timestamp_pb.Timestamp.AsObject;
         generateTime: google_protobuf_timestamp_pb.Timestamp.AsObject;
-        destroyTime?: google_protobuf_timestamp_pb.Timestamp.AsObject;
-        destroyEventTime?: google_protobuf_timestamp_pb.Timestamp.AsObject;
+        destroyTime?: google_protobuf_timestamp_pb.Timestamp.AsObject | undefined;
+        destroyEventTime?: google_protobuf_timestamp_pb.Timestamp.AsObject | undefined;
     }
 
     interface CryptoKeyVersionTemplate {
@@ -162,7 +162,7 @@ export namespace v1 {
         primary: CryptoKeyVersion;
         purpose: CryptoKeyPurpose;
         createTime: google_protobuf_timestamp_pb.Timestamp.AsObject;
-        nextRotationTime?: google_protobuf_timestamp_pb.Timestamp.AsObject;
+        nextRotationTime?: google_protobuf_timestamp_pb.Timestamp.AsObject | undefined;
         versionTemplate: CryptoKeyVersionTemplate;
         labels: { [s: string]: string; };
     }
@@ -175,21 +175,21 @@ export namespace v1 {
     namespace KeyManagementServiceClient {
         interface ConfigurationObject {
             credentials?: {
-                client_email?: string;
-                private_key?: string
-            };
-            email?: string;
-            keyFilename?: string;
-            port?: number;
-            projectId?: string;
+                client_email?: string | undefined;
+                private_key?: string | undefined
+            } | undefined;
+            email?: string | undefined;
+            keyFilename?: string | undefined;
+            port?: number | undefined;
+            projectId?: string | undefined;
             promise?: any;
-            servicePath?: string;
+            servicePath?: string | undefined;
         }
 
         interface EncryptRequest {
             name: string;
             plaintext: Buffer;
-            additionalAuthenticatedData?: string;
+            additionalAuthenticatedData?: string | undefined;
         }
         interface EncryptResponse {
             name: string;
@@ -200,7 +200,7 @@ export namespace v1 {
         interface DecryptRequest {
             name: string;
             ciphertext: Buffer;
-            additionalAuthenticatedData?: string;
+            additionalAuthenticatedData?: string | undefined;
         }
         interface DecryptResponse {
             plaintext: Buffer;
@@ -210,14 +210,14 @@ export namespace v1 {
         interface CreateKeyRingRequest {
             parent: string;
             keyRingId: string;
-            keyRing?: Partial<KeyRing>;
+            keyRing?: Partial<KeyRing> | undefined;
         }
         type CreateKeyRingCallback = (err: Error | null, apiResponse: [KeyRing, any, any]) => void;
 
         interface ListKeyRingsRequest {
             parent: string;
-            page_size?: number;
-            page_token?: string;
+            page_size?: number | undefined;
+            page_token?: string | undefined;
         }
         type ListKeyRingsCallback = (err: Error | null, apiResponse: [KeyRing[], any, any]) => void;
 
@@ -227,14 +227,14 @@ export namespace v1 {
             cryptoKey: Partial<Omit<CryptoKey, 'purpose'>> & {
                 purpose: keyof typeof CryptoKeyPurpose;
             };
-            skipInitialVersionCreation?: boolean;
+            skipInitialVersionCreation?: boolean | undefined;
         }
         type CreateCryptoKeyCallback = (err: Error | null, apiResponse: [CryptoKey, any, any]) => void;
 
         interface ListCryptoKeysRequest {
             parent: string;
-            page_size?: number;
-            page_token?: string;
+            page_size?: number | undefined;
+            page_token?: string | undefined;
         }
         type ListCryptoKeysCallback = (err: Error | null, apiResponse: [CryptoKey[], any, any]) => void;
 
@@ -296,13 +296,13 @@ export class KeyManagementServiceClient extends v1.KeyManagementServiceClient {
 export namespace GAX {
     /** https://googleapis.github.io/gax-nodejs/global.html#CallOptions */
     interface CallOptions {
-        timeout?: number;
-        retry?: RetryOptions;
-        autoPaginate?: boolean;
-        pageToken?: object;
-        isBundling?: boolean;
-        longrunning?: BackoffSettings;
-        promise?: PromiseConstructor; // FIXME Unsure if this is the correct type; remove this comment if it is
+        timeout?: number | undefined;
+        retry?: RetryOptions | undefined;
+        autoPaginate?: boolean | undefined;
+        pageToken?: object | undefined;
+        isBundling?: boolean | undefined;
+        longrunning?: BackoffSettings | undefined;
+        promise?: PromiseConstructor | undefined; // FIXME Unsure if this is the correct type; remove this comment if it is
     }
 
     /** https://googleapis.github.io/gax-nodejs/global.html#RetryOptions */

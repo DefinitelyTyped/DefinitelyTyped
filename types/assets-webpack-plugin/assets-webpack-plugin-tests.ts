@@ -12,8 +12,12 @@ const config: webpack.Configuration = {
             filename: 'assets.json',
             fullPath: false,
             fileTypes: ['css'],
-            includeManifest: true,
+            includeManifest: ['manifest'],
             includeAllFileTypes: false,
+            includeAuxiliaryAssets: true,
+            includeDynamicImportedAssets: true,
+            includeFilesWithoutChunk: true,
+            integrity: true,
             keepInMemory: true,
             manifestFirst: true,
             path: '/foo/bar',
@@ -21,6 +25,7 @@ const config: webpack.Configuration = {
             processOutput: (assets) => (
                 'window.assets = ' + JSON.stringify(assets)
             ),
+            removeFullPathAutoPrefix: true,
             update: true,
             useCompilerPath: true,
             metadata: {
@@ -29,3 +34,5 @@ const config: webpack.Configuration = {
         })
     ]
 };
+
+new AssetsPlugin().apply(new webpack.Compiler());

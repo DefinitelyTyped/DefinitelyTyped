@@ -1,4 +1,4 @@
-// Type definitions for ldapjs 1.0
+// Type definitions for ldapjs 2.2
 // Project: http://ldapjs.org
 // Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>, Michael Scott-Nelson <https://github.com/mscottnelson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,43 +30,43 @@ export interface CallBack {
 }
 
 export interface ClientOptions {
-    url: string;
-    tlsOptions?: Object;
-    socketPath?: string;
+    url: string | string[];
+    tlsOptions?: Object | undefined;
+    socketPath?: string | undefined;
     log?: any;
-    timeout?: number;
-    connectTimeout?: number;
-    idleTimeout?: number;
+    timeout?: number | undefined;
+    connectTimeout?: number | undefined;
+    idleTimeout?: number | undefined;
     reconnect?: boolean | {
-        initialDelay?: number,
-        maxDelay?: number,
-        failAfter?: number
-    };
-    strictDN?: boolean;
-    queueSize?: number;
-    queueTimeout?: number;
-    queueDisable?: boolean;
-    bindDN?: string;
-    bindCredentials?: string;
+        initialDelay?: number | undefined,
+        maxDelay?: number | undefined,
+        failAfter?: number | undefined
+    } | undefined;
+    strictDN?: boolean | undefined;
+    queueSize?: number | undefined;
+    queueTimeout?: number | undefined;
+    queueDisable?: boolean | undefined;
+    bindDN?: string | undefined;
+    bindCredentials?: string | undefined;
 }
 
 export interface SearchOptions {
     /** Defaults to base */
-    scope?: "base" | "one" | "sub";
+    scope?: "base" | "one" | "sub" | undefined;
     /**  Defaults to (objectclass=*) */
-    filter?: string | Filter;
+    filter?: string | Filter | undefined;
     /** Defaults to the empty set, which means all attributes */
-    attributes?: string | string[];
+    attributes?: string | string[] | undefined;
     /** Defaults to 0 (unlimited) */
-    sizeLimit?: number;
+    sizeLimit?: number | undefined;
     /** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */
-    timeLimit?: number;
-    derefAliases?: number;
-    typesOnly?: boolean;
+    timeLimit?: number | undefined;
+    derefAliases?: number | undefined;
+    typesOnly?: boolean | undefined;
     paged?: boolean | {
-        pageSize?: number;
-        pagePause?: boolean;
-    }
+        pageSize?: number | undefined;
+        pagePause?: boolean | undefined;
+    } | undefined
 }
 
 export interface Change {
@@ -166,8 +166,8 @@ export interface Client extends EventEmitter {
      * @param callback of the form f(err, value, res).
      * @throws {TypeError} on invalid input.
      */
-    exop(name: string, value: string, callback: ExopCallback): void;
-    exop(name: string, value: string, controls: Control | Array<Control>, callback: ExopCallback): void;
+    exop(name: string, value: string | Buffer, callback: ExopCallback): void;
+    exop(name: string, value: string | Buffer, controls: Control | Array<Control>, callback: ExopCallback): void;
 
     /**
      * Performs an LDAP modify against the server.
@@ -359,6 +359,99 @@ export class ProtocolError {
 export class OperationsError {
     constructor(error?: string);
 }
+export class TimeLimitExceededError {
+    constructor(error?: string);
+}
+export class SizeLimitExceededError {
+    constructor(error?: string);
+}
+export class CompareFalseError {
+    constructor(error?: string);
+}
+export class CompareTrueError {
+    constructor(error?: string);
+}
+export class AuthMethodNotSupportedError {
+    constructor(error?: string);
+}
+export class StrongAuthRequiredError {
+    constructor(error?: string);
+}
+export class ReferralError {
+    constructor(error?: string);
+}
+export class AdminLimitExceededError {
+    constructor(error?: string);
+}
+export class UnavailableCriticalExtensionError {
+    constructor(error?: string);
+}
+export class ConfidentialityRequiredError {
+    constructor(error?: string);
+}
+export class SaslBindInProgressError {
+    constructor(error?: string);
+}
+export class UndefinedAttributeTypeError {
+    constructor(error?: string);
+}
+export class InappropriateMatchingError {
+    constructor(error?: string);
+}
+export class ConstraintViolationError {
+    constructor(error?: string);
+}
+export class AttributeOrValueExistsError {
+    constructor(error?: string);
+}
+export class InvalidAttriubteSyntaxError {
+    constructor(error?: string);
+}
+export class AliasProblemError {
+    constructor(error?: string);
+}
+export class InvalidDnSyntaxError {
+    constructor(error?: string);
+}
+export class AliasDerefProblemError {
+    constructor(error?: string);
+}
+export class InappropriateAuthenticationError {
+    constructor(error?: string);
+}
+export class BusyError {
+    constructor(error?: string);
+}
+export class UnavailableError {
+    constructor(error?: string);
+}
+export class UnwillingToPerformError {
+    constructor(error?: string);
+}
+export class LoopDetectError {
+    constructor(error?: string);
+}
+export class NamingViolationError {
+    constructor(error?: string);
+}
+export class ObjectclassViolationError {
+    constructor(error?: string);
+}
+export class NotAllowedOnNonLeafError {
+    constructor(error?: string);
+}
+export class NotAllowedOnRdnError {
+    constructor(error?: string);
+}
+export class ObjectclassModsProhibitedError {
+    constructor(error?: string);
+}
+export class AffectsMultipleDsasError {
+    constructor(error?: string);
+}
+export class OtherError {
+    constructor(error?: string);
+}
 
 declare class Filter {
     matches(obj: any): boolean;
@@ -376,7 +469,7 @@ export class PresenceFilter extends Filter {
 }
 
 export class SubstringFilter extends Filter {
-    constructor(options: { attribute: string, initial: string, any?: string[], final?: string })
+    constructor(options: { attribute: string, initial: string, any?: string[] | undefined, final?: string | undefined })
 }
 
 export class GreaterThanEqualsFilter extends Filter {
@@ -405,10 +498,10 @@ export class ApproximateFilter extends Filter {
 
 export class ExtensibleFilter extends Filter {
     constructor(options: {
-        rule?: string;
-        matchType?: string;
+        rule?: string | undefined;
+        matchType?: string | undefined;
         value: string;
-        dnAttributes?: boolean;
+        dnAttributes?: boolean | undefined;
     })
 }
 

@@ -1,10 +1,8 @@
 // Type definitions for non-npm package office-runtime 1.0
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
-//                 Michelle Scharlock <https://github.com/mscharlock>,
 //                 David Chesnut <https://github.com/davidchesnut>,
 //                 Alex Jerabek <https://github.com/AlexJerabek>,
-//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
 //                 Ricky Kirkham <https://github.com/rick-kirkham>,
 //                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -169,6 +167,12 @@ declare namespace OfficeRuntime {
   const auth: Auth;
     /**
      * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the `getAccessToken` method.
+     *
+     * @remarks
+     *
+     * The methods in this interface are equivalent to those in the `Office.AuthOptions` interface.
+     * If new authentication types are added in the future, they will only be added to the `Office.AuthOptions` interface.
+     * For simplicity, the code examples throughout the documentation use `Office.AuthOptions`.
      */
     interface AuthOptions {
       /**
@@ -218,6 +222,12 @@ declare namespace OfficeRuntime {
   }
   /**
    * Interface that contains authorization related APIs.
+   *
+   * @remarks
+   *
+   * The methods in this interface are equivalent to those in the `Office.auth` interface.
+   * If new authentication types are added in the future, they will only be added to the `Office.auth` interface.
+   * For simplicity, the code examples throughout the documentation use `Office.auth`.
    */
   interface Auth {
     /**

@@ -19,8 +19,8 @@ declare namespace SeamlessImmutable {
     };
 
     interface MergeConfig {
-        deep?: boolean;
-        mode?: 'replace' | 'merge';
+        deep?: boolean | undefined;
+        mode?: 'replace' | 'merge' | undefined;
         merger?(a: any, b: any, config: any): any;
     }
 
@@ -109,7 +109,7 @@ declare namespace SeamlessImmutable {
         interface Overrides<T> {
             forEach(callbackfn: (value: Immutable<T>, index: number, array: Immutable<T[]>) => void, thisArg?: any): void;
             map<TTarget>(mapFuction: (item: Immutable<T>, index: number, array: Immutable<T[]>) => TTarget): Immutable<TTarget[]>;
-            filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
+            filter(filterFunction: (item: Immutable<T>, index: number) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
             concat(...arr: Array<T|T[]|Immutable<T>|Array<Immutable<T>>|Immutable<T[]>>): Immutable<T[]>;
             reduce(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;

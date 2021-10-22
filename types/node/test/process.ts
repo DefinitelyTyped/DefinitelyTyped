@@ -1,6 +1,6 @@
-import * as p from "process";
-import { ok } from "assert";
-import { EventEmitter } from "events";
+import * as p from 'node:process';
+import assert = require('node:assert');
+import EventEmitter = require('node:events');
 
 {
     let eventEmitter: EventEmitter;
@@ -10,7 +10,7 @@ import { EventEmitter } from "events";
     _p = p;
 }
 {
-    ok(process.argv[0] === process.argv0);
+    assert.ok(process.argv[0] === process.argv0);
 }
 {
     process.on("message", (req: any) => { });
@@ -18,7 +18,7 @@ import { EventEmitter } from "events";
     process.once("disconnect", () => { });
     process.prependListener("exit", (code: number) => { });
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
-    process.on("uncaughtException", (error: Error) => { });
+    process.on("uncaughtException", (error: Error, origin: NodeJS.UncaughtExceptionOrigin) => { });
     process.once("uncaughtExceptionMonitor", (error: Error) => { });
     process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
     process.once("warning", (warning: Error) => { });
@@ -28,6 +28,9 @@ import { EventEmitter } from "events";
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
     process.on("customEvent", () => { });
+    process.on('worker', w => {
+        w; // $ExpectType Worker
+    });
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];
@@ -78,6 +81,7 @@ import { EventEmitter } from "events";
     const heapUsed: number = usage.heapUsed;
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
+    const rssFast: number = process.memoryUsage.rss();
 }
 {
     let strDict: NodeJS.Dict<string>;
@@ -87,3 +91,36 @@ import { EventEmitter } from "events";
 {
     process.traceDeprecation = true;
 }
+
+{
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
+    }
+}
+
+{
+    // Emit a warning using a string.
+    process.emitWarning('Something happened!');
+    // Emits: (node:56338) Warning: Something happened!
+
+    // Emit a warning using a string and a type.
+    process.emitWarning('Something Happened!', 'CustomWarning');
+    // Emits: (node:56338) CustomWarning: Something Happened!
+
+    process.emitWarning('Something happened!', 'CustomWarning', 'WARN001');
+    // Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+
+    // Emit a warning with a code and additional detail.
+    process.emitWarning('Something happened!', {
+        code: 'MY_WARNING',
+        detail: 'This is some additional information'
+    });
+    // Emits: (node:56338) [MY_WARNING] Warning: Something happened!
+    // This is some additional information
+}
+
+const hrtimeBigint: bigint = process.hrtime.bigint();
+
+process.allowedNodeEnvironmentFlags.has('asdf');
+
+process.env.TZ = 'test';

@@ -9,6 +9,7 @@
 //                 AzSiAz <https://github.com/AzSiAz>
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Hiroki Osame <https://github.com/privatenumber>
+//                 Artishevskiy Alexey <https://github.com/dhvcc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -16,26 +17,49 @@
 interface Document {}
 
 declare namespace cheerio {
-    interface Element {
-        // Document References
-        // Node Console
+    type Element = TextElement | TagElement | CommentElement;
+
+    interface TextElement {
+        type: 'text';
+        next: Element | null;
+        prev: Element | null;
+        parent: Element;
+        data?: string | undefined;
+        startIndex?: number | undefined;
+        endIndex?: number | undefined;
+    }
+
+    interface TagElement {
         tagName: string;
-        type: string;
+        type: 'tag' | 'script' | 'style';
         name: string;
         attribs: { [attr: string]: string };
+        'x-attribsNamespace': { [attr: string]: string };
+        'x-prefixNamespace': { [attr: string]: string };
         children: Element[];
-        childNodes: Element[];
-        lastChild: Element;
-        firstChild: Element;
-        next: Element;
+        childNodes: Element[] | null;
+        lastChild: Element | null;
+        firstChild: Element | null;
+        next: Element | null;
         nextSibling: Element;
-        prev: Element;
+        prev: Element | null;
         previousSibling: Element;
         parent: Element;
         parentNode: Element;
         nodeValue: string;
-        data?: string;
-        startIndex?: number;
+        data?: string | undefined;
+        startIndex?: number | undefined;
+        endIndex?: number | undefined;
+    }
+
+    interface CommentElement {
+        type: 'comment';
+        next: Element | null;
+        prev: Element | null;
+        parent: Element;
+        data?: string | undefined;
+        startIndex?: number | undefined;
+        endIndex?: number | undefined;
     }
 
     type AttrFunction = (el: Element, i: number, currentValue: string) => any;
@@ -45,6 +69,7 @@ declare namespace cheerio {
         // Cheerio https://github.com/cheeriojs/cheerio
         // JQuery http://api.jquery.com
 
+        [Symbol.iterator](): IterableIterator<Element>;
         [index: number]: Element;
         cheerio: string;
         length: number;
@@ -254,17 +279,17 @@ declare namespace cheerio {
         // HTMLParser2 https://github.com/fb55/htmlparser2/wiki/Parser-options
         // DomHandler https://github.com/fb55/DomHandler
 
-        xmlMode?: boolean;
-        decodeEntities?: boolean;
-        lowerCaseTags?: boolean;
-        lowerCaseAttributeNames?: boolean;
-        recognizeCDATA?: boolean;
-        recognizeSelfClosing?: boolean;
-        normalizeWhitespace?: boolean;
-        withStartIndices?: boolean;
-        withEndIndices?: boolean;
-        ignoreWhitespace?: boolean;
-        _useHtmlParser2?: boolean;
+        xmlMode?: boolean | undefined;
+        decodeEntities?: boolean | undefined;
+        lowerCaseTags?: boolean | undefined;
+        lowerCaseAttributeNames?: boolean | undefined;
+        recognizeCDATA?: boolean | undefined;
+        recognizeSelfClosing?: boolean | undefined;
+        normalizeWhitespace?: boolean | undefined;
+        withStartIndices?: boolean | undefined;
+        withEndIndices?: boolean | undefined;
+        ignoreWhitespace?: boolean | undefined;
+        _useHtmlParser2?: boolean | undefined;
     }
 
     interface Selector {
@@ -286,7 +311,7 @@ declare namespace cheerio {
         // JQuery http://api.jquery.com
         root(): Cheerio;
         contains(container: Element, contained: Element): boolean;
-        parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
+        parseHTML(data: string, context?: Document | null, keepScripts?: boolean): Document[];
 
         html(options?: CheerioParserOptions): string;
         html(dom: string | Cheerio | Element, options?: CheerioParserOptions): string;
@@ -297,7 +322,7 @@ declare namespace cheerio {
     interface CheerioAPI extends Root {
         version: string;
         load(html: string | Buffer, options?: CheerioParserOptions): Root;
-        load(element: Element, options?: CheerioParserOptions): Root;
+        load(element: Element | Element[], options?: CheerioParserOptions): Root;
     }
 }
 

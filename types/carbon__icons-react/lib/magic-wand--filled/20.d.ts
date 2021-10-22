@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const MagicWandFilled20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default MagicWandFilled20;
+import { MagicWandFilled20 } from "../../";
+
+export = MagicWandFilled20;

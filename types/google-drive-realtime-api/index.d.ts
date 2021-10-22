@@ -12,7 +12,7 @@
 // For Typescript newbs: To get shorter names, use e.g.
 //   type CollabModel = gapi.drive.realtime.Model;
 //   interface CollabList<T> extends gapi.drive.realtime.CollaborativeList<T> {}
-// See section "Type Aliases" of http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf
+// See section "Type Aliases" of https://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf
 
 // gapi is a global var introduced by https://apis.google.com/js/api.js
 declare namespace gapi.drive.realtime {

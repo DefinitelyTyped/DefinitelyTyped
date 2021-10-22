@@ -5,23 +5,23 @@
 // Minimum TypeScript Version: 3.9
 
 export interface ShareAPIPolyfillData extends ShareData {
-    fbId?: string;
-    hashtags?: string;
+    fbId?: string | undefined;
+    hashtags?: string | undefined;
 }
 
 export interface ShareAPIPolyfillOptions {
-    copy?: boolean;
-    email?: boolean;
-    print?: boolean;
-    sms?: boolean;
-    messenger?: boolean;
-    facebook?: boolean;
-    whatsapp?: boolean;
-    twitter?: boolean;
-    linkedin?: boolean;
-    telegram?: boolean;
-    skype?: boolean;
-    language?: string;
+    copy?: boolean | undefined;
+    email?: boolean | undefined;
+    print?: boolean | undefined;
+    sms?: boolean | undefined;
+    messenger?: boolean | undefined;
+    facebook?: boolean | undefined;
+    whatsapp?: boolean | undefined;
+    twitter?: boolean | undefined;
+    linkedin?: boolean | undefined;
+    telegram?: boolean | undefined;
+    skype?: boolean | undefined;
+    language?: string | undefined;
 }
 
 declare global {

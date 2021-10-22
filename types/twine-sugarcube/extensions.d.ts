@@ -294,17 +294,17 @@ declare global {
         /**
          * A period-separated list of event namespaces.
          */
-        namespace?: string;
+        namespace?: string | undefined;
         /**
          * Whether the clickables are single-use—i.e., the handler callback runs only once and then removes itself.
          * If omitted, defaults to false.
          */
-        one?: boolean;
+        one?: boolean | undefined;
         /**
          * A selector applied to the target element(s) to filter the descendants that triggered the event. If omitted or
          * null, the event is always handled when it reaches the target element(s)
          */
-        selector?: string;
+        selector?: string | undefined;
         /**
          * Data to be passed to the handler in event.data when an event is triggered.
          */
@@ -312,15 +312,15 @@ declare global {
         /**
          * Value for the aria-controls attribute.
          */
-        controls?: string;
+        controls?: string | undefined;
         /**
          * Value for the aria-pressed attribute (valid values: "true", "false").
          */
-        pressed?: "true" | "false";
+        pressed?: "true" | "false" | undefined;
         /**
          * Value for the aria-label and title attributes.
          */
-        label?: string;
+        label?: string | undefined;
     }
 
     interface RegExpConstructor {

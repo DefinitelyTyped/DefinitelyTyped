@@ -7,9 +7,7 @@
 
 import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
-import Bull = require("bull");
-import Bee = require("bee-queue");
-import { Queue } from "bullmq";
+import { Redis } from "ioredis";
 
 declare function Arena(
     options: BullArena.MiddlewareOptions,
@@ -18,25 +16,37 @@ declare function Arena(
 
 declare namespace BullArena {
     interface MiddlewareOptions {
-        Bull?: typeof Bull;
-        Bee?: typeof Bee;
-        BullMQ?: typeof Queue;
+        Bull?: QueueConstructor | undefined;
+        Bee?: QueueConstructor | undefined;
+        BullMQ?: QueueConstructor | undefined;
         queues: Array<QueueOptions & ConnectionOptions>;
     }
 
+    interface QueueConstructor {
+        new (queueName: string, opts?: QueueOptions): Queue;
+    }
+
+    interface Queue {
+        // Interface of Queue is much larger and
+        // inconsistent between different packages.
+        // We are using an example method here
+        // that is consistent across all providers.
+        getJob(jobId: string): Promise<unknown>;
+    }
+
     interface MiddlewareListenOptions {
-        port?: number;
-        host?: string;
-        basePath?: string;
-        disableListen?: boolean;
-        useCdn?: boolean;
+        port?: number | undefined;
+        host?: string | undefined;
+        basePath?: string | undefined;
+        disableListen?: boolean | undefined;
+        useCdn?: boolean | undefined;
     }
 
     interface QueueOptions {
         name: string;
-        hostId?: string;
-        type?: "bull" | "bee" | "bullmq" | string;
-        prefix?: "bull" | "bq" | string;
+        hostId?: string | undefined;
+        type?: "bull" | "bee" | "bullmq" | string | undefined;
+        prefix?: "bull" | "bq" | string | undefined;
     }
 
     type ConnectionOptions =
@@ -46,9 +56,9 @@ declare namespace BullArena {
 
     interface PortHostConnectionOptions {
         host: string;
-        port?: number;
-        password?: string;
-        db?: string;
+        port?: number | undefined;
+        password?: string | undefined;
+        db?: string | undefined;
     }
 
     interface RedisUrlConnectionOptions {
@@ -56,7 +66,7 @@ declare namespace BullArena {
     }
 
     interface RedisClientConnectionOptions {
-        redis: ClientOpts;
+        redis: ClientOpts | Redis;
     }
 }
 

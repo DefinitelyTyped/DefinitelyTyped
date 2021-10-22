@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import hoistNonReactStatics = require('hoist-non-react-statics');
 
 function TestClassComponents() {
-    class A extends React.Component<{ x: number; y?: number | null }> {
+    class A extends React.Component<{ x: number; y?: number | null | undefined }> {
         static a = 'a';
 
         static propTypes = {
@@ -67,7 +67,7 @@ function TestClassComponents() {
 // convenience to avoid having to model the component's type with static fields.
 
 function TestFunctionalComponents() {
-    const A = ({x, y}: {x: number; y?: number}) => <div>{x + (y || 0)}</div>;
+    const A = ({x, y}: {x: number; y?: number | undefined}) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
@@ -118,7 +118,7 @@ function TestFunctionalComponents() {
 }
 
 function TestMemoComponents() {
-    const A = ({x, y}: {x: number; y?: number}) => <div>{x + (y || 0)}</div>;
+    const A = ({x, y}: {x: number; y?: number | undefined}) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
@@ -169,7 +169,7 @@ function TestMemoComponents() {
 }
 
 function TestForwardRefComponents() {
-    const A = ({x, y}: {x: number; y?: number}) => <div>{x + (y || 0)}</div>;
+    const A = ({x, y}: {x: number; y?: number | undefined}) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {

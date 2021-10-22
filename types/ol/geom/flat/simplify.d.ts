@@ -27,6 +27,16 @@ export function douglasPeuckerMultiArray(
     simplifiedOffset: number,
     simplifiedEndss: number[][],
 ): number;
+/**
+ * Simplifies a line string using an algorithm designed by Tim Schaub.
+ * Coordinates are snapped to the nearest value in a virtual grid and
+ * consecutive duplicate coordinates are discarded.  This effectively preserves
+ * topology as the simplification of any subsection of a line string is
+ * independent of the rest of the line string.  This means that, for examples,
+ * the common edge between two polygons will be simplified to the same line
+ * string independently in both polygons.  This implementation uses a single
+ * pass over the coordinates and eliminates intermediate collinear points.
+ */
 export function quantize(
     flatCoordinates: number[],
     offset: number,

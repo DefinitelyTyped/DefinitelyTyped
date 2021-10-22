@@ -5,7 +5,7 @@ import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import { ObjectEvent } from '../Object';
 import { Pixel } from '../pixel';
-import PluggableMap from '../PluggableMap';
+import PluggableMap, { FrameState } from '../PluggableMap';
 import { OrderFunction } from '../render';
 import RenderEvent from '../render/Event';
 import VectorSource from '../source/Vector';
@@ -14,37 +14,65 @@ import { StyleFunction, StyleLike } from '../style/Style';
 import Layer from './Layer';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    renderOrder?: OrderFunction;
-    renderBuffer?: number;
-    source?: VectorSource<Geometry>;
-    map?: PluggableMap;
-    declutter?: boolean;
-    style?: StyleLike;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    renderOrder?: OrderFunction | undefined;
+    renderBuffer?: number | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    map?: PluggableMap | undefined;
+    declutter?: boolean | undefined;
+    style?: StyleLike | null | undefined;
+    updateWhileAnimating?: boolean | undefined;
+    updateWhileInteracting?: boolean | undefined;
 }
 export default class BaseVectorLayer<
     VectorSourceType extends VectorSource | VectorTile = VectorSource | VectorTile
 > extends Layer<VectorSourceType> {
     constructor(opt_options?: Options);
     getDeclutter(): boolean;
+    /**
+     * Get the topmost feature that intersects the given pixel on the viewport. Returns a promise
+     * that resolves with an array of features. The array will either contain the topmost feature
+     * when a hit was detected, or it will be empty.
+     * The hit detection algorithm used for this method is optimized for performance, but is less
+     * accurate than the one used in {@link module:ol/PluggableMap~PluggableMap#getFeaturesAtPixel}: Text
+     * is not considered, and icons are only represented by their bounding box instead of the exact
+     * image.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
-    getRenderBuffer(): number;
-    getRenderOrder(): (p0: Feature<Geometry>, p1: Feature<Geometry>) => number;
-    getStyle(): StyleLike;
-    getStyleFunction(): StyleFunction;
+    getRenderBuffer(): number | undefined;
+    getRenderOrder(): (p0: Feature<Geometry>, p1: Feature<Geometry>) => number | null | undefined;
+    /**
+     * Get the style for features.  This returns whatever was passed to the style
+     * option at construction or to the setStyle method.
+     */
+    getStyle(): StyleLike | null | undefined;
+    /**
+     * Get the style function.
+     */
+    getStyleFunction(): StyleFunction | undefined;
     getUpdateWhileAnimating(): boolean;
     getUpdateWhileInteracting(): boolean;
+    /**
+     * Render declutter items for this layer
+     */
+    renderDeclutter(frameState: FrameState): void;
     setRenderOrder(renderOrder: OrderFunction | null | undefined): void;
+    /**
+     * Set the style for features.  This can be a single style object, an array
+     * of styles, or a function that takes a feature and resolution and returns
+     * an array of styles. If set to null, the layer has no style (a null style),
+     * so only features that have their own styles will be rendered in the layer. Call
+     * setStyle() without arguments to reset to the default style. See
+     * {@link module:ol/style} for information on the default style.
+     */
     setStyle(opt_style?: StyleLike | null): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

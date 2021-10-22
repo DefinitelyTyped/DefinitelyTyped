@@ -5,7 +5,20 @@ const list = new List(new HTMLElement(), {
     searchClass: "class",
     fuzzySearch: {
         distance: 200
-    }
+    },
+    pagination: {
+        innerWindow: 3,
+        outerWindow: 1,
+        item: "<li><a class='page' href='#'></a></li>"
+    },
+    valueNames: [
+      'name', // class
+      'born', // class
+      { data: ['id'] }, // data-id
+      { name: 'timestamp', attr: 'data-timestamp' }, // data-timestamp
+      { name: 'link', attr: 'href' }, // .link href attribute
+      { name: 'image', attr: 'src' } // .image src attribute
+    ]
 });
 
 list.list; // $ExpectType HTMLElement

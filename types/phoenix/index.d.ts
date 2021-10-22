@@ -6,13 +6,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+export type PushStatus = 'ok' | 'error' | 'timeout';
+
 export class Push {
   constructor(channel: Channel, event: string, payload: object, timeout: number);
 
   send(): void;
   resend(timeout: number): void;
 
-  receive(status: string, callback: (response?: any) => any): this;
+  receive(status: PushStatus, callback: (response?: any) => any): this;
 }
 
 export class Channel {
@@ -37,7 +39,7 @@ export type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
 export interface SocketConnectOption {
   binaryType: BinaryType;
   params: object | (() => object);
-  transport: string;
+  transport: new (endpoint: string) => object;
   timeout: number;
   heartbeatIntervalMs: number;
   longpollerTimeout: number;
@@ -164,7 +166,7 @@ export type PresenceOnJoinCallback = (key?: string, currentPresence?: any, newPr
 export type PresenceOnLeaveCallback = (key?: string, currentPresence?: any, newPresence?: any) => void;
 
 export interface PresenceOpts {
-  events?: { state: string; diff: string };
+  events?: { state: string; diff: string } | undefined;
 }
 
 export class Timer {

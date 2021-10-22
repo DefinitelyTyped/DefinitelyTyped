@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ScriptReference32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ScriptReference32;
+import { ScriptReference32 } from "../../";
+
+export = ScriptReference32;

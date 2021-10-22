@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const WatsonHealth3DCursor32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WatsonHealth3DCursor32;
+import { WatsonHealth3DCursor32 } from "../../../";
+
+export = WatsonHealth3DCursor32;

@@ -1,134 +1,189 @@
 // Microsoft Graph tests
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
-import {
-    User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal,
-    Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo, CallRecords,
-    IdentitySet, Identity, RiskLevel, EventMessageResponse, PermissionClassificationType, DelegatedPermissionClassification, Permission, Group, TaskStatus, TodoTask
-} from "microsoft-graph";
+import * as MicrosoftGraph from "microsoft-graph";
 
-const user: User = {
+const user: MicrosoftGraph.User = {
     officeLocation: "Bengaluru",
     companyName: "Microsoft",
     country: "India",
     displayName: "Muthu"
 };
 
-const startTime: DateTimeTimeZone = {
+const startTime: MicrosoftGraph.DateTimeTimeZone = {
     dateTime: "2019-05-29T04:00:00.0000000"
 };
 
-const endTime: DateTimeTimeZone = {
+const endTime: MicrosoftGraph.DateTimeTimeZone = {
     dateTime: "2019-05-29T05:00:00.0000000",
 };
 
-const bodyText: ItemBody = {
+const bodyText: MicrosoftGraph.ItemBody = {
     contentType: "text",
     content: "Hi, Shall we meet for a cup of coffee"
 };
 
-const event: Event = {
+const event: MicrosoftGraph.Event = {
     subject: "Meet for a coffee",
     body: bodyText,
     start: startTime,
     end: endTime
 };
 
-const servicePrincipal: ServicePrincipal = {
+const servicePrincipal: MicrosoftGraph.ServicePrincipal = {
     accountEnabled: true,
     appDisplayName: "MyNewAppName",
     appDescription: null,
     description: "Test-Description"
 };
 
-const servicePrincipalWithAppDescription: ServicePrincipal = {
+const servicePrincipalWithAppDescription: MicrosoftGraph.ServicePrincipal = {
     appDescription: "Test-App-Description",
     accountEnabled: null,
     description: null
 };
 
-const invitation: Invitation = {
+const invitation: MicrosoftGraph.Invitation = {
     invitedUserDisplayName: null,
     invitedUserType: undefined,
     inviteRedeemUrl: "url"
 };
 
-const application: Application = {
+const application: MicrosoftGraph.Application = {
     description: null,
     displayName: "Test-Application-Name",
     appRoles: undefined,
     notes: ""
 };
 
-const callTranscriptInfo: CallTranscriptionInfo = {
+const callTranscriptInfo: MicrosoftGraph.CallTranscriptionInfo = {
     state: "active",
     lastModifiedDateTime: null
 };
 
-const resultInfo: ResultInfo = {
+const resultInfo: MicrosoftGraph.ResultInfo = {
     code: 3,
     subcode: 4
 };
 
-const cancelMediaProcessingOperation: CancelMediaProcessingOperation = {
+const cancelMediaProcessingOperation: MicrosoftGraph.CancelMediaProcessingOperation = {
     id: "testId",
     resultInfo
 };
 
-const callType: CallRecords.CallType = "unknown";
+const callType: MicrosoftGraph.CallRecords.CallType = "unknown";
 
-const callRecord: CallRecords.CallRecord = {
+const callRecord: MicrosoftGraph.CallRecords.CallRecord = {
     type: callType,
 };
 
 // Testing cross namespace inheritance
 // id comes from Entity which is defined in parent namespace
-const session: CallRecords.Session = {
+const session: MicrosoftGraph.CallRecords.Session = {
     id: "TestId"
 };
 
-const deviceIdentity: Identity = {
+const deviceIdentity: MicrosoftGraph.Identity = {
     displayName: "TestDisplayName"
 };
 
-const identitySet: IdentitySet = {
+const identitySet: MicrosoftGraph.IdentitySet = {
     device: deviceIdentity
 };
 
 // Testing cross namespace property reference
-const info: CallRecords.ParticipantEndpoint = {
+const info: MicrosoftGraph.CallRecords.ParticipantEndpoint = {
     identity: identitySet
 };
 
-const riskLevel: RiskLevel = "hidden";
+const riskLevel: MicrosoftGraph.RiskLevel = "hidden";
 
-const eventMessageResponse: EventMessageResponse = {
+const eventMessageResponse: MicrosoftGraph.EventMessageResponse = {
     type: null
 };
 
-const permissionClassificationType: PermissionClassificationType = "medium";
+const permissionClassificationType: MicrosoftGraph.PermissionClassificationType = "medium";
 
-const delegatedPermissionClassification: DelegatedPermissionClassification = {
+const delegatedPermissionClassification: MicrosoftGraph.DelegatedPermissionClassification = {
     classification: permissionClassificationType
 };
 
-const permission: Permission = {
+const permission: MicrosoftGraph.Permission = {
     link: null,
     id: "string"
 };
 
-const userFeedback: CallRecords.UserFeedback = {
+const userFeedback: MicrosoftGraph.CallRecords.UserFeedback = {
     rating: "notRated",
     text: null
 };
 
-const group: Group = {
+const group: MicrosoftGraph.Group = {
     mailEnabled: true,
     classification: null,
     onPremisesDomainName: "test"
 };
 
-const todoTask: TodoTask = {
+const todoTask: MicrosoftGraph.TodoTask = {
     status: "notStarted",
     importance: "low"
 };
+
+const lobbyBypassScope: MicrosoftGraph.LobbyBypassScope = "organizer";
+
+const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole = "Owner";
+
+const conditionalAccessGrantControl: MicrosoftGraph.ConditionalAccessGrantControl = "passwordChange";
+
+const authenticationMethodState: MicrosoftGraph.AuthenticationMethodState = "disabled";
+
+const applicationTemplate: MicrosoftGraph.ApplicationTemplate = {
+    categories: [],
+    logoUrl: "test"
+};
+
+const chatType: MicrosoftGraph.ChatType = "group";
+
+const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
+    description: "TEST_DESC",
+    displayName: "TEST_NAME"
+};
+
+const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = "reviewer";
+
+const initiatorType: MicrosoftGraph.InitiatorType = "user";
+
+const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = "string";
+
+const enrollmentState: MicrosoftGraph.EnrollmentState = "enrolled";
+
+const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
+    guestUserRoleId: "TEST_ID",
+    displayName: "TEST_NAME"
+};
+
+const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";
+
+const applicationStatus: MicrosoftGraph.Application = {
+    disabledByMicrosoftStatus: "TEST_VAL"
+};
+
+const bodyType: MicrosoftGraph.BodyType = "text";
+
+const channel: MicrosoftGraph.Channel = {
+    description: "Test",
+};
+
+const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
+
+const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";
+
+const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = "foreground";
+
+const compliance: MicrosoftGraph.Compliance = {};
+
+const columnTypes: MicrosoftGraph.ColumnTypes = "approvalStatus";
+
+const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unknownFutureValue";
+
+const filterMode: MicrosoftGraph.FilterMode = "include";

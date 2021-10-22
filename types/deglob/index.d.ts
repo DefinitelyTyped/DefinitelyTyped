@@ -10,12 +10,12 @@ declare function deglob(patterns: string[], opts: deglob.Options, cb: Callback):
 
 declare namespace deglob {
   interface Options {
-    useGitIgnore?: boolean;
-    usePackageJson?: boolean;
-    configKey?: string;
-    gitIgnoreFile?: string;
-    ignore?: string[];
-    cwd?: string;
+    useGitIgnore?: boolean | undefined;
+    usePackageJson?: boolean | undefined;
+    configKey?: string | undefined;
+    gitIgnoreFile?: string | undefined;
+    ignore?: string[] | undefined;
+    cwd?: string | undefined;
   }
 }
 

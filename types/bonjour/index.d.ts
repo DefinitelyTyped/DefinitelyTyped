@@ -35,21 +35,21 @@ declare namespace bonjour {
         removeAllListeners(event?: 'up' | 'down'): this;
     }
     interface BrowserOptions {
-        type?: string;
-        subtypes?: string[];
-        protocol?: string;
-        txt?: { [key: string]: string };
+        type?: string | undefined;
+        subtypes?: string[] | undefined;
+        protocol?: string | undefined;
+        txt?: { [key: string]: string } | undefined;
     }
 
     interface ServiceOptions {
         name: string;
-        host?: string;
+        host?: string | undefined;
         port: number;
         type: string;
-        subtypes?: string[];
-        protocol?: 'udp'|'tcp';
-        txt?: { [key: string]: string };
-        probe?: boolean;
+        subtypes?: string[] | undefined;
+        protocol?: 'udp'|'tcp' | undefined;
+        txt?: { [key: string]: string } | undefined;
+        probe?: boolean | undefined;
     }
 
     interface BaseService {
@@ -69,19 +69,20 @@ declare namespace bonjour {
     }
     interface Service extends BaseService, NodeJS.EventEmitter {
         published: boolean;
+        addresses: string[];
 
-        stop(cb: () => void): void;
+        stop(cb?: () => void): void;
         start(): void;
     }
     interface BonjourOptions {
-        type?: 'udp4' | 'udp6';
-        multicast?: boolean;
-        interface?: string;
-        port?: number;
-        ip?: string;
-        ttl?: number;
-        loopback?: boolean;
-        reuseAddr?: boolean;
+        type?: 'udp4' | 'udp6' | undefined;
+        multicast?: boolean | undefined;
+        interface?: string | undefined;
+        port?: number | undefined;
+        ip?: string | undefined;
+        ttl?: number | undefined;
+        loopback?: boolean | undefined;
+        reuseAddr?: boolean | undefined;
     }
     interface Bonjour {
         (opts?: BonjourOptions): Bonjour;

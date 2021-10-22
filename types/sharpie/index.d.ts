@@ -12,27 +12,27 @@ declare function sharpie(defaults: sharpie.SharpieOptions): RequestHandler;
 
 declare namespace sharpie {
     interface SharpieOptions {
-        format?: string;
+        format?: string | undefined;
         /** @default 'url' */
-        param?: string;
+        param?: string | undefined;
         /** @default 90 */
-        q?: number;
+        q?: number | undefined;
         /** @default 'w:2048,h:2048,max' */
-        rs?: string;
+        rs?: string | undefined;
         /** @default false */
-        bg?: string | boolean;
+        bg?: string | boolean | undefined;
         /** @default false */
-        fg?: string | boolean;
+        fg?: string | boolean | undefined;
         /** @default 'center' */
-        crop?: string;
+        crop?: string | undefined;
         /** @default false */
-        flatten?: boolean;
+        flatten?: boolean | undefined;
         /** @default false */
-        style?: boolean;
+        style?: boolean | undefined;
         /** @default 'xMinYMin' */
-        ratio?: string;
+        ratio?: string | undefined;
         /** @default undefined */
-        mean?: string;
+        mean?: string | undefined;
         /**
          * whitelist hostnames that sharpie can proxy
          * @default false
@@ -43,22 +43,22 @@ declare namespace sharpie {
             | {
                   [hostname: string]: boolean;
               }
-            | ((hostname: string) => boolean);
+            | ((hostname: string) => boolean) | undefined;
         /**
          * Since version 3.4 it is possible to use imagemagick to convert to ico file format
          */
-        im?: string;
+        im?: string | undefined;
         /**
          * the sizes of the favicon in ico format, separated by a comma
          * @defautl '64,32,16'
          */
-        sizes?: string;
+        sizes?: string | undefined;
         signs?: {
             /**  use ~ for better uri-encoding */
-            assignment?: string;
+            assignment?: string | undefined;
             /** use ! for better uri-encoding */
-            separator?: string;
-        };
+            separator?: string | undefined;
+        } | undefined;
     }
 
     interface SharpieFormats {

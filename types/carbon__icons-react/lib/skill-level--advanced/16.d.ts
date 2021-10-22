@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const SkillLevelAdvanced16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default SkillLevelAdvanced16;
+import { SkillLevelAdvanced16 } from "../../";
+
+export = SkillLevelAdvanced16;

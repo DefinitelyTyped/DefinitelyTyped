@@ -1,19 +1,19 @@
 {
     "files": [
         "index.d.ts",
-        "test/bridge.ts",
-        "test/bridgeAsyncAwait.ts",
-        "test/deviceState.ts",
-        "test/deviceStateAsyncAwait.ts",
-        "test/example.ts",
-        "test/exampleAsyncAwait.ts",
-        "test/mwi.ts",
-        "test/mwiAsyncAwait.ts",
-        "test/originate.ts",
-        "test/originateAsyncAwait.ts",
-        "test/playback.ts",
-        "test/playbackAsyncAwait.ts",
-        "test/externalMedia.ts"
+        "test/ari-client-tests.bridge.ts",
+        "test/ari-client-tests.bridgeAsyncAwait.ts",
+        "test/ari-client-tests.deviceState.ts",
+        "test/ari-client-tests.deviceStateAsyncAwait.ts",
+        "test/ari-client-tests.example.ts",
+        "test/ari-client-tests.exampleAsyncAwait.ts",
+        "test/ari-client-tests.mwi.ts",
+        "test/ari-client-tests.mwiAsyncAwait.ts",
+        "test/ari-client-tests.originate.ts",
+        "test/ari-client-tests.originateAsyncAwait.ts",
+        "test/ari-client-tests.playback.ts",
+        "test/ari-client-tests.playbackAsyncAwait.ts",
+        "test/ari-client-tests.externalMedia.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

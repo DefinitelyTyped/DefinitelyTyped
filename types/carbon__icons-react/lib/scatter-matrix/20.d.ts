@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ScatterMatrix20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ScatterMatrix20;
+import { ScatterMatrix20 } from "../../";
+
+export = ScatterMatrix20;

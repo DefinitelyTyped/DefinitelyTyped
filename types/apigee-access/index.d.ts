@@ -15,10 +15,10 @@ declare namespace ApigeeAccess {
     function getMode(): "apigee" | "standalone";
 
     interface CacheOptions{
-        resource?: string;
-        scope?: "global" | "application" | "exclusive";
-        defaultTtl?: number;
-        timeout?: number;
+        resource?: string | undefined;
+        scope?: "global" | "application" | "exclusive" | undefined;
+        defaultTtl?: number | undefined;
+        timeout?: number | undefined;
     }
 
     interface Cache{
@@ -40,8 +40,8 @@ declare namespace ApigeeAccess {
         identifier: string;
         timeUnit: "minute" | "hour" | "day" | "week" | "month";
         allow: number;
-        interval?: number;
-        weight?: number;
+        interval?: number | undefined;
+        weight?: number | undefined;
     }
 
     interface QuotaServiceApplyCallbackData{

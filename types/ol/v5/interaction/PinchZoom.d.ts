@@ -4,8 +4,8 @@ import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    duration?: number;
-    constrainResolution?: boolean;
+    duration?: number | undefined;
+    constrainResolution?: boolean | undefined;
 }
 export default class PinchZoom extends PointerInteraction {
     constructor(opt_options?: Options);

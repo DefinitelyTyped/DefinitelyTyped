@@ -4,20 +4,20 @@ import 'codemirror/addon/hint/show-hint';
 const cm = CodeMirror(document.body, { value: 'text' });
 const pos = new CodeMirror.Pos(2, 3);
 CodeMirror.showHint(cm);
-CodeMirror.showHint(cm, function (cm) {
+CodeMirror.showHint(cm, cm => {
     return {
         from: pos,
         list: ['one', 'two'],
         to: pos,
     };
 });
-CodeMirror.showHint(cm, function (cm) {
+CodeMirror.showHint(cm, cm => {
     return {
         from: pos,
         list: [
             {
                 text: 'disp1',
-                render: function (el, self, data) {},
+                render(el, self, data) {},
             },
             {
                 className: 'class2',
@@ -46,3 +46,29 @@ cm.showHint({
     completeSingle: false,
     hint: asyncHintFunc,
 });
+
+cm.showHint();
+
+cm.showHint({
+    completeSingle: false,
+    container: document.body,
+});
+
+cm.showHint({
+    hint: CodeMirror.hint.auto,
+});
+
+cm.showHint({
+    hint: CodeMirror.hint.fromList,
+    words: ['hello', 'world'],
+});
+
+const hintOptions: CodeMirror.ShowHintOptions = { scrollMargin: 5 };
+
+// $ExpectError
+hintOptions.scrolMargn = 5;
+
+// $ExpectError
+hintOptions.scrollMargin = '5';
+
+CodeMirror(document.body, { hintOptions });

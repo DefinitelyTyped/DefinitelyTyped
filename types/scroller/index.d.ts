@@ -5,17 +5,17 @@
 
 declare namespace Scroller {
   interface Options {
-    scrollingX?: boolean;
-    scrollingY?: boolean;
-    animating?: boolean;
-    animationDuration?: number;
-    bouncing?: boolean;
-    locking?: boolean;
-    paging?: boolean;
-    snapping?: boolean;
-    zooming?: number;
-    minZoom?: number;
-    maxZoom?: number;
+    scrollingX?: boolean | undefined;
+    scrollingY?: boolean | undefined;
+    animating?: boolean | undefined;
+    animationDuration?: number | undefined;
+    bouncing?: boolean | undefined;
+    locking?: boolean | undefined;
+    paging?: boolean | undefined;
+    snapping?: boolean | undefined;
+    zooming?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
   }
 }
 

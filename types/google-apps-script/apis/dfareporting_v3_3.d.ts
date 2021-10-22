@@ -509,8 +509,8 @@ declare namespace GoogleAppsScript {
         update(resource: Schema.RemarketingList, profileId: string): Dfareporting.Schema.RemarketingList;
       }
       interface ReportsCollection {
-        CompatibleFields?: Dfareporting.Collection.Reports.CompatibleFieldsCollection;
-        Files?: Dfareporting.Collection.Reports.FilesCollection;
+        CompatibleFields?: Dfareporting.Collection.Reports.CompatibleFieldsCollection | undefined;
+        Files?: Dfareporting.Collection.Reports.FilesCollection | undefined;
         // Retrieves a report by its ID.
         get(profileId: string, reportId: string): Dfareporting.Schema.Report;
         // Creates a report.
@@ -635,1853 +635,1853 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Account {
-        accountPermissionIds?: string[];
-        accountProfile?: string;
-        active?: boolean;
-        activeAdsLimitTier?: string;
-        activeViewOptOut?: boolean;
-        availablePermissionIds?: string[];
-        countryId?: string;
-        currencyId?: string;
-        defaultCreativeSizeId?: string;
-        description?: string;
-        id?: string;
-        kind?: string;
-        locale?: string;
-        maximumImageSize?: string;
-        name?: string;
-        nielsenOcrEnabled?: boolean;
-        reportsConfiguration?: Dfareporting.Schema.ReportsConfiguration;
-        shareReportsWithTwitter?: boolean;
-        teaserSizeLimit?: string;
+        accountPermissionIds?: string[] | undefined;
+        accountProfile?: string | undefined;
+        active?: boolean | undefined;
+        activeAdsLimitTier?: string | undefined;
+        activeViewOptOut?: boolean | undefined;
+        availablePermissionIds?: string[] | undefined;
+        countryId?: string | undefined;
+        currencyId?: string | undefined;
+        defaultCreativeSizeId?: string | undefined;
+        description?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        locale?: string | undefined;
+        maximumImageSize?: string | undefined;
+        name?: string | undefined;
+        nielsenOcrEnabled?: boolean | undefined;
+        reportsConfiguration?: Dfareporting.Schema.ReportsConfiguration | undefined;
+        shareReportsWithTwitter?: boolean | undefined;
+        teaserSizeLimit?: string | undefined;
       }
       interface AccountActiveAdSummary {
-        accountId?: string;
-        activeAds?: string;
-        activeAdsLimitTier?: string;
-        availableAds?: string;
-        kind?: string;
+        accountId?: string | undefined;
+        activeAds?: string | undefined;
+        activeAdsLimitTier?: string | undefined;
+        availableAds?: string | undefined;
+        kind?: string | undefined;
       }
       interface AccountPermission {
-        accountProfiles?: string[];
-        id?: string;
-        kind?: string;
-        level?: string;
-        name?: string;
-        permissionGroupId?: string;
+        accountProfiles?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        level?: string | undefined;
+        name?: string | undefined;
+        permissionGroupId?: string | undefined;
       }
       interface AccountPermissionGroup {
-        id?: string;
-        kind?: string;
-        name?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface AccountPermissionGroupsListResponse {
-        accountPermissionGroups?: Dfareporting.Schema.AccountPermissionGroup[];
-        kind?: string;
+        accountPermissionGroups?: Dfareporting.Schema.AccountPermissionGroup[] | undefined;
+        kind?: string | undefined;
       }
       interface AccountPermissionsListResponse {
-        accountPermissions?: Dfareporting.Schema.AccountPermission[];
-        kind?: string;
+        accountPermissions?: Dfareporting.Schema.AccountPermission[] | undefined;
+        kind?: string | undefined;
       }
       interface AccountUserProfile {
-        accountId?: string;
-        active?: boolean;
-        advertiserFilter?: Dfareporting.Schema.ObjectFilter;
-        campaignFilter?: Dfareporting.Schema.ObjectFilter;
-        comments?: string;
-        email?: string;
-        id?: string;
-        kind?: string;
-        locale?: string;
-        name?: string;
-        siteFilter?: Dfareporting.Schema.ObjectFilter;
-        subaccountId?: string;
-        traffickerType?: string;
-        userAccessType?: string;
-        userRoleFilter?: Dfareporting.Schema.ObjectFilter;
-        userRoleId?: string;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        advertiserFilter?: Dfareporting.Schema.ObjectFilter | undefined;
+        campaignFilter?: Dfareporting.Schema.ObjectFilter | undefined;
+        comments?: string | undefined;
+        email?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        locale?: string | undefined;
+        name?: string | undefined;
+        siteFilter?: Dfareporting.Schema.ObjectFilter | undefined;
+        subaccountId?: string | undefined;
+        traffickerType?: string | undefined;
+        userAccessType?: string | undefined;
+        userRoleFilter?: Dfareporting.Schema.ObjectFilter | undefined;
+        userRoleId?: string | undefined;
       }
       interface AccountUserProfilesListResponse {
-        accountUserProfiles?: Dfareporting.Schema.AccountUserProfile[];
-        kind?: string;
-        nextPageToken?: string;
+        accountUserProfiles?: Dfareporting.Schema.AccountUserProfile[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface AccountsListResponse {
-        accounts?: Dfareporting.Schema.Account[];
-        kind?: string;
-        nextPageToken?: string;
+        accounts?: Dfareporting.Schema.Account[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Activities {
-        filters?: Dfareporting.Schema.DimensionValue[];
-        kind?: string;
-        metricNames?: string[];
+        filters?: Dfareporting.Schema.DimensionValue[] | undefined;
+        kind?: string | undefined;
+        metricNames?: string[] | undefined;
       }
       interface Ad {
-        accountId?: string;
-        active?: boolean;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        archived?: boolean;
-        audienceSegmentId?: string;
-        campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
-        clickThroughUrlSuffixProperties?: Dfareporting.Schema.ClickThroughUrlSuffixProperties;
-        comments?: string;
-        compatibility?: string;
-        createInfo?: Dfareporting.Schema.LastModifiedInfo;
-        creativeGroupAssignments?: Dfareporting.Schema.CreativeGroupAssignment[];
-        creativeRotation?: Dfareporting.Schema.CreativeRotation;
-        dayPartTargeting?: Dfareporting.Schema.DayPartTargeting;
-        defaultClickThroughEventTagProperties?: Dfareporting.Schema.DefaultClickThroughEventTagProperties;
-        deliverySchedule?: Dfareporting.Schema.DeliverySchedule;
-        dynamicClickTracker?: boolean;
-        endTime?: string;
-        eventTagOverrides?: Dfareporting.Schema.EventTagOverride[];
-        geoTargeting?: Dfareporting.Schema.GeoTargeting;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        keyValueTargetingExpression?: Dfareporting.Schema.KeyValueTargetingExpression;
-        kind?: string;
-        languageTargeting?: Dfareporting.Schema.LanguageTargeting;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        name?: string;
-        placementAssignments?: Dfareporting.Schema.PlacementAssignment[];
-        remarketingListExpression?: Dfareporting.Schema.ListTargetingExpression;
-        size?: Dfareporting.Schema.Size;
-        sslCompliant?: boolean;
-        sslRequired?: boolean;
-        startTime?: string;
-        subaccountId?: string;
-        targetingTemplateId?: string;
-        technologyTargeting?: Dfareporting.Schema.TechnologyTargeting;
-        type?: string;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        archived?: boolean | undefined;
+        audienceSegmentId?: string | undefined;
+        campaignId?: string | undefined;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl | undefined;
+        clickThroughUrlSuffixProperties?: Dfareporting.Schema.ClickThroughUrlSuffixProperties | undefined;
+        comments?: string | undefined;
+        compatibility?: string | undefined;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        creativeGroupAssignments?: Dfareporting.Schema.CreativeGroupAssignment[] | undefined;
+        creativeRotation?: Dfareporting.Schema.CreativeRotation | undefined;
+        dayPartTargeting?: Dfareporting.Schema.DayPartTargeting | undefined;
+        defaultClickThroughEventTagProperties?: Dfareporting.Schema.DefaultClickThroughEventTagProperties | undefined;
+        deliverySchedule?: Dfareporting.Schema.DeliverySchedule | undefined;
+        dynamicClickTracker?: boolean | undefined;
+        endTime?: string | undefined;
+        eventTagOverrides?: Dfareporting.Schema.EventTagOverride[] | undefined;
+        geoTargeting?: Dfareporting.Schema.GeoTargeting | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        keyValueTargetingExpression?: Dfareporting.Schema.KeyValueTargetingExpression | undefined;
+        kind?: string | undefined;
+        languageTargeting?: Dfareporting.Schema.LanguageTargeting | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        name?: string | undefined;
+        placementAssignments?: Dfareporting.Schema.PlacementAssignment[] | undefined;
+        remarketingListExpression?: Dfareporting.Schema.ListTargetingExpression | undefined;
+        size?: Dfareporting.Schema.Size | undefined;
+        sslCompliant?: boolean | undefined;
+        sslRequired?: boolean | undefined;
+        startTime?: string | undefined;
+        subaccountId?: string | undefined;
+        targetingTemplateId?: string | undefined;
+        technologyTargeting?: Dfareporting.Schema.TechnologyTargeting | undefined;
+        type?: string | undefined;
       }
       interface AdBlockingConfiguration {
-        clickThroughUrl?: string;
-        creativeBundleId?: string;
-        enabled?: boolean;
-        overrideClickThroughUrl?: boolean;
+        clickThroughUrl?: string | undefined;
+        creativeBundleId?: string | undefined;
+        enabled?: boolean | undefined;
+        overrideClickThroughUrl?: boolean | undefined;
       }
       interface AdSlot {
-        comment?: string;
-        compatibility?: string;
-        height?: string;
-        linkedPlacementId?: string;
-        name?: string;
-        paymentSourceType?: string;
-        primary?: boolean;
-        width?: string;
+        comment?: string | undefined;
+        compatibility?: string | undefined;
+        height?: string | undefined;
+        linkedPlacementId?: string | undefined;
+        name?: string | undefined;
+        paymentSourceType?: string | undefined;
+        primary?: boolean | undefined;
+        width?: string | undefined;
       }
       interface AdsListResponse {
-        ads?: Dfareporting.Schema.Ad[];
-        kind?: string;
-        nextPageToken?: string;
+        ads?: Dfareporting.Schema.Ad[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Advertiser {
-        accountId?: string;
-        advertiserGroupId?: string;
-        clickThroughUrlSuffix?: string;
-        defaultClickThroughEventTagId?: string;
-        defaultEmail?: string;
-        floodlightConfigurationId?: string;
-        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        kind?: string;
-        name?: string;
-        originalFloodlightConfigurationId?: string;
-        status?: string;
-        subaccountId?: string;
-        suspended?: boolean;
+        accountId?: string | undefined;
+        advertiserGroupId?: string | undefined;
+        clickThroughUrlSuffix?: string | undefined;
+        defaultClickThroughEventTagId?: string | undefined;
+        defaultEmail?: string | undefined;
+        floodlightConfigurationId?: string | undefined;
+        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        originalFloodlightConfigurationId?: string | undefined;
+        status?: string | undefined;
+        subaccountId?: string | undefined;
+        suspended?: boolean | undefined;
       }
       interface AdvertiserGroup {
-        accountId?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
+        accountId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface AdvertiserGroupsListResponse {
-        advertiserGroups?: Dfareporting.Schema.AdvertiserGroup[];
-        kind?: string;
-        nextPageToken?: string;
+        advertiserGroups?: Dfareporting.Schema.AdvertiserGroup[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface AdvertiserLandingPagesListResponse {
-        kind?: string;
-        landingPages?: Dfareporting.Schema.LandingPage[];
-        nextPageToken?: string;
+        kind?: string | undefined;
+        landingPages?: Dfareporting.Schema.LandingPage[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface AdvertisersListResponse {
-        advertisers?: Dfareporting.Schema.Advertiser[];
-        kind?: string;
-        nextPageToken?: string;
+        advertisers?: Dfareporting.Schema.Advertiser[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface AudienceSegment {
-        allocation?: number;
-        id?: string;
-        name?: string;
+        allocation?: number | undefined;
+        id?: string | undefined;
+        name?: string | undefined;
       }
       interface AudienceSegmentGroup {
-        audienceSegments?: Dfareporting.Schema.AudienceSegment[];
-        id?: string;
-        name?: string;
+        audienceSegments?: Dfareporting.Schema.AudienceSegment[] | undefined;
+        id?: string | undefined;
+        name?: string | undefined;
       }
       interface Browser {
-        browserVersionId?: string;
-        dartId?: string;
-        kind?: string;
-        majorVersion?: string;
-        minorVersion?: string;
-        name?: string;
+        browserVersionId?: string | undefined;
+        dartId?: string | undefined;
+        kind?: string | undefined;
+        majorVersion?: string | undefined;
+        minorVersion?: string | undefined;
+        name?: string | undefined;
       }
       interface BrowsersListResponse {
-        browsers?: Dfareporting.Schema.Browser[];
-        kind?: string;
+        browsers?: Dfareporting.Schema.Browser[] | undefined;
+        kind?: string | undefined;
       }
       interface Campaign {
-        accountId?: string;
-        adBlockingConfiguration?: Dfareporting.Schema.AdBlockingConfiguration;
-        additionalCreativeOptimizationConfigurations?: Dfareporting.Schema.CreativeOptimizationConfiguration[];
-        advertiserGroupId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        archived?: boolean;
-        audienceSegmentGroups?: Dfareporting.Schema.AudienceSegmentGroup[];
-        billingInvoiceCode?: string;
-        clickThroughUrlSuffixProperties?: Dfareporting.Schema.ClickThroughUrlSuffixProperties;
-        comment?: string;
-        createInfo?: Dfareporting.Schema.LastModifiedInfo;
-        creativeGroupIds?: string[];
-        creativeOptimizationConfiguration?: Dfareporting.Schema.CreativeOptimizationConfiguration;
-        defaultClickThroughEventTagProperties?: Dfareporting.Schema.DefaultClickThroughEventTagProperties;
-        defaultLandingPageId?: string;
-        endDate?: string;
-        eventTagOverrides?: Dfareporting.Schema.EventTagOverride[];
-        externalId?: string;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        kind?: string;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        name?: string;
-        nielsenOcrEnabled?: boolean;
-        startDate?: string;
-        subaccountId?: string;
-        traffickerEmails?: string[];
+        accountId?: string | undefined;
+        adBlockingConfiguration?: Dfareporting.Schema.AdBlockingConfiguration | undefined;
+        additionalCreativeOptimizationConfigurations?: Dfareporting.Schema.CreativeOptimizationConfiguration[] | undefined;
+        advertiserGroupId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        archived?: boolean | undefined;
+        audienceSegmentGroups?: Dfareporting.Schema.AudienceSegmentGroup[] | undefined;
+        billingInvoiceCode?: string | undefined;
+        clickThroughUrlSuffixProperties?: Dfareporting.Schema.ClickThroughUrlSuffixProperties | undefined;
+        comment?: string | undefined;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        creativeGroupIds?: string[] | undefined;
+        creativeOptimizationConfiguration?: Dfareporting.Schema.CreativeOptimizationConfiguration | undefined;
+        defaultClickThroughEventTagProperties?: Dfareporting.Schema.DefaultClickThroughEventTagProperties | undefined;
+        defaultLandingPageId?: string | undefined;
+        endDate?: string | undefined;
+        eventTagOverrides?: Dfareporting.Schema.EventTagOverride[] | undefined;
+        externalId?: string | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        kind?: string | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        name?: string | undefined;
+        nielsenOcrEnabled?: boolean | undefined;
+        startDate?: string | undefined;
+        subaccountId?: string | undefined;
+        traffickerEmails?: string[] | undefined;
       }
       interface CampaignCreativeAssociation {
-        creativeId?: string;
-        kind?: string;
+        creativeId?: string | undefined;
+        kind?: string | undefined;
       }
       interface CampaignCreativeAssociationsListResponse {
-        campaignCreativeAssociations?: Dfareporting.Schema.CampaignCreativeAssociation[];
-        kind?: string;
-        nextPageToken?: string;
+        campaignCreativeAssociations?: Dfareporting.Schema.CampaignCreativeAssociation[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface CampaignsListResponse {
-        campaigns?: Dfareporting.Schema.Campaign[];
-        kind?: string;
-        nextPageToken?: string;
+        campaigns?: Dfareporting.Schema.Campaign[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ChangeLog {
-        accountId?: string;
-        action?: string;
-        changeTime?: string;
-        fieldName?: string;
-        id?: string;
-        kind?: string;
-        newValue?: string;
-        objectId?: string;
-        objectType?: string;
-        oldValue?: string;
-        subaccountId?: string;
-        transactionId?: string;
-        userProfileId?: string;
-        userProfileName?: string;
+        accountId?: string | undefined;
+        action?: string | undefined;
+        changeTime?: string | undefined;
+        fieldName?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        newValue?: string | undefined;
+        objectId?: string | undefined;
+        objectType?: string | undefined;
+        oldValue?: string | undefined;
+        subaccountId?: string | undefined;
+        transactionId?: string | undefined;
+        userProfileId?: string | undefined;
+        userProfileName?: string | undefined;
       }
       interface ChangeLogsListResponse {
-        changeLogs?: Dfareporting.Schema.ChangeLog[];
-        kind?: string;
-        nextPageToken?: string;
+        changeLogs?: Dfareporting.Schema.ChangeLog[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface CitiesListResponse {
-        cities?: Dfareporting.Schema.City[];
-        kind?: string;
+        cities?: Dfareporting.Schema.City[] | undefined;
+        kind?: string | undefined;
       }
       interface City {
-        countryCode?: string;
-        countryDartId?: string;
-        dartId?: string;
-        kind?: string;
-        metroCode?: string;
-        metroDmaId?: string;
-        name?: string;
-        regionCode?: string;
-        regionDartId?: string;
+        countryCode?: string | undefined;
+        countryDartId?: string | undefined;
+        dartId?: string | undefined;
+        kind?: string | undefined;
+        metroCode?: string | undefined;
+        metroDmaId?: string | undefined;
+        name?: string | undefined;
+        regionCode?: string | undefined;
+        regionDartId?: string | undefined;
       }
       interface ClickTag {
-        clickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl;
-        eventName?: string;
-        name?: string;
+        clickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl | undefined;
+        eventName?: string | undefined;
+        name?: string | undefined;
       }
       interface ClickThroughUrl {
-        computedClickThroughUrl?: string;
-        customClickThroughUrl?: string;
-        defaultLandingPage?: boolean;
-        landingPageId?: string;
+        computedClickThroughUrl?: string | undefined;
+        customClickThroughUrl?: string | undefined;
+        defaultLandingPage?: boolean | undefined;
+        landingPageId?: string | undefined;
       }
       interface ClickThroughUrlSuffixProperties {
-        clickThroughUrlSuffix?: string;
-        overrideInheritedSuffix?: boolean;
+        clickThroughUrlSuffix?: string | undefined;
+        overrideInheritedSuffix?: boolean | undefined;
       }
       interface CompanionClickThroughOverride {
-        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
-        creativeId?: string;
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl | undefined;
+        creativeId?: string | undefined;
       }
       interface CompanionSetting {
-        companionsDisabled?: boolean;
-        enabledSizes?: Dfareporting.Schema.Size[];
-        imageOnly?: boolean;
-        kind?: string;
+        companionsDisabled?: boolean | undefined;
+        enabledSizes?: Dfareporting.Schema.Size[] | undefined;
+        imageOnly?: boolean | undefined;
+        kind?: string | undefined;
       }
       interface CompatibleFields {
-        crossDimensionReachReportCompatibleFields?: Dfareporting.Schema.CrossDimensionReachReportCompatibleFields;
-        floodlightReportCompatibleFields?: Dfareporting.Schema.FloodlightReportCompatibleFields;
-        kind?: string;
-        pathToConversionReportCompatibleFields?: Dfareporting.Schema.PathToConversionReportCompatibleFields;
-        reachReportCompatibleFields?: Dfareporting.Schema.ReachReportCompatibleFields;
-        reportCompatibleFields?: Dfareporting.Schema.ReportCompatibleFields;
+        crossDimensionReachReportCompatibleFields?: Dfareporting.Schema.CrossDimensionReachReportCompatibleFields | undefined;
+        floodlightReportCompatibleFields?: Dfareporting.Schema.FloodlightReportCompatibleFields | undefined;
+        kind?: string | undefined;
+        pathToConversionReportCompatibleFields?: Dfareporting.Schema.PathToConversionReportCompatibleFields | undefined;
+        reachReportCompatibleFields?: Dfareporting.Schema.ReachReportCompatibleFields | undefined;
+        reportCompatibleFields?: Dfareporting.Schema.ReportCompatibleFields | undefined;
       }
       interface ConnectionType {
-        id?: string;
-        kind?: string;
-        name?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface ConnectionTypesListResponse {
-        connectionTypes?: Dfareporting.Schema.ConnectionType[];
-        kind?: string;
+        connectionTypes?: Dfareporting.Schema.ConnectionType[] | undefined;
+        kind?: string | undefined;
       }
       interface ContentCategoriesListResponse {
-        contentCategories?: Dfareporting.Schema.ContentCategory[];
-        kind?: string;
-        nextPageToken?: string;
+        contentCategories?: Dfareporting.Schema.ContentCategory[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ContentCategory {
-        accountId?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
+        accountId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface Conversion {
-        childDirectedTreatment?: boolean;
-        customVariables?: Dfareporting.Schema.CustomFloodlightVariable[];
-        encryptedUserId?: string;
-        encryptedUserIdCandidates?: string[];
-        floodlightActivityId?: string;
-        floodlightConfigurationId?: string;
-        gclid?: string;
-        kind?: string;
-        limitAdTracking?: boolean;
-        mobileDeviceId?: string;
-        nonPersonalizedAd?: boolean;
-        ordinal?: string;
-        quantity?: string;
-        timestampMicros?: string;
-        treatmentForUnderage?: boolean;
-        value?: number;
+        childDirectedTreatment?: boolean | undefined;
+        customVariables?: Dfareporting.Schema.CustomFloodlightVariable[] | undefined;
+        encryptedUserId?: string | undefined;
+        encryptedUserIdCandidates?: string[] | undefined;
+        floodlightActivityId?: string | undefined;
+        floodlightConfigurationId?: string | undefined;
+        gclid?: string | undefined;
+        kind?: string | undefined;
+        limitAdTracking?: boolean | undefined;
+        mobileDeviceId?: string | undefined;
+        nonPersonalizedAd?: boolean | undefined;
+        ordinal?: string | undefined;
+        quantity?: string | undefined;
+        timestampMicros?: string | undefined;
+        treatmentForUnderage?: boolean | undefined;
+        value?: number | undefined;
       }
       interface ConversionError {
-        code?: string;
-        kind?: string;
-        message?: string;
+        code?: string | undefined;
+        kind?: string | undefined;
+        message?: string | undefined;
       }
       interface ConversionStatus {
-        conversion?: Dfareporting.Schema.Conversion;
-        errors?: Dfareporting.Schema.ConversionError[];
-        kind?: string;
+        conversion?: Dfareporting.Schema.Conversion | undefined;
+        errors?: Dfareporting.Schema.ConversionError[] | undefined;
+        kind?: string | undefined;
       }
       interface ConversionsBatchInsertRequest {
-        conversions?: Dfareporting.Schema.Conversion[];
-        encryptionInfo?: Dfareporting.Schema.EncryptionInfo;
-        kind?: string;
+        conversions?: Dfareporting.Schema.Conversion[] | undefined;
+        encryptionInfo?: Dfareporting.Schema.EncryptionInfo | undefined;
+        kind?: string | undefined;
       }
       interface ConversionsBatchInsertResponse {
-        hasFailures?: boolean;
-        kind?: string;
-        status?: Dfareporting.Schema.ConversionStatus[];
+        hasFailures?: boolean | undefined;
+        kind?: string | undefined;
+        status?: Dfareporting.Schema.ConversionStatus[] | undefined;
       }
       interface ConversionsBatchUpdateRequest {
-        conversions?: Dfareporting.Schema.Conversion[];
-        encryptionInfo?: Dfareporting.Schema.EncryptionInfo;
-        kind?: string;
+        conversions?: Dfareporting.Schema.Conversion[] | undefined;
+        encryptionInfo?: Dfareporting.Schema.EncryptionInfo | undefined;
+        kind?: string | undefined;
       }
       interface ConversionsBatchUpdateResponse {
-        hasFailures?: boolean;
-        kind?: string;
-        status?: Dfareporting.Schema.ConversionStatus[];
+        hasFailures?: boolean | undefined;
+        kind?: string | undefined;
+        status?: Dfareporting.Schema.ConversionStatus[] | undefined;
       }
       interface CountriesListResponse {
-        countries?: Dfareporting.Schema.Country[];
-        kind?: string;
+        countries?: Dfareporting.Schema.Country[] | undefined;
+        kind?: string | undefined;
       }
       interface Country {
-        countryCode?: string;
-        dartId?: string;
-        kind?: string;
-        name?: string;
-        sslEnabled?: boolean;
+        countryCode?: string | undefined;
+        dartId?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        sslEnabled?: boolean | undefined;
       }
       interface Creative {
-        accountId?: string;
-        active?: boolean;
-        adParameters?: string;
-        adTagKeys?: string[];
-        additionalSizes?: Dfareporting.Schema.Size[];
-        advertiserId?: string;
-        allowScriptAccess?: boolean;
-        archived?: boolean;
-        artworkType?: string;
-        authoringSource?: string;
-        authoringTool?: string;
-        autoAdvanceImages?: boolean;
-        backgroundColor?: string;
-        backupImageClickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl;
-        backupImageFeatures?: string[];
-        backupImageReportingLabel?: string;
-        backupImageTargetWindow?: Dfareporting.Schema.TargetWindow;
-        clickTags?: Dfareporting.Schema.ClickTag[];
-        commercialId?: string;
-        companionCreatives?: string[];
-        compatibility?: string[];
-        convertFlashToHtml5?: boolean;
-        counterCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[];
-        creativeAssetSelection?: Dfareporting.Schema.CreativeAssetSelection;
-        creativeAssets?: Dfareporting.Schema.CreativeAsset[];
-        creativeFieldAssignments?: Dfareporting.Schema.CreativeFieldAssignment[];
-        customKeyValues?: string[];
-        dynamicAssetSelection?: boolean;
-        exitCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[];
-        fsCommand?: Dfareporting.Schema.FsCommand;
-        htmlCode?: string;
-        htmlCodeLocked?: boolean;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        kind?: string;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        latestTraffickedCreativeId?: string;
-        mediaDescription?: string;
-        mediaDuration?: number;
-        name?: string;
-        overrideCss?: string;
-        progressOffset?: Dfareporting.Schema.VideoOffset;
-        redirectUrl?: string;
-        renderingId?: string;
-        renderingIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        requiredFlashPluginVersion?: string;
-        requiredFlashVersion?: number;
-        size?: Dfareporting.Schema.Size;
-        skipOffset?: Dfareporting.Schema.VideoOffset;
-        skippable?: boolean;
-        sslCompliant?: boolean;
-        sslOverride?: boolean;
-        studioAdvertiserId?: string;
-        studioCreativeId?: string;
-        studioTraffickedCreativeId?: string;
-        subaccountId?: string;
-        thirdPartyBackupImageImpressionsUrl?: string;
-        thirdPartyRichMediaImpressionsUrl?: string;
-        thirdPartyUrls?: Dfareporting.Schema.ThirdPartyTrackingUrl[];
-        timerCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[];
-        totalFileSize?: string;
-        type?: string;
-        universalAdId?: Dfareporting.Schema.UniversalAdId;
-        version?: number;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        adParameters?: string | undefined;
+        adTagKeys?: string[] | undefined;
+        additionalSizes?: Dfareporting.Schema.Size[] | undefined;
+        advertiserId?: string | undefined;
+        allowScriptAccess?: boolean | undefined;
+        archived?: boolean | undefined;
+        artworkType?: string | undefined;
+        authoringSource?: string | undefined;
+        authoringTool?: string | undefined;
+        autoAdvanceImages?: boolean | undefined;
+        backgroundColor?: string | undefined;
+        backupImageClickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl | undefined;
+        backupImageFeatures?: string[] | undefined;
+        backupImageReportingLabel?: string | undefined;
+        backupImageTargetWindow?: Dfareporting.Schema.TargetWindow | undefined;
+        clickTags?: Dfareporting.Schema.ClickTag[] | undefined;
+        commercialId?: string | undefined;
+        companionCreatives?: string[] | undefined;
+        compatibility?: string[] | undefined;
+        convertFlashToHtml5?: boolean | undefined;
+        counterCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[] | undefined;
+        creativeAssetSelection?: Dfareporting.Schema.CreativeAssetSelection | undefined;
+        creativeAssets?: Dfareporting.Schema.CreativeAsset[] | undefined;
+        creativeFieldAssignments?: Dfareporting.Schema.CreativeFieldAssignment[] | undefined;
+        customKeyValues?: string[] | undefined;
+        dynamicAssetSelection?: boolean | undefined;
+        exitCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[] | undefined;
+        fsCommand?: Dfareporting.Schema.FsCommand | undefined;
+        htmlCode?: string | undefined;
+        htmlCodeLocked?: boolean | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        kind?: string | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        latestTraffickedCreativeId?: string | undefined;
+        mediaDescription?: string | undefined;
+        mediaDuration?: number | undefined;
+        name?: string | undefined;
+        overrideCss?: string | undefined;
+        progressOffset?: Dfareporting.Schema.VideoOffset | undefined;
+        redirectUrl?: string | undefined;
+        renderingId?: string | undefined;
+        renderingIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        requiredFlashPluginVersion?: string | undefined;
+        requiredFlashVersion?: number | undefined;
+        size?: Dfareporting.Schema.Size | undefined;
+        skipOffset?: Dfareporting.Schema.VideoOffset | undefined;
+        skippable?: boolean | undefined;
+        sslCompliant?: boolean | undefined;
+        sslOverride?: boolean | undefined;
+        studioAdvertiserId?: string | undefined;
+        studioCreativeId?: string | undefined;
+        studioTraffickedCreativeId?: string | undefined;
+        subaccountId?: string | undefined;
+        thirdPartyBackupImageImpressionsUrl?: string | undefined;
+        thirdPartyRichMediaImpressionsUrl?: string | undefined;
+        thirdPartyUrls?: Dfareporting.Schema.ThirdPartyTrackingUrl[] | undefined;
+        timerCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[] | undefined;
+        totalFileSize?: string | undefined;
+        type?: string | undefined;
+        universalAdId?: Dfareporting.Schema.UniversalAdId | undefined;
+        version?: number | undefined;
       }
       interface CreativeAsset {
-        actionScript3?: boolean;
-        active?: boolean;
-        additionalSizes?: Dfareporting.Schema.Size[];
-        alignment?: string;
-        artworkType?: string;
-        assetIdentifier?: Dfareporting.Schema.CreativeAssetId;
-        audioBitRate?: number;
-        audioSampleRate?: number;
-        backupImageExit?: Dfareporting.Schema.CreativeCustomEvent;
-        bitRate?: number;
-        childAssetType?: string;
-        collapsedSize?: Dfareporting.Schema.Size;
-        companionCreativeIds?: string[];
-        customStartTimeValue?: number;
-        detectedFeatures?: string[];
-        displayType?: string;
-        duration?: number;
-        durationType?: string;
-        expandedDimension?: Dfareporting.Schema.Size;
-        fileSize?: string;
-        flashVersion?: number;
-        frameRate?: number;
-        hideFlashObjects?: boolean;
-        hideSelectionBoxes?: boolean;
-        horizontallyLocked?: boolean;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        mediaDuration?: number;
-        mimeType?: string;
-        offset?: Dfareporting.Schema.OffsetPosition;
-        orientation?: string;
-        originalBackup?: boolean;
-        politeLoad?: boolean;
-        position?: Dfareporting.Schema.OffsetPosition;
-        positionLeftUnit?: string;
-        positionTopUnit?: string;
-        progressiveServingUrl?: string;
-        pushdown?: boolean;
-        pushdownDuration?: number;
-        role?: string;
-        size?: Dfareporting.Schema.Size;
-        sslCompliant?: boolean;
-        startTimeType?: string;
-        streamingServingUrl?: string;
-        transparency?: boolean;
-        verticallyLocked?: boolean;
-        windowMode?: string;
-        zIndex?: number;
-        zipFilename?: string;
-        zipFilesize?: string;
+        actionScript3?: boolean | undefined;
+        active?: boolean | undefined;
+        additionalSizes?: Dfareporting.Schema.Size[] | undefined;
+        alignment?: string | undefined;
+        artworkType?: string | undefined;
+        assetIdentifier?: Dfareporting.Schema.CreativeAssetId | undefined;
+        audioBitRate?: number | undefined;
+        audioSampleRate?: number | undefined;
+        backupImageExit?: Dfareporting.Schema.CreativeCustomEvent | undefined;
+        bitRate?: number | undefined;
+        childAssetType?: string | undefined;
+        collapsedSize?: Dfareporting.Schema.Size | undefined;
+        companionCreativeIds?: string[] | undefined;
+        customStartTimeValue?: number | undefined;
+        detectedFeatures?: string[] | undefined;
+        displayType?: string | undefined;
+        duration?: number | undefined;
+        durationType?: string | undefined;
+        expandedDimension?: Dfareporting.Schema.Size | undefined;
+        fileSize?: string | undefined;
+        flashVersion?: number | undefined;
+        frameRate?: number | undefined;
+        hideFlashObjects?: boolean | undefined;
+        hideSelectionBoxes?: boolean | undefined;
+        horizontallyLocked?: boolean | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        mediaDuration?: number | undefined;
+        mimeType?: string | undefined;
+        offset?: Dfareporting.Schema.OffsetPosition | undefined;
+        orientation?: string | undefined;
+        originalBackup?: boolean | undefined;
+        politeLoad?: boolean | undefined;
+        position?: Dfareporting.Schema.OffsetPosition | undefined;
+        positionLeftUnit?: string | undefined;
+        positionTopUnit?: string | undefined;
+        progressiveServingUrl?: string | undefined;
+        pushdown?: boolean | undefined;
+        pushdownDuration?: number | undefined;
+        role?: string | undefined;
+        size?: Dfareporting.Schema.Size | undefined;
+        sslCompliant?: boolean | undefined;
+        startTimeType?: string | undefined;
+        streamingServingUrl?: string | undefined;
+        transparency?: boolean | undefined;
+        verticallyLocked?: boolean | undefined;
+        windowMode?: string | undefined;
+        zIndex?: number | undefined;
+        zipFilename?: string | undefined;
+        zipFilesize?: string | undefined;
       }
       interface CreativeAssetId {
-        name?: string;
-        type?: string;
+        name?: string | undefined;
+        type?: string | undefined;
       }
       interface CreativeAssetMetadata {
-        assetIdentifier?: Dfareporting.Schema.CreativeAssetId;
-        clickTags?: Dfareporting.Schema.ClickTag[];
-        detectedFeatures?: string[];
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        kind?: string;
-        warnedValidationRules?: string[];
+        assetIdentifier?: Dfareporting.Schema.CreativeAssetId | undefined;
+        clickTags?: Dfareporting.Schema.ClickTag[] | undefined;
+        detectedFeatures?: string[] | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        kind?: string | undefined;
+        warnedValidationRules?: string[] | undefined;
       }
       interface CreativeAssetSelection {
-        defaultAssetId?: string;
-        rules?: Dfareporting.Schema.Rule[];
+        defaultAssetId?: string | undefined;
+        rules?: Dfareporting.Schema.Rule[] | undefined;
       }
       interface CreativeAssignment {
-        active?: boolean;
-        applyEventTags?: boolean;
-        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
-        companionCreativeOverrides?: Dfareporting.Schema.CompanionClickThroughOverride[];
-        creativeGroupAssignments?: Dfareporting.Schema.CreativeGroupAssignment[];
-        creativeId?: string;
-        creativeIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        endTime?: string;
-        richMediaExitOverrides?: Dfareporting.Schema.RichMediaExitOverride[];
-        sequence?: number;
-        sslCompliant?: boolean;
-        startTime?: string;
-        weight?: number;
+        active?: boolean | undefined;
+        applyEventTags?: boolean | undefined;
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl | undefined;
+        companionCreativeOverrides?: Dfareporting.Schema.CompanionClickThroughOverride[] | undefined;
+        creativeGroupAssignments?: Dfareporting.Schema.CreativeGroupAssignment[] | undefined;
+        creativeId?: string | undefined;
+        creativeIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        endTime?: string | undefined;
+        richMediaExitOverrides?: Dfareporting.Schema.RichMediaExitOverride[] | undefined;
+        sequence?: number | undefined;
+        sslCompliant?: boolean | undefined;
+        startTime?: string | undefined;
+        weight?: number | undefined;
       }
       interface CreativeClickThroughUrl {
-        computedClickThroughUrl?: string;
-        customClickThroughUrl?: string;
-        landingPageId?: string;
+        computedClickThroughUrl?: string | undefined;
+        customClickThroughUrl?: string | undefined;
+        landingPageId?: string | undefined;
       }
       interface CreativeCustomEvent {
-        advertiserCustomEventId?: string;
-        advertiserCustomEventName?: string;
-        advertiserCustomEventType?: string;
-        artworkLabel?: string;
-        artworkType?: string;
-        exitClickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl;
-        id?: string;
-        popupWindowProperties?: Dfareporting.Schema.PopupWindowProperties;
-        targetType?: string;
-        videoReportingId?: string;
+        advertiserCustomEventId?: string | undefined;
+        advertiserCustomEventName?: string | undefined;
+        advertiserCustomEventType?: string | undefined;
+        artworkLabel?: string | undefined;
+        artworkType?: string | undefined;
+        exitClickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl | undefined;
+        id?: string | undefined;
+        popupWindowProperties?: Dfareporting.Schema.PopupWindowProperties | undefined;
+        targetType?: string | undefined;
+        videoReportingId?: string | undefined;
       }
       interface CreativeField {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        id?: string;
-        kind?: string;
-        name?: string;
-        subaccountId?: string;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        subaccountId?: string | undefined;
       }
       interface CreativeFieldAssignment {
-        creativeFieldId?: string;
-        creativeFieldValueId?: string;
+        creativeFieldId?: string | undefined;
+        creativeFieldValueId?: string | undefined;
       }
       interface CreativeFieldValue {
-        id?: string;
-        kind?: string;
-        value?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        value?: string | undefined;
       }
       interface CreativeFieldValuesListResponse {
-        creativeFieldValues?: Dfareporting.Schema.CreativeFieldValue[];
-        kind?: string;
-        nextPageToken?: string;
+        creativeFieldValues?: Dfareporting.Schema.CreativeFieldValue[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface CreativeFieldsListResponse {
-        creativeFields?: Dfareporting.Schema.CreativeField[];
-        kind?: string;
-        nextPageToken?: string;
+        creativeFields?: Dfareporting.Schema.CreativeField[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface CreativeGroup {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        groupNumber?: number;
-        id?: string;
-        kind?: string;
-        name?: string;
-        subaccountId?: string;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        groupNumber?: number | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        subaccountId?: string | undefined;
       }
       interface CreativeGroupAssignment {
-        creativeGroupId?: string;
-        creativeGroupNumber?: string;
+        creativeGroupId?: string | undefined;
+        creativeGroupNumber?: string | undefined;
       }
       interface CreativeGroupsListResponse {
-        creativeGroups?: Dfareporting.Schema.CreativeGroup[];
-        kind?: string;
-        nextPageToken?: string;
+        creativeGroups?: Dfareporting.Schema.CreativeGroup[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface CreativeOptimizationConfiguration {
-        id?: string;
-        name?: string;
-        optimizationActivitys?: Dfareporting.Schema.OptimizationActivity[];
-        optimizationModel?: string;
+        id?: string | undefined;
+        name?: string | undefined;
+        optimizationActivitys?: Dfareporting.Schema.OptimizationActivity[] | undefined;
+        optimizationModel?: string | undefined;
       }
       interface CreativeRotation {
-        creativeAssignments?: Dfareporting.Schema.CreativeAssignment[];
-        creativeOptimizationConfigurationId?: string;
-        type?: string;
-        weightCalculationStrategy?: string;
+        creativeAssignments?: Dfareporting.Schema.CreativeAssignment[] | undefined;
+        creativeOptimizationConfigurationId?: string | undefined;
+        type?: string | undefined;
+        weightCalculationStrategy?: string | undefined;
       }
       interface CreativesListResponse {
-        creatives?: Dfareporting.Schema.Creative[];
-        kind?: string;
-        nextPageToken?: string;
+        creatives?: Dfareporting.Schema.Creative[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface CrossDimensionReachReportCompatibleFields {
-        breakdown?: Dfareporting.Schema.Dimension[];
-        dimensionFilters?: Dfareporting.Schema.Dimension[];
-        kind?: string;
-        metrics?: Dfareporting.Schema.Metric[];
-        overlapMetrics?: Dfareporting.Schema.Metric[];
+        breakdown?: Dfareporting.Schema.Dimension[] | undefined;
+        dimensionFilters?: Dfareporting.Schema.Dimension[] | undefined;
+        kind?: string | undefined;
+        metrics?: Dfareporting.Schema.Metric[] | undefined;
+        overlapMetrics?: Dfareporting.Schema.Metric[] | undefined;
       }
       interface CustomFloodlightVariable {
-        kind?: string;
-        type?: string;
-        value?: string;
+        kind?: string | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface CustomRichMediaEvents {
-        filteredEventIds?: Dfareporting.Schema.DimensionValue[];
-        kind?: string;
+        filteredEventIds?: Dfareporting.Schema.DimensionValue[] | undefined;
+        kind?: string | undefined;
       }
       interface CustomViewabilityMetric {
-        configuration?: Dfareporting.Schema.CustomViewabilityMetricConfiguration;
-        id?: string;
-        name?: string;
+        configuration?: Dfareporting.Schema.CustomViewabilityMetricConfiguration | undefined;
+        id?: string | undefined;
+        name?: string | undefined;
       }
       interface CustomViewabilityMetricConfiguration {
-        audible?: boolean;
-        timeMillis?: number;
-        timePercent?: number;
-        viewabilityPercent?: number;
+        audible?: boolean | undefined;
+        timeMillis?: number | undefined;
+        timePercent?: number | undefined;
+        viewabilityPercent?: number | undefined;
       }
       interface DateRange {
-        endDate?: string;
-        kind?: string;
-        relativeDateRange?: string;
-        startDate?: string;
+        endDate?: string | undefined;
+        kind?: string | undefined;
+        relativeDateRange?: string | undefined;
+        startDate?: string | undefined;
       }
       interface DayPartTargeting {
-        daysOfWeek?: string[];
-        hoursOfDay?: number[];
-        userLocalTime?: boolean;
+        daysOfWeek?: string[] | undefined;
+        hoursOfDay?: number[] | undefined;
+        userLocalTime?: boolean | undefined;
       }
       interface DeepLink {
-        appUrl?: string;
-        fallbackUrl?: string;
-        kind?: string;
-        mobileApp?: Dfareporting.Schema.MobileApp;
-        remarketingListIds?: string[];
+        appUrl?: string | undefined;
+        fallbackUrl?: string | undefined;
+        kind?: string | undefined;
+        mobileApp?: Dfareporting.Schema.MobileApp | undefined;
+        remarketingListIds?: string[] | undefined;
       }
       interface DefaultClickThroughEventTagProperties {
-        defaultClickThroughEventTagId?: string;
-        overrideInheritedEventTag?: boolean;
+        defaultClickThroughEventTagId?: string | undefined;
+        overrideInheritedEventTag?: boolean | undefined;
       }
       interface DeliverySchedule {
-        frequencyCap?: Dfareporting.Schema.FrequencyCap;
-        hardCutoff?: boolean;
-        impressionRatio?: string;
-        priority?: string;
+        frequencyCap?: Dfareporting.Schema.FrequencyCap | undefined;
+        hardCutoff?: boolean | undefined;
+        impressionRatio?: string | undefined;
+        priority?: string | undefined;
       }
       interface DfpSettings {
-        dfpNetworkCode?: string;
-        dfpNetworkName?: string;
-        programmaticPlacementAccepted?: boolean;
-        pubPaidPlacementAccepted?: boolean;
-        publisherPortalOnly?: boolean;
+        dfpNetworkCode?: string | undefined;
+        dfpNetworkName?: string | undefined;
+        programmaticPlacementAccepted?: boolean | undefined;
+        pubPaidPlacementAccepted?: boolean | undefined;
+        publisherPortalOnly?: boolean | undefined;
       }
       interface Dimension {
-        kind?: string;
-        name?: string;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface DimensionFilter {
-        dimensionName?: string;
-        kind?: string;
-        value?: string;
+        dimensionName?: string | undefined;
+        kind?: string | undefined;
+        value?: string | undefined;
       }
       interface DimensionValue {
-        dimensionName?: string;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        matchType?: string;
-        value?: string;
+        dimensionName?: string | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        matchType?: string | undefined;
+        value?: string | undefined;
       }
       interface DimensionValueList {
-        etag?: string;
-        items?: Dfareporting.Schema.DimensionValue[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Dfareporting.Schema.DimensionValue[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface DimensionValueRequest {
-        dimensionName?: string;
-        endDate?: string;
-        filters?: Dfareporting.Schema.DimensionFilter[];
-        kind?: string;
-        startDate?: string;
+        dimensionName?: string | undefined;
+        endDate?: string | undefined;
+        filters?: Dfareporting.Schema.DimensionFilter[] | undefined;
+        kind?: string | undefined;
+        startDate?: string | undefined;
       }
       interface DirectorySite {
-        active?: boolean;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        inpageTagFormats?: string[];
-        interstitialTagFormats?: string[];
-        kind?: string;
-        name?: string;
-        settings?: Dfareporting.Schema.DirectorySiteSettings;
-        url?: string;
+        active?: boolean | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        inpageTagFormats?: string[] | undefined;
+        interstitialTagFormats?: string[] | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        settings?: Dfareporting.Schema.DirectorySiteSettings | undefined;
+        url?: string | undefined;
       }
       interface DirectorySiteSettings {
-        activeViewOptOut?: boolean;
-        dfpSettings?: Dfareporting.Schema.DfpSettings;
-        instreamVideoPlacementAccepted?: boolean;
-        interstitialPlacementAccepted?: boolean;
+        activeViewOptOut?: boolean | undefined;
+        dfpSettings?: Dfareporting.Schema.DfpSettings | undefined;
+        instreamVideoPlacementAccepted?: boolean | undefined;
+        interstitialPlacementAccepted?: boolean | undefined;
       }
       interface DirectorySitesListResponse {
-        directorySites?: Dfareporting.Schema.DirectorySite[];
-        kind?: string;
-        nextPageToken?: string;
+        directorySites?: Dfareporting.Schema.DirectorySite[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface DynamicTargetingKey {
-        kind?: string;
-        name?: string;
-        objectId?: string;
-        objectType?: string;
+        kind?: string | undefined;
+        name?: string | undefined;
+        objectId?: string | undefined;
+        objectType?: string | undefined;
       }
       interface DynamicTargetingKeysListResponse {
-        dynamicTargetingKeys?: Dfareporting.Schema.DynamicTargetingKey[];
-        kind?: string;
+        dynamicTargetingKeys?: Dfareporting.Schema.DynamicTargetingKey[] | undefined;
+        kind?: string | undefined;
       }
       interface EncryptionInfo {
-        encryptionEntityId?: string;
-        encryptionEntityType?: string;
-        encryptionSource?: string;
-        kind?: string;
+        encryptionEntityId?: string | undefined;
+        encryptionEntityType?: string | undefined;
+        encryptionSource?: string | undefined;
+        kind?: string | undefined;
       }
       interface EventTag {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        enabledByDefault?: boolean;
-        excludeFromAdxRequests?: boolean;
-        id?: string;
-        kind?: string;
-        name?: string;
-        siteFilterType?: string;
-        siteIds?: string[];
-        sslCompliant?: boolean;
-        status?: string;
-        subaccountId?: string;
-        type?: string;
-        url?: string;
-        urlEscapeLevels?: number;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        campaignId?: string | undefined;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        enabledByDefault?: boolean | undefined;
+        excludeFromAdxRequests?: boolean | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        siteFilterType?: string | undefined;
+        siteIds?: string[] | undefined;
+        sslCompliant?: boolean | undefined;
+        status?: string | undefined;
+        subaccountId?: string | undefined;
+        type?: string | undefined;
+        url?: string | undefined;
+        urlEscapeLevels?: number | undefined;
       }
       interface EventTagOverride {
-        enabled?: boolean;
-        id?: string;
+        enabled?: boolean | undefined;
+        id?: string | undefined;
       }
       interface EventTagsListResponse {
-        eventTags?: Dfareporting.Schema.EventTag[];
-        kind?: string;
+        eventTags?: Dfareporting.Schema.EventTag[] | undefined;
+        kind?: string | undefined;
       }
       interface File {
-        dateRange?: Dfareporting.Schema.DateRange;
-        etag?: string;
-        fileName?: string;
-        format?: string;
-        id?: string;
-        kind?: string;
-        lastModifiedTime?: string;
-        reportId?: string;
-        status?: string;
-        urls?: Dfareporting.Schema.FileUrls;
+        dateRange?: Dfareporting.Schema.DateRange | undefined;
+        etag?: string | undefined;
+        fileName?: string | undefined;
+        format?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lastModifiedTime?: string | undefined;
+        reportId?: string | undefined;
+        status?: string | undefined;
+        urls?: Dfareporting.Schema.FileUrls | undefined;
       }
       interface FileList {
-        etag?: string;
-        items?: Dfareporting.Schema.File[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Dfareporting.Schema.File[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface FileUrls {
-        apiUrl?: string;
-        browserUrl?: string;
+        apiUrl?: string | undefined;
+        browserUrl?: string | undefined;
       }
       interface Flight {
-        endDate?: string;
-        rateOrCost?: string;
-        startDate?: string;
-        units?: string;
+        endDate?: string | undefined;
+        rateOrCost?: string | undefined;
+        startDate?: string | undefined;
+        units?: string | undefined;
       }
       interface FloodlightActivitiesGenerateTagResponse {
-        floodlightActivityTag?: string;
-        globalSiteTagGlobalSnippet?: string;
-        kind?: string;
+        floodlightActivityTag?: string | undefined;
+        globalSiteTagGlobalSnippet?: string | undefined;
+        kind?: string | undefined;
       }
       interface FloodlightActivitiesListResponse {
-        floodlightActivities?: Dfareporting.Schema.FloodlightActivity[];
-        kind?: string;
-        nextPageToken?: string;
+        floodlightActivities?: Dfareporting.Schema.FloodlightActivity[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface FloodlightActivity {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        cacheBustingType?: string;
-        countingMethod?: string;
-        defaultTags?: Dfareporting.Schema.FloodlightActivityDynamicTag[];
-        expectedUrl?: string;
-        floodlightActivityGroupId?: string;
-        floodlightActivityGroupName?: string;
-        floodlightActivityGroupTagString?: string;
-        floodlightActivityGroupType?: string;
-        floodlightConfigurationId?: string;
-        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        floodlightTagType?: string;
-        hidden?: boolean;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        kind?: string;
-        name?: string;
-        notes?: string;
-        publisherTags?: Dfareporting.Schema.FloodlightActivityPublisherDynamicTag[];
-        secure?: boolean;
-        sslCompliant?: boolean;
-        sslRequired?: boolean;
-        subaccountId?: string;
-        tagFormat?: string;
-        tagString?: string;
-        userDefinedVariableTypes?: string[];
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        cacheBustingType?: string | undefined;
+        countingMethod?: string | undefined;
+        defaultTags?: Dfareporting.Schema.FloodlightActivityDynamicTag[] | undefined;
+        expectedUrl?: string | undefined;
+        floodlightActivityGroupId?: string | undefined;
+        floodlightActivityGroupName?: string | undefined;
+        floodlightActivityGroupTagString?: string | undefined;
+        floodlightActivityGroupType?: string | undefined;
+        floodlightConfigurationId?: string | undefined;
+        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        floodlightTagType?: string | undefined;
+        hidden?: boolean | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        publisherTags?: Dfareporting.Schema.FloodlightActivityPublisherDynamicTag[] | undefined;
+        secure?: boolean | undefined;
+        sslCompliant?: boolean | undefined;
+        sslRequired?: boolean | undefined;
+        subaccountId?: string | undefined;
+        tagFormat?: string | undefined;
+        tagString?: string | undefined;
+        userDefinedVariableTypes?: string[] | undefined;
       }
       interface FloodlightActivityDynamicTag {
-        id?: string;
-        name?: string;
-        tag?: string;
+        id?: string | undefined;
+        name?: string | undefined;
+        tag?: string | undefined;
       }
       interface FloodlightActivityGroup {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        floodlightConfigurationId?: string;
-        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        kind?: string;
-        name?: string;
-        subaccountId?: string;
-        tagString?: string;
-        type?: string;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        floodlightConfigurationId?: string | undefined;
+        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        subaccountId?: string | undefined;
+        tagString?: string | undefined;
+        type?: string | undefined;
       }
       interface FloodlightActivityGroupsListResponse {
-        floodlightActivityGroups?: Dfareporting.Schema.FloodlightActivityGroup[];
-        kind?: string;
-        nextPageToken?: string;
+        floodlightActivityGroups?: Dfareporting.Schema.FloodlightActivityGroup[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface FloodlightActivityPublisherDynamicTag {
-        clickThrough?: boolean;
-        directorySiteId?: string;
-        dynamicTag?: Dfareporting.Schema.FloodlightActivityDynamicTag;
-        siteId?: string;
-        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        viewThrough?: boolean;
+        clickThrough?: boolean | undefined;
+        directorySiteId?: string | undefined;
+        dynamicTag?: Dfareporting.Schema.FloodlightActivityDynamicTag | undefined;
+        siteId?: string | undefined;
+        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        viewThrough?: boolean | undefined;
       }
       interface FloodlightConfiguration {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        analyticsDataSharingEnabled?: boolean;
-        customViewabilityMetric?: Dfareporting.Schema.CustomViewabilityMetric;
-        exposureToConversionEnabled?: boolean;
-        firstDayOfWeek?: string;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        inAppAttributionTrackingEnabled?: boolean;
-        kind?: string;
-        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration;
-        naturalSearchConversionAttributionOption?: string;
-        omnitureSettings?: Dfareporting.Schema.OmnitureSettings;
-        subaccountId?: string;
-        tagSettings?: Dfareporting.Schema.TagSettings;
-        thirdPartyAuthenticationTokens?: Dfareporting.Schema.ThirdPartyAuthenticationToken[];
-        userDefinedVariableConfigurations?: Dfareporting.Schema.UserDefinedVariableConfiguration[];
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        analyticsDataSharingEnabled?: boolean | undefined;
+        customViewabilityMetric?: Dfareporting.Schema.CustomViewabilityMetric | undefined;
+        exposureToConversionEnabled?: boolean | undefined;
+        firstDayOfWeek?: string | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        inAppAttributionTrackingEnabled?: boolean | undefined;
+        kind?: string | undefined;
+        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration | undefined;
+        naturalSearchConversionAttributionOption?: string | undefined;
+        omnitureSettings?: Dfareporting.Schema.OmnitureSettings | undefined;
+        subaccountId?: string | undefined;
+        tagSettings?: Dfareporting.Schema.TagSettings | undefined;
+        thirdPartyAuthenticationTokens?: Dfareporting.Schema.ThirdPartyAuthenticationToken[] | undefined;
+        userDefinedVariableConfigurations?: Dfareporting.Schema.UserDefinedVariableConfiguration[] | undefined;
       }
       interface FloodlightConfigurationsListResponse {
-        floodlightConfigurations?: Dfareporting.Schema.FloodlightConfiguration[];
-        kind?: string;
+        floodlightConfigurations?: Dfareporting.Schema.FloodlightConfiguration[] | undefined;
+        kind?: string | undefined;
       }
       interface FloodlightReportCompatibleFields {
-        dimensionFilters?: Dfareporting.Schema.Dimension[];
-        dimensions?: Dfareporting.Schema.Dimension[];
-        kind?: string;
-        metrics?: Dfareporting.Schema.Metric[];
+        dimensionFilters?: Dfareporting.Schema.Dimension[] | undefined;
+        dimensions?: Dfareporting.Schema.Dimension[] | undefined;
+        kind?: string | undefined;
+        metrics?: Dfareporting.Schema.Metric[] | undefined;
       }
       interface FrequencyCap {
-        duration?: string;
-        impressions?: string;
+        duration?: string | undefined;
+        impressions?: string | undefined;
       }
       interface FsCommand {
-        left?: number;
-        positionOption?: string;
-        top?: number;
-        windowHeight?: number;
-        windowWidth?: number;
+        left?: number | undefined;
+        positionOption?: string | undefined;
+        top?: number | undefined;
+        windowHeight?: number | undefined;
+        windowWidth?: number | undefined;
       }
       interface GeoTargeting {
-        cities?: Dfareporting.Schema.City[];
-        countries?: Dfareporting.Schema.Country[];
-        excludeCountries?: boolean;
-        metros?: Dfareporting.Schema.Metro[];
-        postalCodes?: Dfareporting.Schema.PostalCode[];
-        regions?: Dfareporting.Schema.Region[];
+        cities?: Dfareporting.Schema.City[] | undefined;
+        countries?: Dfareporting.Schema.Country[] | undefined;
+        excludeCountries?: boolean | undefined;
+        metros?: Dfareporting.Schema.Metro[] | undefined;
+        postalCodes?: Dfareporting.Schema.PostalCode[] | undefined;
+        regions?: Dfareporting.Schema.Region[] | undefined;
       }
       interface InventoryItem {
-        accountId?: string;
-        adSlots?: Dfareporting.Schema.AdSlot[];
-        advertiserId?: string;
-        contentCategoryId?: string;
-        estimatedClickThroughRate?: string;
-        estimatedConversionRate?: string;
-        id?: string;
-        inPlan?: boolean;
-        kind?: string;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        name?: string;
-        negotiationChannelId?: string;
-        orderId?: string;
-        placementStrategyId?: string;
-        pricing?: Dfareporting.Schema.Pricing;
-        projectId?: string;
-        rfpId?: string;
-        siteId?: string;
-        subaccountId?: string;
-        type?: string;
+        accountId?: string | undefined;
+        adSlots?: Dfareporting.Schema.AdSlot[] | undefined;
+        advertiserId?: string | undefined;
+        contentCategoryId?: string | undefined;
+        estimatedClickThroughRate?: string | undefined;
+        estimatedConversionRate?: string | undefined;
+        id?: string | undefined;
+        inPlan?: boolean | undefined;
+        kind?: string | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        name?: string | undefined;
+        negotiationChannelId?: string | undefined;
+        orderId?: string | undefined;
+        placementStrategyId?: string | undefined;
+        pricing?: Dfareporting.Schema.Pricing | undefined;
+        projectId?: string | undefined;
+        rfpId?: string | undefined;
+        siteId?: string | undefined;
+        subaccountId?: string | undefined;
+        type?: string | undefined;
       }
       interface InventoryItemsListResponse {
-        inventoryItems?: Dfareporting.Schema.InventoryItem[];
-        kind?: string;
-        nextPageToken?: string;
+        inventoryItems?: Dfareporting.Schema.InventoryItem[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface KeyValueTargetingExpression {
-        expression?: string;
+        expression?: string | undefined;
       }
       interface LandingPage {
-        advertiserId?: string;
-        archived?: boolean;
-        deepLinks?: Dfareporting.Schema.DeepLink[];
-        id?: string;
-        kind?: string;
-        name?: string;
-        url?: string;
+        advertiserId?: string | undefined;
+        archived?: boolean | undefined;
+        deepLinks?: Dfareporting.Schema.DeepLink[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        url?: string | undefined;
       }
       interface Language {
-        id?: string;
-        kind?: string;
-        languageCode?: string;
-        name?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        languageCode?: string | undefined;
+        name?: string | undefined;
       }
       interface LanguageTargeting {
-        languages?: Dfareporting.Schema.Language[];
+        languages?: Dfareporting.Schema.Language[] | undefined;
       }
       interface LanguagesListResponse {
-        kind?: string;
-        languages?: Dfareporting.Schema.Language[];
+        kind?: string | undefined;
+        languages?: Dfareporting.Schema.Language[] | undefined;
       }
       interface LastModifiedInfo {
-        time?: string;
+        time?: string | undefined;
       }
       interface ListPopulationClause {
-        terms?: Dfareporting.Schema.ListPopulationTerm[];
+        terms?: Dfareporting.Schema.ListPopulationTerm[] | undefined;
       }
       interface ListPopulationRule {
-        floodlightActivityId?: string;
-        floodlightActivityName?: string;
-        listPopulationClauses?: Dfareporting.Schema.ListPopulationClause[];
+        floodlightActivityId?: string | undefined;
+        floodlightActivityName?: string | undefined;
+        listPopulationClauses?: Dfareporting.Schema.ListPopulationClause[] | undefined;
       }
       interface ListPopulationTerm {
-        contains?: boolean;
-        negation?: boolean;
-        operator?: string;
-        remarketingListId?: string;
-        type?: string;
-        value?: string;
-        variableFriendlyName?: string;
-        variableName?: string;
+        contains?: boolean | undefined;
+        negation?: boolean | undefined;
+        operator?: string | undefined;
+        remarketingListId?: string | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
+        variableFriendlyName?: string | undefined;
+        variableName?: string | undefined;
       }
       interface ListTargetingExpression {
-        expression?: string;
+        expression?: string | undefined;
       }
       interface LookbackConfiguration {
-        clickDuration?: number;
-        postImpressionActivitiesDuration?: number;
+        clickDuration?: number | undefined;
+        postImpressionActivitiesDuration?: number | undefined;
       }
       interface Metric {
-        kind?: string;
-        name?: string;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface Metro {
-        countryCode?: string;
-        countryDartId?: string;
-        dartId?: string;
-        dmaId?: string;
-        kind?: string;
-        metroCode?: string;
-        name?: string;
+        countryCode?: string | undefined;
+        countryDartId?: string | undefined;
+        dartId?: string | undefined;
+        dmaId?: string | undefined;
+        kind?: string | undefined;
+        metroCode?: string | undefined;
+        name?: string | undefined;
       }
       interface MetrosListResponse {
-        kind?: string;
-        metros?: Dfareporting.Schema.Metro[];
+        kind?: string | undefined;
+        metros?: Dfareporting.Schema.Metro[] | undefined;
       }
       interface MobileApp {
-        directory?: string;
-        id?: string;
-        kind?: string;
-        publisherName?: string;
-        title?: string;
+        directory?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        publisherName?: string | undefined;
+        title?: string | undefined;
       }
       interface MobileAppsListResponse {
-        kind?: string;
-        mobileApps?: Dfareporting.Schema.MobileApp[];
-        nextPageToken?: string;
+        kind?: string | undefined;
+        mobileApps?: Dfareporting.Schema.MobileApp[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface MobileCarrier {
-        countryCode?: string;
-        countryDartId?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
+        countryCode?: string | undefined;
+        countryDartId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface MobileCarriersListResponse {
-        kind?: string;
-        mobileCarriers?: Dfareporting.Schema.MobileCarrier[];
+        kind?: string | undefined;
+        mobileCarriers?: Dfareporting.Schema.MobileCarrier[] | undefined;
       }
       interface ObjectFilter {
-        kind?: string;
-        objectIds?: string[];
-        status?: string;
+        kind?: string | undefined;
+        objectIds?: string[] | undefined;
+        status?: string | undefined;
       }
       interface OffsetPosition {
-        left?: number;
-        top?: number;
+        left?: number | undefined;
+        top?: number | undefined;
       }
       interface OmnitureSettings {
-        omnitureCostDataEnabled?: boolean;
-        omnitureIntegrationEnabled?: boolean;
+        omnitureCostDataEnabled?: boolean | undefined;
+        omnitureIntegrationEnabled?: boolean | undefined;
       }
       interface OperatingSystem {
-        dartId?: string;
-        desktop?: boolean;
-        kind?: string;
-        mobile?: boolean;
-        name?: string;
+        dartId?: string | undefined;
+        desktop?: boolean | undefined;
+        kind?: string | undefined;
+        mobile?: boolean | undefined;
+        name?: string | undefined;
       }
       interface OperatingSystemVersion {
-        id?: string;
-        kind?: string;
-        majorVersion?: string;
-        minorVersion?: string;
-        name?: string;
-        operatingSystem?: Dfareporting.Schema.OperatingSystem;
+        id?: string | undefined;
+        kind?: string | undefined;
+        majorVersion?: string | undefined;
+        minorVersion?: string | undefined;
+        name?: string | undefined;
+        operatingSystem?: Dfareporting.Schema.OperatingSystem | undefined;
       }
       interface OperatingSystemVersionsListResponse {
-        kind?: string;
-        operatingSystemVersions?: Dfareporting.Schema.OperatingSystemVersion[];
+        kind?: string | undefined;
+        operatingSystemVersions?: Dfareporting.Schema.OperatingSystemVersion[] | undefined;
       }
       interface OperatingSystemsListResponse {
-        kind?: string;
-        operatingSystems?: Dfareporting.Schema.OperatingSystem[];
+        kind?: string | undefined;
+        operatingSystems?: Dfareporting.Schema.OperatingSystem[] | undefined;
       }
       interface OptimizationActivity {
-        floodlightActivityId?: string;
-        floodlightActivityIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        weight?: number;
+        floodlightActivityId?: string | undefined;
+        floodlightActivityIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        weight?: number | undefined;
       }
       interface Order {
-        accountId?: string;
-        advertiserId?: string;
-        approverUserProfileIds?: string[];
-        buyerInvoiceId?: string;
-        buyerOrganizationName?: string;
-        comments?: string;
-        contacts?: Dfareporting.Schema.OrderContact[];
-        id?: string;
-        kind?: string;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        name?: string;
-        notes?: string;
-        planningTermId?: string;
-        projectId?: string;
-        sellerOrderId?: string;
-        sellerOrganizationName?: string;
-        siteId?: string[];
-        siteNames?: string[];
-        subaccountId?: string;
-        termsAndConditions?: string;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        approverUserProfileIds?: string[] | undefined;
+        buyerInvoiceId?: string | undefined;
+        buyerOrganizationName?: string | undefined;
+        comments?: string | undefined;
+        contacts?: Dfareporting.Schema.OrderContact[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        planningTermId?: string | undefined;
+        projectId?: string | undefined;
+        sellerOrderId?: string | undefined;
+        sellerOrganizationName?: string | undefined;
+        siteId?: string[] | undefined;
+        siteNames?: string[] | undefined;
+        subaccountId?: string | undefined;
+        termsAndConditions?: string | undefined;
       }
       interface OrderContact {
-        contactInfo?: string;
-        contactName?: string;
-        contactTitle?: string;
-        contactType?: string;
-        signatureUserProfileId?: string;
+        contactInfo?: string | undefined;
+        contactName?: string | undefined;
+        contactTitle?: string | undefined;
+        contactType?: string | undefined;
+        signatureUserProfileId?: string | undefined;
       }
       interface OrderDocument {
-        accountId?: string;
-        advertiserId?: string;
-        amendedOrderDocumentId?: string;
-        approvedByUserProfileIds?: string[];
-        cancelled?: boolean;
-        createdInfo?: Dfareporting.Schema.LastModifiedInfo;
-        effectiveDate?: string;
-        id?: string;
-        kind?: string;
-        lastSentRecipients?: string[];
-        lastSentTime?: string;
-        orderId?: string;
-        projectId?: string;
-        signed?: boolean;
-        subaccountId?: string;
-        title?: string;
-        type?: string;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        amendedOrderDocumentId?: string | undefined;
+        approvedByUserProfileIds?: string[] | undefined;
+        cancelled?: boolean | undefined;
+        createdInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        effectiveDate?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lastSentRecipients?: string[] | undefined;
+        lastSentTime?: string | undefined;
+        orderId?: string | undefined;
+        projectId?: string | undefined;
+        signed?: boolean | undefined;
+        subaccountId?: string | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
       }
       interface OrderDocumentsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        orderDocuments?: Dfareporting.Schema.OrderDocument[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        orderDocuments?: Dfareporting.Schema.OrderDocument[] | undefined;
       }
       interface OrdersListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        orders?: Dfareporting.Schema.Order[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        orders?: Dfareporting.Schema.Order[] | undefined;
       }
       interface PathToConversionReportCompatibleFields {
-        conversionDimensions?: Dfareporting.Schema.Dimension[];
-        customFloodlightVariables?: Dfareporting.Schema.Dimension[];
-        kind?: string;
-        metrics?: Dfareporting.Schema.Metric[];
-        perInteractionDimensions?: Dfareporting.Schema.Dimension[];
+        conversionDimensions?: Dfareporting.Schema.Dimension[] | undefined;
+        customFloodlightVariables?: Dfareporting.Schema.Dimension[] | undefined;
+        kind?: string | undefined;
+        metrics?: Dfareporting.Schema.Metric[] | undefined;
+        perInteractionDimensions?: Dfareporting.Schema.Dimension[] | undefined;
       }
       interface Placement {
-        accountId?: string;
-        adBlockingOptOut?: boolean;
-        additionalSizes?: Dfareporting.Schema.Size[];
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        archived?: boolean;
-        campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        comment?: string;
-        compatibility?: string;
-        contentCategoryId?: string;
-        createInfo?: Dfareporting.Schema.LastModifiedInfo;
-        directorySiteId?: string;
-        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        externalId?: string;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        keyName?: string;
-        kind?: string;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration;
-        name?: string;
-        paymentApproved?: boolean;
-        paymentSource?: string;
-        placementGroupId?: string;
-        placementGroupIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        placementStrategyId?: string;
-        pricingSchedule?: Dfareporting.Schema.PricingSchedule;
-        primary?: boolean;
-        publisherUpdateInfo?: Dfareporting.Schema.LastModifiedInfo;
-        siteId?: string;
-        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        size?: Dfareporting.Schema.Size;
-        sslRequired?: boolean;
-        status?: string;
-        subaccountId?: string;
-        tagFormats?: string[];
-        tagSetting?: Dfareporting.Schema.TagSetting;
-        videoActiveViewOptOut?: boolean;
-        videoSettings?: Dfareporting.Schema.VideoSettings;
-        vpaidAdapterChoice?: string;
+        accountId?: string | undefined;
+        adBlockingOptOut?: boolean | undefined;
+        additionalSizes?: Dfareporting.Schema.Size[] | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        archived?: boolean | undefined;
+        campaignId?: string | undefined;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        comment?: string | undefined;
+        compatibility?: string | undefined;
+        contentCategoryId?: string | undefined;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        directorySiteId?: string | undefined;
+        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        externalId?: string | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        keyName?: string | undefined;
+        kind?: string | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration | undefined;
+        name?: string | undefined;
+        paymentApproved?: boolean | undefined;
+        paymentSource?: string | undefined;
+        placementGroupId?: string | undefined;
+        placementGroupIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        placementStrategyId?: string | undefined;
+        pricingSchedule?: Dfareporting.Schema.PricingSchedule | undefined;
+        primary?: boolean | undefined;
+        publisherUpdateInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        siteId?: string | undefined;
+        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        size?: Dfareporting.Schema.Size | undefined;
+        sslRequired?: boolean | undefined;
+        status?: string | undefined;
+        subaccountId?: string | undefined;
+        tagFormats?: string[] | undefined;
+        tagSetting?: Dfareporting.Schema.TagSetting | undefined;
+        videoActiveViewOptOut?: boolean | undefined;
+        videoSettings?: Dfareporting.Schema.VideoSettings | undefined;
+        vpaidAdapterChoice?: string | undefined;
       }
       interface PlacementAssignment {
-        active?: boolean;
-        placementId?: string;
-        placementIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        sslRequired?: boolean;
+        active?: boolean | undefined;
+        placementId?: string | undefined;
+        placementIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        sslRequired?: boolean | undefined;
       }
       interface PlacementGroup {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        archived?: boolean;
-        campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        childPlacementIds?: string[];
-        comment?: string;
-        contentCategoryId?: string;
-        createInfo?: Dfareporting.Schema.LastModifiedInfo;
-        directorySiteId?: string;
-        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        externalId?: string;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        kind?: string;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        name?: string;
-        placementGroupType?: string;
-        placementStrategyId?: string;
-        pricingSchedule?: Dfareporting.Schema.PricingSchedule;
-        primaryPlacementId?: string;
-        primaryPlacementIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        siteId?: string;
-        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        subaccountId?: string;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        archived?: boolean | undefined;
+        campaignId?: string | undefined;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        childPlacementIds?: string[] | undefined;
+        comment?: string | undefined;
+        contentCategoryId?: string | undefined;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        directorySiteId?: string | undefined;
+        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        externalId?: string | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        kind?: string | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        name?: string | undefined;
+        placementGroupType?: string | undefined;
+        placementStrategyId?: string | undefined;
+        pricingSchedule?: Dfareporting.Schema.PricingSchedule | undefined;
+        primaryPlacementId?: string | undefined;
+        primaryPlacementIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        siteId?: string | undefined;
+        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        subaccountId?: string | undefined;
       }
       interface PlacementGroupsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        placementGroups?: Dfareporting.Schema.PlacementGroup[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        placementGroups?: Dfareporting.Schema.PlacementGroup[] | undefined;
       }
       interface PlacementStrategiesListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        placementStrategies?: Dfareporting.Schema.PlacementStrategy[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        placementStrategies?: Dfareporting.Schema.PlacementStrategy[] | undefined;
       }
       interface PlacementStrategy {
-        accountId?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
+        accountId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface PlacementTag {
-        placementId?: string;
-        tagDatas?: Dfareporting.Schema.TagData[];
+        placementId?: string | undefined;
+        tagDatas?: Dfareporting.Schema.TagData[] | undefined;
       }
       interface PlacementsGenerateTagsResponse {
-        kind?: string;
-        placementTags?: Dfareporting.Schema.PlacementTag[];
+        kind?: string | undefined;
+        placementTags?: Dfareporting.Schema.PlacementTag[] | undefined;
       }
       interface PlacementsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        placements?: Dfareporting.Schema.Placement[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        placements?: Dfareporting.Schema.Placement[] | undefined;
       }
       interface PlatformType {
-        id?: string;
-        kind?: string;
-        name?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface PlatformTypesListResponse {
-        kind?: string;
-        platformTypes?: Dfareporting.Schema.PlatformType[];
+        kind?: string | undefined;
+        platformTypes?: Dfareporting.Schema.PlatformType[] | undefined;
       }
       interface PopupWindowProperties {
-        dimension?: Dfareporting.Schema.Size;
-        offset?: Dfareporting.Schema.OffsetPosition;
-        positionType?: string;
-        showAddressBar?: boolean;
-        showMenuBar?: boolean;
-        showScrollBar?: boolean;
-        showStatusBar?: boolean;
-        showToolBar?: boolean;
-        title?: string;
+        dimension?: Dfareporting.Schema.Size | undefined;
+        offset?: Dfareporting.Schema.OffsetPosition | undefined;
+        positionType?: string | undefined;
+        showAddressBar?: boolean | undefined;
+        showMenuBar?: boolean | undefined;
+        showScrollBar?: boolean | undefined;
+        showStatusBar?: boolean | undefined;
+        showToolBar?: boolean | undefined;
+        title?: string | undefined;
       }
       interface PostalCode {
-        code?: string;
-        countryCode?: string;
-        countryDartId?: string;
-        id?: string;
-        kind?: string;
+        code?: string | undefined;
+        countryCode?: string | undefined;
+        countryDartId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
       }
       interface PostalCodesListResponse {
-        kind?: string;
-        postalCodes?: Dfareporting.Schema.PostalCode[];
+        kind?: string | undefined;
+        postalCodes?: Dfareporting.Schema.PostalCode[] | undefined;
       }
       interface Pricing {
-        capCostType?: string;
-        endDate?: string;
-        flights?: Dfareporting.Schema.Flight[];
-        groupType?: string;
-        pricingType?: string;
-        startDate?: string;
+        capCostType?: string | undefined;
+        endDate?: string | undefined;
+        flights?: Dfareporting.Schema.Flight[] | undefined;
+        groupType?: string | undefined;
+        pricingType?: string | undefined;
+        startDate?: string | undefined;
       }
       interface PricingSchedule {
-        capCostOption?: string;
-        disregardOverdelivery?: boolean;
-        endDate?: string;
-        flighted?: boolean;
-        floodlightActivityId?: string;
-        pricingPeriods?: Dfareporting.Schema.PricingSchedulePricingPeriod[];
-        pricingType?: string;
-        startDate?: string;
-        testingStartDate?: string;
+        capCostOption?: string | undefined;
+        disregardOverdelivery?: boolean | undefined;
+        endDate?: string | undefined;
+        flighted?: boolean | undefined;
+        floodlightActivityId?: string | undefined;
+        pricingPeriods?: Dfareporting.Schema.PricingSchedulePricingPeriod[] | undefined;
+        pricingType?: string | undefined;
+        startDate?: string | undefined;
+        testingStartDate?: string | undefined;
       }
       interface PricingSchedulePricingPeriod {
-        endDate?: string;
-        pricingComment?: string;
-        rateOrCostNanos?: string;
-        startDate?: string;
-        units?: string;
+        endDate?: string | undefined;
+        pricingComment?: string | undefined;
+        rateOrCostNanos?: string | undefined;
+        startDate?: string | undefined;
+        units?: string | undefined;
       }
       interface Project {
-        accountId?: string;
-        advertiserId?: string;
-        audienceAgeGroup?: string;
-        audienceGender?: string;
-        budget?: string;
-        clientBillingCode?: string;
-        clientName?: string;
-        endDate?: string;
-        id?: string;
-        kind?: string;
-        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
-        name?: string;
-        overview?: string;
-        startDate?: string;
-        subaccountId?: string;
-        targetClicks?: string;
-        targetConversions?: string;
-        targetCpaNanos?: string;
-        targetCpcNanos?: string;
-        targetCpmActiveViewNanos?: string;
-        targetCpmNanos?: string;
-        targetImpressions?: string;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        audienceAgeGroup?: string | undefined;
+        audienceGender?: string | undefined;
+        budget?: string | undefined;
+        clientBillingCode?: string | undefined;
+        clientName?: string | undefined;
+        endDate?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo | undefined;
+        name?: string | undefined;
+        overview?: string | undefined;
+        startDate?: string | undefined;
+        subaccountId?: string | undefined;
+        targetClicks?: string | undefined;
+        targetConversions?: string | undefined;
+        targetCpaNanos?: string | undefined;
+        targetCpcNanos?: string | undefined;
+        targetCpmActiveViewNanos?: string | undefined;
+        targetCpmNanos?: string | undefined;
+        targetImpressions?: string | undefined;
       }
       interface ProjectsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        projects?: Dfareporting.Schema.Project[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        projects?: Dfareporting.Schema.Project[] | undefined;
       }
       interface ReachReportCompatibleFields {
-        dimensionFilters?: Dfareporting.Schema.Dimension[];
-        dimensions?: Dfareporting.Schema.Dimension[];
-        kind?: string;
-        metrics?: Dfareporting.Schema.Metric[];
-        pivotedActivityMetrics?: Dfareporting.Schema.Metric[];
-        reachByFrequencyMetrics?: Dfareporting.Schema.Metric[];
+        dimensionFilters?: Dfareporting.Schema.Dimension[] | undefined;
+        dimensions?: Dfareporting.Schema.Dimension[] | undefined;
+        kind?: string | undefined;
+        metrics?: Dfareporting.Schema.Metric[] | undefined;
+        pivotedActivityMetrics?: Dfareporting.Schema.Metric[] | undefined;
+        reachByFrequencyMetrics?: Dfareporting.Schema.Metric[] | undefined;
       }
       interface Recipient {
-        deliveryType?: string;
-        email?: string;
-        kind?: string;
+        deliveryType?: string | undefined;
+        email?: string | undefined;
+        kind?: string | undefined;
       }
       interface Region {
-        countryCode?: string;
-        countryDartId?: string;
-        dartId?: string;
-        kind?: string;
-        name?: string;
-        regionCode?: string;
+        countryCode?: string | undefined;
+        countryDartId?: string | undefined;
+        dartId?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        regionCode?: string | undefined;
       }
       interface RegionsListResponse {
-        kind?: string;
-        regions?: Dfareporting.Schema.Region[];
+        kind?: string | undefined;
+        regions?: Dfareporting.Schema.Region[] | undefined;
       }
       interface RemarketingList {
-        accountId?: string;
-        active?: boolean;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        description?: string;
-        id?: string;
-        kind?: string;
-        lifeSpan?: string;
-        listPopulationRule?: Dfareporting.Schema.ListPopulationRule;
-        listSize?: string;
-        listSource?: string;
-        name?: string;
-        subaccountId?: string;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        description?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lifeSpan?: string | undefined;
+        listPopulationRule?: Dfareporting.Schema.ListPopulationRule | undefined;
+        listSize?: string | undefined;
+        listSource?: string | undefined;
+        name?: string | undefined;
+        subaccountId?: string | undefined;
       }
       interface RemarketingListShare {
-        kind?: string;
-        remarketingListId?: string;
-        sharedAccountIds?: string[];
-        sharedAdvertiserIds?: string[];
+        kind?: string | undefined;
+        remarketingListId?: string | undefined;
+        sharedAccountIds?: string[] | undefined;
+        sharedAdvertiserIds?: string[] | undefined;
       }
       interface RemarketingListsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        remarketingLists?: Dfareporting.Schema.RemarketingList[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        remarketingLists?: Dfareporting.Schema.RemarketingList[] | undefined;
       }
       interface Report {
-        accountId?: string;
-        criteria?: Dfareporting.Schema.ReportCriteria;
-        crossDimensionReachCriteria?: Dfareporting.Schema.ReportCrossDimensionReachCriteria;
-        delivery?: Dfareporting.Schema.ReportDelivery;
-        etag?: string;
-        fileName?: string;
-        floodlightCriteria?: Dfareporting.Schema.ReportFloodlightCriteria;
-        format?: string;
-        id?: string;
-        kind?: string;
-        lastModifiedTime?: string;
-        name?: string;
-        ownerProfileId?: string;
-        pathToConversionCriteria?: Dfareporting.Schema.ReportPathToConversionCriteria;
-        reachCriteria?: Dfareporting.Schema.ReportReachCriteria;
-        schedule?: Dfareporting.Schema.ReportSchedule;
-        subAccountId?: string;
-        type?: string;
+        accountId?: string | undefined;
+        criteria?: Dfareporting.Schema.ReportCriteria | undefined;
+        crossDimensionReachCriteria?: Dfareporting.Schema.ReportCrossDimensionReachCriteria | undefined;
+        delivery?: Dfareporting.Schema.ReportDelivery | undefined;
+        etag?: string | undefined;
+        fileName?: string | undefined;
+        floodlightCriteria?: Dfareporting.Schema.ReportFloodlightCriteria | undefined;
+        format?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lastModifiedTime?: string | undefined;
+        name?: string | undefined;
+        ownerProfileId?: string | undefined;
+        pathToConversionCriteria?: Dfareporting.Schema.ReportPathToConversionCriteria | undefined;
+        reachCriteria?: Dfareporting.Schema.ReportReachCriteria | undefined;
+        schedule?: Dfareporting.Schema.ReportSchedule | undefined;
+        subAccountId?: string | undefined;
+        type?: string | undefined;
       }
       interface ReportCompatibleFields {
-        dimensionFilters?: Dfareporting.Schema.Dimension[];
-        dimensions?: Dfareporting.Schema.Dimension[];
-        kind?: string;
-        metrics?: Dfareporting.Schema.Metric[];
-        pivotedActivityMetrics?: Dfareporting.Schema.Metric[];
+        dimensionFilters?: Dfareporting.Schema.Dimension[] | undefined;
+        dimensions?: Dfareporting.Schema.Dimension[] | undefined;
+        kind?: string | undefined;
+        metrics?: Dfareporting.Schema.Metric[] | undefined;
+        pivotedActivityMetrics?: Dfareporting.Schema.Metric[] | undefined;
       }
       interface ReportCriteria {
-        activities?: Dfareporting.Schema.Activities;
-        customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents;
-        dateRange?: Dfareporting.Schema.DateRange;
-        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
-        dimensions?: Dfareporting.Schema.SortedDimension[];
-        metricNames?: string[];
+        activities?: Dfareporting.Schema.Activities | undefined;
+        customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents | undefined;
+        dateRange?: Dfareporting.Schema.DateRange | undefined;
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[] | undefined;
+        dimensions?: Dfareporting.Schema.SortedDimension[] | undefined;
+        metricNames?: string[] | undefined;
       }
       interface ReportCrossDimensionReachCriteria {
-        breakdown?: Dfareporting.Schema.SortedDimension[];
-        dateRange?: Dfareporting.Schema.DateRange;
-        dimension?: string;
-        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
-        metricNames?: string[];
-        overlapMetricNames?: string[];
-        pivoted?: boolean;
+        breakdown?: Dfareporting.Schema.SortedDimension[] | undefined;
+        dateRange?: Dfareporting.Schema.DateRange | undefined;
+        dimension?: string | undefined;
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[] | undefined;
+        metricNames?: string[] | undefined;
+        overlapMetricNames?: string[] | undefined;
+        pivoted?: boolean | undefined;
       }
       interface ReportDelivery {
-        emailOwner?: boolean;
-        emailOwnerDeliveryType?: string;
-        message?: string;
-        recipients?: Dfareporting.Schema.Recipient[];
+        emailOwner?: boolean | undefined;
+        emailOwnerDeliveryType?: string | undefined;
+        message?: string | undefined;
+        recipients?: Dfareporting.Schema.Recipient[] | undefined;
       }
       interface ReportFloodlightCriteria {
-        customRichMediaEvents?: Dfareporting.Schema.DimensionValue[];
-        dateRange?: Dfareporting.Schema.DateRange;
-        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
-        dimensions?: Dfareporting.Schema.SortedDimension[];
-        floodlightConfigId?: Dfareporting.Schema.DimensionValue;
-        metricNames?: string[];
-        reportProperties?: Dfareporting.Schema.ReportFloodlightCriteriaReportProperties;
+        customRichMediaEvents?: Dfareporting.Schema.DimensionValue[] | undefined;
+        dateRange?: Dfareporting.Schema.DateRange | undefined;
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[] | undefined;
+        dimensions?: Dfareporting.Schema.SortedDimension[] | undefined;
+        floodlightConfigId?: Dfareporting.Schema.DimensionValue | undefined;
+        metricNames?: string[] | undefined;
+        reportProperties?: Dfareporting.Schema.ReportFloodlightCriteriaReportProperties | undefined;
       }
       interface ReportFloodlightCriteriaReportProperties {
-        includeAttributedIPConversions?: boolean;
-        includeUnattributedCookieConversions?: boolean;
-        includeUnattributedIPConversions?: boolean;
+        includeAttributedIPConversions?: boolean | undefined;
+        includeUnattributedCookieConversions?: boolean | undefined;
+        includeUnattributedIPConversions?: boolean | undefined;
       }
       interface ReportList {
-        etag?: string;
-        items?: Dfareporting.Schema.Report[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Dfareporting.Schema.Report[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ReportPathToConversionCriteria {
-        activityFilters?: Dfareporting.Schema.DimensionValue[];
-        conversionDimensions?: Dfareporting.Schema.SortedDimension[];
-        customFloodlightVariables?: Dfareporting.Schema.SortedDimension[];
-        customRichMediaEvents?: Dfareporting.Schema.DimensionValue[];
-        dateRange?: Dfareporting.Schema.DateRange;
-        floodlightConfigId?: Dfareporting.Schema.DimensionValue;
-        metricNames?: string[];
-        perInteractionDimensions?: Dfareporting.Schema.SortedDimension[];
-        reportProperties?: Dfareporting.Schema.ReportPathToConversionCriteriaReportProperties;
+        activityFilters?: Dfareporting.Schema.DimensionValue[] | undefined;
+        conversionDimensions?: Dfareporting.Schema.SortedDimension[] | undefined;
+        customFloodlightVariables?: Dfareporting.Schema.SortedDimension[] | undefined;
+        customRichMediaEvents?: Dfareporting.Schema.DimensionValue[] | undefined;
+        dateRange?: Dfareporting.Schema.DateRange | undefined;
+        floodlightConfigId?: Dfareporting.Schema.DimensionValue | undefined;
+        metricNames?: string[] | undefined;
+        perInteractionDimensions?: Dfareporting.Schema.SortedDimension[] | undefined;
+        reportProperties?: Dfareporting.Schema.ReportPathToConversionCriteriaReportProperties | undefined;
       }
       interface ReportPathToConversionCriteriaReportProperties {
-        clicksLookbackWindow?: number;
-        impressionsLookbackWindow?: number;
-        includeAttributedIPConversions?: boolean;
-        includeUnattributedCookieConversions?: boolean;
-        includeUnattributedIPConversions?: boolean;
-        maximumClickInteractions?: number;
-        maximumImpressionInteractions?: number;
-        maximumInteractionGap?: number;
-        pivotOnInteractionPath?: boolean;
+        clicksLookbackWindow?: number | undefined;
+        impressionsLookbackWindow?: number | undefined;
+        includeAttributedIPConversions?: boolean | undefined;
+        includeUnattributedCookieConversions?: boolean | undefined;
+        includeUnattributedIPConversions?: boolean | undefined;
+        maximumClickInteractions?: number | undefined;
+        maximumImpressionInteractions?: number | undefined;
+        maximumInteractionGap?: number | undefined;
+        pivotOnInteractionPath?: boolean | undefined;
       }
       interface ReportReachCriteria {
-        activities?: Dfareporting.Schema.Activities;
-        customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents;
-        dateRange?: Dfareporting.Schema.DateRange;
-        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
-        dimensions?: Dfareporting.Schema.SortedDimension[];
-        enableAllDimensionCombinations?: boolean;
-        metricNames?: string[];
-        reachByFrequencyMetricNames?: string[];
+        activities?: Dfareporting.Schema.Activities | undefined;
+        customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents | undefined;
+        dateRange?: Dfareporting.Schema.DateRange | undefined;
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[] | undefined;
+        dimensions?: Dfareporting.Schema.SortedDimension[] | undefined;
+        enableAllDimensionCombinations?: boolean | undefined;
+        metricNames?: string[] | undefined;
+        reachByFrequencyMetricNames?: string[] | undefined;
       }
       interface ReportSchedule {
-        active?: boolean;
-        every?: number;
-        expirationDate?: string;
-        repeats?: string;
-        repeatsOnWeekDays?: string[];
-        runsOnDayOfMonth?: string;
-        startDate?: string;
+        active?: boolean | undefined;
+        every?: number | undefined;
+        expirationDate?: string | undefined;
+        repeats?: string | undefined;
+        repeatsOnWeekDays?: string[] | undefined;
+        runsOnDayOfMonth?: string | undefined;
+        startDate?: string | undefined;
       }
       interface ReportsConfiguration {
-        exposureToConversionEnabled?: boolean;
-        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration;
-        reportGenerationTimeZoneId?: string;
+        exposureToConversionEnabled?: boolean | undefined;
+        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration | undefined;
+        reportGenerationTimeZoneId?: string | undefined;
       }
       interface RichMediaExitOverride {
-        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
-        enabled?: boolean;
-        exitId?: string;
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl | undefined;
+        enabled?: boolean | undefined;
+        exitId?: string | undefined;
       }
       interface Rule {
-        assetId?: string;
-        name?: string;
-        targetingTemplateId?: string;
+        assetId?: string | undefined;
+        name?: string | undefined;
+        targetingTemplateId?: string | undefined;
       }
       interface Site {
-        accountId?: string;
-        approved?: boolean;
-        directorySiteId?: string;
-        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        id?: string;
-        idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        keyName?: string;
-        kind?: string;
-        name?: string;
-        siteContacts?: Dfareporting.Schema.SiteContact[];
-        siteSettings?: Dfareporting.Schema.SiteSettings;
-        subaccountId?: string;
-        videoSettings?: Dfareporting.Schema.SiteVideoSettings;
+        accountId?: string | undefined;
+        approved?: boolean | undefined;
+        directorySiteId?: string | undefined;
+        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        id?: string | undefined;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        keyName?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        siteContacts?: Dfareporting.Schema.SiteContact[] | undefined;
+        siteSettings?: Dfareporting.Schema.SiteSettings | undefined;
+        subaccountId?: string | undefined;
+        videoSettings?: Dfareporting.Schema.SiteVideoSettings | undefined;
       }
       interface SiteCompanionSetting {
-        companionsDisabled?: boolean;
-        enabledSizes?: Dfareporting.Schema.Size[];
-        imageOnly?: boolean;
-        kind?: string;
+        companionsDisabled?: boolean | undefined;
+        enabledSizes?: Dfareporting.Schema.Size[] | undefined;
+        imageOnly?: boolean | undefined;
+        kind?: string | undefined;
       }
       interface SiteContact {
-        address?: string;
-        contactType?: string;
-        email?: string;
-        firstName?: string;
-        id?: string;
-        lastName?: string;
-        phone?: string;
-        title?: string;
+        address?: string | undefined;
+        contactType?: string | undefined;
+        email?: string | undefined;
+        firstName?: string | undefined;
+        id?: string | undefined;
+        lastName?: string | undefined;
+        phone?: string | undefined;
+        title?: string | undefined;
       }
       interface SiteSettings {
-        activeViewOptOut?: boolean;
-        adBlockingOptOut?: boolean;
-        disableNewCookie?: boolean;
-        tagSetting?: Dfareporting.Schema.TagSetting;
-        videoActiveViewOptOutTemplate?: boolean;
-        vpaidAdapterChoiceTemplate?: string;
+        activeViewOptOut?: boolean | undefined;
+        adBlockingOptOut?: boolean | undefined;
+        disableNewCookie?: boolean | undefined;
+        tagSetting?: Dfareporting.Schema.TagSetting | undefined;
+        videoActiveViewOptOutTemplate?: boolean | undefined;
+        vpaidAdapterChoiceTemplate?: string | undefined;
       }
       interface SiteSkippableSetting {
-        kind?: string;
-        progressOffset?: Dfareporting.Schema.VideoOffset;
-        skipOffset?: Dfareporting.Schema.VideoOffset;
-        skippable?: boolean;
+        kind?: string | undefined;
+        progressOffset?: Dfareporting.Schema.VideoOffset | undefined;
+        skipOffset?: Dfareporting.Schema.VideoOffset | undefined;
+        skippable?: boolean | undefined;
       }
       interface SiteTranscodeSetting {
-        enabledVideoFormats?: number[];
-        kind?: string;
+        enabledVideoFormats?: number[] | undefined;
+        kind?: string | undefined;
       }
       interface SiteVideoSettings {
-        companionSettings?: Dfareporting.Schema.SiteCompanionSetting;
-        kind?: string;
-        orientation?: string;
-        skippableSettings?: Dfareporting.Schema.SiteSkippableSetting;
-        transcodeSettings?: Dfareporting.Schema.SiteTranscodeSetting;
+        companionSettings?: Dfareporting.Schema.SiteCompanionSetting | undefined;
+        kind?: string | undefined;
+        orientation?: string | undefined;
+        skippableSettings?: Dfareporting.Schema.SiteSkippableSetting | undefined;
+        transcodeSettings?: Dfareporting.Schema.SiteTranscodeSetting | undefined;
       }
       interface SitesListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        sites?: Dfareporting.Schema.Site[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        sites?: Dfareporting.Schema.Site[] | undefined;
       }
       interface Size {
-        height?: number;
-        iab?: boolean;
-        id?: string;
-        kind?: string;
-        width?: number;
+        height?: number | undefined;
+        iab?: boolean | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        width?: number | undefined;
       }
       interface SizesListResponse {
-        kind?: string;
-        sizes?: Dfareporting.Schema.Size[];
+        kind?: string | undefined;
+        sizes?: Dfareporting.Schema.Size[] | undefined;
       }
       interface SkippableSetting {
-        kind?: string;
-        progressOffset?: Dfareporting.Schema.VideoOffset;
-        skipOffset?: Dfareporting.Schema.VideoOffset;
-        skippable?: boolean;
+        kind?: string | undefined;
+        progressOffset?: Dfareporting.Schema.VideoOffset | undefined;
+        skipOffset?: Dfareporting.Schema.VideoOffset | undefined;
+        skippable?: boolean | undefined;
       }
       interface SortedDimension {
-        kind?: string;
-        name?: string;
-        sortOrder?: string;
+        kind?: string | undefined;
+        name?: string | undefined;
+        sortOrder?: string | undefined;
       }
       interface Subaccount {
-        accountId?: string;
-        availablePermissionIds?: string[];
-        id?: string;
-        kind?: string;
-        name?: string;
+        accountId?: string | undefined;
+        availablePermissionIds?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface SubaccountsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        subaccounts?: Dfareporting.Schema.Subaccount[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        subaccounts?: Dfareporting.Schema.Subaccount[] | undefined;
       }
       interface TagData {
-        adId?: string;
-        clickTag?: string;
-        creativeId?: string;
-        format?: string;
-        impressionTag?: string;
+        adId?: string | undefined;
+        clickTag?: string | undefined;
+        creativeId?: string | undefined;
+        format?: string | undefined;
+        impressionTag?: string | undefined;
       }
       interface TagSetting {
-        additionalKeyValues?: string;
-        includeClickThroughUrls?: boolean;
-        includeClickTracking?: boolean;
-        keywordOption?: string;
+        additionalKeyValues?: string | undefined;
+        includeClickThroughUrls?: boolean | undefined;
+        includeClickTracking?: boolean | undefined;
+        keywordOption?: string | undefined;
       }
       interface TagSettings {
-        dynamicTagEnabled?: boolean;
-        imageTagEnabled?: boolean;
+        dynamicTagEnabled?: boolean | undefined;
+        imageTagEnabled?: boolean | undefined;
       }
       interface TargetWindow {
-        customHtml?: string;
-        targetWindowOption?: string;
+        customHtml?: string | undefined;
+        targetWindowOption?: string | undefined;
       }
       interface TargetableRemarketingList {
-        accountId?: string;
-        active?: boolean;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        description?: string;
-        id?: string;
-        kind?: string;
-        lifeSpan?: string;
-        listSize?: string;
-        listSource?: string;
-        name?: string;
-        subaccountId?: string;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        description?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lifeSpan?: string | undefined;
+        listSize?: string | undefined;
+        listSource?: string | undefined;
+        name?: string | undefined;
+        subaccountId?: string | undefined;
       }
       interface TargetableRemarketingListsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        targetableRemarketingLists?: Dfareporting.Schema.TargetableRemarketingList[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        targetableRemarketingLists?: Dfareporting.Schema.TargetableRemarketingList[] | undefined;
       }
       interface TargetingTemplate {
-        accountId?: string;
-        advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
-        dayPartTargeting?: Dfareporting.Schema.DayPartTargeting;
-        geoTargeting?: Dfareporting.Schema.GeoTargeting;
-        id?: string;
-        keyValueTargetingExpression?: Dfareporting.Schema.KeyValueTargetingExpression;
-        kind?: string;
-        languageTargeting?: Dfareporting.Schema.LanguageTargeting;
-        listTargetingExpression?: Dfareporting.Schema.ListTargetingExpression;
-        name?: string;
-        subaccountId?: string;
-        technologyTargeting?: Dfareporting.Schema.TechnologyTargeting;
+        accountId?: string | undefined;
+        advertiserId?: string | undefined;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue | undefined;
+        dayPartTargeting?: Dfareporting.Schema.DayPartTargeting | undefined;
+        geoTargeting?: Dfareporting.Schema.GeoTargeting | undefined;
+        id?: string | undefined;
+        keyValueTargetingExpression?: Dfareporting.Schema.KeyValueTargetingExpression | undefined;
+        kind?: string | undefined;
+        languageTargeting?: Dfareporting.Schema.LanguageTargeting | undefined;
+        listTargetingExpression?: Dfareporting.Schema.ListTargetingExpression | undefined;
+        name?: string | undefined;
+        subaccountId?: string | undefined;
+        technologyTargeting?: Dfareporting.Schema.TechnologyTargeting | undefined;
       }
       interface TargetingTemplatesListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        targetingTemplates?: Dfareporting.Schema.TargetingTemplate[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        targetingTemplates?: Dfareporting.Schema.TargetingTemplate[] | undefined;
       }
       interface TechnologyTargeting {
-        browsers?: Dfareporting.Schema.Browser[];
-        connectionTypes?: Dfareporting.Schema.ConnectionType[];
-        mobileCarriers?: Dfareporting.Schema.MobileCarrier[];
-        operatingSystemVersions?: Dfareporting.Schema.OperatingSystemVersion[];
-        operatingSystems?: Dfareporting.Schema.OperatingSystem[];
-        platformTypes?: Dfareporting.Schema.PlatformType[];
+        browsers?: Dfareporting.Schema.Browser[] | undefined;
+        connectionTypes?: Dfareporting.Schema.ConnectionType[] | undefined;
+        mobileCarriers?: Dfareporting.Schema.MobileCarrier[] | undefined;
+        operatingSystemVersions?: Dfareporting.Schema.OperatingSystemVersion[] | undefined;
+        operatingSystems?: Dfareporting.Schema.OperatingSystem[] | undefined;
+        platformTypes?: Dfareporting.Schema.PlatformType[] | undefined;
       }
       interface ThirdPartyAuthenticationToken {
-        name?: string;
-        value?: string;
+        name?: string | undefined;
+        value?: string | undefined;
       }
       interface ThirdPartyTrackingUrl {
-        thirdPartyUrlType?: string;
-        url?: string;
+        thirdPartyUrlType?: string | undefined;
+        url?: string | undefined;
       }
       interface TranscodeSetting {
-        enabledVideoFormats?: number[];
-        kind?: string;
+        enabledVideoFormats?: number[] | undefined;
+        kind?: string | undefined;
       }
       interface UniversalAdId {
-        registry?: string;
-        value?: string;
+        registry?: string | undefined;
+        value?: string | undefined;
       }
       interface UserDefinedVariableConfiguration {
-        dataType?: string;
-        reportName?: string;
-        variableType?: string;
+        dataType?: string | undefined;
+        reportName?: string | undefined;
+        variableType?: string | undefined;
       }
       interface UserProfile {
-        accountId?: string;
-        accountName?: string;
-        etag?: string;
-        kind?: string;
-        profileId?: string;
-        subAccountId?: string;
-        subAccountName?: string;
-        userName?: string;
+        accountId?: string | undefined;
+        accountName?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        profileId?: string | undefined;
+        subAccountId?: string | undefined;
+        subAccountName?: string | undefined;
+        userName?: string | undefined;
       }
       interface UserProfileList {
-        etag?: string;
-        items?: Dfareporting.Schema.UserProfile[];
-        kind?: string;
+        etag?: string | undefined;
+        items?: Dfareporting.Schema.UserProfile[] | undefined;
+        kind?: string | undefined;
       }
       interface UserRole {
-        accountId?: string;
-        defaultUserRole?: boolean;
-        id?: string;
-        kind?: string;
-        name?: string;
-        parentUserRoleId?: string;
-        permissions?: Dfareporting.Schema.UserRolePermission[];
-        subaccountId?: string;
+        accountId?: string | undefined;
+        defaultUserRole?: boolean | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        parentUserRoleId?: string | undefined;
+        permissions?: Dfareporting.Schema.UserRolePermission[] | undefined;
+        subaccountId?: string | undefined;
       }
       interface UserRolePermission {
-        availability?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        permissionGroupId?: string;
+        availability?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        permissionGroupId?: string | undefined;
       }
       interface UserRolePermissionGroup {
-        id?: string;
-        kind?: string;
-        name?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface UserRolePermissionGroupsListResponse {
-        kind?: string;
-        userRolePermissionGroups?: Dfareporting.Schema.UserRolePermissionGroup[];
+        kind?: string | undefined;
+        userRolePermissionGroups?: Dfareporting.Schema.UserRolePermissionGroup[] | undefined;
       }
       interface UserRolePermissionsListResponse {
-        kind?: string;
-        userRolePermissions?: Dfareporting.Schema.UserRolePermission[];
+        kind?: string | undefined;
+        userRolePermissions?: Dfareporting.Schema.UserRolePermission[] | undefined;
       }
       interface UserRolesListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        userRoles?: Dfareporting.Schema.UserRole[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        userRoles?: Dfareporting.Schema.UserRole[] | undefined;
       }
       interface VideoFormat {
-        fileType?: string;
-        id?: number;
-        kind?: string;
-        resolution?: Dfareporting.Schema.Size;
-        targetBitRate?: number;
+        fileType?: string | undefined;
+        id?: number | undefined;
+        kind?: string | undefined;
+        resolution?: Dfareporting.Schema.Size | undefined;
+        targetBitRate?: number | undefined;
       }
       interface VideoFormatsListResponse {
-        kind?: string;
-        videoFormats?: Dfareporting.Schema.VideoFormat[];
+        kind?: string | undefined;
+        videoFormats?: Dfareporting.Schema.VideoFormat[] | undefined;
       }
       interface VideoOffset {
-        offsetPercentage?: number;
-        offsetSeconds?: number;
+        offsetPercentage?: number | undefined;
+        offsetSeconds?: number | undefined;
       }
       interface VideoSettings {
-        companionSettings?: Dfareporting.Schema.CompanionSetting;
-        kind?: string;
-        orientation?: string;
-        skippableSettings?: Dfareporting.Schema.SkippableSetting;
-        transcodeSettings?: Dfareporting.Schema.TranscodeSetting;
+        companionSettings?: Dfareporting.Schema.CompanionSetting | undefined;
+        kind?: string | undefined;
+        orientation?: string | undefined;
+        skippableSettings?: Dfareporting.Schema.SkippableSetting | undefined;
+        transcodeSettings?: Dfareporting.Schema.TranscodeSetting | undefined;
       }
     }
   }
   interface Dfareporting {
-    AccountActiveAdSummaries?: Dfareporting.Collection.AccountActiveAdSummariesCollection;
-    AccountPermissionGroups?: Dfareporting.Collection.AccountPermissionGroupsCollection;
-    AccountPermissions?: Dfareporting.Collection.AccountPermissionsCollection;
-    AccountUserProfiles?: Dfareporting.Collection.AccountUserProfilesCollection;
-    Accounts?: Dfareporting.Collection.AccountsCollection;
-    Ads?: Dfareporting.Collection.AdsCollection;
-    AdvertiserGroups?: Dfareporting.Collection.AdvertiserGroupsCollection;
-    AdvertiserLandingPages?: Dfareporting.Collection.AdvertiserLandingPagesCollection;
-    Advertisers?: Dfareporting.Collection.AdvertisersCollection;
-    Browsers?: Dfareporting.Collection.BrowsersCollection;
-    CampaignCreativeAssociations?: Dfareporting.Collection.CampaignCreativeAssociationsCollection;
-    Campaigns?: Dfareporting.Collection.CampaignsCollection;
-    ChangeLogs?: Dfareporting.Collection.ChangeLogsCollection;
-    Cities?: Dfareporting.Collection.CitiesCollection;
-    ConnectionTypes?: Dfareporting.Collection.ConnectionTypesCollection;
-    ContentCategories?: Dfareporting.Collection.ContentCategoriesCollection;
-    Conversions?: Dfareporting.Collection.ConversionsCollection;
-    Countries?: Dfareporting.Collection.CountriesCollection;
-    CreativeAssets?: Dfareporting.Collection.CreativeAssetsCollection;
-    CreativeFieldValues?: Dfareporting.Collection.CreativeFieldValuesCollection;
-    CreativeFields?: Dfareporting.Collection.CreativeFieldsCollection;
-    CreativeGroups?: Dfareporting.Collection.CreativeGroupsCollection;
-    Creatives?: Dfareporting.Collection.CreativesCollection;
-    DimensionValues?: Dfareporting.Collection.DimensionValuesCollection;
-    DirectorySites?: Dfareporting.Collection.DirectorySitesCollection;
-    DynamicTargetingKeys?: Dfareporting.Collection.DynamicTargetingKeysCollection;
-    EventTags?: Dfareporting.Collection.EventTagsCollection;
-    Files?: Dfareporting.Collection.FilesCollection;
-    FloodlightActivities?: Dfareporting.Collection.FloodlightActivitiesCollection;
-    FloodlightActivityGroups?: Dfareporting.Collection.FloodlightActivityGroupsCollection;
-    FloodlightConfigurations?: Dfareporting.Collection.FloodlightConfigurationsCollection;
-    InventoryItems?: Dfareporting.Collection.InventoryItemsCollection;
-    Languages?: Dfareporting.Collection.LanguagesCollection;
-    Metros?: Dfareporting.Collection.MetrosCollection;
-    MobileApps?: Dfareporting.Collection.MobileAppsCollection;
-    MobileCarriers?: Dfareporting.Collection.MobileCarriersCollection;
-    OperatingSystemVersions?: Dfareporting.Collection.OperatingSystemVersionsCollection;
-    OperatingSystems?: Dfareporting.Collection.OperatingSystemsCollection;
-    OrderDocuments?: Dfareporting.Collection.OrderDocumentsCollection;
-    Orders?: Dfareporting.Collection.OrdersCollection;
-    PlacementGroups?: Dfareporting.Collection.PlacementGroupsCollection;
-    PlacementStrategies?: Dfareporting.Collection.PlacementStrategiesCollection;
-    Placements?: Dfareporting.Collection.PlacementsCollection;
-    PlatformTypes?: Dfareporting.Collection.PlatformTypesCollection;
-    PostalCodes?: Dfareporting.Collection.PostalCodesCollection;
-    Projects?: Dfareporting.Collection.ProjectsCollection;
-    Regions?: Dfareporting.Collection.RegionsCollection;
-    RemarketingListShares?: Dfareporting.Collection.RemarketingListSharesCollection;
-    RemarketingLists?: Dfareporting.Collection.RemarketingListsCollection;
-    Reports?: Dfareporting.Collection.ReportsCollection;
-    Sites?: Dfareporting.Collection.SitesCollection;
-    Sizes?: Dfareporting.Collection.SizesCollection;
-    Subaccounts?: Dfareporting.Collection.SubaccountsCollection;
-    TargetableRemarketingLists?: Dfareporting.Collection.TargetableRemarketingListsCollection;
-    TargetingTemplates?: Dfareporting.Collection.TargetingTemplatesCollection;
-    UserProfiles?: Dfareporting.Collection.UserProfilesCollection;
-    UserRolePermissionGroups?: Dfareporting.Collection.UserRolePermissionGroupsCollection;
-    UserRolePermissions?: Dfareporting.Collection.UserRolePermissionsCollection;
-    UserRoles?: Dfareporting.Collection.UserRolesCollection;
-    VideoFormats?: Dfareporting.Collection.VideoFormatsCollection;
+    AccountActiveAdSummaries?: Dfareporting.Collection.AccountActiveAdSummariesCollection | undefined;
+    AccountPermissionGroups?: Dfareporting.Collection.AccountPermissionGroupsCollection | undefined;
+    AccountPermissions?: Dfareporting.Collection.AccountPermissionsCollection | undefined;
+    AccountUserProfiles?: Dfareporting.Collection.AccountUserProfilesCollection | undefined;
+    Accounts?: Dfareporting.Collection.AccountsCollection | undefined;
+    Ads?: Dfareporting.Collection.AdsCollection | undefined;
+    AdvertiserGroups?: Dfareporting.Collection.AdvertiserGroupsCollection | undefined;
+    AdvertiserLandingPages?: Dfareporting.Collection.AdvertiserLandingPagesCollection | undefined;
+    Advertisers?: Dfareporting.Collection.AdvertisersCollection | undefined;
+    Browsers?: Dfareporting.Collection.BrowsersCollection | undefined;
+    CampaignCreativeAssociations?: Dfareporting.Collection.CampaignCreativeAssociationsCollection | undefined;
+    Campaigns?: Dfareporting.Collection.CampaignsCollection | undefined;
+    ChangeLogs?: Dfareporting.Collection.ChangeLogsCollection | undefined;
+    Cities?: Dfareporting.Collection.CitiesCollection | undefined;
+    ConnectionTypes?: Dfareporting.Collection.ConnectionTypesCollection | undefined;
+    ContentCategories?: Dfareporting.Collection.ContentCategoriesCollection | undefined;
+    Conversions?: Dfareporting.Collection.ConversionsCollection | undefined;
+    Countries?: Dfareporting.Collection.CountriesCollection | undefined;
+    CreativeAssets?: Dfareporting.Collection.CreativeAssetsCollection | undefined;
+    CreativeFieldValues?: Dfareporting.Collection.CreativeFieldValuesCollection | undefined;
+    CreativeFields?: Dfareporting.Collection.CreativeFieldsCollection | undefined;
+    CreativeGroups?: Dfareporting.Collection.CreativeGroupsCollection | undefined;
+    Creatives?: Dfareporting.Collection.CreativesCollection | undefined;
+    DimensionValues?: Dfareporting.Collection.DimensionValuesCollection | undefined;
+    DirectorySites?: Dfareporting.Collection.DirectorySitesCollection | undefined;
+    DynamicTargetingKeys?: Dfareporting.Collection.DynamicTargetingKeysCollection | undefined;
+    EventTags?: Dfareporting.Collection.EventTagsCollection | undefined;
+    Files?: Dfareporting.Collection.FilesCollection | undefined;
+    FloodlightActivities?: Dfareporting.Collection.FloodlightActivitiesCollection | undefined;
+    FloodlightActivityGroups?: Dfareporting.Collection.FloodlightActivityGroupsCollection | undefined;
+    FloodlightConfigurations?: Dfareporting.Collection.FloodlightConfigurationsCollection | undefined;
+    InventoryItems?: Dfareporting.Collection.InventoryItemsCollection | undefined;
+    Languages?: Dfareporting.Collection.LanguagesCollection | undefined;
+    Metros?: Dfareporting.Collection.MetrosCollection | undefined;
+    MobileApps?: Dfareporting.Collection.MobileAppsCollection | undefined;
+    MobileCarriers?: Dfareporting.Collection.MobileCarriersCollection | undefined;
+    OperatingSystemVersions?: Dfareporting.Collection.OperatingSystemVersionsCollection | undefined;
+    OperatingSystems?: Dfareporting.Collection.OperatingSystemsCollection | undefined;
+    OrderDocuments?: Dfareporting.Collection.OrderDocumentsCollection | undefined;
+    Orders?: Dfareporting.Collection.OrdersCollection | undefined;
+    PlacementGroups?: Dfareporting.Collection.PlacementGroupsCollection | undefined;
+    PlacementStrategies?: Dfareporting.Collection.PlacementStrategiesCollection | undefined;
+    Placements?: Dfareporting.Collection.PlacementsCollection | undefined;
+    PlatformTypes?: Dfareporting.Collection.PlatformTypesCollection | undefined;
+    PostalCodes?: Dfareporting.Collection.PostalCodesCollection | undefined;
+    Projects?: Dfareporting.Collection.ProjectsCollection | undefined;
+    Regions?: Dfareporting.Collection.RegionsCollection | undefined;
+    RemarketingListShares?: Dfareporting.Collection.RemarketingListSharesCollection | undefined;
+    RemarketingLists?: Dfareporting.Collection.RemarketingListsCollection | undefined;
+    Reports?: Dfareporting.Collection.ReportsCollection | undefined;
+    Sites?: Dfareporting.Collection.SitesCollection | undefined;
+    Sizes?: Dfareporting.Collection.SizesCollection | undefined;
+    Subaccounts?: Dfareporting.Collection.SubaccountsCollection | undefined;
+    TargetableRemarketingLists?: Dfareporting.Collection.TargetableRemarketingListsCollection | undefined;
+    TargetingTemplates?: Dfareporting.Collection.TargetingTemplatesCollection | undefined;
+    UserProfiles?: Dfareporting.Collection.UserProfilesCollection | undefined;
+    UserRolePermissionGroups?: Dfareporting.Collection.UserRolePermissionGroupsCollection | undefined;
+    UserRolePermissions?: Dfareporting.Collection.UserRolePermissionsCollection | undefined;
+    UserRoles?: Dfareporting.Collection.UserRolesCollection | undefined;
+    VideoFormats?: Dfareporting.Collection.VideoFormatsCollection | undefined;
     // Create a new instance of Account
     newAccount(): Dfareporting.Schema.Account;
     // Create a new instance of AccountUserProfile

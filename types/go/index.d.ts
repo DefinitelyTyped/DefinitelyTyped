@@ -1,7 +1,7 @@
 // Type definitions for GoJS v1.6.0
-// Project: http://gojs.net
+// Project: https://github.com/NorthwoodsSoftware/GoJS
 // Definitions by: Northwoods Software <https://github.com/NorthwoodsSoftware>
-// Definitions: https://github.com/NorthwoodsSoftware/GoJS
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* Copyright (C) 1998-2016 by Northwoods Software Corporation. */
 
@@ -980,17 +980,17 @@ declare namespace go {
         * @param {Object=} properties For details see the argument description of .makeImageData.
         */
         makeImage(properties?: {
-            size?: Size,
-            scale?: number,
-            maxSize?: Size,
-            position?: Point,
-            parts?: Iterable<Part>,
-            padding?: MarginLike,
-            background?: BrushLike,
-            showTemporary?: boolean,
-            showGrid?: boolean,
-            document?: Document,
-            type?: string,
+            size?: Size | undefined,
+            scale?: number | undefined,
+            maxSize?: Size | undefined,
+            position?: Point | undefined,
+            parts?: Iterable<Part> | undefined,
+            padding?: MarginLike | undefined,
+            background?: BrushLike | undefined,
+            showTemporary?: boolean | undefined,
+            showGrid?: boolean | undefined,
+            document?: Document | undefined,
+            type?: string | undefined,
             details?: any
           }): HTMLImageElement;
 
@@ -999,17 +999,17 @@ declare namespace go {
         * @param {Object=} properties a JavaScript object detailing optional arguments for image creation, to be passed to makeImageData.
         */
         makeImageData(properties?: {
-            size?: Size,
-            scale?: number,
-            maxSize?: Size,
-            position?: Point,
-            parts?: Iterable<Part>,
-            padding?: MarginLike,
-            background?: BrushLike,
-            showTemporary?: boolean,
-            showGrid?: boolean,
-            document?: Document,
-            type?: string,
+            size?: Size | undefined,
+            scale?: number | undefined,
+            maxSize?: Size | undefined,
+            position?: Point | undefined,
+            parts?: Iterable<Part> | undefined,
+            padding?: MarginLike | undefined,
+            background?: BrushLike | undefined,
+            showTemporary?: boolean | undefined,
+            showGrid?: boolean | undefined,
+            document?: Document | undefined,
+            type?: string | undefined,
             details?: any
           }): string;
 
@@ -1020,17 +1020,17 @@ declare namespace go {
         * @return {SVGElement}
         */
         makeSvg(properties?: {
-            size?: Size,
-            scale?: number,
-            maxSize?: Size,
-            position?: Point,
-            parts?: Iterable<Part>,
-            padding?: MarginLike,
-            background?: BrushLike,
-            showTemporary?: boolean,
-            showGrid?: boolean,
-            document?: Document,
-            elementFinished?: (obj: GraphObject, elt: SVGElement) => void
+            size?: Size | undefined,
+            scale?: number | undefined,
+            maxSize?: Size | undefined,
+            position?: Point | undefined,
+            parts?: Iterable<Part> | undefined,
+            padding?: MarginLike | undefined,
+            background?: BrushLike | undefined,
+            showTemporary?: boolean | undefined,
+            showGrid?: boolean | undefined,
+            document?: Document | undefined,
+            elementFinished?: ((obj: GraphObject, elt: SVGElement) => void) | undefined
           }): SVGElement;
 
         /**

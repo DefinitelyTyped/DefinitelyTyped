@@ -294,19 +294,19 @@ declare namespace H {
          * @property noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
          */
         interface Options {
-            center?: H.geo.IPoint;
-            zoom?: number;
-            bounds?: H.geo.Rect;
-            layers?: H.map.layer.Layer[];
-            engineType?: EngineType;
-            pixelRatio?: number;
-            imprint?: H.map.Imprint.Options;
-            renderBaseBackground?: BackgroundRange;
-            autoColor?: boolean;
-            margin?: number;
-            padding?: H.map.ViewPort.Padding;
-            fixedCenter?: boolean;
-            noWrap?: boolean;
+            center?: H.geo.IPoint | undefined;
+            zoom?: number | undefined;
+            bounds?: H.geo.Rect | undefined;
+            layers?: H.map.layer.Layer[] | undefined;
+            engineType?: EngineType | undefined;
+            pixelRatio?: number | undefined;
+            imprint?: H.map.Imprint.Options | undefined;
+            renderBaseBackground?: BackgroundRange | undefined;
+            autoColor?: boolean | undefined;
+            margin?: number | undefined;
+            padding?: H.map.ViewPort.Padding | undefined;
+            fixedCenter?: boolean | undefined;
+            noWrap?: boolean | undefined;
         }
     }
 
@@ -626,10 +626,10 @@ declare namespace H {
              * @property strategy {H.clustering.Provider.Strategy=} - clustering stretegy, defaults to H.clustering.Provider.Strategy.FASTGRID
              */
             interface ClusteringOptions {
-                eps?: number;
-                minWeight?: number;
-                projection?: H.geo.IProjection;
-                strategy?: H.clustering.Provider.Strategy;
+                eps?: number | undefined;
+                minWeight?: number | undefined;
+                projection?: H.geo.IProjection | undefined;
+                strategy?: H.clustering.Provider.Strategy | undefined;
             }
 
             /**
@@ -640,10 +640,10 @@ declare namespace H {
              * @property theme {H.clustering.ITheme=} - cluster and noise point graphical representation
              */
             interface Options {
-                min?: number;
-                max?: number;
-                clusteringOptions?: H.clustering.Provider.ClusteringOptions;
-                theme?: H.clustering.ITheme;
+                min?: number | undefined;
+                max?: number | undefined;
+                clusteringOptions?: H.clustering.Provider.ClusteringOptions | undefined;
+                theme?: H.clustering.ITheme | undefined;
             }
 
             /**
@@ -737,6 +737,45 @@ declare namespace H {
                 READY,
             }
         }
+
+        /**
+         * This namespace provides GeoJSON functionality.
+         */
+        namespace geojson {
+            /**
+             * This class represents a GeoJSON reader responsible for fetching and interpreting GeoJSON data.
+             * It creates an instance of H.map.Object that can be displayed on the map (for more details see GeoJSON documentation {@link https://geojson.org}).
+             * Auxiliary data that accompanies geometries (the contents of the field properties) is bound to the map object and
+             * can be fetched with the method getData() on that object. See H.map.Object#getData.
+             * Note that you can load a GeoJSON file even from a different domain, if that domain supports Cross-Origin Resource Sharing.
+             */
+            class Reader extends H.data.AbstractReader {
+                /**
+                 * Constructor
+                 * @param opt_url {string=}
+                 * @param opt_options {H.data.geojson.Reader.Options=}
+                 */
+                constructor(opt_url?: string, opt_options?: H.data.geojson.Reader.Options);
+
+                /**
+                 * This method launches the parsing process on the provided data.
+                 * @param data {*=} A string or object containing the data to parse
+                 */
+                parseData(data: any): void;
+            }
+
+            namespace Reader {
+                /**
+                 * This type encapsulates configuration (initialization) properties for a H.data.geojson.Reader.
+                 * @property style {Function=} - The optional URL of the data file.
+                 * @property disableLegacyMode {boolean=} - An object providing additional reader configuration parameters.
+                 */
+                interface Options {
+                    style?: ((mapObject: H.map.Object) => void) | undefined;
+                    disableLegacyMode?: boolean | undefined;
+                }
+            }
+        }
     }
 
     /***** geo *****/
@@ -764,6 +803,12 @@ declare namespace H {
              * @return {string} - the resulting WKT string
              */
             toString(): string;
+
+            /**
+             * To obtain a GeoJSON representation of the given geometry.
+             * @return {object} - A GeoJSON Geometry object representing the given geometry.
+             */
+            toGeoJSON(): object;
         }
 
         /**
@@ -776,7 +821,7 @@ declare namespace H {
          */
         enum AltitudeContext {
             /** Ground level */
-                undefined,
+            undefined,
             /** Ground level */
             GL,
             /** Obstruction level */
@@ -801,8 +846,8 @@ declare namespace H {
         interface IPoint {
             lat: H.geo.Latitude;
             lng: Longitude;
-            alt?: H.geo.Altitude;
-            ctx?: H.geo.AltitudeContext;
+            alt?: H.geo.Altitude | undefined;
+            ctx?: H.geo.AltitudeContext | undefined;
         }
 
         interface IProjection {
@@ -1417,7 +1462,7 @@ declare namespace H {
              * @returns {H.geo.Rect} - either the opt_out rect or a new rect
              */
             static merge(topA: H.geo.Latitude, leftA: H.geo.Longitude, bottomA: H.geo.Latitude, rightA: H.geo.Longitude, topB: H.geo.Latitude, leftB: H.geo.Longitude, bottomB: H.geo.Latitude,
-                         rightB: H.geo.Longitude, opt_out?: H.geo.Rect): H.geo.Rect;
+                rightB: H.geo.Longitude, opt_out?: H.geo.Rect): H.geo.Rect;
 
             /**
              * This method creates a rectangular area from a top-left and bottom-right point pair.
@@ -1522,9 +1567,9 @@ declare namespace H {
             }
         }
 
-        class MultiPolygon extends H.geo.MultiGeometry<H.geo.Polygon> {}
+        class MultiPolygon extends H.geo.MultiGeometry<H.geo.Polygon> { }
 
-        class MultiPoint extends H.geo.MultiGeometry<H.geo.Point> {}
+        class MultiPoint extends H.geo.MultiGeometry<H.geo.Point> { }
     }
 
     /***** lang *****/
@@ -1572,7 +1617,7 @@ declare namespace H {
              * @property draggable
              * @description This property ensure that the marker can receive drag events.
              */
-            draggable?: boolean;
+            draggable?: boolean | undefined;
         }
 
         namespace AbstractMarker {
@@ -1588,12 +1633,12 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
-                min?: number;
-                max?: number;
-                visibility?: boolean;
-                zIndex?: number;
-                provider?: H.map.provider.Provider;
-                icon?: H.map.Icon | H.map.DomIcon;
+                min?: number | undefined;
+                max?: number | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
+                icon?: H.map.Icon | H.map.DomIcon | undefined;
                 data?: any;
             }
         }
@@ -1628,10 +1673,10 @@ declare namespace H {
              * If omitted or the value is false it defaults to 5
              */
             interface Options {
-                fillColor?: string;
-                width?: number;
-                length?: number;
-                frequency?: number;
+                fillColor?: string | undefined;
+                width?: number | undefined;
+                length?: number | undefined;
+                frequency?: number | undefined;
             }
         }
 
@@ -1702,13 +1747,13 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
              */
             interface Options {
-                style?: H.map.SpatialStyle | H.map.SpatialStyle.Options;
-                visibility?: boolean;
-                precision?: number;
-                zIndex?: number;
-                min?: number;
-                max?: number;
-                provider?: H.map.provider.Provider;
+                style?: H.map.SpatialStyle | H.map.SpatialStyle.Options | undefined;
+                visibility?: boolean | undefined;
+                precision?: number | undefined;
+                zIndex?: number | undefined;
+                min?: number | undefined;
+                max?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
                 data?: any;
             }
         }
@@ -1778,12 +1823,12 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
              */
             interface Options {
-                min?: number;
-                max?: number;
-                visibility?: boolean;
-                zIndex?: number;
-                provider?: H.map.provider.Provider;
-                icon?: H.map.DomIcon;
+                min?: number | undefined;
+                max?: number | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
+                icon?: H.map.DomIcon | undefined;
                 data?: any;
             }
         }
@@ -1882,13 +1927,13 @@ declare namespace H {
              * @property objects {Array<H.map.Object>=} - A list of map objects to add initially to this group.
              */
             interface Options {
-                min?: number;
-                max?: number;
-                visibility?: boolean;
-                zIndex?: number;
-                provider?: H.map.provider.Provider;
+                min?: number | undefined;
+                max?: number | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
                 data?: any;
-                objects?: H.map.Object[];
+                objects?: H.map.Object[] | undefined;
             }
         }
 
@@ -2091,10 +2136,10 @@ declare namespace H {
              * false. The option is ignored by IE9-10.
              */
             interface Options {
-                size?: H.math.ISize | number;
-                anchor?: H.math.IPoint;
-                hitArea?: H.map.HitArea;
-                asCanvas?: H.map.HitArea;
+                size?: H.math.ISize | number | undefined;
+                anchor?: H.math.IPoint | undefined;
+                hitArea?: H.map.HitArea | undefined;
+                asCanvas?: H.map.HitArea | undefined;
                 crossOrigin: boolean;
             }
         }
@@ -2153,9 +2198,9 @@ declare namespace H {
              * @property href {string=} - The URL of the &quot;Terms of use&quot; link. If omitted the current value remains, default is &quot;http://here.com/terms&quot;.
              */
             interface Options {
-                invert?: boolean;
-                font?: string;
-                href?: string;
+                invert?: boolean | undefined;
+                font?: string | undefined;
+                href?: string | undefined;
             }
         }
 
@@ -2184,12 +2229,12 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
-                min?: number;
-                max?: number;
-                visibility?: boolean;
-                zIndex?: number;
-                provider?: H.map.provider.Provider;
-                icon?: H.map.Icon;
+                min?: number | undefined;
+                max?: number | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
+                icon?: H.map.Icon | undefined;
                 data?: any;
             }
         }
@@ -2327,11 +2372,11 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
-                min?: number;
-                max?: number;
-                visibility?: boolean;
-                zIndex?: number;
-                provider?: H.map.provider.Provider;
+                min?: number | undefined;
+                max?: number | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
                 data?: any;
             }
 
@@ -2419,12 +2464,12 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
-                min?: number;
-                max?: number;
-                opacity?: number;
-                visibility?: boolean;
-                zIndex?: number;
-                provider?: H.map.provider.Provider;
+                min?: number | undefined;
+                max?: number | undefined;
+                opacity?: number | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
                 data?: any;
             }
         }
@@ -2477,17 +2522,17 @@ declare namespace H {
              * Indicates whether the map object is visible, the default is true A map object is only treated as visible, if it self and all of its nesting parent groups are visible.
              */
             interface Options {
-                style?: H.map.SpatialStyle | H.map.SpatialStyle.Options;
-                arrows?: H.map.ArrowStyle | H.map.ArrowStyle.Options;
-                visibility?: boolean;
-                volatility?: boolean;
-                zIndex?: number;
-                min?: number;
-                max?: number;
-                provider?: H.map.provider.Provider | null;
+                style?: H.map.SpatialStyle | H.map.SpatialStyle.Options | undefined;
+                arrows?: H.map.ArrowStyle | H.map.ArrowStyle.Options | undefined;
+                visibility?: boolean | undefined;
+                volatility?: boolean | undefined;
+                zIndex?: number | undefined;
+                min?: number | undefined;
+                max?: number | undefined;
+                provider?: H.map.provider.Provider | null | undefined;
                 data?: any;
-                extrusion?: number;
-                elevation?: number;
+                extrusion?: number | undefined;
+                elevation?: number | undefined;
             }
         }
 
@@ -2708,13 +2753,13 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
              */
             interface Options {
-                style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options);
-                arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options);
-                visibility?: boolean;
-                zIndex?: number;
-                min?: number;
-                max?: number;
-                provider?: H.map.provider.Provider;
+                style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options) | undefined;
+                arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options) | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                min?: number | undefined;
+                max?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
                 data?: any;
             }
         }
@@ -2817,13 +2862,13 @@ declare namespace H {
              * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData.
              */
             interface Options {
-                style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options);
-                arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options);
-                visibility?: boolean;
-                zIndex?: number;
-                min?: number;
-                max?: number;
-                provider?: H.map.provider.Provider;
+                style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options) | undefined;
+                arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options) | undefined;
+                visibility?: boolean | undefined;
+                zIndex?: number | undefined;
+                min?: number | undefined;
+                max?: number | undefined;
+                provider?: H.map.provider.Provider | undefined;
                 data?: any;
             }
         }
@@ -2900,14 +2945,14 @@ declare namespace H {
              * @property lineDashOffset {number=} - The phase offset of the line dash pattern
              */
             interface Options {
-                strokeColor?: string;
-                fillColor?: string;
-                lineWidth?: number;
-                lineCap?: H.map.SpatialStyle.LineCap;
-                lineJoin?: H.map.SpatialStyle.LineJoin;
-                miterLimit?: number;
-                lineDash?: number[];
-                lineDashOffset?: number;
+                strokeColor?: string | undefined;
+                fillColor?: string | undefined;
+                lineWidth?: number | undefined;
+                lineCap?: H.map.SpatialStyle.LineCap | undefined;
+                lineJoin?: H.map.SpatialStyle.LineJoin | undefined;
+                miterLimit?: number | undefined;
+                lineDash?: number[] | undefined;
+                lineDashOffset?: number | undefined;
             }
         }
 
@@ -2992,12 +3037,12 @@ declare namespace H {
              * {@link https://developer.here.com/documentation/maps/api_reference/H.map.ViewModel.html#.ILookAtData}
              */
             interface ILookAtData {
-                position?: H.geo.IPoint;
-                zoom?: number;
-                bounds?: H.geo.AbstractGeometry;
-                heading?: number;
-                incline?: number;
-                tilt?: number;
+                position?: H.geo.IPoint | undefined;
+                zoom?: number | undefined;
+                bounds?: H.geo.AbstractGeometry | undefined;
+                heading?: number | undefined;
+                incline?: number | undefined;
+                tilt?: number | undefined;
             }
 
             /**
@@ -3127,9 +3172,9 @@ declare namespace H {
              * @property fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or or padding has been changed, default is true
              */
             interface Options {
-                margin?: number;
-                padding?: H.map.ViewPort.Padding;
-                fixedCenter?: boolean;
+                margin?: number | undefined;
+                padding?: H.map.ViewPort.Padding | undefined;
+                fixedCenter?: boolean | undefined;
             }
 
             /**
@@ -3304,8 +3349,8 @@ declare namespace H {
                  * @property opacity {number=} - tile layer opacity, default is 1
                  */
                 interface Options {
-                    projection?: H.geo.IProjection;
-                    opacity?: number;
+                    projection?: H.geo.IProjection | undefined;
+                    opacity?: number | undefined;
                 }
 
                 /**
@@ -3388,11 +3433,11 @@ declare namespace H {
                  * @property minWorldSize {number=} - The minimal world size at zoom level 0, default is 256
                  */
                 interface Options {
-                    min?: number;
-                    max?: number;
-                    dark?: boolean;
-                    projection?: H.geo.IProjection;
-                    minWorldSize?: number;
+                    min?: number | undefined;
+                    max?: number | undefined;
+                    dark?: boolean | undefined;
+                    projection?: H.geo.IProjection | undefined;
+                    minWorldSize?: number | undefined;
                 }
             }
 
@@ -3516,10 +3561,10 @@ declare namespace H {
                  * @property pixelRatio {number=} - The pixelRatio to use for over-sampling in cases of high-resolution displays
                  */
                 interface Options {
-                    tileSize?: number;
-                    tileCacheSize?: number;
-                    dataCacheSize?: number;
-                    pixelRatio?: number;
+                    tileSize?: number | undefined;
+                    tileCacheSize?: number | undefined;
+                    dataCacheSize?: number | undefined;
+                    pixelRatio?: number | undefined;
                 }
 
                 /**
@@ -3588,17 +3633,17 @@ declare namespace H {
                  * are used.
                  */
                 interface Options {
-                    uri?: string;
-                    min?: number;
-                    max?: number;
+                    uri?: string | undefined;
+                    min?: number | undefined;
+                    max?: number | undefined;
 
                     getCopyrights?(rect: H.geo.Rect, n: number): H.map.ICopyright[];
 
-                    tileSize?: number;
+                    tileSize?: number | undefined;
 
                     getURL(n1: number, n2: number, n3: number): string;
 
-                    crossOrigin?: string | boolean;
+                    crossOrigin?: string | boolean | undefined;
                 }
             }
 
@@ -3725,12 +3770,12 @@ declare namespace H {
                  * @property providesDomMarkers {boolean=} - indicates if markers provided are of type H.map.DomMarker or H.map.Marker, default is H.map.Marker
                  */
                 interface Options {
-                    min?: number;
-                    max?: number;
+                    min?: number | undefined;
+                    max?: number | undefined;
 
                     requestData(n1: number, n2: number, n3: number, markerCallback: (markers: H.map.AbstractMarker[]) => void, f: () => void): H.util.ICancelable;
 
-                    providesDomMarkers?: boolean;
+                    providesDomMarkers?: boolean | undefined;
                 }
             }
 
@@ -3833,6 +3878,22 @@ declare namespace H {
             }
 
             /**
+             * A LocalObjectProvider acts as a database for map objects. It provides functionality to fetch visible objects for specific geographical bounding box and zoom levels.
+             * All objects are organized in a hierarchical group structure.
+             * An object can be added to the provider by adding it to a group within this structure.
+             * The root group of the provider can be fetched via the method H.map.provider.LocalObjectProvider#getRootGroup.
+             * A H.Map has its own LocalObjectProvider and offer a means to add and remove objects.
+             * Only in advanced use cases, is there a need to create an additional LocalObjectProvider.
+             */
+            class LocalObjectProvider extends ObjectProvider {
+                /**
+                 * This method retrieves the root group for the given provider.
+                 * @returns {H.map.Group} - an object representing the root group for the given provider.
+                 */
+                getRootGroup(): H.map.Group;
+            }
+
+            /**
              * A Provider defines an object which works as a database for the map. Providers can exists in different forms they can implement client side object storage or they can request data from
              * the remote service.
              * @property uri {string} - This provider's unique resource identifier, if not provided at construction time it defaults to provider's uid
@@ -3889,9 +3950,9 @@ declare namespace H {
                  * @property getCopyrights {(function(H.geo.Rect, number): ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
                  */
                 interface Options {
-                    uri?: string;
-                    min?: number;
-                    max?: number;
+                    uri?: string | undefined;
+                    min?: number | undefined;
+                    max?: number | undefined;
 
                     getCopyrights?(rect: H.geo.Rect, n: number): H.map.ICopyright[];
                 }
@@ -4028,13 +4089,13 @@ declare namespace H {
                  * @property tileSize {number=} - The size of a tile as edge length in pixels. It must be 2^n where n is in range [0 ... 30], default is 256
                  */
                 interface Options {
-                    uri?: string;
-                    min?: number;
-                    max?: number;
+                    uri?: string | undefined;
+                    min?: number | undefined;
+                    max?: number | undefined;
 
                     getCopyrights?(rect: H.geo.Rect, number: number): H.map.ICopyright[];
 
-                    tileSize?: number;
+                    tileSize?: number | undefined;
                 }
             }
         }
@@ -4282,13 +4343,13 @@ declare namespace H {
                 namespace RenderEngine {
                     interface Options {
                         /** Object describes how many cached zoom levels should be used as a base map background while base map tiles are */
-                        renderBaseBackground?: {};
+                        renderBaseBackground?: {} | undefined;
 
                         /** The pixelRatio to use for over-sampling in cases of high-resolution displays */
                         pixelRatio: number;
 
                         /** optional */
-                        enableSubpixelRendering?: boolean;
+                        enableSubpixelRendering?: boolean | undefined;
                     }
                 }
             }
@@ -4348,8 +4409,8 @@ declare namespace H {
              * @property enable {number=} - The bitmask of behaviors to enable like H.mapevents.Behavior.DRAGGING. All are enabled by default.
              */
             interface Options {
-                kinetics?: H.util.kinetics.IKinetics;
-                enable?: H.math.BitMask;
+                kinetics?: H.util.kinetics.IKinetics | undefined;
+                enable?: H.math.BitMask | undefined;
             }
         }
 
@@ -4402,7 +4463,7 @@ declare namespace H {
              * @param originalEvent {Event} - original dom event
              */
             constructor(type: string, pointers: H.mapevents.Pointer[], changedPointers: H.mapevents.Pointer[], targetPointers: H.mapevents.Pointer[], currentPointer: H.mapevents.Pointer,
-                        target: (H.Map | H.map.Object), originalEvent: Event);
+                target: (H.Map | H.map.Object), originalEvent: Event);
 
             /**
              * Sets defaultPrevented to true. Which can be used to prevent some default behavior.
@@ -4844,9 +4905,9 @@ declare namespace H {
              * method.
              */
             interface Options {
-                subDomain?: string;
-                path?: string;
-                baseUrl?: H.service.Url;
+                subDomain?: string | undefined;
+                path?: string | undefined;
+                baseUrl?: H.service.Url | undefined;
             }
         }
 
@@ -4897,8 +4958,8 @@ declare namespace H {
              * @property path {string=} - the path of the Geocoding service, default is '6.2'
              */
             interface Options {
-                subDomain?: string;
-                path?: string;
+                subDomain?: string | undefined;
+                path?: string | undefined;
             }
         }
 
@@ -4983,7 +5044,7 @@ declare namespace H {
              * @returns {H.map.layer.TileLayer} - the tile layer
              */
             createTileLayer(tileType: string, scheme: string, tileSize: number, format: string, opt_additionalParameters?: H.service.ServiceParameters, opt_opacity?: number, opt_dark?: boolean,
-                            opt_options?: H.service.TileProviderOptions): H.map.layer.TileLayer;
+                opt_options?: H.service.TileProviderOptions): H.map.layer.TileLayer;
 
             /**
              * This methods receive configuration parameters from the platform, that can be used by the object implementing the interface.
@@ -5023,10 +5084,10 @@ declare namespace H {
              * @property path {string=} - the path of the map tile service, default is 'maptile/2.1'
              */
             interface Options {
-                type?: string;
-                version?: string;
-                subDomain?: string;
-                path?: string;
+                type?: string | undefined;
+                version?: string | undefined;
+                subDomain?: string | undefined;
+                path?: string | undefined;
             }
         }
 
@@ -5046,13 +5107,13 @@ declare namespace H {
          */
         interface MapType {
             map: H.map.layer.TileLayer;
-            mapnight?: H.map.layer.TileLayer | null;
+            mapnight?: H.map.layer.TileLayer | null | undefined;
             xbase: H.map.layer.TileLayer;
-            xbasenight?: H.map.layer.TileLayer | null;
+            xbasenight?: H.map.layer.TileLayer | null | undefined;
             base: H.map.layer.TileLayer;
-            basenight?: H.map.layer.TileLayer | null;
-            trafficincidents?: H.map.layer.MarkerTileLayer | null;
-            transit?: H.map.layer.TileLayer;
+            basenight?: H.map.layer.TileLayer | null | undefined;
+            trafficincidents?: H.map.layer.MarkerTileLayer | null | undefined;
+            transit?: H.map.layer.TileLayer | undefined;
             labels: H.map.layer.TileLayer;
         }
 
@@ -5162,9 +5223,9 @@ declare namespace H {
              * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
              */
             interface Options {
-                subDomain?: string;
-                path?: string;
-                baseUrl?: H.service.Url;
+                subDomain?: string | undefined;
+                path?: string | undefined;
+                baseUrl?: H.service.Url | undefined;
             }
         }
 
@@ -5251,8 +5312,8 @@ declare namespace H {
              * @returns {H.service.DefaultLayers} - a set of tile layers ready to use
              */
             createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number,
-                                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
-                                opt_pois?: (string | boolean)): H.service.DefaultLayers;
+                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
+                opt_pois?: (string | boolean)): H.service.DefaultLayers;
 
             /**
              * This method returns an instance of H.service.RoutingService to query the Routing API.
@@ -5295,13 +5356,13 @@ declare namespace H {
              * Be aware that storing of content is not possible if crossOrigin is not set to true (see H.Map#storeContent).
              */
             interface DefaultLayersOptions {
-                tileSize?: number;
-                ppi?: number;
-                lg?: string;
-                lg2?: string;
-                style?: string;
-                pois?: boolean;
-                crossOrigin?: (string | boolean);
+                tileSize?: number | undefined;
+                ppi?: number | undefined;
+                lg?: string | undefined;
+                lg2?: string | undefined;
+                style?: string | undefined;
+                pois?: boolean | undefined;
+                crossOrigin?: (string | boolean) | undefined;
             }
 
             /**
@@ -5313,18 +5374,18 @@ declare namespace H {
              */
             interface Options {
                 apikey: string;
-                baseUrl?: H.service.Url;
-                useCIT?: boolean;
-                useHTTPS?: boolean;
+                baseUrl?: H.service.Url | undefined;
+                useCIT?: boolean | undefined;
+                useHTTPS?: boolean | undefined;
             }
 
             /**
              * pre-configured set of HERE tile layers for convenient use with the map.
              */
             interface MapTypes {
-                normal?: H.service.MapType;
-                satellite?: H.service.MapType;
-                terrain?: H.service.MapType;
+                normal?: H.service.MapType | undefined;
+                satellite?: H.service.MapType | undefined;
+                terrain?: H.service.MapType | undefined;
 
                 [key: string]: H.service.MapType | undefined;
             }
@@ -5358,9 +5419,9 @@ declare namespace H {
              * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
              */
             interface Options {
-                subDomain?: string;
-                path?: string;
-                baseUrl?: H.service.Url;
+                subDomain?: string | undefined;
+                path?: string | undefined;
+                baseUrl?: H.service.Url | undefined;
             }
         }
 
@@ -5378,7 +5439,7 @@ declare namespace H {
             [key: string]: any;
 
             response?: {
-                language?: string,
+                language?: string | undefined,
                 route?: Array<{
                     leg: Array<{
                         maneuver: Array<{
@@ -5427,13 +5488,13 @@ declare namespace H {
                         spot: number,
                         type: string
                     }>
-                }>,
+                }> | undefined,
                 metaInfo: {}
-            };
+            } | undefined;
             results?: {
-                items?: any[],
-                next?: string
-            };
+                items?: any[] | undefined,
+                next?: string | undefined
+            } | undefined;
             search?: {
                 context: {
                     href: string,
@@ -5454,7 +5515,7 @@ declare namespace H {
                     },
                     type: string
                 }
-            };
+            } | undefined;
             Response?: {
                 MetaInfo: {
                     Timestamp: string
@@ -5509,7 +5570,7 @@ declare namespace H {
                     }>
                 }>,
                 isolines: any[]
-            };
+            } | undefined;
         }
 
         /**
@@ -5517,7 +5578,7 @@ declare namespace H {
          * @property crossOrigin {boolean=} - The string to be set for the crossOrigin attribute for loaded images
          */
         interface TileProviderOptions {
-            crossOrigin?: boolean;
+            crossOrigin?: boolean | undefined;
         }
 
         namespace traffic {
@@ -5552,7 +5613,7 @@ declare namespace H {
                  * @returns {H.service.JsonpRequestHandle}
                  */
                 requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
-                                       opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
+                    opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
             }
 
             namespace Service {
@@ -5562,9 +5623,9 @@ declare namespace H {
                  * @property baseUrl {H.service.Url=} - an optional base URL if it differs from the platform's default base URL
                  */
                 interface Options {
-                    subDomain?: string;
-                    path?: string;
-                    baseUrl?: H.service.Url;
+                    subDomain?: string | undefined;
+                    path?: string | undefined;
+                    baseUrl?: H.service.Url | undefined;
                 }
             }
         }
@@ -5735,7 +5796,7 @@ declare namespace H {
                  * @returns {H.map.provider.TileProvider} - the tile provider
                  */
                 createTileProvider(tileSize: number, pixelRatio: number, opt_categoryFilter?: string[], opt_additionalParameters?: H.service.ServiceParameters, opt_tileType?: string,
-                                   opt_scheme?: string): H.map.provider.TileProvider;
+                    opt_scheme?: string): H.map.provider.TileProvider;
 
                 /**
                  * This method creates a tile layer. This layer can be used as a layer on a map's data model.
@@ -5748,7 +5809,7 @@ declare namespace H {
                  * @returns {H.map.layer.TileLayer} - the tile layer
                  */
                 createTileLayer(tileSize: number, pixelRatio: number, opt_categoryFilter?: string[], opt_additionalParameters?: H.service.ServiceParameters, opt_tileType?: string,
-                                opt_scheme?: string): H.map.layer.TileLayer;
+                    opt_scheme?: string): H.map.layer.TileLayer;
 
                 /**
                  * This methods receive configuration parameters from the platform, that can be used by the object implementing the interface.
@@ -5788,9 +5849,9 @@ declare namespace H {
                  * @property subDomain {string=} - the sub-domain of the map tile service relative to the platform's base URL, default is 'maps'
                  */
                 interface Options {
-                    type?: string;
-                    version?: string;
-                    subDomain?: string;
+                    type?: string | undefined;
+                    version?: string | undefined;
+                    subDomain?: string | undefined;
                 }
             }
 
@@ -5818,12 +5879,12 @@ declare namespace H {
                  * @property categoryFilter {Array<string>=} - A list of meta-info category names which should be suppressed. See Metainfo Tile for valid category names.
                  */
                 interface Options {
-                    tileType?: string;
-                    scheme?: string;
-                    tileCacheSize?: number;
-                    tileSize?: number;
-                    pixelRatio?: number;
-                    categoryFilter?: string[];
+                    tileType?: string | undefined;
+                    scheme?: string | undefined;
+                    tileCacheSize?: number | undefined;
+                    tileSize?: number | undefined;
+                    pixelRatio?: number | undefined;
+                    categoryFilter?: string[] | undefined;
                 }
             }
         }
@@ -5972,8 +6033,8 @@ declare namespace H {
                  * @property path {string=} - the path to append after host name when making requests to the Venue Maps API, default is empty
                  */
                 interface Options {
-                    subDomain?: string;
-                    path?: string;
+                    subDomain?: string | undefined;
+                    path?: string | undefined;
                 }
 
                 /**
@@ -6059,8 +6120,8 @@ declare namespace H {
                  * used for space object styling.
                  */
                 interface Options {
-                    tileCacheSize?: number;
-                    pixelRatio?: number;
+                    tileCacheSize?: number | undefined;
+                    pixelRatio?: number | undefined;
 
                     onSpaceCreated?(space: H.service.venues.Space): void;
                 }
@@ -6162,11 +6223,11 @@ declare namespace H {
              * specified measurement unit (see H.ui.UI.Options#unitSystem)
              */
             interface Options {
-                alignment?: H.ui.LayoutAlignment;
-                startIcon?: H.map.Icon;
-                stopoverIcon?: H.map.Icon;
-                endIcon?: H.map.Icon;
-                splitIcon?: H.map.Icon;
+                alignment?: H.ui.LayoutAlignment | undefined;
+                startIcon?: H.map.Icon | undefined;
+                stopoverIcon?: H.map.Icon | undefined;
+                endIcon?: H.map.Icon | undefined;
+                splitIcon?: H.map.Icon | undefined;
                 lineStyle: H.map.SpatialStyle | H.map.SpatialStyle.Options;
 
                 distanceFormatter?(n: number): void;
@@ -6306,9 +6367,9 @@ declare namespace H {
              * @property incidents {H.map.layer.Layer} - the traffic incidents layer to be activated by the map settings control
              */
             interface Options {
-                alignment?: H.ui.LayoutAlignment;
-                baseLayers?: H.ui.MapSettingsControl.Entry[];
-                layers?: H.ui.MapSettingsControl.Entry[];
+                alignment?: H.ui.LayoutAlignment | undefined;
+                baseLayers?: H.ui.MapSettingsControl.Entry[] | undefined;
+                layers?: H.ui.MapSettingsControl.Entry[] | undefined;
             }
         }
 
@@ -6329,7 +6390,7 @@ declare namespace H {
              * @property mapTypes {H.service.MapTypes} - The map types to use
              */
             interface Options {
-                alignment?: H.ui.LayoutAlignment;
+                alignment?: H.ui.LayoutAlignment | undefined;
                 mapTypes: H.service.MapType;
             }
         }
@@ -6350,7 +6411,7 @@ declare namespace H {
              * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
              */
             interface Options {
-                alignment?: H.ui.LayoutAlignment;
+                alignment?: H.ui.LayoutAlignment | undefined;
             }
         }
 
@@ -6493,14 +6554,14 @@ declare namespace H {
              * by default
              */
             interface Options {
-                unitSystem?: H.ui.UnitSystem;
-                zoom?: (H.ui.ZoomControl.Options | boolean);
-                zoomrectangle?: (H.ui.ZoomRectangle.Options | boolean);
-                mapsettings?: (H.ui.MapSettingsControl.Options | boolean);
-                scalebar?: (H.ui.ScaleBar.Options | boolean);
-                panorama?: (H.ui.Pano.Options | boolean);
-                distancemeasurement?: (H.ui.DistanceMeasurement.Options | boolean);
-                locale?: (H.ui.i18n.Localization | string);
+                unitSystem?: H.ui.UnitSystem | undefined;
+                zoom?: (H.ui.ZoomControl.Options | boolean) | undefined;
+                zoomrectangle?: (H.ui.ZoomRectangle.Options | boolean) | undefined;
+                mapsettings?: (H.ui.MapSettingsControl.Options | boolean) | undefined;
+                scalebar?: (H.ui.ScaleBar.Options | boolean) | undefined;
+                panorama?: (H.ui.Pano.Options | boolean) | undefined;
+                distancemeasurement?: (H.ui.DistanceMeasurement.Options | boolean) | undefined;
+                locale?: (H.ui.i18n.Localization | string) | undefined;
             }
         }
 
@@ -6539,10 +6600,10 @@ declare namespace H {
              * @property sliderSnaps {boolean=} - flag whether slider should snap to the integer values or not, defaults to false. This option has effect only if slider is enabled.
              */
             interface Options {
-                zoomSpeed?: number;
-                alignment?: H.ui.LayoutAlignment;
-                slider?: boolean;
-                sliderSnaps?: boolean;
+                zoomSpeed?: number | undefined;
+                alignment?: H.ui.LayoutAlignment | undefined;
+                slider?: boolean | undefined;
+                sliderSnaps?: boolean | undefined;
             }
         }
 
@@ -6564,7 +6625,7 @@ declare namespace H {
              * bounding rectangle into the view port.
              */
             interface Options {
-                alignment?: H.ui.LayoutAlignment;
+                alignment?: H.ui.LayoutAlignment | undefined;
 
                 adjustZoom?(n: number, m: H.Map): number;
             }
@@ -6973,8 +7034,8 @@ declare namespace H {
              * @property callback {function(H.util.Event)=} - Optional callback function to call once context item is selected
              */
             interface Options {
-                label?: string;
-                disabled?: boolean;
+                label?: string | undefined;
+                disabled?: boolean | undefined;
 
                 callback?(event: H.util.Event): void;
             }

@@ -131,7 +131,9 @@ describe("ApplePaySession", () => {
             },
             {
                 label: "2-hour Shipping",
-                amount: "5.00"
+                amount: "5.00",
+                detail: "2-hour Shipping",
+                identifier: "BusinessShipping"
             }
         ];
 
@@ -301,7 +303,9 @@ describe("ApplePayPaymentRequest", () => {
             },
             {
                 label: "2-hour Shipping",
-                amount: "5.00"
+                amount: "5.00",
+                detail: "2-hour Shipping",
+                identifier: "BusinessShipping"
             }
         ];
 

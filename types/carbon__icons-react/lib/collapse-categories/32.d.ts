@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CollapseCategories32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CollapseCategories32;
+import { CollapseCategories32 } from "../../";
+
+export = CollapseCategories32;

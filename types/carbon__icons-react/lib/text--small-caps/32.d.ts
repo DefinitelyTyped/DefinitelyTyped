@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TextSmallCaps32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TextSmallCaps32;
+import { TextSmallCaps32 } from "../../";
+
+export = TextSmallCaps32;

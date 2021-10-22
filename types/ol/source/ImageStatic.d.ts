@@ -10,19 +10,25 @@ import ImageSource, { ImageSourceEvent } from './Image';
 import { AttributionLike } from './Source';
 
 export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: string;
-    imageExtent?: Extent;
-    imageLoadFunction?: LoadFunction;
-    imageSmoothing?: boolean;
-    projection?: ProjectionLike;
-    imageSize?: Size;
+    attributions?: AttributionLike | undefined;
+    crossOrigin?: null | string | undefined;
+    imageExtent?: Extent | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    imageSize?: Size | undefined;
     url: string;
 }
 export default class Static extends ImageSource {
     constructor(options: Options);
+    /**
+     * Returns the image extent
+     */
     getImageExtent(): Extent;
     getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageWrapper;
+    /**
+     * Return the URL used for this image source.
+     */
     getUrl(): string;
     handleImageChange(evt: BaseEvent): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

@@ -1,4 +1,4 @@
-// Type definitions for swagger-ui-react 3.23
+// Type definitions for swagger-ui-react 3.35
 // Project: https://github.com/swagger-api/swagger-ui#readme
 // Definitions by: viki.green <https://github.com/VictoriaGreen93>
 //                 Mendes <https://github.com/fernando-msj>
@@ -20,15 +20,17 @@ type PluginGenerator = (system: System) => object;
 type Plugin = object | PluginGenerator;
 
 export interface SwaggerUIProps {
-    spec?: object | string;
-    url?: string;
-    onComplete?: (system: System) => void;
-    requestInterceptor?: (req: Request) => Request | Promise<Request>;
-    responseInterceptor?: (res: Response) => Response | Promise<Response>;
-    docExpansion?: 'list' | 'full' | 'none';
-    defaultModelExpandDepth?: number;
-    plugins?: Plugin[];
-    supportedSubmitMethods?: string[];
+    spec?: object | string | undefined;
+    url?: string | undefined;
+    onComplete?: ((system: System) => void) | undefined;
+    requestInterceptor?: ((req: Request) => Request | Promise<Request>) | undefined;
+    responseInterceptor?: ((res: Response) => Response | Promise<Response>) | undefined;
+    docExpansion?: 'list' | 'full' | 'none' | undefined;
+    defaultModelExpandDepth?: number | undefined;
+    plugins?: Plugin[] | undefined;
+    supportedSubmitMethods?: string[] | undefined;
+    deepLinking?: boolean | undefined;
+    showMutatedRequest?: boolean | undefined;
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

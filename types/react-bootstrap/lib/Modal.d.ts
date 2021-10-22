@@ -12,31 +12,31 @@ declare namespace Modal {
         onHide: Function;
 
         // Optional
-        animation?: boolean;
-        autoFocus?: boolean;
-        backdrop?: boolean | string;
-        backdropClassName?: string;
+        animation?: boolean | undefined;
+        autoFocus?: boolean | undefined;
+        backdrop?: boolean | string | undefined;
+        backdropClassName?: string | undefined;
         backdropStyle?: any;
-        backdropTransitionTimeout?: number;
-        bsSize?: Sizes;
-        bsClass?: string;
+        backdropTransitionTimeout?: number | undefined;
+        bsSize?: Sizes | undefined;
+        bsClass?: string | undefined;
         container?: any; // TODO: Add more specific type
-        containerClassName?: string;
-        dialogClassName?: string;
+        containerClassName?: string | undefined;
+        dialogClassName?: string | undefined;
         dialogComponent?: any; // TODO: Add more specific type
-        dialogTransitionTimeout?: number;
-        enforceFocus?: boolean;
-        restoreFocus?: boolean;
-        keyboard?: boolean;
-        onBackdropClick?: (node: HTMLElement) => any;
-        onEscapeKeyDown?: (node: HTMLElement) => any;
+        dialogTransitionTimeout?: number | undefined;
+        enforceFocus?: boolean | undefined;
+        restoreFocus?: boolean | undefined;
+        keyboard?: boolean | undefined;
+        onBackdropClick?: ((node: HTMLElement) => any) | undefined;
+        onEscapeKeyDown?: ((node: HTMLElement) => any) | undefined;
         /**
          * @deprecated since Sept 25, 2017, use onEscapeKeyDown instead
          **/
-        onEscapeKeyUp?: (node: HTMLElement) => any;
-        onShow?: (node: HTMLElement) => any;
-        show?: boolean;
-        transition?: React.ReactElement;
+        onEscapeKeyUp?: ((node: HTMLElement) => any) | undefined;
+        onShow?: ((node: HTMLElement) => any) | undefined;
+        show?: boolean | undefined;
+        transition?: React.ReactElement | undefined;
     }
 }
 declare class Modal extends React.Component<Modal.ModalProps> {

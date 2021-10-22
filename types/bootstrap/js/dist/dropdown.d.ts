@@ -1,7 +1,32 @@
-import * as Popper from 'popper.js';
+import * as Popper from '@popperjs/core';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
-declare class Dropdown {
-    constructor(element: Element, options?: Partial<Dropdown.Options>);
+declare class Dropdown extends BaseComponent {
+    /**
+     * Static method which allows you to get the dropdown instance associated
+     * with a DOM element.
+     */
+    static getInstance: GetInstanceFactory<Dropdown>;
+
+    /**
+     * Static method which returns a dropdown instance associated to a DOM element or
+     *  create a new one in case it wasn't initialised.
+     * You can use it like this: bootstrap.Dropdown.getOrCreateInstance(element)
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Dropdown, Partial<Dropdown.Options>>;
+
+    static jQueryInterface: Dropdown.jQueryInterface;
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Dropdown.Options;
+
+    static DefaultType: Record<keyof Dropdown.Options, string>;
+
+    constructor(element: string | Element, options?: Partial<Dropdown.Options>);
 
     /**
      * Toggles the dropdown menu of a given navbar or tabbed navigation.
@@ -22,17 +47,6 @@ declare class Dropdown {
      * Updates the position of an element's dropdown.
      */
     update(): void;
-
-    /**
-     * Destroys an element's dropdown.
-     */
-    dispose(): void;
-
-    /**
-     * Static method which allows you to get the dropdown instance associated
-     * with a DOM element.
-     */
-    static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown;
 }
 
 declare namespace Dropdown {
@@ -60,30 +74,29 @@ declare namespace Dropdown {
         hidden = 'hidden.bs.dropdown',
     }
 
+    type Offset = [number, number];
+
+    type OffsetFunction = () => Offset;
+
+    type PopperConfigFunction = () => Partial<Popper.Options>;
+
     interface Options {
         /**
-         * Offset of the dropdown relative to its target.
+         * Offset of the dropdown relative to its target. You can pass a string
+         * in data attributes with comma separated values like:
+         * data-bs-offset="10,20"
          *
          * When a function is used to determine the offset, it is called with an
-         * object containing the offset data as its first argument. The function
-         * must return an object with the same structure. The triggering element
-         * DOM node is passed as the second argument.
+         * object containing the popper placement, the reference, and popper
+         * rects as its first argument. The triggering element DOM node is
+         * passed as the second argument. The function must return an array with
+         * two numbers: [skidding, distance].
          *
-         * For more information refer to Popper.js's offset docs.
+         * For more information refer to Popper's offset docs.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..offset.offset}
-         * @default 0
+         * @default [0, 2]
          */
-        offset: number;
-
-        /**
-         * Allow Dropdown to flip in case of an overlapping on the reference
-         * element. For more information refer to Popper.js's flip docs.
-         *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..flip.enabled}
-         * @default true
-         */
-        flip: boolean;
+        offset: Offset | string | OffsetFunction;
 
         /**
          * Overflow constraint boundary of the dropdown menu. Accepts the values
@@ -91,20 +104,21 @@ declare namespace Dropdown {
          * (JavaScript only). For more information refer to Popper.js's
          * preventOverflow docs.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/prevent-overflow/#boundary}
          * @default "scrollParent"
          */
         boundary: Popper.Boundary | Element;
 
         /**
          * Reference element of the dropdown menu. Accepts the values of
-         * 'toggle', 'parent', or an HTMLElement reference. For more information
-         * refer to Popper.js's referenceObject docs.
+         * 'toggle', 'parent', an HTMLElement reference or an object providing
+         * getBoundingClientRect. For more information refer to Popper.js's
+         * referenceObject docs.
          *
-         * @see {@link https://popper.js.org/docs/v1/#referenceObject}
+         * @see {@link https://popper.js.org/docs/v2/constructors/#createpopper}
          * @default "toggle"
          */
-        reference: 'toggle' | 'parent' | Element;
+        reference: 'toggle' | 'parent' | Element | Popper.Rect;
 
         /**
          * By default, we use Popper.js for dynamic positioning. Disable this
@@ -118,11 +132,26 @@ declare namespace Dropdown {
          * To change Bootstrap's default Popper.js config, see Popper.js's
          * configuration
          *
-         * @see {@link https://popper.js.org/docs/v1/#Popper.Defaults}
+         * When a function is used to create the Popper configuration, it's
+         * called with an object that contains the Bootstrap's default Popper
+         * configuration. It helps you use and merge the default with your own
+         * configuration. The function must return a configuration object for
+         * Popper.
+         *
+         * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Popper.PopperOptions | null;
+        popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
+
+        /**
+         * Configure the auto close behavior of the dropdown
+         *
+         * @default true
+         */
+        autoClose: boolean | 'inside' | 'outside';
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => void;
 }
 
 export default Dropdown;

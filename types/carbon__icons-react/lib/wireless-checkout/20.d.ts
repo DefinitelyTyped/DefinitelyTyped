@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const WirelessCheckout20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WirelessCheckout20;
+import { WirelessCheckout20 } from "../../";
+
+export = WirelessCheckout20;

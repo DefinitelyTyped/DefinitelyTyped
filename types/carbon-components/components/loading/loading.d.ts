@@ -1,19 +1,21 @@
+interface LoadingOptions {
+    selectorInit: string;
+    selectorLoadingOverlay: string;
+    classLoadingOverlay: string;
+    classLoadingStop: string;
+    classLoadingOverlayStop: string;
+    active: boolean;
+}
+
 declare const Loading_base: any;
 declare class Loading extends Loading_base {
-    constructor(element: any, options: any);
-    set(active: any): this;
+    constructor(element: HTMLElement, options?: Partial<LoadingOptions>);
+    set(active: boolean): this;
     toggle(): this;
-    isActive(): any;
+    isActive(): boolean;
     end(): void;
     _deleteElement(): void;
     static components: WeakMap<object, any>;
-    static get options(): {
-        selectorInit: string;
-        selectorLoadingOverlay: string;
-        classLoadingOverlay: string;
-        classLoadingStop: string;
-        classLoadingOverlayStop: string;
-        active: boolean;
-    };
+    static get options(): LoadingOptions;
 }
 export default Loading;

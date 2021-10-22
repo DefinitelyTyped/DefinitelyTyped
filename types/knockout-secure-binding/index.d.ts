@@ -7,10 +7,10 @@
 /// <reference types="knockout" />
 
 interface KnockoutSecureBindingOptions {
-    attribute?: string;
+    attribute?: string | undefined;
     globals?: any;
-    bindings?: KnockoutBindingHandlers;
-    noVirtualElements?: boolean;
+    bindings?: KnockoutBindingHandlers | undefined;
+    noVirtualElements?: boolean | undefined;
 }
 
 interface KnockoutSecureBindingProvider extends KnockoutBindingProvider {

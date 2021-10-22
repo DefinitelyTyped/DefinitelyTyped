@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FlowStreamReference20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FlowStreamReference20;
+import { FlowStreamReference20 } from "../../";
+
+export = FlowStreamReference20;

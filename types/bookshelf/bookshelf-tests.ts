@@ -285,7 +285,7 @@ class Customer extends bookshelf.Model<Customer> {
     get tableName() { return 'customers'; }
 }
 Customer.collection().fetch().then(collection => {
-    // ...
+    return collection.models;
 });
 
 /* Model.count(), see http://bookshelfjs.org/#Model-static-count */
@@ -560,6 +560,9 @@ new Posts().fetch().then(collection => {
         .then(model => {
             JSON.stringify(model);
         });
+    // withRelated is not a valid option in model.load()
+    // $ExpectError
+    collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
 });
 /*
 {
@@ -925,7 +928,7 @@ new User({id: 1}).destroy({require: true})
 
 // TODO No example provided on Bookshelf website
 
-new User({id: 1}).save({}, {patch: true, require: true})
+new User({id: 1}).save({}, {patch: true, require: true, autoRefresh: true})
 .then(user => {
     console.log(user.toJSON());
 })

@@ -13,6 +13,7 @@ import connect = require('connect');
 import Stream = require('stream');
 import util = require('hexo-util');
 import fs = require('fs');
+import Bluebird = require('bluebird');
 
 declare global {
     const hexo: Hexo;
@@ -222,12 +223,12 @@ interface HexoConfig {
     /**
      * Hexo by default ignores hidden files and folders, but setting this field will make Hexo process them
      */
-    readonly include?: string[];
+    readonly include?: string[] | undefined;
 
     /**
      * Hexo process will ignore files list under this field
      */
-    readonly exclude?: string[];
+    readonly exclude?: string[] | undefined;
     readonly ignore: string[];
 }
 
@@ -444,10 +445,10 @@ declare class Hexo extends EventEmitter {
 
 declare namespace Hexo {
     interface InstanceOptions {
-        debug?: boolean;
-        safe?: boolean;
-        silent?: boolean;
-        config?: string;
+        debug?: boolean | undefined;
+        safe?: boolean | undefined;
+        silent?: boolean | undefined;
+        config?: string | undefined;
     }
 
     interface Locals {
@@ -484,27 +485,27 @@ declare namespace Hexo {
         interface Page {
             title: string;
             date: moment.Moment;
-            updated?: moment.Moment;
+            updated?: moment.Moment | undefined;
             comments: boolean;
             layout: string;
             content: string;
-            excerpt?: string;
-            more?: string;
+            excerpt?: string | undefined;
+            more?: string | undefined;
             source: string;
             full_source: string;
             path: string;
             permalink: string;
-            prev?: null | Page;
-            next?: null | Page;
-            raw?: string;
-            photos?: string[];
-            link?: string;
+            prev?: null | Page | undefined;
+            next?: null | Page | undefined;
+            raw?: string | undefined;
+            photos?: string[] | undefined;
+            link?: string | undefined;
             [key: string]: any;
         }
 
         interface Post extends Page {
-            published?: boolean;
-            categories?: string[];
+            published?: boolean | undefined;
+            categories?: string[] | undefined;
             tags: string[];
         }
 
@@ -533,22 +534,22 @@ declare namespace Hexo {
                 /**
                  * The usage of a console command.
                  */
-                usage?: string;
+                usage?: string | undefined;
 
                 /**
                  * The description of each argument of a console command.
                  */
-                arguments?: Array<{ name: string; desc: string }>;
+                arguments?: Array<{ name: string; desc: string }> | undefined;
 
                 /**
                  * The description of each option of a console command.
                  */
-                options?: Array<{ name: string; desc: string }>;
+                options?: Array<{ name: string; desc: string }> | undefined;
 
                 /**
                  * More detailed information about a console command.
                  */
-                desc?: string;
+                desc?: string | undefined;
             }
         }
 
@@ -658,16 +659,21 @@ declare namespace Hexo {
                 /**
                  * `hexo` object.
                  */
-                context?: Hexo;
+                context?: Hexo | undefined;
                 /**
                  * Arguments. This must be an array.
                  */
-                args?: any[];
+                args?: any[] | undefined;
             }
         }
 
         interface Generator {
-            register(name: string, fn: (locals: Site) => Generator.Return | Generator.Return[]): void;
+            register(
+                name: string,
+                fn: (
+                    locals: Site,
+                ) => Generator.Return | Generator.Return[] | Bluebird<Generator.Return> | Bluebird<Generator.Return[]>,
+            ): void;
         }
         namespace Generator {
             interface Return {
@@ -679,7 +685,7 @@ declare namespace Hexo {
                 /**
                  * Layout. Specify the layouts for rendering. The value can be a string or an array. If it’s ignored then the route will return data directly.
                  */
-                layout: string | string[];
+                layout?: string | string[];
 
                 data: any;
             }
@@ -687,7 +693,7 @@ declare namespace Hexo {
 
         interface Helper {
             register(name: string, fn: (...args: any[]) => any): void;
-            list(): {[name: string]: (...args: any[]) => any};
+            list(): { [name: string]: (...args: any[]) => any };
             get(name: string): ((...args: any[]) => any) | undefined;
         }
 
@@ -704,16 +710,20 @@ declare namespace Hexo {
             register(
                 srcExt: string,
                 outExt: string,
-                fn: (data: RendererData, options: any) => string,
+                fn: (this: Hexo, data: RendererData, options: any) => string,
                 sync: true,
             ): void;
             register(
                 srcExt: string,
                 outExt: string,
-                fn: (data: RendererData, options: any) => Promise<string>,
-                sync: false,
+                fn: (this: Hexo, data: RendererData, options: any) => Promise<string>,
+                sync?: false,
             ): void;
-            register(srcExt: string, outExt: string, fn: (data: RendererData, options: any) => Promise<string>): void;
+            register(
+                srcExt: string,
+                outExt: string,
+                fn: (this: Hexo, data: RendererData, options: any) => Promise<string>,
+            ): void;
         }
 
         interface RendererData {
@@ -724,7 +734,7 @@ declare namespace Hexo {
             /**
              * File path.
              */
-            readonly path?: string;
+            readonly path?: string | undefined;
         }
 
         interface Tag {
@@ -736,8 +746,8 @@ declare namespace Hexo {
         }
         namespace Tag {
             interface Options {
-                ends?: boolean;
-                async?: boolean;
+                ends?: boolean | undefined;
+                async?: boolean | undefined;
             }
         }
     }
@@ -843,7 +853,7 @@ declare namespace Hexo {
              * Read a file
              */
             read(
-                option?: { encoding?: string | null; flag?: string },
+                option?: { encoding?: string | null | undefined; flag?: string | undefined },
                 fn?: (err: any, result: string | Buffer) => void,
             ): Promise<string | Buffer>;
             read(fn?: (err: any, result: string | Buffer) => void): Promise<string | Buffer>;
@@ -851,7 +861,7 @@ declare namespace Hexo {
             /**
              * Read a file synchronously
              */
-            readSync(option?: { encoding?: string | null; flag?: string }): string | Buffer;
+            readSync(option?: { encoding?: string | null | undefined; flag?: string | undefined }): string | Buffer;
 
             /**
              * Read the status of a file
@@ -898,9 +908,9 @@ declare namespace Hexo {
     }
     namespace Render {
         interface Data {
-            text?: string;
-            engine?: string;
-            path?: string;
+            text?: string | undefined;
+            engine?: string | undefined;
+            path?: string | undefined;
         }
     }
 
@@ -921,15 +931,15 @@ declare namespace Hexo {
     }
     namespace Post {
         interface Data {
-            title?: string;
-            slug?: string;
-            layout?: string;
-            path?: string;
-            date?: moment.MomentInput;
+            title?: string | undefined;
+            slug?: string | undefined;
+            layout?: string | undefined;
+            path?: string | undefined;
+            date?: moment.MomentInput | undefined;
         }
         interface RenderData {
-            engine?: string;
-            content?: string;
+            engine?: string | undefined;
+            content?: string | undefined;
         }
     }
 
@@ -998,22 +1008,22 @@ interface TemplateLocals {
 }
 
 interface IndexPage {
-    per_page?: number;
-    total?: number;
-    current?: number;
-    current_url?: string;
-    posts?: object;
-    prev?: number;
-    prev_link?: string;
-    next?: number;
-    next_link?: string;
-    path?: string;
+    per_page?: number | undefined;
+    total?: number | undefined;
+    current?: number | undefined;
+    current_url?: string | undefined;
+    posts?: object | undefined;
+    prev?: number | undefined;
+    prev_link?: string | undefined;
+    next?: number | undefined;
+    next_link?: string | undefined;
+    path?: string | undefined;
 }
 
 interface ArchivePage extends IndexPage {
-    archive?: boolean;
-    year?: number;
-    month?: number;
+    archive?: boolean | undefined;
+    year?: number | undefined;
+    month?: number | undefined;
 }
 
 interface CategoryPage extends IndexPage {

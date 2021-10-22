@@ -1,9 +1,10 @@
-// Type definitions for react-leaflet 2.5
+// Type definitions for react-leaflet 2.8
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
 //                 Tom Fenech <https://github.com/fenech>
+//                 Eric Myllyoja <https://github.com/MasterEric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -37,6 +38,7 @@ export interface MapEvents {
     ondrag?(event: Leaflet.LeafletEvent): void;
     ondragend?(event: Leaflet.DragEndEvent): void;
     onzoomstart?(event: Leaflet.LeafletEvent): void;
+    onzoom?(event: Leaflet.LeafletEvent): void;
     onzoomend?(event: Leaflet.LeafletEvent): void;
     onzoomlevelschange?(event: Leaflet.LeafletEvent): void;
     onresize?(event: Leaflet.ResizeEvent): void;
@@ -122,8 +124,8 @@ export type LeafletEvents = MapEvents
 // extending react-leaflet classes.
 
 export interface MapComponentProps {
-    leaflet?: LeafletContext;
-    pane?: string;
+    leaflet?: LeafletContext | undefined;
+    pane?: string | undefined;
 }
 
 export class MapEvented<P, E extends Leaflet.Evented> extends React.Component<P> {
@@ -139,20 +141,20 @@ export class MapComponent<P extends MapComponentProps, E extends Leaflet.Evented
 }
 
 export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateOptions, Leaflet.FitBoundsOptions {
-    animate?: boolean;
-    duration?: number;
-    noMoveStart?: boolean;
-    bounds?: Leaflet.LatLngBoundsExpression;
-    boundsOptions?: Leaflet.FitBoundsOptions;
+    animate?: boolean | undefined;
+    duration?: number | undefined;
+    noMoveStart?: boolean | undefined;
+    bounds?: Leaflet.LatLngBoundsExpression | undefined;
+    boundsOptions?: Leaflet.FitBoundsOptions | undefined;
     children: Children;
-    className?: string;
-    id?: string;
-    style?: React.CSSProperties;
-    useFlyTo?: boolean;
-    viewport?: Viewport;
-    whenReady?: () => void;
-    onViewportChange?: (viewport: Viewport) => void;
-    onViewportChanged?: (viewport: Viewport) => void;
+    className?: string | undefined;
+    id?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    useFlyTo?: boolean | undefined;
+    viewport?: Viewport | undefined;
+    whenReady?: (() => void) | undefined;
+    onViewportChange?: ((viewport: Viewport) => void) | undefined;
+    onViewportChanged?: ((viewport: Viewport) => void) | undefined;
 }
 
 export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapEvented<P, E> {
@@ -171,8 +173,8 @@ export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.
 
 export interface DivOverlayProps extends MapComponentProps, Leaflet.DivOverlayOptions {
     children: Children;
-    onClose?: () => void;
-    onOpen?: () => void;
+    onClose?: (() => void) | undefined;
+    onOpen?: (() => void) | undefined;
 }
 
 export interface DivOverlayTypes extends Leaflet.Evented {
@@ -189,12 +191,12 @@ export class DivOverlay<P extends DivOverlayProps, E extends DivOverlayTypes> ex
 }
 
 export interface PaneProps {
-    children?: Children;
-    className?: string;
-    leaflet?: LeafletContext;
-    name?: string;
-    style?: React.CSSProperties;
-    pane?: string;
+    children?: Children | undefined;
+    className?: string | undefined;
+    leaflet?: LeafletContext | undefined;
+    name?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    pane?: string | undefined;
 }
 export interface PaneState {
     name: string | null | undefined;
@@ -203,14 +205,14 @@ export interface PaneState {
 export class Pane<P extends PaneProps = PaneProps, S extends PaneState = PaneState> extends React.Component<P, S> {
     createPane(props: P): void;
     removePane(): void;
-    setStyle(arg: { style?: string, className?: string }): void;
+    setStyle(arg: { style?: string | undefined, className?: string | undefined }): void;
     getParentPane(): HTMLElement | null | undefined;
     getPane(name: string | null | undefined): HTMLElement | null | undefined;
 }
 
 export interface MapLayerProps extends MapComponentProps {
-    attribution?: string;
-    children?: Children;
+    attribution?: string | undefined;
+    children?: Children | undefined;
 }
 
 export type AddLayerHandler = (layer: Leaflet.Layer, name: string, checked?: boolean) => void;
@@ -223,10 +225,10 @@ export interface LayerContainer {
 }
 
 export interface LeafletContext {
-    map?: Leaflet.Map;
-    pane?: string;
-    layerContainer?: LayerContainer;
-    popupContainer?: Leaflet.Layer;
+    map?: Leaflet.Map | undefined;
+    pane?: string | undefined;
+    layerContainer?: LayerContainer | undefined;
+    popupContainer?: Leaflet.Layer | undefined;
 }
 
 export type LatLng = Leaflet.LatLng | number[] | object;
@@ -264,7 +266,7 @@ export class TileLayer<P extends TileLayerProps = TileLayerProps, E extends Leaf
 }
 
 export interface WMSTileLayerProps extends TileLayerEvents, Leaflet.WMSOptions, GridLayerProps {
-    children?: Children;
+    children?: Children | undefined;
     url: string;
 }
 export class WMSTileLayer<P extends WMSTileLayerProps = WMSTileLayerProps,  E extends Leaflet.TileLayer.WMS = Leaflet.TileLayer.WMS> extends GridLayer<P, E> {
@@ -274,9 +276,9 @@ export class WMSTileLayer<P extends WMSTileLayerProps = WMSTileLayerProps,  E ex
 }
 
 export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOptions {
-    bounds?: Leaflet.LatLngBoundsExpression;
+    bounds?: Leaflet.LatLngBoundsExpression | undefined;
     url: string | HTMLImageElement;
-    zIndex?: number;
+    zIndex?: number | undefined;
 }
 export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
@@ -284,7 +286,9 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
 }
 
 export interface SVGOverlayProps extends Leaflet.ImageOverlayOptions, MapComponentProps {
-    children?: Children;
+    children?: Children | undefined;
+    preserveAspectRatio?: string | undefined;
+    viewBox?: string | undefined;
 }
 export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay> extends MapComponent<P, E> {
     createLeafletElement(props: P): E;
@@ -292,12 +296,12 @@ export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends L
 }
 
 export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions, MapComponentProps {
-    attribution?: string;
+    attribution?: string | undefined;
     bounds: Leaflet.LatLngBoundsExpression;
-    opacity?: number;
-    play?: boolean;
+    opacity?: number | undefined;
+    play?: boolean | undefined;
     url: string | string[] | HTMLVideoElement;
-    zIndex?: number;
+    zIndex?: number | undefined;
 }
 export class VideoOverlay<P extends VideoOverlayProps = VideoOverlayProps, E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
@@ -349,6 +353,7 @@ export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E ext
 
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
     data: GeoJSON.GeoJsonObject | GeoJSON.GeoJsonObject[];
+    markersInheritOptions?: boolean | undefined;
 }
 export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
     createLeafletElement(props: P): E;
@@ -380,7 +385,7 @@ export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaf
 }
 
 export interface PopupProps extends Leaflet.PopupOptions, DivOverlayProps {
-    position?: Leaflet.LatLngExpression;
+    position?: Leaflet.LatLngExpression | undefined;
 }
 export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = Leaflet.Popup> extends DivOverlay<P, E> {
     getOptions(props: P): P;
@@ -398,7 +403,7 @@ export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.To
 }
 
 export type MapControlProps = {
-    leaflet?: LeafletContext
+    leaflet?: LeafletContext | undefined
 } & Leaflet.ControlOptions;
 
 export class MapControl<P extends MapControlProps = MapControlProps, E extends Leaflet.Control = Leaflet.Control> extends React.Component<P> {
@@ -414,7 +419,7 @@ export class AttributionControl<P extends AttributionControlProps = AttributionC
 
 export interface LayersControlProps extends MapControlProps, LayersControlEvents, Leaflet.Control.LayersOptions {
     children: Children;
-    collapsed?: boolean;
+    collapsed?: boolean | undefined;
 }
 export class LayersControl<P extends LayersControlProps = LayersControlProps, E extends Leaflet.Control.Layers = Leaflet.Control.Layers> extends MapControl<P, E> {
     controlProps: {
@@ -433,14 +438,14 @@ export class LayersControl<P extends LayersControlProps = LayersControlProps, E 
 
 export namespace LayersControl {
     interface ControlledLayerProps {
-        addBaseLayer?: AddLayerHandler;
-        addOverlay?: AddLayerHandler;
-        checked?: boolean;
+        addBaseLayer?: AddLayerHandler | undefined;
+        addOverlay?: AddLayerHandler | undefined;
+        checked?: boolean | undefined;
         children: Children;
-        leaflet?: LeafletContext;
+        leaflet?: LeafletContext | undefined;
         name: string;
-        removeLayer?: RemoveLayerHandler;
-        removeLayerControl?: RemoveLayerHandler;
+        removeLayer?: RemoveLayerHandler | undefined;
+        removeLayerControl?: RemoveLayerHandler | undefined;
     }
     class ControlledLayer<P extends ControlledLayerProps = ControlledLayerProps> extends React.Component<P> {
         contextValue: LeafletContext;
@@ -472,7 +477,7 @@ export const LeafletProvider: React.Provider<LeafletContext>;
 export const LeafletConsumer: React.Consumer<LeafletContext>;
 
 export interface ContextProps {
-    leaflet?: LeafletContext;
+    leaflet?: LeafletContext | undefined;
 }
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 

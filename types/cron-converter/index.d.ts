@@ -78,24 +78,24 @@ declare namespace Cron {
          * Changes the numbers to 3 letter weekday names on the `toString()`.
          * Default: `false`.
          */
-        outputWeekdayNames?: boolean;
+        outputWeekdayNames?: boolean | undefined;
 
         /**
          * Changes the numbers to 3 letter month names on the `toString()`.
          * Default: `false`.
          */
-        outputMonthNames?: boolean;
+        outputMonthNames?: boolean | undefined;
 
         /**
          * Changes the * to H on the `toString()`.
          * Default: `false`.
          */
-        outputHashes?: boolean;
+        outputHashes?: boolean | undefined;
 
         /**
          * Defines a timezone to the cron instance.
          * Default: `Local timezone`.
          */
-        timezone?: string;
+        timezone?: string | undefined;
     }
 }

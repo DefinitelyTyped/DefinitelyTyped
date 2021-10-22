@@ -21,6 +21,6 @@
     "files": [
         "index.d.ts",
         "test/react-relay-tests.tsx",
-        "test/relay-experimental-tests.tsx"
+        "test/relay-hooks-tests.tsx"
     ]
 }

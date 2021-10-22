@@ -1,14 +1,14 @@
-// Type definitions for npm 2.0.0
-// Project: https://github.com/npm/npm
+// Type definitions for npm 7.19.0
+// Project: https://github.com/npm/cli
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare var npm: NPM.Static;
+declare var npm: npm.Static;
 export = npm;
 
-declare namespace NPM {
+declare namespace npm {
     export interface Static extends NodeJS.EventEmitter {
         config: Config;
         commands: Commands;
@@ -27,9 +27,7 @@ declare namespace NPM {
         tmp: string;
 
 
-        load(cli: ConfigOptions): void;
-        load(callback: SimpleCallback<Config>): void;
-        load(cli: ConfigOptions, callback: SimpleCallback<Config>): void;
+        load(callback?: SimpleCallback<void>): Promise<void>;
 
         deref(command: string): string;
     }
@@ -49,6 +47,45 @@ declare namespace NPM {
         submodule: CommandFunction;
         pack: CommandFunction;
         dedupe: CommandFunction;
+
+        /** https://docs.npmjs.com/cli/v7/commands/npm-access */
+        access: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-audit */
+        audit: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-ci */
+        ci: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-diff */
+        diff: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-dist-tag */
+        "dist-tag": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-doctor */
+        doctor: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-exec */
+        exec: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-explain */
+        explain: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-fund */
+        fund: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-hook */
+        hook: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-install-ci-test */
+        "install-ci-test": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-install-test */
+        "install-test": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-logout */
+        logout: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-org */
+        org: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-ping */
+        ping: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-profile */
+        profile: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-set-script */
+        "set-script": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-team */
+        team: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-token */
+        token: CommandFunction;
 
         rebuild: CommandFunction;
         link: CommandFunction;
@@ -125,6 +162,36 @@ declare namespace NPM {
         t: CommandFunction;                // test
         "find-dupes": CommandFunction;     // dedupe
         ddp: CommandFunction;              // dedupe
+        /**
+         * Alias for `dist-tag`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-dist-tag
+         */
+        "dist-tags": CommandFunction;
+        /**
+         * Alias for `exec`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-exec
+         */
+        x: CommandFunction;
+        /**
+         * Alias for `explain`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-dist-tag
+         */
+        why: CommandFunction;
+        /**
+         * Alias for `install-ci-test`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-install-ci-test
+         */
+        cit: CommandFunction;
+        /**
+         * Alias for `install-test`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-install-test
+         */
+        it: CommandFunction;
 
 
         // plumbing
@@ -167,7 +234,7 @@ declare namespace NPM {
         sources: Dictionary<ConfigSource>;
         rootConf: Config;
         usingBuiltin: boolean;
-        root?: Config;
+        root?: Config | undefined;
         Conf: ConfigStatic;
         defs: ConfigDefs;
 
@@ -196,101 +263,101 @@ declare namespace NPM {
     }
 
     export interface ConfigOptions {
-        "always-auth"?: boolean;
-        "bin-links"?: boolean;
-        browser?: string;
+        "always-auth"?: boolean | undefined;
+        "bin-links"?: boolean | undefined;
+        browser?: string | undefined;
 
         ca?: any; // string | string[]
-        cafile?: string;
+        cafile?: string | undefined;
 
-        cache?: string;
+        cache?: string | undefined;
 
-        "cache-lock-stale"?: number;
-        "cache-lock-retries"?: number;
-        "cache-lock-wait"?: number;
+        "cache-lock-stale"?: number | undefined;
+        "cache-lock-retries"?: number | undefined;
+        "cache-lock-wait"?: number | undefined;
 
-        "cache-max"?: number;
-        "cache-min"?: number;
+        "cache-max"?: number | undefined;
+        "cache-min"?: number | undefined;
 
-        cert?: string;
+        cert?: string | undefined;
 
         color?: any; // boolean | string ("always")
-        depth?: number;
-        description?: boolean;
-        dev?: boolean;
-        editor?: string;
-        "engine-strict"?: boolean;
-        force?: boolean;
+        depth?: number | undefined;
+        description?: boolean | undefined;
+        dev?: boolean | undefined;
+        editor?: string | undefined;
+        "engine-strict"?: boolean | undefined;
+        force?: boolean | undefined;
 
-        "fetch-retries"?: number;
-        "fetch-retry-factor"?: number;
-        "fetch-retry-mintimeout"?: number;
-        "fetch-retry-maxtimeout"?: number;
+        "fetch-retries"?: number | undefined;
+        "fetch-retry-factor"?: number | undefined;
+        "fetch-retry-mintimeout"?: number | undefined;
+        "fetch-retry-maxtimeout"?: number | undefined;
 
-        git?: string;
-        "git-tag-version"?: boolean;
+        git?: string | undefined;
+        "git-tag-version"?: boolean | undefined;
 
-        global?: boolean;
-        globalconfig?: string;
+        global?: boolean | undefined;
+        globalconfig?: string | undefined;
         group?: any; // number | string
-        heading?: string;
-        "ignore-scripts"?: boolean;
-        "init-module"?: string;
-        "init.author.name"?: string;
-        "init.author.email"?: string;
-        "init.author.url"?: string;
-        "init.version"?: string;
-        "init.license"?: string;
-        json?: boolean;
-        key?: string;
-        link?: boolean;
-        "local-address"?: string;
-        loglevel?: string;
-        logstream?: NodeJS.ReadWriteStream;
-        long?: boolean;
-        message?: string;
-        "node-version"?: string;
-        npat?: boolean;
-        "onload-script"?: boolean;
-        optional?: boolean;
-        parseable?: boolean;
-        prefix?: string;
-        production?: boolean;
-        "proprietary-attribs"?: boolean;
+        heading?: string | undefined;
+        "ignore-scripts"?: boolean | undefined;
+        "init-module"?: string | undefined;
+        "init.author.name"?: string | undefined;
+        "init.author.email"?: string | undefined;
+        "init.author.url"?: string | undefined;
+        "init.version"?: string | undefined;
+        "init.license"?: string | undefined;
+        json?: boolean | undefined;
+        key?: string | undefined;
+        link?: boolean | undefined;
+        "local-address"?: string | undefined;
+        loglevel?: string | undefined;
+        logstream?: NodeJS.ReadWriteStream | undefined;
+        long?: boolean | undefined;
+        message?: string | undefined;
+        "node-version"?: string | undefined;
+        npat?: boolean | undefined;
+        "onload-script"?: boolean | undefined;
+        optional?: boolean | undefined;
+        parseable?: boolean | undefined;
+        prefix?: string | undefined;
+        production?: boolean | undefined;
+        "proprietary-attribs"?: boolean | undefined;
         proxy?: any; // boolean | string
-        "https-proxy"?: string;
-        "user-agent"?: string;
-        "rebuild-bundle"?: boolean;
-        registry?: string;
-        rollback?: boolean;
-        save?: boolean;
-        "save-bundle"?: boolean;
-        "save-dev"?: boolean;
-        "save-exact"?: boolean;
-        "save-optional"?: boolean;
-        "save-prefix"?: string;
-        scope?: string;
-        searchopts?: string;
-        searchexclude?: string;
-        searchsort?: string;
-        shell?: string;
-        shrinkwrap?: boolean;
-        "sign-git-tag"?: boolean;
+        "https-proxy"?: string | undefined;
+        "user-agent"?: string | undefined;
+        "rebuild-bundle"?: boolean | undefined;
+        registry?: string | undefined;
+        rollback?: boolean | undefined;
+        save?: boolean | undefined;
+        "save-bundle"?: boolean | undefined;
+        "save-dev"?: boolean | undefined;
+        "save-exact"?: boolean | undefined;
+        "save-optional"?: boolean | undefined;
+        "save-prefix"?: string | undefined;
+        scope?: string | undefined;
+        searchopts?: string | undefined;
+        searchexclude?: string | undefined;
+        searchsort?: string | undefined;
+        shell?: string | undefined;
+        shrinkwrap?: boolean | undefined;
+        "sign-git-tag"?: boolean | undefined;
         spin?: any; // boolean | string ("always")
-        "strict-ssl"?: boolean;
-        tag?: string;
-        tmp?: string;
-        unicode?: boolean;
-        "unsafe-perm"?: boolean;
-        usage?: boolean;
+        "strict-ssl"?: boolean | undefined;
+        tag?: string | undefined;
+        tmp?: string | undefined;
+        unicode?: boolean | undefined;
+        "unsafe-perm"?: boolean | undefined;
+        usage?: boolean | undefined;
         user?: any; // string | number
-        userconfig?: string;
-        umask?: number;
-        version?: boolean;
-        versions?: boolean;
-        viewer?: string;
+        userconfig?: string | undefined;
+        umask?: number | undefined;
+        version?: boolean | undefined;
+        versions?: boolean | undefined;
+        viewer?: string | undefined;
 
-        _exit?: boolean;
+        _exit?: boolean | undefined;
     }
 
     export interface ConfigTypes {
@@ -436,11 +503,11 @@ declare namespace NPM {
 
     export interface Credentials {
         scope: string;
-        token?: string;
-        password?: string;
-        username?: string;
-        email?: string;
-        auth?: string;
+        token?: string | undefined;
+        password?: string | undefined;
+        username?: string | undefined;
+        email?: string | undefined;
+        auth?: string | undefined;
     }
 
     //#endregion

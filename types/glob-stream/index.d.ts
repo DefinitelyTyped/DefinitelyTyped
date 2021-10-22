@@ -26,22 +26,22 @@ declare namespace GlobStream {
         /**
          * Whether or not to error upon an empty singular glob.
          */
-        allowEmpty?: boolean;
+        allowEmpty?: boolean | undefined;
         /**
          * The absolute segment of the glob path that isn't a glob. This value is attached
          * to each globobject and is useful for relative pathing.
          */
-        base?: string;
+        base?: string | undefined;
         /**
          * Whether or not the `cwd` and `base` should be the same.
          */
-        cwdbase?: boolean;
+        cwdbase?: boolean | undefined;
         /**
          * Filters stream to remove duplicates based on the string property name or the result of function.
          * When using a function, the function receives the streamed
          * data (objects containing `cwd`, `base`, `path` properties) to compare against.
          */
-        uniqueBy?: UniqueByStringPredicate | UniqueByFunctionPredicate;
+        uniqueBy?: UniqueByStringPredicate | UniqueByFunctionPredicate | undefined;
     }
 }
 

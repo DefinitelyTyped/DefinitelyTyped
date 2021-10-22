@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VirtualMachine24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VirtualMachine24;
+import { VirtualMachine24 } from "../../";
+
+export = VirtualMachine24;

@@ -1,7 +1,7 @@
 import express = require('express');
 import send = require('send');
 
-var app = express();
+const app = express();
 
 send.mime.define({
   'application/x-my-type': ['x-mt', 'x-mtt']
@@ -9,6 +9,7 @@ send.mime.define({
 
 app.get('/test.html', (req, res) => {
     send(req, '/test.html', {
+        immutable: true,
         maxAge: 0,
         root: __dirname + '/wwwroot'
     }).pipe(res);
@@ -25,7 +26,7 @@ app.get('/test.html', (req, res) => {
         .on('directory', () => {
             res.statusCode = 301;
             res.setHeader('Location', req.url + '/');
-            res.end('Redirecting to ' + req.url + '/');
+            res.end(`Redirecting to ${req.url}/`);
         })
         .on('headers', (res: any, path: string, stat: any) => {
             res.setHeader('Content-Disposition', 'attachment');

@@ -34,25 +34,25 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 interface GridsterDraggable {
     items?: any;
-    distance?: number;
-    limit?: boolean;
-    offset_left?: number;
-    handle?: string;
-    drag?: (event: Event, ui: GridsterUi) => void;
-    start?: (event: Event, ui: { helper: JQuery; }) => void;
-    stop?: (event: Event, ui: { helper: JQuery; }) => void;
+    distance?: number | undefined;
+    limit?: boolean | undefined;
+    offset_left?: number | undefined;
+    handle?: string | undefined;
+    drag?: ((event: Event, ui: GridsterUi) => void) | undefined;
+    start?: ((event: Event, ui: { helper: JQuery; }) => void) | undefined;
+    stop?: ((event: Event, ui: { helper: JQuery; }) => void) | undefined;
 }
 
 interface GridsterResizable {
-    enabled?: boolean;
-    axes?: string[];
-    handle_append_to?: string;
-    handle_class?: string;
-    max_size?: number[];
-    min_size?: number[];
-    resize?: (event: Event, ui: GridsterUi, $el: JQuery) => void;
-    start?: (event: Event, ui: { helper: JQuery; }, $el: JQuery) => void;
-    stop?: (event: Event, ui: { helper: JQuery; }, $el: JQuery) => void;
+    enabled?: boolean | undefined;
+    axes?: string[] | undefined;
+    handle_append_to?: string | undefined;
+    handle_class?: string | undefined;
+    max_size?: number[] | undefined;
+    min_size?: number[] | undefined;
+    resize?: ((event: Event, ui: GridsterUi, $el: JQuery) => void) | undefined;
+    start?: ((event: Event, ui: { helper: JQuery; }, $el: JQuery) => void) | undefined;
+    stop?: ((event: Event, ui: { helper: JQuery; }, $el: JQuery) => void) | undefined;
 }
 
 interface GridsterUi {
@@ -92,97 +92,97 @@ interface GridsterOptions {
     * Type => HTMLElement[]
     * Default = 'li'
     **/
-    widget_selector?: string|HTMLElement[];
+    widget_selector?: string|HTMLElement[] | undefined;
 
     /**
     * Margin between widgets.  The first index for the horizontal margin (left, right) and the second for the vertical margin (top, bottom).
     * Default = [10, 10]
     **/
-    widget_margins?: number[];
+    widget_margins?: number[] | undefined;
 
     /**
     * Base widget dimensions in pixels.  The first index for the width and the second for the height.
     * Default = [400, 225]
     **/
-    widget_base_dimensions?: ('auto'|number)[];
+    widget_base_dimensions?: ('auto'|number)[] | undefined;
 
     /**
     * Add more columns in addition to those that have been calculated.
     * Default = 0
     **/
-    extra_cols?: number;
+    extra_cols?: number | undefined;
 
     /**
     * Add more rows in addition to those that have been calculated.
     * Default = 0
     **/
-    extra_rows?: number;
+    extra_rows?: number | undefined;
 
     /**
     * The minimum required columns.
     * Default = 1
     **/
-    min_cols?: number;
+    min_cols?: number | undefined;
 
     /**
     * The maximum columns possible (set to null for no maximum).
     * Default = null
     **/
-    max_cols?: number;
+    max_cols?: number | undefined;
 
     /**
     * The minimum required rows.
     * Default = 15
     **/
-    min_rows?: number;
+    min_rows?: number | undefined;
 
     /**
     * The maximum number of columns that a widget can span.
     * Default = 6
     **/
-    max_size_x?: number;
+    max_size_x?: number | undefined;
 
     /**
     * If true, all the CSS required to  osition      l widgets in their respective col umns and rows will be generated automatically and injectedt the<head> of thed cument.You can set this to false, and write your own CSS targeting rows and cols via data - attributes like so: [data - col = "1"] { left: 10px; }
     * Default = true
     **/
-    autogenerate_sytesheet?: boolean;
+    autogenerate_sytesheet?: boolean | undefined;
 
     /**
     * Avoid that widgets loaded from the DOM can be overlapped.  It is helpful if the positions were bad stored in the database or if there was any conflict.
     * Default = true
     **/
-    avoid_overlapped_widgets?: boolean;
+    avoid_overlapped_widgets?: boolean | undefined;
 
     /**
     * Return the data you want for each widget in the serialization.
     **/
-    serialize_params?: ($w: JQuery, wgd: GridsterCoords) => any;
+    serialize_params?: (($w: JQuery, wgd: GridsterCoords) => any) | undefined;
 
     /**
     * An object with all options for Collision class you want to overwrite.  @see GridsterCollision or docs for more info.
     **/
-    collision?: GridsterCollision;
+    collision?: GridsterCollision | undefined;
 
     /**
     * An object with all options for Draggable class you want to overwrite.  @see GridsterDraggable or docs for more info.
     **/
-    draggable?: GridsterDraggable;
+    draggable?: GridsterDraggable | undefined;
 
     /**
     * A string to differentiate one gridster from another
     **/
-    namespace?: string;
+    namespace?: string | undefined;
 
     /**
      * A boolean to specify if the stylesheet should be generated or not
      **/
-    autogenerate_stylesheet?: boolean;
+    autogenerate_stylesheet?: boolean | undefined;
 
     /**
      * An object with all options for Resizable class you want to overwrite.  @see GridsterResizable or docs for more info.
      **/
-    resize?: GridsterResizable;
+    resize?: GridsterResizable | undefined;
 }
 
 interface JQuery {

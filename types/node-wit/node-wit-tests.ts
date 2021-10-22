@@ -21,7 +21,7 @@ const wit = new Wit({
 });
 
 wit.message("what is the weather in London?", {}).then((res) => {
-    console.log(res._text);
+    console.log(res.text);
 
     console.log(res.entities);
 }).catch((err) => {

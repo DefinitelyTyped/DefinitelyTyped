@@ -18,21 +18,21 @@ declare namespace Sticky {
          *
          * Defaults to 'top'.
          */
-        mode?: "top" | "bottom";
+        mode?: "top" | "bottom" | undefined;
 
         /**
          * Allows you to disable sticking by setting this prop to `true`.
          *
          * Defaults to `false`.
          */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
 
         /**
          * This handler will be called right before changing `fixed` state.
          *
          * Defaults to `null`.
          */
-        onFixedToggle?: (fixed: boolean) => void;
+        onFixedToggle?: ((fixed: boolean) => void) | undefined;
 
         /**
          * Anything that can be used by `React.createElement`. Used for `wrapper
@@ -41,7 +41,7 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        wrapperCmp?: keyof React.ReactHTML | React.ReactElement;
+        wrapperCmp?: keyof React.ReactHTML | React.ReactElement | undefined;
 
         /**
          * Anything that can be used by React.createElement. Used for holder
@@ -50,12 +50,12 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        holderCmp?: keyof React.ReactHTML | React.ReactElement<HolderProps>;
+        holderCmp?: keyof React.ReactHTML | React.ReactElement<HolderProps> | undefined;
 
         /**
          * These props will be used to create `holderElement`.
          */
-        holderProps?: HolderProps;
+        holderProps?: HolderProps | undefined;
 
         /**
          * Selector to define a `boundaryElement`. It should be one of the parents
@@ -63,7 +63,7 @@ declare namespace Sticky {
          *
          * Defaults to `null`.
          */
-        boundaryElement?: string;
+        boundaryElement?: string | undefined;
 
         /**
          * Selector to define a `scrollElement`. All position checks will be
@@ -76,7 +76,7 @@ declare namespace Sticky {
          *
          * Defaults to `window`.
          */
-        scrollElement?: string;
+        scrollElement?: string | undefined;
 
         /**
          * If your DOM structure is mutating (you are adding/removing elements), it
@@ -86,7 +86,7 @@ declare namespace Sticky {
          *
          * Defaults to `0`.
          */
-        positionRecheckInterval?: number;
+        positionRecheckInterval?: number | undefined;
 
         /**
          * In the event that you wish to override the style rules applied, simply
@@ -95,7 +95,7 @@ declare namespace Sticky {
          * Note: You likely want to avoid messing with the following attributes in
          * your stickyStyle: `left`, `top`, and `width`.
          */
-        stickyStyle?: React.CSSProperties;
+        stickyStyle?: React.CSSProperties | undefined;
 
         /**
          * You can also specify a class name to be applied when the element becomes
@@ -103,7 +103,7 @@ declare namespace Sticky {
          *
          * Defaults to 'sticky'.
          */
-        stickyClassName?: string;
+        stickyClassName?: string | undefined;
 
         /**
          * Sticky state will be triggered when the top of the element is `topOffset`
@@ -113,7 +113,7 @@ declare namespace Sticky {
          *
          * Defaults to `0`.
          */
-        topOffset?: number;
+        topOffset?: number | undefined;
 
         /**
          * Sticky state will be triggered when the bottom of the element is
@@ -121,7 +121,7 @@ declare namespace Sticky {
          *
          * Defaults to `0`.
          */
-        bottomOffset?: number;
+        bottomOffset?: number | undefined;
 
         /**
          * If `false` then boundaryEl should have position: relative. In this case
@@ -129,6 +129,6 @@ declare namespace Sticky {
          *
          * Defaults to `true`.
          */
-        hideOnBoundaryHit?: boolean;
+        hideOnBoundaryHit?: boolean | undefined;
     }
 }

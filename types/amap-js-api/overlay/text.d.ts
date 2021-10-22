@@ -7,13 +7,13 @@ declare namespace AMap {
             /**
              * 文本内容
              */
-            text?: string;
+            text?: string | undefined;
             /**
              * 对齐方式
              */
-            textAlign?: TextAlign;
+            textAlign?: TextAlign | undefined;
 
-            verticalAlign?: VerticalAlign;
+            verticalAlign?: VerticalAlign | undefined;
         }
     }
 

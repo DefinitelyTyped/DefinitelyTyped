@@ -13,15 +13,15 @@ import { ReadOptions } from './Feature';
 import XMLFeature from './XMLFeature';
 
 export interface Options {
-    featureNS?: { [key: string]: string } | string;
-    featureType?: string[] | string;
+    featureNS?: { [key: string]: string } | string | undefined;
+    featureType?: string[] | string | undefined;
     srsName: string;
-    surface?: boolean;
-    curve?: boolean;
-    multiCurve?: boolean;
-    multiSurface?: boolean;
-    schemaLocation?: string;
-    hasZ?: boolean;
+    surface?: boolean | undefined;
+    curve?: boolean | undefined;
+    multiCurve?: boolean | undefined;
+    multiSurface?: boolean | undefined;
+    schemaLocation?: string | undefined;
+    hasZ?: boolean | undefined;
 }
 export const GMLNS: string;
 export default abstract class GMLBase extends XMLFeature {
@@ -37,17 +37,17 @@ export default abstract class GMLBase extends XMLFeature {
     readFeatureElement(node: Element, objectStack: any[]): Feature<Geometry>;
     readFeatureElementInternal(node: Element, objectStack: any[], asFeature: boolean): Feature<Geometry> | object;
     readFeaturesFromNode(node: Element, opt_options?: ReadOptions): Feature<Geometry>[];
-    readFeaturesInternal(node: Element, objectStack: any[]): Feature<Geometry>[];
+    readFeaturesInternal(node: Element, objectStack: any[]): Feature<Geometry>[] | undefined;
     readFlatCoordinatesFromNode(node: Element, objectStack: any[]): number[];
-    readFlatLinearRing(node: Element, objectStack: any[]): number[];
-    readGeometryElement(node: Element, objectStack: any[]): Geometry | Extent;
-    readLinearRing(node: Element, objectStack: any[]): LinearRing;
-    readLineString(node: Element, objectStack: any[]): LineString;
-    readMultiLineString(node: Element, objectStack: any[]): MultiLineString;
-    readMultiPoint(node: Element, objectStack: any[]): MultiPoint;
-    readMultiPolygon(node: Element, objectStack: any[]): MultiPolygon;
-    readPoint(node: Element, objectStack: any[]): Point;
-    readPolygon(node: Element, objectStack: any[]): Polygon;
+    readFlatLinearRing(node: Element, objectStack: any[]): number[] | undefined;
+    readGeometryElement(node: Element, objectStack: any[]): Geometry | Extent | undefined;
+    readLinearRing(node: Element, objectStack: any[]): LinearRing | undefined;
+    readLineString(node: Element, objectStack: any[]): LineString | undefined;
+    readMultiLineString(node: Element, objectStack: any[]): MultiLineString | undefined;
+    readMultiPoint(node: Element, objectStack: any[]): MultiPoint | undefined;
+    readMultiPolygon(node: Element, objectStack: any[]): MultiPolygon | undefined;
+    readPoint(node: Element, objectStack: any[]): Point | undefined;
+    readPolygon(node: Element, objectStack: any[]): Polygon | undefined;
     readProjectionFromNode(node: Element): Projection;
     protected readGeometryFromNode(node: Element, opt_options?: ReadOptions): Geometry;
 }

@@ -11,19 +11,19 @@ declare namespace spinner {
         /**
          * Specify spinner to use.
          */
-        spinnerName?: 'three-bounce' | 'double-bounce' | 'rotating-plane' | 'folding-cube' | 'wave' | 'wandering-cubes' | 'pulse' | 'chasing-dots' | 'circle' | 'cube-grid' | 'wordpress';
+        spinnerName?: 'three-bounce' | 'double-bounce' | 'rotating-plane' | 'folding-cube' | 'wave' | 'wandering-cubes' | 'pulse' | 'chasing-dots' | 'circle' | 'cube-grid' | 'wordpress' | undefined;
         /**
          * Disable the initial fade-in of the spinner.
          */
-        noFadeIn?: boolean;
+        noFadeIn?: boolean | undefined;
         /**
          * Change the default "spinner" className.
          */
-        overrideSpinnerClassName?: string;
+        overrideSpinnerClassName?: string | undefined;
         /**
          * Component className.
          */
-        className?: string;
+        className?: string | undefined;
     }
 
     export interface Spinner extends React.ComponentClass<SpinnerProps> {

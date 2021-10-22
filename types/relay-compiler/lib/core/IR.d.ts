@@ -36,7 +36,7 @@ export interface Argument {
     loc: Location;
     metadata: Metadata;
     name: string;
-    type?: InputTypeID;
+    type?: InputTypeID | undefined;
     value: ArgumentValue;
 }
 
@@ -161,7 +161,7 @@ export interface Handle {
     name: string;
     key: string;
     dynamicKey: Variable | null;
-    filters?: ReadonlyArray<string>;
+    filters?: ReadonlyArray<string> | undefined;
 }
 
 export interface ClientExtension {
@@ -176,7 +176,7 @@ export interface LinkedField {
     args: ReadonlyArray<Argument>;
     connection: boolean;
     directives: ReadonlyArray<Directive>;
-    handles?: ReadonlyArray<Handle>;
+    handles?: ReadonlyArray<Handle> | undefined;
     kind: 'LinkedField';
     loc: Location;
     metadata: Metadata;
@@ -252,12 +252,12 @@ export interface ObjectValue {
 export interface Request {
     kind: 'Request';
     fragment: Fragment;
-    id?: string;
+    id?: string | undefined;
     loc: Location;
     metadata: Metadata;
     name: string;
     root: Root;
-    text?: string;
+    text?: string | undefined;
 }
 
 export interface Root {
@@ -276,7 +276,7 @@ export interface ScalarField {
     alias: string;
     args: ReadonlyArray<Argument>;
     directives: ReadonlyArray<Directive>;
-    handles?: ReadonlyArray<Handle>;
+    handles?: ReadonlyArray<Handle> | undefined;
     kind: 'ScalarField';
     loc: Location;
     metadata: Metadata;
@@ -313,5 +313,5 @@ export interface Variable {
     kind: 'Variable';
     loc: Location;
     variableName: string;
-    type?: TypeID;
+    type?: TypeID | undefined;
 }

@@ -21,12 +21,12 @@ ws.options({
     onError: () => console.log('Breakdown happened'),
     onReconnect: () => console.log('Reconnecting...'),
     onReconnectSuccess: () => console.log('Successfully reconnected!'),
-    urlValidation: 'loose',
+    uriValidation: 'loose',
 });
 
 ws.options({
     // $ExpectError
-    urlValidation: 'wrong',
+    uriValidation: 'wrong',
 })
 
 ws.connect();

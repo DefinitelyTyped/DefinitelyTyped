@@ -9,24 +9,24 @@ export interface CustomSource {
 }
 
 export interface LibratoRequestOptions {
-    method?: string;
-    uri?: string;
-    headers?: { [index: string]: string };
-    maxAttempts?: number;
-    retryDelay?: number;
-    delayStrategy?: () => number;
-    authorization?: string;
-    'user-agent'?: string;
+    method?: string | undefined;
+    uri?: string | undefined;
+    headers?: { [index: string]: string } | undefined;
+    maxAttempts?: number | undefined;
+    retryDelay?: number | undefined;
+    delayStrategy?: (() => number) | undefined;
+    authorization?: string | undefined;
+    'user-agent'?: string | undefined;
 }
 
 export interface LibratoConfig {
     email: string;
     token: string;
-    prefix?: string;
-    source?: string;
-    requestOptions?: LibratoRequestOptions;
-    period?: number;
-    simulate?: false;
+    prefix?: string | undefined;
+    source?: string | undefined;
+    requestOptions?: LibratoRequestOptions | undefined;
+    period?: number | undefined;
+    simulate?: false | undefined;
 }
 
 export interface LibratoSimulate {
@@ -44,9 +44,9 @@ export function start(): void;
 export function stop(cb?: (err?: Error) => void): void;
 export function flush(cb?: (err?: Error) => void): void;
 export function middleware(config?: {
-    requestCountKey?: string;
-    responseTimeKey?: string;
-    statusCodeKey?: string;
+    requestCountKey?: string | undefined;
+    responseTimeKey?: string | undefined;
+    statusCodeKey?: string | undefined;
 }): (req: object, res: object, next: () => void | Promise<void>) => void;
 
 export function on(event: 'error', handler: (err: Error) => void): void;

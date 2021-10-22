@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const WatsonHealthScalpelSelect24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WatsonHealthScalpelSelect24;
+import { WatsonHealthScalpelSelect24 } from "../../../";
+
+export = WatsonHealthScalpelSelect24;

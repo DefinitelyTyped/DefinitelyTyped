@@ -10,16 +10,16 @@ declare namespace Toolbar {
         /**
          * Class to set on the container div.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * Should toolbar be collapsed into a dropdown?
          */
-        isCollapsed?: boolean;
+        isCollapsed?: boolean | undefined;
         /**
          * Either an array of `Control` objects or an array of array of
          * `Control` objects.
          */
-        controls?: readonly Control[] | ReadonlyArray<readonly Control[]>;
+        controls?: readonly Control[] | ReadonlyArray<readonly Control[]> | undefined;
     }
     type Control = ToolbarButton.Props;
 }

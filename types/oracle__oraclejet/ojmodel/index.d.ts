@@ -19,59 +19,59 @@ export class Collection {
     url: null | string | (() => string);
     constructor(models?: Model[], options?: object);
     static extend(properties?: {
-        parse?: (data: any) => any;
-        model?: Model;
-        url?: string;
-        initialize?: (models: Model[], options: object) => void;
-        comparator?: null | string | ((model1: Model, model2?: Model) => number);
-        fetchSize?: number;
-        modelLimit?: number;
+        parse?: ((data: any) => any) | undefined;
+        model?: Model | undefined;
+        url?: string | undefined;
+        initialize?: ((models: Model[], options: object) => void) | undefined;
+        comparator?: null | string | ((model1: Model, model2?: Model) => number) | undefined;
+        fetchSize?: number | undefined;
+        modelLimit?: number | undefined;
         [propName: string]: any;
     }, classProperties?: object): any;
     abort(): Promise<null>;
     add(m: Model | object | object[] | Model[], options?: {
-        silent?: boolean;
-        at?: number;
-        merge?: boolean;
-        sort?: boolean;
-        force?: boolean;
-        deferred?: boolean;
+        silent?: boolean | undefined;
+        at?: number | undefined;
+        merge?: boolean | undefined;
+        sort?: boolean | undefined;
+        force?: boolean | undefined;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Promise<Model[]> | Model[];
     any(iterator: ((param0: object) => void), context?: object): boolean;
     at(index: number, options?: {
-        fetchSize?: number;
-        deferred?: boolean;
+        fetchSize?: number | undefined;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Model | Promise<Model> | null;
     clone(): Collection;
     contains(model: object, options?: object): boolean | Promise<boolean>;
     create(attributes?: object, options?: {
-        silent?: boolean;
-        at?: number;
-        merge?: boolean;
-        sort?: boolean;
-        force?: boolean;
-        deferred?: boolean;
+        silent?: boolean | undefined;
+        at?: number | undefined;
+        merge?: boolean | undefined;
+        sort?: boolean | undefined;
+        force?: boolean | undefined;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Model | boolean | Promise<Model>;
     difference(...var_args: Model[][]): Model[];
     each(iterator: ((param0: Model) => void), context?: object): undefined;
     fetch(options?: {
-        success?: (collection: Collection, response: any, options: object) => void;
-        error?: (collection: Collection, xhr: any, options: object) => void;
-        add?: boolean;
-        set?: boolean;
-        startIndex?: number;
+        success?: ((collection: Collection, response: any, options: object) => void) | undefined;
+        error?: ((collection: Collection, xhr: any, options: object) => void) | undefined;
+        add?: boolean | undefined;
+        set?: boolean | undefined;
+        startIndex?: number | undefined;
         startID?: any;
         since?: any;
         until?: any;
-        fetchSize?: number;
+        fetchSize?: number | undefined;
         [propName: string]: any;
     }): object;
     filter(iterator: ((param0: Model) => void), context?: object): Model[];
     findWhere(attrs: object | object[], options?: {
-        deferred?: boolean;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Model | Promise<Model>;
     first(n?: number, options?: object): Model[] | null | Promise<any>;
@@ -93,8 +93,8 @@ export class Collection {
     min(iterator: ((param0: object) => void), context?: object): object;
     modelId(attrs: object): null | string;
     next(n: number, options?: {
-        success?: (collection: Collection, response: any, options: object) => void;
-        error?: (collection: Collection, xhr: any, options: object) => void;
+        success?: ((collection: Collection, response: any, options: object) => void) | undefined;
+        error?: ((collection: Collection, xhr: any, options: object) => void) | undefined;
         [propName: string]: any;
     }): object | null;
     off(eventType?: string | object, callback?: (eventType: string, data: object) => void, context?: object): undefined;
@@ -102,41 +102,41 @@ export class Collection {
     once(eventType: string, callback: (eventType: string, data: object) => void, context?: object): undefined;
     pluck(attr: string): object[];
     pop(options?: {
-        silent?: boolean;
-        deferred?: boolean;
+        silent?: boolean | undefined;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Model | Promise<Model>;
     previous(n: number, options?: {
-        success?: (collection: Collection, response: any, options: object) => void;
-        error?: (collection: Collection, xhr: any, options: object) => void;
+        success?: ((collection: Collection, response: any, options: object) => void) | undefined;
+        error?: ((collection: Collection, xhr: any, options: object) => void) | undefined;
         [propName: string]: any;
     }): object;
     push(m: Model | object, options?: {
-        silent?: boolean;
-        at?: number;
-        merge?: boolean;
-        sort?: boolean;
-        force?: boolean;
-        deferred?: boolean;
+        silent?: boolean | undefined;
+        at?: number | undefined;
+        merge?: boolean | undefined;
+        sort?: boolean | undefined;
+        force?: boolean | undefined;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Promise<Model[]> | undefined;
     refresh(options?: {
-        silent?: boolean;
-        startIndex?: number;
+        silent?: boolean | undefined;
+        startIndex?: number | undefined;
         [propName: string]: any;
     }): Promise<Collection.SetRangeLocalPromise | undefined>;
     remove(m: Model | Model[], options?: object): Model[] | object;
     reset(data?: object, options?: {
-        silent?: boolean;
+        silent?: boolean | undefined;
         [propName: string]: any;
     }): Model | Model[];
     rest(n?: number, options?: object): object[] | Promise<any>;
     set(models: object, options?: {
-        add?: boolean;
-        remove?: boolean;
-        merge?: boolean;
-        silent?: boolean;
-        deferred?: boolean;
+        add?: boolean | undefined;
+        remove?: boolean | undefined;
+        merge?: boolean | undefined;
+        silent?: boolean | undefined;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Promise<any> | null;
     setFetchSize(n: number): undefined;
@@ -146,27 +146,27 @@ export class Collection {
     size(): number;
     slice(start: number, end?: number, options?: object): Promise<Model[]> | Model[];
     sort(options?: {
-        silent?: boolean;
-        startIndex?: number;
+        silent?: boolean | undefined;
+        startIndex?: number | undefined;
         [propName: string]: any;
     }): Promise<Collection.SetRangeLocalPromise> | null;
     sortBy(iterator: string | ((param0: Model) => object), context?: object): Model[];
     sortedIndex(comparator: string | ((param0: Model, param1?: Model) => object)): number;
     stopListening(otherObj?: object, eventType?: string, callback?: (eventType: string, data: object) => void): undefined;
     sync(method: string, collection: Collection, options?: {
-        success?: (json?: any[]) => void;
-        error?: (xhr: any, status: any, error: any) => void;
+        success?: ((json?: any[]) => void) | undefined;
+        error?: ((xhr: any, status: any, error: any) => void) | undefined;
         [propName: string]: any;
     }): object;
     toJSON(): object[];
     trigger(eventType: string): undefined;
     unshift(m: object, options?: {
-        silent?: boolean;
-        at?: number;
-        merge?: boolean;
-        sort?: boolean;
-        force?: boolean;
-        deferred?: boolean;
+        silent?: boolean | undefined;
+        at?: number | undefined;
+        merge?: boolean | undefined;
+        sort?: boolean | undefined;
+        force?: boolean | undefined;
+        deferred?: boolean | undefined;
         [propName: string]: any;
     }): Promise<Model[]> | Model[];
     whenReady(): Promise<any>;
@@ -177,11 +177,11 @@ export class Collection {
 export namespace Collection {
     // tslint:disable-next-line interface-over-type-literal
     type CustomPagingOptionsReturn = {
-        totalResults?: number;
-        limit?: number;
-        count?: number;
-        offset?: number;
-        hasMore?: boolean;
+        totalResults?: number | undefined;
+        limit?: number | undefined;
+        count?: number | undefined;
+        offset?: number | undefined;
+        hasMore?: boolean | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type SetRangeLocalPromise = {
@@ -204,25 +204,25 @@ export class Model {
     validationError: string | object | null;
     constructor(attributes?: object, options?: object);
     static extend(properties?: {
-        parse?: (data: any) => any;
-        parseSave?: (data: any) => any;
-        urlRoot?: string;
-        initialize?: (models: Model[], options: object) => void;
-        validate?: null | object | string | ((attributes: object, options?: Model) => number);
+        parse?: ((data: any) => any) | undefined;
+        parseSave?: ((data: any) => any) | undefined;
+        urlRoot?: string | undefined;
+        initialize?: ((models: Model[], options: object) => void) | undefined;
+        validate?: null | object | string | ((attributes: object, options?: Model) => number) | undefined;
         [propName: string]: any;
     }, classProperties?: object): any;
     changedAttributes(attributes?: object): object | boolean;
     clear(options?: object): Model | boolean;
     clone(): Model;
     destroy(options?: {
-        success?: (model: Model, response: any, options: object) => void;
-        error?: (model: Model, xhr: any, options: object) => void;
-        wait?: boolean;
+        success?: ((model: Model, response: any, options: object) => void) | undefined;
+        error?: ((model: Model, xhr: any, options: object) => void) | undefined;
+        wait?: boolean | undefined;
         [propName: string]: any;
     }): boolean;
     fetch(options?: {
-        success?: (model: Model, response: any, options: object) => void;
-        error?: (model: Model, xhr: any, options: object) => void;
+        success?: ((model: Model, response: any, options: object) => void) | undefined;
+        error?: ((model: Model, xhr: any, options: object) => void) | undefined;
         [propName: string]: any;
     }): object;
     get(property: string): object;
@@ -244,13 +244,13 @@ export class Model {
     previous(attr: string): object;
     previousAttributes(): object;
     save(attributes?: object, options?: {
-        success?: (model: Model, response: any, options: object) => void;
-        error?: (model: Model, xhr: any, options: object) => void;
-        contentType?: string;
-        valdiate?: boolean;
-        wait?: boolean;
-        patch?: boolean;
-        attrs?: object;
+        success?: ((model: Model, response: any, options: object) => void) | undefined;
+        error?: ((model: Model, xhr: any, options: object) => void) | undefined;
+        contentType?: string | undefined;
+        valdiate?: boolean | undefined;
+        wait?: boolean | undefined;
+        patch?: boolean | undefined;
+        attrs?: object | undefined;
         [propName: string]: any;
     }): object | boolean;
     set(property: string | object, value?: object, options?: object): Model | boolean;

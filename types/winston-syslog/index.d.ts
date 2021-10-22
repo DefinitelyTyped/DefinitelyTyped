@@ -10,16 +10,16 @@ import * as dgram from 'dgram';
 import * as net from 'net';
 
 export interface SyslogTransportOptions extends Transport.TransportStreamOptions {
-    host?: string;
-    port?: number;
-    path?: string;
-    protocol?: string;
-    pid?: number;
-    facility?: string;
-    localhost?: string;
-    type?: string;
-    app_name?: string;
-    eol?: string;
+    host?: string | undefined;
+    port?: number | undefined;
+    path?: string | undefined;
+    protocol?: string | undefined;
+    pid?: number | undefined;
+    facility?: string | undefined;
+    localhost?: string | undefined;
+    type?: string | undefined;
+    app_name?: string | undefined;
+    eol?: string | undefined;
 }
 
 export interface SyslogTransportInstance extends Transport {

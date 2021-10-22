@@ -8,12 +8,41 @@ AP.addRequestMarshal(); // $ExpectType void
 AP.request('http://example.com', {}); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
 AP.request({ url: 'http://example.com' }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
 
+AP.confluence.saveMacro({foo: 'bar'}, "a new macro body"); // $ExpectType void
+AP.confluence.saveMacro({foo: 'bar'}); // $ExpectType void
+AP.confluence.closeMacroEditor(); // $ExpectType void
+AP.confluence.getMacroBody(body => console.log(body)); // $ExpectType void
+AP.confluence.getMacroData(data => console.log(data)); // $ExpectType void
+AP.confluence.onMacroPropertyPanelEvent({"{event-type}.{control-key}.{macro-key}.macro.property-panel": () => null}); // $ExpectType void
+AP.confluence.closeMacroPropertyPanel(); // $ExpectType void
+AP.confluence.getContentProperty('propertyKey', property => console.log(property)); // $ExpectType void
+AP.confluence.setContentProperty({ key: 'propertyKey', value: 'propertyValue', version: { number: 2 }}, result => console.log(result)); // $ExpectType void
+AP.confluence.syncPropertyFromServer('propertyKey', property => console.log(property)); // $ExpectType void
+
 AP.context.getToken(token => console.log(token)); // $ExpectType void
 AP.context.getContext(context => console.log(context)); // $ExpectType void
 
 AP.cookie.save('name', 'value', 10); // $ExpectType void
 AP.cookie.read('name', value => console.log(value)); // $ExpectType void
 AP.cookie.erase('name'); // $ExpectType void
+
+const editComponent = AP.customContent.getEditComponent(); // $ExpectType EditComponent
+editComponent.intercept('confluence.customcontent.submit'); // $ExpectType void
+editComponent.intercept('confluence.customcontent.submitSuccess'); // $ExpectType void
+editComponent.intercept('confluence.customcontent.submitError'); // $ExpectType void
+editComponent.intercept('confluence.customcontent.cancel'); // $ExpectType void
+editComponent.submitCallback('content'); // $ExpectType void
+editComponent.submitCallback({}); // $ExpectType void
+editComponent.submitCallback(false); // $ExpectType void
+editComponent.submitSuccessCallback(true); // $ExpectType void
+editComponent.submitSuccessCallback(false); // $ExpectType void
+editComponent.submitSuccessCallback(false, 'error'); // $ExpectType void
+editComponent.submitErrorCallback(true); // $ExpectType void
+editComponent.submitErrorCallback(false); // $ExpectType void
+editComponent.submitErrorCallback(false, 'error'); // $ExpectType void
+editComponent.cancelCallback(true); // $ExpectType void
+editComponent.cancelCallback(false); // $ExpectType void
+editComponent.cancelCallback(false, 'error'); // $ExpectType void
 
 AP.dialog.create({ key: 'key', size: 'small', customData: { data: 1 } }); // $ExpectType Dialog
 AP.dialog.close(); // $ExpectType void
@@ -63,8 +92,8 @@ AP.jira.showJQLEditor(obj => console.log(obj.jql), {}); // $ExpectType void
 AP.jira.isNativeApp(isNative => console.log(isNative)); // $ExpectType void
 
 AP.navigator.getLocation(location => console.log(location)); // $ExpectType void
-AP.navigator.go(AP.navigator.NavigatorTargetConfluence.dashboard, {}); // $ExpectType void
-AP.navigator.go(AP.navigator.NavigatorTargetJira.dashboard, {}); // $ExpectType void
+AP.navigator.go('contentview', {}); // $ExpectType void
+AP.navigator.go('issue', {}); // $ExpectType void
 AP.navigator.reload(); // $ExpectType void
 
 AP.user.getUser(user => console.log(user.id, user.key, user.fullName)); // $ExpectType void

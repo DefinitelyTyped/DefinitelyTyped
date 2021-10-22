@@ -80,3 +80,55 @@ function test_withinDate(){
     date.should.be.withinDate(fromDate, toDate);
     assert.withinDate(date, fromDate, toDate);
 }
+
+function test_beforeOrEqualDate(){
+    const date1: Date = new Date(2014, 1, 1);
+    const date2: Date = new Date(2014, 1, 2);
+
+    expect(date1).to.be.beforeOrEqualDate(date1);
+    date1.should.be.beforeOrEqualDate(date1);
+    assert.beforeOrEqualDate(date1, date1);
+
+    expect(date1).to.be.beforeOrEqualDate(date2);
+    date1.should.be.beforeOrEqualDate(date2);
+    assert.beforeOrEqualDate(date1, date2);
+}
+
+function test_afterOrEqualDate(){
+    const date1: Date = new Date(2014, 1, 2);
+    const date2: Date = new Date(2014, 1, 1);
+
+    expect(date1).to.be.afterOrEqualDate(date1);
+    date1.should.be.afterOrEqualDate(date1);
+    assert.afterOrEqualDate(date1, date1);
+
+    expect(date1).to.be.afterOrEqualDate(date2);
+    date1.should.be.afterOrEqualDate(date2);
+    assert.afterOrEqualDate(date1, date2);
+}
+
+function test_beforeOrEqualTime(){
+    const date1: Date = new Date(2014, 1, 1, 0, 0, 30);
+    const date2: Date = new Date(2014, 1, 1, 0, 2, 30);
+
+    expect(date1).to.be.beforeOrEqualTime(date1);
+    date1.should.be.beforeOrEqualTime(date1);
+    assert.beforeOrEqualTime(date1, date1);
+
+    expect(date1).to.be.beforeOrEqualTime(date2);
+    date1.should.be.beforeOrEqualTime(date2);
+    assert.beforeOrEqualTime(date1, date2);
+}
+
+function test_afterOrEqualTime(){
+    const date1: Date = new Date(2014, 1, 1, 0, 2, 30);
+    const date2: Date = new Date(2014, 1, 1, 0, 0, 30);
+
+    expect(date1).to.be.afterOrEqualTime(date1);
+    date1.should.be.afterOrEqualTime(date1);
+    assert.afterOrEqualTime(date1, date1);
+
+    expect(date1).to.be.afterOrEqualTime(date2);
+    date1.should.be.afterOrEqualTime(date2);
+    assert.afterOrEqualTime(date1, date2);
+}

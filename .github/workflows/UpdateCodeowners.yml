@@ -8,6 +8,7 @@ on:
   schedule:
     # https://crontab.guru/#5_8_*_*_1
     - cron: "5 8 * * 1"
+  workflow_dispatch:
 
 jobs:
   update:

@@ -11,16 +11,16 @@ import events = require("events");
 import stream = require("stream");
 
 interface PNGOptions {
-    width?: number;
-    height?: number;
-    checkCRC?: boolean;
-    deflateChunkSize?: number;
-    deflateLevel?: number;
-    deflateStrategy?: number;
+    width?: number | undefined;
+    height?: number | undefined;
+    checkCRC?: boolean | undefined;
+    deflateChunkSize?: number | undefined;
+    deflateLevel?: number | undefined;
+    deflateStrategy?: number | undefined;
     deflateFactory?: any;
-    filterType?: number | number[];
-    colorType?: number;
-    inputHasAlpha?: boolean;
+    filterType?: number | number[] | undefined;
+    colorType?: number | undefined;
+    inputHasAlpha?: boolean | undefined;
 }
 
 interface PNGMetadata {

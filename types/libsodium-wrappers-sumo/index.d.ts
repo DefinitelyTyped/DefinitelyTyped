@@ -1,6 +1,6 @@
 // Type definitions for libsodium-wrappers-sumo 0.7
 // Project: https://github.com/jedisct1/libsodium.js
-// Definitions by: Florian Keller <https://github.com/ffflorian>
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -283,13 +283,68 @@ export function crypto_pwhash_scryptsalsa208sha256_ll(password: string | Uint8Ar
     outputFormat: StringOutputFormat,
 ): string;
 
+export function crypto_core_ed25519_add(p: Uint8Array, q: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_add(p: Uint8Array, q: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_from_hash(r: string | Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_from_hash(r: string | Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_from_uniform(r: string | Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_from_uniform(r: string | Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_is_valid_point(repr: Uint8Array): boolean;
+
+export function crypto_core_ed25519_random(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_random(outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_add(x: Uint8Array, y: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_add(x: Uint8Array, y: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_complement(s: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_complement(s: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_invert(s: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_invert(s: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_mul(x: Uint8Array, y: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_mul(x: Uint8Array, y: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_negate(s: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_negate(s: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_random(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_random(outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_reduce(sample: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_reduce(sample: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_scalar_sub(x: Uint8Array, y: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_scalar_sub(x: Uint8Array, y: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_core_ed25519_sub(p: Uint8Array, q: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_core_ed25519_sub(p: Uint8Array, q: Uint8Array, outputFormat: StringOutputFormat): string;
+
 export function crypto_pwhash_scryptsalsa208sha256_str(password: string | Uint8Array, opsLimit: number, memLimit: number): string;
 
 export function crypto_pwhash_scryptsalsa208sha256_str_verify(hashed_password: string, password: string | Uint8Array): boolean;
 
-export function crypto_scalarmult_ristretto255(scalar: Uint8Array, point: Uint8Array): Uint8Array;
+export function crypto_scalarmult_ed25519(n: Uint8Array, p: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_scalarmult_ed25519(n: Uint8Array, p: Uint8Array, outputFormat: StringOutputFormat): string;
 
-export function crypto_scalarmult_ristretto255_base(scalar: Uint8Array): Uint8Array;
+export function crypto_scalarmult_ed25519_base(scalar: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_scalarmult_ed25519_base(scalar: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_scalarmult_ed25519_base_noclamp(scalar: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_scalarmult_ed25519_base_noclamp(scalar: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_scalarmult_ed25519_noclamp(n: Uint8Array, p: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_scalarmult_ed25519_noclamp(n: Uint8Array, p: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_scalarmult_ristretto255(scalar: Uint8Array, element: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_scalarmult_ristretto255(scalar: Uint8Array, element: Uint8Array, outputFormat: StringOutputFormat): string;
+
+export function crypto_scalarmult_ristretto255_base(scalar: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_scalarmult_ristretto255_base(scalar: Uint8Array, outputFormat: StringOutputFormat): string;
 
 export function crypto_shorthash_siphashx24(message: string | Uint8Array, key: Uint8Array, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_shorthash_siphashx24(message: string | Uint8Array, key: Uint8Array, outputFormat: StringOutputFormat): string;

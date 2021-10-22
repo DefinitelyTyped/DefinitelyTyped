@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ResearchHintonPlot16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ResearchHintonPlot16;
+import { ResearchHintonPlot16 } from "../../";
+
+export = ResearchHintonPlot16;

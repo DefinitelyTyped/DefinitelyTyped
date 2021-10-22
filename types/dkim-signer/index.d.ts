@@ -9,7 +9,7 @@ import * as crypto from "crypto";
 
 export interface DKIMSignOptions {
     /** Header fields to sign (ie: 'from:to:cc:subject') */
-    headerFieldNames?: string;
+    headerFieldNames?: string | undefined;
     /** DKIM private key */
     privateKey: crypto.SignPrivateKeyInput | crypto.KeyLike;
     /** Domain name to use for signing (ie: 'domain.com') */
@@ -25,7 +25,7 @@ export function DKIMSign(email: Buffer | string, options: DKIMSignOptions): stri
 export function generateDKIMHeader(domainName: string, keySelector: string, headerFieldNames: string, headers: string, body: string): string;
 
 /** Generates a SHA-256 hash */
-export function sha256(str: string, encoding?: crypto.HexBase64Latin1Encoding): string;
+export function sha256(str: string, encoding?: crypto.BinaryToTextEncoding): string;
 
 /** DKIM canonicalization functions */
 export namespace DKIMCanonicalizer {

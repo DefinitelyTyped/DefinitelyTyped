@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const EventSchedule24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default EventSchedule24;
+import { EventSchedule24 } from "../../";
+
+export = EventSchedule24;

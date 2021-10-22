@@ -7,6 +7,7 @@
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

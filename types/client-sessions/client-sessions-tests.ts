@@ -13,6 +13,7 @@ middleware = session({
   secret,
   cookie: {
     httpOnly: false,
+    ephemeral: true
   }
 });
 

@@ -6,9 +6,12 @@ const plugins: Plugin[] = [
     new LiveReloadPlugin({}),
     new LiveReloadPlugin({
         appendScriptTag: true,
+        cert: '',
         delay: 100,
         hostname: 'localhost',
         ignore: /\.css$/,
+        key: '',
+        pfx: '',
         port: 9999,
         protocol: 'https',
         useSourceHash: true,

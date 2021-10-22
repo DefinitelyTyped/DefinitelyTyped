@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "numeral-tests.ts"
+        "test/numeral-tests-cjs.ts",
+        "test/numeral-tests-global.ts"
     ]
 }

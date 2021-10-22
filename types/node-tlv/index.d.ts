@@ -121,7 +121,7 @@ declare class TLV {
      */
     size: number;
     info: {
-        clazz?: 'universal' | 'application' | 'context specific' | 'private';
+        clazz?: 'universal' | 'application' | 'context specific' | 'private' | undefined;
         encoding: 'primitive' | 'constructed';
     };
     child: TLV[];

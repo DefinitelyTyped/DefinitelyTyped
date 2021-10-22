@@ -144,13 +144,13 @@ interface ChocolateChipStatic {
    * param options UIPopupOptions
    */
   UIPopup(options?: {
-      id?: string;
-      title?: string;
-      message?: string;
-      cancelButton?: string;
-      continueButton?: string;
-      callback?: Function;
-      empty?: boolean;
+      id?: string | undefined;
+      title?: string | undefined;
+      message?: string | undefined;
+      cancelButton?: string | undefined;
+      continueButton?: string | undefined;
+      callback?: Function | undefined;
+      empty?: boolean | undefined;
   }): void;
 
   /**
@@ -160,9 +160,9 @@ interface ChocolateChipStatic {
    * @return void
    */
   UIPopover(options?: {
-      id?: string;
-      callback?: Function;
-      title?: string;
+      id?: string | undefined;
+      callback?: Function | undefined;
+      title?: string | undefined;
   }): void;
 
   /**
@@ -178,10 +178,10 @@ interface ChocolateChipStatic {
    * param: options UICreateSegmentedOptions
    */
   UICreateSegmented(options?: {
-      id?: string;
-      className?: string;
-      labels?: string[];
-      selected?: number
+      id?: string | undefined;
+      className?: string | undefined;
+      labels?: string[] | undefined;
+      selected?: number | undefined
   }): ChocolateChipElementArray;
 
   /**
@@ -199,9 +199,9 @@ interface ChocolateChipStatic {
    */
   UISheet(options: {
       id: string;
-      listClass?: string;
-      background?: string;
-      handle?: boolean;
+      listClass?: string | undefined;
+      background?: string | undefined;
+      handle?: boolean | undefined;
   }): void;
 
   /**
@@ -238,8 +238,8 @@ interface ChocolateChipStatic {
        * @return void
        */
       (options?: {
-          dynamic?: boolean;
-          callback?: (args?: any) => any;
+          dynamic?: boolean | undefined;
+          callback?: ((args?: any) => any) | undefined;
       }): any;
 
       /**
@@ -263,13 +263,13 @@ interface ChocolateChipStatic {
    * @return void
    */
   UICreateSwitch(options?: {
-      id?: string;
-      name?: string;
-      state?: string;
-      value?: string | number;
-      checked?: string;
-      style?: string;
-      callback?: () => any;
+      id?: string | undefined;
+      name?: string | undefined;
+      state?: string | undefined;
+      value?: string | number | undefined;
+      checked?: string | undefined;
+      style?: string | undefined;
+      callback?: (() => any) | undefined;
   }): void;
 
   /**
@@ -279,11 +279,11 @@ interface ChocolateChipStatic {
    * @return void
    */
   UITabbar(options?: {
-      id?: string;
+      id?: string | undefined;
       tabs: number;
       labels: string[];
-      icons?: string[];
-      selected?: number;
+      icons?: string[] | undefined;
+      selected?: number | undefined;
   }): void;
 
   /**
@@ -293,9 +293,9 @@ interface ChocolateChipStatic {
    */
   UISearch(options?: {
       articleId?: any;
-      id?: string;
-      placeholder?: string;
-      results?: number;
+      id?: string | undefined;
+      placeholder?: string | undefined;
+      results?: number | undefined;
   }): void;
 
   /**
@@ -306,8 +306,8 @@ interface ChocolateChipStatic {
   UISetupCarousel(options: {
       target: any;
       panels: ChocolateChipElementArray;
-      loop?: boolean;
-      pagination?: boolean;
+      loop?: boolean | undefined;
+      pagination?: boolean | undefined;
   }): void;
 
   /**
@@ -528,10 +528,10 @@ interface ChocolateChipElementArray {
    * @return void
    */
   UIBusy(options?: {
-      size?: string;
-      color?: string;
-      position?: string | boolean;
-      duration?: string;
+      size?: string | undefined;
+      color?: string | undefined;
+      position?: string | boolean | undefined;
+      duration?: string | undefined;
   }): void;
 
   /**
@@ -547,8 +547,8 @@ interface ChocolateChipElementArray {
    * @return void
    */
   UISegmented(options?: {
-      selected?: number;
-      callback?: Function;
+      selected?: number | undefined;
+      callback?: Function | undefined;
   }): void;
 
   /**
@@ -566,12 +566,12 @@ interface ChocolateChipElementArray {
    * @return void
    */
   UIEditList(options?: {
-      editLabel?: string;
-      doneLabel?: string;
-      deleteLabel?: string;
-      callback?: Function;
-      deletable?: boolean;
-      movable?: boolean;
+      editLabel?: string | undefined;
+      doneLabel?: string | undefined;
+      deleteLabel?: string | undefined;
+      callback?: Function | undefined;
+      deletable?: boolean | undefined;
+      movable?: boolean | undefined;
   }): void;
 
   /**
@@ -581,9 +581,9 @@ interface ChocolateChipElementArray {
    * @return void
    */
   UISelectList(options?: {
-      name?: string;
-      selected?: number;
-      callback?: Function;
+      name?: string | undefined;
+      selected?: number | undefined;
+      callback?: Function | undefined;
   }): void;
 
   /**
@@ -853,13 +853,13 @@ interface JQueryStatic {
    * @return void
    */
   UIPopup(options?: {
-      id?: string;
-      title?: string;
-      message?: string;
-      cancelButton?: string;
-      continueButton?: string;
-      callback?: Function;
-      empty?: boolean;
+      id?: string | undefined;
+      title?: string | undefined;
+      message?: string | undefined;
+      cancelButton?: string | undefined;
+      continueButton?: string | undefined;
+      callback?: Function | undefined;
+      empty?: boolean | undefined;
   }): void;
 
   /**
@@ -869,9 +869,9 @@ interface JQueryStatic {
    * @return void
    */
   UIPopover(options?: {
-      id?: string;
-      callback?: Function;
-      title?: string;
+      id?: string | undefined;
+      callback?: Function | undefined;
+      title?: string | undefined;
   }): void;
 
   /**
@@ -888,10 +888,10 @@ interface JQueryStatic {
    * @return JQuery
    */
   UICreateSegmented(options: {
-      id?: string;
-      className?: string;
-      labels?: string[];
-      selected?: number
+      id?: string | undefined;
+      className?: string | undefined;
+      labels?: string[] | undefined;
+      selected?: number | undefined
   }): JQuery;
 
   /**
@@ -909,9 +909,9 @@ interface JQueryStatic {
    */
   UISheet(options: {
       id: string;
-      listClass?: string;
-      background?: string;
-      handle?: boolean;
+      listClass?: string | undefined;
+      background?: string | undefined;
+      handle?: boolean | undefined;
   }): void;
 
   /**
@@ -948,8 +948,8 @@ interface JQueryStatic {
        * @return void
        */
       (options?: {
-          dynamic?: boolean;
-          callback?: (args?: any) => any;
+          dynamic?: boolean | undefined;
+          callback?: ((args?: any) => any) | undefined;
       }): any;
 
       /**
@@ -973,13 +973,13 @@ interface JQueryStatic {
    * @return void
    */
   UICreateSwitch(options?: {
-      id?: string;
-      name?: string;
-      state?: string;
-      value?: string | number;
-      checked?: string;
-      style?: string;
-      callback?: () => any;
+      id?: string | undefined;
+      name?: string | undefined;
+      state?: string | undefined;
+      value?: string | number | undefined;
+      checked?: string | undefined;
+      style?: string | undefined;
+      callback?: (() => any) | undefined;
   }): void;
 
   /**
@@ -989,11 +989,11 @@ interface JQueryStatic {
    * @return void
    */
   UITabbar(options?: {
-      id?: string;
+      id?: string | undefined;
       tabs: number;
       labels: string[];
-      icons?: string[];
-      selected?: number;
+      icons?: string[] | undefined;
+      selected?: number | undefined;
   }): void;
 
   /**
@@ -1003,9 +1003,9 @@ interface JQueryStatic {
    */
   UISearch(options?: {
       articleId?: any;
-      id?: string;
-      placeholder?: string;
-      results?: number;
+      id?: string | undefined;
+      placeholder?: string | undefined;
+      results?: number | undefined;
   }): void;
 
   /**
@@ -1016,8 +1016,8 @@ interface JQueryStatic {
   UISetupCarousel(options: {
       target: any;
       panels: JQuery;
-      loop?: boolean;
-      pagination?: boolean;
+      loop?: boolean | undefined;
+      pagination?: boolean | undefined;
   }): void;
 
   /**
@@ -1217,10 +1217,10 @@ interface JQuery {
    * @return void
    */
   UIBusy(options?: {
-      size?: string;
-      color?: string;
-      position?: string | boolean;
-      duration?: string;
+      size?: string | undefined;
+      color?: string | undefined;
+      position?: string | boolean | undefined;
+      duration?: string | undefined;
   }): void;
 
   /**
@@ -1236,8 +1236,8 @@ interface JQuery {
    * @return void
    */
   UISegmented(options?: {
-      selected?: number;
-      callback?: Function;
+      selected?: number | undefined;
+      callback?: Function | undefined;
   }): void;
 
   /**
@@ -1255,12 +1255,12 @@ interface JQuery {
    * @return void
    */
   UIEditList(options?: {
-      editLabel?: string;
-      doneLabel?: string;
-      deleteLabel?: string;
-      callback?: Function;
-      deletable?: boolean;
-      movable?: boolean;
+      editLabel?: string | undefined;
+      doneLabel?: string | undefined;
+      deleteLabel?: string | undefined;
+      callback?: Function | undefined;
+      deletable?: boolean | undefined;
+      movable?: boolean | undefined;
   }): void;
 
   /**
@@ -1270,9 +1270,9 @@ interface JQuery {
    * @return void
    */
   UISelectList(options?: {
-      name?: string;
-      selected?: number;
-      callback?: Function;
+      name?: string | undefined;
+      selected?: number | undefined;
+      callback?: Function | undefined;
   }): void;
 
   /**

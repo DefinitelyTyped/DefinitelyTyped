@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TextVerticalAlignment32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TextVerticalAlignment32;
+import { TextVerticalAlignment32 } from "../../";
+
+export = TextVerticalAlignment32;

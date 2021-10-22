@@ -33,19 +33,19 @@ export interface FormatLocaleDefinition {
     /**
      * An optional array of ten strings to replace the numerals 0-9.
      */
-    numerals?: string[];
+    numerals?: string[] | undefined;
     /**
      * An optional symbol to replace the `percent` suffix; the percent suffix (defaults to "%").
      */
-    percent?: string;
+    percent?: string | undefined;
     /**
      * Optional; the minus sign (defaults to hyphen-minus, "-").
      */
-    minus?: string;
+    minus?: string | undefined;
     /**
      * Optional; the not-a-number value (defaults `"NaN"`).
      */
-    nan?: string;
+    nan?: string | undefined;
 }
 
 /**
@@ -83,7 +83,7 @@ export interface FormatSpecifierObject {
     /**
      * fill can be any character. The presence of a fill character is signaled by the align character following it.
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * Alignment used for format, as set by choosing one of the following:
      *
@@ -92,7 +92,7 @@ export interface FormatSpecifierObject {
      * '^' - Forces the field to be centered within the available space.
      * '=' - Like '>', but with any sign and symbol to the left of any padding.
      */
-    align?: string;
+    align?: string | undefined;
     /**
      * The sign can be:
      *
@@ -102,7 +102,7 @@ export interface FormatSpecifierObject {
      * ' ' (space) - a space for positive and a minus sign for negative.
      *
      */
-    sign?: string;
+    sign?: string | undefined;
     /**
      * The symbol can be:
      *
@@ -110,20 +110,20 @@ export interface FormatSpecifierObject {
      * '#' - for binary, octal, or hexadecimal notation, prefix by 0b, 0o, or 0x, respectively.
      * '' (none) - no symbol. (Default behavior.)
      */
-    symbol?: string;
+    symbol?: string | undefined;
     /**
      * The zero (0) option enables zero-padding; this implicitly sets fill to 0 and align to =.
      */
-    zero?: string;
+    zero?: string | undefined;
     /**
      * The width defines the minimum field width;
      * if not specified, then the width will be determined by the content.
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * The comma (,) option enables the use of a group separator, such as a comma for thousands.
      */
-    comma?: string;
+    comma?: string | undefined;
     /**
      * Depending on the type, the precision either indicates the number of digits that follow the decimal point (types 'f' and '%'),
      * or the number of significant digits (types '' (none), 'e', 'g', 'r', 's' and 'p'). If the precision is not specified,
@@ -132,12 +132,12 @@ export interface FormatSpecifierObject {
      *
      * See precisionFixed and precisionRound for help picking an appropriate precision.
      */
-    precision?: string;
+    precision?: string | undefined;
     /**
      * The '~' option trims insignificant trailing zeros across all format types.
      * This is most commonly used in conjunction with types 'r', 'e', 's' and '%'.
      */
-    trim?: string;
+    trim?: string | undefined;
     /**
      * The available type values are:
      *
@@ -159,7 +159,7 @@ export interface FormatSpecifierObject {
      * the type 'n' is shorthand for ',g'. For the 'g', 'n' and '' (none) types,
      * decimal notation is used if the resulting string would have precision or fewer digits; otherwise, exponent notation is used.
      */
-    type?: string;
+    type?: string | undefined;
 }
 
 /**

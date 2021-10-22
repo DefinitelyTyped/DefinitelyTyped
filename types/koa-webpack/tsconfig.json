@@ -12,6 +12,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "webpack-dev-middleware": [
+                "webpack-dev-middleware/v3"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

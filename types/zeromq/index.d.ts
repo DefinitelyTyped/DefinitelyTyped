@@ -1,8 +1,9 @@
-// Type definitions for zeromq 4.6
+// Type definitions for zeromq 5.2
 // Project: https://github.com/zeromq/zeromq.js
 // Definitions by: Dave McKeown <https://github.com/davemckeown>
 //                 Erik Mavrinac <https://github.com/erikma>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Nika Gogeshvili <https://github.com/overflowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Forked from the DefinitelyTyped 'zmq' project originally created by Dave McKeown,
@@ -51,13 +52,17 @@ export interface SocketOptions {
     swap: number;
     mechanism: number;
     plain_server: number;
-    plain_username: number;
-    plain_password: number;
+    plain_username: string;
+    plain_password: string;
     curve_server: number;
-    curve_publickey: number;
-    curve_secretkey: number;
-    curve_serverkey: number;
-    zap_domain: number;
+    curve_publickey: string | Buffer;
+    curve_secretkey: string | Buffer;
+    curve_serverkey: string | Buffer;
+    zap_domain: string;
+    heartbeat_ivl: number;
+    heartbeat_ttl: number;
+    heartbeat_timeout: number;
+    connect_timeout: number;
 }
 
 /**
@@ -118,6 +123,14 @@ export const ZMQ_IO_THREADS: number;
 export const ZMQ_MAX_SOCKETS: number;
 export const ZMQ_ROUTER_HANDOVER: number;
 
+export class Context {
+    static setMaxThreads: (value: number) => void;
+    static getMaxThreads: () => number;
+    static setMaxSockets: (value: number) => void;
+    static getMaxSockets: () => number;
+    close(): void;
+}
+
 export class Socket extends EventEmitter {
     /**
      * Set `opt` to `val`.
@@ -125,14 +138,14 @@ export class Socket extends EventEmitter {
      * @param opt Option
      * @param val Value
      */
-    setsockopt(opt: number|string, val: any): Socket;
+    setsockopt<T extends keyof SocketOptions>(opt: T | number, val: SocketOptions[T]): this;
 
     /**
      * Get socket `opt`.
      *
      * @param opt Option number
      */
-    getsockopt(opt: number|string): any;
+    getsockopt<T extends keyof SocketOptions>(opt: T | number): SocketOptions[T];
 
     /**
      * Async bind.
@@ -142,14 +155,14 @@ export class Socket extends EventEmitter {
      * @param addr Socket address
      * @param cb Bind callback
      */
-    bind(addr: string, callback?: (error: string) => void): Socket;
+    bind(addr: string, callback?: (error?: string) => void): this;
 
     /**
      * Sync bind.
      *
      * @param addr Socket address
      */
-    bindSync(addr: string): Socket;
+    bindSync(addr: string): this;
 
     /**
      * Async unbind.
@@ -159,50 +172,51 @@ export class Socket extends EventEmitter {
      * @param addr Socket address
      * @param cb Unind callback
      */
-    unbind(addr: string, callback?: (error: string) => void): Socket;
+    unbind(addr: string, callback?: (error?: string) => void): this;
 
     /**
      * Sync unbind.
      *
      * @param addr Socket address
      */
-    unbindSync(addr: string): Socket;
+    unbindSync(addr: string): this;
 
     /**
      * Connect to `addr`.
      *
      * @param addr Connection address
      */
-    connect(addr: string): Socket;
+    connect(addr: string): this;
 
     /**
      * Disconnect from `addr`.
      *
      * @param addr The address
      */
-    disconnect(addr: string): Socket;
+    disconnect(addr: string): this;
 
     /**
      * Subscribe with the given `filter`.
      *
      * @param filter The filter
      */
-    subscribe(filter: string): Socket;
+    subscribe(filter: string): this;
 
     /**
      * Unsubscribe with the given `filter`.
      *
      * @param filter The filter
      */
-    unsubscribe(filter: string): Socket;
+    unsubscribe(filter: string): this;
 
     /**
      * Send the given `msg`.
      *
      * @param msg The message
      * @param flags Message flags
+     * @param cb The callback to be called when the message will be sent or fails to be sent
      */
-    send(msg: string|Buffer|any[], flags?: number): Socket;
+    send(msg: string | Buffer | any[], flags?: number, cb?: (error?: Error) => void): this;
 
     /**
      * Enable monitoring of a Socket. This enables the following additional events:
@@ -214,7 +228,7 @@ export class Socket extends EventEmitter {
      * @param numOfEvents The maximum number of events to read on each interval, default is 1, use 0 for reading all events
      * @return for chaining
      */
-    monitor(interval?: number, numOfEvents?: number): Socket;
+    monitor(interval?: number, numOfEvents?: number): this;
 
     /**
      * Disable monitoring of a Socket release idle handler
@@ -222,45 +236,54 @@ export class Socket extends EventEmitter {
      *
      * @return for chaining
      */
-    unmonitor(): Socket;
+    unmonitor(): this;
 
     /**
      * Close the socket.
      *
      */
-    close(): Socket;
+    close(): this;
 
     pause(): void;
     resume(): void;
 
+    /**
+     * Return true if socket state is closed
+     */
+    readonly closed: boolean;
+
     // Socket Options
-    _fd: any;
-    _ioevents: any;
-    _receiveMore: any;
-    _subscribe: any;
-    _unsubscribe: any;
-    affinity: any;
-    backlog(): any;
-    hwm: any;
-    identity: any;
-    linger: any;
-    mcast_loop: any;
-    rate: any;
-    rcvbuf: any;
-    last_endpoint: any;
-    reconnect_ivl: any;
-    recovery_ivl: any;
-    sndbuf: any;
-    swap: any;
-    mechanism: any;
-    plain_server: any;
-    plain_username: any;
-    plain_password: any;
+    _fd: number;
+    _ioevents: number;
+    _receiveMore: number;
+    _subscribe: number;
+    _unsubscribe: number;
+    affinity: number;
+    backlog: number;
+    hwm: number;
+    identity: number;
+    linger: number;
+    mcast_loop: number;
+    rate: number;
+    rcvbuf: number;
+    last_endpoint: number;
+    reconnect_ivl: number;
+    recovery_ivl: number;
+    sndbuf: number;
+    swap: number;
+    mechanism: number;
+    plain_server: number;
+    plain_username: string;
+    plain_password: string;
     curve_server: number;
     curve_publickey: string | Buffer;
     curve_secretkey: string | Buffer;
     curve_serverkey: string | Buffer;
-    zap_domain: any;
+    zap_domain: string;
+    heartbeat_ivl: number;
+    heartbeat_ttl: number;
+    heartbeat_timeout: number;
+    connect_timeout: number;
 }
 
 /** The key material returned from a call to curveKeypair(). */
@@ -290,13 +313,13 @@ export let options: SocketOptions;
  * Creates a ZeroMQ socket of the specified type.
  * @return The created socket in an unconnected state.
  */
-export function socket(type: string|number, options?: any): Socket;
+export function socket(type: keyof SocketTypes | SocketTypes[keyof SocketTypes], options?: Partial<SocketOptions>): Socket;
 
 /**
  * Creates a ZeroMQ socket of the specified type.
  * @return The created socket in an unconnected state.
  */
-export function createSocket(type: string, options?: any): Socket;
+export function createSocket(type: keyof SocketTypes | SocketTypes[keyof SocketTypes], options?: Partial<SocketOptions>): Socket;
 
 /**
  * Generates a CurveZMQ (Curve25519) key pair.
@@ -313,4 +336,4 @@ export function curveKeypair(): CurveKeyPair;
  * @param capture If defined, this socket will receive all messages from frontend and backend socket
  *                Capture socket should be a 'pub', 'dealer', 'push' or 'pair' socket.
  */
-export function proxy(frontend: Socket, backend: Socket, capture ?: Socket): void;
+export function proxy(frontend: Socket, backend: Socket, capture?: Socket): void;

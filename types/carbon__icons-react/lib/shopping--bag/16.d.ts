@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ShoppingBag16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ShoppingBag16;
+import { ShoppingBag16 } from "../../";
+
+export = ShoppingBag16;

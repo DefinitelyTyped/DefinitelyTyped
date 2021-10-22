@@ -15,3 +15,17 @@ const test = (config: karma.Config) => {
         plugins: ['karma-spec-reporter'],
     });
 };
+
+const testWithPrefixes = (config: karma.Config) => {
+    config.set({
+        reporters: ['spec'],
+        specReporter: {
+            prefixes: {
+                success: 'OK',
+                failure: 'KO',
+                skipped: '--'
+            }
+        },
+        plugins: ['karma-spec-reporter'],
+    });
+};

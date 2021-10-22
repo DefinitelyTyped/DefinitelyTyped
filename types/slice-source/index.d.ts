@@ -3,7 +3,8 @@
 // Definitions by: Björn Harrtell <https://github.com/bjornharrtell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function slice(source: ReadableStream | ReadableStreamReader | SliceSource): SliceSource;
+// tslint:disable-next-line:use-default-type-parameter
+declare function slice(source: ReadableStream | ReadableStreamReader<any> | SliceSource): SliceSource;
 
 interface SliceChunk {
     value: Uint8Array;

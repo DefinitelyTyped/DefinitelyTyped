@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ColorPalette32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ColorPalette32;
+import { ColorPalette32 } from "../../";
+
+export = ColorPalette32;

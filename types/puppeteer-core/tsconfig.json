@@ -1,16 +1,25 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom", "es2017"],
+        "lib": [
+            "es6",
+            "dom",
+            "es2017"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "puppeteer-core-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "puppeteer-core-tests.ts"
+    ]
 }

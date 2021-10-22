@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CaretSortDown20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CaretSortDown20;
+import { CaretSortDown20 } from "../../";
+
+export = CaretSortDown20;

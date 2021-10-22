@@ -9,17 +9,17 @@ interface FinchCallback {
 }
 
 interface ExpandedCallback {
-    setup?: FinchCallback;
-    load?: FinchCallback;
-    unload?: FinchCallback;
-    teardown?: FinchCallback;
+    setup?: FinchCallback | undefined;
+    load?: FinchCallback | undefined;
+    unload?: FinchCallback | undefined;
+    teardown?: FinchCallback | undefined;
 }
 
 interface ObserveCallback {
     (...args: any[]): string;
 }
 interface FinchOptions {
-    CoerceParameterTypes?: boolean;
+    CoerceParameterTypes?: boolean | undefined;
 }
 
 

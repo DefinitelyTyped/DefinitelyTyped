@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const NoodleBowl20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default NoodleBowl20;
+import { NoodleBowl20 } from "../../";
+
+export = NoodleBowl20;

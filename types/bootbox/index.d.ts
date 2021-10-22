@@ -8,64 +8,64 @@
 
 /** Bootbox options shared by all modal types */
 interface BootboxBaseOptions<T = any> {
-    title?: string | Element;
-    callback?: (result: T) => any;
-    onEscape?: (() => any) | boolean;
-    show?: boolean;
-    backdrop?: boolean;
-    closeButton?: boolean;
-    animate?: boolean;
-    className?: string;
+    title?: string | Element | undefined;
+    callback?: ((result: T) => any) | undefined;
+    onEscape?: (() => any) | boolean | undefined;
+    show?: boolean | undefined;
+    backdrop?: boolean | undefined;
+    closeButton?: boolean | undefined;
+    animate?: boolean | undefined;
+    className?: string | undefined;
     /** All other values result in medium */
-    size?: "small" | "sm" |  "large" | "lg" | "extra-large" | "xl";
-    locale?: string;
-    buttons?: BootboxButtonMap; // complex object where each key is of type BootboxButton
-    scrollable?: boolean;
+    size?: "small" | "sm" |  "large" | "lg" | "extra-large" | "xl" | undefined;
+    locale?: string | undefined;
+    buttons?: BootboxButtonMap | undefined; // complex object where each key is of type BootboxButton
+    scrollable?: boolean | undefined;
 }
 
 /** Bootbox options available for custom modals */
 interface BootboxDialogOptions<T = any> extends BootboxBaseOptions<T> {
     message: JQuery|any[]|Element|DocumentFragment|Text|string|((index: number, html: string) => string|Element|JQuery);
-    swapButtonOrder?: boolean;
-    centerVertical?: boolean;
+    swapButtonOrder?: boolean | undefined;
+    centerVertical?: boolean | undefined;
 }
 
 /** Bootbox options available for alert modals */
 interface BootboxAlertOptions extends BootboxDialogOptions<void> {
-    callback?: () => any;
-    buttons?: BootboxAlertButtonMap;
+    callback?: (() => any) | undefined;
+    buttons?: BootboxAlertButtonMap | undefined;
 }
 
 /** Bootbox options available for confirm modals */
 interface BootboxConfirmOptions extends BootboxDialogOptions<boolean> {
     callback: (result: boolean) => any;
-    buttons?: BootboxConfirmPromptButtonMap;
+    buttons?: BootboxConfirmPromptButtonMap | undefined;
 }
 
 /** Bootbox options available for prompt modals */
 interface BootboxPromptOptions extends BootboxBaseOptions<string> {
     title: string;
-    value?: string;
-    inputType?: "text" | "textarea" | "email" | "select" | "checkbox" | "date" | "time" | "number" | "password" | "radio" | "range";
+    value?: string | undefined;
+    inputType?: "text" | "textarea" | "email" | "select" | "checkbox" | "date" | "time" | "number" | "password" | "radio" | "range" | undefined;
     callback: (result: string) => any;
-    buttons?: BootboxConfirmPromptButtonMap;
-    inputOptions?: { text: string, value: string, group?: string }[];
+    buttons?: BootboxConfirmPromptButtonMap | undefined;
+    inputOptions?: { text: string, value: string, group?: string | undefined }[] | undefined;
 }
 
 /** Bootbox options available when setting defaults for modals */
 interface BootboxDefaultOptions {
-    locale?: string;
-    show?: boolean;
-    backdrop?: boolean;
-    closeButton?: boolean;
-    animate?: boolean;
-    className?: string;
+    locale?: string | undefined;
+    show?: boolean | undefined;
+    backdrop?: boolean | undefined;
+    closeButton?: boolean | undefined;
+    animate?: boolean | undefined;
+    className?: string | undefined;
 }
 
 interface BootboxButton {
-    label?: string;
-    className?: string;
-    callback?: () => any;
+    label?: string | undefined;
+    className?: string | undefined;
+    callback?: (() => any) | undefined;
 }
 
 interface BootboxButtonMap {

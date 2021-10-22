@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const SettingsAdjust24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default SettingsAdjust24;
+import { SettingsAdjust24 } from "../../";
+
+export = SettingsAdjust24;

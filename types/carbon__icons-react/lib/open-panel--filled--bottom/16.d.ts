@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const OpenPanelFilledBottom16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default OpenPanelFilledBottom16;
+import { OpenPanelFilledBottom16 } from "../../";
+
+export = OpenPanelFilledBottom16;

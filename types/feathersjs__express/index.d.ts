@@ -30,8 +30,8 @@ export interface Application<T = any> extends ExpressAndFeathersApplicationWitho
 }
 
 export function errorHandler(options?: {
-    public?: string,
-    logger?: { error?: (msg: string) => void },
+    public?: string | undefined,
+    logger?: { error?: ((msg: string) => void) | undefined } | undefined,
     html?: any,
     json?: any,
 }): express.ErrorRequestHandler;

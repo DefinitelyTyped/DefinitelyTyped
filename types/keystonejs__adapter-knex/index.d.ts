@@ -9,14 +9,14 @@
 // types with the right package.
 // tslint:disable-next-line:no-single-declare-module
 declare module '@keystonejs/adapter-knex' {
-    import { Raw, ConnectionConfig, Config } from 'knex';
+    import { Raw, Config } from 'knex';
     import { BaseKeystoneAdapter } from '@keystonejs/keystone';
 
     interface KnexAdaptorOptions {
-        knexOptions?: Config;
-        schemaName?: string;
+        knexOptions?: Config | undefined;
+        schemaName?: string | undefined;
         listAdapterClass?: any;
-        dropDatabase?: boolean;
+        dropDatabase?: boolean | undefined;
     }
     class KnexAdapter extends BaseKeystoneAdapter {
         constructor(options?: KnexAdaptorOptions);

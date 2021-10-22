@@ -87,9 +87,9 @@ declare namespace cast.framework {
 
   interface CastOptions {
     autoJoinPolicy: chrome.cast.AutoJoinPolicy;
-    language?: string;
-    receiverApplicationId?: string;
-    resumeSavedSession?: boolean;
+    language?: string | undefined;
+    receiverApplicationId?: string | undefined;
+    resumeSavedSession?: boolean | undefined;
   }
 
   const VERSION: string;
@@ -237,8 +237,8 @@ declare namespace cast.framework {
     statusText: string;
     title: string;
     displayStatus: string;
-    liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
-    mediaInfo?: chrome.cast.media.MediaInfo;
+    liveSeekableRange?: chrome.cast.media.LiveSeekableRange | undefined;
+    mediaInfo?: chrome.cast.media.MediaInfo | undefined;
     imageUrl: string | null;
     playerState: chrome.cast.media.PlayerState | null;
     savedPlayerState: SavedPlayerState | null;

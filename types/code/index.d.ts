@@ -179,12 +179,12 @@ export interface Settings {
      * Truncate long assertion error messages for readability?
      * Defaults to true.
      */
-    truncateMessages?: boolean;
+    truncateMessages?: boolean | undefined;
     /**
      * Ignore object prototypes when doing a deep comparison?
      * Defaults to false.
      */
-    comparePrototypes?: boolean;
+    comparePrototypes?: boolean | undefined;
 }
 
 export interface CodeError {

@@ -80,100 +80,100 @@ declare namespace Glider {
         arrows?: {
             prev: Selector | null;
             next: Selector | null;
-        };
+        } | undefined;
 
         /**
          * An HTML element or selector containing the dot container
          */
-        dots?: Selector | null;
+        dots?: Selector | null | undefined;
 
         /**
          * If true, the list can be scrolled by click and dragging with the
          * mouse
          */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
 
         /**
          * How much to aggravate the velocity of the mouse dragging
          */
-        dragVelocity?: number;
+        dragVelocity?: number | undefined;
 
         /**
          * An aggravator used to control animation speed. Higher is slower!
          */
-        duration?: number;
+        duration?: number | undefined;
 
         /**
          * This prevents resizing items to fit when `slidesToShow` is set to
          * auto.
          */
-        exactWidth?: boolean;
+        exactWidth?: boolean | undefined;
 
         /**
          * Use any custom easing function, compatible with most easing
          * plugins
          */
-        easing?: EasingFunction;
+        easing?: EasingFunction | undefined;
 
         /**
          * This value is ignored unless `slidesToShow` is set to `auto`, in
          * which it is then required.
          */
-        itemWidth?: number;
+        itemWidth?: number | undefined;
 
         /**
          * If true, Glider.js will lock to the nearest slide on resizing of
          * the window
          */
-        resizeLock?: boolean;
+        resizeLock?: boolean | undefined;
 
         /**
          * An object containing custom settings per provided breakpoint. See
          * demo for details.
          */
-        responsive?: Breakpoint[];
+        responsive?: Breakpoint[] | undefined;
 
         /**
          * If true, Glider.js will scroll to the beginning/end when its
          * respective endpoint is reached
          */
-        rewind?: boolean;
+        rewind?: boolean | undefined;
 
         /**
          * If true, Glider.js will scroll to the nearest slide after any
          * scroll interactions
          */
-        scrollLock?: boolean;
+        scrollLock?: boolean | undefined;
 
         /**
          * When `scrollLock` is set, this is the delay in milliseconds to
          * wait before the scroll happens
          */
-        scrollLockDelay?: number;
+        scrollLockDelay?: number | undefined;
 
         /**
          * Whether or not to release the scroll events from the container
          */
-        scrollPropagate?: boolean;
+        scrollPropagate?: boolean | undefined;
 
         /**
          * Whether or not the event bubbles up from the container
          * @default true
          */
-        eventPropagate?: boolean;
+        eventPropagate?: boolean | undefined;
 
         /**
          * Whether or not Glider.js should skip wrapping its children with a
          * 'glider-track' <div>.
          */
-        skipTrack?: boolean;
+        skipTrack?: boolean | undefined;
 
         /**
          * The number of slides to scroll when arrow navigation is used If
          * this value is set to `auto`, it will match the value of
          * `slidesToScroll`.
          */
-        slidesToScroll?: number | 'auto';
+        slidesToScroll?: number | 'auto' | undefined;
 
         /**
          * The number of slides to show in container. If this value is set
@@ -181,7 +181,7 @@ declare namespace Glider {
          * number of items able to fit within the container viewport. This
          * requires setting the `itemWidth` option.
          */
-        slidesToShow?: number | 'auto';
+        slidesToShow?: number | 'auto' | undefined;
     }
 
     interface Static<T extends HTMLElement = HTMLDivElement> {

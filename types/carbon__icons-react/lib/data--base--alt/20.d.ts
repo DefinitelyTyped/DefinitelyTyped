@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DataBaseAlt20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DataBaseAlt20;
+import { DataBaseAlt20 } from "../../";
+
+export = DataBaseAlt20;

@@ -6,7 +6,7 @@
 interface FullTextSource {
   storeName: string;
   keyPath: string;
-  weight?: number;
+  weight?: number | undefined;
 }
 
 interface FullTextCatalog {
@@ -16,34 +16,34 @@ interface FullTextCatalog {
 }
 
 interface IndexSchemaJson {
-  name?: string;
+  name?: string | undefined;
   keyPath: string|string[];
-  type?: string;
-  unique?: boolean;
-  multiEntry?: boolean;
+  type?: string | undefined;
+  unique?: boolean | undefined;
+  multiEntry?: boolean | undefined;
 }
 
 interface StoreSchemaJson {
-  autoIncrement?: boolean;
-  dispatchEvents?: boolean;
-  name?: string;
-  indexes?: IndexSchemaJson[];
-  keyPath?: string;
-  type?: string;
+  autoIncrement?: boolean | undefined;
+  dispatchEvents?: boolean | undefined;
+  name?: string | undefined;
+  indexes?: IndexSchemaJson[] | undefined;
+  keyPath?: string | undefined;
+  type?: string | undefined;
 }
 
 interface DatabaseSchemaJson {
-  version?: number;
+  version?: number | undefined;
   stores: StoreSchemaJson[];
-  fullTextCatalogs?: FullTextCatalog[];
+  fullTextCatalogs?: FullTextCatalog[] | undefined;
 }
 
 interface StorageOptions {
-  mechanisms?: string[];
-  size?: number;
-  autoSchema?: boolean;
-  isSerial?: boolean;
-  requestType?: string;
+  mechanisms?: string[] | undefined;
+  size?: number | undefined;
+  autoSchema?: boolean | undefined;
+  isSerial?: boolean | undefined;
+  requestType?: string | undefined;
 }
 
 declare namespace ydn.db {

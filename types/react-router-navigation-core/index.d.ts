@@ -14,7 +14,7 @@ import { RouterProps, match } from "react-router";
 export type Route<T = {}> = {
     key: string;
     routeName: string;
-    match?: match<T>;
+    match?: match<T> | undefined;
 };
 
 export type NavigationState<OwnRoute> = {
@@ -23,12 +23,12 @@ export type NavigationState<OwnRoute> = {
 };
 
 export type RouteProps = {
-    component?: ComponentClass<RouterProps>;
-    render?: (props: RouterProps) => ReactNode;
-    children?: ((props: RouterProps) => ReactNode) | ReactNode;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
+    component?: ComponentClass<RouterProps> | undefined;
+    render?: ((props: RouterProps) => ReactNode) | undefined;
+    children?: ((props: RouterProps) => ReactNode) | ReactNode | undefined;
+    path?: string | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
 };
 
 export type Card = RouteProps & {
@@ -38,29 +38,29 @@ export type Card = RouteProps & {
 export type CardsRendererProps = {
     onNavigateBack: (routeKey?: string) => boolean;
     navigationState: NavigationState<{
-        path?: string;
-        params?: object;
+        path?: string | undefined;
+        params?: object | undefined;
     }>;
     cards: Card[];
 };
 
 export type Tab = RouteProps & {
     key: string;
-    onIndexChange?: (index: number) => void;
+    onIndexChange?: ((index: number) => void) | undefined;
 };
 
 export type TabsRendererProps = {
     onIndexChange: (index: number) => void;
     navigationState: NavigationState<{
-        title?: string;
-        testID?: string;
+        title?: string | undefined;
+        testID?: string | undefined;
     }>;
     loadedTabs: string[];
     tabs: Tab[];
 };
 
 export type CardStackProps = {
-    children?: ReactNode[];
+    children?: ReactNode[] | undefined;
     render: (props: CardsRendererProps) => ReactNode;
 };
 
@@ -69,8 +69,8 @@ export class CardStack extends PureComponent<
     {
         key: number;
         navigationState: NavigationState<{
-            path?: string;
-            params?: object;
+            path?: string | undefined;
+            params?: object | undefined;
         }>;
         cards: Card[];
     }
@@ -86,19 +86,19 @@ export class CardStack extends PureComponent<
 }
 
 export type TabStackProps = {
-    children?: ReactNode[];
+    children?: ReactNode[] | undefined;
     render: (props: TabsRendererProps) => ReactNode;
-    lazy?: boolean;
-    forceSync?: boolean;
-    style?: StyleProp<ViewStyle>;
+    lazy?: boolean | undefined;
+    forceSync?: boolean | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
 };
 
 export class TabStack extends PureComponent<
     TabStackProps,
     {
         navigationState: NavigationState<{
-            title?: string;
-            testID?: string;
+            title?: string | undefined;
+            testID?: string | undefined;
         }>;
         tabs: Tab[];
         loadedTabs: string[];
@@ -110,7 +110,7 @@ export class TabStack extends PureComponent<
         forceSync: false;
     };
 
-    unlistenHistory?: () => void;
+    unlistenHistory?: (() => void) | undefined;
 
     constructor(props: TabStackProps);
 

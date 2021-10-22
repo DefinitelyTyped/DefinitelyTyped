@@ -12,7 +12,7 @@ declare function connectBusboy(options?: connectBusboy.ConnectBusboyOptions): Re
 
 declare namespace connectBusboy {
     interface ConnectBusboyOptions extends busboy.BusboyConfig {
-        immediate?: boolean;
+        immediate?: boolean | undefined;
     }
 }
 

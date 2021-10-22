@@ -26,12 +26,12 @@ export interface ImageDescriptor {
      * x offset to affect this image
      * @default 0
      */
-    offsetX?: number;
+    offsetX?: number | undefined;
     /**
      * y offset to affect this image
      * @default 0
      */
-    offsetY?: number;
+    offsetY?: number | undefined;
 }
 
 export interface Options {
@@ -40,28 +40,28 @@ export interface Options {
      * Otherwise, the images will be merged horizontally (row)
      * @default false
      */
-    direction?: boolean;
+    direction?: boolean | undefined;
     /**
      * Default background color represented by RGBA hex value.
      * @default 0x00000000
      */
-    color?: number;
+    color?: number | undefined;
     /**
      * Aligning of given images. If the images are not all the same size, images will be sorted to largest image
      * @default 'start'
      */
-    align?: 'start' | 'center' | 'end';
+    align?: 'start' | 'center' | 'end' | undefined;
     /**
      * Offset in pixels between each image
      * @default 0
      */
-    offset?: number;
+    offset?: number | undefined;
     /**
      * Margin of the result image.
      * If `number` or `string` is passed, it will be considered as standard
      * css shorthand properties (e.g. '40 40 0 10')
      */
-    margin?: number | string | MarginOptions;
+    margin?: number | string | MarginOptions | undefined;
 }
 
 export interface MarginOptions {
@@ -69,20 +69,20 @@ export interface MarginOptions {
      * Margin on top side of result image
      * @default 0
      */
-    top?: number;
+    top?: number | undefined;
     /**
      * Margin on right side of result image
      * @default 0
      */
-    right?: number;
+    right?: number | undefined;
     /**
      * Margin on bottom side of result image
      * @default 0
      */
-    bottom?: number;
+    bottom?: number | undefined;
     /**
      * Margin on left side of result image
      * @default 0
      */
-    left?: number;
+    left?: number | undefined;
 }

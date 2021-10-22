@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ListBulleted32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ListBulleted32;
+import { ListBulleted32 } from "../../";
+
+export = ListBulleted32;

@@ -5,20 +5,37 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    target?: HTMLElement | string;
-    collapsible?: boolean;
-    collapsed?: boolean;
-    tipLabel?: string;
-    label?: string | HTMLElement;
-    collapseLabel?: string | HTMLElement;
-    render?: (p0: MapEvent) => void;
+    className?: string | undefined;
+    target?: HTMLElement | string | undefined;
+    collapsible?: boolean | undefined;
+    collapsed?: boolean | undefined;
+    tipLabel?: string | undefined;
+    label?: string | HTMLElement | undefined;
+    expandClassName?: string | undefined;
+    collapseLabel?: string | HTMLElement | undefined;
+    collapseClassName?: string | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
 }
 export default class Attribution extends Control {
     constructor(opt_options?: Options);
+    /**
+     * Return true when the attribution is currently collapsed or false
+     * otherwise.
+     */
     getCollapsed(): boolean;
+    /**
+     * Return true if the attribution is collapsible, false otherwise.
+     */
     getCollapsible(): boolean;
+    /**
+     * Collapse or expand the attribution according to the passed parameter. Will
+     * not do anything if the attribution isn't collapsible or if the current
+     * collapsed state is already the one requested.
+     */
     setCollapsed(collapsed: boolean): void;
+    /**
+     * Set whether the attribution should be collapsible.
+     */
     setCollapsible(collapsible: boolean): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

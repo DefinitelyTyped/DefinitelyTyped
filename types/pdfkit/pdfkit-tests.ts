@@ -168,6 +168,14 @@ doc.image('images/test.jpeg', 320, 280, {
     scale: 0.25,
 }).text('Scale', 320, 265);
 
+doc.list([1,2,3], {listType: 'bullet', bulletRadius: 2});
+
+doc.list([1,2,3], {listType: 'bullet', bulletIndent: 2});
+
+doc.list([4,5,6], {listType: 'numbered', textIndent: 2 });
+
+doc.list([7,8,9], {listType: 'lettered'});
+
 doc.image(
     {
         /* something like a buffer */
@@ -204,6 +212,21 @@ doc.image('path/to/image.png', {
 });
 
 
+// AcroForm
+doc.initForm();
+
+doc.endAcroForm();
+
+doc.formField('ZipCode1', { V: 'some-value' });
+
+doc.formAnnotation('ZipCode1', 'text', 0, 0, 10, 10, { V: 'some-value' });
+doc.formText('ZipCode1', 0, 0, 10, 10);
+doc.formPushButton('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formCombo('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formList('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formRadioButton('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formCheckbox('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+
 // Subclassing
 class SubPDFDocument extends PDFDocument {
     constructor(options:PDFKit.PDFDocumentOptions) {
@@ -232,3 +255,27 @@ var subDoc = new SubPDFDocument({});
 
 subDoc.moveTo(subDoc.page.width / 2, subDoc.page.height / 2).text(10);
 subDoc.lineWidth(3).segment(10, subDoc.page.width - 10, subDoc.page.height - 10, 10).stroke("#00FFFF");
+
+// Markings
+doc.markContent('Figure', { alt: 'some alternative value'});
+doc.endMarkedContent();
+const structureContent = doc.markStructureContent('P');
+doc.text('Test');
+doc.endMarkedContent();
+const structureElement = doc.struct('Div', {}, [structureContent]);
+doc.addStructure(structureElement);
+doc.initMarkings();
+doc.initPageMarkings([{ tag: 'P' }]);
+doc.endPageMarkings(doc.page);
+doc.getMarkingsDictionary();
+doc.getStructTreeRoot();
+doc.createStructParentTreeNextKey();
+doc.endMarkings();
+// structure content methods
+const structureContent2 = doc.markStructureContent('H1');
+structureContent.push(structureContent2);
+// structure element methods
+structureElement.add(structureContent);
+structureElement.setAttached();
+structureElement.setParent(doc.ref({}));
+structureElement.end();

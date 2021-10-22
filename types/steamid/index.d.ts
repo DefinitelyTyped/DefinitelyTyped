@@ -1,22 +1,23 @@
-// Type definitions for steamid 1.1
+// Type definitions for steamid 2.0
 // Project: https://github.com/DoctorMcKay/node-steamid
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
+//                 vanitasboi <https://github.com/vanitasboi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// Minimum TypeScript Version: 3.8
 
 /**
- * Render this SteamID into Steam2 textual format
+ * Renders the ID in Steam2 format (e.g. "STEAM_0:0:23071901")
  * @param newerFormat [newerFormat=false] - true if you want to use 1 in place of the leading 0 for the public universe
  */
 type getSteam2RenderedID = (newerFormat?: boolean) => string;
 
 /**
- * Render this SteamID into Steam3 textual format
+ * Renders the ID in Steam3 format (e.g. "[U:1:46143802]")
  */
 type getSteam3RenderedID = () => string;
 
 /**
- * Render this SteamID into 64-bit numeric format
+ * Renders the ID in 64-bit decimal format, as a string (e.g. "76561198006409530")
  */
 type getSteamID64 = () => string;
 
@@ -28,22 +29,30 @@ declare class SteamID {
 
     /**
      * You can create a SteamID object from a Steam2 rendered ID, a Steam3 rendered ID, a SteamID64, or from the four parts that make up a SteamID.
-     * @param input SteamID string
+     * @param input SteamID string BigInt
      */
-    constructor(input: string);
+    constructor(input: string | bigint);
 
     /**
-     * Check whether this SteamID is valid (according to Steam's rules)
+     * Check whether this SteamID is valid (according to Steam's rules).
+     * This does not check whether the given ID belongs to a real account
+     * (or if it belongs to an indiviual account in the public universe).
      */
     isValid(): boolean;
 
     /**
-     * Check whether this chat SteamID is tied to a Steam group.
+     * Returns whether this SteamID is valid and belongs to an individual user in the public universe with a desktop instance.
+     * Does not check whether the account actually exists.
+     */
+    isValidIndividual(): boolean;
+
+    /**
+     * Checks whether the given ID is for a legacy group chat.
      */
     isGroupChat(): boolean;
 
     /**
-     * Check whether this chat SteamID is a Steam lobby.
+     * Check whether the SteamID is for a game lobby.
      */
     isLobby(): boolean;
 
@@ -55,6 +64,11 @@ declare class SteamID {
 
     getSteamID64: getSteamID64;
     toString: getSteamID64;
+
+    /**
+     * Renders the ID in 64-bit decimal format, as a BigInt (e.g. 76561198006409530n)
+     */
+    getBigIntID(): bigint;
 }
 
 declare namespace SteamID {
@@ -128,7 +142,7 @@ declare namespace SteamID {
      * Create an individual SteamID in the public universe given an accountid
      * @param accountid - The user's account ID
      */
-    function fromIndividualAccountID(accountid: number | string): SteamID;
+    function fromIndividualAccountID(accountid: number | bigint | string): SteamID;
 }
 
 export = SteamID;

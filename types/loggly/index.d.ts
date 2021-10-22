@@ -6,20 +6,20 @@
 export declare interface LogglyOptions {
     token: string;
     subdomain: string;
-    tags?: string[];
-    json?: boolean;
-    host?: string;
+    tags?: string[] | undefined;
+    json?: boolean | undefined;
+    host?: string | undefined;
     auth?: {
         username: string;
         password: string;
-    }
+    } | undefined
 }
 
 declare interface SharedSearchOptions {
-    from?: string;
-    until?: string;
-    size?: number;
-    rows?: number;
+    from?: string | undefined;
+    until?: string | undefined;
+    size?: number | undefined;
+    rows?: number | undefined;
 }
 export declare interface SearchOptionsWithQ extends SharedSearchOptions {
     q: string;

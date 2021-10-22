@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const QComposerEdit32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default QComposerEdit32;
+import { QComposerEdit32 } from "../../../";
+
+export = QComposerEdit32;

@@ -9,6 +9,7 @@ import {
     registerComponent,
     Scene
 } from 'aframe';
+import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 
 // Global
 const threeCamera = new AFRAME.THREE.Camera();
@@ -122,7 +123,7 @@ AFRAME.registerGeometry('a-test-geometry', {
         groupIndex: { default: 0 }
     },
     init(data) {
-        this.geometry = new THREE.Geometry();
+        this.geometry = new threeDeprecated.Geometry();
         const temp = data.groupIndex;
         temp;
     }

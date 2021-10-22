@@ -1,5 +1,5 @@
 function resizeObserverCreates(): void {
-    const resizeObserver: ResizeObserver = new ResizeObserver((entries) => {
+    const resizeObserver: ResizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
         const div = document.getElementById('display-div')!;
         const rect = entries[0].contentRect;
         div.textContent = `${rect.left} ${rect.right}`;

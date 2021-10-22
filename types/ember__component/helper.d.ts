@@ -10,7 +10,7 @@ export default class Helper extends EmberObject {
      * The `helper` method create pure-function helpers without instances. For
      * example:
      */
-    static helper(helper: (params: any[], hash?: object) => any): Helper;
+    static helper(helper: (params: any, hash: any) => any): Helper;
     /**
      * Override this function when writing a class-based helper.
      */
@@ -35,4 +35,4 @@ export default class Helper extends EmberObject {
  * });
  * ```
  */
-export function helper(helperFn: (params: any[], hash?: any) => any): any;
+export function helper(helperFn: (params: any, hash: any) => any): any;

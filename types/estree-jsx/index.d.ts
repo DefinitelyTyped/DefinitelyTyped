@@ -29,10 +29,14 @@ export interface JSXIdentifier extends BaseNode {
 
 export interface JSXMemberExpression extends BaseExpression {
     type: 'JSXMemberExpression';
+    object: JSXMemberExpression | JSXIdentifier;
+    property: JSXIdentifier;
 }
 
 export interface JSXNamespacedName extends BaseExpression {
     type: 'JSXNamespacedName';
+    namespace: JSXIdentifier;
+    name: JSXIdentifier;
 }
 
 export interface JSXEmptyExpression extends BaseNode {

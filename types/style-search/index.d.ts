@@ -32,6 +32,8 @@ declare namespace styleSearch {
         readonly insideComment: boolean;
         /** whether the match is inside a string */
         readonly insideString: boolean;
+        /** whether the match is inside parenthesis */
+        readonly insideParens: boolean;
     }
     /**
      * Syntax feature options all accept three keywords:"skip", "check", "only".

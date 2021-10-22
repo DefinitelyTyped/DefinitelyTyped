@@ -7,23 +7,27 @@
 
 /// <reference types="node" />
 import * as Registry from "undertaker-registry";
-import { Duplex } from "stream";
+import { AsyncTask } from "async-done";
 import { EventEmitter } from "events";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
-        readonly name?: string;
-        displayName?: string;
-        description?: string;
-        flags?: TaskFlags;
+        readonly name?: string | undefined;
+        displayName?: string | undefined;
+        description?: string | undefined;
+        flags?: TaskFlags | undefined;
     }
 
     interface TaskFlags {
         [arg: string]: string;
     }
 
+    interface TaskCallback {
+        (error?: Error | null): void;
+    }
+
     interface TaskFunctionBase {
-        (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+        (done: TaskCallback): ReturnType<AsyncTask>;
     }
 
     interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}
@@ -40,7 +44,7 @@ declare namespace Undertaker {
          * Whether or not the whole tree should be returned.
          * Default: false
          */
-        deep?: boolean;
+        deep?: boolean | undefined;
     }
 
     interface TreeResult {
@@ -51,8 +55,8 @@ declare namespace Undertaker {
     interface Node {
         label: string;
         nodes: Node[];
-        type?: string;
-        branch?: boolean;
+        type?: string | undefined;
+        branch?: boolean | undefined;
     }
 }
 

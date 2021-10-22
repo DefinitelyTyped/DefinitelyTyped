@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TouchInteraction24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TouchInteraction24;
+import { TouchInteraction24 } from "../../";
+
+export = TouchInteraction24;

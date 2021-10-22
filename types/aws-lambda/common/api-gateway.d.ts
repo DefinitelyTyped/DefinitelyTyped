@@ -28,25 +28,36 @@ export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>
     // This lets us allow parameterizing the authorizer for proxy events that know what authorizer
     // context values they have.
     authorizer: TAuthorizerContext;
-    connectedAt?: number;
-    connectionId?: string;
-    domainName?: string;
-    domainPrefix?: string;
-    eventType?: string;
-    extendedRequestId?: string;
+    connectedAt?: number | undefined;
+    connectionId?: string | undefined;
+    domainName?: string | undefined;
+    domainPrefix?: string | undefined;
+    eventType?: string | undefined;
+    extendedRequestId?: string | undefined;
     protocol: string;
     httpMethod: string;
     identity: APIGatewayEventIdentity;
-    messageDirection?: string;
-    messageId?: string | null;
+    messageDirection?: string | undefined;
+    messageId?: string | null | undefined;
     path: string;
     stage: string;
     requestId: string;
-    requestTime?: string;
+    requestTime?: string | undefined;
     requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
-    routeKey?: string;
+    routeKey?: string | undefined;
+}
+
+export interface APIGatewayEventClientCertificate {
+    clientCertPem: string;
+    serialNumber: string;
+    subjectDN: string;
+    issuerDN: string;
+    validity: {
+        notAfter: string;
+        notBefore: string;
+    };
 }
 
 export interface APIGatewayEventIdentity {
@@ -55,6 +66,7 @@ export interface APIGatewayEventIdentity {
     apiKey: string | null;
     apiKeyId: string | null;
     caller: string | null;
+    clientCert: APIGatewayEventClientCertificate | null;
     cognitoAuthenticationProvider: string | null;
     cognitoAuthenticationType: string | null;
     cognitoIdentityId: string | null;

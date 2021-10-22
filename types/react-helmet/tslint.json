@@ -1,9 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "ban-types": false,
-        "no-duplicate-imports": false,
-        "prefer-declare-function": false
-    }
+    "extends": "dtslint/dt.json"
 }

@@ -22,6 +22,7 @@ declare namespace omelette {
         next(fn: () => void): void;
 
         on(action: string, callback: Callback): void;
+        on(action: 'complete', callback: CallbackOnComplete): void;
 
         onAsync(actions: string, callback: CallbackAsync): void;
 
@@ -47,6 +48,7 @@ declare namespace omelette {
     }
 
     type Callback = (obj: CallbackValue) => void;
+    type CallbackOnComplete = (fragment: string, obj: CallbackValue) => void;
 
     type CallbackAsync = (obj: CallbackAsyncValue) => Promise<void>;
 

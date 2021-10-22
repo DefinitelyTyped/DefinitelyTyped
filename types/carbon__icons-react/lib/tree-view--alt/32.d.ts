@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TreeViewAlt32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TreeViewAlt32;
+import { TreeViewAlt32 } from "../../";
+
+export = TreeViewAlt32;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChartBarTarget32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChartBarTarget32;
+import { ChartBarTarget32 } from "../../";
+
+export = ChartBarTarget32;

@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "anymatch": "^3.0.0",
+        "source-map": "^0.6.0"
+    }
+}

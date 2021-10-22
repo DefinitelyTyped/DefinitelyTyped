@@ -53,7 +53,7 @@ import * as R from 'ramda';
 
 () => {
   interface Car {
-    speed?: number;
+    speed?: number | undefined;
   }
   interface FastCar {
     speed: number;

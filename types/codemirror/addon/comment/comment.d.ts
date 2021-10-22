@@ -1,15 +1,6 @@
-// Type definitions for codemirror
-// Project: https://github.com/marijnh/CodeMirror
-// Definitions by: Nikolaj Kappler <https://github.com/nkappler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import '../../';
 
-// See docs https://codemirror.net/doc/manual.html#addon_comment
-
-// Todo: add 'toggleComment' command, once command type definitions exist in main definitions
-
-import * as CodeMirror from 'codemirror';
-
-declare module 'codemirror' {
+declare module '../../' {
     interface Editor {
         /** Tries to uncomment the current selection, and if that fails, line-comments it. */
         toggleComment(options?: CommentOptions): void;
@@ -23,20 +14,24 @@ declare module 'codemirror' {
 
     interface CommentOptions {
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        blockCommentStart?: string;
+        blockCommentStart?: string | undefined;
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        blockCommentEnd?: string;
+        blockCommentEnd?: string | undefined;
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        blockCommentLead?: string;
+        blockCommentLead?: string | undefined;
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        lineComment?: string;
+        lineComment?: string | undefined;
         /** A string that will be inserted after opening and leading markers, and before closing comment markers. Defaults to a single space. */
-        padding?: string;
+        padding?: string | null | undefined;
         /** Whether, when adding line comments, to also comment lines that contain only whitespace. */
-        commentBlankLines?: boolean;
+        commentBlankLines?: boolean | undefined;
         /** When adding line comments and this is turned on, it will align the comment block to the current indentation of the first line of the block. */
-        indent?: boolean;
+        indent?: boolean | undefined;
         /** When block commenting, this controls whether the whole lines are indented, or only the precise range that is given. Defaults to `true`. */
-        fullLines?: boolean;
+        fullLines?: boolean | undefined;
+    }
+
+    interface CommandActions {
+        toggleComment(cm: Editor): void;
     }
 }

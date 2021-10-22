@@ -15,13 +15,13 @@ declare function Factory(options?: Factory.Options): express.RequestHandler;
 
 declare namespace Factory {
     interface Options {
-        stat?: string;
-        tags?: string[];
-        path?: boolean;
-        base_url?: boolean;
-        method?: boolean;
-        protocol?: boolean;
-        response_code?: boolean;
-        dogstatsd?: hotShots.StatsD;
+        stat?: string | undefined;
+        tags?: string[] | undefined;
+        path?: boolean | undefined;
+        base_url?: boolean | undefined;
+        method?: boolean | undefined;
+        protocol?: boolean | undefined;
+        response_code?: boolean | undefined;
+        dogstatsd?: hotShots.StatsD | undefined;
     }
 }

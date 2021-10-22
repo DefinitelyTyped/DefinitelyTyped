@@ -21,3 +21,9 @@ const sessionStore = new MySQLStore(options);
 sessionStore.close();
 sessionStore.get('my-session-id', (error, session) => {});
 sessionStore.all();
+sessionStore.load('my-session-id', (error, session) => {});
+sessionStore.on('connect', () => {});
+session({
+    secret: 'secret',
+    store: sessionStore,
+});

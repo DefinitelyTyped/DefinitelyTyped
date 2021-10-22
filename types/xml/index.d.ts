@@ -10,20 +10,20 @@ declare namespace xml {
         /**
          * String used for tab, defaults to no tabs (compressed)
          */
-        indent?: string;
+        indent?: string | undefined;
         /**
          * Return the result as a `stream` (default false)
          */
-        stream?: boolean;
+        stream?: boolean | undefined;
         /**
          * Add default xml declaration (default false)
          */
         declaration?:
             | boolean
             | {
-                  encoding?: string;
-                  standalone?: string;
-              };
+                  encoding?: string | undefined;
+                  standalone?: string | undefined;
+              } | undefined;
     }
 
     interface XmlAttrs {
@@ -53,7 +53,7 @@ declare namespace xml {
 
 declare function xml(
     xmlObject: xml.XmlObject | xml.XmlObject[],
-    options: { stream: true; indent?: string },
+    options: { stream: true; indent?: string | undefined },
 ): NodeJS.ReadableStream;
 declare function xml(xmlObject?: xml.XmlObject | xml.XmlObject[], options?: boolean | string | xml.Option): string;
 

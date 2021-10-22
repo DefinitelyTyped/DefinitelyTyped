@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const WarningAltFilled16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WarningAltFilled16;
+import { WarningAltFilled16 } from "../../";
+
+export = WarningAltFilled16;

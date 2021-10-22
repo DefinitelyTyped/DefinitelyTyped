@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const OperationsRecord24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default OperationsRecord24;
+import { OperationsRecord24 } from "../../";
+
+export = OperationsRecord24;

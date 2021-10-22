@@ -104,8 +104,8 @@ morgan.token('status', (req, res) => {
     return res.headersSent ? String(res.statusCode) : undefined;
 });
 
-express().use(morgan('combined'));
-express().use(morgan('combined', {skip: (req) => req.header('user-agent') === 'fake'}));
+express().use(morgan<express.Request, express.Response>('combined'));
+express().use(morgan('combined', { skip: (req: express.Request) => req.header('user-agent') === 'fake' }));
 
 http.createServer((req, res) => {
     morgan('combined')(req, res, (err) => {

@@ -11,6 +11,14 @@ jobs:
         with:
           node-version: "12"
 
+      # forbid symlinks
+      - name: "Pre-run validation"
+        run: |
+          symlinks="$(find . -type l)"
+          if [[ -n "$symlinks" ]]; then
+            printf "Aborting: symlinks found:\n%s" "$symlinks"; exit 1
+          fi
+
       # Get local dependencies
       - run: npm install
 
@@ -24,6 +32,6 @@ jobs:
 
         # Danger failing (for example through rate-limiting) shouldn't fail the build
         run: |
-          TOKEN='7469b4e94ce21b43e3ab7a'
-          TOKEN+='79960c12a1e067f2ec'
+          TOKEN='ghp_LIdSl0O3uUFAhvHi'
+          TOKEN+='sU8G11alnuvPkv1uG70P'
           DANGER_GITHUB_API_TOKEN=$TOKEN yarn danger ci || $( exit 0 )

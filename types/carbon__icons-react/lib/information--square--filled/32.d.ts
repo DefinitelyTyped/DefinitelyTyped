@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const InformationSquareFilled32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default InformationSquareFilled32;
+import { InformationSquareFilled32 } from "../../";
+
+export = InformationSquareFilled32;

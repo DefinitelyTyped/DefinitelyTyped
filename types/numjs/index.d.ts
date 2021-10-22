@@ -1,19 +1,18 @@
-// Type definitions for numjs 0.14
+// Type definitions for numjs 0.16
 // Project: https://github.com/nicolaspanel/numjs#readme
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 matt <https://github.com/mattmm3d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export as namespace nj;
-import * as BaseNdArray from 'ndarray';
+import { Data, DataType, NdArray as BaseNdArray } from 'ndarray';
 
-export type NdType<T> = BaseNdArray.DataType | BaseNdArray.Data<T>;
+export type NdType<T> = DataType | Data<T>;
 
-export interface NdArray<T = number> extends BaseNdArray<T> {
+export interface NdArray<T = number> extends BaseNdArray<Data<T>> {
     ndim: number;
     T: NdArray<T>;
-    slice(...args: Array<number|number[]>): NdArray<T>;
+    slice(...args: Array<number | number[]>): NdArray<T>;
 
     /**
      * Return a copy of the array collapsed into one dimension using row-major order (C-style)
@@ -153,9 +152,16 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
     convolve(filter: NjArray<T>): NdArray<T>;
 
     fftconvolve(filter: NjArray<T>): NdArray<T>;
+
+    /**
+     * Gives a new shape to an array without changing its data.
+     *
+     * @param shape The new shape should be compatible with the original shape. If an integer, then the result will be a 1-D array of that length
+     */
+    reshape<T = number>(...shape: number[]): NdArray<T>;
 }
 
-export type NdArrayData<T> = BaseNdArray.Data<T>;
+export type NdArrayData<T> = Data<T>;
 export type NjArray<T> = NdArrayData<T> | NdArray<T>;
 export type NjParam<T> = NjArray<T> | number;
 
@@ -292,6 +298,11 @@ export function mean<T = number>(x: NjParam<T>): T;
 export function min<T = number>(x: NjParam<T>): T;
 
 /**
+ * Return element-wise remainder of division.
+ */
+export function mod<T = number>(x: NjParam<T>, copy?: boolean): NdArray[];
+
+/**
  * Multiply arguments, element-wise.
  *
  */
@@ -310,7 +321,7 @@ export function negative<T = number>(x: NjParam<T>): NdArray<T>;
  * @param [dtype] The type of the output array.
  * @returns Array of ones with the given shape and dtype
  */
-export function ones<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.DataType): NdArray<T>;
+export function ones<T = number>(shape: NdArrayData<T> | number, dtype?: DataType): NdArray<T>;
 
 /**
  * Raise first array elements to powers from second array, element-wise.
@@ -421,7 +432,7 @@ export function transpose<T = number>(x: NjParam<T>, axes?: number): NdArray<T>;
  * @param [dtype = Array] The type of the output array.
  * @returns Array of zeros with the given shape and dtype
  */
-export function zeros<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.DataType): NdArray<T>;
+export function zeros<T = number>(shape: NdArrayData<T> | number, dtype?: DataType): NdArray<T>;
 
 export namespace errors {
     function ValueError(message?: string): Error;
@@ -448,7 +459,7 @@ export function diag<T = number>(x: NjArray<T>): NdArray<T>;
  * @param  [dtype=Array]  The type of the output array.
  * @return n x n array with its main diagonal set to one, and all other elements 0
  */
-export function identity<T = number>(n: T, dtype?: BaseNdArray.DataType): NdArray<T>;
+export function identity<T = number>(n: T, dtype?: DataType): NdArray<T>;
 
 /**
  * Join a sequence of arrays along a new axis.
@@ -504,7 +515,7 @@ export namespace images {
     function flip<T = number, O = T>(img: NdArray<T>): NdArray<O>;
 }
 
-export function array<T = number>(arr: NjArray<T>, dtype?: BaseNdArray.DataType): NdArray<T>;
+export function array<T = number>(arr: NjArray<T>, dtype?: DataType): NdArray<T>;
 
 export function int8<T = number>(arr: NjArray<T>): NjArray<Int8Array>;
 

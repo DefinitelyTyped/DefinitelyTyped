@@ -11,16 +11,16 @@ export interface ojNavigationList<K, D> extends baseComponent<ojNavigationListSe
     expanded: KeySet<K>;
     hierarchyMenuThreshold: number;
     item: {
-        renderer?: (((context: ojNavigationList.ItemContext<K, D>) => void) | null);
-        selectable?: (((context: ojNavigationList.ItemContext<K, D>) => boolean) | boolean);
+        renderer?: (((context: ojNavigationList.ItemContext<K, D>) => void) | null) | undefined;
+        selectable?: (((context: ojNavigationList.ItemContext<K, D>) => boolean) | boolean) | undefined;
     };
     overflow: 'popup' | 'hidden';
     rootLabel: string | null;
     selection: K;
     translations: {
-        defaultRootLabel?: string;
-        hierMenuBtnLabel?: string;
-        previousIcon?: string;
+        defaultRootLabel?: string | undefined;
+        hierMenuBtnLabel?: string | undefined;
+        previousIcon?: string | undefined;
     };
     onAsChanged: ((event: JetElementCustomEvent<ojNavigationList<K, D>["as"]>) => any) | null;
     onCurrentItemChanged: ((event: JetElementCustomEvent<ojNavigationList<K, D>["currentItem"]>) => any) | null;
@@ -107,7 +107,7 @@ export namespace ojNavigationList {
     // tslint:disable-next-line interface-over-type-literal
     type ItemContext<K, D> = {
         componentElement: Element;
-        datasource?: DataProvider<K, D>;
+        datasource?: DataProvider<K, D> | undefined;
         index: number;
         key: any;
         data: any;
@@ -119,7 +119,7 @@ export namespace ojNavigationList {
         index: number;
         key: K;
         group: boolean;
-        parent?: Element;
+        parent?: Element | undefined;
     };
 }
 export interface ojNavigationListEventMap<K, D> extends baseComponentEventMap<ojNavigationListSettableProperties<K, D>> {
@@ -154,16 +154,16 @@ export interface ojNavigationListSettableProperties<K, D> extends baseComponentS
     expanded: KeySet<K>;
     hierarchyMenuThreshold: number;
     item: {
-        renderer?: (((context: ojNavigationList.ItemContext<K, D>) => void) | null);
-        selectable?: (((context: ojNavigationList.ItemContext<K, D>) => boolean) | boolean);
+        renderer?: (((context: ojNavigationList.ItemContext<K, D>) => void) | null) | undefined;
+        selectable?: (((context: ojNavigationList.ItemContext<K, D>) => boolean) | boolean) | undefined;
     };
     overflow: 'popup' | 'hidden';
     rootLabel: string | null;
     selection: K;
     translations: {
-        defaultRootLabel?: string;
-        hierMenuBtnLabel?: string;
-        previousIcon?: string;
+        defaultRootLabel?: string | undefined;
+        hierMenuBtnLabel?: string | undefined;
+        previousIcon?: string | undefined;
     };
 }
 export interface ojNavigationListSettablePropertiesLenient<K, D> extends Partial<ojNavigationListSettableProperties<K, D>> {
@@ -176,26 +176,26 @@ export interface ojTabBar<K, D> extends baseComponent<ojTabBarSettableProperties
     display: 'all' | 'icons';
     edge: 'top' | 'bottom' | 'start' | 'end';
     item: {
-        renderer?: (((context: ojTabBar.ItemContext<K, D>) => void) | null);
-        selectable?: (((context: ojTabBar.ItemContext<K, D>) => boolean) | boolean);
+        renderer?: (((context: ojTabBar.ItemContext<K, D>) => void) | null) | undefined;
+        selectable?: (((context: ojTabBar.ItemContext<K, D>) => boolean) | boolean) | undefined;
     };
     overflow: 'popup' | 'hidden';
     reorderable: 'enabled' | 'disabled';
     selection: any;
     truncation: 'none' | 'progressive';
     translations: {
-        accessibleReorderAfterItem?: string;
-        accessibleReorderBeforeItem?: string;
-        accessibleReorderTouchInstructionText?: string;
-        labelCut?: string;
-        labelPasteAfter?: string;
-        labelPasteBefore?: string;
-        labelRemove?: string;
-        msgFetchingData?: string;
-        msgNoData?: string;
-        overflowItemLabel?: string;
-        removeCueText?: string;
-        selectedLabel?: string;
+        accessibleReorderAfterItem?: string | undefined;
+        accessibleReorderBeforeItem?: string | undefined;
+        accessibleReorderTouchInstructionText?: string | undefined;
+        labelCut?: string | undefined;
+        labelPasteAfter?: string | undefined;
+        labelPasteBefore?: string | undefined;
+        labelRemove?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgNoData?: string | undefined;
+        overflowItemLabel?: string | undefined;
+        removeCueText?: string | undefined;
+        selectedLabel?: string | undefined;
     };
     onAsChanged: ((event: JetElementCustomEvent<ojTabBar<K, D>["as"]>) => any) | null;
     onCurrentItemChanged: ((event: JetElementCustomEvent<ojTabBar<K, D>["currentItem"]>) => any) | null;
@@ -292,7 +292,7 @@ export namespace ojTabBar {
     // tslint:disable-next-line interface-over-type-literal
     type ItemContext<K, D> = {
         componentElement: Element;
-        datasource?: DataProvider<K, D>;
+        datasource?: DataProvider<K, D> | undefined;
         index: number;
         key: K;
         data: D;
@@ -333,26 +333,26 @@ export interface ojTabBarSettableProperties<K, D> extends baseComponentSettableP
     display: 'all' | 'icons';
     edge: 'top' | 'bottom' | 'start' | 'end';
     item: {
-        renderer?: (((context: ojTabBar.ItemContext<K, D>) => void) | null);
-        selectable?: (((context: ojTabBar.ItemContext<K, D>) => boolean) | boolean);
+        renderer?: (((context: ojTabBar.ItemContext<K, D>) => void) | null) | undefined;
+        selectable?: (((context: ojTabBar.ItemContext<K, D>) => boolean) | boolean) | undefined;
     };
     overflow: 'popup' | 'hidden';
     reorderable: 'enabled' | 'disabled';
     selection: any;
     truncation: 'none' | 'progressive';
     translations: {
-        accessibleReorderAfterItem?: string;
-        accessibleReorderBeforeItem?: string;
-        accessibleReorderTouchInstructionText?: string;
-        labelCut?: string;
-        labelPasteAfter?: string;
-        labelPasteBefore?: string;
-        labelRemove?: string;
-        msgFetchingData?: string;
-        msgNoData?: string;
-        overflowItemLabel?: string;
-        removeCueText?: string;
-        selectedLabel?: string;
+        accessibleReorderAfterItem?: string | undefined;
+        accessibleReorderBeforeItem?: string | undefined;
+        accessibleReorderTouchInstructionText?: string | undefined;
+        labelCut?: string | undefined;
+        labelPasteAfter?: string | undefined;
+        labelPasteBefore?: string | undefined;
+        labelRemove?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgNoData?: string | undefined;
+        overflowItemLabel?: string | undefined;
+        removeCueText?: string | undefined;
+        selectedLabel?: string | undefined;
     };
 }
 export interface ojTabBarSettablePropertiesLenient<K, D> extends Partial<ojTabBarSettableProperties<K, D>> {

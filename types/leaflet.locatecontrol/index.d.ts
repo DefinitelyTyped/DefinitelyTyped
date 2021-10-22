@@ -15,30 +15,30 @@ declare module 'leaflet' {
           setView(): void;
         }
         interface LocateOptions {
-            position?: string;
-            layer?: Layer;
-            setView?: boolean | string;
-            flyTo?: boolean;
-            keepCurrentZoomLevel?: boolean;
+            position?: string | undefined;
+            layer?: Layer | undefined;
+            setView?: boolean | string | undefined;
+            flyTo?: boolean | undefined;
+            keepCurrentZoomLevel?: boolean | undefined;
             clickBehavior?: any;
-            returnToPrevBounds?: boolean;
-            cacheLocation?: boolean;
-            drawCircle?: boolean;
-            drawMarker?: boolean;
+            returnToPrevBounds?: boolean | undefined;
+            cacheLocation?: boolean | undefined;
+            drawCircle?: boolean | undefined;
+            drawMarker?: boolean | undefined;
             markerClass?: any;
-            circleStyle?: PathOptions;
-            markerStyle?: PathOptions | MarkerOptions;
-            followCircleStyle?: PathOptions;
-            followMarkerStyle?: PathOptions;
-            icon?: string;
-            iconLoading?: string;
-            iconElementTag?: string;
-            circlePadding?: number[];
+            circleStyle?: PathOptions | undefined;
+            markerStyle?: PathOptions | MarkerOptions | undefined;
+            followCircleStyle?: PathOptions | undefined;
+            followMarkerStyle?: PathOptions | undefined;
+            icon?: string | undefined;
+            iconLoading?: string | undefined;
+            iconElementTag?: string | undefined;
+            circlePadding?: number[] | undefined;
             onLocationError?: any;
             onLocationOutsideMapBounds?: any;
-            showPopup?: boolean;
+            showPopup?: boolean | undefined;
             strings?: any;
-            locateOptions?: L.LocateOptions;
+            locateOptions?: L.LocateOptions | undefined;
         }
     }
 

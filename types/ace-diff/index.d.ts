@@ -20,11 +20,11 @@ declare class AceDiff {
 }
 declare namespace AceDiff {
     interface AceDiffLROpts {
-        content?: string | null;
-        mode?: string;
-        theme?: string;
-        editable?: boolean;
-        copyLinkEnabled?: boolean;
+        content?: string | null | undefined;
+        mode?: string | undefined;
+        theme?: string | undefined;
+        editable?: boolean | undefined;
+        copyLinkEnabled?: boolean | undefined;
     }
 
     interface AceDiffConstructorOpts extends AceDiffOpts {
@@ -34,19 +34,19 @@ declare namespace AceDiff {
     }
 
     interface AceDiffOpts {
-        mode?: string;
-        theme?: string;
-        diffGranularity?: 'specific' | 'broad';
-        showDiffs?: boolean;
-        showConnectors?: boolean;
-        maxDiffs?: number;
-        left?: AceDiffLROpts;
-        right?: AceDiffLROpts;
+        mode?: string | undefined;
+        theme?: string | undefined;
+        diffGranularity?: 'specific' | 'broad' | undefined;
+        showDiffs?: boolean | undefined;
+        showConnectors?: boolean | undefined;
+        maxDiffs?: number | undefined;
+        left?: AceDiffLROpts | undefined;
+        right?: AceDiffLROpts | undefined;
         classes?: {
             diff: string;
             connector: string;
             newCodeConnectorLinkContent: string;
             deletedCodeConnectorLinkContent: string;
-        };
+        } | undefined;
     }
 }

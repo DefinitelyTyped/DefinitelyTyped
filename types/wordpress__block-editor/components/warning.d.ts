@@ -2,13 +2,13 @@ import { ComponentType, MouseEventHandler, ReactFragment, ReactNode } from 'reac
 
 declare namespace Warning {
     interface Props {
-        actions?: ReactFragment;
+        actions?: ReactFragment | undefined;
         children: ReactNode;
-        className?: string;
+        className?: string | undefined;
         secondaryActions?: Array<{
             title: ReactNode;
             onClick: MouseEventHandler<HTMLButtonElement>;
-        }>;
+        }> | undefined;
     }
 }
 declare const Warning: ComponentType<Warning.Props>;

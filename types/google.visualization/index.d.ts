@@ -1,18 +1,46 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>, David <https://github.com/dckorben>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>,
+//                 Gregory Moore <https://github.com/gmoore-sjcorg>,
+//                 Dan Manastireanu <https://github.com/danmana>,
+//                 Michael Cheng <https://github.com/mlcheng>,
+//                 Ivan Bisultanov <https://github.com/IvanBisultanov>,
+//                 Gleb Mazovetskiy <https://github.com/glebm>,
+//                 Shrujal Shah <https://github.com/shrujalshah28>,
+//                 David <https://github.com/dckorben>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
-
-    function load(visualization: string, version: string, packages: any): void;
+    /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
+    function load(visualization: 'visualization', version: string | number, options: LoadOptions): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
     // https://developers.google.com/chart/interactive/docs/basic_load_libs
     namespace charts {
-        function load(version: string | number, packages: Object, mapsApiKey?: string): Promise<void>;
+        /** Loads with `safeMode` enabled. */
+        function safeLoad(options: LoadOptions): Promise<void>;
+        function load(options: LoadOptions): Promise<void>;
+        function load(version: string | number, options: LoadOptions): Promise<void>;
+        /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
+        function load(visualization: 'visualization', version: string | number, options: LoadOptions): Promise<void>;
+
         function setOnLoadCallback(handler: Function): void;
+    }
+
+    export interface LoadOptions {
+        packages?: string | string[] | undefined;
+        language?: string | undefined;
+        callback?: Function | undefined;
+        mapsApiKey?: string | undefined;
+        safeMode?: boolean | undefined;
+        /** not documented */
+        debug?: boolean | undefined;
+        /** not documented */
+        pseudo?: boolean | undefined;
+        /** not documented, looks for charts-version in url query params */
+        enableUrlSettings?: boolean | undefined;
     }
 
     // https://developers.google.com/chart/interactive/docs/reference
@@ -23,20 +51,20 @@ declare namespace google {
 
         export interface ChartSpecs {
             chartType: string;
-            container?: HTMLElement;
-            containerId?: string;
-            options?: Object;
-            dataTable?: Object;
-            dataSourceUrl?: string;
-            query?: string;
-            refreshInterval?: number;
+            container?: HTMLElement | undefined;
+            containerId?: string | undefined;
+            options?: Object | undefined;
+            dataTable?: Object | undefined;
+            dataSourceUrl?: string | undefined;
+            query?: string | undefined;
+            refreshInterval?: number | undefined;
             view?: any;
         }
 
         export interface ErrorEventObject {
             id: string;
             message: string;
-            detailedMessage?: string;
+            detailedMessage?: string | undefined;
             options?: any;
         }
 
@@ -76,34 +104,34 @@ declare namespace google {
         export interface GroupKeyOptions {
             column: number;
             type: string;
-            modifier?: (value: any) => any;
-            label?: string;
-            id?: string;
+            modifier?: ((value: any) => any) | undefined;
+            label?: string | undefined;
+            id?: string | undefined;
         }
 
         export interface GroupColumnOptions {
             column: number;
             aggregation: (values: any[]) => any;
             type: string;
-            label?: string;
-            id?: string;
+            label?: string | undefined;
+            id?: string | undefined;
         }
 
-        export class data {
+        namespace data {
             // https://developers.google.com/chart/interactive/docs/reference#data_modifier_functions
-            static month(value: Date): number;
+            function month(value: Date): number;
 
             // https://developers.google.com/chart/interactive/docs/reference#group
-            static sum(values: number[] | string[] | Date[]): number;
-            static avg(values: number[] | string[] | Date[]): number;
-            static min(values: number[] | string[] | Date[]): number | string | Date;
-            static max(values: number[] | string[] | Date[]): number | string | Date;
-            static count(values: any[]): number;
+            function sum(values: ReadonlyArray<number>): number;
+            function avg(values: ReadonlyArray<number>): number;
+            function min(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function max(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function count(values: ReadonlyArray<any>): number;
 
-            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
+            function group(data: DataTable | DataView, keys: ReadonlyArray<number | GroupKeyOptions>, columns?: ReadonlyArray<GroupColumnOptions>): DataTable;
 
             // https://developers.google.com/chart/interactive/docs/reference#join
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            function join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: ReadonlyArray<[number|string, number|string]>, columnsA: ReadonlyArray<number|string>, columnsB: ReadonlyArray<number|string>): DataTable;
         }
         //#endregion
 
@@ -120,6 +148,7 @@ declare namespace google {
             addRows(rows: any[][]): number;
             clone(): DataTable;
             getColumnId(columnIndex: number): string;
+            getColumnIndex(columnIdentifier: number|string): number;
             getColumnLabel(columnIndex: number): string;
             getColumnPattern(columnIndex: number): string;
             getColumnProperties(columnIndex: number): Properties;
@@ -180,11 +209,11 @@ declare namespace google {
         }
 
         export interface DataTableColumnDescription {
-            type?: string;
-            label?: string;
-            id?: string;
-            role?: string;
-            pattern?: string;
+            type?: string | undefined;
+            label?: string | undefined;
+            id?: string | undefined;
+            role?: string | undefined;
+            pattern?: string | undefined;
             p?: any;
         }
 
@@ -196,9 +225,9 @@ declare namespace google {
 
         export interface DataObjectColumn {
             type: string;
-            id?: string;
-            label?: string;
-            pattern?: string;
+            id?: string | undefined;
+            label?: string | undefined;
+            pattern?: string | undefined;
             p?: any;
         }
 
@@ -212,12 +241,12 @@ declare namespace google {
             value?: any;
             minValue?: any;
             maxValue?: any;
-            test?: (value: any, row?: number, column?: number, data?: DataTable | DataView) => boolean;
+            test?: ((value: any, row?: number, column?: number, data?: DataTable | DataView) => boolean) | undefined;
         }
 
         export interface DataObjectCell {
             v?: any;
-            f?: string;
+            f?: string | undefined;
             p?: any;
         }
 
@@ -247,8 +276,8 @@ declare namespace google {
         }
 
         export interface QueryOptions {
-            sendMethod?: string,
-            makeRequestParams?: Object
+            sendMethod?: string | undefined,
+            makeRequestParams?: Object | undefined
         }
         //#endregion
         //#region QueryResponse
@@ -315,13 +344,13 @@ declare namespace google {
         }
 
         export interface ColumnSpec {
-            calc?: (data: DataTable, row: number) => any;
-            type?: string;
-            label?: string;
-            id?: string;
-            sourceColumn?: number;
-            properties?: Properties;
-            role?: string;
+            calc?: ((data: DataTable, row: number) => any) | undefined;
+            type?: string | undefined;
+            label?: string | undefined;
+            id?: string | undefined;
+            sourceColumn?: number | undefined;
+            properties?: Properties | undefined;
+            role?: string | undefined;
         }
         //#endregion
         //#region GeoChart
@@ -333,26 +362,26 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=fr&csw=1#Configuration_Options
         export interface GeoChartOptions {
-            backgroundColor?: string | ChartStrokeFill;
-            colorAxis?: ChartColorAxis;
-            datalessRegionColor?: string;
-            defaultColor?: string;
-            displayMode?: string;
-            enableRegionInteractivity?: boolean;
-            height?: number;
-            keepAspectRatio?: boolean;
-            legend?: ChartLegend | 'none';
-            region?: string;
-            magnifyingGlass?: GeoChartMagnifyingGlass;
-            markerOpacity?: number;
-            resolution?: string;
-            sizeAxis?: ChartSizeAxis;
-            tooltip?: ChartTooltip;
-            width?: number;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            colorAxis?: ChartColorAxis | undefined;
+            datalessRegionColor?: string | undefined;
+            defaultColor?: string | undefined;
+            displayMode?: string | undefined;
+            enableRegionInteractivity?: boolean | undefined;
+            height?: number | undefined;
+            keepAspectRatio?: boolean | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            region?: string | undefined;
+            magnifyingGlass?: GeoChartMagnifyingGlass | undefined;
+            markerOpacity?: number | undefined;
+            resolution?: string | undefined;
+            sizeAxis?: ChartSizeAxis | undefined;
+            tooltip?: ChartTooltip | undefined;
+            width?: number | undefined;
         }
         export interface GeoChartMagnifyingGlass {
-            enable?: boolean;
-            zoomFactor?: number;
+            enable?: boolean | undefined;
+            zoomFactor?: number | undefined;
         }
         export interface GeoChartRegionClickEvent {
             region: string;
@@ -364,34 +393,34 @@ declare namespace google {
         //#endregion
         //#region Common
         export interface ChartAnnotations {
-            boxStyle?: ChartBoxStyle;
-            textStyle?: ChartTextStyle;
-            datum?: ChartStemAndStyle;
-            domain?: ChartStemAndStyle;
-            highContrast?: boolean;
-            stem?: ChartStem;
-            style?: string; // 'line' or 'point'
+            boxStyle?: ChartBoxStyle | undefined;
+            textStyle?: ChartTextStyle | undefined;
+            datum?: ChartStemAndStyle | undefined;
+            domain?: ChartStemAndStyle | undefined;
+            highContrast?: boolean | undefined;
+            stem?: ChartStem | undefined;
+            style?: string | undefined; // 'line' or 'point'
         }
 
         export interface ChartBarColumnAnnotations extends ChartAnnotations {
-            alwaysOutside?: boolean;
+            alwaysOutside?: boolean | undefined;
         }
 
         export interface ChartStemAndStyle {
-            stem?: ChartStem;
-            style?: string;
+            stem?: ChartStem | undefined;
+            style?: string | undefined;
         }
 
         export interface ChartStem {
-            color?: string;
-            length?: number;
+            color?: string | undefined;
+            length?: number | undefined;
         }
 
         export interface ChartBoxStyle {
-            stroke?: string;
-            strokeWidth?: number;
-            rx?: number;
-            ry?: number;
+            stroke?: string | undefined;
+            strokeWidth?: number | undefined;
+            rx?: number | undefined;
+            ry?: number | undefined;
             gradient?: {
                 color1: string;
                 color2: string;
@@ -399,58 +428,69 @@ declare namespace google {
                 y1: string;
                 x2: string;
                 y2: string;
-                useObjectBoundingBoxUnits?: boolean;
-            }
+                useObjectBoundingBoxUnits?: boolean | undefined;
+            } | undefined
         }
 
         export interface ChartTextStyle {
-            fontName?: string;
-            fontSize?: number;
-            bold?: boolean;
-            italic?: boolean;
-            color?: string;
-            auraColor?: string;
-            opacity?: number;
+            fontName?: string | undefined;
+            fontSize?: number | undefined;
+            bold?: boolean | undefined;
+            italic?: boolean | undefined;
+            color?: string | undefined;
+            auraColor?: string | undefined;
+            opacity?: number | undefined;
         }
 
         export interface ChartCrosshair {
-            color?: string;
+            color?: string | undefined;
             focused?: {
-                color?: string;
-                opacity?: number;
-            }
-            opacity?: number;
-            orientation?: ChartOrientation;
+                color?: string | undefined;
+                opacity?: number | undefined;
+            } | undefined
+            opacity?: number | undefined;
+            orientation?: ChartOrientation | undefined;
             selected?: {
-                color?: string;
-                opacity?: number;
-            }
-            trigger?: string;
+                color?: string | undefined;
+                opacity?: number | undefined;
+            } | undefined
+            trigger?: string | undefined;
         }
 
         export interface ChartExplorer {
-            actions?: string[];
-            axis?: string;
-            keepInBounds?: boolean;
-            maxZoomIn?: number;
-            maxZoomOut?: number;
-            zoomDelta?: number;
+            actions?: string[] | undefined;
+            axis?: string | undefined;
+            keepInBounds?: boolean | undefined;
+            maxZoomIn?: number | undefined;
+            maxZoomOut?: number | undefined;
+            zoomDelta?: number | undefined;
         }
 
-        export interface ChartStrokeFill {
-            stroke?: string;
-            strokeWidth?: number;
-            fill?: string;
+        export interface ChartStrokeFill extends ChartStroke, ChartFill {
+        }
+
+        export interface ChartStroke {
+            stroke?: string | undefined;
+            strokeWidth?: number | undefined;
+        }
+
+        export interface ChartStrokeOpacity extends ChartStroke {
+            strokeOpacity?: number | undefined;
+        }
+
+        export interface ChartFill {
+            fill?: string | undefined;
+            fillOpacity?: number | undefined;
         }
 
         export interface ChartArea {
-            backgroundColor?: string | ChartStrokeFill;
-            top?: number | string;
-            left?: number | string;
-            right?: number | string;
-            bottom?: number | string;
-            width?: number | string;
-            height?: number | string;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            top?: number | string | undefined;
+            left?: number | string | undefined;
+            right?: number | string | undefined;
+            bottom?: number | string | undefined;
+            width?: number | string | undefined;
+            height?: number | string | undefined;
         }
 
         export type ChartOrientation = 'vertical' | 'horizontal';
@@ -461,62 +501,62 @@ declare namespace google {
         export type ChartLegendPosition = 'bottom' | 'left' | 'in' | 'none' | 'right' | 'top';
         export type ChartLegendAlignment = 'start' | 'center' | 'end';
         export interface ChartLegend {
-            alignment?: ChartLegendAlignment;
-            maxLines?: number;
-            position?: ChartLegendPosition;
-            textStyle?: ChartTextStyle;
-            numberFormat?: string;
+            alignment?: ChartLegendAlignment | undefined;
+            maxLines?: number | undefined;
+            position?: ChartLegendPosition | undefined;
+            textStyle?: ChartTextStyle | undefined;
+            numberFormat?: string | undefined;
         }
 
         // https://developers.google.com/chart/interactive/docs/animation
         export interface TransitionAnimation {
-            duration?: number;
-            easing?: string; // linear, in, out, inAndOut
-            startup?: boolean;
+            duration?: number | undefined;
+            easing?: string | undefined; // linear, in, out, inAndOut
+            startup?: boolean | undefined;
         }
 
         export interface ChartAxis {
-            baseline?: number; // This option is only supported for a continuous axis. https://developers.google.com/chart/interactive/docs/customizing_axes#Terminology
-            baselineColor?: string; // google's documentation on this is wrong, specifies it as a number. The color of the baseline for the horizontal axis. Can be any HTML color string, for example: 'red' or '#00cc00'
-            direction?: number; // The direction in which the values along the horizontal axis grow. Specify -1 to reverse the order of the values.
-            format?: string; // icu pattern set http://icu-project.org/apiref/icu4c/classDecimalFormat.html#_details
-            gridlines?: ChartGridlines;
-            minorGridlines?: ChartGridlines;
-            logScale?: boolean;
-            textPosition?: string;
-            textStyle?: ChartTextStyle;
-            ticks?: any[];
-            title?: string;
-            titleTextStyle?: ChartTextStyle;
-            allowContainerBoundaryTextCufoff?: boolean;
-            slantedText?: boolean;
-            slantedTextAngle?: number;
-            maxAlternation?: number;
-            maxTextLines?: number;
-            minTextSpacing?: number;
-            showTextEvery?: number;
-            maxValue?: number | Date | number[];
-            minValue?: number | Date | number[];
-            viewWindowMode?: string;
-            viewWindow?: ChartViewWindow;
+            baseline?: number | undefined; // This option is only supported for a continuous axis. https://developers.google.com/chart/interactive/docs/customizing_axes#Terminology
+            baselineColor?: string | undefined; // google's documentation on this is wrong, specifies it as a number. The color of the baseline for the horizontal axis. Can be any HTML color string, for example: 'red' or '#00cc00'
+            direction?: number | undefined; // The direction in which the values along the horizontal axis grow. Specify -1 to reverse the order of the values.
+            format?: string | undefined; // icu pattern set http://icu-project.org/apiref/icu4c/classDecimalFormat.html#_details
+            gridlines?: ChartGridlines | undefined;
+            minorGridlines?: ChartGridlines | undefined;
+            logScale?: boolean | undefined;
+            textPosition?: string | undefined;
+            textStyle?: ChartTextStyle | undefined;
+            ticks?: any[] | undefined;
+            title?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            allowContainerBoundaryTextCutoff?: boolean | undefined;
+            slantedText?: boolean | undefined;
+            slantedTextAngle?: number | undefined;
+            maxAlternation?: number | undefined;
+            maxTextLines?: number | undefined;
+            minTextSpacing?: number | undefined;
+            showTextEvery?: number | undefined;
+            maxValue?: number | Date | number[] | undefined;
+            minValue?: number | Date | number[] | undefined;
+            viewWindowMode?: string | undefined;
+            viewWindow?: ChartViewWindow | undefined;
         }
 
         export interface ChartGridlines {
-            color?: string;
-            count?: number;
+            color?: string | undefined;
+            count?: number | undefined;
         }
 
         export interface ChartViewWindow {
-            max?: number | Date | number[];
-            min?: number | Date | number[];
+            max?: number | Date | number[] | undefined;
+            min?: number | Date | number[] | undefined;
         }
 
         export interface ChartTooltip {
-            isHtml?: boolean;
-            showColorCode?: boolean;
-            textStyle?: ChartTextStyle;
-            trigger?: string;
-            ignoreBounds?: boolean;
+            isHtml?: boolean | undefined;
+            showColorCode?: boolean | undefined;
+            textStyle?: ChartTextStyle | undefined;
+            trigger?: string | undefined;
+            ignoreBounds?: boolean | undefined;
         }
 
         export interface ChartBoundingBox {
@@ -527,11 +567,11 @@ declare namespace google {
         }
 
         export interface ChartColorAxis {
-            minValue?: number;
-            maxValue?: number;
-            values?: number[];
-            colors?: string[];
-            legend?: ChartLegend;
+            minValue?: number | undefined;
+            maxValue?: number | undefined;
+            values?: number[] | undefined;
+            colors?: string[] | undefined;
+            legend?: ChartLegend | undefined;
         }
 
         export type ChartPointShape = 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
@@ -549,33 +589,33 @@ declare namespace google {
             groupWidth: any; // number | string
         }
 
-        export interface VisualizationSelectionArray {
-            column?: number;
-            row?: number;
+        export interface ChartSelection {
+            column?: number | null | undefined;
+            row?: number | null | undefined;
         }
 
         export interface Candlestick {
-            hollowIsRising?: boolean;
-            fallingColor?: ChartStrokeFill;
-            risingColor?: ChartStrokeFill;
+            hollowIsRising?: boolean | undefined;
+            fallingColor?: ChartStrokeFill | undefined;
+            risingColor?: ChartStrokeFill | undefined;
         }
 
         export interface ChartSeriesOptionsBase {
-            color?: string;
+            color?: string | undefined;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/trendlines
         export interface ChartTrendlineOptions {
-            type?: 'linear' | 'exponential' | 'polynomial';
-            degree?: number;
-            color?: string;
-            lineWidth?: number;
-            opacity?: number;
-            pointSize?: number;
-            pointsVisible?: boolean;
-            labelInLegend?: string;
-            visibleInLegend?: boolean;
-            showR2?: boolean
+            type?: 'linear' | 'exponential' | 'polynomial' | undefined;
+            degree?: number | undefined;
+            color?: string | undefined;
+            lineWidth?: number | undefined;
+            opacity?: number | undefined;
+            pointSize?: number | undefined;
+            pointsVisible?: boolean | undefined;
+            labelInLegend?: string | undefined;
+            visibleInLegend?: boolean | undefined;
+            showR2?: boolean | undefined
         }
 
         export interface ChartAction {
@@ -587,8 +627,8 @@ declare namespace google {
         abstract class ChartBase {
             constructor(element: Element);
             getContainer(): Element;
-            getSelection(): VisualizationSelectionArray[];
-            setSelection(selection: VisualizationSelectionArray[]): void;
+            getSelection(): ChartSelection[];
+            setSelection(selection?: ChartSelection[] | null): void;
         }
 
         abstract class ChartBaseClearable extends ChartBase {
@@ -621,39 +661,39 @@ declare namespace google {
         }
 
         export interface ScatterChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            chartArea?: ChartArea;
-            colors?: string[];
-            crosshair?: ChartCrosshair;
-            curveType?: 'none' | 'function';
-            dataOpacity?: number;
-            enableInteractivity?: boolean;
-            explorer?: ChartExplorer;
-            fontSize?: number;
-            fontName?: string;
-            forceIFrame?: boolean;
-            hAxis?: ChartAxis;
-            height?: number;
-            legend?: ChartLegend | 'none';
-            lineWidth?: number;
-            orientation?: ChartOrientation;
-            pointShape?: ChartPointShape;
-            pointSize?: number;
-            pointsVisible?: boolean;
-            selectionMode?: ChartSelectionMode;
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            annotations?: ChartAnnotations | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            crosshair?: ChartCrosshair | undefined;
+            curveType?: 'none' | 'function' | undefined;
+            dataOpacity?: number | undefined;
+            enableInteractivity?: boolean | undefined;
+            explorer?: ChartExplorer | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            forceIFrame?: boolean | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            lineWidth?: number | undefined;
+            orientation?: ChartOrientation | undefined;
+            pointShape?: ChartPointShape | undefined;
+            pointSize?: number | undefined;
+            pointsVisible?: boolean | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
             series?: any;
-            theme?: string;
-            trendlines?: { [key: number]: ChartTrendlineOptions; };
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
-            vAxis?: ChartAxis;
-            width?: number;
+            theme?: string | undefined;
+            trendlines?: { [key: number]: ChartTrendlineOptions; } | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -666,34 +706,34 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options
         export interface ColumnChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            annotations?: ChartBarColumnAnnotations;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            bar?: GroupWidth;
-            chartArea?: ChartArea;
-            colors?: string[];
-            enableInteractivity?: boolean;
-            explorer?: ChartExplorer;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
-            hAxis?: ChartAxis;
-            height?: number;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
-            legend?: ChartLegend | 'none';
-            reverseCategories?: boolean;
-            selectionMode?: ChartSelectionMode;
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            annotations?: ChartBarColumnAnnotations | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            bar?: GroupWidth | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            enableInteractivity?: boolean | undefined;
+            explorer?: ChartExplorer | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            reverseCategories?: boolean | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
             series?: any;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -705,60 +745,71 @@ declare namespace google {
         }
 
         export interface LineChartSeriesOptions extends ChartSeriesOptionsBase {
-            annotations?: ChartAnnotations;
-            curveType?: 'none' | 'function';
-            pointShape?: ChartPointShape;
-            pointSize?: number;
-            pointsVisible?: boolean;
-            lineWidth?: number;
-            lineDashStyle?: number[];
-            visibleInLegend?: boolean;
-            labelInLegend?: string;
-            targetAxisIndex?: number;
+            annotations?: ChartAnnotations | undefined;
+            curveType?: 'none' | 'function' | undefined;
+            pointShape?: ChartPointShape | undefined;
+            pointSize?: number | undefined;
+            pointsVisible?: boolean | undefined;
+            lineWidth?: number | undefined;
+            lineDashStyle?: number[] | undefined;
+            visibleInLegend?: boolean | undefined;
+            labelInLegend?: string | undefined;
+            targetAxisIndex?: number | undefined;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/intervals#combining-interval-styles
+        export interface Intervals {
+            style?: 'area' | 'bars' | 'boxes' | 'line' | 'points' | 'sticks' | undefined;
+            color?: string | undefined;
+            barWidth?: number | undefined;
+            boxWidth?: number | undefined;
+            lineWidth?: number | undefined;
+            pointSize?: number | undefined;
+            fillOpacity?: number | undefined;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            chartArea?: ChartArea;
-            colors?: string[];
-            crosshair?: ChartCrosshair;
-            curveType?: 'none' | 'function';
-            dataOpacity?: number;
-            enableInteractivity?: boolean;
-            explorer?: ChartExplorer;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
-            hAxis?: ChartAxis;
-            height?: number;
-            interpolateNulls?: boolean;
-            legend?: ChartLegend | 'none';
-            lineWidth?: number;
-            min?: number;
-            orientation?: ChartOrientation;
-            reverseCategories?: boolean;
-            selectionMode?: ChartSelectionMode;
-            series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions; };
-            domainAxis?: { type: string };
-            trendlines?: { [key: number]: ChartTrendlineOptions; };
-            pointShape?: ChartPointShape;
-            pointSize?: number;
-            pointsVisible?: boolean;
-            intervals?: { style: string };
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            annotations?: ChartAnnotations | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            crosshair?: ChartCrosshair | undefined;
+            curveType?: 'none' | 'function' | undefined;
+            dataOpacity?: number | undefined;
+            enableInteractivity?: boolean | undefined;
+            explorer?: ChartExplorer | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            interpolateNulls?: boolean | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            lineWidth?: number | undefined;
+            min?: number | undefined;
+            orientation?: ChartOrientation | undefined;
+            reverseCategories?: boolean | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
+            series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions; } | undefined;
+            domainAxis?: { type: string } | undefined;
+            trendlines?: { [key: number]: ChartTrendlineOptions; } | undefined;
+            pointShape?: ChartPointShape | undefined;
+            pointSize?: number | undefined;
+            pointsVisible?: boolean | undefined;
+            intervals?: Intervals | undefined;
             interval?: any;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -766,34 +817,34 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
         export interface BarChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            annotations?: ChartBarColumnAnnotations;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            bar?: GroupWidth;
-            chartArea?: ChartArea;
-            colors?: string[];
-            dataOpacity?: number;
-            enableInteractivity?: boolean;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            annotations?: ChartBarColumnAnnotations | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            bar?: GroupWidth | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            dataOpacity?: number | undefined;
+            enableInteractivity?: boolean | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
             hAxes?: any;
-            hAxis?: ChartAxis;
-            height?: number;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
-            legend?: ChartLegend | 'none';
-            reverseCategories?: boolean;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            reverseCategories?: boolean | undefined;
             series?: any;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/barchart
@@ -811,40 +862,40 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/histogram#configuration-options
         export interface HistogramOptions {
-            animation?: TransitionAnimation;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            bar?: GroupWidth;
-            chartArea?: ChartArea;
-            colors?: string[];
-            dataOpacity?: number;
-            enableInteractivity?: boolean;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
-            hAxis?: ChartAxis;
-            histogram?: HistogramHistogramOptions;
-            height?: number;
-            interpolateNulls?: boolean;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
-            legend?: ChartLegend | 'none';
-            orientation?: ChartOrientation;
-            reverseCategories?: boolean;
+            animation?: TransitionAnimation | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            bar?: GroupWidth | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            dataOpacity?: number | undefined;
+            enableInteractivity?: boolean | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            hAxis?: ChartAxis | undefined;
+            histogram?: HistogramHistogramOptions | undefined;
+            height?: number | undefined;
+            interpolateNulls?: boolean | undefined;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            orientation?: ChartOrientation | undefined;
+            reverseCategories?: boolean | undefined;
             series?: any;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         export interface HistogramHistogramOptions {
-            bucketSize?: number;
-            hideBucketItems?: boolean;
-            lastBucketPercentile?: number;
+            bucketSize?: number | undefined;
+            hideBucketItems?: boolean | undefined;
+            lastBucketPercentile?: number | undefined;
         }
 
         //#endregion
@@ -857,40 +908,40 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/areachart#configuration-options
         export interface AreaChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
-            areaOpacity?: number;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            chartArea?: ChartArea;
-            colors?: string[];
-            crosshair?: ChartCrosshair;
-            dataOpacity?: number;
-            enableInteractivity?: boolean;
-            explorer?: ChartExplorer;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
-            hAxis?: ChartAxis;
-            height?: number;
-            interpolateNulls?: boolean;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
-            legend?: ChartLegend | 'none';
-            lineWidth?: number;
-            orientation?: ChartOrientation;
-            pointSize?: number;
-            reverseCategories?: boolean;
-            selectionMode?: ChartSelectionMode;
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            annotations?: ChartAnnotations | undefined;
+            areaOpacity?: number | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            crosshair?: ChartCrosshair | undefined;
+            dataOpacity?: number | undefined;
+            enableInteractivity?: boolean | undefined;
+            explorer?: ChartExplorer | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            interpolateNulls?: boolean | undefined;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            lineWidth?: number | undefined;
+            orientation?: ChartOrientation | undefined;
+            pointSize?: number | undefined;
+            reverseCategories?: boolean | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
             series?: any;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -908,30 +959,30 @@ declare namespace google {
         // https://developers.google.com/chart/interactive/docs/gallery/annotationchart#Configuration_Options
         export interface AnnotationChartOptions
         {
-            allowHtml?: boolean;
-            allValuesSuffix?: string;
-            annotationsWidth?: number;
-            colors?: string[];
-            dateFormat?: string;
-            displayAnnotations?: boolean;
-            displayAnnotationsFilter?: boolean;
-            displayDateBarSeparator?: boolean;
-            displayExactValues?: boolean;
-            displayLegendDots?: boolean;
-            displayLegendValues?: boolean;
-            displayRangeSelector?: boolean;
-            displayZoomButtons?: boolean;
-            fill?: number;
-            legendPosition?: 'sameRow' | 'newRow';
-            max?: number;
-            min?: number;
+            allowHtml?: boolean | undefined;
+            allValuesSuffix?: string | undefined;
+            annotationsWidth?: number | undefined;
+            colors?: string[] | undefined;
+            dateFormat?: string | undefined;
+            displayAnnotations?: boolean | undefined;
+            displayAnnotationsFilter?: boolean | undefined;
+            displayDateBarSeparator?: boolean | undefined;
+            displayExactValues?: boolean | undefined;
+            displayLegendDots?: boolean | undefined;
+            displayLegendValues?: boolean | undefined;
+            displayRangeSelector?: boolean | undefined;
+            displayZoomButtons?: boolean | undefined;
+            fill?: number | undefined;
+            legendPosition?: 'sameRow' | 'newRow' | undefined;
+            max?: number | undefined;
+            min?: number | undefined;
             numberFormats?: any;
-            scaleColumns?: number[];
-            scaleFormat?: string;
-            scaleType?: string;
-            thickness?: number;
-            zoomEndTime?: Date;
-            zoomStartTime?: Date;
+            scaleColumns?: number[] | undefined;
+            scaleFormat?: string | undefined;
+            scaleType?: string | undefined;
+            thickness?: number | undefined;
+            zoomEndTime?: Date | undefined;
+            zoomStartTime?: Date | undefined;
         }
 
         //#endregion
@@ -944,34 +995,34 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/steppedareachart#configuration-options
         export interface SteppedAreaChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            areaOpacity?: number;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            chartArea?: ChartArea;
-            colors?: string[];
-            connectSteps?: boolean;
-            enableInteractivity?: boolean;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
-            hAxis?: ChartAxis;
-            height?: number;
-            interpolateNulls?: boolean;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute';
-            legend?: ChartLegend | 'none';
-            reverseCategories?: boolean;
-            selectionMode?: ChartSelectionMode;
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            areaOpacity?: number | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            connectSteps?: boolean | undefined;
+            enableInteractivity?: boolean | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            interpolateNulls?: boolean | undefined;
+            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            reverseCategories?: boolean | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
             series?: any;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -982,31 +1033,39 @@ declare namespace google {
             draw(data: DataTable | DataView, options: PieChartOptions): void;
         }
 
+        export interface PieChartLegend {
+            alignment?: ChartLegendAlignment | undefined;
+            maxLines?: number | undefined;
+            position?: 'bottom' | 'labeled' | 'left' | 'none' | 'right' | 'top' | undefined;
+            textStyle?: ChartTextStyle | undefined;
+            numberFormat?: string | undefined;
+        }
+
         // https://developers.google.com/chart/interactive/docs/gallery/piechart#configuration-options
         export interface PieChartOptions {
-            backgroundColor?: string | ChartStrokeFill;
-            chartArea?: ChartArea;
-            colors?: string[];
-            enableInteractivity?: boolean;
-            fontSize?: number;
-            fontName?: string;
-            height?: number;
-            is3D?: boolean;
-            legend?: ChartLegend | 'none';
-            pieHole?: number;
-            pieSliceBorderColor?: string;
-            pieSliceText?: string;
-            pieSliceTextStyle?: ChartTextStyle;
-            pieStartAngle?: number;
-            reverseCategories?: boolean;
-            pieResidueSliceColor?: string;
-            pieResidueSliceLabel?: string;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            enableInteractivity?: boolean | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            height?: number | undefined;
+            is3D?: boolean | undefined;
+            legend?: PieChartLegend | 'none' | undefined;
+            pieHole?: number | undefined;
+            pieSliceBorderColor?: string | undefined;
+            pieSliceText?: string | undefined;
+            pieSliceTextStyle?: ChartTextStyle | undefined;
+            pieStartAngle?: number | undefined;
+            reverseCategories?: boolean | undefined;
+            pieResidueSliceColor?: string | undefined;
+            pieResidueSliceLabel?: string | undefined;
             slices?: any;
-            sliceVisibilityThreshold?: number;
-            title?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
-            width?: number;
+            sliceVisibilityThreshold?: number | undefined;
+            title?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -1018,45 +1077,45 @@ declare namespace google {
         }
 
         export interface BubbleChartOptions {
-            animation?: TransitionAnimation;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            bubble?: ChartBubble;
-            chartArea?: ChartArea;
-            colors?: string[];
-            colorAxis?: ChartColorAxis;
-            enableInteractivity?: boolean;
-            explorer?: ChartExplorer;
-            fontSize?: number;
-            fontName?: string;
-            forceIFrame?: boolean;
-            hAxis?: ChartAxis;
-            height?: number;
-            legend?: ChartLegend | 'none';
-            selectionMode?: ChartSelectionMode;
+            animation?: TransitionAnimation | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            bubble?: ChartBubble | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            colorAxis?: ChartColorAxis | undefined;
+            enableInteractivity?: boolean | undefined;
+            explorer?: ChartExplorer | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            forceIFrame?: boolean | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
             series?: any;
-            sizeAxis?: ChartSizeAxis;
-            sortBubblesBySize?: boolean;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
-            vAxis?: ChartAxis;
-            width?: number;
+            sizeAxis?: ChartSizeAxis | undefined;
+            sortBubblesBySize?: boolean | undefined;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         export interface ChartBubble {
-            opacity?: number;
-            stroke?: string;
-            textStyle?: ChartTextStyle;
+            opacity?: number | undefined;
+            stroke?: string | undefined;
+            textStyle?: ChartTextStyle | undefined;
         }
 
         export interface ChartSizeAxis {
-            maxSize?: number;
-            maxValue?: number;
-            minSize?: number;
-            minValue?: number;
+            maxSize?: number | undefined;
+            maxValue?: number | undefined;
+            minSize?: number | undefined;
+            minValue?: number | undefined;
         }
 
         //#endregion
@@ -1071,30 +1130,30 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/treemap#Configuration_Options
         export interface TreeMapOptions {
-            fontColor?: string;
-            fontFamily?: string;
-            fontSize?: number;
-            forceIFrame?: boolean;
-            headerColor?: string;
-            headerHeight?: number;
-            headerHighlightColor?: string;
-            hintOpacity?: number;
-            maxColor?: string;
-            maxDepth?: number;
-            maxHighlightColor?: string;
-            maxPostDepth?: number;
-            maxColorValue?: number;
-            midColor?: string;
-            midHighlightColor?: string;
-            minColor?: string;
-            minHighlightColor?: string;
-            minColorValue?: number;
-            showScale?: boolean;
-            showTooltips?: boolean;
-            textStyle?: ChartTextStyle;
-            title?: string;
-            titleTextStyle?: ChartTextStyle;
-            useWeightedAverageForAggregation?: boolean;
+            fontColor?: string | undefined;
+            fontFamily?: string | undefined;
+            fontSize?: number | undefined;
+            forceIFrame?: boolean | undefined;
+            headerColor?: string | undefined;
+            headerHeight?: number | undefined;
+            headerHighlightColor?: string | undefined;
+            hintOpacity?: number | undefined;
+            maxColor?: string | undefined;
+            maxDepth?: number | undefined;
+            maxHighlightColor?: string | undefined;
+            maxPostDepth?: number | undefined;
+            maxColorValue?: number | undefined;
+            midColor?: string | undefined;
+            midHighlightColor?: string | undefined;
+            minColor?: string | undefined;
+            minHighlightColor?: string | undefined;
+            minColorValue?: number | undefined;
+            showScale?: boolean | undefined;
+            showTooltips?: boolean | undefined;
+            textStyle?: ChartTextStyle | undefined;
+            title?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            useWeightedAverageForAggregation?: boolean | undefined;
         }
 
         //#endregion
@@ -1108,34 +1167,34 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/table#Configuration_Options
         export interface TableOptions {
-            allowHtml?: boolean;
-            alternatingRowStyle?: boolean;
-            cssClassNames?: CssClassNames;
-            firstRowNumber?: number;
-            frozenColumns?: number;
-            height?: string;
-            page?: string;
-            pageSize?: number;
-            pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto';
-            rtlTable?: boolean;
-            scrollLeftStartPosition?: number;
-            showRowNumber?: boolean;
-            sort?: string;
-            sortAscending?: boolean;
-            sortColumn?: number;
-            startPage?: number;
-            width?: string;
+            allowHtml?: boolean | undefined;
+            alternatingRowStyle?: boolean | undefined;
+            cssClassNames?: CssClassNames | undefined;
+            firstRowNumber?: number | undefined;
+            frozenColumns?: number | undefined;
+            height?: string | number | undefined;
+            page?: string | undefined;
+            pageSize?: number | undefined;
+            pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto' | undefined;
+            rtlTable?: boolean | undefined;
+            scrollLeftStartPosition?: number | undefined;
+            showRowNumber?: boolean | undefined;
+            sort?: string | undefined;
+            sortAscending?: boolean | undefined;
+            sortColumn?: number | undefined;
+            startPage?: number | undefined;
+            width?: string | number | undefined;
         }
 
         export interface CssClassNames {
-            headerRow?: string;
-            tableRow?: string;
-            oddTableRow?: string;
-            selectedTableRow?: string;
-            hoverTableRow?: string;
-            headerCell?: string;
-            tableCell?: string;
-            rowNumberCell?: string;
+            headerRow?: string | undefined;
+            tableRow?: string | undefined;
+            oddTableRow?: string | undefined;
+            selectedTableRow?: string | undefined;
+            hoverTableRow?: string | undefined;
+            headerCell?: string | undefined;
+            tableCell?: string | undefined;
+            rowNumberCell?: string | undefined;
         }
 
         export interface TableSortInfo {
@@ -1152,32 +1211,40 @@ declare namespace google {
             constructor(element: Element);
             draw(data: DataTable | DataView, options?: TimelineOptions): void;
             clearChart(): void;
-            getSelection(): VisualizationSelectionArray[];
+            getSelection(): ChartSelection[];
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/timeline#Configuration_Options
         export interface TimelineOptions {
-            avoidOverlappingGridLines?: boolean;
-            backgroundColor?: string | ChartStrokeFill;
-            colors?: string[];
-            enableInteractivity?: boolean;
-            forceIFrame?: boolean;
-            height?: number;
+            avoidOverlappingGridLines?: boolean | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            colors?: string[] | undefined;
+            enableInteractivity?: boolean | undefined;
+            fontName?: string | undefined;
+            fontSize?: number | undefined;
+            forceIFrame?: boolean | undefined;
+            height?: number | undefined;
             timeline?: {
-                barLabelStyle?: LabelStyle;
-                colorByRowLabel?: boolean;
-                groupByRowLabel?: boolean;
-                rowLabelStyle?: LabelStyle;
-                showRowLabels?: boolean;
-                singleColor?: string;
-            }
-            width?: number;
+                barLabelStyle?: LabelStyle | undefined;
+                colorByRowLabel?: boolean | undefined;
+                groupByRowLabel?: boolean | undefined;
+                rowLabelStyle?: LabelStyle | null | undefined;
+                showBarLabels?: boolean | undefined;
+                showRowLabels?: boolean | undefined;
+                singleColor?: string | null | undefined;
+            } | undefined;
+            tooltip?: {
+                isHtml?: boolean | undefined;
+                trigger?: 'focus' | 'none' | undefined;
+                textStyle?: ChartTextStyle | undefined;
+            } | undefined;
+            width?: number | undefined;
         }
 
         export interface LabelStyle {
             color: string;
             fontName: string;
-            fontSize: string;
+            fontSize: number;
         }
 
         //#endregion
@@ -1190,33 +1257,33 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/candlestickchart#Configuration_Options
         export interface CandlestickChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            bar?: GroupWidth;
-            candlestick?: Candlestick;
-            chartArea?: ChartArea;
-            colors?: string[];
-            enableInteractivity?: boolean;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
-            hAxis?: ChartAxis;
-            height?: number;
-            legend?: ChartLegend | 'none';
-            orientation?: ChartOrientation;
-            reverseCategories?: boolean;
-            selectionMode?: ChartSelectionMode;
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            bar?: GroupWidth | undefined;
+            candlestick?: Candlestick | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            enableInteractivity?: boolean | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            orientation?: ChartOrientation | undefined;
+            reverseCategories?: boolean | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
             series?: any;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -1229,47 +1296,47 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/combochart#configuration-options
         export interface ComboChartOptions {
-            aggregationTarget?: string;
-            animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
-            areaOpacity?: number;
-            axisTitlesPosition?: ChartAxisTitlesPosition;
-            backgroundColor?: string | ChartStrokeFill;
-            bar?: GroupWidth;
-            candlestick?: Candlestick;
-            chartArea?: ChartArea;
-            colors?: string[];
-            crosshair?: ChartCrosshair;
-            curveType?: 'none' | 'function';
-            dataOpacity?: number;
-            enableInteractivity?: boolean;
-            focusTarget?: string;
-            fontSize?: number;
-            fontName?: string;
-            forceIFrame?: boolean;
-            hAxis?: ChartAxis;
-            height?: number;
-            interpolateNulls?: boolean;
-            isStacked?: boolean;
-            legend?: ChartLegend | 'none';
-            lineDashStyle?: number[];
-            lineWidth?: number;
-            orientation?: ChartOrientation;
-            pointShape?: ChartPointShape;
-            pointSize?: number;
-            pointsVisible?: boolean;
-            reverseCategories?: boolean;
-            selectionMode?: ChartSelectionMode;
+            aggregationTarget?: string | undefined;
+            animation?: TransitionAnimation | undefined;
+            annotations?: ChartAnnotations | undefined;
+            areaOpacity?: number | undefined;
+            axisTitlesPosition?: ChartAxisTitlesPosition | undefined;
+            backgroundColor?: string | ChartStrokeFill | undefined;
+            bar?: GroupWidth | undefined;
+            candlestick?: Candlestick | undefined;
+            chartArea?: ChartArea | undefined;
+            colors?: string[] | undefined;
+            crosshair?: ChartCrosshair | undefined;
+            curveType?: 'none' | 'function' | undefined;
+            dataOpacity?: number | undefined;
+            enableInteractivity?: boolean | undefined;
+            focusTarget?: string | undefined;
+            fontSize?: number | undefined;
+            fontName?: string | undefined;
+            forceIFrame?: boolean | undefined;
+            hAxis?: ChartAxis | undefined;
+            height?: number | undefined;
+            interpolateNulls?: boolean | undefined;
+            isStacked?: boolean | undefined;
+            legend?: ChartLegend | 'none' | undefined;
+            lineDashStyle?: number[] | undefined;
+            lineWidth?: number | undefined;
+            orientation?: ChartOrientation | undefined;
+            pointShape?: ChartPointShape | undefined;
+            pointSize?: number | undefined;
+            pointsVisible?: boolean | undefined;
+            reverseCategories?: boolean | undefined;
+            selectionMode?: ChartSelectionMode | undefined;
             series?: any;
-            seriesType?: string;
-            theme?: string;
-            title?: string;
-            titlePosition?: string;
-            titleTextStyle?: ChartTextStyle;
-            tooltip?: ChartTooltip;
+            seriesType?: string | undefined;
+            theme?: string | undefined;
+            title?: string | undefined;
+            titlePosition?: string | undefined;
+            titleTextStyle?: ChartTextStyle | undefined;
+            tooltip?: ChartTooltip | undefined;
             vAxes?: any;
-            vAxis?: ChartAxis;
-            width?: number;
+            vAxis?: ChartAxis | undefined;
+            width?: number | undefined;
         }
 
         //#endregion
@@ -1310,8 +1377,8 @@ declare namespace google {
         export interface ControlWrapperOptions {
             controlType: string;
             containerId: string;
-            options?: Object;
-            state?: Object;
+            options?: Object | undefined;
+            state?: Object | undefined;
         }
 
         //#endregion
@@ -1325,32 +1392,37 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
         export interface CalendarOptions {
-            calendar: {
-                cellColor: Object;
-                cellSize: number;
-                dayOfWeekLabel: Object;
-                dayOfWeekRightSpace: number;
-                daysOfWeek: string;
-                focusedCellColor: Object;
-                monthLabel: Object;
-                monthOutlineColor: Object;
-                underMonthSpace: number;
-                underYearSpace: number;
-                unusedMonthOutlineColor: Object;
-            };
+            calendar?: {
+                cellColor?: ChartStrokeOpacity | undefined;
+                cellSize?: number | undefined;
+                dayOfWeekLabel?: ChartTextStyle | undefined;
+                dayOfWeekRightSpace?: number | undefined;
+                daysOfWeek?: string | undefined;
+                focusedCellColor?: ChartStrokeOpacity | undefined;
+                monthLabel?: ChartTextStyle | undefined;
+                monthOutlineColor?: ChartStrokeOpacity | undefined;
+                underMonthSpace?: number | undefined;
+                underYearSpace?: number | undefined;
+                unusedMonthOutlineColor?: ChartStrokeOpacity | undefined;
+                yearLabel?: ChartTextStyle | undefined;
+            } | undefined;
             colorAxis?: {
-                colors: string[];
-                maxValue: number;
-                minValue: number;
-                values: number[];
-            };
-            forceIFrame?: boolean;
-            height?: number;
-            noDataPattern?: Object;
-            tooltip: {
+                colors?: string[] | undefined;
+                maxValue?: number | undefined;
+                minValue?: number | undefined;
+                values?: number[] | undefined;
+            } | undefined;
+            forceIFrame?: boolean | undefined;
+            height?: number | undefined;
+            noDataPattern?: {
+                backgroundColor: string,
+                color: string
+            } | undefined;
+            tooltip?: {
                 isHtml: boolean;
-            };
-            width?: number;
+            } | undefined;
+            width?: number | undefined;
+            title?: string | undefined;
         }
 
         //#endregion
@@ -1363,23 +1435,23 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/map#Configuration_Options
         export interface MapOptions {
-            enableScrollWheel?: boolean;
-            icons?: Object;
-            lineColor?: string;
-            lineWidth?: number;
+            enableScrollWheel?: boolean | undefined;
+            icons?: Object | undefined;
+            lineColor?: string | undefined;
+            lineWidth?: number | undefined;
             maps: {
                 mapTypeId: {
-                    name?: string;
-                    styles?: any[];
+                    name?: string | undefined;
+                    styles?: any[] | undefined;
                 }
             };
-            mapType?: string;
-            mapTypeIds?: any[];
-            showInfoWindow?: boolean;
-            showLine?: boolean;
-            showTooltip?: boolean;
-            useMapTypeControl?: boolean;
-            zoomLevel?: number;
+            mapType?: string | undefined;
+            mapTypeIds?: any[] | undefined;
+            showInfoWindow?: boolean | undefined;
+            showLine?: boolean | undefined;
+            showTooltip?: boolean | undefined;
+            useMapTypeControl?: boolean | undefined;
+            zoomLevel?: number | undefined;
         }
 
         //#endregion
@@ -1412,7 +1484,7 @@ declare namespace google {
             /**
              * A number indicating the base value, used to compare against the cell value. If the cell value is higher, the cell will include a green up arrow; if the cell value is lower, it will include a red down arrow; if the same, no arrow.
              */
-            base?: number;
+            base?: number | undefined;
         }
 
         /**
@@ -1426,35 +1498,35 @@ declare namespace google {
             /**
              * A number that is the base value to compare the cell value against. If the cell value is higher, it will be drawn to the right of the base; if lower, it will be drawn to the left. Default value is 0.
              */
-            base?: number;
+            base?: number | undefined;
             /**
              * A string indicating the negative value section of bars. Possible values are 'red', 'green' and 'blue'; default value is 'red'.
              */
-            colorNegative?: string;
+            colorNegative?: string | undefined;
             /**
              * A string indicating the color of the positive value section of bars. Possible values are 'red', 'green' and 'blue'. Default is 'blue'.
              */
-            colorPositive?: string;
+            colorPositive?: string | undefined;
             /**
              * A boolean indicating if to draw a 1 pixel dark base line when negative values are present. The dark line is there to enhance visual scanning of the bars. Default value is 'false'.
              */
-            drawZeroLine?: boolean;
+            drawZeroLine?: boolean | undefined;
             /**
              * The maximum number value for the bar range. Default value is the highest value in the table.
              */
-            max?: number;
+            max?: number | undefined;
             /**
              * The minimum number value for the bar range. Default value is the lowest value in the table.
              */
-            min?: number;
+            min?: number | undefined;
             /**
              * If true, shows values and bars; if false, shows only bars. Default value is true.
              */
-            showValue?: boolean;
+            showValue?: boolean | undefined;
             /**
              * Thickness of each bar, in pixels. Default value is 100.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         /**
@@ -1498,18 +1570,18 @@ declare namespace google {
              * - 'long' - Long format: e.g., "February 28, 2016"
              * You cannot specify both formatType and pattern.
              */
-            formatType?: string;
+            formatType?: string | undefined;
             /**
              * A custom format pattern to apply to the value, similar to the ICU date and time format.
              * You cannot specify both formatType and pattern.
              * @example
              * var formatter3 = new google.visualization.DateFormat({pattern: "EEE, MMM d, ''yy"});
              */
-            pattern?: string;
+            pattern?: string | undefined;
             /**
              * The time zone in which to display the date value. This is a numeric value, indicating GMT + this number of time zones (can be negative). Date object are created by default with the assumed time zone of the computer on which they are created; this option is used to display that value in a different time zone. For example, if you created a Date object of 5pm noon on a computer located in Greenwich, England, and specified timeZone to be -5 (options['timeZone'] = -5, or Eastern Pacific Time in the US), the value displayed would be 12 noon.
              */
-            timeZone?: number;
+            timeZone?: number | undefined;
         }
 
         /**
@@ -1527,36 +1599,36 @@ declare namespace google {
             /**
              * A character to use as the decimal marker. The default is a dot (.).
              */
-            decimalSymbol?: string;
+            decimalSymbol?: string | undefined;
             /**
              * A number specifying how many digits to display after the decimal. The default is 2. If you specify more digits than the number contains, it will display zeros for the smaller values. Truncated values will be rounded (5 rounded up).
              */
-            fractionDigits?: number;
+            fractionDigits?: number | undefined;
             /**
              * A character to be used to group digits to the left of the decimal into sets of three. Default is a comma (,).
              */
-            groupingSymbol?: string;
+            groupingSymbol?: string | undefined;
             /**
              * The text color for negative values. No default value. Values can be any acceptable HTML color value, such as "red" or "#FF0000".
              */
-            negativeColor?: string;
+            negativeColor?: string | undefined;
             /**
              * A boolean, where true indicates that negative values should be surrounded by parentheses. Default is true.
              */
-            negativeParens?: boolean;
+            negativeParens?: boolean | undefined;
             /**
              * A format string. When provided, all other options are ignored, except negativeColor.
              * The format string is a subset of the ICU pattern set. For instance, {pattern:'#,###%'} will result in output values "1,000%", "750%", and "50%" for values 10, 7.5, and 0.5.
              */
-            pattern?: string;
+            pattern?: string | undefined;
             /**
              * A string prefix for the value, for example "$".
              */
-            prefix?: string;
+            prefix?: string | undefined;
             /**
              * A string suffix for the value, for example "%".
              */
-            suffix?: string;
+            suffix?: string | undefined;
         }
 
         /**
@@ -1603,18 +1675,131 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/orgchart#Configuration_Options
         export interface OrgChartOptions {
-            allowCollapse?: boolean;
-            allowHtml?: boolean;
-            color?: string;
-            nodeClass?: string;
-            selectedNodeClass?: string;
-            selectionColor?: string;
+            allowCollapse?: boolean | undefined;
+            allowHtml?: boolean | undefined;
+            color?: string | undefined;
+            nodeClass?: string | undefined;
+            selectedNodeClass?: string | undefined;
+            selectionColor?: string | undefined;
             /**
              * Chart size
              * @type {('small'|'medium'|'large')}
              * @default 'medium'
              */
-            size?: string;
+            size?: string | undefined;
+        }
+
+        //#endregion
+        //#region Gantt
+
+        // https://developers.google.com/chart/interactive/docs/gallery/ganttchart
+        export class Gantt extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: GanttChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/ganttchart#configuration-options
+        export interface GanttChartOptions {
+            backgroundColor?: ChartFill | undefined;
+            gantt?: GanttOptions | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+        }
+
+        export interface GanttOptions {
+            arrow?: GanttArrow | undefined;
+            barCornerRadius?: number | undefined;
+            barHeight?: number | undefined;
+            criticalPathEnabled?: boolean | undefined;
+            criticalPathStyle?: ChartStroke | undefined;
+            defaultStartDate?: Date | number | undefined;
+            innerGridHorizLine?: ChartStroke | undefined;
+            innerGridTrack?: ChartFill | undefined;
+            innerGridDarkTrack?: ChartFill | undefined;
+            labelMaxWidth?: number | undefined;
+            labelStyle?: LabelStyle | undefined;
+            percentEnabled?: boolean | undefined;
+            percentStyle?: ChartFill | undefined;
+            shadowEnabled?: boolean | undefined;
+            shadowStyle?: ChartFill | undefined;
+            shadowOffset?: number | undefined;
+            sortTasks?: boolean | undefined;
+            trackHeight?: number | undefined;
+        }
+
+        export interface GanttArrow {
+            angle?: number | undefined;
+            color?: string | undefined;
+            length?: number | undefined;
+            radius?: number | undefined;
+            spaceAfter?: number | undefined;
+            width?: number | undefined;
+        }
+
+
+        //#endregion
+        //#region Gauge
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge
+        // Note: can't extend ChartBaseClearable because Gauge doesn't have getSelection(), setSelection()
+        export class Gauge {
+            constructor(element: Element);
+            getContainer(): Element;
+            clearChart(): void;
+            draw(data: DataTable | DataView, options: GaugeChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge#configuration-options
+        export interface GaugeChartOptions {
+            animation?: TransitionAnimation | undefined;
+            forceIFrame?: boolean | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+            max?: number | undefined;
+            min?: number | undefined;
+            majorTicks?: string[] | undefined;
+            minorTicks?: number | undefined;
+            greenColor?: string | undefined;
+            greenFrom?: number | undefined;
+            greenTo?: number | undefined;
+            redColor?: string | undefined;
+            redFrom?: number | undefined;
+            redTo?: number | undefined;
+            yellowColor?: string | undefined;
+            yellowFrom?: number | undefined;
+            yellowTo?: number | undefined;
+        }
+
+        //#endregion
+        //#region Sankey
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey
+        export class Sankey extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: SankeyChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey#configuration-options
+        export interface SankeyChartOptions {
+            width?: number | undefined;
+            forceIFrame?: boolean | undefined;
+            height?: number | undefined;
+            sankey?: {
+                iterations?: number | undefined;
+                link?: {
+                    color?: string | ChartStrokeFill | undefined;
+                    colorMode?: 'none' | 'source' | 'target' | 'gradient' | undefined;
+                    colors?: string[] | undefined;
+                } | undefined;
+                node?: {
+                    colorMode?: 'unique' | undefined;
+                    colors?: string[] | undefined;
+                    interactivity?: boolean | undefined;
+                    label?: ChartTextStyle | undefined;
+                    labelPadding?: number | undefined;
+                    nodePadding?: number | undefined;
+                    width?: number | undefined;
+                } | undefined;
+                tooltip?: ChartTooltip | undefined;
+            } | undefined;
         }
 
         //#endregion

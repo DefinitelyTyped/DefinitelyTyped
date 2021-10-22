@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const MobileCheck20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default MobileCheck20;
+import { MobileCheck20 } from "../../";
+
+export = MobileCheck20;

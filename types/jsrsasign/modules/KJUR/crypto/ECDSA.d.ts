@@ -14,7 +14,7 @@ declare namespace jsrsasign.KJUR.crypto {
      * - secp384r1, NIST P-384, P-384 (*)
      */
     class ECDSA {
-        constructor(publicKey?: { curve: string; pub?: string });
+        constructor(publicKey?: { curve: string; pub?: string | undefined });
 
         getBigRandom(limit: number): BigInteger;
         setNamedCurve(curveName: string): void;

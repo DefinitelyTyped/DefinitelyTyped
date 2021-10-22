@@ -44,9 +44,9 @@ declare namespace BMapGL {
         onmarkend: (event: { type: string, target: any, marker: Marker }) => void;
     }
     interface PushpinToolOptions {
-        icon?: Icon;
-        cursor?: string;
-        followText?: string;
+        icon?: Icon | undefined;
+        cursor?: string | undefined;
+        followText?: string | undefined;
     }
     class DistanceTool {
         constructor(map: Map);
@@ -63,9 +63,9 @@ declare namespace BMapGL {
         ondrawend: (event: { type: string, target: any, bounds: Bounds[] }) => void;
     }
     interface DragAndZoomToolOptions {
-        zoomType?: ZoomType;
-        autoClose?: boolean;
-        followText?: string;
+        zoomType?: ZoomType | undefined;
+        autoClose?: boolean | undefined;
+        followText?: string | undefined;
     }
     type ZoomType = number;
 }

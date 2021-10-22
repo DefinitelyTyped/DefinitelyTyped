@@ -35,6 +35,6 @@ declare namespace Fork {
          * ignoreErrors is a flag. When its value is truthy, a Fork instance never fails on write() silently ignoring downstream errors.
          * Otherwise, the first encountered downstream error is reported upstream as its own error. The default: false.
          */
-        ignoreErrors?: boolean;
+        ignoreErrors?: boolean | undefined;
     }
 }

@@ -106,7 +106,8 @@ function testTryInvoke() {
             return x + parseInt(y, 10);
         }
         apples(n: number) {
-            return `${n} apples`;
+            // tslint:disable-next-line:no-unnecessary-type-assertion
+            return `${n} apples` as string;
         }
     }
     // zero-argument function

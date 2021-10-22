@@ -8,19 +8,19 @@
 
 declare module 'mongoose' {
   export interface PaginateOptions {
-    select?: Object | string;
-    sort?: Object | string;
+    select?: Object | string | undefined;
+    sort?: Object | string | undefined;
     populate?:
       | Array<Object>
       | Array<string>
       | Object
       | string
-      | QueryPopulateOptions;
-    lean?: boolean;
-    leanWithId?: boolean;
-    offset?: number;
-    page?: number;
-    limit?: number;
+      | QueryPopulateOptions | undefined;
+    lean?: boolean | undefined;
+    leanWithId?: boolean | undefined;
+    offset?: number | undefined;
+    page?: number | undefined;
+    limit?: number | undefined;
   }
 
   interface QueryPopulateOptions {
@@ -31,20 +31,20 @@ declare module 'mongoose' {
     /** optional query conditions to match */
     match?: any;
     /** optional model to use for population */
-    model?: string | Model<any>;
+    model?: string | Model<any> | undefined;
     /** optional query options like sort, limit, etc */
     options?: any;
     /** deep populate */
-    populate?: QueryPopulateOptions | QueryPopulateOptions[];
+    populate?: QueryPopulateOptions | QueryPopulateOptions[] | undefined;
   }
 
   export interface PaginateResult<T> {
     docs: Array<T>;
     total: number;
     limit: number;
-    page?: number;
-    pages?: number;
-    offset?: number;
+    page?: number | undefined;
+    pages?: number | undefined;
+    offset?: number | undefined;
   }
 
   interface PaginateModel<T extends Document> extends Model<T> {

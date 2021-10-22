@@ -22,19 +22,19 @@ export interface SignOptions {
      * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
      * - none:     No digital signature or MAC value included
      */
-    algorithm?: string;
-    keyid?: string;
+    algorithm?: string | undefined;
+    keyid?: string | undefined;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    expiresIn?: string | number;
+    expiresIn?: string | number | undefined;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    notBefore?: string | number;
-    audience?: string | string[];
-    subject?: string;
-    issuer?: string;
-    jwtid?: string;
-    noTimestamp?: boolean;
-    header?: object;
-    encoding?: string;
+    notBefore?: string | number | undefined;
+    audience?: string | string[] | undefined;
+    subject?: string | undefined;
+    issuer?: string | undefined;
+    jwtid?: string | undefined;
+    noTimestamp?: boolean | undefined;
+    header?: object | undefined;
+    encoding?: string | undefined;
 }
 
 /**

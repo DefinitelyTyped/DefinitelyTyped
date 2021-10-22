@@ -5,10 +5,10 @@ export interface NumericOptions {
     /**
      * The minimum value of the control.
      */
-    min?: number;
+    min?: number | undefined;
 
     /**
      * The maximum value of the control.
      */
-    max?: number;
+    max?: number | undefined;
 }

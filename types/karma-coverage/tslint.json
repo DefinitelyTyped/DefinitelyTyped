@@ -1,12 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-var-keyword": false,
-        "object-literal-shorthand": false,
-        "only-arrow-functions": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false
-    }
+    "extends": "dtslint/dt.json"
 }

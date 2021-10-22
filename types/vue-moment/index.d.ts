@@ -4,19 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import { Moment, MomentFormatSpecification, MomentInput } from 'moment';
+import { Moment, MomentFormatSpecification, MomentInput, Duration, DurationInputArg2, DurationInputArg1 } from 'moment';
 import { PluginObject } from 'vue';
 
 declare namespace VueMomentPlugin {
     interface Options {
         // The optional (self-maintained) moment instance
-        moment?: Moment;
+        moment?: Moment | undefined;
     }
 
     interface VueStatic extends Moment {
         (options: Options): void;
         (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
         (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
+        duration(inp?: DurationInputArg1, unit?: DurationInputArg2): Duration;
     }
 }
 

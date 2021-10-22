@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CirclePacking24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CirclePacking24;
+import { CirclePacking24 } from "../../";
+
+export = CirclePacking24;

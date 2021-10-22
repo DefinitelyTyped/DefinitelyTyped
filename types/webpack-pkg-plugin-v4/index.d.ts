@@ -2,11 +2,12 @@
 // Project: https://github.com/Metnew/webpack-pkg-plugin#readme
 // Definitions by: danpintara <https://github.com/danpintara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 
 export interface Configuration {
-    targets?: string[];
+    targets?: string[] | undefined;
     output: string;
 }
 

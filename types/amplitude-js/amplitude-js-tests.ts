@@ -84,6 +84,9 @@ import amplitude = require('amplitude-js');
     client.regenerateDeviceId();
     client.clearUserProperties();
     client.identify(identify);
+    client.groupIdentify('type', 'name', identify);
+    client.groupIdentify('type', ['name', 'name2'], identify);
+    client.groupIdentify('type', 'name', identify, (httpCode, response, details) => {});
     client.logRevenue(3.99, 1, 'product_1234');
     client.logRevenueV2(revenue);
     identify = new amplitude.Identify()
@@ -178,6 +181,7 @@ const defaults: amplitude.Config = {
     eventUploadPeriodMillis: 30 * 1000, // 30s
     eventUploadThreshold: 30,
     forceHttps: true,
+    includeFbclid: false,
     includeGclid: false,
     includeReferrer: false,
     includeUtm: false,

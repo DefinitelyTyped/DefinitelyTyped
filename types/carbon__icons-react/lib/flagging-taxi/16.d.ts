@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FlaggingTaxi16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FlaggingTaxi16;
+import { FlaggingTaxi16 } from "../../";
+
+export = FlaggingTaxi16;

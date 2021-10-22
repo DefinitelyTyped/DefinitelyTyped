@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ThunderstormStrong20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ThunderstormStrong20;
+import { ThunderstormStrong20 } from "../../";
+
+export = ThunderstormStrong20;

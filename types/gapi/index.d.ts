@@ -20,7 +20,7 @@ interface GoogleApiOAuth2TokenObject {
      * The duration, in seconds, the token is valid for. Only present in successful responses
      */
     expires_in: string;
-    session_state?: GoogleApiOAuth2TokenSessionState;
+    session_state?: GoogleApiOAuth2TokenSessionState | undefined;
     /**
      * The Google API scopes related to this token
      */
@@ -45,9 +45,9 @@ declare namespace gapi {
     type LoadCallback = (...args: any[]) => void;
     type LoadConfig = {
       callback: LoadCallback,
-      onerror?: Function,
-      timeout?: number,
-      ontimeout?: Function,
+      onerror?: Function | undefined,
+      timeout?: number | undefined,
+      ontimeout?: Function | undefined,
     };
     type CallbackOrConfig = LoadConfig | LoadCallback;
 
@@ -69,15 +69,15 @@ declare namespace gapi.auth {
         /**
          * The application's client ID.
          */
-        client_id?: string;
+        client_id?: string | undefined;
         /**
          * If true, then login uses "immediate mode", which means that the token is refreshed behind the scenes, and no UI is shown to the user.
          */
-        immediate?: boolean;
+        immediate?: boolean | undefined;
         /**
          * The OAuth 2.0 response type property. Default: token
          */
-        response_type?: string;
+        response_type?: string | undefined;
         /**
          * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
          */
@@ -85,7 +85,7 @@ declare namespace gapi.auth {
         /**
          * The user to sign in as. -1 to toggle a multi-account chooser, 0 to default to the user's current account, and 1 to automatically sign in if the user is signed into Google Plus.
          */
-        authuser?: number;
+        authuser?: number | undefined;
     }, callback: (token: GoogleApiOAuth2TokenObject) => any): void;
     /**
      * Initializes the authorization feature. Call this when the client loads to prevent popup blockers from blocking the auth window on gapi.auth.authorize calls.
@@ -111,19 +111,19 @@ declare namespace gapi.auth {
         /**
          * Your OAuth 2.0 client ID that you obtained from the Google Developers Console.
          */
-        clientid?: string;
+        clientid?: string | undefined;
         /**
          * Directs the sign-in button to store user and session information in a session cookie and HTML5 session storage on the user's client for the purpose of minimizing HTTP traffic and distinguishing between multiple Google accounts a user might be signed into.
          */
-        cookiepolicy?: string;
+        cookiepolicy?: string | undefined;
         /**
          * A function in the global namespace, which is called when the sign-in button is rendered and also called after a sign-in flow completes.
          */
-        callback?: () => void;
+        callback?: (() => void) | undefined;
         /**
          * If true, all previously granted scopes remain granted in each incremental request, for incremental authorization. The default value true is correct for most use cases; use false only if employing delegated auth, where you pass the bearer token to a less-trusted component with lower programmatic authority.
          */
-        includegrantedscopes?: boolean;
+        includegrantedscopes?: boolean | undefined;
         /**
          * If your app will write moments, list the full URI of the types of moments that you intend to write.
          */
@@ -135,7 +135,7 @@ declare namespace gapi.auth {
         /**
          * If you have an Android app, you can drive automatic Android downloads from your web sign-in flow.
          */
-        apppackagename?: string;
+        apppackagename?: string | undefined;
     }): void;
     /**
      * Signs a user out of your app without logging the user out of Google. This method will only work when the user is signed in with Google+ Sign-In.
@@ -153,21 +153,21 @@ declare namespace gapi.client {
         /**
          * The API Key to use.
          */
-        apiKey?: string;
+        apiKey?: string | undefined;
         /**
          * An array of discovery doc URLs or discovery doc JSON objects.
          */
-        discoveryDocs?: string[];
+        discoveryDocs?: string[] | undefined;
         /**
          * The app's client ID, found and created in the Google Developers Console.
          */
-        clientId?: string;
+        clientId?: string | undefined;
         /**
          * The scopes to request, as a space-delimited string.
          */
-        scope?: string,
+        scope?: string | undefined,
 
-        hosted_domain?: string;
+        hosted_domain?: string | undefined;
     }): Promise<void>;
 
     interface RequestOptions {
@@ -178,7 +178,7 @@ declare namespace gapi.client {
         /**
          * The HTTP request method to use. Default is GET
          */
-        method?: string;
+        method?: string | undefined;
         /**
          * URL params in key-value pair form
          */
@@ -194,7 +194,7 @@ declare namespace gapi.client {
         /**
          * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
          */
-        callback?: () => any;
+        callback?: (() => any) | undefined;
     }
 
     interface TokenObject {
@@ -253,17 +253,17 @@ declare namespace gapi.client {
     interface HttpRequestFulfilled<T> {
         result: T;
         body: string;
-        headers?: any[];
-        status?: number;
-        statusText?: string;
+        headers?: any[] | undefined;
+        status?: number | undefined;
+        statusText?: string | undefined;
     }
 
     interface HttpRequestRejected {
         result: any | boolean;
         body: string;
-        headers?: any[];
-        status?: number;
-        statusText?: string;
+        headers?: any[] | undefined;
+        status?: number | undefined;
+        statusText?: string | undefined;
     }
 
     /**
@@ -273,8 +273,8 @@ declare namespace gapi.client {
      class HttpRequestPromise<T> {
         // Taken and adapted from https://github.com/Microsoft/TypeScript/blob/v2.3.1/lib/lib.es5.d.ts#L1343
         then<TResult1 = T, TResult2 = never>(
-            onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-            onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+            onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | null,
+            onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | null,
             opt_context?: any
         ): Promise<TResult1 | TResult2>;
     }

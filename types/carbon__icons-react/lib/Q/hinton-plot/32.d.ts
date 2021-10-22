@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const QHintonPlot32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default QHintonPlot32;
+import { QHintonPlot32 } from "../../../";
+
+export = QHintonPlot32;

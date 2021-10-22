@@ -1,4 +1,4 @@
-// Type definitions for @ember/test-helpers 1.7
+// Type definitions for @ember/test-helpers 2.0
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
@@ -13,7 +13,7 @@
 declare module '@ember/test-helpers' {
     // DOM Interaction Helpers
 
-    export type Target = string | Element;
+    export type Target = string | Element | Document;
 
     export { default as click } from '@ember/test-helpers/dom/click';
     export { default as doubleClick } from '@ember/test-helpers/dom/double-click';
@@ -24,6 +24,8 @@ declare module '@ember/test-helpers' {
     export { default as triggerKeyEvent } from '@ember/test-helpers/dom/trigger-key-event';
     export { default as fillIn } from '@ember/test-helpers/dom/fill-in';
     export { default as typeIn } from '@ember/test-helpers/dom/type-in';
+    export { default as select } from '@ember/test-helpers/dom/select';
+    export { default as scrollTo } from '@ember/test-helpers/dom/scroll-to';
 
     // DOM Query Helpers
 
@@ -105,10 +107,10 @@ declare module '@ember/test-helpers/dom/trigger-key-event' {
     export type KeyEvent = 'keydown' | 'keyup' | 'keypress';
 
     export interface KeyModifiers {
-        ctrlKey?: boolean;
-        altKey?: boolean;
-        shiftKey?: boolean;
-        metaKey?: boolean;
+        ctrlKey?: boolean | undefined;
+        altKey?: boolean | undefined;
+        shiftKey?: boolean | undefined;
+        metaKey?: boolean | undefined;
     }
 
     export default function(target: Target, eventType: KeyEvent, key: number | string, modifiers?: KeyModifiers): Promise<void>;
@@ -134,6 +136,18 @@ declare module '@ember/test-helpers/dom/find-all' {
     export default function(selector: string): Element[];
 }
 
+declare module '@ember/test-helpers/dom/select' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, options: string | string[], keepPreviouslySelected?: boolean): Promise<void>;
+}
+
+declare module '@ember/test-helpers/dom/scroll-to' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, x: number, y: number): Promise<void>;
+}
+
 declare module '@ember/test-helpers/dom/get-root-element' {
     export default function(): Element;
 }
@@ -155,9 +169,9 @@ declare module '@ember/test-helpers/setup-rendering-context' {
 
 declare module '@ember/test-helpers/dom/wait-for' {
     export interface Options {
-        timeout?: number;
-        count?: number;
-        timeoutMessage?: string;
+        timeout?: number | undefined;
+        count?: number | undefined;
+        timeoutMessage?: string | undefined;
     }
 
     export default function(selector: string, options?: Options): Promise<Element | Element[]>;
@@ -165,8 +179,8 @@ declare module '@ember/test-helpers/dom/wait-for' {
 
 declare module '@ember/test-helpers/wait-until' {
     export interface Options {
-        timeout?: number;
-        timeoutMessage?: string;
+        timeout?: number | undefined;
+        timeoutMessage?: string | undefined;
     }
 
     export default function<T>(callback: () => T, options?: Options): Promise<T>;
@@ -190,7 +204,7 @@ declare module '@ember/test-helpers/settled' {
 declare module '@ember/test-helpers/setup-context' {
     import Resolver from '@ember/application/resolver';
 
-    export default function<C extends object>(context: C, options?: { resolver?: Resolver }): Promise<C>;
+    export default function<C extends object>(context: C, options?: { resolver?: Resolver | undefined }): Promise<C>;
     export function getContext(): object;
     export function setContext(context: object): void;
     export function unsetContext(): void;

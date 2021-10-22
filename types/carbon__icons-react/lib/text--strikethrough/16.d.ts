@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TextStrikethrough16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TextStrikethrough16;
+import { TextStrikethrough16 } from "../../";
+
+export = TextStrikethrough16;

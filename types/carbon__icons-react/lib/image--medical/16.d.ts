@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ImageMedical16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ImageMedical16;
+import { ImageMedical16 } from "../../";
+
+export = ImageMedical16;

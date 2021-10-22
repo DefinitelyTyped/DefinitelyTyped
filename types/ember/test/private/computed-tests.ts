@@ -14,7 +14,8 @@ class Example1 extends Ember.Object.extend({
         return [this.fullName];
     }) as Ember.ComputedProperty<string[]>,
     fullName: Ember.computed('firstName', 'lastName', function () {
-        return `${this.firstName} ${this.lastName}`;
+        // tslint:disable-next-line:no-unnecessary-type-assertion
+        return `${this.firstName} ${this.lastName}` as string;
     }),
 }) {}
 
@@ -35,7 +36,8 @@ class Example2 extends Ember.Object.extend({
         return [this.fullName + ''];
     }),
     fullName: Ember.computed('firstName', 'lastName', function () {
-        return `${this.firstName} ${this.lastName}`;
+        // tslint:disable-next-line:no-unnecessary-type-assertion
+        return `${this.firstName} ${this.lastName}` as string;
     }),
 }) {
     firstName = '';

@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const OverflowMenuVertical20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default OverflowMenuVertical20;
+export { OverflowMenuVertical20 as default } from "../../";

@@ -12,7 +12,7 @@ new RPromise<number>((res, rej) => {
 });
 
 const et = REventTarget.mixin({});
-type etType = keyof typeof et; // $ExpectType "on" | "off" | "trigger"
+type etType = keyof typeof et; // $ExpectType "on" | "off" | "trigger" || keyof ObjectWithEventMixins
 et.on('error', handler => {}); // $ExpectType void
 et.off('error', handler => {}); // $ExpectType void
 et.trigger('error'); // $ExpectType void

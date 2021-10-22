@@ -8,171 +8,171 @@ import * as React from 'react';
 type ImgixParamType = string | number | boolean;
 
 interface AdjustmentParams {
-  bri?: ImgixParamType;
-  con?: ImgixParamType;
-  exp?: ImgixParamType;
-  gam?: ImgixParamType;
-  high?: ImgixParamType;
-  hue?: ImgixParamType;
-  invert?: ImgixParamType;
-  sat?: ImgixParamType;
-  shad?: ImgixParamType;
-  sharp?: ImgixParamType;
-  usm?: ImgixParamType;
-  usmrad?: ImgixParamType;
-  vib?: ImgixParamType;
+  bri?: ImgixParamType | undefined;
+  con?: ImgixParamType | undefined;
+  exp?: ImgixParamType | undefined;
+  gam?: ImgixParamType | undefined;
+  high?: ImgixParamType | undefined;
+  hue?: ImgixParamType | undefined;
+  invert?: ImgixParamType | undefined;
+  sat?: ImgixParamType | undefined;
+  shad?: ImgixParamType | undefined;
+  sharp?: ImgixParamType | undefined;
+  usm?: ImgixParamType | undefined;
+  usmrad?: ImgixParamType | undefined;
+  vib?: ImgixParamType | undefined;
 }
 
 interface AutomaticParams   {
-  auto?: ImgixParamType;
+  auto?: ImgixParamType | undefined;
 }
 
 interface BlendingParams {
-  'blend-align'?: ImgixParamType;
-  'blend-alpha'?: ImgixParamType;
-  'blend-crop'?: ImgixParamType;
-  'blend-fit'?: ImgixParamType;
-  'blend-mode'?: ImgixParamType;
-  'blend-pad'?: ImgixParamType;
-  'blend-size'?: ImgixParamType;
-  'blend-x'?: ImgixParamType;
-  'blend-y'?: ImgixParamType;
-  'blend'?: ImgixParamType;
+  'blend-align'?: ImgixParamType | undefined;
+  'blend-alpha'?: ImgixParamType | undefined;
+  'blend-crop'?: ImgixParamType | undefined;
+  'blend-fit'?: ImgixParamType | undefined;
+  'blend-mode'?: ImgixParamType | undefined;
+  'blend-pad'?: ImgixParamType | undefined;
+  'blend-size'?: ImgixParamType | undefined;
+  'blend-x'?: ImgixParamType | undefined;
+  'blend-y'?: ImgixParamType | undefined;
+  'blend'?: ImgixParamType | undefined;
 }
 
 interface BorderAndPaddingParams {
-  'border-radius-inner'?: ImgixParamType;
-  'border-radius'?: ImgixParamType;
-  border?: ImgixParamType;
-  pad?: ImgixParamType;
+  'border-radius-inner'?: ImgixParamType | undefined;
+  'border-radius'?: ImgixParamType | undefined;
+  border?: ImgixParamType | undefined;
+  pad?: ImgixParamType | undefined;
 }
 
 interface ColorPaletteParams {
-  colors?: ImgixParamType;
-  palette?: ImgixParamType;
-  prefix?: ImgixParamType;
+  colors?: ImgixParamType | undefined;
+  palette?: ImgixParamType | undefined;
+  prefix?: ImgixParamType | undefined;
 }
 
 interface FaceDetectionParams {
-  faceindex?: ImgixParamType;
-  facepad?: ImgixParamType;
-  faces?: ImgixParamType;
+  faceindex?: ImgixParamType | undefined;
+  facepad?: ImgixParamType | undefined;
+  faces?: ImgixParamType | undefined;
 }
 
 interface FillParams {
-  bg?: ImgixParamType;
-  'fill-color'?: ImgixParamType;
-  fill?: ImgixParamType;
+  bg?: ImgixParamType | undefined;
+  'fill-color'?: ImgixParamType | undefined;
+  fill?: ImgixParamType | undefined;
 }
 
 interface FocalPointCropParams {
-  'fp-debug'?: ImgixParamType;
-  'fp-x'?: ImgixParamType;
-  'fp-y'?: ImgixParamType;
-  'fp-z'?: ImgixParamType;
+  'fp-debug'?: ImgixParamType | undefined;
+  'fp-x'?: ImgixParamType | undefined;
+  'fp-y'?: ImgixParamType | undefined;
+  'fp-z'?: ImgixParamType | undefined;
 }
 
 interface FormatParams {
-  ch?: ImgixParamType;
-  chromasub?: ImgixParamType;
-  colorquant?: ImgixParamType;
-  cs?: ImgixParamType;
-  dl?: ImgixParamType;
-  dpi?: ImgixParamType;
-  fm?: ImgixParamType;
-  lossless?: ImgixParamType;
-  q?: ImgixParamType;
+  ch?: ImgixParamType | undefined;
+  chromasub?: ImgixParamType | undefined;
+  colorquant?: ImgixParamType | undefined;
+  cs?: ImgixParamType | undefined;
+  dl?: ImgixParamType | undefined;
+  dpi?: ImgixParamType | undefined;
+  fm?: ImgixParamType | undefined;
+  lossless?: ImgixParamType | undefined;
+  q?: ImgixParamType | undefined;
 }
 
 interface MaskImageParams {
-  'corner-radius'?: ImgixParamType;
-  mask?: ImgixParamType;
+  'corner-radius'?: ImgixParamType | undefined;
+  mask?: ImgixParamType | undefined;
 }
 
 interface NoiseReductionParams {
-  nr?: ImgixParamType;
-  nrs?: ImgixParamType;
+  nr?: ImgixParamType | undefined;
+  nrs?: ImgixParamType | undefined;
 }
 
 interface PDFParams {
-  page?: ImgixParamType;
+  page?: ImgixParamType | undefined;
 }
 
 interface PixelDensityParams {
-  dpr?: ImgixParamType;
+  dpr?: ImgixParamType | undefined;
 }
 
 interface RotationParams {
-  flip?: ImgixParamType;
-  orient?: ImgixParamType;
-  rot?: ImgixParamType;
+  flip?: ImgixParamType | undefined;
+  orient?: ImgixParamType | undefined;
+  rot?: ImgixParamType | undefined;
 }
 
 interface SizeParams {
-  ar?: ImgixParamType;
-  crop?: ImgixParamType;
-  fit?: ImgixParamType;
-  h?: ImgixParamType;
-  'max-h'?: ImgixParamType;
-  'max-w'?: ImgixParamType;
-  'min-h'?: ImgixParamType;
-  'min-w'?: ImgixParamType;
-  rect?: ImgixParamType;
-  w?: ImgixParamType;
+  ar?: ImgixParamType | undefined;
+  crop?: ImgixParamType | undefined;
+  fit?: ImgixParamType | undefined;
+  h?: ImgixParamType | undefined;
+  'max-h'?: ImgixParamType | undefined;
+  'max-w'?: ImgixParamType | undefined;
+  'min-h'?: ImgixParamType | undefined;
+  'min-w'?: ImgixParamType | undefined;
+  rect?: ImgixParamType | undefined;
+  w?: ImgixParamType | undefined;
 }
 
 interface StylizeParams {
-  blur?: ImgixParamType;
-  'duotone-alpha'?: ImgixParamType;
-  duotone?: ImgixParamType;
-  htn?: ImgixParamType;
-  monochrome?: ImgixParamType;
-  px?: ImgixParamType;
-  sepia?: ImgixParamType;
+  blur?: ImgixParamType | undefined;
+  'duotone-alpha'?: ImgixParamType | undefined;
+  duotone?: ImgixParamType | undefined;
+  htn?: ImgixParamType | undefined;
+  monochrome?: ImgixParamType | undefined;
+  px?: ImgixParamType | undefined;
+  sepia?: ImgixParamType | undefined;
 }
 
 interface TextParams {
-  'txt-align'?: ImgixParamType;
-  'txt-clip'?: ImgixParamType;
-  'txt-color'?: ImgixParamType;
-  'txt-fit'?: ImgixParamType;
-  'txt-font'?: ImgixParamType;
-  'txt-lig'?: ImgixParamType;
-  'txt-line-color'?: ImgixParamType;
-  'txt-line'?: ImgixParamType;
-  'txt-pad'?: ImgixParamType;
-  'txt-shad'?: ImgixParamType;
-  'txt-size'?: ImgixParamType;
-  'txt-width'?: ImgixParamType;
-  txt?: ImgixParamType;
+  'txt-align'?: ImgixParamType | undefined;
+  'txt-clip'?: ImgixParamType | undefined;
+  'txt-color'?: ImgixParamType | undefined;
+  'txt-fit'?: ImgixParamType | undefined;
+  'txt-font'?: ImgixParamType | undefined;
+  'txt-lig'?: ImgixParamType | undefined;
+  'txt-line-color'?: ImgixParamType | undefined;
+  'txt-line'?: ImgixParamType | undefined;
+  'txt-pad'?: ImgixParamType | undefined;
+  'txt-shad'?: ImgixParamType | undefined;
+  'txt-size'?: ImgixParamType | undefined;
+  'txt-width'?: ImgixParamType | undefined;
+  txt?: ImgixParamType | undefined;
 }
 
 interface TrimParams {
-  'trim-color'?: ImgixParamType;
-  'trim-md'?: ImgixParamType;
-  'trim-sd'?: ImgixParamType;
-  'trim-tol'?: ImgixParamType;
-  trim?: ImgixParamType;
+  'trim-color'?: ImgixParamType | undefined;
+  'trim-md'?: ImgixParamType | undefined;
+  'trim-sd'?: ImgixParamType | undefined;
+  'trim-tol'?: ImgixParamType | undefined;
+  trim?: ImgixParamType | undefined;
 }
 
 interface TypesettingEndpointParams {
-  'txt-lead'?: ImgixParamType;
-  'txt-track'?: ImgixParamType;
-  '~text'?: ImgixParamType;
+  'txt-lead'?: ImgixParamType | undefined;
+  'txt-track'?: ImgixParamType | undefined;
+  '~text'?: ImgixParamType | undefined;
 }
 
 interface WatermarkParams {
-  'mark-align'?: ImgixParamType;
-  'mark-alpha'?: ImgixParamType;
-  'mark-base'?: ImgixParamType;
-  'mark-fit'?: ImgixParamType;
-  'mark-h'?: ImgixParamType;
-  'mark-pad'?: ImgixParamType;
-  'mark-scale'?: ImgixParamType;
-  'mark-w'?: ImgixParamType;
-  'mark-x'?: ImgixParamType;
-  'mark-y'?: ImgixParamType;
-  mark?: ImgixParamType;
+  'mark-align'?: ImgixParamType | undefined;
+  'mark-alpha'?: ImgixParamType | undefined;
+  'mark-base'?: ImgixParamType | undefined;
+  'mark-fit'?: ImgixParamType | undefined;
+  'mark-h'?: ImgixParamType | undefined;
+  'mark-pad'?: ImgixParamType | undefined;
+  'mark-scale'?: ImgixParamType | undefined;
+  'mark-w'?: ImgixParamType | undefined;
+  'mark-x'?: ImgixParamType | undefined;
+  'mark-y'?: ImgixParamType | undefined;
+  mark?: ImgixParamType | undefined;
 }
 
 type ImigixParams =
@@ -199,29 +199,29 @@ type ImigixParams =
 ;
 
 interface AttributeConfig {
-  src?: string;
-  srcSet?: string;
-  sizes?: string;
+  src?: string | undefined;
+  srcSet?: string | undefined;
+  sizes?: string | undefined;
 }
 
 type ImgixHTMLAttributes = React.ImgHTMLAttributes<HTMLImageElement> | React.SourceHTMLAttributes<HTMLSourceElement> | Record<string, string>;
 
 interface CommonProps {
-  className?: string;
-  onMounted?: (ref?: React.RefObject<HTMLPictureElement | HTMLImageElement | HTMLSourceElement>) => void;
-  htmlAttributes?: ImgixHTMLAttributes;
+  className?: string | undefined;
+  onMounted?: ((ref?: React.RefObject<HTMLPictureElement | HTMLImageElement | HTMLSourceElement>) => void) | undefined;
+  htmlAttributes?: ImgixHTMLAttributes | undefined;
 }
 
 export interface SharedImigixAndSourceProps extends CommonProps {
   src: string;
-  disableQualityByDPR?: boolean;
-  disableSrcSet?: boolean;
-  disableLibraryParam?: boolean;
-  imgixParams?: ImigixParams;
-  sizes?: string;
-  width?: number;
-  height?: number;
-  attributeConfig?: AttributeConfig;
+  disableQualityByDPR?: boolean | undefined;
+  disableSrcSet?: boolean | undefined;
+  disableLibraryParam?: boolean | undefined;
+  imgixParams?: ImigixParams | undefined;
+  sizes?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  attributeConfig?: AttributeConfig | undefined;
 }
 
 export class Picture extends React.Component<React.PropsWithChildren<CommonProps>> {}
@@ -237,10 +237,10 @@ export namespace PublicConfigAPI {
 
 export interface BackgroundProps {
   src: string;
-  imgixParams?: ImigixParams;
-  className?: string;
-  disableLibraryParam?: boolean;
-  htmlAttributes?: ImgixHTMLAttributes;
+  imgixParams?: ImigixParams | undefined;
+  className?: string | undefined;
+  disableLibraryParam?: boolean | undefined;
+  htmlAttributes?: ImgixHTMLAttributes | undefined;
 }
 
 export const Background: React.FunctionComponent<React.PropsWithChildren<BackgroundProps>>;

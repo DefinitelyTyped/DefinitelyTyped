@@ -1,5 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 import {
+    AccumulationIce16,
+    Layers16,
+    BorderLeft20,
     AnalyticsReference16,
     Add16,
     Add24,
@@ -12,16 +15,24 @@ import {
     CalendarHeatMap16,
     ChartColumn16,
     LogoKeybase16,
-} from '@carbon/icons-react';
-import Flag16 from "@carbon/icons-react/lib/flag/16";
-import Flag24 from "@carbon/icons-react/es/flag/24";
-import WatsonHealth_3D_Cursor24 from "@carbon/icons-react/es/watson-health/3D-Cursor/24";
+    Barcode16,
+    CalculationAlt16,
+    UserAccess16,
+    TextClearFormat16,
+    IceVision16,
+} from "@carbon/icons-react";
 
-<Flag16 aria-label='4'/>; // $ExpectType Element
-<Flag24 aria-label='4'/>; // $ExpectType Element
-<WatsonHealth_3D_Cursor24 aria-label='4'/>; // $ExpectType Element
+<UserAccess16 />; // $ExpectType Element
+<TextClearFormat16 />; // $ExpectType Element
+<IceVision16 />; // $ExpectType Element
+
+<AccumulationIce16 />; // $ExpectType Element
+<Layers16 />; // $ExpectType Element
+<BorderLeft20 />; // $ExpectType Element
 <AccessibilityAlt16 />; // $ExpectType Element
-<Add16><title>Icon title</title></Add16>; // $ExpectType Element
+<Add16>
+    <title>Icon title</title>
+</Add16>;
 <Add24 aria-label="Add" />; // $ExpectType Element
 <Add32 title="Add" aria-label="Add" tabIndex="0" className="add-32" />; // $ExpectType Element
 <DataBaseAlt16 />; // $ExpectType Element
@@ -32,3 +43,5 @@ import WatsonHealth_3D_Cursor24 from "@carbon/icons-react/es/watson-health/3D-Cu
 <CalendarHeatMap16 />; // $ExpectType Element
 <ChartColumn16 />; // $ExpectType Element
 <LogoKeybase16 />; // $ExpectType Element
+<Barcode16 />; // $ExpectType Element
+<CalculationAlt16 />; // $ExpectType Element

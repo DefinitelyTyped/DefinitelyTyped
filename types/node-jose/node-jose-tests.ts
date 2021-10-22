@@ -1,4 +1,5 @@
 import * as jose from 'node-jose';
+import * as crypto from "crypto";
 
 const keystore = jose.JWK.createKeyStore();
 const output = keystore.toJSON();
@@ -203,6 +204,20 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
         });
 
     jose.JWE.createEncrypt({ protect: '*' }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
+    jose.JWE.createEncrypt({ iv: Buffer.alloc(96 / 8).toString('base64') }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
+    jose.JWE.createEncrypt({iv: crypto.randomBytes(96 / 8) }, key)
         .update('input')
         .final()
         .then(result => {

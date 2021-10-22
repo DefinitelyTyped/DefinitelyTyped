@@ -27,7 +27,7 @@ interface FlipTileTemplate extends TileTemplate {
 interface ToastTemplate {
     text1: string;
     text2: string;
-    param?: string;
+    param?: string | undefined;
 }
 
 declare class MpnsService {

@@ -1,4 +1,4 @@
-import { Schema } from '@wordpress/api-fetch';
+import { Schema } from './schema';
 import { Autosave, Entity } from './';
 
 /**

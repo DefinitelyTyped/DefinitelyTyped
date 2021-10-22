@@ -40,6 +40,11 @@ export default interface RouteInfo {
      */
     readonly queryParams: { [key: string]: string | undefined };
     /**
+     * Will contain the result `Route#buildRouteInfoMetadata`
+     * for the corresponding Route.
+     */
+    readonly metadata: unknown;
+    /**
      * Allows you to traverse through the linked list of `RouteInfo`s from the topmost to leafmost.
      * Returns the first `RouteInfo` in the linked list for which the callback returns true.
      *

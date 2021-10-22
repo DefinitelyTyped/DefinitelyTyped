@@ -28,9 +28,9 @@ declare class EventSource {
   onopen: (evt: MessageEvent) => any;
   onmessage: (evt: MessageEvent) => any;
   onerror: (evt: MessageEvent) => any;
-  addEventListener(type: string, listener: EventListener): void;
+  addEventListener(type: string, listener: (evt: MessageEvent) => void): void;
   dispatchEvent(evt: Event): boolean;
-  removeEventListener(type: string, listener?: EventListener): void;
+  removeEventListener(type: string, listener: (evt: MessageEvent) => void): void;
   close(): void;
 }
 
@@ -38,11 +38,11 @@ declare namespace EventSource {
   enum ReadyState { CONNECTING = 0, OPEN = 1, CLOSED = 2 }
 
   interface EventSourceInitDict {
-    withCredentials?: boolean;
-    headers?: object;
-    proxy?: string;
-    https?: object;
-    rejectUnauthorized?: boolean;
+    withCredentials?: boolean | undefined;
+    headers?: object | undefined;
+    proxy?: string | undefined;
+    https?: object | undefined;
+    rejectUnauthorized?: boolean | undefined;
   }
 }
 

@@ -14,7 +14,6 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-    ART,
     AccessibilityInfo,
     AsyncStorage,
     Alert,
@@ -23,7 +22,6 @@ import {
     Appearance,
     BackHandler,
     Button,
-    CheckBox,
     ColorPropType,
     ColorValue,
     DataSourceAssetCallback,
@@ -60,6 +58,7 @@ import {
     MaskedViewIOS,
     Modal,
     NativeEventEmitter,
+    NativeModule, // Not actually exported, not sure why
     NativeModules,
     NativeScrollEvent,
     NativeSyntheticEvent,
@@ -88,6 +87,7 @@ import {
     StyleSheet,
     Switch,
     SwitchIOS,
+    SwitchChangeEvent,
     Systrace,
     TabBarIOS,
     Text,
@@ -118,6 +118,8 @@ import {
     useWindowDimensions,
     SectionListData,
     ToastAndroid,
+    Touchable,
+    LayoutAnimation,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -361,6 +363,24 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
 
 export default Welcome;
 
+// TouchableTest
+function TouchableTest() {
+    function basicUsage() {
+        if (Touchable.TOUCH_TARGET_DEBUG) {
+            return Touchable.renderDebugView({
+                color: 'mediumspringgreen',
+                hitSlop: { bottom: 5, top: 5 },
+            });
+        }
+    }
+
+    function defaultHitSlop() {
+        return Touchable.renderDebugView({
+            color: 'red',
+        });
+    }
+}
+
 // TouchableNativeFeedbackTest
 export class TouchableNativeFeedbackTest extends React.Component {
     onPressButton = (e: GestureResponderEvent) => {
@@ -371,17 +391,51 @@ export class TouchableNativeFeedbackTest extends React.Component {
 
     render() {
         return (
-            <TouchableNativeFeedback onPress={this.onPressButton}>
-                <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
-                    <Text style={{ margin: 30 }}>Button</Text>
-                </View>
-            </TouchableNativeFeedback>
+            <>
+                <TouchableNativeFeedback onPress={this.onPressButton}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true, 30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground(30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless()}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless(30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+            </>
         );
     }
 }
 
 // PressableTest
-export class PressableTest extends React.Component {
+export class PressableTest extends React.Component<{}> {
+    private readonly myRef: React.RefObject<View> = React.createRef();
+
     onPressButton = (e: GestureResponderEvent) => {
         e.persist();
         e.isPropagationStopped();
@@ -391,7 +445,7 @@ export class PressableTest extends React.Component {
     render() {
         return (
             <>
-                <Pressable onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -432,6 +486,7 @@ export class PressableTest extends React.Component {
                         borderless: true,
                         color: 'green',
                         radius: 20,
+                        foreground: true,
                     }}
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}
@@ -462,6 +517,38 @@ appState = 'background';
 appState = 'inactive';
 appState = 'unknown';
 appState = 'extension';
+
+const AppStateExample = () => {
+    const appState = React.useRef(AppState.currentState);
+    const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+    const appStateIsAvailable = AppState.isAvailable;
+
+    React.useEffect(() => {
+      const subscription = AppState.addEventListener("change", nextAppState => {
+        if (
+          appState.current.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+          console.log("App has come to the foreground!");
+        }
+
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        console.log("AppState", appState.current);
+      });
+
+      return () => {
+        subscription.remove();
+      };
+    }, []);
+
+    return (
+      <View style={styles.container}>
+        <Text>Current state is: {appStateVisible}</Text>
+        <Text>Available: {appStateIsAvailable}</Text>
+      </View>
+    );
+  };
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -520,9 +607,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
-                ListFooterComponentStyle={{ padding: 8 }}
+                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 ListHeaderComponent={null}
-                ListHeaderComponentStyle={{ padding: 8 }}
+                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
@@ -681,6 +768,10 @@ LogBox.install();
 LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+    _stickyHeaderComponent = ({ children }: any) => {
+        return <View>{children}</View>;
+    };
+
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -734,6 +825,8 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
+                            StickyHeaderComponent={this._stickyHeaderComponent}
+                            stickyHeaderHiddenOnScroll={true}
                         />
                     );
                 }}
@@ -835,20 +928,6 @@ class MaskedViewTest extends React.Component {
     }
 }
 
-const CheckboxTest = () => (
-    <CheckBox
-        testID="testId"
-        disabled={false}
-        onChange={value => {
-            console.log(value);
-        }}
-        onValueChange={value => {
-            console.log(value);
-        }}
-        value={true}
-    />
-);
-
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = 'foobar';
@@ -875,8 +954,27 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true);
 deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 
-const nativeEventEmitter = new NativeEventEmitter();
-nativeEventEmitter.removeAllListeners('event');
+// NativeEventEmitter - Android
+const androidEventEmitter = new NativeEventEmitter();
+const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
+const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.listenerCount('event'); // $ExpectType number
+sub2.remove();
+androidEventEmitter.removeAllListeners('event');
+androidEventEmitter.removeSubscription(sub1);
+
+// NativeEventEmitter - IOS
+const nativeModule: NativeModule = {
+    addListener(eventType: string) {},
+    removeListeners(count: number) {},
+};
+const iosEventEmitter = new NativeEventEmitter(nativeModule);
+const sub3 = iosEventEmitter.addListener('event', (event: object) => event);
+const sub4 = iosEventEmitter.addListener('event', (event: object) => event, {});
+iosEventEmitter.listenerCount('event');
+sub4.remove();
+iosEventEmitter.removeAllListeners('event');
+iosEventEmitter.removeSubscription(sub3);
 
 class CustomEventEmitter extends NativeEventEmitter {}
 
@@ -973,6 +1071,8 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
                 <TextInput contextMenuHidden={true} textAlignVertical="top" />
+
+                <TextInput textAlign="center" />
             </View>
         );
     }
@@ -1059,13 +1159,14 @@ export class ImageTest extends React.Component {
             (width, height) => console.log(width, height),
             error => console.error(error),
         );
+        Image.prefetch(uri); // $ExpectType Promise<boolean>
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
         console.log('width:', e.nativeEvent.source.width);
-        console.log('url:', e.nativeEvent.source.url);
+        console.log('uri:', e.nativeEvent.source.uri);
     };
 
     handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
@@ -1120,7 +1221,6 @@ class AccessibilityTest extends React.Component {
             <View
                 accessibilityElementsHidden={true}
                 importantForAccessibility={'no-hide-descendants'}
-                accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
@@ -1129,18 +1229,12 @@ class AccessibilityTest extends React.Component {
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
             >
-                <Text accessibilityTraits={['key', 'text']} accessibilityIgnoresInvertColors>
-                    Text
-                </Text>
+                <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
             </View>
         );
     }
 }
-
-const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
-    console.log(isEnabled);
-});
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
@@ -1159,6 +1253,9 @@ AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
 );
 AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.getRecommendedTimeoutMillis(5000).then(timeoutMiles =>
+    console.log(`AccessibilityInfo.getRecommendedTimeoutMillis => ${timeoutMiles}`)
 );
 
 AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
@@ -1179,9 +1276,10 @@ AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
 AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
     console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
-);
+const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
+AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
+).remove();
+AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
@@ -1249,13 +1347,36 @@ class BridgedComponentTest extends React.Component {
 }
 
 const SwitchColorTest = () => <Switch trackColor={{ true: 'pink', false: 'red' }} />;
+const SwitchColorOptionalTrueTest = () => <Switch trackColor={{ false: 'red' }} />;
+const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: 'pink' }} />;
+const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: null }} />;
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
+
+const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
+const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
+const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
+const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
+  const e: SwitchChangeEvent = event;
+  return new Promise(() => e.value);
+}} />;
+
+const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
+const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
+const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
+const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
+  const v: boolean = value;
+  return new Promise(() => v)
+}} />;
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
         <Text nativeID={'nativeID'}>Text</Text>
+        <Image
+            source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+            nativeID={'nativeID'}
+        />
     </ScrollView>
 );
 
@@ -1284,6 +1405,24 @@ const KeyboardTest = () => {
         event;
     });
     subscriber.remove();
+
+    Keyboard.dismiss();
+
+    // Android Keyboard Event
+    Keyboard.scheduleLayoutAnimation({
+        duration: 0,
+        easing: 'keyboard',
+        endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
+    });
+
+    // IOS Keyboard Event
+    Keyboard.scheduleLayoutAnimation({
+        duration: 0,
+        easing: 'easeInEaseOut',
+        endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
+        startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
+        isEventFromThisApp: true,
+    });
 };
 
 const PermissionsAndroidTest = () => {
@@ -1298,26 +1437,36 @@ const PermissionsAndroidTest = () => {
         }
     });
 
-    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(
-        results => {
-            switch (results['android.permission.CAMERA']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-            switch (results['android.permission.ACCESS_FINE_LOCATION']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-        },
-    );
+    PermissionsAndroid.requestMultiple([
+        'android.permission.CAMERA',
+        'android.permission.ACCESS_FINE_LOCATION',
+        'android.permission.ACCESS_BACKGROUND_LOCATION',
+    ]).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_BACKGROUND_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    });
 };
 
 // Platform
@@ -1338,6 +1487,16 @@ const PlatformTest = () => {
     }
 };
 
+const PlatformConstantsTest = () => {
+    const testing: boolean = Platform.constants.isTesting;
+    if (Platform.OS === 'ios') {
+        const hasForceTouch: boolean = Platform.constants.forceTouchAvailable;
+    } else if (Platform.OS === 'android') {
+        const { major, prerelease } = Platform.constants.reactNativeVersion;
+        const v = Platform.constants.Version;
+        const host: string | undefined = Platform.constants.ServerHost;
+    }
+};
 Platform.select({ native: 1 }); // $ExpectType number | undefined
 Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined
@@ -1427,6 +1586,34 @@ StyleSheet.create({
     },
 });
 
+function someColorString(): ColorValue {
+    return '#000000';
+}
+
+function somePlatformColor(): ColorValue {
+    return PlatformColor('test');
+}
+
+const colors = {
+    color: someColorString(),
+    backgroundColor: somePlatformColor(),
+};
+
+StyleSheet.create({
+    labelCell: {
+        color: colors.color,
+        backgroundColor: colors.backgroundColor,
+    },
+});
+
+const OpaqueTest3 = () => (
+    <View
+        style={{
+            backgroundColor: colors.backgroundColor,
+        }}
+    />
+);
+
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
     <ProgressBarAndroid animating color="white" styleAttr="Horizontal" progress={0.42} />;
@@ -1464,7 +1651,7 @@ const DarkMode = () => {
     const color = useColorScheme();
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
-    Appearance.addChangeListener(({ colorScheme }) => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
 
@@ -1474,6 +1661,10 @@ const DarkMode = () => {
 
     React.useEffect(() => {
         console.log('-color', color);
+
+        return () => {
+            subscription.remove();
+        };
     }, [color]);
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;
@@ -1633,3 +1824,10 @@ const I18nManagerTest = () => {
 
     console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 };
+
+// LayoutAnimations
+LayoutAnimation.configureNext(
+    LayoutAnimation.create(123, LayoutAnimation.Types.easeIn, LayoutAnimation.Properties.opacity),
+);
+
+LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));

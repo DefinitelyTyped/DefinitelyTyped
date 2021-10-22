@@ -20,11 +20,11 @@ export interface ojTrain extends baseComponent<ojTrainSettableProperties> {
     getStep(id: string): ojTrain.Step | null;
     refresh(): void;
     updateStep(id: string, stepProperties: {
-        id?: string;
-        label?: string;
-        disabled?: boolean;
-        visited?: boolean;
-        messageType?: 'info' | 'error' | 'fatal' | 'warning';
+        id?: string | undefined;
+        label?: string | undefined;
+        disabled?: boolean | undefined;
+        visited?: boolean | undefined;
+        messageType?: 'info' | 'error' | 'fatal' | 'warning' | undefined;
     }): void;
 }
 export namespace ojTrain {
@@ -56,9 +56,9 @@ export namespace ojTrain {
     type Step = {
         id: string;
         label: string;
-        disabled?: boolean;
-        visited?: boolean;
-        messageType?: 'info' | 'error' | 'fatal' | 'warning';
+        disabled?: boolean | undefined;
+        visited?: boolean | undefined;
+        messageType?: 'info' | 'error' | 'fatal' | 'warning' | undefined;
     };
 }
 export interface ojTrainEventMap extends baseComponentEventMap<ojTrainSettableProperties> {

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ListDropdown24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ListDropdown24;
+import { ListDropdown24 } from "../../";
+
+export = ListDropdown24;

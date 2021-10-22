@@ -3,6 +3,6 @@
 // Definitions by: Richie Bendall <https://github.com/Richienb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function padLeft(str: string, num: number, ch?: string): string;
+declare function padLeft(str: string, num?: number, ch?: string): string;
 
 export = padLeft;

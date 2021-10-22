@@ -14,13 +14,13 @@ declare module 'moment' {
         /**
          * Use persian digits as decribed by unicode
          */
-        usePersianDigits?: boolean;
+        usePersianDigits?: boolean | undefined;
         /**
          * use dialect option to change usePersian dialect, available options are:
          *      persian: default dialect(امرداد، آدینه، ...)
          *      persian-modern: modern dialect(مرداد، جمعه، ...)
          */
-        dialect?: 'persian' | 'persian-modern';
+        dialect?: 'persian' | 'persian-modern' | undefined;
     }
 
     /**

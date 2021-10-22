@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChevronLeftGlyph: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChevronLeftGlyph;
+import { ChevronLeftGlyph } from "../../";
+
+export = ChevronLeftGlyph;

@@ -8,8 +8,11 @@ urlJoin('foo', null, 'bar'); // /foo/bar
 
 // With leading & trailing slash options
 urlJoin('foo', 'bar', { leadingSlash: false }); // foo/bar
+urlJoin('foo', 'bar', { leadingSlash: 'keep' }); // foo/bar
 urlJoin('foo', 'bar', { trailingSlash: true }); // /foo/bar/
+urlJoin('foo', 'bar', { trailingSlash: 'keep' }); // /foo/bar
 urlJoin('foo', 'bar', { leadingSlash: false, trailingSlash: true }); // foo/bar/
+urlJoin('foo', 'bar', { leadingSlash: 'keep', trailingSlash: 'keep' }); // foo/bar
 
 // Absolute URLs
 urlJoin('http://google.com', 'foo'); // http://google.com/foo

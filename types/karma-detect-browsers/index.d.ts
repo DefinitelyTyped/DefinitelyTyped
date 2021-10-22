@@ -11,16 +11,16 @@ declare module 'karma' {
         /**
          * See https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md
          */
-        detectBrowsers?: KarmaDetectBrowsers;
+        detectBrowsers?: KarmaDetectBrowsers | undefined;
     }
 
     interface KarmaDetectBrowsers {
         /** enable/disable, default is true */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /** enable/disable phantomjs support, default is true */
-        usePhantomJS?: boolean;
+        usePhantomJS?: boolean | undefined;
         /** use headless mode, for browsers that support it, default is false */
-        preferHeadless?: boolean;
+        preferHeadless?: boolean | undefined;
         /**
          * post processing of browsers list
          * here you can edit the list of browsers used by karma

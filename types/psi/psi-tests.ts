@@ -19,6 +19,12 @@ psi('https://theverge.com').then(({ data }) => {
 psi('https://theverge.com', {
     nokey: 'true',
     strategy: 'desktop',
+    links: true,
 }).then(data2 => {
     console.log('Speed score:', data2.data.lighthouseResult.categories.performance.score);
 });
+
+(async () => {
+    const { data } = await psi('https://theverge.com');
+    console.log(data.lighthouseResult.audits['screenshot-thumbnails'].details.items);
+})();

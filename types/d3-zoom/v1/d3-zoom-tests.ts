@@ -9,7 +9,6 @@
 import * as d3Zoom from 'd3-zoom';
 import { ArrayLike, select, Selection, event } from 'd3-selection';
 import { Transition } from 'd3-transition';
-import { scaleLinear, ScaleLinear, ScaleTime, scaleTime } from 'd3-scale';
 import { interpolateZoom, interpolate, interpolateArray, ZoomInterpolator, ZoomView } from 'd3-interpolate';
 
 // --------------------------------------------------------------------------
@@ -630,15 +629,6 @@ const transformedY: number = zTransform.applyY(20);
 const invertedPoint: [number, number] = zTransform.invert([150, 240]);
 const invertedX: number = zTransform.invertX(150);
 const invertedY: number = zTransform.invertY(240);
-
-let linearScale: ScaleLinear<number, number> = scaleLinear();
-let timeScale: ScaleTime<number, number> = scaleTime();
-
-linearScale = zTransform.rescaleX(linearScale);
-linearScale = zTransform.rescaleY(linearScale);
-
-timeScale = zTransform.rescaleX(timeScale);
-timeScale = zTransform.rescaleY(timeScale);
 
 const transformation: string = zTransform.toString();
 

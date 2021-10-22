@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RainScatteredNight16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RainScatteredNight16;
+import { RainScatteredNight16 } from "../../";
+
+export = RainScatteredNight16;

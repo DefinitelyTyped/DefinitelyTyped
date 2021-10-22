@@ -8,12 +8,12 @@ export as namespace jsrp;
 export interface ClientOptions {
     username: string;
     password: string;
-    length?: 2048 | 4096;
+    length?: 2048 | 4096 | undefined;
 }
 export interface ServerOptions {
     verifier: string;
     salt: string;
-    length?: 2048 | 4096;
+    length?: 2048 | 4096 | undefined;
 }
 
 export interface Verifier {

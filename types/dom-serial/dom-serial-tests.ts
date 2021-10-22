@@ -15,14 +15,20 @@ async function connect() {
         ],
     });
     await port.open({
-        baudrate: 9600,
+        baudRate: 9600,
         parity: 'none',
-        buffersize: 128,
+        bufferSize: 128,
     });
+
+    port.onconnect = () => {};
+    port.ondisconnect = () => {};
+
     const info = port.getInfo();
     const vendor = info.vendor;
     port.writable.getWriter();
     port.readable.getReader();
+
+    await port.close();
 }
 
 navigator.serial.requestPort().then(port => {

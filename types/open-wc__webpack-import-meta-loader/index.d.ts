@@ -2,6 +2,7 @@
 // Project: https://github.com/open-wc/open-wc/tree/master/packages/webpack-import-meta-loader
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 /**
  * Webpack loader to rewrite `import.meta` in modules with url data to the source code file location.

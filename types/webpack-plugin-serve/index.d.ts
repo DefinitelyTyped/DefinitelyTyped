@@ -1,11 +1,11 @@
-// Type definitions for webpack-plugin-serve 1.2
+// Type definitions for webpack-plugin-serve 1.4
 // Project: https://github.com/shellscape/webpack-plugin-serve
 // Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 /// <reference types="node" />
 
-import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
+import { Options as HttpProxyMiddlewareConfig, RequestHandler as Proxy } from 'http-proxy-middleware';
 import * as Koa from 'koa';
 import { ServerOptions as Http2ServerOptions, SecureServerOptions as Http2SecureServerOptions } from 'http2';
 import { ServerOptions as HttpsServerOptions } from 'https';
@@ -24,39 +24,40 @@ export interface Builtins {
 }
 
 export interface StaticObject {
-    glob?: string | string[];
-    options?: GlobbyOptions;
+    glob?: string | string[] | undefined;
+    options?: GlobbyOptions | undefined;
 }
 
 export interface WebpackPluginServeOptions {
     client?: {
-        address?: string;
-        retry?: boolean;
-        silent?: boolean;
-    };
-    compress?: boolean;
-    historyFallback?: boolean | HistoryApiFallbackOptions;
-    hmr?: boolean | 'refresh-on-failure';
-    host?: string | Promise<string>;
-    http2?: boolean | Http2ServerOptions | Http2SecureServerOptions;
-    https?: HttpsServerOptions;
-    liveReload?: boolean;
+        address?: string | undefined;
+        protocol?: 'ws' | 'wss' | undefined;
+        retry?: boolean | undefined;
+        silent?: boolean | undefined;
+    } | undefined;
+    compress?: boolean | undefined;
+    historyFallback?: boolean | HistoryApiFallbackOptions | undefined;
+    hmr?: boolean | 'refresh-on-failure' | undefined;
+    host?: string | Promise<string> | undefined;
+    http2?: boolean | Http2ServerOptions | Http2SecureServerOptions | undefined;
+    https?: HttpsServerOptions | undefined;
+    liveReload?: boolean | undefined;
     log?: {
         level: 'trace' | 'debug' | 'info' | 'warn' | 'error';
-        timestamp?: boolean;
-    };
-    middleware?: (app: Koa, builtins: Builtins) => void;
+        timestamp?: boolean | undefined;
+    } | undefined;
+    middleware?: ((app: Koa, builtins: Builtins) => void) | undefined;
     open?:
         | boolean
         | {
-              wait?: boolean;
-              app?: string | ReadonlyArray<string>;
-          };
-    port?: number | Promise<number>;
-    progress?: boolean | 'minimal';
-    static?: string | string[] | StaticObject;
-    status?: boolean;
-    waitForBuild?: boolean;
+              wait?: boolean | undefined;
+              app?: string | ReadonlyArray<string> | undefined;
+          } | undefined;
+    port?: number | Promise<number> | undefined;
+    progress?: boolean | 'minimal' | undefined;
+    static?: string | string[] | StaticObject | undefined;
+    status?: boolean | undefined;
+    waitForBuild?: boolean | undefined;
 }
 
 export class WebpackPluginServe<Compiler> {

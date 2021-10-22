@@ -5,11 +5,11 @@
 // TypeScript Version: 2.3
 
 export interface PackOptions {
-    verbose?: boolean;
+    verbose?: boolean | undefined;
 }
 
 export interface PackDebugOptions extends PackOptions {
-    debug?: boolean;
+    debug?: boolean | undefined;
 }
 
 export interface DebugObject {

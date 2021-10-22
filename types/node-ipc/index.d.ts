@@ -143,10 +143,10 @@ declare namespace NodeIPC {
          */
         serveNet(host: string, port: number, callback?: () => void): void;
         /**
-         * This is where socket connection refrences will be stored when connecting to them as a client via the ipc.connectTo
+         * This is where socket connection references will be stored when connecting to them as a client via the ipc.connectTo
          * or iupc.connectToNet. They will be stored based on the ID used to create them, eg : ipc.of.mySocket
          */
-        of: any;
+        of: Record<string, Client>;
         /**
          * This is a refrence to the server created by ipc.serve or ipc.serveNet
          */
@@ -196,10 +196,11 @@ declare namespace NodeIPC {
         emit(event: string, value: any): Client;
         emit(socket: Socket | SocketConfig, event: string, value?: any): Server;
         emit(socketConfig: Socket | SocketConfig, value?: any): Server;
+        broadcast(event: string, value?: any): Client;
     }
     interface SocketConfig {
-        address?: string;
-        port?: number;
+        address?: string | undefined;
+        port?: number | undefined;
     }
     interface Config {
         /**
@@ -311,28 +312,28 @@ declare namespace NodeIPC {
             /**
              * Default: false
              */
-            localAddress?: boolean;
+            localAddress?: boolean | undefined;
             /**
              * Default: false
              */
-            localPort?: boolean;
+            localPort?: boolean | undefined;
             /**
              * Default: false
              */
-            family?: boolean;
+            family?: boolean | undefined;
             /**
              * Default: false
              */
-            hints?: boolean;
+            hints?: boolean | undefined;
             /**
              * Default: false
              */
-            lookup?: boolean;
+            lookup?: boolean | undefined;
         };
         tls: {
-            rejectUnauthorized?: boolean;
-            public?: string;
-            private?: string;
+            rejectUnauthorized?: boolean | undefined;
+            public?: string | undefined;
+            private?: string | undefined;
         };
     }
 }

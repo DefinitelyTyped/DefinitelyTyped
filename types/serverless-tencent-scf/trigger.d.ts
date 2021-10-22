@@ -12,7 +12,7 @@ export type APIGatewayHandler<T> = Handler<APIGatewayEvent, T>;
 export interface APIGatewayEvent {
     requestContext: APIGatewayRequestContext;
     headers: { [name: string]: string };
-    body?: string | null;
+    body?: string | null | undefined;
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
     headerParameters: { [name: string]: string } | null;
@@ -29,9 +29,9 @@ export interface APIGatewayRequestContext {
     serviceId: string;
     path: string;
     httpMethod: string;
-    requestId?: string;
+    requestId?: string | undefined;
     identity: {
-        secretId?: string;
+        secretId?: string | undefined;
     };
     sourceIp: string;
     stage: string;

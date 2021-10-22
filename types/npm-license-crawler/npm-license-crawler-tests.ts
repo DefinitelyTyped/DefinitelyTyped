@@ -5,6 +5,7 @@ const options: CrawlerOptions = {
     exclude: ['.'],
     json: 'licenses.json',
     unknown: true,
+    noColor: true,
 };
 
 dumpLicenses(options, (error, res) => {

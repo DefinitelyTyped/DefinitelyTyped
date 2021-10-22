@@ -1,3 +1,6 @@
+/**
+ * Constants for event names.
+ */
 declare enum MapBrowserEventType {
     SINGLECLICK = 'singleclick',
     CLICK = 'click',

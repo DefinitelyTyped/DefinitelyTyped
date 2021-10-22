@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ConnectionSignal32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ConnectionSignal32;
+import { ConnectionSignal32 } from "../../";
+
+export = ConnectionSignal32;

@@ -2,9 +2,10 @@
 // Project: https://github.com/joetidee/enzyme-react-intl#readme
 // Definitions by: Mateusz Meller <https://github.com/mateusz-meller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.5
 
 import { Component, ReactElement } from 'react';
+import { IntlProvider } from 'react-intl';
 import { ShallowRendererProps, MountRendererProps, ShallowWrapper, ReactWrapper } from 'enzyme';
 
 // shallow methods
@@ -34,6 +35,8 @@ export function renderWithIntl<P, S>(node: ReactElement<P>, options?: any): chee
 
 // other methods
 
+export function getIntl(): IntlProvider;
 export function getLocale(): string;
 export function setLocale(locale: string): void;
 export function loadTranslation(translationFilePath: string): any;
+export function loadTranslationObject<T extends { [key: string]: string }>(translations: T): T;

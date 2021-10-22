@@ -6,23 +6,23 @@ export interface Props {
      * Defines custom class name(s), that will be added to rendered element.
      * @default 'react-pdf__Outline'
      */
-    className?: string | string[];
+    className?: string | string[] | undefined;
 
     /**
      * Function called when an outline item has been clicked.
      * Usually, you would like to use this callback to move the user wherever they requested to.
      */
-    onItemClick?: ({ pageNumber }: { pageNumber: string }) => void;
+    onItemClick?: (({ pageNumber }: { pageNumber: string }) => void) | undefined;
 
     /**
      * Function called in case of an error while retrieving the outline.
      */
-    onLoadError?: (error: Error) => void;
+    onLoadError?: ((error: Error) => void) | undefined;
 
     /**
      * Function called when the outline is successfully retrieved.
      */
-    onLoadSuccess?: (outline: PDFTreeNode[]) => void;
+    onLoadSuccess?: ((outline: PDFTreeNode[]) => void) | undefined;
 }
 
 export default class Outline extends React.Component<Props> { }

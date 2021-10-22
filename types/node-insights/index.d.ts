@@ -8,11 +8,11 @@ interface Config {
     insertKey: string;
     queryKey: string;
     accountId: string;
-    timerInterval?: number;
-    maxPending?: number;
-    defaultEventType?: string;
-    enabled?: boolean;
-    gzip?: boolean;
+    timerInterval?: number | undefined;
+    maxPending?: number | undefined;
+    defaultEventType?: string | undefined;
+    enabled?: boolean | undefined;
+    gzip?: boolean | undefined;
 }
 
 type CallbackFunc = (err: Error | null | undefined, responseBody: string) => void;

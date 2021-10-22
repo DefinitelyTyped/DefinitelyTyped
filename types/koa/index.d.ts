@@ -1,12 +1,15 @@
-// Type definitions for Koa 2.11.0
+// Type definitions for Koa 2.13.1
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
 //                 Brice Bernard <https://github.com/brikou>
 //                 harryparkdotio <https://github.com/harryparkdotio>
 //                 Wooram Jun <https://github.com/chatoo2412>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
+//                 Piotr Kuczynski <https://github.com/pkuczynski>
+//                 vnoder <https://github.com/vnoder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /* =================== USAGE ===================
 
@@ -22,7 +25,7 @@
 import * as accepts from 'accepts';
 import * as Cookies from 'cookies';
 import { EventEmitter } from 'events';
-import { IncomingMessage, ServerResponse, Server } from 'http';
+import { IncomingMessage, ServerResponse, Server, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import httpAssert = require('http-assert');
 import * as HttpErrors from 'http-errors';
@@ -31,17 +34,18 @@ import * as compose from 'koa-compose';
 import { Socket, ListenOptions } from 'net';
 import * as url from 'url';
 import * as contentDisposition from 'content-disposition';
+import { ParsedUrlQuery } from 'querystring';
 
 declare interface ContextDelegatedRequest {
     /**
      * Return request header.
      */
-    header: any;
+    header: IncomingHttpHeaders;
 
     /**
      * Return request header, alias as request.header
      */
-    headers: any;
+    headers: IncomingHttpHeaders;
 
     /**
      * Get/Set request URL.
@@ -73,7 +77,7 @@ declare interface ContextDelegatedRequest {
      * Get parsed query-string.
      * Set query-string as an object.
      */
-    query: any;
+    query: ParsedUrlQuery;
 
     /**
      * Get/Set query string.
@@ -180,7 +184,7 @@ declare interface ContextDelegatedRequest {
 
     /**
      * Check if the given `type(s)` is acceptable, returning
-     * the best match when true, otherwise `undefined`, in which
+     * the best match when true, otherwise `false`, in which
      * case you should respond with 406 "Not Acceptable".
      *
      * The `type` value may be a single mime type string
@@ -214,9 +218,9 @@ declare interface ContextDelegatedRequest {
      *     this.accepts('html', 'json');
      *     // => "json"
      */
-    accepts(): string[] | boolean;
-    accepts(...types: string[]): string | boolean;
-    accepts(types: string[]): string | boolean;
+    accepts(): string[];
+    accepts(...types: string[]): string | false;
+    accepts(types: string[]): string | false;
 
     /**
      * Return accepted encodings or best fit based on `encodings`.
@@ -226,9 +230,9 @@ declare interface ContextDelegatedRequest {
      *
      *     ['gzip', 'deflate']
      */
-    acceptsEncodings(): string[] | boolean;
-    acceptsEncodings(...encodings: string[]): string | boolean;
-    acceptsEncodings(encodings: string[]): string | boolean;
+    acceptsEncodings(): string[];
+    acceptsEncodings(...encodings: string[]): string | false;
+    acceptsEncodings(encodings: string[]): string | false;
 
     /**
      * Return accepted charsets or best fit based on `charsets`.
@@ -238,9 +242,9 @@ declare interface ContextDelegatedRequest {
      *
      *     ['utf-8', 'utf-7', 'iso-8859-1']
      */
-    acceptsCharsets(): string[] | boolean;
-    acceptsCharsets(...charsets: string[]): string | boolean;
-    acceptsCharsets(charsets: string[]): string | boolean;
+    acceptsCharsets(): string[];
+    acceptsCharsets(...charsets: string[]): string | false;
+    acceptsCharsets(charsets: string[]): string | false;
 
     /**
      * Return accepted languages or best fit based on `langs`.
@@ -250,9 +254,9 @@ declare interface ContextDelegatedRequest {
      *
      *     ['es', 'pt', 'en']
      */
-    acceptsLanguages(): string[] | boolean;
-    acceptsLanguages(...langs: string[]): string | boolean;
-    acceptsLanguages(langs: string[]): string | boolean;
+    acceptsLanguages(): string[];
+    acceptsLanguages(...langs: string[]): string | false;
+    acceptsLanguages(langs: string[]): string | false;
 
     /**
      * Check if the incoming request contains the "Content-Type"
@@ -276,8 +280,8 @@ declare interface ContextDelegatedRequest {
      *     this.is('html'); // => false
      */
     // is(): string | boolean;
-    is(...types: string[]): string | boolean;
-    is(types: string[]): string | boolean;
+    is(...types: string[]): string | false | null;
+    is(types: string[]): string | false | null;
 
     /**
      * Return request header. If the header is not set, will return an empty
@@ -314,7 +318,7 @@ declare interface ContextDelegatedResponse {
     /**
      * Get/Set response body.
      */
-    body: any;
+    body: unknown;
 
     /**
      * Return parsed response Content-Length when present.
@@ -439,21 +443,39 @@ declare interface ContextDelegatedResponse {
 
 declare class Application<
     StateT = Application.DefaultState,
-    CustomT = Application.DefaultContext
+    ContextT = Application.DefaultContext
 > extends EventEmitter {
     proxy: boolean;
     proxyIpHeader: string;
     maxIpsCount: number;
-    middleware: Application.Middleware<StateT, CustomT>[];
+    middleware: Application.Middleware<StateT, ContextT>[];
     subdomainOffset: number;
     env: string;
-    context: Application.BaseContext & CustomT;
+    context: Application.BaseContext & ContextT;
     request: Application.BaseRequest;
     response: Application.BaseResponse;
     silent: boolean;
     keys: Keygrip | string[];
 
-    constructor();
+    /**
+     *
+     * @param {object} [options] Application options
+     * @param {string} [options.env='development'] Environment
+     * @param {string[]} [options.keys] Signed cookie keys
+     * @param {boolean} [options.proxy] Trust proxy headers
+     * @param {number} [options.subdomainOffset] Subdomain offset
+     * @param {string} [options.proxyIpHeader] Proxy IP header, defaults to X-Forwarded-For
+     * @param {number} [options.maxIpsCount] Max IPs read from proxy IP header, default to 0 (means infinity)
+     *
+     */
+    constructor(options?: {
+        env?: string | undefined,
+        keys?: string[] | undefined,
+        proxy?: boolean | undefined,
+        subdomainOffset?: number | undefined,
+        proxyIpHeader?: string | undefined,
+        maxIpsCount?: number | undefined
+    });
 
     /**
      * Shorthand for:
@@ -487,9 +509,9 @@ declare class Application<
      *
      * Old-style middleware will be converted.
      */
-    use<NewStateT = {}, NewCustomT = {}>(
-        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>,
-    ): Application<StateT & NewStateT, CustomT & NewCustomT>;
+    use<NewStateT = {}, NewContextT = {}>(
+        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>
+    ): Application<StateT & NewStateT, ContextT & NewContextT>;
 
     /**
      * Return a request handler callback
@@ -533,8 +555,8 @@ declare namespace Application {
         [key: string]: any;
     }
 
-    type Middleware<StateT = DefaultState, CustomT = DefaultContext> = compose.Middleware<
-        ParameterizedContext<StateT, CustomT>
+    type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = any> = compose.Middleware<
+        ParameterizedContext<StateT, ContextT, ResponseBodyT>
     >;
 
     interface BaseRequest extends ContextDelegatedRequest {
@@ -577,12 +599,12 @@ declare namespace Application {
         /**
          * Return response header.
          */
-        header: any;
+        header: OutgoingHttpHeaders;
 
         /**
          * Return response header, alias as response.header
          */
-        headers: any;
+        headers: OutgoingHttpHeaders;
 
         /**
          * Check whether the response is one of the listed types.
@@ -593,8 +615,8 @@ declare namespace Application {
          * @api public
          */
         // is(): string;
-        is(...types: string[]): string;
-        is(types: string[]): string;
+        is(...types: string[]): string | false | null;
+        is(types: string[]): string | false | null;
 
         /**
          * Return response header. If the header is not set, will return an empty
@@ -708,19 +730,20 @@ declare namespace Application {
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
-        respond?: boolean;
+        respond?: boolean | undefined;
     }
 
-    type ParameterizedContext<StateT = DefaultState, CustomT = DefaultContext> = ExtendableContext & {
-        state: StateT;
-    } & CustomT;
+    type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> = ExtendableContext
+        & { state: StateT; }
+        & ContextT
+        & { body: ResponseBodyT; response: { body: ResponseBodyT }; };
 
     interface Context extends ParameterizedContext {}
 
     type Next = () => Promise<any>;
 
     /**
-     * A re-export of `HttpError` from the `http-assert` package.
+     * A re-export of `HttpError` from the `http-error` package.
      *
      * This is the error type that is thrown by `ctx.assert()` and `ctx.throw()`.
      */

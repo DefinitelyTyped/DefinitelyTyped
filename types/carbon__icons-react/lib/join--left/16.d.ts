@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const JoinLeft16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default JoinLeft16;
+import { JoinLeft16 } from "../../";
+
+export = JoinLeft16;

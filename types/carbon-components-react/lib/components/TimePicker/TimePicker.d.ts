@@ -1,13 +1,14 @@
 import * as React from "react";
 import { ReactInputAttr } from "../../../typings/shared";
 
-export interface TimePickerProps extends Omit<ReactInputAttr, "id"> {
-    hideLabel?: boolean,
+export interface TimePickerProps extends Omit<ReactInputAttr, "id" | "size"> {
+    hideLabel?: boolean | undefined,
     id: string,
-    invalid?: boolean,
-    invalidText?: React.ReactNode,
-    labelText?: React.ReactNode,
-    light?: boolean,
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
+    labelText?: React.ReactNode | undefined,
+    light?: boolean | undefined,
+    size?: "sm" | "md" | "lg" | "xl" | undefined,
 }
 
 declare class TimePicker extends React.Component<TimePickerProps> { }

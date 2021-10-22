@@ -2,7 +2,7 @@ import * as SunCalc from 'suncalc';
 
 let d: Date;
 let x: number;
-let b: boolean;
+let b: boolean | undefined;
 
 const date = new Date();
 const latitude = 0.0;

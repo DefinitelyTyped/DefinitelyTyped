@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChartBarStacked16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChartBarStacked16;
+import { ChartBarStacked16 } from "../../";
+
+export = ChartBarStacked16;

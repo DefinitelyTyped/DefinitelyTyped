@@ -8,11 +8,11 @@
  * Options that can be passed to parse function
  */
 export interface PixlParseOptions {
-    preserveAttributes?: boolean;
-    lowerCase?: boolean;
-    preserveDocumentNode?: boolean;
-    preserveWhitespace?: boolean;
-    forceArrays?: boolean;
+    preserveAttributes?: boolean | undefined;
+    lowerCase?: boolean | undefined;
+    preserveDocumentNode?: boolean | undefined;
+    preserveWhitespace?: boolean | undefined;
+    forceArrays?: boolean | undefined;
 }
 
 /**

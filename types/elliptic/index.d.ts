@@ -64,9 +64,9 @@ export namespace curve {
 
         interface BaseCurveOptions {
             p: number | string | number[] | Buffer | BN;
-            prime?: BN | string;
-            n?: number | BN | Buffer;
-            g?: BasePoint;
+            prime?: BN | string | undefined;
+            n?: number | BN | Buffer | undefined;
+            g?: BasePoint | undefined;
             gRed?: any; // ?
         }
 
@@ -131,8 +131,8 @@ export namespace curve {
         interface ShortConf extends base.BaseCurveOptions {
             a: BNInput;
             b: BNInput;
-            beta?: BNInput;
-            lambda?: BNInput;
+            beta?: BNInput | undefined;
+            lambda?: BNInput | undefined;
         }
 
         class ShortPoint extends base.BasePoint {
@@ -166,8 +166,8 @@ export namespace curves {
             hash: any;
             gRed: boolean;
             g: any; // ?
-            beta?: string;
-            lambda?: string;
+            beta?: string | undefined;
+            lambda?: string | undefined;
             basis?: any; // ?
         }
     }
@@ -227,15 +227,15 @@ export namespace ec {
     interface GenKeyPairOptions {
         pers?: any;
         entropy: any;
-        persEnc?: string;
-        entropyEnc?: string;
+        persEnc?: string | undefined;
+        entropyEnc?: string | undefined;
     }
 
     interface SignOptions {
         pers?: any;
-        persEnc?: string;
-        canonical?: boolean;
-        k?: BN;
+        persEnc?: string | undefined;
+        canonical?: boolean | undefined;
+        k?: BN | undefined;
     }
 
     class KeyPair {
@@ -285,14 +285,14 @@ export namespace ec {
     interface SignatureOptions {
         r: BNInput;
         s: BNInput;
-        recoveryParam?: number;
+        recoveryParam?: number | undefined;
     }
 
     interface KeyPairOptions {
-        priv?: Buffer;
-        privEnc?: string;
-        pub?: Buffer;
-        pubEnc?: string;
+        priv?: Buffer | undefined;
+        privEnc?: string | undefined;
+        pub?: Buffer | undefined;
+        pubEnc?: string | undefined;
     }
 }
 

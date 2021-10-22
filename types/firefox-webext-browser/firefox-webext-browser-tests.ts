@@ -12,39 +12,39 @@ const port = browser.runtime.connect();
 port.postMessage(); // $ExpectError
 port.postMessage({ test: 'ok' });
 
-port.onDisconnect.addListener(p => {
+port.onDisconnect.addListener((p) => {
     if (p.error) {
         console.log(`Disconnected due to an error: ${p.error.message}`);
     }
 });
 
-port.onMessage.addListener(response => {
+port.onMessage.addListener((response) => {
     console.log('Received: ' + response);
 });
 
 browser.bookmarks.getTree();
 
-browser.proxy.onError.addListener(error => {
+browser.proxy.onError.addListener((error) => {
     console.error(`Proxy error: ${error.message}`);
 });
 
 browser.proxy.onRequest.addListener(
-    d => {
+    (d) => {
         console.log(d.requestId);
     },
     {
         urls: ['test'],
     },
-    ['requestHeaders'],
+    ['requestHeaders']
 );
 
 browser.webNavigation.onBeforeNavigate.addListener(
-    d => {
+    (d) => {
         console.log(d.url, d.timeStamp);
     },
     {
         url: [{ hostContains: 'something' }, { hostPrefix: 'somethineelse' }],
-    },
+    }
 );
 
 browser.runtime.connect().onDisconnect.addListener(() => {
@@ -78,10 +78,23 @@ browser.tabs.reload({
 
 browser.tabs.captureTab();
 browser.tabs.captureTab(15);
-browser.tabs.captureTab(15, {format: 'png'});
-browser.tabs.captureTab({format: 'png'});
+browser.tabs.captureTab(15, { format: 'png' });
+browser.tabs.captureTab({ format: 'png' });
 
 browser.tabs.captureVisibleTab();
 browser.tabs.captureVisibleTab(15);
-browser.tabs.captureVisibleTab(15, {format: 'png'});
-browser.tabs.captureVisibleTab({format: 'png'});
+browser.tabs.captureVisibleTab(15, { format: 'png' });
+browser.tabs.captureVisibleTab({ format: 'png' });
+
+/* Test SteamFilter */
+const filter = browser.webRequest.filterResponseData('1234');
+filter.onerror = () => console.log(filter.error);
+filter.ondata = ({ data }) => console.log(data);
+filter.onstart = () => console.log('start');
+filter.onstop = (_event: Event) => console.log('stop');
+filter.suspend();
+filter.resume();
+filter.write(new Uint8Array(32));
+filter.close();
+filter.disconnect();
+console.log(filter.status);

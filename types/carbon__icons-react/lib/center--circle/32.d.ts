@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CenterCircle32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CenterCircle32;
+import { CenterCircle32 } from "../../";
+
+export = CenterCircle32;

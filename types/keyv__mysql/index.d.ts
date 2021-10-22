@@ -13,7 +13,7 @@ export = KeyvMysql;
 
 declare class KeyvMysql extends EventEmitter implements Store<string | undefined> {
     readonly ttlSupport: false;
-    namespace?: string;
+    namespace?: string | undefined;
 
     constructor(uri?: string);
     constructor(options?: KeyvMysql.Options); // tslint:disable-line:unified-signatures
@@ -26,8 +26,8 @@ declare class KeyvMysql extends EventEmitter implements Store<string | undefined
 
 declare namespace KeyvMysql {
     interface Options {
-        uri?: string;
-        table?: string;
-        keySize?: number;
+        uri?: string | undefined;
+        table?: string | undefined;
+        keySize?: number | undefined;
     }
 }

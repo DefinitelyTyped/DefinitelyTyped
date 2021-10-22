@@ -16,6 +16,20 @@ export class Example extends React.Component {
                 <CytoscapeComponent
                     elements={CytoscapeComponent.normalizeElements(elements)}
                     style={{ width: '600px', height: '600px' }}
+                    panningEnabled={false}
+                    userPanningEnabled={false}
+                    autolock={false}
+                    get={(obj, key) => (obj != null ? obj[key] : null)}
+                    toJson={obj => obj}
+                    diff={(a, b) => a !== b}
+                    forEach={(arr, iterator) => arr.forEach(iterator)}
+                    headless={false}
+                    styleEnabled={false}
+                    textureOnViewport={false}
+                    motionBlur={false}
+                    motionBlurOpacity={0.2}
+                    wheelSensitivity={1}
+                    pixelRatio='auto'
                 />
             </div>
         );

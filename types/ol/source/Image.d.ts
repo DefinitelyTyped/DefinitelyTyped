@@ -10,11 +10,11 @@ import Source, { AttributionLike } from './Source';
 import State from './State';
 
 export interface Options {
-    attributions?: AttributionLike;
-    imageSmoothing?: boolean;
-    projection?: ProjectionLike;
-    resolutions?: number[];
-    state?: State;
+    attributions?: AttributionLike | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    resolutions?: number[] | undefined;
+    state?: State | undefined;
 }
 export enum ImageSourceEventType {
     IMAGELOADSTART = 'imageloadstart',
@@ -30,8 +30,11 @@ export default abstract class ImageSource extends Source {
         pixelRatio: number,
         projection: Projection,
     ): ImageBase;
+    /**
+     * Handle image change events.
+     */
     protected handleImageChange(event: BaseEvent): void;
-    getContextOptions(): any;
+    getContextOptions(): object | undefined;
     getImage(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageBase;
     getResolutions(): number[];
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
@@ -57,7 +60,14 @@ export default abstract class ImageSource extends Source {
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
 export class ImageSourceEvent extends BaseEvent {
-    constructor();
+    constructor(type: string, image: ImageWrapper);
+    /**
+     * The image related to the event.
+     */
     image: ImageWrapper;
 }
+/**
+ * Default image load function for image sources that use module:ol/Image~Image image
+ * instances.
+ */
 export function defaultImageLoadFunction(image: ImageWrapper, src: string): void;

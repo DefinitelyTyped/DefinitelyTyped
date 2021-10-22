@@ -8,7 +8,14 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
+import {
+    PayloadData,
+    Network,
+    UploadableMap,
+    PayloadError,
+    GraphQLResponse,
+    ReactFlightServerTree,
+} from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
@@ -20,8 +27,8 @@ export type OperationTracker = RelayOperationTracker;
 /*
  * An individual cached graph object.
  */
-export interface Record {
-    [key: string]: unknown;
+export interface Record<T extends object = {}> {
+    [key: string]: T;
 }
 
 /**
@@ -63,6 +70,7 @@ export interface RequestDescriptor {
     readonly identifier: RequestIdentifier;
     readonly node: ConcreteRequest;
     readonly variables: Variables;
+    readonly cacheConfig: CacheConfig | null;
 }
 
 /**
@@ -169,7 +177,8 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    get(dataID: DataID): Record | null | undefined;
+    // tslint:disable-next-line:no-unnecessary-generics
+    get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
@@ -240,7 +249,7 @@ export interface Store {
      * internal record source. Subscribers are not immediately notified - this
      * occurs when `notify()` is called.
      */
-    publish(source: RecordSource, idsMarkedForInvalidation?: Set<DataID>): void;
+    publish(source: RecordSource, idsMarkedForInvalidation?: DataIDSet): void;
 
     /**
      * Ensure that all the records necessary to fulfill the given selector are
@@ -407,83 +416,143 @@ interface OperationDescriptor {
     readonly root: NormalizationSelector;
 }
 
-type LogEvent =
+export type LogEvent =
     | Readonly<{
-          name: 'queryresource.fetch';
-          /**
-           * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
-           */
-          resourceID: number;
-          operation: OperationDescriptor;
-          profilerContext: any;
-          fetchPolicy: FetchPolicy;
-          renderPolicy: RenderPolicy;
-          queryAvailability: OperationAvailability;
-          shouldFetch: boolean;
-      }>
+        name: 'suspense.fragment',
+        data: unknown,
+        fragment: ReaderFragment,
+        isRelayHooks: boolean,
+        isMissingData: boolean,
+        isPromiseCached: boolean,
+        pendingOperations: ReadonlyArray<RequestDescriptor>,
+    }>
     | Readonly<{
-          name: 'queryresource.retain';
-          resourceID: number;
-          // value from ProfilerContext
-          profilerContext: any;
-      }>
+        name: 'suspense.query',
+        fetchPolicy: string,
+        isPromiseCached: boolean,
+        operation: OperationDescriptor,
+        queryAvailability?: OperationAvailability | undefined,
+        renderPolicy: RenderPolicy,
+    }>
     | Readonly<{
-          name: 'execute.info';
-          transactionID: number;
-          info: any;
-      }>
+        name: 'queryresource.fetch';
+        /**
+         * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
+         */
+        resourceID: number;
+        operation: OperationDescriptor;
+        profilerContext: unknown;
+        fetchPolicy: FetchPolicy;
+        renderPolicy: RenderPolicy;
+        queryAvailability: OperationAvailability;
+        shouldFetch: boolean;
+    }>
     | Readonly<{
-          name: 'execute.start';
-          transactionID: number;
-          params: RequestParameters;
-          variables: Variables;
-      }>
+        name: 'queryresource.retain';
+        resourceID: number;
+        // value from ProfilerContext
+        profilerContext: unknown;
+    }>
     | Readonly<{
-          name: 'execute.next';
-          transactionID: number;
-          response: GraphQLResponse;
-      }>
+        name: 'network.info';
+        networkRequestId: number;
+        info: unknown;
+    }>
     | Readonly<{
-          name: 'execute.error';
-          transactionID: number;
-          error: Error;
-      }>
+        name: 'network.start';
+        networkRequestId: number;
+        params: RequestParameters;
+        variables: Variables;
+        cacheConfig: CacheConfig;
+    }>
     | Readonly<{
-          name: 'execute.complete';
-          transactionID: number;
-      }>
+        name: 'network.next';
+        networkRequestId: number;
+        response: GraphQLResponse;
+    }>
     | Readonly<{
-          name: 'execute.unsubscribe';
-          transactionID: number;
-      }>
+        name: 'network.error';
+        networkRequestId: number;
+        error: Error;
+    }>
     | Readonly<{
-          name: 'store.publish';
-          source: RecordSource;
-          optimistic: boolean;
-      }>
+        name: 'network.complete';
+        networkRequestId: number;
+    }>
     | Readonly<{
-          name: 'store.snapshot';
-      }>
+        name: 'network.unsubscribe';
+        networkRequestId: number;
+    }>
     | Readonly<{
-          name: 'store.restore';
-      }>
+        name: 'execute.start';
+        executeId: number;
+        params: RequestParameters;
+        variables: Variables;
+        cacheConfig: CacheConfig;
+    }>
     | Readonly<{
-          name: 'store.gc';
-          references: Set<DataID>;
-      }>
+        name: "execute.next";
+        executeId: number;
+        response: GraphQLResponse;
+        duration: number;
+    }>
     | Readonly<{
-          name: 'store.notify.start';
-      }>
+        name: 'execute.async.module';
+        executeId: number;
+        operationName: string;
+        duration: number;
+    }>
     | Readonly<{
-          name: 'store.notify.complete';
-          updatedRecordIDs: UpdatedRecords;
-          invalidatedRecordIDs: Set<DataID>;
-      }>
+        name: 'execute.flight.payload_deserialize';
+        executeId: number;
+        operationName: string;
+        duration: number;
+    }>
     | Readonly<{
-          name: 'entrypoint.root.consume';
-          profilerContext: any;
-          rootModuleID: string;
-      }>;
+        name: 'execute.error';
+        executeId: number;
+        error: Error;
+    }>
+    | Readonly<{
+        name: 'execute.complete';
+        executeId: number;
+    }>
+    | Readonly<{
+        name: 'store.publish';
+        source: RecordSource;
+        optimistic: boolean;
+    }>
+    | Readonly<{
+        name: 'store.snapshot';
+    }>
+    | Readonly<{
+        name: 'store.restore';
+    }>
+    | Readonly<{
+        name: 'store.gc';
+        references: DataIDSet;
+    }>
+    | Readonly<{
+        name: 'store.notify.start';
+        sourceOperation?: OperationDescriptor | undefined;
+    }>
+    | Readonly<{
+        name: 'store.notify.complete';
+        sourceOperation?: OperationDescriptor | undefined;
+        updatedRecordIDs: DataIDSet;
+        invalidatedRecordIDs: DataIDSet;
+    }>
+    | Readonly<{
+        name: 'store.notify.subscription';
+        sourceOperation?: OperationDescriptor | undefined;
+        snapshot: Snapshot;
+        nextSnapshot: Snapshot;
+    }>
+    | Readonly<{
+        name: 'entrypoint.root.consume';
+        profilerContext: unknown;
+        rootModuleID: string;
+    }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
 
@@ -580,8 +649,7 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
-        updater?: SelectorStoreUpdater | null;
+        updater?: SelectorStoreUpdater | null | undefined;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -602,10 +670,10 @@ export interface Environment {
         uploadables,
     }: {
         operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater | null;
-        optimisticResponse?: { [key: string]: any } | null;
-        updater?: SelectorStoreUpdater | null;
-        uploadables?: UploadableMap | null;
+        optimisticUpdater?: SelectorStoreUpdater | null | undefined;
+        optimisticResponse?: { [key: string]: any } | null | undefined;
+        updater?: SelectorStoreUpdater | null | undefined;
+        uploadables?: UploadableMap | null | undefined;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -624,6 +692,28 @@ export interface Environment {
         operation: OperationDescriptor;
         source: RelayObservable<GraphQLResponse>;
     }): RelayObservable<GraphQLResponse>;
+
+    /**
+     * Returns true if a request is currently "active", meaning it's currently
+     * actively receiving payloads or downloading modules, and has not received
+     * a final payload yet. Note that a request might still be pending (or "in flight")
+     * without actively receiving payload, for example a live query or an
+     * active GraphQL subscription
+     */
+    isRequestActive(requestIdentifier: string): boolean;
+
+    /**
+     * Returns true if the environment is for use during server side rendering.
+     * functions like getQueryResource key off of this in order to determine
+     * whether we need to set up certain caches and timeout's.
+     */
+    isServer(): boolean;
+
+    /**
+     * Called by Relay when it encounters a missing field that has been annotated
+     * with `@required(action: LOG)`.
+     */
+    requiredFieldLogger: RequiredFieldLogger;
 }
 
 /**
@@ -652,15 +742,10 @@ export interface ModuleImportPointer {
 export type AsyncLoadCallback = (loadingState: LoadingState) => void;
 export interface LoadingState {
     status: 'aborted' | 'complete' | 'error' | 'missing';
-    error?: Error;
+    error?: Error | undefined;
 }
 
-/**
- * A map of records affected by an update operation.
- */
-export interface UpdatedRecords {
-    [dataID: string]: boolean;
-}
+export type DataIDSet = Set<DataID>;
 
 /**
  * A function that updates a store (via a proxy) given the results of a "handle"
@@ -832,17 +917,17 @@ export type MissingFieldHandler =
  */
 export type RequiredFieldLogger = (
     arg:
-      | Readonly<{
-          kind: "missing_field.log",
-          owner: string,
-          fieldPath: string,
-        }>
-      | Readonly<{
-          kind: "missing_field.throw",
-          owner: string,
-          fieldPath: string,
-        }>
-  ) => void;
+        | Readonly<{
+              kind: 'missing_field.log';
+              owner: string;
+              fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'missing_field.throw';
+              owner: string;
+              fieldPath: string;
+          }>,
+) => void;
 
 /**
  * The results of normalizing a query.
@@ -902,3 +987,18 @@ export interface PublishQueue {
      */
     run(): ReadonlyArray<RequestDescriptor>;
 }
+
+/**
+ * ReactFlightDOMRelayClient processes a ReactFlightServerTree into a
+ * ReactFlightClientResponse object. readRoot() can suspend.
+ */
+export interface ReactFlightClientResponse {
+    readRoot: () => any;
+}
+
+export interface ReactFlightReachableQuery {
+    readonly module: any;
+    readonly variables: Variables;
+}
+
+export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;

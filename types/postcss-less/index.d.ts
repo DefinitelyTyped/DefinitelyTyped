@@ -1,7 +1,9 @@
-// Type definitions for postcss-less 3.1
+// Type definitions for postcss-less 4.0
 // Project: https://github.com/shellscape/postcss-less
 // Definitions by: Masafumi Koba <https://github.com/ybiquitous>
+//                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import * as postcss from 'postcss';
 
@@ -18,7 +20,7 @@ declare namespace postcssLess {
     interface ImportAtRule extends postcss.AtRule {
         import: true;
         filename: string;
-        options?: string;
+        options?: string | undefined;
     }
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/nodes/variable.js
@@ -30,7 +32,7 @@ declare namespace postcssLess {
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L147-L151
     interface MixinAtRule extends postcss.AtRule {
         mixin: true;
-        important?: true;
+        important?: true | undefined;
     }
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L57

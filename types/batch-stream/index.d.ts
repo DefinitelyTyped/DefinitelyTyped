@@ -9,8 +9,8 @@
 import stream = require('stream');
 
 interface Options {
-    size?: number;
-    highWaterMark?: number;
+    size?: number | undefined;
+    highWaterMark?: number | undefined;
 }
 
 declare class BatchStream extends stream.Transform {

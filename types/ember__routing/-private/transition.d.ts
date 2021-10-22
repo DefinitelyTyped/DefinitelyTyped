@@ -1,6 +1,7 @@
 import RouteInfo from './route-info';
+import RouteInfoWithAttributes from './route-info-with-attributes';
 
-export default interface Transition<T = any> extends Partial<Promise<T>> {
+export default interface Transition<T = unknown> extends Partial<Promise<T>> {
     /**
      * Custom state can be stored on a Transition's `data` object.
      * This can be useful for decorating a Transition within an earlier hook and shared with a later hook.
@@ -12,7 +13,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * It's important to note that a `RouteInfo` is a linked list and this property is simply the head node of the list.
      * In the case of an initial render, `from` will be set to `null`.
      */
-    readonly from: RouteInfo | null;
+    readonly from: RouteInfoWithAttributes | null;
     /**
      * The Transition's internal promise.
      * Calling `.then` on this property is that same as calling `.then` on the Transition object itself,
@@ -25,7 +26,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * This property is a `RouteInfo` object that represents where the router is transitioning to.
      * It's important to note that a `RouteInfo` is a linked list and this property is simply the leafmost route.
      */
-    readonly to: RouteInfo;
+    readonly to: RouteInfo | RouteInfoWithAttributes;
     /**
      * Aborts the Transition. Note you can also implicitly abort a transition
      * by initiating another transition while a previous one is underway.
@@ -41,7 +42,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
     catch<TResult = never>(
         onRejected?: (reason: any) => TResult | PromiseLike<TResult>,
         label?: string,
-    ): Promise<TResult>;
+    ): Promise<TResult | T>;
     /**
      * Forwards to the internal `promise` property which you can use in situations where you want to pass around a thennable,
      * but not the Transition itself.

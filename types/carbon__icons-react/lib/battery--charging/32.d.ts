@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const BatteryCharging32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default BatteryCharging32;
+import { BatteryCharging32 } from "../../";
+
+export = BatteryCharging32;

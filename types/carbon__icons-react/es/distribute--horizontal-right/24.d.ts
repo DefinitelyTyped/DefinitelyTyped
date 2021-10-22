@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DistributeHorizontalRight24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DistributeHorizontalRight24;
+export { DistributeHorizontalRight24 as default } from "../../";

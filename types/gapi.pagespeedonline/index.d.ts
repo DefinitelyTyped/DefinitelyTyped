@@ -21,23 +21,23 @@ declare namespace gapi.client.pagespeedonline {
             /**
              * The locale that results should be generated in.
              */
-            locale?: string;
+            locale?: string | undefined;
             /**
              * The PageSpeed rules to run. Can be specified multiple times
              */
-            rule?: string[];
+            rule?: string[] | undefined;
             /**
              * Indicates if binary data containing a screenshot should be included
              */
-            screenshot?: boolean;
+            screenshot?: boolean | undefined;
             /**
              * The strategy to use when analyzing the page. Valid values are desktop and mobile.
              */
-            stategy?: string;
+            stategy?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            fields?: string;
+            fields?: string | undefined;
         }): HttpRequest<GoogleApiPageSpeedOnlineResource>;
     }
 

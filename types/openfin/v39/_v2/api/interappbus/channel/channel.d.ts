@@ -2,7 +2,7 @@ import { Identity } from '../../../identity';
 import Transport, { Message } from '../../../transport/transport';
 export interface ProviderIdentity extends Identity {
     channelId: string;
-    isExternal?: boolean;
+    isExternal?: boolean | undefined;
     channelName: string;
 }
 export declare type Action = (() => any) | ((payload: any) => any) | ((payload: any, id: ProviderIdentity) => any);

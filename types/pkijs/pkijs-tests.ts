@@ -1,6 +1,6 @@
 import * as asn1js from "asn1js";
-import { arrayBufferToString, stringToArrayBuffer, bufferToHexCodes } from "pvutils";
-import { getCrypto, getAlgorithmParameters } from "pkijs/src/common";
+import { bufferToHexCodes, stringToArrayBuffer } from "pvutils";
+import { getAlgorithmParameters, getCrypto } from "pkijs/src/common";
 import Certificate from "pkijs/src/Certificate";
 import CertificateRevocationList from "pkijs/src/CertificateRevocationList";
 import AttributeTypeAndValue from "pkijs/src/AttributeTypeAndValue";
@@ -13,6 +13,9 @@ import IssuerAndSerialNumber from "pkijs/src/IssuerAndSerialNumber";
 import SignedAndUnsignedAttributes from "pkijs/src/SignedAndUnsignedAttributes";
 import ContentInfo from "pkijs/src/ContentInfo";
 import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
+import OCSPRequest from "pkijs/src/OCSPRequest";
+import DistributionPoint from "pkijs/src/DistributionPoint";
+import GeneralName from "pkijs/src/GeneralName";
 
 // *********************************************************************************
 let cmsSignedBuffer = new ArrayBuffer(0); // ArrayBuffer with loaded or created CMS_Signed
@@ -669,4 +672,181 @@ function typetest_RelativeDN_isEqual() {
 
     rdn1.isEqual(rdn2); // $ExpectType boolean
     rdn1.isEqual(arraybuf); // $ExpectType boolean
+}
+
+function ocspRequestFromCert() {
+    // region Initial variables
+    let sequence = Promise.resolve(null);
+
+    const certSimpl = new Certificate();
+
+    let publicKey: CryptoKey;
+    let privateKey: CryptoKey;
+
+    let hashAlgorithm: string;
+    const hashOption = (document.getElementById("hash_alg") as HTMLInputElement).value;
+    switch (hashOption) {
+        case "alg_SHA1":
+            hashAlgorithm = "sha-1";
+            break;
+        case "alg_SHA256":
+            hashAlgorithm = "sha-256";
+            break;
+        case "alg_SHA384":
+            hashAlgorithm = "sha-384";
+            break;
+        case "alg_SHA512":
+            hashAlgorithm = "sha-512";
+            break;
+        default:
+    }
+
+    let signatureAlgorithmName: string;
+    const signOption = (document.getElementById("sign_alg") as HTMLInputElement).value;
+    switch (signOption) {
+        case "alg_RSA15":
+            signatureAlgorithmName = "RSASSA-PKCS1-V1_5";
+            break;
+        case "alg_RSA2":
+            signatureAlgorithmName = "RSA-PSS";
+            break;
+        case "alg_ECDSA":
+            signatureAlgorithmName = "ECDSA";
+            break;
+        default:
+    }
+    // endregion
+
+    // region Get a "crypto" extension
+    const crypto = getCrypto();
+    if (typeof crypto === "undefined") {
+        alert("No WebCrypto extension found");
+        return;
+    }
+    // endregion
+
+    // region Put a static values
+    certSimpl.version = 2;
+    certSimpl.serialNumber = new asn1js.Integer({ value: 1 });
+    certSimpl.issuer.typesAndValues.push(new AttributeTypeAndValue({
+        type: "2.5.4.6", // Country name
+        value: new asn1js.PrintableString({ value: "RU" })
+    }));
+    certSimpl.issuer.typesAndValues.push(new AttributeTypeAndValue({
+        type: "2.5.4.3", // Common name
+        value: new asn1js.BmpString({ value: "Test" })
+    }));
+    certSimpl.subject.typesAndValues.push(new AttributeTypeAndValue({
+        type: "2.5.4.6", // Country name
+        value: new asn1js.PrintableString({ value: "RU" })
+    }));
+    certSimpl.subject.typesAndValues.push(new AttributeTypeAndValue({
+        type: "2.5.4.3", // Common name
+        value: new asn1js.BmpString({ value: "Test" })
+    }));
+
+    certSimpl.notBefore.value = new Date(2016, 1, 1);
+    certSimpl.notAfter.value = new Date(2019, 1, 1);
+
+    certSimpl.extensions = []; // Extensions are not a part of certificate by default, it's an optional array
+
+    // region "KeyUsage" extension
+    const bitArray = new ArrayBuffer(1);
+    const bitView = new Uint8Array(bitArray);
+
+    bitView[0] = bitView[0] | 0x02; // Key usage "cRLSign" flag
+    // bitView[0] = bitView[0] | 0x04; // Key usage "keyCertSign" flag
+
+    const keyUsage = new asn1js.BitString({ valueHex: bitArray });
+
+    certSimpl.extensions.push(new Extension({
+        extnID: "2.5.29.15",
+        critical: false,
+        extnValue: keyUsage.toBER(false),
+        parsedValue: keyUsage // Parsed value for well-known extensions
+    }));
+    // endregion
+    // endregion
+
+    // region Create a new key pair
+    sequence = sequence.then(
+        () => {
+            // region Get default algorithm parameters for key generation
+            const algorithm = getAlgorithmParameters(signatureAlgorithmName, "generatekey");
+            if ("hash" in algorithm.algorithm)
+                (algorithm.algorithm as any).hash.name = hashAlgorithm;
+            // endregion
+
+            return crypto.generateKey(algorithm.algorithm as any, true, algorithm.usages);
+        }
+    );
+    // endregion
+
+    // region Store new key in an interim variables
+    sequence = sequence.then(
+        (keyPair: CryptoKeyPair) => {
+            publicKey = keyPair.publicKey;
+            privateKey = keyPair.privateKey;
+        },
+        (error: Error) => alert(`Error during key generation: ${error}`)
+    );
+    // endregion
+
+    // region Exporting public key into "subjectPublicKeyInfo" value of certificate
+    sequence = sequence.then(
+        () => certSimpl.subjectPublicKeyInfo.importKey(publicKey)
+    );
+    // endregion
+
+    // region Add CRL distribution point extension
+    sequence = sequence.then(
+        () => {
+            certSimpl.extensions.push(
+                new Extension({
+                    extnID: "2.5.29.31",
+                    critical: false,
+                    parsedValue: {
+                        distributionsPoints: [
+                            new DistributionPoint({
+                                distributionPoint: [
+                                    new GeneralName({
+                                        type: 6,
+                                        value: "http://example.com"
+                                    })
+                                ]
+                            })
+                        ]
+                    }
+                })
+            );
+        },
+        error => alert(`Error during exporting public key: ${error}`)
+    );
+    // endregion
+
+    // region Signing final certificate
+    sequence = sequence.then(
+        () => certSimpl.sign(privateKey, hashAlgorithm)
+    );
+    // endregion
+
+    // region Create OCSPRequest
+    const ocspReq = new OCSPRequest();
+    // endregion
+
+    // region Create OCSP for certificate
+    sequence = sequence.then(
+        () => {
+            return ocspReq.createForCertificate(certSimpl, {hashAlgorithm: "SHA-384", issuerCertificate: certSimpl});
+        },
+        error => alert(`Error during signing certificate: ${error}`)
+    );
+    // endregion
+
+    // region Ensure all is good
+    sequence.then(
+        () => {},
+        error => alert(`Error during create OCSP for cert: ${error}`)
+    );
+    // endregion
 }

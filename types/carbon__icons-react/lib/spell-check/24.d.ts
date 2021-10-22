@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const SpellCheck24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default SpellCheck24;
+import { SpellCheck24 } from "../../";
+
+export = SpellCheck24;

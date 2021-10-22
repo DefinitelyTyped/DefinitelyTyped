@@ -27,12 +27,12 @@ export type StateMachineEvent = (...args: any[]) => void;
 
 export interface StateMachineConfig {
     initial?: any; // string or { state: 'foo', event: 'setup', defer: true|false }
-    events?: StateMachineEventDef[];
+    events?: StateMachineEventDef[] | undefined;
     callbacks?: {
         [s: string]: (event?: string, from?: string, to?: string, ...args: any[]) => any;
-    };
-    target?: StateMachine;
-    error?: StateMachineErrorCallback;
+    } | undefined;
+    target?: StateMachine | undefined;
+    error?: StateMachineErrorCallback | undefined;
 }
 
 export type StateMachineIsFinished = (state: string) => boolean;

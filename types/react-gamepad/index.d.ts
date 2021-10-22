@@ -46,22 +46,22 @@ export interface Props {
     /**
      * The index of the gamepad to use, from 0 to 4 Default: 0
      */
-    gamepadIndex?: number;
+    gamepadIndex?: number | undefined;
 
     /**
      * Threshold above which onUp, onDown,onLeft,onRight are Triggered for the left stick Default: 0.75
      */
-    stickThreshold?: number;
+    stickThreshold?: number | undefined;
 
     /**
      * Threshold below which the axis values will be rounded to 0.0 Default: 0.08
      */
-    deadZone?: number;
+    deadZone?: number | undefined;
 
     /**
      * Layout to use, from Gamepad.layouts. For now, only Gamepad.layouts.XBOX exists Default: Gamepad.layouts.XBOX
      */
-    layout?: Layout;
+    layout?: Layout | undefined;
 
     /**
      * triggered when the gamepad connects. Will be Triggered at least once after the Gamepad component is mounted.

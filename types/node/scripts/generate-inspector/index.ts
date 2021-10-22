@@ -2,9 +2,9 @@
 // [tag] corresponds to a tag name in the node-core repository.
 // By default, uses the current Node version.
 
-import { execSync } from "child_process";
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import * as https from "https";
+import { execSync } from "node:child_process";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import * as https from "node:https";
 
 import * as schema from "./devtools-protocol-schema";
 import { generateSubstituteArgs } from "./generate-substitute-args";
@@ -12,6 +12,10 @@ import { substitute, trimRight } from "./utils";
 
 const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
     https.get(url, res => {
+        if (res.statusCode !== 200) {
+            reject(new Error(`Failed to fetch ${url} w/ error code ${res.statusCode}`));
+            return;
+        }
         const frames: Buffer[] = [];
         res.on("data", (data: Buffer) => {
             frames.push(data);
@@ -45,8 +49,13 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
     };
     for (const json of jsonProtocols) {
         if (json) {
-            const protocol: schema.Schema = JSON.parse(json);
-            combinedProtocol.domains.push(...protocol.domains);
+            try {
+                const protocol: schema.Schema = JSON.parse(json);
+                combinedProtocol.domains.push(...protocol.domains);
+            } catch(e) {
+                console.error(e, json);
+                process.exit(1);
+            }
         }
     }
     const substituteArgs = generateSubstituteArgs(combinedProtocol);

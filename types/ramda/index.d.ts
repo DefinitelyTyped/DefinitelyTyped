@@ -30,8 +30,9 @@
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
 //                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
+//                 Mikael Couzic <https://github.com/couzic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 4.2
 
 import * as _ from "ts-toolbelt";
 import {
@@ -50,6 +51,7 @@ import {
     Lens,
     Merge,
     MergeAll,
+    ObjectHavingSome,
     ObjPred,
     Ord,
     Path,
@@ -113,8 +115,8 @@ export function always<T>(val: T): () => T;
  * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
  * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
  */
-export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
-export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
+export function and<T extends { and?: ((...a: readonly any[]) => any) | undefined; } | number | boolean | string | null>(fn1: T, val2: any): boolean;
+export function and<T extends { and?: ((...a: readonly any[]) => any) | undefined; } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
 /**
  * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
@@ -288,8 +290,8 @@ export function complement<As extends any[]>(pred: (...args: As) => boolean): (.
  * functions must be unary.
  */
 // generic rest parameters in TS 3.0 allows writing a single variant for any number of Vx
-// compose<V extends any[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
-// compose<V extends any[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
+// compose<V extends unknown[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
+// compose<V extends unknown[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
 // but requiring TS>=3.0 sounds like a breaking change, so just leaving a comment for the future
 // tslint:disable:max-line-length
 export function compose<T1>(fn0: () => T1): () => T1;
@@ -365,13 +367,18 @@ export function composeWith(composer: (...args: any[]) => any): <V0, T>(fns: Com
 /**
  * Returns the result of concatenating the given lists or strings.
  */
-export function concat<T extends string | readonly any[]>(placeholder: Placeholder): (list2: T, list1: T) => T;
-export function concat<T>(placeholder: Placeholder, list2: readonly T[]): (list1: readonly T[]) => T[];
-export function concat(placeholder: Placeholder, list2: string): (list1: string) => string;
-export function concat<T>(list1: readonly T[], list2: readonly T[]): T[];
-export function concat<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
-export function concat(list1: string, list2: string): string;
-export function concat(list1: string): (list2: string) => string;
+export function concat(
+    placeholder: Placeholder,
+): (<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2) => [...L1, ...L2]) &
+    (<S1 extends string, S2 extends string>(s1: S1, s2: S2) => `${S1}${S2}`);
+export function concat<L2 extends any[]>(placeholder: Placeholder, list2: L2): <L1 extends any[]>(list1: L1) => [...L1, ...L2];
+export function concat<S2 extends string>(placeholder: Placeholder, s2: S2): <S1 extends string>(s1: S1) => `${S1}${S2}`;
+export function concat<L1 extends any[]>(list1: L1): <L2 extends any[]>(list2: L2) => [...L1, ...L2];
+export function concat<S1 extends string>(s1: S1): <S2 extends string>(s2: S2) => `${S1}${S2}`;
+export function concat<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2): [...L1, ...L2];
+export function concat<S1 extends string, S2 extends string>(s1: S1, s2: S2): `${S1}${S2}`;
+export function concat(s1: string, s2: string): string;
+export function concat(s1: string): (s2: string) => string;
 
 /**
  * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
@@ -473,11 +480,10 @@ export function differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1:
 export function differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: readonly T1[]): (list2: readonly T2[]) => T1[];
 
 /*
-    * Returns a new object that does not contain a prop property.
-    */
-// It seems impossible to infer the return type, so this may to be specified explicitely
-export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc(prop: string): <U>(obj: any) => U;
+ * Returns a new object that does not contain a prop property.
+ */
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 /**
  * Makes a shallow clone of an object, omitting the property at the given path.
@@ -660,16 +666,15 @@ export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: 
 /**
  * Creates a new object out of a list key-value pairs.
  */
-export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
-export function fromPairs<V>(pairs: Array<KeyValuePair<number, V>>): { [index: number]: V };
+export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>> | Array<KeyValuePair<number, V>>): { [index: string]: V };
 
 /**
  * Splits a list into sublists stored in an object, based on the result of
  * calling a String-returning function
  * on each element, and grouping the results according to values returned.
  */
-export function groupBy<T>(fn: (a: T) => string, list: readonly T[]): { [index: string]: T[] };
-export function groupBy<T>(fn: (a: T) => string): (list: readonly T[]) => { [index: string]: T[] };
+export function groupBy<T, K extends string = string>(fn: (a: T) => K, list: readonly T[]): Record<K, T[]>;
+export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: readonly T[]) => Record<K, T[]>;
 
 /**
  * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
@@ -684,6 +689,7 @@ export function groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[
 export function gt(__: Placeholder, b: number): (a: number) => boolean;
 export function gt(__: Placeholder): (b: number, a: number) => boolean;
 export function gt(a: number, b: number): boolean;
+export function gt(a: string, b: string): boolean;
 export function gt(a: number): (b: number) => boolean;
 
 /**
@@ -692,15 +698,16 @@ export function gt(a: number): (b: number) => boolean;
 export function gte(__: Placeholder, b: number): (a: number) => boolean;
 export function gte(__: Placeholder): (b: number, a: number) => boolean;
 export function gte(a: number, b: number): boolean;
+export function gte(a: string, b: string): boolean;
 export function gte(a: number): (b: number) => boolean;
 
 /**
  * Returns whether or not an object has an own property with the specified name.
  */
-export function has<T>(__: Placeholder, obj: T): (s: string) => boolean;
-export function has<T>(__: Placeholder): (obj: T, s: string) => boolean;
-export function has<T>(s: string, obj: T): boolean;
-export function has(s: string): <T>(obj: T) => boolean;
+export function has(__: Placeholder, obj: unknown): (s: string) => boolean;
+export function has(__: Placeholder): <P extends string>(obj: unknown, s: P) => obj is ObjectHavingSome<P>;
+export function has<P extends string>(s: P, obj: unknown): obj is ObjectHavingSome<P>;
+export function has<P extends string>(s: P): (obj: unknown) => obj is ObjectHavingSome<P>;
 
 /**
  * Returns whether or not an object or its prototype chain has a property with the specified name
@@ -926,27 +933,65 @@ export function length<T>(list: readonly T[]): number;
  * "gets" the value of the focus; the setter "sets" the value of the focus.
  * The setter should not mutate the data structure.
  */
-export function lens<T, U, V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
+export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
 
 /**
  * Creates a lens that will focus on index n of the source array.
  */
-export function lensIndex(n: number): Lens;
+export function lensIndex<A>(n: number): Lens<A[], A>;
+export function lensIndex<A extends any[], N extends number>(n: N): Lens<A, A[N]>;
 
 /**
  * Returns a lens whose focus is the specified path.
  * See also view, set, over.
  */
-export function lensPath(path: Path): Lens;
+export function lensPath<S, K0 extends keyof S = keyof S>(path: [K0]): Lens<S, S[K0]>;
+export function lensPath<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1]): Lens<S, S[K0][K1]>;
+export function lensPath<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(
+    path: [K0, K1, K2]
+): Lens<S, S[K0][K1][K2]>;
+export function lensPath<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(
+    path: [K0, K1, K2, K3]
+): Lens<S, S[K0][K1][K2][K3]>;
+export function lensPath<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(
+    path: [K0, K1, K2, K3, K4]
+): Lens<S, S[K0][K1][K2][K3][K4]>;
+export function lensPath<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(
+    path: [K0, K1, K2, K3, K4, K5]
+): Lens<S, S[K0][K1][K2][K3][K4][K5]>;
+
+export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
 
 /**
  * lensProp creates a lens that will focus on property k of the source object.
  */
-export function lensProp(str: string): {
-    <T, U>(obj: T): U;
-    set<T, U, V>(val: T, obj: U): V;
-    /*map<T>(fn: (...a: readonly any[]) => any, obj: T): T*/
-};
+export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
 
 /**
  * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
@@ -966,6 +1011,7 @@ export function liftN(n: number, fn: ((...a: readonly any[]) => any), ...args: r
 export function lt(__: Placeholder, b: number): (a: number) => boolean;
 export function lt(__: Placeholder): (b: number, a: number) => boolean;
 export function lt(a: number, b: number): boolean;
+export function lt(a: string, b: string): boolean;
 export function lt(a: number): (b: number) => boolean;
 
 /**
@@ -974,6 +1020,7 @@ export function lt(a: number): (b: number) => boolean;
 export function lte(__: Placeholder, b: number): (a: number) => boolean;
 export function lte(__: Placeholder): (b: number, a: number) => boolean;
 export function lte(a: number, b: number): boolean;
+export function lte(a: string, b: string): boolean;
 export function lte(a: number): (b: number) => boolean;
 
 /**
@@ -1003,13 +1050,23 @@ export function mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResu
 /**
  * Like mapObj, but but passes additional arguments to the predicate function.
  */
+type PartialRecord<K extends keyof any, T> = {
+    [P in K]?: T;
+};
 export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
     obj: Record<TKey, T>
 ): Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult, TKey extends string>(
+    fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+    obj: PartialRecord<TKey, T>
+): PartialRecord<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
 ): (obj: Record<TKey, T>) => Record<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+    fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult
+): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
     fn: (value: T, key: string, obj?: {
         [key: string]: T
@@ -1020,9 +1077,6 @@ export function mapObjIndexed<T, TResult>(
 ): {
     [key: string]: TResult
 };
-export function mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): { [index: string]: TResult };
-export function mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => { [index: string]: TResult };
-
 /**
  * Tests a regular expression agains a String
  */
@@ -1220,8 +1274,8 @@ export function none<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
 export function none<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * A function wrapping a call to the given function in a `!` operation.  It will return `true` when the
- * underlying function would return a false-y value, and `false` when it would return a truth-y one.
+ * A function that returns the ! of its argument.
+ * It will return true when passed false-y value, and false when passed a truth-y one.
  */
 export function not(value: any): boolean;
 
@@ -1282,8 +1336,8 @@ export function once<F extends (...a: readonly any[]) => any>(fn: F): F;
  */
 export function or<T, U>(a: T, b: U): T | U;
 export function or<T>(a: T): <U>(b: U) => T | U;
-export function or<T extends { or?: ((...a: readonly any[]) => any); }, U>(fn1: T, val2: U): T | U;
-export function or<T extends { or?: ((...a: readonly any[]) => any); }>(fn1: T): <U>(val2: U) => T | U;
+export function or<T extends { or?: ((...a: readonly any[]) => any) | undefined; }, U>(fn1: T, val2: U): T | U;
+export function or<T extends { or?: ((...a: readonly any[]) => any) | undefined; }>(fn1: T): <U>(val2: U) => T | U;
 
 /**
  * Returns the result of applying the onFailure function to the value inside a failed promise.
@@ -1296,12 +1350,9 @@ export function otherwise<A, B>(onError: (error: any) => B | Promise<B>): (promi
  * Returns the result of "setting" the portion of the given data structure
  * focused by the given lens to the given value.
  */
-export function over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
-export function over<T>(lens: Lens, fn: Arity1Fn, value: readonly T[]): T[];
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
-export function over(lens: Lens, fn: Arity1Fn): <T>(value: readonly T[]) => T[];
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
-export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
+export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
+export function over<S, A>(lens: Lens<S, A>): (fn: (a: A) => A, value: S) => S;
 
 /**
  * Takes two arguments, fst and snd, and returns [fst, snd].
@@ -1505,8 +1556,8 @@ export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(fn0: (x0: V0)
     * Performs left-to-right function composition using transforming function.
     * With the current typings, all functions must be unary.
     */
-export function pipeWith<V0, T>(composer: (a: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
-export function pipeWith(composer: (a: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
+export function pipeWith<V0, T>(composer: (f: (value: any) => any, res: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
+export function pipeWith(composer: (f: (value: any) => any, res: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
 
 /**
  * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -1689,9 +1740,9 @@ export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TRes
  * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
  * given value.
  */
-export function set<T, U>(lens: Lens, a: U, obj: T): T;
-export function set<U>(lens: Lens, a: U): <T>(obj: T) => T;
-export function set(lens: Lens): <T, U>(a: U, obj: T) => T;
+export function set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
+export function set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
+export function set<S, A>(lens: Lens<S, A>): (a: A, obj: S) => S;
 
 /**
  * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
@@ -1719,6 +1770,7 @@ export function sort<T>(fn: (a: T, b: T) => number): (list: readonly T[]) => T[]
  * Sorts the list according to a key generated by the supplied function.
  */
 export function sortBy<T>(fn: (a: T) => Ord, list: readonly T[]): T[];
+export function sortBy<T>(fn: (a: T) => Ord): (list: readonly T[]) => T[];
 export function sortBy(fn: (a: any) => Ord): <T>(list: readonly T[]) => T[];
 
 /**
@@ -1848,7 +1900,8 @@ export function takeWhile<T>(fn: (x: T) => boolean, list: readonly T[]): T[];
 export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[];
 
 /**
- * The function to call with x. The return value of fn will be thrown away.
+ * Runs the given function with the supplied object, then returns the object.
+ * Acts as a transducer if a transformer is given as second parameter.
  */
 export function tap<T>(fn: (a: T) => any, value: T): T;
 export function tap<T>(fn: (a: T) => any): (value: T) => T;
@@ -1875,6 +1928,7 @@ export function times<T>(fn: (i: number) => T): (n: number) => T[];
 /**
  * The lower case version of a string.
  */
+export function toLower<S extends string>(str: S): Lowercase<S>;
 export function toLower(str: string): string;
 
 /**
@@ -1883,7 +1937,8 @@ export function toLower(str: string): string;
  * Note that the order of the output array is not guaranteed to be
  * consistent across different JS platforms.
  */
-export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
+export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+export function toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
 /**
  * Converts an object into an array of key, value arrays.
@@ -1891,7 +1946,8 @@ export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<
  * Note that the order of the output array is not guaranteed to be
  * consistent across different JS platforms.
  */
-export function toPairsIn<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
+export function toPairsIn<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+export function toPairsIn<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
 /**
  * Returns the string representation of the given value. eval'ing the output should
@@ -1908,6 +1964,7 @@ export function toString<T>(val: T): string;
 /**
  * The upper case version of a string.
  */
+export function toUpper<S extends string>(str: S): Uppercase<S>;
 export function toUpper(str: string): string;
 
 /**
@@ -1945,9 +2002,8 @@ export function trim(str: string): string;
  * function and returns its result. Note that for effective composition with this function, both the tryer and
  * catcher functions must return the same type of results.
  */
-export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T, catcher: (...args: readonly A[]) => T): (...args: readonly A[]) => T;
-export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catcher: (...args: readonly A[]) => T) => (...args: readonly A[]) => T;
-
+export function tryCatch<F extends (...args: readonly any[]) => any, RE = ReturnType<F>, E = unknown>(tryer: F, catcher: (error: E, ...args: _.F.Parameters<F>) => RE): (F | (() => RE));
+export function tryCatch<F extends (...args: readonly any[]) => any>(tryer: F): <RE = ReturnType<F>, E = unknown>(catcher: (error: E, ...args: _.F.Parameters<F>) => RE) => (F | (() => RE));
 /**
  * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
@@ -2076,8 +2132,8 @@ export function valuesIn<T>(obj: any): T[];
  * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
  * portion of the data structure is visible.
  */
-export function view<T, U>(lens: Lens): (obj: T) => U;
-export function view<T, U>(lens: Lens, obj: T): U;
+export function view<S, A>(lens: Lens<S, A>): (obj: S) => A;
+export function view<S, A>(lens: Lens<S, A>, obj: S): A;
 
 /**
  * Tests the final argument by passing it to the given predicate function. If the predicate is satisfied, the function

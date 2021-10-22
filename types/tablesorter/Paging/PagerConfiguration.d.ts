@@ -23,22 +23,22 @@ export interface PagerConfiguration<TElement = HTMLElement> {
      * | `{sortList:name}` or `{sort:name}`     | A GET-variable called `name` containing the current sorting.           |
      * | `{filterList:name}` or `{filter:name}` | A GET-variable called `name` containing all currently applied filters. |
      */
-    ajaxUrl?: string;
+    ajaxUrl?: string | undefined;
 
     /**
      * Pre-processes the url for `ajax`.
      */
-    customAjaxUrl?: AjaxUrlProcessor<TElement>;
+    customAjaxUrl?: AjaxUrlProcessor<TElement> | undefined;
 
     /**
      * The settings for the api-interaction of the pager.
      */
-    ajaxObject?: JQueryAjaxSettings;
+    ajaxObject?: JQueryAjaxSettings | undefined;
 
     /**
      * Handles errors caused by an ajax-request.
      */
-    ajaxError?: AjaxErrorHandler<TElement>;
+    ajaxError?: AjaxErrorHandler<TElement> | undefined;
 
     /**
      * Processes the ajax-result for the `pager`-widget.
@@ -55,7 +55,7 @@ export interface PagerConfiguration<TElement = HTMLElement> {
      * @return
      * The data for the pager to show.
      */
-    ajaxProcessing?: AjaxDataProcessor<TElement>;
+    ajaxProcessing?: AjaxDataProcessor<TElement> | undefined;
 
     /**
      * The output to display in the output-area.
@@ -75,110 +75,110 @@ export interface PagerConfiguration<TElement = HTMLElement> {
      * | `{filteredRows}`   | The amount of filtered rows.                 |
      * | `{totalRows}`      | The total amount of rows.                    |
      */
-    output?: string | PagerOutputProcessor<TElement>;
+    output?: string | PagerOutputProcessor<TElement> | undefined;
 
     /**
      * The number of the first page to show.
      */
-    page?: number;
+    page?: number | undefined;
 
     /**
      * The number of the first page to show after applying a filter.
      */
-    pageReset?: number | boolean;
+    pageReset?: number | boolean | undefined;
 
     /**
      * The initial page-size.
      */
-    size?: PageSize;
+    size?: PageSize | undefined;
 
     /**
      * A value indicating whether to split child-rows on page-breaks.
      */
-    countChildRows?: boolean;
+    countChildRows?: boolean | undefined;
 
     /**
      * A value indicating whether an ajax-request should be executed after the initialization of the table.
      */
-    processAjaxOnInit?: boolean;
+    processAjaxOnInit?: boolean | undefined;
 
     /**
      * The initial amount of rows to show.
      */
-    initialRows?: PagerInitialRows;
+    initialRows?: PagerInitialRows | undefined;
 
     /**
      * A value indicating whether to remove the rows while performing sortings for speed up.
      */
-    removeRows?: boolean;
+    removeRows?: boolean | undefined;
 
     /**
      * The key to of the local storage to save data to.
      */
-    storageKey?: string;
+    storageKey?: string | undefined;
 
     /**
      * A value indicating whether to save the current page locally.
      */
-    savePages?: boolean;
+    savePages?: boolean | undefined;
 
     /**
      * The selector for querying the pager-container.
      */
-    container?: JQuery.Selector | JQuery;
+    container?: JQuery.Selector | JQuery | undefined;
 
     /**
      * The selector for querying the control to jump to the first page.
      */
-    cssFirst?: JQuery.Selector | JQuery;
+    cssFirst?: JQuery.Selector | JQuery | undefined;
 
     /**
      * The selector for querying the control to jump to the previous page.
      */
-    cssPrev?: JQuery.Selector | JQuery;
+    cssPrev?: JQuery.Selector | JQuery | undefined;
 
     /**
      * The selector for querying the control to jump to the next page.
      */
-    cssNext?: JQuery.Selector | JQuery;
+    cssNext?: JQuery.Selector | JQuery | undefined;
 
     /**
      * The selector for querying the control to jump to the last page.
      */
-    cssLast?: JQuery.Selector | JQuery;
+    cssLast?: JQuery.Selector | JQuery | undefined;
 
     /**
      * The selector for querying the dropdown-control to jump to a specific page.
      */
-    cssGoto?: JQuery.Selector | JQuery;
+    cssGoto?: JQuery.Selector | JQuery | undefined;
 
     /**
      * The selector for querying the control to set the page-size.
      */
-    cssPageSize?: JQuery.Selector | JQuery;
+    cssPageSize?: JQuery.Selector | JQuery | undefined;
 
     /**
      * The selector for querying the container to print the output to.
      */
-    cssPageDisplay?: JQuery.Selector | JQuery;
+    cssPageDisplay?: JQuery.Selector | JQuery | undefined;
 
     /**
      * A value indicating whether the table should always have the same number of rows even if there is a lesser number of records to show.
      */
-    fixedHeight?: boolean;
+    fixedHeight?: boolean | undefined;
 
     /**
      * A value indicating whether the `cssDisabled` class should be applied to non-applicable buttons.
      */
-    updateArrows?: boolean;
+    updateArrows?: boolean | undefined;
 
     /**
      * The css-class to apply to disabled pager-controls.
      */
-    cssDisabled?: string;
+    cssDisabled?: string | undefined;
 
     /**
      * The css-class to apply to the table-row which displays the error-message in case of an ajax-error.
      */
-    cssErrorRow?: string;
+    cssErrorRow?: string | undefined;
 }

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChartClusterBar20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChartClusterBar20;
+import { ChartClusterBar20 } from "../../";
+
+export = ChartClusterBar20;

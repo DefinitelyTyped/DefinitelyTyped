@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FruitBowl24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FruitBowl24;
+import { FruitBowl24 } from "../../";
+
+export = FruitBowl24;

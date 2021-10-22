@@ -328,7 +328,7 @@ declare namespace JsMockito {
          * Provide functions to be run in place of the mocked method.
          *
          * @param func Functions to be run in order of execution.
-         * @return {JsMockitoStubBuilder} Itself for method chaining
+         * @return Itself for method chaining
          */
         then(...func: ((obj: any) => any)[]): JsMockitoStubBuilder;
 
@@ -336,7 +336,7 @@ declare namespace JsMockito {
          * Provide values to be returned by the mocked function.
          *
          * @param obj Values to be returned in order of execution.
-         * @return {JsMockitoStubBuilder} Itself for method chaining
+         * @return Itself for method chaining
          */
         thenReturn(...obj: any[]): JsMockitoStubBuilder;
 
@@ -344,7 +344,7 @@ declare namespace JsMockito {
          * Provide exceptions to be thrown by the mocked function.
          *
          * @param obj Exceptions to be thrown in order of execution.
-         * @return {JsMockitoStubBuilder} Itself for method chaining
+         * @return Itself for method chaining
          */
         thenThrow(...obj: Error[]): JsMockitoStubBuilder;
     }
@@ -359,7 +359,7 @@ declare namespace JsMockito {
      * Test if a given variable is a mock
      *
      * @param maybeMock An object
-     * @return {boolean} true if the variable is a mock
+     * @return true if the variable is a mock
      */
     export function isMock(maybeMock: any): boolean;
 
@@ -367,7 +367,7 @@ declare namespace JsMockito {
      * Add a stub for a mock object method or mock function
      *
      * @param mock A mock object or mock anonymous function
-     * @return {T} A stub builder on which the method or function to be stubbed can be invoked
+     * @return A stub builder on which the method or function to be stubbed can be invoked
      */
     export function when<T>(mock: T): T;
 
@@ -376,7 +376,7 @@ declare namespace JsMockito {
      *
      * @param mock A mock object or mock anonymous function
      * @param verifier Optional JsMockito.Verifier instance (default: JsMockito.Verifiers.once())
-     * @return {T} A verifier on which the method or function to be verified can be invoked
+     * @return A verifier on which the method or function to be verified can be invoked
      */
     export function verify<T>(mock: T): T;
     export function verify<T>(mock: T, verifier: Verifier): T;
@@ -402,7 +402,7 @@ declare namespace JsMockito {
      * still be verified.
      *
      * @param delegate A 'real' (concrete) object or function that the mock will delegate unstubbed invocations to
-     * @return {T} A mock object (as per mock) or mock function (as per mockFunction)
+     * @return A mock object (as per mock) or mock function (as per mockFunction)
      */
     export function spy<T>(delegate: T): T;
 
@@ -421,7 +421,7 @@ declare namespace JsMockito {
      *
      * @param funcName The name of the mock function to use in messages (defaults to 'func')
      * @param delegate The function to delegate unstubbed calls to (optional)
-     * @return {T} an anonymous function
+     * @return an anonymous function
      */
     export function mockFunction(): Function;
     export function mockFunction(funcName: string): Function;
@@ -453,8 +453,8 @@ declare namespace JsMockito {
      * JsMockito.verify(mockObj).add(1, 4); // will throw an exception
      * </pre>
      *
-     * @param Obj {function} the constructor for the object to be mocked
-     * @return {object} a mock object
+     * @param Obj the constructor for the object to be mocked
+     * @return a mock object
      */
     export function mock<T>(Obj: { new(): T ;}): T;
 
@@ -512,7 +512,7 @@ declare namespace JsMockito {
         /**
          * Import the public JsMockito API into the specified object (namespace)
          *
-         * @param {object} target An object (namespace) that will be populated with
+         * @param target An object (namespace) that will be populated with
          * the functions from the public JsMockito API
          */
         export function importTo(target: any): void;
@@ -569,7 +569,7 @@ declare namespace JsMockito {
  * Test if a given variable is a mock
  *
  * @param maybeMock An object
- * @return {boolean} true if the variable is a mock
+ * @return true if the variable is a mock
  */
 declare function isMock(maybeMock: any): boolean;
 
@@ -577,7 +577,7 @@ declare function isMock(maybeMock: any): boolean;
  * Add a stub for a mock object method or mock function
  *
  * @param mock A mock object or mock anonymous function
- * @return {T} A stub builder on which the method or function to be stubbed can be invoked
+ * @return A stub builder on which the method or function to be stubbed can be invoked
  */
 declare function when<T>(mock: T): T;
 
@@ -586,7 +586,7 @@ declare function when<T>(mock: T): T;
  *
  * @param mock A mock object or mock anonymous function
  * @param verifier Optional JsMockito.Verifier instance (default: JsMockito.Verifiers.once())
- * @return {T} A verifier on which the method or function to be verified can be invoked
+ * @return A verifier on which the method or function to be verified can be invoked
  */
 declare function verify<T>(mock: T): T;
 declare function verify<T>(mock: T, verifier: JsMockito.Verifier): T;
@@ -612,7 +612,7 @@ declare function verifyNoMoreInteractions(...mock: any[]): void;
  * still be verified.
  *
  * @param delegate A 'real' (concrete) object or function that the mock will delegate unstubbed invocations to
- * @return {T} A mock object (as per mock) or mock function (as per mockFunction)
+ * @return A mock object (as per mock) or mock function (as per mockFunction)
  */
 declare function spy<T>(delegate: T): T;
 
@@ -631,7 +631,7 @@ declare function spy<T>(delegate: T): T;
  *
  * @param funcName The name of the mock function to use in messages (defaults to 'func')
  * @param delegate The function to delegate unstubbed calls to (optional)
- * @return {T} an anonymous function
+ * @return an anonymous function
  */
 declare function mockFunction(): Function;
 declare function mockFunction(funcName: string): Function;
@@ -663,8 +663,8 @@ declare function mockFunction(funcName: string, delegate: Function): Function;
  * JsMockito.verify(mockObj).add(1, 4); // will throw an exception
  * </pre>
  *
- * @param Obj {function} the constructor for the object to be mocked
- * @return {object} a mock object
+ * @param Obj the constructor for the object to be mocked
+ * @return a mock object
  */
 declare function mock<T>(Obj: { new(): T ;}): T;
 

@@ -9,25 +9,44 @@ import ImageSource, { ImageSourceEvent } from './Image';
 import { AttributionLike } from './Source';
 
 export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: string;
-    hidpi?: boolean;
-    imageLoadFunction?: LoadFunction;
-    imageSmoothing?: boolean;
-    params?: { [key: string]: any };
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    url?: string;
+    attributions?: AttributionLike | undefined;
+    crossOrigin?: null | string | undefined;
+    hidpi?: boolean | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
+    imageSmoothing?: boolean | undefined;
+    params?: { [key: string]: any } | undefined;
+    projection?: ProjectionLike | undefined;
+    ratio?: number | undefined;
+    resolutions?: number[] | undefined;
+    url?: string | undefined;
 }
 export default class ImageArcGISRest extends ImageSource {
     constructor(opt_options?: Options);
     getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageWrapper;
+    /**
+     * Return the image load function of the source.
+     */
     getImageLoadFunction(): LoadFunction;
+    /**
+     * Get the user-provided params, i.e. those passed to the constructor through
+     * the "params" option, and possibly updated using the updateParams method.
+     */
     getParams(): any;
-    getUrl(): string;
+    /**
+     * Return the URL used for this ArcGIS source.
+     */
+    getUrl(): string | undefined;
+    /**
+     * Set the image load function of the source.
+     */
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
+    /**
+     * Set the URL to use for requests.
+     */
     setUrl(url: string | undefined): void;
+    /**
+     * Update the user-provided params.
+     */
     updateParams(params: any): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

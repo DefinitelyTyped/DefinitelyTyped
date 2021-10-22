@@ -8,12 +8,12 @@ declare namespace TreeSelect {
          * If this property is added, an option will be added with this label
          * to represent empty selection.
          */
-        noOptionLabel?: string;
-        selectedId?: string;
+        noOptionLabel?: string | undefined;
+        selectedId?: string | undefined;
         /**
          * A `Tree` with the possible nodes the user can select.
          */
-        tree?: Tree;
+        tree?: Tree | undefined;
     }
     interface TreeNode {
         /**
@@ -24,7 +24,7 @@ declare namespace TreeSelect {
          * Human readable name for the tree node.
          */
         name: string;
-        children?: readonly TreeNode[];
+        children?: readonly TreeNode[] | undefined;
     }
     type Tree = readonly TreeNode[];
 }

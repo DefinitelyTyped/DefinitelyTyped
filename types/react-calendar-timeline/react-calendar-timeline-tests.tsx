@@ -13,7 +13,7 @@ import Timeline, {
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
-const groups1: TimelineGroupBase[] = [{ id: 1, title: 'group 1' }, { id: 'two', title: 'group 2' }];
+const groups1: TimelineGroupBase[] = [{ id: 1, title: 'group 1', height: 80, stackItems: true }, { id: 'two', title: 'group 2' }];
 
 const items1: TimelineItemBase<Moment>[] = [
     { id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour') },

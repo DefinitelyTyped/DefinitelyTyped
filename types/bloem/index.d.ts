@@ -26,9 +26,9 @@ export class ScalingBloem {
   constructor(
     error_rate: number,
     options?: {
-      ratio?: number;
-      initial_capacity?: number;
-      scaling?: number;
+      ratio?: number | undefined;
+      initial_capacity?: number | undefined;
+      scaling?: number | undefined;
     }
   );
 

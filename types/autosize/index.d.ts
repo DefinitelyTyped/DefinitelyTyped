@@ -1,23 +1,31 @@
-// Type definitions for autosize 3.0
+// Type definitions for autosize 4.0
 // Project: http://www.jacklmoore.com/autosize/
-// Definitions by: Aaron T. King <https://github.com/kingdango>, keika299 <https://github.com/keika299>, NeekSandhu <https://github.com/NeekSandhu>
+// Definitions by: Aaron T. King <https://github.com/kingdango>
+//                 keika299 <https://github.com/keika299>
+//                 NeekSandhu <https://github.com/NeekSandhu>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery" />
+export = autosize;
+export as namespace autosize;
 
 /**
- * Attach autosize to NodeList
+ * Attach Autosize to NodeList/Element/JQuery.
+ *
+ * @example
+ * import autosize = require('autosize');
+ *
+ * // from a NodeList
+ * autosize(document.querySelectorAll('textarea'));
+ *
+ * // from a single Node
+ * autosize(document.querySelector('textarea'));
+ *
+ * // from a jQuery collection
+ * autosize($('textarea'));
  */
-declare function autosize(elements: NodeList): NodeList;
-/**
- * Attach autosize to Element
- */
-declare function autosize(element: Element): Element;
-/**
- * Attach autosize to JQuery collection
- */
-declare function autosize(collection: JQuery): JQuery;
+declare function autosize<T extends ArrayLike<Element> | Element>(elements: T): T;
 
 declare namespace autosize {
     /**
@@ -25,33 +33,10 @@ declare namespace autosize {
      * Autosize will automatically adjust the textarea height on keyboard and window resize events.
      * There is no efficient way for Autosize to monitor for when another script has changed the textarea value or for changes in layout that impact the textarea element.
      */
-    function update(elements: NodeList): NodeList;
-    /**
-     * Triggers the height adjustment for an assigned textarea element.
-     * Autosize will automatically adjust the textarea height on keyboard and window resize events.
-     * There is no efficient way for Autosize to monitor for when another script has changed the textarea value or for changes in layout that impact the textarea element.
-     */
-    function update(element: Element): Element;
-    /**
-     * Triggers the height adjustment for an assigned textarea element.
-     * Autosize will automatically adjust the textarea height on keyboard and window resize events.
-     * There is no efficient way for Autosize to monitor for when another script has changed the textarea value or for changes in layout that impact the textarea element.
-     */
-    function update(collection: JQuery): JQuery;
+    function update<T extends ArrayLike<Element> | Element>(elements: T): T;
 
     /**
      * Removes Autosize and reverts any changes it made to the textarea element.
      */
-    function destroy(elements: NodeList): NodeList;
-    /**
-     * Removes Autosize and reverts any changes it made to the textarea element.
-     */
-    function destroy(element: Element): Element;
-    /**
-     * Removes Autosize and reverts any changes it made to the textarea element.
-     */
-    function destroy(collection: JQuery): JQuery;
+    function destroy<T extends ArrayLike<Element> | Element>(elements: T): T;
 }
-
-export = autosize;
-export as namespace autosize;

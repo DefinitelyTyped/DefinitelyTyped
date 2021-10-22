@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ReflectHorizontal32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ReflectHorizontal32;
+import { ReflectHorizontal32 } from "../../";
+
+export = ReflectHorizontal32;

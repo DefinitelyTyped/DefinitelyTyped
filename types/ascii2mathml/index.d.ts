@@ -25,13 +25,13 @@ interface ascii2mathml {
 
 declare namespace A2MML {
     interface Options {
-        decimalMark?: string;
-        colSep?: string;
-        rowSep?: string;
-        display?: 'inline' | 'block';
-        dir?: 'ltr' | 'rtl';
-        bare?: boolean;
-        standalone?: boolean;
-        annotate?: boolean;
+        decimalMark?: string | undefined;
+        colSep?: string | undefined;
+        rowSep?: string | undefined;
+        display?: 'inline' | 'block' | undefined;
+        dir?: 'ltr' | 'rtl' | undefined;
+        bare?: boolean | undefined;
+        standalone?: boolean | undefined;
+        annotate?: boolean | undefined;
     }
 }

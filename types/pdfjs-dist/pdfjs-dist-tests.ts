@@ -1,4 +1,6 @@
-import { getDocument, PDFDocumentProxy, PDFPromise, Util } from 'pdfjs-dist';
+import { getDocument, PDFDocumentProxy, Util, GlobalWorkerOptions, PDFWorker } from 'pdfjs-dist';
+
+GlobalWorkerOptions.workerPort = new PDFWorker();
 
 //
 // Fetch the PDF document from the URL using promises
@@ -55,8 +57,18 @@ function goNext() {
 }
 
 //
-// Test PDFPromise allows return value mutation
+// Test Promise allows return value mutation
 //
-var promise: PDFPromise<string> = getDocument('helloworld.pdf').promise.then(pdf => {
+var promise: Promise<string> = getDocument('helloworld.pdf').promise.then(pdf => {
     return 'arbitrary string';
 });
+
+//
+// Test Promise allows await and catch
+//
+async function getMeta() {
+    const pdf = await getDocument('helloworld.pdf').promise;
+    const metaData = await pdf.getMetadata().catch(function(err) {
+        return null;
+    });
+}

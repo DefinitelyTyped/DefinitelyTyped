@@ -13,14 +13,14 @@ import * as React from "react";
 /** Default options to create a Container. */
 export interface RealOptions {
     /** @default true */
-    pure?: boolean;
+    pure?: boolean | undefined;
     /** @default false */
-    withProps?: boolean;
+    withProps?: boolean | undefined;
     /** @default false */
-    withContext?: boolean;
+    withContext?: boolean | undefined;
 }
 
-export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
+export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.FunctionComponent<TProps>;
 
 export type StoresList = Array<FluxStore<any>>;
 

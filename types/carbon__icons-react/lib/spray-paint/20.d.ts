@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const SprayPaint20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default SprayPaint20;
+import { SprayPaint20 } from "../../";
+
+export = SprayPaint20;

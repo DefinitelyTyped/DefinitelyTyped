@@ -1435,8 +1435,11 @@ describe('RequestStub', () => {
     it('has methods', () => {
         jasmine.Ajax.stubRequest('/foo').andReturn({
             status: 200,
+            statusText: 'OK',
             contentType: 'application/json',
             responseText: '{"success": true}',
+            responseURL: 'http://example.com/foo',
+            responseJSON: { success: true },
             responseHeaders: { 'X-Example': 'a value' },
         });
         jasmine.Ajax.stubRequest('/bar').andReturn({});

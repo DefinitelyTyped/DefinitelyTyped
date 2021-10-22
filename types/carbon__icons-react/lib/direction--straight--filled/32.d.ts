@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DirectionStraightFilled32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DirectionStraightFilled32;
+import { DirectionStraightFilled32 } from "../../";
+
+export = DirectionStraightFilled32;

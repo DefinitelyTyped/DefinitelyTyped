@@ -78,7 +78,7 @@ export function getBlockIndex(clientId: string, rootClientId?: string): number;
  * Returns the insertion point, the index at which the new inserted block would
  * be placed. Defaults to the last index.
  */
-export function getBlockInsertionPoint(): { index: number; rootClientId?: string };
+export function getBlockInsertionPoint(): { index: number; rootClientId?: string | undefined };
 
 /**
  * Returns the Block List settings of a block, if any exist.

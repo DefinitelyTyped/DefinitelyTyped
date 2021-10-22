@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FingerprintRecognition24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FingerprintRecognition24;
+import { FingerprintRecognition24 } from "../../";
+
+export = FingerprintRecognition24;

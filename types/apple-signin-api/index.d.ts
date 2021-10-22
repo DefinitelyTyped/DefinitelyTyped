@@ -12,7 +12,7 @@ declare namespace AppleSignInAPI {
         code: string;
         id_token: string;
         state: string;
-        nonce?: string;
+        nonce?: string | undefined;
     }
     // https://developer.apple.com/documentation/signinwithapplejs/namei
     interface NameI {
@@ -26,7 +26,7 @@ declare namespace AppleSignInAPI {
     // https://developer.apple.com/documentation/signinwithapplejs/signinresponsei
     interface SignInResponseI {
         authorization: AuthorizationI;
-        user?: UserI;
+        user?: UserI | undefined;
     }
     // https://developer.apple.com/documentation/signinwithapplejs/useri
     interface UserI {
@@ -41,12 +41,12 @@ declare namespace AppleSignInAPI {
     }
     // https://developer.apple.com/documentation/signinwithapplejs/clientconfigi
     interface ClientConfigI {
-        clientId?: string;
-        redirectURI?: string;
-        scope?: string;
-        state?: string;
-        nonce?: string;
-        usePopup?: boolean;
+        clientId?: string | undefined;
+        redirectURI?: string | undefined;
+        scope?: string | undefined;
+        state?: string | undefined;
+        nonce?: string | undefined;
+        usePopup?: boolean | undefined;
     }
     interface AppleID {
         auth: AuthI;

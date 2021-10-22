@@ -25,7 +25,14 @@ export function createForProjection(
     opt_tileSize?: number | Size,
     opt_corner?: Corner,
 ): TileGrid;
+/**
+ * Creates a tile grid with a standard XYZ tiling scheme.
+ */
 export function createXYZ(opt_options?: XYZOptions): TileGrid;
+/**
+ * Generate a tile grid extent from a projection.  If the projection has an
+ * extent, it is used.  If not, a global extent is assumed.
+ */
 export function extentFromProjection(projection: ProjectionLike): Extent;
 export function getForProjection(projection: Projection): TileGrid;
 export function wrapX(tileGrid: TileGrid, tileCoord: TileCoord, projection: Projection): TileCoord;

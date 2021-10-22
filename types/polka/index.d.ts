@@ -3,7 +3,7 @@
 // Definitions by: Piotr Kuczynski <https://github.com/pkuczynski>
 //                 James Messinger <https://github.com/JamesMessinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -95,6 +95,13 @@ declare namespace polka {
          * It receives all requests and tries to match the incoming URL against known routes.
          */
         handler(req: Request, res: ServerResponse, parsed?: Url): void;
+
+        /**
+         * The instantiated `server` Polka creates when `listen()` is called.
+         * `server` is only created if a server was not provided via `option.server`
+         * `server` will be undefined until polka.listen is invoked or if a server was provided.
+         */
+        server?: Server | undefined;
     }
 
     /**
@@ -104,7 +111,7 @@ declare namespace polka {
         /**
          * The server instance to use when `polka.listen()` is called.
          */
-        server?: Server;
+        server?: Server | undefined;
 
         /**
          * A catch-all error handler; executed whenever a middleware throws an error.

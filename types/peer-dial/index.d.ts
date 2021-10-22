@@ -27,13 +27,13 @@ export interface ServerOptions {
     expressApp: express.Express;
     prefix: string;
     port: number;
-    host?: string;
-    uuid?: uuid.UUIDOptions;
-    friendlyName?: string;
+    host?: string | undefined;
+    uuid?: uuid.UUIDOptions | undefined;
+    friendlyName?: string | undefined;
     manufacturer: string;
     modelName: string;
-    maxContentLength?: number;
-    extraHeaders?: object;
+    maxContentLength?: number | undefined;
+    extraHeaders?: object | undefined;
     delegate: Delegate;
     corsAllowOrigins: string | boolean;
 }

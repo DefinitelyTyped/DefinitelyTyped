@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DataUnstructured20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DataUnstructured20;
+import { DataUnstructured20 } from "../../";
+
+export = DataUnstructured20;

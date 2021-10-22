@@ -18,7 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/index.ts",
-        "test/esm.ts"
+        "zen-observable-tests.ts",
+        "test/esm-tests.ts"
     ]
 }

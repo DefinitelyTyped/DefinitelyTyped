@@ -7,11 +7,11 @@
 
 declare namespace optimist {
     interface Opt {
-        alias?: string | string[];
+        alias?: string | string[] | undefined;
         default?: any;
-        demand?: string | number | string[];
-        describe?: string;
-        type?: string;
+        demand?: string | number | string[] | undefined;
+        describe?: string | undefined;
+        type?: string | undefined;
     }
 
     interface Parser {

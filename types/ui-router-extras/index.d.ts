@@ -32,13 +32,13 @@ declare module 'angular' {
              * If no deep state has been recorded, DSR will instead redirect to the default substate and params that you specify.
              * If default is a string it is interpreted as the substate.
              */
-            default?: string | IRedirectParams;
+            default?: string | IRedirectParams | undefined;
             /*
              * Specify params: true if your DSR state takes parameters.
              * If only a subset of the parameters should be included in the parameter grouping for recording deep states,
              * specify an array of parameter names.
              */
-            params?: boolean | string[];
+            params?: boolean | string[] | undefined;
             /*
              * A callback function that determines whether or not the redirect should actually occur, or changes the redirect to some other state.
             * Return an object: IRedirectParams to change the redirect
@@ -48,7 +48,7 @@ declare module 'angular' {
 
         interface IRedirectParams {
             state: string;
-            params?: IStateParamsService;
+            params?: IStateParamsService | undefined;
         }
 
         /*
@@ -56,7 +56,7 @@ declare module 'angular' {
          */
         interface IPreviousState {
             state: IState;
-            params?: IStateParamsService;
+            params?: IStateParamsService | undefined;
         }
 
         /**
@@ -101,17 +101,17 @@ declare module 'angular' {
             * When marking a state sticky, the state must target its own unique named ui-view.
             * Docs: http://christopherthielen.github.io/ui-router-extras/#/sticky
             */
-            sticky?: boolean;
+            sticky?: boolean | undefined;
             /*
              * The most-recently-activate substate of the DSR marked state is remembered.
              * When the DSR marked state is transitioned to directly, UI-Router Extras will instead redirect to the remembered state and parameters.
              * Docs: http://christopherthielen.github.io/ui-router-extras/#/dsr
              */
-            deepStateRedirect?: boolean | IDeepStateRedirectConfig;
+            deepStateRedirect?: boolean | IDeepStateRedirectConfig | undefined;
             /*
              * Shortname deepStateRedirect prop
              */
-            dsr?: boolean | IDeepStateRedirectConfig;
+            dsr?: boolean | IDeepStateRedirectConfig | undefined;
             /*
              * Function (injectable). Called when a sticky state is navigated away from (inactivated).
              */
@@ -123,7 +123,7 @@ declare module 'angular' {
             /*
              * Note: named views are mandatory when using sticky states!
              */
-            views?: { [name: string]: IState };
+            views?: { [name: string]: IState } | undefined;
         }
 
         /**

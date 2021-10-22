@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PlayFilledAlt20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PlayFilledAlt20;
+import { PlayFilledAlt20 } from "../../";
+
+export = PlayFilledAlt20;

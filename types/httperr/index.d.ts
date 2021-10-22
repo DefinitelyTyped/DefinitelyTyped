@@ -229,20 +229,20 @@ interface HttpError extends Error {
 interface Config {
 
     /** A descriptive human-readable title describing the error's cause. */
-    message?: string;
+    message?: string | undefined;
 
     /** The underlying exception that caused the HTTP error. */
-    cause?: Error;
+    cause?: Error | undefined;
 
     /** A detailed human-readable description of the error's cause and possible solutions. */
-    details?: string;
+    details?: string | undefined;
 
     /**
      *  The methods allowed for this URL.
      *  This property is only available for 405 Method Not Allowed errors
      *  and can be used to populate the Allow header.
      */
-    allowed?: string[];
+    allowed?: string[] | undefined;
 
     /**
      *  The minimum delay before the request should be attempted again.

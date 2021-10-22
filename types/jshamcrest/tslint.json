@@ -3,6 +3,7 @@
     "rules": {
         "dt-header": false,
         "no-consecutive-blank-lines": false,
+        "no-redundant-jsdoc-2": false,
         "no-string-throw": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

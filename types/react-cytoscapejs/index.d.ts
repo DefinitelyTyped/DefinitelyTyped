@@ -1,28 +1,44 @@
-// Type definitions for react-cytoscapejs 1.1
+// Type definitions for react-cytoscapejs 1.2
 // Project: https://github.com/plotly/react-cytoscapejs
-// Definitions by:  Emmanuel COunasse <https://github.com/manuc66/>
+// Definitions by:  Emmanuel Counasse <https://github.com/manuc66/>
+//                  newraina <https://github.com/newraina/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import cytoscape = require('cytoscape');
 import { Component, CSSProperties } from 'react';
 
 interface CytoscapeComponentProps {
-    id?: string;
-    cy?: (cy: cytoscape.Core) => void;
-    style?: CSSProperties;
+    id?: string | undefined;
+    cy?: ((cy: cytoscape.Core) => void) | undefined;
+    style?: CSSProperties | undefined;
     elements: cytoscape.ElementDefinition[];
-    layout?: cytoscape.LayoutOptions;
-    stylesheet?: cytoscape.Stylesheet | cytoscape.Stylesheet[] | string;
-    className?: string;
-    zoom?: number;
-    pan?: cytoscape.Position;
-    minZoom?: number;
-    maxZoom?: number;
-    zoomingEnabled?: boolean;
-    userZoomingEnabled?: boolean;
-    boxSelectionEnabled?: boolean;
-    autoungrabify?: boolean;
-    autounselectify?: boolean;
+    layout?: cytoscape.LayoutOptions | undefined;
+    stylesheet?: cytoscape.Stylesheet | cytoscape.Stylesheet[] | string | undefined;
+    className?: string | undefined;
+    zoom?: number | undefined;
+    pan?: cytoscape.Position | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    zoomingEnabled?: boolean | undefined;
+    userZoomingEnabled?: boolean | undefined;
+    boxSelectionEnabled?: boolean | undefined;
+    autoungrabify?: boolean | undefined;
+    autounselectify?: boolean | undefined;
+    panningEnabled?: boolean | undefined;
+    userPanningEnabled?: boolean | undefined;
+    autolock?: boolean | undefined;
+    get?: ((obj: Record<string, any>, key: string) => any) | undefined;
+    toJson?: ((obj: Record<string, any>) => any) | undefined;
+    diff?: ((objA: Record<string, any>, objB: Record<string, any>) => boolean) | undefined;
+    forEach?: (<T>(list: T[], iterator: (value: T, index: number, array: T[]) => void) => void) | undefined;
+    headless?: boolean | undefined;
+    styleEnabled?: boolean | undefined;
+    hideEdgesOnViewport?: boolean | undefined;
+    textureOnViewport?: boolean | undefined;
+    motionBlur?: boolean | undefined;
+    motionBlurOpacity?: number | undefined;
+    wheelSensitivity?: number | undefined;
+    pixelRatio?: number | string | undefined;
 }
 
 declare class CytoscapeComponent extends Component<CytoscapeComponentProps> {

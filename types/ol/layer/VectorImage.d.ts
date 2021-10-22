@@ -14,25 +14,28 @@ import BaseVectorLayer from './BaseVector';
 import Layer from './Layer';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    renderOrder?: OrderFunction;
-    renderBuffer?: number;
-    source?: VectorSource<Geometry>;
-    map?: PluggableMap;
-    declutter?: boolean;
-    style?: StyleLike;
-    imageRatio?: number;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    renderOrder?: OrderFunction | undefined;
+    renderBuffer?: number | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    map?: PluggableMap | undefined;
+    declutter?: boolean | undefined;
+    style?: StyleLike | undefined;
+    imageRatio?: number | undefined;
 }
 export default class VectorImageLayer extends BaseVectorLayer {
     constructor(opt_options?: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     createRenderer(): LayerRenderer<Layer<Source>>;
     getImageRatio(): number;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

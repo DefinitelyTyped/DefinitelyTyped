@@ -162,11 +162,11 @@ interface DbSchema {
 }
 
 interface Post {
-  title?: string;
-  views?: number;
-  id?: number;
-  published?: boolean;
-  tuple?: [boolean, number];
+  title?: string | undefined;
+  views?: number | undefined;
+  id?: number | undefined;
+  published?: boolean | undefined;
+  tuple?: [boolean, number] | undefined;
 }
 
 interface ExampleSchema {

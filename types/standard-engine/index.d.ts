@@ -38,13 +38,13 @@ export type ParseOptions = PickWithSomeRequired<
 >;
 
 export interface LinterOptions {
-    bugs?: string;
+    bugs?: string | undefined;
     cmd: string;
     /** @default process.cwd() */
-    cwd?: string;
+    cwd?: string | undefined;
     eslint: typeof eslint;
-    eslintConfig?: ESLintConfig;
-    homepage?: string;
+    eslintConfig?: ESLintConfig | undefined;
+    homepage?: string | undefined;
     /**
      * This function is called with the current options object (opts),
      * any options extracted from the project's package.json (packageOpts),
@@ -52,29 +52,29 @@ export interface LinterOptions {
      * (rootDir, equivalent to opts.cwd if no file was found).
      * Modify and return opts, or return a new object with the options that are to be used.
      */
-    parseOpts?: (opts: ParseOptions, packageOpts: any, rootDir: string) => ParseOptions;
-    tagline?: string;
-    version?: string;
+    parseOpts?: ((opts: ParseOptions, packageOpts: any, rootDir: string) => ParseOptions) | undefined;
+    tagline?: string | undefined;
+    version?: string | undefined;
 }
 
 export interface ESLintConfig {
     /** @default true */
-    cache?: boolean;
+    cache?: boolean | undefined;
     /** @default  path.join(HOME_OR_TMP, `.${this.cmd}-v${majorVersion}-cache/` */
-    cacheLocation?: string;
-    configFile?: string;
+    cacheLocation?: string | undefined;
+    configFile?: string | undefined;
     /** @default [] */
-    envs?: string[];
+    envs?: string[] | undefined;
     /** @default false */
-    fix?: boolean;
+    fix?: boolean | undefined;
     /** @default [] */
-    globals?: string[];
+    globals?: string[] | undefined;
     /** @default false */
-    ignore?: boolean;
+    ignore?: boolean | undefined;
     /** @default [] */
-    plugins?: string[];
+    plugins?: string[] | undefined;
     /** @default false */
-    useEslintrc?: boolean;
+    useEslintrc?: boolean | undefined;
 }
 
 /**
@@ -86,51 +86,51 @@ export interface Options {
      * file globs to ignore
      * @default []
      */
-    ignore?: string[];
+    ignore?: string[] | undefined;
     /**
      * current working directory
      * @default process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
     /** path of the file containing the text being linted */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * automatically fix problems
      * @default false
      */
-    fix?: boolean;
+    fix?: boolean | undefined;
     /**
      * custom global variables to declare
      * @default [];
      */
-    global?: string | string[];
+    global?: string | string[] | undefined;
     /**
      * custom global variables to declare
      * @default [];
      */
-    globals?: string | string[];
+    globals?: string | string[] | undefined;
     /**
      * custom eslint plugins
      * @default []
      */
-    plugin?: string | string[];
+    plugin?: string | string[] | undefined;
     /**
      * custom eslint plugins
      * @default []
      */
-    plugins?: string | string[];
+    plugins?: string | string[] | undefined;
     /**
      * custom eslint environment
      * @default []
      */
-    env?: string | string[];
+    env?: string | string[] | undefined;
     /**
      * custom eslint environment
      * @default []
      */
-    envs?: string | string[];
+    envs?: string | string[] | undefined;
     /** custom js parser (e.g. babel-eslint) */
-    parser?: string;
+    parser?: string | undefined;
 }
 
 export interface LintDefaultOptions {
@@ -138,7 +138,7 @@ export interface LintDefaultOptions {
      * use options from nearest package.json?
      * @default true
      */
-    usePackageJson?: boolean;
+    usePackageJson?: boolean | undefined;
 }
 
 export type LintTextOptions = Exclude<Options, 'ignore' | 'cwd'> & LintDefaultOptions;

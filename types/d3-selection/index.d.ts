@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-selection module 2.0
+// Type definitions for D3JS d3-selection module 3.0
 // Project: https://github.com/d3/d3-selection/, https://d3js.org/d3-selection
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.0
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -117,6 +116,7 @@ export interface TransitionLike<GElement extends BaseType, Datum> {
  *
  * @param selector CSS selector string
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function select<GElement extends BaseType, OldDatum>(selector: string): Selection<GElement, OldDatum, HTMLElement, any>;
 /**
  * Select the specified node element.
@@ -126,20 +126,13 @@ export function select<GElement extends BaseType, OldDatum>(selector: string): S
  *
  * @param node An element to be selected
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function select<GElement extends BaseType, OldDatum>(node: GElement): Selection<GElement, OldDatum, null, undefined>;
 
 /**
  * Create an empty selection.
  */
-export function selectAll(): Selection<null, undefined, null, undefined>;
-/**
- * Create an empty selection.
- */
-export function selectAll(selector: null): Selection<null, undefined, null, undefined>;
-/**
- * Create an empty selection.
- */
-export function selectAll(selector: undefined): Selection<null, undefined, null, undefined>;
+export function selectAll(selector?: null): Selection<null, undefined, null, undefined>;
 /**
  * Select all elements that match the specified selector string. The elements will be selected in document order (top-to-bottom).
  * If no elements in the document match the selector, returns an empty selection.
@@ -149,6 +142,7 @@ export function selectAll(selector: undefined): Selection<null, undefined, null,
  *
  * @param selector CSS selector string
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function selectAll<GElement extends BaseType, OldDatum>(selector: string): Selection<GElement, OldDatum, HTMLElement, any>;
 /**
  * Select the specified array, array-like, or iterable of nodes.
@@ -160,6 +154,7 @@ export function selectAll<GElement extends BaseType, OldDatum>(selector: string)
  *
  * @param nodes An array, array-like, or iterable of nodes
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function selectAll<GElement extends BaseType, OldDatum>(nodes: GElement[] | ArrayLike<GElement> | Iterable<GElement>): Selection<GElement, OldDatum, null, undefined>;
 
 /**
@@ -187,11 +182,13 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     select<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement, PDatum>;
     /**
      * Create an empty sub-selection. Selection.select does not affect grouping: it preserves the existing group
      * structure and indexes.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     select<DescElement extends BaseType>(selector: null): Selection<null, undefined, PElement, PDatum>;
     /**
      * For each selected element, select the descendant element returned by the selector function.
@@ -214,17 +211,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * Create an empty sub-selection. Selection.selectAll does affect grouping: The elements in the returned
      * selection are grouped by their corresponding parent node in this selection, the group at the current index will be empty.
      */
-    selectAll(): Selection<null, undefined, GElement, Datum>;
-    /**
-     * Create an empty sub-selection. Selection.selectAll does affect grouping: The elements in the returned
-     * selection are grouped by their corresponding parent node in this selection, the group at the current index will be empty.
-     */
-    selectAll(selector: null): Selection<null, undefined, GElement, Datum>;
-    /**
-     * Create an empty sub-selection. Selection.selectAll does affect grouping: The elements in the returned
-     * selection are grouped by their corresponding parent node in this selection, the group at the current index will be empty.
-     */
-    selectAll(selector: undefined): Selection<null, undefined, GElement, Datum>;
+    selectAll(selector?: null): Selection<null, undefined, GElement, Datum>;
     /**
      * For each selected element, selects the descendant elements that match the specified selector string. The elements in the returned
      * selection are grouped by their corresponding parent node in this selection. If no element matches the specified selector
@@ -238,6 +225,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     selectAll<DescElement extends BaseType, OldDatum>(selector: string): Selection<DescElement, OldDatum, GElement, Datum>;
     /**
      * For each selected element, selects the descendant elements returned by the selector function. The elements in the returned
@@ -256,6 +244,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     selectAll<DescElement extends BaseType, OldDatum>(
         selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement> | Iterable<DescElement>>
+    // tslint:disable-next-line:no-unnecessary-generics
     ): Selection<DescElement, OldDatum, GElement, Datum>;
 
     /**
@@ -280,6 +269,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector A CSS selector string to match when filtering.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     filter<FilteredElement extends BaseType>(selector: string): Selection<FilteredElement, Datum, PElement, PDatum>;
     /**
      * Filter the selection, returning a new selection that contains only the elements for
@@ -304,10 +294,11 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return true
      * for an element to be included, and false otherwise.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     filter<FilteredElement extends BaseType>(selector: ValueFn<GElement, Datum, boolean>): Selection<FilteredElement, Datum, PElement, PDatum>;
 
     /**
-     * Returns a new selection merging this selection with the specified other selection.
+     * Returns a new selection merging this selection with the specified other selection or transition.
      * The returned selection has the same number of groups and the same parents as this selection.
      * Any missing (null) elements in this selection are filled with the corresponding element,
      * if present (not null), from the specified selection. (If the other selection has additional groups or parents,
@@ -323,15 +314,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param other Selection to be merged.
      */
-    merge(other: Selection<GElement, Datum, PElement, PDatum>): Selection<GElement, Datum, PElement, PDatum>;
+    merge(other: Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum>): Selection<GElement, Datum, PElement, PDatum>;
 
-    /**
-     * Returns a new selection with the (first) child of each element of the current selection matching the selector.
-     * Selects the first child (if any).
-     *
-     * The generic represents the type of the descendant element to be selected.
-     */
-    selectChild<DescElement extends BaseType>(): Selection<DescElement, Datum, PElement, PDatum>;
     /**
      * Returns a new selection with the (first) child of each element of the current selection matching the selector.
      * Selects the first child that matches (if any).
@@ -340,7 +324,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
-    selectChild<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement, PDatum>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    selectChild<DescElement extends BaseType>(selector?: string): Selection<DescElement, Datum, PElement, PDatum>;
     /**
      * Returns a new selection with the (first) child of each element of the current selection matching the selector.
      *
@@ -352,16 +337,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     selectChild<ResultElement extends BaseType, ChildElement extends BaseType>(
         selector: (child: ChildElement, i: number, children: ChildElement[]) => boolean
+    // tslint:disable-next-line:no-unnecessary-generics
     ): Selection<ResultElement, Datum, PElement, PDatum>;
 
-    /**
-     * Returns a new selection with the children of each element of the current selection matching the selector.
-     * Selects all the children
-     *
-     * The first generic represents the type of the descendant element to be selected.
-     * The second generic refers to the type of the datum of the element to be selected.
-     */
-    selectChildren<DescElement extends BaseType, OldDatum>(): Selection<DescElement, OldDatum, GElement, Datum>;
     /**
      * Returns a new selection with the children of each element of the current selection matching the selector.
      * Selects the children that match (if any)
@@ -372,7 +350,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * @param selector CSS selector string
      */
     selectChildren<DescElement extends BaseType, OldDatum>(
-        selector: string
+        selector?: string
+    // tslint:disable-next-line:no-unnecessary-generics
     ): Selection<DescElement, OldDatum, GElement, Datum>;
     /**
      * Returns a new selection with the children of each element of the current selection matching the selector.
@@ -386,6 +365,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     selectChildren<ResultElement extends BaseType, ResultDatum, ChildElement extends BaseType>(
         selector: (child: ChildElement, i: number, children: ChildElement[]) => boolean
+    // tslint:disable-next-line:no-unnecessary-generics
     ): Selection<ResultElement, ResultDatum, GElement, Datum>;
 
     /**
@@ -403,29 +383,14 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     attr(name: string): string;
     /**
-     * Clear the attribute with the specified name for the selected elements and returns this selection.
-     *
-     * @param name Name of the attribute
-     * @param value null,to clear the attribute
+     * Sets the attribute with the specified name to the specified value on the selected elements and returns this selection.
+     * If the value is a constant, all elements are given the same attribute value;
+     * otherwise, if the value is a function, it is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
+     * The function’s return value is then used to set each element’s attribute.
+     * A null value will remove the specified attribute.
      */
-    attr(name: string, value: null): this;
-    /**
-     * Sets the value of the attribute with the specified name for the selected elements and returns this selection.
-     * All elements are given the same attribute value.
-     *
-     * @param name Name of the attribute
-     * @param value Constant value for the attribute
-     */
-    attr(name: string, value: string | number | boolean): this;
-    /**
-     * Sets the value of the attribute with the specified name for the selected elements and returns this selection.
-     * The value for the individual selected elements is determined by the value function.
-     *
-     * @param name Name of the attribute
-     * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).  A null value will clear the attribute.
-     */
-    attr(name: string, value: ValueFn<GElement, Datum, string | number | boolean | null>): this;
+    attr(name: string, value: null | string | number | boolean | ValueFn<GElement, Datum, string | number | boolean | null>): this;
 
     /**
      * Returns true if and only if the first (non-null) selected element has the specified classes.
@@ -505,24 +470,13 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     property<T>(name: Local<T>): T | undefined;
     /**
-     * Sets the value of the property with the specified name for the selected elements and returns this selection.
-     * The value for the individual selected elements is determined by the value function.
-     *
-     * Some HTML elements have special properties that are not addressable using attributes or styles,
-     * such as a form field’s text value and a checkbox’s checked boolean. Use this method to get or set these properties.
-     *
-     * @param name Name of the property
-     * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).  A null value will clear the property.
+     * Sets the property with the specified name to the specified value on selected elements.
+     * If the value is a constant, then all elements are given the same property value;
+     * otherwise, if the value is a function, it is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
+     * The function’s return value is then used to set each element’s property. A null value will delete the specified property.
      */
-    property(name: string, value: ValueFn<GElement, Datum, any>): this;
-    /**
-     * Clears the property with the specified name for the selected elements and returns this selection.
-     *
-     * @param name Name of the property
-     * @param value null,to clear the property
-     */
-    property(name: string, value: null): this;
+    property(name: string, value: ValueFn<GElement, Datum, any> | null): this;
     /**
      * Sets the value of the property with the specified name for the selected elements and returns this selection.
      * All elements are given the same property value.
@@ -554,25 +508,14 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     text(): string;
     /**
-     * Clear the text content of the selected elements and return the selection.
-     */
-    text(value: null): this;
-    /**
      * Sets the text content to the specified value on all selected elements, replacing any existing child elements.
-     * All elements are given the same text content.
-     *
-     * @param value Text content value for the elements.
-     */
-    text(value: string | number | boolean): this;
-    /**
-     * Sets the text content to the specified value on all selected elements, replacing any existing child elements.
-     * All elements are given the same text content.
-     *
-     * @param value A value unction which is evaluated for each selected element, in order, being passed the current datum (d),
+     * If the value is a constant, then all elements are given the same text content;
+     * otherwise, if the value is a function, it is evaluated for each selected element, in order, being passed the current datum (d),
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
-     * The function’s return value is then used to set each element’s text content. A null value will clear the content.
+     * The function’s return value is then used to set each element’s text content.
+     * A null value will clear the content.
      */
-    text(value: ValueFn<GElement, Datum, string | number | boolean | null>): this;
+    text(value: null | string | number | boolean | ValueFn<GElement, Datum, string | number | boolean | null>): this;
 
     /**
      * Returns a string representation of the inner HTML for the first (non-null) element in the selection.
@@ -580,25 +523,14 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     html(): string;
     /**
-     * Clear the html content of the selected elements and return the selection.
-     */
-    html(value: null): this;
-    /**
      * Sets the inner HTML to the specified value on all selected elements, replacing any existing child elements.
-     * All elements are given the same inner HTML
-     *
-     * @param value String representation of inner HTML.
+     * If the value is a constant, then all elements are given the same inner HTML;
+     * otherwise, if the value is a function, it is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
+     * The function’s return value is then used to set each element’s inner HTML.
+     * A null value will clear the content.
      */
-    html(value: string): this;
-    /**
-     * Sets the inner HTML to the specified value on all selected elements, replacing any existing child elements.
-     * The inner HTML is determined for each individual element using a value function.
-     *
-     * @param value A value function which is evaluated for each selected element, in order, being passed the current
-     * datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
-     * The function’s return value is then used to set each element’s inner HTML. A null value will clear the content.
-     */
-    html(value: ValueFn<GElement, Datum, string | null>): this;
+    html(value: null | string | ValueFn<GElement, Datum, string | null>): this;
 
     /**
      * Appends a new element of this type (tag name) as the last child of each selected element,
@@ -630,6 +562,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used
      * (for example, svg implies svg:svg)
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     append<ChildElement extends BaseType>(type: string): Selection<ChildElement, Datum, PElement, PDatum>;
     /**
      * Appends a new element of the type provided by the element creator function as the last child of each selected element,
@@ -773,38 +706,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * The generic refers to the type of the new datum to be used for the selected elements.
      *
-     * @param data The specified data is an array or iterable of arbitrary values (e.g., numbers or objects).
-     * @param key An optional key function which is evaluated for each selected element, in order, being passed the
-     * current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]); the returned string is the element’s key.
-     * The key function is then also evaluated for each new datum in data, being passed the current datum (d),
-     * the current index (i), and the group’s new data, with this as the group’s parent DOM element (nodes[i]); the returned string is the datum’s key.
-     * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
-     * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
-     */
-    data<NewDatum>(data: NewDatum[] | Iterable<NewDatum>, key?: ValueFn<GElement | PElement, Datum | NewDatum, KeyType>): Selection<GElement, NewDatum, PElement, PDatum>;
-    /**
-     * Joins the data returned by the specified value function with the selected elements, returning a new selection that it represents
-     * the update selection: the elements successfully bound to data. Also defines the enter and exit selections on
-     * the returned selection, which can be used to add or remove elements to correspond to the new data.
-     *
-     * The data is specified for each group in the selection.
-     *
-     * If a key function is not specified, then the first datum in data is assigned to the first selected element,
-     * the second datum to the second selected element, and so on.
-     * A key function may be specified to control which datum is assigned to which element, replacing the default join-by-index,
-     * by computing a string identifier for each datum and element.
-     *
-     * The update and enter selections are returned in data order, while the exit selection preserves the selection
-     * order prior to the join. If a key function is specified, the order of elements in the selection may not match
-     * their order in the document; use selection.order or selection.sort as needed.
-     *
-     * This method cannot be used to clear bound data; use selection.datum instead.
-     *
-     * For details see: {@link https://github.com/d3/d3-selection#joining-data }
-     *
-     * The generic refers to the type of the new datum to be used for the selected elements.
-     *
-     * @param data A value function which will be evaluated for each group in order, being passed the group’s parent datum
+     * @param data The specified data is an array or iterable of arbitrary values (e.g., numbers or objects)
+     * or a value function which will be evaluated for each group in order, being passed the group’s parent datum
      * (d, which may be undefined), the group index (i), and the selection’s parent nodes (nodes),
      * with this as the group’s parent element. The function returns an array or iterable of values for each group.
      * @param key An optional key function which is evaluated for each selected element, in order, being passed the
@@ -814,7 +717,10 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
-    data<NewDatum>(data: ValueFn<PElement, PDatum, NewDatum[] | Iterable<NewDatum>>, key?: ValueFn<GElement | PElement, Datum | NewDatum, KeyType>): Selection<GElement, NewDatum, PElement, PDatum>;
+    data<NewDatum>(
+        data: NewDatum[] | Iterable<NewDatum> | ValueFn<PElement, PDatum, NewDatum[] | Iterable<NewDatum>>,
+        key?: ValueFn<GElement | PElement, Datum | NewDatum, KeyType>
+    ): Selection<GElement, NewDatum, PElement, PDatum>;
 
     /**
      * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
@@ -824,7 +730,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     join<K extends keyof ElementTagNameMap, OldDatum = Datum>(
         enter: K,
-        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
+        // tslint:disable-next-line:no-unnecessary-generics
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
     ): Selection<GElement | ElementTagNameMap[K], Datum, PElement, PDatum>;
     /**
@@ -834,20 +741,11 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The "matching" logic is determined by the key function passed to `selection.data`.
      */
     join<ChildElement extends BaseType, OldDatum = Datum>(
-        enter: string,
-        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        enter: string | ((elem: Selection<EnterElement, Datum, PElement, PDatum>) => Selection<ChildElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum>),
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
+        // tslint:disable-next-line:no-unnecessary-generics
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
-    ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
-    /**
-     * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
-     * This method is a convenient alternative to the more explicit `selection.enter`, `selection.exit`, `selection.append` and `selection.remove`.
-     *
-     * The "matching" logic is determined by the key function passed to `selection.data`.
-     */
-    join<ChildElement extends BaseType, OldDatum = Datum>(
-        enter: (elem: Selection<EnterElement, Datum, PElement, PDatum>) => Selection<ChildElement, Datum, PElement, PDatum>,
-        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
-        exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
+    // tslint:disable-next-line:no-unnecessary-generics
     ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
 
     /**
@@ -864,6 +762,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * Ensure you set the generic to the correct type, if you need to access the data on the exit selection in
      * follow-up steps, e.g. to set styles as part of an exit transition before removing them.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     exit<OldDatum>(): Selection<GElement, OldDatum, PElement, PDatum>;
 
     /**
@@ -1101,6 +1000,7 @@ export interface Local<T> {
  *
  * The generic refers to the type of the variable to store locally.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function local<T>(): Local<T>;
 
 // ---------------------------------------------------------------------------
@@ -1177,6 +1077,7 @@ export function create<K extends keyof ElementTagNameMap>(name: K): Selection<El
  * @param name Tag name of the element to be added. See "namespace" for details on supported namespace prefixes,
  * such as for SVG elements.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function create<NewGElement extends Element>(name: string): Selection<NewGElement, undefined, null, undefined>;
 
 /**
@@ -1195,6 +1096,7 @@ export function creator<K extends keyof ElementTagNameMap>(name: K): (this: Base
  * @param name Tag name of the element to be added. See "namespace" for details on supported namespace prefixes,
  * such as for SVG elements.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function creator<NewGElement extends Element>(name: string): (this: BaseType) => NewGElement;
 
 /**
@@ -1216,6 +1118,7 @@ export function matcher(selector: string): (this: BaseType) => boolean;
  *
  * @param selector A CSS selector string.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function selector<DescElement extends Element>(selector: string): (this: BaseType) => DescElement;
 
 /**
@@ -1225,4 +1128,5 @@ export function selector<DescElement extends Element>(selector: string): (this: 
  *
  * @param selector A CSS selector string.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function selectorAll<DescElement extends Element>(selector: string): (this: BaseType) => NodeListOf<DescElement>;

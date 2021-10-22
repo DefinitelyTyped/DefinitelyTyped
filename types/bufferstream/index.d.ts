@@ -65,11 +65,11 @@ declare namespace BufferStream {
         /*
             default encoding for writing strings
         */
-        encoding?: string;
+        encoding?: string | undefined;
         /*
             if true and the source is a child_process the stream will block the entire process (timeouts wont work anymore, but splitting and listening on data still works, because they work sync)
         */
-        blocking?: boolean;
+        blocking?: boolean | undefined;
         /*
             defines buffer level or sets buffer to given size (see ↓setSize for more)
         */
@@ -77,7 +77,7 @@ declare namespace BufferStream {
         /*
             immediately call disable
         */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /*
             short form for:
             split(token, function (chunk) {emit('data', chunk)})

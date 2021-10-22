@@ -34,58 +34,58 @@ export interface RulesByNodeType {
 }
 
 export interface ObjectAndType {
-    object?: string;
-    type?: string;
+    object?: string | undefined;
+    type?: string | undefined;
 }
 
 export interface Rules {
     data?: {
         [key: string]: (v: any) => boolean;
-    };
-    first?: ObjectAndType | ObjectAndType[];
-    isAtomic?: boolean;
-    isVoid?: boolean;
-    last?: ObjectAndType | ObjectAndType[];
+    } | undefined;
+    first?: ObjectAndType | ObjectAndType[] | undefined;
+    isAtomic?: boolean | undefined;
+    isVoid?: boolean | undefined;
+    last?: ObjectAndType | ObjectAndType[] | undefined;
     marks?: Array<{
         type: string | ((type: string) => boolean)
-    }>;
-    next?: ObjectAndType | ObjectAndType[];
+    }> | undefined;
+    next?: ObjectAndType | ObjectAndType[] | undefined;
     nodes?: Array<{
-        min?: number;
-        max?: number;
-        match?: ObjectAndType | ObjectAndType[];
-    }>;
-    normalize?: (editor: Editor, error: SlateError) => void;
-    parent?: ObjectAndType | ObjectAndType[];
-    text?: RegExp | ((text: string) => boolean);
-    previous?: ObjectAndType | ObjectAndType[];
+        min?: number | undefined;
+        max?: number | undefined;
+        match?: ObjectAndType | ObjectAndType[] | undefined;
+    }> | undefined;
+    normalize?: ((editor: Editor, error: SlateError) => void) | undefined;
+    parent?: ObjectAndType | ObjectAndType[] | undefined;
+    text?: RegExp | ((text: string) => boolean) | undefined;
+    previous?: ObjectAndType | ObjectAndType[] | undefined;
 }
 
 export interface SchemaProperties {
-    rules?: Array<{ match: ObjectAndType | ObjectAndType[] } & Rules>;
-    document?: Rules;
-    blocks?: RulesByNodeType;
-    inlines?: RulesByNodeType;
-    marks?: RulesByNodeType;
-    annotations?: RulesByNodeType;
-    decorations?: RulesByNodeType;
+    rules?: Array<{ match: ObjectAndType | ObjectAndType[] } & Rules> | undefined;
+    document?: Rules | undefined;
+    blocks?: RulesByNodeType | undefined;
+    inlines?: RulesByNodeType | undefined;
+    marks?: RulesByNodeType | undefined;
+    annotations?: RulesByNodeType | undefined;
+    decorations?: RulesByNodeType | undefined;
 }
 
 export type Path = Immutable.List<number> | number[] | string;
 export interface ValueProperties {
-    object?: "value";
-    annotations?: Immutable.Map<string, Annotation> | { [key: string]: AnnotationJSON };
-    data?: Data | { [key: string]: any };
-    document?: Document;
-    selection?: Selection;
+    object?: "value" | undefined;
+    annotations?: Immutable.Map<string, Annotation> | { [key: string]: AnnotationJSON } | undefined;
+    data?: Data | { [key: string]: any } | undefined;
+    document?: Document | undefined;
+    selection?: Selection | undefined;
 }
 
 export interface ValueJSON {
-    object?: "value";
-    annotations?: { [key: string]: AnnotationJSON };
-    data?: { [key: string]: any };
-    document?: DocumentJSON;
-    selection?: SelectionJSON;
+    object?: "value" | undefined;
+    annotations?: { [key: string]: AnnotationJSON } | undefined;
+    data?: { [key: string]: any } | undefined;
+    document?: DocumentJSON | undefined;
+    selection?: SelectionJSON | undefined;
 }
 
 export class Value extends Immutable.Record({}) {
@@ -130,14 +130,14 @@ export class Value extends Immutable.Record({}) {
     static isValue(maybeValue: any): maybeValue is Value;
 
     toJSON(options?: {
-        preserveAnnotations?: boolean,
-        preserveData?: boolean,
-        preserveSelection?: boolean }
+        preserveAnnotations?: boolean | undefined,
+        preserveData?: boolean | undefined,
+        preserveSelection?: boolean | undefined }
     ): ValueJSON;
     toJS(options?: {
-        preserveAnnotations?: boolean,
-        preserveData?: boolean,
-        preserveSelection?: boolean }
+        preserveAnnotations?: boolean | undefined,
+        preserveData?: boolean | undefined,
+        preserveSelection?: boolean | undefined }
     ): ValueJSON;
     addAnnotation(annotation: Annotation | AnnotationProperties | AnnotationJSON): Value;
     addMark(path: Path, mark: MarkProperties | MarkJSON | Mark | string): Value;
@@ -180,17 +180,17 @@ export class Value extends Immutable.Record({}) {
 }
 
 export interface DocumentProperties {
-    object?: "document";
-    nodes?: Immutable.List<Node> | Node[];
-    key?: string;
-    data?: Data | { [key: string]: any };
+    object?: "document" | undefined;
+    nodes?: Immutable.List<Node> | Node[] | undefined;
+    key?: string | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface DocumentJSON {
-    object?: "document";
-    nodes?: NodeJSON[];
-    key?: string;
-    data?: { [key: string]: any };
+    object?: "document" | undefined;
+    nodes?: NodeJSON[] | undefined;
+    key?: string | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Document extends BaseNode {
@@ -213,19 +213,19 @@ export class Document extends BaseNode {
 }
 
 export interface BlockProperties {
-    object?: "block";
+    object?: "block" | undefined;
     type: string;
-    key?: string;
-    nodes?: Immutable.List<Block | Text | Inline> | Array<Block | Text | Inline>;
-    data?: Data | { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Immutable.List<Block | Text | Inline> | Array<Block | Text | Inline> | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface BlockJSON {
-    object?: "block";
+    object?: "block" | undefined;
     type: string;
-    key?: string;
-    nodes?: Array<BlockJSON | InlineJSON | TextJSON>;
-    data?: { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Array<BlockJSON | InlineJSON | TextJSON> | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Block extends BaseNode {
@@ -254,19 +254,19 @@ export class Block extends BaseNode {
 }
 
 export interface InlineProperties {
-    object?: "inline";
+    object?: "inline" | undefined;
     type: string;
-    key?: string;
-    nodes?: Immutable.List<Inline | Text> | Array<Inline | Text>;
-    data?: Data | { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Immutable.List<Inline | Text> | Array<Inline | Text> | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface InlineJSON {
-    object?: "inline";
+    object?: "inline" | undefined;
     type: string;
-    key?: string;
-    nodes?: Array<InlineJSON | TextJSON>;
-    data?: { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Array<InlineJSON | TextJSON> | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Inline extends BaseNode {
@@ -304,17 +304,17 @@ export class Inline extends BaseNode {
 }
 
 export interface TextProperties {
-    object?: "text";
-    key?: string;
-    text?: string;
-    marks?: Immutable.Set<Mark> | Mark[];
+    object?: "text" | undefined;
+    key?: string | undefined;
+    text?: string | undefined;
+    marks?: Immutable.Set<Mark> | Mark[] | undefined;
 }
 
 export interface TextJSON {
-    object?: "text";
-    key?: string;
-    text?: string;
-    marks?: MarkJSON[];
+    object?: "text" | undefined;
+    key?: string | undefined;
+    text?: string | undefined;
+    marks?: MarkJSON[] | undefined;
 }
 
 export interface LeafAndOffset {
@@ -342,8 +342,8 @@ export class Text extends Immutable.Record({}) {
     static isText(maybeText: any): maybeText is Text;
     static isTextList(maybeTextList: any): maybeTextList is Immutable.List<Text>;
 
-    toJSON(options?: { preserveKeys?: boolean }): TextJSON;
-    toJS(options?: { preserveKeys?: boolean }): TextJSON;
+    toJSON(options?: { preserveKeys?: boolean | undefined }): TextJSON;
+    toJS(options?: { preserveKeys?: boolean | undefined }): TextJSON;
 
     addMark(mark: MarkProperties | MarkJSON | Mark | string): Text;
     addMarks(marks:
@@ -377,15 +377,15 @@ export class Text extends Immutable.Record({}) {
 }
 
 export interface LeafProperties {
-    object?: "leaf";
-    marks?: Immutable.Set<Mark> | Mark[];
-    text?: string;
+    object?: "leaf" | undefined;
+    marks?: Immutable.Set<Mark> | Mark[] | undefined;
+    text?: string | undefined;
 }
 
 export interface LeafJSON {
-    object?: "leaf";
-    marks?: MarkJSON[];
-    text?: string;
+    object?: "leaf" | undefined;
+    marks?: MarkJSON[] | undefined;
+    text?: string | undefined;
 }
 
 export class Leaf extends Immutable.Record({}) {
@@ -423,19 +423,19 @@ export class Leaf extends Immutable.Record({}) {
 }
 
 interface IterableOptions {
-    direction?: string;
-    downward?: boolean;
-    upward?: boolean;
-    includeBlocks?: boolean;
-    includeDocument?: boolean;
-    includeInlines?: boolean;
-    includeRoot?: boolean;
-    includeTarget?: boolean;
-    includeTargetAncestors?: boolean;
-    includeTexts?: boolean;
-    match?: (node: Node, path: Immutable.List<number>) => boolean | null;
-    range?: RangeProperties | RangeJSON | Range;
-    path?: Path;
+    direction?: string | undefined;
+    downward?: boolean | undefined;
+    upward?: boolean | undefined;
+    includeBlocks?: boolean | undefined;
+    includeDocument?: boolean | undefined;
+    includeInlines?: boolean | undefined;
+    includeRoot?: boolean | undefined;
+    includeTarget?: boolean | undefined;
+    includeTargetAncestors?: boolean | undefined;
+    includeTexts?: boolean | undefined;
+    match?: ((node: Node, path: Immutable.List<number>) => boolean | null) | undefined;
+    range?: RangeProperties | RangeJSON | Range | undefined;
+    path?: Path | undefined;
 }
 
 export namespace NodeFactory {
@@ -445,7 +445,7 @@ export namespace NodeFactory {
         | Array<Node | NodeJSON | NodeProperties>
         | Immutable.List<Node | NodeJSON | NodeProperties>
   ): Immutable.List<Node>;
-  function createProperties(attrs?: Block | Inline | string | { type?: string, data?: object }): NodeProperties;
+  function createProperties(attrs?: Block | Inline | string | { type?: string | undefined, data?: object | undefined }): NodeProperties;
   function fromJSON(value: { [key: string]: any }): NodeJSON;
   function fromJS(value: { [key: string]: any }): NodeJSON;
   function isNode(maybeNode: any): maybeNode is Node;
@@ -482,9 +482,9 @@ declare class BaseNode extends Immutable.Record({}) {
     addMark(path: Path, mark: Mark): Node;
     ancestors(path: Path): Iterable<[Node, Immutable.List<number>]>;
     blocks(options?: IterableOptions & {
-        onlyLeaves?: boolean;
-        onlyRoots?: boolean;
-        onlyTypes?: string[]}): Iterable<[Block, Immutable.List<number>]>;
+        onlyLeaves?: boolean | undefined;
+        onlyRoots?: boolean | undefined;
+        onlyTypes?: string[] | undefined}): Iterable<[Block, Immutable.List<number>]>;
     createAnnotation(properties: AnnotationProperties | AnnotationJSON | Annotation): Annotation;
     createDecoration(properties: DecorationProperties | DecorationJSON | Decoration): Decoration;
     createIterable(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
@@ -554,9 +554,9 @@ declare class BaseNode extends Immutable.Record({}) {
     hasNode(path: Path): boolean;
     hasVoidParent(path: Path, editor: Editor): boolean;
     inlines(options?: IterableOptions & {
-        onlyLeaves?: boolean;
-        onlyRoots?: boolean;
-        onlyTypes?: string[]}): Iterable<[Inline, Immutable.List<number>]>;
+        onlyLeaves?: boolean | undefined;
+        onlyRoots?: boolean | undefined;
+        onlyTypes?: string[] | undefined}): Iterable<[Inline, Immutable.List<number>]>;
     insertNode(path: Path, node: Node): Node;
     insertText(
         path: Path,
@@ -688,15 +688,15 @@ declare class BaseNode extends Immutable.Record({}) {
 }
 
 export interface MarkProperties {
-    object?: "mark";
+    object?: "mark" | undefined;
     type: string;
-    data?: Data | { [key: string]: any };
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface MarkJSON {
-    object?: "mark";
+    object?: "mark" | undefined;
     type: string;
-    data?: { [key: string]: any };
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Mark extends Immutable.Record({}) {
@@ -721,19 +721,19 @@ export class Mark extends Immutable.Record({}) {
 }
 
 export interface SelectionProperties {
-    object?: "selection";
-    anchor?: Point;
-    focus?: Point;
-    isFocused?: boolean;
-    marks?: Immutable.Set<Mark> | Mark[];
+    object?: "selection" | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
+    isFocused?: boolean | undefined;
+    marks?: Immutable.Set<Mark> | Mark[] | undefined;
 }
 
 export interface SelectionJSON {
-    object?: "selection";
-    anchor?: PointJSON;
-    focus?: PointJSON;
-    isFocused?: boolean;
-    marks?: MarkJSON[];
+    object?: "selection" | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
+    isFocused?: boolean | undefined;
+    marks?: MarkJSON[] | undefined;
 }
 
 export class Selection extends BaseRange {
@@ -782,15 +782,15 @@ export class Selection extends BaseRange {
 }
 
 export interface RangeProperties {
-    object?: "range";
-    anchor?: Point;
-    focus?: Point;
+    object?: "range" | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
 }
 
 export interface RangeJSON {
-    object?: "range";
-    anchor?: PointJSON;
-    focus?: PointJSON;
+    object?: "range" | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
 }
 
 export class Range extends BaseRange {
@@ -811,24 +811,24 @@ export class Range extends BaseRange {
     static fromJS(properties: RangeTypeJSON): Range;
     static isRange(maybeRange: any): maybeRange is RangeType;
 
-    toJSON(options?: { preserveKeys?: boolean }): RangeJSON;
-    toJS(options?: { preserveKeys?: boolean }): RangeJSON;
+    toJSON(options?: { preserveKeys?: boolean | undefined }): RangeJSON;
+    toJS(options?: { preserveKeys?: boolean | undefined }): RangeJSON;
 }
 
 export interface DecorationProperties {
-    object?: "decoration";
-    anchor?: Point;
-    focus?: Point;
-    type?: string;
-    data?: Data | { [key: string]: any };
+    object?: "decoration" | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
+    type?: string | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface DecorationJSON {
-    object?: "decoration";
-    anchor?: PointJSON;
-    focus?: PointJSON;
-    type?: string;
-    data?: { [key: string]: any };
+    object?: "decoration" | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
+    type?: string | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Decoration extends BaseRange {
@@ -851,8 +851,8 @@ export class Decoration extends BaseRange {
     static createProperties(
         attrs: RangeTypeProperties | RangeTypeJSON | RangeType
     ): DecorationProperties;
-    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON }): Decoration;
-    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON }): Decoration;
+    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON | undefined }): Decoration;
+    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON | undefined }): Decoration;
     static isDecoration(maybeDecoration: any): maybeDecoration is Decoration;
 
     setProperties(properties: RangeTypeProperties | RangeTypeJSON | RangeType): Decoration;
@@ -862,21 +862,21 @@ export class Decoration extends BaseRange {
 }
 
 export interface AnnotationProperties {
-    object?: "annotation";
+    object?: "annotation" | undefined;
     key: string;
     type: string;
-    data?: Data | { [key: string]: any };
-    anchor?: Point;
-    focus?: Point;
+    data?: Data | { [key: string]: any } | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
 }
 
 export interface AnnotationJSON {
-    object?: "annotation";
+    object?: "annotation" | undefined;
     key: string;
     type: string;
-    data?: { [key: string]: any };
-    anchor?: PointJSON;
-    focus?: PointJSON;
+    data?: { [key: string]: any } | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
 }
 
 export class Annotation extends BaseRange {
@@ -983,17 +983,17 @@ declare class BaseRange extends Immutable.Record({}) {
 }
 
 export interface PointProperties {
-    object?: "point";
-    key?: string;
-    offset?: number;
-    path?: Immutable.List<number>;
+    object?: "point" | undefined;
+    key?: string | undefined;
+    offset?: number | undefined;
+    path?: Immutable.List<number> | undefined;
 }
 
 export interface PointJSON {
-    object?: "point";
-    key?: string;
-    offset?: number;
-    path?: number[];
+    object?: "point" | undefined;
+    key?: string | undefined;
+    offset?: number | undefined;
+    path?: number[] | undefined;
 }
 
 export class Point extends Immutable.Record({}) {
@@ -1031,8 +1031,8 @@ export class Point extends Immutable.Record({}) {
     setKey(key: string): this;
     setOffset(offset: number): this;
     setPath(path: Immutable.List<number> | number[]): this;
-    toJSON(options?: { preserveKeys?: boolean }): PointJSON;
-    toJS(options?: { preserveKeys?: boolean }): PointJSON;
+    toJSON(options?: { preserveKeys?: boolean | undefined }): PointJSON;
+    toJS(options?: { preserveKeys?: boolean | undefined }): PointJSON;
     unset(): this;
 }
 
@@ -1055,55 +1055,55 @@ export type Operation =
     | SetValueOperation;
 
 export interface OperationProperties {
-    object?: "operation";
+    object?: "operation" | undefined;
     type: string;
-    text?: string;
-    target?: number;
+    text?: string | undefined;
+    target?: number | undefined;
     properties?:
         | NodeProperties
         | ValueProperties
         | SelectionProperties
-        | AnnotationProperties;
-    position?: number;
-    path?: Immutable.List<number>;
-    offset?: number;
-    node?: Node;
+        | AnnotationProperties | undefined;
+    position?: number | undefined;
+    path?: Immutable.List<number> | undefined;
+    offset?: number | undefined;
+    node?: Node | undefined;
     newProperties?:
         | NodeProperties
         | ValueProperties
         | SelectionProperties
         | MarkProperties
-        | AnnotationProperties;
-    newPath?: Immutable.List<number>;
-    mark?: Mark;
-    data?: Data | { [key: string]: any };
-    annotation?: Annotation;
+        | AnnotationProperties | undefined;
+    newPath?: Immutable.List<number> | undefined;
+    mark?: Mark | undefined;
+    data?: Data | { [key: string]: any } | undefined;
+    annotation?: Annotation | undefined;
 }
 
 export interface OperationJSON {
-    object?: "operation";
+    object?: "operation" | undefined;
     type: string;
-    text?: string;
-    target?: number;
+    text?: string | undefined;
+    target?: number | undefined;
     properties?:
         | NodeJSON
         | ValueJSON
         | SelectionJSON
-        | AnnotationJSON;
-    position?: number;
-    path?: number[];
-    offset?: number;
-    node?: Node;
+        | AnnotationJSON | undefined;
+    position?: number | undefined;
+    path?: number[] | undefined;
+    offset?: number | undefined;
+    node?: Node | undefined;
     newProperties?:
         | NodeJSON
         | ValueJSON
         | SelectionJSON
         | MarkJSON
-        | AnnotationJSON;
-    newPath?: number[];
-    mark?: MarkJSON;
-    data?: { [key: string]: any };
-    annotation?: AnnotationJSON;
+        | AnnotationJSON | undefined;
+    newPath?: number[] | undefined;
+    mark?: MarkJSON | undefined;
+    data?: { [key: string]: any } | undefined;
+    annotation?: AnnotationJSON | undefined;
 }
 
 export class BaseOperation extends Immutable.Record({}) {
@@ -1460,32 +1460,32 @@ export type CommandFunc<T extends Controller = Controller> = (editor: T, ...args
 export type QueryFunc<T extends Controller = Controller> = (editor: T, ...args: any[]) => any;
 
 export interface Plugin<T extends Controller = Controller> {
-    normalizeNode?: (node: Node, editor: T, next: () => void) => ((editor: T) => void) | void;
-    onChange?: (editor: T, next: () => void) => void;
-    onCommand?: (command: Command, editor: T, next: () => void) => void;
-    onConstruct?: (editor: T, next: () => void) => void;
-    onQuery?: (query: Query, editor: T, next: () => void) => void;
-    validateNode?: (node: Node, editor: T, next: () => void) => SlateError | void;
+    normalizeNode?: ((node: Node, editor: T, next: () => void) => ((editor: T) => void) | void) | undefined;
+    onChange?: ((editor: T, next: () => void) => void) | undefined;
+    onCommand?: ((command: Command, editor: T, next: () => void) => void) | undefined;
+    onConstruct?: ((editor: T, next: () => void) => void) | undefined;
+    onQuery?: ((query: Query, editor: T, next: () => void) => void) | undefined;
+    validateNode?: ((node: Node, editor: T, next: () => void) => SlateError | void) | undefined;
 
-    commands?: {[name: string]: CommandFunc<T>};
-    queries?: {[name: string]: QueryFunc<T>};
-    schema?: SchemaProperties;
+    commands?: {[name: string]: CommandFunc<T>} | undefined;
+    queries?: {[name: string]: QueryFunc<T>} | undefined;
+    schema?: SchemaProperties | undefined;
 }
 
 export interface Plugins<T extends Controller = Controller> extends Array<Plugin<T> | Plugins<T>> {}
 
 export interface EditorProperties<T extends Controller = Controller> {
-    object?: "editor";
-    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
-    plugins?: Plugins<T>;
-    readOnly?: boolean;
-    value?: Value;
+    object?: "editor" | undefined;
+    onChange?: ((change: { operations: Immutable.List<Operation>; value: Value }) => void) | undefined;
+    plugins?: Plugins<T> | undefined;
+    readOnly?: boolean | undefined;
+    value?: Value | undefined;
 }
 
 export interface EditorOptions {
-    controller?: Controller;
-    construct?: boolean;
-    normalize?: boolean;
+    controller?: Controller | undefined;
+    construct?: boolean | undefined;
+    normalize?: boolean | undefined;
 }
 
 export class Editor implements Controller {
@@ -1685,7 +1685,7 @@ export class Editor implements Controller {
     moveToRangeOfNode(node: Block | Document | Inline | Text): Editor;
     select(
         properties: string | RangeTypeProperties| RangeTypeJSON | RangeType,
-        options?: { snapshot?: boolean }
+        options?: { snapshot?: boolean | undefined }
     ): Editor;
     setAnchor(point: Point): void;
     setEnd(point: Point): void;
@@ -1803,7 +1803,7 @@ export class Editor implements Controller {
     splitDescendantsByKey(key: string, textKey: string, textOffset: number): Editor;
     splitDescendantsByPath(path: Immutable.List<number>, textPath: Immutable.List<number>, textOffset: number): Editor;
     splitNodeByKey(key: string, offset: number): Editor;
-    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number }): Editor;
+    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number | undefined }): Editor;
     unwrapInlineByKey(key: string, properties: string | InlineProperties): Editor;
     unwrapInlineByPath(path: Path, properties: string | InlineProperties): Editor;
     unwrapBlockByKey(key: string, properties: string | BlockProperties): Editor;
@@ -2526,7 +2526,7 @@ export interface Controller {
             | RangeTypeJSON
             | RangeType
             | string,
-        options?: { snapshot?: boolean }
+        options?: { snapshot?: boolean | undefined }
     ): Controller;
     setAnchor(point: Point): void;
     setEnd(point: Point): void;
@@ -2934,7 +2934,7 @@ export interface Controller {
     /**
      * Split a node by its path at an offset
      */
-    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number }): Controller;
+    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number | undefined }): Controller;
     /**
      * Unwrap all inner content of an inline node by its key that match properties
      */
