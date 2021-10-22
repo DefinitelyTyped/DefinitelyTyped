@@ -285,7 +285,7 @@ export interface UseTableColumnProps<D extends object> {
     id: IdType<D>;
     columns?: Array<ColumnInstance<D>> | undefined;
     isVisible: boolean;
-    render: (type: 'Header' | 'Footer' | string, props?: object) => ReactNode;
+    render: (type: keyof ColumnInstance<D> | ((tableInstance: TableInstance<D>, columnModel: D) => JSX.Element | string) | JSX.Element, props?: object) => ReactNode;
     totalLeft: number;
     totalWidth: number;
     getHeaderProps: (propGetter?: HeaderPropGetter<D>) => TableHeaderProps;
@@ -313,7 +313,7 @@ export interface UseTableCellProps<D extends object, V = any> {
     row: Row<D>;
     value: CellValue<V>;
     getCellProps: (propGetter?: CellPropGetter<D>) => TableCellProps;
-    render: (type: 'Cell' | string, userProps?: object) => ReactNode;
+    render: (type: keyof ColumnInstance<D> | ((tableInstance: TableInstance<D>, columnModel: D) => JSX.Element | string) | JSX.Element, props?: object) => ReactNode;
 }
 
 export type HeaderProps<D extends object> = TableInstance<D> & {
