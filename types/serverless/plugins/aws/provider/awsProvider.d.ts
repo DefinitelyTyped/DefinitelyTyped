@@ -666,12 +666,17 @@ declare namespace Aws {
     interface Custom {
         [key: string]: any;
     }
+
+    interface Credentials {
+        [key: string]: any;
+    }
 }
 
 declare class Aws {
     constructor(serverless: Serverless, options: Serverless.Options);
 
     naming: { [key: string]: () => string };
+    getCredentials(): Aws.Credentials;
     getProviderName(): string;
     getRegion(): string;
     getServerlessDeploymentBucketName(): Promise<string>;

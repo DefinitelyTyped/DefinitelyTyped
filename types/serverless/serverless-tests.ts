@@ -106,6 +106,9 @@ provider.request(
 // Test provider's 'getServerlessDeploymentBucketName'
 provider.getServerlessDeploymentBucketName().then(bucketName => {});
 
+// $ExpectType Credentials
+provider.getCredentials();
+
 // Test ApiGateway validator
 getHttp(
     {
