@@ -1,5 +1,5 @@
 // Type definitions for koa-better-body 3.3
-// Project: https://github.com/tunnckoCore/koa-better-body
+// Project: https://github.com/tunnckoCore/opensource/tree/master/%40packages/koa-better-body
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
