@@ -26,7 +26,7 @@ declare namespace path {
 
         readonly sep: string;
         readonly delimiter: string;
-        readonly wind32: null;
+        readonly win32: null;
         readonly posix: Path;
     }
 }
