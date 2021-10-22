@@ -833,3 +833,41 @@ braintree.threeDSecure.cancelVerifyCard(
         verifyPayload.liabilityShiftPossible; // boolean
     },
 );
+
+// Check if 'number' field is optional (#56167)
+braintree.hostedFields.create(
+    {
+        fields: {
+            cvv: {
+                container: '#cvv',
+                type: 'password',
+            },
+            cardholderName: {
+                container: '#cardholder-name',
+            },
+            expirationMonth: {
+                container: '#expiration-month',
+                select: {
+                    options: [
+                        '01 - Jan',
+                        '02 - Feb',
+                        '03 - Mar',
+                        '04 - Apr',
+                        '05 - May',
+                        '06 - Jun',
+                        '07 - Jul',
+                        '08 - Aug',
+                        '09 - Sep',
+                        '10 - Oct',
+                        '11 - Nov',
+                        '12 - Dec',
+                    ],
+                },
+            },
+            expirationYear: {
+                container: '#expiration-year',
+                select: true,
+            },
+        },
+    },
+);

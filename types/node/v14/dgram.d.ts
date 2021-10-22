@@ -37,11 +37,11 @@ declare module 'dgram' {
     class Socket extends EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         address(): AddressInfo;
-        bind(port?: number, address?: string, callback?: () => void): void;
-        bind(port?: number, callback?: () => void): void;
-        bind(callback?: () => void): void;
-        bind(options: BindOptions, callback?: () => void): void;
-        close(callback?: () => void): void;
+        bind(port?: number, address?: string, callback?: () => void): this;
+        bind(port?: number, callback?: () => void): this;
+        bind(callback?: () => void): this;
+        bind(options: BindOptions, callback?: () => void): this;
+        close(callback?: () => void): this;
         connect(port: number, address?: string, callback?: () => void): void;
         connect(port: number, callback: () => void): void;
         disconnect(): void;
@@ -58,11 +58,11 @@ declare module 'dgram' {
         send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;
         setBroadcast(flag: boolean): void;
         setMulticastInterface(multicastInterface: string): void;
-        setMulticastLoopback(flag: boolean): void;
-        setMulticastTTL(ttl: number): void;
+        setMulticastLoopback(flag: boolean): boolean;
+        setMulticastTTL(ttl: number): number;
         setRecvBufferSize(size: number): void;
         setSendBufferSize(size: number): void;
-        setTTL(ttl: number): void;
+        setTTL(ttl: number): number;
         unref(): this;
         /**
          * Tells the kernel to join a source-specific multicast channel at the given

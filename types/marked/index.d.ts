@@ -169,7 +169,7 @@ declare namespace marked {
         ): string | T;
         hr(this: RendererThis): string | T;
         list(this: RendererThis, body: string, ordered: boolean, start: number): string | T;
-        listitem(this: RendererThis, text: string): string | T;
+        listitem(this: RendererThis, text: string, task: boolean, checked: boolean): string | T;
         checkbox(this: RendererThis, checked: boolean): string | T;
         paragraph(this: RendererThis, text: string): string | T;
         table(this: RendererThis, header: string, body: string): string | T;

@@ -31,7 +31,8 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    StatelessComponent
+    FunctionComponent,
+    ReactNode
 } from 'react';
 
 import {
@@ -398,6 +399,7 @@ export interface ProviderProps<A extends Action = AnyAction> {
      * The single Redux store in your application.
      */
     store: Store<any, A>;
+    children?: ReactNode;
 }
 
 /**

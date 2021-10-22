@@ -1,4 +1,4 @@
-// For Library Version: 1.94.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -3640,7 +3640,8 @@ declare module "sap/ui/table/RowSettings" {
      * Gets current value of property {@link #getHighlightText highlightText}.
      *
      * Defines the semantics of the {@link sap.ui.table.RowSettings#setHighlight highlight} property for accessibility
-     * purposes.
+     * purposes. It is only used as an invisible text for screen reader support and does not add a tooltip to
+     * the highlight.
      *
      * Default value is `empty string`.
      */
@@ -3691,7 +3692,8 @@ declare module "sap/ui/table/RowSettings" {
      * Sets a new value for property {@link #getHighlightText highlightText}.
      *
      * Defines the semantics of the {@link sap.ui.table.RowSettings#setHighlight highlight} property for accessibility
-     * purposes.
+     * purposes. It is only used as an invisible text for screen reader support and does not add a tooltip to
+     * the highlight.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3747,7 +3749,8 @@ declare module "sap/ui/table/RowSettings" {
      * @SINCE 1.62
      *
      * Defines the semantics of the {@link sap.ui.table.RowSettings#setHighlight highlight} property for accessibility
-     * purposes.
+     * purposes. It is only used as an invisible text for screen reader support and does not add a tooltip to
+     * the highlight.
      */
     highlightText?: string | PropertyBindingInfo;
 

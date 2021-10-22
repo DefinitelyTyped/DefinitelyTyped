@@ -2,7 +2,7 @@ import * as React from 'react';
 
 declare namespace ModalFooter {
     export interface ModalFooterProps extends React.HTMLProps<ModalFooter> {
-        componentClass?: React.ReactType | undefined;
+        componentClass?: React.ElementType | undefined;
         bsClass?: string | undefined;
     }
 }

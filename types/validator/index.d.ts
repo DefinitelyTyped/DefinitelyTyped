@@ -100,12 +100,20 @@ declare namespace validator {
 
     const isAlphaLocales: AlphaLocale[];
 
+    interface IsAlphaOptions {
+        /**
+         * @default undefined
+         */
+        ignore?: string | RegExp | undefined;
+    }
+
     /**
      * Check if the string contains only letters (a-zA-Z).
      *
      * @param [locale] - AlphaLocale
+     * @param [options] - IsAlphaOptions
      */
-    function isAlpha(str: string, locale?: AlphaLocale): boolean;
+    function isAlpha(str: string, locale?: AlphaLocale,  options?: IsAlphaOptions): boolean;
 
     type AlphanumericLocale =
         | 'en-US'

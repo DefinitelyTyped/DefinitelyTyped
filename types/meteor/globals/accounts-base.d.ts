@@ -127,7 +127,12 @@ declare module Accounts {
         options?: { fields?: Mongo.FieldSpecifier | undefined },
     ): Meteor.User | null | undefined;
 
-    function sendEnrollmentEmail(userId: string, email?: string, extraTokenData?: Record<string, unknown>, extraParams?: Record<string, unknown>): void;
+    function sendEnrollmentEmail(
+        userId: string,
+        email?: string,
+        extraTokenData?: Record<string, unknown>,
+        extraParams?: Record<string, unknown>,
+    ): void;
 
     function sendResetPasswordEmail(
         userId: string,
@@ -136,7 +141,12 @@ declare module Accounts {
         extraParams?: Record<string, unknown>,
     ): void;
 
-    function sendVerificationEmail(userId: string, email?: string, extraTokenData?: Record<string, unknown>, extraParams?: Record<string, unknown>): void;
+    function sendVerificationEmail(
+        userId: string,
+        email?: string,
+        extraTokenData?: Record<string, unknown>,
+        extraParams?: Record<string, unknown>,
+    ): void;
 
     function setUsername(userId: string, newUsername: string): void;
 

@@ -192,6 +192,7 @@ declare namespace zingchart {
      */
     y?: any;
   }
+
   interface backgroundState {
     /**
      * Sets the rotation angle of the object/shape. -45 | 115 | ...
@@ -1315,8 +1316,8 @@ declare namespace zingchart {
     /**
      * Sets the border radius of the object. 2 | 3 | '5px' | ...
      */
-    'border-radius'?: number;
-    borderRadius?: number;
+    'border-radius'?: number | string;
+    borderRadius?: number | string;
     /**
      * Sets the border width of the object. 1 | 3 | '6px' | ...
      */
@@ -3832,8 +3833,8 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number;
-      borderRadius?: number;
+      'border-radius'?: number | string;
+      borderRadius?: number | string;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
@@ -4471,8 +4472,8 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number;
-      borderRadius?: number;
+      'border-radius'?: number | string;
+      borderRadius?: number | string;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
@@ -4547,8 +4548,8 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object. 2 | 3 | '5px' | ...
          */
-        'border-radius'?: number;
-        borderRadius?: number;
+        'border-radius'?: number | string;
+        borderRadius?: number | string;
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
@@ -4617,8 +4618,8 @@ declare namespace zingchart {
           /**
            * Sets the border radius of the object. 2 | 3 | '5px' | ...
            */
-          'border-radius'?: number;
-          borderRadius?: number;
+          'border-radius'?: number | string;
+          borderRadius?: number | string;
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
@@ -4887,8 +4888,8 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number;
-      borderRadius?: number;
+      'border-radius'?: number | string;
+      borderRadius?: number | string;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
@@ -6237,8 +6238,8 @@ declare namespace zingchart {
           /**
            * Sets the border radius of the object. 2 | 3 | '5px' | ...
            */
-          'border-radius'?: number;
-          borderRadius?: number;
+          'border-radius'?: number | string;
+          borderRadius?: number | string;
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
@@ -8169,8 +8170,8 @@ declare namespace zingchart {
           /**
            * Sets the border radius of the object. 2 | 3 | '5px' | ...
            */
-          'border-radius'?: number;
-          borderRadius?: number;
+          'border-radius'?: number | string;
+          borderRadius?: number | string;
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
@@ -9157,8 +9158,8 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number;
-      borderRadius?: number;
+      'border-radius'?: number | string;
+      borderRadius?: number | string;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
@@ -9204,8 +9205,8 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number;
-      borderRadius?: number;
+      'border-radius'?: number | string;
+      borderRadius?: number | string;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
@@ -9246,8 +9247,8 @@ declare namespace zingchart {
     /**
      * Sets the border radius of the object, applicable to closed shapes. "3px" | "7px" | ...
      */
-    'border-radius'?: number;
-    borderRadius?: number;
+    'border-radius'?: number | string;
+    borderRadius?: number | string;
     /**
      * Sets the border width of the object, applicable to closed shapes. 4 | "6px" | ...
      */
@@ -12379,8 +12380,8 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
          */
-        'border-radius'?: number;
-        borderRadius?: number;
+        'border-radius'?: number | string;
+        borderRadius?: number | string;
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
@@ -12939,8 +12940,8 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object. 2 | 3 | '5px' | ...
          */
-        'border-radius'?: number;
-        borderRadius?: number;
+        'border-radius'?: number | string;
+        borderRadius?: number | string;
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
@@ -12997,8 +12998,8 @@ declare namespace zingchart {
           /**
            * Sets the border radius of the object. 2 | 3 | '5px' | ...
            */
-          'border-radius'?: number;
-          borderRadius?: number;
+          'border-radius'?: number | string;
+          borderRadius?: number | string;
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
@@ -13747,8 +13748,8 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
          */
-        'border-radius'?: number;
-        borderRadius?: number;
+        'border-radius'?: number | string;
+        borderRadius?: number | string;
         /**
          * Sets the border width of the object. 4 | "6px" | ...
          */
@@ -13770,6 +13771,7 @@ declare namespace zingchart {
       };
       'guide-label'?: guideLabel;
       guideLabel?: guideLabel;
+      highlight?: boolean;
       'highlight-marker'?: highlightMarker;
       highlightMarker?: highlightMarker;
       'highlight-state'?: highlightState;
@@ -15294,6 +15296,33 @@ declare namespace zingchart {
     };
     'scroll-x-scroll-y'?: scrollXSCrollY;
     scrollXScrollY?: scrollXSCrollY;
+    selectionTool?: {
+      mask?: {
+        /**
+         * Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 be
+         * ing completely opaque. Note that values require the leading 0 before the decimal point. 0.3 | 0.4 | 0.9 | ...
+         */
+        alpha?: number;
+        /**
+         * Sets the background color of the object. Colors can be entered by name (e.g., "purple", "blue"), hexadecimal notation (e.g., "#666
+         * 699", #33ccff"), or RGB notation (e.g., "rgb(255,0,0)", "rgb(0,0,255)"). "none" | "transparent" | "purple" | "#33ccff" | "rgb(100,
+         *  15, 15)" | ...
+         */
+        'background-color'?: string;
+        backgroundColor?: string;
+        /**
+         * Requires border-width. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'border-color'?: string;
+        borderColor?: string;
+        /**
+         * Sets the border width of the object, applicable on closed shapes. Defaults to black when border-color is not defined. See also lin
+         * e-width for closed shapes. 4 | "6px" | ...
+         */
+        'border-width'?: number | string
+        borderWidth?: number | string
+      };
+    };
     series?: series[];
     shapes?: [
       {
@@ -17244,6 +17273,10 @@ declare namespace zingchart {
        */
       shared?: boolean;
     };
+    /**
+     * @description When zooming is enabled, setting zoom-snap to true snaps the zoom area to the nearest data node as a zoom area is selected. By default, zoom-snap is set to false.
+     */
+    zoomSnap?: boolean;
   }
 
   interface behavior {
@@ -18659,8 +18692,8 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
        */
-      'border-radius'?: number;
-      borderRadius?: number;
+      'border-radius'?: number | string;
+      borderRadius?: number | string;
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */

@@ -265,6 +265,7 @@ export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
 export type ContextViewStateChangeHandler = (info: ContextViewStateChangeInfo) => void;
 
 export interface InteractiveMapProps extends StaticMapProps {
+    children?: React.ReactNode;
     maxZoom?: number | undefined;
     minZoom?: number | undefined;
     maxPitch?: number | undefined;
