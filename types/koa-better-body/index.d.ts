@@ -2,7 +2,6 @@
 // Project: https://github.com/tunnckoCore/koa-better-body
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import { Context } from 'koa';
 
