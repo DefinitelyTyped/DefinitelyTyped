@@ -1,6 +1,6 @@
 // Type definitions for steamapi 2.1
 // Project: https://github.com/xDimGG/node-steamapi
-// Definitions by: vanitasboi <https://github.com/vanitasboi>
+// Definitions by: joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class SteamAPI {
