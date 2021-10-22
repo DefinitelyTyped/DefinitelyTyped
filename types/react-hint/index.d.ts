@@ -11,10 +11,10 @@ export interface ReactHintProps {
     className?: string;
     delay?: number | { show: number, hide: number };
     events?: boolean | { click: boolean, focus: boolean, hover: boolean };
-    onRenderContent?: React.ReactNode;
+    onRenderContent?: (target: HTMLElement, content: any) => React.ReactNode;
     persist?: boolean;
     position?: 'top' | 'left' | 'right' | 'bottom';
-    ref?(ref: React.FunctionComponent<ReactHintProps>): void;
+    ref?(ref: React.ComponentClass<ReactHintProps, any>): void;
 }
 
-export default function ReactHintFactory(react: typeof React): React.FunctionComponent<ReactHintProps>;
+export default function ReactHintFactory(react: typeof React): React.ComponentClass<ReactHintProps, any>;
