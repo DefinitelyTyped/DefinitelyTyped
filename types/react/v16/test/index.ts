@@ -736,6 +736,8 @@ function handler(e: React.MouseEvent) {
     eventHandler(e);
 }
 
+const keyboardExtendsUI: React.UIEventHandler = (e: React.KeyboardEvent) => {}
+
 //
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
