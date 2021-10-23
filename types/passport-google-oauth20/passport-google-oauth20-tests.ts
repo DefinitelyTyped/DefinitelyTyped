@@ -13,6 +13,47 @@ const User = {
     }
 };
 
+type UserProfile = {
+    googleUserId: string;
+    email: string | null;
+    emailVerified?: boolean | null;
+    familyName: string | null;
+    givenName: string | null;
+    name: string | null;
+    gSuiteDomain: string | null;
+    language: string | null;
+    avatarUrl: string | null;
+}
+
+// A stub to convert google profile information to user profile:
+export function mapGoogleProfileToUser(profile: google.Profile): UserProfile {
+    const email = !!profile.emails?.[0] && profile.emails[0];
+
+    // @ts-expect-error - because emails may not exist.
+    console.log(profile.emails[0]?.verified);
+
+    // @ts-expect-error - because emails[0] may not exist.
+    console.log(profile.emails?.[0].verified);
+
+    // @ts-expect-error - because emails[0].verified will be 'true' or 'false'.
+    console.log(profile.emails?.[0]?.verified === true);
+
+    // @ts-expect-error
+    console.log(profile._json.email.toLowerCase())
+
+    return {
+        googleUserId: profile.id,
+        email: email ? email.value : null,
+        emailVerified: email ? email.verified === 'true' : null,
+        familyName: profile.name?.familyName || null,
+        givenName: profile.name?.givenName || null,
+        name: profile.name ? profile.displayName : null,
+        gSuiteDomain: profile._json.hd || null,
+        language: profile._json.locale || 'en',
+        avatarUrl: profile.photos?.[0]?.value || null,
+    }
+}
+
 const callbackURL = process.env.PASSPORT_GOOGLE_CALLBACK_URL;
 const clientID = process.env.PASSPORT_GOOGLE_CONSUMER_KEY;
 const clientSecret = process.env.PASSPORT_GOOGLE_CONSUMER_SECRET;
