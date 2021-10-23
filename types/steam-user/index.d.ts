@@ -1,4 +1,4 @@
-// Type definitions for steam-user 4.19
+// Type definitions for steam-user 4.20
 // Project: https://github.com/DoctorMcKay/node-steam-user
 // Definitions by: joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -645,6 +645,14 @@ declare class SteamUser extends EventEmitter {
      * @param [callback]
      */
     removeFriendFromGroup(groupID: any, usersteamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Retrieves a list of friends that have played or used an app.
+     * @param appID - The ID of the app you want to check
+     * @param [callback]
+     * @since 4.20.0
+     */
+    getFriendsThatPlay(appID: number, callback?: (err: Error | null, response: { friends: SteamID[] }) => void): Promise<{ friends: SteamID[] }>;
 
     trade(steamID: SteamID | string): void;
 
@@ -1826,8 +1834,8 @@ declare namespace SteamUser {
         RegionRestricted = 12,
         PresaleOnly = 13,
         InvalidPlatform = 14,
-        ParentalBlocked = 15,
-        PreloadOnly = 16,
+        ParentalBlocked = 15, // removed
+        PreloadOnly = 16, // obsolete
         PreloadComplete = 16,
         BorrowerLocked = 17,
         UpdatePaused = 18,
@@ -4801,7 +4809,7 @@ declare namespace SteamUser {
         DeniedDueToCommunityCooldown = 116,
         NoLauncherSpecified = 117,
         MustAgreeToSSA = 118,
-        ClientNoLongerSupported = 119,
+        ClientNoLongerSupported = 119, // obsolete
         LauncherMigrated = 119,
     }
 
@@ -5282,7 +5290,7 @@ declare namespace SteamUser {
         WebRTC = 3,
         SDR = 4,
         UDP_SNS = 5,
-        SNS = 6,
+        SNS = 6, // obsolete
         UDPRelay_SNS = 6,
     }
 
