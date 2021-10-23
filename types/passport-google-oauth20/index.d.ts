@@ -5,15 +5,15 @@
 //                 Tan Nguyen <https://github.com/ngtan>
 //                 Gleb Varenov <https://github.com/acerbic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.1
 
-import * as passport from "passport";
-import * as express from "express";
-import * as oauth2 from "passport-oauth2";
+import * as passport from 'passport';
+import * as express from 'express';
+import * as oauth2 from 'passport-oauth2';
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
-    Exclude<keyof oauth2._StrategyOptionsBase, "authorizationURL" | "tokenURL">
+    Exclude<keyof oauth2._StrategyOptionsBase, 'authorizationURL' | 'tokenURL'>
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
@@ -56,18 +56,18 @@ export interface Profile extends passport.Profile {
      * different points in time, but the sub value is never changed. Use sub
      * within your application as the unique-identifier key for the user.
      * Maximum length of 255 case-sensitive ASCII characters.
-     * 
+     *
      * Ex: `"10769150350006150715113082367"`
      */
     id: string;
-    emails?: { value: string, verified: "true" | "false" }[];
+    emails?: Array<{ value: string; verified: 'true' | 'false' }>;
 
     _raw: string;
     /**
      * ID Token payload, adhering to Google's implementation of the OpenID
      * Connect standard See
      * [documentation](https://developers.google.com/identity/protocols/oauth2/openid-connect#an-id-tokens-payload)
-     * 
+     *
      * An ID token is a JSON object containing a set of name/value pairs. Here's an example, formatted for readability:
      * ```json
      * {
@@ -90,7 +90,7 @@ export interface Profile extends passport.Profile {
          * The Issuer Identifier for the Issuer of the response. Always
          * https://accounts.google.com or accounts.google.com for Google ID
          * tokens.
-         * 
+         *
          * Ex: `"https://accounts.google.com"`
          */
         iss: string;
@@ -100,14 +100,14 @@ export interface Profile extends passport.Profile {
          * token. This may be the case at Google for hybrid apps where a web application
          * and Android app have a different OAuth 2.0 client_id but share the same
          * Google APIs project.
-         * 
+         *
          * Ex: `"1234987819200.apps.googleusercontent.com"`
          */
         azp: any;
         /**
          * The audience that this ID token is intended for. It must be one of
          * the OAuth 2.0 client IDs of your application.
-         * 
+         *
          * Ex: `"1234987819200.apps.googleusercontent.com"`
          */
         aud: string;
@@ -117,7 +117,7 @@ export interface Profile extends passport.Profile {
          * different points in time, but the sub value is never changed. Use sub
          * within your application as the unique-identifier key for the user.
          * Maximum length of 255 case-sensitive ASCII characters.
-         * 
+         *
          * Ex: `"10769150350006150715113082367"`
          */
         sub: string;
@@ -128,21 +128,21 @@ export interface Profile extends passport.Profile {
          * alternate mechanism to protect against cross-site request forgery attacks,
          * but if you follow Step 1 and Step 3 it is not necessary to verify the access
          * token.
-         * 
+         *
          * Ex: `"HK6E_P6Dh8Y93mRNtsDB1Q"`
          */
         at_hash: any;
         /**
          * The time the ID token was issued. Represented in Unix time (integer
          * seconds).
-         * 
+         *
          * Ex: `1353601026`
          */
         iat: number;
         /**
          * Expiration time on or after which the ID token must not be accepted.
          * Represented in Unix time (integer seconds).
-         * 
+         *
          * Ex: `1353604926`
          */
         exp: number;
@@ -150,18 +150,18 @@ export interface Profile extends passport.Profile {
          * The user's email address. This value may not be unique to this user and is
          * not suitable for use as a primary key. Provided only if your scope included
          * the email scope value.
-         * 
+         *
          * Ex: `"jsmith@example.com"`
          */
         email?: string;
         /**
          * True if the user's e-mail address has been verified; otherwise false.
-         * 
+         *
          * _Note:_ This comes as the string "true" or "false", not as a boolean!
-         * 
+         *
          * Ex: `"true"`
          */
-        email_verified?: "true" | "false";
+        email_verified?: 'true' | 'false';
         /**
          * The user's given name(s) or first name(s). Might be provided when a name
          * claim is present.
@@ -174,24 +174,24 @@ export interface Profile extends passport.Profile {
         family_name?: string;
         /**
          * The user's full name, in a displayable form. Might be provided when:
-         * 
+         *
          * - The request scope included the string "profile"
          * - The ID token is returned from a token refresh
-         * 
+         *
          * When name claims are present, you can use them to update your app's user records. Note that this claim is never guaranteed to be present.
-        */
+         */
         name?: string;
         /**
          * The hosted G Suite domain of the user. Provided only if the user belongs to a
          * hosted domain.
-         * 
+         *
          * Ex: `"example.com"`
          */
         hd?: string;
         /**
          * The user's locale, represented by a [BCP 47](https://www.rfc-editor.org/info/bcp47) language tag. Might be provided
          * when a name claim is present.
-         * 
+         *
          * Ex: `"en"`
          */
         locale?: string;
@@ -199,7 +199,7 @@ export interface Profile extends passport.Profile {
          * The value of the nonce supplied by your app in the authentication
          * request. You should enforce protection against replay attacks by ensuring
          * it is presented only once.
-         * 
+         *
          * Ex: `"0394852-3190485-2490358"`
          */
         nonce?: string;
@@ -209,7 +209,7 @@ export interface Profile extends passport.Profile {
          * - The ID token is returned from a token refresh When picture claims
          *   are present, you can use them to update your app's user records.
          *   Note that this claim is never guaranteed to be present.
-         * 
+         *
          * Ex: `"https://lh4.googleusercontent.com/-aBcDeFG/ABCDEFGHI/JSKLMNO/pQRstuv/s99-c/photo.jpg"`
          */
         picture?: string;
@@ -229,12 +229,7 @@ export type VerifyCallback = (err?: string | Error | null, user?: Express.User, 
 export class Strategy extends oauth2.Strategy {
     constructor(
         options: StrategyOptions,
-        verify: (
-            accessToken: string,
-            refreshToken: string,
-            profile: Profile,
-            done: VerifyCallback
-        ) => void
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) => void,
     );
     constructor(
         options: StrategyOptions,
@@ -243,8 +238,8 @@ export class Strategy extends oauth2.Strategy {
             refreshToken: string,
             params: GoogleCallbackParameters,
             profile: Profile,
-            done: VerifyCallback
-        ) => void
+            done: VerifyCallback,
+        ) => void,
     );
     constructor(
         options: StrategyOptionsWithRequest,
@@ -253,8 +248,8 @@ export class Strategy extends oauth2.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyCallback
-        ) => void
+            done: VerifyCallback,
+        ) => void,
     );
     constructor(
         options: StrategyOptionsWithRequest,
@@ -264,8 +259,8 @@ export class Strategy extends oauth2.Strategy {
             refreshToken: string,
             params: GoogleCallbackParameters,
             profile: Profile,
-            done: VerifyCallback
-        ) => void
+            done: VerifyCallback,
+        ) => void,
     );
 }
 
@@ -293,8 +288,21 @@ export interface GoogleCallbackParameters {
 
 // allow Google-specific options when using "google" strategy
 declare module 'passport' {
-    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
-        authenticate(strategy: 'google', options: AuthenticateOptionsGoogle, callback?: (...args: any[]) => any): AuthenticateRet;
-        authorize(strategy: 'google', options: AuthenticateOptionsGoogle, callback?: (...args: any[]) => any): AuthorizeRet;
+    interface Authenticator<
+        InitializeRet = express.Handler,
+        AuthenticateRet = any,
+        AuthorizeRet = AuthenticateRet,
+        AuthorizeOptions = AuthenticateOptions,
+    > {
+        authenticate(
+            strategy: 'google',
+            options: AuthenticateOptionsGoogle,
+            callback?: (...args: any[]) => any,
+        ): AuthenticateRet;
+        authorize(
+            strategy: 'google',
+            options: AuthenticateOptionsGoogle,
+            callback?: (...args: any[]) => any,
+        ): AuthorizeRet;
     }
 }
