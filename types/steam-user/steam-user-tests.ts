@@ -114,7 +114,5 @@ user.chat.getFriendMessageHistory('76561197960287930').then(response => {
 }).catch(err => console.error(err));
 
 user.getFriendsThatPlay(730).then(response => {
-    response.friends.forEach(value => {
-        console.log(value);
-    });
+    // do something with response
 });
