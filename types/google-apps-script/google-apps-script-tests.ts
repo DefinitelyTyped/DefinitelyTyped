@@ -461,10 +461,9 @@ const fileSecurityUpdateInfo = () => {
     const file = DriveApp.getFileById('');
     // get resource key
     Logger.log(file.getResourceKey());
-    
+
     // update flag for update enabled
-    if (file.getSecurityUpdateEligible() === true && file.getSecurityUpdateEnabled() === false)
-    {
+    if (file.getSecurityUpdateEligible() && !file.getSecurityUpdateEnabled()) {
         file.setSecurityUpdateEnabled(true);
     }
 };
@@ -473,10 +472,9 @@ const folderSecurityUpdateInfo = () => {
     const folder = DriveApp.getFolderById('');
     // get resource key
     Logger.log(folder.getResourceKey());
-    
+
     // update flag for update enabled
-    if (folder.getSecurityUpdateEligible() === true && folder.getSecurityUpdateEnabled() === false)
-    {
+    if (folder.getSecurityUpdateEligible() && !folder.getSecurityUpdateEnabled()) {
         folder.setSecurityUpdateEnabled(true);
     }
 };
