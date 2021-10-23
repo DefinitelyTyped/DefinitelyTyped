@@ -17,6 +17,7 @@ declare class Stream {
 
 declare namespace pidcrypt {
     interface ASN1 {
+        // tslint:disable-next-line:no-misused-new
         new (stream: Stream, header: any, length: number, tag: number, sub: any): ASN1;
         toHexTree(): any;
         typeName(): string;

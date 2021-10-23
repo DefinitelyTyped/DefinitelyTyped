@@ -1,5 +1,6 @@
 declare namespace pidcrypt {
     interface RSA {
+        // tslint:disable-next-line:no-misused-new
         new (): RSA;
         setPublic(N: string, E: string, radix: number): void;
         setPrivate(N: string, E: string, D: string, radix: number): void;

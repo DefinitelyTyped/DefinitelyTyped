@@ -10,6 +10,7 @@ declare namespace pidcrypt {
     }
 
     interface CTR {
+        // tslint:disable-next-line:no-misused-new
         new(): CTR;
         decryptText(dataIn: string, password: string, options?: DecryptTextOptions): string;
         encryptText(dataIn: string, password: string, options?: EncryptTextOptions): string;

@@ -9,6 +9,7 @@ declare namespace pidcrypt {
     }
 }
 
+// tslint:disable-next-line:no-declare-current-package no-single-declare-module
 declare module "pidcrypt" {
     let pidcrypt: pidcrypt.pidcrypt;
     export = pidcrypt;

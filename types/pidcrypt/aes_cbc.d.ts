@@ -10,6 +10,7 @@ declare namespace pidcrypt {
     }
 
     interface CBC {
+        // tslint:disable-next-line:no-misused-new
         new(): CBC;
         decryptText(dataIn: string, password: string, options?: DecryptTextOptions): string;
         encryptText(dataIn: string, password: string, options?: EncryptTextOptions): string;
