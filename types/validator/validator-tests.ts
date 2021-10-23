@@ -601,7 +601,9 @@ const any: any = null;
 
     result = validator.isDivisibleBy('sample', 2);
 
-    const isEmailOptions: validator.IsEmailOptions = {};
+    const isEmailOptions: validator.IsEmailOptions = {
+        host_blacklist: ['domain']
+    };
     result = validator.isEmail('sample');
     result = validator.isEmail('sample', isEmailOptions);
 

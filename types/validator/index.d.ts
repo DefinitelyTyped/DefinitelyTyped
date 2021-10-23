@@ -454,6 +454,12 @@ declare namespace validator {
          * @default false
          */
         domain_specific_validation?: boolean | undefined;
+        /**
+         *  If host_blacklist is set to an array of strings
+         *  and the part of the email after the @ symbol matches one of the strings defined in it,
+         *  the validation fails.
+         */
+        host_blacklist?: string[] | undefined;
     }
 
     /**
