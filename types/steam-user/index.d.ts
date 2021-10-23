@@ -1834,8 +1834,8 @@ declare namespace SteamUser {
         RegionRestricted = 12,
         PresaleOnly = 13,
         InvalidPlatform = 14,
-        ParentalBlocked = 15, // removed
-        PreloadOnly = 16, // obsolete
+        ParentalBlocked = 15,
+        PreloadOnly = 16,
         PreloadComplete = 16,
         BorrowerLocked = 17,
         UpdatePaused = 18,
@@ -4809,7 +4809,7 @@ declare namespace SteamUser {
         DeniedDueToCommunityCooldown = 116,
         NoLauncherSpecified = 117,
         MustAgreeToSSA = 118,
-        ClientNoLongerSupported = 119, // obsolete
+        ClientNoLongerSupported = 119,
         LauncherMigrated = 119,
     }
 
@@ -5290,7 +5290,7 @@ declare namespace SteamUser {
         WebRTC = 3,
         SDR = 4,
         UDP_SNS = 5,
-        SNS = 6, // obsolete
+        SNS = 6,
         UDPRelay_SNS = 6,
     }
 
