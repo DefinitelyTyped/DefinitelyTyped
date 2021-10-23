@@ -1,6 +1,6 @@
 // Type definitions for steam-user 4.20
 // Project: https://github.com/DoctorMcKay/node-steam-user
-// Definitions by: joshuajeschek <https://github.com/joshuajeschek>
+// Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 // Enums generated from JS by: https://github.com/joshuajeschek/JStoTSenum
