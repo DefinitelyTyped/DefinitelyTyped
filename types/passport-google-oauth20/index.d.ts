@@ -103,7 +103,7 @@ export interface Profile extends passport.Profile {
          *
          * Ex: `"1234987819200.apps.googleusercontent.com"`
          */
-        azp: any;
+        azp?: string;
         /**
          * The audience that this ID token is intended for. It must be one of
          * the OAuth 2.0 client IDs of your application.
@@ -131,7 +131,7 @@ export interface Profile extends passport.Profile {
          *
          * Ex: `"HK6E_P6Dh8Y93mRNtsDB1Q"`
          */
-        at_hash: any;
+        at_hash?: string;
         /**
          * The time the ID token was issued. Represented in Unix time (integer
          * seconds).
