@@ -1652,6 +1652,14 @@ declare namespace Sinon {
         ): SinonStubbedInstance<TType>;
     }
 
+    type SinonPromise<T> = Promise<T> & {
+        status: 'pending'|'resolved'|'rejected';
+        resolve(val: unknown): Promise<T>;
+        reject(reason: unknown): Promise<void>;
+        resolvedValue?: T;
+        rejectedValue?: unknown;
+    };
+
     interface SinonApi {
         expectation: SinonExpectationStatic;
 
@@ -1686,6 +1694,10 @@ declare namespace Sinon {
          * on a format of your choosing, such as "{ id: 42 }"
          */
         setFormatter: (customFormatter: (...args: any[]) => string) => void;
+
+        promise<T = unknown>(
+            executor?: (resolve: (value: T) => void, reject: (reason?: unknown) => void) => void
+        ): SinonPromise<T>;
     }
 
     type SinonStatic = SinonSandbox & SinonApi;

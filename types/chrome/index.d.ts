@@ -6195,7 +6195,7 @@ declare namespace chrome.serial {
         /** Flag indicating whether the connection is blocked from firing onReceive events. */
         paused: boolean;
         /** See ConnectionOptions.persistent */
-        peristent: boolean;
+        persistent: boolean;
         /** See ConnectionOptions.name */
         name: string;
         /** See ConnectionOptions.bufferSize */
@@ -6220,7 +6220,7 @@ declare namespace chrome.serial {
     export interface ConnectionOptions {
         /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
          *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        peristent?: boolean | undefined;
+        persistent?: boolean | undefined;
         /** Optional. An application-defined string to associate with the connection. */
         name?: string | undefined;
         /** Optional. The size of the buffer used to receive data. The default value is 4096. */
@@ -10127,6 +10127,13 @@ declare namespace chrome.webNavigation {
      */
     export function getFrame(details: GetFrameDetails, callback: (details: GetFrameResultDetails | null) => void): void;
     /**
+     * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
+     * @param details Information about the frame to retrieve information about.
+     * @return The getFrame method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getFrame(details: GetFrameDetails): Promise<GetFrameResultDetails | null>;
+
+    /**
      * Retrieves information about all frames of a given tab.
      * @param details Information about the tab to retrieve all frames from.
      * @param callback
@@ -10136,7 +10143,14 @@ declare namespace chrome.webNavigation {
         details: GetAllFrameDetails,
         callback: (details: GetAllFrameResultDetails[] | null) => void,
     ): void;
-
+    /**
+     * Retrieves information about all frames of a given tab.
+     * @param details Information about the tab to retrieve all frames from.
+     * @return The getAllFrames method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getAllFrames(
+        details: GetAllFrameDetails,
+    ): Promise<GetAllFrameResultDetails[] | null>;
     /** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
     export var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
     /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
