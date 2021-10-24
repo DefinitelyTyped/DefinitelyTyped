@@ -1,6 +1,7 @@
 import { Point3D } from '../../Common';
 import { CommonEntityData } from './Common';
 
+// tslint:disable-next-line: interface-over-type-literal
 export type SplineTypeFlag = {
   1: 'CLOSED',
   2: 'PERIODIC',

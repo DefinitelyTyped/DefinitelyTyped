@@ -1,8 +1,8 @@
 import * as Common from './Common';
 
-export type ParsedContent = {
+export interface ParsedContent {
   box2: Box;
-};
+}
 
 export type UtilVertex = [number, number];
 

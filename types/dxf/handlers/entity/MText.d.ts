@@ -6,6 +6,7 @@ export type MTextEntityData = {
   xAxisY: number;
 } & Partial<Common.CommonEntityData>;
 
+// tslint:disable-next-line: interface-over-type-literal
 export type DXFEntityType = {
   10: 'x',
   20: 'y',

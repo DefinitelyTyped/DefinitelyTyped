@@ -1,19 +1,22 @@
 import { DXFEntityType as CommonEntityType, CommonEntityData } from "./Common";
 import { Point2D } from "../../Common";
 
+// tslint:disable-next-line: interface-over-type-literal
 export type DXFEntityType = LineStartType
-& LineEndType
-& CommonEntityType
-& {
+  & LineEndType
+  & CommonEntityType
+  & {
   39: 'thickness',
 };
 
+// tslint:disable-next-line: interface-over-type-literal
 export type LineStartType = {
   10: 'x',
   20: 'y',
   30: 'z',
 };
 
+// tslint:disable-next-line: interface-over-type-literal
 export type LineEndType = {
   11: 'x',
   21: 'y',
