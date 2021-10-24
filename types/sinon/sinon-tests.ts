@@ -104,6 +104,33 @@ function testSandbox() {
     sb.createStubInstance(cls, {
         foo: 1, // used as return value
     });
+
+    class ClassWithPrivateMembers {
+        private readonly priVar: number;
+        readonly pubVar: number;
+        constructor() {
+            this.priVar = 42;
+            this.pubVar = 21;
+        }
+
+        getPriVar() {
+            return this.priVar;
+        }
+    }
+
+    function callGetPriVar(instance: ClassWithPrivateMembers) {
+        return instance.getPriVar();
+    }
+
+    const objWithPrivateMembers = sinon.createStubInstance(ClassWithPrivateMembers);
+    objWithPrivateMembers.getPriVar.returns(84);
+    callGetPriVar(objWithPrivateMembers);
+
+    // $ExpectError
+    objWithPrivateMembers.priVar;
+
+    // $ExpectType number
+    objWithPrivateMembers.pubVar;
 }
 
 function testFakeServer() {
