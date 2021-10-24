@@ -1,6 +1,6 @@
 import * as Common from '../../Common';
 
-export type CommonEntityData = {
+export interface CommonEntityData {
   layer: string;
   lineTypeScale: any;
   lineTypeName: string;
@@ -10,8 +10,9 @@ export type CommonEntityData = {
   extrusionY: any;
   extrusionZ: any;
   $INSUNITS?: Common.UnitTypes;
-};
+}
 
+// tslint:disable-next-line: interface-over-type-literal
 export type DXFEntityType = {
   6: 'lineTypeName',
   8: 'layer',

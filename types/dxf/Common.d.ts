@@ -10,6 +10,7 @@ export interface Point3D extends Point2D {
 export type ColorNumber = [number, number, number];
 export type ColorNumbers = ColorNumber[];
 
+// tslint:disable-next-line: interface-over-type-literal
 export type UnitTypes = {
   0: "Unitless",
   1: "Inches",
