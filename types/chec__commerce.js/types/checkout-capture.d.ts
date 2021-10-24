@@ -21,9 +21,14 @@ export interface CheckoutCapture {
     payment: {
         gateway: 'braintree' | 'manual' | 'omise' | 'paypal' | 'razorpay' | 'stripe' | 'square' | 'test_gateway' | string;
         card?: {
-            number?: string;
             token?: string;
             nonce?: string;
+        }   |   {
+            number: string
+            expiry_month: string
+            expiry_year: string
+            cvc: string
+            postal_zip_code: string
         };
         braintree?: {
             nonce: string;
