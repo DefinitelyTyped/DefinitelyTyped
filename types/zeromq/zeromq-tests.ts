@@ -204,3 +204,9 @@ function test8() {
     // Socket.closed getter
     sock.closed;
 }
+
+function test9() {
+    const socket = new zeromq.Socket('pub');
+    socket.bindSync('tcp://127.0.0.1:3000');
+    socket.send(new Buffer(1000));
+}
