@@ -208,6 +208,45 @@ function beforeRedditNavigation() {
     );
 }
 
+// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getFrame
+async function getFrame() {
+    const testTabId = 0;
+    const testFrameId = 0;
+
+    chrome.webNavigation.getFrame({
+        tabId: testTabId,
+        frameId: testFrameId,
+    }, (frame: chrome.webNavigation.GetFrameResultDetails | null) => {
+        console.log('Frame (in-callback): ', frame);
+    });
+
+
+    const frame: chrome.webNavigation.GetFrameResultDetails | null = await chrome.webNavigation.getFrame({
+        tabId: testTabId,
+        frameId: testFrameId,
+    });
+
+    console.log('Frame (promise resolved):', frame);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getAllFrames
+async function getAllFrames() {
+    const testTabId = 0;
+
+    chrome.webNavigation.getAllFrames({
+        tabId: testTabId,
+    }, (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) => {
+        console.log('All frames (in-callback): ', frames);
+    });
+
+
+    const frames: chrome.webNavigation.GetAllFrameResultDetails[] = await chrome.webNavigation.getAllFrames({
+        tabId: testTabId,
+    }) || [];
+
+    console.log('All frames (promise resolved):', frames);
+}
+
 // for chrome.tabs.InjectDetails.frameId
 function executeScriptFramed() {
     const tabId = 123;
