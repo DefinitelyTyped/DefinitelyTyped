@@ -19,6 +19,6 @@
   },
   "files": [
     "dxf-tests.ts",
-    "index.d.ts",
+    "index.d.ts"
   ]
 }
