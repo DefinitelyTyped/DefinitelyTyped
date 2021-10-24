@@ -45,7 +45,7 @@ type ComponentClassProps<C> = C extends new (props: infer P, context?: any) => a
 type SFCProps<C> = C extends (props: infer P & { children?: React.ReactNode | undefined }, context?: any) => any ? P : never;
 type ElementProps<C> = C extends React.ComponentClass<any>
     ? ComponentClassProps<C>
-    : C extends React.SFC<any>
+    : C extends React.FC<any>
     ? SFCProps<C>
     : any;
 type ElementConfig<C> = JSX.LibraryManagedAttributes<C, ElementProps<C>>;

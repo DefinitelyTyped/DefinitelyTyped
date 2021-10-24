@@ -195,5 +195,5 @@ export type RequiredAriaTypes<T = Pick<AriaModalProps, 'titleId'>, U = Pick<Aria
     { [K in keyof T]-? : T[K] } & { [P in keyof U]: never} | { [X in keyof T]: never } & { [Y in keyof U]-?: U[Y]};
 
 export default class AriaModal extends React.PureComponent<AriaModalProps & RequiredAriaTypes> {
-    static renderTo(node: HTMLElement | string): React.ReactType;
+    static renderTo(node: HTMLElement | string): React.ElementType;
 }

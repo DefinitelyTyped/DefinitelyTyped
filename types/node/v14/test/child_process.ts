@@ -7,7 +7,8 @@ import { Writable, Readable, Pipe } from 'stream';
 
 {
     childProcess.exec("echo test");
-    childProcess.exec("echo test", { windowsHide: true });
+    const abortController = new AbortController();
+    childProcess.exec("echo test", { windowsHide: true, signal: abortController.signal });
     childProcess.spawn("echo");
     childProcess.spawn("echo", { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true });

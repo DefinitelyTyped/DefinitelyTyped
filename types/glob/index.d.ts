@@ -1,4 +1,4 @@
-// Type definitions for Glob 7.1
+// Type definitions for Glob 7.2
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
@@ -10,6 +10,7 @@
 
 import events = require("events");
 import minimatch = require("minimatch");
+import fs = require("fs");
 
 declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): G.IGlob;
 declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): G.IGlob;
@@ -55,6 +56,7 @@ declare namespace G {
         nonegate?: boolean | undefined;
         nocomment?: boolean | undefined;
         absolute?: boolean | undefined;
+        fs?: typeof fs;
     }
 
     interface IGlobStatic extends events.EventEmitter {

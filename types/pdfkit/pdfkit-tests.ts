@@ -263,6 +263,7 @@ const structureContent = doc.markStructureContent('P');
 doc.text('Test');
 doc.endMarkedContent();
 const structureElement = doc.struct('Div', {}, [structureContent]);
+doc.struct('Div', {}, structureContent);
 doc.addStructure(structureElement);
 doc.initMarkings();
 doc.initPageMarkings([{ tag: 'P' }]);

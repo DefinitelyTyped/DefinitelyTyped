@@ -36,8 +36,6 @@ export interface Product {
         has_digital_delivery: boolean;
         has_physical_delivery: boolean;
         has_images: boolean;
-        has_video: boolean;
-        has_rich_embed: boolean;
         collects_fullname: boolean;
         collects_shipping_address: boolean;
         collects_billing_address: boolean;
@@ -75,5 +73,6 @@ export interface Product {
         name: string;
     }>;
     assets: Asset[];
+    image: Asset | null;
     related_products: any[];
 }

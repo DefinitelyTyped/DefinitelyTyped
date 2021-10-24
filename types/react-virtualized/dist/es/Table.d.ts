@@ -354,7 +354,7 @@ export const SortDirection: SortDirectionStatic;
 
 export type SortDirectionType = 'ASC' | 'DESC';
 
-export const SortIndicator: React.StatelessComponent<{
+export const SortIndicator: React.FunctionComponent<{
     sortDirection?: SortDirectionType | undefined;
 }>;
 

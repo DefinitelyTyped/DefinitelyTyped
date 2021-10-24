@@ -243,7 +243,7 @@ if (matchedPattern) {
 
 matchPattern("/foo", "/baz") === null;
 
-const CreateHref: React.SFC<WithRouterProps> = ({ router }) => (
+const CreateHref: React.FC<WithRouterProps> = ({ router }) => (
     <div>
         {router.createHref({ pathname: "/foo", query: { bar: "baz" } })}
         {router.createHref("/foo?bar=baz")}

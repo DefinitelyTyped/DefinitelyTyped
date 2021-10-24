@@ -455,3 +455,26 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         `);
     }
 };
+
+const fileSecurityUpdateInfo = () => {
+    // get file
+    const file = DriveApp.getFileById('');
+    // get resource key
+    Logger.log(file.getResourceKey());
+
+    // update flag for update enabled
+    if (file.getSecurityUpdateEligible() && !file.getSecurityUpdateEnabled()) {
+        file.setSecurityUpdateEnabled(true);
+    }
+};
+const folderSecurityUpdateInfo = () => {
+    // get folder
+    const folder = DriveApp.getFolderById('');
+    // get resource key
+    Logger.log(folder.getResourceKey());
+
+    // update flag for update enabled
+    if (folder.getSecurityUpdateEligible() && !folder.getSecurityUpdateEnabled()) {
+        folder.setSecurityUpdateEnabled(true);
+    }
+};

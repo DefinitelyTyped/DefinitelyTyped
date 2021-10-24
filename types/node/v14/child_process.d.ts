@@ -264,6 +264,7 @@ declare module 'child_process' {
 
     interface ExecOptions extends CommonOptions {
         shell?: string | undefined;
+        signal?: AbortSignal | undefined;
         maxBuffer?: number | undefined;
         killSignal?: NodeJS.Signals | number | undefined;
     }

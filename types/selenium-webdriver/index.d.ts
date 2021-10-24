@@ -9,6 +9,7 @@
 //   Johann Wolf <https://github.com/beta-vulgaris>
 //   Aleksey Chemakin <https://github.com/Dzenly>
 //   David Burns <https://github.com/AutomatedTester>
+//   Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
