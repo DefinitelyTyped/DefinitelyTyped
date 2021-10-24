@@ -83,7 +83,7 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement<any, any> | null)
-        | (new (props: P) => Component<P, any>);
+        | (new (props: P) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
@@ -232,8 +232,11 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement | ReactText;
 
-    interface ReactNodeArray extends Array<ReactNode> {}
-    type ReactFragment = {} | ReactNodeArray;
+    /**
+     * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
+     */
+    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    type ReactFragment = {} | Iterable<ReactNode>;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
@@ -2255,6 +2258,7 @@ declare namespace React {
         hrefLang?: string | undefined;
         integrity?: string | undefined;
         media?: string | undefined;
+        imageSrcSet?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
@@ -2570,6 +2574,7 @@ declare namespace React {
         fontVariant?: number | string | undefined;
         fontWeight?: number | string | undefined;
         format?: number | string | undefined;
+        fr?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
         fy?: number | string | undefined;

@@ -1175,7 +1175,7 @@ declare module 'crypto' {
      *   generateKeySync
      * } = await import('crypto');
      *
-     * const key = generateKeySync('hmac', 64);
+     * const key = generateKeySync('hmac', { length: 64 });
      * console.log(key.export().toString('hex'));  // e89..........41e
      * ```
      * @since v15.0.0

@@ -100,12 +100,20 @@ declare namespace validator {
 
     const isAlphaLocales: AlphaLocale[];
 
+    interface IsAlphaOptions {
+        /**
+         * @default undefined
+         */
+        ignore?: string | RegExp | undefined;
+    }
+
     /**
      * Check if the string contains only letters (a-zA-Z).
      *
      * @param [locale] - AlphaLocale
+     * @param [options] - IsAlphaOptions
      */
-    function isAlpha(str: string, locale?: AlphaLocale): boolean;
+    function isAlpha(str: string, locale?: AlphaLocale,  options?: IsAlphaOptions): boolean;
 
     type AlphanumericLocale =
         | 'en-US'
@@ -446,6 +454,12 @@ declare namespace validator {
          * @default false
          */
         domain_specific_validation?: boolean | undefined;
+        /**
+         *  If host_blacklist is set to an array of strings
+         *  and the part of the email after the @ symbol matches one of the strings defined in it,
+         *  the validation fails.
+         */
+        host_blacklist?: string[] | undefined;
     }
 
     /**

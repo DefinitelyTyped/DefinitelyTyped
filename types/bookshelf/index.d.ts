@@ -134,7 +134,7 @@ declare namespace Bookshelf {
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
-        load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
+        load(relations: string | string[], options?: SyncOptions): BlueBird<T>;
         morphMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             name?: string,
@@ -315,10 +315,6 @@ declare namespace Bookshelf {
         tableName?: string | undefined;
         hasTimestamps?: boolean | undefined;
         parse?: boolean | undefined;
-    }
-
-    interface LoadOptions extends SyncOptions {
-        withRelated: (string | WithRelatedQuery)[];
     }
 
     interface FetchOptions extends SyncOptions {

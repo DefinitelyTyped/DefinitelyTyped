@@ -31,7 +31,7 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    StatelessComponent,
+    FunctionComponent,
     ReactNode
 } from 'react';
 

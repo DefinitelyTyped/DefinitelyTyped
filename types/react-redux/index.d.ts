@@ -28,7 +28,7 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    StatelessComponent,
+    FunctionComponent,
     Context,
     NamedExoticComponent,
     ReactNode

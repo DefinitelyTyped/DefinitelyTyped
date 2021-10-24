@@ -54,6 +54,8 @@ export type TweenFunctions = 'linear' |
 export interface DrawerProperties {
     // Important
 
+    children?: React.ReactNode;
+
     /**
      * Menu component
      */

@@ -89,6 +89,13 @@ myCodeMirror.markText(from, to, {
     inclusiveRight: false,
 });
 
+// Ensure extendSelection accepts the same options as setSelection
+myCodeMirror.extendSelection(from, to, {
+    scroll: true,
+    bias: -1,
+    origin: "+input"
+});
+
 const textMarker = myCodeMirror.markText(
     { line: 6, ch: 26 },
     { line: 6, ch: 42 },

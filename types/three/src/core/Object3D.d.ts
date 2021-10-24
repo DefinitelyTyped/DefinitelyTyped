@@ -343,7 +343,7 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     getWorldScale(target: Vector3): Vector3;
     getWorldDirection(target: Vector3): Vector3;
 
-    raycast(raycaster: Raycaster, intersects: Array<Intersection<Object3D>>): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 
     traverse(callback: (object: Object3D) => any): void;
 

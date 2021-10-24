@@ -1266,10 +1266,26 @@ management.organizations.getMembers({ id: 'organization_id' }, (err, members: au
 });
 
 /**
+ * Get a paged result of an Organization's Members using a callback
+ */
+management.organizations.getMembers({ id: 'organization_id', include_totals: true }, (err, pagedMembers) => {
+    // $ExpectType OrganizationMembersPaged
+    pagedMembers;
+});
+
+/**
  * Get an Organization's Members returning a Promise
  */
 management.organizations.getMembers({ id: 'organization_id' }).then((members: auth0.OrganizationMember[]) => {
     console.log({ members });
+});
+
+/**
+ * Get a paged result of an Organization's members returning a promise.
+ */
+management.organizations.getMembers({id: 'organization_id', include_totals: true }).then((pagedMembers) => {
+    // $ExpectType OrganizationMembersPaged
+    pagedMembers;
 });
 
 /**
@@ -1452,14 +1468,21 @@ management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_
 });
 
 /**
- * Get Organization Member Roles returning a Promise
+ * Get a paged result of an Organization Member Roles using a callback
  */
-management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id' }).then((roles: auth0.Role[]) => {
-    console.log(roles);
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }, (err, pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+    console.log(pagedRoles);
 });
 
 /**
- * Get Organization Member Roles with pagination using a callback
+ * Get a paged result of an Organization Member Roles returning a Promise
+ */
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }).then((pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+    console.log(pagedRoles);
+});
+
+/**
+ * Get a paged result of an Organization Member Roles with pagination using a callback
  */
 management.organizations.getMemberRoles(
     { id: 'organization_id', user_id: 'user_id', page: 0, per_page: 2 },

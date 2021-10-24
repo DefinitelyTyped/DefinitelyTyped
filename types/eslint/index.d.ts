@@ -859,6 +859,7 @@ export namespace ESLint {
         filePath: string;
         messages: Linter.LintMessage[];
         errorCount: number;
+        fatalErrorCount: number;
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;

@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.9
+// Type definitions for Jasmine 3.10
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -305,6 +305,13 @@ declare namespace jasmine {
          * @default undefined
          */
         Promise?: typeof Promise | undefined;
+        /**
+         * Clean closures when a suite is done running (done by clearing the stored function reference).
+         * This prevents memory leaks, but you won't be able to run jasmine multiple times.
+         * @since 3.10.0
+         * @default true
+         */
+        autoCleanClosures?: boolean | undefined;
     }
 
     /** @deprecated Please use `Configuration` instead of `EnvConfiguration`. */
@@ -386,6 +393,7 @@ declare namespace jasmine {
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
+    function stringContaining(str: string | RegExp): AsymmetricMatcher<string>;
     /**
      * @deprecated Private method that may be changed or removed in the future
      */
@@ -1277,16 +1285,49 @@ declare module "jasmine" {
     class jasmine {
         jasmine: jasmine.Jasmine;
         env: jasmine.Env;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         reportersCount: number;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         completionReporter: jasmine.CustomReporter;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         reporter: jasmine.CustomReporter;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         showingColors: boolean;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         projectBaseDir: string;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         specDir: string;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         specFiles: string[];
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         helperFiles: string[];
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         requires: string[];
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         onCompleteCallbackAdded: boolean;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         defaultReporterConfigured: boolean;
 
         constructor(options: jasmine.JasmineOptions);
@@ -1299,20 +1340,50 @@ declare module "jasmine" {
          * Adds a spec file to the list that will be loaded when the suite is executed.
          */
         addSpecFile(filePath: string): void;
+        /**
+         * @deprecated Use addMatchingSpecFiles, loadConfig, or loadConfigFile instead
+         */
         addSpecFiles(files: string[]): void;
+        addMatchingSpecFiles(patterns: string[]): void;
+        addHelperFile(filePath: string): void;
+        /**
+         * @deprecated Use addMatchingHelperFiles, loadConfig, or loadConfigFile instead
+         */
         addHelperFiles(files: string[]): void;
+        addMatchingHelperFiles(patterns: string[]): void;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         addRequires(files: string[]): void;
         /**
          * Configure the default reporter.
          */
         configureDefaultReporter(options: jasmine.DefaultReporterOptions): void;
-        execute(files?: string[], filterString?: string): Promise<void>;
+        execute(files?: string[], filterString?: string): Promise<jasmine.JasmineDoneInfo>;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         exitCodeCompletion(passed: boolean): void;
+        exitOnCompletion: boolean;
         loadConfig(config: jasmine.JasmineConfig): void;
         loadConfigFile(configFilePath?: string): void;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         loadHelpers(): Promise<void>;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         loadSpecs(): Promise<void>;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         loadRequires(): void;
+
+        /**
+         * @deprecated set exitOnCompletion to false and use the promise returned
+         * from execute() instead.
+         */
         onComplete(onCompleteCallback: (passed: boolean) => void): void;
         /**
          * Provide a fallback reporter if no other reporters have been specified.

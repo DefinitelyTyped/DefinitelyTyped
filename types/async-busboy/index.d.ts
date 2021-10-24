@@ -9,19 +9,21 @@ import * as http from 'http';
 
 import busboy = require('busboy');
 
-interface Options extends busboy.BusboyConfig {
-  onFile: (
-    fieldname: string,
-    file: NodeJS.ReadableStream,
-    filename: string,
-    encoding: string,
-    mimetype: string) => void;
+interface Options extends Omit<busboy.BusboyConfig, 'headers'> {
+    headers?: http.IncomingHttpHeaders;
+    onFile: (
+        fieldname: string,
+        file: NodeJS.ReadableStream,
+        filename: string,
+        encoding: string,
+        mimetype: string,
+    ) => void;
 }
 
 type AsyncBusboy = (
-  req: http.IncomingMessage,
-  options?: Options
-) => Promise<{fields: {[key: string]: any}; files?: fs.ReadStream[] | undefined}>;
+    req: http.IncomingMessage,
+    options?: Options,
+) => Promise<{ fields: { [key: string]: any }; files?: fs.ReadStream[] | undefined }>;
 
 declare const asyncBusboy: AsyncBusboy;
 

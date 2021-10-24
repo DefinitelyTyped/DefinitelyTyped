@@ -1,4 +1,4 @@
-// Type definitions for sanitize-html 2.3
+// Type definitions for sanitize-html 2.5
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
@@ -10,6 +10,7 @@
 //                 tomotetra <https://github.com/tomotetra>
 //                 Dariusz Syncerek <https://github.com/dsyncerek>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ParserOptions } from "htmlparser2";
@@ -61,6 +62,8 @@ declare namespace sanitize {
     allowedSchemes?: string[] | boolean | undefined;
     allowedSchemesByTag?: { [index: string]: string[] } | boolean | undefined;
     allowedSchemesAppliedToAttributes?: string[] | undefined;
+    allowedScriptDomains?: string[] | undefined;
+    allowedScriptHostnames?: string[] | undefined;
     allowProtocolRelative?: boolean | undefined;
     allowedTags?: string[] | false | undefined;
     allowVulnerableTags?: boolean | undefined;
