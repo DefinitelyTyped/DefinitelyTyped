@@ -1,5 +1,5 @@
 import { DXFEntityType as CommonEntityType, CommonEntityData } from "./Common";
-import { Point2D } from "../Common";
+import { Point2D } from "../../Common";
 
 export type DXFEntityType = LineStartType
 & LineEndType

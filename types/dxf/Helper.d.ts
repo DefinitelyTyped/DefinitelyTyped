@@ -1,4 +1,4 @@
-import * as Entities from "./Entities";
+import * as Entities from "./handlers/entities";
 import * as Information from "./Information";
 
 export default class Helper {

@@ -1,4 +1,4 @@
-import * as Common from './Common';
+import * as Common from '../Common';
 
 export interface Header {
   extMin: Common.Point2D;

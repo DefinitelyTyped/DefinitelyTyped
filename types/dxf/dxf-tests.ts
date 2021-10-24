@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import Helper, { Entities } from 'dxf';
+import { Entities, Helper } from 'dxf';
 // import * as path from 'path';
 // import * as fs from 'fs';
 

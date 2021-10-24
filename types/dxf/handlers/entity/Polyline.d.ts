@@ -1,4 +1,4 @@
-import { Point2D } from "../Common";
+import { Point2D } from "../../Common";
 import { CommonEntityData } from "./Common";
 
 export type PolylineEntityData = {

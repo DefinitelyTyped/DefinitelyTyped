@@ -1,4 +1,4 @@
-import * as Common from '../Common';
+import * as Common from '../../Common';
 
 export type CommonEntityData = {
   layer: string;

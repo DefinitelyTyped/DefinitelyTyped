@@ -1,4 +1,4 @@
-import * as Common from '../Common';
+import * as Common from '../../Common';
 import * as EntCommon from './Common';
 
 export type PointEntityData = {

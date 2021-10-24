@@ -1,7 +1,7 @@
-  import * as Headers from './Header';
-  import * as Blocks from './Blocks';
-  import * as Entities from './Entities';
-  import * as Tables from './Tables';
+  import * as Headers from './handlers/header';
+  import * as Blocks from './handlers/blocks';
+  import * as Entities from './handlers/entities';
+  import * as Tables from './handlers/tables';
   import * as Common from './Common';
   import * as Utils from './Utils';
 

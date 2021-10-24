@@ -1,19 +1,19 @@
-import * as Common from './Common';
-import * as Line from './entities/Line';
-import * as Point from './entities/Point';
-import * as LWPolyline from './entities/LWPolyline';
-import * as Polyline from './entities/Polyline';
-import * as Vertex from './entities/Vertex';
-import * as Arc from './entities/Arc';
-import * as Circle from './entities/Circle';
-import * as Ellipse from './entities/Ellipse';
-import * as Spline from './entities/Spline';
-import * as Solid from './entities/Solid';
-import * as MText from './entities/MText';
-import * as Text from './entities/Text';
-import * as Insert from './entities/Insert';
-import * as ThreeDFace from './entities/ThreeDFace';
-import * as Dimension from './entities/Dimension';
+import * as Common from '../Common';
+import * as Line from './entity/Line';
+import * as Point from './entity/Point';
+import * as LWPolyline from './entity/LWPolyline';
+import * as Polyline from './entity/Polyline';
+import * as Vertex from './entity/Vertex';
+import * as Arc from './entity/Arc';
+import * as Circle from './entity/Circle';
+import * as Ellipse from './entity/Ellipse';
+import * as Spline from './entity/Spline';
+import * as Solid from './entity/Solid';
+import * as MText from './entity/MText';
+import * as Text from './entity/Text';
+import * as Insert from './entity/Insert';
+import * as ThreeDFace from './entity/ThreeDFace';
+import * as Dimension from './entity/Dimension';
 
 export type LayerGroupedEntities = Record<string, Entity>;
 export type EntityType =

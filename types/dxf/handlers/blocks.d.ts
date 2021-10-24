@@ -1,4 +1,4 @@
-import * as Entities from './Entities';
+import * as Entities from './entities';
 
 export interface Block {
   xref?: any;

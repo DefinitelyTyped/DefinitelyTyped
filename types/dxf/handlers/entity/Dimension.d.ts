@@ -1,4 +1,4 @@
-import * as DXFCommon from '../Common';
+import * as DXFCommon from '../../Common';
 import * as EntCommon from './Common';
 
 /**
