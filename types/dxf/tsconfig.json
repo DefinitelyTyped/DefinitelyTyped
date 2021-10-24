@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": [
+        "es6",
+        "dom"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "baseUrl": "../",
+    "typeRoots": [
+        "../"
+    ],
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+    "dxf-tests.ts",
+    "index.d.ts",
+    "Blocks.d.ts",
+    "Common.d.ts",
+    "Entities.d.ts",
+    "Header.d.ts",
+    "Helper.d.ts",
+    "Information.d.ts",
+    "Layers.d.ts",
+    "Styles.d.ts",
+    "Tables.d.ts",
+    "Utils.d.ts",
+    "./entities/Arc.d.ts",
+    "./entities/Circle.d.ts",
+    "./entities/Common.d.ts",
+    "./entities/Dimension.d.ts",
+    "./entities/Ellipse.d.ts",
+    "./entities/Insert.d.ts",
+    "./entities/Line.d.ts",
+    "./entities/LWPolyline.d.ts",
+    "./entities/MText.d.ts",
+    "./entities/Point.d.ts",
+    "./entities/Polyline.d.ts",
+    "./entities/Solid.d.ts",
+    "./entities/Spline.d.ts",
+    "./entities/Text.d.ts",
+    "./entities/ThreeDFace.d.ts",
+    "./entities/Vertex.d.ts"
+  ]
+}
