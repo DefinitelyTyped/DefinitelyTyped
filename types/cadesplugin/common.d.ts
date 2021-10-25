@@ -14,8 +14,10 @@ declare namespace CADES_Common {
                                     T extends CAPICOM.PublicKey ? CAPICOM.PublicKeyAsync :
                                         T extends CAPICOM.PrivateKey ? CAPICOM.PrivateKeyAsync :
                                             T extends CAPICOM.ExtendedKeyUsage ? CAPICOM.ExtendedKeyUsageAsync :
-                                                T extends CAdESCOM.CPAuthenticatedAttributes2 ? CAdESCOM.CPAuthenticatedAttributes2Async:
-                                                    T;
+                                                T extends CAPICOM.EKUs ? CAPICOM.EKUsAsync :
+                                                    T extends CAPICOM.EKU ? CAPICOM.EKUAsync :
+                                                        T extends CAdESCOM.CPAuthenticatedAttributes2 ? CAdESCOM.CPAuthenticatedAttributes2Async:
+                                                            T;
 
     type PromisifiedFunction<T extends Function> = // tslint:disable-line ban-types
         T extends (...args: infer A) => infer U ? (...args: { [K in keyof A]: Unpacked<A[K]> }) => Promise<Unpacked<U>> :
