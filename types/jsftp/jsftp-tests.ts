@@ -20,7 +20,7 @@ ftp.rename('foo', 'bar', (err) => { });  // $ExpectType void
 
 ftp.raw('foo', 'param', (err) => { });  // $ExpectType void
 
-ftp.auth('foo','bar', (err) => { });  // $ExpectType void
+ftp.auth('foo', 'bar', (err) => { });  // $ExpectType void
 
 ftp.keepAlive();  // $ExpectType void
 
