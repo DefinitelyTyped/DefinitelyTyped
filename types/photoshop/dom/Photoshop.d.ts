@@ -18,8 +18,8 @@ import { DocumentCreateOptions } from "./objects/CreateOptions";
  */
 export declare class Photoshop {
     /**
-      * @ignore
-      */
+     * @ignore
+     */
     constructor();
     private currentDialogMode;
     /**
