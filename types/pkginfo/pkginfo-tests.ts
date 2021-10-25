@@ -1,6 +1,4 @@
-/// <reference types="node" />
-
-import pkginfo from 'pkginfo';
+import pkginfo = require('pkginfo');
 
 pkginfo(module);
 pkginfo(module, 'version', 'author');

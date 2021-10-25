@@ -3,6 +3,8 @@
 // Definitions by: David Tanner <https://github.com/DavidTanner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare namespace PkgInfo {
     interface Options {
         dir?: string;
