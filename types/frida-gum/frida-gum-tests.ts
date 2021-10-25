@@ -49,6 +49,8 @@ Memory.alloc(1, { near: ptr(1234) });
 // $ExpectError
 Memory.alloc(1, { maxDistance: 42 });
 
+Memory.readUtf8String(ptr(0x123));
+
 new NativeCallback(
     (a, b) => {
         return [0, NULL];
