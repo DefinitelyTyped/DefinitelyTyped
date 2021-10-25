@@ -39,7 +39,7 @@ declare namespace CAdESCOM {
     }
 
     interface CPHashedDataAsync extends CADES_Common.Async<CPHashedData> {
-        propset_Algorithm(algorithm: CADES_Common.ValuesOf<CAdESCOM.CADESCOM_HASH_ALGORITHM | CAPICOM.CAPICOM_HASH_ALGORITHM>): Promise<void>;
+        propset_Algorithm(algorithm: CADES_Common.ValuesOf<CADESCOM_HASH_ALGORITHM | CAPICOM.CAPICOM_HASH_ALGORITHM>): Promise<void>;
 
         propset_DataEncoding(dataEncoding: CADES_Common.ValuesOf<CADESCOM_CONTENT_ENCODING_TYPE>): Promise<void>;
     }
