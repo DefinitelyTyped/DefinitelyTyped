@@ -17,6 +17,10 @@ import { DocumentCreateOptions } from "./objects/CreateOptions";
  * From here you can access open documents, tools, UI elements and run commands or menu items.
  */
 export declare class Photoshop {
+    /**
+      * @ignore
+      */
+    constructor();
     private currentDialogMode;
     /**
      * @ignore

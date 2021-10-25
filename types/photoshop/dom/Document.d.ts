@@ -173,6 +173,9 @@ export declare class Document {
      * @async
      */
     close(saveDialogOptions?: Constants.SaveOptions): Promise<void>;
+    /**
+     * Close the document, reverting all unsaved changes.
+     */
     closeWithoutSaving(): void;
     /**
      * Crops the document to given bounds

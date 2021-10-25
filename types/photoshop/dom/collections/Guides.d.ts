@@ -1,3 +1,4 @@
+import { Guide } from "../Guide";
 import * as Constants from "../Constants";
 /**
  * A collections class allowing for array access into a document's guides
@@ -18,6 +19,10 @@ export declare class Guides {
      * @ignore
      */
     private proxy;
+    /**
+     * Used to access the guides in the collection
+     */
+    [index: number]: Guide;
     /**
      * @ignore
      */

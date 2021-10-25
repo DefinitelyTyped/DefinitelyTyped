@@ -9,6 +9,10 @@ export declare class TextFonts extends Array<TextFont> {
     private proxy;
     /** @ignore */
     constructor();
+    /**
+     * Used to access the text fonts in the collection
+     */
+    [index: number]: TextFont;
     /** @ignore */
     handler(): {
         get: (obj: any, key: any) => any;

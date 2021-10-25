@@ -16,6 +16,10 @@ export declare class Documents extends Array<Document> {
     private proxy;
     /** @ignore */
     constructor();
+    /**
+     * Used to access the documents in the collection
+     */
+    [index: number]: Document;
     /** @ignore */
     handler(): {
         get: (obj: any, key: any) => any;

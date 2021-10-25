@@ -16,6 +16,10 @@ export declare class Layers extends Array<Layer> {
     private parentDocID;
     /** @ignore */
     private layerIDs;
+    /**
+     * Used to access the layers in the collection
+     */
+    [index: number]: Layer;
     /** @ignore */
     constructor(parentDoc: number, layerIDs: number[]);
     /** @ignore */

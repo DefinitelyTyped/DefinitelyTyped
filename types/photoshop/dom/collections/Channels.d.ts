@@ -14,6 +14,10 @@ export declare class Channels extends Array<Channel> {
     readonly _docId: number;
     /** @ignore */
     private proxy;
+    /**
+     * Used to access the channels in the collection
+     */
+    [index: number]: Channel;
     /** @ignore */
     constructor(docId: number);
     /** @ignore */

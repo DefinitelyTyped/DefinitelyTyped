@@ -21,6 +21,10 @@ export declare class HistoryStates {
      */
     private proxy;
     /**
+     * Used to access the history states in the collection
+     */
+    [index: number]: HistoryState;
+    /**
      * @ignore
      */
     constructor(docId: number);
