@@ -11,8 +11,8 @@
 
 /// <reference types="qunit" />
 
-import Ember from "ember";
-import { ModuleCallbacks, TestContext } from "ember-test-helpers";
+import Ember from 'ember';
+import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
 
 interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
     beforeSetup?(assert: Assert): void;
@@ -107,7 +107,7 @@ export function setupTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
 export class QUnitAdapter extends Ember.Test.Adapter {}
 
-export { module, test, skip, only, todo } from "qunit";
+export { module, test, skip, only, todo } from 'qunit';
 
 interface QUnitStartOptions {
     /**
@@ -152,26 +152,38 @@ interface QUnitStartOptions {
 export function start(options?: QUnitStartOptions): void;
 
 declare global {
+    // NOTE: disables `no-unnecessary-generics` inline because, unfortunately,
+    // the design of Ember's test tooling (and indeed *QUnit's* test system)
+    // requires that we allow users to update the type of the context of the
+    // test. This is indeed strictly *wrong*! However, changing it will require
+    // changing how Ember handles testing. See [the PR][pr] for further details.
+    //
+    // [pr]: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/56494
+
     interface NestedHooks {
         /**
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
+        // tslint:disable-next-line no-unnecessary-generics
         after<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs after each test.
          */
+        // tslint:disable-next-line no-unnecessary-generics
         afterEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before the first test.
          */
+        // tslint:disable-next-line no-unnecessary-generics
         before<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before each test.
          */
+        // tslint:disable-next-line no-unnecessary-generics
         beforeEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 
@@ -191,8 +203,8 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        test(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
-        // test<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        test<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Adds a test to exclusively run, preventing all other tests from running.
@@ -210,6 +222,7 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
+        // tslint:disable-next-line no-unnecessary-generics
         only<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
@@ -222,6 +235,7 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
+        // tslint:disable-next-line no-unnecessary-generics
         todo<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
@@ -237,6 +251,7 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
+        // tslint:disable-next-line no-unnecessary-generics
         skip<TC extends TestContext>(name: string, callback?: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 }
