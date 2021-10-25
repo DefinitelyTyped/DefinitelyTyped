@@ -3,7 +3,7 @@
 // Definitions by: Brian Dombrowski <https://github.com/bdombro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// @shakacode/recompose is a fork of recompose, which these types are based on.
+// @shakacode/recompose is a fork of `recompose`, and these types are based on work done in `@types/recompose`.
 
 ///<reference types="react" />
 
