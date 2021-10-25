@@ -2750,8 +2750,8 @@ declare namespace Autodesk {
           getCalibration(): any;
           getCalibrationFactor(): number;
           getDefaultUnit(): string;
-          getMeasurement(unitType: string, precision: number): object;
-          getMeasurementList(unitType: string, precision: number): object[];
+          getMeasurement(unitType?: string, precision?: number): object;
+          getMeasurementList(unitType?: string, precision?: number): object[];
           getPrecision(): number;
           getPrecisionOptions(isFractional: boolean): string[];
           getUnitOptions(): object[];
