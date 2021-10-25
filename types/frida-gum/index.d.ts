@@ -668,6 +668,51 @@ declare namespace Memory {
      * @param apply Function that applies the desired changes.
      */
     function patchCode(address: NativePointerValue, size: number | UInt64, apply: MemoryPatchApplyCallback): void;
+
+    /**
+     *
+     * @param address address Starting address to read
+     * @param size size Number of ByteArray
+     */
+    function readByteArray(address: NativePointerValue, size: number | UInt64):ArrayBuffer;
+
+    /**
+     *
+     * @param address address Starting address to read
+     */
+    function readPointer(address: NativePointerValue):NativePointerValue;
+
+    /**
+     *
+     * @param address address Starting address to read
+     */
+    function readUtf8String(address: NativePointerValue):string;
+
+    /**
+     *
+     * @param address address Starting address to read
+     */
+    function readUtf16String(address: NativePointerValue):string;
+
+    /**
+     *
+     * @param address address Starting address to read
+     */
+    function readCString(address:NativePointerValue):string;
+
+    /**
+     *
+     * @param address address Starting address to write
+     * @param buffer string to write.
+     */
+    function writeUtf8String(address:NativePointerValue,buffer:string):void;
+
+    /**
+     *
+     * @param address address Starting address to write
+     * @param buffer ByteArray to write
+     */
+    function writeByteArray(address: NativePointerValue,buffer:any[]):void;
 }
 
 interface MemoryRange {
