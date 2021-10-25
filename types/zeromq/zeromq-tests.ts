@@ -206,7 +206,17 @@ function test8() {
 }
 
 function test9() {
-    const socket = new zeromq.Socket('pub');
-    socket.bindSync('tcp://127.0.0.1:3000');
-    socket.send(new Buffer(1000));
+  new zeromq.Socket('xpub');
+  new zeromq.Socket('sub');
+  new zeromq.Socket('xsub');
+  new zeromq.Socket('req');
+  new zeromq.Socket('xreq');
+  new zeromq.Socket('rep');
+  new zeromq.Socket('xrep');
+  new zeromq.Socket('push');
+  new zeromq.Socket('pull');
+  new zeromq.Socket('dealer');
+  new zeromq.Socket('router');
+  new zeromq.Socket('pair');
+  new zeromq.Socket('stream');
 }
