@@ -445,6 +445,10 @@ async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
 
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
+    const m = ext.getMeasurementList();
+
+    ext.deleteMeasurements();
+    ext.setMeasurements(m);
 }
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
