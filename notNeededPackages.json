@@ -2381,10 +2381,6 @@
             "libraryName": "known",
             "asOfVersion": "3.0.0"
         },
-        "koa-better-body": {
-            "libraryName": "koa-better-body",
-            "asOfVersion": "3.1.0"
-        },
         "koa-jwt": {
             "libraryName": "koa-jwt",
             "asOfVersion": "3.3.0"
