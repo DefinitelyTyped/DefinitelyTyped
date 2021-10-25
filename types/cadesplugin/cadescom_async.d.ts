@@ -44,6 +44,9 @@ declare namespace CAdESCOM {
         propset_DataEncoding(dataEncoding: CADES_Common.ValuesOf<CADESCOM_CONTENT_ENCODING_TYPE>): Promise<void>;
     }
 
+    interface CPAuthenticatedAttributes2Async extends CADES_Common.Async<CPAuthenticatedAttributes2> {
+    }
+
     interface CPAttributeAsync extends CADES_Common.Async<CPAttribute> {
         propset_Name(name: CADES_Common.ValuesOf<CADESCOM_ATTRIBUTE>): Promise<void>;
 
