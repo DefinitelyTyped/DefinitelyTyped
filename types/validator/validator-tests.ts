@@ -503,6 +503,9 @@ const any: any = null;
     result = validator.isAlpha('sample', 'sv-SE');
     result = validator.isAlpha('sample', 'tr-TR');
     result = validator.isAlpha('sample', 'uk-UA');
+    result = validator.isAlpha('sample', undefined, {ignore: /[\s!?]/g});
+    result = validator.isAlpha('sample', 'fr-FR', {ignore: /[\s!?]/g});
+    result = validator.isAlpha('sample', 'fr-FR', {ignore: ' !?'});
 
     result = validator.isAlphanumeric('sample');
     result = validator.isAlphanumeric('sample', 'ar');
@@ -598,7 +601,9 @@ const any: any = null;
 
     result = validator.isDivisibleBy('sample', 2);
 
-    const isEmailOptions: validator.IsEmailOptions = {};
+    const isEmailOptions: validator.IsEmailOptions = {
+        host_blacklist: ['domain']
+    };
     result = validator.isEmail('sample');
     result = validator.isEmail('sample', isEmailOptions);
 

@@ -708,3 +708,22 @@ function testAddBehavior() {
 function testSetFormatter() {
     sinon.setFormatter((...args) => JSON.stringify(args));
 }
+
+async function testPromises() {
+    const promise = sinon.promise();
+    await promise.resolve(123);
+    await promise.reject('foo');
+    promise.status; // $ExpectType "pending" | "resolved" | "rejected"
+
+    const typedPromise = sinon.promise<number>();
+    await typedPromise.resolve(111); // $ExpectType number
+    typedPromise.resolvedValue; // $ExpectType number | undefined
+    typedPromise.rejectedValue; // $ExpectType unknown
+
+    const executor = sinon.promise<string>((resolve) => {
+        resolve('abc');
+    });
+    const executor2 = sinon.promise<string>((resolve, reject) => {
+        reject('some error');
+    });
+}

@@ -23,12 +23,6 @@ import {
     ActivityIndicatorIOSProps,
     DatePickerIOSProps,
     DrawerLayoutAndroidProps,
-    PickerItemProps,
-    PickerIOSItemProps,
-    PickerProps,
-    PickerPropsIOS,
-    PickerPropsAndroid,
-    PickerIOSProps,
     ProgressBarAndroidProps,
     ProgressViewIOSProps,
     RefreshControlProps,
@@ -143,24 +137,6 @@ declare module 'react-native' {
 
     /** @deprecated Use DrawerLayoutAndroidProps */
     export type DrawerLayoutAndroidProperties = DrawerLayoutAndroidProps;
-
-    /** @deprecated Use PickerItemProps */
-    export type PickerItemProperties = PickerItemProps;
-
-    /** @deprecated Use PickerIOSItemProps */
-    export type PickerIOSItemProperties = PickerIOSItemProps;
-
-    /** @deprecated Use PickerProps */
-    export type PickerProperties = PickerProps;
-
-    /** @deprecated Use PickerPropsIOS */
-    export type PickerPropertiesIOS = PickerPropsIOS;
-
-    /** @deprecated Use PickerPropsAndroid */
-    export type PickerPropertiesAndroid = PickerPropsAndroid;
-
-    /** @deprecated Use PickerIOSProps */
-    export type PickerIOSProperties = PickerIOSProps;
 
     /** @deprecated Use ProgressBarAndroidProps */
     export type ProgressBarAndroidProperties = ProgressBarAndroidProps;

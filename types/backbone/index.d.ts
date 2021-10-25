@@ -531,7 +531,7 @@ declare namespace Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model = Model, TElement extends Element = HTMLElement> {
+    interface ViewOptions<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> {
         model?: TModel | undefined;
         // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
         collection?: Collection<any> | undefined; // was: Collection<TModel>;
@@ -545,7 +545,7 @@ declare namespace Backbone {
 
     type ViewEventListener = (event: JQuery.Event) => void;
 
-    class View<TModel extends Model = Model, TElement extends Element = HTMLElement> extends EventsMixin implements Events {
+    class View<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> extends EventsMixin implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -569,8 +569,9 @@ declare namespace Backbone {
          */
         events(): EventsHash;
 
-        model: TModel;
-        collection: Collection<TModel>;
+        // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
+        model: TModel extends Model ? TModel : undefined;
+        collection: Collection<any>;
         setElement(element: TElement | JQuery): this;
         id?: string | undefined;
         cid: string;

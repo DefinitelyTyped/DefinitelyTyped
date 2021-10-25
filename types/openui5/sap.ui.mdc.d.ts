@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/mdc/library" {
   /**
@@ -53,6 +53,8 @@ declare namespace sap {
     "sap/ui/mdc/enum/OutParameterMode": undefined;
 
     "sap/ui/mdc/enum/PersistenceMode": undefined;
+
+    "sap/ui/mdc/enum/SelectType": undefined;
 
     "sap/ui/mdc/Field": undefined;
 
@@ -130,6 +132,8 @@ declare namespace sap {
 
     "sap/ui/mdc/mixin/FilterIntegrationMixin": undefined;
 
+    "sap/ui/mdc/mixin/PromiseMixin": undefined;
+
     "sap/ui/mdc/MultiValueField": undefined;
 
     "sap/ui/mdc/odata/v4/FieldBaseDelegate": undefined;
@@ -162,6 +166,14 @@ declare namespace sap {
 
     "sap/ui/mdc/util/FilterUtil": undefined;
 
+    "sap/ui/mdc/util/PromiseCache": undefined;
+
     "sap/ui/mdc/util/TypeUtil": undefined;
+
+    "sap/ui/mdc/ValueHelp": undefined;
+
+    "sap/ui/mdc/valuehelp/base/Container": undefined;
+
+    "sap/ui/mdc/valuehelp/base/Content": undefined;
   }
 }

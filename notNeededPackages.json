@@ -1013,6 +1013,10 @@
             "libraryName": "ecmarkup",
             "asOfVersion": "3.4.0"
         },
+        "editly": {
+            "libraryName": "editly",
+            "asOfVersion": "0.11.3"
+        },
         "eev": {
             "libraryName": "eev",
             "asOfVersion": "0.1.2"
@@ -2036,6 +2040,10 @@
         "is-png": {
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
+        },
+        "is-progressive": {
+            "libraryName": "is-progressive",
+            "asOfVersion": "4.0.0"
         },
         "is-promise": {
             "libraryName": "is-promise",
@@ -5337,6 +5345,10 @@
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
+        },
+        "webpack-notifier": {
+            "libraryName": "webpack-notifier",
+            "asOfVersion": "1.14.0"
         },
         "webpack-subresource-integrity": {
             "libraryName": "webpack-subresource-integrity",

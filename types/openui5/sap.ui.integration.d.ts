@@ -1,4 +1,4 @@
-// For Library Version: 1.94.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -2188,6 +2188,12 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     refresh(): void;
     /**
+     * @SINCE 1.95
+     *
+     * Refreshes the card data by triggering all data requests.
+     */
+    refreshData(): void;
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
      *
@@ -2547,6 +2553,12 @@ declare module "sap/ui/integration/widgets/Card" {
      * Refreshes the card by re-applying the manifest settings and triggering all data requests.
      */
     refresh(): void;
+    /**
+     * @SINCE 1.95
+     *
+     * Refreshes the card data by triggering all data requests.
+     */
+    refreshData(): void;
     /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)

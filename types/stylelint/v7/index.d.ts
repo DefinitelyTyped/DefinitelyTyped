@@ -3,9 +3,9 @@
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type FormatterType = "json" | "string" | "verbose";
+export type FormatterType = 'json' | 'string' | 'verbose';
 
-export type SyntaxType = "scss" | "sass" | "less" | "sugarss";
+export type SyntaxType = 'scss' | 'sass' | 'less' | 'sugarss';
 
 export interface LinterOptions {
     code?: string | undefined;

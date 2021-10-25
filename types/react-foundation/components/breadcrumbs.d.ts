@@ -8,7 +8,7 @@ import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Breadcrumbs: React.StatelessComponent<BreadcrumbsProps>;
+export declare const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps>;
 export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes<HTMLUListElement> {
 }
 /**
@@ -17,7 +17,7 @@ export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes
  * @param {Object} props
  * @returns {Object}
  */
-export declare const BreadcrumbItem: React.StatelessComponent<BreadcrumbItemProps>;
+export declare const BreadcrumbItem: React.FunctionComponent<BreadcrumbItemProps>;
 export interface BreadcrumbItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
     isDisabled?: boolean | undefined;
 }

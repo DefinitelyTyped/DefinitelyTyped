@@ -238,4 +238,3 @@ declare namespace Browser {
 
 // tslint:disable-next-line:export-just-namespace
 export = Browser;
-export as namespace browser;

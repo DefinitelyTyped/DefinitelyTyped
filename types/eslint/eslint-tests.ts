@@ -818,6 +818,7 @@ for (const file of cliReport.results) {
 
     file.errorCount = 0;
     file.warningCount = 0;
+    file.fatalErrorCount = 0;
     file.fixableErrorCount = 0;
     file.fixableWarningCount = 0;
 

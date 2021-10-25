@@ -7,6 +7,7 @@
 //                 Max Komarychev <https://github.com/maxkomarychev>
 //                 Dor Ben Baruch <https://github.com/Dor256>
 //                 dkrk <https://github.com/grgr-dkrk>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
     const device: Detox.Device;
@@ -630,7 +631,7 @@ declare global {
              * jestExpect(multipleMatchedElements.elements.length).toBe(5);
              * jestExpect(multipleMatchedElements.elements[0].identifier).toBe('FirstElement');
              */
-            getAttributes(): Promise<AttributesOfIOS>;
+            getAttributes(): Promise<AttributesOfIOS | AttributesOfAndroid>;
         }
 
         type Direction = 'left' | 'right' | 'up' | 'down';
@@ -801,7 +802,9 @@ declare global {
             left: number;
             bottom: number;
         }
-        interface AttributesOfIOS {
+
+        // Shared iOS and Android Attributes
+        interface SharedAttributes {
             /**
              * the text value of the element
              */
@@ -811,78 +814,118 @@ declare global {
              */
             label: string;
             /**
-             * the value of the element (matches `accessibilityValue`)
-             */
-            value: string;
-            /**
              * the placeholder text value of the element
              */
             placeholder: string;
-            /**
-             * the identifier of the element (matches `accessibilityIdentifier`)
-             */
-            identifier: string;
             /**
              * whether or not the element is enabled for user interaction
              */
             enabled: boolean;
             /**
-             * the activation point of the element, in element coordinate space
+             * the identifier of the element (matches `accessibilityIdentifier`)
              */
-            activationPoint: Point;
-            /**
-             * the activation point of the element, in normalized percentage ([0.0, 1.0])
-             */
-            normalizedActivationPoint: Point;
-            /**
-             * whether the element is hittable at the activation point
-             */
-            hittable: boolean;
+            identifier: string;
             /**
              * whether the element is visible at the activation point
              */
             visible: boolean;
             /**
-             * the frame of the element, in screen coordinate space
+             * the value of the element (matches `accessibilityValue`)
+             */
+            value: string;
+        }
+
+        // iOS Specific Attributes
+        interface AttributesOfIOS extends SharedAttributes {
+            /**
+             * the activation point of the element, in element coordinate space (iOS Only)
+             */
+            activationPoint: Point;
+            /**
+             * the activation point of the element, in normalized percentage ([0.0, 1.0]) (iOS Only)
+             */
+            normalizedActivationPoint: Point;
+            /**
+             * whether the element is hittable at the activation point (iOS Only)
+             */
+            hittable: boolean;
+            /**
+             * the frame of the element, in screen coordinate space (iOS Only)
              */
             frame: AttributeIOSFrame;
             /**
-             * the frame of the element, in container coordinate space
+             * the frame of the element, in container coordinate space (iOS Only)
              */
             elementFrame: AttributeIOSFrame;
             /**
-             * the bounds of the element, in element coordinate space
+             * the bounds of the element, in element coordinate space (iOS Only)
              */
             elementBounds: AttributeIOSFrame;
             /**
-             * the safe area insets of the element, in element coordinate space
+             * the safe area insets of the element, in element coordinate space (iOS Only)
              */
             safeAreaInsets: AttributeIOSInsets;
             /**
-             * the safe area bounds of the element, in element coordinate space
+             * the safe area bounds of the element, in element coordinate space (iOS Only)
              */
             elementSafeBounds: AttributeIOSFrame;
             /**
-             * the date of the element (in case the element is a date picker)
+             * the date of the element (in case the element is a date picker) (iOS Only)
              */
             date: string;
             /**
-             * the normalized slider position (in case the element is a slider)
+             * the normalized slider position (in case the element is a slider) (iOS Only)
              */
             normalizedSliderPosition: number;
             /**
-             * the content offset (in case the element is a scroll view)
+             * the content offset (in case the element is a scroll view) (iOS Only)
              */
             contentOffset: number;
             /**
-             * the content inset (in case the element is a scroll view)
+             * the content inset (in case the element is a scroll view) (iOS Only)
              */
             contentInset: number;
             /**
-             * the adjusted content inset (in case the element is a scroll view)
+             * the adjusted content inset (in case the element is a scroll view) (iOS Only)
              */
             adjustedContentInset: number;
             layer: string;
+        }
+
+        // Android Specific Attributes
+        interface AttributesOfAndroid extends SharedAttributes {
+            /**
+             * The OS visibility type associated with the element: visible, invisible or gone. (Android Only)
+             */
+            visibility: 'visible' | 'invisible' | 'gone';
+            /**
+             * width: Width of the element, in pixels. (Android Only)
+             */
+            width: number;
+            /**
+             * height: Height of the element, in pixels. (Android Only)
+             */
+            height: number;
+            /**
+             * elevation: Elevation of the element. (Android Only)
+             */
+            elevation: number;
+            /**
+             * alpha: Alpha value for the element. (Android Only)
+             */
+            alpha: number;
+            /**
+             * focused: Whether the element is the one currently in focus. (Android Only)
+             */
+            focused: number;
+            /**
+             * textSize: The text size for the text element. (Android Only)
+             */
+            textSize: number;
+            /**
+             * length: The length of the text element (character count). (Android Only)
+             */
+            length: number;
         }
 
         type DataNetwork = 'wifi' | '3g' | '4g' | 'lte' | 'lte-a' | 'lte+';

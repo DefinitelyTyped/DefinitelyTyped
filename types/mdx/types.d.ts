@@ -8,7 +8,7 @@ type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
 type Component<Props> = FunctionComponent<Props> | ClassComponent<Props>;
 // tslint:disable-next-line: strict-export-declare-modifiers
 interface NestedMDXComponents {
-    [key: string]: NestedMDXComponents | Component<any>;
+    [key: string]: NestedMDXComponents | Component<any> | keyof JSX.IntrinsicElements;
 }
 
 // Public MDX helper types
@@ -20,7 +20,7 @@ interface NestedMDXComponents {
  */
 export type MDXComponents = NestedMDXComponents &
     {
-        [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]>;
+        [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]> | keyof JSX.IntrinsicElements;
     } & {
         /**
          * If a wrapper component is defined, the MDX content will be wrapped inside of it.

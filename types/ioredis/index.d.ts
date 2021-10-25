@@ -1273,7 +1273,7 @@ declare namespace IORedis {
 
         xdel: OverloadedKeyCommand<string, number>;
 
-        xgroup: OverloadedSubCommand<ValueType, Ok>;
+        xgroup: OverloadedSubCommand<ValueType, Ok | number>;
 
         xinfo: OverloadedSubCommand<ValueType, any>;
 

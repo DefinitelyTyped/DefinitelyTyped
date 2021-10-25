@@ -8,6 +8,8 @@ import * as React from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 
 export interface TabNavigatorProps {
+    children?: React.ReactNode;
+
     /**
      * Define for rendered scene
      */
@@ -41,6 +43,8 @@ interface TabNavigatorItemProps {
      * Text for Item badge
      */
     badgeText?: string | number | undefined;
+
+    children?: React.ReactNode;
 
     /**
      * Return whether the item is selected

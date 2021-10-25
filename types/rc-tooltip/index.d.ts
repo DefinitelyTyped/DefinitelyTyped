@@ -17,7 +17,9 @@ declare namespace RCTooltip {
         "left" | "right" | "top" | "bottom" |
         "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
-    export interface Props extends React.Props<any> {
+    export interface Props {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<any> | undefined;
         overlayClassName?: string | undefined;
         trigger?: Trigger[] | undefined;
         mouseEnterDelay?: number | undefined;
