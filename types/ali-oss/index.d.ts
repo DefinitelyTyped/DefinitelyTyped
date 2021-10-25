@@ -630,7 +630,7 @@ declare namespace OSS {
         schedule?: string | undefined;
     }
 
-    class Cluster {
+    class ClusterClient {
         constructor(options: ClusterOptions);
 
         list(query: ListObjectsQuery | null, options: RequestOptions): Promise<ListObjectResult>;
