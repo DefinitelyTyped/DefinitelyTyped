@@ -421,6 +421,7 @@ export interface LineMarkSeriesProps extends AbstractSeriesProps<LineMarkSeriesP
     lineStyle?: CSSProperties | undefined; // default: {}
     markStyle?: CSSProperties | undefined; // default: {}
     strokeStyle?: 'dashed' | 'solid' | undefined; // default: 'solid'
+    strokeWidth?: number;
 }
 export class LineMarkSeries extends AbstractSeries<LineMarkSeriesProps> {}
 
