@@ -20,7 +20,7 @@ declare namespace CAPICOM {
     interface PrivateKeyAsync extends CADES_Common.Async<PrivateKey> {
     }
 
-    interface ExtendedKeyUsageAsync extends CADES_Common.Async<ExtendedKeyUsage>{
+    interface ExtendedKeyUsageAsync extends CADES_Common.Async<ExtendedKeyUsage> {
     }
 
     interface EKUsAsync extends CADES_Common.Async<EKUs> {
