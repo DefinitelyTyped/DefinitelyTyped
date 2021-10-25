@@ -118,7 +118,7 @@ function shout(x: number): string {
   const list: Book[] = [{ id: 'xyz', title: 'A' }, { id: 'abc', title: 'B' }];
   const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
     R.map((x: Book) => x.title),
-    R.indexBy(x => x),
+    R.indexBy<string>(x => x),
   )(list);
 };
 

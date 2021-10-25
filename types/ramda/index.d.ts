@@ -66,6 +66,11 @@ import {
     ValueOfUnion,
     AtLeastOneFunctionsFlow,
     AtLeastOneFunctionsFlowFromRightToLeft,
+    AnyFunction,
+    ParametersOfLastInTuple,
+    ReturnTypeOfFirstInTuple,
+    ParametersOfFirstInTuple,
+    ReturnTypeOfLastInTuple,
 } from "./tools";
 
 export * from './tools';
@@ -297,15 +302,11 @@ export function complement<TArgs extends any[]>(pred: (...args: TArgs) => unknow
  * functions must be unary.
  */
 // tslint:disable:max-line-length
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R7;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R6;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R5;
-export function compose<TArgs extends any[], R1, R2, R3, R4>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R4;
-export function compose<TArgs extends any[], R1, R2, R3>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R3;
-export function compose<TArgs extends any[], R1, R2>(f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R2;
-export function compose<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
-// Expected at least 1 arguments
-export function compose<TArgs extends any[], R>(...func: [(...args: any[]) => R, ...Array<(...args: any[]) => any>, (...args: TArgs) => any]): (...args: TArgs) => R;
+export function compose<
+  TFunctions extends AnyFunction[],
+  TParameters extends ParametersOfLastInTuple<TFunctions>,
+  TReturn extends ReturnTypeOfFirstInTuple<TFunctions>
+>(...fns: TFunctions): (...args: TParameters) => TReturn;
 // tslint:enable:max-line-length
 
 /**
@@ -1448,15 +1449,11 @@ export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
  * beginning with whatever arguments were passed to the initial invocation.
  */
 // tslint:disable:max-line-length
-export function pipe<A extends any[], R1, R2, R3, R4, R5, R6, R7>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (...args: A) => R7;
-export function pipe<A extends any[], R1, R2, R3, R4, R5, R6>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (...args: A) => R6;
-export function pipe<A extends any[], R1, R2, R3, R4, R5>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (...args: A) => R5;
-export function pipe<A extends any[], R1, R2, R3, R4>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (...args: A) => R4;
-export function pipe<A extends any[], R1, R2, R3>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (...args: A) => R3;
-export function pipe<A extends any[], R1, R2>(f1: (...args: A) => R1, f2: (a: R1) => R2): (...args: A) => R2;
-export function pipe<A extends any[], R1>(f1: (...args: A) => R1): (...args: A) => R1;
-// Expected at least 1 arguments
-export function pipe<A extends any[], R>(...func: [(...args: A) => any, ...Array<(...args: any[]) => any>, (...args: any[]) => R]): (...args: A) => R;
+export function pipe<
+ TFunctions extends AnyFunction[],
+ TParameters extends ParametersOfFirstInTuple<TFunctions>,
+ TReturn extends ReturnTypeOfLastInTuple<TFunctions>
+>(...fns: TFunctions): (...args: TParameters) => TReturn;
 // tslint:enable:max-line-length
 
 /**

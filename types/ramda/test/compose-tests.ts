@@ -55,9 +55,9 @@ import * as R from 'ramda';
   }
 
   // $ExpectType (args_0: Person) => string
-  const fullName = R.compose<[Person], string[], string>(
+  const fullName = R.compose(
     R.join(' '),
-    ({ first, last }) => [first, last]
+    ({ first, last }: Person) => [first, last]
   );
   fullName({ last: 'Bullet-Tooth', age: 33, first: 'Tony' }); // => 'Tony Bullet-Tooth'
 };

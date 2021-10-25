@@ -389,4 +389,15 @@ export type ValueOfRecord<R> =
  */
 export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 
+export type AnyFunction = (...args: any[]) => any;
+export type LengthOfTuple<Tuple extends unknown[]> = Tuple['length'];
+export type DropFirstInTuple<T extends unknown[]> = T extends [arg: any, ...rest: infer U] ? U : T;
+export type LastInTuple<Tuple extends unknown[]> = Tuple[LengthOfTuple<DropFirstInTuple<Tuple>>];
+
+export type ParametersOfLastInTuple<TFunctions extends AnyFunction[]> = Parameters<LastInTuple<TFunctions>>;
+export type ReturnTypeOfLastInTuple<TFunctions extends AnyFunction[]> = ReturnType<LastInTuple<TFunctions>>;
+
+export type ParametersOfFirstInTuple<TFunctions extends AnyFunction[]> = Parameters<TFunctions[0]>;
+export type ReturnTypeOfFirstInTuple<TFunctions extends AnyFunction[]> = ReturnType<TFunctions[0]>;
+
 export {};
