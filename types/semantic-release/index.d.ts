@@ -1,4 +1,4 @@
-// Type definitions for semantic-release 17.2
+// Type definitions for semantic-release 18.0
 // Project: https://github.com/semantic-release/semantic-release#readme
 // Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
 //                 Daniel Cassidy <https://github.com/djcsdy>
