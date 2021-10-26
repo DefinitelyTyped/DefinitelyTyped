@@ -72,6 +72,10 @@ export interface VueSelectProps {
 
     // in ajax mixin:
     loading: boolean;
+
+    dropdownShouldOpen: (vSelect: VueSelectInstance) => boolean;
+    deselectFromDropdown: boolean;
+    uid: string | number;
 }
 
 export interface VueSelectData {
