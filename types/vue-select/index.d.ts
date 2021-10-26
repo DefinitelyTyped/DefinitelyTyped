@@ -1,4 +1,4 @@
-// Type definitions for vue-select 3.11
+// Type definitions for vue-select 3.16
 // Project: https://github.com/sagalbot/vue-select#readme
 // Definitions by: Ilia Beliaev <https://github.com/silh>, Flo Edelmann <https://github.com/FloEdelmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -79,7 +79,6 @@ export interface VueSelectProps {
 }
 
 export interface VueSelectData {
-    uid: number;
     search: string;
     open: boolean;
     isComposing: boolean;
@@ -143,6 +142,8 @@ export interface VueSelectMethods {
 
     // in ajax mixin:
     toggleLoading: (toggle?: boolean | null) => boolean;
+
+    isOptionDeselectable: OptionConsumer<boolean>;
 }
 
 export interface VueSelectComputed {
