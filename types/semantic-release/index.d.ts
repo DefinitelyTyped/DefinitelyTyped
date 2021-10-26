@@ -401,11 +401,25 @@ declare namespace SemanticRelease {
         env: {
             [key: string]: string;
         };
+        
+        /**
+         * Information about CI environment
+         */
+        envCI: {
+            isCi: boolean;
+            commit: string;
+            branch: string
+        };
 
         /**
          * Commits to analyze.
          */
         commits?: Commit[];
+        
+        /**
+         * Current working directory
+         */
+        cwd: string;
     }
 
     interface Commit {
