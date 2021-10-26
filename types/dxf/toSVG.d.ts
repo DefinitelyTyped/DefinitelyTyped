@@ -1,3 +1,3 @@
 import * as Information from './Information';
 
-export function toSVG(parsed: Information.FileInfo): Information.SVG;
+export default function toSVG(parsed: Information.FileInfo): Information.SVG;
