@@ -1269,7 +1269,7 @@ declare namespace IORedis {
 
         xclaim: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xautoclaim: OverloadedSubCommand<ValueType,  Array<[string, string[]]>>;
+        xautoclaim: OverloadedSubCommand<ValueType,  [string, Array<[string, string[]]>]>;
 
         xdel: OverloadedKeyCommand<string, number>;
 
