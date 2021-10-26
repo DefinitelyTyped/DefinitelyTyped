@@ -18,6 +18,7 @@ declare namespace CAPICOM {
     }
 
     interface PrivateKeyAsync extends CADES_Common.Async<PrivateKey> {
+        propset_CachePin(cachePin: boolean): Promise<boolean>;
     }
 
     interface ExtendedKeyUsageAsync extends CADES_Common.Async<ExtendedKeyUsage> {

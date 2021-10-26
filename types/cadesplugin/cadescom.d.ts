@@ -32,9 +32,9 @@ declare namespace CAdESCOM {
         Display(hwndParent?: number, title?: string): void;
 
         EnhanceCades(cadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, TSAAddress?: string, encodingType?: CADES_Common.ValuesOf<CAPICOM.CAPICOM_ENCODING_TYPE>): string;
-        SignHash(hashedData: CPHashedData, signer: CPSigner, CadesType: CADESCOM_CADES_TYPE, EncodingType?: CAPICOM.CAPICOM_ENCODING_TYPE): string;
+        SignHash(hashedData: CPHashedData, signer: CPSigner, CadesType: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, EncodingType?: CADES_Common.ValuesOf<CAPICOM.CAPICOM_ENCODING_TYPE>): string;
         SignCades(signer?: CPSigner, CadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, bDetached?: boolean, EncodingType?: CADES_Common.ValuesOf<CAPICOM.CAPICOM_ENCODING_TYPE>): string;
-        VerifyHash(hashedData: CPHashedData, SignedMessage: string, CadesType?: CADESCOM_CADES_TYPE): void;
+        VerifyHash(hashedData: CPHashedData, SignedMessage: string, CadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>): void;
         VerifyCades(SignedMessage: string, CadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, bDetached?: boolean): void;
     }
 
@@ -82,7 +82,7 @@ declare namespace CAdESCOM {
     }
 
     interface CPHashedData {
-        Algorithm: CADES_Common.ValuesOf<CAPICOM.CAPICOM_HASH_ALGORITHM>;
+        Algorithm: CADES_Common.ValuesOf<CADESCOM_HASH_ALGORITHM & CAPICOM.CAPICOM_HASH_ALGORITHM>;
         DataEncoding: CADES_Common.ValuesOf<CADESCOM_CONTENT_ENCODING_TYPE>;
         Value: string;
 
