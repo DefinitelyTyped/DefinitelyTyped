@@ -212,7 +212,12 @@ declare namespace Bookshelf {
         slice(begin?: number, end?: number): void;
         toJSON(options?: SerializeOptions): any[];
         unshift(model: any, options?: CollectionAddOptions): void;
-        where(match: { [key: string]: any }, firstOnly: boolean): T | Collection<T>;
+        where(match: { [key: string]: any }): Collection<T>;
+        where(
+            key: string,
+            operatorOrValue: string | number | boolean,
+            valueIfOperator?: string | string[] | number | number[] | boolean,
+        ): Collection<T>;
 
         // lodash methods
         includes(value: any, fromIndex?: number): boolean;
