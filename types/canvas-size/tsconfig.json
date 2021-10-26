@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "canvas-size.tests.ts"
+        "canvas-size-tests.ts"
     ]
 }
