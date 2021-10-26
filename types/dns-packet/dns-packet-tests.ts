@@ -115,7 +115,7 @@ function getRandomInt(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const buf = streamEncode({
+let buf = streamEncode({
   type: 'query',
   id: getRandomInt(1, 65534),
   flags: RECURSION_DESIRED,
@@ -125,3 +125,4 @@ const buf = streamEncode({
   }]
 });
 streamDecode(buf);
+buf = buf.slice(2 + streamDecode.bytes);
