@@ -1,11 +1,9 @@
-import { BaseURIError, BaseURIErrorConstructor } from './base/URIError';
+import BaseURIError from './base/URIError';
 
-interface URIError extends BaseURIError {
+declare class URIError extends BaseURIError {
+    constructor(reason?: string, options?: { cause?: unknown });
+
     cause: unknown;
 }
 
-interface URIErrorConstructor extends BaseURIErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): URIError;
-}
-
-export default URIErrorConstructor;
+export default URIError;

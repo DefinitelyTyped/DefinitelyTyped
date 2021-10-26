@@ -1,4 +1,3 @@
-type BaseError = Error;
-type BaseErrorConstructor = ErrorConstructor;
+declare const BaseError: ErrorConstructor;
 
-export { BaseError, BaseErrorConstructor };
+export default BaseError;

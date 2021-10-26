@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "highlight.js": "^10.7.2"
-    }
-}

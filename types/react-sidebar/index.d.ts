@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component, ReactNode } from "react";
 
 export interface SidebarProps {
+    children?: ReactNode;
     contentClassName?: string | undefined;
     defaultSidebarWidth?: number | undefined;
     docked?: boolean | undefined;

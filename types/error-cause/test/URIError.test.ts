@@ -1,16 +1,14 @@
 import URIError from 'error-cause/URIError';
 
-declare const Ø: any;
-
 // $ExpectType URIError
-new (Ø as URIError)();
+new URIError();
 // $ExpectType URIError
-new (Ø as URIError)('reason');
+new URIError('reason');
 // $ExpectType URIError
-new (Ø as URIError)('reason', {});
+new URIError('reason', {});
 // $ExpectType URIError
-new (Ø as URIError)('reason', { cause: null });
+new URIError('reason', { cause: null });
 // $ExpectType URIError
-new (Ø as URIError)('reason', { cause: 'stupidity' });
+new URIError('reason', { cause: 'stupidity' });
 // $ExpectType URIError
-new (Ø as URIError)('reason', { cause: Ø as Error });
+new URIError('reason', { cause: new URIError() });

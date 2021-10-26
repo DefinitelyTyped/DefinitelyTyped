@@ -34,6 +34,8 @@ Autodesk.Viewing.Initializer(options, async () => {
     fragListTests(model);
     instanceTreeTests(model);
     modelTests(model);
+    modelStructurePanelTests(viewer);
+    preferencesTests(viewer);
     showHideTests(viewer);
     await bulkPropertiesTests(model);
     await compGeomTests(viewer);
@@ -233,6 +235,13 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isSVF2();
 }
 
+function modelStructurePanelTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const options = Autodesk.Viewing.Extensions.generateDefaultViewerHandlerOptions(viewer);
+    const panel = new Autodesk.Viewing.Extensions.ViewerModelStructurePanel(options);
+
+    viewer.setModelStructurePanel(panel);
+}
+
 async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.Viewing.PixelCompare') as Autodesk.Extensions.PixelCompare.PixelCompare;
     const secondDoc = await loadDocument('urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LW90aGVyLWZvcmdlLWZpbGUucnZ0');
@@ -241,6 +250,107 @@ async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
     const mainModel = viewer.model;
 
     ext.compareTwoModels(mainModel, secondaryModel);
+}
+
+function preferencesTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    // $ExpectType boolean
+    viewer.prefs.alwaysUsePivot;
+    // $ExpectType boolean
+    viewer.prefs.ambientShadows;
+    // $ExpectType boolean
+    viewer.prefs.antialiasing;
+    // $ExpectType boolean
+    viewer.prefs.bimWalkGravity;
+    // $ExpectType string
+    viewer.prefs.bimWalkNavigatorType;
+    // $ExpectType boolean
+    viewer.prefs.bimWalkToolPopup;
+    // $ExpectType boolean
+    viewer.prefs.clickToSetCOI;
+    // $ExpectType string
+    viewer.prefs.defaultNavigationTool3D;
+    // $ExpectType boolean
+    viewer.prefs.disablePdfHighlight;
+    // $ExpectType boolean
+    viewer.prefs.displaySectionHatches;
+    // $ExpectType boolean
+    viewer.prefs.edgeRendering;
+    // $ExpectType boolean
+    viewer.prefs.enableCustomOrbitToolCursor;
+    // $ExpectType boolean
+    viewer.prefs.envMapBackground;
+    // $ExpectType string
+    viewer.prefs.explodeStrategy;
+    // $ExpectType boolean
+    viewer.prefs.firstPersonToolPopup;
+    // $ExpectType boolean
+    viewer.prefs.forceDoubleSided;
+    // $ExpectType boolean
+    viewer.prefs.forceLeafletCalibration;
+    // $ExpectType boolean
+    viewer.prefs.forcePDFCalibration;
+    // $ExpectType boolean
+    viewer.prefs.fusionOrbit;
+    // $ExpectType boolean
+    viewer.prefs.fusionOrbitConstrained;
+    // $ExpectType boolean
+    viewer.prefs.ghosting;
+    // $ExpectType boolean
+    viewer.prefs.grayscale;
+    // $ExpectType boolean
+    viewer.prefs.groundReflection;
+    // $ExpectType boolean
+    viewer.prefs.groundShadow;
+    // $ExpectType boolean
+    viewer.prefs.keyMapCmd;
+    // $ExpectType boolean
+    viewer.prefs.leftHandedMouseSetup;
+    // $ExpectType string
+    viewer.prefs.lightPreset;
+    // $ExpectType boolean
+    viewer.prefs.lineRendering;
+    // $ExpectType boolean
+    viewer.prefs.loadingAnimation;
+    // $ExpectType boolean
+    viewer.prefs.openPropertiesOnSelect;
+    // $ExpectType boolean
+    viewer.prefs.optimizeNavigation;
+    // $ExpectType boolean
+    viewer.prefs.orbitPastWorldPoles;
+    // $ExpectType boolean
+    viewer.prefs.pointRendering;
+    // $ExpectType boolean
+    viewer.prefs.progressiveRendering;
+    // $ExpectType boolean
+    viewer.prefs.restoreMeasurements;
+    // $ExpectType boolean
+    viewer.prefs.reverseHorizontalLookDirection;
+    // $ExpectType boolean
+    viewer.prefs.reverseMouseZoomDir;
+    // $ExpectType boolean
+    viewer.prefs.reverseVerticalLookDirection;
+    // $ExpectType number
+    viewer.prefs.selectionMode;
+    // $ExpectType boolean
+    viewer.prefs.selectionSetsPivot;
+    // $ExpectType boolean
+    viewer.prefs.swapBlackAndWhite;
+    // $ExpectType boolean
+    viewer.prefs.useLocalStorage;
+    // $ExpectType boolean
+    viewer.prefs.viewCube;
+    // $ExpectType boolean
+    viewer.prefs.viewCubeCompass;
+    // $ExpectType number
+    viewer.prefs.viewType;
+    // $ExpectType boolean
+    viewer.prefs.wheelSetsPivot;
+    // $ExpectType number
+    viewer.prefs.zoomDragSpeed;
+    // $ExpectType number
+    viewer.prefs.zoomScrollSpeed;
+    // $ExpectType boolean
+    viewer.prefs.zoomTowardsPivot;
 }
 
 function propertyDbTests(model: Autodesk.Viewing.Model): Promise<void> {

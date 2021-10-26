@@ -54,6 +54,7 @@ tar.c(
 tar.x(
     {
         file: 'my-tarball.tgz',
+        noChmod: true,
     }
 ).then(() => undefined);
 

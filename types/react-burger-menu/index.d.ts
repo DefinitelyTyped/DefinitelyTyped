@@ -32,6 +32,7 @@ export interface Props {
     bodyClassName?: string | undefined;
     burgerBarClassName?: string | undefined;
     burgerButtonClassName?: string | undefined;
+    children?: React.ReactNode;
     className?: string | undefined;
     crossButtonClassName?: string | undefined;
     crossClassName?: string | undefined;

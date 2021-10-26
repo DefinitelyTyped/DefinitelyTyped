@@ -8,7 +8,8 @@ import { URL } from 'node:url';
 
 {
     childProcess.exec("echo test");
-    childProcess.exec("echo test", { windowsHide: true });
+    const abortController = new AbortController();
+    childProcess.exec("echo test", { windowsHide: true, signal: abortController.signal });
     childProcess.spawn("echo");
     childProcess.spawn("echo", { windowsHide: true, signal: new AbortSignal(), killSignal: "SIGABRT", timeout: 123 });
     childProcess.spawn("echo", ["test"], { windowsHide: true });

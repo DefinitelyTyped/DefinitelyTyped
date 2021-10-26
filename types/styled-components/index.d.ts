@@ -11,6 +11,7 @@
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Danilo Fuchs <https://github.com/danilofuchs>
+//                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
@@ -315,15 +316,15 @@ export interface ThemedStyledComponentsModule<T extends object, U extends object
     css: ThemedCssFunction<T>;
 
     // unfortunately keyframes can't interpolate props from the theme
-    keyframes(strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]): Keyframes;
+    keyframes: (strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]) => Keyframes;
 
-    createGlobalStyle<P extends object = {}>(
+    createGlobalStyle: <P extends object = {}>(
         first: TemplateStringsArray | CSSObject | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): GlobalStyleComponent<P, T>;
+    ) => GlobalStyleComponent<P, T>;
 
-    withTheme: WithThemeFnInterface<T>;
-    ThemeProvider: ThemeProviderComponent<T, U>;
+    withTheme: BaseWithThemeFnInterface<T>;
+    ThemeProvider: BaseThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
     useTheme(): T;

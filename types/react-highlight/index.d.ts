@@ -10,6 +10,7 @@ import * as React from 'react';
  * Props for a Highlight component.
  */
 export interface HighlightProps {
+    children?: React.ReactNode;
     /**
      * Language name to use as a class to signal type to highlight.js.
      */

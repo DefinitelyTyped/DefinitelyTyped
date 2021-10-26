@@ -19,6 +19,8 @@ declare class DataModelSchema {
     getTableColumns(tableName: string): ColumnInfo[];
     getTableIndexes(tableName: string): IndexInfo[];
     getUnmanagedTableNames(): string[];
+    getUnmanagedTableColumns(tableName: string): string[];
+    getUnmanagedTableIndexes(tableName: string): string[];
 }
 declare namespace DataModelSchema {
     export {
@@ -123,4 +125,6 @@ interface DataModelSchemaInfo {
     tableColumns: Record<string, ColumnInfo[]>;
     tableIndexes: Record<string, IndexInfo[]>;
     unmanagedTableNames: string[];
+    unmanagedTableColumns: Record<string, string[]>;
+    unmanagedTableIndexes: Record<string, string[]>;
 }

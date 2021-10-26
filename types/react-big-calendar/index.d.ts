@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.33
+// Type definitions for react-big-calendar 0.36
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -312,8 +312,9 @@ export class DateLocalizer {
     messages: Messages;
 }
 
-export interface CalendarProps<TEvent extends object = Event, TResource extends object = object>
-    extends React.Props<Calendar<TEvent, TResource>> {
+export interface CalendarProps<TEvent extends object = Event, TResource extends object = object> {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<Calendar<TEvent, TResource>> | undefined;
     localizer: DateLocalizer;
 
     date?: stringOrDate | undefined;
@@ -405,6 +406,8 @@ export interface components {
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
+export function luxonLocalizer(config: object): DateLocalizer;
+
 export const Navigate: {
     PREVIOUS: 'PREV';
     NEXT: 'NEXT';

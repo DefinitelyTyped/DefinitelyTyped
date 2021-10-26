@@ -42,7 +42,7 @@
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import { Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -136,6 +136,7 @@ declare module 'http' {
         setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
+        lookup?: LookupFunction | undefined;
     }
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage | undefined;
@@ -187,9 +188,9 @@ declare module 'http' {
          * The maximum number of requests socket can handle
          * before closing keep alive connection.
          *
-         * A value of `null` will disable the limit.
+         * A value of `0` will disable the limit.
          *
-         * When limit is reach it will set `Connection` header value to `closed`,
+         * When the limit is reached it will set the `Connection` header value to `close`,
          * but will not actually close the connection, subsequent requests sent
          * after the limit is reached will get `503 Service Unavailable` as a response.
          * @since v16.10.0

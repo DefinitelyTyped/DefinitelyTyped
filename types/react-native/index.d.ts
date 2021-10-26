@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.65
+// Type definitions for react-native 0.66
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -41,7 +41,9 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
+//                 Pedro Hernández <https://github.com/phvillegas>
 //                 Brett Lindsay <https://github.com/bdlindsay>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -359,7 +361,7 @@ export interface HostComponent<P> extends Pick<React.ComponentClass<P>, Exclude<
 
 // see react-jsx.d.ts
 export function createElement<P>(
-    type: React.ReactType,
+    type: React.ElementType,
     props?: P,
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;
@@ -450,6 +452,7 @@ export interface PressableAndroidRippleConfig {
     color?: null | ColorValue | undefined;
     borderless?: null | boolean | undefined;
     radius?: null | number | undefined;
+    foreground?: null | boolean | undefined;
 }
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
@@ -495,7 +498,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Whether a press gesture can be interrupted by a parent gesture such as a
      * scroll event. Defaults to true.
      */
-    cancelable?: null | boolean | undefined,
+    cancelable?: null | boolean | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -596,7 +599,7 @@ export namespace AppRegistry {
 
     function runApplication(appKey: string, appParameters: any): void;
 
-    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void
+    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void;
 
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 
@@ -613,7 +616,7 @@ export type LayoutAnimationType =
 
 export type LayoutAnimationTypes = {
     [type in LayoutAnimationType]: type;
-}
+};
 
 export type LayoutAnimationProperty =
     | 'opacity'
@@ -623,7 +626,7 @@ export type LayoutAnimationProperty =
 
 export type LayoutAnimationProperties = {
     [prop in LayoutAnimationProperty]: prop;
-}
+};
 
 export interface LayoutAnimationAnim {
     duration?: number | undefined;
@@ -1000,6 +1003,8 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      */
     allowFontScaling?: boolean | undefined;
 
+    children?: React.ReactNode;
+
     /**
      * This can be one of the following values:
      *
@@ -1276,7 +1281,8 @@ export interface TextInputIOSProps {
         | 'username'
         | 'password'
         | 'newPassword'
-        | 'oneTimeCode' | undefined;
+        | 'oneTimeCode'
+        | undefined;
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
@@ -1311,7 +1317,7 @@ export interface TextInputAndroidProps {
      * - `cc-exp-year`
      * - `off`
      */
-    autoCompleteType?:
+    autoComplete?:
         | 'cc-csc'
         | 'cc-exp'
         | 'cc-exp-month'
@@ -1324,7 +1330,8 @@ export interface TextInputAndroidProps {
         | 'street-address'
         | 'tel'
         | 'username'
-        | 'off' | undefined;
+        | 'off'
+        | undefined;
 
     /**
      * Determines whether the individual fields in your app should be included in a
@@ -2472,6 +2479,7 @@ export interface ViewProps
         GestureResponderHandlers,
         Touchable,
         AccessibilityProps {
+    children?: React.ReactNode;
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2744,6 +2752,8 @@ export class InputAccessoryView extends React.Component<InputAccessoryViewProps>
 
 export interface InputAccessoryViewProps {
     backgroundColor?: ColorValue | undefined;
+
+    children?: React.ReactNode;
 
     /**
      * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
@@ -3034,7 +3044,7 @@ export interface DatePickerIOSProps extends ViewProps {
      * This is only available on devices with iOS 14.0 and later.
      * 'spinner' is the default style if this prop isn't set.
      */
-    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined,
+    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined;
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
@@ -3165,136 +3175,6 @@ export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
      * Closes the drawer.
      */
     closeDrawer(): void;
-}
-
-/**
- * @see PickerIOS.ios.js
- */
-export interface PickerIOSItemProps {
-    value?: string | undefined;
-    label?: string | undefined;
-    textColor?: ProcessedColorValue | undefined;
-}
-
-/**
- * @see PickerIOS.ios.js
- */
-export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
-
-/**
- * @see Picker.js
- */
-export interface PickerItemProps {
-    testID?: string | undefined;
-    color?: ColorValue | undefined;
-    label: string;
-    value?: string | undefined;
-}
-
-export interface PickerPropsIOS extends ViewProps {
-    /**
-     * Style to apply to each of the item labels.
-     * @platform ios
-     */
-    itemStyle?: StyleProp<TextStyle> | undefined;
-}
-
-export interface PickerPropsAndroid extends ViewProps {
-    /**
-     * If set to false, the picker will be disabled, i.e. the user will not be able to make a
-     * selection.
-     * @platform android
-     */
-    enabled?: boolean | undefined;
-
-    /**
-     * On Android, specifies how to display the selection items when the user taps on the picker:
-     *
-     *   - 'dialog': Show a modal dialog. This is the default.
-     *   - 'dropdown': Shows a dropdown anchored to the picker view
-     *
-     * @platform android
-     */
-    mode?: 'dialog' | 'dropdown' | undefined;
-
-    /**
-     * Prompt string for this picker, used on Android in dialog mode as the title of the dialog.
-     * @platform android
-     */
-    prompt?: string | undefined;
-}
-
-/**
- * @see https://reactnative.dev/docs/picker
- * @see Picker.js
- */
-export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
-    /**
-     * Callback for when an item is selected. This is called with the
-     * following parameters:
-     * - itemValue: the value prop of the item that was selected
-     * - itemPosition: the index of the selected item in this picker
-     */
-    onValueChange?: ((itemValue: any, itemPosition: number) => void) | undefined;
-
-    /**
-     * Value matching value of one of the items.
-     * Can be a string or an integer.
-     */
-    selectedValue?: string | undefined;
-
-    style?: StyleProp<TextStyle> | undefined;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testId?: string | undefined;
-}
-
-/**
- * Picker has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-picker
- * @deprecated
- */
-export class Picker extends React.Component<PickerProps> {
-    /**
-     * On Android, display the options in a dialog.
-     */
-    static MODE_DIALOG: string;
-
-    /**
-     * On Android, display the options in a dropdown (this is the default).
-     */
-    static MODE_DROPDOWN: string;
-
-    static Item: React.ComponentType<PickerItemProps>;
-}
-
-/**
- * @see https://reactnative.dev/docs/pickerios
- * @see PickerIOS.ios.js
- */
-export interface PickerIOSProps extends ViewProps {
-    itemStyle?: StyleProp<TextStyle> | undefined;
-    onValueChange?: ((value: string) => void) | undefined;
-    selectedValue?: string | undefined;
-}
-
-/**
- * @see https://reactnative.dev/docs/pickerios
- * @see PickerIOS.ios.js
- */
-declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
-declare const PickerIOSBase: Constructor<NativeMethods> & typeof PickerIOSComponent;
-/**
- * PickerIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-picker
- * @deprecated
- */
-export class PickerIOS extends PickerIOSBase {
-    static Item: typeof PickerIOSItem;
 }
 
 /**
@@ -5152,30 +5032,7 @@ interface TouchableMixin {
     touchableGetHitSlop(): Insets;
 }
 
-export interface TouchableWithoutFeedbackPropsIOS {
-    /**
-     * *(Apple TV only)* TV preferred focus (see documentation for the View component).
-     *
-     * @platform ios
-     */
-    hasTVPreferredFocus?: boolean | undefined;
-
-    /**
-     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
-     *
-     * enabled: If true, parallax effects are enabled.  Defaults to true.
-     * shiftDistanceX: Defaults to 2.0.
-     * shiftDistanceY: Defaults to 2.0.
-     * tiltAngle: Defaults to 0.05.
-     * magnification: Defaults to 1.0.
-     * pressMagnification: Defaults to 1.0.
-     * pressDuration: Defaults to 0.3.
-     * pressDelay: Defaults to 0.0.
-     *
-     * @platform ios
-     */
-    tvParallaxProperties?: TVParallaxProperties | undefined;
-}
+export interface TouchableWithoutFeedbackPropsIOS {}
 
 export interface TouchableWithoutFeedbackPropsAndroid {
     /**
@@ -5193,6 +5050,8 @@ export interface TouchableWithoutFeedbackProps
     extends TouchableWithoutFeedbackPropsIOS,
         TouchableWithoutFeedbackPropsAndroid,
         AccessibilityProps {
+    children?: React.ReactNode;
+
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -5342,12 +5201,28 @@ export class TouchableHighlight extends TouchableHighlightBase {}
 /**
  * @see https://reactnative.dev/docs/touchableopacity#props
  */
-export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
+export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps, TVProps {
     /**
      * Determines what the opacity of the wrapped view should be when touch is active.
      * Defaults to 0.2
      */
     activeOpacity?: number | undefined;
+
+    /**
+     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     *
+     * enabled: If true, parallax effects are enabled.  Defaults to true.
+     * shiftDistanceX: Defaults to 2.0.
+     * shiftDistanceY: Defaults to 2.0.
+     * tiltAngle: Defaults to 0.05.
+     * magnification: Defaults to 1.0.
+     * pressMagnification: Defaults to 1.0.
+     * pressDuration: Defaults to 0.3.
+     * pressDelay: Defaults to 0.0.
+     *
+     * @platform android
+     */
+    tvParallaxProperties?: TVParallaxProperties | undefined;
 }
 
 /**
@@ -5388,10 +5263,54 @@ interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
 
 type BackgroundPropType = RippleBackgroundPropType | ThemeAttributeBackgroundPropType;
 
+interface TVProps {
+    /**
+     * *(Apple TV only)* TV preferred focus (see documentation for the View component).
+     *
+     * @platform ios
+     */
+    hasTVPreferredFocus?: boolean | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates down. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusDown?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates forward. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusForward?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates left. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusLeft?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates right. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusRight?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates up. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusUp?: number | undefined;
+}
+
 /**
- * @see https://reactnative.dev/docs/touchableopacity#props
+ * @see https://reactnative.dev/docs/touchablenativefeedback#props
  */
-export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps {
+export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps, TVProps {
     /**
      * Determines the type of background drawable that's going to be used to display feedback.
      * It takes an object with type property and extra data depending on the type.
@@ -5872,7 +5791,8 @@ export interface TabBarIOSItemProps extends ViewProps {
         | 'most-viewed'
         | 'recents'
         | 'search'
-        | 'top-rated' | undefined;
+        | 'top-rated'
+        | undefined;
 
     /**
      * Text that appears under the icon. It is ignored when a system icon is defined.
@@ -6042,7 +5962,7 @@ interface PlatformMacOSStatic extends PlatformStatic {
     Version: string;
     constants: PlatformConstants & {
         osVersion: string;
-    }
+    };
 }
 
 interface PlatformWindowsOSStatic extends PlatformStatic {
@@ -6050,7 +5970,7 @@ interface PlatformWindowsOSStatic extends PlatformStatic {
     Version: number;
     constants: PlatformConstants & {
         osVersion: number;
-    }
+    };
 }
 
 interface PlatformWebStatic extends PlatformStatic {
@@ -6847,6 +6767,11 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     showsVerticalScrollIndicator?: boolean | undefined;
 
     /**
+     * When true, Sticky header is hidden when scrolling down, and dock at the top when scrolling up.
+    */
+    stickyHeaderHiddenOnScroll?: boolean;
+
+    /**
      * Style
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -7293,14 +7218,16 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): EmitterSubscription;
     addEventListener(
         eventName: AccessibilityAnnouncementEventName,
         handler: AccessibilityAnnouncementFinishedEventHandler,
-    ): void;
+    ): EmitterSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove an event handler
      */
     removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
     removeEventListener(
@@ -7317,6 +7244,14 @@ export interface AccessibilityInfoStatic {
      * Post a string to be announced by the screen reader.
      */
     announceForAccessibility: (announcement: string) => void;
+
+    /**
+     * Gets the timeout in millisecond that the user needs.
+     * This value is set in "Time to take action (Accessibility timeout)" of "Accessibility" settings.
+     *
+     * @platform android
+     */
+    getRecommendedTimeoutMillis: (originalTimeout: number) => Promise<number>;
 }
 
 /**
@@ -7524,18 +7459,31 @@ export interface BackHandlerStatic {
     removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
 
-export interface ButtonProps {
+export interface ButtonProps
+    extends Pick<
+        TouchableNativeFeedbackProps & TouchableOpacityProps,
+        | "accessibilityLabel"
+        | "accessibilityState"
+        | "hasTVPreferredFocus"
+        | "nextFocusDown"
+        | "nextFocusForward"
+        | "nextFocusLeft"
+        | "nextFocusRight"
+        | "nextFocusUp"
+        | "testID"
+        | "disabled"
+        | "onPress"
+        | "touchSoundDisabled"
+    > {
+    /**
+     * Text to display inside the button. On Android the given title will be converted to the uppercased form.
+     */
     title: string;
-    onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
-    color?: ColorValue | undefined;
-    accessibilityLabel?: string | undefined;
-    disabled?: boolean | undefined;
 
     /**
-     * Used to locate this button in end-to-end tests.
+     * Color of the text (iOS), or background color of the button (Android).
      */
-    testID?: string | undefined;
-    accessibilityState?: AccessibilityState | undefined;
+    color?: ColorValue | undefined;
 }
 
 export class Button extends React.Component<ButtonProps> {}
@@ -8341,11 +8289,6 @@ export class StatusBar extends React.Component<StatusBarProps> {
     static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
 }
 
-/**
- * @deprecated Use StatusBar instead
- */
-export interface StatusBarIOSStatic extends NativeEventEmitter {}
-
 export interface TimePickerAndroidOpenOptions {
     hour?: number | undefined;
     minute?: number | undefined;
@@ -8612,7 +8555,7 @@ export interface SwitchPropsIOS extends ViewProps {
 }
 
 export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean
+    value: boolean;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
@@ -8730,10 +8673,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): void;
+    export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove a handler by passing the change event type and the handler.
      */
     export function removeChangeListener(listener: AppearanceListener): void;
 }
@@ -9182,7 +9127,7 @@ export namespace Animated {
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
     export type AnimatedComponentOptions = {
-        collapsable?: boolean
+        collapsable?: boolean;
     };
 
     /**
@@ -9626,12 +9571,6 @@ export type Settings = SettingsStatic;
 
 export const Share: ShareStatic;
 export type Share = ShareStatic;
-
-/**
- * @deprecated Use StatusBar instead
- */
-export const StatusBarIOS: StatusBarIOSStatic;
-export type StatusBarIOS = StatusBarIOSStatic;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;

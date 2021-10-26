@@ -237,7 +237,6 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
 
 export interface UseTableColumnOptions<D extends object> {
     id?: IdType<D> | undefined;
-    originalId?: IdType<D> | undefined;
     Header?: Renderer<HeaderProps<D>> | undefined;
     Footer?: Renderer<FooterProps<D>> | undefined;
     width?: number | string | undefined;
@@ -499,6 +498,14 @@ export function useFlexLayout<D extends object = {}>(hooks: Hooks<D>): void;
 
 export namespace useFlexLayout {
     const pluginName = 'useFlexLayout';
+}
+//#endregion
+
+//#region useGridLayout
+export function useGridLayout<D extends object = {}>(hooks: Hooks<D>): void;
+
+export namespace useGridLayout {
+    const pluginName = 'useGridLayout';
 }
 //#endregion
 

@@ -65,3 +65,19 @@ concurrently(['echo foo', 'npm:watch-*', { command: 'nodemon', name: 'server' }]
     // $ExpectType (reason: any) => void
     reason => {},
 );
+
+concurrently(['echo foo'], {
+    prefixColors: ['grey', 'red', 'black'],
+});
+
+concurrently(
+    [
+        {
+            command: 'echo foo',
+            prefixColor: 'red',
+        },
+    ],
+    {
+        prefixColors: ['red'],
+    },
+);

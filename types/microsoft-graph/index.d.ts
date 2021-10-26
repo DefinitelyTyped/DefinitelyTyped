@@ -3031,19 +3031,15 @@ export interface Event extends OutlookItem {
     type?: NullableOption<EventType>;
     webLink?: NullableOption<string>;
     /**
-     * The collection of FileAttachment, ItemAttachment, and referenceAttachment attachments for the event. Navigation
-     * property. Read-only. Nullable.
+     * The collection of fileAttachment and itemAttachment attachments for the event. Navigation property. Read-only.
+     * Nullable.
      */
     attachments?: NullableOption<Attachment[]>;
     // The calendar that contains the event. Navigation property. Read-only.
     calendar?: NullableOption<Calendar>;
-    // The collection of open extensions defined for the event. Nullable.
+    // The collection of open extensions defined for the event. Read-only. Nullable.
     extensions?: NullableOption<Extension[]>;
-    /**
-     * The occurrences of a recurring series, if the event is a series master. This property includes occurrences that are
-     * part of the recurrence pattern, and exceptions that have been modified, but does not include occurrences that have been
-     * cancelled from the series. Navigation property. Read-only. Nullable.
-     */
+    // The instances of the event. Navigation property. Read-only. Nullable.
     instances?: NullableOption<Event[]>;
     // The collection of multi-value extended properties defined for the event. Read-only. Nullable.
     multiValueExtendedProperties?: NullableOption<MultiValueLegacyExtendedProperty[]>;
@@ -4565,7 +4561,7 @@ export interface Group extends DirectoryObject {
      * be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true
      * and the group cannot be a dynamic group (that is, groupTypes cannot contain DynamicMembership). Only callers in Global
      * administrator and Privileged role administrator roles can set this property. The caller must be assigned the
-     * RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more,
+     * RoleManagement.ReadWrite.Directory permission to set this property or update the memership of such groups. For more,
      * see Using a group to manage Azure AD role assignmentsReturned by default. Supports $filter (eq, ne, NOT).
      */
     isAssignableToRole?: NullableOption<boolean>;
@@ -9673,15 +9669,9 @@ export interface SettingStateDeviceSummary extends Entity {
     unknownDeviceCount?: number;
 }
 export interface DeviceComplianceScheduledActionForRule extends Entity {
-    /**
-     * Name of the rule which this scheduled action applies to. Currently scheduled actions are created per policy instead of
-     * per rule, thus RuleName is always set to default value PasswordRequired.
-     */
+    // Name of the rule which this scheduled action applies to.
     ruleName?: NullableOption<string>;
-    /**
-     * The list of scheduled action configurations for this compliance policy. Compliance policy must have one and only one
-     * block scheduled action.
-     */
+    // The list of scheduled action configurations for this compliance policy.
     scheduledActionConfigurations?: NullableOption<DeviceComplianceActionItem[]>;
 }
 export interface DeviceComplianceUserStatus extends Entity {
@@ -18112,6 +18102,18 @@ export interface AudioConferencing {
     tollNumber?: NullableOption<string>;
     // List of toll numbers that are displayed in the meeting invite.
     tollNumbers?: NullableOption<string[]>;
+}
+export interface BroadcastMeetingSettings {
+    // Defines who can join the live event. Possible values are listed in the following table.
+    allowedAudience?: NullableOption<BroadcastMeetingAudience>;
+    // Indicates whether attendee report is enabled for this live event. Default value is false.
+    isAttendeeReportEnabled?: NullableOption<boolean>;
+    // Indicates whether Q&amp;A is enabled for this live event. Default value is false.
+    isQuestionAndAnswerEnabled?: NullableOption<boolean>;
+    // Indicates whether recording is enabled for this live event. Default value is false.
+    isRecordingEnabled?: NullableOption<boolean>;
+    // Indicates whether video on demand is enabled for this live event. Default value is false.
+    isVideoOnDemandEnabled?: NullableOption<boolean>;
 }
 export interface BroadcastMeetingSettings {
     // Defines who can join the live event. Possible values are listed in the following table.

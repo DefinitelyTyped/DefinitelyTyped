@@ -17,6 +17,7 @@
 //                 Dmitry Avezov       <https://github.com/avezov>
 //                 Jose Fuentes        <https://github.com/j-fuentes>
 //                 Anya Reyes          <https://github.com/darkade>
+//                 Tino                <https://github.com/tino-247>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -80,7 +81,7 @@ declare module "node-forge" {
             add(a: BigInteger): BigInteger;
             subtract(a: BigInteger): BigInteger;
             multiply(a: BigInteger): BigInteger;
-            square(): BigInteger;
+            squareTo(a: BigInteger): BigInteger;
             divide(a: BigInteger): BigInteger;
             remainder(a: BigInteger): BigInteger;
             divideAndRemainder(a: BigInteger): BigInteger[]; // Array of 2 items
@@ -89,6 +90,58 @@ declare module "node-forge" {
             gcd(a: BigInteger): BigInteger;
             modInverse(m: BigInteger): BigInteger;
             isProbablePrime(t: number): boolean;
+        }
+    }
+
+    namespace rc2 {
+        type pad_function = (blockSize: number, buffer: util.ByteBuffer, decrypt: boolean) => boolean;
+        interface cipher {
+            start(iv: util.ByteBuffer | string | null, output?: util.ByteBuffer): void;
+            update(input: util.ByteBuffer): void;
+            finish(pad?: pad_function): boolean;
+            output: util.ByteBuffer;
+        }
+
+        function expandKey(key: string | util.ByteBuffer, effKeyBits?: number): util.ByteBuffer;
+        function startEncrypting(key: string | util.ByteBuffer, iv: util.ByteBuffer | Byte[] | Bytes, output: util.ByteBuffer | null): rc2.cipher;
+        function createEncryptionCipher(key: string | util.ByteBuffer, bits?: number): rc2.cipher;
+        function startDecrypting(key: string | util.ByteBuffer, iv: util.ByteBuffer | Byte[] | Bytes, output: util.ByteBuffer | null): rc2.cipher;
+        function createDecryptionCipher(key: string | util.ByteBuffer, bits?: number): rc2.cipher;
+    }
+
+    namespace kem {
+        namespace rsa {
+            interface kem {
+                encrypt(publicKey: pki.rsa.PublicKey, keyLength: number): EncryptResult;
+                decrypt(privateKey: pki.rsa.PrivateKey, encapsulation: string, keyLength: number): string;
+            }
+            interface random {
+                getBytesSync(count: number): Bytes;
+            }
+            interface Options {
+                prng?: random | undefined;
+            }
+
+            function create(kdf: md.MessageDigest, options?: Options): kem;
+        }
+
+        interface EncryptResult {
+            encapsulation: string;
+            key: string;
+        }
+
+        function encrypt(publicKey: pki.rsa.PublicKey, keyLength: number): EncryptResult;
+        function decrypt(privateKey: pki.rsa.PrivateKey, encapsulation: string, keyLength: number): string;
+
+        class kdf1 implements md.MessageDigest {
+            constructor(md: md.MessageDigest, digestLength?: number);
+            update(msg: string, encoding?: Encoding): md.MessageDigest;
+            digest(): util.ByteStringBuffer;
+        }
+        class kdf2 implements md.MessageDigest {
+            constructor(md: md.MessageDigest, digestLength?: number);
+            update(msg: string, encoding?: Encoding): md.MessageDigest;
+            digest(): util.ByteStringBuffer;
         }
     }
 
@@ -335,18 +388,6 @@ declare module "node-forge" {
             verify(child: Certificate): boolean;
 
             /**
-             * Gets an issuer or subject attribute from its name, type, or short name.
-             *
-             * @param options a short name string or an object with:
-             *          shortName the short name for the attribute.
-             *          name the name for the attribute.
-             *          type the type for the attribute.
-             *
-             * @return the attribute.
-             */
-            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
-
-            /**
              * Returns true if this certificate's issuer matches the passed
              * certificate's subject. Note that no signature check is performed.
              *
@@ -367,6 +408,20 @@ declare module "node-forge" {
              *         certificate's issuer.
              */
             issued(child: Certificate): boolean;
+        }
+
+        interface CertificateRequest extends Certificate {
+            /**
+             * Gets an issuer or subject attribute from its name, type, or short name.
+             *
+             * @param options a short name string or an object with:
+             *          shortName the short name for the attribute.
+             *          name the name for the attribute.
+             *          type the type for the attribute.
+             *
+             * @return the attribute.
+             */
+            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
         }
 
         /**
@@ -439,7 +494,7 @@ declare module "node-forge" {
 
         function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
 
-        function createCertificationRequest(): Certificate;
+        function createCertificationRequest(): CertificateRequest;
 
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 

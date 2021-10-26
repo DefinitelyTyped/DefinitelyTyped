@@ -117,15 +117,36 @@ declare module Accounts {
 
     function onCreateUser(func: (options: { profile?: {} | undefined }, user: Meteor.User) => void): void;
 
-    function findUserByEmail(email: string): Meteor.User | null | undefined;
+    function findUserByEmail(
+        email: string,
+        options?: { fields?: Mongo.FieldSpecifier | undefined },
+    ): Meteor.User | null | undefined;
 
-    function findUserByUsername(username: string): Meteor.User | null | undefined;
+    function findUserByUsername(
+        username: string,
+        options?: { fields?: Mongo.FieldSpecifier | undefined },
+    ): Meteor.User | null | undefined;
 
-    function sendEnrollmentEmail(userId: string, email?: string): void;
+    function sendEnrollmentEmail(
+        userId: string,
+        email?: string,
+        extraTokenData?: Record<string, unknown>,
+        extraParams?: Record<string, unknown>,
+    ): void;
 
-    function sendResetPasswordEmail(userId: string, email?: string): void;
+    function sendResetPasswordEmail(
+        userId: string,
+        email?: string,
+        extraTokenData?: Record<string, unknown>,
+        extraParams?: Record<string, unknown>,
+    ): void;
 
-    function sendVerificationEmail(userId: string, email?: string): void;
+    function sendVerificationEmail(
+        userId: string,
+        email?: string,
+        extraTokenData?: Record<string, unknown>,
+        extraParams?: Record<string, unknown>,
+    ): void;
 
     function setUsername(userId: string, newUsername: string): void;
 

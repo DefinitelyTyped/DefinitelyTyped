@@ -47,7 +47,7 @@ declare const eventDispatcher: EventDispatcher<number>;
 // ----------------------------------------------------------------------------
 
 // Start with a simple component.
-const LoadingComponent: React.SFC<{ loadingStatus: string | undefined }> = ({ loadingStatus }) => {
+const LoadingComponent: React.FC<{ loadingStatus: string | undefined }> = ({ loadingStatus }) => {
     if (loadingStatus === undefined) {
         // Loading
     } else if (loadingStatus === null) {

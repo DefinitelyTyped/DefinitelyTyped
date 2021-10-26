@@ -21,6 +21,7 @@ options = {
     onEditable(node: EditableNode | {}) {
         return true;
     },
+    limitDragging: true,
     onError(error: Error) {},
     onModeChange(newMode: JSONEditorMode, oldMode: JSONEditorMode) {},
     onValidate: json => [],
@@ -50,22 +51,43 @@ jsonEditor = new JSONEditor(document.body);
 jsonEditor = new JSONEditor(document.body, {});
 jsonEditor = new JSONEditor(document.body, options, { foo: 'bar' });
 
+// $ExpectType void
 jsonEditor.collapseAll();
+// $ExpectType void
 jsonEditor.destroy();
+// $ExpectType void
 jsonEditor.expandAll();
+// $ExpectType void
 jsonEditor.focus();
+// $ExpectType void
 jsonEditor.set({ foo: 'bar' });
+// $ExpectType void
 jsonEditor.setMode('text');
+// $ExpectType void
 jsonEditor.setName('foo');
+// $ExpectType void
 jsonEditor.setName();
+// $ExpectType void
 jsonEditor.setSchema({});
+// $ExpectType void
 jsonEditor.setText('{foo: 1}');
+// $ExpectType any
 jsonEditor.get();
+// $ExpectType JSONEditorMode
 jsonEditor.getMode();
+// $ExpectType SerializableNode[]
 jsonEditor.getNodesByRange({ path: ['a', 'b'] }, { path: [1] });
+// $ExpectType { start: SerializableNode; end: SerializableNode; }
 jsonEditor.getSelection();
+// $ExpectType string
 jsonEditor.getText();
+// $ExpectType { start: SelectionPosition; end: SelectionPosition; text: string; }
 jsonEditor.getTextSelection();
+// $ExpectType void
 jsonEditor.refresh();
+// $ExpectType void
 jsonEditor.update(null);
+// $ExpectType void
 jsonEditor.updateText('');
+// $ExpectType Promise<readonly (SchemaValidationError | ParseError)[]>
+jsonEditor.validate();

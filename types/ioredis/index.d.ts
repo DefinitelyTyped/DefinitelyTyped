@@ -1269,9 +1269,11 @@ declare namespace IORedis {
 
         xclaim: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
+        xautoclaim: OverloadedSubCommand<ValueType,  Array<[string, string[]]>>;
+
         xdel: OverloadedKeyCommand<string, number>;
 
-        xgroup: OverloadedSubCommand<ValueType, Ok>;
+        xgroup: OverloadedSubCommand<ValueType, Ok | number>;
 
         xinfo: OverloadedSubCommand<ValueType, any>;
 
@@ -1284,7 +1286,7 @@ declare namespace IORedis {
 
         xread: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
-        xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
+        xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
         xrevrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 

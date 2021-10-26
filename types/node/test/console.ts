@@ -16,7 +16,8 @@ import * as console2 from 'node:console';
             stdout: writeStream,
             stderr: writeStream,
             colorMode: 'auto',
-            ignoreErrors: true
+            ignoreErrors: true,
+            groupIndentation: 2,
         };
         consoleInstance = new console.Console(opts);
         consoleInstance = new console.Console({

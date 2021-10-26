@@ -561,5 +561,5 @@ declare module 'fs/promises' {
      */
     function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & { flag?: OpenMode | undefined } | BufferEncoding | null): Promise<string | Buffer>;
 
-    function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+    function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
 }

@@ -20,6 +20,7 @@ declare namespace MongooseDelete {
         | 'findOne'
         | 'findOneAndUpdate'
         | 'update'
+        | 'updateOne'
         | 'updateMany'
         | 'aggregate';
     interface SoftDeleteModel<T extends Omit<mongoose.Document, 'delete'>, QueryHelpers = {}>
@@ -48,6 +49,10 @@ declare namespace MongooseDelete {
         updateDeleted: typeof mongoose.Model.update;
         /** Update all documents including deleted */
         updateWithDeleted: typeof mongoose.Model.update;
+        /** Update One only deleted documents */
+        updateOneDeleted: typeof mongoose.Model.updateOne;
+        /** Update One all documents including deleted */
+        updateOneWithDeleted: typeof mongoose.Model.updateOne;
         /** Update Many only deleted documents */
         updateManyDeleted: typeof mongoose.Model.updateMany;
         /** Update Many all documents including deleted */
