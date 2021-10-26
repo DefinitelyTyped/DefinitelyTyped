@@ -1,3 +1,3 @@
 import * as Information from './Information';
 
-export function toPolylines(parsed: Information.FileInfo): Information.Polyline[];
+export default function toPolylines(parsed: Information.FileInfo): Information.Polyline[];
