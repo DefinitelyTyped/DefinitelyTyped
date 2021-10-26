@@ -17,7 +17,7 @@ declare namespace PkgInfo {
     }
 
     interface PkgInfo {
-        (pmodule: NodeJS.Module, options?: Options | string[] | string, ...properties: string[]): PkgInfo;
+        (pmodule: NodeModule, options?: Options | string[] | string, ...properties: string[]): PkgInfo;
 
         //
         // ### function find (dir)
@@ -27,12 +27,12 @@ declare namespace PkgInfo {
         // which contains a `package.json` file.
         //
         read(
-          pmodule: NodeJS.Module,
+          pmodule: NodeModule,
           dir?: string
         ): FindResults;
 
         find(
-          pmodule: NodeJS.Module,
+          pmodule: NodeModule,
           dir?: string
         ): Record<string, any>;
     }
