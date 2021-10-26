@@ -19,7 +19,7 @@ declare namespace Notifications {
 
     type NotificationLevel = "error" | "warning" | "info" | "success";
 
-    type NotificationsReducer<A extends Action> = (state: NotificationsState, action: A) => NotificationsState;
+    type NotificationsReducer<A extends Action> = (state: NotificationsState | undefined, action: A) => NotificationsState;
 
     type NotificationShow = (opts?: Notification) => Action;
 
