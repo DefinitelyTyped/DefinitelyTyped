@@ -1,5 +1,5 @@
 import { Point3D } from "../../Common";
-import { CommonEntityData } from "./Common";
+import { CommonEntityData } from "./common";
 
 export type VertexEntityData = {
   bulge?: number;

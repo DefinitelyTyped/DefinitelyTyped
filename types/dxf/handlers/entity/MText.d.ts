@@ -1,10 +1,10 @@
-import * as Common from './Common';
+import * as common from './common';
 
 export type MTextEntityData = {
   string?: string;
   xAxisX: number;
   xAxisY: number;
-} & Partial<Common.CommonEntityData>;
+} & Partial<common.CommonEntityData>;
 
 // tslint:disable-next-line: interface-over-type-literal
 export type DXFEntityType = {

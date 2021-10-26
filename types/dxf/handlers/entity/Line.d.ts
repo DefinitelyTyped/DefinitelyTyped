@@ -1,4 +1,4 @@
-import { DXFEntityType as CommonEntityType, CommonEntityData } from "./Common";
+import { DXFEntityType as CommonEntityType, CommonEntityData } from "./common";
 import { Point2D } from "../../Common";
 
 // tslint:disable-next-line: interface-over-type-literal

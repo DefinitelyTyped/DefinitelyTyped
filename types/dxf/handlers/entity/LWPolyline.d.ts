@@ -1,5 +1,5 @@
 import { Point2D } from "../../Common";
-import { CommonEntityData } from "./Common";
+import { CommonEntityData } from "./common";
 
 // tslint:disable-next-line: interface-over-type-literal
 export type LWPolylineEntityData = {

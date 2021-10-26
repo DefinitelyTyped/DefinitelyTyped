@@ -1,5 +1,5 @@
 import * as DXFCommon from '../../Common';
-import * as EntCommon from './Common';
+import * as EntCommon from './common';
 
 /**
  * Describes a DXF Dimension

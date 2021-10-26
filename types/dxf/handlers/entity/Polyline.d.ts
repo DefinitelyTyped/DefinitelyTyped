@@ -1,5 +1,5 @@
 import { Point2D } from "../../Common";
-import { CommonEntityData } from "./Common";
+import { CommonEntityData } from "./common";
 
 export type PolylineEntityData = {
   closed: boolean;

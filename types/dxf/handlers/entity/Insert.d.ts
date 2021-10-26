@@ -1,4 +1,4 @@
-import * as Common from './Common';
+import * as Common from './common';
 
 export type InsertEntityData = {
   block: any;
