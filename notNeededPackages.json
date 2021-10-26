@@ -3389,6 +3389,11 @@
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
         },
+        "pdfjs-dist": {
+            "libraryName": "pdfjs-dist",
+            "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
+            "asOfVersion": "2.10.377"
+        },
         "peerjs": {
             "libraryName": "peerjs",
             "asOfVersion": "1.1.0"
