@@ -886,6 +886,7 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     };
     const inferredProps: InferredProps = {
         value: 'inferred',
+        // $ExpectError
         notImplemented: 5
     };
 }
