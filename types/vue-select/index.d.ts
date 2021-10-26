@@ -235,6 +235,7 @@ type ComputedValues = {
 
 export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>> & {
     $refs: {
+        search: HTMLInputElement;
         toggle: HTMLDivElement;
         selectedOptions: HTMLDivElement;
         actions: HTMLDivElement;
