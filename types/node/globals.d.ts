@@ -83,7 +83,7 @@ interface RelativeIndexable<T> {
      * allowing for positive and negative integers.
      * Negative integers count back from the last item in the array.
      */
-    at(index: number): T | undefined;
+    at(index?: number): T | undefined;
 }
 interface String extends RelativeIndexable<string> {}
 interface Array<T> extends RelativeIndexable<T> {}
