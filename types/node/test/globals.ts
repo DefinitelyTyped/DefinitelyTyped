@@ -26,3 +26,18 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
         gc();
     }
 }
+
+// ArrayLike.at() tests
+const arr = [1, 2, 3];
+
+arr.at(); // $ExpectType number | undefined
+arr.at(0); // $ExpectType number | undefined
+arr.at(-1); // $ExpectType number | undefined
+arr.at(3); // $ExpectType number | undefined
+
+const str = 'hello world';
+
+str.at(); // $ExpectType string | undefined
+str.at(0); // $ExpectType string | undefined
+str.at(-1); // $ExpectType string | undefined
+str.at(11); // $ExpectType string | undefined
