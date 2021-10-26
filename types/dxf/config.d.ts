@@ -2,8 +2,6 @@ export interface Config {
     verbose: boolean;
 }
 
-declare const config: {
-    verbose: false
-};
+declare const config: Config;
 
 export default config;
