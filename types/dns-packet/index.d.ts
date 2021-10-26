@@ -202,3 +202,5 @@ export const CHECKING_DISABLED: number;
 export function encode(package: Packet, buf?: Buffer, offset?: number): Buffer;
 export function decode(buf: Buffer, offset?: number): Packet;
 export function encodingLength(packet: Packet): number;
+export function streamEncode(package: Packet): Buffer;
+export function streamDecode(package: Buffer): Packet;
