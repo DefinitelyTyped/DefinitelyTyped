@@ -42,4 +42,5 @@ interface CanvasSize {
 }
 
 declare const canvasSize: CanvasSize;
+export as namespace canvasSize;
 export = canvasSize;
