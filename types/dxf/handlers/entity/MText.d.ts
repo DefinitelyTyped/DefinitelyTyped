@@ -1,57 +1,59 @@
-import * as common from './common';
+import common, { CommonEntityData } from './common';
+import { ColorNumber } from '../../Common';
+import { Property } from '../../Information';
+
+export const TYPE: string;
 
 export type MTextEntityData = {
   string?: string;
-  xAxisX: number;
-  xAxisY: number;
-} & Partial<common.CommonEntityData>;
+  styleName?: any;
+  x?: any;
+  y?: any;
+  z?: any;
+  nominalTextHeight?: any;
+  refRectangleWidth?: any;
+  attachmentPoint?: any;
+  drawingDirection?: any;
+  xAxisX?: any;
+  xAxisY?: any;
+  xAxisZ?: any;
+  horizontalWidth?: any;
+  verticalHeight?: any;
+  lineSpacingStyle?: any;
+  lineSpacingFactor?: any;
+  backgroundFill?: any;
+  columnType?: any;
+  columnCount?: any;
+  columnFlowReversed?: any;
+  columnAutoheight?: any;
+  columnWidth?: any;
+  columnGutter?: any;
+  columnHeights?: any;
+  fillBoxStyle?: any;
+  bgFillColor?: ColorNumber;
+  bgColorRGB0?: ColorNumber;
+  bgColorRGB1?: ColorNumber;
+  bgColorRGB2?: ColorNumber;
+  bgColorRGB3?: ColorNumber;
+  bgColorRGB4?: ColorNumber;
+  bgColorRGB5?: ColorNumber;
+  bgColorRGB6?: ColorNumber;
+  bgColorRGB7?: ColorNumber;
+  bgColorRGB8?: ColorNumber;
+  bgColorRGB9?: ColorNumber;
+  bgColorName0?: string;
+  bgColorName1?: string;
+  bgColorName2?: string;
+  bgColorName3?: string;
+  bgColorName4?: string;
+  bgColorName5?: string;
+  bgColorName6?: string;
+  bgColorName7?: string;
+  bgColorName8?: string;
+  bgColorName9?: string;
+  bgFillTransparency?: any;
+} & Partial<CommonEntityData>;
 
-// tslint:disable-next-line: interface-over-type-literal
-export type DXFEntityType = {
-  10: 'x',
-  20: 'y',
-  30: 'z',
-  40: 'nominalTextHeight',
-  41: 'refRectangleWidth',
-  71: 'attachmentPoint',
-  72: 'drawingDirection',
-  7: 'styleName',
-  11: 'xAxisX',
-  21: 'xAxisY',
-  31: 'xAxisZ',
-  42: 'horizontalWidth',
-  43: 'verticalHeight',
-  73: 'lineSpacingStyle',
-  44: 'lineSpacingFactor',
-  90: 'backgroundFill',
-  420: 'bgColorRGB0',
-  421: 'bgColorRGB1',
-  422: 'bgColorRGB2',
-  423: 'bgColorRGB3',
-  424: 'bgColorRGB4',
-  425: 'bgColorRGB5',
-  426: 'bgColorRGB6',
-  427: 'bgColorRGB7',
-  428: 'bgColorRGB8',
-  429: 'bgColorRGB9',
-  430: 'bgColorName0',
-  431: 'bgColorName1',
-  432: 'bgColorName2',
-  433: 'bgColorName3',
-  434: 'bgColorName4',
-  435: 'bgColorName5',
-  436: 'bgColorName6',
-  437: 'bgColorName7',
-  438: 'bgColorName8',
-  439: 'bgColorName9',
-  45: 'fillBoxStyle',
-  63: 'bgFillColor',
-  441: 'bgFillTransparency',
-  75: 'columnType',
-  76: 'columnCount',
-  78: 'columnFlowReversed',
-  79: 'columnAutoheight',
-  48: 'columnWidth',
-  49: 'columnGutter',
-  50: 'columnHeights'
-};
+export function process(value: Property): MTextEntityData;
+
+export default MTextEntityData;

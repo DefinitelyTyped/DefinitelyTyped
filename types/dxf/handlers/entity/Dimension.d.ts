@@ -1,5 +1,8 @@
-import * as DXFCommon from '../../Common';
-import * as EntCommon from './common';
+import { Property } from '../../Information';
+import common, { CommonEntityData } from "./common";
+import { Point3D } from "../../Common";
+
+export const TYPE: string;
 
 /**
  * Describes a DXF Dimension
@@ -7,20 +10,24 @@ import * as EntCommon from './common';
  * it is until that can be corrected
  */
 export type DimensionEntityData = {
-  block: any;
-  start: DXFCommon.Point3D
-  end: DXFCommon.Point3D
-  textMidpoint: DXFCommon.Point3D;
-  measureStart: DXFCommon.Point3D;
-  measureEnd: DXFCommon.Point3D;
-  rotation?: number;
-  horizonRotation?: number;
-  extensionRotation?: number;
-  textRotation?: number;
-  attachementPoint: any;
-  extrudeDirection?: DXFCommon.Point3D
-  ordinateType?: boolean;
-  uniqueBlockReference?: boolean;
-  userDefinedLocation?: boolean;
-  dimensionType: any;
-} & Partial<EntCommon.CommonEntityData>;
+    block: any;
+    start: Point3D
+    end: Point3D
+    textMidpoint: Point3D;
+    measureStart: Point3D;
+    measureEnd: Point3D;
+    rotation?: number;
+    horizonRotation?: number;
+    extensionRotation?: number;
+    textRotation?: number;
+    attachementPoint: any;
+    extrudeDirection?: Point3D
+    ordinateType?: boolean;
+    uniqueBlockReference?: boolean;
+    userDefinedLocation?: boolean;
+    dimensionType: any;
+} & Partial<CommonEntityData>;
+
+export function process(value: Property): DimensionEntityData;
+
+export default DimensionEntityData;

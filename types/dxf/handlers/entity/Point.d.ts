@@ -1,13 +1,13 @@
 import * as Common from '../../Common';
-import * as common from './common';
+import common, { CommonEntityData } from "./common";
+import { Property } from '../../Information';
+
+export const TYPE: string;
 
 export type PointEntityData = {
-  thickness: number;
-} & Common.Point2D & Partial<common.CommonEntityData>;
+    thickness?: number;
+} & Partial<Common.Point3D> & Partial<CommonEntityData>;
 
-export type DXFEntityType = {
-  10: 'x',
-  20: 'y',
-  30: 'z',
-  39: 'thickness',
-} & common.DXFEntityType;
+export function process(value: Property): PointEntityData;
+
+export default PointEntityData;

@@ -1,30 +1,15 @@
-import { DXFEntityType as CommonEntityType, CommonEntityData } from "./common";
-import { Point2D } from "../../Common";
+import { Property } from '../../Information';
+import common, { CommonEntityData } from "./common";
+import { Point3D } from "../../Common";
 
-// tslint:disable-next-line: interface-over-type-literal
-export type DXFEntityType = LineStartType
-  & LineEndType
-  & CommonEntityType
-  & {
-  39: 'thickness',
-};
-
-// tslint:disable-next-line: interface-over-type-literal
-export type LineStartType = {
-  10: 'x',
-  20: 'y',
-  30: 'z',
-};
-
-// tslint:disable-next-line: interface-over-type-literal
-export type LineEndType = {
-  11: 'x',
-  21: 'y',
-  31: 'z',
-};
+export const TYPE: string;
 
 export type LineEntityData = {
-  start: Point2D;
-  end: Point2D;
+  start?: Partial<Point3D>;
+  end?: Partial<Point3D>;
   thickness?: number;
 } & Partial<CommonEntityData>;
+
+export function process(value: Property): LineEntityData;
+
+export default LineEntityData;

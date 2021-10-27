@@ -1,14 +1,16 @@
-import { Point3D } from '../../Common';
-import { CommonEntityData } from './common';
+import { Property } from '../../Information';
+import { Point3D } from "../../Common";
+import { CommonEntityData } from "./common";
 
-// tslint:disable-next-line: interface-over-type-literal
-export type SplineTypeFlag = {
-  1: 'CLOSED',
-  2: 'PERIODIC',
-  4: 'RATIONAL'
-  8: 'PLANAR',
-  16: 'LINEAR'
-};
+export const TYPE: string;
+
+export enum SplineTypeFlag {
+  CLOSED = 1,
+  PERIODIC = 2,
+  RATIONAL = 4,
+  PLANAR = 8,
+  LINEAR = 16
+}
 
 export type SplineEntityData = {
   controlPoints: Point3D[];
@@ -24,3 +26,7 @@ export type SplineEntityData = {
   numberOfControlPoints?: number;
   numberOfFitPoints?: number;
 } & Partial<Point3D> & Partial<CommonEntityData>;
+
+export function process(value: Property): SplineEntityData;
+
+export default SplineEntityData;

@@ -1,6 +1,13 @@
-import * as DXFCommon from '../../Common';
-import * as Common from './common';
+import { Property } from '../../Information';
+import { Point3D } from "../../Common";
+import { CommonEntityData } from "./common";
+
+export const TYPE: string;
 
 export type ThreeDFaceEntityData = {
-  vertices: [DXFCommon.Point3D, DXFCommon.Point3D, DXFCommon.Point3D, DXFCommon.Point3D];
-} & Partial<Common.CommonEntityData>;
+  vertices: [Point3D, Point3D, Point3D, Point3D];
+} & Partial<CommonEntityData>;
+
+export function process(value: Property): ThreeDFaceEntityData;
+
+export default ThreeDFaceEntityData;

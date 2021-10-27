@@ -1,27 +1,30 @@
-import * as Common from './common';
+import { Property } from '../../Information';
+import common, { CommonEntityData } from "./common";
+
+export const TYPE: string;
 
 export type TextEntityData = {
-  string: string;
-} & Partial<Common.CommonEntityData>;
+    string?: string;
+    x?: number;
+    y?: number;
+    z?: number;
+    x2?: number;
+    y2?: number;
+    z2?: number;
+    thickness?: any;
+    textHeight?: any;
+    relScaleX?: any;
+    rotation?: any;
+    obliqueAngle?: any;
+    styleName?: any;
+    mirror?: any;
+    hAlign?: any;
+    vAlign?: any;
+    extX?: any;
+    extY?: any;
+    ext?: any;
+} & Partial<CommonEntityData>;
 
-export type DXFEntityType = {
-  1: 'string',
-  10: 'x',
-  20: 'y',
-  30: 'z',
-  11: 'x2',
-  21: 'y2',
-  31: 'z2',
-  39: 'thickness',
-  40: 'textHeight',
-  41: 'relScaleX',
-  50: 'rotation',
-  51: 'obliqueAngle',
-  7: 'styleName',
-  71: 'mirror',
-  72: 'hAlign',
-  73: 'vAlign',
-  210: 'extX',
-  220: 'extY',
-  230: 'extZ'
-} & Common.DXFEntityType;
+export function process(value: Property): TextEntityData;
+
+export default TextEntityData;
