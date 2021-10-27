@@ -489,7 +489,7 @@ export interface ParseOptions {
     context?: string | undefined;
     atrule?: string | undefined;
     positions?: boolean | undefined;
-    onComment?: (value: string, CssLocation: loc) => void;
+    onComment?: (value: string, loc: CssLocation) => void;
     onParseError?: ((error: SyntaxParseError, fallbackNode: CssNode) => void) | undefined;
     filename?: string | undefined;
     offset?: number | undefined;
