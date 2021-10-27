@@ -19,8 +19,8 @@ helper.toPolylines();
 
 const { entities } = helper.parsed!;
 
-// $ExpectType DXFPointEntity[]
-const points = entities.filter(entity => entity.TYPE === 'POINT') as Entities.DXFPointEntity[];
+// $ExpectType PointEntityData[]
+const points = entities.filter(entity => entity.TYPE === 'POINT') as Entities.Point[];
 
-// $ExpectType DXFPolylineEntity[]
-const polylines = entities.filter(entity => entity.TYPE === 'POLYLINE') as Entities.DXFPolylineEntity[];
+// $ExpectType PolylineEntityData[]
+const polylines = entities.filter(entity => entity.TYPE === 'POLYLINE') as Entities.Polyline[];

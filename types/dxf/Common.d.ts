@@ -10,27 +10,27 @@ export interface Point3D extends Point2D {
 export type ColorNumber = [number, number, number];
 export type ColorNumbers = ColorNumber[];
 
-// tslint:disable-next-line: interface-over-type-literal
-export type UnitTypes = {
-  0: "Unitless",
-  1: "Inches",
-  2: "Feet",
-  3: "Miles",
-  4: "Millimeters",
-  5: "Centimeters",
-  6: "Meters",
-  7: "Kilometers",
-  8: "Microinches",
-  9: "Mils",
-  10: 'Yards',
-  11: 'Angstroms',
-  12: 'Nanometers',
-  13: "Microns",
-  14: 'Decimeters',
-  15: 'Decameters',
-  16: 'Hectometers',
-  17: 'Gigameters',
-  18: 'Astronomical Units',
-  19: 'Light years',
-  20: 'Parsecs'
-};
+export enum UnitTypes {
+    Unitless = 0,
+    Inches = 1,
+    Feet = 2,
+    Miles = 3,
+    Millimeters = 4,
+    Centimeters = 5,
+    Meters = 6,
+    Kilometers = 7,
+    Microinches = 8,
+    Mils = 9,
+    Yards = 10,
+    Angstroms = 11,
+    Nanometers = 12,
+    Microns = 13,
+    Decimeters = 14,
+    Decameters = 15,
+    Hectometers = 16,
+    Gigameters = 17,
+    AstronomicalUnits = 18,
+    LightYears = 19,
+    Parsec = 20,
+}
+

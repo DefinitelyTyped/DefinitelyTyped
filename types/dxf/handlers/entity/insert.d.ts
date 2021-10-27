@@ -1,4 +1,7 @@
 import * as Common from './common';
+import { Property } from '../../Information';
+
+export const TYPE: string;
 
 export type InsertEntityData = {
   block: any;
@@ -17,3 +20,7 @@ export type InsertEntityData = {
   extrusionY: any;
   extrusionZ: any;
 } & Partial<Common.CommonEntityData>;
+
+export function process(value: Property): InsertEntityData;
+
+export default InsertEntityData;
