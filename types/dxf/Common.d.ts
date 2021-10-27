@@ -33,4 +33,3 @@ export enum UnitTypes {
     LightYears = 19,
     Parsec = 20,
 }
-

@@ -11,7 +11,7 @@ import Solid from './entity/solid';
 import MText from './entity/mtext';
 import Text from './entity/text';
 import Insert from './entity/insert';
-import ThreeDFace from './entity/threedFace';
+import ThreeDFace from './entity/threedface';
 import Dimension from './entity/dimension';
 
 export type LayerGroupedEntities = Record<string, Entity>;
