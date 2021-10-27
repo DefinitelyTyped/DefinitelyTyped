@@ -73,6 +73,11 @@ export interface LintResult {
     invalidOptionWarnings: any[];
 }
 
+expoort interface RuleContext {
+    fix: boolean;
+    newline: string;
+};
+
 export namespace formatters {
     function json(results: LintResult[]): string;
     function string(results: LintResult[]): string;
@@ -124,7 +129,8 @@ export namespace utils {
 
 export type Plugin = (
     primaryOption: any,
-    secondaryOptions?: object,
+    secondaryOptions: object | undefined,
+    context: RuleContext,
 ) => (root: postcss.Root, result: postcss.Result) => void | PromiseLike<void>;
 
 export function createPlugin(ruleName: string, plugin: Plugin): any;
