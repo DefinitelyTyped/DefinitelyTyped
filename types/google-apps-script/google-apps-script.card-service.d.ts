@@ -274,8 +274,8 @@ declare namespace GoogleAppsScript {
       newDecoratedText(): DecoratedText;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
       newFixedFooter(): FixedFooter;
-      newImage(): Image;
       newIconImage(): IconImage;
+      newImage(): Image;
       newImageButton(): ImageButton;
       newKeyValue(): KeyValue;
       newNavigation(): Navigation;
@@ -336,6 +336,17 @@ declare namespace GoogleAppsScript {
      */
     enum Icon { NONE, AIRPLANE, BOOKMARK, BUS, CAR, CLOCK, CONFIRMATION_NUMBER_ICON, DOLLAR, DESCRIPTION, EMAIL, EVENT_PERFORMER, EVENT_SEAT, FLIGHT_ARRIVAL, FLIGHT_DEPARTURE, HOTEL, HOTEL_ROOM_TYPE, INVITE, MAP_PIN, MEMBERSHIP, MULTIPLE_PEOPLE, OFFER, PERSON, PHONE, RESTAURANT_ICON, SHOPPING_CART, STAR, STORE, TICKET, TRAIN, VIDEO_CAMERA, VIDEO_PLAY }
     /**
+     * A widget that shows an icon image.
+     *
+     *     var icon = CardService.newIconImage().setAltText("A nice icon").setIconUrl("https://example.com/icon.png");
+     */
+     interface IconImage {
+      setAltText(altText: string): IconImage;
+      setIcon(icon: Icon): IconImage;
+      setIconUrl(url: string): IconImage;
+      setImageCropType(imageCropType: ImageCropType): IconImage;
+    }
+    /**
      * A widget that shows a single image.
      *
      *     var image = CardService.newImage().setAltText("A nice image").setImageUrl("https://image.png");
@@ -348,16 +359,6 @@ declare namespace GoogleAppsScript {
       setOnClickAction(action: Action): Image;
       setOnClickOpenLinkAction(action: Action): Image;
       setOpenLink(openLink: OpenLink): Image;
-    }
-    /**
-     * A widget that shows an icon image.
-     *
-     *     var icon = CardService.newIconImage().setAltText("A nice icon").setIconUrl("https://example.com/icon.png");
-     */
-    interface IconImage {
-      setAltText(altText: string): IconImage;
-      setIcon(icon: Icon): IconImage;
-      setIconUrl(url: string): IconImage;
     }
     /**
      * A ImageButton with an image displayed on it.
@@ -378,6 +379,10 @@ declare namespace GoogleAppsScript {
       setOnClickOpenLinkAction(action: Action): ImageButton;
       setOpenLink(openLink: OpenLink): ImageButton;
     }
+    /**
+     * An enum that represents the crop styles applied to image components.
+     */
+    enum ImageCropType { SQUARE, CIRCLE, RECTANGLE_CUSTOM, RECTANGLE_4_3 }
     /**
      * An enum that defines an image cropping style.
      */
@@ -813,13 +818,14 @@ declare namespace GoogleAppsScript {
       setBottomLabel(text: string): DecoratedText;
       setButton(button: Button): DecoratedText;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
+      setEndIcon(endIcon: IconImage): DecoratedText;
       setIcon(icon: Icon): DecoratedText;
-      setStartIcon(startIcon: IconImage): DecoratedText;
       setIconAltText(altText: string): DecoratedText;
       setIconUrl(url: string): DecoratedText;
       setOnClickAction(action: Action): DecoratedText;
       setOnClickOpenLinkAction(action: Action): DecoratedText;
       setOpenLink(openLink: OpenLink): DecoratedText;
+      setStartIcon(startIcon: IconImage): DecoratedText;
       setSwitchControl(switchToSet: Switch): DecoratedText;
       setText(text: string): DecoratedText;
       setTopLabel(text: string): DecoratedText;
