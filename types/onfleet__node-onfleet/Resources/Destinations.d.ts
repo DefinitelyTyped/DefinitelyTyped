@@ -1,8 +1,9 @@
-import { OnfleetMetadata } from '../metadata';
+import { OnfleetMetadata, MatchMetadata } from '../metadata';
 
 declare class Destination {
   create(destination: Destination.CreateDestinationProps): Promise<Destination.OnfleetDestination>;
   get(id: string): Promise<Destination.OnfleetDestination>;
+  matchMetadata: MatchMetadata<Destination.OnfleetDestination['metadata']>;
 }
 
 declare namespace Destination {

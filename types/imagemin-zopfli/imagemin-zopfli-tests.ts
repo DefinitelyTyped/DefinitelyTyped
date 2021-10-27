@@ -1,4 +1,4 @@
-import imagemin = require('imagemin');
+import imagemin from 'imagemin';
 import imageminZopfli = require('imagemin-zopfli');
 
 imagemin(['*.png'], {

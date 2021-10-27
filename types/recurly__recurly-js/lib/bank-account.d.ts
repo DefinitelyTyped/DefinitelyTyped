@@ -3,13 +3,13 @@ import { TokenHandler } from './token';
 
 export type BillingInfoCommonFields = {
   name_on_account: string;
-  address1?: string | undefined;
-  address2?: string | undefined;
-  city?: string | undefined;
-  state?: string | undefined;
-  postal_code?: string | undefined;
-  country?: string | undefined;
-  vat_number?: string | undefined;
+  address1?: string;
+  address2?: string;
+  city?: string;
+  state?: string;
+  postal_code?: string;
+  country?: string;
+  vat_number?: string;
 };
 
 export type SepaBillingInfo = BillingInfoCommonFields & {

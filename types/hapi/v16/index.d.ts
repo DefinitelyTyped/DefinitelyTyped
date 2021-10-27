@@ -636,7 +636,7 @@ export interface ServerMethodConfigurationObject {
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
-// TODO: move to separate file http://stackoverflow.com/questions/43276921
+// TODO: move to separate file https://stackoverflow.com/questions/43276921
 
 /**
  * TODO confirm this is the same as CatboxServerCacheConfiguration
@@ -1084,7 +1084,7 @@ export interface ApplicationEventOptionsObject {
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
-// TODO: move to separate file http://stackoverflow.com/questions/43276921
+// TODO: move to separate file https://stackoverflow.com/questions/43276921
 
 /**
  * Route configuration
@@ -1856,7 +1856,7 @@ export interface ServerCacheMethod {
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
-// TODO: move to separate file http://stackoverflow.com/questions/43276921
+// TODO: move to separate file https://stackoverflow.com/questions/43276921
 
 /**
  * Request object
@@ -2063,7 +2063,7 @@ export type RequestEventTypes = 'peek' | 'finish' | 'disconnect';
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
-// TODO: move to separate file http://stackoverflow.com/questions/43276921
+// TODO: move to separate file https://stackoverflow.com/questions/43276921
 
 /**
  * Extending RouteConfiguration.handler
@@ -2151,7 +2151,7 @@ export interface ContinuationValueFunction {
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
-// TODO: move to separate file http://stackoverflow.com/questions/43276921
+// TODO: move to separate file https://stackoverflow.com/questions/43276921
 
 /**
  * Typings listed explicitly here [See docs](https://hapijs.com/api/16.1.1#replyerr-result)
@@ -2364,7 +2364,7 @@ export interface ReplyNoContinue extends Base_Reply {}
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
-// TODO: move to separate file http://stackoverflow.com/questions/43276921
+// TODO: move to separate file https://stackoverflow.com/questions/43276921
 
 /**
  * Response object
@@ -2605,7 +2605,7 @@ export interface ResponseHeaderOptionsObject {
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
-// TODO: move to separate file http://stackoverflow.com/questions/43276921
+// TODO: move to separate file https://stackoverflow.com/questions/43276921
 
 /**
  * Plugins

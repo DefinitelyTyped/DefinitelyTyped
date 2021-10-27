@@ -255,3 +255,28 @@ var subDoc = new SubPDFDocument({});
 
 subDoc.moveTo(subDoc.page.width / 2, subDoc.page.height / 2).text(10);
 subDoc.lineWidth(3).segment(10, subDoc.page.width - 10, subDoc.page.height - 10, 10).stroke("#00FFFF");
+
+// Markings
+doc.markContent('Figure', { alt: 'some alternative value'});
+doc.endMarkedContent();
+const structureContent = doc.markStructureContent('P');
+doc.text('Test');
+doc.endMarkedContent();
+const structureElement = doc.struct('Div', {}, [structureContent]);
+doc.struct('Div', {}, structureContent);
+doc.addStructure(structureElement);
+doc.initMarkings();
+doc.initPageMarkings([{ tag: 'P' }]);
+doc.endPageMarkings(doc.page);
+doc.getMarkingsDictionary();
+doc.getStructTreeRoot();
+doc.createStructParentTreeNextKey();
+doc.endMarkings();
+// structure content methods
+const structureContent2 = doc.markStructureContent('H1');
+structureContent.push(structureContent2);
+// structure element methods
+structureElement.add(structureContent);
+structureElement.setAttached();
+structureElement.setParent(doc.ref({}));
+structureElement.end();

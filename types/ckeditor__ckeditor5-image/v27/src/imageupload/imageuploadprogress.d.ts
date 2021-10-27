@@ -7,3 +7,9 @@ export default class ImageUploadProgress extends Plugin {
     init(): void;
     uploadStatusChange(evt: EventInfo, data: Record<string, unknown>, conversionApi: DowncastConversionApi): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageUploadProgress: ImageUploadProgress;
+    }
+}

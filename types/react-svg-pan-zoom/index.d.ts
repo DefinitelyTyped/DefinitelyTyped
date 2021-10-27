@@ -137,7 +137,7 @@ export interface OptionalProps {
 
     // override default toolbar component
     // TODO: specify function type more clearly
-    customToolbar: React.Component<any> | React.StatelessComponent<any>;
+    customToolbar: React.Component<any> | React.FunctionComponent<any>;
 
     // How about touch events? They are in README but not in `propTypes`.
 }

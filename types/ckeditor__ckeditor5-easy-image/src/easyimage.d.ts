@@ -7,3 +7,9 @@ export default class EasyImage extends Plugin {
     static pluginName: "EasyImage";
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        EasyImage: EasyImage;
+    }
+}

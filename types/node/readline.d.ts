@@ -26,7 +26,7 @@
  *
  * Once this code is invoked, the Node.js application will not terminate until the`readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/readline.js)
  */
 declare module 'readline' {
     import { Abortable, EventEmitter } from 'node:events';
@@ -236,6 +236,7 @@ declare module 'readline' {
          * @since v0.1.98
          */
         write(data: string | Buffer, key?: Key): void;
+        write(data: undefined | null | string | Buffer, key: Key): void;
         /**
          * Returns the real position of the cursor in relation to the input
          * prompt + string. Long input (wrapping) strings, as well as multiple

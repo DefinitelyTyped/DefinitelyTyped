@@ -10,8 +10,9 @@
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Carson Full <https://github.com/carsonf>
+//                 Hugo Silva <https://github.com/hugofpsilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from "./src/luxon";
+export * from './src/luxon';
 
 export as namespace luxon;

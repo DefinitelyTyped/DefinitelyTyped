@@ -25,23 +25,23 @@ interface CreateTables {
 
 interface IndexDefinition {
     hashKey: string;
-    rangeKey?: string | undefined;
+    rangeKey?: string;
     name: string;
     type: 'local' | 'global';
-    projection?: Projection | undefined;
+    projection?: Projection;
 }
 
 export interface DefineConfig<T> {
     hashKey: string;
-    rangeKey?: string | undefined;
-    timestamps?: boolean | undefined;
-    createdAt?: boolean | string | undefined;
-    updatedAt?: boolean | string | undefined;
-    tableName?: string | (() => string) | undefined;
-    indexes?: ReadonlyArray<IndexDefinition> | undefined;
+    rangeKey?: string;
+    timestamps?: boolean;
+    createdAt?: boolean | string;
+    updatedAt?: boolean | string;
+    tableName?: string | (() => string);
+    indexes?: ReadonlyArray<IndexDefinition>;
     schema?: {
         [key: string]: AnySchema | { [key: string]: AnySchema };
-    } | undefined;
+    };
 }
 
 export const log: bunyan;

@@ -9,10 +9,12 @@ import { Marker } from "./markercollection";
 import Node from "./node";
 import RootElement from "./rootelement";
 import Position from "./position";
-import TreeWalker, { TreeWalkerDirection, TreeWalkerValue } from "./treewalker";
+import TreeWalker, { TreeWalkerValue, TreeWalkerOptions } from "./treewalker";
 import Selection from "./selection";
 import Text from "./text";
 import Operation from "./operation/operation";
+
+export type RangeTreeWalkerOptions = Partial<Omit<TreeWalkerOptions, "boundaries">>;
 
 export default class Range implements Iterable<TreeWalkerValue> {
     readonly end: Position;
@@ -31,32 +33,13 @@ export default class Range implements Iterable<TreeWalkerValue> {
     getContainedElement(): Element | null;
     getDifference(otherRange: Range): Range[];
     getIntersection(otherRange: Range): Range | null;
-    getItems(options: {
-        boundaries?: Range | undefined;
-        direction?: TreeWalkerDirection | undefined;
-        ignoreElementEnd?: boolean | undefined;
-        shallow?: boolean | undefined;
-        singleCharacters?: boolean | undefined;
-        startPosition: Position;
-    }): Generator<Item>;
+    getItems(options?: RangeTreeWalkerOptions): Generator<Item>;
     getJoined(otherRange: Range, loose?: boolean): Range | null;
     getMinimalFlatRanges(): Range[];
-    getPositions(options: {
-        boundaries?: Range | undefined;
-        direction?: TreeWalkerDirection | undefined;
-        ignoreElementEnd?: boolean | undefined;
-        shallow?: boolean | undefined;
-        singleCharacters?: boolean | undefined;
-        startPosition: Position;
-    }): Generator<Position>;
+    getPositions(options?: RangeTreeWalkerOptions): Generator<Position>;
     getTransformedByOperation(operation: Operation): Range[];
     getTransformedByOperations(operations: Iterable<Operation>): Range[];
-    getWalker(options?: {
-        startPosition?: Position | undefined;
-        singleCharacters?: boolean | undefined;
-        shallow?: boolean | undefined;
-        ignoreElementEnd?: boolean | undefined;
-    }): TreeWalker;
+    getWalker(options?: RangeTreeWalkerOptions): TreeWalker;
     is(type: "position" | "model:position"): this is Position | LivePosition;
     is(type: "livePosition" | "model:livePosition"): this is LivePosition;
     is(type: "range" | "model:range"): this is Range | LiveRange;
@@ -68,8 +51,10 @@ export default class Range implements Iterable<TreeWalkerValue> {
     is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
     is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
     is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
-    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
-    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: "element" | "model:element"): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement"): this is RootElement;
+    is<K extends string>(type: "element" | "model:element", name: K): this is (Element | RootElement) & { name: K };
+    is<K extends string>(type: "rootElement" | "model:rootElement", name: K): this is RootElement & { name: K };
     is(type: string, name?: string): boolean;
     isEqual(otherRange: Range): boolean;
     isIntersecting(otherRange: Range): boolean;

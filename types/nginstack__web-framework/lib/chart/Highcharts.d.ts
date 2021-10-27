@@ -1,16 +1,15 @@
 export function Chart(options: any): void;
 export class Chart {
     constructor(options: any);
-    _renderDiv: boolean;
-    config_: import('@nginstack/engine/lib/classdef/ConfigDef');
-    hasHint_(): boolean;
+    private _renderDiv;
+    private config_;
+    private hasHint_;
     options: any;
     html(): string;
     getClientLibraries(): any[];
-    _createId(): string;
+    private _createId;
 }
 export namespace Chart {
-    const _lastId: number;
     function dateFormat(): never;
     function numberFormat(): never;
 }

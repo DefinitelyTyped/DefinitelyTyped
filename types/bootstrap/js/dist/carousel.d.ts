@@ -1,6 +1,29 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Carousel extends BaseComponent {
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Carousel.Options;
+
+    /**
+     * Static method which allows you to get the carousel instance associated
+     * with a DOM element.
+     */
+    static getInstance: GetInstanceFactory<Carousel>;
+
+    /**
+     * Static method which returns a carousel instance associated to a DOM element
+     *  or create a new one in case it wasn't initialised.
+     * You can use it like this: bootstrap.Carousel.getOrCreateInstance(element)
+     */
+    static carouselInstance: typeof Carousel.getOrCreateInstance;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Carousel, Partial<Carousel.Options>>;
+
+    static jQueryInterface: Carousel.jQueryInterface;
+
     constructor(element: string | Element, options?: Partial<Carousel.Options>);
 
     /**
@@ -38,19 +61,6 @@ declare class Carousel extends BaseComponent {
      * the slid.bs.carousel event occurs).
      */
     to(index: number): void;
-
-    static getInstance: GetInstanceFactory<Carousel>;
-    static getOrCreateInstance: GetOrCreateInstanceFactory<Carousel>;
-    static jQueryInterface: Carousel.jQueryInterface;
-
-    // static NAME: 'carousel';
-
-    /**
-     * Default settings of this plugin
-     *
-     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
-     */
-    static Default: Carousel.Options;
 }
 
 declare namespace Carousel {
@@ -110,15 +120,15 @@ declare namespace Carousel {
         /**
          * Fires immediately when the slide instance method is invoked.
          */
-        slide = "slide.bs.carousel",
+        slide = 'slide.bs.carousel',
 
         /**
          * Fired when the carousel has completed its slide transition.
          */
-        slid = "slid.bs.carousel",
+        slid = 'slid.bs.carousel',
     }
 
-    type Direction = "left" | "right";
+    type Direction = 'left' | 'right';
 
     interface Event {
         /**
@@ -144,7 +154,7 @@ declare namespace Carousel {
     }
 
     type jQueryInterface = (
-        config?: Partial<Options> | number | "cycle" | "pause" | "prev" | "next" | "nextWhenVisible" | "dispose",
+        config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'dispose',
     ) => void;
 }
 

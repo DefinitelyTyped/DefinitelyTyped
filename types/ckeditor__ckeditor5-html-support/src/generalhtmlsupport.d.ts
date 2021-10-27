@@ -20,3 +20,9 @@ export interface GeneralHtmlSupportConfig {
     allow?: MatcherPattern[] | undefined;
     disallow?: MatcherPattern[] | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        GeneralHtmlSupport: GeneralHtmlSupport;
+    }
+}

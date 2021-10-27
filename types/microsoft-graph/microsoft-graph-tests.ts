@@ -179,3 +179,11 @@ const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientI
 const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";
 
 const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = "foreground";
+
+const compliance: MicrosoftGraph.Compliance = {};
+
+const columnTypes: MicrosoftGraph.ColumnTypes = "approvalStatus";
+
+const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unknownFutureValue";
+
+const filterMode: MicrosoftGraph.FilterMode = "include";

@@ -77,3 +77,15 @@ CKWidget.setHighlightHandling(
 );
 CKWidget.setLabel(containerElement, () => 'foo', new DowncastWriter(new Document(new StylesProcessor())));
 CKWidget.toWidget(containerElement, new DowncastWriter(new Document(new StylesProcessor())));
+
+// $ExpectType Widget
+editor.plugins.get('Widget');
+
+// $ExpectType WidgetResize
+editor.plugins.get('WidgetResize');
+
+// $ExpectType WidgetToolbarRepository
+editor.plugins.get('WidgetToolbarRepository');
+
+// $ExpectType WidgetTypeAround
+editor.plugins.get('WidgetTypeAround');

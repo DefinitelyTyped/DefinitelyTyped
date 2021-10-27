@@ -14,10 +14,10 @@ export interface FancyButtonProps {
     onClick: () => void;
     children?: React.ReactNode | undefined;
 }
-export interface FancyButton {
+export interface FancyButtonMethod {
     fancyClick(): void;
 }
-export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButton>) => {
+export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButtonMethod>) => {
     const buttonRef = React.useRef<HTMLButtonElement | null>(null);
     const [count, setCount] = React.useState(0);
 
@@ -60,7 +60,7 @@ const initialState = {
 
 export function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
-    const birthdayRef = React.useRef<FancyButton>(null);
+    const birthdayRef = React.useRef<React.ComponentRef<typeof FancyButton>>(null);
 
     React.useLayoutEffect(() => {
         if (birthdayRef.current !== null) {

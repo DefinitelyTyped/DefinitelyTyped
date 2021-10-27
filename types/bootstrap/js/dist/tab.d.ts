@@ -1,6 +1,21 @@
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import { GetInstanceFactory } from './base-component.d';
+import BaseComponent, { GetOrCreateInstanceFactory } from './base-component';
 
 declare class Tab extends BaseComponent {
+    /**
+     * Static method which allows you to get the tab instance associated with a
+     * DOM element
+     */
+    static getInstance: GetInstanceFactory<Tab>;
+
+    /**
+     * Static method which allows you to get the tab instance associated with a
+     * DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Tab>;
+
+    static jQueryInterface: Tab.jQueryInterface;
+
     /**
      * Selects the given list item and shows its associated pane. Any other
      * list item that was previously selected becomes unselected and its
@@ -9,14 +24,6 @@ declare class Tab extends BaseComponent {
      * occurs).
      */
     show(): void;
-
-    static getInstance: GetInstanceFactory<Tab>;
-
-    static getOrCreateInstance: GetOrCreateInstanceFactory<Tab>;
-
-    static jQueryInterface: Tab.jQueryInterface;
-
-    // static NAME: 'tab';
 }
 
 declare namespace Tab {

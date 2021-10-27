@@ -1,4 +1,4 @@
-// Type definitions for AutobahnJS 18.10
+// Type definitions for AutobahnJS 20.9
 // Project: https://crossbar.io/autobahn/, https://github.com/crossbario/autobahn-js
 // Definitions by: Elad Zelingher <https://github.com/darkl>, Andy Hawkins <https://github.com/a904guy>, Wladimir Totino <https://github.com/valepu>, Mathias Teier <https://github.com/glenroy37>, Fran Rodriguez <https://github.com/spcfran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -211,9 +211,17 @@ declare namespace autobahn {
         type: TransportType;
     }
 
+    interface ITlsConfiguration {
+        ca: string;
+        cert: string;
+        key: string;
+    }
+
     type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
+    type OnInternalErrorHandler = (error: object | Error, error_message?: string) => void;
+    type OnUserErrorHandler = (error: object | Error, error_message?: string) => void;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean | undefined;
@@ -229,9 +237,17 @@ declare namespace autobahn {
         url?: string | undefined;
         protocols?: string[] | undefined;
         onchallenge?: OnChallengeHandler | undefined;
+        on_internal_error?: OnInternalErrorHandler | undefined;
+        on_user_error?: OnUserErrorHandler | undefined;
         realm: string;
         authmethods?: string[] | undefined;
         authid?: string | undefined;
+        authextra?: object | undefined;
+        // Below options only work when the transport is websocket and the underlying platform is NodeJS/Electron.
+        autoping_interval?: number | undefined;
+        autoping_timeout?: number | undefined;
+        autoping_size?: number | undefined;
+        tlsConfiguration?: ITlsConfiguration | undefined;
     }
 
     interface ICloseEventDetails {

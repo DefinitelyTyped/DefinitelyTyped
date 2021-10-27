@@ -11,6 +11,7 @@ declare namespace Aws {
         enableLocalInstallationFallback?: boolean | undefined;
         variablesResolutionMode?: '20210219' | '20210326' | undefined;
         unresolvedVariablesNotificationMode?: 'warn' | 'error' | undefined;
+        deprecationNotificationMode?: 'warn' | 'warn:summary' | 'error' | undefined;
         disabledDeprecations?: string[] | undefined;
         configValidationMode?: 'warn' | 'error' | 'off' | undefined;
         provider: Provider;
@@ -127,6 +128,9 @@ declare namespace Aws {
         binaryMediaTypes?: string[] | undefined;
         metrics?: boolean | undefined;
         shouldStartNameWithService?: boolean | undefined;
+        apiKeys?: string[] | undefined;
+        resourcePolicy?: ResourcePolicy[] | undefined;
+        usagePlan?: UsagePlan | undefined;
     }
 
     interface CognitoAuthorizer {
@@ -423,6 +427,22 @@ declare namespace Aws {
         enabled?: boolean | undefined;
     }
 
+    interface ActiveMq {
+        arn: string;
+        basicAuthArn: string;
+        queue: string;
+        batchSize?: number;
+        enabled?: boolean | undefined;
+    }
+
+    interface RabbitMq {
+        arn: string;
+        basicAuthArn: string;
+        queue: string;
+        batchSize?: number;
+        enabled?: boolean | undefined;
+    }
+
     interface Stream {
         arn: string | { [key: string]: any };
         batchSize?: number | string | undefined;
@@ -550,6 +570,8 @@ declare namespace Aws {
         alb?: AlbEvent | undefined;
         eventBridge?: EventBridge | undefined;
         cloudFront?: CloudFront | undefined;
+        activemq?: ActiveMq | undefined;
+        rabbitmq?: RabbitMq | undefined;
     }
 
     interface FileSystemConfig {
@@ -644,12 +666,17 @@ declare namespace Aws {
     interface Custom {
         [key: string]: any;
     }
+
+    interface Credentials {
+        [key: string]: any;
+    }
 }
 
 declare class Aws {
     constructor(serverless: Serverless, options: Serverless.Options);
 
     naming: { [key: string]: () => string };
+    getCredentials(): Aws.Credentials;
     getProviderName(): string;
     getRegion(): string;
     getServerlessDeploymentBucketName(): Promise<string>;

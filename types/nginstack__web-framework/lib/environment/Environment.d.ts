@@ -1,7 +1,7 @@
 export = Environment;
 declare function Environment(): void;
 declare class Environment {
-    _ctrlChannel: ControlChannel;
+    private _ctrlChannel;
     alert(message: string): any;
     prompt(
         label: string,
@@ -17,4 +17,3 @@ declare class Environment {
 declare namespace Environment {
     function getInstance(): Environment;
 }
-import ControlChannel = require('../ifp/ControlChannel.js');

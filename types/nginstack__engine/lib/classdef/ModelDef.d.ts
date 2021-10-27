@@ -2,9 +2,9 @@ export = ModelDef;
 declare function ModelDef(): void;
 declare class ModelDef {
     cachedFields: string[];
-    localDeclaredProperty_: any;
-    ownFieldsSet_: any;
-    ownFieldsArray_: Field[];
+    private localDeclaredProperty_;
+    private ownFieldsSet_;
+    private ownFieldsArray_;
     protected logger_: Logger;
     protected defaultAdapterDescriptor_: any;
     canAddAdaptedListeners(): boolean;
@@ -57,7 +57,7 @@ declare class ModelDef {
     justToGroup: boolean;
     tableName: string;
     resetJustToGroup(): void;
-    justToGroup_: boolean;
+    private justToGroup_;
     private nextParentWithFields_;
     private nextParentDefWithFields_;
     private notifyFieldUsage_;
@@ -109,16 +109,15 @@ declare namespace ModelDef {
         declareObject,
         declareEvent,
         declareCloneableObject,
-        MAX_CLASS_TREE_DEPTH_,
         Event,
         AdapterDescriptor,
         CachedDataOptions,
     };
 }
-import Field = require('./Field.js');
 import Logger = require('../log/Logger.js');
 type CachedDataOptions = Record<any, any>;
 import ClassDefCache = require('./ClassDefCache.js');
+import Field = require('./Field.js');
 import FieldList = require('./FieldList.js');
 type AdapterDescriptor = import('../event/AdapterDescriptor');
 import ClassDef = require('./ClassDef.js');
@@ -137,4 +136,3 @@ declare function declareCloneableObject(
     propertyName: string,
     initialValue: any
 ): void;
-declare var MAX_CLASS_TREE_DEPTH_: number;

@@ -11,3 +11,15 @@ new HL.HighlightUI(editor);
 new HL.HighlightEditing(editor);
 
 new HLCommand(editor).execute();
+
+// $ExpectType Highlight
+editor.plugins.get('Highlight');
+
+// $ExpectType HighlightEditing
+editor.plugins.get('HighlightEditing');
+
+// $ExpectType HighlightUI
+editor.plugins.get('HighlightUI');
+
+// $ExpectType HighlightCommand | undefined
+editor.commands.get('HighlightCommand');

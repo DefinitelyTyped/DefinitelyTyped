@@ -1,4 +1,4 @@
-// Type definitions for pino-http 5.4
+// Type definitions for pino-http 5.8
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
@@ -39,6 +39,7 @@ declare namespace PinoHttp {
         customAttributeKeys?: CustomAttributeKeys | undefined;
         wrapSerializers?: boolean | undefined;
         reqCustomProps?: ((req: IncomingMessage, res: ServerResponse) => object) | undefined;
+        quietReqLogger?: boolean | undefined;
     }
 
     interface GenReqId {
@@ -46,6 +47,7 @@ declare namespace PinoHttp {
     }
 
     interface AutoLoggingOptions {
+        ignore?: ((req: IncomingMessage) => boolean);
         ignorePaths?: Array<string | RegExp> | undefined;
         getPath?: ((req: IncomingMessage) => string | undefined) | undefined;
     }
@@ -54,6 +56,7 @@ declare namespace PinoHttp {
         req?: string | undefined;
         res?: string | undefined;
         err?: string | undefined;
+        reqId?: string | undefined;
         responseTime?: string | undefined;
     }
 

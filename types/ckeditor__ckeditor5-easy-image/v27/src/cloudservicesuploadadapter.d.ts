@@ -5,4 +5,11 @@ import { FileRepository } from '@ckeditor/ckeditor5-upload';
 export default class CloudServicesUploadAdapter extends Plugin {
     static pluginName: 'CloudServicesUploadAdapter';
     static requires: [typeof CloudServices, typeof FileRepository];
+    init(): void;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CloudServicesUploadAdapter: CloudServicesUploadAdapter;
+    }
 }

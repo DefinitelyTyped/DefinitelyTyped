@@ -340,6 +340,7 @@ function sample6() {
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
+      const mouseX = options.e.clientX;
 
       canvas.forEachObject(obj => {
         const distX = Math.abs(p.x - obj.left);
@@ -347,6 +348,10 @@ function sample6() {
         const dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
         obj.set('opacity', (1 / (dist / 20)));
       });
+    });
+
+    canvas.on('mouse:wheel', (options) => {
+        const deltaY = options.e.deltaY;
     });
   }, null, {
     crossOrigin:'anonymous'

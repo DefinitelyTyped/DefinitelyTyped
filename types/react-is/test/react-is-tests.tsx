@@ -16,7 +16,7 @@ class ClassComponent extends React.Component<CompProps> {
   }
 }
 
-const StatelessComponent = () => React.createElement('div');
+const FunctionComponent = () => React.createElement('div');
 
 const ForwardRefComponent = React.forwardRef((props, ref) =>
   React.createElement(ClassComponent, { forwardedRef: ref, ...props })
@@ -26,13 +26,13 @@ const LazyComponent = React.lazy(() =>
   Promise.resolve({ default: ForwardRefComponent })
 );
 
-const MemoComponent = React.memo(StatelessComponent);
+const MemoComponent = React.memo(FunctionComponent);
 
 const Context = React.createContext(false);
 
 ReactIs.isValidElementType('div'); // true
 ReactIs.isValidElementType(ClassComponent); // true
-ReactIs.isValidElementType(StatelessComponent); // true
+ReactIs.isValidElementType(FunctionComponent); // true
 ReactIs.isValidElementType(ForwardRefComponent); // true
 ReactIs.isValidElementType(Context.Provider); // true
 ReactIs.isValidElementType(Context.Consumer); // true
@@ -49,10 +49,10 @@ ReactIs.isValidElementType(MemoComponent);
 // Context
 const ThemeContext = React.createContext('blue');
 
-ReactIs.isContextConsumer(<ThemeContext.Consumer children={StatelessComponent} />); // true
-ReactIs.isContextProvider(<ThemeContext.Provider children={StatelessComponent} value='black' />); // true
-ReactIs.typeOf(<ThemeContext.Consumer children={StatelessComponent} />) === ReactIs.ContextConsumer; // true
-ReactIs.typeOf(<ThemeContext.Provider children={StatelessComponent} value='black' />) === ReactIs.ContextProvider; // true
+ReactIs.isContextConsumer(<ThemeContext.Consumer children={FunctionComponent} />); // true
+ReactIs.isContextProvider(<ThemeContext.Provider children={<FunctionComponent />} value='black' />); // true
+ReactIs.typeOf(<ThemeContext.Consumer children={FunctionComponent} />) === ReactIs.ContextConsumer; // true
+ReactIs.typeOf(<ThemeContext.Provider children={<FunctionComponent />} value='black' />) === ReactIs.ContextProvider; // true
 
 // Element
 ReactIs.isElement(<div />); // true
@@ -94,5 +94,5 @@ ReactIs.isMemo(MemoComponent); // true
 ReactIs.typeOf(MemoComponent) === ReactIs.Memo; // true
 
 // Suspense
-ReactIs.isForwardRef(<React.Suspense fallback={StatelessComponent} />); // true
-ReactIs.typeOf(<React.Suspense fallback={StatelessComponent} />) === ReactIs.Suspense; // true
+ReactIs.isForwardRef(<React.Suspense fallback={<FunctionComponent />} />); // true
+ReactIs.typeOf(<React.Suspense fallback={<FunctionComponent />} />) === ReactIs.Suspense; // true

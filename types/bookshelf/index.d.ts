@@ -134,7 +134,7 @@ declare namespace Bookshelf {
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
-        load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
+        load(relations: string | string[], options?: SyncOptions): BlueBird<T>;
         morphMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             name?: string,
@@ -182,6 +182,7 @@ declare namespace Bookshelf {
     abstract class CollectionBase<T extends Model<any>> extends Events<T> {
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L573
         length: number;
+        models: T[];
 
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L21
         constructor(models?: T[], options?: CollectionOptions<T>);
@@ -211,7 +212,12 @@ declare namespace Bookshelf {
         slice(begin?: number, end?: number): void;
         toJSON(options?: SerializeOptions): any[];
         unshift(model: any, options?: CollectionAddOptions): void;
-        where(match: { [key: string]: any }, firstOnly: boolean): T | Collection<T>;
+        where(match: { [key: string]: any }): Collection<T>;
+        where(
+            key: string,
+            operatorOrValue: string | number | boolean,
+            valueIfOperator?: string | string[] | number | number[] | boolean,
+        ): Collection<T>;
 
         // lodash methods
         includes(value: any, fromIndex?: number): boolean;
@@ -314,10 +320,6 @@ declare namespace Bookshelf {
         tableName?: string | undefined;
         hasTimestamps?: boolean | undefined;
         parse?: boolean | undefined;
-    }
-
-    interface LoadOptions extends SyncOptions {
-        withRelated: (string | WithRelatedQuery)[];
     }
 
     interface FetchOptions extends SyncOptions {

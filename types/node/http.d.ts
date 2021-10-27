@@ -37,12 +37,12 @@
  *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import { Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -136,6 +136,7 @@ declare module 'http' {
         setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
+        lookup?: LookupFunction | undefined;
     }
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage | undefined;
@@ -183,6 +184,18 @@ declare module 'http' {
          * @since v0.7.0
          */
         maxHeadersCount: number | null;
+        /**
+         * The maximum number of requests socket can handle
+         * before closing keep alive connection.
+         *
+         * A value of `0` will disable the limit.
+         *
+         * When the limit is reached it will set the `Connection` header value to `close`,
+         * but will not actually close the connection, subsequent requests sent
+         * after the limit is reached will get `503 Service Unavailable` as a response.
+         * @since v16.10.0
+         */
+        maxRequestsPerSocket: number | null;
         /**
          * The number of milliseconds of inactivity before a socket is presumed
          * to have timed out.
@@ -341,11 +354,9 @@ declare module 'http' {
         readonly socket: Socket | null;
         constructor();
         /**
-         * occurs, Same as binding to the `timeout` event.
-         *
          * Once a socket is associated with the message and is connected,`socket.setTimeout()` will be called with `msecs` as the first parameter.
          * @since v0.9.12
-         * @param callback Optional function to be called when a timeout
+         * @param callback Optional function to be called when a timeout occurs. Same as binding to the `timeout` event.
          */
         setTimeout(msecs: number, callback?: () => void): this;
         /**
@@ -740,7 +751,7 @@ declare module 'http' {
      * access response
      * status, headers and data.
      *
-     * Different from its `socket` value which is a subclass of `<stream.Duplex>`, the`IncomingMessage` itself extends `<stream.Readable>` and is created separately to
+     * Different from its `socket` value which is a subclass of `stream.Duplex`, the`IncomingMessage` itself extends `stream.Readable` and is created separately to
      * parse and emit the incoming HTTP headers and payload, as the underlying socket
      * may be reused multiple times in case of keep-alive.
      * @since v0.1.17
@@ -800,9 +811,9 @@ declare module 'http' {
          * With HTTPS support, use `request.socket.getPeerCertificate()` to obtain the
          * client's authentication details.
          *
-         * This property is guaranteed to be an instance of the `<net.Socket>` class,
-         * a subclass of `<stream.Duplex>`, unless the user specified a socket
-         * type other than `<net.Socket>`.
+         * This property is guaranteed to be an instance of the `net.Socket` class,
+         * a subclass of `stream.Duplex`, unless the user specified a socket
+         * type other than `net.Socket`.
          * @since v0.3.0
          */
         socket: Socket;

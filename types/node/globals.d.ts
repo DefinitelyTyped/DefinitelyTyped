@@ -185,7 +185,6 @@ declare namespace NodeJS {
         code?: string | undefined;
         path?: string | undefined;
         syscall?: string | undefined;
-        stack?: string | undefined;
     }
 
     interface ReadableStream extends EventEmitter {

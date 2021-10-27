@@ -1,6 +1,27 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Collapse extends BaseComponent {
+    /**
+     * Static method which allows you to get the collapse instance associated
+     * with a DOM element.
+     */
+    static getInstance: GetInstanceFactory<Collapse>;
+
+    /**
+     * Static method which returns a collapse instance associated to a DOM element
+     *  or create a new one in case it wasn't initialised.
+     * You can use it like this: bootstrap.Collapse.getOrCreateInstance(element)
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Collapse, Partial<Collapse.Options>>;
+
+    static jQueryInterface: Collapse.jQueryInterface;
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Collapse.Options;
     constructor(element: string | Element, options?: Partial<Collapse.Options>);
 
     /**
@@ -23,19 +44,6 @@ declare class Collapse extends BaseComponent {
      * event occurs).
      */
     hide(): void;
-
-    static getInstance: GetInstanceFactory<Collapse>;
-    static getOrCreateInstance: GetOrCreateInstanceFactory<Collapse>;
-    static jQueryInterface: Collapse.jQueryInterface;
-
-    // static NAME: 'collapse';
-
-    /**
-     * Default settings of this plugin
-     *
-     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
-     */
-    static Default: Collapse.Options;
 }
 
 declare namespace Collapse {

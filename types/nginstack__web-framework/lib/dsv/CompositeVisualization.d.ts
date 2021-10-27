@@ -2,9 +2,9 @@ export = CompositeVisualization;
 declare function CompositeVisualization(definition: any): void;
 declare class CompositeVisualization {
     constructor(definition: any);
-    layout_: string[];
-    items_: Record<string, CompositeVisualizationSlot>;
-    autoCreateFilters_: boolean;
+    private layout_;
+    private items_;
+    private autoCreateFilters_;
     adjustItemHeadersAndFooters: boolean;
     canExport: boolean;
     private cssExtractor_;
@@ -21,7 +21,7 @@ declare class CompositeVisualization {
     }>;
     hasData(): boolean;
     setPath(value: any): void;
-    path_: any;
+    private path_;
     protected initFilters_(): void;
     filters: VisualizationFilters;
     private createFiltersFromItems_;
@@ -34,6 +34,5 @@ declare class CompositeVisualization {
 declare namespace CompositeVisualization {
     export { VisualizationDef };
 }
-import CompositeVisualizationSlot = require('./CompositeVisualizationSlot.js');
 import VisualizationFilters = require('./VisualizationFilters.js');
 type VisualizationDef = import('./VisualizationDef');

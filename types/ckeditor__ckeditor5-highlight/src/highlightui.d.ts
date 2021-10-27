@@ -12,3 +12,9 @@ export default class HighlightUI extends Plugin {
     static readonly pluginName: 'HighlightUI';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        HighlightUI: HighlightUI;
+    }
+}

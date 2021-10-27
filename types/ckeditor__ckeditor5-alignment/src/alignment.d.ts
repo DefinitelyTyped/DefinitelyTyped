@@ -10,3 +10,9 @@ export default class Alignment extends Plugin {
 export interface AlignmentConfig {
     options: Array<string | AlignmentFormat>;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Alignment: Alignment;
+    }
+}

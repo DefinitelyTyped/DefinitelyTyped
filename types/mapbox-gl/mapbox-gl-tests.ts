@@ -750,7 +750,7 @@ new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
 
-// $expectType boolean
+// $ExpectType boolean
 map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;
@@ -1783,7 +1783,7 @@ createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
     map.addImage('foo', fooImageBitmap);
 });
 
-// $ExpectType Map
+// $ExpectType void
 map.loadImage('foo', (error, result) => {});
 
 // KeyboardHandler

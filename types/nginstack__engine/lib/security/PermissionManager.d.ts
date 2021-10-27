@@ -1,22 +1,22 @@
 export = PermissionManager;
 declare function PermissionManager(): void;
 declare class PermissionManager {
-    schema_: PermissionSchema;
-    classDefManager_: ClassDefManager;
+    private schema_;
+    private classDefManager_;
     private logger_;
     private NON_PERMISSION_FIELDS_LIST_;
     private checkIfUserCanManagePermissions_;
     protected getTable_(tableName: string): DataSet;
     private smartCopyPermissions_;
     private hardCopyPermissions_;
-    mergePermissions_(source: any, target: any, field: any): any;
+    private mergePermissions_;
     private getPermissionsForUpdate_;
     private getPermissionValue_;
-    tableCacheForGetFieldValue_: any;
+    private tableCacheForGetFieldValue_;
     private findPermission_;
     private findAllPermissions_;
     private replicateValuesToDescendants_;
-    replicateValuesToAscendants_(assignment: PermissionAssignment, table: DataSet): void;
+    private replicateValuesToAscendants_;
     private removeInheritance_;
     private removeDependents_;
     private checkIfPermissionWasNotInherited_;
@@ -48,10 +48,7 @@ declare class PermissionManager {
     getOrphans(): DataSet;
 }
 declare namespace PermissionManager {
-    const _instance: PermissionManager;
     function getInstance(): PermissionManager;
 }
-import PermissionSchema = require('./PermissionSchema.js');
-import ClassDefManager = require('../classdef/ClassDefManager.js');
 import DataSet = require('../dataset/DataSet.js');
 import PermissionAssignment = require('./PermissionAssignment.js');

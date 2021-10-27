@@ -4,12 +4,13 @@
 //                 Sebastian Clausen <https://github.com/sclausen>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Armaan Tobaccowalla <https://github.com/ArmaanT>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 export as namespace jsyaml;
 
-export function load(str: string, opts?: LoadOptions): object | string | number | null | undefined;
+export function load(str: string, opts?: LoadOptions): unknown;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
@@ -30,8 +31,8 @@ export class Schema {
     extend(types: SchemaDefinition | Type[] | Type): Schema;
 }
 
-export function loadAll(str: string, iterator?: null, opts?: LoadOptions): any[];
-export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): void;
+export function loadAll(str: string, iterator?: null, opts?: LoadOptions): unknown[];
+export function loadAll(str: string, iterator: (doc: unknown) => void, opts?: LoadOptions): void;
 
 export function dump(obj: any, opts?: DumpOptions): string;
 
@@ -129,7 +130,25 @@ export let CORE_SCHEMA: Schema;
 /** all supported YAML types */
 export let DEFAULT_SCHEMA: Schema;
 
+export interface Mark {
+    buffer: string;
+    column: number;
+    line: number;
+    name: string;
+    position: number;
+    snippet: string;
+}
+
 export class YAMLException extends Error {
-    constructor(reason?: any, mark?: any);
+    constructor(reason?: string, mark?: Mark);
+
     toString(compact?: boolean): string;
+
+    name: string;
+
+    reason: string;
+
+    message: string;
+
+    mark: Mark;
 }

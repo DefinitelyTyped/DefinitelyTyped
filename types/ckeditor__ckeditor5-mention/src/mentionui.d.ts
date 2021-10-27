@@ -10,3 +10,9 @@ export default class MentionUI extends Plugin {
     init(): void;
     destroy(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        MentionUI: MentionUI;
+    }
+}

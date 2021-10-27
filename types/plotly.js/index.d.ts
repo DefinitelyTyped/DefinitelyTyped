@@ -1260,6 +1260,8 @@ export interface PlotData {
     showscale: boolean;
     colorscale: ColorScale;
     zsmooth: 'fast' | 'best' | false;
+    zmin: number;
+    zmax: number;
     ygap: number;
     xgap: number;
     transpose: boolean;
@@ -1280,8 +1282,8 @@ export interface PlotData {
     customdata: Datum[] | Datum[][];
     selectedpoints: Datum[];
     domain: Partial<{
-        rows: number;
-        columns: number;
+        row: number;
+        column: number;
         x: number[];
         y: number[];
     }>;

@@ -1,10 +1,13 @@
 import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 import AlignmentCommand from "@ckeditor/ckeditor5-alignment/src/alignmentcommand";
+import AlignmentEditing from "@ckeditor/ckeditor5-alignment/src/alignmentediting";
+import AlignmentUI from "@ckeditor/ckeditor5-alignment/src/alignmentui";
 import * as utils from "@ckeditor/ckeditor5-alignment/src/utils";
 import { Editor } from "@ckeditor/ckeditor5-core";
 import { Locale } from "@ckeditor/ckeditor5-utils";
 
 class MyEditor extends Editor {}
+const editor = new MyEditor();
 
 let bool = true;
 
@@ -32,3 +35,15 @@ const command = new AlignmentCommand(new MyEditor());
 // $ExpectError
 command.execute("foo");
 command.execute();
+
+// $ExpectType Alignment
+editor.plugins.get('Alignment');
+
+// $ExpectType AlignmentEditing
+editor.plugins.get('AlignmentEditing');
+
+// $ExpectType AlignmentUI
+editor.plugins.get('AlignmentUI');
+
+// $ExpectType AlignmentCommand | undefined
+editor.commands.get('AlignmentCommand');

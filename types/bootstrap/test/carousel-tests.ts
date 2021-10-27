@@ -1,5 +1,5 @@
-import { Carousel } from "bootstrap";
-import * as $ from "jquery";
+import { Carousel } from 'bootstrap';
+import * as $ from 'jquery';
 
 const element = new Element();
 
@@ -32,16 +32,16 @@ element.addEventListener(Carousel.Events.slide, event => {
 });
 
 // $ExpectType void
-$(".alert").carousel();
+$('.alert').carousel();
 
 // $ExpectType void
-$(".alert").carousel({ interval: 1000 });
+$('.alert').carousel({ interval: 1000 });
 
 // $ExpectType void
-$(".alert").carousel(0);
+$('.alert').carousel(0);
 
-$(".alert").carousel("cycle"); // $ExpectType void
-$(".alert").carousel("pause"); // $ExpectType void
-$(".alert").carousel("prev"); // $ExpectType void
-$(".alert").carousel("next"); // $ExpectType void
-$(".alert").carousel("nextWhenVisible"); // $ExpectType void
+$('.alert').carousel('cycle'); // $ExpectType void
+$('.alert').carousel('pause'); // $ExpectType void
+$('.alert').carousel('prev'); // $ExpectType void
+$('.alert').carousel('next'); // $ExpectType void
+$('.alert').carousel('nextWhenVisible'); // $ExpectType void

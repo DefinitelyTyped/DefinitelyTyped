@@ -14,9 +14,23 @@ function getPreviousSibling(node: Node): Node | undefined {
     return;
 }
 
+function padNode(node: HTMLElement): [string, string] {
+    const pad: [string, string] = ['', ''];
+    const prevSiblingLastChar = getPreviousSibling(node)?.textContent?.slice(-1) ?? '';
+    if (prevSiblingLastChar.match(/[a-z]/i)) {
+        pad[0] = ' ';
+    }
+    // newlines are removed after links which looks ugly
+    const nextSiblingFirstChar = node.nextSibling?.textContent?.[0] ?? '';
+    if (nextSiblingFirstChar.match(/[a-z]/i)) {
+        pad[1] = ' ';
+    }
+    return pad;
+}
+
 function handleRelativeLink(node: HTMLElement, context: DocContext): string {
     let content = '';
-    if (node.textContent?.startsWith(context.moduleName)) {
+    if (node.textContent?.startsWith(`${context.moduleName}.`)) {
         let symbolName = node.textContent.slice(context.moduleName.length + 1); // slice off module prefix
         symbolName = symbolName.replace(/\(.*?\)/, ''); // remove call as it causes weird formatting
         content = `{@link ${symbolName}}`;
@@ -24,15 +38,12 @@ function handleRelativeLink(node: HTMLElement, context: DocContext): string {
         // TODO: Handle cross module links
         content = `\`${node.textContent}\``;
     }
-    const prevSiblingLastChar = getPreviousSibling(node)?.textContent?.slice(-1) ?? '';
-    if (prevSiblingLastChar.match(/[a-z]/i)) {
-        content = ' ' + content;
-    }
-    // newlines are removed after links which looks ugly
-    const nextSiblingFirstChar = node.nextSibling?.textContent?.[0] ?? '';
-    if (nextSiblingFirstChar.match(/[a-z]/i)) {
-        content = content + ' ';
-    }
+
+    const [padStart, padEnd] = padNode(node);
+
+    content = padStart + content;
+    content += padEnd;
+
     return content;
 }
 
@@ -51,10 +62,12 @@ function makeLinkTranslator(context: DocContext): TranslatorConfigFactory {
 
         const title = node.getAttribute('title');
 
+        const [padStart, padEnd] = padNode(node as HTMLElement);
+
         return {
             postprocess: ({ content }) => content.replace(/(?:\r?\n)+/g, ' '),
-            prefix: '[',
-            postfix: `](${href}${title ? ` "${title}"` : ''})`
+            prefix: padStart + '[',
+            postfix: `](${href}${title ? ` "${title}"` : ''})${padEnd}`
         };
     };
 }

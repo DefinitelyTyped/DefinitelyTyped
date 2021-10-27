@@ -99,6 +99,8 @@ declare namespace StaticMaps {
         color?: string | undefined;
         width?: number | undefined;
         fill?: string | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     }
 
     type TextAnchor =

@@ -203,6 +203,7 @@ declare module Mongo {
             fetch?: string[] | undefined;
             transform?: Fn | undefined;
         }): boolean;
+        createIndex(index: { [key: string]: number | string } | string, options?: any): void;
         deny<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
@@ -301,6 +302,7 @@ declare module Mongo {
             numberAffected?: number | undefined;
             insertedId?: string | undefined;
         };
+        /** @deprecated */
         _ensureIndex(keys: { [key: string]: number | string } | string, options?: { [key: string]: any }): void;
         _dropIndex(keys: { [key: string]: number | string } | string): void;
     }

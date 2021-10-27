@@ -7,3 +7,9 @@ export default class CKFinderEditing extends Plugin {
     static requires: [typeof Notification, "ImageEditing", typeof LinkEditing];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CKFinderEditing: CKFinderEditing;
+    }
+}

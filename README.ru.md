@@ -4,33 +4,9 @@
 
 Также посетите веб-сайт [definitelytyped.org](https://definitelytyped.org), хотя информация в этом README более свежая.
 
-_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)._
+_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)._
 
 <!-- For translators: add link to README.ja.md above! -->
-
-## Содержание
-
-* [Текущее состояние](#текущее-состояние)
-* [Что такое файлы декларации (файлы описания/объявления типов)?](#что-такое-файлы-декларации-файлы-описанияобъявления-типов)
-* [Как их получить?](#как-их-получить)
-* [Как я могу внести свой вклад?](#как-я-могу-внести-свой-вклад)
-  - [Тестирование](#тестирование)
-  - [Запрос на принятие изменений (PR)](#запрос-на-принятие-изменений-pr)<details><summary></summary>
-    - [Изменение существующего пакета](#изменение-существующего-пакета)
-    - [Создание нового пакета](#создание-нового-пакета)
-    - [Удаление пакета](#удаление-пакета)
-    - [Проверка](#проверка)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [Распространенные ошибки](#распространенные-ошибки)
-    </details>
-  - [Definition owners](#definition-owners)
-* [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
-* [Лицензия](#лицензия)
 
 ## Текущее состояние
 
@@ -73,10 +49,10 @@ npm install --save-dev @types/node
 Если вы все еще не можете найти его, проверьте [включает](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ли пакет собственную типизацию.
 Обычно это отражается в поле `"types"` или `"typings"` файла `package.json`, или просто ищите любые файлы «.d.ts» в пакете и вручную включайте их с помощью `/// <reference path="" />`.
 
-#### TypeScript 3.5 и старее
+#### TypeScript 3.6 и старее
 
 Начиная с ноября 2019 года, Definitely Typed тестирует пакеты только на версиях Typescript, которым меньше двух лет.
-Если вы используете Typescript от 2.0 до 3.5, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
+Если вы используете Typescript от 2.0 до 3.6, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
 Но нет гарантии, что они будут работать.
 
 График обновлений:
@@ -99,6 +75,7 @@ npm install --save-dev @types/node
 4.1 | Ноябрь 2020 | Ноябрь 2022
 4.2 | Февраль 2021 | Февраль 2023
 4.3 | Май 2021 | Май 2023
+4.4 | Август 2021 | Август 2023
 
 
 Пакеты, которые существовали до ноября 2019 года, могут иметь более старые версии, которые явно помечены как совместимые с более старыми версиями Typescript; используйте тег "ts2.6" для Typescript 2.6, например.

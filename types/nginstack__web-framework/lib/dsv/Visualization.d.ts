@@ -2,11 +2,11 @@ export = Visualization;
 declare function Visualization(definition: any): void;
 declare class Visualization {
     constructor(definition: any);
-    viewDefs_: any;
+    private viewDefs_;
     title: string;
     messageWhenEmpty: string;
     help: string;
-    canExport_: any;
+    private canExport_;
     includes: Array<number | string>;
     extraExportFormats: Array<{
         name: string;

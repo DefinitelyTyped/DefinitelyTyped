@@ -27,3 +27,18 @@ new IndentUsingOffset({ direction: 'backward', offset: 1, unit: '' }).isForward 
 
 new IndentUsingClasses({ direction: 'forward', classes: [''] }).isForward === !0;
 new IndentUsingClasses({ direction: 'forward', classes: [''] }).classes.map(c => c.startsWith(''));
+
+// $ExpectType Indent
+editor.plugins.get('Indent');
+
+// $ExpectType IndentBlock
+editor.plugins.get('IndentBlock');
+
+// $ExpectType IndentEditing
+editor.plugins.get('IndentEditing');
+
+// $ExpectType IndentUI
+editor.plugins.get('IndentUI');
+
+// $ExpectType IndentBlockCommand | undefined
+editor.commands.get("IndentBlockCommand");

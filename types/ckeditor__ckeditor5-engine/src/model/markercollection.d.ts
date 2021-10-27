@@ -42,7 +42,9 @@ export class Marker {
     is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
     is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
     is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
-    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
-    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: "element" | "model:element"): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement"): this is RootElement;
+    is<K extends string>(type: "element" | "model:element", name: K): this is (Element | RootElement) & { name: K };
+    is<K extends string>(type: "rootElement" | "model:rootElement", name: K): this is RootElement & { name: K };
     is(type: string, name?: string): boolean;
 }

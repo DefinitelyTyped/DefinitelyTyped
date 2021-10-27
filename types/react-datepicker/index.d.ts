@@ -17,10 +17,11 @@
 // Minimum TypeScript Version: 3.8
 
 import * as React from 'react';
-import * as Popper from "@popperjs/core";
+import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
+import { Modifier, StrictModifierNames } from 'react-popper';
 
-export function registerLocale(localeName: string, localeData: {}): void;
+export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
 export function CalendarContainer(props: {
@@ -34,7 +35,7 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
-export interface ReactDatePickerProps {
+export interface ReactDatePickerProps<CustomModifierNames extends string = never> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -121,7 +122,7 @@ export interface ReactDatePickerProps {
     placeholderText?: string | undefined;
     popperClassName?: string | undefined;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: Popper.StrictModifiers[] | undefined;
+    popperModifiers?: ReadonlyArray<Modifier<StrictModifierNames | CustomModifierNames>> | undefined;
     popperPlacement?: Popper.Placement | undefined;
     popperProps?: {} | undefined;
     preventOpenOnFocus?: boolean | undefined;
@@ -192,7 +193,9 @@ export interface ReactDatePickerProps {
     yearItemNumber?: number | undefined;
 }
 
-declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
+export class ReactDatePicker<CustomModifierNames extends string = never> extends React.Component<
+    ReactDatePickerProps<CustomModifierNames>
+> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;

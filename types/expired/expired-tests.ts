@@ -8,9 +8,12 @@ Content-Type: application/json;charset=utf-8
 Date: Fri, 23 Dec 2016 05:50:31 GMT
 Last-Modified: Fri, 23 Dec 2016 05:23:23 GMT`;
 
+const objectHeaders = { age: 0 };
+
 expired(headers); // $ExpectType boolean
 expired.in(headers); // $ExpectType number
 expired.on(headers); // $ExpectType Date
+expired(objectHeaders); // $ExpectType boolean
 
 const parsedHeaders = {
     age: '0',

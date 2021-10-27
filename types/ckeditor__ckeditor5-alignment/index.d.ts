@@ -2,7 +2,7 @@
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/alignment.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 
 export { default as Alignment } from './src/alignment';
 export { default as AlignmentEditing } from './src/alignmentediting';

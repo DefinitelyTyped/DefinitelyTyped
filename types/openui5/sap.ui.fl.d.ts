@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1647,6 +1647,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetAbstract": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetRegistrationIds": undefined;
 

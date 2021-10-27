@@ -18,7 +18,7 @@ declare class GridField {
     canModify: boolean;
     private write;
     alignment: any;
-    written_: boolean;
+    private written_;
     lookup(): void;
     grid: any;
     private tree;
@@ -50,7 +50,7 @@ declare class GridField {
     focus(): void;
     private notFoundKeysCache_;
     private lastDBCacheRefresh_;
-    dbCacheKeyExists_(key: number | DBKey): boolean;
+    private dbCacheKeyExists_;
     private valueToServerValue;
     private valueToClientValue;
     private validateLookupLicenseDependencies_;
@@ -62,7 +62,6 @@ declare class GridField {
     getValue(): any;
     private fillFirstValue;
     fillingFirstValue: boolean;
-    private _getLiteralObjectString;
     private getUserInformedProperty;
     private checkValueError;
     private getLookupDisplay;
@@ -76,12 +75,11 @@ declare class GridField {
     private getComboOptionDisplay;
     private _configWidth;
     height: any;
-    _width: any;
-    _tableViewWidth: any;
+    private _width;
+    private _tableViewWidth;
 }
 declare namespace GridField {
     export { LookupMultipleInsertEvent };
 }
 import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
 type LookupMultipleInsertEvent = import('../classdef/LookupMultipleInsertEvent');

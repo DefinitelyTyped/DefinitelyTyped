@@ -10,3 +10,9 @@ export interface IndentBehavior {
     checkEnabled(indentAttributeValue: string): boolean;
     getNextIndent(indentAttributeValue: string): string | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        IndentBlockCommand: IndentBlockCommand;
+    }
+}

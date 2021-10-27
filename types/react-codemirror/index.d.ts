@@ -9,7 +9,9 @@
 /// <reference types="codemirror"/>
 
 declare namespace ReactCodeMirror {
-    interface ReactCodeMirrorProps extends React.Props<ReactCodeMirror> {
+    interface ReactCodeMirrorProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<ReactCodeMirror> | undefined;
         /** Automatically focuses the editor when it is mounted (default false) */
         autoFocus?: boolean | undefined;
         /** Automatically persist changes to underlying textarea (default false) */

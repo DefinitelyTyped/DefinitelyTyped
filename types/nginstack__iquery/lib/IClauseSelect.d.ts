@@ -2,18 +2,18 @@ export = IClauseSelect;
 declare function IClauseSelect(iQuery: IQuery): void;
 declare class IClauseSelect {
     constructor(iQuery: IQuery);
-    _iQuery: import('./IQuery');
-    _columns: any[];
-    _aggregateColumns: any[];
-    _columnsNames: string[];
-    _aggregateColumnsNames: string[];
-    _joinManager: import('./IJoinManager.js');
-    _columnCount: number;
+    private _iQuery;
+    private _columns;
+    private _aggregateColumns;
+    private _columnsNames;
+    private _aggregateColumnsNames;
+    private _joinManager;
+    private _columnCount;
     isSubSelect: boolean;
-    explicitGroupBy_: any[];
+    private explicitGroupBy_;
     private _useDistinct;
-    _exprs: string[];
-    _colsToHide: string[];
+    private _exprs;
+    private _colsToHide;
     iQuery: IQuery;
     columnsCount: number;
     getColumnByIndex(index: number): IColumn;
@@ -25,24 +25,17 @@ declare class IClauseSelect {
     private _convertColumnsToSql;
     private _getColumnFields;
     execute(): DataSet;
-    _generateAvgTerms(colAvg: IColumn): {
-        expr: string;
-        colName: string;
-    };
-    _splitExpressionTerms(colExpr: IColumn): {
-        expr: string;
-        colName: string;
-    };
+    private _generateAvgTerms;
+    private _splitExpressionTerms;
     toSql(): string;
     distinct(): IClauseSelect;
     equals(obj: any): boolean;
     groupBy(fields: any): IClauseSelect;
-    fetchGroupByArr_(field: any): void;
+    private fetchGroupByArr_;
 }
 declare namespace IClauseSelect {
-    export { _controlFieldsSuffix, IQuery, DataSet };
+    export { IQuery, DataSet };
 }
 type IQuery = import('./IQuery');
 import IColumn = require('./IColumn.js');
 type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
-declare var _controlFieldsSuffix: string;

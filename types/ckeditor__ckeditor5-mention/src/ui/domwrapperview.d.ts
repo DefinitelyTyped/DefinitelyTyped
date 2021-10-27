@@ -10,6 +10,7 @@ export default class DomWrapperView<T extends HTMLElement> extends View {
     /**
      * Creates an instance of {@link module:mention/ui/domwrapperview~DomWrapperView} class.
      */
+    constructor(domElement: T);
     constructor(locale: Locale, domElement: T);
     /**
      * Disable template rendering on this view.

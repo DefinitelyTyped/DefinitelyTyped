@@ -2,7 +2,7 @@
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/special-characters.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 import SpecialCharacters from './src/specialcharacters';
 import SpecialCharactersArrows from './src/specialcharactersarrows';
 import SpecialCharactersText from './src/specialcharacterstext';

@@ -5,9 +5,10 @@
  * ```js
  * import url from 'url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/url.js)
  */
 declare module 'url' {
+    import { Blob } from 'node:buffer';
     import { ClientRequestArgs } from 'node:http';
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
     // Input to `url.format`
@@ -71,6 +72,30 @@ declare module 'url' {
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
+     * The URL object has both a `toString()` method and `href` property that return string serializations of the URL.
+     * These are not, however, customizable in any way. The `url.format(URL[, options])` method allows for basic
+     * customization of the output.
+     * Returns a customizable serialization of a URL `String` representation of a `WHATWG URL` object.
+     *
+     * ```js
+     * import url from 'url';
+     * const myURL = new URL('https://a:b@測試?abc#foo');
+     *
+     * console.log(myURL.href);
+     * // Prints https://a:b@xn--g6w251d/?abc#foo
+     *
+     * console.log(myURL.toString());
+     * // Prints https://a:b@xn--g6w251d/?abc#foo
+     *
+     * console.log(url.format(myURL, { fragment: false, unicode: true, auth: false }));
+     * // Prints 'https://測試/?abc'
+     * ```
+     * @since v7.6.0
+     * @param urlObject A `WHATWG URL` object
+     * @param options
+     */
+    function format(urlObject: URL, options?: URLFormatOptions): string;
+    /**
      * The `url.format()` method returns a formatted URL string derived from`urlObject`.
      *
      * ```js
@@ -133,7 +158,6 @@ declare module 'url' {
      * @deprecated Legacy: Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
-    function format(urlObject: URL, options?: URLFormatOptions): string;
     function format(urlObject: UrlObject | string): string;
     /**
      * The `url.resolve()` method resolves a target URL relative to a base URL in a
@@ -263,7 +287,7 @@ declare module 'url' {
      * import { urlToHttpOptions } from 'url';
      * const myURL = new URL('https://a:b@測試?abc#foo');
      *
-     * console.log(urlToHttpOptions(myUrl));
+     * console.log(urlToHttpOptions(myURL));
      *
      * {
      *   protocol: 'https:',
@@ -301,6 +325,40 @@ declare module 'url' {
      * @since v7.0.0, v6.13.0
      */
     class URL {
+        /**
+         * Creates a `'blob:nodedata:...'` URL string that represents the given `Blob` object and can be used to retrieve the `Blob` later.
+         *
+         * ```js
+         * const {
+         *   Blob,
+         *   resolveObjectURL,
+         * } = require('buffer');
+         *
+         * const blob = new Blob(['hello']);
+         * const id = URL.createObjectURL(blob);
+         *
+         * // later...
+         *
+         * const otherBlob = resolveObjectURL(id);
+         * console.log(otherBlob.size);
+         * ```
+         *
+         * The data stored by the registered `Blob` will be retained in memory until`URL.revokeObjectURL()` is called to remove it.
+         *
+         * `Blob` objects are registered within the current thread. If using Worker
+         * Threads, `Blob` objects registered within one Worker will not be available
+         * to other workers or the main thread.
+         * @since v16.7.0
+         * @experimental
+         */
+        static createObjectURL(blob: Blob): string;
+        /**
+         * Removes the stored `Blob` identified by the given ID.
+         * @since v16.7.0
+         * @experimental
+         * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
+         */
+        static revokeObjectURL(objectUrl: string): void;
         constructor(input: string, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
@@ -649,7 +707,7 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | NodeJS.Dict<string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
         /**
          * Append a new name-value pair to the query string.
          */
@@ -662,7 +720,7 @@ declare module 'url' {
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
          *
-         * Alias for {@link earchParams[@@iterator]}.
+         * Alias for `urlSearchParams[@@iterator]()`.
          */
         entries(): IterableIterator<[string, string]>;
         /**

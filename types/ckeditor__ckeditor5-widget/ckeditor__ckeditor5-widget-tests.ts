@@ -96,3 +96,15 @@ toWidget(containerElement, new DowncastWriter(new Document(new StylesProcessor()
 
 new SizeView().render();
 new SizeView().isRendered === bool;
+
+// $ExpectType Widget
+editor.plugins.get('Widget');
+
+// $ExpectType WidgetResize
+editor.plugins.get('WidgetResize');
+
+// $ExpectType WidgetToolbarRepository
+editor.plugins.get('WidgetToolbarRepository');
+
+// $ExpectType WidgetTypeAround
+editor.plugins.get('WidgetTypeAround');

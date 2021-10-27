@@ -26,10 +26,22 @@ import {
     ViewDocument,
 } from "@ckeditor/ckeditor5-engine";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
-import DowncastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
+import DowncastHelpers, {
+    clearAttributes,
+    convertCollapsedSelection,
+    convertRangeSelection,
+    insertText,
+    remove,
+    wrap,
+    insertElement,
+    insertUIElement,
+} from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
 import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
-import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
+import UpcastHelpers, {
+    convertToModelFragment,
+    convertText,
+} from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
 import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
 import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
@@ -47,12 +59,12 @@ import ContainerElement, { getFillerOffset } from "@ckeditor/ckeditor5-engine/sr
 import Document from "@ckeditor/ckeditor5-engine/src/view/document";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
 import ViewDocumentSelection from "@ckeditor/ckeditor5-engine/src/view/documentselection";
+import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
-import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
-import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
+import Matcher, { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
 import ViewNode from "@ckeditor/ckeditor5-engine/src/view/node";
 import Position from "@ckeditor/ckeditor5-engine/src/view/position";
 import ViewRange from "@ckeditor/ckeditor5-engine/src/view/range";
@@ -112,7 +124,7 @@ pattern = (element: ViewElement) => {
         return { name: true };
     }
 
-    return nullvalue;
+    return;
 };
 
 pattern = (element: ViewElement) => {
@@ -125,7 +137,7 @@ pattern = (element: ViewElement) => {
         }
     }
 
-    return nullvalue;
+    return;
 };
 
 let viewDefinition: ElementDefinition = "p";
@@ -153,6 +165,11 @@ model.change(writer => {
 
 model.document.createRoot();
 model.schema.register("paragraph", { inheritAllFrom: "$block" });
+model.schema.addAttributeCheck(context => {
+    if (context.endsWith("paragraph")) {
+        return true;
+    }
+});
 
 const view: View = new View(new StylesProcessor());
 view.change(writer => {
@@ -216,11 +233,174 @@ let upcastHelper: UpcastHelpers = conversion.for("upcast");
 upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
 // $ExpectError
 upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
-upcastHelper = upcastHelper.add(() => {});
+upcastHelper = upcastHelper.add((dispatcher) => {
+    dispatcher.on("element:p", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "element:p"
+        data; // $ExpectType UpcastConversionData<Element & { name: "p"; }>
+        conversionApi; // $ExpectType UpcastConversionApi
+        const { modelCursor, modelRange, viewItem } = data;
+        modelCursor; // $ExpectType Position
+        modelRange; // $ExpectType Range
+        viewItem; // $ExpectType Element & { name: "p"; }
+    });
+    dispatcher.on("element", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "element"
+        data; // $ExpectType UpcastConversionData<Element>
+        conversionApi; // $ExpectType UpcastConversionApi
+    });
+    dispatcher.on("text", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "text"
+        data; // $ExpectType UpcastConversionData<Text>
+        conversionApi; // $ExpectType UpcastConversionApi
+    });
+    dispatcher.on("documentFragment", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "documentFragment"
+        data; // $ExpectType UpcastConversionData<DocumentFragment>
+        conversionApi; // $ExpectType UpcastConversionApi
+    });
+    dispatcher.on("element", convertToModelFragment());
+    dispatcher.on("element:p", convertToModelFragment());
+    dispatcher.on("documentFragment", convertToModelFragment());
+    dispatcher.on("text", convertText());
+    dispatcher.on("viewCleanup", (evt, data) => {
+        data; // $ExpectType Element | DocumentFragment
+    });
+});
+upcastHelper.attributeToAttribute({
+    view: "foo",
+    model: "bar",
+    converterPriority: 5,
+});
+upcastHelper.attributeToAttribute({
+    view: "foo",
+    model: "bar",
+    converterPriority: "low",
+});
 let downcastHelper: DowncastHelpers = conversion.for("downcast");
 downcastHelper = conversion.for("dataDowncast");
 downcastHelper = conversion.for("editingDowncast");
-downcastHelper = downcastHelper.add(() => {});
+downcastHelper = downcastHelper.add((dispatcher) => {
+    dispatcher.on("insert:paragraph", (evt, data, { consumable, mapper, writer, dispatcher, schema }) => {
+        evt.name; // $ExpectType "insert:paragraph"
+        data; // $ExpectType { item: Element & { name: "paragraph"; }; range: Range; }
+        schema; // $ExpectType Schema
+        writer; // $ExpectType DowncastWriter
+        dispatcher; // $ExpectType DowncastDispatcher<{}>
+        mapper; // $ExpectType Mapper
+        consumable; // ExpectType ModelConsumable
+
+        const viewElement = mapper.toViewElement(data.item);
+        if (viewElement) {
+            writer.addClass("img-class", viewElement);
+        }
+    });
+    dispatcher.on(
+        "insert:myElem",
+        insertElement((modelItem, { writer }) => {
+            modelItem; // $ExpectType Element
+            const text = writer.createText("myText");
+            return writer.createAttributeElement("myElem", { myAttr: "my-" + modelItem.getAttribute("myAttr") });
+        }),
+    );
+    dispatcher.on("insert:$text", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "insert:$text"
+        data; // $ExpectType { item: TextProxy; range: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("insert:$text", insertText());
+    dispatcher.on("insert", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "insert"
+        data; // $ExpectType { item: TextProxy | Element; range: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("attribute:bold", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "attribute:bold"
+        // $ExpectType { item: Element; range: Range; attributeKey: "bold"; attributeOldValue: any; attributeNewValue: any; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("attribute:bold", wrap((modelAttributeValue, conversionApi) => {
+        modelAttributeValue; // $ExpectType any
+        conversionApi; // $ExpectType DowncastConversionApi<any>
+        const { writer } = conversionApi;
+        return writer.createAttributeElement("strong");
+    }));
+    dispatcher.on("attribute:bold:$text", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "attribute:bold:$text"
+        // $ExpectType { item: DocumentSelection | TextProxy; range: Range; attributeKey: "bold"; attributeOldValue: any; attributeNewValue: any; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("attribute", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "attribute"
+        // $ExpectType { item: Element; range: Range; attributeKey: string; attributeOldValue: any; attributeNewValue: any; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("selection", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "selection"
+        data; // $ExpectType { selection: Selection; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("selection", clearAttributes());
+    dispatcher.on("selection", convertRangeSelection());
+    dispatcher.on("selection", convertCollapsedSelection());
+    dispatcher.on("remove", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "remove"
+        data; // $ExpectType { position: Position; length: number; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("remove", remove());
+    dispatcher.on("removeMarker:mention", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "removeMarker:mention"
+        data; // $ExpectType { markerName: "mention"; markerRange: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("removeMarker", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "removeMarker"
+        data; // $ExpectType { markerName: string; markerRange: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("addMarker:mention", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "addMarker:mention"
+        // $ExpectType { item?: Selection | undefined; range?: Range | undefined; markerName: "mention"; markerRange: Range; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on(
+        "addMarker:mention",
+        insertUIElement((data, { writer }) => {
+            const name = `${data.markerName}:${data.isOpening ? "start" : "end"}`;
+            return writer.createUIElement(name);
+        }),
+    );
+    dispatcher.on("addMarker", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "addMarker"
+        // $ExpectType { item?: Selection | undefined; range?: Range | undefined; markerName: string; markerRange: Range; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+});
+downcastHelper.attributeToAttribute({
+    model: "foo",
+    view: "bar",
+    converterPriority: 5,
+});
+downcastHelper.attributeToAttribute({
+    model: "foo",
+    view: "bar",
+    converterPriority: "low",
+});
+downcastHelper.markerToElement({
+    model: "foo",
+    view: "bar",
+    converterPriority: 5,
+});
+downcastHelper.markerToElement({
+    model: "foo",
+    view: "bar",
+    converterPriority: "low",
+});
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
 viewDocumentFragment = dataProcessor.toView("") as ViewDocumentFragment;
@@ -293,6 +473,7 @@ bool = range.isEqual(range);
 let treeWalker: TreeWalker = range.getWalker();
 treeWalker = range.getWalker({ singleCharacters: true });
 const result3 = range.getItems({ startPosition: position }).next();
+range.getItems();
 if (!result3.done) {
     const item: Item = result3.value;
     bool = range.containsItem(item);
@@ -325,11 +506,14 @@ livePosition = LivePosition.fromPosition(position);
 position = livePosition.toPosition();
 
 model = new Model();
-model.change(writer => {
-    const myWriter: Writer = writer;
+model.change((writer: Writer) => {
+    console.log(writer);
 });
-model.enqueueChange("transparent", writer => {
-    const myWriter: Writer = writer;
+model.enqueueChange("transparent", (writer: Writer) => {
+    console.log(writer);
+});
+model.enqueueChange((writer: Writer) => {
+    console.log(writer);
 });
 model.insertContent(new DocumentFragment());
 model.insertContent(new Writer().createText(""));
@@ -463,6 +647,18 @@ if (
 ) {
     const obj: Element | RootElement = modelObj;
 }
+if (modelObj.is("element", "div")) {
+    const obj: (Element | RootElement) & { name: "div"; } = modelObj;
+}
+if (modelObj.is("model:element", "div")) {
+    const obj: (Element | RootElement) & { name: "div"; } = modelObj;
+}
+if (modelObj.is("element", "div") || modelObj.is("element", "span")) {
+    const obj: Element | RootElement = modelObj;
+}
+if (modelObj.is("model:element", "div") || modelObj.is("model:element", "span")) {
+    const obj: Element | RootElement = modelObj;
+}
 if (
     modelObj.is("rootElement") ||
     modelObj.is("model:rootElement") ||
@@ -471,6 +667,53 @@ if (
 ) {
     const obj: RootElement = modelObj;
 }
+{
+    const obj = modelObj as RootElement;
+    if (obj.is("rootElement", "paragraph")) {
+        // $ExpectType RootElement & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("model:rootElement", "paragraph")) {
+        // $ExpectType RootElement & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("rootElement", "paragraph") || obj.is("rootElement", "blockQuote")) {
+        // $ExpectType (RootElement & { name: "paragraph"; }) | (RootElement & { name: "blockQuote"; })
+        obj;
+    }
+    if (obj.is("model:rootElement", "paragraph") || obj.is("model:rootElement", "blockQuote")) {
+        // $ExpectType (RootElement & { name: "paragraph"; }) | (RootElement & { name: "blockQuote"; })
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("rootElement") || obj.is("rootElement", "paragraph")) 1;
+    // $ExpectError
+    if (obj.is("model:rootElement") || obj.is("model:rootElement", "paragraph")) 1;
+}
+{
+    const obj = modelObj as Element;
+    if (obj.is("element", "paragraph")) {
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("model:element", "paragraph")) {
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("element", "paragraph") || obj.is("element", "blockQuote")) {
+        // $ExpectType "paragraph" | "blockQuote"
+        obj.name;
+    }
+    if (obj.is("model:element", "paragraph") || obj.is("model:element", "blockQuote")) {
+        // $ExpectType "paragraph" | "blockQuote"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("element") || obj.is("element", "paragraph")) 1;
+    // $ExpectError
+    if (obj.is("model:element") || obj.is("model:element", "paragraph")) 1;
+}
+
 if (modelObj.is("selection") || modelObj.is("model:selection")) {
     const obj: Selection | DocumentSelection = modelObj;
 }
@@ -558,6 +801,31 @@ if (
         | EmptyElement
         | RootEditableElement = viewObj;
 }
+
+{
+    const obj = viewObj as ViewElement;
+    if (obj.is("element", "p") || obj.is("element", "div")) {
+        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:element", "p") || obj.is("view:element", "div")) {
+        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        obj;
+    }
+    if (obj.is("element", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    if (obj.is("view:element", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("element") || obj.is("element", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:element") || obj.is("view:element", "p")) 1;
+}
+
 if (
     viewObj.is("containerElement") ||
     viewObj.is("view:containerElement") ||
@@ -566,6 +834,31 @@ if (
 ) {
     const obj: ContainerElement | EditableElement | RootEditableElement = viewObj;
 }
+
+{
+    const obj = viewObj as ContainerElement;
+    if (obj.is("containerElement", "p") || obj.is("containerElement", "div")) {
+        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:containerElement", "p") || obj.is("view:containerElement", "div")) {
+        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("containerElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    if (obj.is("view:containerElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("containerElement") || obj.is("containerElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:containerElement") || obj.is("view:containerElement", "p")) 1;
+}
+
 if (
     viewObj.is("editableElement") ||
     viewObj.is("view:editableElement") ||
@@ -574,6 +867,30 @@ if (
 ) {
     const obj: EditableElement | RootEditableElement = viewObj;
 }
+{
+    const obj = viewObj as EditableElement;
+    if (obj.is("editableElement", "p") || obj.is("editableElement", "div")) {
+        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:editableElement", "p") || obj.is("view:editableElement", "div")) {
+        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("editableElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    if (obj.is("view:editableElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("editableElement") || obj.is("editableElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:editableElement") || obj.is("view:editableElement", "p")) 1;
+}
+
 if (
     viewObj.is("rootEditableElement") ||
     viewObj.is("view:rootEditableElement") ||
@@ -581,6 +898,29 @@ if (
     viewObj.is("view:rootEditableElement", "div")
 ) {
     const obj: RootEditableElement = viewObj;
+}
+{
+    const obj = viewObj as RootEditableElement;
+    if (obj.is("rootEditableElement", "p") || obj.is("rootEditableElement", "div")) {
+        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:rootEditableElement", "p") || obj.is("view:rootEditableElement", "div")) {
+        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("rootEditableElement", "p")) {
+        // $ExpectType RootEditableElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:rootEditableElement", "p")) {
+        // $ExpectType RootEditableElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("rootEditableElement") || obj.is("rootEditableElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:rootEditableElement") || obj.is("view:rootEditableElement", "p")) 1;
 }
 if (
     viewObj.is("rawElement") ||
@@ -590,6 +930,30 @@ if (
 ) {
     const obj: RawElement = viewObj;
 }
+{
+    const obj = viewObj as RawElement;
+    if (obj.is("rawElement", "p") || obj.is("rawElement", "div")) {
+        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:rawElement", "p") || obj.is("view:rawElement", "div")) {
+        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("rawElement", "p")) {
+        // $ExpectType RawElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:rawElement", "p")) {
+        // $ExpectType RawElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("rawElement") || obj.is("rawElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:rawElement") || obj.is("view:rawElement", "p")) 1;
+}
+
 if (
     viewObj.is("attributeElement") ||
     viewObj.is("view:attributeElement") ||
@@ -598,6 +962,30 @@ if (
 ) {
     const obj: AttributeElement = viewObj;
 }
+{
+    const obj = viewObj as AttributeElement;
+    if (obj.is("attributeElement", "p") || obj.is("attributeElement", "div")) {
+        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:attributeElement", "p") || obj.is("view:attributeElement", "div")) {
+        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("attributeElement", "p")) {
+        // $ExpectType AttributeElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:attributeElement", "p")) {
+        // $ExpectType AttributeElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("attributeElement") || obj.is("attributeElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:attributeElement") || obj.is("view:attributeElement", "p")) 1;
+}
+
 if (
     viewObj.is("uiElement") ||
     viewObj.is("view:uiElement") ||
@@ -606,6 +994,30 @@ if (
 ) {
     const obj: UIElement = viewObj;
 }
+{
+    const obj = viewObj as UIElement;
+    if (obj.is("uiElement", "p") || obj.is("uiElement", "div")) {
+        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:uiElement", "p") || obj.is("view:uiElement", "div")) {
+        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("uiElement", "p")) {
+        // $ExpectType UIElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:uiElement", "p")) {
+        // $ExpectType UIElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("uiElement") || obj.is("uiElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:uiElement") || obj.is("view:uiElement", "p")) 1;
+}
+
 if (
     viewObj.is("emptyElement") ||
     viewObj.is("view:emptyElement") ||
@@ -614,6 +1026,176 @@ if (
 ) {
     const obj: EmptyElement = viewObj;
 }
+{
+    const obj = viewObj as EmptyElement;
+    if (obj.is("emptyElement", "hr") || obj.is("emptyElement", "img")) {
+        // $ExpectType (EmptyElement & { name: "hr"; }) | (EmptyElement & { name: "img"; })
+        obj;
+    }
+    if (obj.is("view:emptyElement", "hr") || obj.is("view:emptyElement", "img")) {
+        // $ExpectType (EmptyElement & { name: "hr"; }) | (EmptyElement & { name: "img"; })
+        obj;
+    }
+    if (obj.is("emptyElement", "hr")) {
+        // $ExpectType EmptyElement & { name: "hr"; }
+        obj;
+    }
+    if (obj.is("view:emptyElement", "hr")) {
+        // $ExpectType EmptyElement & { name: "hr"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("emptyElement") || obj.is("emptyElement", "hr")) 1;
+    // $ExpectError
+    if (obj.is("view:emptyElement") || obj.is("view:emptyElement", "hr")) 1;
+}
 
 // Selectable
 new Writer().setSelection(null);
+
+// MatcherPattern
+pattern = "div";
+pattern = /foo/;
+pattern = { name: "p" };
+pattern = { name: /^(ul|ol)$/ };
+pattern = {
+    attributes: {
+        title: true,
+    },
+};
+pattern = {
+    name: "p",
+    attributes: true,
+};
+pattern = {
+    name: "figure",
+    attributes: "title",
+};
+pattern = {
+    name: "figure",
+    attributes: /^data-.*$/,
+};
+
+pattern = {
+    name: "figure",
+    attributes: {
+        title: "foobar",
+        alt: true,
+        "data-type": /^(jpg|png)$/,
+    },
+};
+pattern = {
+    name: "figure",
+    attributes: ["title", /^data-*$/],
+};
+
+pattern = {
+    name: "input",
+    attributes: [
+        {
+            key: "type",
+            value: /^(text|number|date)$/,
+        },
+        {
+            key: /^data-.*$/,
+            value: true,
+        },
+    ],
+};
+
+pattern = {
+    name: "p",
+    styles: true,
+};
+
+pattern = {
+    name: "p",
+    styles: "color",
+};
+
+pattern = {
+    name: "p",
+    styles: /^border.*$/,
+};
+
+pattern = {
+    name: "p",
+    attributes: {
+        color: /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/,
+        "font-weight": 600,
+        "text-decoration": true,
+    },
+};
+
+pattern = {
+    name: "p",
+    attributes: ["color", /^border.*$/],
+};
+
+pattern = {
+    name: "p",
+    attributes: [
+        {
+            key: "color",
+            value: /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/,
+        },
+        {
+            key: /^border.*$/,
+            value: true,
+        },
+    ],
+};
+
+pattern = {
+    name: "p",
+    classes: true,
+};
+
+pattern = {
+    name: "p",
+    classes: "highlighted",
+};
+
+pattern = {
+    name: "figure",
+    classes: /^image-side-(left|right)$/,
+};
+
+pattern = {
+    name: "p",
+    classes: {
+        highlighted: true,
+        marker: true,
+    },
+};
+
+pattern = {
+    name: "figure",
+    classes: ["image", /^image-side-(left|right)$/],
+};
+
+pattern = {
+    name: "figure",
+    classes: [
+        {
+            key: "image",
+            value: true,
+        },
+        {
+            key: /^image-side-(left|right)$/,
+            value: true,
+        },
+    ],
+};
+
+pattern = {
+    name: "span",
+    attributes: ["title"],
+    styles: {
+        "font-weight": "bold",
+    },
+    classes: "highlighted",
+};
+
+new Matcher(pattern).add(pattern);
+new Matcher(pattern, pattern).add(pattern, pattern);

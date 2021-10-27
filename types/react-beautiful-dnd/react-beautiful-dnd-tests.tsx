@@ -100,28 +100,35 @@ class App extends React.Component<{}, AppState> {
                 enableDefaultSensors={false}
                 sensors={[useMouseSensor, useKeyboardSensor, useTouchSensor]}
             >
-                <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
-                    {(provided, snapshot) => (
-                        <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>
-                            {this.state.items.map((item, index) => (
-                                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForcePress>
-                                    {(provided, snapshot) => (
-                                        <div>
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                                            >
-                                                {item.content}
-                                            </div>
-                                        </div>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                        </div>
-                    )}
+                <Droppable droppableId='droppable' ignoreContainerClipping={false} isCombineEnabled={true}>
+                    {(droppableProvided, snapshot) => {
+                        const { innerRef, droppableProps, placeholder } = droppableProvided;
+                        return (
+                            <div ref={innerRef} style={getListStyle(snapshot)} {...droppableProps}>
+                                {this.state.items.map((item, index) => (
+                                    <Draggable key={item.id} draggableId={item.id} index={index}
+                                               shouldRespectForcePress>
+                                        {(draggableProvided, snapshot) => {
+                                            const { innerRef, draggableProps, dragHandleProps } = draggableProvided;
+                                            return (
+                                                <div>
+                                                    <div
+                                                        ref={innerRef}
+                                                        {...draggableProps}
+                                                        {...dragHandleProps}
+                                                        style={getItemStyle(snapshot.isDragging, draggableProps.style)}
+                                                    >
+                                                        {item.content}
+                                                    </div>
+                                                </div>
+                                            );
+                                        }}
+                                    </Draggable>
+                                ))}
+                                {placeholder}
+                            </div>
+                        );
+                    }}
                 </Droppable>
             </DragDropContext>
         );

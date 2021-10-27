@@ -1,13 +1,19 @@
-interface TInputs { inputString?: string | undefined; }
-interface TOutputs { testString: string; }
+interface TInputs {
+    inputString?: string | undefined;
+}
+interface TOutputs {
+    testString: string;
+}
 
 class TestControl implements ComponentFramework.StandardControl<TInputs, TOutputs> {
-    init(context: ComponentFramework.Context<TInputs>, notifyOutputChanged?: () => void, state?: ComponentFramework.Dictionary, container?: HTMLDivElement) {
-    }
-    updateView(context: ComponentFramework.Context<TInputs>) {
-    }
-    destroy() {
-    }
+    init(
+        context: ComponentFramework.Context<TInputs>,
+        notifyOutputChanged?: () => void,
+        state?: ComponentFramework.Dictionary,
+        container?: HTMLDivElement,
+    ) {}
+    updateView(context: ComponentFramework.Context<TInputs>) {}
+    destroy() {}
     getOutputs() {
         return {
             testString: '',
@@ -19,7 +25,7 @@ const clientTest: ComponentFramework.Client = {
     disableScroll: false,
     getFormFactor: () => 1,
     getClient: () => '',
-    isOffline: () => false
+    isOffline: () => false,
 };
 
 const tmpFile: ComponentFramework.FileObject = { fileContent: '', fileName: '', fileSize: 0, mimeType: '' };
@@ -56,7 +62,8 @@ const formattingTest: ComponentFramework.Formatting = {
     formatDateYearMonth: (value: Date) => value.toString(),
     formatInteger: (value: number) => value.toString(),
     formatLanguage: (value: number) => value.toString(),
-    formatTime: (value: Date, behavior: ComponentFramework.FormattingApi.Types.DateTimeFieldBehavior) => value.toString(),
+    formatTime: (value: Date, behavior: ComponentFramework.FormattingApi.Types.DateTimeFieldBehavior) =>
+        value.toString(),
     getWeekOfYear: (value: Date) => 0,
 };
 
@@ -68,12 +75,12 @@ const modeTest: ComponentFramework.Mode = {
     label: '',
     setControlState: (state: ComponentFramework.Dictionary) => false,
     setFullScreen: (value: boolean) => null,
-    trackContainerResize: (value: boolean) => null
+    trackContainerResize: (value: boolean) => null,
 };
 
 const resourcesTest: ComponentFramework.Resources = {
     getResource: (id: string, success: (data: string) => void, failure: () => void) => {},
-    getString: (id: string) => ''
+    getString: (id: string) => '',
 };
 
 const dictionary: ComponentFramework.Dictionary = { testKey: '' };
@@ -87,7 +94,7 @@ const dataSetApiColumn: ComponentFramework.PropertyHelper.DataSetApi.Column = {
     visualSizeFactor: 1,
     isHidden: false,
     isPrimary: true,
-    disableSorting: false
+    disableSorting: false,
 };
 
 const linkEntityExposeExpression: ComponentFramework.PropertyHelper.DataSetApi.LinkEntityExposedExpression = {
@@ -95,7 +102,7 @@ const linkEntityExposeExpression: ComponentFramework.PropertyHelper.DataSetApi.L
     from: '',
     to: '',
     linkType: '',
-    alias: ''
+    alias: '',
 };
 
 enum ImeMode {
@@ -168,4 +175,18 @@ const webApiTest: ComponentFramework.WebApi = {
     deleteRecord: () => Promise.resolve(lookupValueTest),
     retrieveMultipleRecords: () => Promise.resolve({ entities: [], nextLink: '' }),
     retrieveRecord: () => Promise.resolve({}),
+};
+
+const pagingTest: ComponentFramework.PropertyHelper.DataSetApi.Paging = {
+    totalResultCount: 1000,
+    firstPageNumber: 4,
+    lastPageNumber: 4,
+    pageSize: 20,
+    hasNextPage: true,
+    hasPreviousPage: true,
+    loadNextPage: (loadOnlyNewPage?: boolean) => {},
+    loadPreviousPage: (loadOnlyNewPage?: boolean) => {},
+    reset: () => {},
+    setPageSize: (pageSize: number) => {},
+    loadExactPage: (pageNumber: number) => {},
 };

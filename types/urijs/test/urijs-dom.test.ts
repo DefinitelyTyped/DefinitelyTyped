@@ -217,17 +217,26 @@ declare var $: (arg?: any) => JQuery;
     Tests for URI.buildQuery()
     From: https://medialize.github.io/URI.js/docs.html#static-buildQuery
     */
-    const buildQueryData = {
+    const buildQueryData: URI.QueryDataMap = {
       foo: 'bar',
       hello: ['world', 'mars', 'mars'],
       bam: '',
       yup: null,
       removed: undefined,
+      removedList: [undefined, undefined, undefined]
     };
     test(URI.buildQuery(buildQueryData), 'foo=bar&hello=world&hello=mars&bam=&yup');
     test(URI.buildQuery(buildQueryData, true), 'foo=bar&hello=world&hello=mars&hello=mars&bam=&yup');
     test(URI.buildQuery({ space: 'hello space' }, false), 'space=hello+space');
     test(URI.buildQuery({ space: 'hello space' }, false, false), 'space=hello%20space');
+    test(URI.buildQuery({ habitable: false }), 'habitable=false');
+    test(URI.buildQuery({ orbit: 687 }), 'orbit=687');
+    test(URI.buildQuery({ gas: [96, 1.9,  1.8, 0.146, 0.0] }), 'gas=96&gas=1.9&gas=1.8&gas=0.146&gas=0');
+    test(URI.buildQuery({ prediction: [true, false, true] }), 'prediction=true&prediction=false');
+    test(
+        URI.buildQuery({ silly: [Infinity, NaN, { a: 1 }, new RegExp('')] }),
+        'silly=Infinity&silly=NaN&silly=%5Bobject+Object%5D&silly=%2F%28%3F%3A%29%2F'
+    );
 
     /*
     Tests for URI.parseQuery()

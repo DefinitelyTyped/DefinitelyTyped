@@ -10,9 +10,9 @@ declare class DataSourceResult {
         filters: any[] | any[] | DataSourceFilters,
         columns: any[] | any[] | DataSourceColumns
     );
-    dataSource_: any;
-    filters_: any;
-    columns_: any;
+    private dataSource_;
+    private filters_;
+    private columns_;
     dataSource: any;
     filters: DataSourceFilters;
     columns: DataSourceColumns;

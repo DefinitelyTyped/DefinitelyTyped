@@ -388,6 +388,12 @@ namespace MeteorTests {
     });
 
     /**
+     * From Collections, createIndex section
+     */
+
+    Posts.createIndex({ title: 1 });
+
+    /**
      * From Collections, cursor.forEach section
      */
     var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 }) as Mongo.Cursor<PostDAO | iPost>;
@@ -572,9 +578,47 @@ namespace MeteorTests {
     Accounts.user({ fields: { profile: 0 } });
 
     /**
+     * Fixes this discussion https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/55173
+     */
+    Accounts.sendEnrollmentEmail(); // $ExpectError
+    Accounts.sendEnrollmentEmail('userId');
+    Accounts.sendEnrollmentEmail('userId', 'email');
+    Accounts.sendEnrollmentEmail('userId', undefined, {});
+    Accounts.sendEnrollmentEmail('userId', undefined, undefined, {});
+    Accounts.sendEnrollmentEmail('userId', 'email', {}, {});
+
+    Accounts.sendResetPasswordEmail(); // $ExpectError
+    Accounts.sendResetPasswordEmail('userId');
+    Accounts.sendResetPasswordEmail('userId', 'email');
+    Accounts.sendResetPasswordEmail('userId', undefined, {});
+    Accounts.sendResetPasswordEmail('userId', undefined, undefined, {});
+    Accounts.sendResetPasswordEmail('userId', 'email', {}, {});
+
+    Accounts.sendVerificationEmail(); // $ExpectError
+    Accounts.sendVerificationEmail('userId');
+    Accounts.sendVerificationEmail('userId', 'email');
+    Accounts.sendVerificationEmail('userId', undefined, {});
+    Accounts.sendVerificationEmail('userId', undefined, undefined, {});
+    Accounts.sendVerificationEmail('userId', 'email', {}, {});
+
+    Accounts.findUserByEmail(); // $ExpectError
+    Accounts.findUserByEmail('email'); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', {}); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', { fields: undefined }); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', { fields: {} }); // $ExpectType User | null | undefined
+
+    Accounts.findUserByUsername(); // $ExpectError
+    Accounts.findUserByUsername('email'); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', {}); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', { fields: undefined }); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', { fields: {} }); // $ExpectType User | null | undefined
+
+
+
+    /**
      * From Accounts, Accounts.ui.config section
      */
-    Accounts.ui.config({
+     Accounts.ui.config({
         requestPermissions: {
             facebook: ['user_likes'],
             github: ['user', 'repo'],
@@ -658,8 +702,8 @@ namespace MeteorTests {
     var body = Template.body;
 
     const Template2 = Template as TemplateStaticTyped<
-        { foo: string },
         'newTemplate2',
+        { foo: string },
         {
             state: ReactiveDict<{ bar: number }>;
             getFooBar(): string;
@@ -713,6 +757,18 @@ namespace MeteorTests {
             template.getFooBar();
         },
     });
+
+    const Template3 = Template as TemplateStaticTyped<'newTemplate3', string>;
+
+    const Template4 = Template as TemplateStaticTyped<'newTemplate4', () => number>;
+
+    Template4.newTemplate4.events({
+        test: (_event, instance) => {
+            instance.data(); // $ExpectType number
+        },
+    });
+
+    const Template5 = Template as TemplateStaticTyped<'newTemplate5'>;
 
     /**
      * From Match section
@@ -1056,6 +1112,10 @@ namespace MeteorTests {
 
     // Covers https://github.com/meteor-typings/meteor/issues/21
     if (Meteor.isTest) {
+        // do something
+    }
+
+    if (Meteor.isAppTest) {
         // do something
     }
 

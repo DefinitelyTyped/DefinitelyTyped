@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.95.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -2381,6 +2381,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import { ValueColor } from "sap/m/library";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
@@ -2452,6 +2454,16 @@ declare module "sap/f/cards/NumericSideIndicator" {
      */
     getNumber(): string;
     /**
+     * @EXPERIMENTAL (since 1.95)
+     *
+     * Gets current value of property {@link #getState state}.
+     *
+     * The semantic color which represents the state of the side indicator.
+     *
+     * Default value is `"None"`.
+     */
+    getState(): ValueColor | keyof typeof ValueColor;
+    /**
      * Gets current value of property {@link #getTitle title}.
      *
      * The title of the indicator
@@ -2471,6 +2483,23 @@ declare module "sap/f/cards/NumericSideIndicator" {
        * The text of the title
        */
       sValue: string
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.95)
+     *
+     * Sets a new value for property {@link #getState state}.
+     *
+     * The semantic color which represents the state of the side indicator.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"None"`.
+     */
+    setState(
+      /**
+       * New value for property `state`
+       */
+      sState?: ValueColor | keyof typeof ValueColor
     ): this;
     /**
      * Sets the title.
@@ -2507,6 +2536,13 @@ declare module "sap/f/cards/NumericSideIndicator" {
      * Defines the unit of measurement (scaling prefix) for the numeric value
      */
     unit?: string | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.95)
+     *
+     * The semantic color which represents the state of the side indicator.
+     */
+    state?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
   }
 }
 
@@ -5072,6 +5108,8 @@ declare module "sap/f/FlexibleColumnLayout" {
 
   import { BackgroundDesign } from "sap/m/library";
 
+  import FlexibleColumnLayoutAccessibleLandmarkInfo from "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -5752,6 +5790,12 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     destroyEndColumnPages(): this;
     /**
+     * @SINCE 1.95
+     *
+     * Destroys the landmarkInfo in the aggregation {@link #getLandmarkInfo landmarkInfo}.
+     */
+    destroyLandmarkInfo(): this;
+    /**
      * Destroys all the midColumnPages in the aggregation {@link #getMidColumnPages midColumnPages}.
      */
     destroyMidColumnPages(): this;
@@ -6356,6 +6400,16 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     getInitialMidColumnPage(): ID;
     /**
+     * @SINCE 1.95
+     *
+     * Gets content of aggregation {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * Accessible landmark settings to be applied on the containers of the `sap.f.FlexibleColumnLayout` control.
+     *
+     * If not set, no landmarks will be written.
+     */
+    getLandmarkInfo(): FlexibleColumnLayoutAccessibleLandmarkInfo;
+    /**
      * Gets current value of property {@link #getLayout layout}.
      *
      * Determines the layout of the control - number of visible columns and their relative sizes.
@@ -6644,6 +6698,17 @@ declare module "sap/f/FlexibleColumnLayout" {
        * an element instance may be given
        */
       oInitialMidColumnPage: ID | Control
+    ): this;
+    /**
+     * @SINCE 1.95
+     *
+     * Sets the aggregated {@link #getLandmarkInfo landmarkInfo}.
+     */
+    setLandmarkInfo(
+      /**
+       * The landmarkInfo to set
+       */
+      oLandmarkInfo: FlexibleColumnLayoutAccessibleLandmarkInfo
     ): this;
     /**
      * Sets a new value for property {@link #getLayout layout}.
@@ -7077,6 +7142,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     endColumnPages?: Control[] | Control | AggregationBindingInfo;
 
     /**
+     * @SINCE 1.95
+     *
+     * Accessible landmark settings to be applied on the containers of the `sap.f.FlexibleColumnLayout` control.
+     *
+     * If not set, no landmarks will be written.
+     */
+    landmarkInfo?: FlexibleColumnLayoutAccessibleLandmarkInfo;
+
+    /**
      * Sets the initial `Begin` column page, which is displayed on application launch.
      */
     initialBeginColumnPage?: Control | string;
@@ -7153,6 +7227,182 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fired when resize of each column has completed.
      */
     columnResize?: (oEvent: Event) => void;
+  }
+}
+
+declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.95
+   *
+   * Settings for accessible landmarks which can be applied to the container elements of a `sap.f.FlexibleColumnLayout`
+   * control. For example, these landmarks are used by assistive technologies (such as screen readers) to
+   * provide a meaningful columns overview.
+   */
+  export default class FlexibleColumnLayoutAccessibleLandmarkInfo extends UI5Element {
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
+    );
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo with name `sClassName`
+     * and enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayoutAccessibleLandmarkInfo>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFirstColumnLabel firstColumnLabel}.
+     *
+     * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    getFirstColumnLabel(): string;
+    /**
+     * Gets current value of property {@link #getLastColumnLabel lastColumnLabel}.
+     *
+     * Text that describes the landmark of the last column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    getLastColumnLabel(): string;
+    /**
+     * Gets current value of property {@link #getMiddleColumnLabel middleColumnLabel}.
+     *
+     * Text that describes the landmark of the middle column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    getMiddleColumnLabel(): string;
+    /**
+     * Sets a new value for property {@link #getFirstColumnLabel firstColumnLabel}.
+     *
+     * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setFirstColumnLabel(
+      /**
+       * New value for property `firstColumnLabel`
+       */
+      sFirstColumnLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getLastColumnLabel lastColumnLabel}.
+     *
+     * Text that describes the landmark of the last column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setLastColumnLabel(
+      /**
+       * New value for property `lastColumnLabel`
+       */
+      sLastColumnLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMiddleColumnLabel middleColumnLabel}.
+     *
+     * Text that describes the landmark of the middle column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setMiddleColumnLabel(
+      /**
+       * New value for property `middleColumnLabel`
+       */
+      sMiddleColumnLabel?: string
+    ): this;
+  }
+
+  export interface $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
+    extends $ElementSettings {
+    /**
+     * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    firstColumnLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of the middle column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    middleColumnLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of the last column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    lastColumnLabel?: string | PropertyBindingInfo;
   }
 }
 
@@ -10328,8 +10578,10 @@ declare module "sap/f/routing/Router" {
    * The difference to the `{@link sap.ui.core.routing.Router}` are the `viewLevel`, `transition`, and `transitionParameters`
    * properties that you can specify in every Route or Target created by this router.
    *
-   * Additionally, the `layout` property can be specified in every Route, in which case it is applied to the
-   * root control.
+   * The difference to the `{@link sap.m.routing.Router}` is the additional `layout` property that can be
+   * specified in every Route, in which case it is applied to the root control. Also, the `sap.f.routing.Router`
+   * supports navigations that involve both change of `{@link sap.f.LayoutType}` and change of the current
+   * page within a single column of the `sap.f.FlexibleColumnLayout`.
    *
    * See `{@link sap.ui.core.routing.Router}` for the constructor arguments.
    */
@@ -13494,6 +13746,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * The `customShareActions` are placed in the `ShareMenu` area of the `SemanticPage` title, right after
      * the semantic actions.
      *
+     * The text and icon of the button inside the `customShareActions` aggregation, can be customized.
+     *
      * **Note:** If the `titleSnappedOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
@@ -15165,6 +15419,8 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * The `customShareActions` are placed in the `ShareMenu` area of the `SemanticPage` title, right after
      * the semantic actions.
+     *
+     * The text and icon of the button inside the `customShareActions` aggregation, can be customized.
      *
      * **Note:** If the `titleSnappedOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
@@ -16867,6 +17123,8 @@ declare namespace sap {
     "sap/f/DynamicPageTitle": undefined;
 
     "sap/f/FlexibleColumnLayout": undefined;
+
+    "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo": undefined;
 
     "sap/f/FlexibleColumnLayoutSemanticHelper": undefined;
 

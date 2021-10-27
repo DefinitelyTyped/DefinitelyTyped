@@ -2,20 +2,20 @@ export = FileStorage;
 declare function FileStorage(classKey: number): void;
 declare class FileStorage {
     constructor(classKey: number);
-    classKey_: number;
-    linkFieldName_: any;
-    linkedTableName_: any;
-    attributeNames_: string[];
-    storageKind_: any;
-    storageClassKey_: any;
-    accept_: any;
-    maxFiles_: any;
-    maxFileSize_: any;
-    maxTotalSize_: any;
-    dataRel_: any;
-    fileInfos_: Record<number, any>;
-    fileFieldName_: string;
-    storage_: LobFileStorage | VfsFileStorage;
+    private classKey_;
+    private linkFieldName_;
+    private linkedTableName_;
+    private attributeNames_;
+    private storageKind_;
+    private storageClassKey_;
+    private accept_;
+    private maxFiles_;
+    private maxFileSize_;
+    private maxTotalSize_;
+    private dataRel_;
+    private fileInfos_;
+    private fileFieldName_;
+    private storage_;
     storageKind: StorageKind;
     storageClassKey: number;
     linkFieldName: string;
@@ -58,8 +58,6 @@ declare class FileStorage {
 declare namespace FileStorage {
     export { StorageKind, DBKey };
 }
-import LobFileStorage = require('./LobFileStorage.js');
-import VfsFileStorage = require('./VfsFileStorage.js');
 type StorageKind = string;
 declare namespace StorageKind {
     const VFS: string;

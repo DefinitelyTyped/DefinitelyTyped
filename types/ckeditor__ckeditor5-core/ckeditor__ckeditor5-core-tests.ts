@@ -8,8 +8,8 @@ import {
     attachToForm,
     MultiCommand,
     EditorUI,
-} from "@ckeditor/ckeditor5-core";
-import View from "@ckeditor/ckeditor5-ui/src/view";
+} from '@ckeditor/ckeditor5-core';
+import View from '@ckeditor/ckeditor5-ui/src/view';
 
 let comm: Command;
 
@@ -30,11 +30,11 @@ class MyEditor extends Editor {
     }
 }
 
-const PluginArray: Array<typeof Plugin|typeof ContextPlugin|string> = MyEditor.builtinPlugins;
-PluginArray.forEach(plugin => typeof plugin !== "string" && plugin.pluginName);
+const PluginArray: Array<typeof Plugin | typeof ContextPlugin | string> = MyEditor.builtinPlugins;
+PluginArray.forEach(plugin => typeof plugin !== 'string' && plugin.pluginName);
 
-const editor = new MyEditor(document.createElement("div"));
-const editorState: "initializing" | "ready" | "destroyed" = editor.state;
+const editor = new MyEditor(document.createElement('div'));
+const editorState: 'initializing' | 'ready' | 'destroyed' = editor.state;
 // $ExpectError
 editor.state = editorState;
 editor.focus();
@@ -42,7 +42,7 @@ editor.destroy().then(() => {});
 editor.initPlugins().then(plugins => plugins.map(plugin => plugin.pluginName));
 
 MyEditor.defaultConfig = {
-    placeholder: "foo",
+    placeholder: 'foo',
 };
 // $ExpectError
 MyEditor.defaultConfig = 4;
@@ -68,15 +68,22 @@ const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
 myPlugin.isEnabled = true;
+myPlugin.destroy();
 
 /**
  * PluginCollection
  */
 editor.plugins.get(MyPlugin).myMethod();
 (editor.plugins.get('MyPlugin') as MyPlugin).myMethod();
+// $ExpectType boolean
+editor.plugins.has('foo');
+// $ExpectType boolean
+editor.plugins.has(MyPlugin);
+// $ExpectError
+editor.plugins.has(class Foo {});
 
 // $ExpectError
-editor.plugins.get(class Foo);
+editor.plugins.get(class Foo {});
 editor.plugins.get(class Foo extends Plugin {});
 
 class MyEmptyEditor extends Editor {
@@ -91,8 +98,8 @@ class SomeCommand extends Command {
 }
 const command = new Command(new MyEmptyEditor());
 command.execute();
-command.execute("foo", "bar", true, false, 50033);
-command.execute(4545454, "refresh", [], []);
+command.execute('foo', 'bar', true, false, 50033);
+command.execute(4545454, 'refresh', [], []);
 command.execute({}, { foo: 5 });
 
 const ed: Editor = command.editor;
@@ -107,7 +114,7 @@ command.execute();
 
 command.refresh();
 
-command.value = "foo";
+command.value = 'foo';
 delete command.value;
 
 command.isEnabled = false;
@@ -120,7 +127,7 @@ delete command.isEnabled;
  */
 
 const context = new Context();
-const contextWithConfig = new Context({ foo: "foo" });
+const contextWithConfig = new Context({ foo: 'foo' });
 context.destroy().then(() => {});
 contextWithConfig.initPlugins().then(plugins => plugins.map(plugin => plugin.pluginName));
 
@@ -154,11 +161,11 @@ context.plugins.get(MyCPlugin).myCMethod();
  * DataApiMixin
  */
 
-DataApiMixin.setData("foo");
+DataApiMixin.setData('foo');
 // $ExpectError
-DataApiMixin.getData("foo");
-DataApiMixin.getData({ rootName: "foo" });
-DataApiMixin.getData({ rootName: "foo", trim: "none" });
+DataApiMixin.getData('foo');
+DataApiMixin.getData({ rootName: 'foo' });
+DataApiMixin.getData({ rootName: 'foo', trim: 'none' });
 
 /**
  * attachToForm
@@ -175,4 +182,4 @@ MC.registerChildCommand(comm);
 
 /* EditorUI */
 new EditorUI(editor).componentFactory.editor === editor;
-new EditorUI(editor).componentFactory.add("", (locale) => new View(locale));
+new EditorUI(editor).componentFactory.add('', locale => new View(locale));

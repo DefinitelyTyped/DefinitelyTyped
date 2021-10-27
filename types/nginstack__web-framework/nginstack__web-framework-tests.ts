@@ -55,7 +55,6 @@ grid.emit('*', ['*']); // $ExpectType any
 grid.resetFields(); // $ExpectType void
 grid.clearButtons(); // $ExpectType void
 grid.name; // $ExpectType string
-grid.getFormattedHelp(); // $ExpectType string
 grid.help; // $ExpectType string | { overview: string; buttons: Record<string, string>; }
 grid.refresh(true); // $ExpectType void
 grid.tableViewFieldNames; // $ExpectType string
@@ -117,3 +116,8 @@ grid.expand('nodeValue'); // $ExpectType void
 grid.colapse('nodeValue'); // $ExpectType void
 grid.toggleKeyVisibility(); // $ExpectType void
 grid.toggleFieldVisibility('field'); // $ExpectType void
+
+function testMajorVersions(prior: number, current: number): boolean {
+    return current > prior;
+}
+testMajorVersions(52, 53); // $ExpectType boolean

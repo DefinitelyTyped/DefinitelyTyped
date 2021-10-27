@@ -1,7 +1,8 @@
-// Type definitions for scroll-into-view 1.13.1
+// Type definitions for scroll-into-view 1.16.0
 // Project: https://github.com/KoryNunn/scroll-into-view
 // Definitions by: zivni <https://github.com/zivni>
 //                 Thibaut <https://github.com/Thibaut-Fatus>
+//                 goodCycle <https://github.com/goodCycle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module __ScrollIntoView {
@@ -27,6 +28,10 @@ declare module __ScrollIntoView {
         topOffset?: number | undefined
         /** pixels to offset left alignment */
         leftOffset?: number | undefined
+        /** boolean to prevent X scrolling */
+        lockX?: boolean | undefined
+        /** boolean to prevent Y scrolling */
+        lockY?: boolean | undefined
     }
 
     /** type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll */
@@ -34,8 +39,8 @@ declare module __ScrollIntoView {
     type Callback = (type: callbackParameterType) => void
 
     interface ScrollIntoView {
-        (target: HTMLElement, callback?: __ScrollIntoView.Callback) : void
-        (target: HTMLElement, settings: __ScrollIntoView.Settings, callback?: __ScrollIntoView.Callback) :  void
+        (target: HTMLElement, callback?: __ScrollIntoView.Callback): void
+        (target: HTMLElement, settings: __ScrollIntoView.Settings, callback?: __ScrollIntoView.Callback): void
     }
 
 }

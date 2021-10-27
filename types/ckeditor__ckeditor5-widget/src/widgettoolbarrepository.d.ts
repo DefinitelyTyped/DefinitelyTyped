@@ -26,3 +26,9 @@ export interface WidgetRepositoryToolbarDefinition {
     getRelatedElement: (el: Selection | DocumentSelection) => EngineView;
     view: View;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        WidgetToolbarRepository: WidgetToolbarRepository;
+    }
+}

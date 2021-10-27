@@ -7,6 +7,9 @@ export default class App extends React.Component {
   render() {
     const button1 = <button>Open portal with pseudo modal</button>;
 
+    // $ExpectError
+    <Portal />;
+
     return (
       <div>
         <Portal
@@ -24,7 +27,6 @@ export default class App extends React.Component {
             <p>This react component is appended to the document body.</p>
           </PseudoModal>
         </Portal>
-        <Portal />
       </div>
     );
   }

@@ -17,3 +17,9 @@ export interface WordCountConfig {
     displayWords?: boolean | undefined;
     onUpdate?(stats: { readonly words: number; readonly characters: number }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        WordCount: WordCount;
+    }
+}

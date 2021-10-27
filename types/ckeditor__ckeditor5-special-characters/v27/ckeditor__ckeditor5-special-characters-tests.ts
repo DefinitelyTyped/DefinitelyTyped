@@ -21,3 +21,26 @@ const specialCharactersLatin = new SC.SpecialCharactersLatin(new MyEditor());
 specialCharactersLatin.init();
 const specialCharactersMathematical = new SC.SpecialCharactersMathematical(new MyEditor());
 specialCharactersMathematical.init();
+
+const editor = new MyEditor();
+
+// $ExpectType SpecialCharacters
+editor.plugins.get('SpecialCharacters');
+
+// $ExpectType SpecialCharactersArrows
+editor.plugins.get('SpecialCharactersArrows');
+
+// $ExpectType SpecialCharactersCurrency
+editor.plugins.get('SpecialCharactersCurrency');
+
+// $ExpectType SpecialCharactersEssentials
+editor.plugins.get('SpecialCharactersEssentials');
+
+// $ExpectType SpecialCharactersLatin
+editor.plugins.get('SpecialCharactersLatin');
+
+// $ExpectType SpecialCharactersMathematical
+editor.plugins.get('SpecialCharactersMathematical');
+
+// $ExpectType SpecialCharactersText
+editor.plugins.get('SpecialCharactersText');

@@ -8,3 +8,9 @@ export default class AutoImage extends Plugin {
     static readonly pluginName: 'AutoImage';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        AutoImage: AutoImage;
+    }
+}

@@ -1739,7 +1739,7 @@ export namespace key {
          * @param keyId
          * @returns
          */
-        getSubkeys(keyId: type.keyid.Keyid): any[];
+        getSubkeys(keyId?: type.keyid.Keyid): any[];
 
         /**
          * Returns an array containing all public or private keys matching keyId.
@@ -1747,7 +1747,7 @@ export namespace key {
          * @param keyId
          * @returns
          */
-        getKeys(keyId: type.keyid.Keyid): any[];
+        getKeys(keyId?: type.keyid.Keyid): any[];
 
         /**
          * Returns key IDs of all keys

@@ -16,3 +16,9 @@ export default class ImageStyleUI extends Plugin {
     };
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageStyleUI: ImageStyleUI;
+    }
+}

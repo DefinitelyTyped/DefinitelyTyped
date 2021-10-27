@@ -1,9 +1,9 @@
 export = FileLoader;
 declare function FileLoader(): void;
 declare class FileLoader {
-    lobStorage_: LobStorage;
-    virtualFS_: VirtualFileSystem;
-    unionFS_: UnionFileSystem;
+    private lobStorage_;
+    private virtualFS_;
+    private unionFS_;
     private logger_;
     private basePath_;
     private fileLifetime_;
@@ -38,9 +38,6 @@ declare class FileLoader {
 declare namespace FileLoader {
     export { Request, FileInfoUpload, FileInfo };
 }
-import LobStorage = require('@nginstack/engine/lib/database/LobStorage.js');
-import VirtualFileSystem = require('@nginstack/engine/lib/vfs/VirtualFileSystem.js');
-import UnionFileSystem = require('@nginstack/engine/lib/ufs/UnionFileSystem.js');
 import UploadOptions = require('./UploadOptions.js');
 type Request = import('@nginstack/engine/lib/http/Request');
 interface FileInfoUpload {

@@ -285,7 +285,7 @@ class Customer extends bookshelf.Model<Customer> {
     get tableName() { return 'customers'; }
 }
 Customer.collection().fetch().then(collection => {
-    // ...
+    return collection.models;
 });
 
 /* Model.count(), see http://bookshelfjs.org/#Model-static-count */
@@ -560,6 +560,9 @@ new Posts().fetch().then(collection => {
         .then(model => {
             JSON.stringify(model);
         });
+    // withRelated is not a valid option in model.load()
+    // $ExpectError
+    collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
 });
 /*
 {
@@ -1201,12 +1204,21 @@ ships.trigger('fetched');
 
 /* collection.where(), see http://bookshelfjs.org/#Collection-instance-where */
 
-(new Author())
-    .where('first_name', 'in', ['User', 'Resu'])
-    .fetchAll()
-    .then(() => {
-        // ...
-    })
+collection.where('favorite_color', '<>', 'green').fetch().then(() => {
+    //...
+});
+// or
+collection.where('favorite_color', 'red').fetch().then(() => {
+    //...
+});
+// or
+collection.where({ favorite_color: 'red', shoe_size: 12 }).fetch().then(() => {
+    //...
+});
+// or
+collection.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+    // ...
+});
 
 /* collection.withPivot(), see http://bookshelfjs.org/#Collection-instance-withPivot */
 

@@ -203,10 +203,10 @@ export function ascend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
 /**
  * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
  */
-export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & U;
-export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & Omit<U, K>;
+export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & Omit<U, K>;
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 /**
@@ -290,8 +290,8 @@ export function complement<As extends any[]>(pred: (...args: As) => boolean): (.
  * functions must be unary.
  */
 // generic rest parameters in TS 3.0 allows writing a single variant for any number of Vx
-// compose<V extends any[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
-// compose<V extends any[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
+// compose<V extends unknown[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
+// compose<V extends unknown[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
 // but requiring TS>=3.0 sounds like a breaking change, so just leaving a comment for the future
 // tslint:disable:max-line-length
 export function compose<T1>(fn0: () => T1): () => T1;

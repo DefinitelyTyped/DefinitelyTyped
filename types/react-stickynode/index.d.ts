@@ -1,4 +1,4 @@
-// Type definitions for react-stickynode 3.0
+// Type definitions for react-stickynode 4.0
 // Project: https://github.com/yahoo/react-stickynode
 // Definitions by: Tim Stirrat <https://github.com/tstirrat>
 //                 Kamil Socha <https://github.com/ksocha>
@@ -72,6 +72,12 @@ declare namespace Sticky {
          * Class name to be applied to the inner element ('' by default).
          */
         innerClass?: string | undefined;
+
+        /**
+         * Class name to be applied to the inner element when the sticky
+         * state is active ('' by default).
+         */
+        innerActiveClass?: string | undefined;
 
         /**
          * Class name to be applied to the element independent of the

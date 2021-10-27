@@ -746,7 +746,7 @@ declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 declare const COMMODITIES: Record<
     CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
     {
-        level?: number | undefined;
+        level?: number;
         amount: number;
         cooldown: number;
         components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
@@ -863,10 +863,10 @@ declare const POWER_INFO: {
         className: PowerClassConstant;
         level: number[];
         cooldown: number;
-        effect?: number[] | undefined;
-        range?: number | undefined;
-        ops?: number | number[] | undefined;
-        duration?: number | number[] | undefined;
+        effect?: number[];
+        range?: number;
+        ops?: number | number[];
+        duration?: number | number[];
     };
     [PWR_GENERATE_OPS]: {
         className: POWER_CLASS["OPERATOR"];
@@ -1453,7 +1453,7 @@ interface Flag extends RoomObject {
      *
      * You can choose the name while creating a new flag, and it cannot be changed later.
      *
-     * This name is a hash key to access the spawn via the `Game.flags` object. The maximum name length is 60 characters.
+     * This name is a hash key to access the flag via the `Game.flags` object. The maximum name length is 60 characters.
      */
     name: string;
     /**
@@ -1567,7 +1567,7 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: Id<T>): T | null;
+    getObjectById<T extends Id<any>>(id: T): fromId<T> | null;
 
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
@@ -1706,7 +1706,7 @@ interface CPU {
      */
     halt?(): never;
     /**
-     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     * Generate 1 pixel resource unit for 10000 CPU from your bucket.
      */
     generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
 
@@ -1741,7 +1741,7 @@ type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T exten
            *
            * If the body part is boosted, this property specifies the mineral type which is used for boosting.
            */
-          boost?: keyof typeof BOOSTS[T] | undefined;
+          boost?: keyof typeof BOOSTS[T];
           /**
            * One of the body part types constants.
            */
@@ -1881,20 +1881,20 @@ interface FindPathOpts {
      * Treat squares with creeps as walkable. Can be useful with too many moving creeps around or in some other cases. The default
      * value is false.
      */
-    ignoreCreeps?: boolean | undefined;
+    ignoreCreeps?: boolean;
 
     /**
      * Treat squares with destructible structures (constructed walls, ramparts, spawns, extensions) as walkable. Use this flag when
      * you need to move through a territory blocked by hostile structures. If a creep with an ATTACK body part steps on such a square,
      * it automatically attacks the structure. The default value is false.
      */
-    ignoreDestructibleStructures?: boolean | undefined;
+    ignoreDestructibleStructures?: boolean;
 
     /**
      * Ignore road structures. Enabling this option can speed up the search. The default value is false. This is only used when the
      * new PathFinder is enabled.
      */
-    ignoreRoads?: boolean | undefined;
+    ignoreRoads?: boolean;
 
     /**
      * You can use this callback to modify a CostMatrix for any room during the search. The callback accepts two arguments, roomName
@@ -1911,50 +1911,50 @@ interface FindPathOpts {
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
      * cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    ignore?: any[] | RoomPosition[] | undefined;
+    ignore?: any[] | RoomPosition[];
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search. This option cannot
      * be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    avoid?: any[] | RoomPosition[] | undefined;
+    avoid?: any[] | RoomPosition[];
 
     /**
      * The maximum limit of possible pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
      * The default value is 2000.
      */
-    maxOps?: number | undefined;
+    maxOps?: number;
 
     /**
      * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand the underlying
      * A* algorithm mechanics! The default value is 1.2.
      */
-    heuristicWeight?: number | undefined;
+    heuristicWeight?: number;
 
     /**
      * If true, the result path will be serialized using Room.serializePath. The default is false.
      */
-    serialize?: boolean | undefined;
+    serialize?: boolean;
 
     /**
      * The maximum allowed rooms to search. The default (and maximum) is 16. This is only used when the new PathFinder is enabled.
      */
-    maxRooms?: number | undefined;
+    maxRooms?: number;
 
     /**
      * Path to within (range) tiles of target tile. The default is to path to the tile that the target is on (0).
      */
-    range?: number | undefined;
+    range?: number;
 
     /**
      * Cost for walking on plain positions. The default is 1.
      */
-    plainCost?: number | undefined;
+    plainCost?: number;
 
     /**
      * Cost for walking on swamp positions. The default is 5.
      */
-    swampCost?: number | undefined;
+    swampCost?: number;
 }
 
 interface MoveToOpts extends FindPathOpts {
@@ -1964,24 +1964,24 @@ interface MoveToOpts extends FindPathOpts {
      * the amount of ticks which the path should be reused for. The default value is 5. Increase the amount to save more CPU, decrease
      * to make the movement more consistent. Set to 0 if you want to disable path reusing.
      */
-    reusePath?: number | undefined;
+    reusePath?: number;
 
     /**
      * If `reusePath` is enabled and this option is set to true, the path will be stored in memory in the short serialized form using
      * `Room.serializePath`. The default value is true.
      */
-    serializeMemory?: boolean | undefined;
+    serializeMemory?: boolean;
 
     /**
      * If this option is set to true, `moveTo` method will return `ERR_NOT_FOUND` if there is no memorized path to reuse. This can
      * significantly save CPU time in some cases. The default value is false.
      */
-    noPathFinding?: boolean | undefined;
+    noPathFinding?: boolean;
 
     /**
      * Draw a line along the creep’s path using `RoomVisual.poly`. You can provide either an empty object or custom style parameters.
      */
-    visualizePathStyle?: PolyStyle | undefined;
+    visualizePathStyle?: PolyStyle;
 }
 
 interface PathStep {
@@ -2027,6 +2027,7 @@ declare namespace Tag {
     }
 }
 type Id<T> = string & Tag.OpaqueTag<T>;
+type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
@@ -2180,10 +2181,10 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> {
-    filter: FilterFunction<T> | FilterObject | string;
+interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
+    filter: FilterFunction<FindTypes[T], S> | FilterObject | string;
 }
-type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
+type FilterFunction<T, S extends T> = (object: T) => object is S;
 interface FilterObject {
     [key: string]: any;
 }
@@ -2953,15 +2954,15 @@ interface MapLineStyle {
     /**
      * Line width, default is 0.1.
      */
-    width?: number | undefined;
+    width?: number;
     /**
      * Line color in the following format: #ffffff (hex triplet). Default is #ffffff.
      */
-    color?: string | undefined;
+    color?: string;
     /**
      * Opacity value, default is 0.5.
      */
-    opacity?: number | undefined;
+    opacity?: number;
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
@@ -2970,21 +2971,21 @@ interface MapLineStyle {
 
 interface MapPolyStyle {
     /**
-     * Fill color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Fill color in the following format: #ffffff (hex triplet). Default is undefined (no fill).
      */
     fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
-    opacity?: number | undefined;
+    opacity?: number;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     * Stroke color in the following format: #ffffff (hex triplet). Default is #ffffff.
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.5.
      */
-    strokeWidth?: number | undefined;
+    strokeWidth?: number;
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
@@ -2995,30 +2996,30 @@ interface MapCircleStyle extends MapPolyStyle {
     /**
      * Circle radius, default is 10.
      */
-    radius?: number | undefined;
+    radius?: number;
 }
 
 interface MapTextStyle {
     /**
      * Font color in the following format: #ffffff (hex triplet). Default is #ffffff.
      */
-    color?: string | undefined;
+    color?: string;
     /**
      * The font family, default is sans-serif
      */
-    fontFamily?: string | undefined;
+    fontFamily?: string;
     /**
      * The font size in game coordinates, default is 10
      */
-    fontSize?: number | undefined;
+    fontSize?: number;
     /**
      * The font style ('normal', 'italic' or 'oblique')
      */
-    fontStyle?: string | undefined;
+    fontStyle?: string;
     /**
      * The font variant ('normal' or 'small-caps')
      */
-    fontVariant?: string | undefined;
+    fontVariant?: string;
     /**
      * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
      */
@@ -3026,7 +3027,7 @@ interface MapTextStyle {
     /**
      * Stroke width, default is 0.15.
      */
-    strokeWidth?: number | undefined;
+    strokeWidth?: number;
     /**
      * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
      */
@@ -3034,15 +3035,15 @@ interface MapTextStyle {
     /**
      * Background rectangle padding, default is 2.
      */
-    backgroundPadding?: number | undefined;
+    backgroundPadding?: number;
     /**
      * Text align, either center, left, or right. Default is center.
      */
-    align?: "center" | "left" | "right" | undefined;
+    align?: "center" | "left" | "right";
     /**
      * Opacity value, default is 0.5.
      */
-    opacity?: number | undefined;
+    opacity?: number;
 }
 /**
  * A global object representing the in-game market. You can use this object to track resource transactions to/from your
@@ -3104,7 +3105,7 @@ interface Market {
         resourceType: MarketResourceConstant;
         price: number;
         totalAmount: number;
-        roomName?: string | undefined;
+        roomName?: string;
     }): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
@@ -3148,26 +3149,26 @@ interface Market {
 interface Transaction {
     transactionId: string;
     time: number;
-    sender?: { username: string } | undefined;
-    recipient?: { username: string } | undefined;
+    sender?: { username: string };
+    recipient?: { username: string };
     resourceType: MarketResourceConstant;
     amount: number;
     from: string;
     to: string;
     description: string;
-    order?: TransactionOrder | undefined;
+    order?: TransactionOrder;
 }
 
 interface Order {
     id: string;
     created: number;
-    active?: boolean | undefined;
+    active?: boolean;
     type: string;
     resourceType: MarketResourceConstant;
-    roomName?: string | undefined;
+    roomName?: string;
     amount: number;
     remainingAmount: number;
-    totalAmount?: number | undefined;
+    totalAmount?: number;
     price: number;
 }
 
@@ -3178,14 +3179,14 @@ interface TransactionOrder {
 }
 
 interface OrderFilter {
-    id?: string | undefined;
-    created?: number | undefined;
-    type?: string | undefined;
-    resourceType?: MarketResourceConstant | undefined;
-    roomName?: string | undefined;
-    amount?: number | undefined;
-    remainingAmount?: number | undefined;
-    price?: number | undefined;
+    id?: string;
+    created?: number;
+    type?: string;
+    resourceType?: MarketResourceConstant;
+    roomName?: string;
+    amount?: number;
+    remainingAmount?: number;
+    price?: number;
 }
 
 interface PriceHistory {
@@ -3340,34 +3341,34 @@ interface PathFinderOpts {
     /**
      * Cost for walking on plain positions. The default is 1.
      */
-    plainCost?: number | undefined;
+    plainCost?: number;
     /**
      * Cost for walking on swamp positions. The default is 5.
      */
-    swampCost?: number | undefined;
+    swampCost?: number;
     /**
      * Instead of searching for a path to the goals this will search for a path away from the goals.
      * The cheapest path that is out of range of every goal will be returned. The default is false.
      */
-    flee?: boolean | undefined;
+    flee?: boolean;
     /**
      * The maximum allowed pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU. The default value is 2000.
      */
-    maxOps?: number | undefined;
+    maxOps?: number;
     /**
      * The maximum allowed rooms to search. The default (and maximum) is 16.
      */
-    maxRooms?: number | undefined;
+    maxRooms?: number;
     /**
      * The maximum allowed cost of the path returned. If at any point the pathfinder detects that it is impossible to find
      * a path with a cost less than or equal to maxCost it will immediately halt the search. The default is Infinity.
      */
-    maxCost?: number | undefined;
+    maxCost?: number;
     /**
      * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand
      * the underlying A* algorithm mechanics! The default value is 1.
      */
-    heuristicWeight?: number | undefined;
+    heuristicWeight?: number;
 
     /**
      * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName.
@@ -3883,14 +3884,14 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(
+    findClosestByPath<K extends FindConstant, S extends FindTypes[K]>(
         type: K,
-        opts?: FindPathOpts & Partial<FilterOptions<K>> & { algorithm?: FindClosestByPathAlgorithm | undefined },
-    ): FindTypes[K] | null;
-    findClosestByPath<T extends Structure>(
+        opts?: FindPathOpts & Partial<FilterOptions<K, S>> & { algorithm?: FindClosestByPathAlgorithm },
+    ): S | null;
+    findClosestByPath<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES>> & { algorithm?: FindClosestByPathAlgorithm | undefined },
-    ): T | null;
+        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES, S>> & { algorithm?: FindClosestByPathAlgorithm },
+    ): S | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
@@ -3899,18 +3900,18 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string | undefined; algorithm?: FindClosestByPathAlgorithm | undefined },
+        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant>(type: K, opts?: FilterOptions<K>): FindTypes[K] | null;
-    findClosestByRange<T extends Structure>(
+    findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<K, S>): S | null;
+    findClosestByRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T | null;
+        opts?: FilterOptions<FIND_STRUCTURES, S>,
+    ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
@@ -3923,19 +3924,19 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant>(type: K, range: number, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    findInRange<T extends Structure>(
+    findInRange<K extends FindConstant, S extends FindTypes[K]>(type: K, range: number, opts?: FilterOptions<K, S>): S[];
+    findInRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         range: number,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T[];
+        opts?: FilterOptions<FIND_STRUCTURES, S>,
+    ): S[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: { filter?: any | string | undefined }): T[];
+    findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: { filter?: any | string }): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
      *
@@ -4180,15 +4181,15 @@ interface LineStyle {
     /**
      * Line width, default is 0.1.
      */
-    width?: number | undefined;
+    width?: number;
     /**
      * Line color in any web format, default is #ffffff(white).
      */
-    color?: string | undefined;
+    color?: string;
     /**
      * Opacity value, default is 0.5.
      */
-    opacity?: number | undefined;
+    opacity?: number;
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
@@ -4197,23 +4198,23 @@ interface LineStyle {
 
 interface PolyStyle {
     /**
-     * Fill color in any web format, default is #ffffff(white).
+     * Fill color in any web format, default is undefined (no fill).
      */
     fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
-    opacity?: number | undefined;
+    opacity?: number;
     /**
-     * Stroke color in any web format, default is undefined (no stroke).
+     * Stroke color in any web format, default is #ffffff (white).
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.1.
      */
-    strokeWidth?: number | undefined;
+    strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted.Default is undefined.
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
@@ -4222,14 +4223,14 @@ interface CircleStyle extends PolyStyle {
     /**
      * Circle radius, default is 0.15.
      */
-    radius?: number | undefined;
+    radius?: number;
 }
 
 interface TextStyle {
     /**
      * Font color in any web format, default is #ffffff(white).
      */
-    color?: string | undefined;
+    color?: string;
     /**
      * Either a number or a string in one of the following forms:
      * 0.7 - relative size in game coordinates
@@ -4237,7 +4238,7 @@ interface TextStyle {
      * 0.7 serif
      * bold italic 1.5 Times New Roman
      */
-    font?: number | string | undefined;
+    font?: number | string;
     /**
      * Stroke color in any web format, default is undefined (no stroke).
      */
@@ -4245,7 +4246,7 @@ interface TextStyle {
     /**
      * Stroke width, default is 0.15.
      */
-    strokeWidth?: number | undefined;
+    strokeWidth?: number;
     /**
      * Background color in any web format, default is undefined (no background).When background is enabled, text vertical align is set to middle (default is baseline).
      */
@@ -4254,12 +4255,12 @@ interface TextStyle {
     /**
      * Background rectangle padding, default is 0.3.
      */
-    backgroundPadding?: number | undefined;
-    align?: "center" | "left" | "right" | undefined;
+    backgroundPadding?: number;
+    align?: "center" | "left" | "right";
     /**
      * Opacity value, default is 1.0.
      */
-    opacity?: number | undefined;
+    opacity?: number;
 }
 /**
  * An object representing the room in which your units and structures are in.
@@ -4274,7 +4275,7 @@ interface Room {
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
-    controller?: StructureController | undefined;
+    controller?: StructureController;
     /**
      * Total amount of energy available in all spawns and extensions in the room.
      */
@@ -4302,11 +4303,11 @@ interface Room {
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
-    storage?: StructureStorage | undefined;
+    storage?: StructureStorage;
     /**
      * The Terminal structure of this room, if present, otherwise undefined.
      */
-    terminal?: StructureTerminal | undefined;
+    terminal?: StructureTerminal;
     /**
      * A RoomVisual object for this room. You can use this object to draw simple shapes (lines, circles, text labels) in the room.
      */
@@ -4409,11 +4410,11 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant>(type: K, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    find<T extends Structure>(
+    find<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<K, S>): S[];
+    find<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T[];
+        opts?: FilterOptions<FIND_STRUCTURES, S>,
+    ): S[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
@@ -4816,21 +4817,21 @@ interface SpawnOptions {
     /**
      * Memory of the new creep. If provided, it will be immediately stored into Memory.creeps[name].
      */
-    memory?: CreepMemory | undefined;
+    memory?: CreepMemory;
     /**
      * Array of spawns/extensions from which to draw energy for the spawning process.
      * Structures will be used according to the array order.
      */
-    energyStructures?: Array<StructureSpawn | StructureExtension> | undefined;
+    energyStructures?: Array<StructureSpawn | StructureExtension>;
     /**
      * If dryRun is <code>true</code>, the operation will only check if it is possible to create a creep.
      */
-    dryRun?: boolean | undefined;
+    dryRun?: boolean;
     /**
      * Set desired directions where the creep should move when spawned.
      * An array with the direction constants.
      */
-    directions?: DirectionConstant[] | undefined;
+    directions?: DirectionConstant[];
 }
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
@@ -4995,7 +4996,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     /**
      * How many ticks of safe mode are remaining, or undefined.
      */
-    safeMode?: number | undefined;
+    safeMode?: number;
     /**
      * Safe mode activations available to use.
      */
@@ -5003,7 +5004,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     /**
      * During this period in ticks new safe mode activations will be blocked, undefined if cooldown is inactive.
      */
-    safeModeCooldown?: number | undefined;
+    safeModeCooldown?: number;
     /**
      * An object with the controller sign info if present
      */
@@ -5112,7 +5113,7 @@ interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
     /**
      * Time to spawning of the next Source Keeper.
      */
-    ticksToSpawn?: number | undefined;
+    ticksToSpawn?: number;
 }
 
 interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> {}

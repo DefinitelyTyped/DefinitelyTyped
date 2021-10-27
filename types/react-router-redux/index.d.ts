@@ -23,6 +23,7 @@ import * as React from 'react';
 import { match } from 'react-router';
 
 export interface ConnectedRouterProps<State> {
+    children?: React.ReactNode;
     store?: Store<State> | undefined;
     history: History;
 }

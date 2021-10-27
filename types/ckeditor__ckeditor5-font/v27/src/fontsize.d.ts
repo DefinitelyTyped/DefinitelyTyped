@@ -19,3 +19,9 @@ export interface FontSizeConfig {
     options?: Array<string | number | FontSizeOption>;
     supportAllValues?: boolean;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        FontSize: FontSize;
+    }
+}

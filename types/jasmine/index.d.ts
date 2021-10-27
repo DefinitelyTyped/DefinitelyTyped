@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.8
+// Type definitions for Jasmine 3.10
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -236,7 +236,7 @@ declare namespace jasmine {
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
      */
-    interface EnvConfiguration {
+    interface Configuration {
         /**
          * Whether to randomize spec execution order
          * @since 3.3.0
@@ -249,13 +249,20 @@ declare namespace jasmine {
          * @since 3.3.0
          * @default null
          */
-        seed?: number | string | undefined;
+        seed?: number | string | null | undefined;
         /**
          * Whether to stop execution of the suite after the first spec failure
          * @since 3.3.0
          * @default false
+         * @deprecated Use the `stopOnSpecFailure` config property instead.
          */
         failFast?: boolean | undefined;
+        /**
+         * Whether to stop execution of the suite after the first spec failure
+         * @since 3.9.0
+         * @default false
+         */
+        stopOnSpecFailure?: boolean | undefined;
         /**
          * Whether to fail the spec if it ran no expectations. By default
          * a spec that ran no expectations is reported as passed. Setting this
@@ -268,14 +275,21 @@ declare namespace jasmine {
          * Whether to cause specs to only have one expectation failure.
          * @since 3.3.0
          * @default false
+         * @deprecated Use the `stopSpecOnExpectationFailure` config property instead.
          */
         oneFailurePerSpec?: boolean | undefined;
         /**
+         * Whether to cause specs to only have one expectation failure.
+         * @since 3.3.0
+         * @default false
+         */
+        stopSpecOnExpectationFailure?: boolean | undefined;
+        /**
          * Function to use to filter specs
          * @since 3.3.0
-         * @default true
+         * @default A function that always returns true.
          */
-        specFilter?: Function | undefined;
+        specFilter?: SpecFilter | undefined;
         /**
          * Whether or not reporters should hide disabled specs from their output.
          * Currently only supported by Jasmine's HTMLReporter
@@ -290,8 +304,18 @@ declare namespace jasmine {
          * @since 3.5.0
          * @default undefined
          */
-        Promise?: Function | undefined;
+        Promise?: typeof Promise | undefined;
+        /**
+         * Clean closures when a suite is done running (done by clearing the stored function reference).
+         * This prevents memory leaks, but you won't be able to run jasmine multiple times.
+         * @since 3.10.0
+         * @default true
+         */
+        autoCleanClosures?: boolean | undefined;
     }
+
+    /** @deprecated Please use `Configuration` instead of `EnvConfiguration`. */
+    type EnvConfiguration = Configuration;
 
     function clock(): Clock;
     function DiffBuilder(): DiffBuilder;
@@ -369,6 +393,7 @@ declare namespace jasmine {
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
+    function stringContaining(str: string | RegExp): AsymmetricMatcher<string>;
     /**
      * @deprecated Private method that may be changed or removed in the future
      */
@@ -376,7 +401,7 @@ declare namespace jasmine {
 
     interface Any extends AsymmetricMatcher<any> {
         new (expectedClass: any): any;
-        jasmineToString(): string;
+        jasmineToString(prettyPrint: typeof pp): string;
     }
 
     interface AsymmetricMatcher<TValue> {
@@ -384,7 +409,7 @@ declare namespace jasmine {
          * customTesters are deprecated and will be replaced with matcherUtils in the future.
          */
         asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
-        jasmineToString?(): string;
+        jasmineToString?(prettyPrint: typeof pp): string;
     }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
@@ -395,13 +420,13 @@ declare namespace jasmine {
 
     interface ArrayContaining<T> extends AsymmetricMatcher<any> {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
-        jasmineToString(): string;
+        jasmineToString(prettyPrint: typeof pp): string;
     }
 
     interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: { [K in keyof T]?: any }): { [K in keyof T]?: any };
 
-        jasmineToString?(): string;
+        jasmineToString?(prettyPrint: typeof pp): string;
     }
 
     interface Clock {
@@ -485,9 +510,11 @@ declare namespace jasmine {
         addReporter(reporter: CustomReporter): void;
         allowRespy(allow: boolean): void;
         clearReporters(): void;
-        configuration(): EnvConfiguration;
-        configure(configuration: EnvConfiguration): void;
-        execute(runnablesToRun?: Suite[], onComplete?: Func): void;
+        configuration(): Configuration;
+        configure(configuration: Configuration): void;
+        execute(runnablesToRun: Suite[] | null | undefined, onComplete: Func): void;
+        /** @async */
+        execute(runnablesToRun?: Suite[]): PromiseLike<void>;
         /**
          * @deprecated Use hideDisabled option in {@link jasmine.Env.configure} instead.
          */
@@ -1017,14 +1044,23 @@ declare namespace jasmine {
         jasmineDone?(runDetails: JasmineDoneInfo, done?: () => void): void | Promise<void>;
     }
 
+    interface SpecFilter {
+        /**
+         * A function that takes a spec and returns true if it should be executed or false if it should be skipped.
+         * @param spec The spec that the filter is being applied to
+         */
+        (spec: Spec): boolean;
+    }
+
+    /** @deprecated Please use `SpecFilter` instead of `SpecFunction`. */
     type SpecFunction = (spec?: Spec) => void;
 
     interface Spec {
         new (attrs: any): any;
 
-        id: number;
+        readonly id: number;
         env: Env;
-        description: string;
+        readonly description: string;
         getFullName(): string;
     }
 
@@ -1249,16 +1285,49 @@ declare module "jasmine" {
     class jasmine {
         jasmine: jasmine.Jasmine;
         env: jasmine.Env;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         reportersCount: number;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         completionReporter: jasmine.CustomReporter;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         reporter: jasmine.CustomReporter;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         showingColors: boolean;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         projectBaseDir: string;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         specDir: string;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         specFiles: string[];
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         helperFiles: string[];
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         requires: string[];
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         onCompleteCallbackAdded: boolean;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         defaultReporterConfigured: boolean;
 
         constructor(options: jasmine.JasmineOptions);
@@ -1271,20 +1340,50 @@ declare module "jasmine" {
          * Adds a spec file to the list that will be loaded when the suite is executed.
          */
         addSpecFile(filePath: string): void;
+        /**
+         * @deprecated Use addMatchingSpecFiles, loadConfig, or loadConfigFile instead
+         */
         addSpecFiles(files: string[]): void;
+        addMatchingSpecFiles(patterns: string[]): void;
+        addHelperFile(filePath: string): void;
+        /**
+         * @deprecated Use addMatchingHelperFiles, loadConfig, or loadConfigFile instead
+         */
         addHelperFiles(files: string[]): void;
+        addMatchingHelperFiles(patterns: string[]): void;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         addRequires(files: string[]): void;
         /**
          * Configure the default reporter.
          */
         configureDefaultReporter(options: jasmine.DefaultReporterOptions): void;
-        execute(files?: string[], filterString?: string): Promise<void>;
+        execute(files?: string[], filterString?: string): Promise<jasmine.JasmineDoneInfo>;
+        /**
+         * @deprecated Private property that may be changed or removed in the future
+         */
         exitCodeCompletion(passed: boolean): void;
+        exitOnCompletion: boolean;
         loadConfig(config: jasmine.JasmineConfig): void;
         loadConfigFile(configFilePath?: string): void;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         loadHelpers(): Promise<void>;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         loadSpecs(): Promise<void>;
+        /**
+         * @deprecated Private method that may be changed or removed in the future
+         */
         loadRequires(): void;
+
+        /**
+         * @deprecated set exitOnCompletion to false and use the promise returned
+         * from execute() instead.
+         */
         onComplete(onCompleteCallback: (passed: boolean) => void): void;
         /**
          * Provide a fallback reporter if no other reporters have been specified.

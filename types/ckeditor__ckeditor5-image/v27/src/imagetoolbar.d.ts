@@ -6,3 +6,9 @@ export default class ImageToolbar extends Plugin {
     static readonly pluginName: 'ImageToolbar';
     afterInit(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageToolbar: ImageToolbar;
+    }
+}

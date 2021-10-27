@@ -1,8 +1,8 @@
 export = ProcessManager;
 declare function ProcessManager(): void;
 declare class ProcessManager {
-    errorHandler_: any;
-    controller_: any;
+    private errorHandler_;
+    private controller_;
     navTree: {};
     iVfs: DataSet;
     iClass: DataSet;
@@ -11,8 +11,8 @@ declare class ProcessManager {
     onBeforeRun: Event;
     onAfterRun: Event;
     ctrlChannel: ControlChannel;
-    _environment: Environment;
-    openedTabs_: Record<string, TabInfo>;
+    private _environment;
+    private openedTabs_;
     ctrlSessionId: any;
     private currentProcess_;
     pendingTaskCounter: any;
@@ -21,7 +21,7 @@ declare class ProcessManager {
     private logger_;
     private processEventQueue_;
     private handleStartup;
-    handleUpdatePassword_(newPassword: string): void;
+    private handleUpdatePassword_;
     private handleHit;
     private getSessionLocked;
     private setEvaluateCode;
@@ -64,27 +64,16 @@ declare class ProcessManager {
     getCurrentProcess(): Process;
 }
 declare namespace ProcessManager {
-    export {
-        runStartupScripts_,
-        instance_,
-        getInstance,
-        parseLayoutLinkContent,
-        Event,
-        DataSet,
-        TabInfo,
-    };
+    export { getInstance, parseLayoutLinkContent, Event, DataSet, TabInfo };
 }
 type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
 type Event = import('@nginstack/engine/lib/event/Event');
 import ControlChannel = require('../ifp/ControlChannel.js');
-import Environment = require('../environment/Environment.js');
+import Process = require('./Process.js');
+declare function getInstance(): ProcessManager;
+declare function parseLayoutLinkContent(content: any): DBKey;
 interface TabInfo {
     processIds: string[];
     currentProcessId: string;
 }
-import Process = require('./Process.js');
-declare function runStartupScripts_(env: Environment): void;
-declare var instance_: any;
-declare function getInstance(): ProcessManager;
-declare function parseLayoutLinkContent(content: any): DBKey;
 import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
