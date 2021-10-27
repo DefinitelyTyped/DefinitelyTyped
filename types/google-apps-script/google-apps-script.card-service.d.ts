@@ -275,6 +275,7 @@ declare namespace GoogleAppsScript {
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
       newFixedFooter(): FixedFooter;
       newImage(): Image;
+      newIconImage(): IconImage;
       newImageButton(): ImageButton;
       newKeyValue(): KeyValue;
       newNavigation(): Navigation;
@@ -347,6 +348,16 @@ declare namespace GoogleAppsScript {
       setOnClickAction(action: Action): Image;
       setOnClickOpenLinkAction(action: Action): Image;
       setOpenLink(openLink: OpenLink): Image;
+    }
+    /**
+     * A widget that shows an icon image.
+     *
+     *     var icon = CardService.newIconImage().setAltText("A nice icon").setIconUrl("https://example.com/icon.png");
+     */
+    interface IconImage {
+      setAltText(altText: string): IconImage;
+      setIcon(icon: Icon): IconImage;
+      setIconUrl(url: string): IconImage;
     }
     /**
      * A ImageButton with an image displayed on it.
@@ -803,6 +814,7 @@ declare namespace GoogleAppsScript {
       setButton(button: Button): DecoratedText;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
       setIcon(icon: Icon): DecoratedText;
+      setStartIcon(startIcon: IconImage): DecoratedText;
       setIconAltText(altText: string): DecoratedText;
       setIconUrl(url: string): DecoratedText;
       setOnClickAction(action: Action): DecoratedText;
