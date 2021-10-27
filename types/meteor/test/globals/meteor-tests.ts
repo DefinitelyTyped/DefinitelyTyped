@@ -203,6 +203,7 @@ namespace MeteorTests {
     Meteor.apply('foo', [1, 2], {
         wait: true,
         onResultReceived(error: any, result: any) {},
+        noRetry: true, // #56828
         throwStubExceptions: false,
         returnStubValue: true,
     });
