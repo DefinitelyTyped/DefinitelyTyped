@@ -1,5 +1,5 @@
 // Type definitions for connect-sqlite3 0.9
-// Project: https://github.com/rawberg/connect-sqlite3 (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/rawberg/connect-sqlite3
 // Definitions by: oof2win2 <https://github.com/oof2win2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
