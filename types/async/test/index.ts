@@ -96,6 +96,8 @@ async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, resu
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
+async.concatLimit(['dir1', 'dir2', 'dir3'], 2, fs.readdir, (err, files) => { });
+async.concatLimit<string, string>(['dir1', 'dir2', 'dir3'], 2, fs.readdir); // $ExpectType Promise<string[]>
 
 // Control Flow //
 

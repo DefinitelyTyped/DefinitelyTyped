@@ -1,3 +1,86 @@
+const noop = () => { };
+
+function testInterval() {
+    let handle = setInterval(noop, 0);
+    clearInterval(handle);
+
+    handle = setInterval((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 0, 100, '200');
+    clearInterval(handle);
+
+    handle = setInterval((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 0, 'wrong-type', '200'); // $ExpectError
+    clearInterval(handle);
+
+    handle = setInterval((missingArg: any) => { // $ExpectError
+        console.log('missingArg', missingArg);
+    }, 0);
+    clearInterval(handle);
+
+    handle = setInterval((arg1: number) => {
+        console.log('arg1', arg1);
+    }, 0, 100, 'missing-arg'); // $ExpectError
+    clearInterval(handle);
+}
+
+function testTimeout() {
+    let handle = setTimeout(noop, 0);
+    clearTimeout(handle);
+
+    handle = setTimeout((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 0, 100, '200');
+    clearTimeout(handle);
+
+    handle = setTimeout((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 0, 'wrong-type', '200'); // $ExpectError
+    clearTimeout(handle);
+
+    handle = setTimeout((missingArg: any) => { // $ExpectError
+        console.log('missingArg', missingArg);
+    }, 0);
+    clearTimeout(handle);
+
+    handle = setTimeout((arg1: number) => {
+        console.log('arg1', arg1);
+    }, 0, 100, 'missing-arg'); // $ExpectError
+    clearTimeout(handle);
+}
+
+function testImmediate() {
+    let handle = setImmediate(noop);
+    clearImmediate(handle);
+
+    handle = setImmediate((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 100, '200');
+    clearImmediate(handle);
+
+    handle = setImmediate((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 'wrong-type', '200'); // $ExpectError
+    clearImmediate(handle);
+
+    handle = setImmediate((missingArg: any) => { // $ExpectError
+        console.log('missingArg', missingArg);
+    });
+    clearImmediate(handle);
+
+    handle = setImmediate((arg1: number) => {
+        console.log('arg1', arg1);
+    }, 100, 'missing-arg'); // $ExpectError
+    clearImmediate(handle);
+}
+
 const fetchCopy: WindowOrWorkerGlobalScope['fetch'] = fetch;
 
 const myHeaders = new Headers();

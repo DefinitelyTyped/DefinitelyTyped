@@ -52,6 +52,7 @@ const ref = React.createRef<HTMLAnchorElement>();
 <NavLink to="/url" style={{ color: 'yellow'}} />;
 <NavLink to="/url" style={(isActive) => ({ color: isActive ? 'yellow' : 'blue' })} />;
 <NavLink to="/url" style={undefined} />;
+<NavLink to="/url" sensitive />;
 
 <Link to="/url" aria-current="page" />;
 

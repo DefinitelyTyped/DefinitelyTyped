@@ -1204,12 +1204,21 @@ ships.trigger('fetched');
 
 /* collection.where(), see http://bookshelfjs.org/#Collection-instance-where */
 
-(new Author())
-    .where('first_name', 'in', ['User', 'Resu'])
-    .fetchAll()
-    .then(() => {
-        // ...
-    })
+collection.where('favorite_color', '<>', 'green').fetch().then(() => {
+    //...
+});
+// or
+collection.where('favorite_color', 'red').fetch().then(() => {
+    //...
+});
+// or
+collection.where({ favorite_color: 'red', shoe_size: 12 }).fetch().then(() => {
+    //...
+});
+// or
+collection.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+    // ...
+});
 
 /* collection.withPivot(), see http://bookshelfjs.org/#Collection-instance-withPivot */
 

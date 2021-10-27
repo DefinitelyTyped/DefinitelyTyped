@@ -113,7 +113,12 @@ export namespace Manifest {
         /**
          * Optional.
          */
-        permissions?: PermissionOrOrigin[];
+        permissions?: PermissionOrOrigin[] | Permission[];
+
+        /**
+         * Optional.
+         */
+        host_permissions?: MatchPattern[];
 
         /**
          * Optional.
@@ -153,7 +158,7 @@ export namespace Manifest {
         /**
          * Optional.
          */
-        commands?: WebExtensionManifestCommandsType;
+        commands?: Record<string, WebExtensionManifestCommandsType>;
 
         /**
          * Optional.
@@ -292,7 +297,8 @@ export namespace Manifest {
         | "tabs"
         | "tabHide"
         | "topSites"
-        | "webNavigation";
+        | "webNavigation"
+        | "identity.email";
 
     type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
 
@@ -1113,6 +1119,11 @@ export namespace Manifest {
          * Optional.
          */
         ntp_background?: ThemeColor;
+
+        /**
+         * Optional.
+         */
+        ntp_card_background?: ThemeColor;
 
         /**
          * Optional.

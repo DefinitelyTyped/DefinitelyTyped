@@ -64,6 +64,10 @@
             "libraryName": "ajv-keywords",
             "asOfVersion": "3.5.0"
         },
+        "alex": {
+            "libraryName": "alex",
+            "asOfVersion": "10.0.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
@@ -816,6 +820,10 @@
         "cypress-axe": {
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
+        },
+        "cypress-recurse": {
+            "libraryName": "cypress-recurse",
+            "asOfVersion": "1.9.0"
         },
         "dargs": {
             "libraryName": "dargs",
@@ -2372,10 +2380,6 @@
         "known": {
             "libraryName": "known",
             "asOfVersion": "3.0.0"
-        },
-        "koa-better-body": {
-            "libraryName": "koa-better-body",
-            "asOfVersion": "3.1.0"
         },
         "koa-jwt": {
             "libraryName": "koa-jwt",

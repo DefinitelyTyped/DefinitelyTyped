@@ -42,10 +42,9 @@ export interface ArrayLike {
  * <needs description>
  * @param K
  */
-export interface AssocPartialOne<K extends keyof any> {
-    <T>(val: T): <U>(obj: U) => Record<K, T> & U;
-    <T, U>(val: T, obj: U): Record<K, T> & U;
-}
+export type AssocPartialOne<K extends keyof any> =
+    (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>)
+    & (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
 
 // ---------------------------------------------------------------------------------------
 // C

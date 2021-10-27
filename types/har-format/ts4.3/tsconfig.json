@@ -6,11 +6,11 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "alex-tests.ts"
+        "test/har-format-tests.ts"
     ]
 }

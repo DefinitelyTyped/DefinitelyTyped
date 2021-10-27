@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "DOM"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "cypress-recurse-tests.ts"
+        "pkginfo-tests.ts"
     ]
 }
