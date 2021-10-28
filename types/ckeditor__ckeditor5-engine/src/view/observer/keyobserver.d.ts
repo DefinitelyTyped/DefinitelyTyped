@@ -8,10 +8,10 @@ export default class KeyObserver extends DomEventObserver {
 }
 
 export class KeyEventData extends DomEventData implements KeystrokeInfo {
-    altKey?: boolean | undefined;
-    ctrlKey?: boolean | undefined;
-    keyCode: number;
-    shiftKey?: boolean | undefined;
-    metaKey?: boolean | undefined;
-    readonly keystroke: number;
+    readonly keyCode: number;
+    readonly altKey: boolean;
+    readonly ctrlKey: boolean;
+    readonly shiftKey: boolean;
+    readonly metaKey: boolean;
+	readonly keystroke: number;
 }
