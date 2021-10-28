@@ -1,3 +1,4 @@
+import * as MongoNpmModule from 'mongodb';
 import { Collection as MongoCollection, Db as MongoDb, IndexOptions, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 
@@ -420,5 +421,10 @@ declare module MongoInternals {
         mongo: MongoConnection;
     };
 
-    var NpmModules: any;
+    var NpmModules: {
+        mongodb: {
+            version: string,
+            module: typeof MongoNpmModule
+        }
+    };
 }
