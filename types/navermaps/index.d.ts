@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Naver Maps JavaScript API 3.0
-// Project: https://navermaps.github.io/maps.js
+// Project: https://navermaps.github.io/maps.js.ncp/
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
