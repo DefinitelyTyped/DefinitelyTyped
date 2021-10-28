@@ -1058,3 +1058,10 @@ function sample15() {
   const textRTL = new fabric.Text('שלום עולם', { left: 100, top: 100, direction: 'rtl', originX: 'right', textAlign: 'right' });
   canvas.add(textRTL);
 }
+
+function sample16() {
+  const canvas = new fabric.Canvas('c');
+  canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+  canvas.freeDrawingBrush.width = 2;
+  canvas.isDrawingMode = true;
+}
