@@ -939,7 +939,7 @@ declare module "pkijs/src/EnvelopedData" {
          * @param {ArrayBuffer} [keyId] The id for the recipient's public key
          * @param {*} [parameters] Additional parameters for "fine tuning" the encryption process
          */
-        addRecipientByKeyIdentifier(key: CryptoKey, keyId: ArrayBuffer, parameters: {
+        addRecipientByKeyIdentifier(key: CryptoKey, keyId: ArrayBuffer, parameters?: {
             kdfAlgorithm?: string | undefined;
             kekEncryptionLength?: number | undefined;
         }): boolean;
