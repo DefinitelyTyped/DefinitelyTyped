@@ -1,6 +1,7 @@
 // Type definitions for non-npm package dom-navigation-preload-browser 0.0
 // Project: https://w3c.github.io/ServiceWorker/#service-worker-registration-navigationpreload
 // Definitions by: Jan Kuehle <https://github.com/frigus02>
+//                 Martin Probst <https://github.com/mprobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
