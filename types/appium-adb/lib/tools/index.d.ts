@@ -63,12 +63,6 @@ export default adbMethods;
 export { getAndroidBinaryPath } from './system-calls';
 
 export {
-    APP_INSTALL_STATE,
-    POWER_AC_STATES,
-    GSM_CALL_ACTIONS,
-    GSM_VOICE_STATES,
-    NETWORK_SPEED,
-    SENSORS,
     LogcatOpts,
     SetPropOptions,
     ScreenrecordOptions,
