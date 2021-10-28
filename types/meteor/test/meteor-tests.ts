@@ -210,6 +210,22 @@ namespace MeteorTests {
     var result = Meteor.call('foo', 1, 2);
 
     /**
+     * From Methods, Meteor.apply section
+     */
+    Meteor.apply('foo', []);
+    Meteor.apply('foo', [1, 2]);
+    Meteor.apply('foo', [1, 2], {});
+    Meteor.apply('foo', [1, 2], {
+        wait: true,
+        onResultReceived(error: any, result: any) {},
+        noRetry: true, // #56828
+        throwStubExceptions: false,
+        returnStubValue: true,
+    });
+    Meteor.apply('foo', [1, 2], {}, function (error: any, result: any) {});
+    var result = Meteor.apply('foo', [1, 2], {});
+
+    /**
      * From Collections, Mongo.Collection section
      */
     // DA: I added the "var" keyword in there
