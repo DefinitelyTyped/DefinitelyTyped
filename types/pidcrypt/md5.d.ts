@@ -1,5 +1,3 @@
-declare namespace pidcrypt {
-    interface pidcrypt {
-        MD5: (input: string) => string;
-    }
+declare module 'pidcrypt' {
+    function MD5(input: string): string;
 }

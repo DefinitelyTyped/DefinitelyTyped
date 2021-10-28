@@ -1,5 +1,3 @@
-declare namespace pidcrypt {
-    interface pidcrypt {
-        SHA1: (input: string) => string;
-    }
+declare module 'pidcrypt' {
+    function SHA1(input: string): string;
 }

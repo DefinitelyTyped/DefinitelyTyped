@@ -3,14 +3,16 @@
 // Definitions by: Benjamin Just <https://github.com/BamButz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace pidcrypt {
-    interface pidcrypt {
-        getRandomBytes(len: number): number;
+declare module 'pidcrypt' {
+    interface DecryptTextOptions {
+        nBits: number;
+        UTF8: boolean;
+        A0_PAD: boolean;
     }
-}
 
-// tslint:disable-next-line:no-declare-current-package no-single-declare-module
-declare module "pidcrypt" {
-    let pidcrypt: pidcrypt.pidcrypt;
-    export = pidcrypt;
+    interface EncryptTextOptions {
+        nBits: number;
+    }
+
+    function getRandomBytes(len: number): number;
 }

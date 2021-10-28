@@ -15,10 +15,9 @@ declare class Stream {
     parseOID(start: number, end: number): string;
 }
 
-declare namespace pidcrypt {
-    interface ASN1 {
-        // tslint:disable-next-line:no-misused-new
-        new (stream: Stream, header: any, length: number, tag: number, sub: any): ASN1;
+declare module 'pidcrypt' {
+    class ASN1 {
+        constructor (stream: Stream, header: any, length: number, tag: number, sub: any);
         toHexTree(): any;
         typeName(): string;
         content(): null | string | number;
@@ -33,9 +32,5 @@ declare namespace pidcrypt {
         hasContent(tag: number, len: number, stream: Stream): boolean;
         decode(stream: Stream | any[]): ASN1;
         test(): void;
-    }
-
-    interface pidcrypt {
-        ASN1: ASN1;
     }
 }
