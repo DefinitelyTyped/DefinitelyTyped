@@ -284,6 +284,3 @@ structureElement.add(structureContent);
 structureElement.setAttached();
 structureElement.setParent(doc.ref({}));
 structureElement.end();
-
-// Text
-doc.text("")
