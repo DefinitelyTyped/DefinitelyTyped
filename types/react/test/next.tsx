@@ -116,3 +116,17 @@ function InvalidOpaqueIdentifierUsage() {
 
     return null;
 }
+
+function SuspenseTest() {
+    // TODO(react18): Should not error.
+    // `fallback` is optional in React 18
+    // $ExpectError
+    <React.Suspense></React.Suspense>;
+    // TODO(react18): Should not error.
+    // `fallback` is optional in React 18.
+    // $ExpectError
+    <React.Suspense fallback={undefined}></React.Suspense>;
+    // Workaround.
+    // TODO(react18): Remove.
+    <React.Suspense fallback={undefined!}></React.Suspense>;
+}
