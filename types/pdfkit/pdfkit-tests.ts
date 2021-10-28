@@ -195,6 +195,10 @@ doc.text('Text with features', { features: [ "kern" ] });
 
 doc.goTo(0, 0, 0, 0, 'lorem');
 
+doc.text('Text with destination', {destination: "test-anchor"})
+
+doc.text('Text with goTo', {goTo: 'test-anchor'})
+
 doc.image('path/to/image.png', {
     fit: [250, 300],
     align: 'center',
@@ -280,3 +284,6 @@ structureElement.add(structureContent);
 structureElement.setAttached();
 structureElement.setParent(doc.ref({}));
 structureElement.end();
+
+// Text
+doc.text("")
