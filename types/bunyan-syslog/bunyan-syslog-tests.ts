@@ -1,6 +1,6 @@
 import bunyan = require('bunyan');
 
-import bsyslog from "bunyan-syslog";
+import * as bsyslog from "bunyan-syslog";
 
 const log = bunyan.createLogger({
     name: 'foo',
