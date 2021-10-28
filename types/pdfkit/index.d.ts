@@ -222,7 +222,7 @@ declare namespace PDFKit.Mixins {
         rect(x: number, y: number, w: number, h: number): this;
         roundedRect(x: number, y: number, w: number, h: number, r?: number): this;
         ellipse(x: number, y: number, r1: number, r2?: number): this;
-        circle(x: number, y: number, raduis: number): this;
+        circle(x: number, y: number, radius: number): this;
         polygon(...points: number[][]): this;
         path(path: string): this;
         fill(color?: ColorValue, rule?: RuleValue): this;
