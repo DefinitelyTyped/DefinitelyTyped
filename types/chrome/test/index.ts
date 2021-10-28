@@ -1175,3 +1175,12 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, {type: false}); // $ExpectError
     chrome.contextMenus.update(1, {visible: 1}); // $ExpectError
 }
+
+// https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
+async function testEnterpriseDeviceAttributes() {
+  chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
+  chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+}
