@@ -33,4 +33,4 @@ declare class CSON {
 
 declare const _default: CSON;
 
-export default _default;
+export = _default;

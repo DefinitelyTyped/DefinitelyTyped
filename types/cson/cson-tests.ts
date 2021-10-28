@@ -1,4 +1,4 @@
-import cson from 'cson';
+import cson = require('cson');
 
 let data: string = cson.stringify({ hello: 'world' });
 
