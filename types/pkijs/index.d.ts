@@ -934,12 +934,12 @@ declare module "pkijs/src/EnvelopedData" {
             keyEncryptionAlgorithmParams?: any;
         }, variant: number): boolean;
         /**
-	     * Add a "RecipientInfo" using a KeyAgreeRecipientInfo of type RecipientKeyIdentifier.
+         * Add a "RecipientInfo" using a KeyAgreeRecipientInfo of type RecipientKeyIdentifier.
          * @param {CryptoKey} [key] Recipient's public key
          * @param {ArrayBuffer} [keyId] The id for the recipient's public key
          * @param {*} [parameters] Additional parameters for "fine tuning" the encryption process
          */
-        addRecipientByCertificate(key: CryptoKey,, keyId: ArrayBuffer, parameters: {
+        addRecipientByKeyIdentifier(key: CryptoKey, keyId: ArrayBuffer, parameters: {
             kdfAlgorithm?: string | undefined;
             kekEncryptionLength?: number | undefined;
         }): boolean;
