@@ -1,4 +1,5 @@
 import * as MongoNpmModule from 'mongodb';
+// tslint:disable-next-line:no-duplicate-imports
 import { Collection as MongoCollection, Db as MongoDb, IndexOptions, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 
