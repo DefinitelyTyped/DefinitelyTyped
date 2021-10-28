@@ -947,7 +947,7 @@ declare module "pkijs/src/EnvelopedData" {
          * @returns {Promise}
          */
         decrypt(recipientIndex: number, parameters: {
-            recipientCertificate: Certificate;
+            recipientCertificate?: Certificate;
             recipientPrivateKey: ArrayBuffer;
         }): PromiseLike<ArrayBuffer>;
 
