@@ -3074,6 +3074,14 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the Annotated Location of the device.
      */
     export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+    /**
+     * @since Chrome 82.
+     * @description
+     * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
+     * If the current user is not affiliated or no hostname has been set by the the enterprise policy, returns an empty string.
+     * @param callback Called with the hostname of the device.
+     */
+    export function getDeviceHostname(callback: (hostname: string) => void): void;
 }
 
 ////////////////////
