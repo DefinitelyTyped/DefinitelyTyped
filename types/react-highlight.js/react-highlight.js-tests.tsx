@@ -6,12 +6,12 @@ export const _ = () => <>
     <Highlight language="typescript">
         `console.log("Hello, world!");`
     </Highlight>
-    <Highlight className="typescript" />
-    <Highlight className="typescript">
+    <Highlight language="javascript" className="typescript" />
+    <Highlight language="javascript" className="typescript">
         `console.log("Hello, world!");`
     </Highlight>
-    <Highlight style={{ color: "red" }} />
-    <Highlight style={{ color: "red"}}>
+    <Highlight language="javascript" style={{ color: "red" }} />
+    <Highlight language="javascript" style={{ color: "red"}}>
         `console.log("Hello, world!");`
     </Highlight>
 </>;

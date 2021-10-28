@@ -23,7 +23,7 @@ export interface HighlightProps {
     /**
      * Inline styles to apply to the rendered <pre> tag.
      */
-    style: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 
     /**
      * Content that will be highlighted
