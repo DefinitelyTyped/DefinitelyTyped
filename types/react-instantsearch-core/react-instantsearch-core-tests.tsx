@@ -72,7 +72,6 @@ import { Hits } from 'react-instantsearch-dom';
   </InstantSearch>;
 };
 
-
 // https://community.algolia.com/react-instantsearch/guide/Custom_connectors.html
 () => {
   const CoolWidget = createConnector({
