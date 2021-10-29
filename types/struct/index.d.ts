@@ -38,7 +38,7 @@ export type StructTypes =
     | StructCharsTypes
     | StructArrayType;
 
-export class Struct<T extends {} = {}> {
+export class Struct<T = any> {
     word8<N extends string>(name: N): Struct<T & { [K in N]: number }>;
     word8Sle<N extends string>(name: N): Struct<T & { [K in N]: number }>;
     word8Sbe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
@@ -63,8 +63,7 @@ export class Struct<T extends {} = {}> {
     array<N extends string, T2>(
         name: N,
         length: number,
-        type: StructTypes | Struct,
-        ...args: Array<(string | number | Struct)>
+        ...args: Array<any>
     ): Struct<T & { [K in N]: T2 }>;
     struct<N extends string, T2>(name: N, struct: Struct<T2>): Struct<T & { [K in N]: T2 }>;
     get(fieldName: keyof T): T[typeof fieldName];
