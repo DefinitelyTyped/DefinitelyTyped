@@ -60,13 +60,13 @@ export class Struct<T extends {} = {}> {
     doublebe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
     chars<N extends string>(name: N, length: number, encoding?: string): Struct<T & { [K in N]: string }>;
     charsnt<N extends string>(name: N, length: number, encoding?: string): Struct<T & { [K in N]: string }>;
-    array<N extends string, T2 extends []>(
+    array<N extends string, T2>(
         name: N,
         length: number,
         type: StructTypes | Struct,
         ...args: Array<(string | number | Struct)>
     ): Struct<T & { [K in N]: T2 }>;
-    struct<N extends string, T2 extends {}>(name: N, struct: Struct<T2>): Struct<T & { [K in N]: T2 }>;
+    struct<N extends string, T2>(name: N, struct: Struct<T2>): Struct<T & { [K in N]: T2 }>;
     get(fieldName: keyof T): T[typeof fieldName];
     set(fieldName: keyof T, value: T[typeof fieldName]): void;
     allocate(): Struct<T>;
