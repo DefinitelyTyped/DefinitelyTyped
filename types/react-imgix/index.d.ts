@@ -1,4 +1,4 @@
-// Type definitions for react-imgix 9.0
+// Type definitions for react-imgix 9.2
 // Project: https://github.com/imgix/react-imgix
 // Definitions by: Sherwin Heydarbeygi <https://github.com/sherwinski>
 //                 Luis Ball <https://github.com/luqven>
@@ -211,6 +211,7 @@ interface CommonProps {
   className?: string | undefined;
   onMounted?: ((ref?: React.RefObject<HTMLPictureElement | HTMLImageElement | HTMLSourceElement>) => void) | undefined;
   htmlAttributes?: ImgixHTMLAttributes | undefined;
+  domain?: string | undefined;
 }
 
 export interface SharedImigixAndSourceProps extends CommonProps {
@@ -225,8 +226,21 @@ export interface SharedImigixAndSourceProps extends CommonProps {
   attributeConfig?: AttributeConfig | undefined;
 }
 
+export interface ImgixProviderProps extends CommonProps {
+  src?: string | undefined;
+  disableQualityByDPR?: boolean | undefined;
+  disableSrcSet?: boolean | undefined;
+  disableLibraryParam?: boolean | undefined;
+  imgixParams?: ImigixParams | undefined;
+  sizes?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  attributeConfig?: AttributeConfig | undefined;
+}
+
 export class Picture extends React.Component<React.PropsWithChildren<CommonProps>> {}
 export class Source extends React.Component<SharedImigixAndSourceProps> {}
+export class ImgixProvider extends React.Component<React.PropsWithChildren<ImgixProviderProps>> {}
 export function buildURL(src: string, imgixParams?: ImigixParams, options?: SharedImigixAndSourceProps): string;
 
 type Warnings = 'fallbackImage' | 'sizesAttribute' | 'invalidARFormat';
