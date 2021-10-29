@@ -23,7 +23,7 @@ const go = async () => {
     };
 
     for await (const response of octokit.paginate.iterator('GET /search/issues', parameters)) {
-        console.log("\n-")
+        console.log("\n")
         /** @type {Array<import("@octokit/types/src/generated/Endpoints").Endpoints["GET /issues"]["response"]["data"][number]>} */
         const items = response.data
         for (const issue of items) {

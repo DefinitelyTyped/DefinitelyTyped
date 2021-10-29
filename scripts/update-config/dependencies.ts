@@ -9,7 +9,7 @@ export function normalizePath(file: string) {
     // replaces '\' with '/' and forces all DOS drive letters to be upper-case
     return path.normalize(file)
         .replace(/\\/g, "/")
-        .replace(/^[a-z](?=:)/, c => c.toUpperCase());
+        .replace(/^[a-z](?=:)/, d => d.toUpperCase());
 }
 
 function startsWithDirectory(filePath: string, dirPath: string): boolean {
