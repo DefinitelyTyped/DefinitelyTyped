@@ -38,37 +38,37 @@ export type StructTypes =
     | StructCharsTypes
     | StructArrayType;
 
-export class Struct<T = any> {
-    word8(name: string): Struct<T>;
-    word8Sle(name: string): Struct<T>;
-    word8Sbe(name: string): Struct<T>;
-    word16Sle(name: string): Struct<T>;
-    word16Sbe(name: string): Struct<T>;
-    word16Ule(name: string): Struct<T>;
-    word16Ube(name: string): Struct<T>;
-    word32Sle(name: string): Struct<T>;
-    word32Sbe(name: string): Struct<T>;
-    word32Ule(name: string): Struct<T>;
-    word32Ube(name: string): Struct<T>;
-    word64Sle(name: string): Struct<T>;
-    word64Sbe(name: string): Struct<T>;
-    word64Ule(name: string): Struct<T>;
-    word64Ube(name: string): Struct<T>;
-    floatle(name: string): Struct<T>;
-    floatbe(name: string): Struct<T>;
-    doublele(name: string): Struct<T>;
-    doublebe(name: string): Struct<T>;
-    chars(name: string, length: number, encoding?: string): Struct<T>;
-    charsnt(name: string, length: number, encoding?: string): Struct<T>;
-    array(
-        name: string,
+export class Struct<T extends {} = {}> {
+    word8<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word8Sle<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word8Sbe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word16Sle<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word16Sbe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word16Ule<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word16Ube<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word32Sle<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word32Sbe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word32Ule<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word32Ube<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word64Sle<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word64Sbe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word64Ule<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    word64Ube<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    floatle<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    floatbe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    doublele<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    doublebe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
+    chars<N extends string>(name: N, length: number, encoding?: string): Struct<T & { [K in N]: string }>;
+    charsnt<N extends string>(name: N, length: number, encoding?: string): Struct<T & { [K in N]: string }>;
+    array<N extends string, T2 extends []>(
+        name: N,
         length: number,
         type: StructTypes | Struct,
         ...args: Array<(string | number | Struct)>
-    ): Struct<T>;
-    struct(name: string, struct: Struct): Struct<T>;
-    get(fieldName: string): any;
-    set(fieldName: string, value: any): void;
+    ): Struct<T & { [K in N]: T2 }>;
+    struct<N extends string, T2 extends {}>(name: N, struct: Struct<T2>): Struct<T & { [K in N]: T2 }>;
+    get(fieldName: keyof T): T[typeof fieldName];
+    set(fieldName: keyof T, value: T[typeof fieldName]): void;
     allocate(): Struct<T>;
     setBuffer(buffer: Buffer, buffLength?: number): void;
     buffer(): Buffer;
