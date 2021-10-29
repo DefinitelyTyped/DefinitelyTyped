@@ -332,3 +332,13 @@ const test = () => {
     }}
   />;
 };
+
+() => {
+  const App: React.FC<{count: number}> = () => null;
+
+  findResultsState(App, {
+      count: 3,
+      searchClient: {},
+      indexName: '',
+  });
+};
