@@ -408,3 +408,6 @@ sharp(input)
 
         return newImg.toBuffer();
     });
+
+// Support for specifying a timeout
+sharp('someImage.png').timeout({ seconds: 30 }).resize(300, 300).toBuffer();
