@@ -5,11 +5,10 @@ import clonePromise = require('git-clone/promise');
 clone('DefinitelyTyped/DefinitelyTyped', 'repo', {
     shallow: true
 }, (error) => {
-    error; // $ExpectType Error | undefined
     if (error) {
-        console.error(error);
+        error; // $ExpectType Error
     } else {
-        console.log("Success!");
+        error; // $ExpectType undefined
     }
 });
 
@@ -17,7 +16,7 @@ clone('DefinitelyTyped/DefinitelyTyped', 'repo', {
 clonePromise('DefinitelyTyped/DefinitelyTyped', 'repo', {
     shallow: true
 }).then(() => {
-    console.log("Success!");
+    // Success!
 }).catch(error => {
-    console.error(error);
+    // Error
 });
