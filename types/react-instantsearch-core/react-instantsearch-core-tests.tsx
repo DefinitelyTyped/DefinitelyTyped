@@ -31,6 +31,7 @@ import {
     connectHitInsights,
     InsightsClient,
     ConnectHitInsightsProvided,
+    Configure,
 } from 'react-instantsearch-core';
 
 import { Hits } from 'react-instantsearch-dom';
@@ -40,6 +41,37 @@ import { Hits } from 'react-instantsearch-dom';
     <div></div>
   </Index>;
 };
+
+() => {
+  // https://www.algolia.com/doc/api-reference/api-parameters/facetFilters/
+  <InstantSearch indexName="indexName" searchClient={{}}>
+      <Configure
+          filters="NOT categories:'Cell Phones'"
+          facetFilters={[
+              'attribute:value', // (single string)
+          ]}
+      />
+      <Configure
+          facetFilters={[
+              // attribute1:value AND attribute2:value (multiple strings)
+              'attribute1:value', 'attribute2:value',
+          ]}
+      />
+      <Configure
+          facetFilters={[
+              // attribute1:value OR attribute2:value (multiple strings within an array)
+              ['attribute1:value', 'attribute2:value'],
+          ]}
+      />
+      <Configure
+          facetFilters={[
+              // (attribute1:value OR attribute2:value) AND attribute3:value (combined strings and arrays)
+              ['attribute1:value', 'attribute2:value'], 'attribute3:value',
+          ]}
+      />
+  </InstantSearch>;
+};
+
 
 // https://community.algolia.com/react-instantsearch/guide/Custom_connectors.html
 () => {

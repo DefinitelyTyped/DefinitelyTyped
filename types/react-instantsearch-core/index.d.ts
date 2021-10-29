@@ -7,6 +7,8 @@
 //                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Minimum TypeScript Version: 3.7
+
 import * as React from 'react';
 import { SearchParameters } from 'algoliasearch-helper';
 
@@ -191,6 +193,8 @@ export function translatable(defaultTranslations: {
   ctor: React.ComponentType<TProps>
 ) => ConnectedComponentClass<TProps, TranslatableProvided, TranslatableExposed>;
 
+type RecursiveArrayOf<T> = Array<RecursiveArrayOf<T> | T>;
+
 // Widgets
 /**
  * Configure is a widget that lets you provide raw search parameters
@@ -198,12 +202,80 @@ export function translatable(defaultTranslations: {
  *
  * Any of the props added to this widget will be forwarded to Algolia. For more information
  * on the different parameters that can be set, have a look at the
- * [reference](https://www.algolia.com/doc/api-client/javascript/search#search-parameters).
+ * [reference](https://www.algolia.com/doc/api-reference/search-api-parameters/).
  *
  * This widget can be used either with react-dom and react-native. It will not render anything
  * on screen, only configure some parameters.
  */
-export class Configure extends React.Component<any, any> {}
+export class Configure extends React.Component<{
+    query?: string | undefined;
+    similarQuery?: string | undefined;
+    attributesToRetrieve?: string[] | undefined;
+    restrictSearchableAttributes?: string[] | undefined;
+    relevancyStrictness?: number | undefined;
+    filters?: string | undefined;
+    facetFilters?: RecursiveArrayOf<string> | undefined;
+    optionalFilters?: RecursiveArrayOf<string> | undefined;
+    numericFilters?: RecursiveArrayOf<string> | undefined;
+    tagFilters?: RecursiveArrayOf<string> | undefined;
+    sumOrFiltersScores?: boolean | undefined;
+    facets?: string[] | undefined;
+    maxValuesPerFacet?: number | undefined;
+    facetingAfterDistinct?: boolean | undefined;
+    sortFacetValuesBy?: 'count' | 'alpha' | undefined;
+    attributesToHighlight?: string[] | undefined;
+    attributesToSnippet?: string[] | undefined;
+    highlightPreTag?: string | undefined;
+    snippetEllipsisText?: string | undefined;
+    restrictHighlightAndSnippetArrays?: boolean | undefined;
+    page?: number | undefined;
+    hitsPerPage?: number | undefined;
+    offset?: number | undefined;
+    length?: number | undefined;
+    minWordSizefor1Typo?: number | undefined;
+    minWordSizefor2Typo?: number | undefined;
+    typoTolerance?: boolean | 'min' | 'strict' | undefined;
+    allowTyposOnNumericTokens?: number | undefined;
+    disableTypoToleranceOnAttributes?: string[] | undefined;
+    aroundLatLng?: string | undefined;
+    aroundLatLngViaIP?: boolean | undefined;
+    aroundRadius?: number | 'all' | undefined;
+    aroundPrecision?: number | undefined;
+    insideBoundingBox?: Array<[number, number, number, number]> | undefined;
+    insidePolygon?: number[][] | undefined;
+    ignorePlurals?: boolean | string[] | undefined;
+    removeStopWords?: boolean | string[] | undefined;
+    queryLanguages?: string[] | undefined;
+    naturalLanguages?: string[] | undefined;
+    decompoundQuery?: boolean | undefined;
+    enableRules?: boolean | undefined;
+    ruleContexts?: string[] | undefined;
+    enablePersonalization?: boolean | undefined;
+    personalizationImpact?: number | undefined;
+    userToken?: string | undefined;
+    queryType?: 'prefixLast' | 'prefixAll' | 'prefixNone' | undefined;
+    removeWordsIfNoResults?: 'none' | 'lastWords' | 'firstWords'| 'allOptional' | undefined;
+    advancedSyntax?: boolean | undefined;
+    optionalWords?: string[] | undefined;
+    disableExactOnAttributes?: string[] | undefined;
+    exactOnSingleWordQuery?: 'attribute' | 'none' | 'word' | undefined;
+    alternativesAsExact?: Array<'ignorePlurals' | 'singleWordSynonym' | 'multiWordsSynonym'> | undefined;
+    advancedSyntaxFeatures?: Array< 'exactPhrase' | 'excludeWords'> | undefined;
+    distinct?: boolean | 0 | 1 | 2 | 3 | undefined;
+    getRankingInfo?: boolean | undefined;
+    clickAnalytics?: boolean | undefined;
+    analytics?: boolean | undefined;
+    analyticsTags?: string[] | undefined;
+    synonyms?: boolean | undefined;
+    replaceSynonymsInHighlight?: boolean | undefined;
+    minProximity?: number | undefined;
+    responseFields?: string[] | undefined;
+    maxFacetHits?: number | undefined;
+    percentileComputation?: boolean | undefined;
+    attributeCriteriaComputedByMinProximity?: boolean | undefined;
+    enableABTest?: boolean | undefined;
+    enableReRanking?: boolean | undefined;
+}, any> {}
 
 export class ExperimentalConfigureRelatedItems extends React.Component<any, any> {}
 export class QueryRuleContext extends React.Component<any, any> {}
