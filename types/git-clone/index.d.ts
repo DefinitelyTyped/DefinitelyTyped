@@ -3,7 +3,7 @@
 // Definitions by: Christoph Thiede <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="./promise" />
+import { } from './promise';
 
 /**
  * Clone `repo` to `targetPath`, calling `cb` on completion.
