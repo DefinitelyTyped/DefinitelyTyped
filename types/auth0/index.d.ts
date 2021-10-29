@@ -1297,8 +1297,6 @@ export class OrganizationsManager {
 
     getAll(): Promise<Organization[]>;
     getAll(cb: (err: Error, organizations: Organization[]) => void): void;
-    getAll(params: PagingOptions): Promise<Organization[]>;
-    getAll(params: PagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
     getAll(params: PagingOptions & { include_totals?: false; }): Promise<Organization[]>;
     getAll(params: PagingOptions & { include_totals: true; }): Promise<OrganizationsPaged>;
     getAll(params: PagingOptions & { include_totals?: false; }, cb: (err: Error, organizations: Organization[]) => void): void;
