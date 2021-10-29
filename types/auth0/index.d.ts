@@ -1170,6 +1170,10 @@ export interface Organization {
     metadata?: any;
 }
 
+export interface OrganizationsPaged extends Omit<Page, 'length'> {
+    organizations: Organization[];
+}
+
 export interface CreateOrganization {
     name: string;
     display_name?: string | undefined;
@@ -1295,6 +1299,10 @@ export class OrganizationsManager {
     getAll(cb: (err: Error, organizations: Organization[]) => void): void;
     getAll(params: PagingOptions): Promise<Organization[]>;
     getAll(params: PagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions & { include_totals?: false; }): Promise<Organization[]>;
+    getAll(params: PagingOptions & { include_totals: true; }): Promise<OrganizationsPaged>;
+    getAll(params: PagingOptions & { include_totals?: false; }, cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions & { include_totals: true; }, cb: (err: Error, pagedOrganizations: OrganizationsPaged) => void): void;
     getAll(params: CheckpointPagingOptions): Promise<Organization[]>;
     getAll(params: CheckpointPagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
 
