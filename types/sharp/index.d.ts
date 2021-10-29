@@ -1277,6 +1277,7 @@ declare namespace sharp {
         raw: AvailableFormatInfo;
         svg: AvailableFormatInfo;
         tiff: AvailableFormatInfo;
+        tif: AvailableFormatInfo;
         v: AvailableFormatInfo;
         webp: AvailableFormatInfo;
     }
