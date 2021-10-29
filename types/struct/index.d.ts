@@ -38,7 +38,7 @@ export type StructTypes =
     | StructCharsTypes
     | StructArrayType;
 
-export class Struct<T = any> {
+export class Struct<T extends {}> {
     word8<N extends string>(name: N): Struct<T & { [K in N]: number }>;
     word8Sle<N extends string>(name: N): Struct<T & { [K in N]: number }>;
     word8Sbe<N extends string>(name: N): Struct<T & { [K in N]: number }>;
