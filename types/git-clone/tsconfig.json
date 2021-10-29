@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "promise.d.ts",
         "git-clone-tests.ts"
     ]
 }
