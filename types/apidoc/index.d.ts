@@ -51,6 +51,7 @@ export interface DocOptions {
         [keys: string]: any;
     } | undefined;
     silent?: boolean | undefined;
+    dryRun?: boolean | undefined;
     simulate?: boolean | undefined;
     markdown?: boolean | undefined;
     lineEnding?: string | undefined;
