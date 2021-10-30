@@ -1,4 +1,5 @@
-import lzbase62, { version, compress, decompress } from 'lzbase62';
+import { version, compress, decompress } from 'lzbase62';
+import lzbase62 = require('lzbase62');
 
 declare const data: string;
 
