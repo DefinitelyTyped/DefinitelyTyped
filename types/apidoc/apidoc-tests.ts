@@ -19,6 +19,7 @@ const apidocOutput = createDoc({
     parsers: { aParser: '' },
     workers: { aWorker: '' },
     silent: true,
+    dryRun: true,
     simulate: true,
     markdown: true,
     lineEnding: '',
