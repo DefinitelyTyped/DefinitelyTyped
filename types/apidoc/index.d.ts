@@ -2,6 +2,7 @@
 // Project: https://github.com/apidoc/apidoc
 // Definitions by: rigwild <https://github.com/rigwild>
 //                 hoonga <https://github.com/hoonga>
+//                 NicolasCARPi <https://github.com/NicolasCARPi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ParsedFile {
@@ -23,7 +24,6 @@ export interface DocOptions {
     verbose?: boolean | undefined;
     single?: boolean | undefined;
     debug?: boolean | undefined;
-    parse?: boolean | undefined;
     colorize?: boolean | undefined;
     filters?: Record<string, string> | {
         [keys: string]: {
@@ -52,7 +52,6 @@ export interface DocOptions {
     } | undefined;
     silent?: boolean | undefined;
     dryRun?: boolean | undefined;
-    simulate?: boolean | undefined;
     markdown?: boolean | undefined;
     lineEnding?: string | undefined;
     encoding?: string | undefined;
