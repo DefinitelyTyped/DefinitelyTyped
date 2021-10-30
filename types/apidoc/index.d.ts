@@ -60,4 +60,4 @@ export interface DocOptions {
     filterBy?: string | string[] | undefined;
 }
 
-export function createDoc(options: DocOptions): boolean | { data: Record<string, any>; project: Record<string, any> };
+export function createDoc(options: DocOptions): boolean | { data: Record<string, any>[]; project: Record<string, any> };
