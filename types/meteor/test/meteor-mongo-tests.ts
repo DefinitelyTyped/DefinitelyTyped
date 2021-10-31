@@ -523,7 +523,7 @@ Attachment.find({}, { transform: null }).observe({
 
 // Test MongoInternals
 
-MongoInternals.NpmModules.mongodb.module.connect("...");
+MongoInternals.NpmModules.mongodb.module.connect('...');
 
 // Check Errors
 // $ExpectError
