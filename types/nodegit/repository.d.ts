@@ -25,14 +25,14 @@ import { Treebuilder } from './tree-builder';
 import { Error } from './error';
 
 export interface RepositoryInitOptions {
-    description: string;
-    flags: number;
-    initialHead: string;
-    mode: number;
-    originUrl: string;
-    templatePath: string;
-    version: number;
-    workdirPath: string;
+    description?: string;
+    flags?: number;
+    initialHead?: string;
+    mode?: number;
+    originUrl?: string;
+    templatePath?: string;
+    version?: number;
+    workdirPath?: string;
 }
 
 export class Repository {
