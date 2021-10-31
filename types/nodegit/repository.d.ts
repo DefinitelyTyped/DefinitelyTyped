@@ -171,6 +171,10 @@ export class Repository {
      */
     defaultSignature(): Signature;
     /**
+     * Lists out the names of remotes in the given repository.
+     */
+     getRemoteNames(): Promise<string[]>;
+    /**
      * Lists out the remotes in the given repository.
      */
     getRemotes(callback?: Function): Promise<Remote[]>;
