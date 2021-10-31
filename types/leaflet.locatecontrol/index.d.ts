@@ -39,6 +39,7 @@ declare module 'leaflet' {
             showPopup?: boolean | undefined;
             strings?: any;
             locateOptions?: L.LocateOptions | undefined;
+            initialZoomLevel?: number | boolean | undefined;
         }
     }
 
