@@ -14,7 +14,6 @@ import systemCallMethods, {
 } from './system-calls';
 import apkSigningMethods, { CertCheckOptions, KeystoreHash } from './apk-signing';
 import apkUtilsMethods, {
-    APP_INSTALL_STATE,
     StartAppOptions,
     StartUriOptions,
     PackageActivityInfo,
@@ -27,11 +26,6 @@ import apkUtilsMethods, {
 } from './apk-utils';
 import apksUtilsMethods, { InstallApksOptions } from './apks-utils';
 import emuMethods, {
-    POWER_AC_STATES,
-    GSM_CALL_ACTIONS,
-    GSM_VOICE_STATES,
-    NETWORK_SPEED,
-    SENSORS,
     EmuInfo,
     ExecTelnetOptions,
     EmuVersionInfo,

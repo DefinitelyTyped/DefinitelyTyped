@@ -3,5 +3,12 @@
 // Definitions by: Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib/adb';
-export { default } from './lib/adb';
+import {
+    ADB,
+    DEFAULT_ADB_PORT,
+    getAndroidBinaryPath,
+    getSdkRootFromEnv
+} from './lib/adb';
+
+export default ADB;
+export { ADB, DEFAULT_ADB_PORT, getAndroidBinaryPath, getSdkRootFromEnv };

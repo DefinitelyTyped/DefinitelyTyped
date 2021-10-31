@@ -58,10 +58,10 @@ interface AndroidManifest {
      *                            created by `compileManifest` method call
      *                            without .apk extension
      * @param srcApk - Full path to the existing valid application package, where
-     *                          this manifest has to be insetred to. This package
+     *                          this manifest has to be inserted to. This package
      *                          will NOT be modified.
      * @param dstApk - Full path to the resulting package.
-     *                          The file will be overriden if it already exists.
+     *                          The file will be overridden if it already exists.
      */
     insertManifest(manifest: string, srcApk: string, dstApk: string): Promise<void>;
 
