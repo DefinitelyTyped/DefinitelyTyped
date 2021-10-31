@@ -2,7 +2,7 @@ import * as React from 'react';
 
 declare namespace Clearfix {
     export interface ClearfixProps extends React.HTMLProps<Clearfix> {
-        componentClass?: React.ReactType | undefined,
+        componentClass?: React.ElementType | undefined,
         visibleXsBlock?: boolean | undefined;
         visibleSmBlock?: boolean | undefined;
         visibleMdBlock?: boolean | undefined;

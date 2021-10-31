@@ -208,6 +208,45 @@ function beforeRedditNavigation() {
     );
 }
 
+// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getFrame
+async function getFrame() {
+    const testTabId = 0;
+    const testFrameId = 0;
+
+    chrome.webNavigation.getFrame({
+        tabId: testTabId,
+        frameId: testFrameId,
+    }, (frame: chrome.webNavigation.GetFrameResultDetails | null) => {
+        console.log('Frame (in-callback): ', frame);
+    });
+
+
+    const frame: chrome.webNavigation.GetFrameResultDetails | null = await chrome.webNavigation.getFrame({
+        tabId: testTabId,
+        frameId: testFrameId,
+    });
+
+    console.log('Frame (promise resolved):', frame);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getAllFrames
+async function getAllFrames() {
+    const testTabId = 0;
+
+    chrome.webNavigation.getAllFrames({
+        tabId: testTabId,
+    }, (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) => {
+        console.log('All frames (in-callback): ', frames);
+    });
+
+
+    const frames: chrome.webNavigation.GetAllFrameResultDetails[] = await chrome.webNavigation.getAllFrames({
+        tabId: testTabId,
+    }) || [];
+
+    console.log('All frames (promise resolved):', frames);
+}
+
 // for chrome.tabs.InjectDetails.frameId
 function executeScriptFramed() {
     const tabId = 123;
@@ -1135,4 +1174,13 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, {parentId: false}); // $ExpectError
     chrome.contextMenus.update(1, {type: false}); // $ExpectError
     chrome.contextMenus.update(1, {visible: 1}); // $ExpectError
+}
+
+// https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
+function testEnterpriseDeviceAttributes() {
+  chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
+  chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }

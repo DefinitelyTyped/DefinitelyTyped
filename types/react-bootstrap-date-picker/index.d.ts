@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, StatelessComponent, ReactNode, FocusEventHandler, HTMLAttributes } from "react";
+import { ComponentClass, FunctionComponent, ReactNode, FocusEventHandler, HTMLAttributes } from "react";
 
 export as namespace DatePicker;
 
@@ -42,6 +42,6 @@ declare namespace DatePicker {
         weekStartsOnMonday?: boolean | undefined;
         showTodayButton?: boolean | undefined;
         todayButtonLabel?: string | undefined;
-        customControl?: StatelessComponent<any> | ComponentClass<any> | undefined;
+        customControl?: FunctionComponent<any> | ComponentClass<any> | undefined;
     }
 }

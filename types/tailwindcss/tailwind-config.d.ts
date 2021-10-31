@@ -16,6 +16,17 @@ export type Variant =
     | 'disabled'
     | 'dark';
 
+export type LiteralUnion<T extends U, U = string> = T | (U & Record<never, never>);
+
+export type TailwindScreens =
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl';
+
+export type TailwindScreensUnion = LiteralUnion<TailwindScreens>;
+
 export interface TailwindColorGroup {
     readonly '50': string;
     readonly '100': string;
@@ -132,14 +143,7 @@ export interface TailwindPurgeConfig {
 export interface TailwindConfig {
     theme: Partial<{
         readonly extend: Omit<TailwindConfig['theme'], 'extend'>;
-        readonly screens: {
-            readonly sm: string;
-            readonly md: string;
-            readonly lg: string;
-            readonly xl: string;
-            readonly '2xl': string;
-            readonly [key: string]: string;
-        };
+        readonly screens: Record<TailwindScreensUnion, string>;
         readonly colors: TailwindColorConfig;
         readonly spacing: TailwindStandardSpacing & {
             readonly [key: string]: string;

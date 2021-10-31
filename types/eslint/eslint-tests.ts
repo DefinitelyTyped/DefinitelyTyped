@@ -443,6 +443,10 @@ rule = {
                         return [ruleFixer.insertTextAfter(AST, "foo"), ruleFixer.insertTextAfter(TOKEN, "foo")];
                     },
                 },
+                {
+                    desc: "foo",
+                    fix: ruleFixer => null
+                }
             ],
         });
 
@@ -814,6 +818,7 @@ for (const file of cliReport.results) {
 
     file.errorCount = 0;
     file.warningCount = 0;
+    file.fatalErrorCount = 0;
     file.fixableErrorCount = 0;
     file.fixableWarningCount = 0;
 

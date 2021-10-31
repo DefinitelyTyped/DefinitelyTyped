@@ -14,7 +14,7 @@
 declare module 'recompose' {
 
     import * as React from 'react';
-    import { ComponentType as Component, ComponentClass, StatelessComponent, ValidationMap } from 'react';
+    import { ComponentType as Component, ComponentClass, FunctionComponent, ValidationMap } from 'react';
 
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
@@ -273,7 +273,7 @@ declare module 'recompose' {
     // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
     export function toRenderProps<TInner, TOutter>(
         hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
-    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
+    ): FunctionComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
     export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
@@ -355,7 +355,7 @@ declare module 'recompose' {
     // componentFromProp: https://github.com/acdlite/recompose/blob/master/docs/API.md#componentFromProp
     export function componentFromProp(
         propName: string
-    ): StatelessComponent<any>;
+    ): FunctionComponent<any>;
 
     // nest: https://github.com/acdlite/recompose/blob/master/docs/API.md#nest
     export function nest(

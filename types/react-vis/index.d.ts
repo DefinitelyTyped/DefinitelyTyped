@@ -9,7 +9,7 @@ import {
     PureComponent,
     ReactChild,
     ReactNode,
-    SFC,
+    FC,
     MouseEventHandler,
     TouchEventHandler,
     WheelEventHandler,
@@ -421,6 +421,7 @@ export interface LineMarkSeriesProps extends AbstractSeriesProps<LineMarkSeriesP
     lineStyle?: CSSProperties | undefined; // default: {}
     markStyle?: CSSProperties | undefined; // default: {}
     strokeStyle?: 'dashed' | 'solid' | undefined; // default: 'solid'
+    strokeWidth?: number;
 }
 export class LineMarkSeries extends AbstractSeries<LineMarkSeriesProps> {}
 
@@ -587,7 +588,7 @@ export interface XAxisProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const XAxis: SFC<XAxisProps>;
+export const XAxis: FC<XAxisProps>;
 
 export interface YAxisProps {
     orientation?: 'left' | 'right' | undefined; // default: 'left'
@@ -623,7 +624,7 @@ export interface YAxisProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const YAxis: SFC<YAxisProps>;
+export const YAxis: FC<YAxisProps>;
 
 export interface CircularGridLinesProps {
     centerX?: number | undefined; // default: 0
@@ -689,7 +690,7 @@ export interface VerticalGridLinesProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const VerticalGridLines: SFC<VerticalGridLinesProps>;
+export const VerticalGridLines: FC<VerticalGridLinesProps>;
 
 export interface HorizontalGridLinesProps {
     direction?: 'horizontal' | undefined; // default: 'horizontal'
@@ -709,7 +710,7 @@ export interface HorizontalGridLinesProps {
     innerWidth?: number | undefined;
     innerHeight?: number | undefined;
 }
-export const HorizontalGridLines: SFC<HorizontalGridLinesProps>;
+export const HorizontalGridLines: FC<HorizontalGridLinesProps>;
 
 export interface VoronoiProps {
     className?: string | undefined; // default: ''
@@ -723,7 +724,7 @@ export interface VoronoiProps {
     x?: ((d: any) => number) | undefined;
     y?: ((d: any) => number) | undefined;
 }
-export const Voronoi: SFC<VoronoiProps>;
+export const Voronoi: FC<VoronoiProps>;
 
 export interface DiscreteColorLegendProps {
     className?: string | undefined; // default: ''
@@ -743,7 +744,7 @@ export interface DiscreteColorLegendProps {
     width?: number | undefined;
     orientation?: 'vertical' | 'horizontal' | undefined; // default: 'vertical'
 }
-export const DiscreteColorLegend: SFC<DiscreteColorLegendProps>;
+export const DiscreteColorLegend: FC<DiscreteColorLegendProps>;
 
 export interface SearchableDiscreteColorLegendProps {
     className?: string | undefined; // default: ''
@@ -767,7 +768,7 @@ export interface SearchableDiscreteColorLegendProps {
     searchPlaceholder?: string | undefined;
     searchFn?: ((items: any[], s: string) => any[]) | undefined;
 }
-export const SearchableDiscreteColorLegend: SFC<SearchableDiscreteColorLegendProps>;
+export const SearchableDiscreteColorLegend: FC<SearchableDiscreteColorLegendProps>;
 
 export interface ContinuousColorLegendProps {
     className?: string | undefined; // default: ''
@@ -780,7 +781,7 @@ export interface ContinuousColorLegendProps {
     startTitle: number | string;
     width?: number | undefined;
 }
-export const ContinuousColorLegend: SFC<ContinuousColorLegendProps>;
+export const ContinuousColorLegend: FC<ContinuousColorLegendProps>;
 
 export interface ContinuousSizeLegendProps {
     className?: string | undefined; // default: ''
@@ -792,7 +793,7 @@ export interface ContinuousSizeLegendProps {
     startTitle: number | string;
     width?: number | undefined;
 }
-export const ContinuousSizeLegend: SFC<ContinuousSizeLegendProps>;
+export const ContinuousSizeLegend: FC<ContinuousSizeLegendProps>;
 export interface Margin {
     left?: number | undefined;
     top?: number | undefined;

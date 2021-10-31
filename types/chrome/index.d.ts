@@ -2941,10 +2941,18 @@ declare namespace chrome.enterprise.platformKeys {
         id: string;
         /**
          * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed.
-         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 and ECDSA with namedCurve P-256 can be generated. Each key can be used for signing data at most once.
          * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
          */
         subtleCrypto: SubtleCrypto;
+        /**
+         * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed.
+         * Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+         * @since Chrome 97.
+         */
+        softwareBackedSubtleCrypto: SubtleCrypto;
     }
 
     /**
@@ -3074,6 +3082,14 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the Annotated Location of the device.
      */
     export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+    /**
+     * @since Chrome 82.
+     * @description
+     * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
+     * If the current user is not affiliated or no hostname has been set by the the enterprise policy, returns an empty string.
+     * @param callback Called with the hostname of the device.
+     */
+    export function getDeviceHostname(callback: (hostname: string) => void): void;
 }
 
 ////////////////////
@@ -6195,7 +6211,7 @@ declare namespace chrome.serial {
         /** Flag indicating whether the connection is blocked from firing onReceive events. */
         paused: boolean;
         /** See ConnectionOptions.persistent */
-        peristent: boolean;
+        persistent: boolean;
         /** See ConnectionOptions.name */
         name: string;
         /** See ConnectionOptions.bufferSize */
@@ -6220,7 +6236,7 @@ declare namespace chrome.serial {
     export interface ConnectionOptions {
         /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
          *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        peristent?: boolean | undefined;
+        persistent?: boolean | undefined;
         /** Optional. An application-defined string to associate with the connection. */
         name?: string | undefined;
         /** Optional. The size of the buffer used to receive data. The default value is 4096. */
@@ -10127,6 +10143,13 @@ declare namespace chrome.webNavigation {
      */
     export function getFrame(details: GetFrameDetails, callback: (details: GetFrameResultDetails | null) => void): void;
     /**
+     * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
+     * @param details Information about the frame to retrieve information about.
+     * @return The getFrame method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getFrame(details: GetFrameDetails): Promise<GetFrameResultDetails | null>;
+
+    /**
      * Retrieves information about all frames of a given tab.
      * @param details Information about the tab to retrieve all frames from.
      * @param callback
@@ -10136,7 +10159,14 @@ declare namespace chrome.webNavigation {
         details: GetAllFrameDetails,
         callback: (details: GetAllFrameResultDetails[] | null) => void,
     ): void;
-
+    /**
+     * Retrieves information about all frames of a given tab.
+     * @param details Information about the tab to retrieve all frames from.
+     * @return The getAllFrames method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getAllFrames(
+        details: GetAllFrameDetails,
+    ): Promise<GetAllFrameResultDetails[] | null>;
     /** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
     export var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
     /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
@@ -10919,11 +10949,11 @@ declare namespace chrome.declarativeNetRequest {
         IMAGE = "image",
         FONT = "font",
         OBJECT = "object",
-        XML_HTTP_REQUEST = "xmlhttprequest",
+        XMLHTTPREQUEST = "xmlhttprequest",
         PING = "ping",
         CSP_REPORT = "csp_report",
         MEDIA = "media",
-        WEB_SOCKET = "websocket",
+        WEBSOCKET = "websocket",
         OTHER = "other"
     }
 

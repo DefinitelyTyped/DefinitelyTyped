@@ -100,12 +100,20 @@ declare namespace validator {
 
     const isAlphaLocales: AlphaLocale[];
 
+    interface IsAlphaOptions {
+        /**
+         * @default undefined
+         */
+        ignore?: string | RegExp | undefined;
+    }
+
     /**
      * Check if the string contains only letters (a-zA-Z).
      *
      * @param [locale] - AlphaLocale
+     * @param [options] - IsAlphaOptions
      */
-    function isAlpha(str: string, locale?: AlphaLocale): boolean;
+    function isAlpha(str: string, locale?: AlphaLocale,  options?: IsAlphaOptions): boolean;
 
     type AlphanumericLocale =
         | 'en-US'
@@ -446,6 +454,12 @@ declare namespace validator {
          * @default false
          */
         domain_specific_validation?: boolean | undefined;
+        /**
+         *  If host_blacklist is set to an array of strings
+         *  and the part of the email after the @ symbol matches one of the strings defined in it,
+         *  the validation fails.
+         */
+        host_blacklist?: string[] | undefined;
     }
 
     /**
@@ -848,30 +862,42 @@ declare namespace validator {
      */
     function isMimeType(str: string): boolean;
 
-    type MobilePhoneLocale =
+    type MobilePhoneLocale = PhoneLocale | PhoneLocaleAlias;
+    type PhoneLocale =
+        | 'am-AM'
         | 'ar-AE'
         | 'ar-BH'
         | 'ar-DZ'
+        | 'ar-LB'
         | 'ar-EG'
         | 'ar-IQ'
         | 'ar-JO'
         | 'ar-KW'
+        | 'ar-LY'
+        | 'ar-MA'
+        | 'ar-OM'
         | 'ar-SA'
         | 'ar-SY'
         | 'ar-TN'
+        | 'az-AZ'
+        | 'bs-BA'
         | 'be-BY'
         | 'bg-BG'
         | 'bn-BD'
+        | 'ca-AD'
         | 'cs-CZ'
         | 'da-DK'
         | 'de-DE'
         | 'de-AT'
+        | 'de-CH'
+        | 'de-LU'
         | 'el-GR'
         | 'en-AU'
         | 'en-GB'
         | 'en-GG'
         | 'en-GH'
         | 'en-HK'
+        | 'en-MO'
         | 'en-IE'
         | 'en-IN'
         | 'en-KE'
@@ -880,19 +906,31 @@ declare namespace validator {
         | 'en-NG'
         | 'en-NZ'
         | 'en-PK'
+        | 'en-PH'
         | 'en-RW'
         | 'en-SG'
+        | 'en-SL'
         | 'en-TZ'
         | 'en-UG'
         | 'en-US'
         | 'en-ZA'
         | 'en-ZM'
+        | 'en-ZW'
+        | 'es-AR'
+        | 'es-BO'
+        | 'es-CO'
         | 'es-CL'
+        | 'es-CR'
+        | 'es-DO'
+        | 'es-HN'
+        | 'es-EC'
         | 'es-ES'
+        | 'es-PE'
         | 'es-MX'
         | 'es-PA'
         | 'es-PY'
         | 'es-UY'
+        | 'es-VE'
         | 'et-EE'
         | 'fa-IR'
         | 'fi-FI'
@@ -907,34 +945,41 @@ declare namespace validator {
         | 'hu-HU'
         | 'id-ID'
         | 'it-IT'
+        | 'it-SM'
         | 'ja-JP'
+        | 'ka-GE'
         | 'kk-KZ'
         | 'kl-GL'
         | 'ko-KR'
         | 'lt-LT'
+        | 'lv-LV'
         | 'ms-MY'
+        | 'mz-MZ'
         | 'nb-NO'
+        | 'ne-NP'
         | 'nl-BE'
         | 'nl-NL'
         | 'nn-NO'
         | 'pl-PL'
         | 'pt-BR'
         | 'pt-PT'
+        | 'pt-AO'
         | 'ro-RO'
         | 'ru-RU'
+        | 'si-LK'
         | 'sl-SI'
         | 'sk-SK'
+        | 'sq-AL'
         | 'sr-RS'
         | 'sv-SE'
         | 'th-TH'
         | 'tr-TR'
         | 'uk-UA'
+        | 'uz-UZ'
         | 'vi-VN'
         | 'zh-CN'
-        | 'zh-TW'
-        | 'en-CA'
-        | 'fr-BE'
-        | 'zh-HK';
+        | 'zh-TW';
+    type PhoneLocaleAlias = 'en-CA' | 'fr-CA' | 'fr-BE' | 'zh-HK' | 'zh-MO' | 'ga-IE' | 'fr-CH' | 'it-CH';
 
     const isMobilePhoneLocales: MobilePhoneLocale[];
 

@@ -103,6 +103,8 @@ declare namespace ymaps {
     type ClusterLayoutKey = 'cluster#balloonTwoColumns' | 'cluster#balloonCarousel' | 'cluster#balloonAccordion' | string;
     type ClusterContentLayoutKey = 'cluster#balloonTwoColumnsItemContent' | 'cluster#balloonCarouselItemContent' | 'cluster#balloonAccordionItemContent' | string;
 
+    type EventMap = GlobalEventHandlersEventMap;
+
     namespace behavior {
         class DblClickZoom implements IBehavior {
             constructor(options?: IDblClickZoomOptions);
@@ -810,11 +812,35 @@ declare namespace ymaps {
         }
     }
 
+    namespace domEvent {
+        interface manager {
+            add<K extends keyof EventMap>(htmlElement: HTMLElement | Document, types: K, callback: (event: EventMap[K]) => void, context?: object, capture?: boolean): this;
+            add(htmlElement: HTMLElement | Document, types: string[] | string, callback: (event: any) => void, context?: object, capture?: boolean): this;
+
+            group(htmlElement: HTMLElement | Document, capture?: boolean): event.Group;
+
+            remove(htmlElement: HTMLElement | Document, types: string[] | string, callback: ((event: any) => void) | string, context?: object, capture?: boolean): this;
+        }
+    }
+
     namespace event {
+        class Group implements IEventGroup {
+            events: IEventManager;
+
+            add<K extends keyof EventMap>(types: K, callback: (event: EventMap[K] | IEvent) => void, context?: object, priority?: number): this;
+            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            removeAll(): this;
+
+            getLength(): number;
+        }
+
         class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
             constructor(params?: { context?: object | undefined; controllers?: IEventWorkflowController[] | undefined; parent?: IEventManager | undefined });
 
-            add(types: 'mousedown', callback: (event: (IEvent<MouseEvent, TargetGeometry>)) => void, context?: object, priority?: number): this;
+            add<K extends keyof EventMap>(types: K, callback: (event: (IEvent<EventMap[K], TargetGeometry>)) => void, context?: object, priority?: number): this;
             add(types: string[][] | string[] | string, callback: (event: (IEvent<{}, TargetGeometry>)) => void, context?: object, priority?: number): this;
 
             getParent(): IEventManager | null;
@@ -830,6 +856,12 @@ declare namespace ymaps {
             createEventObject(type: string, event: object, target: object): Event;
 
             once(types: string[][] | string[] | string, callback: (event: IEvent) => any, context?: object, priority?: number): this;
+        }
+
+        class Mapper implements IEventTrigger {
+            constructor(targetEventManager: IEventManager, mappingTable: Record<string, ((event: IEvent) => IEvent | null) | boolean>);
+
+            fire(type: string, eventObject?: object | IEvent): this;
         }
     }
 
@@ -3162,10 +3194,10 @@ declare namespace ymaps {
 
         callMethod(name: string): void;
 
-        get<T extends {}, K extends keyof T= keyof T>(name: K): T[K];
-        get(name: string): object;
+        get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+        get(name: string): any;
 
-        getSourceEvent(): IEvent<OriginalEvent> | null;
+        getSourceEvent(): IEvent<OriginalEvent, TargetGeometry> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -3188,6 +3220,42 @@ declare namespace ymaps {
             target: {
                 geometry?: TargetGeometry | undefined;
             };
+        };
+    }
+
+    class DomEvent<OriginalEvent = {}, TargetGeometry = {}> implements IDomEvent<OriginalEvent, TargetGeometry> {
+        constructor(originalEvent: DomEvent, type?: object);
+
+        allowMapEvent(): void;
+
+        callMethod(name: string): void;
+
+        get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+        get(name: string): any;
+
+        getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
+
+        isDefaultPrevented(): boolean;
+
+        isImmediatePropagationStopped(): boolean;
+
+        isMapEventAllowed(): boolean;
+
+        isPropagationStopped(): boolean;
+
+        preventDefault(): boolean;
+
+        stopImmediatePropagation(): boolean;
+
+        stopPropagation(): boolean;
+
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent
+            };
+            target: {
+                geometry?: TargetGeometry | undefined
+            }
         };
     }
 
@@ -3368,6 +3436,12 @@ declare namespace ymaps {
         setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): Promise<void>;
 
         setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
+    }
+
+    class MapEvent<OriginalEvent = {}, TargetGeometry = {}> extends Event<OriginalEvent, TargetGeometry> {
+        get(name: string): any;
+        get(name: 'coords' | 'globalPixels' | 'pagePixels' | 'clientPixels'): [number, number];
+        get(name: 'domEvent'): DomEvent<OriginalEvent, TargetGeometry> | undefined;
     }
 
     interface IMapMarginOptions {
@@ -3760,7 +3834,7 @@ declare namespace ymaps {
         get(path: string, defaultValue: object): object;
     }
 
-    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface
+    interface IDomEventEmitter extends IEventEmitter { // tslint:disable-line no-empty-interface
     }
 
     interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
@@ -3768,15 +3842,15 @@ declare namespace ymaps {
 
         callMethod(name: string): void;
 
-        get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
+        get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
 
         get(name: 'type'): string;
         get(name: 'objectId'): string | undefined;
         get(name: 'newZoom' | 'oldZoom'): number | undefined;
 
-        get(name: string): object;
+        get(name: string): any;
 
-        getSourceEvent(): IEvent<OriginalEvent> | null;
+        getSourceEvent(): IEvent<OriginalEvent, TargetGeometry> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -3802,6 +3876,10 @@ declare namespace ymaps {
         };
     }
 
+    interface IDomEvent<OriginalEvent = {}, TargetGeometry = {}> extends IEvent<OriginalEvent, TargetGeometry> {
+        getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
+    }
+
     interface IEventController {
         onStartListening?(events: IEventManager, type: string): void;
 
@@ -3813,6 +3891,7 @@ declare namespace ymaps {
     }
 
     interface IEventGroup {
+        add<K extends keyof EventMap>(types: K, callback: (event: EventMap[K] | IEvent) => void, context?: object, priority?: number): this;
         add(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
         remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
@@ -3821,7 +3900,7 @@ declare namespace ymaps {
     }
 
     interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
-        add(types: 'mousedown', callback: (event: IEvent<MouseEvent, TargetGeometry>) => void, context?: object, priority?: number): this;
+        add<K extends keyof EventMap>(types: K, callback: (event: IEvent<EventMap[K], TargetGeometry>) => void, context?: object, priority?: number): this;
         add(types: string[][] | string[] | string, callback: (event: IEvent) => void, context?: object, priority?: number): this;
 
         getParent(): object | null;

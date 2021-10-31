@@ -2,7 +2,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
@@ -541,33 +540,6 @@ ReactDOM.render(React.createElement(Timer), container);
 createFragment({
     a: React.DOM.div(),
     b: ["a", false, React.createElement("span")]
-});
-
-//
-// CSSTransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(CSSTransitionGroup)({
-    component: React.createClass({
-        render: (): null => null
-    }),
-    childFactory: (c) => c,
-    transitionName: "transition",
-    transitionAppear: false,
-    transitionEnter: true,
-    transitionLeave: true,
-    id: "some-id",
-    className: "some-class"
-});
-
-React.createFactory(CSSTransitionGroup)({
-    transitionName: {
-        enter: "enter",
-        enterActive: "enterActive",
-        leave: "leave",
-        leaveActive: "leaveActive",
-        appear: "appear",
-        appearActive: "appearActive"
-    }
 });
 
 //

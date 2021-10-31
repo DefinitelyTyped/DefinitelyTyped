@@ -9,19 +9,19 @@ import {
 } from "react-window";
 import * as React from "react";
 
-const FixedSizeListTestRequiredProps: React.SFC = () => (
+const FixedSizeListTestRequiredProps: React.FC = () => (
     <FixedSizeList itemSize={0} height={0} itemCount={0} width={0}>
         {({ style, index }) => <div style={style}>Test {index}</div>}
     </FixedSizeList>
 );
 
-const VariableSizeListTestRequiredProps: React.SFC = () => (
+const VariableSizeListTestRequiredProps: React.FC = () => (
     <VariableSizeList itemSize={index => 0} height={0} itemCount={0} width={0}>
         {({ style, index }) => <div style={style}>Test {index}</div>}
     </VariableSizeList>
 );
 
-const FixedSizeGridTestRequiredProps: React.SFC = () => (
+const FixedSizeGridTestRequiredProps: React.FC = () => (
     <FixedSizeGrid
         columnCount={0}
         columnWidth={0}
@@ -38,7 +38,7 @@ const FixedSizeGridTestRequiredProps: React.SFC = () => (
     </FixedSizeGrid>
 );
 
-const VariableSizeGridTestRequiredProps: React.SFC = () => (
+const VariableSizeGridTestRequiredProps: React.FC = () => (
     <VariableSizeGrid
         columnCount={0}
         columnWidth={index => 0}
@@ -57,7 +57,7 @@ const VariableSizeGridTestRequiredProps: React.SFC = () => (
 
 const anyRef: React.Ref<any> = React.createRef();
 
-const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
+const FixedSizeListTestOptionalProps: React.FC<{ testBool: boolean }> = ({
     testBool
 }) => (
     <FixedSizeList
@@ -104,7 +104,7 @@ const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
     </FixedSizeList>
 );
 
-const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
+const VariableSizeListTestOptionalProps: React.FC<{ testBool: boolean }> = ({
     testBool
 }) => (
     <VariableSizeList
@@ -152,7 +152,7 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
     </VariableSizeList>
 );
 
-const VariableSizeGridTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
+const VariableSizeGridTestOptionalProps: React.FC<{ testBool: boolean }> = ({
     testBool
 }) => (
     <VariableSizeGrid
@@ -225,7 +225,7 @@ class RowWithShouldComponentUpdate extends React.Component<
 }
 
 const fixedRef = React.createRef<FixedSizeGrid>();
-const FixedSizeGridTestRefs: React.SFC = () => (
+const FixedSizeGridTestRefs: React.FC = () => (
     <FixedSizeGrid
         columnCount={0}
         columnWidth={0}
@@ -257,7 +257,7 @@ if (fixedRef.current) {
 }
 
 const variableRef = React.createRef<VariableSizeGrid>();
-const VariableSizeGridTestRefs: React.SFC = () => (
+const VariableSizeGridTestRefs: React.FC = () => (
     <VariableSizeGrid
         columnCount={0}
         columnWidth={index => 0}
@@ -302,19 +302,19 @@ if (variableRef.current) {
     foo: "string";
 }
 
-const FixedSizeListTestRequiredPropsV2: React.SFC = () => (
+const FixedSizeListTestRequiredPropsV2: React.FC = () => (
     <FixedSizeList itemSize={0} height={0} itemCount={0} width={0}>
         {({ style, index }) => <div style={style}>Test {index}</div>}
     </FixedSizeList>
 );
 
-const VariableSizeListTestRequiredPropsV2: React.SFC = () => (
+const VariableSizeListTestRequiredPropsV2: React.FC = () => (
     <VariableSizeList itemSize={index => 0} height={0} itemCount={0} width={0}>
         {({ style, index }) => <div style={style}>Test {index}</div>}
     </VariableSizeList>
 );
 
-const FixedSizeGridTestRequiredPropsV2: React.SFC = () => (
+const FixedSizeGridTestRequiredPropsV2: React.FC = () => (
     <FixedSizeGrid
         columnCount={0}
         columnWidth={0}
@@ -331,7 +331,7 @@ const FixedSizeGridTestRequiredPropsV2: React.SFC = () => (
     </FixedSizeGrid>
 );
 
-const VariableSizeGridTestRequiredPropsV2: React.SFC = () => (
+const VariableSizeGridTestRequiredPropsV2: React.FC = () => (
     <VariableSizeGrid
         columnCount={0}
         columnWidth={index => 0}
@@ -350,7 +350,7 @@ const VariableSizeGridTestRequiredPropsV2: React.SFC = () => (
 
 const anyRefV2: React.Ref<any> = React.createRef();
 
-const FixedSizeListTestOptionalPropsV2: React.SFC<{ testBool: boolean }> = ({
+const FixedSizeListTestOptionalPropsV2: React.FC<{ testBool: boolean }> = ({
     testBool
 }) => (
     <FixedSizeList
@@ -397,7 +397,7 @@ const FixedSizeListTestOptionalPropsV2: React.SFC<{ testBool: boolean }> = ({
     </FixedSizeList>
 );
 
-const VariableSizeListTestOptionalPropsV2: React.SFC<{ testBool: boolean }> = ({
+const VariableSizeListTestOptionalPropsV2: React.FC<{ testBool: boolean }> = ({
     testBool
 }) => (
     <VariableSizeList
@@ -445,7 +445,7 @@ const VariableSizeListTestOptionalPropsV2: React.SFC<{ testBool: boolean }> = ({
     </VariableSizeList>
 );
 
-const VariableSizeGridTestOptionalPropsV2: React.SFC<{ testBool: boolean }> = ({
+const VariableSizeGridTestOptionalPropsV2: React.FC<{ testBool: boolean }> = ({
     testBool
 }) => (
     <VariableSizeGrid
@@ -518,7 +518,7 @@ class RowWithShouldComponentUpdateV2 extends React.Component<
 }
 
 const fixedRefV2 = React.createRef<FixedSizeGrid<ExampleItemData>>();
-const FixedSizeGridTestRefsV2: React.SFC = () => (
+const FixedSizeGridTestRefsV2: React.FC = () => (
     <FixedSizeGrid
         columnCount={0}
         columnWidth={0}
@@ -550,7 +550,7 @@ if (fixedRef.current) {
 }
 
 const variableRefV2 = React.createRef<VariableSizeGrid<ExampleItemData>>();
-const VariableSizeGridTestRefsV2: React.SFC = () => (
+const VariableSizeGridTestRefsV2: React.FC = () => (
     <VariableSizeGrid
         columnCount={0}
         columnWidth={index => 0}
