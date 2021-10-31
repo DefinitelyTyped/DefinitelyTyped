@@ -40,6 +40,7 @@ declare module 'leaflet' {
             strings?: any;
             locateOptions?: L.LocateOptions | undefined;
             initialZoomLevel?: number | boolean | undefined;
+            showCompass?: boolean | undefined; 
         }
     }
 
