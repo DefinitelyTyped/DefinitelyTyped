@@ -331,7 +331,7 @@ declare namespace Bookshelf {
     }
 
     interface WithRelatedQuery {
-        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder;
+        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder | void;
     }
 
     interface FetchAllOptions extends FetchOptions {}
