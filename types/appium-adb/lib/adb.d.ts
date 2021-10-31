@@ -1,7 +1,7 @@
 import { SubProcess } from 'teen_process';
 import { AdbMethods, BinaryName } from './tools';
 
-export * from './tools';
+export { getAndroidBinaryPath } from './tools';
 export { getSdkRootFromEnv } from './helpers';
 
 export const DEFAULT_ADB_PORT: number;
