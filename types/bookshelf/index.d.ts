@@ -124,6 +124,7 @@ declare namespace Bookshelf {
          */
         fetch(options?: FetchOptions): BlueBird<T>;
         fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
+        fetchPage(options?: FetchPageOptions): BlueBird<Collection<T> & Pagination>;
         hasMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             foreignKey?: string,
@@ -334,6 +335,23 @@ declare namespace Bookshelf {
     }
 
     interface FetchAllOptions extends FetchOptions {}
+
+    interface FetchPageOptions extends FetchOptions {
+        pageSize?: number;
+        page?: number;
+        limit?: number;
+        offset?: number;
+        disableCount?: boolean;
+    }
+
+    interface Pagination {
+        pagination: {
+            rowCount: number;
+            pageCount: number;
+            page: number;
+            pageSize: number;
+        }
+    }
 
     interface SaveOptions extends SyncOptions {
         method?: string | undefined;
