@@ -991,7 +991,7 @@ namespace MeteorTests {
 
     var reactiveDict2 = new ReactiveDict<{ foo: string }>();
     reactiveDict2.set({ foo: 'bar' });
-    reactiveDict2.set('foo2', 'bar'); // $ExpectError
+    reactiveDict2.set('foo1', 'bar'); // $ExpectError
 
     var reactiveDict3 = new ReactiveDict('reactive-dict-3');
     var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
@@ -1004,7 +1004,7 @@ namespace MeteorTests {
     reactiveDict5.set({ foo: 'bar' });
     reactiveDict5.set({ foo: 'bar', foo2: 'bar' });
 
-    reactiveDict5.set('foo2', 'bar'); // $ExpectError
+    reactiveDict5.set('foo1', 'bar'); // $ExpectError
     reactiveDict5.set('foo', 2); // $ExpectError
 
     reactiveDict5.get('foo') === 'bar';
