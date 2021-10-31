@@ -100,7 +100,7 @@ repo.getHeadCommit().then(async commit => {
 
 repo.getRemoteNames().then((remoteNames) => {
     const names: string[] = remoteNames;
-})
+});
 
 Git.version; // $ExpectType string
 Git.Promise; // $ExpectType PromiseConstructor
