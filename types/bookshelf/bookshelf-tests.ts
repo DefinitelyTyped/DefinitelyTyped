@@ -557,11 +557,11 @@ class Posts extends bookshelf.Collection<Post> {}
 new Posts().fetch().then(collection => {
     collection.at(0)
         .load([
-            'author', 
-            'content', 
-            'comments.tags', 
-            { comments(qb) { 
-                qb.where('comments.is_approved', '=', true) 
+            'author',
+            'content',
+            'comments.tags',
+            { comments(qb) {
+                qb.where('comments.is_approved', '=', true)
             }}
         ])
         .then(model => {
