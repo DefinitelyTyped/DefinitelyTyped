@@ -7,3 +7,13 @@ isDataDesc({
     writable: true,
     value: true
 });
+
+// $ExpectType boolean
+isDataDesc({
+    descriptor: {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: true
+    }
+}, 'descriptor');

@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function isDataDesc(obj: unknown): obj is PropertyDescriptor;
-declare function isDataDesc(obj: unknown, key: unknown): boolean;
+declare function isDataDesc<ObjectType>(obj: ObjectType, key: keyof ObjectType): boolean;
 
 export = isDataDesc;
