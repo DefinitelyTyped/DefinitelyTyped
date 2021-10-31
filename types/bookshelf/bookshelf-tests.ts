@@ -556,13 +556,23 @@ modelB.isNew(); // false
 class Posts extends bookshelf.Collection<Post> {}
 new Posts().fetch().then(collection => {
     collection.at(0)
-        .load(['author', 'content', 'comments.tags'])
+        .load([
+            'author', 
+            'content', 
+            'comments.tags', 
+            { comments: function(qb) { 
+                qb.where('comments.is_approved', '=', true) 
+            }}
+        ])
         .then(model => {
             JSON.stringify(model);
         });
     // withRelated is not a valid option in model.load()
     // $ExpectError
     collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
+    collection.at(2).load({ comments: function(qb) {
+        qb.where('comments.is_approved', '=', true)
+    }})
 });
 /*
 {
