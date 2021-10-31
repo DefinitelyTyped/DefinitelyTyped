@@ -629,22 +629,6 @@ namespace MeteorTests {
     Accounts.findUserByUsername('email', { fields: undefined }); // $ExpectType User | null | undefined
     Accounts.findUserByUsername('email', { fields: {} }); // $ExpectType User | null | undefined
 
-
-
-    /**
-     * From Accounts, Accounts.ui.config section
-     */
-     Accounts.ui.config({
-        requestPermissions: {
-            facebook: ['user_likes'],
-            github: ['user', 'repo'],
-        },
-        requestOfflineToken: {
-            google: true,
-        },
-        passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL',
-    });
-
     /**
      * From Accounts, Accounts.ui.config section
      */
@@ -992,13 +976,14 @@ namespace MeteorTests {
 
     var reactiveDict3 = new ReactiveDict('reactive-dict-3');
     var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
-    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar', foo2: 'bar' });
 
     reactiveDict5.setDefault('foo', 'bar');
     reactiveDict5.setDefault({ foo: 'bar' });
 
     reactiveDict5.set('foo', 'bar');
     reactiveDict5.set({ foo: 'bar' });
+    reactiveDict5.set({ foo: 'bar', foo2: 'bar' });
 
     reactiveDict5.set('foo2', 'bar'); // $ExpectError
     reactiveDict5.set('foo', 2); // $ExpectError

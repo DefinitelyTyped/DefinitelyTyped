@@ -995,13 +995,14 @@ namespace MeteorTests {
 
     var reactiveDict3 = new ReactiveDict('reactive-dict-3');
     var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
-    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar', foo2: 'bar' });
 
     reactiveDict5.setDefault('foo', 'bar');
     reactiveDict5.setDefault({ foo: 'bar' });
 
     reactiveDict5.set('foo', 'bar');
     reactiveDict5.set({ foo: 'bar' });
+    reactiveDict5.set({ foo: 'bar', foo2: 'bar' });
 
     reactiveDict5.set('foo2', 'bar'); // $ExpectError
     reactiveDict5.set('foo', 2); // $ExpectError
