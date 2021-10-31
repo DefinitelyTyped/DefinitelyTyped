@@ -560,7 +560,7 @@ new Posts().fetch().then(collection => {
             'author', 
             'content', 
             'comments.tags', 
-            { comments: function(qb) { 
+            { comments(qb) { 
                 qb.where('comments.is_approved', '=', true) 
             }}
         ])
@@ -570,7 +570,7 @@ new Posts().fetch().then(collection => {
     // withRelated is not a valid option in model.load()
     // $ExpectError
     collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
-    collection.at(2).load({ comments: function(qb) {
+    collection.at(2).load({ comments(qb) {
         qb.where('comments.is_approved', '=', true)
     }})
 });
