@@ -7,6 +7,7 @@
 //                 Evgeny Baram <https://github.com/r4tz52/>
 //                 Benjamin Just <https://github.com/BamButz/>
 //                 Joanna Gabis <https://github.com/jg-mms/>
+//                 Robin Guinant <https://github.com/Foohx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -191,6 +192,8 @@ declare namespace PDFKit.Mixins {
         bulletIndent?: number | undefined;
         /** The indent of text in a list */
         textIndent?: number | undefined;
+        destination?: string | undefined;
+        goTo?: string | undefined;
     }
 
     interface PDFText {
