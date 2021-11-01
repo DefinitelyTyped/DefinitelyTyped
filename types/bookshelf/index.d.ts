@@ -3,6 +3,7 @@
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Ian Serpa <http://github.com/ianldgs>
+//                 Ryan Williams <https://github.com/RyWilliams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -125,6 +126,7 @@ declare namespace Bookshelf {
          */
         fetch(options?: FetchOptions): BlueBird<T>;
         fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
+        fetchPage(options?: FetchPageOptions): BlueBird<Collection<T> & Pagination>;
         hasMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             foreignKey?: string,
@@ -335,6 +337,23 @@ declare namespace Bookshelf {
     }
 
     interface FetchAllOptions extends FetchOptions {}
+
+    interface FetchPageOptions extends FetchOptions {
+        pageSize?: number;
+        page?: number;
+        limit?: number;
+        offset?: number;
+        disableCount?: boolean;
+    }
+
+    interface Pagination {
+        pagination: {
+            rowCount: number;
+            pageCount: number;
+            page: number;
+            pageSize: number;
+        }
+    }
 
     interface SaveOptions extends SyncOptions {
         method?: string | undefined;

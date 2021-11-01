@@ -490,6 +490,19 @@ new Book({'ISBN-13': '9780440180296'})
     })
 }
 
+/* model.fetchPage(), see https://bookshelfjs.org/api.html#Model-instance-fetchPage */
+{
+    (new User).fetchPage({
+        columns: ['id', 'name'],
+        withRelated: ['posts.tags'],
+        pageSize: 3,
+        page: 5,
+        limit: 10,
+    }).then((user) => {
+        console.log(user.pagination);
+    })
+}
+
 /* model.format(), see http://bookshelfjs.org/#Model-instance-format */
 
 /* model.get(), see http://bookshelfjs.org/#Model-instance-get */
