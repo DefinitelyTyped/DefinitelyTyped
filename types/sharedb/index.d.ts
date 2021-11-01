@@ -31,6 +31,13 @@ declare class sharedb extends EventEmitter {
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
     milestoneDb?: sharedb.MilestoneDB;
 
+    readonly projections: Readonly<{
+        [name: string]: {
+            readonly target: string;
+            readonly fields: Readonly<ProjectionFields>;
+        };
+    }>;
+
     constructor(options?: {
         db?: any,
         pubsub?: sharedb.PubSub,
