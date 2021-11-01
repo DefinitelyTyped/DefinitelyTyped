@@ -2313,7 +2313,6 @@ declare namespace Autodesk {
           createStreamLine(streamLineSpecs: StreamLineSpecs): StreamLine;
           destroyStreamLine(streamLine: StreamLine): void;
           dispose(): void;
-
         }
 
         class StreamLineSpecs {
@@ -2326,7 +2325,6 @@ declare namespace Autodesk {
           lineWidth: number;
           opacity: number;
         }
-
 
         class SurfaceShading {
           constructor(viewer: Viewing.GuiViewer3D, model: Viewing.Model, shadingData: SurfaceShadingData);
