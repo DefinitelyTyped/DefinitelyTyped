@@ -26,6 +26,7 @@ declare function Bookshelf(knex: knex): Bookshelf;
 
 declare namespace Bookshelf {
     type SortOrder = 'ASC' | 'asc' | 'DESC' | 'desc';
+    type Relations = string | WithRelatedQuery | (string | WithRelatedQuery)[];
 
     abstract class Events<T> {
         on(event?: string, callback?: EventFunction<T>, context?: any): void;
@@ -134,7 +135,7 @@ declare namespace Bookshelf {
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
-        load(relations: string | string[], options?: SyncOptions): BlueBird<T>;
+        load(relations: Relations, options?: SyncOptions): BlueBird<T>;
         morphMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             name?: string,
@@ -294,7 +295,7 @@ declare namespace Bookshelf {
         detach(ids: any[], options?: SyncOptions): BlueBird<any>;
         detach(options?: SyncOptions): BlueBird<any>;
         fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
-        load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
+        load(relations: Relations, options?: SyncOptions): BlueBird<Collection<T>>;
         orderBy(column: string, order?: SortOrder): Collection<T>;
 
         // Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
@@ -330,7 +331,7 @@ declare namespace Bookshelf {
     }
 
     interface WithRelatedQuery {
-        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder;
+        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder | void;
     }
 
     interface FetchAllOptions extends FetchOptions {}
