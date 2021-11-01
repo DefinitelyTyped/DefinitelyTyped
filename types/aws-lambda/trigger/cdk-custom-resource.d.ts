@@ -1,5 +1,5 @@
 import { CloudFormationCustomResourceEvent } from './cloudformation-custom-resource';
-import { Handler } from '../handler';
+import { Handler, Callback } from '../handler';
 
 // The CDK docs only specify 'important' properties, but in reality the incoming event
 // to the Lambda matches that of a traditional custom resource.
@@ -19,6 +19,7 @@ export type CdkCustomResourceEvent = CloudFormationCustomResourceEvent & {
  * @link https://docs.aws.amazon.com/cdk/api/latest/docs/custom-resources-readme.html#handling-lifecycle-events-onevent
  */
 export type CdkCustomResourceHandler = Handler<CdkCustomResourceEvent, CdkCustomResourceResponse>;
+export type CdkCustomResourceCallback = Callback<CdkCustomResourceResponse>;
 
 export interface CdkCustomResourceResponse {
     PhysicalResourceId?: string;
@@ -63,3 +64,4 @@ export type CdkCustomResourceIsCompleteHandler = Handler<
     CdkCustomResourceIsCompleteEvent,
     CdkCustomResourceIsCompleteResponse
 >;
+export type CdkCustomResourceIsCompleteCallback = Callback<CdkCustomResourceIsCompleteResponse>;
