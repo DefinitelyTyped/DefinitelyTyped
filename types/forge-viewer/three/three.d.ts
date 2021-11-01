@@ -1100,6 +1100,7 @@ declare namespace THREE {
         getInverse(m: Matrix4, throwOnInvertible?: boolean): Matrix4;
         getMaxScaleOnAxis(): number;
         identity(): Matrix4;
+        invert(): Matrix4;
         lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4;
         makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
         makeRotationAxis(axis: Vector3, angle: number): Matrix4;
