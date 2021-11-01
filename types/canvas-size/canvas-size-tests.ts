@@ -1,4 +1,4 @@
-import * as canvasSize from 'canvas-size';
+import canvasSize = require('canvas-size');
 
 const noop = () => void 0;
 
