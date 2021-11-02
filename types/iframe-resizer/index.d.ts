@@ -9,7 +9,7 @@ declare namespace iframeResizer {
     close(): void;
 
     moveToAnchor(anchor: string): void;
-      
+
     removeListeners(): void;
 
     resize(): void;
