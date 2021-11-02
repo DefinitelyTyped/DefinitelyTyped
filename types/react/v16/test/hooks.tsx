@@ -122,8 +122,19 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     typedCallback({});
 
     // test useRef and its convenience overloads
+    // $ExpectType MutableRefObject<boolean>
+    React.useRef(true);
     // $ExpectType MutableRefObject<number>
     React.useRef(0);
+    // $ExpectType MutableRefObject<string>
+    React.useRef('');
+
+    // $ExpectType MutableRefObject<boolean>
+    React.useRef<boolean>(true);
+    // $ExpectType MutableRefObject<number>
+    React.useRef<number>(0);
+    // $ExpectType MutableRefObject<string>
+    React.useRef<string>('');
 
     // these are not very useful (can't assign anything else to .current)
     // but it's the only safe way to resolve them
@@ -133,12 +144,12 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     React.useRef(undefined);
 
     // |null convenience overload
-    // it should _not_ be mutable if the generic argument doesn't include null
-    // $ExpectType RefObject<number>
+    // $ExpectType MutableRefObject<number | null>
     React.useRef<number>(null);
-    // but it should be mutable if it does (i.e. is not the convenience overload)
     // $ExpectType MutableRefObject<number | null>
     React.useRef<number | null>(null);
+    // $ExpectType MutableRefObject<number | null | undefined>
+    React.useRef<number | null | undefined>(null);
 
     // |undefined convenience overload
     // with no contextual type or generic argument it should default to undefined only (not {} or unknown!)
@@ -146,9 +157,10 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     React.useRef();
     // $ExpectType MutableRefObject<number | undefined>
     React.useRef<number>();
-    // don't just accept a potential undefined if there is a generic argument
-    // $ExpectError
+    // $ExpectType MutableRefObject<number | undefined>
     React.useRef<number>(undefined);
+    // $ExpectType MutableRefObject<number | undefined>
+    React.useRef<number | undefined>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
     // $ExpectType MutableRefObject<number>
     React.useRef<number>(1);
