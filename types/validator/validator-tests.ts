@@ -770,6 +770,7 @@ const any: any = null;
     result = validator.isMobilePhone('sample', 'any');
     result = validator.isMobilePhone('sample');
     result = validator.isMobilePhone('sample', ['pl-PL', 'pt-PT']);
+    result = validator.isMobilePhone('sample', ['es-AR', 'es-CO']); // $ExpectType boolean
 
     result = validator.isMongoId('sample');
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ForwardRefReturn, ReactInputAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "id" | "onChange" | "type";
+type ExcludedAttributes = "id" | "onChange" | "onClick" | "type";
 
 // variant when "enable-2021-release" feature flag is enabled
 export type CheckboxOnChangeDataVariant = (evt: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean, id: string }) => void;
@@ -14,6 +14,7 @@ export interface CheckboxProps extends Omit<ReactInputAttr, ExcludedAttributes> 
     indeterminate?: boolean | undefined,
     labelText: NonNullable<React.ReactNode>,
     onChange?: CheckboxOnChangeDataVariant | CheckboxOnChangeDefaultVariant | undefined;
+    onClick?(evt: React.MouseEvent<HTMLDivElement>): void;
     /**
      * @deprecated
      */

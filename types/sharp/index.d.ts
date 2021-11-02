@@ -624,6 +624,15 @@ declare namespace sharp {
          */
         tile(tile?: TileOptions): Sharp;
 
+        /**
+         * Set a timeout for processing, in seconds. Use a value of zero to continue processing indefinitely, the default behaviour.
+         * The clock starts when libvips opens an input image for processing. Time spent waiting for a libuv thread to become available is not included.
+         * @param options Object with a `seconds` attribute between 0 and 3600 (number)
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        timeout(options: TimeoutOptions): Sharp;
+
         //#endregion
 
         //#region Resize functions
@@ -744,6 +753,11 @@ declare namespace sharp {
         files?: number | undefined;
         /** Is the maximum number of operations to cache (optional, default 100) */
         items?: number | undefined;
+    }
+
+    interface TimeoutOptions {
+        /** Number of seconds after which processing will be stopped (default 0, eg disabled) */
+        seconds: number;
     }
 
     interface SharpCounters {
@@ -1277,6 +1291,7 @@ declare namespace sharp {
         raw: AvailableFormatInfo;
         svg: AvailableFormatInfo;
         tiff: AvailableFormatInfo;
+        tif: AvailableFormatInfo;
         v: AvailableFormatInfo;
         webp: AvailableFormatInfo;
     }

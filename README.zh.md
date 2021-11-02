@@ -52,25 +52,7 @@ npm install --save-dev @types/node
 
 Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.7 及更高版本。如果您使用的是 TypeScript 2.0 到 3.6，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
-| Version | Released       | End of Support |
-| ------- | -------------- | -------------- |
-| 2.8     | March 2018     | March 2020     |
-| 2.9     | May 2018       | May 2020       |
-| 3.0     | July 2018      | August 2020    |
-| 3.1     | September 2018 | September 2020 |
-| 3.2     | November 2018  | November 2020  |
-| 3.3     | January 2019   | January 2021   |
-| 3.4     | March 2019     | March 2021     |
-| 3.5     | May 2019       | May 2021       |
-| 3.6     | August 2019    | August 2021    |
-| 3.7     | November 2019  | November 2021  |
-| 3.8     | February 2020  | February 2022  |
-| 3.9     | May 2020       | May 2022       |
-| 4.0     | August 2020    | August 2022    |
-| 4.1     | November 2020  | November 2022  |
-| 4.2     | February 2021  | February 2023  |
-| 4.3     | May 2021       | May 2023       |
-| 4.4     | August 2021    | August 2023    |
+<img src="docs/support-window.svg" style="width:100%">
 
 `@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您能看到 TypeScript 2.5 最高支持 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则最高支持 react@16.4：
 

@@ -134,6 +134,7 @@ export class TransitionMotion extends Component<TransitionProps> { }
 
 
 interface StaggeredMotionProps {
+    children: (interpolatedStyles: any) => React.ReactElement;
     /**
      * Default styles
      */

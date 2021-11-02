@@ -1059,6 +1059,22 @@ management.organizations.getAll({ page: 0, per_page: 5 }).then((organizations: a
 });
 
 /**
+ * Get All Organizations with pagination and totals using a callback
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }, (err, pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
+});
+
+/**
+ * Get All Organizations with pagination and totals returning a Promise
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }).then((pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
+});
+
+/**
  * Get All Organizations with checkpoint pagination using a callback
  */
 management.organizations.getAll({ take: 5, from: '' }, (err, organizations: auth0.Organization[]) => {
