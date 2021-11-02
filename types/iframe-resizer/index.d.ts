@@ -1,4 +1,4 @@
-// Type definitions for iframe-resizer 3.5
+// Type definitions for iframe-resizer 4.3.2
 // Project: https://github.com/davidjbradshaw/iframe-resizer
 // Definitions by: Armin Baljic <https://github.com/arminbaljic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,6 +9,8 @@ declare namespace iframeResizer {
     close(): void;
 
     moveToAnchor(anchor: string): void;
+      
+    removeListeners(): void;
 
     resize(): void;
 
