@@ -380,6 +380,7 @@ export interface ComponentConfiguration {
 }
 
 export interface WorldConfiguration {
+    append_to_world?: string;
     center: Location;
     extrazoomout: number;
     maps: WorldMapConfiguration[];
@@ -411,7 +412,7 @@ export interface WorldMapConfiguration {
     bigmap: boolean;
     boostzoom: number;
     compassview: CompassDirection;
-    icon?: L.CustomIcon | null;
+    icon?: string | L.CustomIcon | null;
     'image-format': ImageFormat;
     inclination: number;
     lighting: string;
@@ -431,7 +432,7 @@ export interface WorldMapConfiguration {
 }
 
 export interface WorldMapOptions {
-    append_to_world?: boolean;
+    append_to_world?: string;
     title?: string;
     icon?: string;
     dynmap?: WorldMap;
@@ -471,6 +472,7 @@ export interface Configuration extends StandaloneConfiguration {
     position?: L.ControlPosition;
     scrollback?: boolean;
     showlabel?: boolean;
+    showlayercontrol?: SidebarState;
     showmessage?: boolean;
     showplayerfacesinmenu?: boolean;
     sidebaropened?: SidebarState;
@@ -493,6 +495,8 @@ export interface Options extends Configuration {
     defaultmap?: string;
     defaultworld?: string;
     defaultzoom?: number;
+    followmap?: string;
+    followzoom?: string;
     'msg-maptypes'?: string;
     sidebaropened?: SidebarState;
     showDynmapLayerControl?: SidebarState;
@@ -554,12 +558,12 @@ export interface MarkerLine {
     our_layer: L.Layer;
     timestamp: number;
     weight: number;
-    x: number;
-    y: number;
-    z: number;
+    x: number[];
+    y: number[];
+    z: number[];
 }
 
-interface MarkerCircle {
+export interface MarkerCircle {
     color: HexColor;
     desc?: string;
     fillcolor: HexColor;
@@ -575,8 +579,8 @@ interface MarkerCircle {
     x: number;
     xr: number;
     y: number;
-    yr: number;
     z: number;
+    zr: number;
 }
 
 export interface MarkerLayerGroup extends L.LayerGroup {
@@ -590,7 +594,7 @@ export interface Marker {
     label: string;
     markup: boolean;
     maxzoom: number;
-    mixzoom: number;
+    minzoom: number;
     our_layer: L.Layer;
     timestamp: number;
     x: number;
