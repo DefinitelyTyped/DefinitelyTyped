@@ -1,7 +1,6 @@
 import formidable = require("formidable");
 import {
     defaultOptions,
-    enabledPlugins,
     plugins,
     File,
     formidable as formidableAlias,
@@ -20,7 +19,7 @@ const options: Options = {
     enabledPlugins: [],
     encoding: "utf-8",
     fileWriteStreamHandler: undefined,
-    hashAlgorithm: false,
+    hash: false,
     keepExtensions: false,
     maxFields: 1000,
     maxFieldsSize: 20 * 1024 * 1024,
@@ -31,24 +30,23 @@ const options: Options = {
 };
 
 const file: File = {
-    hashAlgorithm: false,
-    hash: "hash",
-    mtime: new Date(),
-    originalFilename: "name",
-    newFilename: "newfilename",
-    filepath: "path",
+    hash: "sha1",
+    lastModifiedDate: new Date(),
+    name: "name",
+    path: "path",
     size: 20,
-    mimetype: "json",
+    type: "json",
     toJSON: () => ({
-        newFilename: file.newFilename!,
+        filename: file.name!,
         length: 10,
-        mimetype: file.mimetype,
-        mtime: file.mtime!,
-        originalFilename: file.originalFilename,
-        filepath: file.filepath,
-        size: file.size
+        mime: "string",
+        mtime: file.lastModifiedDate!,
+        name: file.name,
+        path: file.path,
+        size: file.size,
+        type: file.type,
     }),
-    toString: () => `File: ${file.originalFilename}`,
+    toString: () => `File: ${file.name}`,
 };
 
 // act/assert
@@ -66,9 +64,6 @@ Formidable.DEFAULT_OPTIONS;
 // $ExpectType DefaultOptions
 defaultOptions;
 defaultOptions.enabledPlugins; // $ExpectType EnabledPlugins
-
-// $ExpectType EnabledPlugins
-enabledPlugins;
 
 // $ExpectType EnabledPlugins
 plugins;

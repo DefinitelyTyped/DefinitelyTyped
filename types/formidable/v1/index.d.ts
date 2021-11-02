@@ -1,4 +1,4 @@
-// Type definitions for formidable 2.0
+// Type definitions for formidable 1.2
 // Project: https://github.com/node-formidable/formidable
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Martin Badin <https://github.com/martin-badin>
@@ -146,7 +146,7 @@ declare namespace formidable {
          *
          * @default false
          */
-        hashAlgorithm?: string | false | undefined;
+        hash?: string | false | undefined;
 
         /**
          * which by default writes to host machine file system every file parsed; The function should
@@ -170,14 +170,6 @@ declare namespace formidable {
          */
         multiples?: boolean | undefined;
 
-        /**
-         * Use it to control newFilename. Must return a string. Will be joined with
-         * options.uploadDir.
-         *
-         * @default undefined
-         */
-        filename?: (name: string, ext: string, part: string, form: string) => string | undefined;
-
         enabledPlugins?: string[] | undefined;
     }
 
@@ -198,9 +190,10 @@ declare namespace formidable {
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash"> {
+    interface FileJSON extends Pick<File, "size" | "path" | "name" | "type" | "hash"> {
+        filename: string;
         length: number;
-        mimetype: string | null;
+        mime: string;
         mtime: Date | null;
     }
 
@@ -215,36 +208,28 @@ declare namespace formidable {
          * The path this file is being written to. You can modify this in the `'fileBegin'` event in case
          * you are unhappy with the way formidable generates a temporary path for your files.
          */
-        filepath: string;
+        path: string;
 
         /**
          * The name this file had according to the uploading client.
          */
-        originalFilename: string | null;
-
-        /**
-         * Calculated based on options provided
-         */
-        newFilename: string | null;
+        name: string | null;
 
         /**
          * The mime type of this file, according to the uploading client.
          */
-        mimetype: string | null;
+        type: string | null;
 
         /**
          * A Date object (or `null`) containing the time this file was last written to. Mostly here for
          * compatibility with the [W3C File API Draft](http://dev.w3.org/2006/webapi/FileAPI/).
          */
-        mtime?: Date | null | undefined;
-
-        hashAlgorithm: false | "sha1" | "md5" | "sha256";
+        lastModifiedDate?: Date | null | undefined;
 
         /**
-         * If `options.hashAlgorithm` calculation was set, you can read the hex digest out of this var
-         * (at the end it will be a string).
+         * If `options.hash` calculation was set, you can read the hex digest out of this var.
          */
-        hash?: string | null;
+        hash?: string | "sha1" | "md5" | "sha256" | null | undefined;
 
         /**
          * This method returns a JSON-representation of the file, allowing you to JSON.stringify() the
@@ -296,7 +281,6 @@ declare namespace formidable {
 declare const formidable: {
     (options?: formidable.Options): Formidable;
     defaultOptions: formidable.DefaultOptions;
-    enabledPlugins: formidable.EnabledPlugins;
     plugins: formidable.EnabledPlugins;
     errors: typeof errors;
     File: typeof PersistentFile;
