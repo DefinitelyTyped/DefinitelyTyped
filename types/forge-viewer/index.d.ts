@@ -2304,7 +2304,9 @@ declare namespace Autodesk {
         }
 
         class StreamLine {
-          geometry: any;
+          geometry: THREE.BufferGeometry;
+
+          advance(position: { x: number, y: number, z: number }): void;
         }
 
         class StreamLineBuilder {
