@@ -1,4 +1,4 @@
-// Type definitions for iframe-resizer 4.3.2
+// Type definitions for iframe-resizer 4.3
 // Project: https://github.com/davidjbradshaw/iframe-resizer
 // Definitions by: Armin Baljic <https://github.com/arminbaljic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
