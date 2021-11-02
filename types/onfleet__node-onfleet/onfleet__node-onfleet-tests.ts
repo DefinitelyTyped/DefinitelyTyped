@@ -17,6 +17,10 @@ new Onfleet('test-api-key', 20000);
 new Onfleet('test-api-key', 20000, bottleneckOptions);
 // with api key, timeout, bottleneck options, base URL
 new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com');
+// with api key, timeout, bottleneck options, base URL, default path
+new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api');
+// with api key, timeout, bottleneck options, base URL, default path, api version
+new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api', '/v5');
 
 onfleet.verifyKey().then().catch();
 
