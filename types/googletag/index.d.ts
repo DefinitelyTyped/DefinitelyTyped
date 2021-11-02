@@ -257,7 +257,7 @@ declare namespace googletag {
          * @param f A JavaScript function to be executed.
          * @returns The number of commands processed so far. This is compatible with Array.push's return value (the current length of the array).
          */
-        push(f: () => void): number;
+        push(...fs: Array<() => void>): number;
     }
     /**
      * Companion Ads service.
