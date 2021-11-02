@@ -709,7 +709,7 @@ declare namespace googletag {
     }
     interface Size {
         getWidth(): number;
-        getHieght(): number;
+        getHeight(): number;
     }
     /**
      * Builder for size mapping specification objects.
