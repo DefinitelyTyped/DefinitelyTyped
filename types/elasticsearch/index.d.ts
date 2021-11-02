@@ -650,7 +650,7 @@ export interface SearchShardsResponseShard {
     index: string;
     node: string;
     primary: boolean;
-    share: number;
+    shard: number;
     state: string;
     allocation_id: {
         id: string;
