@@ -657,10 +657,10 @@ googletag
         );
     });
 
-
 // DEMO 62
+// Ensure you can push several arguments to `cmd`
 googletag.cmd.push(
-    ...[1,2,3,4,5].map(n => () => {
-        console.log(`successfully pushed ${n > 1 ? n + " arguments" : "one argument"}`);
+    ...[1, 2, 3, 4, 5].map(n => () => {
+        console.log(`successfully pushed ${n > 1 ? n + ' arguments' : 'one argument'}`);
     }),
 );
