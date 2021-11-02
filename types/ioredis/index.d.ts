@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.27
+// Type definitions for ioredis 4.28
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -17,6 +17,7 @@
 //                 Asyrique <https://github.com/asyrique>
 //                 Michael Salaverry <https://github.com/barakplasma>
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
+//                 T.J. Tarazevits <https://github.com/venku122>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -382,6 +383,8 @@ declare namespace IORedis {
 
         sismember(key: KeyType, member: string, callback: Callback<BooleanResponse>): void;
         sismember(key: KeyType, member: string): Promise<BooleanResponse>;
+
+        smismember(key: KeyType, ...members: string[]): Promise<BooleanResponse[]>;
 
         scard(key: KeyType, callback: Callback<number>): void;
         scard(key: KeyType): Promise<number>;
