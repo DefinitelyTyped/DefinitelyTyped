@@ -1,4 +1,4 @@
-export function useSyncExternalStoreExtra<Snapshot, Selection>(
+export function useSyncExternalStoreWithSelector<Snapshot, Selection>(
     subscribe: (onStoreChange: () => void) => () => void,
     getSnapshot: () => Snapshot,
     getServerSnapshot: undefined | null | (() => Snapshot),
