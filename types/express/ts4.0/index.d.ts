@@ -84,7 +84,7 @@ declare namespace e {
         ResBody = any,
         ReqBody = any,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, any> = Record<string, any>,
     > extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface Express extends core.Express {}
     interface Handler extends core.Handler {}
@@ -99,18 +99,21 @@ declare namespace e {
         ResBody = any,
         ReqBody = any,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, any> = Record<string, any>,
     > extends core.Request<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestHandler<
         P = core.ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, any> = Record<string, any>,
     > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestParamHandler extends core.RequestParamHandler {}
-    export interface Response<ResBody = any, Locals extends Record<string, any> = Record<string, any>>
-        extends core.Response<ResBody, Locals> {}
+    export interface Response<
+        ResBody = any,
+        Locals extends Record<string, any> = Record<string, any>,
+        StatusCode extends number = number,
+    > extends core.Response<ResBody, Locals, StatusCode> {}
     interface Router extends core.Router {}
     interface Send extends core.Send {}
 }

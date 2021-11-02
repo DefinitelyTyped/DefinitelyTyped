@@ -19,7 +19,7 @@ namespace express_tests {
         '/static',
         express.static(__dirname + '/public', {
             setHeaders: res => {
-                // $ExpectType Response<any, Record<string, any>>
+                // $ExpectType Response<any, Record<string, any>, number>
                 res;
                 res.set('foo', 'bar');
             },
@@ -120,7 +120,7 @@ namespace express_tests {
         const header3: string | undefined = req.header('header');
 
         req.headers.existingHeader as string;
-        (req.headers.nonExistingHeader as any) as undefined;
+        req.headers.nonExistingHeader as any as undefined;
 
         // Since 4.14.0 req.range() has options
         req.range(2, { combine: true });
@@ -212,6 +212,12 @@ namespace express_tests {
         res.json();
         res.json(1); // $ExpectError
         res.send(1); // $ExpectError
+    });
+
+    // Response status will be of Type provided
+    router.get('/', (req: Request, res: express.Response<string, {}, 200>) => {
+        res.status(200);
+        res.status(500); // $ExpectError
     });
 
     app.use((req, res, next) => {
