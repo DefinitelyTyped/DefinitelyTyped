@@ -262,8 +262,8 @@ upcastHelper = upcastHelper.add((dispatcher) => {
     dispatcher.on("element:p", convertToModelFragment());
     dispatcher.on("documentFragment", convertToModelFragment());
     dispatcher.on("text", convertText());
-    dispatcher.on("viewCleanup", (evt, data) => {
-        data; // $ExpectType Element | DocumentFragment
+    dispatcher.on("viewCleanup", (_evt, data): ViewDocumentFragment | ViewElement => {
+        return data;
     });
 });
 upcastHelper.attributeToAttribute({
@@ -414,7 +414,8 @@ let insertOperation = new InsertOperation(
 );
 if (insertOperation.type === "insert") {
 }
-const stickiness: PositionStickiness = insertOperation.position.stickiness;
+// $ExpectType PositionStickiness
+insertOperation.position.stickiness;
 model.applyOperation(insertOperation);
 insertOperation = insertOperation.clone();
 insertOperation.nodes.getNode(9);
@@ -457,9 +458,8 @@ if (!result2.done) {
     bool = result2.value[1] as boolean;
     str = result2.value[1] as string;
 }
-documentSelection.markers.map(marker => {
-    const m: Marker = marker;
-});
+// $ExpectType (Marker & { id: string; })[]
+documentSelection.markers.map(marker => marker);
 documentSelection.observeMarkers("foo");
 
 range = range.clone();
@@ -578,7 +578,11 @@ domConverter.unbindDomElement(document.createElement("div"));
 domConverter.focus(viewEditableElement);
 bool = domConverter.isElement(document.createElement("div"));
 
-class MyObserver extends Observer {}
+class MyObserver extends Observer {
+    observe(_domElement: HTMLElement, _name?: string): void {
+        throw new Error("Method not implemented.");
+    }
+}
 const myObserver: Observer = new MyObserver(view);
 viewDocument = myObserver.document;
 bool = myObserver.isEnabled;

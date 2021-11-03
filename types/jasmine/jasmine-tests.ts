@@ -2386,6 +2386,20 @@ describe("version", () => {
     });
 });
 
+describe("Jasmine constructor", () => {
+    it("creates new Jasmine instance without args", () => {
+        const instance = new JasmineClass();
+        expect(instance).toBeInstanceOf(JasmineClass);
+    });
+
+    it("creates new Jasmine instance with args", () => {
+        const instance = new JasmineClass({
+            projectBaseDir: 'foo',
+        });
+        expect(instance).toBeInstanceOf(JasmineClass);
+    });
+});
+
 (() => {
     // from boot.js
     const env = jasmine.getEnv();

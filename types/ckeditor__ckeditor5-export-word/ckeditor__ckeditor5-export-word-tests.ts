@@ -5,14 +5,10 @@ import ExportWordCommand from "@ckeditor/ckeditor5-export-word/src/exportwordcom
 
 class MyEditor extends Editor {}
 
-const bool: boolean = ExportWord.isContextPlugin;
-const plugin = new ExportWord(new MyEditor());
-if (plugin.destroy) {
-    const destroyPromise = plugin.destroy();
-    if (destroyPromise instanceof Promise) {
-        destroyPromise.then(() => {});
-    }
-}
+// $ExpectType false
+ExportWord.isContextPlugin;
+// $ExpectType ExportWord
+new ExportWord(new MyEditor());
 
 let config: ExportWordConfig = {};
 config = {
@@ -25,7 +21,7 @@ config = {
         margin_right: "1cm",
         margin_left: 0,
         format: "A6",
-        auto_pagination: bool,
+        auto_pagination: true,
     },
 };
 config = {
