@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 
+declare module "@ceddl" {}
+
 declare module "@ceddl/ceddl-polyfill" {
     export default Ceddl;
 
