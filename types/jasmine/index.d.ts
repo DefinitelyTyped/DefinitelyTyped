@@ -1330,7 +1330,7 @@ declare module "jasmine" {
          */
         defaultReporterConfigured: boolean;
 
-        constructor(options: jasmine.JasmineOptions);
+        constructor(options?: jasmine.JasmineOptions);
         addMatchers(matchers: jasmine.CustomMatcherFactories): void;
         /**
          * Add a custom reporter to the Jasmine environment.
