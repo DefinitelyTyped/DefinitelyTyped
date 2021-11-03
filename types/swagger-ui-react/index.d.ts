@@ -22,15 +22,19 @@ type Plugin = object | PluginGenerator;
 export interface SwaggerUIProps {
     spec?: object | string | undefined;
     url?: string | undefined;
+    layout?: string | undefined;
     onComplete?: ((system: System) => void) | undefined;
     requestInterceptor?: ((req: Request) => Request | Promise<Request>) | undefined;
     responseInterceptor?: ((res: Response) => Response | Promise<Response>) | undefined;
     docExpansion?: 'list' | 'full' | 'none' | undefined;
     defaultModelExpandDepth?: number | undefined;
+    defaultModelsExpandDepth?: number | undefined;
     plugins?: Plugin[] | undefined;
     supportedSubmitMethods?: string[] | undefined;
     deepLinking?: boolean | undefined;
     showMutatedRequest?: boolean | undefined;
+    displayOperationId?: boolean | undefined;
+    tryItOutEnabled?: boolean | undefined;
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

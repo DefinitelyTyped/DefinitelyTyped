@@ -1,6 +1,6 @@
 import * as Constants from "./Constants";
-import Document from "./Document";
-import Layers from "./collections/Layers";
+import { Document } from "./Document";
+import { Layers } from "./collections/Layers";
 import { Bounds } from "./objects/Bounds";
 import * as Unit from "../util/unit";
 /** @ignore */
@@ -29,14 +29,21 @@ export declare function validateLayer(l: Layer): void;
  */
 export declare function PSLayer(id: number, docId: number, layerKind?: number): Layer;
 /**
- * A Photoshop Layer
- * Ultimately, will have subclasses denoting all layer types
+ * An object within a document that contains visual elements of the image, equivalent to a layer in Photoshop.
+ *
+ * You can access layers in a document using [[Document.layers]] collection.
+ *
+ * If the object is representing a group layer, you can access it's children layers using [[Layer.layers]] property.
  */
-export default class Layer {
+export declare class Layer {
     /**
      * @ignore
      */
     private setLocking;
+    /**
+     * The class name of the referenced Layer object
+     */
+    get typename(): string;
     /**
      * True if any property of this layer is locked
      */
@@ -88,6 +95,70 @@ export default class Layer {
      */
     set opacity(opacity: number);
     /**
+     * The fill opacity of the layer, in percentage.
+     */
+    get fillOpacity(): number;
+    /**
+     * Set the fill opacity setting of the layer.
+     */
+    set fillOpacity(opacity: number);
+    /**
+     * The density of the filter mask, in percentage.
+     */
+    get filterMaskDensity(): number;
+    /**
+     * Set the density of the filter mask.
+     */
+    set filterMaskDensity(density: number);
+    /**
+     * The feather of the filter mask between 0.0 and 1000.0.
+     */
+    get filterMaskFeather(): number;
+    /**
+     * Set the feather of the filter mask.
+     */
+    set filterMaskFeather(feather: number);
+    /**
+     * The density of the layer mask, in percentage.
+     */
+    get layerMaskDensity(): number;
+    /**
+     * Set the density of the layer mask.
+     */
+    set layerMaskDensity(density: number);
+    /**
+     * The feather of the layer mask between 0.0 and 1000.0.
+     */
+    get layerMaskFeather(): number;
+    /**
+     * Set the feather of the layer mask.
+     */
+    set layerMaskFeather(feather: number);
+    /**
+     * The density of the vector mask, in percentage.
+     */
+    get vectorMaskDensity(): number;
+    /**
+     * Set the density of the vector mask.
+     */
+    set vectorMaskDensity(density: number);
+    /**
+     * The feather of the vector mask between 0.0 and 1000.0
+     */
+    get vectorMaskFeather(): number;
+    /**
+     * Set the feather of the vector mask.
+     */
+    set vectorMaskFeather(feather: number);
+    /**
+     * Is the mask used as a clipping mask.
+     */
+    get isClippingMask(): boolean;
+    /**
+     * Set the mask to be used as a clipping mask.
+     */
+    set isClippingMask(clipped: boolean);
+    /**
      * The blend mode of the layer
      */
     get blendMode(): Constants.BlendMode;
@@ -96,13 +167,7 @@ export default class Layer {
      */
     set blendMode(blendMode: Constants.BlendMode);
     /**
-     * Layers linked to this layer
-     * ```javascript
-     * const layers = layerAA.linkedLayers
-     * layers.forEach((layer) => {
-     *   ...
-     * })
-     * ```
+     * Layers linked to this layer. See [[Layer.link]]
      */
     get linkedLayers(): Layers;
     /**
@@ -119,10 +184,12 @@ export default class Layer {
      */
     get id(): number;
     /**
+     * The document this layer is in
+     */
+    get document(): Document;
+    /**
      * The group layer this layer is in,
-     * null if layer has no parent,
-     * truark SSDOM parity, 2021.6.22, should be the document
-     *        and the parent of the document should be the Application
+     * null if the layer is a top layer in the document
      */
     get parent(): Layer | null;
     /**
@@ -169,7 +236,7 @@ export default class Layer {
      *
      * @async
      */
-    duplicate(targetDocument?: Document, name?: string): Promise<Layer | null>;
+    duplicate(relativeObject?: Document | Layer, insertionLocation?: Constants.ElementPlacement, name?: string): Promise<Layer | null>;
     /**
      * Creates a link between this layer and the target layer if not already linked,
      * and returns a list of layers linked to this layer.
@@ -180,8 +247,6 @@ export default class Layer {
      * > "strokes"
      * > "fillLayer"
      * ```
-     * @param targetLayer layer to link with
-     * @returns array of linked layers
      */
     link(targetLayer: Layer): Layer[];
     /**
@@ -194,43 +259,40 @@ export default class Layer {
      */
     unlink(): Promise<void>;
     /**
-     * Moves the layer to a position above the target layer or group.
-     * If no target layer is defined, move this layer up one slot.
-     * ```javascript
-     * foregroundLayer.moveAbove(backingLayer)
-     * // foregroundLayer
-     * // backingLayer
-     * ```
-     * @param target layer or group above which the moved layer will appear in the Layers panel.
+     * Moves the layer relative to the layer specified in parameters.
+     * "placeAfter" places the layer below relativeObject.
+     * "placeBefore" places the layer above relativeObject.
+     * "placeInside" places the layer inside relativeObject if relativeObject is a group layer.
+     * `ElementPlacement.PLACEINSIDE` is only valid when `relativeObject.kind === LayerKind.group`
      */
-    moveAbove(target?: Layer): void;
+    move(relativeObject: Layer, insertLocation: Constants.ElementPlacement): void;
     /**
-     * Moves the layer to a position below the target layer or group.
-     * If no target layer is defined, move this layer down one slot.
-     * ```javascript
-     * backingLayer.moveBelow(foregroundLayer)
-     * // foregroundLayer
-     * // backingLayer
-     * ```
-     * @param target moved layer will land in the next position below this layer or group as viewed in the Layers panel.
+     * Moves the layer to a position above the topmost layer or group.
      */
-    moveBelow(target?: Layer): void;
+    bringToFront(): void;
     /**
-     * Moves the layer.
+     * Moves the layer to the bottom. If the bottom layer is the
+     * background, it will move the layer to the position above the background.
+     * If it is in a group, it will move to the bottom of the group.
+     */
+    sendToBack(): void;
+    /**
+     * Moves the layer (translation).
      * ```javascript
-     * // nudge the layer to the left by 200px
-     * await layer.nudge(-200, 0)
+     * // Translate the layer to the left by 200px
+     * await layer.translate(-200, 0)
      *
      * // move the layer one height down
-     * let percent = ps.app.Unit.Percent
-     * await layer.nudge(percent(0), percent(100))
+     * let xOffsetPct = {_unit: "percentUnit", _value: 0};
+     * let yOffsetPct = {_unit: "percentUnit", _value: 100};
+     * await layer.translate(xOffsetPct, yOffsetPct);
      * ```
      * @param horizontal Numeric value to offset layer by in pixels or percent
      * @param vertical Numeric value to offset layer by in pixels or percent
      *
      * @async
      */
-    nudge(horizontal: number | Unit.PercentValue | Unit.PixelValue, vertical: number | Unit.PercentValue | Unit.PixelValue): Promise<void>;
+    translate(horizontal: number | Unit.PercentValue | Unit.PixelValue, vertical: number | Unit.PercentValue | Unit.PixelValue): Promise<void>;
     /**
      * Flips the layer on one or both axis.
      *
@@ -247,16 +309,22 @@ export default class Layer {
     flip(axis: "horizontal" | "vertical" | "both"): Promise<void>;
     /**
      * Scales the layer.
+     * Renamed from `resize` in ExtendScript.
      * ```javascript
      * await layer.scale(80, 80)
+     *
+     * // Scale the layer to be a quarter of the size relative to bottom left corner
+     * let anchorPos = require('photoshop').constants.AnchorPosition
+     * await layer.scale(50, 50, anchorPos.BOTTOMLEFT)
      * ```
      * @param width Numeric percentage to scale layer horizontally
      * @param height Numeric percentage to scale layer vertically
+     * @param anchor Anchor position to rotate around
      * @param options.interpolation Interpolation method to use when resampling the image
      *
      * @async
      */
-    scale(width: number | Unit.PercentValue, height: number | Unit.PercentValue, options?: {
+    scale(width: number | Unit.PercentValue, height: number | Unit.PercentValue, anchor?: Constants.AnchorPosition, options?: {
         interpolation?: Constants.ResampleMethod;
     }): Promise<void>;
     /**
@@ -264,13 +332,18 @@ export default class Layer {
      * ```javascript
      * // rotate 90 deg counter clockwise
      * await layer.rotate(-90)
+     *
+     * // rotate 90 deg clockwise relative to top left corner
+     * let anchorPos = require('photoshop').constants.AnchorPosition
+     * await layer.rotate(90, anchorPos.TOPLEFT)
      * ```
      * @param angle Angle to rotate the layer by in degrees
+     * @param anchor Anchor position to rotate around
      * @param options.interpolation Interpolation method to use when resampling the image
      *
      * @async
      */
-    rotate(angle: number | Unit.AngleValue, options?: {
+    rotate(angle: number | Unit.AngleValue, anchor?: Constants.AnchorPosition, options?: {
         interpolation?: Constants.ResampleMethod;
     }): Promise<void>;
     /**
@@ -288,6 +361,44 @@ export default class Layer {
     skew(angleH: number | Unit.AngleValue, angleV: number | Unit.AngleValue, options?: {
         interpolation?: Constants.ResampleMethod;
     }): Promise<void>;
+    /**
+     * Clears the layer and does not copy to the clipboard.
+     * If no selection is found then select all the pixels and then cut.
+     *
+     * @async
+     */
+    clear(): Promise<void>;
+    /**
+     * Copies the layer to the clipboard. When the optional argument is set to true, a
+     * merged copy is performed (that is, all visible layers are copied to the clipboard).
+     * ```javascript
+     * await layer.copy(true)
+     * await layer.copy()
+     * ```
+     * @async
+     */
+    copy(merge?: boolean): Promise<void>;
+    /**
+     * Cuts the layer to the clipboard. If no selection is found then select all the pixels and then cut.
+     *
+     * @async
+     */
+    cut(): Promise<void>;
+    /**
+     * Merges layers. This operates on the currently selected layers. If multiple
+     * layers are selected, they will be merged together. If one layer is selected,
+     * it is merged down with the layer beneath. In this case, the layer below must
+     * be a pixel layer. The merged layer will now be the active layer.
+     *
+     * @async
+     */
+    merge(): Promise<Layer>;
+    /**
+     * Converts the targeted contents in the layer into a flat, raster image.
+     *
+     * @async
+     */
+    rasterize(target: Constants.RasterizeType): Promise<void>;
     /**
      * The layers of this group layer
      * ```javascript

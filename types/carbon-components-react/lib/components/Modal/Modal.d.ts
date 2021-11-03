@@ -16,6 +16,9 @@ export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
      * @deprecated
      */
     focusTrap?: boolean | undefined,
+    /**
+     * @deprecated
+     */
     hasForm?: boolean | undefined,
     hasScrollingContent?: boolean | undefined,
     iconDescription?: string | undefined,

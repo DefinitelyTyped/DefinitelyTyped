@@ -6751,7 +6751,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     /**
      * Experimental: When true offscreen child views (whose `overflow` value is
      * `hidden`) are removed from their native backing superview when offscreen.
-     * This canimprove scrolling performance on long lists. The default value is
+     * This can improve scrolling performance on long lists. The default value is
      * false.
      */
     removeClippedSubviews?: boolean | undefined;

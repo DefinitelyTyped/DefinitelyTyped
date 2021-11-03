@@ -10,7 +10,7 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true       
     },
-    "files": ["index.d.ts", "tabulator-tables-tests.ts"]
+    "files": ["index.d.ts", "tabulator-tables-tests.ts"]   
 }
