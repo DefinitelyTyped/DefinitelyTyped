@@ -12,6 +12,10 @@ export interface IsFQDNOptions {
      */
     allow_trailing_dot?: boolean | undefined;
     /**
+     * @default false
+     */
+    allow_numeric_tld?: boolean | undefined;
+    /**
      * If `allow_wildcard` is set to true, the validator will allow domain starting with `*.` (e.g. `*.example.com` or `*.shop.example.com`).
      * @default false
      */

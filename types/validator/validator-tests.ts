@@ -30,7 +30,7 @@ import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
 import isEmailFunc from 'validator/lib/isEmail';
 import isEmptyFunc from 'validator/lib/isEmpty';
-import isFQDNFunc from 'validator/lib/isFQDN';
+import isFQDNFunc, { IsFQDNOptions } from 'validator/lib/isFQDN';
 import isFloatFunc from 'validator/lib/isFloat';
 import isFullWidthFunc from 'validator/lib/isFullWidth';
 import isHalfWidthFunc from 'validator/lib/isHalfWidth';
@@ -166,8 +166,11 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isEmpty = validator.isEmpty;
     _isEmpty = isEmptyFunc;
 
-    let _isFQDN = validator.isFQDN;
-    _isFQDN = isFQDNFunc;
+    validator.isFQDN; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
+    isFQDNFunc; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
+    const isFQDNOptions: IsFQDNOptions = {
+        allow_numeric_tld: true,
+    };
 
     let _isFloat = validator.isFloat;
     _isFloat = isFloatFunc;
