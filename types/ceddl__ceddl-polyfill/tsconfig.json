@@ -19,6 +19,6 @@
   },
   "files": [
     "index.d.ts",
-    "ceddl_ceddl-polyfill-tests.ts"
+    "ceddl__ceddl-polyfill-tests.ts"
   ]
 }
