@@ -692,6 +692,8 @@ resultsPromise.then(results => {
     formatterPromise.then(formatter => formatter.format(results));
     formatterPromise.then(formatter => formatter.format(results, data));
 
+    eslint.getRulesMetaForResults(results);
+
     ESLint.getErrorResults(results);
 
     ESLint.outputFixes(results);

@@ -817,6 +817,8 @@ export class ESLint {
 
     lintText(code: string, options?: { filePath?: string | undefined; warnIgnored?: boolean | undefined }): Promise<ESLint.LintResult[]>;
 
+    getRulesMetaForResults(results: ESLint.LintResult[]): ESLint.LintResultData['rulesMeta'];
+
     calculateConfigForFile(filePath: string): Promise<any>;
 
     isPathIgnored(filePath: string): Promise<boolean>;
