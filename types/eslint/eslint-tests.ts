@@ -876,6 +876,7 @@ ruleTester.run("my-rule", rule, {
                 },
             ],
         },
+        { code: "foo", errors: 1, only: true },
     ],
 });
 

@@ -997,6 +997,7 @@ export namespace RuleTester {
         code: string;
         options?: any;
         filename?: string | undefined;
+        only?: boolean;
         parserOptions?: Linter.ParserOptions | undefined;
         settings?: { [name: string]: any } | undefined;
         parser?: string | undefined;
