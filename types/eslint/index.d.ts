@@ -986,6 +986,10 @@ export class RuleTester {
             invalid?: RuleTester.InvalidTestCase[] | undefined;
         },
     ): void;
+
+    static only(
+        item: string | RuleTester.ValidTestCase | RuleTester.InvalidTestCase,
+    ): RuleTester.ValidTestCase | RuleTester.InvalidTestCase;
 }
 
 export namespace RuleTester {

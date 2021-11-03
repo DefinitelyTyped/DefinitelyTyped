@@ -847,6 +847,7 @@ ruleTester.run("my-rule", rule, {
         { code: "foo", settings: { foo: true } },
         { code: "foo", parser: "foo" },
         { code: "foo", globals: { foo: true } },
+        RuleTester.only("foo"),
     ],
 
     invalid: [
