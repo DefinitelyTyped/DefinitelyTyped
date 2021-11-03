@@ -1,4 +1,4 @@
-import ceddl, { ModelConfig } from '@ceddl/ceddl-polyfill'
+import ceddl, { ModelConfig } from '@ceddl/ceddl-polyfill';
 
 const myModel: ModelConfig = {
     key: 'product',
@@ -24,16 +24,17 @@ const myModel: ModelConfig = {
             required: true,
         }
     }
-}
-ceddl.modelFactory.create(myModel)
+};
+
+ceddl.modelFactory.create(myModel);
 
 ceddl.initialize();
 
-const callback = (message) => {
+const callback = (data: any) => {
  // receive message
 };
 
-ceddl.eventbus.on('jproduct', callback)
+ceddl.eventbus.on('jproduct', callback);
 
 ceddl.eventbus.emit('jproduct', {
 	name: "Pencil words - Orange",
@@ -55,8 +56,8 @@ ceddl.emitEvent('jproduct:click', {
 	name: "klick trigger"
 });
 
-ceddl.eventbus.off('jproduct', callback)
-ceddl.eventbus.once('jproduct', callback)
+ceddl.eventbus.off('jproduct', callback);
+ceddl.eventbus.once('jproduct', callback);
 
 const models = ceddl.getModels();
 const events = ceddl.getEvents();
