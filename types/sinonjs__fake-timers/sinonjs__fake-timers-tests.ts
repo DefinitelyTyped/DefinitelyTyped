@@ -28,7 +28,7 @@ const browserInstalledClock = FakeTimers.install({
     loopLimit: 10,
     now: 0,
     shouldAdvanceTime: true,
-    target: {},
+    shouldClearNativeTimers: true,
     toFake: ['setTimeout', 'nextTick', 'hrtime'],
 }) as FakeTimers.BrowserClock & FakeTimers.InstalledClock;
 
@@ -37,7 +37,7 @@ const nodeInstalledClock = FakeTimers.install({
     loopLimit: 10,
     now: new Date(0),
     shouldAdvanceTime: true,
-    target: {},
+    shouldClearNativeTimers: false,
     toFake: ['setTimeout', 'nextTick', 'hrtime'],
 }) as FakeTimers.NodeClock & FakeTimers.InstalledClock;
 
@@ -63,8 +63,9 @@ const nodeAnimationFrame: FakeTimers.NodeTimer = nodeClock.requestAnimationFrame
 const nodeIdleCallback: FakeTimers.NodeTimer = nodeClock.requestIdleCallback(() => {});
 const nodeIdleCallbackWithTimeout: FakeTimers.NodeTimer = nodeClock.requestIdleCallback(() => {}, 7);
 
-nodeTimeout.ref();
-nodeTimeout.unref();
+nodeTimeout.ref().unref();
+nodeTimeout.unref().ref();
+nodeTimeout.refresh().refresh();
 
 browserClock.clearTimeout(browserTimeout);
 browserClock.clearInterval(browserInterval);
