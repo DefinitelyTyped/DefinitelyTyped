@@ -981,14 +981,14 @@ decoded.header; // $ExpectType any
 decoded.payload; // $ExpectType any
 decoded.signature; // $ExpectType string
 
-async () => {
+() => {
     const defaultOptions = {
         issuer: 'issuer',
         audience: ['clientId', 'clientIdAlt'],
         nonce: 'a1b2c3d4e5',
     };
-    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
-    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType DecodedToken
+    idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
+    idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType DecodedToken
 };
 
 // Token manager

@@ -26,4 +26,4 @@ export interface ValidateOptions {
  * @param options the options required to run this verification
  * @returns A promise containing the decoded token payload, or throws an exception if validation failed
  */
-export function validate(token: string, options?: ValidateOptions): Promise<DecodedToken>;
+export function validate(token: string, options?: ValidateOptions): DecodedToken;
