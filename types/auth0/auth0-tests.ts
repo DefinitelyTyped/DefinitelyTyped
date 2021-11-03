@@ -975,7 +975,7 @@ async function signupTest(): Promise<void> {
     signupResult.email_verified; // $ExpectType boolean
 }
 
-const decoded = idToken.decode('{YOUR_API_V2_TOKEN}');
+const decoded = idToken.decode('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
 decoded._raw; // $ExpectType string
 decoded.header; // $ExpectType any
 decoded.payload; // $ExpectType any
@@ -987,8 +987,8 @@ async () => {
         audience: ['clientId', 'clientIdAlt'],
         nonce: 'a1b2c3d4e5',
     };
-    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType string
-    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType string
+    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
+    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType DecodedToken
 };
 
 // Token manager
