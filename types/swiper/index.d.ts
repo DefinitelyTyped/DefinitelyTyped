@@ -1272,9 +1272,7 @@ export default class Swiper {
      * on a number of looped/duplicated slides.
      */
     activeIndex: number;
-    
-    snapIndex: number;
-    
+    snapIndex: number
     /**
      * Index number of currently active slide considering duplicated slides in loop mode
      */
