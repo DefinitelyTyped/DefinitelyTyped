@@ -557,7 +557,6 @@ redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id', cb);
 redis.xautoclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
-redis.xautoclaim('streamName', 'groupName', 'consumerName', 3600000, 'id', cb);
 redis.xdel('streamName', 'id').then(console.log);
 redis.xdel('streamName', 'id', cbNumber);
 redis.xgroup('CREATE', 'streamName', 'groupName', '$').then(console.log);
