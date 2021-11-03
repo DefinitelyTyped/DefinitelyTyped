@@ -1,6 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-duplicate-imports": ["allow-namespace-imports"]
-    }
+    "extends": "dtslint/dt.json"
 }
