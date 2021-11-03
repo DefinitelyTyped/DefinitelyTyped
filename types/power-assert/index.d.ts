@@ -1,6 +1,6 @@
 // Type definitions for power-assert 1.5
 // Project: https://github.com/twada/power-assert
-// Definitions by: vvakame <https://github.com/vvakame>
+// Definitions by: falsandtru <https://github.com/falsandtru>
 //                 Christian Murphy <https://github.com/ChristianMurphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
