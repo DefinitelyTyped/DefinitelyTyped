@@ -13,7 +13,7 @@ const containerSelector = '.swiper-container';
  */
 function defaultDemo() {
     const swiper = new Swiper(containerSelector);
-    let i = swiper.activeIndex;
+    const i = swiper.activeIndex;
     const swiper2 = new SwiperESM(containerSelector);
 }
 /**
