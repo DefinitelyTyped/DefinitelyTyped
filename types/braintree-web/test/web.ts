@@ -576,7 +576,7 @@ braintree.client.create(
                 intent: 'capture',
                 vault: true,
             })
-            .then(() => {
+            .then((paypalCheckout: braintree.PayPalCheckout) => {
                 // window.paypal.Buttons is now available to use
             });
 

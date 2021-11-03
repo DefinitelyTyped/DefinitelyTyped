@@ -168,7 +168,7 @@ export interface PayPalCheckout {
      *
      * @link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#loadPayPalSDK
      */
-    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<void>;
+    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<PayPalCheckout>;
     loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions, callback?: callback): void;
 
     /**
