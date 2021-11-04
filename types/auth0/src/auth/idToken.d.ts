@@ -24,6 +24,6 @@ export interface ValidateOptions {
  * Validator for ID Tokens following OIDC spec.
  * @param token the string token to verify
  * @param options the options required to run this verification
- * @returns A promise containing the decoded token payload, or throws an exception if validation failed
+ * @returns The decoded token payload, or throws an exception if validation failed
  */
 export function validate(token: string, options?: ValidateOptions): DecodedToken;
