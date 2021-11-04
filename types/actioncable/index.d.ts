@@ -1,28 +1,35 @@
-// Type definitions for ActionCable
-// Project: https://github.com/rails/rails/tree/master/actioncable
+// Type definitions for ActionCable 5.2
+// Project: https://github.com/rails/rails/tree/master/actioncable/app/assets/javascripts
 // Definitions by: Vincent Zhu <https://github.com/zhu1230>
-// Definitions: https://github.com/zhu1230/DefinitelyTyped
+//                 Jared Szechy <https://github.com/szechyjs>
+//                 David Mejorado <https://github.com/davidmh>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare module ActionCable {
   interface Channel {
     unsubscribe(): void;
     perform(action: string, data: {}): void;
-    send(data: Object): boolean;
+    send(data: any): boolean;
   }
 
   interface Subscriptions {
-    create(channel: string|ChannelNameWithParams, obj: CreateMixin): Channel;
+    create<T extends CreateMixin>(channel: string|ChannelNameWithParams, obj?: T & ThisType<Channel>): Channel & T;
   }
 
   interface Cable {
     subscriptions: Subscriptions;
+    send(data: any): void;
+    connect(): void;
+    disconnect(): void;
+    ensureActiveConnection(): void;
   }
 
   interface CreateMixin {
-    connected(): void;
-    disconnected(): void;
-    received(obj: Object): void;
-    [key: string]: Function;
+    connected?(): void;
+    disconnected?(): void;
+    received?(obj: any): void;
+    [key: string]: any;
   }
 
   interface ChannelNameWithParams {
@@ -35,8 +42,8 @@ declare module ActionCable {
 }
 
 declare interface AppInterface {
-  cable?: ActionCable.Cable;
-  network?: ActionCable.Channel;
+  cable?: ActionCable.Cable | undefined;
+  network?: ActionCable.Channel | undefined;
 }
 
 declare var App: AppInterface;

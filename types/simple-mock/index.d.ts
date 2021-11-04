@@ -2,6 +2,7 @@
 // Project: https://github.com/jupiter/simple-mock
 // Definitions by: Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace Simple {
   type Fn<T> = {
@@ -56,7 +57,7 @@ declare namespace Simple {
     mock(): Stub<any>;
     mock<T>(): Stub<T>;
 
-    Promise?: PromiseConstructorLike;
+    Promise?: PromiseConstructorLike | undefined;
   }
 
   interface Calls<T> {

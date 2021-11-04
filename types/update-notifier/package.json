@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "boxen": "^4.2.0"
+    }
+}

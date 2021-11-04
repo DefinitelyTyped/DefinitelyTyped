@@ -20,6 +20,8 @@ var barArr: Bar[];
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 var fooSequence: LazyJS.Sequence<Foo>;
+var fooTupleSequence: LazyJS.Sequence<readonly [Foo, Foo, Foo, Foo, Foo]>;
+var fooArrSequence: LazyJS.Sequence<Foo[]>;
 var barSequence: LazyJS.Sequence<Bar>;
 var fooArraySeq: LazyJS.ArrayLikeSequence<Foo>;
 var barArraySeq: LazyJS.ArrayLikeSequence<Bar>;
@@ -29,11 +31,13 @@ var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
 
 var strSequence: LazyJS.Sequence<string>;
 var anySequence: LazyJS.Sequence<any>;
+var unknownSequence: LazyJS.Sequence<unknown>;
 var stringSeq: LazyJS.StringLikeSequence;
 
 var obj: Object;
 var bool: boolean;
 var num: number;
+var const5: 5;
 var str: string;
 var x: any = null;
 var arr: any[];
@@ -97,7 +101,9 @@ fooArraySeq = Strict([foo, foo]).pop();
 // Sequence
 
 fooAsyncSeq = fooSequence.async(num);
-fooSequence = fooSequence.chunk(num);
+fooArrSequence = fooSequence.chunk(num);
+fooTupleSequence = fooSequence.chunk(const5);
+unknownSequence = fooSequence.chunk(0);
 fooSequence = fooSequence.compact();
 fooSequence = fooSequence.concat(arr);
 fooSequence = fooSequence.consecutive(num);
@@ -116,7 +122,7 @@ fooSequence = fooSequence.first(num);
 
 fooSequence = fooSequence.flatten();
 fooObjectSeq = fooSequence.groupBy(fnGetKeyCallback);
-fooSequence = fooSequence.indexOf(x);
+num = fooSequence.indexOf(x);
 fooSequence = fooSequence.initial();
 fooSequence = fooSequence.initial(num);
 fooSequence = fooSequence.intersection(arr);
@@ -128,7 +134,7 @@ str = fooSequence.join(str);
 foo = fooSequence.last();
 fooSequence = fooSequence.last(num);
 
-fooSequence = fooSequence.lastIndexOf(foo);
+num = fooSequence.lastIndexOf(foo);
 barSequence = fooSequence.map(fnMapCallback);
 foo = fooSequence.max();
 foo = fooSequence.max(fnNumberCallback);
@@ -151,9 +157,9 @@ fooSequence = fooSequence.sortBy(str);
 fooSequence = fooSequence.sortBy(str, bool);
 fooSequence = fooSequence.sortBy(fnNumberCallback);
 fooSequence = fooSequence.sortBy(fnNumberCallback, bool);
-fooSequence = fooSequence.sortedIndex(foo);
-foo = fooSequence.sum();
-foo = fooSequence.sum(fnNumberCallback);
+num = fooSequence.sortedIndex(foo);
+num = fooSequence.sum();
+num = fooSequence.sum(fnNumberCallback);
 fooSequence = fooSequence.takeWhile(fnTestCallback);
 fooSequence = fooSequence.union(fooArr);
 fooSequence = fooSequence.uniq();
@@ -168,7 +174,7 @@ obj = fooSequence.toObject();
 // ArrayLikeSequence
 
 fooArraySeq = fooArraySeq.concat(fooArr);
-fooArraySeq = fooArraySeq.first();
+x = fooArraySeq.first();
 fooArraySeq = fooArraySeq.first(num);
 foo = fooArraySeq.get(num);
 num = fooArraySeq.length();
@@ -185,7 +191,7 @@ fooArraySeq = fooArraySeq.slice(num, num);
 
 fooObjectSeq = fooObjectSeq.defaults(obj);
 fooSequence = fooObjectSeq.functions();
-fooObjectSeq = fooObjectSeq.get(str);
+x = fooObjectSeq.get(str);
 fooObjectSeq = fooObjectSeq.invert();
 strSequence = fooObjectSeq.keys();
 fooObjectSeq = fooObjectSeq.omit(strArr);
@@ -225,3 +231,8 @@ stringSeq = stringSeq.substring(num);
 stringSeq = stringSeq.substring(num, num);
 stringSeq = stringSeq.toLowerCase();
 stringSeq = stringSeq.toUpperCase();
+
+// flatten
+var fooSeqSeqSequence: LazyJS.Sequence<LazyJS.Sequence<LazyJS.Sequence<Foo>>>;
+fooSequence = fooSeqSeqSequence.flatten();
+fooSequence = fooSeqSeqSequence.flatten(true).flatten(true);

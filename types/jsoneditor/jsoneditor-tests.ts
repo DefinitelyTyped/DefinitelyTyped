@@ -1,15 +1,33 @@
-import JSONEditor, {JSONEditorMode, JSONEditorNode, JSONEditorOptions } from 'jsoneditor';
+import * as Ajv from 'ajv';
+import JSONEditor, { JSONEditorMode, EditableNode, JSONEditorOptions, AutoCompleteOptions } from 'jsoneditor';
+
+const autocomplete: AutoCompleteOptions = {
+    caseSensitive: true,
+    confirmKeys: [0],
+    filter: 'start',
+    getOptions: (text, path, type, editor) => [],
+    trigger: 'keydown',
+};
+autocomplete.filter = input => true;
 
 let options: JSONEditorOptions;
+options = {};
 options = {
-    ace: ace,
-    //ajv: Ajv({allErrors: true, verbose: true})
+    ace,
+    ajv: new Ajv({ allErrors: true, verbose: true }),
     onChange() {},
-    onEditable(node: JSONEditorNode) {
+    autocomplete,
+    colorPicker: false,
+    onEditable(node: EditableNode | {}) {
         return true;
     },
+    limitDragging: true,
     onError(error: Error) {},
     onModeChange(newMode: JSONEditorMode, oldMode: JSONEditorMode) {},
+    onValidate: json => [],
+    onValidationError: errors => {
+        return;
+    },
     escapeUnicode: false,
     sortObjectKeys: true,
     history: true,
@@ -17,33 +35,59 @@ options = {
     modes: ['tree', 'view', 'form', 'code', 'text'],
     name: 'foo',
     schema: {},
-    schemaRefs: { "otherSchema": {}},
+    schemaRefs: { otherSchema: {} },
     search: false,
     indentation: 2,
-    theme: 'default'
+    theme: 'default',
 };
 options = {
-    onEditable(node: JSONEditorNode) {
-        return {field: true, value: false};
-    }
+    onEditable(node: EditableNode | {}) {
+        return { field: true, value: false };
+    },
 };
 
 let jsonEditor: JSONEditor;
 jsonEditor = new JSONEditor(document.body);
 jsonEditor = new JSONEditor(document.body, {});
-jsonEditor = new JSONEditor(document.body, options, {foo: 'bar'});
+jsonEditor = new JSONEditor(document.body, options, { foo: 'bar' });
 
+// $ExpectType void
 jsonEditor.collapseAll();
+// $ExpectType void
 jsonEditor.destroy();
+// $ExpectType void
 jsonEditor.expandAll();
+// $ExpectType void
 jsonEditor.focus();
-jsonEditor.set({foo: 'bar'});
+// $ExpectType void
+jsonEditor.set({ foo: 'bar' });
+// $ExpectType void
 jsonEditor.setMode('text');
+// $ExpectType void
 jsonEditor.setName('foo');
+// $ExpectType void
 jsonEditor.setName();
+// $ExpectType void
 jsonEditor.setSchema({});
+// $ExpectType void
 jsonEditor.setText('{foo: 1}');
-
-const json: any = jsonEditor.get();
-const name: string = jsonEditor.getName();
-const jsonString: string = jsonEditor.getText();
+// $ExpectType any
+jsonEditor.get();
+// $ExpectType JSONEditorMode
+jsonEditor.getMode();
+// $ExpectType SerializableNode[]
+jsonEditor.getNodesByRange({ path: ['a', 'b'] }, { path: [1] });
+// $ExpectType { start: SerializableNode; end: SerializableNode; }
+jsonEditor.getSelection();
+// $ExpectType string
+jsonEditor.getText();
+// $ExpectType { start: SelectionPosition; end: SelectionPosition; text: string; }
+jsonEditor.getTextSelection();
+// $ExpectType void
+jsonEditor.refresh();
+// $ExpectType void
+jsonEditor.update(null);
+// $ExpectType void
+jsonEditor.updateText('');
+// $ExpectType Promise<readonly (SchemaValidationError | ParseError)[]>
+jsonEditor.validate();

@@ -1,5 +1,5 @@
 import * as auth0 from 'auth0-js';
-import Auth0Lock from 'auth0-lock';
+import Auth0Lock, { Auth0LockPasswordless } from 'auth0-lock';
 
 const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
 const DOMAIN = "YOUR_DOMAIN_AT.auth0.com";
@@ -21,6 +21,27 @@ lock.checkSession({}, function(error: auth0.Auth0Error, authResult: AuthResult):
   }
 });
 
+lock.checkSession({
+  access_token: undefined,
+  connection_scope: undefined,
+  device: undefined,
+  nonce: undefined,
+  protocol: undefined,
+  request_id: undefined,
+  scope: undefined,
+  state: undefined,
+  param: undefined
+}, function(error: auth0.Auth0Error, authResult: AuthResult): void {
+  if (error || !authResult) {
+    lock.show();
+  } else {
+    // user has an active session, so we can use the accessToken directly.
+    lock.getUserInfo(authResult.accessToken, function(error, profile) {
+      console.log(error, profile);
+    });
+  }
+});
+
 // Show supports UI arguments
 
 const showOptions : Auth0LockShowOptions = {
@@ -28,6 +49,7 @@ const showOptions : Auth0LockShowOptions = {
   allowSignUp: true,
   allowForgotPassword: false,
   auth: {
+    autoParseHash: true,
     params: { state: "foo" },
     redirect: true,
     redirectUrl: "some url",
@@ -111,6 +133,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 const authOptions : Auth0LockConstructorOptions = {
   auth: {
+   autoParseHash: true,
    params: { state: "foo" },
    redirect: true,
    redirectUrl: "some url",
@@ -130,7 +153,8 @@ const otherOptions : Auth0LockConstructorOptions = {
   hashCleanup: false,
   leeway: 30,
   _enableImpersonation: true,
-  _enableIdPInitiatedLogin: false
+  _enableIdPInitiatedLogin: false,
+  defaultADUsernameFromEmailPrefix: false
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
@@ -140,12 +164,17 @@ new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
 const multiVariantOptions : Auth0LockConstructorOptions = {
   container: "myContainer",
   closable: false,
+  language: "en",
   languageDictionary: {
     signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> ...",
     title: "My Company",
   },
+  autoclose: true,
   autofocus: false,
+  allowAutocomplete: false,
+  scrollGlobalMessagesIntoView: false,
   allowShowPassword: true,
+  allowPasswordAutocomplete: false,
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);
@@ -261,18 +290,50 @@ const avatarOptions : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
-const authResult : AuthResult = {
+const authResultWithUndefined : AuthResult = {
     accessToken: 'fake_access_token',
     expiresIn: 7200,
     idToken: 'fake_id_token',
     idTokenPayload: {
+      name: undefined,
+      nickname: undefined,
+      picture: undefined,
+      email: undefined,
+      email_verified: undefined,
       aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
       exp: 1494393724,
       iat: 1494357724,
       iss: "https://www.foo.com",
-      sub: "auth0|aksjfkladsf"
+      sub: "auth0|aksjfkladsf",
+      acr: undefined,
+      amr: undefined
     },
     refreshToken: undefined,
     state: "923jf092j3.FFSDJFDSKLDF",
     tokenType: 'Bearer'
 };
+
+const authResultFilled : AuthResult = {
+    accessToken: 'fake_access_token',
+    expiresIn: 7200,
+    idToken: 'fake_id_token',
+    idTokenPayload: {
+      name: "fake name",
+      nickname: "fake nickname",
+      picture: "https://www.fakeavatar.com/fake.png",
+      email: "fake@fake.com",
+      email_verified: true,
+      aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
+      exp: 1494393724,
+      iat: 1494357724,
+      iss: "https://www.foo.com",
+      sub: "auth0|aksjfkladsf",
+      acr: "http://schemas.openid.net/pape/policies/2007/06/multi-factor",
+      amr: ["mfa"]
+    },
+    refreshToken: "refresh_token",
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: 'Bearer'
+};
+
+new Auth0LockPasswordless(CLIENT_ID, DOMAIN); // $ExpectType Auth0LockPasswordlessStatic

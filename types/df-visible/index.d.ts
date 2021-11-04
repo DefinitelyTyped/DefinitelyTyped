@@ -15,5 +15,5 @@ interface JQuery {
     * @param callback The callback parameter should be a function that looks like this:
     * function(object details) {...};
     */
-    visible(partial?: boolean, hidden?: boolean, direction?: Direction): boolean;
+    visible(partial?: boolean, hidden?: boolean, direction?: Direction, container?: JQuery): boolean;
 }

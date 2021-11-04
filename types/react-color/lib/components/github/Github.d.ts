@@ -1,11 +1,19 @@
-import { Component } from "react";
-import { ColorPickerProps, Color } from "../../..";
+import { Component, CSSProperties } from "react";
+import { ColorPickerProps, ColorResult } from "../../..";
+import { Classes } from "reactcss";
 
-export interface GithubPickerProps extends ColorPickerProps<GithubPicker> {
-    colors?: string[];
-    width?: string;
-    triangle?: 'hide' | 'top-left' | 'top-right';
-    onSwatchHover?(color: Color, event: MouseEvent): void;
+export interface GithubPickerStylesProps {
+    card: CSSProperties;
+    triangle: CSSProperties;
+    triangleShadow: CSSProperties;
 }
 
-export default class GithubPicker extends Component<GithubPickerProps> {}
+export interface GithubPickerProps extends ColorPickerProps<GithubPicker> {
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    triangle?: 'hide' | 'top-left' | 'top-right' | undefined;
+    styles?: Partial<Classes<GithubPickerStylesProps>> | undefined;
+    onSwatchHover?(color: ColorResult, event: MouseEvent): void;
+}
+
+export default class GithubPicker extends Component<GithubPickerProps> { }

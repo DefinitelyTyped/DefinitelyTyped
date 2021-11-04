@@ -2,7 +2,7 @@
 // Project: https://github.com/mike-marcacci/node-redlock
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import * as redis from 'redis';
 import * as Promise from 'bluebird';
@@ -23,9 +23,9 @@ declare namespace Redlock {
     }
 
     interface Options {
-        driftFactor?: number;
-        retryCount?: number;
-        retryDelay?: number;
+        driftFactor?: number | undefined;
+        retryCount?: number | undefined;
+        retryDelay?: number | undefined;
     }
 
     class LockError extends Error {

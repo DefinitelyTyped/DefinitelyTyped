@@ -1,4 +1,9 @@
 import { Path, LocationState, LocationKey, Location, LocationDescriptor } from './index';
 
-export function locationsAreEqual(lv: LocationDescriptor, rv: LocationDescriptor): boolean;
-export function createLocation(path: LocationDescriptor, state?: LocationState, key?: LocationKey, currentLocation?: Location): Location;
+export function locationsAreEqual<S = LocationState>(lv: LocationDescriptor<S>, rv: LocationDescriptor<S>): boolean;
+export function createLocation<S = LocationState>(
+    path: LocationDescriptor<S>,
+    state?: S,
+    key?: LocationKey,
+    currentLocation?: Location<S>,
+): Location<S>;

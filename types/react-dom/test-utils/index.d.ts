@@ -1,80 +1,78 @@
 import {
     AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
+    DOMElement, FunctionComponentElement, CElement,
     ReactHTMLElement, DOMAttributes, SFC
 } from 'react';
 
 import * as ReactTestUtils from ".";
 
+export {};
+
 export interface OptionalEventProperties {
-    bubbles?: boolean;
-    cancelable?: boolean;
-    currentTarget?: EventTarget;
-    defaultPrevented?: boolean;
-    eventPhase?: number;
-    isTrusted?: boolean;
-    nativeEvent?: Event;
+    bubbles?: boolean | undefined;
+    cancelable?: boolean | undefined;
+    currentTarget?: EventTarget | undefined;
+    defaultPrevented?: boolean | undefined;
+    eventPhase?: number | undefined;
+    isTrusted?: boolean | undefined;
+    nativeEvent?: Event | undefined;
     preventDefault?(): void;
     stopPropagation?(): void;
-    target?: EventTarget;
-    timeStamp?: Date;
-    type?: string;
+    target?: EventTarget | undefined;
+    timeStamp?: Date | undefined;
+    type?: string | undefined;
 }
 
 export interface SyntheticEventData extends OptionalEventProperties {
-    altKey?: boolean;
-    button?: number;
-    buttons?: number;
-    clientX?: number;
-    clientY?: number;
-    changedTouches?: TouchList;
-    charCode?: boolean;
-    clipboardData?: DataTransfer;
-    ctrlKey?: boolean;
-    deltaMode?: number;
-    deltaX?: number;
-    deltaY?: number;
-    deltaZ?: number;
-    detail?: number;
+    altKey?: boolean | undefined;
+    button?: number | undefined;
+    buttons?: number | undefined;
+    clientX?: number | undefined;
+    clientY?: number | undefined;
+    changedTouches?: TouchList | undefined;
+    charCode?: number | undefined;
+    clipboardData?: DataTransfer | undefined;
+    ctrlKey?: boolean | undefined;
+    deltaMode?: number | undefined;
+    deltaX?: number | undefined;
+    deltaY?: number | undefined;
+    deltaZ?: number | undefined;
+    detail?: number | undefined;
     getModifierState?(key: string): boolean;
-    key?: string;
-    keyCode?: number;
-    locale?: string;
-    location?: number;
-    metaKey?: boolean;
-    pageX?: number;
-    pageY?: number;
-    relatedTarget?: EventTarget;
-    repeat?: boolean;
-    screenX?: number;
-    screenY?: number;
-    shiftKey?: boolean;
-    targetTouches?: TouchList;
-    touches?: TouchList;
-    view?: AbstractView;
-    which?: number;
+    key?: string | undefined;
+    keyCode?: number | undefined;
+    locale?: string | undefined;
+    location?: number | undefined;
+    metaKey?: boolean | undefined;
+    pageX?: number | undefined;
+    pageY?: number | undefined;
+    relatedTarget?: EventTarget | undefined;
+    repeat?: boolean | undefined;
+    screenX?: number | undefined;
+    screenY?: number | undefined;
+    shiftKey?: boolean | undefined;
+    targetTouches?: TouchList | undefined;
+    touches?: TouchList | undefined;
+    view?: AbstractView | undefined;
+    which?: number | undefined;
 }
 
 export type EventSimulator = (element: Element | Component<any>, eventData?: SyntheticEventData) => void;
 
 export interface MockedComponentClass {
-    new (props: {}): any;
+    new (props: any): any;
 }
 
 export interface ShallowRenderer {
     /**
      * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
      */
-    getRenderOutput<E extends ReactElement<any>>(): E;
-    /**
-     * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
-     */
-    getRenderOutput(): ReactElement<any>;
+    getRenderOutput<E extends ReactElement>(): E;
     /**
      * Similar to `ReactDOM.render` but it doesn't require DOM and only renders a single level deep.
      */
-    render(element: ReactElement<any>, context?: any): void;
+    render(element: ReactElement, context?: any): void;
     unmount(): void;
 }
 
@@ -159,9 +157,13 @@ export namespace Simulate {
 export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>): T;
 export function renderIntoDocument(
-    element: SFCElement<any>): void;
-export function renderIntoDocument<T extends Component<any>>(
-    element: CElement<any, T>): T;
+    element: FunctionComponentElement<any>): void;
+// If we replace `P` with `any` in this overload, then some tests fail because
+// calls to `renderIntoDocument` choose the last overload on the
+// subtype-relation pass and get an undesirably broad return type.  Using `P`
+// allows this overload to match on the subtype-relation pass.
+export function renderIntoDocument<P, T extends Component<P>>(
+    element: CElement<P, T>): T;
 export function renderIntoDocument<P>(
     element: ReactElement<P>): Component<P> | Element | void;
 
@@ -182,22 +184,22 @@ export function isElement(element: any): boolean;
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<T extends HTMLElement>(
-    element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
+    element: ReactElement, type: string): element is ReactHTMLElement<T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
-    element: ReactElement<any>, type: string): element is DOMElement<P, T>;
+    element: ReactElement, type: string): element is DOMElement<P, T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P>(
-    element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
+    element: ReactElement, type: SFC<P>): element is FunctionComponentElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-    element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
+    element: ReactElement, type: ClassType<P, T, C>): element is CElement<P, T>;
 
 /**
  * Returns `true` if `instance` is a DOM component (such as a `<div>` or `<span>`).
@@ -257,7 +259,7 @@ export function findRenderedDOMComponentWithTag(
 /**
  * Finds all instances of components with type equal to `componentClass`.
  */
-export function scryRenderedComponentsWithType<T extends Component, C extends ComponentClass>(
+export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
     type: ClassType<any, T, C>): T[];
 
@@ -266,7 +268,7 @@ export function scryRenderedComponentsWithType<T extends Component, C extends Co
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
  */
-export function findRenderedComponentWithType<T extends Component, C extends ComponentClass>(
+export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
     type: ClassType<any, T, C>): T;
 
@@ -274,3 +276,32 @@ export function findRenderedComponentWithType<T extends Component, C extends Com
  * Call this in your tests to create a shallow renderer.
  */
 export function createRenderer(): ShallowRenderer;
+
+/**
+ * Wrap any code rendering and triggering updates to your components into `act()` calls.
+ *
+ * Ensures that the behavior in your tests matches what happens in the browser
+ * more closely by executing pending `useEffect`s before returning. This also
+ * reduces the amount of re-renders done.
+ *
+ * @param callback A synchronous, void callback that will execute as a single, complete React commit.
+ *
+ * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+ */
+// NOTES
+// - the order of these signatures matters - typescript will check the signatures in source order.
+//   If the `() => VoidOrUndefinedOnly` signature is first, it'll erroneously match a Promise returning function for users with
+//   `strictNullChecks: false`.
+// - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+// tslint:disable-next-line: void-return
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+export function act(callback: () => Promise<void>): Promise<undefined>;
+export function act(callback: () => VoidOrUndefinedOnly): void;
+
+// Intentionally doesn't extend PromiseLike<never>.
+// Ideally this should be as hard to accidentally use as possible.
+export interface DebugPromiseLike {
+    // the actual then() in here is 0-ary, but that doesn't count as a PromiseLike.
+    then(onfulfilled: (value: never) => never, onrejected: (reason: never) => never): never;
+}

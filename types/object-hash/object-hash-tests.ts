@@ -1,49 +1,37 @@
-
+/// <reference types="node" />
 
 import hash = require('object-hash');
+import stream = require('stream');
 
-var hashed: string;
+const obj = { any: true };
 
-var obj = { any: true };
+// $ExpectType string
+let hashed = hash(obj);
 
-// hash object
-hashed = hash(obj);
+hashed = hash.sha1(obj); // $ExpectType string
+hashed = hash.keys(obj); // $ExpectType string
+hashed = hash.MD5(obj); // $ExpectType string
+hashed = hash.keysMD5(obj); // $ExpectType string
 
-hashed = hash.sha1(obj);
-hashed = hash.keys(obj);
-hashed = hash.MD5(obj);
-hashed = hash.keysMD5(obj);
+hash(undefined); // $ExpectError
+hash(''); // $ExpectType string
 
-var options = {
-	algorithm: 'md5',
-	encoding: 'utf8',
-	excludeValues: true,
-	unorderedArrays: true
+const passThroughStream = new stream.PassThrough();
+hash.writeToStream(obj, passThroughStream);
+hashed = passThroughStream.read().toString();
+
+const options: hash.Options = {
+    algorithm: 'md5',
+    encoding: 'hex',
+    excludeValues: true,
+    unorderedArrays: true,
 };
 
+// $ExpectType string
 hashed = hash(obj, options);
 
-// HashTable
-var table: any;
-table = hash.HashTable();
-table = hash.HashTable(options);
-
-table = table.add(obj);
-table = table.add(obj, obj);
-table = table.remove(obj);
-table = table.remove(obj, obj);
-
-var has: boolean = table.hasKey('whatEver');
-var value: any = table.getValue('whatEver');
-var count: number = table.getCount('whatEver');
-
-var tableObject = table.table();
-tableObject['whatEver'].value;
-tableObject['whatEver'].count;
-
-var tableArray = table.toArray();
-tableArray.shift().value;
-tableArray.pop().count;
-tableArray[2].hash;
-
-table = table.reset();
+// $ExpectType Buffer
+const bufferHashed = hash(obj, {
+    ...options,
+    encoding: 'buffer',
+});

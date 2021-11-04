@@ -2,7 +2,7 @@
 // Project: https://github.com/faceyspacey/redux-first-router-restore-scroll#readme
 // Definitions by: icopp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import { History, Location } from 'history';
 import { LocationState } from 'redux-first-router';
@@ -20,7 +20,7 @@ import { LocationState } from 'redux-first-router';
  */
 export default function restoreScroll(options?: {
     /** @default false */
-    manual?: boolean;
+    manual?: boolean | undefined;
     /** Use to implement custom scroll positioning. */
     shouldUpdateScroll?(prev: LocationState, locationState: LocationState): boolean | 'profile-box' | [number, number];
     /**
@@ -33,5 +33,5 @@ export default function restoreScroll(options?: {
         setPrevKey(key: string | null): void;
         read(location: Location, key: string | null): Location;
         save(location: Location, key: string | null, value: any): void;
-    };
+    } | undefined;
 }): (history: History) => object;

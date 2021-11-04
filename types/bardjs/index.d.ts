@@ -2,7 +2,7 @@
 // Project: https://github.com/wardbell/bardjs
 // Definitions by: Andrew Archibald <https://github.com/TepigMC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 /// <reference types="angular" />
 /// <reference types="chai" />
@@ -115,7 +115,7 @@ declare namespace bard {
      *    [strings]   - same string array you'd use to set fn.$inject
      *    (...string) - string arguments turned into a string array
      */
-    function inject(context?: Function | Mocha.IHookCallbackContext, ...args: string[]): void;
+    function inject(context?: Function | Mocha.Context, ...args: string[]): void;
 
     /**
      * Write to console if bard debugging flag is on
@@ -128,7 +128,7 @@ declare namespace bard {
      *     var runner = mocha.run();
      *     bard.mochaRunnerListener(runner);
      */
-    function mochaRunnerListener(runner: Mocha.IRunner): void;
+    function mochaRunnerListener(runner: Mocha.Runner): void;
 
     /**
      * Mocks out a service with sinon stubbed functions

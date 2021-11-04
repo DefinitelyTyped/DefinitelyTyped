@@ -3,9 +3,6 @@
 // Definitions by: Wael BEN ZID EL GUEBSI <https://github.com/benzid-wael/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
 /**
  * Defines prettyjson version
  */
@@ -19,7 +16,7 @@ export declare var version: string;
  * @param indentation {number} Indentation size.
  *
  * @return {string} pretty serialized json data ready to display.
-   */
+ */
 export declare function render(data: any, options?: RendererOptions, indentation?: number): string;
 
 /**
@@ -30,25 +27,25 @@ export declare function render(data: any, options?: RendererOptions, indentation
  * @param indentation {number} Indentation size.
  *
  * @return {string} pretty serialized json data ready to display.
-   */
+ */
 export declare function renderString(data: string, options?: RendererOptions, indentation?: number): string;
 
 export interface RendererOptions {
-
     /**
      * Define behavior for Array objects
      */
-    emptyArrayMsg?: string;  // default: (empty)
-    inlineArrays?: boolean;
+    emptyArrayMsg?: string | undefined;  // default: (empty)
+    inlineArrays?: boolean | undefined;
+    noAlign?: boolean | undefined;
 
     /**
      * Color definition
      */
-    noColor?: boolean;
-    keysColor?: string;
-    dashColor?: string;
-    numberColor?: string;
-    stringColor?: string;
+    noColor?: boolean | undefined;
+    keysColor?: string | undefined;
+    dashColor?: string | undefined;
+    numberColor?: string | undefined;
+    stringColor?: string | undefined;
 
-    defaultIndentation?: number;
+    defaultIndentation?: number | undefined;
 }

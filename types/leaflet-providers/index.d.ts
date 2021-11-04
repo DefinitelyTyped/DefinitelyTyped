@@ -1,6 +1,7 @@
-// Type definitions for leaflet-providers 1.1
+// Type definitions for leaflet-providers 1.2
 // Project: https://github.com/leaflet-extras/leaflet-providers#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
+//                 Simon Legner <https://github.com/simon04>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,7 +10,7 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
   namespace TileLayer {
     class Provider extends TileLayer {
-      constructor(provider: string, options?: TileLayerOptions)
+      constructor(provider: string, options?: TileLayerOptions | { [name: string]: string; })
     }
 
     namespace Provider {
@@ -21,13 +22,13 @@ declare module 'leaflet' {
 
       interface ProviderConfig {
         url: string;
-        options?: TileLayerOptions;
-        variants?: {[variantName: string]: string | ProviderConfig};
+        options?: TileLayerOptions | undefined;
+        variants?: {[variantName: string]: string | ProviderConfig} | undefined;
       }
     }
   }
 
   namespace tileLayer {
-    function provider(provider: string, options?: TileLayerOptions): TileLayer.Provider;
+    function provider(provider: string, options?: TileLayerOptions | { [name: string]: string; }): TileLayer.Provider;
   }
 }

@@ -82,7 +82,8 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
     // $ExpectType (number | null)[]
     const emptiedArray = removeEmpty([undefined, 0, 1, 2, undefined, 3, undefined, null]); // [0, 1, 2, 3, null]
 
-    // $ExpectType NonEmptyObject<{ a: number; b: string; c: undefined; d: null; }, "b" | "a" | "d">
+    /* tslint:disable-next-line:max-line-length */
+    // $ExpectType NonEmptyObject<{ a: number; b: string; c: undefined; d: null; }, "b" | "a" | "d"> || NonEmptyObject<{ a: number; b: string; c: undefined; d: null; }, DefinedObjKeys<{ a: number; b: string; c: undefined; d: null; }>>
     const emptiedObject = removeEmpty({ a: 1, b: 'b', c: undefined, d: null }); // {a: 1, b: 'b', d: null}
     const {
         a, // $ExpectType number

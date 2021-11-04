@@ -1,8 +1,8 @@
 // Type definitions for Espruino 1.94
-// Project: http://www.espruino.com/
+// Project: http://www.espruino.com/, https://github.com/espruino/espruinotools
 // Definitions by: Stanislav Berkov <https://github.com/stasberkov>
 //                 Jurand Niemczycki <https://github.com/createdbyjurand>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare interface Object {
     removeListener(event: string, listener: any): any;
@@ -1418,7 +1418,7 @@ declare var SPI3: SPI;
 declare interface I2CSetupOptions {
     scl: Pin;
     sda: Pin;
-    bitrate?: number;
+    bitrate?: number | undefined;
 }
 
 /**
@@ -2075,7 +2075,7 @@ declare namespace ESP8266 {
 /**
 * <p>This library allows you to create http servers and make http requests</p>
 * <p>In order to use this, you will need an extra module to get network connectivity such as the <a href="/CC3000">TI CC3000</a> or <a href="/WIZnet">WIZnet W5500</a>.</p>
-* <p>This is designed to be a cut-down version of the <a href="http://nodejs.org/api/http.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
+* <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/http.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
 * 
 * @url http://www.espruino.com/Reference#l_http_undefined
 */
@@ -2507,7 +2507,7 @@ declare namespace url {
 /**
 * <p>This library allows you to create TCPIP servers and clients</p>
 * <p>In order to use this, you will need an extra module to get network connectivity.</p>
-* <p>This is designed to be a cut-down version of the <a href="http://nodejs.org/api/net.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
+* <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/net.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
 * 
 * @url http://www.espruino.com/Reference#l_net_undefined
 */
@@ -2620,7 +2620,7 @@ declare interface Socket {
 /**
 * <p>This library allows you to create TCPIP servers and clients using TLS encryption</p>
 * <p>In order to use this, you will need an extra module to get network connectivity.</p>
-* <p>This is designed to be a cut-down version of the <a href="http://nodejs.org/api/tls.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
+* <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/tls.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
 * 
 * @url http://www.espruino.com/Reference#l_tls_undefined
 */

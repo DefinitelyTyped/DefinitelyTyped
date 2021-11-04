@@ -12,6 +12,7 @@ class Test extends React.Component {
                 nextLabel={'next'}
                 breakLabel={'break-me'}
                 breakClassName={'break-class'}
+                breakLinkClassName={'break-link'}
                 onPageChange={(selectedItem: {selected: number}) => null}
                 initialPage={2}
                 forcePage={3}
@@ -19,7 +20,9 @@ class Test extends React.Component {
                 containerClassName={'container'}
                 pageClassName={'page-li'}
                 pageLinkClassName={'page-a'}
+                pageLabelBuilder={(page: number) => `${page}`}
                 activeClassName={'active'}
+                activeLinkClassName={'active'}
                 previousClassName={'previous-li'}
                 nextClassName={'next-li'}
                 previousLinkClassName={'previous-a'}
@@ -27,6 +30,8 @@ class Test extends React.Component {
                 disabledClassName={'disabled'}
                 hrefBuilder={(pageIndex: number) => null}
                 extraAriaContext={'aria'}
+                ariaLabelBuilder={(page, selected) => selected ? 'Current page' : 'Goto page ' + page}
+                eventListener={'onMouseOver'}
             />
         );
     }

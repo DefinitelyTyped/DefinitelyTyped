@@ -1,8 +1,8 @@
-// Type definitions for ArangoDB 3.4
+// Type definitions for non-npm package ArangoDB 3.5
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="node" />
 
@@ -89,7 +89,7 @@ declare namespace ArangoDB {
         | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
-    type IndexType = "hash" | "skiplist" | "fulltext" | "geo";
+    type IndexType = "persistent" | "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
     type ViewType = "arangosearch";
     type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
@@ -458,26 +458,26 @@ declare namespace ArangoDB {
     }
 
     interface CollectionPropertiesOptions {
-        waitForSync?: boolean;
-        journalSize?: number;
-        indexBuckets?: number;
-        replicationFactor?: number;
+        waitForSync?: boolean | undefined;
+        journalSize?: number | undefined;
+        indexBuckets?: number | undefined;
+        replicationFactor?: number | undefined;
     }
 
     interface CreateCollectionOptions {
-        waitForSync?: boolean;
-        journalSize?: number;
-        isVolatile?: boolean;
-        isSystem?: boolean;
+        waitForSync?: boolean | undefined;
+        journalSize?: number | undefined;
+        isVolatile?: boolean | undefined;
+        isSystem?: boolean | undefined;
         keyOptions?: {
-            type?: KeyGeneratorType;
-            allowUserKeys?: boolean;
-            increment?: number;
-            offset?: number;
-        };
-        numberOfShards?: number;
-        shardKeys?: string[];
-        replicationFactor?: number;
+            type?: KeyGeneratorType | undefined;
+            allowUserKeys?: boolean | undefined;
+            increment?: number | undefined;
+            offset?: number | undefined;
+        } | undefined;
+        numberOfShards?: number | undefined;
+        shardKeys?: string[] | undefined;
+        replicationFactor?: number | undefined;
     }
 
     interface CollectionProperties {
@@ -488,13 +488,13 @@ declare namespace ArangoDB {
         keyOptions?: {
             type: KeyGeneratorType;
             allowUserKeys: boolean;
-            increment?: number;
-            offset?: number;
-        };
+            increment?: number | undefined;
+            offset?: number | undefined;
+        } | undefined;
         indexBuckets: number;
-        numberOfShards?: number;
-        shardKeys?: string[];
-        replicationFactor?: number;
+        numberOfShards?: number | undefined;
+        shardKeys?: string[] | undefined;
+        replicationFactor?: number | undefined;
     }
 
     // Indexes
@@ -507,18 +507,23 @@ declare namespace ArangoDB {
     interface IndexDescription<T> {
         type: IndexType;
         fields: ReadonlyArray<keyof T | string>;
-        sparse?: boolean;
-        unique?: boolean;
-        deduplicate?: boolean;
+        sparse?: boolean | undefined;
+        unique?: boolean | undefined;
+        deduplicate?: boolean | undefined;
+        expireAfter?: number | undefined;
+        name?: string | undefined;
+        minLength?: number | undefined;
     }
 
     interface Index<T extends object = any> {
         id: string;
+        name: string;
         type: IndexType;
         fields: Array<keyof T | string>;
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;
+        expireAfter?: number | undefined;
         isNewlyCreated: boolean;
         selectivityEstimate: number;
         code: number;
@@ -551,7 +556,7 @@ declare namespace ArangoDB {
     }
 
     type Document<T extends object = any> = { [K in keyof T]: T[K] } &
-        DocumentMetadata & { _from?: string; _to?: string } & {
+        DocumentMetadata & { _from?: string | undefined; _to?: string | undefined } & {
             [key: string]: any;
         };
     type DocumentData<T extends object = any> = { [K in keyof T]: T[K] } &
@@ -562,54 +567,54 @@ declare namespace ArangoDB {
     };
 
     interface InsertResult<T extends object = any> extends DocumentMetadata {
-        new?: Document<T>;
+        new?: Document<T> | undefined;
     }
     interface UpdateResult<T extends object = any> extends UpdateMetadata {
-        old?: Document<T>;
-        new?: Document<T>;
+        old?: Document<T> | undefined;
+        new?: Document<T> | undefined;
     }
     interface RemoveResult<T extends object = any> extends DocumentMetadata {
-        old?: Document<T>;
+        old?: Document<T> | undefined;
     }
 
     interface InsertOptions {
-        waitForSync?: boolean;
-        silent?: boolean;
-        returnNew?: boolean;
+        waitForSync?: boolean | undefined;
+        silent?: boolean | undefined;
+        returnNew?: boolean | undefined;
     }
 
     interface ReplaceOptions extends InsertOptions {
-        overwrite?: boolean;
-        returnOld?: boolean;
+        overwrite?: boolean | undefined;
+        returnOld?: boolean | undefined;
     }
 
     interface UpdateOptions extends ReplaceOptions {
-        keepNull?: boolean;
-        mergeObjects?: boolean;
+        keepNull?: boolean | undefined;
+        mergeObjects?: boolean | undefined;
     }
 
     interface UpdateByExampleOptions {
-        keepNull?: boolean;
-        waitForSync?: boolean;
-        limit?: number;
-        mergeObjects?: boolean;
+        keepNull?: boolean | undefined;
+        waitForSync?: boolean | undefined;
+        limit?: number | undefined;
+        mergeObjects?: boolean | undefined;
     }
 
     interface RemoveOptions {
-        waitForSync?: boolean;
-        overwrite?: boolean;
-        returnOld?: boolean;
-        silent?: boolean;
+        waitForSync?: boolean | undefined;
+        overwrite?: boolean | undefined;
+        returnOld?: boolean | undefined;
+        silent?: boolean | undefined;
     }
 
     interface RemoveByExampleOptions {
-        waitForSync?: boolean;
-        limit?: number;
+        waitForSync?: boolean | undefined;
+        limit?: number | undefined;
     }
 
     interface IterateOptions {
-        limit?: number;
-        probability?: number;
+        limit?: number | undefined;
+        probability?: number | undefined;
     }
 
     type DocumentIterator<T extends object> = (
@@ -619,12 +624,14 @@ declare namespace ArangoDB {
 
     interface Collection<T extends object = any> {
         // Collection
+        name(): string;
         checksum(
             withRevisions?: boolean,
             withData?: boolean
         ): CollectionChecksum;
         count(): number;
-        drop(options?: { isSystem?: boolean }): void;
+        documentId(documentKey: string): string;
+        drop(options?: { isSystem?: boolean | undefined }): void;
         figures(): CollectionFigures;
         load(): void;
         path(): string;
@@ -652,8 +659,9 @@ declare namespace ArangoDB {
         document(
             selectors: ReadonlyArray<string | DocumentLike>
         ): Array<Document<T>>;
-        exists(name: string): boolean;
+        exists(name: string): DocumentMetadata | false;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
+        getResponsibleShard(document: DocumentLike): string;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         insert(
             array: ReadonlyArray<DocumentData<T>>,
@@ -712,7 +720,7 @@ declare namespace ArangoDB {
         replaceByExample(
             example: Partial<Document<T>>,
             newValue: DocumentData<T>,
-            options?: { waitForSync?: boolean; limit?: number }
+            options?: { waitForSync?: boolean | undefined; limit?: number | undefined }
         ): number;
         save(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         save(
@@ -753,17 +761,17 @@ declare namespace ArangoDB {
 
     interface DatabaseUser {
         username: string;
-        passwd?: string;
-        active?: boolean;
-        extra?: object;
+        passwd?: string | undefined;
+        active?: boolean | undefined;
+        extra?: object | undefined;
     }
 
     // AQL
 
     interface Query {
         query: string;
-        bindVars?: object;
-        options?: QueryOptions;
+        bindVars?: object | undefined;
+        options?: QueryOptions | undefined;
     }
 
     interface AqlLiteral {
@@ -790,21 +798,21 @@ declare namespace ArangoDB {
     }
 
     interface QueryOptions {
-        memoryLimit?: number;
-        failOnWarning?: boolean;
-        cache?: boolean;
-        count?: boolean;
-        fullCount?: boolean;
-        profile?: boolean;
-        maxWarningCount?: number;
-        maxNumberOfPlans?: number;
-        stream?: boolean;
+        memoryLimit?: number | undefined;
+        failOnWarning?: boolean | undefined;
+        cache?: boolean | undefined;
+        count?: boolean | undefined;
+        fullCount?: boolean | undefined;
+        profile?: boolean | undefined;
+        maxWarningCount?: number | undefined;
+        maxNumberOfPlans?: number | undefined;
+        stream?: boolean | undefined;
         // RocksDB
-        maxTransactionsSize?: number;
-        intermediateCommitSize?: number;
-        intermediateCommitCount?: number;
+        maxTransactionsSize?: number | undefined;
+        intermediateCommitSize?: number | undefined;
+        intermediateCommitCount?: number | undefined;
         // enterprise
-        skipInaccessibleCollections?: boolean;
+        skipInaccessibleCollections?: boolean | undefined;
     }
 
     interface QueryExtra {
@@ -823,7 +831,7 @@ declare namespace ArangoDB {
 
     interface QueryAstNode {
         type: string;
-        subNodes?: QueryAstNode[];
+        subNodes?: QueryAstNode[] | undefined;
         [key: string]: any;
     }
 
@@ -855,11 +863,11 @@ declare namespace ArangoDB {
         | "fill";
 
     interface ArangoSearchViewCollectionLink {
-        analyzers?: string[];
-        fields?: { [key: string]: ArangoSearchViewCollectionLink | undefined };
-        includeAllFields?: boolean;
-        trackListPositions?: boolean;
-        storeValues?: "none" | "id";
+        analyzers?: string[] | undefined;
+        fields?: { [key: string]: ArangoSearchViewCollectionLink | undefined } | undefined;
+        includeAllFields?: boolean | undefined;
+        trackListPositions?: boolean | undefined;
+        storeValues?: "none" | "id" | undefined;
     }
 
     interface ArangoSearchViewProperties {
@@ -880,35 +888,35 @@ declare namespace ArangoDB {
     }
 
     interface ArangoSearchViewPropertiesOptions {
-        cleanupIntervalStep?: number;
-        consolidationIntervalMsec?: number;
+        cleanupIntervalStep?: number | undefined;
+        consolidationIntervalMsec?: number | undefined;
         consolidationPolicy?: {
-            type?: ArangoSearchViewConsolidationType;
-            segmentThreshold?: number;
-            threshold?: number;
-        };
+            type?: ArangoSearchViewConsolidationType | undefined;
+            segmentThreshold?: number | undefined;
+            threshold?: number | undefined;
+        } | undefined;
         links?: {
             [key: string]: ArangoSearchViewCollectionLink | undefined;
-        };
+        } | undefined;
     }
 
     // Global
 
     interface TransactionCollections {
-        read?: string | string[];
-        write?: string | string[];
-        allowImplicit?: boolean;
+        read?: string | string[] | undefined;
+        write?: string | string[] | undefined;
+        allowImplicit?: boolean | undefined;
     }
-    interface Transaction {
+    interface Transaction<ReturnType = any> {
         collections: TransactionCollections | string[];
-        action: (params: object) => void | string;
-        waitForSync?: boolean;
-        lockTimeout?: number;
-        params?: object;
+        action: (params: object) => ReturnType;
+        waitForSync?: boolean | undefined;
+        lockTimeout?: number | undefined;
+        params?: object | undefined;
         // RocksDB
-        maxTransactionsSize?: number;
-        intermediateCommitSize?: number;
-        intermediateCommitCount?: number;
+        maxTransactionsSize?: number | undefined;
+        intermediateCommitSize?: number | undefined;
+        intermediateCommitCount?: number | undefined;
     }
 
     interface Database {
@@ -950,8 +958,9 @@ declare namespace ArangoDB {
 
         // AQL
         _createStatement(query: Query | string): Statement;
+        _query(query: Query, options?: QueryOptions): Cursor;
         _query(
-            query: Query | string,
+            query: string,
             bindVars?: object,
             options?: QueryOptions
         ): Cursor;
@@ -984,7 +993,7 @@ declare namespace ArangoDB {
         // Global
         _engine(): EngineType;
         _engineStats(): { [key: string]: any };
-        _executeTransaction(transaction: Transaction): void;
+        _executeTransaction<T>(transaction: Transaction<T>): T;
     }
 }
 
@@ -995,14 +1004,14 @@ declare namespace Foxx {
         data: any;
     }
     interface SessionStorage {
-        new?: () => Session;
+        new?: (() => Session) | undefined;
         fromClient: (sid: string) => Session | null;
         forClient: (session: Session) => string | null;
     }
     interface SessionTransport {
-        get?: (req: Request) => string | null;
-        set?: (res: Response, sid: string) => void;
-        clear?: (res: Response) => void;
+        get?: ((req: Request) => string | null) | undefined;
+        set?: ((res: Response, sid: string) => void) | undefined;
+        clear?: ((res: Response) => void) | undefined;
     }
     interface CollectionSessionStorage extends SessionStorage {
         new: () => Session;
@@ -1024,23 +1033,23 @@ declare namespace Foxx {
         register: (endpoint: Endpoint) => SimpleMiddleware;
     }
     type Middleware = SimpleMiddleware | DelegateMiddleware;
-    type Handler = ((req: Request, res: Response) => void);
+    type Handler = (req: Request, res: Response) => void;
     type NextFunction = () => void;
 
     interface ValidationResult<T> {
         value: T;
-        error: any;
+        error?: any;
+        errors?: any;
     }
 
     interface Schema {
-        isJoi: boolean;
-        validate<T>(value: T): ValidationResult<T>;
+        validate<T>(value: T, options?: any): ValidationResult<T>;
     }
 
     interface Model {
         schema: Schema;
-        fromClient?: (value: any) => any;
-        forClient?: (value: any) => any;
+        fromClient?: ((value: any) => any) | undefined;
+        forClient?: ((value: any) => any) | undefined;
     }
 
     interface DocumentationRouterOptions {
@@ -1053,24 +1062,24 @@ declare namespace Foxx {
     interface MediaType {
         type: string;
         subtype: string;
-        suffix?: string;
+        suffix?: string | undefined;
         parameters: {
             charset: string;
         };
     }
 
     interface TypeDefinition {
-        fromClient?: (
+        fromClient?: ((
             body: string | Buffer,
             req: Request,
             type: MediaType
-        ) => any;
-        forClient?: (
+        ) => any) | undefined;
+        forClient?: ((
             body: any
         ) => {
             data: string;
             headers: { [key: string]: string | undefined };
-        };
+        }) | undefined;
     }
 
     type Ranges = Array<{
@@ -1089,43 +1098,51 @@ declare namespace Foxx {
         | "bool";
     interface ConfigurationDefinition {
         default?: any;
-        type?: ConfigurationType;
-        description?: string;
+        type?: ConfigurationType | undefined;
+        description?: string | undefined;
         required: boolean;
     }
     interface DependencyDefinition {
         name: string;
         version: string;
-        description?: string;
+        description?: string | undefined;
         required: boolean;
         multiple: boolean;
     }
     interface AssetDefinition {
         path: string;
-        gzip?: boolean;
-        type?: string;
+        gzip?: boolean | undefined;
+        type?: string | undefined;
     }
 
     interface Manifest {
-        name?: string;
-        version?: string;
-        keywords?: string;
-        license?: string;
-        repository?: { type: string; url: string };
+        name?: string | undefined;
+        version?: string | undefined;
+        keywords?: string | undefined;
+        license?: string | undefined;
+        repository?: { type: string; url: string } | undefined;
         author: string;
-        contributors?: any[];
+        contributors?: any[] | undefined;
         description: string;
-        thumbnail?: string;
-        engines?: { [key: string]: string | undefined };
-        defaultDocument?: string;
+        thumbnail?: string | undefined;
+        engines?: { [key: string]: string | undefined } | undefined;
+        defaultDocument?: string | undefined;
         lib: string;
-        main?: string;
-        configuration?: { [key: string]: ConfigurationDefinition };
-        dependencies?: { [key: string]: DependencyDefinition };
-        provides?: { [key: string]: string | undefined };
-        files?: { [key: string]: AssetDefinition };
-        scripts?: { [key: string]: string | undefined };
-        tests?: string[];
+        main?: string | undefined;
+        configuration?: { [key: string]: ConfigurationDefinition } | undefined;
+        dependencies?: { [key: string]: DependencyDefinition } | undefined;
+        provides?: { [key: string]: string | undefined } | undefined;
+        files?: { [key: string]: AssetDefinition } | undefined;
+        scripts?: { [key: string]: string | undefined } | undefined;
+        tests?: string[] | undefined;
+    }
+
+    interface Configuration {
+        [key: string]: any;
+    }
+
+    interface Dependencies {
+        [key: string]: any;
     }
 
     interface Context {
@@ -1133,8 +1150,8 @@ declare namespace Foxx {
         basePath: string;
         baseUrl: string;
         collectionPrefix: string;
-        configuration: { [key: string]: any };
-        dependencies: { [key: string]: any };
+        configuration: Configuration;
+        dependencies: Dependencies;
         isDevelopment: boolean;
         isProduction: boolean;
         manifest: Manifest;
@@ -1162,6 +1179,10 @@ declare namespace Foxx {
     interface Request {
         arangoUser: string | null;
         arangoVersion: number;
+        auth: null | {
+            bearer?: string | undefined;
+            basic?: { username?: string | undefined; password?: string | undefined } | undefined;
+        };
         baseUrl: string;
         body: any;
         context: Context;
@@ -1180,8 +1201,8 @@ declare namespace Foxx {
         remoteAddresses: string[];
         remotePort: number;
         secure: boolean;
-        session?: Session;
-        sessionStorage?: SessionStorage;
+        session?: Session | undefined;
+        sessionStorage?: SessionStorage | undefined;
         suffix: string;
         trustProxy: boolean;
         url: string;
@@ -1196,7 +1217,7 @@ declare namespace Foxx {
         acceptsLanguages(...languages: string[]): string | false;
         cookie(
             name: string,
-            options?: { secret?: string; algorithm?: ArangoDB.HashAlgorithm }
+            options?: { secret?: string | undefined; algorithm?: ArangoDB.HashAlgorithm | undefined }
         ): string | null;
         get(name: string): string | undefined;
         header(name: string): string | undefined;
@@ -1222,13 +1243,13 @@ declare namespace Foxx {
             name: string,
             value: string,
             options?: {
-                ttl?: number;
-                algorithm?: ArangoDB.HashAlgorithm;
-                secret?: string;
-                path?: string;
-                domain?: string;
-                secure?: boolean;
-                httpOnly?: boolean;
+                ttl?: number | undefined;
+                algorithm?: ArangoDB.HashAlgorithm | undefined;
+                secret?: string | undefined;
+                path?: string | undefined;
+                domain?: string | undefined;
+                secure?: boolean | undefined;
+                httpOnly?: boolean | undefined;
             }
         ): this;
         download(path: string, filename?: string): this;
@@ -1252,12 +1273,12 @@ declare namespace Foxx {
         throw(
             status: number | ArangoDB.HttpStatus,
             reason: string,
-            options?: { cause?: Error; extra?: any }
+            options?: { cause?: Error | undefined; extra?: any }
         ): never;
         throw(status: number | ArangoDB.HttpStatus, error: Error): never;
         throw(
             status: number | ArangoDB.HttpStatus,
-            options?: { cause?: Error; extra?: any }
+            options?: { cause?: Error | undefined; extra?: any }
         ): never;
         type(type?: string): string;
         vary(names: string[]): this;
@@ -1421,6 +1442,7 @@ declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
     namespace aql {
         function literal(value: any): ArangoDB.AqlLiteral;
+        function join(values: any[], sep?: string): ArangoDB.Query;
     }
     function query(
         strings: TemplateStringsArray,
@@ -1440,19 +1462,106 @@ declare module "@arangodb/foxx/router" {
     export = createRouter;
 }
 
+declare module "@arangodb/foxx/queues" {
+    interface QueueItem {
+        name: string;
+        mount: string;
+        backOff?: ((failureCount: number) => number) | number | undefined;
+        maxFailures?: number | undefined;
+        schema?: Foxx.Schema | undefined;
+        preprocess?: ((data: any) => any) | undefined;
+    }
+
+    interface Script {
+        name: string;
+        mount: string;
+    }
+
+    type JobCallback = (
+        result: any,
+        jobData: any,
+        job: ArangoDB.Document<Job>
+    ) => void;
+
+    interface Job {
+        status: string;
+        queue: string;
+        type: Script;
+        failures: object[];
+        runs: number;
+        data: any;
+        created: number;
+        modified: number;
+        delayUntil: number;
+        maxFailures: number;
+        repeatDelay: number;
+        repeatTimes: number;
+        repeatUntil: number;
+        success?: string | undefined;
+        failure?: string | undefined;
+        runFailures: number;
+        abort(): void;
+    }
+
+    interface JobOptions {
+        success?: JobCallback | undefined;
+        failure?: JobCallback | undefined;
+        delayUntil?: number | Date | undefined;
+        backOff?: ((failureCount: number) => number) | number | undefined;
+        maxFailures?: number | undefined;
+        repeatTimes?: number | undefined;
+        repeatUntil?: number | Date | undefined;
+        repeatDelay?: number | undefined;
+    }
+
+    interface Queue {
+        push(item: QueueItem, data: any, opts?: JobOptions): void;
+        get(jobId: string): ArangoDB.Document<Job>;
+        delete(jobId: string): boolean;
+        pending(script?: Script): string[];
+        progress(script?: Script): string[];
+        complete(script?: Script): string[];
+        failed(script?: Script): string[];
+        all(script?: Script): string[];
+    }
+
+    function createQueue(name: string, maxWorkers?: number): Queue;
+    function deleteQueue(name: string): boolean;
+    function get(name: string): Queue;
+
+    export {
+        createQueue as create,
+        deleteQueue as delete,
+        get,
+        JobOptions,
+        Job,
+        Queue,
+        QueueItem,
+        Script
+    };
+}
+
 declare module "@arangodb/foxx/graphql" {
-    import { formatError, GraphQLSchema } from "graphql";
-    type GraphQLModule = object;
-    type GraphQLFormatErrorFunction = typeof formatError;
+    type GraphQLSchema = object;
+    type GraphQLFormatErrorFunction = (error: any) => any;
+    interface GraphQLModule {
+      formatError: GraphQLFormatErrorFunction;
+      Source: any;
+      parse: any;
+      validate: any;
+      specifiedRules: any;
+      getOperationAST: any;
+      execute: any;
+    }
     interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;
-        rootValue?: object;
-        pretty?: boolean;
-        formatError?: GraphQLFormatErrorFunction;
-        validationRules?: any[];
-        graphiql?: boolean;
-        graphql?: GraphQLModule;
+        rootValue?: object | undefined;
+        pretty?: boolean | undefined;
+        formatError?: GraphQLFormatErrorFunction | undefined;
+        validationRules?: any[] | undefined;
+        graphiql?: boolean | undefined;
+        graphql?: GraphQLModule | undefined;
     }
     function createGraphQLRouter(
         options: GraphQLOptions | GraphQLSchema
@@ -1468,7 +1577,7 @@ declare module "@arangodb/foxx/sessions" {
             | Foxx.SessionTransport[]
             | "cookie"
             | "header";
-        autoCreate?: boolean;
+        autoCreate?: boolean | undefined;
     }
     function sessionsMiddleware(
         options: SessionsOptions
@@ -1479,9 +1588,9 @@ declare module "@arangodb/foxx/sessions" {
 declare module "@arangodb/foxx/sessions/storages/collection" {
     interface CollectionStorageOptions {
         collection: string | ArangoDB.Collection;
-        ttl?: number;
-        pruneExpired?: boolean;
-        autoUpdate?: boolean;
+        ttl?: number | undefined;
+        pruneExpired?: boolean | undefined;
+        autoUpdate?: boolean | undefined;
     }
     function collectionStorage(
         options:
@@ -1493,17 +1602,17 @@ declare module "@arangodb/foxx/sessions/storages/collection" {
 
 declare module "@arangodb/foxx/sessions/storages/jwt" {
     interface SafeJwtStorageOptions {
-        algorithm?: ArangoDB.JwtAlgorithm;
+        algorithm?: ArangoDB.JwtAlgorithm | undefined;
         secret: string;
-        ttl?: number;
-        verify?: boolean;
-        maxExp?: number;
+        ttl?: number | undefined;
+        verify?: boolean | undefined;
+        maxExp?: number | undefined;
     }
     interface UnsafeJwtStorageOptions {
         algorithm: "none";
-        ttl?: number;
-        verify?: boolean;
-        maxExp?: number;
+        ttl?: number | undefined;
+        verify?: boolean | undefined;
+        maxExp?: number | undefined;
     }
     function jwtStorage(
         options:
@@ -1516,14 +1625,14 @@ declare module "@arangodb/foxx/sessions/storages/jwt" {
 
 declare module "@arangodb/foxx/sessions/transports/cookie" {
     interface CookieTransportOptions {
-        name?: string;
-        ttl?: number;
-        algorithm?: ArangoDB.HashAlgorithm;
-        secret?: string;
-        path?: string;
-        domain?: string;
-        secure?: string;
-        httpOnly?: string;
+        name?: string | undefined;
+        ttl?: number | undefined;
+        algorithm?: ArangoDB.HashAlgorithm | undefined;
+        secret?: string | undefined;
+        path?: string | undefined;
+        domain?: string | undefined;
+        secure?: string | undefined;
+        httpOnly?: string | undefined;
     }
     function cookieTransport(
         options?: CookieTransportOptions
@@ -1534,7 +1643,7 @@ declare module "@arangodb/foxx/sessions/transports/cookie" {
 
 declare module "@arangodb/foxx/sessions/transports/header" {
     interface HeaderTransportOptions {
-        name?: string;
+        name?: string | undefined;
     }
     function headerTransport(
         options?: HeaderTransportOptions
@@ -1546,6 +1655,7 @@ declare module "@arangodb/foxx/sessions/transports/header" {
 declare module "@arangodb/foxx/auth" {
     interface AuthData {
         method: string;
+        iter?: number | undefined;
         salt: string;
         hash: string;
     }
@@ -1554,10 +1664,15 @@ declare module "@arangodb/foxx/auth" {
         verify(hash?: AuthData, password?: string): boolean;
     }
     interface AuthOptions {
-        method?: ArangoDB.HashAlgorithm;
-        saltLength?: number;
+        method?: ArangoDB.HashAlgorithm | undefined;
+        saltLength?: number | undefined;
     }
-    function createAuth(options?: AuthOptions): Authenticator;
+    interface Pbkdf2AuthOptions {
+        method: "pbkdf2";
+        saltLength?: number | undefined;
+        workFactor?: number | undefined;
+    }
+    function createAuth(options?: AuthOptions | Pbkdf2AuthOptions): Authenticator;
     export = createAuth;
 }
 
@@ -1566,10 +1681,10 @@ declare module "@arangodb/foxx/oauth1" {
         requestTokenEndpoint: string;
         authEndpoint: string;
         accessTokenEndpoint: string;
-        activeUserEndpoint?: string;
+        activeUserEndpoint?: string | undefined;
         clientId: string;
         clientSecret: string;
-        signatureMethod?: "HMAC-SHA1" | "PLAINTEXT";
+        signatureMethod?: "HMAC-SHA1" | "PLAINTEXT" | undefined;
     }
     interface OAuth1Client {
         fetchRequestToken(
@@ -1610,20 +1725,20 @@ declare module "@arangodb/foxx/oauth2" {
     interface OAuth2Options {
         authEndpoint: string;
         tokenEndpoint: string;
-        refreshEndpoint?: string;
-        activeUserEndpoint?: string;
+        refreshEndpoint?: string | undefined;
+        activeUserEndpoint?: string | undefined;
         clientId: string;
         clientSecret: string;
     }
     interface OAuth2Client {
         getAuthUrl(
             redirect_uri: string,
-            options?: { response_type?: string }
+            options?: { response_type?: string | undefined }
         ): string;
         exchangeGrantToken(
             code: string,
             redirect_uri: string,
-            options?: { grant_type?: string }
+            options?: { grant_type?: string | undefined }
         ): any;
         fetchActiveUser(access_token: string): any;
     }
@@ -1647,19 +1762,19 @@ declare module "@arangodb/request" {
         throw(message?: string): void | never;
     }
     interface RequestOptions {
-        qs?: object;
-        useQuerystring?: boolean;
-        headers?: { [key: string]: string | undefined };
+        qs?: object | undefined;
+        useQuerystring?: boolean | undefined;
+        headers?: { [key: string]: string | undefined } | undefined;
         body?: any;
-        json?: boolean;
+        json?: boolean | undefined;
         form?: any;
-        auth?: { username: string; password?: string } | { bearer: string };
-        sslProtocol?: number;
-        followRedirect?: boolean;
-        maxRedirects?: number;
-        encoding?: string | null;
-        timeout?: number;
-        returnBodyOnError?: boolean;
+        auth?: { username: string; password?: string | undefined } | { bearer: string } | undefined;
+        sslProtocol?: number | undefined;
+        followRedirect?: boolean | undefined;
+        maxRedirects?: number | undefined;
+        encoding?: string | null | undefined;
+        timeout?: number | undefined;
+        returnBodyOnError?: boolean | undefined;
     }
     function method(options: { url: string } & RequestOptions): Response;
     function method(url: string, options?: RequestOptions): Response;
@@ -1667,7 +1782,7 @@ declare module "@arangodb/request" {
         (
             options: {
                 url: string;
-                method?: ArangoDB.HttpMethod;
+                method?: ArangoDB.HttpMethod | undefined;
             } & RequestOptions
         ): Response;
         head: typeof method;
@@ -1688,6 +1803,8 @@ declare module "@arangodb/crypto" {
     function genRandomAlphaNumbers(length: number): string;
     function genRandomNumbers(length: number): string;
     function genRandomSalt(length: number): string;
+    function genRandomBytes(length: number): Buffer;
+    function uuidv4(): string;
     function jwtEncode(
         key: string,
         message: string,
@@ -1698,7 +1815,7 @@ declare module "@arangodb/crypto" {
         key: string | null,
         token: string,
         noVerify?: boolean
-    ): string | null;
+    ): object | null;
     function md5(message: string): string;
     function sha1(message: string): string;
     function sha224(message: string): string;
@@ -1769,45 +1886,45 @@ declare module "@arangodb/general-graph" {
     type Betweenness = Eccentricity;
     type Example = Array<object | string> | object | string | null;
     interface ConnectingEdgesOptions {
-        edgeExamples?: Example;
-        edgeCollectionRestriction?: string[] | string;
-        vertex1CollectionRestriction?: string[] | string;
-        vertex2CollectionRestriction?: string[] | string;
+        edgeExamples?: Example | undefined;
+        edgeCollectionRestriction?: string[] | string | undefined;
+        vertex1CollectionRestriction?: string[] | string | undefined;
+        vertex2CollectionRestriction?: string[] | string | undefined;
     }
     interface NeighborsOptions {
-        direction?: ArangoDB.EdgeDirection;
-        edgeExamples?: Example;
-        neighborExamples?: Example;
-        edgeCollectionRestriction?: string[] | string;
-        vertexCollectionRestriction?: string[] | string;
-        minDepth?: number;
-        maxDepth?: number;
+        direction?: ArangoDB.EdgeDirection | undefined;
+        edgeExamples?: Example | undefined;
+        neighborExamples?: Example | undefined;
+        edgeCollectionRestriction?: string[] | string | undefined;
+        vertexCollectionRestriction?: string[] | string | undefined;
+        minDepth?: number | undefined;
+        maxDepth?: number | undefined;
     }
     interface CommonPropertiesOptions {
-        vertex1CollectionRestriction?: string[] | string;
-        vertex2CollectionRestriction?: string[] | string;
-        ignoredProperties?: string[] | string;
+        vertex1CollectionRestriction?: string[] | string | undefined;
+        vertex2CollectionRestriction?: string[] | string | undefined;
+        ignoredProperties?: string[] | string | undefined;
     }
     interface PathsOptions {
-        direction?: ArangoDB.EdgeDirection;
-        followCycles?: boolean;
-        minLength?: number;
-        maxLength?: number;
+        direction?: ArangoDB.EdgeDirection | undefined;
+        followCycles?: boolean | undefined;
+        minLength?: number | undefined;
+        maxLength?: number | undefined;
     }
     interface ShortestPathOptions {
-        direction?: ArangoDB.EdgeDirection;
-        edgeCollectionRestriction?: string[] | string;
-        startVertexCollectionRestriction?: string[] | string;
-        endVertexCollectionRestriction?: string[] | string;
-        weight?: string;
-        defaultWeight?: number;
+        direction?: ArangoDB.EdgeDirection | undefined;
+        edgeCollectionRestriction?: string[] | string | undefined;
+        startVertexCollectionRestriction?: string[] | string | undefined;
+        endVertexCollectionRestriction?: string[] | string | undefined;
+        weight?: string | undefined;
+        defaultWeight?: number | undefined;
     }
     type EccentricityOptions = ShortestPathOptions;
     type ClosenessOptions = ShortestPathOptions;
     interface BetweennessOptions {
-        direction?: ArangoDB.EdgeDirection;
-        weight?: string;
-        defaultWeight?: number;
+        direction?: ArangoDB.EdgeDirection | undefined;
+        weight?: string | undefined;
+        defaultWeight?: number | undefined;
     }
     type RadiusOptions = BetweennessOptions;
     type DiameterOptions = BetweennessOptions;
@@ -1930,6 +2047,12 @@ declare module "@arangodb/locals" {
 
 interface NodeModule {
     context: Foxx.Context;
+}
+
+declare namespace NodeJS {
+    interface Module {
+        context: Foxx.Context;
+    }
 }
 
 interface Console {

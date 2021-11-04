@@ -136,3 +136,15 @@ function testMarkerOptionsIcon() {
         }),
     });
 }
+
+// Set the tooltip text when starting to draw a circle
+L.drawLocal.draw.handlers.circle.tooltip.start = 'Click and drag to draw an amazingly cool circle.';
+
+// Set the button title text for the polygon button
+L.drawLocal.draw.toolbar.buttons.polygon = 'Draw a cool polygon!';
+
+// Set the tooltip start text for the rectangle
+L.drawLocal.draw.handlers.rectangle.tooltip.start = 'Ssshhh, secrets!';
+
+// $ExpectType string
+type drawHandlerCircleRadius = L.Localization.Draw['handlers']['circle']['radius'];

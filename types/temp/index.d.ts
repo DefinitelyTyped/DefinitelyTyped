@@ -1,5 +1,5 @@
-// Type definitions for temp 0.8
-// Project: https://www.npmjs.com/package/temp, https://github.com/bruce/node-temp
+// Type definitions for temp 0.9
+// Project: https://github.com/bruce/node-temp
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -19,26 +19,29 @@ declare namespace temp {
   }
 
   interface AffixOptions {
-    prefix?: string;
-    suffix?: string;
-    dir?: string;
+    prefix?: string | undefined;
+    suffix?: string | undefined;
+    dir?: string | undefined;
   }
 
   let dir: string;
 
   function track(value?: boolean): typeof temp;
 
-  function mkdir(affixes?: string | AffixOptions, callback?: (err: any, dirPath: string) => void): void;
+  function mkdir(affixes: string | AffixOptions | undefined, callback: (err: any, dirPath: string) => void): void;
+  function mkdir(affixes?: string | AffixOptions): Promise<string>;
 
   function mkdirSync(affixes?: string | AffixOptions): string;
 
-  function open(affixes?: string | AffixOptions, callback?: (err: any, result: OpenFile) => void): void;
+  function open(affixes: string | AffixOptions | undefined, callback: (err: any, result: OpenFile) => void): void;
+  function open(affixes?: string | AffixOptions): Promise<OpenFile>;
 
   function openSync(affixes?: string | AffixOptions): OpenFile;
 
   function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
 
-  function cleanup(callback?: (result: boolean | Stats) => void): void;
+  function cleanup(callback: (err: any, result: Stats) => void): void;
+  function cleanup(): Promise<Stats>;
 
   function cleanupSync(): boolean | Stats;
 

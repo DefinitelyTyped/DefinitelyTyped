@@ -2,7 +2,7 @@ import mm = require("minimatch");
 let bool: boolean;
 const pattern = "**/*.ts";
 const options = {
-	debug: true
+    debug: true
 };
 const m = new mm.Minimatch(pattern, options);
 const regxp = m.makeRe();

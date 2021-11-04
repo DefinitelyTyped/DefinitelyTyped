@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/feathers": [
-                "feathersjs__feathers"
+            "@feathersjs/*": [
+                "feathersjs__*"
             ]
         }
     },

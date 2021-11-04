@@ -161,13 +161,13 @@ function test_cas() {
     const value = 'casvalue';
 
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.set(key, value, 0, function() {
             isCommandData(this);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.gets(key, function(err, data) {
             isCommandData(this);
             memcached.cas(key, value, data.cas, 0, function(err, result) {
@@ -177,7 +177,7 @@ function test_cas() {
             });
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.cas(key, value, '99', 0, function(err, result) {
             isCommandData(this);
             assert(!result);
@@ -193,19 +193,19 @@ function test_replace() {
     const value = 'replacevalue';
 
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.set(key, value, 0, () => {
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.replace(key, value, 0, function(err, result) {
             assert(result);
             isCommandData(this);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.replace('noexistss', value, 0, function(err, result) {
             assert(!result);
             isCommandData(this);
@@ -220,14 +220,14 @@ function test_add() {
     const value = 'addvalue';
 
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.add(key, value, 0, function(err, result) {
             assert(result);
             isCommandData(this);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.add(key, value, 0, function(err, result) {
             assert(!result);
             isCommandData(this);
@@ -242,13 +242,13 @@ function test_append() {
     const value = 'appendvalue';
 
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.set(key, value, 0, (err, result) => {
             isBoolean(result);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.append(key, value, (err, result) => {
             isBoolean(result);
             resolve();
@@ -261,13 +261,13 @@ function test_prepend() {
     const key = 'prependkey';
     const value = 'prependvalue';
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.set(key, value, 0, (err, result) => {
             isBoolean(result);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.prepend(key, value, function(err, result) {
             isBoolean(result);
             isCommandData(this);
@@ -282,20 +282,20 @@ function test_incr() {
     const value = 2;
 
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.set(key, value, 0, (err, result) => {
             isBoolean(result);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.incr(key, value, function(err, result) {
             assert.deepStrictEqual(result, 4);
             isCommandData(this);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.incr('noexists', value, function(err, result) {
             assert.deepStrictEqual(result, false);
             isCommandData(this);
@@ -309,21 +309,21 @@ function test_decr() {
     const key = 'decrkey';
     const value = 2;
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.set(key, value, 0, function(err, result) {
             isCommandData(this);
             isBoolean(result);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.decr(key, value, function(err, result) {
             assert.deepStrictEqual(result, 0);
             isCommandData(this);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.decr('noexists', value, function(err, result) {
             assert.deepStrictEqual(result, false);
             isCommandData(this);
@@ -337,13 +337,13 @@ function test_decr_2() {
     const key = 'delkey';
     const value = 'delvalue';
     Promise.resolve()
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.set(key, value, 0, (err, result) => {
             isBoolean(result);
             resolve();
         });
     }))
-    .then(() => new Promise(resolve => {
+    .then(() => new Promise<void>(resolve => {
         memcached.del(key, function(err, result) {
             isBoolean(result);
             isCommandData(this);

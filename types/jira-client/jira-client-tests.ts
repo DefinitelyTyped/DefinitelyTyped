@@ -1,4 +1,4 @@
-import JiraApi from 'jira-client';
+import * as JiraApi from 'jira-client';
 
 // Initialize
 const jira = new JiraApi({
@@ -19,7 +19,6 @@ jira.findIssue(issueNumber)
   .catch(err => {
     console.error(err);
   });
-
 async function logIssueName() {
   try {
     const issue = await jira.findIssue(issueNumber);

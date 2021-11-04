@@ -1,34 +1,73 @@
-// Following are lifted from the samples on the NPM page, modified to pass
-//  the linter
-
-import * as jsonfile from 'jsonfile';
+import jsonfile = require('jsonfile');
+import { stringify, stripBom } from 'jsonfile/utils';
 
 const file = '/tmp/data.json';
-const obj = {name: 'JP'};
+const obj = { name: 'JP' };
 
-jsonfile.readFile(file, (err: NodeJS.ErrnoException | null, obj: any) => {
-  console.dir(obj);
+// $ExpectType void
+jsonfile.readFile(file, { encoding: 'utf8', throws: true }, (err, obj) => {
+    // $ExpectType ErrnoException | null
+    err;
+    // $ExpectType any
+    obj;
 });
 
-console.dir(jsonfile.readFileSync(file));
-
-jsonfile.writeFile(file, obj, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+// $ExpectType void
+jsonfile.readFile(file, (err, obj) => {
+    // $ExpectType ErrnoException | null
+    err;
+    // $ExpectType any
+    obj;
 });
 
-jsonfile.writeFile(file, obj, {spaces: 2}, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+jsonfile.readFile(file).then(obj => {
+    // $ExpectType any
+    obj;
+});
+jsonfile.readFile(file, { encoding: 'utf8', throws: true }).then(obj => {
+    // $ExpectType any
+    obj;
 });
 
-jsonfile.writeFile(file, obj, {spaces: 2, EOL: '\r\n'}, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+// $ExpectType any
+jsonfile.readFileSync(file);
+jsonfile.readFileSync(file, { encoding: 'utf8', throws: true });
+
+// $ExpectType void
+jsonfile.writeFile(file, obj, err => {
+    // $ExpectType ErrnoException
+    err;
 });
 
-jsonfile.writeFile(file, obj, {flag: 'a'}, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+// $ExpectType void
+jsonfile.writeFile(file, obj, { spaces: 2 }, err => {
+    // $ExpectType ErrnoException
+    err;
 });
+
+// $ExpectType void
+jsonfile.writeFile(file, obj, { spaces: 2, EOL: '\r\n' }, err => {
+    // $ExpectType ErrnoException
+    err;
+});
+
+// $ExpectType void
+jsonfile.writeFile(file, obj, { flag: 'a' }, err => {
+    // $ExpectType ErrnoException
+    err;
+});
+
+// $ExpectType Promise<void>
+jsonfile.writeFile(file, obj);
+// $ExpectType Promise<void>
+jsonfile.writeFile(file, obj, { flag: 'a' });
 
 jsonfile.writeFileSync(file, obj);
-jsonfile.writeFileSync(file, obj, {spaces: 2});
-jsonfile.writeFileSync(file, obj, {spaces: 2, EOL: '\r\n'});
-jsonfile.writeFileSync(file, obj, {flag: 'a'});
+jsonfile.writeFileSync(file, obj, { spaces: 2 });
+jsonfile.writeFileSync(file, obj, { spaces: 2, EOL: '\r\n' });
+jsonfile.writeFileSync(file, obj, { flag: 'a' });
+
+// $ExpectType string
+stripBom('content');
+// $ExpectType string
+stringify(obj, { flag: 'a' });

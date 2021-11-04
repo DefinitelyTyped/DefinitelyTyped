@@ -1,5 +1,5 @@
 // Type definitions for angular-hotkeys 1.7
-// Project: https://github.com/chieffancypants/angular-hotkeys
+// Project: https://github.com/chieffancypants/angular-hotkeys, https://chieffancypants.github.io/angular-hotkeys
 // Definitions by: Jason Zhao <https://github.com/jlz27>
 //                 Stefan Steinhart <https://github.com/reppners>
 //                 Cyril Gandon <https://github.com/cyrilgandon>
@@ -112,7 +112,7 @@ declare module 'angular' {
              * The description for what the combo does and is only used for the Cheat Sheet.
              * If it is not supplied, it will not show up, and in effect, allows you to have unlisted hotkeys.
              */
-            description?: string;
+            description?: string | undefined;
             /**
              * The function to execute when the key(s) are pressed. Passes along two arguments, event and hotkey
              */
@@ -122,15 +122,15 @@ declare module 'angular' {
              * Usage of this parameter is discouraged as the underlying library will pick the most suitable option automatically.
              * This should only be necessary in advanced situations.
              */
-            action?: string;
+            action?: string | undefined;
             /**
              * An array of tag names to allow this combo in ('INPUT', 'SELECT', and/or 'TEXTAREA')
              */
-            allowIn?: Array<'INPUT' | 'SELECT' | 'TEXTAREA'>;
+            allowIn?: Array<'INPUT' | 'SELECT' | 'TEXTAREA'> | undefined;
             /**
              * Whether the hotkey persists navigation events
              */
-            persistent?: boolean;
+            persistent?: boolean | undefined;
         }
     }
 }

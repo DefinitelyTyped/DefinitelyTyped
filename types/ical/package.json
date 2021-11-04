@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "rrule": "2.6.4"
+    }
+}

@@ -8,12 +8,15 @@ interface ServerResponse {
 export default class BasicReactRequest extends React.Component {
   render() {
     return <Fetch<ServerResponse> url='/api/server'>
-      {({ fetching, failed, data, response }) => {
+      {({ fetching, failed, data, response, doFetch }) => {
         if (fetching || !response) {
           return <p>Loading...</p>;
         }
         if (failed) {
           return <h2>Failed to load</h2>;
+        }
+        if (!data) {
+            doFetch();
         }
         return <p>{data ? data.foo : 'data was null'}</p>;
       }}

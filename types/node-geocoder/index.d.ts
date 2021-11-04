@@ -1,4 +1,4 @@
-// Type definitions for node-geocoder 3.19
+// Type definitions for node-geocoder 3.24
 // Project: https://github.com/nchaulet/node-geocoder#readme
 // Definitions by: Krzysztof Rosinski <https://github.com/rosek86>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,36 +7,77 @@
 
 declare namespace node_geocoder {
     type Providers =
-        'google' | 'here' | 'freegeoip' |
-        'datasciencetoolkit' | 'openstreetmap' |
+        'freegeoip' | 'datasciencetoolkit' |
         'locationiq' | 'mapquest' | 'openmapquest' |
-        'agol' | 'tomtom' | 'nominatimmapquest' |
-        'opencage' | 'smartyStreet' | 'geocodio' |
-        'yandex' | 'teleport' | 'opendatafrance' |
-        'pickpoint';
+        'tomtom' | 'nominatimmapquest' |
+        'opencage' | 'geocodio' |
+        'yandex' | 'teleport' | 'pickpoint';
 
-    interface Options {
-        provider: Providers;
-        httpAdapter?: 'https' | 'http' | 'request';
-        clientId?: string;
-        apiKey?: string;
-        language?: string;
-        region?: string;
-        appId?: string;
-        appCode?: string;
-        politicalView?: string;
-        country?: string;
-        state?: string;
-        host?: string;
-        email?: string;
-        client_id?: string;
-        client_secret?: string;
-        auth_id?: string;
-        auth_token?: string;
-        timeout?: number;
-        formatterPattern?: string;
+    interface BaseOptions {
+        provider: string;
+        httpAdapter?: 'https' | 'http' | 'request' | undefined;
+        timeout?: number | undefined;
+        formatterPattern?: string | undefined;
         formatter?: any;
     }
+
+    interface HereOptions {
+        provider: 'here';
+        appId: string;
+        apiKey: string;
+        appCode: string;
+        language?: string | undefined;
+        politicalView?: string | undefined;
+        country?: string | undefined;
+        state?: string | undefined;
+        production?: boolean | undefined;
+    }
+
+    interface OpenStreetMapOptions {
+        provider: 'openstreetmap';
+        language?: string | undefined;
+        email?: string | undefined;
+        apiKey?: string | undefined;
+        osmServer?: string | undefined;
+    }
+
+    interface OpenDataFranceOptions {
+        provider: 'opendatafrance';
+        language?: string | undefined;
+        email?: string | undefined;
+        apiKey?: string | undefined;
+    }
+
+    interface AgolOptions {
+        provider: 'agol';
+        client_id?: string | undefined;
+        client_secret?: string | undefined;
+    }
+
+    interface SmartyStreetsOptions {
+        provider: 'smartyStreet';
+        auth_id: string;
+        auth_token: string;
+    }
+
+    interface GoogleOptions {
+        provider: 'google';
+        clientId?: string | undefined;
+        apiKey?: string | undefined;
+        language?: string | undefined;
+        region?: string | undefined;
+        excludePartialMatches?: boolean | undefined;
+        channel?: string | undefined;
+    }
+
+    interface GenericOptions {
+        provider: Providers;
+        apiKey?: string | undefined;
+        language?: string | undefined;
+        host?: string | undefined;
+    }
+
+    type Options = BaseOptions & (GenericOptions | HereOptions | OpenStreetMapOptions | OpenDataFranceOptions | AgolOptions | SmartyStreetsOptions | GoogleOptions);
 
     interface Location {
         lat: number;
@@ -44,35 +85,40 @@ declare namespace node_geocoder {
     }
 
     interface Entry {
-        formattedAddress?: string;
-        latitude?: number;
-        longitude?: number;
+        formattedAddress?: string | undefined;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
         extra?: {
-            googlePlaceId?: string;
-            confidence?: number;
-        };
+            googlePlaceId?: string | undefined;
+            confidence?: number | undefined;
+        } | undefined;
         administrativeLevels?: {
-            level1long?: string;
-            level1short?: string;
-            level2long?: string;
-            level2short?: string;
-        };
-        city?: string;
-        streetName?: string;
-        streetNumber?: string;
-        country?: string;
-        countryCode?: string;
-        zipcode?: string;
-        provider?: string;
+            level1long?: string | undefined;
+            level1short?: string | undefined;
+            level2long?: string | undefined;
+            level2short?: string | undefined;
+        } | undefined;
+        city?: string | undefined;
+        streetName?: string | undefined;
+        streetNumber?: string | undefined;
+        country?: string | undefined;
+        countryCode?: string | undefined;
+        zipcode?: string | undefined;
+        provider?: string | undefined;
+        state?: string | undefined;
+        stateCode?: string | undefined;
+        county?: string | undefined;
+        district?: string | undefined;
+        building?: string | undefined;
     }
 
     interface Query {
-        address?: string;
-        country?: string;
-        countryCode?: string;
-        zipcode?: string;
-        minConfidence?: number;
-        limit?: number;
+        address?: string | undefined;
+        country?: string | undefined;
+        countryCode?: string | undefined;
+        zipcode?: string | undefined;
+        minConfidence?: number | undefined;
+        limit?: number | undefined;
     }
 
     interface BatchResult {

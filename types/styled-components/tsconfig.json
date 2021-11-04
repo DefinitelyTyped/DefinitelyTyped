@@ -3,15 +3,25 @@
         "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "dom",
+            "es6"
+        ],
         "module": "commonjs",
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": []
     },
-    "files": ["index.d.ts", "styled-components-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "test/index.tsx",
+        "test/macro.tsx",
+        "test/reexport.tsx"
+    ]
 }

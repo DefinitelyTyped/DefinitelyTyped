@@ -1,4 +1,4 @@
-// Type definitions for micromatch 3.1
+// Type definitions for micromatch 4.0
 // Project: https://github.com/micromatch/micromatch
 // Definitions by: glen-84 <https://github.com/glen-84>
 //                 vemoo <https://github.com/vemoo>
@@ -6,8 +6,14 @@
 
 // TypeScript Version: 2.2
 
-import * as braces from "braces";
+import * as braces from 'braces';
 declare namespace micromatch {
+    interface Item {
+        glob: string;
+        regex: RegExp;
+        input: string;
+        output: string;
+    }
     interface Options {
         /**
          * Allow glob patterns without slashes to match a file path based on its basename. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `matchBase`.
@@ -23,7 +29,7 @@ declare namespace micromatch {
          * //=> ['a/b.js']
          * ```
          */
-        basename?: boolean;
+        basename?: boolean | undefined;
         /**
          * Enabled by default, this option enforces bash-like behavior with stars immediately following a bracket expression.
          * Bash bracket expressions are similar to regex character classes, but unlike regex, a star following a bracket expression **does not repeat the bracketed characters**.
@@ -40,146 +46,202 @@ declare namespace micromatch {
          * console.log(mm(files, '[a-c]*', {bash: false}));
          * ```
          */
-        bash?: boolean;
+        bash?: boolean | undefined;
         /**
-         * Disable regex and function memoization.
+         * Return regex matches in supporting methods.
          *
          * @default undefined
          */
-        cache?: boolean;
+        capture?: boolean | undefined;
         /**
-         * Match dotfiles. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `dot`.
+         * Allows glob to match any part of the given string(s).
+         *
+         * @default undefined
+         */
+        contains?: boolean | undefined;
+        /**
+         * Current working directory. Used by `picomatch.split()`
+         *
+         * @default process.cwd()
+         */
+        cwd?: string | undefined;
+        /**
+         * Debug regular expressions when an error is thrown.
+         *
+         * @default undefined
+         */
+        debug?: boolean | undefined;
+        /**
+         * Match dotfiles. Otherwise dotfiles are ignored unless a `.` is explicitly defined in the pattern.
          *
          * @default false
          */
-        dot?: boolean;
+        dot?: boolean | undefined;
+        /**
+         * Custom function for expanding ranges in brace patterns, such as `{a..z}`.
+         * The function receives the range values as two arguments, and it must return a string to be used in the generated regex.
+         * It's recommended that returned strings be wrapped in parentheses. This option is overridden by the expandBrace option.
+         *
+         * @default undefined
+         */
+        expandRange?: ((left: string, right: string, options: Options) => string) | undefined;
         /**
          * Similar to the `--failglob` behavior in Bash, throws an error when no matches are found.
          *
-         * @default undefined
+         * @default false
          */
-        failglob?: boolean;
+        failglob?: boolean | undefined;
         /**
-         * String or array of glob patterns to match files to ignore.
+         * To speed up processing, full parsing is skipped for a handful common glob patterns. Disable this behavior by setting this option to false.
          *
-         * @default undefined
+         * @default true
          */
-        ignore?: string | string[];
+        fastpaths?: boolean | undefined;
         /**
-         * Alias for [options.basename](#options-basename).
-         */
-        matchBase?: boolean;
-        /**
-         * Disable expansion of brace patterns. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `nobrace`.
+         * Regex flags to use in the generated regex. If defined, the `nocase` option will be overridden.
          *
          * @default undefined
          */
-        nobrace?: boolean;
+        flags?: boolean | undefined;
         /**
-         * Use a case-insensitive regex for matching files. Same behavior as [minimatch](https://github.com/isaacs/minimatch).
+         * Custom function for formatting the returned string. This is useful for removing leading slashes, converting Windows paths to Posix paths, etc.
          *
          * @default undefined
          */
-        nocase?: boolean;
+        format?: ((returnedString: string) => string) | undefined;
         /**
-         * Remove duplicate elements from the result array.
-         *
-         * @default undefined
-         *
-         * @example
-         * Example of using the `unescape` and `nodupes` options together:
-         *
-         * ```js
-         * mm.match(['a/b/c', 'a/b/c'], 'a/b/c');
-         * //=> ['a/b/c', 'a/b/c']
-         *
-         * mm.match(['a/b/c', 'a/b/c'], 'a/b/c', {nodupes: true});
-         * //=> ['abc']
-         * ```
-         */
-        nodupes?: boolean;
-        /**
-         * Disable extglob support, so that extglobs are regarded as literal characters.
-         *
-         * @default undefined
-         *
-         * @example
-         * ```js
-         * mm(['a/z', 'a/b', 'a/!(z)'], 'a/!(z)');
-         * //=> ['a/b', 'a/!(z)']
-         *
-         * mm(['a/z', 'a/b', 'a/!(z)'], 'a/!(z)', {noext: true});
-         * //=> ['a/!(z)'] (matches only as literal characters)
-         * ```
-         */
-        noext?: boolean;
-        /**
-         * Disallow negation (`!`) patterns, and treat leading `!` as a literal character to match.
+         * One or more glob patterns for excluding strings that should not be matched from the result.
          *
          * @default undefined
          */
-        nonegate?: boolean;
+        ignore?: string | ReadonlyArray<string> | undefined;
+        /**
+         * Retain quotes in the generated regex, since quotes may also be used as an alternative to backslashes.
+         *
+         * @default false
+         */
+        keepQuotes?: boolean | undefined;
+        /**
+         * When `true`, brackets in the glob pattern will be escaped so that only literal brackets will be matched.
+         *
+         * @default undefined
+         */
+        literalBrackets?: boolean | undefined;
+        /**
+         * Support regex positive and negative lookbehinds. Note that you must be using Node 8.1.10 or higher to enable regex lookbehinds.
+         *
+         * @default true
+         */
+        lookbehinds?: boolean | undefined;
+        /**
+         * Alias for `basename`.
+         *
+         * @default false
+         */
+        matchBase?: boolean | undefined;
+        /**
+         * Limit the max length of the input string. An error is thrown if the input string is longer than this value.
+         *
+         * @default 65536
+         */
+        maxLength?: number | undefined;
+        /**
+         * Disable brace matching, so that `{a,b}` and `{1..3}` would be treated as literal characters.
+         *
+         * @default false
+         */
+        nobrace?: boolean | undefined;
+        /**
+         * Disable matching with regex brackets.
+         *
+         * @default undefined
+         */
+        nobracket?: boolean | undefined;
+        /**
+         * Perform case-insensitive matching. Equivalent to the regex `i` flag.
+         * Note that this option is ignored when the `flags` option is defined.
+         *
+         * @default false
+         */
+        nocase?: boolean | undefined;
+        /**
+         * Alias for `noextglob`
+         *
+         * @default false
+         */
+        noext?: boolean | undefined;
+        /**
+         * Disable support for matching with extglobs (like `+(a|b)`)
+         *
+         * @default false
+         */
+        noextglob?: boolean | undefined;
         /**
          * Disable matching with globstars (`**`).
          *
          * @default undefined
          */
-        noglobstar?: boolean;
+        noglobstar?: boolean | undefined;
         /**
-         * Alias for [options.nullglob](#options-nullglob).
-         */
-        nonull?: boolean;
-        /**
-         * If `true`, when no matches are found the actual (arrayified) glob pattern is returned instead of an empty array.
-         * Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `nonull`.
+         * Disallow negation (`!`) patterns, and treat leading `!` as a literal character to match.
          *
          * @default undefined
          */
-        nullglob?: boolean;
+        nonegate?: boolean | undefined;
         /**
-         * Pass your own instance of [snapdragon](https://github.com/jonschlinkert/snapdragon), to customize parsers or compilers.
+         * Disable support for regex quantifiers (like `a{1,2}`) and treat them as brace patterns to be expanded.
+         *
+         * @default false
+         */
+        noquantifiers?: boolean | undefined;
+        /**
+         * Function to be called on ignored items.
          *
          * @default undefined
          */
-        snapdragon?: object;
+        onIgnore?: ((item: Item) => void) | undefined;
         /**
-         * Generate a source map by enabling the `sourcemap` option with the `.parse`, `.compile`, or `.create` methods.
+         * Function to be called on matched items.
          *
-         * _(Note that sourcemaps are currently not enabled for brace patterns)_
-         *
-         * @example
-         * ``` js
-         * var mm = require('micromatch');
-         * var pattern = '*(*(of*(a)x)z)';
-         *
-         * var res = mm.create('abc/*.js', {sourcemap: true});
-         * console.log(res.map);
-         * // { version: 3,
-         * //   sources: [ 'string' ],
-         * //   names: [],
-         * //   mappings: 'AAAA,GAAG,EAAC,iBAAC,EAAC,EAAE',
-         * //   sourcesContent: [ 'abc/*.js' ] }
-         *
-         * var ast = mm.parse('abc/**\/*.js');
-         * var res = mm.compile(ast, {sourcemap: true});
-         * console.log(res.map);
-         * // { version: 3,
-         * //   sources: [ 'string' ],
-         * //   names: [],
-         * //   mappings: 'AAAA,GAAG,EAAC,2BAAE,EAAC,iBAAC,EAAC,EAAE',
-         * //   sourcesContent: [ 'abc/**\/*.js' ] }
-         *
-         * var ast = mm.parse(pattern);
-         * var res = mm.compile(ast, {sourcemap: true});
-         * console.log(res.map);
-         * // { version: 3,
-         * //   sources: [ 'string' ],
-         * //   names: [],
-         * //   mappings: 'AAAA,CAAE,CAAE,EAAE,CAAE,CAAC,EAAC,CAAC,EAAC,CAAC,EAAC',
-         * //   sourcesContent: [ '*(*(of*(a)x)z)' ] }
-         * ```
+         * @default undefined
          */
-        sourcemap?: boolean;
+        onMatch?: ((item: Item) => void) | undefined;
+        /**
+         * Function to be called on all items, regardless of whether or not they are matched or ignored.
+         *
+         * @default undefined
+         */
+        onResult?: ((item: Item) => void) | undefined;
+        /**
+         * Support POSIX character classes ("posix brackets").
+         *
+         * @default false
+         */
+        posix?: boolean | undefined;
+        /**
+         * String to prepend to the generated regex used for matching.
+         *
+         * @default undefined
+         */
+        prepend?: boolean | undefined;
+        /**
+         * Use regular expression rules for `+` (instead of matching literal `+`), and for stars that follow closing parentheses or brackets (as in `)*` and `]*`).
+         *
+         * @default false
+         */
+        regex?: boolean | undefined;
+        /**
+         * Throw an error if brackets, braces, or parens are imbalanced.
+         *
+         * @default undefined
+         */
+        strictBrackets?: boolean | undefined;
+        /**
+         * When true, picomatch won't match trailing slashes with single stars.
+         *
+         * @default undefined
+         */
+        strictSlashes?: boolean | undefined;
         /**
          * Remove backslashes from returned matches.
          *
@@ -196,22 +258,67 @@ declare namespace micromatch {
          * //=> ['a*c']
          * ```
          */
-        unescape?: boolean;
+        unescape?: boolean | undefined;
         /**
-         * Convert path separators on returned files to posix/unix-style forward slashes.
+         * Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself
          *
-         * @default true
-         *
-         * @example
-         * ```js
-         * mm.match(['a\\b\\c'], 'a/**');
-         * //=> ['a/b/c']
-         *
-         * mm.match(['a\\b\\c'], {unixify: false});
-         * //=> ['a\\b\\c']
-         * ```
+         * @default undefined
          */
-        unixify?: boolean;
+        windows?: boolean | undefined;
+    }
+
+    interface ScanOptions extends Options {
+        /**
+         * When `true`, the returned object will include an array of `tokens` (objects), representing each path "segment" in the scanned glob pattern.
+         *
+         * @default false
+         */
+        tokens?: boolean | undefined;
+        /**
+         * When `true`, the returned object will include an array of strings representing each path "segment" in the scanned glob pattern.
+         * This is automatically enabled when `options.tokens` is `true`.
+         *
+         * @default false
+         */
+        parts?: boolean | undefined;
+    }
+
+    interface ScanInfo {
+        prefix: string;
+        input: string;
+        start: number;
+        base: string;
+        glob: string;
+        isBrace: boolean;
+        isBracket: boolean;
+        isGlob: boolean;
+        isExtglob: boolean;
+        isGlobstar: boolean;
+        negated: boolean;
+    }
+
+    interface ScanInfoToken {
+        value: string;
+        depth: number;
+        isGlob: boolean;
+
+        backslashes?: boolean | undefined;
+        isBrace?: boolean | undefined;
+        isBracket?: boolean | undefined;
+        isExtglob?: boolean | undefined;
+        isGlobstar?: boolean | undefined;
+        isPrefix?: boolean | undefined;
+        negated?: boolean | undefined;
+    }
+
+    interface ScanInfoWithParts extends ScanInfo {
+        slashes: number[];
+        parts: string[];
+    }
+
+    interface ScanInfoWithTokens extends ScanInfoWithParts {
+        maxDepth: number;
+        tokens: ScanInfoToken[];
     }
 }
 
@@ -233,7 +340,7 @@ interface Micromatch {
      * //=> [ 'a.js' ]
      * ```
      */
-    (list: string[], patterns: string | string[], options?: micromatch.Options): string[];
+    (list: ReadonlyArray<string>, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): string[];
 
     /**
      * Similar to the main function, but `pattern` must be a string.
@@ -252,7 +359,7 @@ interface Micromatch {
      * //=> ['a.a', 'a.aa']
      * ```
      */
-    match(list: string[], pattern: string, options?: micromatch.Options): string[];
+    match(list: ReadonlyArray<string>, pattern: string, options?: micromatch.Options): string[];
 
     /**
      * Returns true if the specified `string` matches the given glob `pattern`.
@@ -273,7 +380,7 @@ interface Micromatch {
      * //=> false
      * ```
      */
-    isMatch(string: string, pattern: string, options?: micromatch.Options): boolean;
+    isMatch(string: string, pattern: string | ReadonlyArray<string>, options?: micromatch.Options): boolean;
 
     /**
      * Returns true if some of the strings in the given `list` match any of the given glob `patterns`.
@@ -294,7 +401,11 @@ interface Micromatch {
      * // false
      * ```
      */
-    some(list: string | string[], patterns: string | string[], options?: micromatch.Options): boolean;
+    some(
+        list: string | ReadonlyArray<string>,
+        patterns: string | ReadonlyArray<string>,
+        options?: micromatch.Options,
+    ): boolean;
 
     /**
      * Returns true if every string in the given `list` matches any of the given glob `patterns`.
@@ -319,7 +430,11 @@ interface Micromatch {
      * // false
      * ```
      */
-    every(list: string | string[], patterns: string | string[], options?: micromatch.Options): boolean;
+    every(
+        list: string | ReadonlyArray<string>,
+        patterns: string | ReadonlyArray<string>,
+        options?: micromatch.Options,
+    ): boolean;
 
     /**
      * Returns true if **any** of the given glob `patterns` match the specified `string`.
@@ -340,7 +455,11 @@ interface Micromatch {
      * //=> false
      * ```
      */
-    any(str: string | string[], patterns: string | string[], options?: micromatch.Options): boolean;
+    any(
+        str: string | ReadonlyArray<string>,
+        patterns: string | ReadonlyArray<string>,
+        options?: micromatch.Options,
+    ): boolean;
 
     /**
      * Returns true if **all** of the given `patterns` match the specified string.
@@ -368,7 +487,11 @@ interface Micromatch {
      * // true
      * ```
      */
-    all(str: string | string[], patterns: string | string[], options?: micromatch.Options): boolean;
+    all(
+        str: string | ReadonlyArray<string>,
+        patterns: string | ReadonlyArray<string>,
+        options?: micromatch.Options,
+    ): boolean;
 
     /**
      * Returns a list of strings that _**do not match any**_ of the given `patterns`.
@@ -387,7 +510,7 @@ interface Micromatch {
      * //=> ['b.b', 'c.c']
      * ```
      */
-    not(list: string[], patterns: string | string[], options?: micromatch.Options): string[];
+    not(list: ReadonlyArray<string>, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): string[];
 
     /**
      * Returns true if the given `string` contains the given pattern. Similar to [.isMatch](#isMatch) but the pattern can match any part of the string.
@@ -408,7 +531,7 @@ interface Micromatch {
      * //=> false
      * ```
      */
-    contains(str: string, patterns: string | string[], options?: micromatch.Options): boolean;
+    contains(str: string, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): boolean;
 
     /**
      * Filter the keys of the given object with the given `glob` pattern and `options`. Does not attempt to match nested keys.
@@ -429,7 +552,7 @@ interface Micromatch {
      * //=> { ab: 'b' }
      * ```
      */
-    matchKeys<T>(object: T, patterns: string | string[], options?: micromatch.Options): Partial<T>;
+    matchKeys<T>(object: T, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): Partial<T>;
 
     /**
      * Returns a memoized matcher function from the given glob `pattern` and `options`. The returned function takes a string to match as its only argument and returns true if the string is a match.
@@ -510,47 +633,7 @@ interface Micromatch {
     braces(pattern: string, options?: braces.Options): string[];
 
     /**
-     * Parses the given glob `pattern` and returns an array of abstract syntax trees (ASTs), with the compiled `output` and optional source `map` on each AST.
-     *
-     * @param pattern Glob pattern to parse and compile.
-     * @param options Any options to change how parsing and compiling is performed.
-     * @returns Returns an object with the parsed AST, compiled string and optional source map.
-     *
-     * @example
-     * ```js
-     * var mm = require('micromatch');
-     * mm.create(pattern[, options]);
-     *
-     * console.log(mm.create('abc/*.js'));
-     * // [{ options: { source: 'string', sourcemap: true },
-     * //   state: {},
-     * //   compilers:
-     * //    { ... },
-     * //   output: '(\\.[\\\\\\/])?abc\\/(?!\\.)(?=.)[^\\/]*?\\.js',
-     * //   ast:
-     * //    { type: 'root',
-     * //      errors: [],
-     * //      nodes:
-     * //       [ ... ],
-     * //      dot: false,
-     * //      input: 'abc/*.js' },
-     * //   parsingErrors: [],
-     * //   map:
-     * //    { version: 3,
-     * //      sources: [ 'string' ],
-     * //      names: [],
-     * //      mappings: 'AAAA,GAAG,EAAC,kBAAC,EAAC,EAAE',
-     * //      sourcesContent: [ 'abc/*.js' ] },
-     * //   position: { line: 1, column: 28 },
-     * //   content: {},
-     * //   files: {},
-     * //   idx: 6 }]
-     * ```
-     */
-    create(pattern: string, options?: micromatch.Options): object;
-
-    /**
-     * Parse the given `str` with the given `options`.
+     * Parse a glob pattern to create the source string for a regular expression.
      *
      * @returns Returns an AST
      *
@@ -576,47 +659,14 @@ interface Micromatch {
      * //      { type: 'eos', val: '' } ] }
      * ```
      */
-    parse(str: string, options?: micromatch.Options): object;
+    parse(glob: string, options?: micromatch.Options): object;
 
     /**
-     * Compile the given `ast` or string with the given `options`.
-     *
-     * @returns Returns an object that has an `output` property with the compiled string.
-     *
-     * @example
-     * ```js
-     * var mm = require('micromatch');
-     * mm.compile(ast[, options]);
-     *
-     * var ast = mm.parse('a/{b,c}/d');
-     * console.log(mm.compile(ast));
-     * // { options: { source: 'string' },
-     * //   state: {},
-     * //   compilers:
-     * //    { eos: [Function],
-     * //      noop: [Function],
-     * //      bos: [Function],
-     * //      brace: [Function],
-     * //      'brace.open': [Function],
-     * //      text: [Function],
-     * //      'brace.close': [Function] },
-     * //   output: [ 'a/(b|c)/d' ],
-     * //   ast:
-     * //    { ... },
-     * //   parsingErrors: [] }
-     * ```
+     * Scan a glob pattern to separate the pattern into segments.
      */
-    compile(ast: object | string, options?: micromatch.Options): object;
-
-    /**
-     * Clear the regex cache.
-     *
-     * @example
-     * ```js
-     * mm.clearCache();
-     * ```
-     */
-    clearCache(): void;
+    scan(pattern: string, options: { parts: true } & micromatch.ScanOptions): micromatch.ScanInfoWithParts;
+    scan(pattern: string, options: { tokens: true } & micromatch.ScanOptions): micromatch.ScanInfoWithTokens;
+    scan(pattern: string, options?: micromatch.ScanOptions): micromatch.ScanInfo;
 }
 
 export as namespace micromatch;

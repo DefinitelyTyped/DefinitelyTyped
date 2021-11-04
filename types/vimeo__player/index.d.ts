@@ -1,9 +1,11 @@
-// Type definitions for @vimeo/player 2.6.3
+// Type definitions for @vimeo/player 2.10
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
 //                 Tim Chen <https://github.com/timc13>
 //                 Terry Mun <https://github.com/terrymun>
+//                 Coskun Deniz <deniz@tassomai.com>
+//                 Kohei Watanabe <https://github.com/kou029w>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type CallbackFunction = (...args: any[]) => any;
@@ -20,9 +22,12 @@ export interface InvalidCuePoint extends Error {name: "InvalidCuePoint"; message
 export interface RangeError extends Error {name: "RangeError"; message: string; method: string; }
 export interface TypeError extends Error {name: "TypeError"; message: string; method: string; }
 
-export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" | "seeked" | "texttrackchange" |
+export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" | "seeked" | "seeking" | "texttrackchange" |
                         "cuechange" | "cuepoint" | "volumechange" | "playbackratechange" | "bufferstart" | "bufferend" | "error" | "loaded" |  string;
 export type EventCallback = (data: any) => any;
+
+export type VimeoTimeRange = [number, number];
+export type VimeoVideoQuality = "4K" | "2K" | "1080p" | "720p" | "540p" | "360p" | "240p";
 
 export class Player {
     constructor(element: HTMLIFrameElement|HTMLElement|string, options?: Options);
@@ -43,13 +48,19 @@ export class Player {
     addCuePoint(time: number, data: VimeoCuePointData): VimeoPromise<string, UnsupportedError | RangeError | Error>;
     removeCuePoint(id: string): VimeoPromise<string, UnsupportedError | InvalidCuePoint | Error>;
     getCuePoints(): VimeoPromise<VimeoCuePoint[], UnsupportedError | Error>;
+    getBuffered(): VimeoPromise<VimeoTimeRange[], Error>;
     getCurrentTime(): VimeoPromise<number, Error>;
     setCurrentTime(seconds: number): VimeoPromise<number, RangeError | Error>;
     getDuration(): VimeoPromise<number, Error>;
     getEnded(): VimeoPromise<boolean, Error>;
     getLoop(): VimeoPromise<boolean, Error>;
     setLoop(loop: boolean): VimeoPromise<boolean, Error>;
+    getMuted(): VimeoPromise<boolean, Error>;
+    setMuted(muted: boolean): VimeoPromise<boolean, Error>;
     getPaused(): VimeoPromise<boolean, Error>;
+    getPlayed(): VimeoPromise<VimeoTimeRange[], Error>;
+    getSeekable(): VimeoPromise<VimeoTimeRange[], Error>;
+    getSeeking(): VimeoPromise<boolean, Error>;
     getPlaybackRate(): VimeoPromise<number, Error>;
     setPlaybackRate(playbackRate: number): VimeoPromise<number, RangeError | Error>;
     getTextTracks(): VimeoPromise<VimeoTextTrack[], Error>;
@@ -70,37 +81,41 @@ export interface VimeoCuePoint {
     id: string;
 }
 
-export interface VimeoCuePointData extends Object {
-    customKey: string;
+export interface VimeoCuePointData {
+    [key: string]: any;
 }
 
 export interface VimeoTextTrack {
     language: string;
     kind: string;
     label: string;
-    mode?: string;
+    mode?: string | undefined;
 }
 
 export interface Options {
-    id?: number;
-    url?: string;
-    autopause?: boolean;
-    autoplay?: boolean;
-    background?: boolean;
-    byline?: boolean;
-    color?: string;
-    height?: number;
-    loop?: boolean;
-    maxheight?: number;
-    maxwidth?: number;
-    muted?: boolean;
-    playsinline?: boolean;
-    portrait?: boolean;
-    responsive?: boolean;
-    speed?: boolean;
-    title?: boolean;
-    transparent?: boolean;
-    width?: number;
+    id?: number | undefined;
+    url?: string | undefined;
+    autopause?: boolean | undefined;
+    autoplay?: boolean | undefined;
+    background?: boolean | undefined;
+    byline?: boolean | undefined;
+    color?: string | undefined;
+    controls?: boolean | undefined;
+    dnt?: boolean | undefined;
+    height?: number | undefined;
+    loop?: boolean | undefined;
+    maxheight?: number | undefined;
+    maxwidth?: number | undefined;
+    muted?: boolean | undefined;
+    playsinline?: boolean | undefined;
+    portrait?: boolean | undefined;
+    responsive?: boolean | undefined;
+    speed?: boolean | undefined;
+    quality?: VimeoVideoQuality | undefined;
+    texttrack?: string | undefined;
+    title?: boolean | undefined;
+    transparent?: boolean | undefined;
+    width?: number | undefined;
 }
 
 export interface VimeoPromise<Result, Reason> extends Promise<Result> {

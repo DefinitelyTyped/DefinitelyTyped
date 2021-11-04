@@ -1,9 +1,9 @@
-import { render } from ".";
+import { render } from '.';
 
 declare namespace RenderService {
-	interface Static {
-		render: typeof render;
-	}
+    interface Static {
+        render: typeof render;
+    }
 }
 
 declare const RenderService: RenderService.Static;

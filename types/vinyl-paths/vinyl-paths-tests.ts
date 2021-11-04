@@ -1,6 +1,7 @@
 import gulp = require('gulp');
-import del = require('del');
 import paths = require('vinyl-paths');
+
+const del: (pattern: string | string[]) => any = (pattern) => { };
 
 gulp.task('delete', function () {
     return gulp.src('app/*')

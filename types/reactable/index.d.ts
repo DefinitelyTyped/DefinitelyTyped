@@ -1,6 +1,6 @@
 // Type definitions for reactable 0.14
-// Project: https://github.com/glittershark/reactable
-// Definitions by: Christoph Spielmann <https://github.com/spielc>
+// Project: https://github.com/abdulrahman-khankan/reactable
+// Definitions by: Christoph Spielmann <https://github.com/spielc>, Priscila Moneo <https://github.com/priscila-moneo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -13,30 +13,43 @@ export interface KeyLabelObject {
 
 export type ColumnsType = string | KeyLabelObject;
 
+export type SortDirection = 'asc' | 'desc';
+
 export type FilterMethodType = (text: string) => void;
 
 export interface TableComponentProperties<T> {
-    data?: T[];
-    className?: string;
-    columns?: ColumnsType[];
-    id?: string;
-    sortable?: string[];
-    filterable?: string[];
-    filterBy?: string;
-    onFilter?: FilterMethodType;
+    children?: React.ReactNode;
+    data?: T[] | undefined;
+    className?: string | undefined;
+    columns?: ColumnsType[] | undefined;
+    defaultSort?: { column: string, direction: SortDirection } | undefined;
+    id?: string | undefined;
+    sortable?: string[] | boolean | undefined;
+    sortBy?: boolean | undefined;
+    filterable?: string[] | undefined;
+    filterBy?: string | undefined;
+    onFilter?: FilterMethodType | undefined;
+    itemsPerPage?: number | undefined;
+    noDataText?: string | undefined;
+    pageButtonLimit?: number | undefined;
+    currentPage?: number | undefined;
+    hideFilterInput?: boolean | undefined;
 }
 
 export interface ThProperties {
+    children?: React.ReactNode;
     column: string;
-    className?: string;
+    className?: string | undefined;
 }
 
 export interface TrProperties<T> {
-    data?: T;
-    className?: string;
+    children?: React.ReactNode;
+    data?: T | undefined;
+    className?: string | undefined;
 }
 
 export interface TdProperties {
+    children?: React.ReactNode;
     column: string;
     value?: any;
     data?: any;

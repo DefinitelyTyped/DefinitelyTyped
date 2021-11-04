@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "cac": "~6.4.2",
+        "webpack-chain": "^5.2.4"
+    }
+}

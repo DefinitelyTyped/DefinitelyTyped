@@ -1,5 +1,5 @@
 // Type definitions for pouchdb-node 6.1
-// Project: https://pouchdb.com/
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -14,7 +14,7 @@ declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {
             /** The backend *DOWN adapter being used (MemDOWN, RiakDOWN, …). */
-            backend_adapter?: string;
+            backend_adapter?: string | undefined;
         }
     }
 }

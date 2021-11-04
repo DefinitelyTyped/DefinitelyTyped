@@ -6,6 +6,12 @@ tp.ping({}, (err, result) => {
     result;
     // $ExpectType Results[]
     result.results;
+    // $ExpectType number
+    result.results[0].seq;
+    // $ExpectType number | undefined
+    result.results[0].time;
+    // $ExpectType Error | undefined
+    result.results[0].err;
 });
 
 // $ExpectError
@@ -15,7 +21,10 @@ tp.ping();
 tp.ping({});
 
 // $ExpectType void
-tp.probe("localhost", 8080, () => {});
+tp.probe("localhost", 8080, (err, result) => {
+    // $ExpectType boolean
+    result;
+});
 
 // $ExpectError
 tp.probe("localhost", 8080);

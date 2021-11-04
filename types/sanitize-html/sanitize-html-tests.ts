@@ -1,10 +1,15 @@
 import sanitize = require('sanitize-html');
+import { Attributes, IFrame, IOptions } from 'sanitize-html';
 
-let options: sanitize.IOptions = {
+const options: IOptions = {
   allowedTags: sanitize.defaults.allowedTags.concat('h1', 'h2', 'img'),
   allowedAttributes: {
-    'a': sanitize.defaults.allowedAttributes['a'].concat('rel'),
-    'img': ['src', 'height', 'width', 'alt', 'style']
+    a: sanitize.defaults.allowedAttributes['a'].concat('rel'),
+    img: ['src', 'height', 'width', 'alt', 'style']
+  },
+  allowedClasses: {
+    a: ['className'],
+    p: false,
   },
   allowedStyles: {
     '*': {
@@ -13,25 +18,57 @@ let options: sanitize.IOptions = {
         'background-color': [/^#0000FF$/]
       }
   },
+  allowedIframeDomains: ['zoom.us'],
   allowedIframeHostnames: ['www.youtube.com'],
   allowedSchemesAppliedToAttributes: [ 'href', 'src', 'cite' ],
-	transformTags: {
-    'a': sanitize.simpleTransform('a', { 'rel': 'nofollow' }),
-    'img': (tagName: string, attribs: sanitize.Attributes) => {
-      let img = { tagName, attribs };
+    transformTags: {
+    a: sanitize.simpleTransform('a', { rel: 'nofollow' }),
+    img: (tagName: string, attribs: Attributes) => {
+      const img = { tagName, attribs };
       img.attribs['alt'] = 'transformed' ;
       return img;
     }
   },
-  exclusiveFilter: function(frame: sanitize.IFrame) {
+  textFilter: (text, _) => text,
+  allowIframeRelativeUrls: false,
+  allowVulnerableTags: true,
+  exclusiveFilter(frame: IFrame) {
     return frame.tag === 'a' && !frame.text.trim();
   },
   allowedSchemesByTag: {
-    'a': ['http', 'https']
+    a: ['http', 'https']
   },
-  allowProtocolRelative: false
+  allowProtocolRelative: false,
+  disallowedTagsMode: 'escape',
+  enforceHtmlBoundary: true,
+  allowedScriptDomains: ['test.com'],
+  allowedScriptHostnames: ['test.com'],
 };
 
-let unsafe = '<div><script>alert("hello");</script></div>';
+sanitize.defaults.allowedAttributes; // $ExpectType Record<string, AllowedAttribute[]>
+sanitize.defaults.allowedSchemes; // $ExpectType string[]
+sanitize.defaults.allowedSchemesAppliedToAttributes; // $ExpectType string[]
+sanitize.defaults.allowedSchemesByTag; // $ExpectType { [index: string]: string[]; }
+sanitize.defaults.allowedTags; // $ExpectType string[]
+sanitize.defaults.allowProtocolRelative; // $ExpectType boolean
+sanitize.defaults.disallowedTagsMode; // $ExpectType DisallowedTagsModes
+sanitize.defaults.enforceHtmlBoundary; // $ExpectType boolean
+sanitize.defaults.selfClosing; // $ExpectType string[]
+
+const unsafe = '<div><script>alert("hello");</script></div>';
 
 let safe = sanitize(unsafe, options);
+
+options.parser = {
+    decodeEntities: true
+};
+
+safe = sanitize(unsafe, options);
+
+sanitize(unsafe, sanitize.defaults);
+
+sanitize(unsafe, {
+    allowedTags: false,
+    allowedAttributes: false,
+    nestingLimit: 6,
+});

@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "dompurify-tests.ts"
+        "test/dompurify-tests.ts",
+        "test/dompurify-namespace-tests.ts"
     ]
 }

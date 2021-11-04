@@ -5,26 +5,26 @@
 
 declare namespace GalleriaJS {
 
-	interface GalleriaOptions {
+    interface GalleriaOptions {
         dataSource: GalleriaEntry[];
-        autoplay?: boolean;
-		lightbox?: boolean;
-	}
-
-    interface GalleriaEntry {
-        image?: string;
-        thumbnail?: string;
-        title?: string;
-        description?: string;
+        autoplay?: boolean | undefined;
+        lightbox?: boolean | undefined;
     }
 
-	interface GalleriaFactory {
+    interface GalleriaEntry {
+        image?: string | undefined;
+        thumbnail?: string | undefined;
+        title?: string | undefined;
+        description?: string | undefined;
+    }
+
+    interface GalleriaFactory {
         run(): GalleriaFactory;
         run(selector: String): GalleriaFactory;
         run(selector: String, options: GalleriaOptions): GalleriaFactory;
 
-		loadTheme(url : String): GalleriaFactory;
-		configure(options: GalleriaOptions): GalleriaFactory;
+        loadTheme(url : String): GalleriaFactory;
+        configure(options: GalleriaOptions): GalleriaFactory;
 
         ready( method: () => any): void;
 
@@ -32,7 +32,7 @@ declare namespace GalleriaJS {
         resize(): GalleriaFactory;
         load( data: GalleriaEntry[]): GalleriaFactory;
         setOptions( options: GalleriaOptions): GalleriaFactory;
-	}
+    }
 
 }
 

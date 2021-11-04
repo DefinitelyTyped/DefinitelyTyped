@@ -5,9 +5,9 @@
 
 
 interface CrossStorageClientOptions {
-    timeout?: number;
+    timeout?: number | undefined;
     promise?: any;
-    frameId?: string;
+    frameId?: string | undefined;
 }
 
 type CrossStorageMethod = "get" | "set" | "del" | "getKeys" | "clear";

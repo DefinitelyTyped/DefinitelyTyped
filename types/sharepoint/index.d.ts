@@ -2,9 +2,10 @@
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
 // Definitions by: Stanislav Vyshchepan <https://github.com/gandjustas>
 //                 Andrey Markeev <https://github.com/andrei-markeev>
-//                 Vincent Biret <https://github.com/baywet>
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
+//                 SPWizard01 <https://github.com/SPWizard01>
+//                 Vitaliy Kotlyarov <https://github.com/betlgtu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
@@ -16,23 +17,174 @@ declare var _spBodyOnLoadCalled: boolean;
 declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
 declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
+declare function SelectRibbonTab(tabId: string, force: boolean);
+declare function AttachEvent<K extends keyof HTMLElementEventMap>(type: K, eventFunc: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, el: GlobalEventHandlers);
+declare function CancelEvent(e: Event): boolean;
+declare function encodeScriptQuote(str: string): string;
+declare function StAttrQuote(st: string): string;
+declare function STSScriptEncode(str: string): string;
+declare function STSScriptEncodeWithQuote(str: string): string;
+declare function ToggleDeveloperDashboard(): void;
+declare function ToggleTrace(): void;
+declare function NotifyEventAndExecuteWaitingJobs(eventName: string): void;
+declare function NotifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string): void;
+declare function NotifyBodyLoadedAndExecuteWaitingJobs(): void;
+declare enum StatusPriority {
+    red,
+    yellow,
+    green,
+    blue
+}
+declare const L_Language_Text: string;
+declare const L_ClickOnce1_text: string;
+declare const L_STSRecycleConfirm_Text: string;
+declare const L_STSRecycleConfirm1_Text: string;
+declare const L_STSRecycleConfirm2_Text: string;
+declare const L_STSDelConfirm_Text: string;
+declare const L_STSDelConfirm1_Text: string;
+declare const L_STSDelConfirm2_Text: string;
+declare const L_NewDocLibTb1_Text: string;
+declare const L_NewDocLibTb2_Text: string;
+declare const L_CheckoutConfirm: string;
+declare const L_DiscardCheckoutConfirm: string;
+declare const L_NewFormLibTb1_Text: string;
+declare const L_NewFormLibTb2_Text: string;
+declare const L_ConfirmCheckout_Text: string;
+declare const L_MustCheckout_Text: string;
+declare const L_CheckOutRetry_Text: string;
+declare const L_CannotEditPropertyForLocalCopy_Text: string;
+declare const L_CannotEditPropertyCheckout_Text: string;
+declare const L_NewFormClickOnce1_Text: string;
+declare const L_EnterValidCopyDest_Text: string;
+declare const L_ConfirmUnlinkCopy_Text: string;
+declare const L_CopyingOfflineVersionWarning_Text: string;
+declare const L_Loading_Text: string;
+declare const L_Loading_Error_Text: string;
+declare const L_Inplview_PageNotYetSaved: string;
+declare const L_WarnkOnce_text: string;
+declare const L_WebFoldersRequired_Text: string;
+declare const L_WebFoldersError_Text: string;
+declare const L_NoExplorerView_Text: string;
+declare const L_WikiWebPartNoClosedOrUploaded: string;
+declare const L_AccessibleMenu_Text: string;
+declare const L_SubMenu_Text: string;
+declare const L_NewBlogPost_Text: string;
+declare const L_NewBlogPostFailed_Text: string;
+declare const recycleBinEnabled: number;
+declare const cascadeDeleteWarningMessage: string;
+declare const bIsFileDialogView: boolean;
 declare var Strings: any;
 declare const enum Sods {
-    missing =  1,
+    missing = 1,
     loading = 2,
     pending = 3,
     loaded = 4,
     error = 5
 }
+
+declare function GetThemedImageUrl(image: string): string;
+declare function $urlHtmlEncodeString(string: string): string;
+declare var SPClientRenderer: SPClientRenderer;
+declare var MSOWebPartPageFormName: string;
+declare var HP: HP;
+
+interface SPClientRenderer {
+    AddCallStackInfoToErrors: boolean;
+    AddPostRenderCallback: (context: any, callback: () => void) => void;
+    CoreRender: () => void;
+    GlobalDebugMode: boolean;
+    IsDebugMode: () => boolean;
+    ParseTemplateString: (template: string) => () => string;
+    ParseTemplateStringWorker: (template: string) => () => string;
+    Render: () => void;
+    RenderCore: () => void;
+    RenderErrors: boolean;
+    RenderReplace: () => void;
+    ReplaceUrlTokens: (url: string) => () => string;
+    _ExecuteRenderCallbacks: () => void;
+    _ExecuteRenderCallbacksWorker: () => void;
+}
+
+interface HPIds {
+    close: string;
+    follow: string;
+    post: string;
+    title: string;
+    fileType: string;
+    size: string;
+    header: string;
+    body: string;
+    actions: string;
+    viewsLifeTime: string;
+    viewsRecent: string;
+    inner: string;
+    content: string;
+    arrowBorder: string;
+    arrow: string;
+    modifiedDate: string;
+    author: string;
+    viewDuplicates: string;
+    parentLink: string;
+    send: string;
+    openClient: string;
+    open: string;
+    preview: string;
+    dimensions: string;
+    dateCreated: string;
+    viewer: string;
+    sectionName: string;
+    siteLogo: string;
+    siteDescription: string;
+    noData: string;
+    summary: string;
+    peopleSkills: string;
+    peoplePastProjects: string;
+    peopleInterests: string;
+    peopleSchools: string;
+    peopleSummary: string;
+    peopleMemberships: string;
+}
+
+interface HP {
+    Close: () => void;
+    CommonActions: string;
+    CommonBody: string;
+    CommonHeader: string;
+    Follow: () => void;
+    GetAuthorsHtml: () => string;
+    GetBodySectionContent: () => string;
+    GetBodySectionHeading: () => string;
+    GetEmailLink: (title: string, path: string, client: string, url: string) => string;
+    GetFriendlyNameForFileType: (fileType: any) => string;
+    GetNowDateTimeDifference: () => string;
+    GetPeopleFollowingControl: () => string;
+    Hide: () => void;
+    Init: () => void;
+    InitPostLoad: () => void;
+    IsNumeric: () => boolean;
+    Resize: () => void;
+    SetPreviewOnHideCallback: () => void;
+    SetWidth: (width: number) => void;
+    Show: () => void;
+    ViewDuplicates: () => boolean;
+    getDateString: () => string;
+    getStringFromDate: () => string;
+    ids: HPIds;
+    loadSiteViewer: (id: string, idinner: string, idviewer: string, path: string, idglass: string) => void;
+    loadViewer: (id: string, idinner: string, idviewer: string, idpreview: string, embedUrl: string, previewUrl: string) => void;
+    postActionEventName: string;
+}
+
 interface Sod {
     url: string;
     key: string;
     loaded: boolean;
-    depkeys?: string[];
+    depkeys?: string[] | undefined;
     state: Sods;
-    qfn?: any[];
-    reset?: boolean;
+    qfn?: any[] | undefined;
+    reset?: boolean | undefined;
 }
+
 declare var _v_dictSod: { [address: string]: Sod };
 declare namespace SP {
     interface SOD {
@@ -53,6 +205,7 @@ declare namespace SP {
         get_ribbonImagePrefetchEnabled(): boolean;
         set_ribbonImagePrefetchEnabled(value: boolean): void;
     }
+
     let SOD: SOD;
 
     enum ListLevelPermissionMask {
@@ -244,6 +397,7 @@ interface _spPageContextInfo {
     userEmail: string; // "john.doe@fabrikam.onmicrosoft.com"
     userId: number; // 12
     userLoginName: string; // "john.doe@fabrikam.onmicrosoft.com"
+    userPrincipalName: string;
     viewOnlyExperienceEnabled: boolean; // true
     viewId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
@@ -437,29 +591,29 @@ declare namespace SP {
 
     interface RequestInfo {
         url: string;
-        method?: string;
-        headers?: { [key: string]: string; };
+        method?: string | undefined;
+        headers?: { [key: string]: string; } | undefined;
         /** Can be string or bytearray depending on binaryStringRequestBody field */
-        body?: string | Uint8Array;
-        binaryStringRequestBody?: boolean;
+        body?: string | Uint8Array | undefined;
+        binaryStringRequestBody?: boolean | undefined;
 
         /** Currently need fix to get ginary response. Details: http:// techmikael.blogspot.ru/2013/07/how-to-copy-files-between-sites-using.html */
-        binaryStringResponseBody?: boolean;
-        timeout?: number;
+        binaryStringResponseBody?: boolean | undefined;
+        timeout?: number | undefined;
         success?(response: ResponseInfo): void;
         error?(response: ResponseInfo, error: RequestExecutorErrors, statusText: string): void;
         state?: any;
     }
 
     interface ResponseInfo {
-        statusCode?: number;
-        statusText?: string;
+        statusCode?: number | undefined;
+        statusText?: string | undefined;
         responseAvailable: boolean;
-        allResponseHeaders?: string;
-        headers?: { [key: string]: string; };
-        contentType?: string;
+        allResponseHeaders?: string | undefined;
+        headers?: { [key: string]: string; } | undefined;
+        contentType?: string | undefined;
         /** Can be string or bytearray depending on request.binaryStringResponseBody field */
-        body?: string | Uint8Array;
+        body?: string | Uint8Array | undefined;
         state?: any;
     }
 
@@ -1046,7 +1200,7 @@ declare namespace SPClientTemplates {
         FormUniqueId: string;
         ListData: ListData_InForm;
         ListSchema: ListSchema_InForm;
-        CSRCustomLayout?: boolean;
+        CSRCustomLayout?: boolean | undefined;
     }
 
     interface FieldSchema_InView_LookupField extends FieldSchema_InView {
@@ -1300,15 +1454,15 @@ declare namespace SPClientTemplates {
     type RenderCallback = (ctx: RenderContext) => void;
 
     interface RenderContext {
-        BaseViewID?: number;
-        ControlMode?: ClientControlMode;
-        CurrentCultureName?: string;
-        CurrentLanguage?: number;
+        BaseViewID?: number | undefined;
+        ControlMode?: ClientControlMode | undefined;
+        CurrentCultureName?: string | undefined;
+        CurrentLanguage?: number | undefined;
         CurrentSelectedItems?: any;
-        CurrentUICultureName?: string;
-        ListTemplateType?: number;
-        OnPostRender?: RenderCallback | RenderCallback[];
-        OnPreRender?: RenderCallback | RenderCallback[];
+        CurrentUICultureName?: string | undefined;
+        ListTemplateType?: number | undefined;
+        OnPostRender?: RenderCallback | RenderCallback[] | undefined;
+        OnPreRender?: RenderCallback | RenderCallback[] | undefined;
         onRefreshFailed?: any;
         RenderBody?(renderContext: RenderContext): string;
         RenderFieldByName?(renderContext: RenderContext, fieldName: string): string;
@@ -1318,8 +1472,8 @@ declare namespace SPClientTemplates {
         RenderHeader?(renderContext: RenderContext): string;
         RenderItems?(renderContext: RenderContext): string;
         RenderView?(renderContext: RenderContext): string;
-        SiteClientTag?: string;
-        Templates?: Templates;
+        SiteClientTag?: string | undefined;
+        Templates?: Templates | undefined;
     }
 
     /** Must return null in order to fall back to a more common template or to a system default template */
@@ -1342,13 +1496,13 @@ declare namespace SPClientTemplates {
 
     interface FieldTemplateOverrides {
         /** Defines templates for rendering the field on a display form. */
-        DisplayForm?: FieldInFormCallback;
+        DisplayForm?: FieldInFormCallback | undefined;
         /** Defines templates for rendering the field on an edit form. */
-        EditForm?: FieldInFormCallback;
+        EditForm?: FieldInFormCallback | undefined;
         /** Defines templates for rendering the field on a new form. */
-        NewForm?: FieldInFormCallback;
+        NewForm?: FieldInFormCallback | undefined;
         /** Defines templates for rendering the field on a list view. */
-        View?: FieldInViewCallback;
+        View?: FieldInViewCallback | undefined;
     }
 
     interface FieldTemplates {
@@ -1356,20 +1510,20 @@ declare namespace SPClientTemplates {
     }
 
     interface Templates {
-        View?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
-        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
+        View?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
+        Body?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
         /** Defines templates for rendering groups (aggregations). */
-        Group?: GroupCallback | string;
+        Group?: GroupCallback | string | undefined;
         /** Defines templates for list items rendering. */
-        Item?: ItemCallback | string;
+        Item?: ItemCallback | string | undefined;
         /** Defines template for rendering list view header.
             Can be either string or SingleTemplateCallback */
-        Header?: SingleTemplateCallback | string;
+        Header?: SingleTemplateCallback | string | undefined;
         /** Defines template for rendering list view footer.
             Can be either string or SingleTemplateCallback */
-        Footer?: SingleTemplateCallback | string;
+        Footer?: SingleTemplateCallback | string | undefined;
         /** Defines templates for fields rendering. The field is specified by it's internal name. */
-        Fields?: FieldTemplates;
+        Fields?: FieldTemplates | undefined;
     }
 
     interface FieldTemplateMap {
@@ -1377,40 +1531,40 @@ declare namespace SPClientTemplates {
     }
 
     interface TemplateOverrides {
-        View?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
-        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
+        View?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
+        Body?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
         /** Defines templates for rendering groups (aggregations). */
-        Group?: GroupCallback | string;
+        Group?: GroupCallback | string | undefined;
         /** Defines templates for list items rendering. */
-        Item?: ItemCallback | string;
+        Item?: ItemCallback | string | undefined;
         /** Defines template for rendering list view header.
             Can be either string or SingleTemplateCallback */
-        Header?: SingleTemplateCallback | string;
+        Header?: SingleTemplateCallback | string | undefined;
         /** Defines template for rendering list view footer.
             Can be either string or SingleTemplateCallback */
-        Footer?: SingleTemplateCallback | string;
+        Footer?: SingleTemplateCallback | string | undefined;
         /** Defines templates for fields rendering. The field is specified by it's internal name. */
-        Fields?: FieldTemplateMap;
+        Fields?: FieldTemplateMap | undefined;
     }
     interface TemplateOverridesOptions {
         /** Template overrides */
-        Templates?: TemplateOverrides;
+        Templates?: TemplateOverrides | undefined;
 
-        /** �allbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
-        OnPreRender?: RenderCallback | RenderCallback[];
+        /** Callbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
+        OnPreRender?: RenderCallback | RenderCallback[] | undefined;
 
-        /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
-        OnPostRender?: RenderCallback | RenderCallback[];
+        /** Callbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
+        OnPostRender?: RenderCallback | RenderCallback[] | undefined;
 
         /** View style (SPView.StyleID) for which the templates should be applied.
             If not defined, the templates will be applied only to default view style. */
-        ViewStyle?: number;
+        ViewStyle?: number | undefined;
         /** List template type (SPList.BaseTemplate) for which the template should be applied.
             If not defined, the templates will be applied to all lists. */
-        ListTemplateType?: number;
+        ListTemplateType?: number | undefined;
         /** Base view ID (SPView.BaseViewID) for which the template should be applied.
             If not defined, the templates will be applied to all views. */
-        BaseViewID?: number | string;
+        BaseViewID?: number | string | undefined;
     }
     class TemplateManager {
         static RegisterTemplateOverrides(renderCtx: TemplateOverridesOptions): void;
@@ -1517,7 +1671,6 @@ declare namespace SPClientForms {
         class ValidatorSet {
             RegisterValidator(validator: IValidator): void;
         }
-        // tslint:disable-next-line: interface-name
         interface IValidator {
             Validate(value: any): ValidationResult;
         }
@@ -1673,14 +1826,12 @@ declare namespace SPAnimationUtility {
     }
 }
 
-// tslint:disable-next-line: interface-name
 interface IEnumerator<T> {
     get_current(): T;
     moveNext(): boolean;
     reset(): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface IEnumerable<T> {
     getEnumerator(): IEnumerator<T>;
 }
@@ -1771,7 +1922,7 @@ declare namespace SP {
         manageAlerts,
         /** Create e-mail alerts. */
         createAlerts,
-        /** Allows a user to change his or her user information, such as adding a picture. */
+        /** Allows a user to change their user information, such as adding a picture. */
         editMyUserInfo,
         /** Enumerate permissions on the Web site, list, folder, document, or list item. */
         enumeratePermissions,
@@ -1785,7 +1936,6 @@ declare namespace SP {
         itemAtIndex(index: number): T;
         constructor();
     }
-    // tslint:disable-next-line: interface-name
     interface IFromJson {
         fromJson(initValue: any): void;
         customFromJson(initValue: any): boolean;
@@ -1894,7 +2044,6 @@ declare namespace SP {
         static createLocalDateTime(milliseconds: number): Date;
     }
 
-    // tslint:disable-next-line: interface-name
     interface IWebRequestExecutorFactory {
         createWebRequestExecutor(): Sys.Net.WebRequestExecutor;
     }
@@ -1950,148 +2099,148 @@ declare namespace SP {
     }
 
     class ClientConstants {
-        AddExpandoFieldTypeSuffix: string;
-        Actions: string;
-        ApplicationName: string;
-        Body: string;
-        CatchScope: string;
-        ChildItemQuery: string;
-        ChildItems: string;
-        ConditionalScope: string;
-        Constructor: string;
-        Context: string;
-        ErrorInfo: string;
-        ErrorMessage: string;
-        ErrorStackTrace: string;
-        ErrorCode: string;
-        ErrorTypeName: string;
-        ErrorValue: string;
-        ErrorDetails: string;
-        ErrorTraceCorrelationId: string;
-        ExceptionHandlingScope: string;
-        ExceptionHandlingScopeSimple: string;
-        QueryableExpression: string;
-        FinallyScope: string;
-        HasException: string;
-        Id: string;
-        Identity: string;
-        IfFalseScope: string;
-        IfTrueScope: string;
-        IsNull: string;
-        LibraryVersion: string;
-        TraceCorrelationId: string;
-        Count: string;
-        Method: string;
-        Methods: string;
-        Name: string;
-        Object: string;
-        ObjectPathId: string;
-        ObjectPath: string;
-        ObjectPaths: string;
-        ObjectType: string;
-        ObjectIdentity: string;
-        ObjectIdentityQuery: string;
-        ObjectVersion: string;
-        Parameter: string;
-        Parameters: string;
-        ParentId: string;
-        Processed: string;
-        Property: string;
-        Properties: string;
-        Query: string;
-        QueryResult: string;
-        Request: string;
-        Results: string;
-        ScalarProperty: string;
-        SchemaVersion: string;
-        ScopeId: string;
-        SelectAll: string;
-        SelectAllProperties: string;
-        SetProperty: string;
-        SetStaticProperty: string;
-        StaticMethod: string;
-        StaticProperty: string;
-        SuffixChar: string;
-        SuffixByte: string;
-        SuffixInt16: string;
-        SuffixUInt16: string;
-        SuffixInt32: string;
-        SuffixUInt32: string;
-        SuffixInt64: string;
-        SuffixUInt64: string;
-        SuffixSingle: string;
-        SuffixDouble: string;
-        SuffixDecimal: string;
-        SuffixTimeSpan: string;
-        SuffixArray: string;
-        Test: string;
-        TryScope: string;
-        Type: string;
-        TypeId: string;
-        Update: string;
-        Version: string;
-        XmlElementName: string;
-        XmlElementAttributes: string;
-        XmlElementChildren: string;
-        XmlNamespace: string;
-        FieldValuesMethodName: string;
-        RequestTokenHeader: string;
-        FormDigestHeader: string;
-        useWebLanguageHeader: string;
-        useWebLanguageHeaderValue: string;
-        ClientTagHeader: string;
-        TraceCorrelationIdRequestHeader: string;
-        TraceCorrelationIdResponseHeader: string;
-        greaterThan: string;
-        lessThan: string;
-        equal: string;
-        notEqual: string;
-        greaterThanOrEqual: string;
-        lessThanOrEqual: string;
-        andAlso: string;
-        orElse: string;
-        not: string;
-        expressionParameter: string;
-        expressionProperty: string;
-        expressionStaticProperty: string;
-        expressionMethod: string;
-        expressionStaticMethod: string;
-        expressionConstant: string;
-        expressionConvert: string;
-        expressionTypeIs: string;
-        ofType: string;
-        take: string;
-        where: string;
-        orderBy: string;
-        orderByDescending: string;
-        thenBy: string;
-        thenByDescending: string;
-        queryableObject: string;
-        ServiceFileName: string;
-        ServiceMethodName: string;
-        fluidApplicationInitParamUrl: string;
-        fluidApplicationInitParamViaUrl: string;
-        fluidApplicationInitParamRequestToken: string;
-        fluidApplicationInitParamFormDigestTimeoutSeconds: string;
-        fluidApplicationInitParamFormDigest: string;
+        static AddExpandoFieldTypeSuffix: string;
+        static Actions: string;
+        static ApplicationName: string;
+        static Body: string;
+        static CatchScope: string;
+        static ChildItemQuery: string;
+        static ChildItems: string;
+        static ConditionalScope: string;
+        static Constructor: string;
+        static Context: string;
+        static ErrorInfo: string;
+        static ErrorMessage: string;
+        static ErrorStackTrace: string;
+        static ErrorCode: string;
+        static ErrorTypeName: string;
+        static ErrorValue: string;
+        static ErrorDetails: string;
+        static ErrorTraceCorrelationId: string;
+        static ExceptionHandlingScope: string;
+        static ExceptionHandlingScopeSimple: string;
+        static QueryableExpression: string;
+        static FinallyScope: string;
+        static HasException: string;
+        static Id: string;
+        static Identity: string;
+        static IfFalseScope: string;
+        static IfTrueScope: string;
+        static IsNull: string;
+        static LibraryVersion: string;
+        static TraceCorrelationId: string;
+        static Count: string;
+        static Method: string;
+        static Methods: string;
+        static Name: string;
+        static Object: string;
+        static ObjectPathId: string;
+        static ObjectPath: string;
+        static ObjectPaths: string;
+        static ObjectType: string;
+        static ObjectIdentity: string;
+        static ObjectIdentityQuery: string;
+        static ObjectVersion: string;
+        static Parameter: string;
+        static Parameters: string;
+        static ParentId: string;
+        static Processed: string;
+        static Property: string;
+        static Properties: string;
+        static Query: string;
+        static QueryResult: string;
+        static Request: string;
+        static Results: string;
+        static ScalarProperty: string;
+        static SchemaVersion: string;
+        static ScopeId: string;
+        static SelectAll: string;
+        static SelectAllProperties: string;
+        static SetProperty: string;
+        static SetStaticProperty: string;
+        static StaticMethod: string;
+        static StaticProperty: string;
+        static SuffixChar: string;
+        static SuffixByte: string;
+        static SuffixInt16: string;
+        static SuffixUInt16: string;
+        static SuffixInt32: string;
+        static SuffixUInt32: string;
+        static SuffixInt64: string;
+        static SuffixUInt64: string;
+        static SuffixSingle: string;
+        static SuffixDouble: string;
+        static SuffixDecimal: string;
+        static SuffixTimeSpan: string;
+        static SuffixArray: string;
+        static Test: string;
+        static TryScope: string;
+        static Type: string;
+        static TypeId: string;
+        static Update: string;
+        static Version: string;
+        static XmlElementName: string;
+        static XmlElementAttributes: string;
+        static XmlElementChildren: string;
+        static XmlNamespace: string;
+        static FieldValuesMethodName: string;
+        static RequestTokenHeader: string;
+        static FormDigestHeader: string;
+        static useWebLanguageHeader: string;
+        static useWebLanguageHeaderValue: string;
+        static ClientTagHeader: string;
+        static TraceCorrelationIdRequestHeader: string;
+        static TraceCorrelationIdResponseHeader: string;
+        static greaterThan: string;
+        static lessThan: string;
+        static equal: string;
+        static notEqual: string;
+        static greaterThanOrEqual: string;
+        static lessThanOrEqual: string;
+        static andAlso: string;
+        static orElse: string;
+        static not: string;
+        static expressionParameter: string;
+        static expressionProperty: string;
+        static expressionStaticProperty: string;
+        static expressionMethod: string;
+        static expressionStaticMethod: string;
+        static expressionConstant: string;
+        static expressionConvert: string;
+        static expressionTypeIs: string;
+        static ofType: string;
+        static take: string;
+        static where: string;
+        static orderBy: string;
+        static orderByDescending: string;
+        static thenBy: string;
+        static thenByDescending: string;
+        static queryableObject: string;
+        static ServiceFileName: string;
+        static ServiceMethodName: string;
+        static fluidApplicationInitParamUrl: string;
+        static fluidApplicationInitParamViaUrl: string;
+        static fluidApplicationInitParamRequestToken: string;
+        static fluidApplicationInitParamFormDigestTimeoutSeconds: string;
+        static fluidApplicationInitParamFormDigest: string;
     }
     class ClientSchemaVersions {
-        version14: string;
-        version15: string;
-        currentVersion: string;
+        static version14: string;
+        static version15: string;
+        static currentVersion: string;
     }
     class ClientErrorCodes {
-        genericError: number;
-        accessDenied: number;
-        docAlreadyExists: number;
-        versionConflict: number;
-        listItemDeleted: number;
-        invalidFieldValue: number;
-        notSupported: number;
-        redirect: number;
-        notSupportedRequestVersion: number;
-        fieldValueFailedValidation: number;
-        itemValueFailedValidation: number;
+        static genericError: number;
+        static accessDenied: number;
+        static docAlreadyExists: number;
+        static versionConflict: number;
+        static listItemDeleted: number;
+        static invalidFieldValue: number;
+        static notSupported: number;
+        static redirect: number;
+        static notSupportedRequestVersion: number;
+        static fieldValueFailedValidation: number;
+        static itemValueFailedValidation: number;
     }
     class ClientAction {
         get_id(): number;
@@ -2205,6 +2354,8 @@ declare namespace SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_applicationName(): string;
         set_applicationName(value: string): void;
+        get_disableReturnValueCache(): boolean;
+        set_disableReturnValueCache(value: boolean): boolean;
         get_clientTag(): string;
         set_clientTag(value: string): void;
         get_webRequestExecutorFactory(): SP.IWebRequestExecutorFactory;
@@ -3639,7 +3790,7 @@ declare namespace SP {
         get_baseTemplate(): number;
         /** Gets base type for the list. */
         get_baseType(): SP.BaseType;
-        /** Gets a value that specifies the override of the web application�s BrowserFileHandling property at the list level. */
+        /** Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. */
         get_browserFileHandling(): SP.BrowserFileHandling;
         /** Gets the content types that are associated with the list. */
         get_contentTypes(): SP.ContentTypeCollection;
@@ -6145,10 +6296,10 @@ declare namespace SP {
             get_name(): string;
             /** Provides the attachment name. */
             set_name(value: string): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             get_previewUri(): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             set_previewUri(value: string): string;
             /** Provides the attachment URI. */
@@ -6981,7 +7132,6 @@ declare namespace SP {
                 constructor(entities: any);
                 get_entities(): any;
             }
-            // tslint:disable-next-line: interface-name
             interface ISelectorComponent {
                 get_selectedEntities(): any;
                 set_selectedEntities(value: any): void;
@@ -7022,7 +7172,6 @@ declare namespace SP {
                 setEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
             }
 
-            // tslint:disable-next-line: interface-name
             interface ICalendarController {
                 moveToDate(date: string): void;
                 moveToViewType(viewType: string): void;
@@ -7196,36 +7345,35 @@ declare namespace SP {
         /** Callback which processes dialog result value after dialog is closed */
         type DialogReturnValueCallback = (dialogResult: DialogResult, returnValue: any) => void;
         /** Options for dialog creation */
-        // tslint:disable-next-line: interface-name
         interface IDialogOptions {
             /** Text displayed in the title bar of the dialog box. If not defined, it will default to the title of the page defined by url property. */
-            title?: string;
+            title?: string | undefined;
             /** X coordinate of the dialog box. */
-            x?: number;
+            x?: number | undefined;
             /** Y coordinate of the dialog box. */
-            y?: number;
+            y?: number | undefined;
             /** The dialog will be maximized when shown. */
-            showMaximized?: boolean;
+            showMaximized?: boolean | undefined;
             /** url of the page which is shown in the modal dialog. You should use either html or url attribute, but not both. */
-            url?: string;
+            url?: string | undefined;
             /** specifies if close button should be shown on the dialog */
-            showClose?: boolean;
+            showClose?: boolean | undefined;
             /** specifies if maximize button should be shown on the dialog */
-            allowMaximize?: boolean;
+            allowMaximize?: boolean | undefined;
             /** callback that is called after dialog is closed */
-            dialogReturnValueCallback?: DialogReturnValueCallback;
+            dialogReturnValueCallback?: DialogReturnValueCallback | undefined;
             /** automatically determine size of the dialog based on its contents. */
-            autoSize?: boolean;
+            autoSize?: boolean | undefined;
             /** minimum width of the dialog when using autoSize option */
-            autoSizeStartWidth?: number;
+            autoSizeStartWidth?: number | undefined;
             /** include padding for adding a scrollbar */
-            includeScrollBarPadding?: boolean;
+            includeScrollBarPadding?: boolean | undefined;
             /** width of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
-            width?: number;
+            width?: number | undefined;
             /** height of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
-            height?: number;
+            height?: number | undefined;
             /** html element which will be used as contents of the dialog. You should use either html or url attribute, but not both. */
-            html?: HTMLElement;
+            html?: HTMLElement | undefined;
             /** custom arguments to be passed to the dialog */
             args?: any;
         }
@@ -7426,31 +7574,29 @@ declare function RefreshCommandUI(): void;
 declare namespace SP {
     namespace UI {
         namespace Controls {
-            // tslint:disable-next-line: interface-name
             interface INavigationOptions {
-                assetId?: string;
-                siteTitle?: string;
-                siteUrl?: string;
-                appTitle?: string;
-                appTitleIconUrl?: string;
-                rightToLeft?: boolean;
-                appStartPage?: string;
-                appIconUrl?: string;
-                appHelpPageUrl?: string;
-                appHelpPageOnClick?: string;
-                settingsLinks?: ISettingsLink[];
-                language?: string;
-                clientTag?: string;
-                appWebUrl?: string;
-                onCssLoaded?: string;
+                assetId?: string | undefined;
+                siteTitle?: string | undefined;
+                siteUrl?: string | undefined;
+                appTitle?: string | undefined;
+                appTitleIconUrl?: string | undefined;
+                rightToLeft?: boolean | undefined;
+                appStartPage?: string | undefined;
+                appIconUrl?: string | undefined;
+                appHelpPageUrl?: string | undefined;
+                appHelpPageOnClick?: string | undefined;
+                settingsLinks?: ISettingsLink[] | undefined;
+                language?: string | undefined;
+                clientTag?: string | undefined;
+                appWebUrl?: string | undefined;
+                onCssLoaded?: string | undefined;
 
-                bottomHeaderVisible?: boolean;
-                topHeaderVisible?: boolean;
+                bottomHeaderVisible?: boolean | undefined;
+                topHeaderVisible?: boolean | undefined;
             }
 
             class NavigationOptions implements INavigationOptions { }
 
-            // tslint:disable-next-line: interface-name
             interface ISettingsLink {
                 linkUrl: string;
                 displayName: string;
@@ -7556,7 +7702,7 @@ declare namespace SP {
 
         /** Provides methods for operations related to people.
             Note: The SocialFollowingManager object is the recommended object for performing Following People and Following Content tasks.
-            However, PeopleManager provides some methods that SocialFollowingManager doesn�t. */
+            However, PeopleManager provides some methods that SocialFollowingManager doesn't. */
         class PeopleManager extends SP.ClientObject {
             constructor(context: SP.ClientRuntimeContext);
             static getTrendingTags(context: SP.ClientRuntimeContext): HashTagCollection;
@@ -8156,6 +8302,7 @@ declare namespace SP {
         class WebPartDefinition extends SP.ClientObject {
             get_id(): SP.Guid;
             get_webPart(): SP.WebParts.WebPart;
+            get_zoneId(): string;
             saveWebPartChanges(): void;
             closeWebPart(): void;
             openWebPart(): void;
@@ -8328,7 +8475,7 @@ declare namespace SP.WorkflowServices {
         get_xaml(): string;
         /** XAML definition of the workflow */
         set_xaml(value: string): string;
-        /** This method adds a key-value pair (propertyName, value) to the workflow definition object�s property bag.  */
+        /** This method adds a key-value pair (propertyName, value) to the workflow definition object's property bag.  */
         setProperty(propertyName: string, value: string): void;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;
@@ -9307,13 +9454,12 @@ declare class SPClientAutoFill {
     UpdateAutoFillPosition(): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface ISPClientAutoFillData {
     AutoFillKey?: any;
-    AutoFillDisplayText?: string;
-    AutoFillSubDisplayText?: string;
-    AutoFillTitleText?: string;
-    AutoFillMenuOptionType?: number;
+    AutoFillDisplayText?: string | undefined;
+    AutoFillSubDisplayText?: string | undefined;
+    AutoFillTitleText?: string | undefined;
+    AutoFillMenuOptionType?: number | undefined;
 }
 
 declare class SPClientPeoplePicker {
@@ -9442,43 +9588,42 @@ declare class SPClientPeoplePicker {
     AddResolvedUserToLocalCache(resolvedEntity: ISPClientPeoplePickerEntity, resolveText: string): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface ISPClientPeoplePickerSchema {
-    TopLevelElementId?: string;
-    EditorElementId?: string;
-    AutoFillElementId?: string;
-    ResolvedListElementId?: string;
-    InitialHelpTextElementId?: string;
-    WaitImageId?: string;
-    HiddenInputId?: string;
+    TopLevelElementId?: string | undefined;
+    EditorElementId?: string | undefined;
+    AutoFillElementId?: string | undefined;
+    ResolvedListElementId?: string | undefined;
+    InitialHelpTextElementId?: string | undefined;
+    WaitImageId?: string | undefined;
+    HiddenInputId?: string | undefined;
 
-    AllowMultipleValues?: boolean;
-    Required?: boolean;
-    AutoFillEnabled?: boolean;
-    ForceClaims?: boolean;
-    AllowEmailAddresses?: boolean;
-    AllUrlZones?: boolean;
-    UseLocalSuggestionCache?: boolean;
-    UserNoQueryPermission?: boolean;
+    AllowMultipleValues?: boolean | undefined;
+    Required?: boolean | undefined;
+    AutoFillEnabled?: boolean | undefined;
+    ForceClaims?: boolean | undefined;
+    AllowEmailAddresses?: boolean | undefined;
+    AllUrlZones?: boolean | undefined;
+    UseLocalSuggestionCache?: boolean | undefined;
+    UserNoQueryPermission?: boolean | undefined;
 
-    VisibleSuggestions?: number;
-    MaximumEntitySuggestions?: number;
+    VisibleSuggestions?: number | undefined;
+    MaximumEntitySuggestions?: number | undefined;
 
-    ErrorMessage?: string;
-    InitialHelpText?: string;
+    ErrorMessage?: string | undefined;
+    InitialHelpText?: string | undefined;
 
-    InitialSuggestions?: ISPClientPeoplePickerEntity[];
+    InitialSuggestions?: ISPClientPeoplePickerEntity[] | undefined;
 
-    UrlZone?: SP.UrlZone;
-    WebApplicationID?: SP.Guid;
-    SharePointGroupID?: number;
+    UrlZone?: SP.UrlZone | undefined;
+    WebApplicationID?: SP.Guid | undefined;
+    SharePointGroupID?: number | undefined;
 
     /** Specify User, DL, SecGroup or SPGroup*/
-    PrincipalAccountType?: string;
+    PrincipalAccountType?: string | undefined;
 
-    EnabledClaimProvider?: string;
-    ResolvePrincipalSource?: SP.Utilities.PrincipalSource;
-    SearchPrincipalSource?: SP.Utilities.PrincipalSource;
+    EnabledClaimProvider?: string | undefined;
+    ResolvePrincipalSource?: SP.Utilities.PrincipalSource | undefined;
+    SearchPrincipalSource?: SP.Utilities.PrincipalSource | undefined;
 
     OnUserResolvedClientScript?(pickerElementId: string, users: ISPClientPeoplePickerEntity[]): void;
     OnValueChangedClientScript?(pickerElementId: string, users: ISPClientPeoplePickerEntity[]): void;
@@ -9486,7 +9631,7 @@ interface ISPClientPeoplePickerSchema {
     /** Number or '100%'*/
     Width?: any;
 
-    Rows?: number;
+    Rows?: number | undefined;
 }
 
 declare class SPClientPeoplePickerMRU {
@@ -9500,23 +9645,22 @@ declare class SPClientPeoplePickerMRU {
     ResetCache(): void;
 }
 
-// tslint:disable-next-line: interface-name
 interface ISPClientPeoplePickerEntity {
-    Key?: string;
-    Description?: string;
-    DisplayText?: string;
-    EntityType?: string;
-    ProviderDisplayName?: string;
-    ProviderName?: string;
-    IsResolved?: boolean;
+    Key?: string | undefined;
+    Description?: string | undefined;
+    DisplayText?: string | undefined;
+    EntityType?: string | undefined;
+    ProviderDisplayName?: string | undefined;
+    ProviderName?: string | undefined;
+    IsResolved?: boolean | undefined;
     EntityData?: {
         Title: string;
         MobilePhone: string;
         Department: string;
         Email: string;
-    };
+    } | undefined;
     MultipleMatches: ISPClientPeoplePickerEntity[];
-    DomainText?: string;
+    DomainText?: string | undefined;
     [key: string]: any;
 }
 
@@ -9838,10 +9982,9 @@ declare namespace SP {
             ReadOnlyDisabled, // 1
         }
 
-        // tslint:disable-next-line: interface-name
         interface IValue {
             data?: any;
-            localized?: string;
+            localized?: string | undefined;
         }
         enum SelectionTypeFlags {
             MultipleCellRanges,
@@ -10114,7 +10257,6 @@ declare namespace SP {
             GetSpCsrRenderCtx(): any;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IChangeKey {
             Reserve(): void;
             Release(): void;
@@ -10223,7 +10365,6 @@ declare namespace SP {
                 If bHideTooltip == false, then alternative text is also shown as the tooltip (title attribute). */
             Render(altText: string, clickFn: (eventInfo: Sys.UI.DomEvent) => void, bHideTooltip: boolean): HTMLElement;
         }
-        // tslint:disable-next-line: interface-name no-empty-interface
         interface IEventArgs { }
         namespace EventArgs {
             class OnEntryRecordAdded implements IEventArgs {
@@ -10452,7 +10593,6 @@ declare namespace SP {
             // todo
         }
 
-        // tslint:disable-next-line: interface-name
         interface IStyleManager {
             gridPaneStyle: IStyleType.GridPane;
             columnHeaderStyleCollection: {
@@ -10495,7 +10635,6 @@ declare namespace SP {
             UpdateDefaultCellStyleFromCss(styleObject: IStyleType.Cell, cssClass: string): void;
             UpdateGroupStylesFromCss(styleObject: IStyleType.Cell, prefix: string): void;
         }
-        // tslint:disable-next-line: no-empty-interface interface-name
         interface IStyleType { }
         namespace IStyleType {
             interface Splitter extends IStyleType {
@@ -10693,7 +10832,6 @@ declare namespace SP {
             fnGetSingleValueTooltip: (record: IRecord, fieldKey: string, dataValue: any, localizedValue: any) => string;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IRecord {
             /** True if this is an entry row */
             bIsNewRow: boolean;
@@ -10729,7 +10867,6 @@ declare namespace SP {
             MakeRecord(dataPropMap: any, localizedPropMap: any, bKeepRawData: boolean): IRecord;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IPropertyBase {
             HasLocalizedValue(): boolean;
             HasDataValue(): boolean;
@@ -10765,7 +10902,6 @@ declare namespace SP {
             GetIsMultiValue(): boolean;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditActorGridContext {
             jsGridObj: JsGridControl;
             parentNode: HTMLElement;
@@ -10776,19 +10912,16 @@ declare namespace SP {
             OnKeyDown(domEvent: Sys.UI.DomEvent): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditControlGridContext extends IEditActorGridContext {
             OnActivateActor(): void;
             OnDeactivateActor(): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IPropertyType {
             ID: string;
             BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface ILookupPropertyType extends IPropertyType {
             GetItems(fnCallback: any): void;
             DataToLocalized(dataValue: any): string;
@@ -10799,7 +10932,6 @@ declare namespace SP {
             GetSerializableLookupPropType(): { items: any[]; id: string; bLimitToList: boolean };
         }
 
-        // tslint:disable-next-line: interface-name
         interface IMultiValuePropertyType extends IPropertyType {
             bMultiValue: boolean;
             separator: string;
@@ -10924,7 +11056,6 @@ declare namespace SP {
             }
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditActorCellContext {
             propType: IPropertyType;
             originalValue: IValue;
@@ -10936,7 +11067,6 @@ declare namespace SP {
             SetCurrentValue(value: any): void;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditControlCellContext extends IEditActorCellContext {
             cellWidth: number;
             cellHeight: number;
@@ -10951,10 +11081,9 @@ declare namespace SP {
         namespace EditControl {
         }
 
-        // tslint:disable-next-line: interface-name
         interface IEditControl {
-            SupportedWriteMode?: SP.JsGrid.EditActorWriteType;
-            SupportedReadMode?: SP.JsGrid.EditActorReadType;
+            SupportedWriteMode?: SP.JsGrid.EditActorWriteType | undefined;
+            SupportedReadMode?: SP.JsGrid.EditActorReadType | undefined;
             GetCellContext?(): IEditControlCellContext;
             GetOriginalValue?(): IValue;
             SetValue?(value: IValue): void;
@@ -10978,7 +11107,6 @@ declare namespace SP {
             InitJsGridParams(optGridParams?: JsGridControl.Parameters): JsGridControl.Parameters;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IGridData {
             MetaData: IGridMetadata;
 
@@ -10989,34 +11117,33 @@ declare namespace SP {
             UnlocalizedTable: any[];
             ViewInfo: any[];
 
-            MultiValueSeparator?: string;
-            LookupTableInfo?: ILookupTableInfo[];
-            PivotedColumns?: ColumnInfo[];
-            PaneLayout?: PaneLayout;
+            MultiValueSeparator?: string | undefined;
+            LookupTableInfo?: ILookupTableInfo[] | undefined;
+            PivotedColumns?: ColumnInfo[] | undefined;
+            PaneLayout?: PaneLayout | undefined;
             GanttInfo?: any;
-            AutoFilterableColumns?: boolean;
+            AutoFilterableColumns?: boolean | undefined;
             AutoFilterState?: any;
-            SortState?: any[];
+            SortState?: any[] | undefined;
             HierarchyState?: any;
-            TopRecord?: number;
-            RecordCount?: number;
+            TopRecord?: number | undefined;
+            RecordCount?: number | undefined;
             AdditionalParams?: any;
             CellStyles?: any;
-            GroupingGridRowStyleIds?: any[];
+            GroupingGridRowStyleIds?: any[] | undefined;
             UnfilteredHierarchy?: any;
             AutoFilterEntries?: any;
 
-            ViewDepKeys?: any[];
+            ViewDepKeys?: any[] | undefined;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IColumnInfo {
             /** Column title */
             name: string;
             /** Column image URL.
                 If not null, the column header cell will show the image instead of title text.
                 If the title is defined at the same time as the imgSrc, the title will be shown as a tooltip. */
-            imgSrc?: string;
+            imgSrc?: string | undefined;
             /** Column identifier */
             columnKey: string;
             /** Column identifier */
@@ -11026,55 +11153,51 @@ declare namespace SP {
             /** Width of the column */
             width: number;
             /** true by default */
-            isVisible?: boolean;
+            isVisible?: boolean | undefined;
             /** true by default */
-            isHidable?: boolean;
+            isHidable?: boolean | undefined;
             /** true by default */
-            isResizable?: boolean;
+            isResizable?: boolean | undefined;
             /** true by default */
-            isSortable?: boolean;
+            isSortable?: boolean | undefined;
             /** true by default */
-            isAutoFilterable?: boolean;
+            isAutoFilterable?: boolean | undefined;
             /** false by default */
-            isFooter?: boolean;
+            isFooter?: boolean | undefined;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IGridMetadata {
             KeyColumnName: string;
-            IsGanttEnabled?: boolean;
-            IsHierarchyEnabled?: boolean;
-            IsSorted?: boolean;
-            GroupingLevel?: number;
-            GroupingPrefix?: string;
-            RecordKeyHash?: string;
+            IsGanttEnabled?: boolean | undefined;
+            IsHierarchyEnabled?: boolean | undefined;
+            IsSorted?: boolean | undefined;
+            GroupingLevel?: number | undefined;
+            GroupingPrefix?: string | undefined;
+            RecordKeyHash?: string | undefined;
             RecordKeyOrderChanged?: any;
-            GridOperationalConstantsFieldKeyMap?: { [index: number]: string };
+            GridOperationalConstantsFieldKeyMap?: { [index: number]: string } | undefined;
         }
 
-        // tslint:disable-next-line: interface-name
         interface IFieldInfo {
             fieldKey: string;
             propertyTypeId: string;
-            editMode?: EditMode;
-            hasDataValue?: boolean;
-            hasLocalizedValue?: boolean;
-            multiValue?: boolean;
-            textDirection?: TextDirection;
-            dateOnly?: boolean;
+            editMode?: EditMode | undefined;
+            hasDataValue?: boolean | undefined;
+            hasLocalizedValue?: boolean | undefined;
+            multiValue?: boolean | undefined;
+            textDirection?: TextDirection | undefined;
+            dateOnly?: boolean | undefined;
             defaultCellStyleId?: any;
         }
 
-        // tslint:disable-next-line: interface-name
         interface ILookupTableInfo {
             id: string;
-            showImage?: boolean;
-            showText?: boolean;
-            limitToList?: boolean;
+            showImage?: boolean | undefined;
+            showText?: boolean | undefined;
+            limitToList?: boolean | undefined;
             lookup: ILookupInfo[];
         }
 
-        // tslint:disable-next-line: interface-name
         interface ILookupInfo {
             localString: string;
             value: number;
@@ -11168,6 +11291,31 @@ declare namespace Srch {
         unspecified,
         utc,
         local
+    }
+
+    interface RefinementInfo {
+        Culture: string;
+        DisplayName: string;
+        Entropy: number;
+        HitCount: number;
+        Max: number;
+        Mean: number;
+        Min: number;
+        Modifier: string;
+        NonZeroCount: number;
+        PartitionId: SP.Guid;
+        Ratio: number;
+        RefinementCount: number;
+        RefinementName: string;
+        RefinementToken: string;
+        RefinementValue: string;
+        RefinerName: string;
+        RenderTemplateId: string;
+        Score: number;
+        Sum: number;
+        Type: string;
+        UniqueCount: number;
+        UrlZone: number;
     }
 
     class ClientControl extends Sys.UI.Control {
@@ -11284,7 +11432,7 @@ declare namespace Srch {
         set_totalRows(value: number): number;
         get_rowCount(): number;
         set_rowCount(value: number): number;
-        get_refinementInfo(): any;
+        get_refinementInfo(): { [key: string]: RefinementInfo[] };
         get_entityInfo(): any;
         get_enableStemming(): boolean;
         set_enableStemming(value: boolean): boolean;
@@ -11389,7 +11537,7 @@ declare namespace Srch {
         static submitMultiRefinement(name: string, control: Refinement, useContains: boolean, useKQL: boolean): void;
         static ensureUserSpecifiedRefinerValueHasWhiteSpaceQuotes(inputText: string): string;
         static getRefinementLocalizedTitle(propertyName: string): string;
-        static getRefinementTitle(currentRefinemntControl: Refinement): string;
+        static getRefinementTitle(currentRefinemntControl: RefinementControl): string;
         /** Gets expanded state of the specified filter from cookie */
         static getExpanded(filterName: string): string;
         /** Save expanded state of the specified filter to cookie */
@@ -11444,6 +11592,24 @@ declare namespace Srch {
         alternateRenderContext: any;
         countDisplay: string;
         deepHits: number;
+    }
+
+    interface CSRFilter {
+        IsSelected: boolean;
+        RefinementCount: number;
+        RefinementName: string;
+        RefinementToken: string;
+    }
+
+    interface CSRRefinementControl extends RefinementControl {
+        csr_displayTitle: string;
+        csr_filters: CSRFilter[];
+        csr_isExpanded: string;
+        csr_propertyName: string;
+        csr_renderEmptyContainer: boolean;
+        csr_showCounts: boolean;
+        csr_useContains: boolean;
+        csr_useKQL: boolean;
     }
 
     class Result extends DisplayControl {
@@ -11516,6 +11682,46 @@ declare namespace Srch {
         viewDuplicates(docId: number): void;
         /** Returns true if the specified table has results and is enabled to be shown by this control */
         shouldShowTable(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
+
+        setAriaCollapsed: (element: HTMLElement) => void;
+        get_showQuerySuggestions: () => boolean;
+        get_showNavigation: () => boolean;
+        get_initialPrompt: () => string;
+        get_currentTerm: () => string;
+        handleClickOnCategoryLink: (id: string) => void;
+        get_advancedSearchPageAddress: () => string;
+        get_emptyRefinementMessageId: () => string;
+        get_selectedRefinementControls: () => CSRRefinementControl[];
+        activate: (prompt: string,
+            searchBoxId: string, searchBoxDivId: string,
+            navButtonId: string, suggestionsListId: string,
+            navListId: string, searchBoxLinkId: string,
+            searchBoxProgressClass: string, searchBoxPromptClass: string) => void;
+    }
+
+    interface RefinementCategory {
+        /** Use KQL */
+        k: boolean;
+        /**  token to display value map */
+        m: { [key: string]: string } | null;
+        /** Refiner Name (Mapped property) */
+        n: string;
+        o: string | "and" | "or" | "AND" | "OR";
+        /** Values, prefixed by ǂǂ for taxonomy terms */
+        t: string[];
+    }
+
+    interface RefinerStructure {
+        r: RefinementCategory[];
+        l: number;
+        /** Keyword */
+        k: string;
+    }
+
+    interface QueryState {
+        e: number;
+        k: string;
+        r: RefinementCategory[];
     }
 
     /** Represents the search box control */
@@ -11682,6 +11888,12 @@ declare namespace Srch {
         activate(prompt: string, searchBoxInputId: string, searchBoxContainerId: string, navigationButtonId: string, suggestionsListId: string, navigationListId: string, searchBoxLinkId: string, searchBoxProgressClass: string, searchBoxPromptClass: string): void;
         activateDefaultNavigationBehavior(): void;
         activateDefaultQuerySuggestionBehavior(): void;
+    }
+
+    class RefinementUtil {
+        static stringValueToEqualsToken(x: string): string;
+        static peoplePickerApplyIdPrefix(control: Srch.ClientControl | Srch.RefinementControl): string;
+        static peoplePickerPrep(id: string, refiner: Srch.RefinementControl, clientControl: Srch.Refinement): string;
     }
 
     type RenderFunction = (ctx: any) => string;
@@ -11892,7 +12104,7 @@ declare namespace Srch {
         static registerLoadedScripts(scripts: string[]): void;
 
         /** Returns HTML for collapsible refiner title */
-        static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string): string;
+        static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string | null, isExpanded: string): string;
         /** Returns true if current page is osssearchresults.aspx */
         static isDefaultSiteSearchPage(): boolean;
         /** Replaces tokens {searchcenterurl}, {contexturl}, {resultsurl}, {defaultpageslistname}, {Locale} and others, and converts URL to server-relative */
@@ -11926,6 +12138,8 @@ declare namespace Srch {
         static getCalendarType(): any;
 
         static htmlEncodeNonBase64ImageUrl(url: string): string;
+
+        static createFileIconAltText(container: boolean, b: any): string;
 
         static hitHighlightingOpenTag: string;
         static hitHighlightingCloseTag: string;
@@ -11997,6 +12211,13 @@ declare namespace Srch {
         }
     }
 
+    interface QueryGroup {
+        dataProvider: DataProvider;
+        displays: DisplayControl[];
+        name: string;
+        searchBoxes: Refinement[];
+    }
+
     class ScriptApplicationManager {
         static get_current(): ScriptApplicationManager;
         static get_clientRuntimeContext(): SP.ClientRuntimeContext;
@@ -12049,6 +12270,15 @@ declare namespace Srch {
 
         /** Gets the current search session ID from the cookies (if session ID does not exist in the cookies yet - it will be added) */
         get_searchSessionID(): void;
+
+        getNavigationNodes(): HTMLCollection;
+
+        queryGroups: { [key: string]: QueryGroup };
+
+        states: {
+            openDocumentsInClient: boolean;
+            contextTitle: string
+        };
     }
 
     class Res {
@@ -12067,6 +12297,7 @@ declare namespace Srch {
         static qs_PersonalResultTitleSingular: string;
         static qs_PersonalResultTitlePlural: string;
         static qs_NameSuggestionsTitle: string;
+        static qs_SuggestionListAriaLabel: string;
         static dp_ScriptLoadFailed: string;
         static rf_EmptyRefinement: string;
         static rf_RefinementTitle: string;
@@ -12739,3 +12970,789 @@ declare function $resource(id: string): string;
 declare function $setItemWrapperCallback(renderCtx: any, itemWrapperFunction: any): void;
 /** (calls Srch.U.addRenderContextCallback) */
 declare function $addRenderContextCallback(renderCtx: any, itemWrapperFunction: any): void;
+
+// ------- CUI namespace -------
+declare namespace CUI {
+    enum CommandType {
+        general,
+        tabSelection,
+        optionSelection,
+        menuCreation,
+        preview,
+        previewRevert,
+        optionPreview,
+        optionPreviewRevert,
+        ignoredByMenu,
+        menuClose,
+        rootEvent,
+    }
+
+    enum GalleryElementDimensions {
+        size16by16,
+        size32by32,
+        size48by48,
+        size64by48,
+        size72by96,
+        size96by72,
+        size96by96,
+        size128by128,
+        size190by30,
+        size190by40,
+        size190by50,
+        size190by60,
+    }
+
+    enum DataQueryType {
+        none,
+        all,
+        ribbonVisibleTabDeep,
+        ribbonShallow,
+        ribbonTab,
+        root,
+    }
+
+    enum ContextualColor {
+        none,
+        darkBlue,
+        lightBlue,
+        teal,
+        orange,
+        green,
+        magenta,
+        yellow,
+        purple,
+    }
+
+    enum Direction {
+        LTR,
+        RTL,
+    }
+
+    enum ImgContainerType {
+        div,
+        span,
+        anchor,
+    }
+
+    enum ImgContainerSize {
+        none,
+        size5by3,
+        size13by13,
+        size16by16,
+        size32by32,
+        size48by48,
+        size64by48,
+        size72by96,
+        size96by72,
+        size96by96,
+        size56by24,
+        size2by16,
+    }
+
+    enum PMarker {
+        beginSession,
+        endSession,
+        perfCUIRibbonInitStart,
+        perfCUIRibbonInitPercvdEnd,
+        perfCUIRibbonTabSwitchWarmStart,
+        perfCUIRibbonTabSwitchWarmPercvdEnd,
+        perfCUIRibbonTabSwitchWarmEnd,
+        perfCUIRibbonCompleteConstruction,
+        perfCUIRibbonQueryDataStart,
+        perfCUIRibbonQueryDataEnd,
+        perfWSSWikiUpdatePanelStart,
+        perfWSSWikiUpdatePanelEnd,
+        perfWSSWebPartComponentMouseClickStart,
+        perfWSSWebPartComponentMouseClickEnd,
+        perfCUIAddAndPositionBackFrameStart,
+        perfCUIAddAndPositionBackFrameEnd,
+        perfCUIFlyoutAnchorOnClickStart,
+        perfCUIFlyoutAnchorOnClickEnd,
+        perfCUIDropDownOnArrowButtonClickStart,
+        perfCUIDropDownOnArrowButtonClickEnd,
+        perfWSSBreadcrumbStart,
+        perfWSSBreadcrumbEnd,
+        perfWSSSelectOrDeselectAllStart,
+        perfWSSSelectOrDeselectAllEnd,
+        perfWSSSelectItemStart,
+        perfWSSSelectItemEnd,
+        perfWSSFilterSortStart,
+        perfWSSFilterSortEnd,
+        perfWSSMMUOpenStart,
+        perfWSSMMUOpenEnd,
+        perfWSSECBClickStart,
+        perfWSSECBClickEnd,
+        perfSPSSaveStatusNoteBegin,
+        perfSPSSaveStatusNoteEnd,
+        perfWSSCalendarRenderStart,
+        perfWSSCalendarRenderEnd,
+        perfPLTxInstrumentStart,
+        perfPLTxInstrumentEnd,
+        perfCUIRibbonButtonOnClickStart,
+        perfCUIRibbonButtonOnClickEnd,
+        perfCUIRibbonInsertTableOnClickStart,
+        perfCUIRibbonInsertTableOnClickEnd,
+        perfCUIRibbonToggleButtonOnClickStart,
+        perfCUIRibbonToggleButtonOnClickEnd,
+        perfWSSDialogShow,
+        perfWSSDialogClosed,
+        perfWSSRTEDialogOnLoadEnd,
+        perfWSSRTEDialogOnOkButtonClickStart,
+        perfWSSRTEAutoCompleteSetResultsStart,
+        perfWSSRTEAutoCompleteSetResultsEnd,
+        perfCUIRibbonEditWikiPageStart,
+        perfCUIRibbonEditWikiPageEnd,
+    }
+
+    interface IMenuItem { }
+    interface ISelectableControl { }
+    interface IRootBuildClient { }
+    interface IModalController { }
+
+    class BuildOptions {
+        lazyMenuInit: boolean;
+        trimmedIds: string[];
+        attachToDOM: boolean;
+        validateServerRendering: boolean;
+        fixedPositioningEnabled: boolean;
+        dataExtensions: any[];
+        clientID: string;
+        constructor();
+    }
+
+    class BuildContext { }
+
+    class DataNodeWrapper {
+        static ATTRIBUTES: string;
+        static CHILDREN: string;
+        static NAME: string;
+        static ALIGNMENT: string;
+        static ALT: string;
+        static CLASSNAME: string;
+        static COLOR: string;
+        static COMMAND: string;
+        static CONTEXTUALGROUPID: string;
+        static CSSCLASS: string;
+        static DARKBLUE: string;
+        static DECIMALDIGITS: string;
+        static DESCRIPTION: string;
+        static DISPLAYCOLOR: string;
+        static DISPLAYMODE: string;
+        static DIVIDER: string;
+        static ELEMENTDIMENSIONS: string;
+        static GREEN: string;
+        static GROUPID: string;
+        static id: string;
+        static INDEX: string;
+        static INTERVAL: string;
+        static LABELTEXT: string;
+        static LAYOUTTITLE: string;
+        static LIGHTBLUE: string;
+        static LOWSCALEWARNING: string;
+        static MAGENTA: string;
+        static MAXHEIGHT: string;
+        static MAXIMUMVALUE: string;
+        static MAXWIDTH: string;
+        static MENUITEMID: string;
+        static MESSAGE: string;
+        static MINIMUMVALUE: string;
+        static namE_CAPS: string;
+        static ONEROW: string;
+        static ORANGE: string;
+        static POPUP: string;
+        static POPUPSIZE: string;
+        static PURPLE: string;
+        static SCROLLABLE: string;
+        static SEQUENCE: string;
+        static SIZE: string;
+        static STYLE: string;
+        static TEAL: string;
+        static TEMPLATEALIAS: string;
+        static THREEROW: string;
+        static TITLE: string;
+        static TWOROW: string;
+        static TYPE: string;
+        static VALUE: string;
+        static YELLOW: string;
+        static RIBBON: string;
+        static QAT: string;
+        static JEWEL: string;
+        static TABS: string;
+        static CONTEXTUALTABS: string;
+        static CONTEXTUALGROUP: string;
+        static TAB: string;
+        static SCALING: string;
+        static MAXSIZE: string;
+        static SCALE: string;
+        static GROUP: string;
+        static GROUPS: string;
+        static LAYOUT: string;
+        static SECTION: string;
+        static OVERFLOWSECTION: string;
+        static ROW: string;
+        static CONTROL: string;
+        static OVERFLOWAREA: string;
+        static STRIP: string;
+        static CONTROLS: string;
+        static MENU: string;
+        static MENUSECTION: string;
+        static TEMPLATE: string;
+        static TEMPLATES: string;
+        static RIBBONTEMPLATES: string;
+        static GROUPTEMPLATE: string;
+        static GALLERY: string;
+        static colors: string;
+        static color: string;
+        static toggleButton: string;
+        static comboBox: string;
+        static dropDown: string;
+        static button: string;
+        static splitButton: string;
+        static flyoutAnchor: string;
+        static galleryButton: string;
+        static insertTable: string;
+        static label: string;
+        static mruSplitButton: string;
+        static spinner: string;
+        static textBox: string;
+        static checkBox: string;
+        static colorPicker: string;
+        static separator: string;
+        static jewelMenuLauncher: string;
+        static BUTTONDOCK: string;
+        static BUTTONDOCKS: string;
+        static CENTERALIGN: string;
+        static LEFTALIGN: string;
+        static RIGHTALIGN: string;
+        static TOOLBAR: string;
+        static LARGE: string;
+        static MEDIUM: string;
+        static SMALL: string;
+        static DIVIDERAFTER: string;
+        static DIVIDERBEFORE: string;
+    }
+
+    class Builder implements Sys.IDisposable {
+        dispose(): void;
+    }
+
+    class CommandEventArgs extends Sys.EventArgs {
+        constructor(id, type: CommandType, source, pars);
+    }
+
+    class Component implements CUI.IMenuItem, Sys.IDisposable {
+        _lastWidthUpdate: number;
+        _lastHeightUpdate: number;
+        _lastTopUpdate: number;
+        _lastLeftUpdate: number;
+        constructor(root: CUI.Component, id: string, title: string, description: string);
+        createChildArray(): void;
+        get_id(): string;
+        set_id(id: string): void;
+        get_root(): CUI.Component;
+        get_parent(): CUI.Component;
+        set_parent(value: CUI.Component): CUI.Component;
+        getChild(id: string): CUI.Component;
+        getChildByTitle(title: string): CUI.Component;
+        addChild(child: CUI.Component): void;
+        addChildAtIndex(child: CUI.Component, index: number);
+        removeChild(id: string): void;
+        removeChildren(): void;
+        ensureCorrectChildType(): void;
+        initRootMember(root: CUI.Component);
+        get_visible(): boolean;
+        set_visible(value: boolean): boolean;
+        get_enabled(): boolean;
+        set_enabled(value: boolean): boolean;
+        onEnabledChanged(enabled: boolean);
+        get_title(): string;
+        set_title(title: string): string;
+        get_description(): string;
+        set_description(description: string): string;
+        valueIsDirty(lastUpdate: number): boolean;
+        get_domElementTagName(): string;
+        get_cssClass(): string;
+        get_visibleInDOM(): boolean;
+        ensureDOMElementAndEmpty(): void;
+        appendChildrenToElement(elm: Element): void;
+        raiseCommandEvent(commandId: string, type: CommandType, properties: any);
+        getTextValue(): string;
+        receiveFocus(): void;
+        onMenuClosed(): void;
+        doDelayedInit(): void;
+        get_needsDelayIniting(): boolean;
+        dispose(): null;
+    }
+
+    class Menu extends CUI.Component { }
+
+    class ContextMenu extends CUI.Menu {
+        constructor(root, id: string, title: string, description: string, maxWidth: string);
+    }
+
+    class ContextMenuDock extends CUI.Component { }
+
+    class Control implements Sys.IDisposable, CUI.IMenuItem {
+        constructor(root: CUI.Root, id: string, properties: CUI.ControlProperties);
+        dispose();
+        get_id(): string;
+        get_root(): CUI.Root;
+        get_enabled(): boolean;
+        set_enabled(enabled: boolean): boolean;
+        createComponentForDisplayMode(displayMode: string);
+    }
+
+    class MenuLauncher extends CUI.Control implements IModalController {
+        constructor(root: CUI.Root, id: string, properties: CUI.ControlProperties, menu);
+    }
+
+    class ContextMenuLauncher extends MenuLauncher { }
+
+    class RootProperties { }
+
+    class ContextMenuRootProperties extends CUI.RootProperties { }
+
+    class Root extends CUI.Component implements Sys.IDisposable { }
+
+    class ContextMenuRoot extends CUI.Root { }
+
+    class ControlProperties {
+        Id: string;
+        Command: string;
+        TemplateAlias: string;
+        PopulateDynamically: string;
+        PopulateOnlyOnce: string;
+        PopulateQueryCommand: string;
+        Width: string;
+        LabelText: string;
+        ToolTipTitle: string;
+        ToolTipDescription: string;
+        ToolTipHelpKeyWord: string;
+        ToolTipImage32by32: string;
+        ToolTipImage32by32Class: string;
+        ToolTipImage32by32Top: number;
+        ToolTipImage32by32Left: number;
+        ToolTipSelectedItemTitle: string;
+        ToolTipShortcutKey: string;
+        LabelCss: string;
+        Image32by32: string;
+        Image32by32Class: string;
+        Image32by32Top: number;
+        Image32by32Left: number;
+        Image16by16: string;
+        Image16by16Class: string;
+        Image16by16Top: number;
+        Image16by16Left: number;
+        // QueryCommand: string;
+        constructor();
+    }
+
+    class ControlComponent extends CUI.Component { }
+
+    class DataQueryResult { }
+    class DataQuery { }
+    class DataSource { }
+    class Gallery extends CUI.Component { }
+    class Jewel extends CUI.Root { }
+    class JewelBuildContext extends CUI.BuildContext { }
+    class JewelBuildOptions extends CUI.BuildOptions { }
+    class JewelBuilder extends CUI.Builder { }
+    class MenuItem extends CUI.ControlComponent { }
+    class MenuLauncherControlProperties extends CUI.ControlProperties { }
+    class BrowserUtility { }
+    class MenuSection extends CUI.Component { }
+    class QAT extends CUI.Root { }
+    class QATBuildContext extends CUI.BuildContext { }
+    class QATBuildOptions extends CUI.BuildOptions { }
+    class QATBuilder extends CUI.Builder { }
+    class RibbonPeripheralSection { }
+
+    class ContextualGroup {
+        constructor(id: string, title: string, color: number, command: string);
+        get_id(): string;
+        get_count(): number;
+        get_title(): string;
+        get_color(): number;
+        get_command(): string;
+        dispose(): void;
+    }
+
+    class Template { }
+    class DeclarativeTemplate extends CUI.Template { }
+
+    class RibbonComponent extends CUI.Component {
+        constructor(ribbon: CUI.Ribbon, id: string, title: string, description: string);
+        get_ribbon(): CUI.Ribbon;
+    }
+
+    class Group extends CUI.RibbonComponent {
+        constructor(
+            ribbon: CUI.Ribbon,
+            id: string,
+            title: string,
+            description: string,
+            command: string,
+            properties: CUI.ControlProperties);
+        get_cssClass(): string;
+        get_domElementTagName(): string;
+        unselectLayout(): void;
+        selectLayout(layoutType: string, popupLayoutTitle: string): void;
+    }
+
+    class GroupPopup extends CUI.Component { }
+
+    class Layout extends CUI.RibbonComponent {
+        constructor(ribbon: CUI.Ribbon, id: string, title: string);
+        get_cssClass(): string;
+        get_visibleInDOM(): boolean;
+    }
+
+    class GroupPopupLayout extends CUI.Layout { }
+
+    class RootEventCommandProperties { }
+    class RibbonEventCommandProperties extends CUI.RootEventCommandProperties { }
+    class CommandContextSwitchCommandProperties { }
+
+    class Ribbon extends CUI.Root {
+        constructor(id: string, properties: CUI.ControlProperties);
+        refresh(): void;
+        setFocusOnRibbon(): void;
+        setFocusOnCurrentTab(): void;
+        setFocus(): void;
+        addContextualGroup(id: string, title: string, color, command: string);
+        get_contextualGroupIds(): string[];
+        removeContextualGroup(id: string): void;
+        showContextualGroup(id: string): void;
+        hideContextualGroup(id: string): void;
+        addChildAtIndex(child, index: number): void;
+    }
+
+    class RibbonCommand { }
+    class RibbonBuildContext extends CUI.BuildContext { }
+    class RibbonBuildOptions extends CUI.BuildOptions { }
+    class RibbonBuilder extends CUI.Builder { }
+    class Row extends CUI.Component { }
+    class ScalingStep { }
+    class Scaling { }
+    type Alignment = 0 | 2;
+    type RowType = 2 | 3 | 4;
+
+    class Section extends CUI.RibbonComponent {
+        /**
+         * @param type  2 - OneRow, 3 - TwoRow, 4 - ThreeRow.
+         * @param alignment 0 - Top, 2  - Middle,
+         */
+        constructor(ribbon: CUI.Ribbon, id: string, type: RowType, alignment: Alignment);
+        get_cssClass(): string;
+        get_type(): number;
+        get_alignment(): number;
+        getRow(rowIndex: number): CUI.Row;
+    }
+
+    class Strip extends CUI.RibbonComponent { }
+
+    class Tab extends CUI.RibbonComponent {
+        constructor(
+            ribbon: CUI.Ribbon,
+            id: string,
+            title: string,
+            description: string,
+            command: string,
+            contextual: boolean,
+            contextualGroupId: string,
+            cssClass: string);
+        get_domElementTagName(): string;
+        get_cssClass(): string;
+        get_selected(): boolean;
+        set_selected(isSelected: boolean): void;
+        get_scaling(): string;
+        get_currentScalingIndex(): number;
+        scaleMax(): void;
+        scaleUp(): void;
+        scaleDown(): void;
+        get_contextual(): boolean;
+        get_contextualGroupId(): string;
+        get_visible(): boolean;
+        set_visible(isVisible: boolean): boolean;
+        get_command(): string;
+    }
+
+    class TemplateManager { }
+
+    class RootUser { }
+
+    class ButtonDock extends CUI.Component { }
+
+    class Toolbar extends CUI.Root { }
+
+    class ToolbarBuildContext extends CUI.BuildContext { }
+    class ToolbarBuildOptions extends CUI.BuildOptions { }
+    class ToolbarBuilder extends CUI.Builder { }
+    class ToolTip extends CUI.Component { }
+    class Unit { }
+    class Utility { }
+    class ScriptUtility { }
+    class UIUtility { }
+
+    class ListNode<T> {
+        data: T;
+        previous: ListNode<T>;
+        next: ListNode<T>;
+
+        constructor(data: T, prev: ListNode<T>, next: ListNode<T>);
+    }
+
+    class List<T> implements IEnumerable<T> {
+        constructor();
+
+        add(data: T): void;
+        insert(index: number, data: T): void;
+        remove(data: T): void;
+        clear(): void;
+        indexOf(data: T): number;
+        get_item(index: number): T;
+        get_count(): number;
+        getEnumerator(): CUI.ListEnumerator<T>;
+        getEnumeratorAtPos(): CUI.ListEnumerator<T>;
+    }
+
+    class ListEnumerator<T> {
+        constructor(index);
+        get_current(): T;
+        moveNext(): boolean;
+        movePrevious(): boolean;
+        reset(): void;
+    }
+
+    class JsonXmlElement {
+        constructor(name: string, attrs: string[]);
+        get_name(): string;
+        get_attributes(): string[];
+        appendChild(name: string, attrs: string[]): CUI.JsonXmlElement;
+        appendChildNode(node: CUI.JsonXmlElement): CUI.JsonXmlElement;
+        get_childNodes(): CUI.JsonXmlElement[];
+    }
+
+    namespace Page {
+        class PageComponent implements CUI.Page.ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+            init(): void;
+            getGlobalCommands(): string[];
+            getFocusedCommands(): string[];
+            isFocusable(): boolean;
+            receiveFocus(): boolean;
+            yieldFocus(): boolean;
+            getId(): string;
+        }
+        interface ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+        }
+        class CommandDispatcher {
+            executeCommand(commandId: string, properties: any);
+        }
+        class FocusManager extends CUI.Page.CommandDispatcher implements CUI.Page.ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+            requestFocusForComponent(component: CUI.Component);
+            releaseFocusFromComponent(component: CUI.Component);
+            releaseAllFoci(): boolean;
+            getFocusedComponents(): CUI.Component[];
+        }
+        class PageManager extends CUI.RootUser implements CUI.Page.ICommandHandler, CUI.IRootBuildClient {
+            static createPageManager(): CUI.Page.PageManager;
+            static get_instance(): CUI.Page.PageManager;
+            static initialize(): void;
+            add_ribbonInited(value: () => void);
+            get_commandDispatcher(): CUI.Page.CommandDispatcher;
+            get_focusManager(): CUI.Page.FocusManager;
+            get_undoManager(): CUI.Page.UndoManager;
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+        }
+        class UndoManager implements CUI.Page.ICommandHandler {
+            canHandleCommand(commandId: string): boolean;
+            handleCommand(commandId: string, properties: any, sequenceNumber: number): boolean;
+        }
+    }
+
+    namespace Controls {
+        class ContextMenuControlProperties extends CUI.MenuLauncherControlProperties {
+        }
+
+        class Button extends CUI.Control implements CUI.IMenuItem, CUI.ISelectableControl {
+            constructor(root: CUI.Root, id: string, properties: ControlProperties);
+            createComponentForDisplayModeInternal(displayMode: string);
+            createDOMElementForDisplayMode(displayMode: string);
+            onEnabledChanged(enabled: boolean);
+            getTextValue(): string;
+            getLabel(): string;
+            receiveFocus(): void;
+            getDropDownDOMElementForDisplayMode(displayMode: string): void;
+            deselect(): void;
+            getMenuItemId(): string;
+            getCommandValueId(): string;
+            focusOnDisplayedComponent(): void;
+            onClick(e: Event): void;
+            handleMouseFocus(e: FocusEvent);
+            handleMouseBlur(e: FocusEvent);
+            handleTabFocus(e: FocusEvent);
+            handleTabBlur(e: FocusEvent);
+            onMenuClosed(): void;
+            dispose(): void;
+        }
+
+        class CheckBoxCommandProperties { }
+        class ToggleButton extends CUI.Control implements CUI.IMenuItem, CUI.ISelectableControl { }
+        class CheckBox extends CUI.Controls.ToggleButton { }
+        class ColorPickerCommandProperties { }
+        class ColorPicker extends CUI.Control implements CUI.IMenuItem { }
+
+        class DropDown extends CUI.MenuLauncher {
+            constructor(root: CUI.Root, id: string, properties: CUI.ControlProperties, menu);
+        }
+
+        class ComboBox extends CUI.Controls.DropDown { }
+        class DropDownCommandProperties {
+            SelectedItemId: string;
+            Value: string;
+        }
+        class FlyoutAnchor extends CUI.MenuLauncher { }
+        class GalleryButtonCommandProperties { }
+        class GalleryButton extends CUI.Control implements CUI.ISelectableControl { }
+        class InsertTableCommandProperties { }
+        class InsertTable extends CUI.Control { }
+        class LabelCommandProperties { }
+        class Label extends CUI.Control { }
+        class MRUSplitButton extends CUI.Controls.DropDown { }
+        class Separator extends CUI.Control { }
+        class SpinnerCommandProperties { }
+        class Spinner extends CUI.Control { }
+        class SplitButton extends CUI.MenuLauncher { }
+        class TextBoxCommandProperties { }
+        class TextBox extends CUI.Control { }
+        class ToggleButtonCommandProperties { }
+        class JewelMenuLauncher extends CUI.MenuLauncher { }
+    }
+}
+
+declare namespace Commands {
+    class CommandIds {
+        static ApplicationStateChanged: string;
+        static GlobalRedo: string;
+        static Redo: string;
+        static GlobalUndo: string;
+        static Undo: string;
+    }
+    class GlobalRedoProperties {
+        static SequenceNumber: string;
+    }
+    class RedoProperties {
+        static SequenceNumber: string;
+    }
+    class GlobalUndoProperties {
+        static SequenceNumber: string;
+    }
+    class UndoProperties {
+        static SequenceNumber: string;
+    }
+}
+
+// ------- SP.Ribbon namespace -------
+
+declare namespace SP {
+    namespace Ribbon {
+        interface WebPartComponentInitInfo {
+            editable: boolean;
+            isEditMode: boolean;
+            allowWebPartAdder: boolean;
+        }
+
+        interface IRelatedFieldsInfoRequestor { }
+        class Utility { }
+        class UtilityInternal { }
+        class SQMUtility { }
+        class SU { }
+        class CommandUIExtensionPageComponent extends CUI.Page.PageComponent { }
+        class ToolbarRibbonAdapterData { }
+        class ToolbarRibbonAdapter extends CUI.Page.PageComponent { }
+        class WebPartPageComponentData extends SP.Ribbon.ToolbarRibbonAdapterData { }
+        class WebPartPageComponent extends SP.Ribbon.ToolbarRibbonAdapter { }
+        class ListViewWebPartPageComponentData extends SP.Ribbon.WebPartPageComponentData { }
+        class PagingInformation { }
+        class ECBMenuItem extends Object { }
+        class CLVP { }
+        class ListViewWebPartData extends SP.Ribbon.ToolbarRibbonAdapterData { }
+        class ListViewWebPartPageComponent extends SP.Ribbon.WebPartPageComponent implements SP.Application.UI.ViewInformationRequestor, SP.Application.UI.DefaultFormsInformationRequestor {
+            onViewInformationReturned(viewGroups: SP.Application.UI.ViewSelectorGroups): void;
+            onDefaultFormsInformationRetrieveSuccess(defaultForms: SP.Application.UI.DefaultFormsInformation): void;
+            onDefaultFormsInformationRetrieveFailure(): void;
+        }
+        class ListFormWebPartPageComponentData extends SP.Ribbon.WebPartPageComponentData { }
+        class ListFormWebPartPageComponent extends SP.Ribbon.WebPartPageComponent { }
+        class DocLibWebPartPageComponent extends SP.Ribbon.ListViewWebPartPageComponent { }
+        class GenericListWebPartPageComponentData extends SP.Ribbon.ListViewWebPartPageComponentData { }
+        class GenericListWebPartPageComponent extends SP.Ribbon.ListViewWebPartPageComponent { }
+        class SolutionsPageComponent extends SP.Ribbon.ListViewWebPartPageComponent { }
+        class WikiPageComponent extends CUI.Page.PageComponent { }
+        class FetchedDocLibItemInfo { }
+        class DocLibAspxPageComponent extends CUI.Page.PageComponent { }
+        class WebPartComponent extends CUI.Page.PageComponent {
+            static get_instance(): SP.Ribbon.WebPartComponent;
+            static registerWithPageManager(initInfo: SP.Ribbon.WebPartComponentInitInfo): void;
+            selectWebPart(zc: HTMLElement, setNextRibbonTab: boolean): void;
+        }
+        class FetchListViewWebPartPageComponentWorker { }
+        class BlogPostWebPartPageComponent { }
+        class PageManager extends CUI.Page.PageManager {
+            get_ribbon(): SP.Ribbon.Ribbon;
+            addPageComponent(component: CUI.Component): void;
+            removePageComponent(component: CUI.Component): void;
+            isRootCommandEnabled(commandId: string, root: CUI.Root): boolean;
+            onRootRefreshed(root: CUI.Root): void;
+            static get_instance(): SP.Ribbon.PageManager;
+        }
+        class PageStateActionButton { }
+        class RelatedFieldsFetcher { }
+        class RelatedFieldsHelper implements SP.Ribbon.IRelatedFieldsInfoRequestor { }
+
+        class UsageReportPageComponent extends CUI.Page.PageComponent { }
+        class GroupBoardWebPartPageComponent extends SP.Ribbon.GenericListWebPartPageComponent { }
+        class CalendarPageComponentData extends SP.Ribbon.GenericListWebPartPageComponentData { }
+        class CalendarListPageComponent extends SP.Ribbon.GenericListWebPartPageComponent { }
+        class HelpCommandNames { }
+        class HelpPageComponent extends CUI.Page.PageComponent { }
+        class SaveConflictHandler { }
+        class TrackTabPageComponent extends CUI.Page.PageComponent { }
+        class UserInterfacePageComponent extends CUI.Page.PageComponent { }
+        class EMailLink { }
+
+        class Ribbon extends CUI.Ribbon {
+            removeChild(id: string): void;
+            removeContextualGroup(id: string): void;
+        }
+        namespace PageState {
+            class PageStateStrings { }
+            class PageStateCommands { }
+            class PageStateHandler extends CUI.Page.PageComponent implements CUI.Page.ICommandHandler { }
+            class StateChangeDialogHandler { }
+            class Handlers { }
+        }
+        namespace TenantAdmin {
+            class TenantAdminPageComponent extends CUI.Page.PageComponent { }
+        }
+    }
+    class BWsaConfig { }
+    class Ticks { }
+    class TimerResetCheck { }
+    class StreamRowCounters { }
+    class BWsaDatapoint { }
+    class WsaStreamRow { }
+    class BWsaStream { }
+    class BWsaHeader { }
+    class BWsaData { }
+    class BWsaClient { }
+}
+
+declare function _ribbonStartInit(initialTabId: string, buildMinimized: boolean, e: Event): void;

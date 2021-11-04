@@ -1,24 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "array-type": [false, "array"],
-        "quotemark": [false, "double"],
-        "semicolon": [false, "always"],
-        "space-before-function-paren": [false, "always"],
-        "max-line-length": [false, 200],
-        "no-empty-interface": false,
         "no-reference-import": false,
-        "only-arrow-functions": [false],
-        "prefer-for-of": false,
-        "strict-export-declare-modifiers": false,
-        "unified-signatures": false,
-        "whitespace": [
-            false,
-            "check-branch",
-            "check-decl",
-            "check-operator",
-            "check-separator",
-            "check-type"
-        ]
+        "semicolon": false,
+        "strict-export-declare-modifiers": false
     }
 }

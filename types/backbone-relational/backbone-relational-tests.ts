@@ -74,6 +74,7 @@ paul.get('livesIn'); // === ourHouse
 // You can control which relations get serialized to JSON, using the 'includeInJSON'
 // property on a Relation. Also, each object will only get serialized once to prevent loops.
 alert(JSON.stringify(paul.get('user').toJSON(), null, '\t'));
+alert(JSON.stringify(paul.get('user').toJSON({ option1: 'value1' }), null, '\t'));
 // Load occupants 'person-2' and 'person-5', which don't exist yet, from the server
 ourHouse.fetchRelated('occupants');
 
@@ -109,3 +110,8 @@ var theirHouse = new House({ id: 'house-2' });
 paul.set({ 'livesIn': theirHouse });
 
 alert('theirHouse.occupants=' + theirHouse.get('occupants').pluck('name'));
+
+Backbone.store.removeModelScope(window);
+Backbone.store.addModelScope(window);
+Backbone.store.unregister(Person);
+Backbone.store.reset();

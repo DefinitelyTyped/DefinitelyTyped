@@ -51,14 +51,14 @@ export class Reference implements eslint.Scope.Reference {
 }
 
 export interface AnalysisOptions {
-    optimistic?: boolean;
-    directive?: boolean;
-    ignoreEval?: boolean;
-    nodejsScope?: boolean;
-    impliedStrict?: boolean;
-    fallback?: string | ((node: {}) => string[]);
-    sourceType?: "script" | "module";
-    ecmaVersion?: number;
+    optimistic?: boolean | undefined;
+    directive?: boolean | undefined;
+    ignoreEval?: boolean | undefined;
+    nodejsScope?: boolean | undefined;
+    impliedStrict?: boolean | undefined;
+    fallback?: string | ((node: {}) => string[]) | undefined;
+    sourceType?: "script" | "module" | undefined;
+    ecmaVersion?: number | undefined;
 }
 
 export function analyze(ast: {}, options?: AnalysisOptions): ScopeManager;

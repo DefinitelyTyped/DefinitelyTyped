@@ -13,13 +13,20 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "webpack.d.ts",
         "test/index.tsx",
         "test/webpack.ts",
         "test/imports/no-default.tsx",

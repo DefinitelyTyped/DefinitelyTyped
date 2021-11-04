@@ -47,7 +47,7 @@ declare const eventDispatcher: EventDispatcher<number>;
 // ----------------------------------------------------------------------------
 
 // Start with a simple component.
-const LoadingComponent: React.SFC<{ loadingStatus: string | undefined }> = ({ loadingStatus }) => {
+const LoadingComponent: React.FC<{ loadingStatus: string | undefined }> = ({ loadingStatus }) => {
     if (loadingStatus === undefined) {
         // Loading
     } else if (loadingStatus === null) {
@@ -105,15 +105,7 @@ declare const wrongPromise: Promise<number>;
 </PromiseSubscription>;
 
 // $ExpectError
-const MismatchSubscription = createSubscription({
-    getCurrentValue: (a: number) => null,
-    subscribe: (a: string, callback) => (() => undefined)
-});
+const MismatchSubscription = createSubscription({ getCurrentValue: (a: number) => null, subscribe: (a: string, callback) => (() => undefined) });
 
 // $ExpectError
-const NoUnsubscribe = createSubscription({
-    getCurrentValue: (a: number) => a,
-    subscribe: (a: number, callback) => {
-        // oops, should've returned a callback here
-    }
-});
+const NoUnsubscribe = createSubscription({ getCurrentValue: (a: number) => a, subscribe: (a: number, callback) => { /* oops, should've returned a callback here */ }});

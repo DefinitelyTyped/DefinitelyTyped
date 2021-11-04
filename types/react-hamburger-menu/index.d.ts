@@ -20,27 +20,27 @@ export interface HamburgerMenuProps {
      * The width of the icon
      * @default 36
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * The height of the icon
      * @default 30
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * The stroke width of the lines
      * @default 2
      */
-    strokeWidth?: number;
+    strokeWidth?: number | undefined;
     /**
      * The rotation of the icon, eg {45} would be 45deg
      * @default 0
      */
-    rotate?: number;
+    rotate?: number | undefined;
     /**
      * The border radius of the lines
      * @default 0
      */
-    borderRadius?: number;
+    borderRadius?: number | undefined;
     /**
      * The color of both icons
      * @default #000
@@ -50,7 +50,7 @@ export interface HamburgerMenuProps {
      * The length of time it takes for the icon transitions to complete.
      * @default 0.4
      */
-    animationDuration?: number;
+    animationDuration?: number | undefined;
     /**
      * Will be invoked when the component is clicked
      */

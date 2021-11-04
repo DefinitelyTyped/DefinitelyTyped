@@ -1,9 +1,18 @@
-import imagemin = require('imagemin');
-import imageminSvgo = require('imagemin-svgo');
+import imagemin from 'imagemin';
+import imageminSvgo from 'imagemin-svgo';
 
 imagemin(['*.svg'], {
     plugins: [
         imageminSvgo(),
-        imageminSvgo({ floatPrecision: 2 })
-    ]
+        imageminSvgo({}),
+        imageminSvgo({
+            floatPrecision: 2,
+            plugins: [
+                {
+                    removeViewBox: false,
+                },
+            ],
+            multipass: false,
+        }),
+    ],
 });

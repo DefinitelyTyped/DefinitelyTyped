@@ -4,9 +4,12 @@
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Mike Morearty <https://github.com/mmorearty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
+import { Keymap } from 'prosemirror-commands';
+import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
@@ -41,12 +44,13 @@ import { EditorView } from 'prosemirror-view';
  * which they appear determines their precedence (the ones early in
  * the array get to dispatch first).
  */
-export function keymap(bindings: { [key: string]: any }): Plugin;
+export function keymap<S extends Schema = any>(bindings: Keymap<S>): Plugin;
+
 /**
  * Given a set of bindings (using the same format as
  * [`keymap`](#keymap.keymap), return a [keydown
  * handler](#view.EditorProps.handleKeyDown) handles them.
  */
-export function keydownHandler(bindings: {
-  [key: string]: any;
-}): (view: EditorView, event: Event) => boolean;
+export function keydownHandler<S extends Schema = any>(
+    bindings: Keymap<S>,
+): (view: EditorView, event: KeyboardEvent) => boolean;

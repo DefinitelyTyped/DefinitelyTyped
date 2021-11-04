@@ -1,31 +1,50 @@
 // Type definitions for undertaker 1.2
-// Project: https://github.com/phated/undertaker
-// Definitions by: Qubo <https://github.com/tkqubo>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Project: https://github.com/gulpjs/undertaker
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Evan Yamanishi <https://github.com/sh0ji>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import * as Registry from "undertaker-registry";
-import { Duplex } from "stream";
+import { AsyncTask } from "async-done";
 import { EventEmitter } from "events";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
-        name?: string;
-        displayName?: string;
-        description?: string;
+        readonly name?: string | undefined;
+        displayName?: string | undefined;
+        description?: string | undefined;
+        flags?: TaskFlags | undefined;
     }
 
-    interface TaskFunction extends TaskFunctionParams {
-        (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+    interface TaskFlags {
+        [arg: string]: string;
     }
+
+    interface TaskCallback {
+        (error?: Error | null): void;
+    }
+
+    interface TaskFunctionBase {
+        (done: TaskCallback): ReturnType<AsyncTask>;
+    }
+
+    interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}
 
     type Task = string | TaskFunction;
+
+    interface TaskFunctionWrapped extends TaskFunctionBase {
+        displayName: string;
+        unwrap(): TaskFunction;
+    }
 
     interface TreeOptions {
         /**
          * Whether or not the whole tree should be returned.
          * Default: false
          */
-        deep?: boolean;
+        deep?: boolean | undefined;
     }
 
     interface TreeResult {
@@ -36,8 +55,8 @@ declare namespace Undertaker {
     interface Node {
         label: string;
         nodes: Node[];
-        type?: string;
-        branch?: boolean;
+        type?: string | undefined;
+        branch?: boolean | undefined;
     }
 }
 
@@ -45,10 +64,10 @@ declare class Undertaker extends EventEmitter {
     constructor(registry?: Registry);
 
     /**
-     * Returns the registered function.
+     * Returns the wrapped registered function.
      * @param taskName - Task name.
      */
-    task(taskName: string): Undertaker.TaskFunction;
+    task(taskName: string): Undertaker.TaskFunctionWrapped;
 
     /**
      * Register the task by the taskName.

@@ -84,7 +84,7 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   app.listen(port);
 });
 
-const swaggerSecurityHandlerCb = (err: Error) => {
+const swaggerSecurityHandlerCb = (err?: Error) => {
     // do nothing
 };
 
@@ -98,7 +98,34 @@ const configComplex: SwaggerNodeRunner.Config = {
     swaggerSecurityHandlers: {
         // did not manage to research the typings of first 3 arguments
         someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
-            // do nothing
+            swaggerSecurityHandlerCb(new Error('foo'));
+        }
+    },
+    validateResponse: true
+};
+
+const handlerWithoutError: SwaggerNodeRunner.Config = {
+    appRoot: __dirname,
+    swaggerSecurityHandlers: {
+        // did not manage to research the typings of first 3 arguments
+        someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
+            swaggerSecurityHandlerCb();
+        }
+    },
+    validateResponse: true
+};
+
+const handlerWithHeaders: SwaggerNodeRunner.Config = {
+    appRoot: __dirname,
+    swaggerSecurityHandlers: {
+        // did not manage to research the typings of first 3 arguments
+        someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
+            swaggerSecurityHandlerCb({
+                headers: {
+                    foo: 'bar',
+                    baz: 2,
+                    some: ['a', 'b'],
+            }});
         }
     },
     validateResponse: true

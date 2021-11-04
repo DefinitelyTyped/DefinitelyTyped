@@ -1,8 +1,8 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODOs
-		"dt-header": false,
-		"no-any-union": false
-	}
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-any-union": false,
+        "npm-naming": false
+    }
 }

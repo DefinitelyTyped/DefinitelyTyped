@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "winston": "^3.0.0"
-    }
-}

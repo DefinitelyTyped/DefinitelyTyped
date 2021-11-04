@@ -1,28 +1,31 @@
-// Type definitions for react-grid-layout 0.16
+// Type definitions for react-grid-layout 1.3
 // Project: https://github.com/STRML/react-grid-layout
 // Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
 //                 Ali Taheri <https://github.com/alitaheri>,
 //                 Zheyang Song <https://github.com/ZheyangSong>,
-//                 Andrew Hathaway <https://github.com/andrewhathaway>
+//                 Andrew Hathaway <https://github.com/andrewhathaway>,
+//                 Manav Mishra <https://github.com/manav-m>,
+//                 Alexey Fyodorov <https://github.com/al-fyodorov>,
+//                 Catus Magnus <https://github.com/catusmagnus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> { }
+declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> {}
+
+type ResizeHandle = 's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne';
 
 declare namespace ReactGridLayout {
-    type Breakpoints = 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
-
     interface Layout {
         /**
          * A string corresponding to the component key.
          * Uses the index of components instead if not provided.
          */
-        i?: string;
+        i: string;
 
         /**
          * X position in grid units.
@@ -47,47 +50,58 @@ declare namespace ReactGridLayout {
         /**
          * Minimum width in grid units.
          */
-        minW?: number;
+        minW?: number | undefined;
 
         /**
          * Maximum width in grid units.
          */
-        maxW?: number;
+        maxW?: number | undefined;
 
         /**
          * Minimum height in grid units.
          */
-        minH?: number;
+        minH?: number | undefined;
 
         /**
          * Maximum height in grid units.
          */
-        maxH?: number;
+        maxH?: number | undefined;
 
         /**
          * set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)
          */
-        moved?: boolean;
+        moved?: boolean | undefined;
 
         /**
          * If true, equal to `isDraggable: false` and `isResizable: false`.
          */
-        static?: boolean;
+        static?: boolean | undefined;
 
         /**
          * If false, will not be draggable. Overrides `static`.
          */
-        isDraggable?: boolean;
+        isDraggable?: boolean | undefined;
 
         /**
          * If false, will not be resizable. Overrides `static`.
          */
-        isResizable?: boolean;
+        isResizable?: boolean | undefined;
+
+        /**
+         * By default, a handle is only shown on the bottom-right (southeast) corner.
+         * Note that resizing from the top or left is generally not intuitive.
+         */
+        resizeHandles?: ResizeHandle[] | undefined;
+
+        /**
+         * If true and draggable, item will be moved only within grid.
+         */
+        isBounded?: boolean | undefined;
     }
 
-    type Layouts = {
-        [P in Breakpoints]?: Layout[];
-    };
+    interface Layouts {
+        [P: string]: Layout[];
+    }
 
     type ItemCallback = (
         layout: Layout[],
@@ -95,99 +109,77 @@ declare namespace ReactGridLayout {
         newItem: Layout,
         placeholder: Layout,
         event: MouseEvent,
-        element: HTMLElement
+        element: HTMLElement,
     ) => void;
+
+    type DragOverEvent = MouseEvent & {
+        nativeEvent: {
+            layerX: number,
+            layerY: number,
+        } & Event
+    };
 
     interface CoreProps {
         /**
          * The classname to add to the root element.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Inline-style object to pass to the root element.
          */
-        style?: React.CSSProperties;
-
-        /**
-         * If true, the container height swells and contracts to fit contents.
-         */
-        autoSize?: boolean;
-
-        /**
-         * A CSS selector for tags that will not be draggable.
-         *
-         * For example: `draggableCancel: '.MyNonDraggableAreaClassName'`
-         *
-         * If you forget the leading. it will not work.
-         */
-        draggableCancel?: string;
-
-        /**
-         * A CSS selector for tags that will act as the draggable handle.
-         *
-         * For example: `draggableHandle: '.MyDragHandleClassName'`
-         *
-         * If you forget the leading . it will not work.
-         */
-        draggableHandle?: string;
-
-        /**
-         * If true, the layout will compact vertically.
-         */
-        verticalCompact?: boolean;
-
-        /**
-         * Compaction type.
-         */
-        compactType?: "vertical" | "horizontal" | null;
+        style?: React.CSSProperties | undefined;
 
         /**
          * This allows setting the initial width on the server side.
          * This is required unless using the HOC <WidthProvider> or similar.
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
-         * Margin between items `[x, y]` in px.
+         * If true, the container height swells and contracts to fit contents.
          */
-        margin?: [number, number];
+        autoSize?: boolean | undefined;
 
         /**
-         * Padding inside the container `[x, y]` in px.
+         * A CSS selector for tags that will not be draggable.
+         * For example: `draggableCancel: '.MyNonDraggableAreaClassName'`
+         * If you forget the leading. it will not work.
+         * "".react-resizable-handle" is always prepended to this value.
          */
-        containerPadding?: [number, number];
+        draggableCancel?: string | undefined;
+
+        /**
+         * A CSS selector for tags that will act as the draggable handle.
+         * For example: `draggableHandle: '.MyDragHandleClassName'`
+         * If you forget the leading . it will not work.
+         */
+        draggableHandle?: string | undefined;
+
+        /**
+         * Compaction type.
+         */
+        compactType?: 'vertical' | 'horizontal' | null | undefined;
 
         /**
          * Rows have a static height, but you can change this based on breakpoints if you like.
          */
-        rowHeight?: number;
+        rowHeight?: number | undefined;
 
         /**
-         * If set to false it will disable dragging on all children.
+         * Configuration of a dropping element. Dropping element is a "virtual" element
+         * which appears when you drag over some element from outside.
          */
-        isDraggable?: boolean;
+        droppingItem?: {
+            i: string;
+            w: number;
+            h: number;
+        } | undefined;
 
         /**
-         * If set to false it will disable resizing on all children.
+         * If true, the layout will compact vertically.
          */
-        isResizable?: boolean;
-
-        /**
-         * Enable or disable grid rearrangement when dragging/resizing an element.
-         */
-        isRearrangeable?: boolean;
-
-        /**
-         * If true, grid items won't change position when being dragged over.
-         */
-        preventCollision?: boolean;
-
-        /**
-         * Uses CSS3 `translate()` instead of position top/left.
-         * This makes about 6x faster paint performance.
-         */
-        useCSSTransforms?: boolean;
+        verticalCompact?: boolean | undefined;
 
         /**
          * Default Infinity, but you can specify a max here if you like.
@@ -196,44 +188,145 @@ declare namespace ReactGridLayout {
          * an item past the barrier. They can push items beyond the barrier, though.
          * Intentionally not documented for this reason.
          */
-        maxRows?: number;
+        maxRows?: number | undefined;
+
+        // Flags:
+
+        /**
+         * If set to false it will disable dragging on all children.
+         */
+        isDraggable?: boolean | undefined;
+
+        /**
+         * If set to false it will disable resizing on all children.
+         */
+        isResizable?: boolean | undefined;
+
+        /**
+         * If true and draggable, all items will be moved only within grid.
+         */
+        isBounded?: boolean | undefined;
+
+        /**
+         * Uses CSS3 `translate()` instead of position top/left.
+         * This makes about 6x faster paint performance.
+         */
+        useCSSTransforms?: boolean | undefined;
+
+        /**
+         * If parent DOM node of ResponsiveReactGridLayout or ReactGridLayout has "transform: scale(n)" css property,
+         * we should set scale coefficient to avoid render artefacts while dragging.
+         */
+        transformScale?: number | undefined;
+
+        /**
+         * If true, grid can be placed one over the other.
+         */
+        allowOverlap?: boolean | undefined;
+
+        /**
+         * If true, grid items won't change position when being dragged over.
+         */
+        preventCollision?: boolean | undefined;
+
+        /**
+         * If true, droppable elements (with `draggable={true}` attribute)
+         * can be dropped on the grid. It triggers "onDrop" callback
+         * with position and event object as parameters.
+         * It can be useful for dropping an element in a specific position
+         * NOTE: In case of using Firefox you should add
+         * `onDragStart={e => e.dataTransfer.setData('text/plain', '')}` attribute
+         * along with `draggable={true}` otherwise this feature will work incorrect.
+         * onDragStart attribute is required for Firefox for a dragging initialization
+         * @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+         */
+        isDroppable?: boolean | undefined;
+
+        /**
+         * Defines which resize handles should be rendered
+         * Allows for any combination of:
+         * 's' - South handle (bottom-center)
+         * 'w' - West handle (left-center)
+         * 'e' - East handle (right-center)
+         * 'n' - North handle (top-center)
+         * 'sw' - Southwest handle (bottom-left)
+         * 'nw' - Northwest handle (top-left)
+         * 'se' - Southeast handle (bottom-right)
+         * 'ne' - Northeast handle (top-right)
+         */
+        resizeHandles?: ResizeHandle[] | undefined;
+
+        /**
+         * Defines custom component for resize handle
+         */
+        resizeHandle?: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode) | undefined;
 
         /**
          * Calls when drag starts.
          */
-        onDragStart?: ItemCallback;
+        onDragStart?: ItemCallback | undefined;
 
         /**
          * Calls on each drag movement.
          */
-        onDrag?: ItemCallback;
+        onDrag?: ItemCallback | undefined;
 
         /**
          * Calls when drag is complete.
          */
-        onDragStop?: ItemCallback;
+        onDragStop?: ItemCallback | undefined;
 
         /**
          * Calls when resize starts.
          */
-        onResizeStart?: ItemCallback;
+        onResizeStart?: ItemCallback | undefined;
 
         /**
          * Calls when resize movement happens.
          */
-        onResize?: ItemCallback;
+        onResize?: ItemCallback | undefined;
 
         /**
          * Calls when resize is complete.
          */
-        onResizeStop?: ItemCallback;
+        onResizeStop?: ItemCallback | undefined;
+
+        /**
+         * Calls when some element has been dropped
+         */
+        onDrop?(layout: Layout[], item: Layout, e: Event): void;
+
+        /**
+         * Calls when an element is being dragged over the grid from outside as above.
+         * This callback should return an object to dynamically change the droppingItem size
+         * Return false to short-circuit the dragover
+         */
+        onDropDragOver?(e: DragOverEvent): { w?: number, h?: number } | false | undefined;
+
+        /**
+         * Ref for getting a reference for the grid's wrapping div.
+         * You can use this instead of a regular ref and the deprecated `ReactDOM.findDOMNode()`` function.
+         */
+        innerRef?: React.Ref<"div">;
     }
 
     interface ReactGridLayoutProps extends CoreProps {
+        children?: React.ReactNode;
+
         /**
          * Number of columns in this layout.
          */
-        cols?: number;
+        cols?: number | undefined;
+
+        /**
+         * Margin between items `[x, y]` in px.
+         */
+        margin?: [number, number] | undefined;
+
+        /**
+         * Padding inside the container `[x, y]` in px.
+         */
+        containerPadding?: [number, number] | undefined;
 
         /**
          * Layout is an array of object with the format:
@@ -248,7 +341,7 @@ declare namespace ReactGridLayout {
          *
          * If not provided, use data-grid props on children.
          */
-        layout?: Layout[];
+        layout?: Layout[] | undefined;
 
         /**
          * Callback so you can save the layout.
@@ -259,23 +352,44 @@ declare namespace ReactGridLayout {
 
     interface ResponsiveProps extends CoreProps {
         /**
+         * Optional, but if you are managing width yourself you may want to set the breakpoint
+         * yourself as well.
+         */
+        breakpoint?: string | undefined;
+        /**
          * `{name: pxVal}, e.g. {lg: 1200, md: 996, sm: 768, xs: 480}`
-         *
          * Breakpoint names are arbitrary but must match in the cols and layouts objects.
          */
-        breakpoints?: {[P in Breakpoints]: number };
+        breakpoints?: { [P: string]: number } | undefined;
+
+        children?: React.ReactNode;
 
         /**
          * Number of cols. This is a breakpoint -> cols map, e.g. `{lg: 12, md: 10, ...}`.
          */
-        cols?: {[P in Breakpoints]: number };
+        cols?: { [P: string]: number } | undefined;
 
         /**
-         * layouts is an object mapping breakpoints to layouts.
-         *
+         * Number of containerPadding. This is a breakpoint -> containerPadding map
+         * e.g. { lg: [5, 5], md: [10, 10], sm: [15, 15] }
+         * Padding inside the container [x, y] in px
+         * e.g. [10, 10]
+         */
+        containerPadding?: [number, number] | { [P: string]: [number, number] } | undefined;
+
+        /**
+         * Layouts is an object mapping breakpoints to layouts.
          * e.g. `{lg: Layout[], md: Layout[], ...}`
          */
-        layouts?: Layouts;
+        layouts?: Layouts | undefined;
+
+        /**
+         * Number of margin. This is a breakpoint -> margin map
+         * e.g. { lg: [5, 5], md: [10, 10], sm: [15, 15] }
+         * Margin between items [x, y] in px
+         * e.g. [10, 10]
+         */
+        margin?: [number, number] | { [P: string]: [number, number] } | undefined;
 
         /**
          * Calls back with breakpoint and new number pf cols.
@@ -284,21 +398,23 @@ declare namespace ReactGridLayout {
 
         /**
          * Callback so you can save the layout.
+         * Calls back with (currentLayout, allLayouts). allLayouts are keyed by breakpoint.
          */
-        onLayoutChange?(currentLayout: Layout, allLayouts: Layouts): void;
+        onLayoutChange?(currentLayout: Layout[], allLayouts: Layouts): void;
 
         /**
-         * Callback when the width changes, so you can modify the layout as needed.
+         * Callback that triggers when the width changes, so you can modify the layout as needed.
+         * Calls back with (containerWidth, margin, cols, containerPadding)
          */
         onWidthChange?(
             containerWidth: number,
             margin: [number, number],
             cols: number,
-            containerPadding: [number, number]
+            containerPadding: [number, number],
         ): void;
     }
 
-    class Responsive extends React.Component<ResponsiveProps> { }
+    class Responsive extends React.Component<ResponsiveProps> {}
 
     interface WidthProviderProps {
         /**
@@ -306,10 +422,10 @@ declare namespace ReactGridLayout {
          * Use this if you'd like to completely eliminate any resizing animation on
          * application/component mount.
          */
-        measureBeforeMount?: boolean;
+        measureBeforeMount?: boolean | undefined;
     }
 
     function WidthProvider<P>(
-        component: React.ComponentClass<P>
+        component: React.ComponentClass<P> | React.FunctionComponent<P>,
     ): React.ComponentClass<P & WidthProviderProps>;
 }

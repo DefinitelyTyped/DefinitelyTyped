@@ -110,3 +110,24 @@ x({
       first: x('a@href', 'title')
     })
 })(fn);
+
+const pagedUrl = 'https://github.com/matthewmueller/x-ray/issues?q=is%3Aissue%20sort%3Acreated-asc%20';
+
+x(pagedUrl, '.js-issue-row', [{ id: '@id', title: 'a.h4' }])
+    .paginate('.next_page@href')
+    .abort((_, url) => url.includes('page=3'));
+
+const hasStringId = (obj: any): obj is {id: string} => {
+    if (!!obj) return false;
+    if (typeof obj !== 'object') return false;
+    if (!('id' in obj)) return false;
+    if (typeof obj.id !== 'string') return false;
+    return true;
+};
+
+x(pagedUrl, '.js-issue-row', [{ id: '@id', title: 'a.h4' }])
+    .paginate('.next_page@href')
+    .abort((results) => results.some(result => {
+        if (hasStringId(result) && result.id === 'issue_40') return true;
+        return false;
+    }));

@@ -2,6 +2,7 @@
 // Project: https://github.com/doesdev/pg-ears
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { ClientConfig } from "pg";
 
@@ -15,9 +16,9 @@ interface PgEars {
 
 declare function pg_ears(
     opts: ClientConfig & {
-        maxAttempts?: number;
+        maxAttempts?: number | undefined;
         // Interval between connection retries, in milliseconds.
-        checkInterval?: number;
+        checkInterval?: number | undefined;
     }
 ): PgEars;
 

@@ -9,7 +9,7 @@ class TestComponent extends React.Component<{ a: number }> {
         return (
             <div >
                 Test with Radium
-			</div>
+            </div>
         );
     }
 }
@@ -24,7 +24,7 @@ TestStatelessComponent = Radium(TestStatelessComponent);
     userAgent: "test",
     matchMedia: window.matchMedia
 })
-class TestComponentWithConfig extends React.Component<{ a?: number }> {
+class TestComponentWithConfig extends React.Component<{ a?: number | undefined }> {
     render() {
         return (
             <div>
@@ -54,7 +54,7 @@ class TestComponentWithConfig extends React.Component<{ a?: number }> {
 <TestComponentWithConfig a={5} />
 
 class TestComponentWithConfigInStyleRoot
-    extends React.Component<{ a?: number }> {
+    extends React.Component<{ a?: number | undefined }> {
     render() {
         return (
             <div>

@@ -2,17 +2,17 @@
 // Project: https://github.com/domasx2/sequelize-fixtures
 // Definitions by: Christian Schwarz <https://github.com/cschwarz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import * as Sequelize from "sequelize";
 
 declare namespace SequelizeFixtures {
     interface Options {
-        encoding?: string,
-        log?: (message: string) => void,
-        transaction?: Sequelize.Transaction,
-        transformFixtureDataFn?: (data: any) => any,
-        modifyFixtureDataFn?: (data: any) => any
+        encoding?: string | undefined,
+        log?: ((message: string) => void) | undefined,
+        transaction?: Sequelize.Transaction | undefined,
+        transformFixtureDataFn?: ((data: any) => any) | undefined,
+        modifyFixtureDataFn?: ((data: any) => any) | undefined
     }
 
     interface SequelizeFixturesStatic {

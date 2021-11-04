@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@koa/cors": [
-                "koa__cors"
+            "@koa/*": [
+                "koa__*"
             ]
         }
     },

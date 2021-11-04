@@ -26,14 +26,16 @@ export namespace Remote {
 export class Remote {
     static addFetch(repo: Repository, remote: string, refspec: string): number;
     static addPush(repo: Repository, remote: string, refspec: string): number;
-    static create(repo: Repository, name: string, url: string): Remote;
+    static create(repo: Repository, name: string, url: string): Promise<Remote>;
     static createAnonymous(repo: Repository, url: string): Promise<Remote>;
+    static createDetached(url: string): Promise<Remote>;
     static createWithFetchspec(repo: Repository, name: string, url: string, fetch: string): Promise<Remote>;
     static delete(repo: Repository, name: string): Promise<number>;
     static initCallbacks(opts: RemoteCallbacks, version: number): number;
     static isValidName(remoteName: string): boolean;
     static list(repo: Repository): Promise<any[]>;
     static lookup(repo: Repository, name: string | Remote, callback?: Function): Promise<Remote>;
+    static rename(repo: Repository, oldName: string, newName: string): Promise<void>;
     static setAutotag(repo: Repository, remote: string, value: number): number;
     static setPushurl(repo: Repository, remote: string, url: string): number;
     static setUrl(repo: Repository, remote: string, url: string): number;
@@ -41,7 +43,7 @@ export class Remote {
     autotag(): number;
     connect(direction: Enums.DIRECTION, callbacks: RemoteCallbacks, callback?: Function): Promise<number>;
     connected(): number;
-    defaultBranch(): Promise<Buf>;
+    defaultBranch(): Promise<string>;
     disconnect(): Promise<void>;
     download(refSpecs: any[], opts?: FetchOptions, callback?: Function): Promise<number>;
     dup(): Promise<Remote>;

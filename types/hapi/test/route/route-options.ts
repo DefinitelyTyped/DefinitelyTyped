@@ -9,7 +9,8 @@ import {
     RouteOptionsPayload,
     RouteOptionsResponse,
     RouteOptionsValidate,
-    Server
+    Server,
+    RouteOptionsSecureObject
 } from "hapi";
 
 const routeOptionsAccess: RouteOptionsAccess = {
@@ -87,7 +88,21 @@ const routeOptionsResponse: RouteOptionsResponse = {
         200: true,
         302: true,
         404: false,
-    }
+    },
+    disconnectStatusCode: 123,
+};
+
+const routeOptionSecure: RouteOptionsSecureObject = {
+    referrer: 'origin',
+    noSniff: true,
+    xframe: "deny",
+    hsts: {
+        includeSubdomains: true,
+        maxAge: 1111,
+        preload: false,
+    },
+    noOpen: false,
+    xss: true,
 };
 
 const routeOptionsValidate: RouteOptionsValidate = {

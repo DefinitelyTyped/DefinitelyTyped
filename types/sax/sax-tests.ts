@@ -2,54 +2,117 @@ import sax = require("sax");
 import fs = require("fs");
 
 (function xmlnsTests() {
-    let opts: sax.SAXOptions = {
+    const opts: sax.SAXOptions = {
         lowercase: true,
         normalize: true,
         xmlns: true,
         position: true
     };
 
-    let parser = sax.parser(/*strict=*/true, opts);
+    const parser = sax.parser(/*strict=*/true, opts);
 
     parser.ENTITIES["foo"] = "bar";
 
-    parser.onerror = function(e: Error) {
-    };
+    parser.onerror = (e: Error) => {};
 
-    parser.ontext = function(text: string) {
-    };
+    parser.ontext = (text: string) => {};
 
-    parser.onopentag = function(tag: sax.QualifiedTag) {
-        let prefix: string = tag.prefix;
-        let local: string = tag.local;
-        let uri: string = tag.uri;
-        let name: string = tag.name;
-        let isSelfClosing: boolean = tag.isSelfClosing;
+    parser.onopentag = (tag: sax.QualifiedTag) => {
+        const prefix: string = tag.prefix;
+        const local: string = tag.local;
+        const uri: string = tag.uri;
+        const name: string = tag.name;
+        const isSelfClosing: boolean = tag.isSelfClosing;
 
-        let attr: sax.QualifiedAttribute = tag.attributes["name"];
+        const attr: sax.QualifiedAttribute = tag.attributes["name"];
         if (attr) {
-            let attrPrefix: string = attr.prefix;
-            let attrLocal: string = attr.local;
-            let attrUri: string = attr.uri;
-            let attrName: string = attr.name;
-            let attrValue: string = attr.value;
+            const attrPrefix: string = attr.prefix;
+            const attrLocal: string = attr.local;
+            const attrUri: string = attr.uri;
+            const attrName: string = attr.name;
+            const attrValue: string = attr.value;
         }
     };
 
-    parser.onattribute = function(attr: { name: string; value: string; }) {
-    };
+    parser.onattribute = (attr: { name: string; value: string; }) => {};
 
-    parser.onend = function() {
-    };
+    parser.onend = () => {};
 
     parser.write("<xml>Hello, <who name=\"world\">world</who>!</xml>").close();
 
+    const saxStream = sax.createStream(/*strict=*/true, opts);
 
-    let saxStream = sax.createStream(/*strict=*/true, opts);
+    saxStream.on("text", text => {
+        // $ExpectType string
+        text;
+    });
 
-    saxStream.on("error", function(e: Error) {
+    saxStream.on("doctype", doctype => {
+        // $ExpectType string
+        doctype;
+    });
+
+    saxStream.on("processinginstruction", node => {
+        // $ExpectType { name: string; body: string; }
+        node;
+    });
+
+    saxStream.on("opentag", tag => {
+        // $ExpectType Tag | QualifiedTag
+        tag;
+    });
+
+    saxStream.on("closetag", tagName => {
+        // $ExpectType string
+        tagName;
+    });
+
+    saxStream.on("attribute", attr => {
+        // $ExpectType { name: string; value: string; }
+        attr;
+    });
+
+    saxStream.on("comment", comment => {
+        // $ExpectType string
+        comment;
+    });
+
+    saxStream.on("cdata", cdata => {
+        // $ExpectType string
+        cdata;
+    });
+
+    saxStream.on("opennamespace", ns => {
+        // $ExpectType { prefix: string; uri: string; }
+        ns;
+    });
+
+    saxStream.on("closenamespace", ns => {
+        // $ExpectType { prefix: string; uri: string; }
+        ns;
+    });
+
+    saxStream.on("script", script => {
+        // $ExpectType string
+        script;
+    });
+
+    saxStream.on("error", error => {
+        // $ExpectType Error
+        error;
+
         this._parser.error = null;
         this._parser.resume();
+    });
+
+    saxStream.on("pipe", src => {
+        // $ExpectType Readable
+        src;
+    });
+
+    saxStream.on("unpipe", src => {
+        // $ExpectType Readable
+        src;
     });
 
     fs.createReadStream("file.xml")
@@ -58,32 +121,70 @@ import fs = require("fs");
 })();
 
 (function noXmlnsTests() {
-    let opts: sax.SAXOptions = {
+    const opts: sax.SAXOptions = {
         lowercase: true,
         normalize: true,
         xmlns: false,
         position: true
     };
 
-    let parser = sax.parser(/*strict=*/true, opts);
+    const parser = sax.parser(/*strict=*/true, opts);
 
-    parser.onerror = function(e: Error) {
+    parser.onerror = (e: Error) => {};
+
+    parser.ontext = (text: string) => {};
+
+    parser.onopentag = (tag: sax.Tag) => {
+        const name: string = tag.name;
+        const isSelfClosing: boolean = tag.isSelfClosing;
+        const attrValue: string = tag.attributes["name"];
     };
 
-    parser.ontext = function(text: string) {
+    parser.onattribute = (attr: { name: string; value: string; }) => {
+        const tag: sax.Tag = parser.tag;
     };
 
-    parser.onopentag = function(tag: sax.Tag) {
-        let name: string = tag.name;
-        let isSelfClosing: boolean = tag.isSelfClosing;
-        let attrValue: string = tag.attributes["name"];
-    };
-
-    parser.onattribute = function(attr: { name: string; value: string; }) {
-    };
-
-    parser.onend = function() {
-    };
+    parser.onend = () => {};
 
     parser.write("<xml>Hello, <who name=\"world\">world</who>!</xml>").close();
 })();
+
+// $ExpectType SAXParser
+sax.parser();
+
+// $ExpectType SAXParser
+sax.parser(true);
+
+// $ExpectType SAXParser
+sax.parser(true, {});
+
+// $ExpectType SAXParser
+sax.parser(true, {normalize: true, position: false});
+
+new sax.SAXParser();
+
+new sax.SAXParser(true);
+
+new sax.SAXParser(true, {});
+
+new sax.SAXParser(false, {lowercase: true, xmlns: false});
+
+// $ExpectType SAXStream
+sax.createStream();
+
+// $ExpectType SAXStream
+sax.createStream(false);
+
+// $ExpectType SAXStream
+sax.createStream(true, {});
+
+// $ExpectType SAXStream
+sax.createStream(true, {trim: true, position: false});
+
+new sax.SAXStream();
+
+new sax.SAXStream(true);
+
+new sax.SAXStream(false, {});
+
+new sax.SAXStream(false, {noscript: true});

@@ -8,7 +8,7 @@ const reader1 = new PNGReader(buffer);
 reader1.parse((err, png) => {
   if (err) throw err;
 
-	png.getWidth();
+    png.getWidth();
   png.getHeight();
   png.getPixel(1, 0)[0];
   png.getBitDepth();
@@ -25,7 +25,7 @@ const reader2 = new PNGReader(bytes);
 reader2.parse({data: false}, (err, png) => {
   if (err) throw err;
 
-	png.getWidth();
+    png.getWidth();
   png.getHeight();
   png.getPixel(1, 0)[2];
   png.getBitDepth();

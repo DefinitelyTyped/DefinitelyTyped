@@ -1,6 +1,8 @@
-// Type definitions for bittorrent-protocol 2.2
-// Project: https://github.com/feross/bittorrent-protocol#readme
-// Definitions by: Feross Aboukhadijeh <https://github.com/feross>, Tomasz Łaziuk <https://github.com/tlaziuk>
+// Type definitions for bittorrent-protocol 3.1
+// Project: https://github.com/webtorrent/bittorrent-protocol
+// Definitions by: Feross Aboukhadijeh <https://github.com/feross>,
+//                 Tomasz Łaziuk <https://github.com/tlaziuk>,
+//                 H1b9b <https://github.com/h1b9b>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -48,11 +50,13 @@ declare namespace BittorrentProtocol {
 
         setKeepAlive(enable: boolean): void;
 
-        setTimeot(ms: number, unref?: boolean): void;
+        setTimeout(ms: number, unref?: boolean): void;
 
         destroy(): void;
 
         use(ext: ExtensionConstructor): void;
+
+        [key: string]: any;
 
         handshake(infoHash: string | Buffer, peerId: string | Buffer, extensions?: any): void;
 
@@ -77,7 +81,7 @@ declare namespace BittorrentProtocol {
 
         port(port: number): void;
 
-        extend(ext: number | string, obj: any): void;
+        extended(ext: number | string, obj: any): void;
 
         // TODO: bitfield is a bitfield instance
         on(event: 'bitfield', listener: (bitfield: any) => void): this;

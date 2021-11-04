@@ -1,7 +1,7 @@
 // Type definitions for subscribe-ui-event 1.1
 // Project: https://github.com/yahoo/subscribe-ui-event#readme
 // Definitions by: Cheng Wang <https://github.com/wangcheng678>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/subscribe-ui-event
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 export type UIEventType =
@@ -24,12 +24,12 @@ export type EventType = UIEventType | TouchEventType;
 
 export interface SubscribeOptions {
     context?: any;
-    enableResizeInfo?: boolean;
-    enableScrollInfo?: boolean;
-    enableTouchInfo?: boolean;
-    eventOptions?: AddEventListenerOptions;
-    throttleRate?: number;
-    useRAF?: boolean;
+    enableResizeInfo?: boolean | undefined;
+    enableScrollInfo?: boolean | undefined;
+    enableTouchInfo?: boolean | undefined;
+    eventOptions?: AddEventListenerOptions | undefined;
+    throttleRate?: number | undefined;
+    useRAF?: boolean | undefined;
 }
 
 export interface ArgmentedEvent<T extends EventType> {
@@ -63,7 +63,7 @@ export type TouchEventCallback<T extends TouchEventType = TouchEventType> = (
     payload: ArgmentedEvent<T>
 ) => any;
 
-export interface Subscrption {
+export interface Subscription {
     unsubscribe: () => void;
 }
 
@@ -71,13 +71,13 @@ export function subscribe<T extends UIEventType>(
     eventType: T,
     callback: UIEventCallback<T>,
     options?: SubscribeOptions
-): Subscrption;
+): Subscription;
 
 export function subscribe<T extends TouchEventType>(
     eventType: T,
     callback: TouchEventCallback<T>,
     options?: SubscribeOptions
-): Subscrption;
+): Subscription;
 
 export function unsubscribe<T extends UIEventType>(
     eventType: T,

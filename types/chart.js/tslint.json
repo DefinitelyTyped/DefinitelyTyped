@@ -1,6 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false
+        "indent": [
+            true,
+            "spaces",
+            4
+        ]
     }
 }

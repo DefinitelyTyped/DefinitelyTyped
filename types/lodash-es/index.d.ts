@@ -1,8 +1,8 @@
 // Type definitions for lodash-es 4.17
-// Project: http://lodash.com/
+// Project: http://lodash.com/, https://lodash.com/custom-builds
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>, e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export { default as add } from "./add";
 export { default as after } from "./after";
@@ -37,7 +37,7 @@ export { default as countBy } from "./countBy";
 export { default as create } from "./create";
 export { default as curry } from "./curry";
 export { default as curryRight } from "./curryRight";
-export { default as debounce } from "./debounce";
+export { default as debounce, DebouncedFunc, DebounceSettings } from "./debounce";
 export { default as deburr } from "./deburr";
 export { default as defaultTo } from "./defaultTo";
 export { default as defaults } from "./defaults";
@@ -255,9 +255,10 @@ export { default as take } from "./take";
 export { default as takeRight } from "./takeRight";
 export { default as takeRightWhile } from "./takeRightWhile";
 export { default as takeWhile } from "./takeWhile";
+export { default as tap } from "./tap";
 export { default as template } from "./template";
 export { default as templateSettings } from "./templateSettings";
-export { default as throttle } from "./throttle";
+export { default as throttle, ThrottleSettings } from "./throttle";
 export { default as times } from "./times";
 export { default as toArray } from "./toArray";
 export { default as toFinite } from "./toFinite";

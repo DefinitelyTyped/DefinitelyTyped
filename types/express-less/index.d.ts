@@ -1,8 +1,8 @@
-// Type definitions for express-less
+// Type definitions for express-less 0.1
 // Project: https://www.npmjs.com/package/express-less
 // Definitions by: xyb <https://github.com/xieyubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 
 
@@ -15,6 +15,7 @@ declare namespace less {
     export interface Options {
         debug?: boolean;
         compress?: boolean;
+        cache?: boolean;
     }
 }
 

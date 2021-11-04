@@ -1,7 +1,7 @@
 // Type definitions for Grunt 0.4.x
 // Project: http://gruntjs.com
 // Definitions by: Jeff May <https://github.com/jeffmay>, Basarat Ali Syed <https://github.com/basarat>
-// Definitions: https://github.com/jeffmay/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -27,9 +27,9 @@ declare namespace node {
     interface NodePackage {
         name: string;
         version: string;
-        description?: string;
-        keywords?: string[];
-        homepage?: string;
+        description?: string | undefined;
+        keywords?: string[] | undefined;
+        homepage?: string | undefined;
     }
 }
 
@@ -53,61 +53,61 @@ declare namespace minimatch {
         /**
          * Dump a ton of stuff to stderr.
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Do not expand {a,b} and {1..3} brace sets.
          */
-        nobrace?: boolean;
+        nobrace?: boolean | undefined;
 
         /**
          * Disable ** matching against multiple folder names.
          */
-        noglobstar?: boolean;
+        noglobstar?: boolean | undefined;
 
         /**
          * Allow patterns to match filenames starting with a period,
          * even if the pattern does not explicitly have a period in that spot.
          */
         // Note that by default, a/**\/b will not match a/.d/b, unless dot is set.
-        dot?: boolean;
+        dot?: boolean | undefined;
 
         /**
          * Disable "extglob" style patterns like +(a|b).
          */
-        noext?: boolean;
+        noext?: boolean | undefined;
 
         /**
          * Perform a case-insensitive match.
          */
-        nocase?: boolean;
+        nocase?: boolean | undefined;
 
         /**
          * When a match is not found by minimatch.match, return a list containing the pattern itself.
          * When set, an empty list is returned if there are no matches.
          */
-        nonull?: boolean;
+        nonull?: boolean | undefined;
 
         /**
          * If set, then patterns without slashes will be matched against the basename of the path if it contains slashes.
          * For example, a?b would match the path /xyz/123/acb, but not /xyz/acb/123.
          */
-        matchBase?: boolean;
+        matchBase?: boolean | undefined;
 
         /**
          * Suppress the behavior of treating # at the start of a pattern as a comment.
          */
-        nocomment?: boolean;
+        nocomment?: boolean | undefined;
 
         /**
          * Suppress the behavior of treating a leading ! character as negation.
          */
-        nonegate?: boolean;
+        nonegate?: boolean | undefined;
 
         /**
          * Returns from negate expressions the same as if they were not negated. (Ie, true on a hit, false on a miss.)
          */
-        flipNegate?: boolean;
+        flipNegate?: boolean | undefined;
     }
 }
 
@@ -320,7 +320,7 @@ declare namespace grunt {
          * @see IFileWriteBufferOption
          * @see IFileWriteStringOption
          */
-        interface IFileWriteOptions {
+        interface IFileWriteOptions extends grunt.file.IFileEncodedOption {
             /**
              * These optional globbing patterns will be matched against the filepath
              * (not the filename) using grunt.file.isMatch. If any specified globbing
@@ -341,7 +341,7 @@ declare namespace grunt {
              * whose return value will be used as the destination file's contents. If
              * this function returns `false`, the file copy will be aborted.
              */
-            process?: (buffer: Buffer) => boolean;
+            process?: ((buffer: Buffer) => boolean) | undefined;
         }
 
         /**
@@ -349,11 +349,24 @@ declare namespace grunt {
          */
         interface IFileWriteStringOption extends grunt.file.IFileWriteOptions {
             /**
-             * The source file contents and file path are passed into this function,
-             * whose return value will be used as the destination file's contents. If
-             * this function returns `false`, the file copy will be aborted.
-             */
-            process?: (file: string) => boolean;
+            * The source file contents, source file path, and destination file path
+            * are passed into this function, whose return value will be used as the
+            * destination file's contents.  
+            * If this function returns 'false', the file copy will be aborted.
+            * @example
+            ```ts
+const copyOptions: grunt.file.IFileWriteStringOption = {
+  encoding: options.encoding,
+  process: (contents: string, srcpath: string, destpath: string): string | boolean => {
+      // some other code
+      // return the content to be written or return false to cancel
+      return contents;
+  },
+  noProcess: options.noProcess,
+};
+            ```
+            */
+            process?: ((contents: string, srcpath: string, destpath: string) => (string | boolean)) | undefined;
         }
 
         /**
@@ -413,7 +426,7 @@ declare namespace grunt {
              *
              * @return true if the files could be deleted, otherwise false.
              */
-            delete(filepath: string, options?: { force?: boolean }): boolean;
+            delete(filepath: string, options?: { force?: boolean | undefined }): boolean;
 
             /**
              * Works like mkdir -p. Create a directory along with any intermediate directories.
@@ -446,7 +459,7 @@ declare namespace grunt {
              * grunt.file.setBase or the --base command-line option.
              */
             expand(patterns: string | string[]): string[];
-            expand(options: IFilesConfig, patterns: string[]): string[];
+            expand(options: IFilesConfig, patterns: string | string[]): string[];
 
             /**
              * Returns an array of src-dest file mapping objects.
@@ -564,18 +577,18 @@ declare namespace grunt {
             /**
              * Pattern(s) to match, relative to the {@link IExpandedFilesConfig.cwd}.
              */
-            src?: string[];
+            src?: string[] | undefined;
 
             /**
              * Destination path prefix.
              */
-            dest?: string;
+            dest?: string | undefined;
 
             /**
              * Process a dynamic src-dest file mapping,
              * @see {@link http://gruntjs.com/configuring-tasks#building-the-files-object-dynamically for more information.
             */
-            expand?: boolean; // = false
+            expand?: boolean | undefined; // = false
 
             /**
              * Either a valid fs.Stats method name:
@@ -595,6 +608,12 @@ declare namespace grunt {
             // filter?: string
             // filter?: (src: string) => boolean
             filter?: any;
+
+            /**
+             * Patterns will be matched relative to this path, and all returned filepaths will
+             * also be relative to this path.
+             */
+            cwd?: string | undefined;
         }
 
         /**
@@ -605,22 +624,22 @@ declare namespace grunt {
             /**
              * Enables the following options
              */
-            expand?: boolean; // = true
+            expand?: boolean | undefined; // = true
 
             /**
              * All {@link IExpandedFilesConfig.src} matches are relative to (but don't include) this path.
              */
-            cwd?: string;
+            cwd?: string | undefined;
 
             /**
              * Replace any existing extension with this value in generated {@link IExpandedFilesConfig.dest} paths.
              */
-            ext?: string;
+            ext?: string | undefined;
 
             /**
              * Remove all path parts from generated {@link IExpandedFilesConfig.dest} paths.
              */
-            flatten?: boolean;
+            flatten?: boolean | undefined;
 
             /**
              * This function is called for each matched src file, (after extension renaming and flattening).
@@ -628,7 +647,7 @@ declare namespace grunt {
              * and this function must return a new dest value.
              * If the same dest is returned more than once, each src which used it will be added to an array of sources for it.
              */
-            rename?: Function;
+            rename?: Function | undefined;
         }
 
         /**
@@ -1174,30 +1193,30 @@ declare namespace grunt {
             /**
              * The command to execute. It should be in the system path.
              */
-            cmd?: string;
+            cmd?: string | undefined;
 
             /**
              * If specified, the same grunt bin that is currently running will be
              * spawned as the child command, instead of the "cmd" option.
              * Defaults to false.
              */
-            grunt?: boolean;
+            grunt?: boolean | undefined;
 
             /**
              * An array of arguments to pass to the command.
              */
-            args?: string[];
+            args?: string[] | undefined;
 
             /**
              * Additional options for the Node.js child_process spawn method.
              */
             opts?: {
-                cwd?: string;
+                cwd?: string | undefined;
                 stdio?: any;
                 custom?: any;
                 env?: any;
-                detached?: boolean;
-            }
+                detached?: boolean | undefined;
+            } | undefined
 
             /**
              * If this value is set and an error occurs, it will be used as the value

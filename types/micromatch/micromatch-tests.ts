@@ -8,10 +8,12 @@ const micromatchOptions: mm.Options = {
 
 let strArrResult: string[];
 let boolResult: boolean;
+const readonlyStrArr: ReadonlyArray<string> = [];
 
 // main function
 strArrResult = mm(['a.js', 'a.txt'], '*.js', micromatchOptions);
 strArrResult = mm(['a.js', 'a.txt'], ['*.js']);
+strArrResult = mm(readonlyStrArr, readonlyStrArr);
 
 // .match
 strArrResult = mm.match(['a.a', 'a.aa', 'a.b', 'a.c'], '*.a');
@@ -62,3 +64,12 @@ const regex: RegExp = mm.makeRe('*.js');
 // .braces
 strArrResult = mm.braces('*.js');
 strArrResult = mm.braces('*.js', { expand: true });
+
+// $ExpectType ScanInfo
+mm.scan('*');
+
+// $ExpectType ScanInfoWithTokens
+mm.scan('*', { tokens: true });
+
+// $ExpectType ScanInfoWithParts
+mm.scan('*', { parts: true });

@@ -6,22 +6,28 @@
 export type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
 export type FontFaceSetLoadStatus = 'loading' | 'loaded';
 export type BinaryData = ArrayBuffer | ArrayBufferView;
-export type EventHandler = (event: Event) => void;
 
-export interface FontFaceDescriptors {
-    style?: string;
-    weight?: string;
-    stretch?: string;
-    unicodeRange?: string;
-    variant?: string;
-    featureSettings?: string;
+export interface FontFaceSetLoadEventInit extends EventInit {
+    fontfaces?: FontFace[] | undefined;
 }
 
-export interface FontFaceSet extends Set<FontFace> {
+export interface FontFaceSetEventMap {
+    "loading": (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
+    "loadingdone": (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
+    "loadingerror": (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
+}
+
+export interface FontFaceSet extends Set<FontFace>, EventTarget {
     // events for when loading state changes
-    onloading: EventHandler;
-    onloadingdone: EventHandler;
-    onloadingerror: EventHandler;
+    onloading: ((this: FontFaceSet, event: Event) => any) | null;
+    onloadingdone: ((this: FontFaceSet, event: Event) => any) | null;
+    onloadingerror: ((this: FontFaceSet, event: Event) => any) | null;
+
+    // EventTarget
+    addEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: FontFaceSetEventMap[K], options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: FontFaceSetEventMap[K], options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 
     // check and start loads if appropriate
     // and fulfill promise when all loads complete
@@ -29,6 +35,8 @@ export interface FontFaceSet extends Set<FontFace> {
     // return whether all fonts in the fontlist are loaded
     // (does not initiate load if not available)
     check(font: string, text?: string): boolean;
+
+    forEach(callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void, thisArg?: any): void;
 
     // async notification that font loading and layout operations are done
     readonly ready: Promise<FontFaceSet>;
@@ -38,8 +46,17 @@ export interface FontFaceSet extends Set<FontFace> {
 }
 
 declare global {
-    class FontFace {
-        constructor(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors);
+    interface FontFaceDescriptors {
+        display?: string | undefined;
+        featureSettings?: string | undefined;
+        stretch?: string | undefined;
+        style?: string | undefined;
+        unicodeRange?: string | undefined;
+        variant?: string | undefined;
+        weight?: string | undefined;
+    }
+
+    interface FontFace {
         load(): Promise<FontFace>;
 
         family: string;
@@ -55,7 +72,25 @@ declare global {
         readonly loaded: Promise<FontFace>;
     }
 
+    var FontFace: {
+        prototype: FontFace;
+        new(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
+    };
+
+    interface FontFaceSetLoadEvent extends Event {
+        readonly fontfaces: ReadonlyArray<FontFace>;
+    }
+
+    var FontFaceSetLoadEvent: {
+        prototype: FontFaceSetLoadEvent;
+        new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
+    };
+
     interface Document {
+        fonts: FontFaceSet;
+    }
+
+    interface WorkerGlobalScope {
         fonts: FontFaceSet;
     }
 }

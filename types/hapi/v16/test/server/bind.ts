@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#serverbindcontext
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 interface HandlerThis {
     message: string;

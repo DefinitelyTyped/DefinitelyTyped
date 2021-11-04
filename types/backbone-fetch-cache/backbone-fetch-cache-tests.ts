@@ -64,7 +64,7 @@ const modelOpts: Backbone.ModelFetchWithCacheOptions = {
     context: {},
 };
 
-const hoge = <Backbone.ModelWithCache> new Backbone.Model;
+const hoge = new Backbone.Model() as Backbone.ModelWithCache;
 hoge.fetch(modelOpts);
 
 const collectionOpts: Backbone.CollectionFetchWithCacheOptions = {
@@ -76,5 +76,5 @@ const collectionOpts: Backbone.CollectionFetchWithCacheOptions = {
     prefillSuccess: (self: any) => { },
 };
 
-const fuga = <Backbone.CollectionWithCache> new Backbone.Collection;
+const fuga = new Backbone.Collection() as Backbone.CollectionWithCache;
 fuga.fetch(collectionOpts);

@@ -1,48 +1,18 @@
 // Type definitions for orientjs 3.0
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
+//                 [Aleksey Rezvov] <https://github.com/aleksey-rezvov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-// Last Update  : 20-7-2017
-// Compatible with Orientdb >= 2.2.15 and orientjs >= 2.2.x features .
-// Developed with love in www.nowcando.com
-//
+// TypeScript Version: 3.6
+// Last Update  : 08-11-2019
+// Developed in www.nowcando.com
 
 /// <reference types="node" />
 
+// tslint:disable:no-redundant-jsdoc-2
 import events = require('events');
-import Promise = require('bluebird');
+import { Readable } from 'stream';
 
-/* =================== USAGE ===================
-    import orientjs = require('orientjs');
-   let dbserver = orientjs({
-    host: 'localhost',
-    port: 2424,
-    username: 'root',
-    password: 'root'
-    });
-    let db = dbserver.use({
-        name: 'mytestdb',
-        username: 'root',
-        password: 'root'
-    });
- =============================================== */
-
-/**
- * A lightweight definiton for orientjs module, Official node.js driver for OrientDB.
- *
- * @description Official node.js driver for OrientDB. Fast, lightweight, uses the binary protocol.
- *
- * @author Saeed Tabrizi (saeed a_t nowcando.com)
- * @version 3.0.1
- */
-
-/**
- * Make a orientdb server client in binary protocol  .
- * @param config The configuration for server connection.
- */
-declare function orientjs(config: orientjs.ServerConfig): orientjs.Server;
 declare namespace orientjs {
     type Version = number | string;
     type PropertyType = "Boolean" | "Integer" | "Short" | "Long" |
@@ -50,7 +20,10 @@ declare namespace orientjs {
         "Embedded" | "EmbeddedList" | "EmbeddedSet" | "EmbeddedMap" |
         "Link" | "LinkList" | "LinkSet" | "LinkMap" | "Byte" |
         "Transient" | "Date" | "Custom" | "Decimal" | "LinkBag";
-    enum DataTypes {
+    /**
+     * A list of orientdb data types, indexed by their type id.
+     */
+    enum ODataType {
         Boolean = 0,
         Integer = 1,
         Short = 2,
@@ -58,7 +31,7 @@ declare namespace orientjs {
         Float = 4,
         Double = 5,
         Datetime = 6,
-        string = 7,
+        String = 7,
         Binary = 8,
         Embedded = 9,
         EmbeddedList = 10,
@@ -73,10 +46,11 @@ declare namespace orientjs {
         Date = 19,
         Custom = 20,
         Decimal = 21,
-        LinkBag = 22
+        LinkBag = 22,
+        Any = 23
     }
 
-    namespace errors {
+    namespace Errors {
         class BaseError {
             name: string;
             init(name: string): void;
@@ -91,19 +65,19 @@ declare namespace orientjs {
 
     namespace Migration {
         interface MigrationManagerConfig {
-            name?: string;
-            db?: Db;
-            dir?: string;
-            className?: string;
+            name?: string | undefined;
+            db?: ODB | undefined;
+            dir?: string | undefined;
+            className?: string | undefined;
         }
         class Manager extends MigrationManager {
             constructor(config: MigrationManagerConfig);
         }
         class Migration {
             name: string;
-            server: Server;
-            db: Db;
-            configure(config?: any): void;
+            server: OServer;
+            db: ODB;
+
             up(): Promise<any>;
             down(): Promise<any>;
         }
@@ -117,8 +91,8 @@ declare namespace orientjs {
             constructor(config?: MigrationManagerConfig);
 
             name: string;
-            server: Server;
-            db: Db;
+            server: OServer;
+            db: ODB;
             dir: string;
             className: string;
 
@@ -197,22 +171,22 @@ declare namespace orientjs {
         }
     }
 
-    interface Logger {
+    interface OLogger {
         error(...args: any[]): void;
         log(...args: any[]): void;
         debug(...args: any[]): void;
     }
 
-    class RID extends String {
-        cluster?: number;
-        position?: number;
+    class ORID extends String {
+        cluster?: number | undefined;
+        position?: number | undefined;
 
         valueOf(): string;
-        isValid?(input?: string | RID | any): boolean;
-        equals?(rid: string | RID): boolean;
+        isValid?(input?: string | ORID | any): boolean;
+        equals?(rid: string | ORID): boolean;
         parse?(input: string): boolean;
-        parse?(input: string): RID;
-        parse?(input: string): RID[];
+        parse?(input: string): ORID;
+        parse?(input: string): ORID[];
         toRid?(cluster: number, position: number): any;
     }
 
@@ -245,61 +219,60 @@ declare namespace orientjs {
         name: string;
         type: PropertyType;
         default?: any;
-        ifnotexist?: boolean;
-        unsafe?: boolean;
-        mandatory?: boolean;
-        readonly?: boolean;
-        notNull?: boolean;
-        collate?: string;
-        linkedClass?: string;
-        linkedType?: string;
-        regexp?: RegExp | string;
-        min?: number;
-        max?: number;
+        ifnotexist?: boolean | undefined;
+        unsafe?: boolean | undefined;
+        mandatory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        notNull?: boolean | undefined;
+        collate?: string | undefined;
+        linkedClass?: string | undefined;
+        linkedType?: string | undefined;
+        regexp?: RegExp | string | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         custom?: {
-            fields?: CustomField[]
-        };
+            fields?: CustomField[] | undefined
+        } | undefined;
     }
 
     interface PropertyUpdateConfig {
         name: string;
         type: PropertyType;
         default?: any;
-        mandatory?: boolean;
-        readonly?: boolean;
-        notNull?: boolean;
-        collate?: string;
-        linkedClass?: string;
-        linkedType?: string;
-        regexp?: RegExp | string;
-        min?: number;
-        max?: number;
+        mandatory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        notNull?: boolean | undefined;
+        collate?: string | undefined;
+        linkedClass?: string | undefined;
+        linkedType?: string | undefined;
+        regexp?: RegExp | string | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         custom?: {
-            fields?: CustomField[]
-        };
+            fields?: CustomField[] | undefined
+        } | undefined;
     }
 
-    class Property {
-        class?: Class;
-        name?: string;
-        originalName?: string;
-        type?: PropertyType;
-        mandatory?: boolean;
-        readonly?: boolean;
-        notNull?: boolean;
-        collate?: string;
-        linkedClass?: string;
-        linkedType?: PropertyType;
-        regexp?: RegExp | string;
-        min?: number;
-        max?: number;
+    class OClassProperty {
+        class?: OClass | undefined;
+        name?: string | undefined;
+        originalName?: string | undefined;
+        type?: PropertyType | undefined;
+        mandatory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        notNull?: boolean | undefined;
+        collate?: string | undefined;
+        linkedClass?: string | undefined;
+        linkedType?: PropertyType | undefined;
+        regexp?: RegExp | string | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         custom?: {
-            fields?: CustomField[]
-        };
+            fields?: CustomField[] | undefined
+        } | undefined;
 
-        configure(config?: any): void;
-        reload(): Promise<Property>;
-        list(): Promise<Property[]>;
+        reload(): Promise<OClassProperty>;
+        list(): Promise<OClassProperty[]>;
         /**
          * Create a new property.
          *
@@ -307,15 +280,15 @@ declare namespace orientjs {
          * @param   reload      Whether to reload the property, default to true.
          * @promise {Object}              The created property.
          */
-        create(config?: PropertyCreateConfig | string, reload?: boolean): Promise<Property>;
-        create(config: PropertyCreateConfig[], reload?: boolean): Promise<Property[]>;
+        create(config?: PropertyCreateConfig | string, reload?: boolean): Promise<OClassProperty>;
+        create(config: PropertyCreateConfig[], reload?: boolean): Promise<OClassProperty[]>;
         /**
          * Get the property with the given name.
          *
          * @param   name   The property to get.
          * @promise {Object|null}   The retrieved property.
          */
-        get(name: string): Promise<Property>;
+        get(name: string): Promise<OClassProperty>;
         /**
          * Update the given property.
          *
@@ -323,39 +296,39 @@ declare namespace orientjs {
          * @param   reload   Whether to reload the property, default to true.
          * @promise {Object}           The updated property.
          */
-        update(config: PropertyUpdateConfig, reload?: boolean): Promise<Property>;
+        update(config: PropertyUpdateConfig, reload?: boolean): Promise<OClassProperty>;
         drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
-        }): Promise<Class>;
-        alter(name: string, setting?: any): Promise<Class>;
-        rename(oldName: string, newName?: string): Promise<Property>;
+            ifexist?: boolean | undefined,
+            force?: boolean | undefined
+        }): Promise<OClass>;
+        alter(name: string, setting?: any): Promise<OClass>;
+        rename(oldName: string, newName?: string): Promise<OClassProperty>;
     }
 
     /**
      * The class constructor.
      * @param config The configuration for the class
      */
-    class Class {
-        db?: Db;
-        name?: string;
-        shortName?: string;
+    class OClass {
+        db?: ODB | undefined;
+        name?: string | undefined;
+        shortName?: string | undefined;
         defaultClusterId?: any;
-        superClass?: string;
-        originalName?: string;
-        clusterIds?: number[];
+        superClass?: string | undefined;
+        originalName?: string | undefined;
+        clusterIds?: number[] | undefined;
         /**
          * Configure the class instance.
          * @param  config The configuration object.
          */
-        configure(config?: any): void;
+
         /**
          * Retreive a list of classes from the database.
          *
          * @param  refresh Whether to refresh the list or not.
          * @promise {Object[]}       An array of class objects.
          */
-        list(limit: number | boolean | any, offset?: number): Promise<Class[]>;
+        list(limit: number | boolean | any, offset?: number): Promise<OClass[]>;
         /**
          * Find a list of records in the class.
          *
@@ -364,14 +337,14 @@ declare namespace orientjs {
          * @param  offset     The offset to start returning records from.
          * @promise {Object[]}          An array of records in the class.
          */
-        find(attributes: any, limit?: number, offset?: number): Promise<Record[]>;
+        find(attributes: any, limit?: number, offset?: number): Promise<ORecord[]>;
         /**
          * Create a record for this class.
          *
          * @param   record The record to create.
          * @promise {Object}        The created record.
          */
-        create(record: Record): Promise<Record>;
+        create(record: ORecord): Promise<ORecord>;
         /**
          * Create a new class.
          *
@@ -382,7 +355,7 @@ declare namespace orientjs {
          * @param  ifnotexist     The flag for the if not exist class
          * @promise {Object}                The created class object
          */
-        create(name: string, parentName?: string, cluster?: string, isAbstract?: boolean, ifnotexist?: boolean): Promise<Class>;
+        create(name: string, parentName?: string, cluster?: string, isAbstract?: boolean, ifnotexist?: boolean): Promise<OClass>;
         /**
          * Update the given class.
          *
@@ -390,13 +363,13 @@ declare namespace orientjs {
          * @param   reload   Whether to reload the class, default to true.
          * @promise {Object}           The updated class.
          */
-        update(cls: any, reload: boolean): Promise<Class>;
+        update(cls: any, reload: boolean): Promise<OClass>;
         /**
          * Reload the class instance.
          *
          * @promise {Class} The class instance.
          */
-        reload(): Promise<Class[]>;
+        reload(): Promise<OClass[]>;
         /**
          * Delete a class.
          *
@@ -405,9 +378,9 @@ declare namespace orientjs {
          * @promise {Db}         The database instance.
          */
         drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
-        }): Promise<Db>;
+            ifexist?: boolean | undefined,
+            force?: boolean | undefined
+        }): Promise<ODB>;
         /**
          * Get a class by name.
          *
@@ -415,48 +388,48 @@ declare namespace orientjs {
          * @param   refresh Whether to refresh the data, defaults to false.
          * @promise {Object}          The class object if it exists.
          */
-        get(name: string, refresh?: boolean): Promise<Class>;
+        get(name: string, refresh?: boolean): Promise<OClass>;
         /**
          * Cache the given class data for fast lookup later.
          *
          * @param  classes The class objects to cache.
          * @return                The db instance.
          */
-        cacheData(classes: Class[]): Db;
-        property: Property;
+        cacheData(classes: OClass[]): ODB;
+        property: OClassProperty;
     }
 
-    class Cluster {
-        name?: string;
-        location?: string;
+    class OCluster {
+        name?: string | undefined;
+        location?: string | undefined;
         list(refresh?: boolean): Promise<any[]>;
-        create(name: string, location?: string): Promise<Cluster> & Promise<any>;
-        get(nameOrId: string, refresh?: boolean): Promise<Cluster> & Promise<any>;
-        getByName(name: string, refresh?: boolean): Promise<Cluster> & Promise<any>;
-        getById(id: string, refresh?: boolean): Promise<Cluster> & Promise<any>;
-        drop(name: string): Promise<Db>;
+        create(name: string, location?: string): Promise<OCluster> & Promise<any>;
+        get(nameOrId: string, refresh?: boolean): Promise<OCluster> & Promise<any>;
+        getByName(name: string, refresh?: boolean): Promise<OCluster> & Promise<any>;
+        getById(id: string, refresh?: boolean): Promise<OCluster> & Promise<any>;
+        drop(name: string): Promise<ODB>;
         count(name: string): Promise<number>;
         range(name: string): Promise<any>;
-        cacheData(clusters: Cluster[] & any[]): Db;
+        cacheData(clusters: OCluster[] & any[]): ODB;
     }
 
     /**
      * The sequence constructor.
      * @param config The configuration for the sequence
      */
-    class Sequence {
-        db?: Db;
-        name?: string;
-        type?: string;
-        value?: number;
-        incr?: number;
-        start?: number;
-        cache?: number;
+    class OSequence {
+        db?: ODB | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
+        value?: number | undefined;
+        incr?: number | undefined;
+        start?: number | undefined;
+        cache?: number | undefined;
         /**
          * Configure the sequence instance.
          * @param  config The configuration object.
          */
-        configure(config?: any): void;
+
         /**
          * Retreive a list of sequences from the database.
          *
@@ -464,7 +437,7 @@ declare namespace orientjs {
          * @promise {Object[]}       An array of class objects.
          */
 
-        list(refresh: boolean): Promise<Sequence[]>;
+        list(refresh: boolean): Promise<OSequence[]>;
 
         /**
          * Create a new sequence.
@@ -476,7 +449,7 @@ declare namespace orientjs {
          * @param  cache     The cache number
          * @promise {Object}                The created sequence object
          */
-        create(name: string, type: "ORDERED" | "CACHED", start?: number, incerement?: number, cache?: number): Promise<Sequence>;
+        create(name: string, type: "ORDERED" | "CACHED", start?: number, incerement?: number, cache?: number): Promise<OSequence>;
         /**
          * update a  sequence.
          *
@@ -486,13 +459,13 @@ declare namespace orientjs {
          * @param  start The start number.
          * @promise {Object} The created sequence object
          */
-        update(name: string, start?: number, incerement?: number, cache?: number): Promise<Sequence>;
+        update(name: string, start?: number, incerement?: number, cache?: number): Promise<OSequence>;
         /**
          * Reload the sequence instance.
          *
          * @promise {Sequence} The class instance.
          */
-        reload(): Promise<Sequence[]>;
+        reload(): Promise<OSequence[]>;
         /**
          * Delete a sequence.
          *
@@ -501,7 +474,7 @@ declare namespace orientjs {
          * @promise {Db}         The database instance.
          */
         drop(name: string, config?: {
-        }): Promise<Db>;
+        }): Promise<ODB>;
         /**
          * Get a sequence by name.
          *
@@ -509,29 +482,29 @@ declare namespace orientjs {
          * @param   refresh Whether to refresh the data, defaults to false.
          * @promise {Object}          The sequence object if it exists.
          */
-        get(name: string, refresh?: boolean): Promise<Sequence>;
+        get(name: string, refresh?: boolean): Promise<OSequence>;
         /**
          * Cache the given class data for fast lookup later.
          *
          * @param  sequences The sequence objects to cache.
          * @return                The db instance.
          */
-        cacheData(sequences: Sequence[]): Db;
+        cacheData(sequences: OSequence[]): ODB;
     }
 
     interface RecordMeta {
-        "@rid": RID;
+        "@rid": ORID;
         "@version": Version;
     }
 
-    type ODocument = Record;
-    type BinaryRecord = Record & Buffer;
-    class Record extends Object {
-        '@rid'?: RID;
-        '@type'?: 'd' | 'b';
-        '@class'?: string;
-        '@version'?: Version;
-        rid?: RID;
+    type ODocument = ORecord;
+    type BinaryRecord = ORecord & Buffer;
+    class ORecord extends Object {
+        '@rid'?: ORID | undefined;
+        '@type'?: 'd' | 'b' | undefined;
+        '@class'?: string | undefined;
+        '@version'?: Version | undefined;
+        rid?: ORID | undefined;
         /**
          * Insert the given record into the database.
          *
@@ -539,7 +512,7 @@ declare namespace orientjs {
          * @param  options The command options.
          * @promise {Object}        The inserted record.
          */
-        create(record: ODocument | Record | BinaryRecord, options?: any): Promise<Record>;
+        create(record: ODocument | ORecord | BinaryRecord, options?: any): Promise<ORecord>;
         /**
          * Insert the given record into the database.
          *
@@ -547,7 +520,7 @@ declare namespace orientjs {
          * @param  options The command options.
          * @promise {Object}        The inserted record.
          */
-        create(records: ODocument[] | Record[] | BinaryRecord[], options?: any): Promise<Record[]>;
+        create(records: ODocument[] | ORecord[] | BinaryRecord[], options?: any): Promise<ORecord[]>;
 
         /**
          * Read the given record.
@@ -556,7 +529,7 @@ declare namespace orientjs {
          * @param  options The query options.
          * @promise {Object}        The loaded record.
          */
-        get(record: Record | RID, options?: any): Promise<Record | Buffer>;
+        get(record: ORecord | ORID, options?: any): Promise<ORecord | Buffer>;
         /**
          * Read the given record.
          *
@@ -564,14 +537,14 @@ declare namespace orientjs {
          * @param  options The query options.
          * @promise {Object[]}        The loaded record.
          */
-        get(records: Record[] | RID[], options?: any): Promise<Record[] | Buffer[]>;
+        get(records: ORecord[] | ORID[], options?: any): Promise<ORecord[] | Buffer[]>;
         /**
          * Resolve all references within the given collection of records.
          *
          * @param  records  The records to resolve.
          * @return            The records with references replaced.
          */
-        resolveReferences(records: Record[]): Record[];
+        resolveReferences(records: ORecord[]): ORecord[];
 
         /**
          * Read the metadata for the given record.
@@ -580,7 +553,7 @@ declare namespace orientjs {
          * @param  options The query options.
          * @promise {Object}        The record object with loaded meta data.
          */
-        meta(record: Record | RID | string, options?: any): Promise<RecordMeta>;
+        meta(record: ORecord | ORID | string, options?: any): Promise<RecordMeta>;
         /**
          * Read the metadata for the given record.
          *
@@ -588,7 +561,7 @@ declare namespace orientjs {
          * @param  options The query options.
          * @promise {Object}        The record object with loaded meta data.
          */
-        meta(records: Record[] | RID[], options?: any): Promise<RecordMeta[]>;
+        meta(records: ORecord[] | ORID[], options?: any): Promise<RecordMeta[]>;
 
         /**
          * Update the given record.
@@ -597,9 +570,9 @@ declare namespace orientjs {
          * @param  options The query options.
          * @promise {Object}        The updated record.
          */
-        update(record?: Record | RID, options?: any): Promise<Record>;
+        update(record?: ORecord | ORID, options?: any): Promise<ORecord>;
 
-        delete(): Promise<Record> & Promise<Record>;
+        delete(): Promise<ORecord> & Promise<ORecord>;
         /**
          * Delete the given record.
          *
@@ -607,129 +580,130 @@ declare namespace orientjs {
          * @param              options The query options.
          * @promise {Object}                    The deleted record object.
          */
-        delete(record: Record | RID, options?: any): Promise<Record>;
+        delete(record: ORecord | ORID, options?: any): Promise<ORecord>;
     }
     interface IndexConfig {
         name: string;
-        class?: string;
-        properties?: string[];
+        class?: string | undefined;
+        ifnotexist?: boolean | undefined;
+        properties?: string[] | undefined;
         type: "UNIQUE" | "NOTUNIQUE" | "FULLTEXT" | "DICTIONARY" | "UNIQUE_HASH_INDEX" | "NOTUNIQUE_HASH_INDEX" | "FULLTEXT_HASH_INDEX" | "DICTIONARY_HASH_INDEX" | "SPATIAL";
-        keyType?: string;
+        keyType?: string | undefined;
         metadata?: any;
-        engine?: "LUCENE" | "COLA" | string;
+        engine?: "LUCENE" | "COLA" | string | undefined;
     }
 
-    interface IndexEntry {
+    interface OIndexEntry {
         key: string;
-        value: string | RID;
+        value: string | ORID;
     }
-    interface Index {
+    interface OIndex {
         cached: boolean;
-        db: Db;
+        db: ODB;
         name: string;
         algorithm: string;
-        clusters: Cluster[];
+        clusters: OCluster[];
         type: string;
         configure(config: any): void;
-        add(idx: IndexEntry | IndexEntry[]): Promise<Index[]>;
-        set(key: string, value: string | RID): Promise<Index>;
-        delete(name: string): Promise<Index>;
-        select(): Statement;
-        list(refresh?: boolean): Promise<Index[]>;
-        create(config: IndexConfig | IndexConfig[]): Promise<Index>;
-        drop(name: string): Promise<Db>;
-        get(name: string, refresh?: boolean): Promise<Index>;
-        cacheData(indices: any[]): Promise<Db>;
+        add(idx: OIndexEntry | OIndexEntry[]): Promise<OIndex[]>;
+        set(key: string, value: string | ORID): Promise<OIndex>;
+        delete(name: string): Promise<OIndex>;
+        select(): OStatement;
+        list(refresh?: boolean): Promise<OIndex[]>;
+        create(config: IndexConfig | IndexConfig[]): Promise<OIndex>;
+        drop(name: string): Promise<ODB>;
+        get(name: string, refresh?: boolean): Promise<OIndex>;
+        cacheData(indices: any[]): Promise<ODB>;
     }
-    type SqlExpression = string | RawExpression | SqlFunction;
-    interface Statement extends Query<any> {
-        select(param?: string | string[]): Statement;
-        traverse(param?: string | string[]): Statement;
-        strategy(param?: string): Statement;
-        insert(param?: string | string[]): Statement;
-        update(param?: string | string[]): Statement;
-        delete(param?: string | string[]): Statement;
-        into(param?: string): Statement;
-        create(paramtype?: string, paramname?: string): Statement;
-        from(param?: string | any): Statement;
-        to(param?: any): Statement;
-        set(param?: any): Statement;
-        content(param?: any): Statement;
-        increment(property?: string, value?: any): Statement;
-        add(property: string, value: any): Statement;
-        remove(property: string, value: any): Statement;
-        put(property: string, keysValues: any): Statement;
-        upsert(condition?: any, params?: any, comparisonOperator?: string): Statement;
-        where(params: any): Statement;
-        while(param: any): Statement;
-        containsText(param: any): Statement;
-        and(param: any): Statement;
-        or(param: any): Statement;
-        group(param: any): Statement;
-        order(param: any): Statement;
-        skip(value: number): Statement;
-        offset(value?: number): Statement;
-        limit(value: number): Statement;
-        fetch(param?: any): Statement;
-        let(name: string, value: string | Statement): Statement;
-        lock(param: any): Statement;
+    type OSqlExpression = string | ORawExpression | OSqlFunction;
+    interface OStatement extends OQuery<any> {
+        select(param?: string | string[]): OStatement;
+        traverse(param?: string | string[]): OStatement;
+        strategy(param?: string): OStatement;
+        insert(param?: string | string[]): OStatement;
+        update(param?: string | string[]): OStatement;
+        delete(param?: string | string[]): OStatement;
+        into(param?: string): OStatement;
+        create(paramtype?: string, paramname?: string): OStatement;
+        from(param?: string | any): OStatement;
+        to(param?: any): OStatement;
+        set(param?: any): OStatement;
+        content(param?: any): OStatement;
+        increment(property?: string, value?: any): OStatement;
+        add(property: string, value: any): OStatement;
+        remove(property: string, value: any): OStatement;
+        put(property: string, keysValues: any): OStatement;
+        upsert(condition?: any, params?: any, comparisonOperator?: string): OStatement;
+        where(params: any): OStatement;
+        while(param: any): OStatement;
+        containsText(param: any): OStatement;
+        and(param: any): OStatement;
+        or(param: any): OStatement;
+        group(param: any): OStatement;
+        order(param: any): OStatement;
+        skip(value: number): OStatement;
+        offset(value?: number): OStatement;
+        limit(value: number): OStatement;
+        fetch(param?: any): OStatement;
+        let(name: string, value: string | OStatement): OStatement;
+        lock(param: any): OStatement;
 
-        if(condition: SqlExpression, statements: Statement[]): Statement;
-        if(condition: SqlExpression, ...statements: Statement[]): Statement;
-        rollback(param?: any): Statement;
-        sleep(ms?: number): Statement;
+        if(condition: OSqlExpression, statements: OStatement[]): OStatement;
+        if(condition: OSqlExpression, ...statements: OStatement[]): OStatement;
+        rollback(param?: any): OStatement;
+        sleep(ms?: number): OStatement;
 
-        commit(retryLimit?: number): Statement;
-        retry(retryLimit?: number): Statement;
-        wait(waitLimit: number): Statement;
-        return(value: SqlExpression): Statement;
-        lucene(property: string | any, luceneQuery: string): Statement;
-        near(latitudeProperty: string | any, longitudeProperty: string | number, longitude: number, latitude?: number, maxDistanceInKms?: number): Statement;
-        within(latitudeProperty: string, longitudeProperty: string, box: number[]): Statement;
-        addParams(key: string, value: any): Statement;
-        addParams(value: any): Statement;
-        token(value: any): Statement;
+        commit(retryLimit?: number): OStatement;
+        retry(retryLimit?: number): OStatement;
+        wait(waitLimit: number): OStatement;
+        return(value: OSqlExpression): OStatement;
+        lucene(property: string | any, luceneQuery: string): OStatement;
+        near(latitudeProperty: string | any, longitudeProperty: string | number, longitude: number, latitude?: number, maxDistanceInKms?: number): OStatement;
+        within(latitudeProperty: string, longitudeProperty: string, box: number[]): OStatement;
+        addParams(key: string, value: any): OStatement;
+        addParams(value: any): OStatement;
+        token(value: any): OStatement;
         buildStatement(): string;
     }
 
-    interface Query<T> {
-        transform<T>(transformer: (item: Record) => T): Query<T>;
-        column(name: string): Query<T>;
-        defaults(defaults: any): Query<T>;
+    interface OQuery<T> {
+        transform<T>(transformer: (item: ORecord) => T): OQuery<T>;
+        column(name: string): OQuery<T>;
+        defaults(defaults: any): OQuery<T>;
         one<T>(params?: any): Promise<T>;
         all<T>(params?: any): Promise<T[]>;
         scalar<T>(params?: any): Promise<T>;
         exec<T>(params?: any): Promise<T>;
     }
 
-    class Transaction {
-        db: Db;
+    class OTransaction {
+        db: ODB;
         id: number;
 
         commit(): Promise<any>;
-        create(record: Record): Transaction;
-        update(record: Record): Transaction;
-        delete(record: Record): Transaction;
+        create(record: ORecord): OTransaction;
+        update(record: ORecord): OTransaction;
+        delete(record: ORecord): OTransaction;
     }
 
     interface DbConnectionConfig {
-        useToken?: boolean;
-        name?: string;
-        username?: string;
-        password?: string;
-        sessionId?: number;
-        forcePrepare?: boolean;
-        server?: Server;
-        type?: string;
-        storage?: string;
+        useToken?: boolean | undefined;
+        name?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        sessionId?: number | undefined;
+        forcePrepare?: boolean | undefined;
+        server?: OServer | undefined;
+        type?: string | undefined;
+        storage?: string | undefined;
         token?: any;
-        transformers?: Array<((item: Record) => any)>;
+        transformers?: Array<((item: ORecord) => any)> | undefined;
     }
 
-    interface RawExpression {
-        db: Db;
+    interface ORawExpression {
+        db: ODB;
         value: string;
-        as(alias: string): RawExpression;
+        as(alias: string): ORawExpression;
     }
     class AbsSqlFunction {
         constructor(field: number | string);
@@ -744,8 +718,8 @@ declare namespace orientjs {
         reset(): number;
     }
 
-    interface SqlFunction {
-        db: Db;
+    interface OSqlFunction {
+        db: ODB;
         abs: AbsSqlFunction;
         avg: AbsSqlFunction;
         sequence: SequenceSqlFunction;
@@ -753,19 +727,19 @@ declare namespace orientjs {
 
     interface QueryOptions {
         params?: any;
-        mode?: "s" | "a" | "l";
+        mode?: "s" | "a" | "l" | undefined;
         fetchPlan?: any;
-        limit?: number;
+        limit?: number | undefined;
         token?: any;
-        class?: string;
-        language?: "SQL" | "Javascript";
+        class?: string | undefined;
+        language?: "SQL" | "Javascript" | undefined;
     }
 
-    class Db extends events.EventEmitter {
+    class ODB extends events.EventEmitter {
         sessionId: number;
         forcePrepare: boolean;
         name: string;
-        server: Server;
+        server: OServer;
         type: "graph" | "document";
         storage: "plocal" | "memory";
         username: string;
@@ -776,17 +750,17 @@ declare namespace orientjs {
         transformers: any;
         transformerFunctions: any;
 
-        class: Class;
-        cluster: Cluster;
-        record: Record;
-        index: Index;
-        sequence: Sequence;
+        class: OClass;
+        cluster: OCluster;
+        record: ORecord;
+        index: OIndex;
+        sequence: OSequence;
         /**
          * Configure the database instance.
          * @param  config The configuration for the database.
          * @return            The configured database object.
          */
-        configure(config: DbConfig): Db;
+        configure(config: DbConfig): ODB;
         /**
          * Initialize the database instance.
          */
@@ -796,13 +770,8 @@ declare namespace orientjs {
          *
          * @promise {Db} The open db instance.
          */
-        open(): Promise<Db>;
-        /**
-         * Close the database.
-         *
-         * @promise {Db} The now closed db instance.
-         */
-        close(): Promise<Db>;
+        open(): Promise<ODB>;
+
         /**
          * Send the given operation to the server, ensuring the
          * database is open first.
@@ -811,19 +780,14 @@ declare namespace orientjs {
          * @param  data       The data for the operation.
          * @promise {Mixed}            The result of the operation.
          */
-        send(operation: number, data: any): Promise<any>;
+        send<R>(operation: number, data: any): Promise<R>;
         /**
          * Reload the configuration for the database.
          *
          * @promise {Db}  The database with reloaded configuration.
          */
-        reload(): Promise<Db>;
-        /**
-         * Begin a new transaction.
-         *
-         * @return The transaction instance.
-         */
-        begin(): Transaction;
+        reload(): Promise<ODB>;
+
         /**
          * Execute an SQL query against the database and retreive the raw, parsed response.
          *
@@ -831,24 +795,8 @@ declare namespace orientjs {
          * @param   options The options for the query / command.
          * @promise {Mixed}          The results of the query / command.
          */
-        exec(query: string, options?: QueryOptions): Promise<any>;
+        exec<R>(query: string, options?: QueryOptions): Promise<R>;
 
-        /**
-         * Execute an SQL query against the database and retreive the results
-         *
-         * @param   query   The query or command to execute.
-         * @param   options The options for the query / command.
-         * @promise {Mixed}          The results of the query / command.
-         */
-        query(command: string, options?: QueryOptions): Promise<any>;
-        /**
-         * Execute a live query against the database
-         *
-         * @param   query   The query or command to execute.
-         * @param   options The options for the query / command.
-         * @promise {Mixed}          The token of the live query.
-         */
-        liveQuery(command: string, options?: QueryOptions): Promise<any>;
         /**
          * Normalize a result, where possible.
          * @param  result The result to normalize.
@@ -870,7 +818,7 @@ declare namespace orientjs {
          * @param  transformer The transformer function.
          * @return                   The database instance.
          */
-        registerTransformer<T>(className: string, transformer: (item: Record) => T): Db;
+        registerTransformer<T>(className: string, transformer: (item: ORecord) => T): ODB;
         /**
          * Transform a document according to its `@class` property, using the registered transformers.
          * @param  document The document to transform.
@@ -883,77 +831,82 @@ declare namespace orientjs {
          *
          * @return The query instance.
          */
-        createQuery(): Statement;
+        createQuery(): OStatement;
         /**
          * Create a raw expression.
          *
          * @return The raw expression instance.
          */
-        rawExpression(param: string): RawExpression;
+        rawExpression(param: string): ORawExpression;
 
         /**
          * Create a sql Function.
          *
-         * @return The sql function instance.
+         * @param [options]
+         * @returns
          */
-        sqlFunction(options?: any): SqlFunction;
+        sqlFunction(options?: any): OSqlFunction;
 
         /**
          * Create a create query.
          *
          * @return The query instance.
          */
-        create(params?: any): Statement;
-        create(paramtype: string, paramname: string): Statement;
+        create(params?: any): OStatement;
+        create(paramtype: string, paramname: string): OStatement;
         /**
          * Create a select query.
          *
          * @return The query instance.
          */
-        select(params?: any): Statement;
+        select(params?: any): OStatement;
         /**
          * Create a traverse query.
          *
          * @return The query instance.
          */
-        traverse(params?: any): Statement;
+        traverse(params?: any): OStatement;
         /**
          * Create an insert query.
          *
          * @return The query instance.
          */
-        insert(params?: any): Statement;
+        insert(params?: any): OStatement;
         /**
          * Create an update query.
          *
          * @return The query instance.
          */
-        update(params?: any): Statement;
+        update(params?: any): OStatement;
         /**
          * Create a delete query.
          *
          * @return The query instance.
          */
-        delete(params?: any): Statement;
+        delete(params?: any): OStatement;
         /**
          * Create a transactional query.
          *
          * @return The query instance.
          */
-        let(params?: any): Statement;
-        let(name: string, value: string | Statement): Statement;
+        let(params?: any): OStatement;
+        let(name: string, value: string | OStatement): OStatement;
         /**
          * Create a transactional query with if.
          *
-         * @return The query instance.
+         * @param condition
+         * @param statements
+         * @returns
          */
-        if(condition: SqlExpression, statements: Statement[]): Statement;
-        /**
-         * Create a transactional query with if.
-         *
-         * @return The query instance.
-         */
-        if(condition: SqlExpression, ...statements: Statement[]): Statement;
+        if(condition: OSqlExpression, statements: OStatement[]): OStatement;
+       /**
+        * Create a transactional query with if.
+        *
+        * @param condition
+        * @param statements
+        * @returns
+        */
+        if(condition: OSqlExpression, ...statements: OStatement[]): OStatement;
         /**
          * Escape the given input.
          *
@@ -995,10 +948,10 @@ declare namespace orientjs {
      *
      * @param options The server URL, or configuration object
      */
-    class Server {
+    class OServer {
         constructor(options?: ServerConfig);
         config: ServerConfiguration;
-        logger: Logger;
+        logger: OLogger;
 
         /**
          * Initialize the server instance.
@@ -1010,21 +963,21 @@ declare namespace orientjs {
          * @param  config The configuration for the server.
          * @return            The configured server object.
          */
-        configure(config: ServerConfig): Server;
+        configure(config: ServerConfig): OServer;
         /**
          * Configure the transport for the server.
          *
          * @param  config The server config.
          * @return        The configured server object.
          */
-        configureTransport(config: any): Server;
+        configureTransport(config: any): OServer;
         /**
          * Configure the logger for the server.
          *
          * @param  config The logger config
          * @return        The server instance with the configured logger.
          */
-        configureLogger(logger: Logger): Server;
+        configureLogger(logger: OLogger): OServer;
         /**
          * Send an operation to the server,
          *
@@ -1038,34 +991,34 @@ declare namespace orientjs {
          *
          * @return the disconnected server instance
          */
-        close(): Server;
+        close(): OServer;
         /**
          * Use the database with the given name / config.
          *
          * @param  config The database name, or configuration object.
          * @return                   The database instance.
          */
-        use(name: string | DbConfig): Db;
+        use(name: string | DbConfig): ODB;
         /**
          * Create a database with the given name / config.
          *
          * @param  config The database name or configuration object.
          * @promise {Db}                  The database instance
          */
-        create(name: string | DbConfig): Promise<Db>;
+        create(name: string | DbConfig): Promise<ODB>;
         /**
          * Destroy a database with the given name / config.
          *
          * @param   config The database name or configuration object.
          * @promise {Mixed}               The server response.
          */
-        drop(name: string | DbConfig): Promise<Db>;
+        drop(name: string | DbConfig): Promise<ODB>;
         /**
          * List all the databases on the server.
          *
          * @return An array of databases.
          */
-        list(): Promise<Db[]>;
+        list(): Promise<ODB[]>;
         /**
          * Determine whether a database exists with the given name.
          *
@@ -1094,31 +1047,358 @@ declare namespace orientjs {
         shutdown(): Promise<any>;
     }
 
-    class ODatabase extends Db {
+    class OConnection {
+    }
+
+    namespace Topology {
+        class OServerNode extends events.EventEmitter {
+            acquireConnection(): Promise<OConnection>;
+            connect(): Promise<OServerNode>;
+            close(): Promise<void>;
+            acquireForSubscribe(): Promise<OConnection>;
+            subscribeCluster(data?: any): Promise<OConnection>;
+        }
+        interface OClusterConfig {
+            selectionStrategy(cluster: OCluster): OServerNode;
+        }
+        class OCluster extends events.EventEmitter {
+            servers: OServerNode[];
+            constructor(config?: OClusterConfig)
+            acquireFrom(selection: (cluster: OCluster) => OServerNode): Promise<OServerNode>;
+            connect(): Promise<OServerNode>;
+
+            close(): Promise<void>;
+        }
+    }
+
+    class ODatabase extends ODB {
         constructor(config?: {
             host: string,
-            port?: number,
-            username?: string,
-            password?: string,
+            port?: number | undefined,
+            username?: string | undefined,
+            password?: string | undefined,
             name: string
         });
     }
 
+    interface BasePoolConfig {
+        max?: number | undefined;
+        min?: number | undefined;
+    }
+
+    class BasePool<T> extends events.EventEmitter {
+        constructor(config: BasePoolConfig, params?: any);
+        acquire(): Promise<ODatabaseSession>;
+        hasError(): boolean;
+        release(resource: any): boolean;
+        size(): number;
+        available(): boolean;
+        borrowed(): boolean;
+        pending(): boolean;
+        close(): Promise<void>;
+    }
+
+    class ODatabasePoolFactory {
+        create(): Promise<ODatabase>;
+        destroy(db: ODatabase): Promise<void>;
+    }
+
+    class ODatabaseSessionPool extends BasePool<ODatabasePoolFactory> {}
+    class OSessionManager {
+        client: any;
+        config: any;
+
+        name: string;
+        type: "document" | "graph";
+        storage: "plocal" | "memory";
+        username: string;
+        password: string;
+        pushNotification?: boolean | undefined;
+        currentSession?: ODatabaseSession | null | undefined;
+        sessions: ODatabaseSessionPool;
+
+        open(): Promise<ODatabaseSession>;
+        current(): ODatabaseSession | null;
+        acquireSession(op: any, data: any): Promise<ODatabaseSession>;
+
+        acquireSubscribeSession(op: any, data: any): Promise<ODatabaseSession>;
+        sendOnSubscribe(db: any, op: any, data: any, onAcquire: any): Promise<ODatabaseSession>;
+        close(): Promise<void>;
+    }
+
+    class ODatabaseTransaction {
+        /**
+         * Execute an SQL command against the database and retreive the results
+         * @param   command    The command to execute.
+         * @param   options  The options for the command
+         * @return           The results of the command
+         */
+        command<R>(command: string, options?: any): OResult<R>;
+
+        /**
+         * Commit the transaction.
+         * @return The results of the transaction.
+         */
+        commit(changes: any): Promise<any>;
+
+        /**
+         * Rollbacks the transaction.
+         * @return The results of the rollback.
+         */
+        rollback(): Promise<void>;
+    }
+
+    interface ODatabaseSessionOptions {
+        name: string;
+        username?: string | undefined;
+        password?: string | undefined;
+    }
+
+    interface ODatabaseSessionPoolOptions {
+        name: string;
+        username?: string | undefined;
+        password?: string | undefined;
+        pool?: { max?: number | undefined, min?: number | undefined } | undefined;
+    }
+    class ODatabaseSession extends ODatabase {
+        constructor(client?: OrientDBClient, options?: ODatabaseSessionOptions);
+
+        pool: ODatabaseSessionPool;
+        sessionManager: OSessionManager;
+        /**
+         * Get the current transaction
+         * @returns The new transaction
+         */
+        tx(): ODatabaseTransaction;
+
+        /**
+         * Begin a transaction in this database session. ODatabaseSession supports only 1 transaction at time.
+         * Use multiple sessions if you want to run concurrent transactions.
+         * @returns {ODatabaseTransaction} The new transaction
+         */
+        begin(): ODatabaseTransaction;
+
+        /**
+         * Execute an SQL batch script against the database and retreive the results
+         * @param   batch                    The SQL batch to execute.
+         * @param   {Object} [options]                The options for the batch SQL
+         * @param   {Number} [options.pageSize]       Page size of the streamed result set
+         * @param   {Object|Array} [options.params]   Batch parameters
+         * @return           The results of the batch script
+         */
+        batch<R>(batch: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
+
+        /**
+         * Commit the transaction.
+         * @param   changes
+         * @returns The results of the transaction.
+         */
+        commit(changes: any): Promise<any>;
+
+        /**
+         * Execute an SQL command against the database and retreive the results
+         * @param   command    The command to execute.
+         * @param   {Object} [options]                The options for the command
+         * @param   {Number} [options.pageSize]       Page size of the streamed result set
+         * @param   {Object|Array} [options.params]   Command parameters
+         * @return            The results of the command
+         */
+        command<R>(command: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
+
+        /**
+         * Execute an SQL query against the database and retreive the results
+         * @param   query                    The query to execute.
+         * @param   {Object} [options]                The options for the query
+         * @param   {Number} [options.pageSize]       Page size of the streamed result set
+         * @param   {Object|Array} [options.params]   Query parameters
+         * @returns                         The results of the query
+         */
+        query<R>(query: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
+
+        /**
+         * Execute a custom language script against the database and retreive the results
+         *
+         * @param   language                 The scripting language
+         * @param   script                   The script to execute.
+         * @param   {Object} [options]                The options for the script
+         * @param   {Number} [options.pageSize]       Page size of the streamed result set
+         * @param   {Object|Array} [options.params]   Script parameters
+         * @return                          The results of the script
+         */
+        execute<R>(language: string, script: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
+
+        /**
+         * Execute an SQL Live query against the database and retreive the results
+         *
+         * @param    query    The query to execute.
+         * @param    options  The options for the batch script
+         * @returns        The live query object
+         */
+        liveQuery(query: string, options?: any): LiveQuery;
+
+        /**
+         * Close the database session. If the session is pooled, the instance is returned to the pool,
+         * leaving the session open on the server.
+         * Otherwhise the session is closed permanently on the server.
+         *
+         * @returns
+         */
+        close(): Promise<void>;
+
+        /**
+         * Execute a unit of work in a transaction
+         *
+         * @param   txWork           Transactional work
+         * @param   [times]                  Number of retry in case of some failures. (MVVC errors)
+         * @return                          The results of transaction
+         */
+        runInTransaction(txWork: any, times?: number): Promise<any>;
+    }
+
+    class OResult<R> extends Readable {
+        constructor(db: ODatabase, pageSize: number);
+        /**
+         *
+         * @return
+         */
+        all(): Promise<R[]>;
+
+        one(): Promise<R>;
+        close(): Promise<void>;
+    }
+
+    class LiveQuery extends Readable {
+        unsubscribe(): Promise<any>;
+    }
+    interface OServerConfig {
+        host?: string | undefined;
+        port?: number | undefined;
+    }
+    interface OrientDBClientConfig {
+        host?: string | undefined;
+        port?: number | undefined;
+
+        servers?: OServerConfig[] | undefined;
+        pool?: { max?: number | undefined, min?: number | undefined; } | undefined;
+
+        subscribePool?: { max?: number | undefined; } | undefined;
+
+        logger?: any;
+    }
+
+    interface ServerOptions {
+        username: string;
+        password: string;
+    }
+
+    interface DatabaseOptions {
+        username?: string | undefined;
+        password?: string | undefined;
+        name: string;
+        type?: "graph" | "document" | undefined;
+        storage?: "plocal" | "memory" | undefined;
+    }
+
+    interface DropDatabaseOptions {
+        username?: string | undefined;
+        password?: string | undefined;
+        options?: DatabaseOptions | undefined;
+    }
+
+    class OrientDBClient extends events.EventEmitter {
+        static connect(options?: OrientDBClientConfig): Promise<OrientDBClient>;
+        constructor(options?: OrientDBClientConfig);
+        connect(): Promise<OrientDBClient>;
+
+        session(options?: ODatabaseSessionOptions): Promise<ODatabaseSession>;
+
+        sessions(options?: ODatabaseSessionPoolOptions): Promise<ODatabaseSessionPool>;
+        migrator(config?: Migration.MigrationManagerConfig): Migration.MigrationManager;
+        createDatabase(options?: DatabaseOptions): Promise<void>;
+        dropDatabase(options?: DropDatabaseOptions): Promise<void>;
+
+        existsDatabase(options?: DatabaseOptions): Promise<boolean>;
+
+        listDatabases(options?: ServerOptions): Promise<any[]>;
+
+        close(): Promise<void>;
+    }
+
     interface ServerConfig {
-        useToken?: boolean;
+        useToken?: boolean | undefined;
         host: string;
-        port?: number;
-        username?: string;
-        password?: string;
-        servers?: ServerConfig[];
+        port?: number | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        servers?: ServerConfig[] | undefined;
     }
 
     interface DbConfig {
         name: string;
-        type?: string;
-        storage?: string;
-        username?: string;
-        password?: string;
+        type?: string | undefined;
+        storage?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
     }
 }
+
+/**
+ * A lightweight definiton for orientjs module, Official node.js driver for OrientDB.
+ *
+ * @param {orientjs.ServerConfig} config
+ * @returns {orientjs.OServer}
+ */
+declare function orientjs(config: orientjs.ServerConfig): orientjs.OServer;
+
 export = orientjs;
+
+/* =================== USAGE ===================
+    OLD API :
+    import orientjs = require('orientjs');
+    let dbserver = orientjs({
+    host: 'localhost',
+    port: 2424,
+    username: 'root',
+    password: 'root'
+    });
+    let db = dbserver.use({
+        name: 'mytestdb',
+        username: 'root',
+        password: 'root'
+    });
+    New API :
+    const OrientDBClient = require("orientjs").OrientDBClient;
+    OrientDBClient.connect({
+    host: "localhost",
+    port: 2424
+    }).then(client => {
+    return client.close();
+    }).then(()=> {
+    console.log("Client closed");
+    });
+    Single Session :
+    client.session({ name: "demodb", username: "admin", password: "admin" })
+    .then(session => {
+        // use the session
+        ...
+        // close the session
+        return session.close();
+    });
+    // Create a sessions Pool
+    client.sessions({ name: "demodb", username: "admin", password: "admin", pool: { max: 10} })
+    .then(pool => {
+        // acquire a session
+        return pool.acquire()
+        .then(session => {
+            // use the session
+            ...
+            // release the session
+            return session.close();
+        })
+        .then(() => {
+            // close the pool
+            return pool.close();
+        });
+    });
+    });
+ =============================================== */

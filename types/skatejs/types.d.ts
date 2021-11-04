@@ -51,8 +51,8 @@ export declare class WithContext<C = Mixed> extends HTMLElement {
 }
 
 export declare class WithRenderer<O = Mixed | null> extends HTMLElement implements Renderer<O> {
-  // getter for turning of ShadowDOM
-  readonly renderRoot?: this | Mixed;
+  // getter for turning off ShadowDOM
+  get renderRoot(): this | Mixed;
 
   updated(props?: Mixed, state?: Mixed): void;
   // called before render
@@ -61,7 +61,7 @@ export declare class WithRenderer<O = Mixed | null> extends HTMLElement implemen
 
   // Default renderer, returns string returned from render and adds it to root via innerHTML
   // -> override to get own renderer
-  renderer(root: Element | Node | ShadowRoot, html: (props?: Mixed | undefined) => O): void;
+  renderer(root: Element | Node | ShadowRoot, html: (props?: Mixed) => O): void;
 
   // called after render
   rendered?(): void;
@@ -89,24 +89,24 @@ export declare class WithUpdate<P = Mixed, S = Mixed> extends HTMLElement {
 }
 
 export interface PropOptions<T = any> {
-  attribute?: PropOptionsAttribute;
-  coerce?: (value: any) => Maybe<T>;
-  default?: T;
-  deserialize?: (value: string | null) => Maybe<T>;
-  serialize?: (value: Maybe<T>) => string | null;
+  attribute?: PropOptionsAttribute | undefined;
+  coerce?: ((value: any) => Maybe<T>) | undefined;
+  default?: T | undefined;
+  deserialize?: ((value: string | null) => Maybe<T>) | undefined;
+  serialize?: ((value: Maybe<T>) => string | null) | undefined;
 }
 
 export type PropOptionsAttribute = PropOptionsAttributeIdentifier | PropOptionsAttributeIdentifierMap;
 export type PropOptionsAttributeIdentifier = boolean | string;
 export type PropOptionsAttributeIdentifierMap = {
-  source?: PropOptionsAttributeIdentifier;
-  target?: PropOptionsAttributeIdentifier;
+  source?: PropOptionsAttributeIdentifier | undefined;
+  target?: PropOptionsAttributeIdentifier | undefined;
 };
 
 export interface EventOptions extends CustomEventInit {
-  composed?: boolean;
+  composed?: boolean | undefined;
 }
 export interface ComposedCustomEvent extends CustomEvent {
-  composed?: boolean;
-  composedPath?: () => Array<Node>;
+  composed: boolean;
+  composedPath: () => Array<Node>;
 }

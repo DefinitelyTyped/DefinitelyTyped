@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#serverconnectionoptions
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 const server = new Hapi.Server();
 
 const web = server.connection({ port: 8000, host: 'example.com', labels: ['web'] });

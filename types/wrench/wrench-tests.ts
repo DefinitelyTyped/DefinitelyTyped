@@ -12,7 +12,7 @@ wrench.rmdirSyncRecursive(str);
 wrench.rmdirSyncRecursive(str, bool);
 wrench.copyDirSyncRecursive(str, str);
 wrench.copyDirSyncRecursive(str, str, {
-	preserve: bool
+    preserve: bool
 });
 wrench.chmodSyncRecursive(str, num);
 wrench.chownSyncRecursive(str, num, num);

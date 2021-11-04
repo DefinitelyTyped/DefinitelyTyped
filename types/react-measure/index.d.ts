@@ -30,11 +30,11 @@ export type Rect = TopLeft & Dimensions;
 export type BoundingRect = Dimensions & Margin;
 
 export interface ContentRect {
-    client?: Rect;
-    offset?: Rect;
-    scroll?: Rect;
-    bounds?: BoundingRect;
-    margin?: Margin;
+    client?: Rect | undefined;
+    offset?: Rect | undefined;
+    scroll?: Rect | undefined;
+    bounds?: BoundingRect | undefined;
+    margin?: Margin | undefined;
     entry?: any;
 }
 
@@ -47,17 +47,17 @@ export interface MeasuredComponentProps {
 type MeasuredComponent<T> = React.ComponentType<T & MeasuredComponentProps>;
 
 export interface MeasureProps {
-    client?: boolean;
-    offset?: boolean;
-    scroll?: boolean;
-    bounds?: boolean;
-    margin?: boolean;
-    innerRef?(ref: Element | null): void;
+    client?: boolean | undefined;
+    offset?: boolean | undefined;
+    scroll?: boolean | undefined;
+    bounds?: boolean | undefined;
+    margin?: boolean | undefined;
+    innerRef?: React.Ref<Element> | undefined;
     onResize?(contentRect: ContentRect): void;
-    children?: React.SFC<MeasuredComponentProps>;
+    children?: React.FC<MeasuredComponentProps> | undefined;
 }
 
-export declare function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
+export function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
     <T extends {}>(fn: MeasuredComponent<T>) => React.ComponentType<T>;
 
 declare class Measure extends React.Component<MeasureProps> {}

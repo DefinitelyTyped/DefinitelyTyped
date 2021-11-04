@@ -43,7 +43,7 @@ declare namespace KiiCloud {
 
     type KiiSocialConnectOptions = {
         access_token: string,
-        openID?: string
+        openID?: string | undefined
     } | {
         oauth_token: string,
         oauth_token_secret: string
@@ -69,77 +69,77 @@ declare namespace KiiCloud {
         /**
          * thing type given by thing vendor.
          */
-        _thingType?: string;
+        _thingType?: string | undefined;
 
         /**
          * vendor identifier given by thing vendor.
          */
-        _vendor?: string;
+        _vendor?: string | undefined;
 
         /**
          * firmware version given by thing vendor.
          */
-        _firmwareVersion?: string;
+        _firmwareVersion?: string | undefined;
 
         /**
          * lot identifier given by thing vendor.
          */
-        _lot?: string;
+        _lot?: string | undefined;
 
         /**
          * product name given by thing vendor.
          */
-        _productName?: string;
+        _productName?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField1?: string;
+        _stringField1?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField2?: string;
+        _stringField2?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField3?: string;
+        _stringField3?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField4?: string;
+        _stringField4?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField5?: string;
+        _stringField5?: string | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField1?: number;
+        _numberField1?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField2?: number;
+        _numberField2?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField3?: number;
+        _numberField3?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField4?: number;
+        _numberField4?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField5?: number;
+        _numberField5?: number | undefined;
 
         /**
          * custom fields.
@@ -166,9 +166,9 @@ declare namespace KiiCloud {
     }
 
     interface identityData {
-        emailAddress?: string;
-        phoneNumber?: string;
-        username?: string;
+        emailAddress?: string | undefined;
+        phoneNumber?: string | undefined;
+        username?: string | undefined;
     }
 
     interface KiiAccessTokenObject {
@@ -699,13 +699,13 @@ declare namespace KiiCloud {
          *     // example to use callbacks directly
          *     var acl = . . .; // a KiiACL object
          *     acl.listACLEntries({
-         *     	success: function(theACL, theEntries) {
-         *     		// do something
-         *     	},
+         *         success: function(theACL, theEntries) {
+         *             // do something
+         *         },
          *
-         *     	failure: function(theACL, anErrorString) {
-         *     		// do something with the error response
-         *     	}
+         *         failure: function(theACL, anErrorString) {
+         *             // do something with the error response
+         *         }
          *     });
          *
          *     // example to use Promise
@@ -719,7 +719,7 @@ declare namespace KiiCloud {
          *         function(error) { // reject callback function
          *             var theACL = error.target;
          *             var anErrorString = error.message;
-         *         		// do something with the error response
+         *                 // do something with the error response
          *     });
          */
         listACLEntries(
@@ -1102,7 +1102,7 @@ declare namespace KiiCloud {
     /**
      * Represent an anonymous user for setting the ACL of an object. This will include anyone using the application but have not signed up or authenticated as registered user.
      *
-     * 	When retrieving ACL from an object, test for this class to determine the subject type.
+     *     When retrieving ACL from an object, test for this class to determine the subject type.
      */
     class KiiAnonymousUser {
         /**
@@ -1114,7 +1114,7 @@ declare namespace KiiCloud {
     /**
      * Represent any authenticated user for setting the ACL of an object. This will include anyone using the application who has registered and authenticated in the current session.
      *
-     * 	When retrieving ACL from an object, test for this class to determine the subject type. Example:
+     *     When retrieving ACL from an object, test for this class to determine the subject type. Example:
      */
     class KiiAnyAuthenticatedUser {
         /**
@@ -2049,8 +2049,8 @@ declare namespace KiiCloud {
          * @return A KiiACL object associated with this KiiObject
          *
          * @example
-         *     	var bucket = . . .; // a KiiBucket
-         *     	var acl = bucket.acl();
+         *         var bucket = . . .; // a KiiBucket
+         *         var acl = bucket.acl();
          */
         acl(): KiiACL;
 
@@ -3446,8 +3446,8 @@ declare namespace KiiCloud {
          * @return A KiiACL object associated with this KiiObject
          *
          * @example
-         *     	var obj = . . .; // a KiiObject
-         *     	var acl = obj.objectACL();
+         *         var obj = . . .; // a KiiObject
+         *         var acl = obj.objectACL();
          */
         objectACL(): KiiACL;
 

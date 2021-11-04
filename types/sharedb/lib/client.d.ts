@@ -1,15 +1,40 @@
 /// <reference path="sharedb.d.ts" />
-import * as WS from 'ws';
 import * as ShareDB from './sharedb';
+import Agent = require('./agent');
 
 export class Connection {
-    constructor(ws: WebSocket | WS);
+    constructor(ws: ShareDB.Socket);
+
+    // This direct reference from connection to agent is not used internal to
+    // ShareDB, but it is handy for server-side only user code that may cache
+    // state on the agent and read it in middleware
+    agent: Agent | null;
+
+    collections: Record<string, Record<string, Doc>>;
+    queries: Record<string, Query>;
+
+    seq: number;
+    id: string | null; // Equals agent.src on the server
+    nextQueryId: number;
+    nextSnapshotRequestId: number;
+
+    state: string;
+    debug: boolean;
+
+    close(): void;
     get(collectionName: string, documentID: string): Doc;
-    createFetchQuery(collectionName: string, query: string, options: {results?: Query[]}, callback: (err: Error, results: any) => any): Query;
-    createSubscribeQuery(collectionName: string, query: string, options: {results?: Query[]}, callback: (err: Error, results: any) => any): Query;
+    createFetchQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
+    createSubscribeQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
+    fetchSnapshot(collection: string, id: string, version: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
+    fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
+    getPresence(channel: string): Presence;
+    getDocPresence(collection: string, id: string): Presence;
 }
-export type Doc = ShareDB.Doc;
-export type Query = ShareDB.Query;
+export type Doc<T = any> = ShareDB.Doc<T>;
+export type Snapshot<T = any> = ShareDB.Snapshot<T>;
+export type Query<T = any> = ShareDB.Query<T>;
+export type Presence<T = any> = ShareDB.Presence<T>;
+export type LocalPresence<T = any> = ShareDB.LocalPresence<T>;
 export type Error = ShareDB.Error;
 export type Op = ShareDB.Op;
 export type AddNumOp = ShareDB.AddNumOp;
@@ -26,3 +51,6 @@ export type SubtypeOp = ShareDB.SubtypeOp;
 
 export type Path = ShareDB.Path;
 export type ShareDBSourceOptions = ShareDB.ShareDBSourceOptions;
+
+export const types: ShareDB.Types;
+export const logger: ShareDB.Logger;

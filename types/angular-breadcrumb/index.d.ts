@@ -18,18 +18,18 @@ declare module 'angular' {
                 /**
                  * Contains the label for the step in the breadcrumb. The state name is used if not defined.
                  **/
-                label?: string;
+                label?: string | undefined;
                 /**
                  * Override the parent state (only for the breadcrumb)
                  **/
-                parent?: string|Function;
+                parent?: string|Function | undefined;
                 /**
                 * When defined to true, the state is never included in the chain of states and never appears in the breadcrumb
                 **/
-                skip?: boolean;
-            };
-            ncyBreadcrumbLabel?: string;
-            ncyBreadcrumbLink?: string;
+                skip?: boolean | undefined;
+            } | undefined;
+            ncyBreadcrumbLabel?: string | undefined;
+            ncyBreadcrumbLink?: string | undefined;
         }
     }
 
@@ -51,22 +51,22 @@ declare module 'angular' {
             /**
             * An existing state's name to be the state is the first step of the breadcrumb
             **/
-            prefixStateName?: string;
+            prefixStateName?: string | undefined;
 
             /**
             * Contains a predefined template's name; 'bootstrap3' (default), 'bootstrap2' or HTML for a custom template. This property is ignored if templateUrl is defined.
             **/
-            template?: string;
+            template?: string | undefined;
 
             /**
             * Contains the path to a template file. This property takes precedence over the template property.
             **/
-            templateUrl?: string;
+            templateUrl?: string | undefined;
 
             /**
             * If true, abstract states are included in the breadcrumb. This option has a lower priority than the state-specific option skip
             **/
-            includeAbstract?: boolean;
+            includeAbstract?: boolean | undefined;
         }
 
         /**

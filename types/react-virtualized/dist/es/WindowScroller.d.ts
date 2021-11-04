@@ -1,4 +1,4 @@
-import { Validator, Requireable, PureComponent } from "react";
+import { Validator, Requireable, PureComponent } from 'react';
 
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
@@ -11,7 +11,9 @@ export type WindowScrollerChildProps = {
     width: number;
     isScrolling: boolean;
     scrollTop: number;
+    scrollLeft: number;
     onChildScroll: (params: { scrollTop: number }) => void;
+    registerChild: (element?: React.ReactNode) => void;
 };
 
 export type WindowScrollerProps = {
@@ -23,23 +25,23 @@ export type WindowScrollerProps = {
     children: (params: WindowScrollerChildProps) => React.ReactNode;
 
     /** Callback to be invoked on-resize: ({ height, width }) */
-    onResize?: (params: { height: number; width: number }) => void;
+    onResize?: ((params: { height: number; width: number }) => void) | undefined;
 
     /** Callback to be invoked on-scroll: ({ scrollLeft, scrollTop }) */
-    onScroll?: (params: { scrollLeft: number; scrollTop: number }) => void;
+    onScroll?: ((params: { scrollLeft: number; scrollTop: number }) => void) | undefined;
 
     /** Element to attach scroll event listeners. Defaults to window. */
-    scrollElement?: typeof window | Element;
+    scrollElement?: typeof window | Element | undefined;
     /**
      * Wait this amount of time after the last scroll event before resetting child `pointer-events`.
      */
-    scrollingResetTimeInterval?: number;
+    scrollingResetTimeInterval?: number | undefined;
 
     /** Height used for server-side rendering */
-    serverHeight?: number;
+    serverHeight?: number | undefined;
 
     /** Width used for server-side rendering */
-    serverWidth?: number;
+    serverWidth?: number | undefined;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose
@@ -58,10 +60,7 @@ export type WindowScrollerState = {
     scrollTop: number;
 };
 
-export class WindowScroller extends PureComponent<
-    WindowScrollerProps,
-    WindowScrollerState
-> {
+export class WindowScroller extends PureComponent<WindowScrollerProps, WindowScrollerState> {
     static defaultProps: {
         onResize: () => void;
         onScroll: () => void;
@@ -73,3 +72,5 @@ export class WindowScroller extends PureComponent<
 
     updatePosition(scrollElement?: HTMLElement): void;
 }
+
+export default WindowScroller;

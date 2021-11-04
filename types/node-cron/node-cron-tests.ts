@@ -2,7 +2,6 @@
 
 import cron = require('node-cron');
 
-// tslint:disable-next-line no-console
 const log = console.log;
 
 cron.schedule('* * * * *', () => {
@@ -13,11 +12,14 @@ cron.schedule('1-5 * * * *', () => {
     log('running every minute to 1 from 5');
 });
 
-// tslint:disable-next-line rule
-const task = cron.schedule('* * * * *', () => {
-    log('immediately started');
-    // because of manual call start method
-}, false);
+const task = cron.schedule(
+    '* * * * *',
+    () => {
+        log('immediately started');
+        // because of manual call start method
+    },
+    { scheduled: false },
+);
 
 task.start();
 
@@ -33,15 +35,29 @@ const task2 = cron.schedule('* * * * *', () => {
 
 task2.stop();
 
-const task3 = cron.schedule('* * * * *', () => {
-    log('will execute every minute until stopped');
-});
-
-task3.destroy();
-
 const valid = cron.validate('59 * * * *');
 const invalid = cron.validate('60 * * * *');
 
 if (valid && !invalid) {
     log('validator works');
 }
+
+// check timezones are accepted from the string literal
+const task4 = cron.schedule(
+    '* * * * *',
+    () => {
+        log('will execute every minute until stopped');
+    },
+    { timezone: 'Europe/London' },
+);
+
+task4.stop();
+
+const task5 = cron.schedule('* * * * * *', () => {
+    log('will execute every second until stopped');
+});
+
+task5.on('task-done', () => {
+    log('Task has been completed');
+    task5.stop();
+});

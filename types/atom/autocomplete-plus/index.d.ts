@@ -3,7 +3,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { Point, ScopeDescriptor, TextEditor } from "../index";
+import { Point, ScopeDescriptor, TextEditor } from '../index';
 
 /** The parameters passed into getSuggestions by Autocomplete+. */
 export interface SuggestionsRequestedEvent {
@@ -27,7 +27,7 @@ export interface SuggestionsRequestedEvent {
 export interface SuggestionInsertedEvent {
     editor: TextEditor;
     triggerPosition: Point;
-    suggestion: TextSuggestion|SnippetSuggestion;
+    suggestion: TextSuggestion | SnippetSuggestion;
 }
 
 /**
@@ -112,7 +112,8 @@ export interface SnippetSuggestion extends SuggestionBase {
     snippet: string;
 }
 
-export type AnySuggestion = TextSuggestion|SnippetSuggestion;
+export type AnySuggestion = TextSuggestion | SnippetSuggestion;
+export type Suggestion = AnySuggestion;
 export type Suggestions = AnySuggestion[];
 
 /** The interface that all Autocomplete+ providers must implement. */
@@ -122,14 +123,6 @@ export interface AutocompleteProvider {
      *  should receive suggestion requests.
      */
     selector: string;
-
-    /**
-     *  Is called when a suggestion request has been dispatched by autocomplete+ to
-     *  your provider. Return an array of suggestions (if any) in the order you would
-     *  like them displayed to the user. Returning a Promise of an array of suggestions
-     *  is also supported.
-     */
-    getSuggestions(params: SuggestionsRequestedEvent): Suggestions|Promise<Suggestions>;
 
     /**
      *  Defines the scope selector(s) (can be comma-separated) for which your provider
@@ -153,6 +146,25 @@ export interface AutocompleteProvider {
      */
     suggestionPriority?: number;
 
+    /** Let autocomplete+ filter and sort the suggestions you provide. */
+    filterSuggestions?: boolean;
+
+    /**
+     *  Is called when a suggestion request has been dispatched by autocomplete+ to
+     *  your provider. Return an array of suggestions (if any) in the order you would
+     *  like them displayed to the user. Returning a Promise of an array of suggestions
+     *  is also supported.
+     */
+    getSuggestions(params: SuggestionsRequestedEvent): Suggestions | Promise<Suggestions>;
+
+    /**
+     *  (experimental) Is called when a suggestion is selected by the user for
+     *  the purpose of loading more information about the suggestion. Return a
+     *  Promise of the new suggestion to replace it with or return null if
+     *  no change is needed.
+     */
+    getSuggestionDetailsOnSelect?(suggestion: AnySuggestion): Promise<AnySuggestion | null> | AnySuggestion | null;
+
     /**
      *  Function that is called when a suggestion from your provider was inserted
      *  into the buffer.
@@ -161,13 +173,4 @@ export interface AutocompleteProvider {
 
     /** Will be called if your provider is being destroyed by autocomplete+ */
     dispose?(): void;
-
-    /**
-     *  (experimental) Is called when a suggestion is selected by the user for
-     *  the purpose of loading more information about the suggestion. Return a
-     *  Promise of the new suggestion to replace it with or return null if
-     *  no change is needed.
-     */
-    getSuggestionDetailsOnSelect?:
-      (suggestion: AnySuggestion) => Promise<AnySuggestion | null> | AnySuggestion | null;
 }

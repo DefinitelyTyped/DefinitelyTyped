@@ -1,6 +1,7 @@
-// Type definitions for is-number 3.0
+// Type definitions for is-number 7.0
 // Project: https://github.com/jonschlinkert/is-number
 // Definitions by: Harry Shipton <https://github.com/harryshipton>
+//                 Jed Thompson <https://github.com/jedster1111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = is_number;

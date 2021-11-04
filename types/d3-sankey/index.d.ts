@@ -1,9 +1,10 @@
-// Type definitions for D3JS d3-sankey module 0.7
+// Type definitions for D3JS d3-sankey module 0.11
 // Project: https://github.com/d3/d3-sankey/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 0.7.1
+// Last module patch version validated against: 0.11
 
 import { Link } from 'd3-shape';
 
@@ -31,45 +32,45 @@ export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends Sa
      * Array of outgoing links which have this node as their source.
      * This property is calculated internally by the Sankey layout generator.
      */
-    sourceLinks?: Array<SankeyLink<N, L>>;
+    sourceLinks?: Array<SankeyLink<N, L>> | undefined;
     /**
      * Array of incoming links which have this node as their target.
      * This property is calculated internally by the Sankey layout generator.
      */
-    targetLinks?: Array<SankeyLink<N, L>>;
+    targetLinks?: Array<SankeyLink<N, L>> | undefined;
     /**
      * Node's value calculated by Sankey layout Generator;
      * the sum of link.value for the node’s incoming links.
      */
-    value?: number;
+    value?: number | undefined;
     /**
      * Node’s zero-based index within the array of nodes calculated by Sankey layout generator.
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * Node’s zero-based graph depth, derived from the graph topology calculated by Sankey layout generator.
      */
-    depth?: number;
+    depth?: number | undefined;
     /**
      * Node’s zero-based graph height, derived from the graph topology calculated by Sankey layout generator.
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * Node's minimum horizontal position (derived from the node.depth) calculated by Sankey layout generator.
      */
-    x0?: number;
+    x0?: number | undefined;
     /**
      * Node’s maximum horizontal position (node.x0 + sankey.nodeWidth) calculated by Sankey layout generator.
      */
-    x1?: number;
+    x1?: number | undefined;
     /**
      * Node's minimum vertical position calculated by Sankey layout generator.
      */
-    y0?: number;
+    y0?: number | undefined;
     /**
      * Node's maximum vertical position (node.y1 - node.y0 is proportional to node.value) calculated by Sankey layout generator.
      */
-    y1?: number;
+    y1?: number | undefined;
 }
 
 /**
@@ -126,19 +127,19 @@ export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends Sa
     /**
      * Link's vertical starting position (at source node) calculated by Sankey layout generator.
      */
-    y0?: number;
+    y0?: number | undefined;
     /**
      * Link's vertical end position (at target node) calculated by Sankey layout generator.
      */
-    y1?: number;
+    y1?: number | undefined;
     /**
      * Link's width (proportional to its value) calculated by Sankey layout generator.
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * Link's zero-based index within the array of links calculated by Sankey layout generator.
      */
-    index?: number;
+    index?: number | undefined;
 }
 
 /**
@@ -336,6 +337,18 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
      * @param iterations Number of relaxation iterations, which defaults to 32.
      */
     iterations(iterations: number): this;
+
+    /**
+     * Returns the node comparison function which defaults to undefined.
+     */
+    nodeSort(): ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined;
+
+    /**
+     * Set the node comparison function and return this Sankey layout generator.
+     *
+     * @param compare Node comparison function.
+     */
+    nodeSort(compare: (a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number): this;
 }
 
 /**

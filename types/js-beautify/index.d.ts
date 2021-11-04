@@ -1,76 +1,87 @@
-// Type definitions for js_beautify
+// Type definitions for js_beautify 1.13
 // Project: https://github.com/beautify-web/js-beautify/
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>, Hans Windhoff <https://github.com/hansrwindhoff>
+// Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
+//                 Gavin Rehkemper <https://github.com/gavinr/>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface JsBeautifyOptions {
-  indent_size?: number;
-  indent_char?: string;
-  eol?: string;
-  indent_level?: number;
-  indent_with_tabs?: boolean;
-  preserve_newlines?: boolean;
-  max_preserve_newlines?: number;
-  jslint_happy?: boolean;
-  space_after_anon_function?: boolean;
-  brace_style?: 'collapse-preserve-inline'|'collapse'|'expand'|'end-expand'|'none';
-  keep_array_indentation?: boolean;
-  keep_function_indentation?: boolean;
-  space_before_conditional?: boolean;
-  break_chained_methods?: boolean;
-  eval_code?: boolean;
-  unescape_strings?: boolean;
-  wrap_line_length?: number;
-  wrap_attributes?: 'auto'|'force' ;
-  wrap_attributes_indent_size?: number;
-  end_with_newline?: boolean;
+declare namespace js_beautify {
+    interface CoreBeautifyOptions {
+        disabled?: boolean | undefined;
+        eol?: string | undefined;
+        end_with_newline?: boolean | undefined;
+        indent_size?: number | undefined;
+        indent_char?: string | undefined;
+        indent_level?: number | undefined;
+        preserve_newlines?: boolean | undefined;
+        max_preserve_newlines?: number | undefined;
+        indent_with_tabs?: boolean | undefined;
+        wrap_line_length?: number | undefined;
+        indent_empty_lines?: boolean | undefined;
+        templating?: string[] | undefined;
+    }
+
+    interface JSBeautifyOptions extends CoreBeautifyOptions {
+        brace_style?: 'collapse' | 'expand' | 'end-expand' | 'none' | 'preserve-inline' | undefined;
+        unindent_chained_methods?: boolean | undefined;
+        break_chained_methods?: boolean | undefined;
+        space_in_paren?: boolean | undefined;
+        space_in_empty_paren?: boolean | undefined;
+        jslint_happy?: boolean | undefined;
+        space_after_anon_function?: boolean | undefined;
+        space_after_named_function?: boolean | undefined;
+        keep_array_indentation?: boolean | undefined;
+        space_before_conditional?: boolean | undefined;
+        unescape_strings?: boolean | undefined;
+        e4x?: boolean | undefined;
+        comma_first?: boolean | undefined;
+        operator_position?: 'before-newline' | 'after-newline' | 'preserve-newline' | undefined;
+        test_output_raw?: boolean | undefined;
+    }
+
+    interface HTMLBeautifyOptions extends CoreBeautifyOptions {
+        templating?: string[] | undefined;
+        indent_inner_html?: boolean | undefined;
+        indent_body_inner_html?: boolean | undefined;
+        indent_head_inner_html?: boolean | undefined;
+        indent_handlebars?: boolean | undefined;
+        wrap_attributes?:
+            | 'auto'
+            | 'force'
+            | 'force-aligned'
+            | 'force-expand-multiline'
+            | 'aligned-multiple'
+            | 'preserve'
+            | 'preserve-aligned' | undefined;
+        wrap_attributes_indent_size?: number | undefined;
+        extra_liners?: string[] | undefined;
+        inline?: string[] | undefined;
+        void_elements?: string[] | undefined;
+        unformatted?: string[] | undefined;
+        content_unformatted?: string[] | undefined;
+        unformatted_content_delimiter?: string | undefined;
+        indent_scripts?: 'normal' | 'keep' | 'separate' | undefined;
+    }
+
+    interface CSSBeautifyOptions extends CoreBeautifyOptions {
+        selector_separator_newline?: boolean | undefined;
+        newline_between_rules?: boolean | undefined;
+        space_around_selector_separator?: boolean | undefined;
+        space_around_combinator?: boolean | undefined;
+    }
 }
 
-interface HTMLBeautifyOptions {
-  indent_size?: number;
-  indent_char?: string;
-  indent_with_tabs?: boolean;
-  indent_handlebars?: boolean;
-  eol?: string;
-  end_with_newline?: boolean;
-  preserve_newlines?: boolean;
-  max_preserve_newlines?: number;
-  indent_inner_html?: boolean;
-  brace_style?: 'collapse-preserve-inline'|'collapse'|'expand'|'end-expand'|'none';
-  indent_scripts?: 'keep'|'separate'|'normal';
-  wrap_line_length?: number;
-  wrap_attributes?: 'auto'|'force' ;
-  wrap_attributes_indent_size?: number;
-  unformatted?: string[];
-  content_unformatted?: string[];
-  extra_liners?: string|string[];
-}
+declare var js_beautify: {
+    (js_source_text: string, options?: js_beautify.JSBeautifyOptions): string;
+    js: (js_source_text: string, options?: js_beautify.JSBeautifyOptions) => string;
+    js_beautify: (js_source_text: string, options?: js_beautify.JSBeautifyOptions) => string;
 
-interface CSSBeautifyOptions {
-  indent_size?: number;
-  indent_char?: string;
-  indent_with_tabs?: boolean;
-  eol?: string;
-  end_with_newline?: boolean;
-  selector_separator_newline?: boolean;
-  newline_between_rules?: boolean;
-}
+    css: (js_source_text: string, options?: js_beautify.CSSBeautifyOptions) => string;
+    css_beautify: (js_source_text: string, options?: js_beautify.CSSBeautifyOptions) => string;
 
-interface jsb{
-  (js_source_text: string, options?: JsBeautifyOptions) : string ;
-  js:(js_source_text: string, options?: JsBeautifyOptions) => string ;
-  js_beautify:(js_source_text: string, options?: JsBeautifyOptions) => string ;
+    html: (js_source_text: string, options?: js_beautify.HTMLBeautifyOptions) => string;
+    html_beautify: (js_source_text: string, options?: js_beautify.HTMLBeautifyOptions) => string;
+};
 
-  css:(js_source_text: string, options?: CSSBeautifyOptions) => string ;
-  css_beautify:(js_source_text: string, options?: CSSBeautifyOptions) => string ;
-
-  html:(js_source_text: string, options?: HTMLBeautifyOptions) => string ;
-  html_beautify:(js_source_text: string, options?: HTMLBeautifyOptions) => string ;
-}
-
-declare var js_beautify:jsb;
-declare module "js-beautify"
-{
-    export = js_beautify;
-}
-
+export as namespace js_beautify;
+export = js_beautify;

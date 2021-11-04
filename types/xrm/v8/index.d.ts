@@ -210,7 +210,7 @@ declare namespace Xrm {
          * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
          * Applicable to appointment, recurring appointment, or service activity records.
          */
-        UseSchedulingEngine?: boolean;
+        UseSchedulingEngine?: boolean | undefined;
     }
 
     /**
@@ -1293,7 +1293,7 @@ declare namespace Xrm {
             /**
              * Url of the icon to display
              */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
              * Display value(s) for this auto-complete option
@@ -1313,7 +1313,7 @@ declare namespace Xrm {
             /**
              * Url of the icon to display
              */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
              * Label to display at the bottom of the auto complete view
@@ -1338,7 +1338,7 @@ declare namespace Xrm {
             /**
              * Command to show/execute at the bottom of the results displayed
              */
-            commands?: AutoCompleteCommand;
+            commands?: AutoCompleteCommand | undefined;
         }
 
         /**
@@ -1353,7 +1353,7 @@ declare namespace Xrm {
             /**
              * The name
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Type of the entity.
@@ -3162,14 +3162,14 @@ declare namespace Xrm {
              *
              * @remarks Example:  encodeURIComponent("formid={8c9f3e6f-7839-e211-831e-00155db7d98f}");
              */
-            extraqs?: string;
+            extraqs?: string | undefined;
 
             /**
              * Controls whether the command bar is displayed.
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: CmdBarDisplay;
+            cmdbar?: CmdBarDisplay | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -3178,7 +3178,7 @@ declare namespace Xrm {
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: NavBarDisplay;
+            navbar?: NavBarDisplay | undefined;
         }
 
         /**
@@ -3216,7 +3216,7 @@ declare namespace Xrm {
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: CmdBarDisplay;
+            cmdbar?: CmdBarDisplay | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -3225,7 +3225,7 @@ declare namespace Xrm {
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: NavBarDisplay;
+            navbar?: NavBarDisplay | undefined;
         }
 
         /**
@@ -3273,7 +3273,7 @@ declare namespace Xrm {
              * The file name of the report.  For out-of-box reports, this parameter enables context-sensitive
              * help.
              */
-            helpID?: string;
+            helpID?: string | undefined;
 
             /**
              * The unique identifier, held in the report's 'reportid' attribute, in Guid format.
@@ -3305,7 +3305,7 @@ declare namespace Xrm {
             /**
              * The identifier of the form to use, when several are available.
              */
-            formid?: string;
+            formid?: string | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -3314,14 +3314,14 @@ declare namespace Xrm {
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: Url.NavBarDisplay;
+            navbar?: Url.NavBarDisplay | undefined;
 
             /**
              * Controls whether the command bar is displayed.
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: Url.CmdBarDisplay;
+            cmdbar?: Url.CmdBarDisplay | undefined;
         }
 
         /**

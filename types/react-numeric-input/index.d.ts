@@ -16,42 +16,42 @@ declare namespace NumericInput {
         React.InputHTMLAttributes<HTMLInputElement>,
         'min' | 'max' | 'step' | 'onChange' | 'defaultValue' | 'onInvalid' | 'style'
     > {
-        addLabelText?: string;
-        componentClass?: string;
-        defaultValue?: number | string;
-        format?: ((value: number | null) => string);
-        max?: BoundsFunctionProp;
-        min?: BoundsFunctionProp;
-        mobile?: boolean | 'auto' | ((component: NumericInput) => boolean);
-        noStyle?: boolean;
-        noValidate?: boolean | string;
-        onBlur?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
-        onChange?: ((value: number | null, stringValue: string, input: HTMLInputElement) => void);
-        onFocus?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
-        onInput?: React.FormEventHandler<HTMLInputElement>;
-        onInvalid?: ((error: string, value: number | null, stringValue: string) => void);
-        onKeyDown?: React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
-        onSelect?: React.ReactEventHandler<HTMLInputElement>;
-        onValid?: ((value: number | null, stringValue: string) => void);
-        parse?: ((stringValue: string) => number | null);
-        precision?: number | ((component: NumericInput) => number | null | undefined);
-        snap?: boolean;
-        step?: number | ((component: NumericInput, direction: string) => number | undefined);
-        strict?: boolean;
-        style?: {[key: string]: React.CSSProperties} | boolean;
-        value?: number | string;
+        addLabelText?: string | undefined;
+        componentClass?: string | undefined;
+        defaultValue?: number | string | undefined;
+        format?: ((value: number | null) => string) | undefined;
+        max?: BoundsFunctionProp | undefined;
+        min?: BoundsFunctionProp | undefined;
+        mobile?: boolean | 'auto' | ((component: NumericInput) => boolean) | undefined;
+        noStyle?: boolean | undefined;
+        noValidate?: boolean | string | undefined;
+        onBlur?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement> | undefined;
+        onChange?: ((value: number | null, stringValue: string, input: HTMLInputElement) => void) | undefined;
+        onFocus?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement> | undefined;
+        onInput?: React.FormEventHandler<HTMLInputElement> | undefined;
+        onInvalid?: ((error: string, value: number | null, stringValue: string) => void) | undefined;
+        onKeyDown?: React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement> | undefined;
+        onSelect?: React.ReactEventHandler<HTMLInputElement> | undefined;
+        onValid?: ((value: number | null, stringValue: string) => void) | undefined;
+        parse?: ((stringValue: string) => number | null) | undefined;
+        precision?: number | ((component: NumericInput) => number | null | undefined) | undefined;
+        snap?: boolean | undefined;
+        step?: number | ((component: NumericInput, direction: string) => number | undefined) | undefined;
+        strict?: boolean | undefined;
+        style?: {[key: string]: React.CSSProperties} | boolean | undefined;
+        value?: number | string | undefined;
     }
     // Exposed here for the function prop handlers that get the NumericInput instance as a parameter.
     // Lifted directly from react-numeric-input@79874ccbe:/src/NumericInput.jsx#L63-L73
     interface NumericInputState {
-        btnDownActive?: boolean;
-        btnDownHover?: boolean;
-        btnUpActive?: boolean;
-        btnUpHover?: boolean;
-        selectionEnd?: number | null;
-        selectionStart?: number | null;
-        stringValue?: string;
-        value?: number | null;
+        btnDownActive?: boolean | undefined;
+        btnDownHover?: boolean | undefined;
+        btnUpActive?: boolean | undefined;
+        btnUpHover?: boolean | undefined;
+        selectionEnd?: number | null | undefined;
+        selectionStart?: number | null | undefined;
+        stringValue?: string | undefined;
+        value?: number | null | undefined;
     }
 }
 

@@ -1,5 +1,5 @@
 // Type definitions for fs-plus 3.0
-// Project: https://github.com/atom/fs-plus
+// Project: https://github.com/atom/fs-plus, http://atom.github.io/fs-plus
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -151,7 +151,7 @@ export function writeFileSync(
     filePath: string,
     content: string,
     options?:
-        | { encoding?: string | null; mode?: number | string; flag?: string }
+        | { encoding?: string | null | undefined; mode?: number | string | undefined; flag?: string | undefined }
         | string
         | null
 ): void;
@@ -172,7 +172,7 @@ export function writeFile(
     filePath: string,
     content: any,
     options:
-        | { encoding?: string | null; mode?: number | string; flag?: string }
+        | { encoding?: string | null | undefined; mode?: number | string | undefined; flag?: string | undefined }
         | string
         | undefined
         | null,

@@ -2,14 +2,78 @@ getCurrentPages();
 
 interface MyOwnEvent
     extends wx.CustomEvent<
-            "my-own",
-            {
-                hello: string;
-            }
-        > {}
+        "my-own",
+        {
+            hello: string;
+        }
+    > {}
 
-let behavior = Behavior({
-    behaviors: [],
+const parentBehavior = Behavior({
+    behaviors: ["wx://form-field"],
+    properties: {
+        myParentBehaviorProperty: {
+            type: String
+        }
+    },
+    data: {
+        myParentBehaviorData: ""
+    },
+    methods: {
+        myParentBehaviorMethod(input: number) {
+            const s: string = this.data.myParentBehaviorData;
+        }
+    }
+});
+
+function createBehaviorWithUnionTypes(n: number) {
+    const properties =
+        n % 2 < 1
+            ? {
+                    unionPropA: {
+                        type: String
+                    }
+              }
+            : {
+                    unionPropB: {
+                        type: Number
+                    }
+              };
+
+    const data =
+        n % 4 < 2
+            ? {
+                    unionDataA: "a"
+              }
+            : {
+                    unionDataB: 1
+              };
+
+    const methods =
+        n % 8 < 4
+            ? {
+                    unionMethodA(a: number) {
+                        return n + 1;
+                    }
+              }
+            : {
+                    unionMethodB(a: string) {
+                        return { value: a };
+                    }
+              };
+
+    return Behavior({
+        properties,
+        data,
+        methods
+    });
+}
+
+const behavior = Behavior({
+    behaviors: [
+        createBehaviorWithUnionTypes(1),
+        parentBehavior,
+        "wx://form-field"
+    ],
     properties: {
         myBehaviorProperty: {
             type: String
@@ -20,7 +84,7 @@ let behavior = Behavior({
     },
     attached() {},
     methods: {
-        myBehaviorMethod() {
+        myBehaviorMethod(input: number) {
             const s: string = this.data.myBehaviorData;
         }
     }
@@ -54,7 +118,23 @@ Component({
     }, // 私有数据，可用于模版渲染
 
     lifetimes: {
-        attached() {},
+        attached() {
+            wx.setEnableDebug({
+                enableDebug: true,
+                success(res) {}
+            });
+
+            wx.reportMonitor("123", 123);
+
+            wx.getLogManager().info("123");
+            wx.getLogManager().log("123");
+            wx.getLogManager().warn("123");
+            wx.getLogManager().debug("123");
+
+            this.createIntersectionObserver({}).observe("123", res => {
+                res.id;
+            });
+        },
 
         detached() {
             this.setData(
@@ -86,6 +166,28 @@ Component({
     detached() {},
 
     methods: {
+        testBehaviors() {
+            console.log(this.data.myBehaviorData);
+            console.log(this.data.myBehaviorProperty);
+            this.myBehaviorMethod(123);
+            console.log(this.data.myParentBehaviorData);
+            console.log(this.data.myParentBehaviorProperty);
+            this.myParentBehaviorMethod(456);
+            if (this.unionMethodA) {
+                console.log(this.unionMethodA(5));
+            }
+            if (this.unionMethodB) {
+                console.log(this.unionMethodB("test").value);
+            }
+            console.log(this.data.unionDataA);
+            console.log(this.data.unionDataB);
+            console.log(this.data.unionPropA);
+            console.log(this.data.unionPropB);
+            console.log(this.properties.unionDataA);
+            console.log(this.properties.unionDataB);
+            console.log(this.properties.unionPropA);
+            console.log(this.properties.unionPropB);
+        },
         readMyDataAndMyProps() {
             const stringValue1: string = this.data.myProperty;
             const stringValue2: string = this.data.myProperty2;
@@ -120,15 +222,15 @@ Component({
     relations: {
         "./custom-ul": {
             type: "parent", // 关联的目标节点应为父节点
-            linked(target: Component<{ key: string }, {}>) {
+            linked(target: wx.Component<{ key: string }, {}>) {
                 // 每次被插入到custom-ul时执行，target是custom-ul节点实例对象，触发在attached生命周期之后
                 target.data.key;
             },
-            linkChanged(target: Component<{ key: string }, {}>) {
+            linkChanged(target: wx.Component<{ key: string }, {}>) {
                 // 每次被移动后执行，target是custom-ul节点实例对象，触发在moved生命周期之后
                 target.data.key;
             },
-            unlinked(target: Component<{ key: string }, {}>) {
+            unlinked(target: wx.Component<{ key: string }, {}>) {
                 // 每次被移除时执行，target是custom-ul节点实例对象，触发在detached生命周期之后
                 target.data.key;
             }
@@ -176,9 +278,19 @@ Page({
             }
         };
     },
-    onPageScroll: () => {
-        // this.
-        // Do something when page scroll
+    onPageScroll() {
+        wx.createIntersectionObserver(this, {})
+            .relativeToViewport()
+            .observe("div", res => {
+                console.log(res.id);
+                console.log(res.dataset);
+                console.log(res.intersectionRatio);
+                console.log(res.intersectionRect.left);
+                console.log(res.intersectionRect.top);
+                console.log(res.intersectionRect.width);
+                console.log(res.intersectionRect.height);
+            })
+            .disconnect();
     },
     onTabItemTap(item: any) {
         this.setData({
@@ -422,3 +534,83 @@ wx.request({
         console.error(e);
     }
 }).abort();
+
+wx.getSystemInfo({
+    success(res) {
+        const {
+            brand,
+            pixelRatio,
+            platform,
+            windowHeight,
+            windowWidth,
+            screenHeight,
+            screenWidth,
+            statusBarHeight,
+            SDKVersion,
+            language,
+            model,
+            version,
+            fontSizeSetting,
+            system
+        } = res;
+    }
+});
+
+function testAccountInfo(): string {
+    const accountInfo: wx.AccountInfo = wx.getAccountInfoSync();
+    return accountInfo.miniProgram.appId;
+}
+
+wx.reportAnalytics("test-event", { a: 1, b: "2" });
+
+App({
+    onLaunch() {
+        const manager: wx.UpdateManager = wx.getUpdateManager();
+        manager.onCheckForUpdate(({ hasUpdate }) => {
+            console.info({ hasUpdate });
+        });
+        manager.onUpdateReady(() => {
+            manager.applyUpdate();
+        });
+        manager.onUpdateFailed(({ errMsg }) => {
+            console.warn("update failed", errMsg);
+        });
+    }
+});
+
+Component({
+    observers: {
+        "name, age": function nameAgeObserver(name: string, age: number) {
+            this.setData({
+                nameStr: `Dear ${name}`,
+                ageStr: `${age}`
+            });
+        }
+    },
+    properties: {
+        name: {
+            type: String
+        },
+        age: {
+            type: Number
+        }
+    },
+    data: {
+        nameStr: "",
+        ageStr: ""
+    }
+});
+
+wx.loadFontFace({
+    family: "Bitstream Vera Serif Bold",
+    source: 'url("https://sungd.github.io/Pacifico.ttf")',
+    success(res) {
+        console.log(res.status);
+    },
+    fail(res) {
+        console.log(res.status);
+    },
+    complete(res) {
+        console.log(res.status);
+    }
+});

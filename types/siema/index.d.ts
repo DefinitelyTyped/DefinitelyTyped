@@ -3,10 +3,12 @@
 // Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
 //                 Pavel Puchkov <https://github.com/0x6368656174>
 //                 Sam Nau <https://github.com/samnau>
+//                 Jonathan Loss <https://github.com/barroudjo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default class Siema {
     currentSlide: number;
+    perPage: number;
 
     constructor(options?: SiemaOptions);
 
@@ -25,15 +27,16 @@ export interface PageInterface {
 }
 
 export interface SiemaOptions {
-    selector?: string | HTMLElement;
-    duration?: number;
-    easing?: string;
-    perPage?: number | PageInterface;
-    startIndex?: number;
-    draggable?: boolean;
-    multipleDrag?: boolean;
-    threshold?: number;
-    loop?: boolean;
+    selector?: string | HTMLElement | undefined;
+    duration?: number | undefined;
+    easing?: string | undefined;
+    perPage?: number | PageInterface | undefined;
+    startIndex?: number | undefined;
+    draggable?: boolean | undefined;
+    multipleDrag?: boolean | undefined;
+    threshold?: number | undefined;
+    loop?: boolean | undefined;
+    rtl?: boolean | undefined;
     onInit?(): void;
     onChange?(): void;
 }

@@ -1,6 +1,11 @@
 // Type definitions for ssh2 v0.5.x
 // Project: https://github.com/mscdex/ssh2
-// Definitions by: Qubo <https://github.com/tkQubo>, Ron Buckton <https://github.com/rbuckton>
+// Definitions by: Qubo <https://github.com/tkQubo>
+//                 Ron Buckton <https://github.com/rbuckton>
+//                 Will Boyce <https://github.com/wrboyce>
+//                 Lucas Motta <https://github.com/lucasmotta>
+//                 Tom Xu <https://github.com/hengkx>
+//                 Leo Toneff <https://github.com/bragle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -19,9 +24,12 @@ import {
     Attributes,
     Stats,
     TransferOptions,
+    ReadFileOptions,
+    WriteFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
-    FileEntry
+    FileEntry,
+    ParsedKey,
 } from "ssh2-streams";
 
 export import SFTP_STATUS_CODE = SFTPStream.STATUS_CODE;
@@ -245,7 +253,7 @@ export class Client extends events.EventEmitter {
      * @param options Options for the command.
      * @param callback The callback to execute when the command has completed.
      */
-    exec(command: string, options: ExecOptions, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    exec(command: string, options: ExecOptions, callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Executes a command on the server.
@@ -255,7 +263,7 @@ export class Client extends events.EventEmitter {
      * @param command The command to execute.
      * @param callback The callback to execute when the command has completed.
      */
-    exec(command: string, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    exec(command: string, callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Starts an interactive shell session on the server.
@@ -266,7 +274,7 @@ export class Client extends events.EventEmitter {
      * @param options Options for the command.
      * @param callback The callback to execute when the channel has been created.
      */
-    shell(window: PseudoTtyOptions | false, options: ShellOptions, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    shell(window: PseudoTtyOptions | false, options: ShellOptions, callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Starts an interactive shell session on the server.
@@ -276,7 +284,7 @@ export class Client extends events.EventEmitter {
      * @param window Either an object containing containing pseudo-tty settings, `false` to suppress creation of a pseudo-tty.
      * @param callback The callback to execute when the channel has been created.
      */
-    shell(window: PseudoTtyOptions | false, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    shell(window: PseudoTtyOptions | false, callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Starts an interactive shell session on the server.
@@ -286,7 +294,7 @@ export class Client extends events.EventEmitter {
      * @param options Options for the command.
      * @param callback The callback to execute when the channel has been created.
      */
-    shell(options: ShellOptions, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    shell(options: ShellOptions, callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Starts an interactive shell session on the server.
@@ -295,7 +303,7 @@ export class Client extends events.EventEmitter {
      *
      * @param callback The callback to execute when the channel has been created.
      */
-    shell(callback: (err: Error, channel: ClientChannel) => void): boolean;
+    shell(callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Bind to `remoteAddr` on `remotePort` on the server and forward incoming TCP connections.
@@ -316,7 +324,7 @@ export class Client extends events.EventEmitter {
      * @param remotePort The remote port to bind on the server. If this value is `0`, the actual bound port is provided to `callback`.
      * @param callback An optional callback that is invoked when the remote address is bound.
      */
-    forwardIn(remoteAddr: string, remotePort: number, callback?: (err: Error, bindPort: number) => void): boolean;
+    forwardIn(remoteAddr: string, remotePort: number, callback?: (err: Error | undefined, bindPort: number) => void): boolean;
 
     /**
      * Unbind from `remoteAddr` on `remotePort` on the server and stop forwarding incoming TCP
@@ -328,7 +336,7 @@ export class Client extends events.EventEmitter {
      * @param remotePort The remote port to unbind on the server.
      * @param callback An optional callback that is invoked when the remote address is unbound.
      */
-    unforwardIn(remoteAddr: string, remotePort: number, callback?: (err: Error) => void): boolean;
+    unforwardIn(remoteAddr: string, remotePort: number, callback?: (err: Error | undefined) => void): boolean;
 
     /**
      * Open a connection with `srcIP` and `srcPort` as the originating address and port and
@@ -342,7 +350,7 @@ export class Client extends events.EventEmitter {
      * @param dstPort The destination port.
      * @param callback The callback that is invoked when the address is bound.
      */
-    forwardOut(srcIP: string, srcPort: number, dstIP: string, dstPort: number, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    forwardOut(srcIP: string, srcPort: number, dstIP: string, dstPort: number, callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Starts an SFTP session.
@@ -351,7 +359,7 @@ export class Client extends events.EventEmitter {
      *
      * @param callback The callback that is invoked when the SFTP session has started.
      */
-    sftp(callback: (err: Error, sftp: SFTPWrapper) => void): boolean;
+    sftp(callback: (err: Error | undefined, sftp: SFTPWrapper) => void): boolean;
 
     /**
      * Invokes `subsystem` on the server.
@@ -361,7 +369,7 @@ export class Client extends events.EventEmitter {
      * @param subsystem The subsystem to start on the server.
      * @param callback The callback that is invoked when the subsystem has started.
      */
-    subsys(subsystem: string, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    subsys(subsystem: string, callback: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 
     /**
      * Disconnects the socket.
@@ -379,7 +387,7 @@ export class Client extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    openssh_noMoreSessions(callback?: (err: Error) => void): boolean;
+    openssh_noMoreSessions(callback?: (err: Error | undefined) => void): boolean;
 
     /**
      * OpenSSH extension that binds to a UNIX domain socket at `socketPath` on the server and
@@ -387,7 +395,7 @@ export class Client extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    openssh_forwardInStreamLocal(socketPath: string, callback?: (err: Error) => void): boolean;
+    openssh_forwardInStreamLocal(socketPath: string, callback?: (err: Error | undefined) => void): boolean;
 
     /**
      * OpenSSH extension that unbinds from a UNIX domain socket at `socketPath` on the server
@@ -395,7 +403,7 @@ export class Client extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    openssh_unforwardInStreamLocal(socketPath: string, callback?: (err: Error) => void): boolean;
+    openssh_unforwardInStreamLocal(socketPath: string, callback?: (err: Error | undefined) => void): boolean;
 
     /**
      * OpenSSH extension that opens a connection to a UNIX domain socket at `socketPath` on
@@ -403,55 +411,146 @@ export class Client extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    openssh_forwardOutStreamLocal(socketPath: string, callback?: (err: Error, channel: ClientChannel) => void): boolean;
+    openssh_forwardOutStreamLocal(socketPath: string, callback?: (err: Error | undefined, channel: ClientChannel) => void): boolean;
 }
 
 export interface ConnectConfig {
     /** Hostname or IP address of the server. */
-    host?: string;
+    host?: string | undefined;
     /** Port number of the server. */
-    port?: number;
+    port?: number | undefined;
     /** Only connect via resolved IPv4 address for `host`. */
-    forceIPv4?: boolean;
+    forceIPv4?: boolean | undefined;
     /** Only connect via resolved IPv6 address for `host`. */
-    forceIPv6?: boolean;
+    forceIPv6?: boolean | undefined;
     /** The host's key is hashed using this method and passed to `hostVerifier`. */
-    hostHash?: "md5" | "sha1";
+    hostHash?: "md5" | "sha1" | undefined;
     /** Verifies a hexadecimal hash of the host's key. */
-    hostVerifier?: (keyHash: string) => boolean;
+    hostVerifier?: ((keyHash: string, callback: (verified: boolean) => void) => boolean | void) | undefined;
     /** Username for authentication. */
-    username?: string;
+    username?: string | undefined;
     /** Password for password-based user authentication. */
-    password?: string;
+    password?: string | undefined;
     /** Path to ssh-agent's UNIX socket for ssh-agent-based user authentication (or 'pageant' when using Pagent on Windows). */
-    agent?: string;
+    agent?: BaseAgent | string | undefined;
     /** Buffer or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format). */
-    privateKey?: Buffer | string;
+    privateKey?: Buffer | string | undefined;
     /** For an encrypted private key, this is the passphrase used to decrypt it. */
-    passphrase?: string;
+    passphrase?: string | undefined;
     /** Along with `localUsername` and `privateKey`, set this to a non-empty string for hostbased user authentication. */
-    localHostname?: string;
+    localHostname?: string | undefined;
     /** Along with `localHostname` and `privateKey`, set this to a non-empty string for hostbased user authentication. */
-    localUsername?: string;
+    localUsername?: string | undefined;
     /** Try keyboard-interactive user authentication if primary user authentication method fails. */
-    tryKeyboard?: boolean;
+    tryKeyboard?: boolean | undefined;
     /** How often (in milliseconds) to send SSH-level keepalive packets to the server. Set to 0 to disable. */
-    keepaliveInterval?: number;
+    keepaliveInterval?: number | undefined;
     /** How many consecutive, unanswered SSH-level keepalive packets that can be sent to the server before disconnection. */
-    keepaliveCountMax?: number;
+    keepaliveCountMax?: number | undefined;
     /** * How long (in milliseconds) to wait for the SSH handshake to complete. */
-    readyTimeout?: number;
+    readyTimeout?: number | undefined;
     /** Performs a strict server vendor check before sending vendor-specific requests. */
-    strictVendor?: boolean;
+    strictVendor?: boolean | undefined;
     /** A `ReadableStream` to use for communicating with the server instead of creating and using a new TCP connection (useful for connection hopping). */
-    sock?: NodeJS.ReadableStream;
+    sock?: NodeJS.ReadableStream | undefined;
     /** Set to `true` to use OpenSSH agent forwarding (`auth-agent@openssh.com`) for the life of the connection. */
-    agentForward?: boolean;
+    agentForward?: boolean | undefined;
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
-    algorithms?: Algorithms;
+    algorithms?: Algorithms | undefined;
+    /** Compression settings: true (prefer), false (never), 'force' (require) */
+    compress?: boolean | 'force' | undefined;
     /** A function that receives a single string argument to get detailed (local) debug information. */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
+    /** Function with parameters (methodsLeft, partialSuccess, callback) where methodsLeft and partialSuccess are null on the first authentication attempt, otherwise are an array and boolean respectively. Return or call callback() with the name of the authentication method to try next (pass false to signal no more methods to try). Valid method names are: 'none', 'password', 'publickey', 'agent', 'keyboard-interactive', 'hostbased'. Default: function that follows a set method order: None -> Password -> Private Key -> Agent (-> keyboard-interactive if tryKeyboard is true) -> Hostbased. */
+    // dtslint incorrectly thinks that void is not part of the return type on the next line
+    // tslint:disable-next-line:void-return
+    authHandler?: (methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: (nextAuth: AuthHandlerResult) => void) => (AuthHandlerResult | void);
 }
+
+/**
+ * Return value or callback value from the {@link ConnectConfig.authHandler}.
+ * Should be the next authentication method to try (either by name or complete
+ * options) or false if there are no more methods to try.
+ */
+export type AuthHandlerResult = AnyAuthMethod | AnyAuthMethod['type'] | false;
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect without authentication.
+ */
+export interface NoAuthMethod {
+    type: 'none';
+    username: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with a password.
+ */
+export interface PasswordAuthMethod {
+    type: 'password';
+    username: string;
+    password: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with a public key.
+ */
+export interface PublicKeyAuthMethod {
+    type: 'publickey';
+    username: string;
+    /**
+     * Can be a string, Buffer, or parsed key containing a private key
+     */
+    key: string | Buffer | ParsedKey;
+    /**
+     * `passphrase` only required for encrypted keys
+     */
+    passphrase?: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with host-based authentication.
+ */
+export interface HostBasedAuthMethod {
+    type: 'hostbased';
+    username: string;
+    localUsername: string;
+    localPassword: string;
+    /**
+     * Can be a string, Buffer, or parsed key containing a private key
+     */
+    key: string | Buffer | ParsedKey;
+    /**
+     * `passphrase` only required for encrypted keys
+     */
+    passphrase?: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with an agent.
+ */
+export interface AgentAuthMethod {
+    type: 'agent';
+    username: string;
+    /**
+     * Can be a string that is interpreted exactly like the `agent` connection config
+     * option or can be a custom agent object/instance that extends and implements `BaseAgent`
+     */
+    agent: string | BaseAgent;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with an agent.
+ */
+export interface KeyboardInteractiveAuthMethod {
+    type: 'keyboard-interactive';
+    username: string;
+    /**
+     * This works exactly the same way as a 'keyboard-interactive' client event handler
+    */
+    prompt(name: string, instructions: string, lang: string, prompts: Prompt[], finish: (responses: string[]) => void): void;
+}
+
+export type AnyAuthMethod = NoAuthMethod | PasswordAuthMethod | HostBasedAuthMethod | PublicKeyAuthMethod | AgentAuthMethod | KeyboardInteractiveAuthMethod;
 
 export interface TcpConnectionDetails {
     /** The originating IP of the connection. */
@@ -473,43 +572,45 @@ export interface X11Details {
 
 export interface ClientErrorExtensions {
     /** Indicates 'client-socket' for socket-level errors and 'client-ssh' for SSH disconnection messages. */
-    level?: string;
+    level?: string | undefined;
     /** Additional detail for 'client-ssh' messages. */
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface ExecOptions {
     /** An environment to use for the execution of the command. */
-    env?: any;
+    env?: NodeJS.ProcessEnv | undefined;
     /** Set to `true` to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. */
-    pty?: true | PseudoTtyOptions;
+    pty?: true | PseudoTtyOptions | undefined;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
-    x11?: boolean | number | X11Options;
+    x11?: boolean | number | X11Options | undefined;
 }
 
 export interface ShellOptions {
+    /** An environment to use for the execution of the shell. */
+    env?: NodeJS.ProcessEnv | undefined;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
-    x11?: boolean | number | X11Options;
+    x11?: boolean | number | X11Options | undefined;
 }
 
 export interface X11Options {
     /** Whether to allow just a single connection (default: `false`).*/
-    single?: boolean;
+    single?: boolean | undefined;
     /** The Screen number to use (default: `0`). */
-    screen?: number;
+    screen?: number | undefined;
 }
 
 export interface PseudoTtyOptions {
     /** The number of rows (default: `24`). */
-    rows?: number;
+    rows?: number | undefined;
     /** The number of columns (default: `80`). */
-    cols?: number;
+    cols?: number | undefined;
     /** The height in pixels (default: `480`). */
-    height?: number;
+    height?: number | undefined;
     /** The width in pixels (default: `640`). */
-    width?: number;
+    width?: number | undefined;
     /** The value to use for $TERM (default: `'vt100'`) */
-    term?: string;
+    term?: string | undefined;
 }
 
 export class Server extends events.EventEmitter {
@@ -689,7 +790,7 @@ export class Server extends events.EventEmitter {
     /**
      * Asynchronously get the number of concurrent connections on the server.
      */
-    getConnections(callback: (err: Error, count: number) => void): void;
+    getConnections(callback: (err: Error | undefined, count: number) => void): void;
 
     /**
      * Stops the server from accepting new connections and keeps existing connections. This
@@ -700,7 +801,7 @@ export class Server extends events.EventEmitter {
      *      Unlike that event, it will be called with an `Error` as its only argument if the
      *      server was not open when it was closed.
      */
-    close(callback?: (err: Error) => void): this;
+    close(callback?: (err: Error | undefined) => void): this;
 
     /**
      * Opposite of `unref`, calling `ref` on a previously unrefd server will not let the
@@ -721,24 +822,26 @@ export interface ServerConfig {
     /** An array of host private keys. */
     hostKeys: (Buffer | string | EncryptedPrivateKey)[];
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
-    algorithms?: Algorithms;
+    algorithms?: Algorithms | undefined;
     /** A message that is sent to clients immediately upon connection, before handshaking begins. */
-    banner?: string;
+    greeting?: string | undefined
+    /** A message that is sent to clients once, right before authentication begins. */
+    banner?: string | undefined;
     /** A custom server software name/version identifier. */
-    ident?: string;
+    ident?: string | undefined;
     /** This is the highWaterMark to use for the parser stream (default: `32 * 1024`). */
-    highWaterMark?: number;
+    highWaterMark?: number | undefined;
     /** This is the maximum packet size that will be accepted. It should be 35000 bytes or larger to be compatible with other SSH2 implementations. */
-    maxPacketSize?: number;
+    maxPacketSize?: number | undefined;
     /** A function that receives a single string argument to get detailed (local) debug information. */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
 }
 
 export interface EncryptedPrivateKey {
     /** A Buffer or string that contains a private key. */
     key: Buffer | string;
     /** The passphrase to decrypt a private key. */
-    passphrase?: string;
+    passphrase?: string | undefined;
 }
 
 export interface ClientInfo {
@@ -781,18 +884,18 @@ export interface Connection extends events.EventEmitter {
      * Emitted when the client has sent a global request for name.
      * If info.bindPort === 0, you should pass the chosen port to accept so that the client will know what port was bound.
      */
-    on(event: "request", listener: (accept: (chosenPort?: number) => void, reject: () => void, name: "tcpip-forward" | "cancel-tcpip-forward", info: TcpipBindInfo) => void): this;
+    on(event: "request", listener: (accept: ((chosenPort?: number) => void) | undefined, reject: (() => void) | undefined, name: "tcpip-forward" | "cancel-tcpip-forward", info: TcpipBindInfo) => void): this;
 
     /**
      * Emitted when the client has sent a global request for name.
      */
-    on(event: "request", listener: (accept: () => void, reject: () => void, name: "streamlocal-forward@openssh.com" | "cancel-streamlocal-forward@openssh.com", info: SocketBindInfo) => void): this;
+    on(event: "request", listener: (accept: (() => void) | undefined, reject: () => void, name: "streamlocal-forward@openssh.com" | "cancel-streamlocal-forward@openssh.com", info: SocketBindInfo) => void): this;
 
     /**
      * Emitted when the client has sent a global request for name.
      * If info.bindPort === 0, you should pass the chosen port to accept so that the client will know what port was bound.
      */
-    on(event: "request", listener: (accept: (chosenPort?: number) => void, reject: () => void, name: string, info: TcpipBindInfo | SocketBindInfo) => void): this;
+    on(event: "request", listener: (accept: ((chosenPort?: number) => void) | undefined, reject: (() => void) | undefined, name: string, info: TcpipBindInfo | SocketBindInfo) => void): this;
 
     /**
      * Emitted when the client has finished rekeying (either client or server initiated).
@@ -838,7 +941,7 @@ export interface Connection extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    x11(originAddr: string, originPort: number, callback: (err: Error, channel: ServerChannel) => void): boolean;
+    x11(originAddr: string, originPort: number, callback: (err: Error | undefined, channel: ServerChannel) => void): boolean;
 
     /**
      * Alert the client of an incoming TCP connection on `boundAddr` on port `boundPort` from
@@ -846,7 +949,7 @@ export interface Connection extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    forwardOut(boundAddr: string, boundPort: number, remoteAddr: string, remotePort: number, callback: (err: Error, channel: ServerChannel) => void): boolean;
+    forwardOut(boundAddr: string, boundPort: number, remoteAddr: string, remotePort: number, callback: (err: Error | undefined, channel: ServerChannel) => void): boolean;
 
     /**
      * Initiates a rekeying with the client.
@@ -855,7 +958,7 @@ export interface Connection extends events.EventEmitter {
      *
      * @param callback An optional callback added as a one-time handler for the `rekey` event.
      */
-    rekey(callback?: (err: Error) => void): boolean;
+    rekey(callback?: (err: Error | undefined) => void): boolean;
 
     /**
      * Alert the client of an incoming UNIX domain socket connection on socketPath.
@@ -896,7 +999,7 @@ export interface AuthContextBase extends events.EventEmitter {
     /**
      * Emitted when the client aborts the authentication request.
      */
-    on(event: "abort", listener: (err: Error) => void): this;
+    on(event: "abort", listener: () => void): this;
 
     on(event: string | symbol, listener: Function): this;
 }
@@ -1012,58 +1115,60 @@ export interface SocketBindInfo {
     socketPath: string;
 }
 
+type SessionAcceptReject = (() => boolean) | undefined
+
 export interface Session extends events.EventEmitter {
     // Session events
 
     /**
      * Emitted when the client requested allocation of a pseudo-TTY for this session.
      */
-    on(event: "pty", listener: (accept: () => boolean, reject: () => boolean, info: PseudoTtyInfo) => void): this;
+    on(event: "pty", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: PseudoTtyInfo) => void): this;
 
     /**
      * Emitted when the client reported a change in window dimensions during this session.
      */
-    on(event: "window-change", listener: (accept: () => boolean, reject: () => boolean, info: WindowChangeInfo) => void): this;
+    on(event: "window-change", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: WindowChangeInfo) => void): this;
 
     /**
      * Emitted when the client requested X11 forwarding.
      */
-    on(event: "x11", listener: (accept: () => boolean, reject: () => boolean, info: X11Info) => void): this;
+    on(event: "x11", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: X11Info) => void): this;
 
     /**
      * Emitted when the client requested an environment variable to be set for this session.
      */
-    on(event: "env", listener: (accept: () => boolean, reject: () => boolean, info: SetEnvInfo) => void): this;
+    on(event: "env", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: SetEnvInfo) => void): this;
 
     /**
      * Emitted when the client has sent a POSIX signal.
      */
-    on(event: "signal", listener: (accept: () => boolean, reject: () => boolean, info: SignalInfo) => void): this;
+    on(event: "signal", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject, info: SignalInfo) => void): this;
 
     /**
      * Emitted when the client has requested incoming ssh-agent requests be forwarded to them.
      */
-    on(event: "auth-agent", listener: (accept: () => boolean, reject: () => boolean) => void): this;
+    on(event: "auth-agent", listener: (accept: SessionAcceptReject, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested an interactive shell.
      */
-    on(event: "shell", listener: (accept: () => ServerChannel, reject: () => boolean) => void): this;
+    on(event: "shell", listener: (accept: () => ServerChannel, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested execution of a command string.
      */
-    on(event: "exec", listener: (accept: () => ServerChannel, reject: () => boolean, info: ExecInfo) => void): this;
+    on(event: "exec", listener: (accept: () => ServerChannel, reject: SessionAcceptReject, info: ExecInfo) => void): this;
 
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: "sftp", listener: (accept: () => SFTPStream, reject: () => boolean) => void): this;
+    on(event: "sftp", listener: (accept: () => SFTPStream, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
      */
-    on(event: "subsystem", listener: (accept: () => ServerChannel, reject: () => boolean, info: SubsystemInfo) => void): this;
+    on(event: "subsystem", listener: (accept: () => ServerChannel, reject: SessionAcceptReject, info: SubsystemInfo) => void): this;
 
     /**
      * Emitted when the session has closed.
@@ -1089,115 +1194,115 @@ export interface PseudoTtyInfo {
 export interface TerminalModes {
     [mode: string]: number | undefined;
     /** Interrupt character; `255` if none. Not all of these characters are supported on all systems. */
-    VINTR?: number;
+    VINTR?: number | undefined;
     /** The quit character (sends `SIGQUIT` signal on POSIX systems). */
-    VQUIT?: number;
+    VQUIT?: number | undefined;
     /** Erase the character to left of the cursor. */
-    VERASE?: number;
+    VERASE?: number | undefined;
     /** Kill the current input line. */
-    VKILL?: number;
+    VKILL?: number | undefined;
     /** End-of-file character (sends `EOF` from the terminal). */
-    VEOF?: number;
+    VEOF?: number | undefined;
     /** End-of-line character in addition to carriage return and/or linefeed. */
-    VEOL?: number;
+    VEOL?: number | undefined;
     /** Additional end-of-line character. */
-    VEOL2?: number;
+    VEOL2?: number | undefined;
     /** Continues paused output (normally control-Q). */
-    VSTART?: number;
+    VSTART?: number | undefined;
     /** Pauses output (normally control-S). */
-    VSTOP?: number;
+    VSTOP?: number | undefined;
     /** Suspends the current program. */
-    VSUSP?: number;
+    VSUSP?: number | undefined;
     /** Another suspend character. */
-    VDSUSP?: number;
+    VDSUSP?: number | undefined;
     /** Reprints the current input line. */
-    VREPRINT?: number;
+    VREPRINT?: number | undefined;
     /** Erases a word left of cursor. */
-    VWERASE?: number;
+    VWERASE?: number | undefined;
     /** Enter the next character typed literally, even if it is a special character */
-    VLNEXT?: number;
+    VLNEXT?: number | undefined;
     /** Character to flush output. */
-    VFLUSH?: number;
+    VFLUSH?: number | undefined;
     /** Switch to a different shell layer. */
-    VSWTCH?: number;
+    VSWTCH?: number | undefined;
     /** Prints system status line (load, command, pid, etc). */
-    VSTATUS?: number;
+    VSTATUS?: number | undefined;
     /** Toggles the flushing of terminal output. */
-    VDISCARD?: number;
+    VDISCARD?: number | undefined;
     /** The ignore parity flag.  The parameter SHOULD be `0` if this flag is FALSE, and `1` if it is TRUE. */
-    IGNPAR?: 0 | 1;
+    IGNPAR?: 0 | 1 | undefined;
     /** Mark parity and framing errors. */
-    PARMRK?: 0 | 1;
+    PARMRK?: 0 | 1 | undefined;
     /** Enable checking of parity errors. */
-    INPCK?: 0 | 1;
+    INPCK?: 0 | 1 | undefined;
     /** Strip 8th bit off characters. */
-    ISTRIP?: 0 | 1;
+    ISTRIP?: 0 | 1 | undefined;
     /** Map NL into CR on input. */
-    INLCR?: 0 | 1;
+    INLCR?: 0 | 1 | undefined;
     /** Ignore CR on input. */
-    IGNCR?: 0 | 1;
+    IGNCR?: 0 | 1 | undefined;
     /** Map CR to NL on input. */
-    ICRNL?: 0 | 1;
+    ICRNL?: 0 | 1 | undefined;
     /** Translate uppercase characters to lowercase. */
-    IUCLC?: 0 | 1;
+    IUCLC?: 0 | 1 | undefined;
     /** Enable output flow control. */
-    IXON?: 0 | 1;
+    IXON?: 0 | 1 | undefined;
     /** Any char will restart after stop. */
-    IXANY?: 0 | 1;
+    IXANY?: 0 | 1 | undefined;
     /** Enable input flow control. */
-    IXOFF?: 0 | 1;
+    IXOFF?: 0 | 1 | undefined;
     /** Ring bell on input queue full. */
-    IMAXBEL?: 0 | 1;
+    IMAXBEL?: 0 | 1 | undefined;
     /** Enable signals INTR, QUIT, [D]SUSP. */
-    ISIG?: 0 | 1;
+    ISIG?: 0 | 1 | undefined;
     /** Canonicalize input lines. */
-    ICANON?: 0 | 1;
+    ICANON?: 0 | 1 | undefined;
     /** Enable input and output of uppercase characters by preceding their lowercase equivalents with `\`. */
-    XCASE?: 0 | 1;
+    XCASE?: 0 | 1 | undefined;
     /** Enable echoing. */
-    ECHO?: 0 | 1;
+    ECHO?: 0 | 1 | undefined;
     /** Visually erase chars. */
-    ECHOE?: 0 | 1;
+    ECHOE?: 0 | 1 | undefined;
     /** Kill character discards current line. */
-    ECHOK?: 0 | 1;
+    ECHOK?: 0 | 1 | undefined;
     /** Echo NL even if ECHO is off. */
-    ECHONL?: 0 | 1;
+    ECHONL?: 0 | 1 | undefined;
     /** Don't flush after interrupt. */
-    NOFLSH?: 0 | 1;
+    NOFLSH?: 0 | 1 | undefined;
     /** Stop background jobs from output. */
-    TOSTOP?: 0 | 1;
+    TOSTOP?: 0 | 1 | undefined;
     /** Enable extensions. */
-    IEXTEN?: 0 | 1;
+    IEXTEN?: 0 | 1 | undefined;
     /** Echo control characters as ^(Char). */
-    ECHOCTL?: 0 | 1;
+    ECHOCTL?: 0 | 1 | undefined;
     /** Visual erase for line kill. */
-    ECHOKE?: 0 | 1;
+    ECHOKE?: 0 | 1 | undefined;
     /** Retype pending input. */
-    PENDIN?: 0 | 1;
+    PENDIN?: 0 | 1 | undefined;
     /** Enable output processing. */
-    OPOST?: 0 | 1;
+    OPOST?: 0 | 1 | undefined;
     /** Convert lowercase to uppercase. */
-    OLCUC?: 0 | 1;
+    OLCUC?: 0 | 1 | undefined;
     /** Map NL to CR-NL. */
-    ONLCR?: 0 | 1;
+    ONLCR?: 0 | 1 | undefined;
     /** Translate carriage return to newline (output). */
-    OCRNL?: 0 | 1;
+    OCRNL?: 0 | 1 | undefined;
     /** Translate newline to carriage return-newline (output). */
-    ONOCR?: 0 | 1;
+    ONOCR?: 0 | 1 | undefined;
     /** Newline performs a carriage return (output). */
-    ONLRET?: 0 | 1;
+    ONLRET?: 0 | 1 | undefined;
     /** 7 bit mode. */
-    CS7?: 0 | 1;
+    CS7?: 0 | 1 | undefined;
     /** 8 bit mode. */
-    CS8?: 0 | 1;
+    CS8?: 0 | 1 | undefined;
     /** Parity enable. */
-    PARENB?: 0 | 1;
+    PARENB?: 0 | 1 | undefined;
     /** Odd parity, else even. */
-    PARODD?: 0 | 1;
+    PARODD?: 0 | 1 | undefined;
     /** Specifies the input baud rate in bits per second. */
-    TTY_OP_ISPEED?: number;
+    TTY_OP_ISPEED?: number | undefined;
     /** Specifies the output baud rate in bits per second. */
-    TTY_OP_OSPEED?: number;
+    TTY_OP_OSPEED?: number | undefined;
 }
 
 export interface WindowChangeInfo {
@@ -1271,9 +1376,45 @@ export interface SFTPWrapper extends events.EventEmitter {
 
     /**
      * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
      * Returns a new readable stream for `path`.
      */
     createReadStream(path: string, options?: ReadStreamOptions): stream.Readable;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, options: WriteFileOptions, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, callback?: (err: any) => void): void;
 
     /**
      * (Client-only)
@@ -1426,6 +1567,14 @@ export interface SFTPWrapper extends events.EventEmitter {
 
     /**
      * (Client-only)
+     * `path` exists.
+     *
+     * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+     */
+    exists(path: string, callback: (err: any) => void): boolean;
+
+    /**
+     * (Client-only)
      * Retrieves attributes for `path`. If `path` is a symlink, the link itself is stat'ed
      * instead of the resource it refers to.
      *
@@ -1555,4 +1704,144 @@ export interface SFTPWrapper extends events.EventEmitter {
     on(event: "continue", listener: () => void): this;
 
     on(event: string | symbol, listener: Function): this;
+}
+
+/**
+ * Interface representing an inbound agent request. This is defined as an
+ * "opaque type" in the ssh2 documentation, and should only be used
+ * for correlation, not introspected.
+ */
+export interface AgentInboundRequest {
+    __opaque_type: never
+}
+
+/**
+ * Options passed to {@link BaseAgent.sign} and AgentProtocol methods.
+ */
+export interface SigningRequestOptions {
+    hash?: 'sha256' | 'sha512';
+}
+
+export class AgentProtocol extends stream.Duplex {
+    /**
+     * Creates and returns a new AgentProtocol instance. `isClient` determines
+     * whether the instance operates in client or server mode.
+     */
+    constructor(isClient: boolean);
+
+    /**
+     * (Server mode only)
+     * Replies to the given `request` with a failure response.
+     */
+    failureReply(request: AgentInboundRequest): void;
+
+    /**
+     * (Client mode only)
+     * Requests a list of public keys from the agent. `callback` is passed
+     * `(err, keys)` where `keys` is a possible array of public keys for
+     * authentication.
+     */
+     getIdentities(callback: (err: Error | undefined, publicKeys?: ParsedKey[]) => void): void;
+
+     /**
+      * (Server mode only)
+      * Responds to a identities list `request` with the given array of keys in `keys`.
+      */
+     getIdentitiesReply(request: AgentInboundRequest, keys: ParsedKey[]): void;
+
+    /**
+     * (Client mode only)
+     * Signs the datawith the given public key, and calls back with its signature.
+     * Note that, in the current implementation, "options" is always an empty object.
+     */
+     sign(publicKey: ParsedKey, data: Buffer, options: SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void;
+
+     /**
+      * (Server mode only)
+      * Responds to a sign `request` with the given signature in `signature`.
+      */
+     signReply(request: AgentInboundRequest, signature: Buffer): void;
+
+    /**
+     * (Server mode only)
+     * The client has requested a list of public keys stored in the agent.
+     * Use `failureReply()` or `getIdentitiesReply()` to reply appropriately.
+     */
+    on(event: "identities", listener: (request: AgentInboundRequest) => void): this;
+
+    /**
+     * (Server mode only)
+     * The client has requested `data` to be signed using the key identified
+     * by `pubKey`. Use `failureReply()` or `signReply()` to reply appropriately.
+     */
+    on(event: "sign", listener: (publicKey: ParsedKey, data: Buffer, options: SigningRequestOptions) => void): this;
+
+    on(event: string | symbol, listener: Function): this;
+}
+
+/**
+ * Creates and returns a new agent instance using the same logic as the
+ * `Client`'s `agent` configuration option: if the platform is Windows and
+ * it's the value "pageant", it creates a `PageantAgent`, otherwise if it's not
+ * a path to a Windows pipe it creates a `CygwinAgent`. In all other cases,
+ * it creates an `OpenSSHAgent`.
+ */
+export function createAgent(agentValue: string): BaseAgent;
+
+/**
+ * Base agent that you can use to create a custom SSH agent. `TKey` is the
+ * parsed or parsable public key your class retrieves, and is invoked with.
+ * If a string or a buffer, you can pass it to `utils.parseKey()`
+ */
+export abstract class BaseAgent<TPublicKey extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> {
+    /**
+     * Retrieves user identities, where `keys` is a possible array of public
+     * keys for authentication.
+     */
+     abstract getIdentities(callback: (err: Error | undefined, publicKeys?: TPublicKey[]) => void): void;
+
+    /**
+     * Signs the datawith the given public key, and calls back with its signature.
+     * Note that, in the current implementation, "options" is always an empty object.
+     */
+    abstract sign(publicKey: TPublicKey, data: Buffer, options: SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void;
+
+    /**
+     * Optional method that may be implemented to support agent forwarding. Callback
+     * should be invoked with a Duplex stream to be used to communicate with your agent/
+     * You will probably want to utilize `AgentProtocol` as agent forwarding is an
+     * OpenSSH feature, so the `stream` needs to be able to
+     * transmit/receive OpenSSH agent protocol packets.
+     */
+    getStream?(callback: (err: Error | undefined, stream: stream.Duplex) => void): void;
+}
+
+/**
+ * Communicates with an OpenSSH agent listening on the UNIX socket at `socketPath`.
+ */
+export class OpenSSHAgent extends BaseAgent<ParsedKey> {
+    constructor(socketPath: string);
+
+    /** @inheritdoc */
+    getIdentities(callback: (err: Error | undefined, publicKeys?: ParsedKey[]) => void): void;
+
+    /** @inheritdoc */
+    sign(publicKey: ParsedKey, data: Buffer, options: SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void;
+
+    /** @inheritdoc */
+    getStream(callback: (err: Error | undefined, stream: stream.Duplex) => void): void;
+}
+
+/**
+ * Communicates with an agent listening at `socketPath` in a Cygwin environment.
+ */
+export class CygwinAgent extends OpenSSHAgent {
+    constructor(socketPath: string)
+}
+
+/**
+ * Creates a new agent instance for communicating with a running Pageant agent process.
+ */
+export class PageantAgent extends OpenSSHAgent {
+    constructor(socketPath: string)
 }

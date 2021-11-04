@@ -13,7 +13,9 @@ function test_draggable() {
     $("#draggable").draggable({
         start: () => { },
         drag: () => { },
-        stop: () => { }
+        stop: (event, ui) => {
+            var left = ui.originalPosition.left;
+        }
     });
     $("#draggable").draggable({ handle: "p" });
     $("#draggable2").draggable({ cancel: "p.ui-widget-header" });
@@ -51,6 +53,7 @@ function test_droppable() {
         activeClass: "ui-state-hover",
         hoverClass: "ui-state-active",
         drop: (event, ui) => {
+            console.log(`${event.screenX}, ${event.screenY}`);
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
@@ -1458,8 +1461,8 @@ function test_dialog() {
     $(".selector").dialog({ title: "Dialog Title" });
     $(".selector").dialog({ width: 500 });
     $(".selector").dialog({ zIndex: 20 });
-	var $el = $( ".selector" ).dialog( "moveToTop" );
-	var isOpen = $( ".selector" ).dialog( "isOpen" );
+    var $el = $( ".selector" ).dialog( "moveToTop" );
+    var isOpen = $( ".selector" ).dialog( "isOpen" );
 }
 
 
@@ -1494,6 +1497,7 @@ function test_selectmenu() {
     // Events and options
     $("#selectmenu").selectmenu({
         appendTo: ".selector",
+        classes: { "ui-selectmenu-button": "custom-button", "ui-selectmenu-menu": "custom-menu" },
         disabled: true,
         icons: { submenu: "ui-icon-circle-triangle-e" },
         position: { my: "left top", at: "right-5 top+5" },
@@ -1824,6 +1828,18 @@ function test_effects() {
     $("div").hide("drop", { direction: "down" }, "slow");
     $(this).switchClass("big", "blue", 1000, "easeInOutQuad");
     $(this).toggleClass("big-blue", 1000, "easeOutSine");
+
+    // test with non-HTMLElement
+    var $svg: JQuery<SVGElement> = <unknown>$('<svg>') as JQuery<SVGSVGElement>,
+        $ret: JQuery<SVGElement>;
+    $ret = $svg.addClass("newClass", 1000, callback);
+    $ret = $svg.removeClass("newClass", 1000, callback);
+    $ret = $svg.show(selectedEffect, options, 500, callback);
+    $ret = $svg.hide("drop", { direction: "down" }, "slow");
+    $ret = $svg.effect("transfer", { to: $("div").eq(5) }, 1000) ;
+    $ret = $svg.toggle(selectedEffect, options, 500);
+    $ret = $svg.toggleClass("newClass", 1000);
+    $ret = $svg.switchClass("big", "blue", 1000, "easeInOutQuad");
 }
 
 function test_methods() {
@@ -1862,6 +1878,7 @@ function test_ui() {
     $("aDialog").keypress(function (e) {
         return (e.keyCode == $.ui.keyCode.ENTER);
     });
+    $(".selector").jQuery.ui.selectmenu({ disabled: true });
 }
 
 function test_widget() {

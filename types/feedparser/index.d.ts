@@ -1,5 +1,5 @@
 // Type definitions for feedparser 2.2
-// Project: https://github.com/danmactough/node-feedparser
+// Project: http://github.com/danmactough/node-feedparser
 // Definitions by: Juan J. Jimenez-Anca <https://github.com/cortopy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -102,11 +102,11 @@ declare namespace FeedParser {
     type Type = "atom" | "rss" | "rdf";
 
     interface Options {
-        normalize?: boolean;
-        addmeta?: boolean;
-        feedurl?: string;
-        resume_saxerror?: boolean;
-        MAX_BUFFER_LENGTH?: number;
+        normalize?: boolean | undefined;
+        addmeta?: boolean | undefined;
+        feedurl?: string | undefined;
+        resume_saxerror?: boolean | undefined;
+        MAX_BUFFER_LENGTH?: number | undefined;
     }
 
     interface Node {
@@ -149,6 +149,12 @@ declare namespace FeedParser {
         categories: string[];
     }
 
+    interface Enclosure {
+       length?: string | undefined;
+       type?: string | undefined;
+       url: string;
+    }
+
     interface Item {
         title: string;
         description: string;
@@ -162,7 +168,7 @@ declare namespace FeedParser {
         comments: string;
         image: Image;
         categories: string[];
-        enclosures: string[];
+        enclosures: Enclosure[];
         meta: Meta;
     }
 }

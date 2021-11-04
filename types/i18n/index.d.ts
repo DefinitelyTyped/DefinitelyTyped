@@ -1,17 +1,22 @@
-// Type definitions for i18n-node 0.8
-// Project: https://github.com/mashpie/i18n-node
+// Type definitions for i18n-node 0.13
+// Project: http://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 4.1
 
 declare namespace i18n {
+    interface Response extends i18nAPI {
+        locals: Partial<i18nAPI>;
+    }
+
     interface ConfigurationOptions {
         /**
          * Setup some locales - other locales default to en silently
          * @default []
          */
-        locales?: string[];
+        locales?: string[] | undefined;
 
         /**
          * Language fallback map
@@ -19,97 +24,115 @@ declare namespace i18n {
          */
         fallbacks?: {
             [locale: string]: string;
-        };
+        } | undefined;
 
         /**
          * Alter a site wide default locale
          * @default "en"
          */
-        defaultLocale?: string;
+        defaultLocale?: string | undefined;
+
+        /**
+         * Will return translation from defaultLocale in case current locale doesn't provide it
+         * @default false
+         */
+        retryInDefaultLocale?: boolean | undefined;
 
         /**
          * Sets a custom cookie name to parse locale settings from
          * @default null
          */
-        cookie?: string;
+        cookie?: string | undefined;
+
+        /**
+         * Sets a custom header name to read the language preference from - accept-language header by default
+         * @default 'accept-language'
+         */
+        header?: string | undefined;
 
         /**
          * Query parameter to switch locale (ie. /home?lang=ch)
          * @default null
          */
-        queryParameter?: string;
+        queryParameter?: string | undefined;
 
         /**
          * Where to store json files, relative to modules directory
          * @default "./locales"
          */
-        directory?: string;
+        directory?: string | undefined;
 
         /**
          * Control mode on directory creation. Setting has no effect on win.
          * @default null
          */
-        directoryPermissions?: string;
+        directoryPermissions?: string | undefined;
 
         /**
          * Watch for changes in json files to reload locale on updates
          * @default false
          */
-        autoReload?: boolean;
+        autoReload?: boolean | undefined;
 
         /**
          * Whether to write new locale information to disk
          * @default true
          */
-        updateFiles?: boolean;
+        updateFiles?: boolean | undefined;
 
         /**
          * Sync locale information across all files
          * @default false
          */
-        syncFiles?: boolean;
+        syncFiles?: boolean | undefined;
 
         /**
          * What to use as the indentation unit
          * @default "\t"
          */
-        indent?: string;
+        indent?: string | undefined;
 
         /**
          * Setting extension of json files (you might want to set this to '.js' according to webtranslateit)
          * @default ".json"
          */
-        extension?: string;
+        extension?: string | undefined;
 
         /**
          * Setting prefix of json files name (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
          * @default ""
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * Enable object notation
          * @default false
          */
-        objectNotation?: boolean;
+        objectNotation?: boolean | undefined;
 
         /**
          * Setting of log level DEBUG
          * @default require("debug")("i18n:debug")
          */
-        logDebugFn?: (msg: string) => void;
+        logDebugFn?: ((msg: string) => void) | undefined;
 
         /**
          * Setting of log level WARN
          * @default require("debug")("i18n:warn")
          */
-        logWarnFn?: (msg: string) => void;
+        logWarnFn?: ((msg: string) => void) | undefined;
 
         /**
          * Setting of log level ERROR
          * @default require("debug")("i18n:error")
          */
-        logErrorFn?: (msg: string) => void;
+        logErrorFn?: ((msg: string) => void) | undefined;
+
+        /**
+         * Function to provide missing translations.
+         * @since 0.10.0
+         */
+        missingKeyFn?: ((locale: string, value: string) => string) | undefined;
 
         /**
          * object or [obj1, obj2] to bind the i18n api and current locale to
@@ -124,24 +147,46 @@ declare namespace i18n {
          */
         api?: {
             [method: string]: string;
-        };
+        } | undefined;
 
         /**
          * Downcase locale when passed on queryParam; e.g. lang=en-US becomes en-us.
          * When set to false, the queryParam value will be used as passed; e.g. lang=en-US remains en-US.
          * @default true
          */
-        preserveLegacyCase?: boolean;
+        preserveLegacyCase?: boolean | undefined;
+
+        /**
+         * Static translation catalog. Setting this option overrides `locales`.
+         *
+         * **NOTE**: Enabling `staticCatalog` disables all other fs realated options such as `updateFiles`, `autoReload` and `syncFiles`.
+         * @since 0.10.0
+         */
+        staticCatalog?: GlobalCatalog | undefined;
+
+        /**
+         * Use mustache with customTags (https://www.npmjs.com/package/mustache#custom-delimiters) or disable mustache entirely
+         */
+        mustacheConfig?: {
+            /**
+             * @default ['{{', '}}']
+             */
+            tags?: [string, string] | undefined;
+            /**
+             * @default false
+             */
+            disable?: boolean | undefined;
+        } | undefined;
     }
     interface TranslateOptions {
         phrase: string;
-        locale?: string;
+        locale?: string | undefined;
     }
     interface PluralOptions {
         singular: string;
         plural: string;
-        count?: number;
-        locale?: string;
+        count?: number | undefined;
+        locale?: string | undefined;
     }
     interface Replacements {
         [key: string]: string;
@@ -191,6 +236,14 @@ declare namespace i18n {
     //#endregion
 
     //#region __n()
+
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param phrase - Short phrase to be translated. All plural options ("one", "few", other", ...) have to be provided by your translation file
+     * @param count - The number which allow to select from plural to singular
+     * @returns The translated phrase
+     */
+    function __n(phrase: string, count: number): string;
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
@@ -263,7 +316,6 @@ declare namespace i18n {
      * @param locale - The locale to set as default
      * @param [inheritance=false] - Disables inheritance if true
      */
-    // tslint:disable-next-line:unified-signatures
     function setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
     /**
      * Change the current active locale for specified response
@@ -285,6 +337,10 @@ declare namespace i18n {
      * Get a list with all configured locales
      */
     function getLocales(): string[];
+
+    function addLocale(locale: string): void;
+
+    function removeLocale(locale: string): void;
 
     //#endregion
 
@@ -321,6 +377,56 @@ declare namespace i18n {
      * Get current i18n-node version
      */
     const version: string;
+
+    class I18n {
+        configure(options: ConfigurationOptions): void;
+
+        init(request: Express.Request, response: Express.Response, next?: () => void): void;
+
+        __(phraseOrOptions: string | TranslateOptions, ...replace: string[]): string;
+
+        __(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
+
+        __n(phrase: string, count: number): string;
+
+        __n(options: PluralOptions, count?: number): string;
+
+        __n(singular: string, plural: string, count: number | string): string;
+
+        __mf(phraseOrOptions: string | TranslateOptions, ...replace: any[]): string;
+
+        __mf(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
+
+        __l(phrase: string): string[];
+
+        __h(phrase: string): HashedList[];
+
+        setLocale(locale: string): void;
+
+        // tslint:disable-next-line:unified-signatures
+        setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
+
+        // tslint:disable-next-line:unified-signatures
+        setLocale(objects: any | any[], locale: string, inheritance?: boolean): void;
+
+        getLocale(request?: Express.Request): string;
+
+        getLocales(): string[];
+
+        addLocale(locale: string): void;
+
+        removeLocale(locale: string): void;
+
+        getCatalog(): GlobalCatalog;
+
+        getCatalog(locale: string): LocaleCatalog;
+
+        getCatalog(request: Express.Request, locale?: string): LocaleCatalog;
+
+        overrideLocaleFromQuery(request?: Express.Request): void;
+
+        version: string;
+    }
 }
 
 interface i18nAPI {
@@ -345,6 +451,14 @@ interface i18nAPI {
     //#endregion
 
     //#region __n()
+
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param phrase - Short phrase to be translated. All plural options ("one", "few", other", ...) have to be provided by your translation file
+     * @param count - The number which allow to select from plural to singular
+     * @returns The translated phrase
+     */
+    __n(phrase: string, count: number): string;
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
@@ -434,14 +548,11 @@ declare module "i18n" {
 }
 
 declare namespace Express {
+    // tslint:disable-next-line:no-empty-interface
     interface Request extends i18nAPI {
-        languages: string[];
-        regions: string[];
-        language: string;
-        region: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface Response extends i18nAPI {
-        locals: i18nAPI;
     }
 }

@@ -13,6 +13,12 @@ const options: PassportFacebookToken.StrategyOptions = {
     clientSecret: 'TEST_CLIENT_SECRET'
 };
 
+const optionsWithFbGraphVersion: PassportFacebookToken.StrategyOptions = {
+    clientID: 'TEST_CLIENT_ID',
+    clientSecret: 'TEST_CLIENT_SECRET',
+    fbGraphVersion: 'v3'
+};
+
 const optionsWithRequest: PassportFacebookToken.StrategyOptionsWithRequest = {
     clientID: 'TEST_CLIENT_ID',
     clientSecret: 'TEST_CLIENT_SECRET',
@@ -40,4 +46,5 @@ const verifyWithRequest: PassportFacebookToken.VerifyFunctionWithRequest =
 };
 
 passport.use(new PassportFacebookToken(options, verify));
+passport.use(new PassportFacebookToken(optionsWithFbGraphVersion, verify));
 passport.use(new PassportFacebookToken(optionsWithRequest, verifyWithRequest));

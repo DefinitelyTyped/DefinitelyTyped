@@ -1,11 +1,14 @@
-// Type definitions for errorhandler
+// Type definitions for errorhandler 1.5
 // Project: https://github.com/expressjs/errorhandler
 // Definitions by: Santi Albo <https://github.com/santialbo>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-import * as express from 'express';
+import express = require('express');
 
+/**
+ * Create new middleware to handle errors and respond with content negotiation.
+ */
 declare function errorHandler(options?: errorHandler.Options): express.ErrorRequestHandler;
 
 declare namespace errorHandler {
@@ -15,6 +18,7 @@ declare namespace errorHandler {
 
     interface Options {
         /**
+         * Provide a function to be called with the error and a string representation of the erro
          * Defaults to true.
          *
          * Possible values:
@@ -24,6 +28,11 @@ declare namespace errorHandler {
          */
         log: boolean | LoggingCallback;
     }
+
+    /**
+     * Template title, framework authors may override this value.
+     */
+    const title: string;
 }
 
 export = errorHandler;

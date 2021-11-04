@@ -4,25 +4,31 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export import ServiceBusService = require('./lib/servicebusservice');
-export import NotificationHubService = require('./lib/notificationhubservice');
-export import WrapService = require('./lib/wrapservice');
+export import ServiceBusService = require("./lib/servicebusservice");
+export import NotificationHubService = require("./lib/notificationhubservice");
+export import WrapService = require("./lib/wrapservice");
 
-export function createServiceBusService(namespaceOrConnectionString?: string,
-                                        accessKey?: string,
-                                        issuer?: string,
-                                        acsNamespace?: string,
-                                        host?: string,
-                                        authenticationProvider?: object): ServiceBusService;
+export function createServiceBusService(
+    namespaceOrConnectionString?: string,
+    accessKey?: string,
+    issuer?: string,
+    acsNamespace?: string,
+    host?: string,
+    authenticationProvider?: object
+): ServiceBusService;
 
-export function createNotificationHubService(hubName: string,
-                                             endpointOrConnectionString?: string,
-                                             sharedAccessKeyName?: string,
-                                             sharedAccessKeyValue?: string): NotificationHubService;
+export function createNotificationHubService(
+    hubName: string,
+    endpointOrConnectionString?: string,
+    sharedAccessKeyName?: string,
+    sharedAccessKeyValue?: string
+): NotificationHubService;
 
-export function createWrapService(acsHost: string,
-                                  issuer?: string,
-                                  accessKey?: string): WrapService;
+export function createWrapService(
+    acsHost: string,
+    issuer?: string,
+    accessKey?: string
+): WrapService;
 
 export namespace Azure.ServiceBus {
     export type Duration = string;
@@ -33,12 +39,12 @@ export namespace Azure.ServiceBus {
     }
 
     export interface ReceiveQueueMessageOptions {
-        timeoutIntervalInS?: number;
+        isPeekLock?: boolean | undefined;
+        timeoutIntervalInS?: number | undefined;
     }
 
-    export interface ReceiveSubscriptionMessageOptions extends ReceiveQueueMessageOptions {
-        isPeekLock?: boolean;
-    }
+    export interface ReceiveSubscriptionMessageOptions
+        extends ReceiveQueueMessageOptions {}
 
     interface IBrokerPropertiesResponse {
         readonly DeliveryCount: number;
@@ -62,9 +68,9 @@ export namespace Azure.ServiceBus {
 
     export interface Message {
         body: string;
-        brokerProperties?: BrokerProperties;
-        contentType?: string;
-        customProperties?: Dictionary<any>;
+        brokerProperties?: BrokerProperties | undefined;
+        contentType?: string | undefined;
+        customProperties?: Dictionary<any> | undefined;
     }
 
     /*
@@ -75,7 +81,7 @@ export namespace Azure.ServiceBus {
         DefaultMessageTimeToLive: string;
         DuplicateDetectionHistoryTimeWindow: string;
         EnablePartitioning: boolean;
-        MaxSizeInMegaBytes: number;
+        MaxSizeInMegabytes: number;
         RequiresDuplicateDetection: boolean;
     }
 
@@ -129,22 +135,52 @@ export namespace Azure.ServiceBus {
     }
 
     export interface NotificationHubRegistration {
+        _: {
+            ContentRootElement: string;
+        };
         BodyTemplate?: any;
-        ChannelUri?: string;
-        DeviceToken?: string;
-        Expiry?: Date;
-        gcmRegistrationId?: string;
+        ChannelUri?: string | undefined;
+        DeviceToken?: string | undefined;
+        Expiry?: Date | undefined;
+        GcmRegistrationId?: string | undefined;
         MpnsHeaders?: any;
         RegistrationId: string;
-        Tags?: string;
+        Tags?: string | undefined;
         WnsHeaders?: any;
+    }
+
+    export interface NotificationHubInstallation {
+        installationId: string;
+        userId?: string | undefined;
+        readonly lastActiveOn?: string | undefined;
+        readonly expirationTime?: string | undefined;
+        readonly lastUpdate?: string | undefined;
+        platform: "apns" | "wns" | "mpns" | "adm" | "gcm";
+        pushChannel: string;
+        readonly expiredPushChannel?: string | undefined;
+        tags?: Array<string> | undefined;
+        templates?: {
+            [name: string]: {
+                body: string;
+                headers?: any;
+                expiry?: string | undefined;
+                tags?: Array<string> | undefined;
+            };
+        } | undefined;
+        secondaryTile?: {
+            [titleId: string]: {
+                pushChannel: string;
+                tags?: Array<string> | undefined;
+                templates?: any;
+            };
+        } | undefined;
     }
 
     export interface Response {
         body: Dictionary<string | object>;
         headers: Dictionary<string>;
         isSuccessful: boolean;
-        md5?: string;
+        md5?: string | undefined;
         statusCode: number;
     }
 
@@ -159,23 +195,23 @@ export namespace Azure.ServiceBus {
 
     export namespace Results.Models {
         export enum EntityStatus {
-            Active = 'Active',
-            Creating = 'Creating',
-            Deleting = 'Deleting',
-            Disabled = 'Disabled',
-            ReceiveDisabled = 'ReceiveDisabled',
-            Renaming = 'Renaming',
-            Restoring = 'Restoring',
-            SendDisabled = 'SendDisabled',
-            Unknown = 'Unknown'
+            Active = "Active",
+            Creating = "Creating",
+            Deleting = "Deleting",
+            Disabled = "Disabled",
+            ReceiveDisabled = "ReceiveDisabled",
+            Renaming = "Renaming",
+            Restoring = "Restoring",
+            SendDisabled = "SendDisabled",
+            Unknown = "Unknown"
         }
 
         export enum EntityAvailabilityStatus {
-            Available = 'Available',
-            Limited = 'Limited',
-            Renaming = 'Renaming',
-            Restoring = 'Restoring',
-            Unknown = 'Unknown'
+            Available = "Available",
+            Limited = "Limited",
+            Renaming = "Renaming",
+            Restoring = "Restoring",
+            Unknown = "Unknown"
         }
 
         interface Base {
@@ -187,7 +223,7 @@ export namespace Azure.ServiceBus {
                 updated: DateString;
                 author?: {
                     name: string;
-                };
+                } | undefined;
                 link: string;
             };
             CreatedAt: DateString;
@@ -214,11 +250,12 @@ export namespace Azure.ServiceBus {
         //   [x: string]: string | Dictionary<string | object>;
         // }
 
-        export const ActiveMessageCount = 'd2p1:ActiveMessageCount';
-        export const DeadLetterMessageCount = 'd2p1:DeadLetterMessageCount';
-        export const ScheduledMessageCount = 'd2p1:ScheduledMessageCount';
-        export const TransferMessageCount = 'd2p1:TransferMessageCount';
-        export const TransferDeadLetterMessageCount = 'd2p1:TransferDeadLetterMessageCount';
+        export const ActiveMessageCount = "d2p1:ActiveMessageCount";
+        export const DeadLetterMessageCount = "d2p1:DeadLetterMessageCount";
+        export const ScheduledMessageCount = "d2p1:ScheduledMessageCount";
+        export const TransferMessageCount = "d2p1:TransferMessageCount";
+        export const TransferDeadLetterMessageCount =
+            "d2p1:TransferDeadLetterMessageCount";
 
         export interface Topic extends ExtendedBase {
             AccessedAt: DateString;
@@ -258,8 +295,8 @@ export namespace Azure.ServiceBus {
          */
         interface SqlFilter {
             readonly CompatibilityLevel: string;
-            Parameters?: Dictionary<any>;
-            RequiresPreprocessing?: string;
+            Parameters?: Dictionary<any> | undefined;
+            RequiresPreprocessing?: string | undefined;
             SqlExpression: string;
         }
 
@@ -288,31 +325,43 @@ export namespace Azure.ServiceBus {
     /*
      * Callbacks
      */
-    export type ResponseCallback = (error: Error | null, response: Response) => void;
+    export type ResponseCallback = (
+        error: Error | null,
+        response: Response
+    ) => void;
 
-    export type ResultAndResponseCallback = (error: Error | null,
-                                             result: boolean | Results.Models.Base | Results.Models.Base[],
-                                             response: Response) => void;
+    export type ResultAndResponseCallback = (
+        error: Error | null,
+        result: boolean | Results.Models.Base | Results.Models.Base[],
+        response: Response
+    ) => void;
 
-    export type TypedResultAndResponseCallback<T> = (error: Error | null,
-                                                     result: T,
-                                                     response: Response) => void;
+    export type TypedResultAndResponseCallback<T> = (
+        error: Error | null,
+        result: T,
+        response: Response
+    ) => void;
 
     /*
      * Options interfaces with all properties as optional
      */
     export type BrokerProperties = Partial<IBrokerProperties>;
-    export type BrokerPropertiesResponse = IBrokerPropertiesResponse & Partial<IBrokerProperties>;
+    export type BrokerPropertiesResponse = IBrokerPropertiesResponse &
+        Partial<IBrokerProperties>;
     export type CreateQueueOptions = Partial<IQueueOptions>;
     export type CreateTopicOptions = Partial<ICreateTopicOptions>;
-    export type CreateTopicIfNotExistsOptions = Partial<ICreateTopicIfNotExistsOptions>;
+    export type CreateTopicIfNotExistsOptions = Partial<
+        ICreateTopicIfNotExistsOptions
+    >;
     export type CreateSubscriptionOptions = Partial<ICreateSubscriptionOptions>;
     export type ListSubscriptionsOptions = Partial<PaginationOptions>;
     export type ListRulesOptions = Partial<PaginationOptions>;
     export type ListTopicsOptions = Partial<PaginationOptions>;
     export type ListQueuesOptions = Partial<PaginationOptions>;
     export type CreateRuleOptions = Partial<ICreateRuleOptions>;
-    export type CreateNotificationHubOptions = Partial<ICreateNotificationHubOptions>;
+    export type CreateNotificationHubOptions = Partial<
+        ICreateNotificationHubOptions
+    >;
     export type ListNotificationHubsOptions = Partial<PaginationOptions>;
 
     export type MessageOrName = Message | string;

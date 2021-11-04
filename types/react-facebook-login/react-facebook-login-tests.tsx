@@ -1,13 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
+import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo, ReactFacebookLoginProps } from 'react-facebook-login';
 
 const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);
 };
 
 const failureResponseFacebook = (response: ReactFacebookFailureResponse) => {
+    console.log(response);
+};
+
+const loginInfoOrFailureResponse = (response: ReactFacebookLoginInfo | ReactFacebookLoginInfo) => {
     console.log(response);
 };
 
@@ -22,6 +25,16 @@ ReactDOM.render(
         fields="name,email,picture"
         onClick={componentClicked}
         callback={responseFacebook} />,
+    document.getElementById('demo')
+);
+
+ReactDOM.render(
+    <FacebookLogin
+        appId="1088597931155576"
+        autoLoad={true}
+        fields="name,email,picture"
+        onClick={componentClicked}
+        callback={loginInfoOrFailureResponse} />,
     document.getElementById('demo')
 );
 
@@ -106,3 +119,9 @@ class MyComponent2 extends React.Component {
         );
     }
 }
+
+type FacebookLoginWrapperProps = ReactFacebookLoginProps & { className?: string | undefined };
+
+export const FacebookLoginWrapper = ({ className, ...props }: FacebookLoginWrapperProps) => (
+    <FacebookLogin {...props} cssClass={className} />
+);

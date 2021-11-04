@@ -13,8 +13,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@tinajs/tina": ["tinajs__tina"],
-            "@tinajs/tina-redux": ["tinajs__tina-redux"]
+            "@tinajs/*": ["tinajs__*"]
         }
     },
     "files": ["index.d.ts", "tinajs__tina-redux-tests.ts"]

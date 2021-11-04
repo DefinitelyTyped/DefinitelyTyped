@@ -1,8 +1,12 @@
-// Type definitions for ember-modal-dialog 2.4
+// Type definitions for ember-modal-dialog 3.0
 // Project: https://github.com/yapplabs/ember-modal-dialog#readme
 // Definitions by: Frank Tan <https://github.com/tansongyang>
+//                 Mike North <https://github.com/mike-north>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 declare module 'ember-modal-dialog/components/modal-dialog' {
     import Ember from 'ember';

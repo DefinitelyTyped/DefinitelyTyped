@@ -1,5 +1,5 @@
 // Type definitions for first-mate 7.x
-// Project: https://github.com/atom/first-mate/
+// Project: https://github.com/atom/first-mate/, http://atom.github.io/first-mate
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -55,7 +55,10 @@ export class GrammarRegistry {
     maxTokensPerLine: number;
     maxLineLength: number;
 
-    constructor(options?: { maxTokensPerLine?: number, maxLineLength?: number });
+    constructor(options?: {
+        maxTokensPerLine?: number | undefined,
+        maxLineLength?: number | undefined
+    });
 
     // Event Subscription
     /**
@@ -193,18 +196,18 @@ export class ScopeSelector {
 // specific API calls.
 
 export interface GrammarOptions {
-    name?: string;
-    fileTypes?: ReadonlyArray<string>;
-    scopeName?: string;
-    foldingStopMarker?: string;
-    maxTokensPerLine?: number;
-    maxLineLength?: number;
+    name?: string | undefined;
+    fileTypes?: ReadonlyArray<string> | undefined;
+    scopeName?: string | undefined;
+    foldingStopMarker?: string | undefined;
+    maxTokensPerLine?: number | undefined;
+    maxLineLength?: number | undefined;
 
-    injections?: object;
-    injectionSelector?: ScopeSelector;
-    patterns?: ReadonlyArray<object>;
-    repository?: object;
-    firstLineMatch?: boolean;
+    injections?: object | undefined;
+    injectionSelector?: ScopeSelector | undefined;
+    patterns?: ReadonlyArray<object> | undefined;
+    repository?: object | undefined;
+    firstLineMatch?: boolean | undefined;
 }
 
 // Structures =================================================================

@@ -3,64 +3,40 @@ import * as tryer from "tryer";
 tryer(); // $ExpectError
 
 // $ExpectError
-tryer({
-    action: null
-});
+tryer({ action: null });
 
 // $ExpectError
-tryer({
-    fail: null
-});
+tryer({ fail: null });
 
 // $ExpectError
-tryer({
-    fail: null
-});
+tryer({ fail: null });
 
 // $ExpectError
-tryer({
-    interval: null
-});
+tryer({ interval: null });
 
 // $ExpectError
-tryer({
-    limit: null
-});
+tryer({ limit: null });
 
 // $ExpectError
-tryer({
-    pass: null
-});
+tryer({ pass: null });
 
 // $ExpectError
-tryer({
-    until: null
-});
+tryer({ until: null });
 
 // $ExpectError
-tryer({
-    when: null
-});
+tryer({ when: null });
 
 // $ExpectError
-tryer({
-    when: () => 1
-});
+tryer({ when: () => 1 });
 
 // $ExpectError
-tryer({
-    until: () => 1
-});
+tryer({ until: () => 1 });
 
 // $ExpectError
-tryer({
-    limit: "notNumber"
-});
+tryer({ limit: "notNumber" });
 
 // $ExpectError
-tryer({
-    interval: "notNumber"
-});
+tryer({ interval: "notNumber" });
 
 tryer({});
 

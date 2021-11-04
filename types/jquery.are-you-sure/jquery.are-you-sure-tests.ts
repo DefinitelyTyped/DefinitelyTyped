@@ -7,5 +7,5 @@ $("test").areYouSure({
     dirtyClass: "soiled",
     fieldSelector: "input[type='text']",
     change: function () { alert("changed");},
-	silent: true
+    silent: true
 })

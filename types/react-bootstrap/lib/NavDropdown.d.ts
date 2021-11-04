@@ -4,8 +4,8 @@ import { DropdownBaseProps } from './Dropdown';
 
 declare namespace NavDropdown {
     export interface NavDropdownBaseProps extends DropdownBaseProps {
-        active?: boolean;
-        noCaret?: boolean;
+        active?: boolean | undefined;
+        noCaret?: boolean | undefined;
         eventKey?: any;
         title: React.ReactNode;
     }

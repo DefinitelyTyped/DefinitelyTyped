@@ -1,4 +1,5 @@
-import yoga, { Node, Config, Size, Value, DISPLAY_FLEX } from 'yoga-layout';
+import yoga = require('yoga-layout');
+const { Node, Config, DISPLAY_FLEX } = yoga;
 
 const cfg = Config.create();
 
@@ -15,6 +16,11 @@ node1.setHeight(100);
 node1.setDisplay(DISPLAY_FLEX);
 
 const node2 = Node.create();
+node2.setMeasureFunc((_width: number, _widthMeasureMode: yoga.YogaMeasureMode, _height: number, _heightMeasureMode: yoga.YogaMeasureMode) => ({
+    width: 100,
+    height: 100
+}));
+node2.unsetMeasureFunc();
 node2.setWidth(100);
 node2.setHeight(100);
 

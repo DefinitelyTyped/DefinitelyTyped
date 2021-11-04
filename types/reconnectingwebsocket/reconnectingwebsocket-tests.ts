@@ -1,6 +1,6 @@
-import ReconnectingWebSocket, { Options } from "reconnectingwebsocket";
+import ReconnectingWebSocket = require("reconnectingwebsocket");
 
-const options: Options = {
+const options: ReconnectingWebSocket.Options = {
     automaticOpen: false,
     binaryType: "blob",
     debug: false,
@@ -21,25 +21,35 @@ ReconnectingWebSocket.OPEN = WebSocket.OPEN;
 ReconnectingWebSocket.CLOSING = WebSocket.CLOSING;
 ReconnectingWebSocket.CLOSED = WebSocket.CLOSED;
 
-ws1.onclose = (event: any) => {
+const closeListener = (event: CustomEvent<undefined>) => {
+    console.log(event.type);
+};
+ws1.onclose = closeListener;
+ws2.addEventListener('close', closeListener);
+ws2.removeEventListener('close', closeListener);
+
+ws2.onconnecting = (event) => {
+    console.log(event.type, 'was clean?', event.wasClean);
 };
 
-ws2.onconnecting = (event: any) => {
-};
-
-ws3.onerror = (event: any) => {
+ws3.onerror = (event) => {
+    console.log(event.type);
 };
 
 ws1.onmessage = (event: any) => {
+    console.log(event.type, event.data);
 };
 
-ws1.onopen = (event: any) => {
+ws1.onopen = (event) => {
+    console.log(event.type, 'is reconnect?', event.isReconnect);
 };
 
 ws1.open(true);
 
+ws1.debug = true;
+
 ws1.refresh();
 
-ws1.send({});
+ws1.send(JSON.stringify({}));
 
 ws1.close();

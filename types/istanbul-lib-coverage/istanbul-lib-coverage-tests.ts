@@ -1,36 +1,39 @@
 import {
-	CoverageMapData,
-	CoverageSummary,
-	FileCoverageData,
-	createCoverageSummary,
-	createCoverageMap,
-	createFileCoverage
+    CoverageMapData,
+    CoverageSummaryData,
+    FileCoverageData,
+    FileCoverage,
+    createCoverageSummary,
+    createCoverageMap,
+    createFileCoverage
 } from 'istanbul-lib-coverage';
 
-const summaryData: CoverageSummary = {
-	lines: { total: 0, covered: 0, skipped: 0, pct: 0 },
-	statements: { total: 0, covered: 0, skipped: 0, pct: 0 },
-	functions: { total: 0, covered: 0, skipped: 0, pct: 0 },
-	branches: { total: 0, covered: 0, skipped: 0, pct: 0 }
+const summaryData: CoverageSummaryData = {
+    lines: { total: 0, covered: 0, skipped: 0, pct: 0 },
+    statements: { total: 0, covered: 0, skipped: 0, pct: 0 },
+    functions: { total: 0, covered: 0, skipped: 0, pct: 0 },
+    branches: { total: 0, covered: 0, skipped: 0, pct: 0 }
 };
 
 const coverageMapData: CoverageMapData = {};
 
 const fileCoverageData: FileCoverageData = {
-	path: 'foo',
-	statementMap: {},
-	fnMap: {},
-	branchMap: {},
-	s: {},
-	f: {},
-	b: {}
+    path: 'foo',
+    statementMap: {},
+    fnMap: {},
+    branchMap: {},
+    s: {},
+    f: {},
+    b: {}
 };
 
-const summary = createCoverageSummary(summaryData);
-summary.branches;
-summary.lines;
-summary.functions;
-summary.statements;
+const summary1 = createCoverageSummary(summaryData);
+summary1.data;
+summary1.branches;
+summary1.lines;
+summary1.functions;
+summary1.statements;
+const summary2 = createCoverageSummary(summary1);
 
 const map1 = createCoverageMap(coverageMapData);
 map1.data;
@@ -43,6 +46,11 @@ const fileCoverage2 = createFileCoverage(fileCoverage1.data);
 fileCoverage2.data;
 const fileCoverage3 = createFileCoverage(fileCoverageData);
 fileCoverage3.data;
+
+// CoverageSummary methods and properties
+summary1.isEmpty();
+summary1.toJSON();
+summary1.merge(summary2);
 
 // CoverageMap methods and properties
 map1.addFileCoverage('foo.js');
@@ -63,3 +71,10 @@ fileCoverage1.resetHits();
 fileCoverage1.computeBranchTotals().skipped;
 fileCoverage1.computeSimpleTotals().skipped;
 isNaN(fileCoverage1.toSummary().branches.total);
+
+// CoverageMapData can contain FileCoverageData
+const coverageMapData2: CoverageMapData = {
+    abc: fileCoverageData
+  };
+const map3 = createCoverageMap(coverageMapData2);
+const fileCoverage4: FileCoverage = map3.fileCoverageFor('abc');

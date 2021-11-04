@@ -11,15 +11,4 @@ function testConfigure() {
     });
 }
 
-function testConfigureTestCase() {
-    const test = sinonTest.configureTestCase(sinon, {
-    injectIntoThis: true,
-    injectInto: true,
-    properties: ["spy", "stub", "mock", "clock", "server", "requests"],
-    useFakeTimers: true,
-    useFakeServer: true
-    });
-}
-
 testConfigure();
-testConfigureTestCase();

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let pending = 0;
+const pending = 0;
 Ember.Test.registerWaiter(() => pending !== 0);
 
 declare const MyDb: {
@@ -8,20 +8,20 @@ declare const MyDb: {
 };
 Ember.Test.registerWaiter(MyDb, MyDb.hasPendingTransactions);
 
-Ember.Test.promise(function(resolve) {
+Ember.Test.promise(resolve => {
     window.setTimeout(resolve, 500);
 });
 
-Ember.Test.registerHelper('boot', function(app) {
+Ember.Test.registerHelper('boot', app => {
     Ember.run(app, app.advanceReadiness);
 });
 
-Ember.Test.registerAsyncHelper('boot', function(app) {
+Ember.Test.registerAsyncHelper('boot', app => {
     Ember.run(app, app.advanceReadiness);
 });
 
 Ember.Test.registerAsyncHelper('waitForPromise', (app, promise) => {
-    return new Ember.Test.Promise((resolve) => {
+    return new Ember.Test.Promise(resolve => {
         Ember.Test.adapter.asyncStart();
 
         promise.then(() => {

@@ -4,12 +4,12 @@ import express = require('express');
 let app = express();
 
 request(app)
-	.get('/')
+    .get('/')
   .expect(200)
-	.end()
-	.then(function(res) {
+    .end()
+    .then(function(res) {
     // blah blah blah
   })
-	.catch(function(err) {
+    .catch(function(err) {
     throw err;
   });

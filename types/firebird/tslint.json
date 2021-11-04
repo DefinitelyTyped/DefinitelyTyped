@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
         "ban-types": false,
         "no-boolean-literal-compare": false,
         "no-declare-current-package": false,

@@ -1,20 +1,20 @@
 // Type definitions for vanilla-modal 1.6
-// Project: https://github.com/benceg/vanilla-modal
+// Project: https://github.com/benceg/vanilla-modal, https://github.com/thephuse/vanilla-modal
 // Definitions by: Sam Nau <https://github.com/samnau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface VanillaModalConfig {
-  modal?: string | HTMLElement;
-  modalInner?: string;
-  modalContent?: string;
-  open?: string;
-  close?: string;
-  page?: string;
-  class?: string;
-  loadClass?: string;
-  clickOutside?: boolean;
-  closeKeys?: number[] | undefined[] | boolean;
-  transitions?: string;
+  modal?: string | HTMLElement | undefined;
+  modalInner?: string | undefined;
+  modalContent?: string | undefined;
+  open?: string | undefined;
+  close?: string | undefined;
+  page?: string | undefined;
+  class?: string | undefined;
+  loadClass?: string | undefined;
+  clickOutside?: boolean | undefined;
+  closeKeys?: number[] | undefined[] | boolean | undefined;
+  transitions?: string | undefined;
   transitionEnd?(): undefined;
   onBeforeOpen?(): undefined;
   onBeforeClose?(): undefined;

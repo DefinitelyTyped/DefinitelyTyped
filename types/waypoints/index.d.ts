@@ -2,19 +2,19 @@
 // Project: https://github.com/imakewebthings/waypoints
 // Definitions by: Dominik Bułaj <https://github.com/dominikbulaj>, Alexey Kolotovchenkov <https://github.com/Koloto>, Sergei Dorogin <https://github.com/evil-shrike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 interface WaypointOptionsBase {
-    offset?: string|number|(() => number);
-    continuous?: boolean;
-    enabled?: boolean;
-    group?: string;
-    horizontal?: boolean;
+    offset?: string|number|(() => number) | undefined;
+    continuous?: boolean | undefined;
+    enabled?: boolean | undefined;
+    group?: string | undefined;
+    horizontal?: boolean | undefined;
 }
 interface WaypointOptions extends WaypointOptionsBase {
     element: HTMLElement;
     handler: (this: Waypoint, direction?: string) => void;
-    context?: HTMLElement;
+    context?: HTMLElement | undefined;
 }
 
 declare class WaypointGroup {

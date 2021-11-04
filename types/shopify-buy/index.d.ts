@@ -1,8 +1,11 @@
-// Type definitions for shopify-buy 1.4.0
-// Project: http://shopify.github.io/js-buy-sdk/api/
+// Type definitions for shopify-buy 2.10
+// Project: https://github.com/Shopify/js-buy-sdk#readme
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
+//                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
+//                 Chris Worman <https://github.com/chrisworman-pela>
+//                 Maciej Baron <https://github.com/MaciekBaron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -30,6 +33,7 @@ declare namespace ShopifyBuy {
     export interface Config {
         domain: string;
         storefrontAccessToken: string;
+        language?: string | undefined;
     }
 
     export interface ProductResource {
@@ -40,9 +44,9 @@ declare namespace ShopifyBuy {
         fetchQuery(query: Query): Promise<Product[]>;
 
         /**
-        *   Product Helper Namespace
-        *   @link https://shopify.github.io/js-buy-sdk/ProductResource.html
-        */
+         *   Product Helper Namespace
+         *   @link https://shopify.github.io/js-buy-sdk/ProductResource.html
+         */
         variantForOptions(product: Product, options: Option): ProductVariant;
     }
 
@@ -61,20 +65,17 @@ declare namespace ShopifyBuy {
             lineItems?: LineItem[],
             shippingAddress?: Address,
             note?: string,
-            customAttributes?: AttributeInput[]
+            customAttributes?: AttributeInput[],
         ): Promise<Cart>;
 
         fetch(id: string): Promise<Cart>;
 
-        addLineItems(checkoutId: string | number, lineItems: LineItem[]): Promise<Cart>;
+        addLineItems(checkoutId: string | number, lineItems: LineItemToAdd[]): Promise<Cart>;
 
         /**
          * Remove all line items from cart
          */
-        clearLineItems(
-            checkoutId: string | number,
-            lineItems: LineItem[]
-        ): Promise<Cart>;
+        clearLineItems(checkoutId: string | number, lineItems: LineItem[]): Promise<Cart>;
 
         /**
          * Add items to cart. Updates cart's lineItems
@@ -84,18 +85,22 @@ declare namespace ShopifyBuy {
         /**
          * Remove a line item from cart based on line item id
          */
-        removeLineItem(
-            checkoutId: string | number,
-            lineItemIds: string[]
-        ): Promise<Cart>;
+        removeLineItems(checkoutId: string | number, lineItemIds: string[]): Promise<Cart>;
 
         /**
-         * Update a line item quantity based on line item id
+         * Add discount to cart
          */
-        updateLineItem(
-            checkoutId:  string | number,
-            lineItems: AttributeInput[]
-        ): Promise<Cart>;
+        addDiscount(checkoutId: string | number, discountCode: string): Promise<Cart>;
+
+        /**
+         * Remove discounts from cart
+         */
+        removeDiscount(checkoutId: string | number): Promise<Cart>;
+
+        /**
+         * Update line item quantities based on an array of line item ids
+         */
+        updateLineItems(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
     }
 
     export interface ShopResource {
@@ -104,18 +109,18 @@ declare namespace ShopifyBuy {
     }
 
     export interface Query {
-     /**
-      * query: title, collection_type, updated_at
-      * TODO probably will remove before Defintely Typed PR,
-      * as their  community guidelines
-      */
+        /**
+         * query: title, collection_type, updated_at
+         * TODO probably will remove before Defintely Typed PR,
+         * as their  community guidelines
+         */
         query: string;
-        sortBy: string;
-        after?: string;
-        before?: string;
-        first?: string;
-        last?: string;
-        reverse?: boolean;
+        sortKey: string;
+        after?: string | undefined;
+        before?: string | undefined;
+        first?: number | undefined;
+        last?: number | undefined;
+        reverse?: boolean | undefined;
     }
 
     export interface Product extends GraphModel {
@@ -239,10 +244,10 @@ declare namespace ShopifyBuy {
         title: string;
 
         /*
-        * Get a checkout url for a specific product variant.
-        * You can optionally pass a quantity.
-        * If no quantity is passed then quantity will default to 1.
-        */
+         * Get a checkout url for a specific product variant.
+         * You can optionally pass a quantity.
+         * If no quantity is passed then quantity will default to 1.
+         */
         checkoutUrl(quantitiy: number): string;
     }
 
@@ -270,6 +275,11 @@ declare namespace ShopifyBuy {
         name: string;
         option_id: string;
         value: any;
+    }
+
+    export interface CustomAttribute {
+        key: string;
+        value: string;
     }
 
     export interface Collection {
@@ -314,6 +324,11 @@ declare namespace ShopifyBuy {
          * Example: two items have been added to the cart that cost $1.25 then the subtotal will be 2.50
          */
         subtotalPrice: string;
+
+        /**
+         * Get completed at date.
+         */
+        completedAt: string | null;
     }
 
     export interface LineItem extends GraphModel {
@@ -322,7 +337,7 @@ declare namespace ShopifyBuy {
          * previously before the product went on sale.
          * If no compareAtPrice is set then this value will be null. An example value: "5.00".
          */
-        compare_at_price: string;
+        compareAtPrice: string | null;
 
         /**
          * Variant's weight in grams. If no weight is set then 0 is returned.
@@ -343,7 +358,7 @@ declare namespace ShopifyBuy {
          * The total price for this line item. For instance if the variant costs 1.50 and you have a
          * quantity of 2 then line_price will be 3.00.
          */
-        line_price: string;
+        linePrice: string;
 
         /**
          * Price of the variant. For example: "5.00".
@@ -353,7 +368,7 @@ declare namespace ShopifyBuy {
         /**
          * ID of variant's product.
          */
-        product_id: string | number;
+        productId: string | number;
 
         /**
          * Count of variants to order.
@@ -368,12 +383,18 @@ declare namespace ShopifyBuy {
         /**
          * ID of line item variant.
          */
-        variant_id: string | number;
+        variantId: string | number;
 
         /**
          * Title of variant.
          */
-        variant_title: string;
+        variantTitle: string;
+    }
+
+    export interface LineItemToAdd {
+        variantId: string | number;
+        quantity: number;
+        customAttributes?: CustomAttribute[] | undefined;
     }
 
     export interface Item {
@@ -394,16 +415,16 @@ declare namespace ShopifyBuy {
         zip: String;
     }
 
-     /**
+    /**
      *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/attributeinput
      *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/checkoutlineitemupdateinput
      */
     export interface AttributeInput {
-        key?: string;
-        value?: string;
-        id?: string | number;
-        quantity?: number;
-        variantId?: string;
+        key?: string | undefined;
+        value?: string | undefined;
+        id?: string | number | undefined;
+        quantity?: number | undefined;
+        variantId?: string | undefined;
     }
 
     /**
@@ -411,7 +432,6 @@ declare namespace ShopifyBuy {
      * Derived from REST API Docs: https://help.shopify.com/api/custom-storefronts/storefront-api/reference/object/shop#fields
      */
     export interface Shop {
-
         description: string;
         moneyFormat: string;
         name: string;
@@ -444,10 +464,10 @@ declare namespace ShopifyBuy {
         dimensions: string;
         src: string;
         /**
-        * Returns src URL for new image size/variant
-        * @param image The image you would like a different size for.
-        * @param options Image Max width and height configuration.
-        */
+         * Returns src URL for new image size/variant
+         * @param image The image you would like a different size for.
+         * @param options Image Max width and height configuration.
+         */
         imageForSize(image: Image, options: ImageOptions): string;
     }
 
@@ -459,14 +479,14 @@ declare namespace ShopifyBuy {
     let NO_IMAGE_URI: string;
 
     /*
-    *   Base Model for the higher level returned objects from the API using GraphQL
-    */
+     *   Base Model for the higher level returned objects from the API using GraphQL
+     */
     export interface GraphModel {
-        attrs?: any
-        onlineStoreUrl?: string
+        attrs?: any;
+        onlineStoreUrl?: string | undefined;
     }
 }
 
-declare module "shopify-buy" {
+declare module 'shopify-buy' {
     export = ShopifyBuy;
 }

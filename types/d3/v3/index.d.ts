@@ -3,9 +3,12 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Matthias Jobst <https://github.com/MatthiasJobst>
+//                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
+//                 Mihai Cherej <https://github.com/cronco>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Latest patch version of module validated against: 3.5.17
+// Latest patch version of module validated against: 3.5.18
 
 export = d3;
 export as namespace d3;
@@ -235,7 +238,7 @@ declare namespace d3 {
              * @param name the element name to append. May be prefixed (see d3.ns.prefix).
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert 
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert
             insert(name: string, before?: string): Update<Datum>;
 
             /**
@@ -934,7 +937,7 @@ declare namespace d3 {
 
     interface BaseEvent {
         type: string;
-        sourceEvent?: Event;
+        sourceEvent?: Event | undefined;
     }
 
     /**
@@ -2576,9 +2579,11 @@ declare namespace d3 {
             tickPadding(): number;
             tickPadding(padding: number): Axis;
 
-            tickFormat(): (t: any) => string;
-            tickFormat(format: (t: any) => string): Axis;
+            tickFormat(): (t: any , index : number) => string;
+            tickFormat(format: (t: any , index : number) => string): Axis;
             tickFormat(format: string): Axis;
+
+            tickSubdivide(...args: any[]): Axis;
         }
 
         export function brush(): Brush<any, number, number>;
@@ -2840,11 +2845,11 @@ declare namespace d3 {
 
         namespace cluster {
             interface Result {
-                parent?: Result;
-                children?: Result[];
-                depth?: number;
-                x?: number;
-                y?: number;
+                parent?: Result | undefined;
+                children?: Result[] | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
             }
 
             interface Link<T extends Result> {
@@ -2892,13 +2897,13 @@ declare namespace d3 {
             }
 
             interface Node {
-                index?: number;
-                x?: number;
-                y?: number;
-                px?: number;
-                py?: number;
-                fixed?: boolean;
-                weight?: number;
+                index?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                px?: number | undefined;
+                py?: number | undefined;
+                fixed?: boolean | undefined;
+                weight?: number | undefined;
             }
 
             interface Event {
@@ -2965,10 +2970,10 @@ declare namespace d3 {
 
         namespace hierarchy {
             interface Result {
-                parent?: Result;
-                children?: Result[];
-                value?: number;
-                depth?: number;
+                parent?: Result | undefined;
+                children?: Result[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
             }
         }
 
@@ -3022,13 +3027,13 @@ declare namespace d3 {
 
         namespace pack {
             interface Node {
-                parent?: Node;
-                children?: Node[];
-                value?: number;
-                depth?: number;
-                x?: number;
-                y?: number;
-                r?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                r?: number | undefined;
             }
 
             interface Link<T extends Node> {
@@ -3074,14 +3079,14 @@ declare namespace d3 {
             }
 
             interface Node {
-                parent?: Node;
-                children?: number;
-                value?: number;
-                depth?: number;
-                x?: number;
-                y?: number;
-                dx?: number;
-                dy?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                dx?: number | undefined;
+                dy?: number | undefined;
             }
 
         }
@@ -3126,6 +3131,7 @@ declare namespace d3 {
             value(accessor: (datum: T, index: number) => number): Pie<T>;
 
             sort(): (a: T, b: T) => number;
+            sort(comparator: null): Pie<T>;
             sort(comparator: (a: T, b: T) => number): Pie<T>;
 
             startAngle(): number | ((data: T[], index: number) => number);
@@ -3148,7 +3154,7 @@ declare namespace d3 {
             interface Value {
                 x: number;
                 y: number;
-                y0?: number;
+                y0?: number | undefined;
             }
         }
 
@@ -3193,11 +3199,11 @@ declare namespace d3 {
             }
 
             interface Node {
-                parent?: Node;
-                children?: Node[];
-                depth?: number;
-                x?: number;
-                y?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
             }
         }
 
@@ -3232,14 +3238,14 @@ declare namespace d3 {
 
         namespace treemap {
             interface Node {
-                parent?: Node;
-                children?: Node[];
-                value?: number;
-                depth?: number;
-                x?: number;
-                y?: number;
-                dx?: number;
-                dy?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                dx?: number | undefined;
+                dy?: number | undefined;
             }
 
             interface Link<T extends Node> {

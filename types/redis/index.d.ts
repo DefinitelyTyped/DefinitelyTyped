@@ -1,5 +1,5 @@
 // Type definitions for redis 2.8
-// Project: https://github.com/mranney/node_redis
+// Project: https://github.com/NodeRedis/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Peter Harris <https://github.com/CodeAnimal>
 //                 TANAKA Koichi <https://github.com/MugeSo>
@@ -7,6 +7,13 @@
 //                 Junyoung Choi <https://github.com/Rokt33r>
 //                 James Garbutt <https://github.com/43081j>
 //                 Bartek Szczepański <https://github.com/barnski>
+//                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Stanislav Dzhus <https://github.com/blablapolicja>
+//                 Jake Ferrante <https://github.com/ferrantejake>
+//                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
+//                 Ryo Ota <https://github.com/nwtgck>
+//                 Thomas de Barochez <https://github.com/tdebarochez>
+//                 David Stephens <https://github.com/dwrss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -23,32 +30,185 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | unknown;
 
+/**
+ * Client options.
+ * @see https://github.com/NodeRedis/node-redis#user-content-options-object-properties
+ */
 export interface ClientOpts {
-    host?: string;
-    port?: number;
-    path?: string;
-    url?: string;
-    parser?: string;
-    string_numbers?: boolean;
-    return_buffers?: boolean;
-    detect_buffers?: boolean;
-    socket_keepalive?: boolean;
-    no_ready_check?: boolean;
-    enable_offline_queue?: boolean;
-    retry_max_delay?: number;
-    connect_timeout?: number;
-    max_attempts?: number;
-    retry_unfulfilled_commands?: boolean;
-    auth_pass?: string;
-    password?: string;
-    db?: string | number;
-    family?: string;
-    rename_commands?: { [command: string]: string } | null;
+    /**
+     * IP address of the Redis server.
+     * @default 127.0.0.1
+     */
+    host?: string | undefined;
+    /**
+     * Port of the Redis server.
+     * @default 6379
+     */
+    port?: number | undefined;
+    /**
+     * The UNIX socket string of the Redis server.
+     * @default null
+     */
+    path?: string | undefined;
+    /**
+     * The URL of the Redis server.\
+     * Format:
+     * [redis[s]:]//[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]\
+     * More info avaliable at [IANA](http://www.iana.org/assignments/uri-schemes/prov/redis).
+     * @default null
+     */
+    url?: string | undefined;
+    parser?: string | undefined;
+    /**
+     * Set to `true`, Node Redis will return Redis number values as Strings instead of javascript Numbers.
+     * Useful if you need to handle big numbers (above `Number.MAX_SAFE_INTEGER` === 2^53).
+     * Hiredis is incapable of this behavior, so setting this option to `true`
+     * will result in the built-in javascript parser being used no matter
+     * the value of the `parser` option.
+     * @default null
+     */
+    string_numbers?: boolean | undefined;
+    /**
+     * If set to `true`, then all replies will be sent to callbacks as Buffers instead of Strings.
+     * @default false
+     */
+    return_buffers?: boolean | undefined;
+    /**
+     * If set to `true`, then replies will be sent to callbacks as Buffers.
+     * This option lets you switch between Buffers and Strings on a per-command basis,
+     * whereas `return_buffers` applies to every command on a client.\
+     * **Note**: This doesn't work properly with the pubsub mode.
+     * A subscriber has to either always return Strings or Buffers.
+     * @default false
+     */
+    detect_buffers?: boolean | undefined;
+    /**
+     * If set to `true`, the keep-alive functionality is enabled on the underlying socket.
+     * @default true
+     */
+    socket_keepalive?: boolean | undefined;
+    /**
+     * Initial Delay in milliseconds.
+     * This will also set the initial delay for keep-alive packets being sent to Redis.
+     * @default 0
+     */
+    socket_initial_delay?: number | undefined;
+    /**
+     * When a connection is established to the Redis server,
+     * the server might still be loading the database from disk.
+     * While loading, the server will not respond to any commands.
+     * To work around this, Node Redis has a "ready check" which sends the **INFO** command to the server.
+     * The response from the **INFO** command indicates whether the server is ready for more commands.
+     * When ready, **node_redis** emits a **ready** event.
+     * Setting `no_ready_check` to `true` will inhibit this check.
+     * @default false
+     */
+    no_ready_check?: boolean | undefined;
+    /**
+     * By default, if there is no active connection to the Redis server,
+     * commands are added to a queue and are executed once the connection has been established.
+     * Setting `enable_offline_queue` to `false` will disable this feature
+     * and the callback will be executed immediately with an error,
+     * or an error will be emitted if no callback is specified.
+     * @default true
+     */
+    enable_offline_queue?: boolean | undefined;
+    retry_max_delay?: number | undefined;
+    connect_timeout?: number | undefined;
+    max_attempts?: number | undefined;
+    /**
+     * If set to `true`, all commands that were unfulfilled while the connection is lost
+     * will be retried after the connection has been reestablished.
+     * Use this with caution if you use state altering commands (e.g. incr).
+     * This is especially useful if you use blocking commands.
+     * @default false
+     */
+    retry_unfulfilled_commands?: boolean | undefined;
+    auth_pass?: string | undefined;
+    /**
+     * If set, client will run Redis auth command on connect.
+     * Alias `auth_pass`.\
+     * **Note**: Node Redis < 2.5 must use `auth_pass`.
+     * @default null
+     */
+    password?: string | undefined;
+    /**
+     * If set, client will run Redis **select** command on connect.
+     * @default null
+     */
+    db?: string | number | undefined;
+    /**
+     * You can force using IPv6 if you set the family to **IPv6**.
+     * @see Node.js [net](https://nodejs.org/api/net.html)
+     * or [dns](https://nodejs.org/api/dns.html)
+     * modules on how to use the family type.
+     * @default IPv4
+     */
+    family?: string | undefined;
+    /**
+     * If set to `true`, a client won't resubscribe after disconnecting.
+     * @default false
+     */
+    disable_resubscribing?: boolean | undefined;
+    /**
+     * Passing an object with renamed commands to use instead of the original functions.
+     * For example, if you renamed the command **KEYS** to "DO-NOT-USE"
+     * then the `rename_commands` object would be: { KEYS : "DO-NOT-USE" }.
+     * @see the [Redis security topics](http://redis.io/topics/security) for more info.
+     * @default null
+     */
+    rename_commands?: { [command: string]: string } | null | undefined;
+    /**
+     * An object containing options to pass to
+     * [tls.connect](https://nodejs.org/api/tls.html#tls_tls_connect_port_host_options_callback)
+     * to set up a TLS connection to Redis
+     * (if, for example, it is set up to be accessible via a tunnel).
+     * @default null
+     */
     tls?: any;
-    prefix?: string;
-    retry_strategy?: RetryStrategy;
+    /**
+     * A string used to prefix all used keys (e.g. namespace:test).
+     * Please be aware that the **keys** command will not be prefixed.
+     * The **keys** command has a "pattern" as argument and no key
+     * and it would be impossible to determine the existing keys in Redis if this would be prefixed.
+     * @default null
+     */
+    prefix?: string | undefined;
+    /**
+     * A function that receives an options object as parameter including the retry `attempt`,
+     * the `total_retry_time` indicating how much time passed since the last time connected,
+     * the **error** why the connection was lost and the number of `times_connected` in total.
+     * If you return a number from this function, the retry will happen after that time in milliseconds.
+     * If you return a non-number, no further retry will happen
+     * and all offline commands are flushed with errors.
+     * Return an error to return that specific error to all offline commands.
+     * @default function
+     * @see interface `RetryStrategyOptions`
+     * @example
+     * const client = redis.createClient({
+     *   retry_strategy: function(options) {
+     *   if (options.error && options.error.code === "ECONNREFUSED") {
+     *     // End reconnecting on a specific error and flush all commands with
+     *     // a individual error
+     *     return new Error("The server refused the connection");
+     *   }
+     *   if (options.total_retry_time > 1000 * 60 * 60) {
+     *     // End reconnecting after a specific timeout and flush all commands
+     *     // with a individual error
+     *     return new Error("Retry time exhausted");
+     *   }
+     *   if (options.attempt > 10) {
+     *     // End reconnecting with built in error
+     *     return undefined;
+     *   }
+     *   // reconnect after
+     *   return Math.min(options.attempt * 100, 3000);
+     *   }
+     * });
+     */
+    retry_strategy?: RetryStrategy | undefined;
 }
 
 export type Callback<T> = (err: Error | null, reply: T) => void;
@@ -74,7 +234,7 @@ export interface OverloadedKeyCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
-    (key: string, arg1: T| T[], cb?: Callback<U>): R;
+    (key: string, arg1: T | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
     (...args: Array<string | T | Callback<U>>): R;
 }
@@ -97,6 +257,7 @@ export interface OverloadedSetCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
     (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
+    (args: [string, ...T[]], cb?: Callback<U>): R;
 }
 
 export interface OverloadedLastCommand<T1, T2, U, R> {
@@ -158,8 +319,8 @@ export interface Commands<R> {
     /**
      * Set multiple hash fields to multiple values.
      */
-    hmset: OverloadedSetCommand<string | number, boolean, R>;
-    HMSET: OverloadedSetCommand<string | number, boolean, R>;
+    hmset: OverloadedSetCommand<string | number, 'OK', R>;
+    HMSET: OverloadedSetCommand<string | number, 'OK', R>;
 
     /**
      * Listen for messages published to the given channels.
@@ -214,8 +375,8 @@ export interface Commands<R> {
     /**
      * Perform arbitrary bitfield integer operations on strings.
      */
-    bitfield: OverloadedKeyCommand<string | number, [number, number], R>;
-    BITFIELD: OverloadedKeyCommand<string | number, [number, number], R>;
+    bitfield: OverloadedKeyCommand<string | number, number[], R>;
+    BITFIELD: OverloadedKeyCommand<string | number, number[], R>;
 
     /**
      * Perform bitwise operations between strings.
@@ -254,8 +415,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
@@ -387,13 +548,17 @@ export interface Commands<R> {
      * Remove all keys from all databases.
      */
     flushall(cb?: Callback<string>): R;
+    flushall(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHALL(cb?: Callback<string>): R;
+    FLUSHALL(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Remove all keys from the current database.
      */
-    flushdb(cb?: Callback<string>): R;
-    FLUSHDB(cb?: Callback<string>): R;
+    flushdb(cb?: Callback<'OK'>): R;
+    flushdb(async: "ASYNC", cb?: Callback<string>): R;
+    FLUSHDB(cb?: Callback<'OK'>): R;
+    FLUSHDB(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -434,8 +599,8 @@ export interface Commands<R> {
     /**
      * Get the value of a key.
      */
-    get(key: string, cb?: Callback<string>): R;
-    GET(key: string, cb?: Callback<string>): R;
+    get(key: string, cb?: Callback<string | null>): R;
+    GET(key: string, cb?: Callback<string | null>): R;
 
     /**
      * Returns the bit value at offset in the string value stored at key.
@@ -488,8 +653,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a hash field by the given amount.
      */
-    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<number>): R;
-    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<number>): R;
+    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<string>): R;
+    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<string>): R;
 
     /**
      * Get all the fields of a hash.
@@ -512,8 +677,8 @@ export interface Commands<R> {
     /**
      * Set the string value of a hash field.
      */
-    hset(key: string, field: string, value: string, cb?: Callback<number>): R;
-    HSET(key: string, field: string, value: string, cb?: Callback<number>): R;
+    hset: OverloadedSetCommand<string, number, R>;
+    HSET: OverloadedSetCommand<string, number, R>;
 
     /**
      * Set the value of a hash field, only if the field does not exist.
@@ -548,8 +713,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a key by the given amount.
      */
-    incrbyfloat(key: string, increment: number, cb?: Callback<number>): R;
-    INCRBYFLOAT(key: string, increment: number, cb?: Callback<number>): R;
+    incrbyfloat(key: string, increment: number, cb?: Callback<string>): R;
+    INCRBYFLOAT(key: string, increment: number, cb?: Callback<string>): R;
 
     /**
      * Find all keys matching the given pattern.
@@ -838,10 +1003,12 @@ export interface Commands<R> {
     set(key: string, value: string, flag: string, cb?: Callback<'OK'>): R;
     set(key: string, value: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
     set(key: string, value: string, mode: string, duration: number, flag: string, cb?: Callback<'OK' | undefined>): R;
+    set(key: string, value: string, flag: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
     SET(key: string, value: string, cb?: Callback<'OK'>): R;
     SET(key: string, value: string, flag: string, cb?: Callback<'OK'>): R;
     SET(key: string, value: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
     SET(key: string, value: string, mode: string, duration: number, flag: string, cb?: Callback<'OK' | undefined>): R;
+    SET(key: string, value: string, flag: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key.
@@ -986,6 +1153,14 @@ export interface Commands<R> {
     TYPE(key: string, cb?: Callback<string>): R;
 
     /**
+     * Deletes a key in a non-blocking manner.
+     * Very similar to DEL, but actual memory reclamation
+     * happens in a different thread, making this non-blocking.
+     */
+    unlink: OverloadedCommand<string, number, R>;
+    UNLINK: OverloadedCommand<string, number, R>;
+
+    /**
      * Forget about all watched keys.
      */
     unwatch(cb?: Callback<'OK'>): R;
@@ -1024,8 +1199,8 @@ export interface Commands<R> {
     /**
      * Increment the score of a member in a sorted set.
      */
-    zincrby(key: string, increment: number, member: string, cb?: Callback<number>): R;
-    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<number>): R;
+    zincrby(key: string, increment: number, member: string, cb?: Callback<string>): R;
+    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<string>): R;
 
     /**
      * Intersect multiple sorted sets and store the resulting sorted set in a new key.
@@ -1078,8 +1253,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set.
      */
-    zrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Remove one or more members from a sorted set.
@@ -1128,8 +1303,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
      */
-    zrevrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZREVRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrevrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZREVRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Get the score associated with the given member in a sorted set.
@@ -1168,15 +1343,13 @@ export interface Commands<R> {
     ZSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
 }
 
-export const RedisClient: {
-    new (options: ClientOpts): RedisClient;
-};
+export const RedisClient: new (options: ClientOpts) => RedisClient;
 
 export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
-    retry_delay: number;
+    retry_delay: number | Error;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];
@@ -1207,9 +1380,6 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     send_command(command: string, cb?: Callback<any>): boolean;
     send_command(command: string, args?: any[], cb?: Callback<any>): boolean;
 
-    addCommand(command: string): void;
-    add_command(command: string): void;
-
     /**
      * Mark the start of a transaction block.
      */
@@ -1220,9 +1390,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi;
 }
 
-export const Multi: {
-    new (): Multi;
-};
+export const Multi: new () => Multi;
 
 export interface Multi extends Commands<Multi> {
     exec(cb?: Callback<any[]>): boolean;
@@ -1239,4 +1407,26 @@ export function createClient(unix_socket: string, options?: ClientOpts): RedisCl
 export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
 export function createClient(options?: ClientOpts): RedisClient;
 
+export function addCommand(command: string): void;
+export function add_command(command: string): void;
+
 export function print(err: Error | null, reply: any): void;
+
+export class RedisError extends Error {
+    name: string;
+}
+export class ReplyError extends RedisError {
+    command: string;
+    args?: unknown[] | undefined;
+    code: string;
+}
+export class AbortError extends RedisError {
+    command: string;
+    args?: unknown[] | undefined;
+    code?: string | undefined;
+}
+export class ParserError extends RedisError {
+    offset: number;
+    buffer: Buffer;
+}
+export class AggregateError extends AbortError { }

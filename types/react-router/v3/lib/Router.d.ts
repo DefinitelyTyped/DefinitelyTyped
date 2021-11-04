@@ -1,4 +1,4 @@
-import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from "react";
+import { Component, ComponentClass, ClassAttributes, ReactNode, FunctionComponent } from "react";
 import {
     Action,
     History,
@@ -13,13 +13,14 @@ import {
     Search
 } from "history";
 import { PlainRoute } from "react-router";
+import React = require("react");
 
 export interface Params {
     [key: string]: string;
 }
 
 export type RoutePattern = string;
-export type RouteComponent = ComponentClass<any> | StatelessComponent<any>;
+export type RouteComponent = ComponentClass<any> | FunctionComponent<any>;
 export interface RouteComponents {
     [name: string]: RouteComponent;
 }
@@ -40,8 +41,8 @@ export interface RedirectFunction {
     (state: LocationState, pathname: Pathname | Path, query?: Query): void;
 }
 
-export interface RouterState {
-    location: Location;
+export interface RouterState<Q = any> {
+    location: Location<Q>;
     routes: PlainRoute[];
     params: Params;
     components: RouteComponent[];
@@ -51,8 +52,8 @@ type LocationFunction = (location: LocationDescriptor) => void;
 type GoFunction = (n: number) => void;
 type NavigateFunction = () => void;
 type ActiveFunction = (location: LocationDescriptor, indexOnly?: boolean) => boolean;
-type LeaveHookFunction = (route: any, callback: RouteHook) => void;
-type CreatePartFunction<Part> = (path: Path, query?: any) => Part;
+type LeaveHookFunction = (route: any, callback: RouteHook) => () => void;
+type CreatePartFunction<Part> = (pathOrLoc: LocationDescriptor, query?: any) => Part;
 
 export interface InjectedRouter {
     push: LocationFunction;
@@ -66,8 +67,8 @@ export interface InjectedRouter {
     isActive: ActiveFunction;
 }
 
-export interface RouteComponentProps<P, R, ComponentProps = any> {
-    location: Location;
+export interface RouteComponentProps<P, R, ComponentProps = any, Q = any> {
+    location: Location<Q>;
     params: P & R;
     route: PlainRoute<ComponentProps>;
     router: InjectedRouter;
@@ -76,8 +77,9 @@ export interface RouteComponentProps<P, R, ComponentProps = any> {
 }
 
 export interface RouterProps extends ClassAttributes<any> {
-    routes?: RouteConfig;
-    history?: History;
+    children?: React.ReactNode;
+    routes?: RouteConfig | undefined;
+    history?: History | undefined;
     createElement?(component: RouteComponent, props: any): any;
     onError?(error: any): any;
     onUpdate?(): any;

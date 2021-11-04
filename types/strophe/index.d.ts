@@ -2,6 +2,7 @@
 // Project: http://strophe.im/strophejs/
 // Definitions by: David Deutsch <https://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 export namespace Strophe {
     /** Constant: VERSION
@@ -539,9 +540,9 @@ export namespace Strophe {
     }
 
     interface ConnectionOptions {
-        keepalive?: boolean;
-        protocol?: string;
-        sync?: boolean;
+        keepalive?: boolean | undefined;
+        protocol?: string | undefined;
+        sync?: boolean | undefined;
     }
 
     /** Class: Strophe.Connection

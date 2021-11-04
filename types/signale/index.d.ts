@@ -1,8 +1,9 @@
-// Type definitions for signale 1.2
-// Project: https://github.com/klauscfhq/signale
+// Type definitions for signale 1.4
+// Project: https://github.com/klaussinani/signale
 // Definitions by: Resi Respati <https://github.com/resir014>
 //                 Kingdaro <https://github.com/kingdaro>
 //                 Joydip Roy <https://github.com/rjoydip>
+//                 Simon Nußbaumer <https://github.com/lookapanda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -10,22 +11,22 @@
 
 declare namespace signale {
     type DefaultMethods =
-        | "await"
-        | "complete"
-        | "error"
-        | "debug"
-        | "fatal"
-        | "fav"
-        | "info"
-        | "note"
-        | "pause"
-        | "pending"
-        | "star"
-        | "start"
-        | "success"
-        | "warn"
-        | "watch"
-        | "log";
+        | 'await'
+        | 'complete'
+        | 'error'
+        | 'debug'
+        | 'fatal'
+        | 'fav'
+        | 'info'
+        | 'note'
+        | 'pause'
+        | 'pending'
+        | 'star'
+        | 'start'
+        | 'success'
+        | 'warn'
+        | 'watch'
+        | 'log';
 
     interface CommandType {
         /** The icon corresponding to the logger. */
@@ -37,55 +38,57 @@ declare namespace signale {
         color: string;
         /** The label used to identify the type of the logger. */
         label: string;
+        logLevel?: string | undefined;
+        stream?: NodeJS.WriteStream | NodeJS.WriteStream[] | undefined;
     }
 
     interface SignaleConfig {
         /** Display the scope name of the logger. */
-        displayScope?: boolean;
+        displayScope?: boolean | undefined;
         /** Display the badge of the logger. */
-        displayBadge?: boolean;
+        displayBadge?: boolean | undefined;
         /** Display the current local date in `YYYY-MM-DD` format. */
-        displayDate?: boolean;
+        displayDate?: boolean | undefined;
         /** Display the name of the file that the logger is reporting from. */
-        displayFilename?: boolean;
+        displayFilename?: boolean | undefined;
         /** Display the label of the logger. */
-        displayLabel?: boolean;
+        displayLabel?: boolean | undefined;
         /** Display the current local time in `HH:MM:SS` format. */
-        displayTimestamp?: boolean;
+        displayTimestamp?: boolean | undefined;
         /** Underline the logger label. */
-        underlineLabel?: boolean;
+        underlineLabel?: boolean | undefined;
         /** Underline the logger message. */
-        underlineMessage?: boolean;
-        underlinePrefix?: boolean;
-        underlineSuffix?: boolean;
-        uppercaseLabel?: boolean;
+        underlineMessage?: boolean | undefined;
+        underlinePrefix?: boolean | undefined;
+        underlineSuffix?: boolean | undefined;
+        uppercaseLabel?: boolean | undefined;
     }
 
     interface SignaleOptions<TTypes extends string = DefaultMethods> {
         /** Sets the configuration of an instance overriding any existing global or local configuration. */
-        config?: SignaleConfig;
-        disabled?: boolean;
+        config?: SignaleConfig | undefined;
+        disabled?: boolean | undefined;
         /**
          * Name of the scope.
          */
-        scope?: string;
+        scope?: string | undefined;
         /**
          * Holds the configuration of the custom and default loggers.
          */
-        types?: Partial<Record<TTypes, CommandType>>;
-        interactive?: boolean;
-        timers?: Map<string, Date>;
+        types?: Partial<Record<TTypes, CommandType>> | undefined;
+        interactive?: boolean | undefined;
+        logLevel?: string | undefined;
+        timers?: Map<string, Date> | undefined;
         /**
          * Destination to which the data is written, can be any valid
          * [Writable stream](https://nodejs.org/api/stream.html#stream_writable_streams).
          */
-        stream?: NodeJS.WriteStream;
+        stream?: NodeJS.WriteStream | NodeJS.WriteStream[] | undefined;
+        secrets?: Array<string | number> | undefined;
     }
 
     interface SignaleConstructor {
-        new <TTypes extends string = DefaultMethods>(
-            options?: SignaleOptions<TTypes>
-        ): Signale<TTypes>;
+        new <TTypes extends string = DefaultMethods>(options?: SignaleOptions<TTypes>): Signale<TTypes>;
     }
 
     interface SignaleBase<TTypes extends string = DefaultMethods> {
@@ -118,10 +121,31 @@ declare namespace signale {
          * @param label Label corresponding to the timer, each timer has its own unique label.
          * @param span Total running time.
          */
-        timeEnd(
-            label?: string,
-            span?: number
-        ): { label: string; span?: number };
+        timeEnd(label?: string, span?: number): { label: string; span?: number | undefined };
+        /**
+         * Disables the logging functionality of all loggers belonging to a specific instance.
+         */
+        disable(): void;
+        /**
+         * Enables the logging functionality of all loggers belonging to a specific instance.
+         */
+        enable(): void;
+        /**
+         * Checks whether the logging functionality of a specific instance is enabled.
+         *
+         * @returns a boolean that describes whether or not the logger is enabled.
+         */
+        isEnabled(): boolean;
+        /**
+         * Adds new secrets/sensitive-information to the targeted Signale instance.
+         *
+         * @param secrets Array holding the secrets/sensitive-information to be filtered out.
+         */
+        addSecrets(secrets: string[] | number[]): void;
+        /**
+         * Removes all secrets/sensitive-information from the targeted Signale instance.
+         */
+        clearSecrets(): void;
     }
 
     type LoggerFunc = (message?: any, ...optionalArgs: any[]) => void;

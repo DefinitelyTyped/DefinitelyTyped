@@ -1,5 +1,5 @@
 // Type definitions for datatables.net-fixedheader 3.1
-// Project: https://datatables.net/extensions/fixedheader/
+// Project: https://datatables.net/extensions/fixedheader/, https://datatables.net
 // Definitions by: Jared Szechy <https://github.com/szechyjs>, Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -12,7 +12,7 @@ declare namespace DataTables {
         /*
          * FixedHeader extension options
          */
-        fixedHeader?: boolean | FixedHeaderSettings;
+        fixedHeader?: boolean | FixedHeaderSettings | undefined;
     }
 
     interface StaticFunctions {
@@ -63,21 +63,21 @@ declare namespace DataTables {
         /*
          * Enable / disable fixed footer
          */
-        footer?: boolean;
+        footer?: boolean | undefined;
 
         /*
          * Offset the table's fixed footer
          */
-        footerOffset?: number;
+        footerOffset?: number | undefined;
 
         /*
          * Enable / disable fixed header
          */
-        header?: boolean;
+        header?: boolean | undefined;
 
         /*
          * Offset the table's fixed header
          */
-        headerOffset?: number;
+        headerOffset?: number | undefined;
     }
 }

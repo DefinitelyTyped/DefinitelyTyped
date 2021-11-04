@@ -1,5 +1,5 @@
 // Type definitions for LaterJS 1.2
-// Project: http://bunkat.github.io/later/
+// Project: http://bunkat.github.io/later/, https://github.com/bunkat/later
 // Definitions by: Jason D Dryhurst-Smith <https://github.com/jasond-s>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -24,79 +24,79 @@ declare namespace later {
 
     interface Recurrence {
         /** Time in seconds from midnight. */
-        t?: number[];
+        t?: number[] | undefined;
         /** Seconds in minute. */
-        s?: number[];
+        s?: number[] | undefined;
         /** Minutes in hour. */
-        m?: number[];
+        m?: number[] | undefined;
         /** Hour in day. */
-        h?: number[];
+        h?: number[] | undefined;
         /** Day of the month. */
-        D?: number[];
+        D?: number[] | undefined;
         /** Day in week. */
-        dw?: number[];
+        dw?: number[] | undefined;
         /** Nth day of the week in month. */
-        dc?: number[];
+        dc?: number[] | undefined;
         /** Day in year. */
-        dy?: number[];
+        dy?: number[] | undefined;
         /** Week in month. */
-        wm?: number[];
+        wm?: number[] | undefined;
         /** ISO week in year. */
-        wy?: number[];
+        wy?: number[] | undefined;
         /** Month in year. */
-        M?: number[];
+        M?: number[] | undefined;
         /** Year. */
-        Y?: number[];
+        Y?: number[] | undefined;
 
         /** After modifiers. */
-        t_a?: number[];
+        t_a?: number[] | undefined;
         /** After modifiers. */
-        s_a?: number[];
+        s_a?: number[] | undefined;
         /** After modifiers. */
-        m_a?: number[];
+        m_a?: number[] | undefined;
         /** After modifiers. */
-        h_a?: number[];
+        h_a?: number[] | undefined;
         /** After modifiers. */
-        D_a?: number[];
+        D_a?: number[] | undefined;
         /** After modifiers. */
-        dw_a?: number[];
+        dw_a?: number[] | undefined;
         /** After modifiers. */
-        dc_a?: number[];
+        dc_a?: number[] | undefined;
         /** After modifiers. */
-        dy_a?: number[];
+        dy_a?: number[] | undefined;
         /** After modifiers. */
-        wm_a?: number[];
+        wm_a?: number[] | undefined;
         /** After modifiers. */
-        wy_a?: number[];
+        wy_a?: number[] | undefined;
         /** After modifiers. */
-        M_a?: number[];
+        M_a?: number[] | undefined;
         /** After modifiers. */
-        Y_a?: number[];
+        Y_a?: number[] | undefined;
 
         /** Before modifiers. */
-        t_b?: number[];
+        t_b?: number[] | undefined;
         /** Before modifiers. */
-        s_b?: number[];
+        s_b?: number[] | undefined;
         /** Before modifiers. */
-        m_b?: number[];
+        m_b?: number[] | undefined;
         /** Before modifiers. */
-        h_b?: number[];
+        h_b?: number[] | undefined;
         /** Before modifiers. */
-        D_b?: number[];
+        D_b?: number[] | undefined;
         /** Before modifiers. */
-        dw_b?: number[];
+        dw_b?: number[] | undefined;
         /** Before modifiers. */
-        dc_b?: number[];
+        dc_b?: number[] | undefined;
         /** Before modifiers. */
-        dy_b?: number[];
+        dy_b?: number[] | undefined;
         /** Before modifiers. */
-        wm_b?: number[];
+        wm_b?: number[] | undefined;
         /** Before modifiers. */
-        wy_b?: number[];
+        wy_b?: number[] | undefined;
         /** Before modifiers. */
-        M_b?: number[];
+        M_b?: number[] | undefined;
         /** Before modifiers. */
-        Y_b?: number[];
+        Y_b?: number[] | undefined;
 
         /*
          * Custom Time Periods and Modifiers
@@ -146,7 +146,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid instance can occur
          * @param dateTo: The latest a valid instance can occur
          */
-        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the next valid range or ranges of the current schedule,
@@ -158,7 +158,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid range can occur
          * @param dateTo: The latest a valid range can occur
          */
-        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the previous valid instance or instances of the current schedule,
@@ -170,7 +170,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid instance can occur
          * @param dateTo: The latest a valid instance can occur
          */
-        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the previous valid range or ranges of the current schedule,
@@ -182,7 +182,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid range can occur
          * @param dateTo: The latest a valid range can occur
          */
-        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
     }
 
     interface RecurrenceBuilder extends ScheduleData {

@@ -36,8 +36,8 @@ declare namespace Refs {
 
     interface AttributeDescriptor {
         name: string;
-        collection?: boolean;
-        enumerable?: boolean;
+        collection?: boolean | undefined;
+        enumerable?: boolean | undefined;
     }
 
     namespace Collection {

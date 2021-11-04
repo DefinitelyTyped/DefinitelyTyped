@@ -1,5 +1,5 @@
 // Type definitions for deglob v 2.1
-// Project: https://github.com/standard/deglob
+// Project: https://github.com/standard/deglob, https://github.com/flet/deglob
 // Definitions by: Saad Quadri <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -10,12 +10,12 @@ declare function deglob(patterns: string[], opts: deglob.Options, cb: Callback):
 
 declare namespace deglob {
   interface Options {
-    useGitIgnore?: boolean;
-    usePackageJson?: boolean;
-    configKey?: string;
-    gitIgnoreFile?: string;
-    ignore?: string[];
-    cwd?: string;
+    useGitIgnore?: boolean | undefined;
+    usePackageJson?: boolean | undefined;
+    configKey?: string | undefined;
+    gitIgnoreFile?: string | undefined;
+    ignore?: string[] | undefined;
+    cwd?: string | undefined;
   }
 }
 

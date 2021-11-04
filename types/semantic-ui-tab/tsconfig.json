@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "global.d.ts",
         "semantic-ui-tab-tests.ts"
     ]
 }

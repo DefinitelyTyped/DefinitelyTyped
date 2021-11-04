@@ -1,5 +1,5 @@
 // Type definitions for lz-string 1.3
-// Project: https://github.com/pieroxy/lz-string
+// Project: https://github.com/pieroxy/lz-string, http://pieroxy.net/blog/pages/lz-string/index.html
 // Definitions by: Roman Nikitin <https://github.com/M0ns1gn0r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -26,7 +26,7 @@ declare namespace LZString {
          *
          * @param compressed A string obtained from a call to compress().
          */
-        decompress(compressed: string): string;
+        decompress(compressed: string): null | string;
 
         /**
          * Compresses input string producing an instance of a "valid" UTF-16 string,
@@ -41,7 +41,7 @@ declare namespace LZString {
          *
          * @param compressed A string obtained from a call to compressToUTF16().
          */
-        decompressFromUTF16(compressed: string): string;
+        decompressFromUTF16(compressed: string): null | string;
 
         /**
          * Compresses input string producing an instance of a ASCII UTF-16 string,
@@ -58,7 +58,7 @@ declare namespace LZString {
          *
          * @param compressed A string obtained from a call to compressToBase64().
          */
-        decompressFromBase64(compressed: string): string;
+        decompressFromBase64(compressed: string): null | string;
 
         /**
          * produces ASCII strings representing the original string encoded in Base64 with a few
@@ -74,7 +74,7 @@ declare namespace LZString {
          *
          * @param compressed A string obtained from a call to compressToEncodedURIComponent().
          */
-        decompressFromEncodedURIComponent(compressed: string): string;
+        decompressFromEncodedURIComponent(compressed: string): null | string;
 
         /**
          * produces an uint8Array
@@ -88,6 +88,6 @@ declare namespace LZString {
          *
          * @param compressed A string obtained from a call to compressToUint8Array().
          */
-        decompressFromUint8Array(compressed: Uint8Array): string;
+        decompressFromUint8Array(compressed: Uint8Array): null | string;
     }
 }

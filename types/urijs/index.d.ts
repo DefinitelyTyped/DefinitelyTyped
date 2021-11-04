@@ -1,292 +1,277 @@
-// Type definitions for URI.js 1.15.1
-// Project: https://github.com/medialize/URI.js
-// Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>, Pete Johanson <https://github.com/petejohanson>
+// Type definitions for URI.js 1.19
+// Project: http://medialize.github.io/URI.js
+// Definitions by: RodneyJT <https://github.com/RodneyJT>
+//                 Brian Surowiec <https://github.com/xt0rted>
+//                 Pete Johanson <https://github.com/petejohanson>
+//                 Zhibin Liu <https://github.com/ljqx>
+//                 TeamworkGuy2 <https://github.com/teamworkguy2>
+//                 Akuukis <https://github.com/Akuukis>
+//                 Marcell Toth <https://github.com/marcelltoth>
+//                 Vincenzo Chianese <https://github.com/XVincentX>
+//                 Andree Hagelstein <https://github.com/ahagelstein>
+//                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
-/// <reference types="jquery" />
+// urijs uses DOM dependencies which are absent in browserless envoronment like node.js.
+// to avoid compiler errors this monkey patch is used. See more details in:
+// - sinon: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
+// - rxjs: https://github.com/ReactiveX/rxjs/issues/1986
+/// <reference path="./dom-monkeypatch.d.ts" />
 
-declare namespace uri {
+// Compatability with node.js
+// tslint:disable-next-line:no-empty-interface
+interface HTMLElement { }
 
-    interface URI {
-        absoluteTo(path: string): URI;
-        absoluteTo(path: URI): URI;
-        addFragment(fragment: string): URI;
-        addQuery(qry: string): URI;
-        addQuery(qry: string, value:any): URI;
-        addQuery(qry: Object): URI;
-        addSearch(qry: string): URI;
-        addSearch(key: string, value:any): URI;
-        addSearch(qry: Object): URI;
-        authority(): string;
-        authority(authority: string): URI;
+export = URI;
+export as namespace URI;
 
-        clone(): URI;
+declare const URI: {
+    (value?: string | URI.URIOptions | HTMLElement): URI;
 
-        directory(): string;
-        directory(dir: boolean): string;
-        directory(dir: string): URI;
-        domain(): string;
-        domain(domain: boolean): string;
-        domain(domain: string): URI;
+    new(value?: string | URI.URIOptions | HTMLElement): URI;
 
-        duplicateQueryParameters(val: boolean): URI;
+    addQuery(data: URI.QueryDataMap, prop: string, value: string): object;
+    addQuery(data: URI.QueryDataMap, qryObj: object): object;
 
-        equals(): boolean;
-        equals(url: string | URI): boolean;
+    build(parts: URI.URIOptions): string;
+    buildAuthority(parts: { username?: string | undefined; password?: string | undefined; hostname?: string | undefined; port?: string | undefined }): string;
+    buildHost(parts: { hostname?: string | undefined; port?: string | undefined }): string;
+    buildQuery(data: URI.QueryDataMap, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
+    buildUserinfo(parts: { username?: string | undefined; password?: string | undefined }): string;
 
-        filename(): string;
-        filename(file: boolean): string;
-        filename(file: string): URI;
-        fragment(): string;
-        fragment(fragment: string): URI;
-        fragmentPrefix(prefix: string): URI;
+    commonPath(path1: string, path2: string): string;
 
-        hash(): string;
-        hash(hash: string): URI;
-        host(): string;
-        host(host: string): URI;
-        hostname(): string;
-        hostname(hostname: string): URI;
-        href(): string;
-        href(url: string): void;
+    decode(str: string): string;
+    decodeQuery(qry: string): string;
 
-        is(qry: string): boolean;
-        iso8859(): URI;
+    duplicateQueryParameters: boolean;
 
-        normalize(): URI;
-        normalizeFragment(): URI;
-        normalizeHash(): URI;
-        normalizeHostname(): URI;
-        normalizePath(): URI;
-        normalizePathname(): URI;
-        normalizePort(): URI;
-        normalizeProtocol(): URI;
-        normalizeQuery(): URI;
-        normalizeSearch(): URI;
+    encode(str: string): string;
+    encodeQuery(qry: string): string;
+    encodeReserved(str: string): string;
 
-        origin(): string;
-        origin(uri: string | URI): URI;
+    escapeQuerySpace: boolean;
 
-        password(): string;
-        password(pw: string): URI;
-        path(): string;
-        path(path: boolean): string;
-        path(path: string): URI;
-        pathname(): string;
-        pathname(path: boolean): string;
-        pathname(path: string): URI;
-        port(): string;
-        port(port: string): URI;
-        protocol(): string;
-        protocol(protocol: string): URI;
+    /**
+     * @description Wrapper for `URITemplate#expand`. Only present after
+     *              importing `urijs/src/URITemplate` explicitly.
+     */
+    expand?: ((template: string, vals: object) => string) | undefined;
 
-        query(): string;
-        query(qry: string): URI;
-        query(qry: boolean): Object;
-        query(qry: Object): URI;
+    iso8859(): void;
 
-        readable(): string;
-        relativeTo(path: string): URI;
-        removeQuery(qry: string): URI;
-        removeQuery(qry: Object): URI;
-        removeQuery(name: string, value: string): URI;
-        removeSearch(qry: string): URI;
-        removeSearch(qry: Object): URI;
-        removeSearch(name: string, value: string): URI;
-        resource(): string;
-        resource(resource: string): URI;
+    joinPaths(...paths: Array<string | URI>): URI;
 
-        scheme(): string;
-        scheme(protocol: string): URI;
-        search(): string;
-        search(qry: string): URI;
-        search(qry: boolean): any;
-        search(qry: Object): URI;
-        segment(): string[];
-        segment(segments: string[]): URI;
-        segment(position: number): string | undefined;
-        segment(position: number, level: string): URI;
-        segment(segment: string): URI;
-        segmentCoded(): string[];
-        segmentCoded(segments: string[]): URI;
-        segmentCoded(position: number): string;
-        segmentCoded(position: number, level: string): URI;
-        segmentCoded(segment: string): URI;
-        setQuery(key: string, value: string): URI;
-        setQuery(qry: Object): URI;
-        setSearch(key: string, value: string): URI;
-        setSearch(qry: Object): URI;
-        hasQuery(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
-        hasSearch(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
-        subdomain(): string;
-        subdomain(subdomain: string): URI;
-        suffix(): string;
-        suffix(suffix: boolean): string;
-        suffix(suffix: string): URI;
+    parse(url: string): URI.Parts;
+    parseAuthority(
+        url: string,
+        parts: {
+            username?: string | undefined;
+            password?: string | undefined;
+            hostname?: string | undefined;
+            port?: string | undefined;
+        },
+    ): string;
+    parseHost(
+        url: string,
+        parts: {
+            hostname?: string | undefined;
+            port?: string | undefined;
+        },
+    ): string;
+    parseQuery(url: string): URI.QueryDataMap;
+    parseUserinfo(
+        url: string,
+        parts: {
+            username?: string | undefined;
+            password?: string | undefined;
+        },
+    ): string;
 
-        tld(): string;
-        tld(tld: boolean): string;
-        tld(tld: string): URI;
+    preventInvalidHostname: boolean;
 
-        unicode(): URI;
-        userinfo(): string;
-        userinfo(userinfo: string): URI;
-        username(): string;
-        username(uname: string): URI;
+    removeQuery(data: object, prop: string, value: string): object;
+    removeQuery(data: object, props: string[] | object): object;
 
-        valueOf(): string;
-    }
+    unicode(): void;
 
+    withinString(source: string, func: (url: string, start: number, end: number, source: string) => string): string;
+};
+
+declare namespace URI {
     interface URIOptions {
-        protocol?: string;
-        username?: string;
-        password?: string;
-        hostname?: string;
-        port?: string;
-        path?: string;
-        query?: string;
-        fragment?: string;
+        protocol?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        hostname?: string | undefined;
+        port?: string | undefined;
+        path?: string | undefined;
+        query?: string | undefined;
+        fragment?: string | undefined;
+        urn?: boolean | undefined;
     }
 
-    interface URIStatic {
-        (): URI;
-        (value: string | URIOptions | HTMLElement): URI;
-
-        new (): URI;
-        new (value: string | URIOptions | HTMLElement): URI;
-
-        addQuery(data: Object, prop: string, value: string): Object;
-        addQuery(data: Object, qryObj: Object): Object;
-
-        build(parts: {
-            protocol: string;
-            username: string;
-            password: string;
-            hostname: string;
-            port: string;
-            path: string;
-            query: string;
-            fragment: string;
-        }): string;
-        buildAuthority(parts: {
-            username?: string;
-            password?: string;
-            hostname?: string;
-            port?: string;
-        }): string;
-        buildHost(parts: {
-            hostname?: string;
-            port?: string;
-        }): string;
-        buildQuery(qry: Object): string;
-        buildQuery(qry: Object, duplicates: boolean): string;
-        buildUserinfo(parts: {
-            username?: string;
-            password?: string;
-        }): string;
-
-        commonPath(path1: string, path2: string): string;
-
-        decode(str: string): string;
-        decodeQuery(qry: string): string;
-
-        encode(str: string): string;
-        encodeQuery(qry: string): string;
-        encodeReserved(str: string): string;
-        expand(template: string, vals: Object): URI;
-
-        iso8859(): void;
-
-        joinPaths(...paths: (string | URI)[]): URI;
-
-        parse(url: string): {
-            protocol: string;
-            username: string;
-            password: string;
-            hostname: string;
-            port: string;
-            path: string;
-            query: string;
-            fragment: string;
-        };
-        parseAuthority(url: string, parts: {
-            username?: string;
-            password?: string;
-            hostname?: string;
-            port?: string;
-        }): string;
-        parseHost(url: string, parts: {
-            hostname?: string;
-            port?: string;
-        }): string;
-        parseQuery(url: string): Object;
-        parseUserinfo(url: string, parts: {
-            username?: string;
-            password?: string;
-        }): string;
-
-        removeQuery(data: Object, prop: string, value: string): Object;
-        removeQuery(data: Object, props: string[]): Object;
-        removeQuery(data: Object, props: Object): Object;
-
-        unicode(): void;
-
-        withinString(source: string, func: (url: string) => string): string;
+    interface Parts extends URIOptions {
+        duplicateQueryParameters: boolean;
+        escapeQuerySpace: boolean;
+        preventInvalidHostname: boolean;
     }
 
-    type URITemplateValue = string | ReadonlyArray<string> | { [key: string] : string } | undefined | null;
-    type URITemplateCallback = (keyName: string) => URITemplateValue;
-    type URITemplateInput = { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback;
-
-    type URITemplateLiteral = string;
-    interface URITemplateVariable {
-      name: string;
-      explode: boolean;
-      maxLength?: number;
-    }
-
-    interface URITemplateExpression {
-      expression: string;
-      operator: string;
-      variables: ReadonlyArray<URITemplateVariable>;
-    }
-
-    type URITemplatePart = URITemplateLiteral | URITemplateExpression;
-
-    interface URITemplate {
-      expand(data: URITemplateInput, opts?: Object) : URI;
-      parse(): this;
-
-      /**
-       * @description The parsed parts of the URI Template. Only present after calling
-       *              `parse()` first.
-       */
-      parts?: ReadonlyArray<URITemplatePart>;
-    }
-
-    interface URITemplateStatic {
-      (template: string) : URITemplate;
-
-      new (template: string) : URITemplate;
-    }
+    type QueryDataMap = Partial<Record<string, any>>;
 }
 
-interface JQuery {
-    uri(): uri.URI;
+interface URI {
+    absoluteTo(path: string | URI): URI;
+    addFragment(fragment: string): URI;
+    addQuery(qry: string | URI.QueryDataMap): URI;
+    addQuery(qry: string, value: any): URI;
+    addSearch(qry: string | URI.QueryDataMap): URI;
+    addSearch(key: string, value: any): URI;
+    authority(): string;
+    authority(authority: string): URI;
+
+    clone(): URI;
+
+    directory(dir?: boolean): string;
+    directory(dir: string): URI;
+    domain(domain?: boolean): string;
+    domain(domain: string): URI;
+
+    duplicateQueryParameters(val: boolean): URI;
+
+    equals(url?: string | URI): boolean;
+
+    escapeQuerySpace(val: boolean): URI;
+
+    filename(file?: boolean): string;
+    filename(file: string): URI;
+    fragment(): string;
+    fragment(fragment: string): URI;
+    fragmentPrefix(prefix: string): URI;
+
+    hash(): string;
+    hash(hash: string): URI;
+    host(): string;
+    host(host: string): URI;
+    hostname(): string;
+    hostname(hostname: string): URI;
+    href(): string;
+    href(url: string): void;
+
+    is(
+        qry:
+            | 'relative'
+            | 'absolute'
+            | 'urn'
+            | 'url'
+            | 'domain'
+            | 'name'
+            | 'sld'
+            | 'idn'
+            | 'punycode'
+            | 'ip'
+            | 'ip4'
+            | 'ipv4'
+            | 'inet4'
+            | 'ip6'
+            | 'ipv6'
+            | 'inet6',
+    ): boolean;
+    iso8859(): URI;
+
+    normalize(): URI;
+    normalizeFragment(): URI;
+    normalizeHash(): URI;
+    normalizeHostname(): URI;
+    normalizePath(): URI;
+    normalizePathname(): URI;
+    normalizePort(): URI;
+    normalizeProtocol(): URI;
+    normalizeQuery(): URI;
+    normalizeSearch(): URI;
+
+    origin(): string;
+    origin(uri: string | URI): URI;
+
+    password(): string;
+    password(pw: string): URI;
+    path(path?: boolean): string;
+    path(path: string): URI;
+    pathname(path?: boolean): string;
+    pathname(path: string): URI;
+    port(): string;
+    port(port: string): URI;
+    protocol(): string;
+    protocol(protocol: string): URI;
+
+    preventInvalidHostname(val: boolean): URI;
+
+    query(): string;
+    // tslint:disable-next-line void-return
+    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    query(v: boolean): URI.QueryDataMap;
+
+    readable(): string;
+    relativeTo(path: string): URI;
+    removeQuery(qry: string | URI.QueryDataMap): URI;
+    removeQuery(name: string, value: string): URI;
+    removeSearch(qry: string | URI.QueryDataMap): URI;
+    removeSearch(name: string, value: string): URI;
+    resource(): string;
+    resource(resource: string): URI;
+
+    scheme(): string;
+    scheme(protocol: string): URI;
+    search(): string;
+    // tslint:disable-next-line void-return
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    search(v: boolean): URI.QueryDataMap;
+    segment(): string[];
+    segment(segments: string[] | string): URI;
+    segment(position: number): string | undefined;
+    segment(position: number, level: string): URI;
+    segmentCoded(): string[];
+    segmentCoded(segments: string[] | string): URI;
+    segmentCoded(position: number): string;
+    segmentCoded(position: number, level: string): URI;
+    setQuery(key: string, value: any): URI;
+    setQuery(qry: URI.QueryDataMap): URI;
+    setSearch(key: string, value: any): URI;
+    setSearch(qry: URI.QueryDataMap): URI;
+    hasQuery(
+        name: /*string | */ any,
+        value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+        withinArray?: boolean,
+    ): boolean;
+    hasSearch(
+        name: /*string | */ any,
+        value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+        withinArray?: boolean,
+    ): boolean;
+    subdomain(): string;
+    subdomain(subdomain: string): URI;
+    suffix(suffix?: boolean): string;
+    suffix(suffix: string): URI;
+
+    tld(tld?: boolean): string;
+    tld(tld: string): URI;
+
+    unicode(): URI;
+    userinfo(): string;
+    userinfo(userinfo: string): URI;
+    username(): string;
+    username(uname: string): URI;
+
+    valueOf(): string;
 }
 
-declare var URI: uri.URIStatic;
-declare var URITemplate : uri.URITemplateStatic;
+declare global {
+    interface JQuery {
+        uri(): URI;
+    }
+}
 
 declare module 'URI' {
     export = URI;
-}
-
-declare module 'urijs' {
-    export = URI;
-}
-
-declare module 'urijs/src/URITemplate' {
-    export = URITemplate;
 }

@@ -1,26 +1,39 @@
-// Type definitions for imagemin 6.0
+// Type definitions for imagemin 8.0
 // Project: https://github.com/imagemin/imagemin#readme
 // Definitions by: Romain Faust <https://github.com/romain-faust>
+//                 Jeff Chan <https://github.com/hkjeffchan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare function imagemin(input: ReadonlyArray<string>, outputOrOptions?: string | imagemin.Options): Promise<imagemin.Result[]>;
-declare function imagemin(input: ReadonlyArray<string>, output?: string, options?: imagemin.Options): Promise<imagemin.Result[]>;
+/**
+ * @async
+ */
+declare function imagemin(input: ReadonlyArray<string>, options?: Options): Promise<Result[]>;
 
 declare namespace imagemin {
-    type Plugin = (input: Buffer) => Promise<Buffer>;
-
-    interface Options {
-        plugins: ReadonlyArray<Plugin>;
-    }
-
-    interface Result {
-        data: Buffer;
-        path: string;
-    }
-
-    function buffer(buffer: Buffer, options?: Options): Promise<Buffer>;
+    /**
+     * @async
+     */
+    function buffer(input: Buffer, options?: BufferOptions): Promise<Buffer>;
 }
 
-export = imagemin;
+export type Plugin = (input: Buffer) => Promise<Buffer>;
+
+export interface Options {
+    destination?: string | undefined;
+    plugins: ReadonlyArray<Plugin>;
+    glob?: boolean | undefined;
+}
+
+export interface Result {
+    data: Buffer;
+    sourcePath: string;
+    destinationPath: string;
+}
+
+export interface BufferOptions {
+    plugins: ReadonlyArray<Plugin>;
+}
+
+export default imagemin;

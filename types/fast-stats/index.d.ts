@@ -11,20 +11,20 @@ export interface StatsOpts {
      * By default, fast-stats will not maintain buckets since it does not know the least count and range of your dataset in advance.
      * This option is required if you need to use the distribution() method.
      */
-    bucket_precision?: number;
+    bucket_precision?: number | undefined;
 
     /**
      * Tells fast-stats to maintain a histogram of your dataset using these custom buckets.
      * Each number in the array is the upper limit of a bucket. The lower limit of the first bucket is 0, the lower limit for all other buckets is the upper limit of the previous bucket.
      * If you use both bucket_precision and buckets, buckets takes precedence.
      */
-    buckets?: number[];
+    buckets?: number[] | undefined;
 
     /**
      * Tells fast-stats how to extend the pre-defined buckets if data exceeding the range is added. This is useful to capture data above your range, in multiple buckets, but with low precision so you do not end up with a large number of empty buckets.
      * By default this is not defined, so buckets will not be extended and all data beyond the end range will end up in the last bucket.
      */
-    bucket_extension_interval?: number;
+    bucket_extension_interval?: number | undefined;
 
     /**
      * Tells fast-stats not to store actual data values. This is useful to reduce memory utilisation for large datasets, however it comes with a few caveats.
@@ -34,13 +34,13 @@ export interface StatsOpts {
      * The mean, standard deviation and margin of error calculations are unaffected by this parameter. If you use bucketing, and only care about the mean, standard deviation and margin of error or an approximate median or percentile value, set this option to false.
      * By default, store_data is true.
      */
-    store_data?: boolean;
+    store_data?: boolean | undefined;
 
     /**
      * Tells fast-stats whether the data you pass in is a sample (true) or the entire (false default) population.
      * The standard deviation algorithm differs for populations v/s samples.
      */
-    sampling?: boolean;
+    sampling?: boolean | undefined;
 }
 
 /**
@@ -65,7 +65,7 @@ export interface Bucket {
  * A NodeJS library to do statistical analysis of numeric datasets.
  * When doing statistical analysis of data, the most common usage pattern is to run multiple statistical methods on the same set of data. Some of these methods use others. For example, to calculate the standard deviation of a dataset, we first need the mean.
  * Additionally, some methods can be calculated quickly as data is inserted, thereby reducing the number of loops required to run through the data during processing.
- * Fast stats maintains a running cache of several summary values as data is inserted making final calculation very fast. It trades off a small amount of additional memory usage for a large reduction in execution time.	 
+ * Fast stats maintains a running cache of several summary values as data is inserted making final calculation very fast. It trades off a small amount of additional memory usage for a large reduction in execution time.
  */
 export declare class Stats {
     constructor(opts?: StatsOpts);
@@ -73,8 +73,8 @@ export declare class Stats {
     /**
      * Add elements to back
      */
-    push(...args: number[]): void;
-    push(args: number[]): void;
+    push(...args: number[]): Stats;
+    push(args: number[]): Stats;
 
     /**
      * Remove element from back
@@ -89,12 +89,47 @@ export declare class Stats {
     /**
      * Add elements to front
      */
-    unshift(...args: number[]): void;
+    unshift(...args: number[]): Stats;
 
     /**
      * Number of elements
      */
     length: number;
+
+    /**
+     * Sum of all data points
+     */
+    sum: number;
+
+    /**
+     * Sum of the squares of all data points
+     */
+    sum_of_squares: number;
+
+    /**
+     * Sum of the log values of all data points
+     */
+    sum_of_logs: number;
+
+    /**
+     * Sum of the squares of the log values of all data points
+     */
+    sum_of_square_of_logs: number;
+
+    /**
+     * Count of all data points equal to zero
+     */
+    zeroes: number;
+
+    /**
+     * Maximum value of all data points
+     */
+    max: number | null;
+
+    /**
+     * Minimun value of all data points
+     */
+    min: number | null;
 
     /**
      * Clear all data
@@ -109,7 +144,7 @@ export declare class Stats {
 
     /**
      * Arithmetic Mean
-     * The arithmetic mean is calculated as the sum of all data points divided by the number of data points. This is useful for data sets that are fairly uniform, following a linear or binomial distribution. Use the amean() method or the `�()? method to get at it:
+     * The arithmetic mean is calculated as the sum of all data points divided by the number of data points. This is useful for data sets that are fairly uniform, following a linear or binomial distribution. Use the amean() method or the ???()? method to get at it:
      */
     amean(): number;
 

@@ -10,6 +10,7 @@
 declare module 'twitter-stream-channels' {
 
   import * as Twit from 'twit';
+  import { EventEmitter } from 'events';
 
   namespace TwitterStreamChannels {
 
@@ -19,17 +20,17 @@ declare module 'twitter-stream-channels' {
       }
 
       export interface StreamChannelsOptions {
-        track?: {},
-        follow?: string,
-        locations?: string,
-        enableChannelsEvents?: boolean,
-        enableRootChannelsEvent?: boolean,
-        enableKeywordsEvents?: boolean
+        track?: {} | undefined,
+        follow?: string | undefined,
+        locations?: string | undefined,
+        enableChannelsEvents?: boolean | undefined,
+        enableRootChannelsEvent?: boolean | undefined,
+        enableKeywordsEvents?: boolean | undefined
       }
 
     }
 
-    export class StreamChannels extends NodeJS.EventEmitter {
+    export class StreamChannels extends EventEmitter {
 
       /**
        * @see https://github.com/topheman/twitter-stream-channels/blob/master/lib/StreamChannels.js#L25

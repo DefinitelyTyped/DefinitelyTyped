@@ -1,6 +1,6 @@
 // Type definitions for dat.GUI 0.7
 // Project: https://github.com/dataarts/dat.gui
-// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>, Nahuel Scotti <https://github.com/singuerinc>, Teoxoy <https://github.com/teoxoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace dat;
@@ -10,22 +10,22 @@ export interface GUIParams {
      * Handles GUI's element placement for you.
      * @default true
      */
-    autoPlace?: boolean;
+    autoPlace?: boolean | undefined;
     /**
      * If true, starts closed.
      * @default false
      */
-    closed?: boolean;
+    closed?: boolean | undefined;
     /**
      * If true, close/open button shows on top of the GUI.
      * @default false
      */
-    closeOnTop?: boolean;
+    closeOnTop?: boolean | undefined;
     /**
      * If true, GUI is closed by the "h" keypress.
      * @default false
      */
-    hideable?: boolean;
+    hideable?: boolean | undefined;
     /**
      * JSON object representing the saved state of this GUI.
      */
@@ -33,22 +33,36 @@ export interface GUIParams {
     /**
      * The name of this GUI.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The identifier for a set of saved values.
      */
-    preset?: string;
+    preset?: string | undefined;
     /**
      * The width of GUI element.
      */
-    width?: number;
+    width?: number | undefined;
 }
 
 export class GUI {
+    static CLASS_AUTO_PLACE: string
+    static CLASS_AUTO_PLACE_CONTAINER: string
+    static CLASS_MAIN: string
+    static CLASS_CONTROLLER_ROW: string
+    static CLASS_TOO_TALL: string
+    static CLASS_CLOSED: string
+    static CLASS_CLOSE_BUTTON: string
+    static CLASS_CLOSE_TOP: string
+    static CLASS_CLOSE_BOTTOM: string
+    static CLASS_DRAG: string
+    static DEFAULT_WIDTH: number
+    static TEXT_CLOSED: string
+    static TEXT_OPEN: string
+
     constructor(option?: GUIParams);
 
     __controllers: GUIController[];
-    __folders: GUI[];
+    __folders: {[folderName: string]: GUI};
     domElement: HTMLElement;
 
     add(target: Object, propName:string, min?: number, max?: number, step?: number): GUIController;
@@ -67,6 +81,8 @@ export class GUI {
 
     open(): void;
     close(): void;
+    hide(): void;
+    show(): void;
 
     remember(target: Object, ...additionalTargets: Object[]): void;
     getRoot(): GUI;
@@ -92,15 +108,25 @@ export class GUI {
 }
 
 export class GUIController {
-    destroy(): void;
+    domElement: HTMLElement;
+    object: Object;
+    property: string;
 
-    // Controller
-    onChange: (value?: any) => void;
-    onFinishChange: (value?: any) => void;
+    constructor(object: Object, property: string);
+
+    options(option: any): GUIController;
+    name(name: string): GUIController;
+
+    listen(): GUIController;
+    remove(): GUIController;
+
+    onChange(fnc: (value?: any) => void): GUIController;
+    onFinishChange(fnc: (value?: any) => void): GUIController;
 
     setValue(value: any): GUIController;
     getValue(): any;
-    updateDisplay(): void;
+
+    updateDisplay(): GUIController;
     isModified(): boolean;
 
     // NumberController
@@ -110,10 +136,4 @@ export class GUIController {
 
     // FunctionController
     fire(): GUIController;
-
-    // augmentController in dat/gui/GUI.js
-    options(option:any):GUIController;
-    name(s: string): GUIController;
-    listen(): GUIController;
-    remove(): GUIController;
 }

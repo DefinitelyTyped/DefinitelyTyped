@@ -4,7 +4,7 @@ const { Cookie, CookieAccessInfo, CookieJar } = cookiejarLib;
 
 // Original test: https://github.com/bmeck/node-cookiejar/blob/master/tests/test.js
 
-let testCookie = new Cookie("a=1;domain=.test.com;path=/");
+let testCookie: cookiejarLib.Cookie | undefined = new Cookie("a=1;domain=.test.com;path=/");
 // assert.equal(testCookie.name, "a");
 // assert.equal(testCookie.value, "1");
 // assert.equal(testCookie.domain, ".test.com");
@@ -90,3 +90,15 @@ testCookieJar2.setCookie(new Cookie("sub=5;path=/", "test.com", "/accounts"));
 testCookie = testCookieJar2.getCookie('sub', CookieAccessInfo.All);
 // assert(testCookie);
 // assert.equal(testCookie.name, 'sub');
+
+// Test that `CookieJar.getCookie` may return `undefined`
+{
+    const cookieJar = new CookieJar();
+    let cookie = cookieJar.getCookie("a", new CookieAccessInfo("test.com", "/"));
+    cookie = undefined;
+}
+// Test that `CookieJar.setCookies` returns a mutable array
+{
+    const cookieJar = new CookieJar();
+    const updatedCookies: cookiejarLib.Cookie[] = cookieJar.setCookies([]);
+}

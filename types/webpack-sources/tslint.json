@@ -1,6 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-object-literal-type-assertion": false
-    }
+    "extends": "dtslint/dt.json"
 }

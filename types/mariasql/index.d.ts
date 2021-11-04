@@ -1,7 +1,12 @@
-// Type definitions for mariasql v0.1.22
+// Type definitions for mariasql v0.1.23
 // Project: https://github.com/mscdex/node-mariasql
 // Definitions by: MichaelBennett <https://github.com/bennett000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare var mariasql: mariasql.Client;
+
+export = mariasql;
+export as namespace mariasql;
 
 declare namespace mariasql {
     export interface MariaCallBackError {
@@ -51,19 +56,19 @@ declare namespace mariasql {
         host: string;
         user: string;
         password: string;
-        db?: string;
-        port?: number;
-        unixSocket?: string;
-        keepQueries?: boolean;
-        multiStatements?: boolean;
-        connTimeout?: number;
-        pingInterval?: number;
-        secureAuth?: boolean;
-        compress?: boolean;
+        db?: string | undefined;
+        port?: number | undefined;
+        unixSocket?: string | undefined;
+        keepQueries?: boolean | undefined;
+        multiStatements?: boolean | undefined;
+        connTimeout?: number | undefined;
+        pingInterval?: number | undefined;
+        secureAuth?: boolean | undefined;
+        compress?: boolean | undefined;
         ssl?:any;
-        local_infile?: boolean;
-        read_default_group?: string;
-        charset?: string;
+        local_infile?: boolean | undefined;
+        read_default_group?: string | undefined;
+        charset?: string | undefined;
     }
 
     export interface MariaResult {
@@ -108,6 +113,3 @@ declare namespace mariasql {
         prototype: MariaClient;
     }
 }
-
-declare var Client:mariasql.Client;
-export = Client;

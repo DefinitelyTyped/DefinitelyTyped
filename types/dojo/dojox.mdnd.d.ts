@@ -267,7 +267,7 @@ declare namespace dojox {
             constructor(params: Object, node: HTMLElement);
             /**
              * The user clicks on the handle, but the drag action will really begin
-             * if he tracks the main node to more than 3 pixels.
+             * if they track the main node to more than 3 pixels.
              *
              */
             "dragDistance": number;
@@ -795,7 +795,7 @@ declare namespace dojox {
                  * return for:
                  *
                  * X point : the middle
-                 * Y point : search if the user goes up or goes down with his mouse.
+                 * Y point : search if the user goes up or goes down with their mouse.
                  * Up : top of the draggable item
                  * Down : bottom of the draggable item
                  *
@@ -940,7 +940,7 @@ declare namespace dojox {
                  * return for:
                  *
                  * X point : the middle
-                 * Y point : search if the user goes up or goes down with his mouse.
+                 * Y point : search if the user goes up or goes down with their mouse.
                  * Up : top of the draggable item
                  * Down : bottom of the draggable item
                  *

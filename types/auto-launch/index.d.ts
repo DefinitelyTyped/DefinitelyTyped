@@ -1,5 +1,5 @@
 // Type definitions for auto-launch 5.0
-// Project: https://github.com/Teamwork/node-auto-launch
+// Project: https://github.com/Teamwork/node-auto-launch, https://github.com/4ver/node-auto-launch
 // Definitions by: rhysd <https://github.com/rhysd>, Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -11,11 +11,11 @@ interface AutoLaunchOptions {
   /**
    * Path to application. Default is `process.execPath`.
    */
-  path?: string;
+  path?: string | undefined;
   /**
    * Hidden on launch. Default is `false`.
    */
-  isHidden?: boolean;
+  isHidden?: boolean | undefined;
   /**
    * For Mac-only options.
    */
@@ -23,8 +23,8 @@ interface AutoLaunchOptions {
     /**
      * By default, AppleScript is used to add a Login Item. If this is `true`, Launch Agent will be used to auto-launch your app. Defaults is `false`.
      */
-    useLaunchAgent?: boolean;
-  };
+    useLaunchAgent?: boolean | undefined;
+  } | undefined;
 }
 
 declare class AutoLaunch {

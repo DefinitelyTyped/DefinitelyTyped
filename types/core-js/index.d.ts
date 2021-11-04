@@ -79,6 +79,16 @@ interface Set<T> {
 }
 
 // #############################################################################################
+// ECMAScript Proposal
+// Modules: esnext.array.last-item, and esnext.array.last-index
+// #############################################################################################
+
+interface Array<T> {
+    lastItem: T;
+    readonly lastIndex: number;
+}
+
+// #############################################################################################
 // Mozilla JavaScript: Array generics
 // Modules: js.array.statics
 // #############################################################################################
@@ -316,30 +326,14 @@ interface ObjectConstructor {
 }
 
 // #############################################################################################
-// Console - https://github.com/zloirock/core-js/#console
-// Modules: core.log
-// #############################################################################################
-
-interface Log extends Console {
-    (message?: any, ...optionalParams: any[]): void;
-    enable(): void;
-    disable(): void;
-}
-
-/**
- * Non-standard.
- */
-declare var log: Log;
-
-// #############################################################################################
 // Dict - https://github.com/zloirock/core-js/#dict
 // Modules: core.dict
 // #############################################################################################
 
 interface Dict<T> {
-    [key: string]: T;
-    [key: number]: T;
-    // [key: symbol]: T;
+    [key: string]: T | undefined;
+    [key: number]: T | undefined;
+    // [key: symbol]: T | undefined;
 }
 
 interface DictConstructor {
@@ -350,12 +344,12 @@ interface DictConstructor {
     <T>(value?: Dict<T>): Dict<T>;
     (value?: any): Dict<any>;
 
-    isDict(value: any): boolean;
+    isDict(value: any): value is Dict<any>;
     values<T>(object: Dict<T>): IterableIterator<T>;
     keys<T>(object: Dict<T>): IterableIterator<PropertyKey>;
     entries<T>(object: Dict<T>): IterableIterator<[PropertyKey, T]>;
     has<T>(object: Dict<T>, key: PropertyKey): boolean;
-    get<T>(object: Dict<T>, key: PropertyKey): T;
+    get<T>(object: Dict<T>, key: PropertyKey): T | undefined;
     set<T>(object: Dict<T>, key: PropertyKey, value: T): Dict<T>;
     forEach<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => void, thisArg?: any): void;
     map<T, U>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => U, thisArg?: any): Dict<U>;
@@ -363,7 +357,7 @@ interface DictConstructor {
     filter<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): Dict<T>;
     some<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): boolean;
     every<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): boolean;
-    find<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): T;
+    find<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): T | undefined;
     findKey<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): PropertyKey;
     keyOf<T>(object: Dict<T>, value: T): PropertyKey;
     includes<T>(object: Dict<T>, value: T): boolean;
@@ -399,12 +393,12 @@ interface Date {
     /**
      * Non-standard.
      */
-    format(template: string, locale?: string): string;
+    format?(template: string, locale?: string): string;
 
     /**
      * Non-standard.
      */
-    formatUTC(template: string, locale?: string): string;
+    formatUTC?(template: string, locale?: string): string;
 }
 
 // #############################################################################################
@@ -468,7 +462,6 @@ declare namespace core {
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
         function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
         function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
-        function enumerate(target: any): IterableIterator<any>;
         function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
         function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
         function getPrototypeOf(target: any): any;
@@ -830,7 +823,6 @@ declare namespace core {
     const Symbol: SymbolConstructor;
     const Dict: DictConstructor;
     const global: any;
-    const log: Log;
     const _: boolean;
 
     function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
@@ -900,10 +892,6 @@ declare module "core-js/core/global" {
     const global: typeof core.global;
     export = global;
 }
-declare module "core-js/core/log" {
-    const log: typeof core.log;
-    export = log;
-}
 declare module "core-js/core/number" {
     const Number: typeof core.Number;
     export = Number;
@@ -947,10 +935,6 @@ declare module "core-js/fn/global" {
 declare module "core-js/fn/is-iterable" {
     const isIterable: typeof core.isIterable;
     export = isIterable;
-}
-declare module "core-js/fn/log" {
-    const log: typeof core.log;
-    export = log;
 }
 declare module "core-js/fn/map" {
     const Map: typeof core.Map;
@@ -1378,10 +1362,6 @@ declare module "core-js/fn/reflect/delete-property" {
     const deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
 }
-declare module "core-js/fn/reflect/enumerate" {
-    const enumerate: typeof core.Reflect.enumerate;
-    export = enumerate;
-}
 declare module "core-js/fn/reflect/get" {
     const get: typeof core.Reflect.get;
     export = get;
@@ -1683,10 +1663,6 @@ declare module "core-js/library/core/global" {
     const global: typeof core.global;
     export = global;
 }
-declare module "core-js/library/core/log" {
-    const log: typeof core.log;
-    export = log;
-}
 declare module "core-js/library/core/number" {
     const Number: typeof core.Number;
     export = Number;
@@ -1730,10 +1706,6 @@ declare module "core-js/library/fn/global" {
 declare module "core-js/library/fn/is-iterable" {
     const isIterable: typeof core.isIterable;
     export = isIterable;
-}
-declare module "core-js/library/fn/log" {
-    const log: typeof core.log;
-    export = log;
 }
 declare module "core-js/library/fn/map" {
     const Map: typeof core.Map;
@@ -2160,10 +2132,6 @@ declare module "core-js/library/fn/reflect/define-property" {
 declare module "core-js/library/fn/reflect/delete-property" {
     const deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
-}
-declare module "core-js/library/fn/reflect/enumerate" {
-    const enumerate: typeof core.Reflect.enumerate;
-    export = enumerate;
 }
 declare module "core-js/library/fn/reflect/get" {
     const get: typeof core.Reflect.get;

@@ -7,6 +7,7 @@ declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
 declare var blockStatement: ESTree.BlockStatement;
 declare var expressionStatement: ESTree.ExpressionStatement;
+declare var directive: ESTree.Directive;
 declare var ifStatement: ESTree.IfStatement;
 declare var labeledStatement: ESTree.LabeledStatement;
 declare var breakStatement: ESTree.BreakStatement;
@@ -30,7 +31,8 @@ declare var baseExpression: ESTree.BaseExpression;
 declare var thisExpression: ESTree.ThisExpression;
 declare var arrayExpression: ESTree.ArrayExpression;
 declare var objectExpression: ESTree.ObjectExpression;
-declare var property: ESTree.Property;
+declare var property: ESTree.Property | ESTree.SpreadElement;
+declare var propertyDefinition: ESTree.PropertyDefinition;
 declare var functionExpression: ESTree.FunctionExpression;
 declare var sequenceExpression: ESTree.SequenceExpression;
 declare var unaryExpression: ESTree.UnaryExpression;
@@ -43,13 +45,16 @@ declare var callExpression: ESTree.CallExpression;
 declare var simpleCallExpression: ESTree.SimpleCallExpression;
 declare var newExpression: ESTree.NewExpression;
 declare var memberExpression: ESTree.MemberExpression;
+declare var chainExpression: ESTree.ChainExpression;
 declare var pattern: ESTree.Pattern;
 declare var switchCase: ESTree.SwitchCase;
 declare var catchClause: ESTree.CatchClause;
 declare var identifier: ESTree.Identifier;
+declare var privateIdentifier: ESTree.PrivateIdentifier;
 declare var literal: ESTree.Literal;
 declare var simpleLiteral: ESTree.SimpleLiteral;
 declare var regExpLiteral: ESTree.RegExpLiteral;
+declare var bigIntLiteral: ESTree.BigIntLiteral;
 declare var unaryOperator: ESTree.UnaryOperator;
 declare var binaryOperator: ESTree.BinaryOperator;
 declare var logicalOperator: ESTree.LogicalOperator;
@@ -85,6 +90,7 @@ declare var exportSpecifier: ESTree.ExportSpecifier;
 declare var exportDefaultDeclaration: ESTree.ExportDefaultDeclaration;
 declare var exportAllDeclaration: ESTree.ExportAllDeclaration;
 declare var awaitExpression: ESTree.AwaitExpression;
+declare var importExpression: ESTree.ImportExpression;
 
 declare var toplevelStatement: ESTree.Statement | ESTree.ModuleDeclaration;
 declare var expressionOrPattern: ESTree.Expression | ESTree.Pattern;
@@ -93,6 +99,7 @@ declare var variableDeclaratorOrPattern: ESTree.VariableDeclaration | ESTree.Pat
 declare var literalOrIdentifier: ESTree.Literal | ESTree.Identifier;
 declare var blockStatementOrExpression: ESTree.BlockStatement | ESTree.Expression;
 declare var identifierOrExpression: ESTree.Identifier | ESTree.Expression;
+declare var privateIdentifierOrExpression: ESTree.PrivateIdentifier | ESTree.Expression;
 declare var any: any;
 declare var string: string;
 declare var boolean: boolean;
@@ -119,6 +126,15 @@ statement = blockStatement.body[0];
 // ExpressionStatement
 var expressionStatement: ESTree.ExpressionStatement;
 expression = expressionStatement.expression;
+
+// Directive
+literal = directive.expression;
+// $ExpectType string
+directive.directive;
+
+// pattern
+var pattern: ESTree.Pattern;
+var patternOrNull: ESTree.Pattern | null;
 
 // IfStatement
 var ifStatement: ESTree.IfStatement;
@@ -164,16 +180,20 @@ expression = forInStatement.right;
 // ArrayExpression
 var arrayExpression: ESTree.ArrayExpression;
 string = arrayExpression.type;
-var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement
+var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement | null
     = arrayExpression.elements[0];
 
 // ObjectExpression
 var objectExpression: ESTree.ObjectExpression;
-property = objectExpression.properties[0];
+var propertyOrSpread: ESTree.Property | ESTree.SpreadElement
+    = objectExpression.properties[0];
+
 string = property.type;
-expression = property.key;
-expressionOrPattern = property.value;
-string = property.kind;
+if (property.type === 'Property') {
+    privateIdentifierOrExpression = property.key;
+    expressionOrPattern = property.value;
+    string = property.kind;
+}
 
 // FunctionExpression
 var functionExpression: ESTree.FunctionExpression;
@@ -218,8 +238,21 @@ expressionOrSpread = callExpression.arguments[0];
 // MemberExpression
 var memberExpression: ESTree.MemberExpression;
 expressionOrSuper = memberExpression.object;
-identifierOrExpression = memberExpression.property;
+privateIdentifierOrExpression = memberExpression.property;
 boolean = memberExpression.computed;
+
+// ChainExpression
+var chainExpression: ESTree.ChainExpression;
+var memberExpressionOrCallExpression = chainExpression.expression;
+boolean = memberExpressionOrCallExpression.optional;
+if (memberExpressionOrCallExpression.type === 'MemberExpression') {
+  expressionOrSuper = memberExpressionOrCallExpression.object;
+  privateIdentifierOrExpression = memberExpressionOrCallExpression.property;
+  boolean = memberExpressionOrCallExpression.computed;
+} else {
+  expressionOrSuper = memberExpressionOrCallExpression.callee;
+  expressionOrSpread = callExpression.arguments[0];
+}
 
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
@@ -250,7 +283,7 @@ statement = switchCase.consequent[0];
 
 // CatchClause
 string = catchClause.type;
-pattern = catchClause.param;
+patternOrNull = catchClause.param;
 blockStatement = catchClause.body;
 
 // Misc
@@ -271,6 +304,9 @@ expression = awaitExpression.argument;
 switch (node.type) {
   case 'Identifier':
     identifier = node;
+    break;
+  case 'PrivateIdentifier':
+    privateIdentifier = node;
     break;
   case 'Literal':
     literal = node;
@@ -393,6 +429,9 @@ switch (node.type) {
   case 'MemberExpression':
     memberExpression = node;
     break;
+  case 'ChainExpression':
+    chainExpression = node;
+    break;
   case 'ConditionalExpression':
     conditionalExpression = node;
     break;
@@ -419,6 +458,9 @@ switch (node.type) {
     break;
   case 'AwaitExpression':
     awaitExpression = node;
+    break;
+  case 'ImportExpression':
+    importExpression = node;
     break;
   // end narrowing of Expression
 
@@ -455,6 +497,9 @@ switch (node.type) {
     break;
   case 'MethodDefinition':
     methodDefinition = node
+    break;
+  case 'PropertyDefinition':
+    propertyDefinition = node
     break;
 
   // narrowing of ModuleDeclaration
@@ -601,6 +646,9 @@ switch (expression.type) {
   case 'MemberExpression':
     memberExpression = expression;
     break;
+  case 'ChainExpression':
+    chainExpression = expression;
+    break;
   case 'ConditionalExpression':
     conditionalExpression = expression;
     break;
@@ -630,6 +678,9 @@ switch (expression.type) {
     break;
   case 'AwaitExpression':
     awaitExpression = expression;
+    break;
+  case 'ImportExpression':
+    importExpression = expression;
     break;
   default:
     never = expression;

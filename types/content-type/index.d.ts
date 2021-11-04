@@ -1,8 +1,8 @@
 // Type definitions for content-type 1.1
-// Project: https://www.npmjs.com/package/content-type
+// Project: https://github.com/jshttp/content-type
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function parse(input: RequestLike | ResponseLike | string): ParsedMediaType;
 export function format(obj: MediaType): string;
@@ -14,7 +14,7 @@ export interface ParsedMediaType {
 
 export interface MediaType {
     type: string;
-    parameters?: {[key: string]: string};
+    parameters?: {[key: string]: string} | undefined;
 }
 
 export interface RequestLike {

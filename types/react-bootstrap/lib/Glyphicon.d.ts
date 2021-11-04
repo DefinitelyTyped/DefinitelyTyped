@@ -5,7 +5,7 @@ declare namespace Glyphicon {
         // Required
         glyph: string;
         // Optional
-        bsClass?: string;
+        bsClass?: string | undefined;
     }
 }
 declare class Glyphicon extends React.Component<Glyphicon.GlyphiconProps> { }

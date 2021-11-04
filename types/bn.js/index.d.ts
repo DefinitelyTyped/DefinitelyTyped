@@ -1,63 +1,53 @@
-// Type definitions for bn.js 4.11
+// Type definitions for bn.js 5.1
 // Project: https://github.com/indutny/bn.js
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
+//                 Gaylor Bosson <https://github.com/Gilthoniel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
-type Endianness = 'le' | 'be';
-type IPrimeName = 'k256' | 'p224' | 'p192' | 'p25519';
+declare namespace BN {
+    type Endianness = 'le' | 'be';
+    type IPrimeName = 'k256' | 'p224' | 'p192' | 'p25519';
 
-declare class RedBN {
-    redAdd(b: RedBN): RedBN;
-    redIAdd(b: RedBN): RedBN;
-    redSub(b: RedBN): RedBN;
-    redISub(b: RedBN): RedBN;
-    redShl(num: number): RedBN;
-    redMul(b: RedBN): RedBN;
-    redIMul(b: RedBN): RedBN;
-    redSqr(): RedBN;
-    redISqr(): RedBN;
-    /**
-     * @description square root modulo reduction context's prime
-     */
-    redSqrt(): RedBN;
-    /**
-     * @description  modular inverse of the number
-     */
-    redInvm(): RedBN;
-    redNeg(): RedBN;
-    /**
-     * @description modular exponentiation
-     */
-    redPow(b: RedBN): RedBN;
-    fromRed(): BN;
-}
+    interface MPrime {
+        name: string;
+        p: BN;
+        n: number;
+        k: BN;
+    }
 
-// FIXME: not sure how to specify the reduction context here
-interface ReductionContext {
-    m: number;
-    prime: any;
-    [key: string]: any;
+    interface ReductionContext {
+        m: number;
+        prime: MPrime;
+        [key: string]: any;
+    }
 }
 
 declare class BN {
+    static BN: typeof BN;
+    static wordSize: 26;
+
     constructor(
-        number: number | string | number[] | Buffer | BN,
-        base?: number,
-        endian?: Endianness
+        number: number | string | number[] | Uint8Array | Buffer | BN,
+        base?: number | 'hex',
+        endian?: BN.Endianness
     );
+    constructor(
+        number: number | string | number[] | Uint8Array | Buffer | BN,
+        endian?: BN.Endianness
+    )
 
     /**
      * @description  create a reduction context
      */
-    static red(reductionContext: BN | IPrimeName): ReductionContext;
+    static red(reductionContext: BN | BN.IPrimeName): BN.ReductionContext;
 
     /**
      * @description  create a reduction context  with the Montgomery trick.
      */
-    static mont(num: BN): ReductionContext;
+    static mont(num: BN): BN.ReductionContext;
 
     /**
      * @description returns true if the supplied object is a BN.js instance
@@ -65,9 +55,14 @@ declare class BN {
     static isBN(b: any): b is BN;
 
     /**
-     * @description  Convert number to red
+     * @description returns the maximum of 2 BN instances.
      */
-    toRed(reductionContext: ReductionContext): RedBN;
+    static max(left: BN, right: BN): BN;
+
+    /**
+     * @description returns the minimum of 2 BN instances.
+     */
+    static min(left: BN, right: BN): BN;
 
     /**
      * @description  clone number
@@ -92,21 +87,27 @@ declare class BN {
     /**
      * @description  convert to byte Array, and optionally zero pad to length, throwing if already exceeding
      */
-    toArray(endian?: Endianness, length?: number): number[];
+    toArray(endian?: BN.Endianness, length?: number): number[];
 
     /**
      * @description convert to an instance of `type`, which must behave like an Array
      */
     toArrayLike(
-        ArrayType: Buffer | any[],
-        endian?: Endianness,
+        ArrayType: typeof Buffer,
+        endian?: BN.Endianness,
         length?: number
-    ): Buffer | any[];
+    ): Buffer;
+
+    toArrayLike(
+        ArrayType: any[],
+        endian?: BN.Endianness,
+        length?: number
+    ): any[];
 
     /**
      * @description  convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: a.toArrayLike(Buffer, endian, length)
      */
-    toBuffer(endian?: Endianness, length?: number): Buffer;
+    toBuffer(endian?: BN.Endianness, length?: number): Buffer;
 
     /**
      * @description get number of bits occupied
@@ -339,10 +340,15 @@ declare class BN {
     umod(b: BN): BN;
 
     /**
-     * @see API consistency https://github.com/indutny/bn.js/pull/130
+     * @deprecated
      * @description reduct
      */
     modn(b: number): number;
+
+    /**
+     * @description reduct
+     */
+    modrn(b: number): number;
 
     /**
      * @description  rounded division
@@ -502,6 +508,87 @@ declare class BN {
      * @description inverse `a` modulo `b`
      */
     invm(b: BN): BN;
+
+    /**
+     * @description Convert number to red
+     */
+    toRed(reductionContext: BN.ReductionContext): RedBN;
+}
+
+/**
+ * Big-Number class with additionnal methods that are using modular
+ * operation.
+ */
+declare class RedBN extends BN {
+    /**
+     * @description Convert back a number using a reduction context
+     */
+    fromRed(): BN;
+
+    /**
+     * @description modular addition
+     */
+    redAdd(b: BN): RedBN;
+
+    /**
+     * @description in-place modular addition
+     */
+    redIAdd(b: BN): RedBN;
+
+    /**
+     * @description modular subtraction
+     */
+    redSub(b: BN): RedBN;
+
+    /**
+     * @description in-place modular subtraction
+     */
+    redISub(b: BN): RedBN;
+
+    /**
+     * @description modular shift left
+     */
+    redShl(num: number): RedBN;
+
+    /**
+     * @description modular multiplication
+     */
+    redMul(b: BN): RedBN;
+
+    /**
+     * @description in-place modular multiplication
+     */
+    redIMul(b: BN): RedBN;
+
+    /**
+     * @description modular square
+     */
+    redSqr(): RedBN;
+
+    /**
+     * @description in-place modular square
+     */
+    redISqr(): RedBN;
+
+    /**
+     * @description modular square root
+     */
+    redSqrt(): RedBN;
+
+    /**
+     * @description modular inverse of the number
+     */
+    redInvm(): RedBN;
+
+    /**
+     * @description modular negation
+     */
+    redNeg(): RedBN;
+
+    /**
+     * @description modular exponentiation
+     */
+    redPow(b: BN): RedBN;
 }
 
 export = BN;

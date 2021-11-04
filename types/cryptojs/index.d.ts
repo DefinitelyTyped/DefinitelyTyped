@@ -102,7 +102,7 @@ declare namespace CryptoJS{
         interface Cipher extends ICipher<Object>{}
 
         interface IStreamCipher<C> extends ICipher<C>{
-            drop?: number;
+            drop?: number | undefined;
 
             createEncryptor(key: WordArray, cfg?: C): IStreamCipher<C>
             createDecryptor(key: WordArray, cfg?: C): IStreamCipher<C>
@@ -124,21 +124,21 @@ declare namespace CryptoJS{
         interface BlockCipher extends IStreamCipher<IBlockCipherCfg>{}
 
         interface IBlockCipherCfg {
-            iv?: WordArray;
-            mode?: mode.IBlockCipherModeImpl //default CBC
-            padding?: pad.IPaddingImpl //default Pkcs7
+            iv?: WordArray | undefined;
+            mode?: mode.IBlockCipherModeImpl | undefined //default CBC
+            padding?: pad.IPaddingImpl | undefined //default Pkcs7
         }
 
         interface CipherParamsData {
-            ciphertext?: lib.WordArray
-            key?: lib.WordArray
-            iv?: lib.WordArray
-            salt?: lib.WordArray
-            algorithm?: Cipher
-            mode?: mode.IBlockCipherModeImpl
-            padding?: pad.IPaddingImpl
-            blockSize?: number
-            formatter?: format.IFormatter
+            ciphertext?: lib.WordArray | undefined
+            key?: lib.WordArray | undefined
+            iv?: lib.WordArray | undefined
+            salt?: lib.WordArray | undefined
+            algorithm?: Cipher | undefined
+            mode?: mode.IBlockCipherModeImpl | undefined
+            padding?: pad.IPaddingImpl | undefined
+            blockSize?: number | undefined
+            formatter?: format.IFormatter | undefined
         }
 
         interface CipherParams extends Base, CipherParamsData{
@@ -159,10 +159,10 @@ declare namespace CryptoJS{
 
         interface SerializableCipher extends ISerializableCipher<ISerializableCipherCfg>{}
         interface ISerializableCipherCfg{
-            format?: format.IFormatter //default OpenSSLFormatter
-            iv?: WordArray;
-            mode?: mode.IBlockCipherModeImpl;
-            padding?: pad.IPaddingImpl;
+            format?: format.IFormatter | undefined //default OpenSSLFormatter
+            iv?: WordArray | undefined;
+            mode?: mode.IBlockCipherModeImpl | undefined;
+            padding?: pad.IPaddingImpl | undefined;
         }
 
         interface IPasswordBasedCipher<C extends IPasswordBasedCipherCfg> extends Base{
@@ -176,9 +176,9 @@ declare namespace CryptoJS{
 
         interface PasswordBasedCipher extends IPasswordBasedCipher<IPasswordBasedCipherCfg>{}
         interface IPasswordBasedCipherCfg extends ISerializableCipherCfg{
-            kdf?: kdf.IKdfImpl //default OpenSSLKdf
-            mode?: mode.IBlockCipherModeImpl;
-            padding?: pad.IPaddingImpl;
+            kdf?: kdf.IKdfImpl | undefined //default OpenSSLKdf
+            mode?: mode.IBlockCipherModeImpl | undefined;
+            padding?: pad.IPaddingImpl | undefined;
         }
 
         /** see Cipher._createHelper */
@@ -303,7 +303,7 @@ declare namespace CryptoJS{
 
         interface SHA3 extends lib.IHasher<ISHA3Cfg>{}
         interface ISHA3Cfg{
-            outputLength?: number //default 512
+            outputLength?: number | undefined //default 512
         }
 
         interface HMAC extends lib.Base{
@@ -329,9 +329,9 @@ declare namespace CryptoJS{
             compute(password: lib.WordArray,  salt: lib.WordArray): lib.WordArray
         }
         interface IEvpKDFCfg{
-            keySize?: number //default 128/32
-            hasher?: lib.Hasher //default MD5, or SHA1 with PBKDF2
-            iterations?: number //default 1
+            keySize?: number | undefined //default 128/32
+            hasher?: lib.Hasher | undefined //default MD5, or SHA1 with PBKDF2
+            iterations?: number | undefined //default 1
         }
         interface IEvpKDFHelper{
             (password: string,         salt: string,        cfg?: IEvpKDFCfg): lib.WordArray

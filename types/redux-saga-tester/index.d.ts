@@ -1,29 +1,21 @@
 // Type definitions for redux-saga-tester 1.0
 // Project: https://github.com/wix/redux-saga-tester#readme
-// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>
+// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>, Law Smith <https://github.com/lawsumisu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
-export interface AnyAction {
-    type: string;
-    [key: string]: any;
-}
-export type Reducer = (state: object, action: AnyAction) => object;
-export interface ReducerMap {
-    [key: string]: Reducer;
-}
-export type ReduxMiddleware = (options: { dispatch: (action: AnyAction) => void, getState: () => object })
-    => (next: (action: AnyAction) => any)
-    => any;
+import { Task } from 'redux-saga';
+import { AnyAction, Middleware, Reducer, ReducersMapObject } from 'redux';
+
 export type SagaFunction = (...args: any[]) => any;
 
-export interface SagaTesterOptions<StateType extends object> {
-    initialState?: StateType;
-    reducers?: ReducerMap|Reducer;
-    middlewares?: ReduxMiddleware[];
-    combineReducers?: (map: ReducerMap) => Reducer;
-    ignoreReduxActions?: boolean;
-    options?: object;
+export interface SagaTesterOptions<StateType> {
+    initialState?: StateType | undefined;
+    reducers?: ReducersMapObject | Reducer<StateType> | undefined;
+    middlewares?: Middleware[] | undefined;
+    combineReducers?: ((map: ReducersMapObject) => Reducer<StateType>) | undefined;
+    ignoreReduxActions?: boolean | undefined;
+    options?: object | undefined;
 }
 
 export default class SagaTester<StateType extends object> {
@@ -32,7 +24,7 @@ export default class SagaTester<StateType extends object> {
     /**
      * Starts execution of the provided saga.
      */
-    start(saga: SagaFunction): void;
+    start(saga: SagaFunction, ...args: any[]): Task;
 
     /**
      * Dispatches an action to the redux store.
@@ -51,9 +43,10 @@ export default class SagaTester<StateType extends object> {
 
     /**
      * Returns a promise that will resolve if the specified action is dispatched to the store.
+     * @param actionType Action name.
      * @param futureOnly Causes waitFor to only resolve if the action is called in the future.
      */
-    waitFor(actionType: string, futureOnly?: boolean): PromiseLike<void>;
+    waitFor(actionType: string, futureOnly?: boolean): PromiseLike<AnyAction>;
 
     /**
      * Returns whether the specified was dispatched in the past.

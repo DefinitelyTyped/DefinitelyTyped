@@ -1,7 +1,10 @@
+import elementResizeEvent = require("element-resize-event");
 
-import ere = require("element-resize-event");
+const element = document.getElementById("resize");
 
-var domNode: Element = null;
-ere(domNode, (): void => {});
-ere.unbind(domNode, (): void => {});
-
+if (element) {
+    const cb = () => {};
+    elementResizeEvent(element, cb);
+    elementResizeEvent.unbind(element);
+    elementResizeEvent.unbind(element, cb);
+}

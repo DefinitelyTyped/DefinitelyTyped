@@ -1,8 +1,8 @@
-// Type definitions for Backgrid 0.2.6
+// Type definitions for Backgrid 0.2
 // Project: http://backgridjs.com/
 // Definitions by: Jeremy Lujan <https://github.com/jlujan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 
@@ -14,10 +14,10 @@ declare namespace Backgrid {
     interface GridOptions {
         columns: Column[];
         collection: Backbone.Collection<Backbone.Model>;
-        header?: Header;
-        body?: Body;
-        row?: Row;
-        footer?: Footer;
+        header?: Header | undefined;
+        body?: Body | undefined;
+        row?: Row | undefined;
+        footer?: Footer | undefined;
     }
 
     class Header extends Backbone.View<Backbone.Model> {
@@ -101,9 +101,9 @@ declare namespace Backgrid {
         insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
         moveToNextCell(model: Backbone.Model, cell: Column, command: Command);
         refresh(): Body;
-        remove(): Body;
+        remove(): this;
         removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
-        render(): Body;
+        render(): this;
     }
 
     class Grid extends Backbone.View<Backbone.Model> {
@@ -119,10 +119,10 @@ declare namespace Backgrid {
         getSelectedModels(): Backbone.Model[];
         insertColumn(...options: any[]): Grid;
         insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
-        remove(): Grid;
+        remove(): this;
         removeColumn(...options: any[]): Grid;
         removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
-        render(): Grid;
+        render(): this;
     }
 
 }

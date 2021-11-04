@@ -119,3 +119,7 @@ create(404) instanceof create.HttpError;
 util.isError(create(404));
 util.isError(new create['404']());
 util.isError(new create['500']());
+
+// should support isHttpError
+create.isHttpError(1); // non-http-error type
+create.isHttpError(new create['404']()); // http error type

@@ -1,4 +1,4 @@
-// Type definitions for Microsoft ADO Extensions 6.0 for DDL and Security - ADOX 6.0
+// Type definitions for non-npm package Microsoft ADO Extensions 6.0 for DDL and Security - ADOX 6.0
 // Project: https://docs.microsoft.com/en-us/sql/ado/reference/adox-api/adox-object-model
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -191,7 +191,6 @@ declare namespace ADOX {
         Unique: boolean;
     }
 
-    // tslint:disable-next-line:interface-name
     interface Indexes {
         Append(Item: Index | string, Columns?: string | SafeArray<string>): void; // is this actually two overloads, one with [Index] and one with [string,string | SafeArray<string>]?
         readonly Count: number;

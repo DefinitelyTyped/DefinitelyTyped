@@ -2,12 +2,20 @@
 // Project: https://github.com/jaredhanson/oauth2orize/
 // Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="express" />
 
-import { ServerRequest, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from "http";
+
+declare global {
+  namespace Express {
+    interface Request {
+      oauth2?: OAuth2 | undefined;
+    }
+  }
+}
 
 export interface OAuth2 {
   client: any;
@@ -31,8 +39,8 @@ export interface OAuth2Info {
   scope: string;
 }
 
-export interface MiddlewareRequest extends ServerRequest {
-  oauth2?: OAuth2;
+export interface MiddlewareRequest extends IncomingMessage {
+  oauth2?: OAuth2 | undefined;
   user?: any;
 }
 
@@ -44,8 +52,8 @@ export interface ServerOptions {
 export function createServer(options?: ServerOptions): OAuth2Server;
 
 export interface AuthorizeOptions {
-  idLength?: number;
-  sessionKey?: string;
+  idLength?: number | undefined;
+  sessionKey?: string | undefined;
 }
 
 export interface DecisionOptions {
@@ -55,7 +63,63 @@ export interface DecisionOptions {
 }
 
 export interface ErrorHandlerOptions {
-  mode?: string;
+  mode?: string | undefined;
+}
+
+export class OAuth2Error extends Error {
+    code: string;
+    status: number;
+    uri?: string | undefined;
+
+    /**
+     * @param code Defaults to *server_error*.
+     * @param status Defaults to 500.
+     */
+    constructor(message?: string, code?: string, uri?: string, status?: number);
+}
+
+export type AuthorizationErrorCode = 'invalid_request'
+    | 'unauthorized_client'
+    | 'access_denied'
+    | 'unsupported_response_type'
+    | 'invalid_scope'
+    | 'temporarily_unavailable';
+
+export class AuthorizationError extends OAuth2Error {
+    /**
+     * @param code The code sets the status unless status is present. Mapping:
+     * invalid_request = 400
+     * unauthorized_client = 403
+     * access_denied = 403
+     * unsupported_response_type = 501
+     * invalid_scope = 400
+     * temporarily_unavailable = 503
+     * Defaults to *server_error*.
+     * @param status Defaults to 500 if code is not specified.
+     */
+    constructor(message?: string, code?: AuthorizationErrorCode | string, uri?: string, status?: number);
+}
+
+export type TokenErrorCode = 'invalid_request'
+    | 'invalid_client'
+    | 'invalid_grant'
+    | 'unauthorized_client'
+    | 'unsupported_grant_type'
+    | 'invalid_scope';
+
+export class TokenError extends OAuth2Error {
+    /**
+     * @param code The code sets the status unless status is present. Mapping:
+     * invalid_request = 400
+     * invalid_client = 401
+     * invalid_grant = 403
+     * unauthorized_client = 403
+     * unsupported_grant_type = 501
+     * invalid_scope = 400
+     * Defaults to server_error.
+     * @param status Defaults to 500 if code is not specified.
+     */
+    constructor(message?: string, code?: TokenErrorCode | string, uri?: string, status?: number);
 }
 
 export type MiddlewareFunction = (req: MiddlewareRequest, res: ServerResponse, next: MiddlewareNextFunction) => void;
@@ -99,6 +163,7 @@ export class OAuth2Server {
 
   decision(options: DecisionOptions, parse: DecisionParseFunction): MiddlewareFunction;
   decision(parse: DecisionParseFunction): MiddlewareFunction;
+  decision(): MiddlewareFunction;
 
   token(options?: any): MiddlewareFunction;
 
@@ -118,7 +183,7 @@ export namespace grant {
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
     // deployed.
-    scopeSeparator?: string;
+    scopeSeparator?: string | undefined;
   }
 
   function code(options: Options, issue: IssueGrantCodeFunction): MiddlewareFunction;
@@ -132,14 +197,14 @@ export namespace exchange {
   interface Options {
     // The 'user' property of `req` holds the authenticated user.  In the case
     // of the token endpoint, the property will contain the OAuth 2.0 client.
-    userProperty?: string;
+    userProperty?: string | undefined;
 
     // For maximum flexibility, multiple scope spearators can optionally be
     // allowed.  This allows the server to accept clients that separate scope
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
     // deployed.
-    scopeSeparator?: string;
+    scopeSeparator?: string | undefined;
   }
 
   function authorizationCode(options: Options, issue: IssueExchangeCodeFunction): MiddlewareFunction;

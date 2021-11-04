@@ -1,20 +1,16 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "ban-types": false,
-        "callable-types": false,
-        "dt-header": false,
         "interface-name": false,
         "jsdoc-format": false,
         "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
-        "no-redundant-jsdoc": false,
-        "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,

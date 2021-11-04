@@ -1,15 +1,39 @@
-// Type definitions for node-cron 1.2
-// Project: http://merencia.com/node-cron/
-// Definitions by: morsic <https://github.com/maximelkin>
+// Type definitions for node-cron 3.0
+// Project: https://github.com/node-cron/node-cron, https://github.com/merencia/node-cron
+// Definitions by: morsic <https://github.com/maximelkin>,
+//                 burtek <https://github.com/burtek>,
+//                 Richard Honor <https://github.com/RMHonor>
+//                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
+//                 Alex Seidmann <https://github.com/aseidma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import EventEmitter = require('events');
 
-// immediateStart - default true
-export function schedule(a: string, func: () => void, immediateStart?: boolean): ScheduledTask;
+export function schedule(cronExpression: string, func: () => void, options?: ScheduleOptions): ScheduledTask;
 
-export function validate(a: string): boolean;
+export function validate(cronExpression: string): boolean;
 
-export interface ScheduledTask {
+export function getTasks(): ScheduledTask[];
+
+export interface ScheduledTask extends EventEmitter {
     start: () => this;
     stop: () => this;
-    destroy: () => void;
+}
+
+export interface ScheduleOptions {
+    /**
+     * A boolean to set if the created task is scheduled.
+     *
+     * Defaults to `true`
+     */
+    scheduled?: boolean | undefined;
+    /**
+     * The timezone that is used for job scheduling
+     */
+    timezone?: string;
+    /**
+     * Specifies whether to recover missed executions instead of skipping them.
+     *
+     * Defaults to `false`
+     */
+    recoverMissedExecutions?: boolean;
 }

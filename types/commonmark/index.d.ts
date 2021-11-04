@@ -1,18 +1,21 @@
 // Type definitions for commonmark.js 0.27
-// Project: https://github.com/jgm/commonmark.js
+// Project: https://github.com/jgm/commonmark.js, http://commonmark.org
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type NodeType =
+    'text' |'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
+    'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block';
+
 export class Node {
-    constructor(nodeType: string, sourcepos?: Position);
+    constructor(nodeType: NodeType, sourcepos?: Position);
 
     /**
      * (read-only): a String, one of text, softbreak, linebreak, emph, strong, html_inline, link, image, code, document, paragraph,
      * block_quote, item, list, heading, code_block, html_block, thematic_break.
      */
-    readonly type: 'text' | 'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
-        'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block';
+    readonly type: NodeType;
     /**
      * (read-only): a Node or null.
      */
@@ -185,18 +188,18 @@ export interface NodeWalker {
 export type Position = [[number, number], [number, number]];
 
 export interface ListData {
-    type?: string;
-    tight?: boolean;
-    delimiter?: string;
-    bulletChar?: string;
+    type?: string | undefined;
+    tight?: boolean | undefined;
+    delimiter?: string | undefined;
+    bulletChar?: string | undefined;
 }
 
 export interface ParserOptions {
     /**
      *  if true, straight quotes will be made curly, -- will be changed to an en dash, --- will be changed to an em dash, and ... will be changed to ellipses.
      */
-    smart?: boolean;
-    time?: boolean;
+    smart?: boolean | undefined;
+    time?: boolean | undefined;
 }
 
 export interface HtmlRenderingOptions extends XmlRenderingOptions {
@@ -204,18 +207,24 @@ export interface HtmlRenderingOptions extends XmlRenderingOptions {
      *  if true, raw HTML will not be passed through to HTML output (it will be replaced by comments), and potentially unsafe URLs in links and images
      *  (those beginning with javascript:, vbscript:, file:, and with a few exceptions data:) will be replaced with empty strings.
      */
-    safe?: boolean;
+    safe?: boolean | undefined;
     /**
      *  if true, straight quotes will be made curly, -- will be changed to an en dash, --- will be changed to an em dash, and ... will be changed to ellipses.
      */
-    smart?: boolean;
+    smart?: boolean | undefined;
     /**
      *  if true, source position information for block-level elements will be rendered in the data-sourcepos attribute (for HTML) or the sourcepos attribute (for XML).
      */
-    sourcepos?: boolean;
+    sourcepos?: boolean | undefined;
+
+    /**
+     * A raw string to be used for a softbreak.
+     * For example, `{ softbreak: "<br/>" }` treats a softbreak as `<br/>`.
+     */
+    softbreak?: string | undefined;
 }
 
 export interface XmlRenderingOptions {
-    time?: boolean;
-    sourcepos?: boolean;
+    time?: boolean | undefined;
+    sourcepos?: boolean | undefined;
 }

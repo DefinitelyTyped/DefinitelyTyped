@@ -1,13 +1,14 @@
-// Type definitions for d3-contour 1.2
+// Type definitions for d3-contour 3.0
 // Project: https://d3js.org/d3-contour/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Hugues Stefanski <https://github.com/Ledragon>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Hugues Stefanski <https://github.com/Ledragon>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 3.0.1
 
 import { MultiPolygon } from 'geojson';
-import { ThresholdArrayGenerator, ThresholdCountGenerator } from 'd3-array';
+import { ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
 
 /**
  * An extended GeoJSON MultiPolygon representing a contour.
@@ -78,39 +79,16 @@ export interface Contours {
     /**
      * Returns the current threshold generator, which by default implements Sturges’ formula.
      */
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<number>;
+    thresholds(): ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>;
     /**
-     * Sets the threshold generator to use the specified count and returns this contour generator.
-     * The input values’ extent will be uniformly divided into approximately count bins.
-     *
-     * @param count Expected number of threshold bins.
-     */
-    thresholds(count: number): this;
-    /**
-     * Sets the threshold generator to the specified array and returns this contour generator.
-     *
+     * Sets the threshold generator to the specified function or array and returns this contour generator.
      * Thresholds are defined as an array of values [x0, x1, …].
      * The first generated contour corresponds to the area where the input values are greater than or equal to x0;
      * the second contour corresponds to the area where the input values are greater than or equal to x1, and so on.
-     * Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value;
-     * the threshold value is exposed as geometry.value.
-     *
-     * @param thresholds Array of thresholds to use.
+     * Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value; the threshold value is exposed as geometry.value.
+     * If a count is specified instead of an array of thresholds, then the input values’ extent will be uniformly divided into approximately count bins; see d3.ticks.
      */
-    thresholds(thresholds: number[]): this;
-    /**
-     * Sets the threshold generator to the specified function and returns this contour generator.
-     *
-     * Thresholds are defined as an array of values [x0, x1, …].
-     * The first generated contour corresponds to the area where the input values are greater than or equal to x0;
-     * the second contour corresponds to the area where the input values are greater than or equal to x1, and so on.
-     * Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value;
-     * the threshold value is exposed as geometry.value.
-     *
-     * @param thresholds A threshold generator function. The threshold generator function is passed the array of input values
-     * as its argument and returns either an array of calculated thresholds, or the count of thresholds to use.
-     */
-    thresholds(thresholds: ThresholdCountGenerator | ThresholdArrayGenerator<number>): this;
+    thresholds(thresholds: number | number[] | ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
 }
 
 /**
@@ -170,6 +148,18 @@ export interface ContourDensity<Datum = [number, number]> {
     y(y: (d: Datum) => number): this;
 
     /**
+     * Returns the current point weight accessor.
+     */
+    weight(): (d: Datum) => number;
+
+    /**
+     * Sets the point weight accessor and returns the density contour estimator.
+     *
+     * @param weight A point weight accessor function.
+     */
+    weight(weight: (d: Datum) => number): this;
+
+    /**
      * Returns the current size, which defaults to [960, 500].
      */
     size(): [number, number];
@@ -196,39 +186,17 @@ export interface ContourDensity<Datum = [number, number]> {
     /**
      * Returns the current threshold generator, which by default generates about twenty nicely-rounded density thresholds.
      */
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<number>;
+    thresholds(): ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>;
     /**
-     * Sets the threshold generator to use the specified count and returns this density contour estimator.
-     * Approximately count uniformly-spaced nicely-rounded thresholds will be generated.
-     *
-     * @param count Expected number of thresholds.
+     * Sets the threshold generator to the specified function or array and returns this contour generator.
+     * Thresholds are defined as an array of values [x0, x1, …].
+     * The first generated density contour corresponds to the area where the estimated density is greater than or equal to x0;
+     * the second contour corresponds to the area where the estimated density is greater than or equal to x1, and so on.
+     * Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value; the threshold value is exposed as geometry.value.
+     * The first value x0 should typically be greater than zero.
+     * If a count is specified instead of an array of thresholds, then approximately count uniformly-spaced nicely-rounded thresholds will be generated; see d3.ticks.
      */
-    thresholds(count: number): this;
-    /**
-     * Sets the threshold generator to the specified array and returns this density contour estimator.
-     *
-     * Thresholds are defined as an array of values [x0, x1, …]. The first generated density contour corresponds to the area
-     * where the estimated density is greater than or equal to x0; the second contour corresponds to the area
-     * where the estimated density is greater than or equal to x1, and so on.
-     * Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value;
-     *  the threshold value is exposed as geometry.value. The first value x0 should typically be greater than zero.
-     *
-     * @param thresholds Array of thresholds to use.
-     */
-    thresholds(thresholds: number[]): this;
-    /**
-     * Sets the threshold generator to the specified function and returns this density contour estimator.
-     *
-     * Thresholds are defined as an array of values [x0, x1, …]. The first generated density contour corresponds to the area
-     * where the estimated density is greater than or equal to x0; the second contour corresponds to the area
-     * where the estimated density is greater than or equal to x1, and so on.
-     * Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value;
-     *  the threshold value is exposed as geometry.value. The first value x0 should typically be greater than zero.
-     *
-     * @param thresholds A threshold generator function. The threshold generator function is passed the array of input values
-     * as its argument and returns either an array of calculated thresholds, or the count of thresholds to use.
-     */
-    thresholds(thresholds: ThresholdCountGenerator | ThresholdArrayGenerator<number>): this;
+    thresholds(thresholds: number | number[] | ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
 
     /**
      * Returns the current bandwidth, which defaults to 20.4939….
@@ -254,4 +222,5 @@ export interface ContourDensity<Datum = [number, number]> {
  * Important: ensure that the x- and y-accessor functions are configured to
  * match the data type used for the generic Datum.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function contourDensity<Datum = [number, number]>(): ContourDensity<Datum>;

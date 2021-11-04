@@ -4,6 +4,7 @@
 //                 Harm van der Werf <https://github.com/harm-less>
 //                 Jouni Suorsa <https://github.com/jounisuo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -74,7 +75,7 @@ declare namespace ChaiSpies {
        * @param {function} fn replacement function
        * @returns function to actually call
        */
-      on(object: Object, methodNames: string | string[], fn?: (parameters: any[]|any) => any): any;
+      on(object: Object, methodNames: string | string[], fn?: (...parameters: any[]|any) => any): any;
 
       /**
        * #### chai.spy.restore (function)
@@ -138,23 +139,23 @@ declare namespace ChaiSpies {
          * @param {function} fn replacement function
          * @returns function to actually call
          */
-        on(object: Object, methodNames: string | string[], fn?: (parameters: any[]|any) => any): any;
+        on(object: Object, methodNames: string | string[], fn?: (...parameters: any[]|any) => any): any;
 
         /**
-         * #### chai.spy.object (function)
+         * #### chai.spy.interface (function)
          *
          * Creates an object with spied methods.
          * ```ts
-         * var object = chai.spy.object('Array', [ 'push', 'pop' ]);
+         * var object = chai.spy.interface('Array', [ 'push', 'pop' ]);
          * ```
          * @param {String} [name] object name
          * @param {String[]|Object} method names or method definitions
          * @returns object with spied methods
          */
-        object(name: string, methods: string[]): any;
-        object(methods: string[]): any;
-        object<T>(name: string, methods: T): T;
-        object<T>(methods: T): T;
+        interface(name: string, methods: string[]): any;
+        interface(methods: string[]): any;
+        interface<T>(name: string, methods: T): T;
+        interface<T>(methods: T): T;
 
       /**
        * #### chai.spy.restore (function)

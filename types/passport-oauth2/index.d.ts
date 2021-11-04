@@ -2,12 +2,16 @@
 // Project: https://github.com/jaredhanson/passport-oauth2#readme
 // Definitions by: Pasi Eronen <https://github.com/pasieronen>
 //                 Wang Zishi <https://github.com/WangZishi>
+//                 Eduardo AC <https://github.com/EduardoAC>
+//                 Ivan Fernandes <https://github.com/ivan94>
+//                 Daphne Smit <https://github.com/daphnesmit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { Request } from 'express';
 import { Strategy } from 'passport';
 import { OAuth2 } from 'oauth';
+import { OutgoingHttpHeaders } from 'http';
 
 declare class OAuth2Strategy extends Strategy {
     name: string;
@@ -31,7 +35,24 @@ declare class OAuth2Strategy extends Strategy {
 }
 
 declare namespace OAuth2Strategy {
-    type VerifyCallback = (err?: Error | null, user?: object, info?: object) => void;
+    interface Metadata {
+        authorizationURL: string;
+        tokenURL: string;
+        clientID: string;
+    }
+
+    type StateStoreStoreCallback = (err: Error | null, state: any) => void;
+    type StateStoreVerifyCallback = (err: Error, ok: boolean, state: any) => void;
+
+    interface StateStore {
+        store(req: Request, callback: StateStoreStoreCallback): void;
+        store(req: Request, meta: Metadata, callback: StateStoreStoreCallback): void;
+
+        verify(req: Request, state: string, callback: StateStoreVerifyCallback): void;
+        verify(req: Request, state: string, meta: Metadata, callback: StateStoreVerifyCallback): void;
+    }
+
+    type VerifyCallback = (err?: Error | null, user?: Express.User, info?: object) => void;
 
     type VerifyFunction =
         ((accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
@@ -45,10 +66,19 @@ declare namespace OAuth2Strategy {
         tokenURL: string;
         clientID: string;
         clientSecret: string;
-        callbackURL: string;
+        callbackURL?: string | undefined;
+        customHeaders?: OutgoingHttpHeaders | undefined;
+        scope?: string | string[] | undefined;
+        scopeSeparator?: string | undefined;
+        sessionKey?: string | undefined;
+        store?: StateStore | undefined;
+        state?: any;
+        skipUserProfile?: any;
+        pkce?: boolean | undefined;
+        proxy?: any;
     }
     interface StrategyOptions extends _StrategyOptionsBase {
-        passReqToCallback?: false;
+        passReqToCallback?: false | undefined;
     }
     interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
         passReqToCallback: true;
@@ -60,14 +90,14 @@ declare namespace OAuth2Strategy {
     class TokenError extends Error {
         constructor(message: string | undefined, code: string, uri?: string, status?: number);
         code: string;
-        uri?: string;
+        uri?: string | undefined;
         status: number;
     }
 
     class AuthorizationError extends Error {
         constructor(message: string | undefined, code: string, uri?: string, status?: number);
         code: string;
-        uri?: string;
+        uri?: string | undefined;
         status: number;
     }
 

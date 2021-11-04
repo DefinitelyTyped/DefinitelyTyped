@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 const StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
@@ -94,14 +94,35 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
 
 // Below tests that extended types for state work
 export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
+    foo() {
+        this.setState({ baseProp: 'foobar' });
+    }
 }
 
 // Below tests that & generic still works
-export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
+// This is invalid because 'S' may specify a different type for `baseProp`.
+// export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
+//        foo() {
+//            this.setState({ baseProp: 'foobar' });
+//        }
+// }
+
+function reactNodeTests() {
+    function *createChildren() {
+        yield <div key="one">one</div>;
+        yield <div key="two">two</div>;
+    }
+
+    <div>{Object.freeze([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    <div>{new Set([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    // TODO: This warns at runtime so we should probably reject it as well
+    <div>
+        {
+            new Map([
+                ['one', <div key="one">one</div>],
+                ['two', <div key="two">two</div>],
+            ])
+        }
+    </div>;
+    <div>{createChildren()}</div>;
 }

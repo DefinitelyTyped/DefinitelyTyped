@@ -1,7 +1,9 @@
-// Type definitions for InboxSDK 2.0
+// Type definitions for non-npm package InboxSDK 2.0
 // Project: https://www.inboxsdk.com/
 // Definitions by: Raphaël Doursenaud <https://github.com/rdoursenaud>
 //                 Amiram Korach <https://github.com/amiram>
+//                 Antoine Boisadam <https://github.com/Antoine38660>
+//                 Alex Bilbie <https://github.com/alexbilbie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -29,13 +31,13 @@ declare namespace InboxSDK {
 // };
 
   interface LoadOptions {
-    appName?: string;
-    appIconUrl?: string;
-    suppressAddonTitle?: string;
+    appName?: string | undefined;
+    appIconUrl?: string | undefined;
+    suppressAddonTitle?: string | undefined;
   }
 
   interface LoadScriptOptions {
-    nowrap?: boolean;
+    nowrap?: boolean | undefined;
   }
 
   interface InboxSDKInstance {
@@ -82,17 +84,17 @@ declare namespace InboxSDK {
     }
 
     interface PositionOptions {
-      position?: string;
-      forcePosition?: boolean;
-      hAlign?: string;
-      forceHAlign?: boolean;
-      vAlign?: string;
-      forceVAlign?: boolean;
-      buffer?: number;
-      topBuffer?: number;
-      bottomBuffer?: number;
-      leftBuffer?: number;
-      rightBuffer?: number;
+      position?: string | undefined;
+      forcePosition?: boolean | undefined;
+      hAlign?: string | undefined;
+      forceHAlign?: boolean | undefined;
+      vAlign?: string | undefined;
+      forceVAlign?: boolean | undefined;
+      buffer?: number | undefined;
+      topBuffer?: number | undefined;
+      bottomBuffer?: number | undefined;
+      leftBuffer?: number | undefined;
+      rightBuffer?: number | undefined;
     }
 
     interface SimpleElementView {
@@ -115,6 +117,8 @@ declare namespace InboxSDK {
     interface ComposeView {
       addButton(buttonDescriptor: ComposeButtonDescriptor): void;
 
+      addComposeNotice(composeNoticeDescriptor: ComposeNoticeDescriptor): Common.SimpleElementView;
+
       addStatusBar(statusBarDescriptor: StatusBarDescriptor): StatusBarView;
 
       close(): void;
@@ -122,6 +126,8 @@ declare namespace InboxSDK {
       send(options?: SendOptions): void;
 
       getBodyElement(): HTMLElement;
+
+      getMetadataFormElement(): HTMLElement;
 
       getInitialMessageID(): string;
 
@@ -154,6 +160,8 @@ declare namespace InboxSDK {
       insertLinkChipIntoBodyAtCursor(text: string, url: string, iconUrl: string): HTMLElement;
 
       insertLinkIntoBodyAtCursor(text: string, url: string): HTMLElement;
+
+      isForward(): boolean;
 
       isInlineReplyForm(): boolean;
 
@@ -197,6 +205,8 @@ declare namespace InboxSDK {
 
       on(name: 'fullscreenChanged', cb: (event: { fullscreen: boolean }) => void): void;
 
+      on(name: 'responseTypeChanged', cb: (event: { isForward: boolean }) => void): void;
+
       on(name: 'fromContactChanged' | 'toContactAdded' | 'toContactRemoved' | 'ccContactAdded' | 'ccContactRemoved' | 'bccContactAdded' | 'bccContactRemoved',
          cb: (event: { contact: Common.Contact }) => void): void;
 
@@ -228,13 +238,17 @@ declare namespace InboxSDK {
 
     interface ComposeButtonDescriptor {
       title: string;
-      iconUrl?: string;
-      iconClass?: string;
+      iconUrl?: string | undefined;
+      iconClass?: string | undefined;
       onClick: (event: ComposeButtonClickEvent) => void;
-      hasDropdown?: boolean;
-      type?: 'MODIFIER' | 'SEND_ACTION';
-      orderHint?: number;
-      enabled?: boolean;
+      hasDropdown?: boolean | undefined;
+      type?: 'MODIFIER' | 'SEND_ACTION' | undefined;
+      orderHint?: number | undefined;
+      enabled?: boolean | undefined;
+    }
+
+    interface ComposeNoticeDescriptor {
+      orderHint?: number | undefined;
     }
 
     interface ComposeButtonClickEvent {
@@ -243,8 +257,8 @@ declare namespace InboxSDK {
     }
 
     interface StatusBarDescriptor {
-      height?: number;
-      orderHint?: number;
+      height?: number | undefined;
+      orderHint?: number | undefined;
     }
 
     interface StatusBarView extends Common.SimpleElementView {
@@ -252,13 +266,17 @@ declare namespace InboxSDK {
     }
 
     interface SendOptions {
-      sendAndArchive?: boolean;
+      sendAndArchive?: boolean | undefined;
     }
   }
 
   export namespace Lists {
     interface ListsInstance {
       registerThreadRowViewHandler(handler: (threadRowView: ThreadRowView) => any): () => void;
+
+      getSelectedThreadRowViews(): ThreadRowView[];
+
+      registerThreadRowViewSelectionHandler(handler: () => any): () => void;
     }
 
     interface ThreadRowView {
@@ -314,55 +332,73 @@ declare namespace InboxSDK {
     interface ThreadRowButtonDescriptor {
       title: string;
       iconUrl: string;
-      iconClass?: string;
+      iconClass?: string | undefined;
       onClick: (event: ThreadRowButtonClickEvent) => void;
-      hasDropdown?: boolean;
+      hasDropdown?: boolean | undefined;
     }
 
     interface ThreadRowButtonClickEvent {
       threadRowView: ThreadRowView;
-      dropdown?: Common.DropdownView;
+      dropdown?: Common.DropdownView | undefined;
     }
 
     interface ThreadRowActionButtonDescriptor {
       type: 'LINK';
       title: string;
-      className?: string;
-      onClick?: (event: any) => void;
+      className?: string | undefined;
+      onClick?: ((event: any) => void) | undefined;
       url: string;
     }
 
-    interface LabelDescriptor {
+    interface LabelDescriptorBase {
       title: string;
-      foregroundColor?: string;
-      backgroundColor?: string;
-      iconUrl: string;
-      iconClass?: string;
-      iconBackgroundColor?: string;
+      foregroundColor?: string | undefined;
+      backgroundColor?: string | undefined;
+      iconBackgroundColor?: string | undefined;
     }
+
+    interface LabelDescriptorHtml extends LabelDescriptorBase {
+      iconHtml: string;
+    }
+
+    interface LabelDescriptorUrl extends LabelDescriptorBase {
+      iconUrl: string;
+      iconClass?: string | undefined;
+    }
+
+    type LabelDescriptor = LabelDescriptorHtml | LabelDescriptorUrl;
 
     interface ImageDescriptor {
       imageUrl: string;
-      imageClass?: string;
-      tooltip?: string;
-      orderHint?: number;
+      imageClass?: string | undefined;
+      tooltip?: string | undefined;
+      orderHint?: number | undefined;
     }
 
     interface ThreadRowDateDescriptor {
       text: string;
-      textColor?: string;
-      tooltip?: string;
+      textColor?: string | undefined;
+      tooltip?: string | undefined;
     }
 
-    interface ThreadRowAttachmentIconDescriptor {
-      iconUrl?: string;
-      iconClass?: string;
-      tooltip?: string;
+    interface ThreadRowAttachmentIconDescriptorBase {
+      tooltip?: string | undefined;
     }
+
+    interface ThreadRowAttachmentIconUrlDescriptor extends ThreadRowAttachmentIconDescriptorBase {
+      iconUrl: string;
+      iconClass?: string | undefined;
+    }
+
+    interface ThreadRowAttachmentIconHtmlDescriptor extends ThreadRowAttachmentIconDescriptorBase {
+      iconHtml: string;
+    }
+
+    type ThreadRowAttachmentIconDescriptor = ThreadRowAttachmentIconUrlDescriptor | ThreadRowAttachmentIconHtmlDescriptor;
 
     interface ThreadRowDraftLabelDescriptor {
       text: string;
-      count?: string;
+      count?: string | undefined;
     }
   }
 
@@ -379,6 +415,8 @@ declare namespace InboxSDK {
 
     interface ThreadView {
       addNoticeBar(): Common.SimpleElementView;
+
+      addLabel(): Common.SimpleElementView;
 
       addSidebarContentPanel(contentPanelDescriptor: ContentPanelDescriptor): ContentPanelView;
 
@@ -451,6 +489,15 @@ declare namespace InboxSDK {
     type MessageViewViewStates = 'HIDDEN' | 'COLLAPSED' | 'EXPANDED';
 
     interface ContentPanelView {
+      isActive(): boolean;
+
+      open(): void;
+
+      /**
+       * Undocumented method, no guarantee it will always work.
+       */
+      close(): void;
+
       remove(): void;
 
       on(name: 'destroy' | 'activate' | 'deactivate', cb: () => void): void;
@@ -488,8 +535,8 @@ declare namespace InboxSDK {
       previewOnClick: (event: PreviewClickEvent) => void;
       fileIconImageUrl: string;
       buttons: Array<DownloadButtonDescriptor | CustomButtonDescriptor>;
-      foldColor?: string;
-      mimeType?: string;
+      foldColor?: string | undefined;
+      mimeType?: string | undefined;
     }
 
     interface AttachmentCardNoPreviewOptions {
@@ -500,7 +547,7 @@ declare namespace InboxSDK {
       previewOnClick: (event: PreviewClickEvent) => void;
       fileIconImageUrl: string;
       buttons: Array<DownloadButtonDescriptor | CustomButtonDescriptor>;
-      foldColor?: string;
+      foldColor?: string | undefined;
     }
 
     interface PreviewClickEvent {
@@ -513,18 +560,18 @@ declare namespace InboxSDK {
       el: HTMLElement;
       title: string;
       iconUrl: string;
-      appName?: string;
-      appIconUrl?: string;
-      id?: string;
-      hideTitleBar?: boolean;
-      orderHint?: number;
+      appName?: string | undefined;
+      appIconUrl?: string | undefined;
+      id?: string | undefined;
+      hideTitleBar?: boolean | undefined;
+      orderHint?: number | undefined;
     }
 
     interface DownloadButtonDescriptor {
       downloadUrl: string;
-      downloadFilename?: string;
+      downloadFilename?: string | undefined;
       onClick: (event: any) => void;
-      openInNewTab?: boolean;
+      openInNewTab?: boolean | undefined;
     }
 
     interface CustomButtonDescriptor {
@@ -555,19 +602,28 @@ declare namespace InboxSDK {
       isInQuotedArea: boolean;
     }
 
-    interface MessageAttachmentIconDescriptor {
-      iconUrl: string;
-      iconClass?: string;
-      tooltip: string;
-      onClick?: () => void;
+    interface MessageAttachmentIconDescriptorBase {
+      iconClass?: string | undefined;
+      tooltip: string | HTMLElement;
+      onClick?: (() => void) | undefined;
     }
+
+    interface MessageAttachmentIconUrlDescriptor extends MessageAttachmentIconDescriptorBase {
+      iconUrl: string;
+    }
+
+    interface MessageAttachmentIconHtmlDescriptor extends MessageAttachmentIconDescriptorBase {
+      iconHtml: string;
+    }
+
+    type MessageAttachmentIconDescriptor = MessageAttachmentIconUrlDescriptor | MessageAttachmentIconHtmlDescriptor;
 
     interface MessageViewToolbarButtonDescriptor {
       section: 'MORE';
       title: string;
       iconUrl: string;
       onClick: () => void;
-      iconClass?: string;
+      iconClass?: string | undefined;
       orderHint: number;
     }
   }
@@ -580,13 +636,13 @@ declare namespace InboxSDK {
        * @deprecated. use registerThreadButton
        * @param toolbarButtonDescriptor
        */
-      registerToolbarButtonForList(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
+      registerToolbarButtonForList(toolbarButtonDescriptor: LegacyToolbarButtonDescriptor): () => void;
 
       /**
        * @deprecated. use registerThreadButton
        * @param toolbarButtonDescriptor
        */
-      registerToolbarButtonForThreadView(toolbarButtonDescriptor: ToolbarButtonDescriptor): () => void;
+      registerToolbarButtonForThreadView(toolbarButtonDescriptor: LegacyToolbarButtonDescriptor): () => void;
 
       addToolbarButtonForApp(appToolbarButtonDescriptor: AppToolbarButtonDescriptor): AppToolbarButtonView;
     }
@@ -594,15 +650,26 @@ declare namespace InboxSDK {
     interface ToolbarButtonDescriptor {
       title: string;
       onClick: (event: ToolbarButtonEvent) => void;
-      iconUrl?: string;
-      iconClass?: string;
-      positions?: ToolbarButtonPosition[];
-      threadSection?: SectionNames;
-      listSection?: SectionNames;
-      hasDropdown?: boolean;
-      hideFor?: (routeView: Router.RouteView) => void;
-      orderHint?: number;
-      keyboardShortcutHandle?: Keyboard.KeyboardShortcutHandle;
+      iconUrl?: string | undefined;
+      iconClass?: string | undefined;
+      positions?: ToolbarButtonPosition[] | undefined;
+      threadSection?: SectionNames | undefined;
+      listSection?: SectionNames | undefined;
+      hasDropdown?: boolean | undefined;
+      hideFor?: ((routeView: Router.RouteView) => void) | undefined;
+      orderHint?: number | undefined;
+      keyboardShortcutHandle?: Keyboard.KeyboardShortcutHandle | undefined;
+    }
+
+    interface LegacyToolbarButtonDescriptor {
+      title: string;
+      onClick: (event: LegacyToolbarButtonEvent) => void;
+      iconUrl?: string | undefined;
+      iconClass?: string | undefined;
+      section: SectionNames;
+      hasDropdown?: boolean | undefined;
+      hideFor?: ((routeView: Router.RouteView) => void) | undefined;
+      keyboardShortcutHandle?: Keyboard.KeyboardShortcutHandle | undefined;
     }
 
     type ToolbarButtonPosition = 'THREAD' | 'ROW' | 'LIST';
@@ -611,16 +678,23 @@ declare namespace InboxSDK {
       position: ToolbarButtonPosition;
       selectedThreadRowViews: Lists.ThreadRowView[];
       selectedThreadViews: Conversations.ThreadView[];
-      dropdown?: Common.DropdownView;
+      dropdown?: Common.DropdownView | undefined;
+    }
+
+    interface LegacyToolbarButtonEvent {
+      selectedThreadRowViews: Lists.ThreadRowView[];
+      threadRowViews: Lists.ThreadRowView[];
+      threadView: Conversations.ThreadView;
+      dropdown?: Common.DropdownView | undefined;
     }
 
     interface AppToolbarButtonDescriptor {
       title: string;
-      titleClass?: string;
+      titleClass?: string | undefined;
       iconUrl: string;
-      iconClass?: string;
+      iconClass?: string | undefined;
       onClick: (event: AppToolbarButtonEvent) => void;
-      arrowColor?: string;
+      arrowColor?: string | undefined;
     }
 
     interface AppToolbarButtonView {
@@ -657,17 +731,20 @@ declare namespace InboxSDK {
       handleCustomListRoute(routeID: string, handler: (offset: number, max: number) => CustomListDescriptor | Promise<CustomListDescriptor>): () => void;
 
       getCurrentRouteView(): RouteView;
+
+      NativeListRouteIDs: typeof NativeListRouteIDs;
+      NativeRouteIDs: typeof NativeRouteIDs;
     }
 
     interface CustomListDescriptor {
       threads: Array<ThreadDescriptor | string>;
-      total?: number;
-      hasMore?: boolean;
+      total?: number | undefined;
+      hasMore?: boolean | undefined;
     }
 
     interface ThreadDescriptor {
-      rfcMessageId?: string;
-      gmailThreadId?: string;
+      rfcMessageId?: string | undefined;
+      gmailThreadId?: string | undefined;
     }
 
     interface RouteParams {
@@ -726,15 +803,15 @@ declare namespace InboxSDK {
 
     interface SectionDescriptor {
       title: string;
-      subtitle?: string;
-      titleLinkText?: string;
-      onTitleLinkClick?: () => void;
-      hasDropdown?: boolean;
-      onDropdownClick?: (event: SectionDropdownClickEvent) => void;
-      tableRows?: RowDescriptor[];
-      contentElement?: HTMLElement;
-      footerLinkText?: string;
-      onFooterLinkClick?: (event: any) => void;
+      subtitle?: string | undefined;
+      titleLinkText?: string | undefined;
+      onTitleLinkClick?: (() => void) | undefined;
+      hasDropdown?: boolean | undefined;
+      onDropdownClick?: ((event: SectionDropdownClickEvent) => void) | undefined;
+      tableRows?: RowDescriptor[] | undefined;
+      contentElement?: HTMLElement | undefined;
+      footerLinkText?: string | undefined;
+      onFooterLinkClick?: ((event: any) => void) | undefined;
     }
 
     interface SectionDropdownClickEvent {
@@ -747,50 +824,53 @@ declare namespace InboxSDK {
       shortDetailText: string;
       isRead: string;
       labels: Lists.LabelDescriptor[];
-      iconUrl?: string;
-      iconClass?: string;
-      routeID?: string;
-      routeParams?: string[];
-      onClick?: () => void;
+      iconHtml?: string | undefined;
+      iconUrl?: string | undefined;
+      iconClass?: string | undefined;
+      routeID?: string | undefined;
+      routeParams?: string[] | undefined;
+      onClick?: (() => void) | undefined;
     }
 
-    type NativeRouteIDs =
-      'INBOX' |
-      'ALL_MAIL' |
-      'SENT' |
-      'STARRED' |
-      'DRAFTS' |
-      'SNOOZED' |
-      'DONE' |
-      'REMINDERS' |
-      'LABEL' |
-      'TRASH' |
-      'SPAM' |
-      'IMPORTANT' |
-      'SEARCH' |
-      'THREAD' |
-      'CHATS' |
-      'CHAT' |
-      'CONTACTS' |
-      'CONTACT' |
-      'SETTINGS' |
-      'ANY_LIST';
+    enum NativeRouteIDs {
+        INBOX,
+        ALL_MAIL,
+        SENT,
+        STARRED,
+        DRAFTS,
+        SNOOZED,
+        DONE,
+        REMINDERS,
+        LABEL,
+        TRASH,
+        SPAM,
+        IMPORTANT,
+        SEARCH,
+        THREAD,
+        CHATS,
+        CHAT,
+        CONTACTS,
+        CONTACT,
+        SETTINGS,
+        ANY_LIST
+    }
 
-    type NativeListRouteIDs =
-      'INBOX'
-      | 'ALL_MAIL'
-      | 'SENT'
-      | 'STARRED'
-      | 'DRAFTS'
-      | 'SNOOZED'
-      | 'DONE'
-      | 'REMINDERS'
-      | 'LABEL'
-      | 'TRASH'
-      | 'SPAM'
-      | 'IMPORTANT'
-      | 'SEARCH'
-      | 'ANY_LIST';
+    enum NativeListRouteIDs {
+        INBOX,
+        ALL_MAIL,
+        SENT,
+        STARRED,
+        DRAFTS,
+        SNOOZED,
+        DONE,
+        REMINDERS,
+        LABEL,
+        TRASH,
+        SPAM,
+        IMPORTANT,
+        SEARCH,
+        ANY_LIST
+    }
   }
 
   export namespace NavMenu {
@@ -812,21 +892,28 @@ declare namespace InboxSDK {
       destroyed: boolean;
     }
 
-    interface NavItemDescriptor {
+    interface NavItemDescriptorBase {
       name: string;
-      routeID?: string;
-      routeParams?: object;
-
-      onClick?: (event: { preventDefault(): void }) => void;
-
-      orderHint?: number;
-      accessory?: CreateAccessoryDescriptor | IconButtonAccessoryDescriptor | DropdownButtonAccessoryDescriptor;
-      iconUrl?: string;
-      iconClass?: string;
-      backgroundColor?: string;
-      expanderForegroundColor?: string;
-      type?: NavItemTypes;
+      routeID?: string | undefined;
+      routeParams?: object | undefined;
+      onClick?: ((event: { preventDefault(): void }) => void) | undefined;
+      orderHint?: number | undefined;
+      accessory?: CreateAccessoryDescriptor | IconButtonAccessoryDescriptor | DropdownButtonAccessoryDescriptor | undefined;
+      backgroundColor?: string | undefined;
+      expanderForegroundColor?: string | undefined;
+      type?: NavItemTypes | undefined;
     }
+
+    interface NavItemIconUrlDescriptor extends NavItemDescriptorBase {
+      iconUrl?: string | undefined;
+      iconClass?: string | undefined;
+    }
+
+    interface NavItemIconHtmlDescriptor extends NavItemDescriptorBase {
+      iconElement?: HTMLElement | undefined;
+    }
+
+    type NavItemDescriptor = NavItemIconUrlDescriptor | NavItemIconHtmlDescriptor;
 
     interface CreateAccessoryDescriptor {
       type: 'CREATE';
@@ -837,7 +924,7 @@ declare namespace InboxSDK {
       type: 'ICON_BUTTON';
       onClick: () => void;
       iconUrl: string;
-      iconClass?: string;
+      iconClass?: string | undefined;
     }
 
     interface DropdownButtonAccessoryDescriptor {
@@ -851,7 +938,7 @@ declare namespace InboxSDK {
       dropdown: Common.DropdownView;
     }
 
-    type NavItemTypes = 'MANAGE' | 'NAVIGATION';
+    type NavItemTypes = 'LINK' | 'NAVIGATION';
   }
 
   export namespace Widgets {
@@ -865,45 +952,45 @@ declare namespace InboxSDK {
 
     interface ModalOptions {
       el: HTMLElement;
-      chrome?: boolean;
-      constrainTitleWidth?: boolean;
-      showCloseButton?: boolean;
-      title?: string;
-      buttons?: ModalButtonDescriptor[];
+      chrome?: boolean | undefined;
+      constrainTitleWidth?: boolean | undefined;
+      showCloseButton?: boolean | undefined;
+      title?: string | undefined;
+      buttons?: ModalButtonDescriptor[] | undefined;
     }
 
     interface ModalButtonDescriptor {
       text: string;
       title: string;
       onClick: () => void;
-      type?: 'PRIMARY_ACTION' | 'SECONDARY_ACTION';
-      color?: string;
-      orderHint?: number;
+      type?: 'PRIMARY_ACTION' | 'SECONDARY_ACTION' | undefined;
+      color?: string | undefined;
+      orderHint?: number | undefined;
     }
 
     interface MoleOptions {
       el: HTMLElement;
-      title?: string;
-      titleEl?: HTMLElement;
-      minimizedTitleEl?: HTMLElement;
-      className?: string;
-      titleButtons?: MoleButtonDescriptor[];
-      chrome?: boolean;
+      title?: string | undefined;
+      titleEl?: HTMLElement | undefined;
+      minimizedTitleEl?: HTMLElement | undefined;
+      className?: string | undefined;
+      titleButtons?: MoleButtonDescriptor[] | undefined;
+      chrome?: boolean | undefined;
     }
 
     interface MoleButtonDescriptor {
       title: string;
       iconUrl: string;
-      iconClass?: string;
+      iconClass?: string | undefined;
       onClick: () => void;
     }
 
     interface DrawerOptions {
       el: HTMLElement;
-      chrome?: boolean;
-      title?: string;
-      composeView?: Compose.ComposeView;
-      closeWithCompose?: boolean;
+      chrome?: boolean | undefined;
+      title?: string | undefined;
+      composeView?: Compose.ComposeView | undefined;
+      closeWithCompose?: boolean | undefined;
     }
 
     interface ModalView {
@@ -937,32 +1024,44 @@ declare namespace InboxSDK {
 
       on(name: 'destroy' | 'slideAnimationDone' | 'closing', cb: () => void): void;
 
+      on(name: 'preautoclose', cb: (event: Common.PreAutoCloseEvent) => void): void;
+
       destroyed: boolean;
     }
   }
 
   export namespace ButterBar {
     interface ButterBarInstance {
-      showMessage(options: MessageDescriptor): object;
+      showMessage(options: MessageDescriptor): Destroyer;
 
-      showLoading(): object;
+      showLoading(options: LoadingMessageDescriptor): Destroyer;
 
-      showError(options: MessageDescriptor): object;
+      showError(options: MessageDescriptor): Destroyer;
 
-      showSaving(options: SavingMessageDescriptor): object;
+      showSaving(options: SavingMessageDescriptor): SavingResolver;
 
       hideMessage(messageKey: object | string): void;
 
       hideGmailMessage(): void;
     }
 
+    interface Destroyer {
+      destroy(): void;
+    }
+
+    interface SavingResolver {
+      resolve(): void;
+      reject(): void;
+    }
+
     interface MessageDescriptorBase {
-      className?: string;
-      priority?: number;
-      time?: number;
-      hideOnViewChanged?: boolean;
-      persistent?: boolean;
-      messageKey?: object | string;
+      className?: string | undefined;
+      priority?: number | undefined;
+      time?: number | undefined;
+      hideOnViewChanged?: boolean | undefined;
+      persistent?: boolean | undefined;
+      messageKey?: object | string | undefined;
+      buttons?: MessageButtonDescriptor[] | undefined;
     }
 
     interface MessageDescriptorText extends MessageDescriptorBase {
@@ -979,10 +1078,43 @@ declare namespace InboxSDK {
 
     type MessageDescriptor = MessageDescriptorText | MessageDescriptorHtml | MessageDescriptorHtmlElement;
 
-    interface SavingMessageDescriptorBase extends MessageDescriptorBase {
-      confirmationText?: string;
-      confirmationTime?: number;
-      showConfirmation?: boolean;
+    interface MessageButtonDescriptor {
+      onClick(event: any): void;
+      title: string;
+    }
+
+    interface LoadingMessageDescriptorBase {
+      className?: string | undefined;
+      priority?: number | undefined;
+      hideOnViewChanged?: boolean | undefined;
+      persistent?: boolean | undefined;
+      messageKey?: object | string | undefined;
+    }
+
+    interface LoadingMessageDescriptorText extends LoadingMessageDescriptorBase {
+      text: string;
+    }
+
+    interface LoadingMessageDescriptorHtml extends LoadingMessageDescriptorBase {
+      html: string;
+    }
+
+    interface LoadingMessageDescriptorHtmlElement extends LoadingMessageDescriptorBase {
+      el: HTMLElement;
+    }
+
+    type LoadingMessageDescriptor = LoadingMessageDescriptorText | LoadingMessageDescriptorHtml | LoadingMessageDescriptorHtmlElement;
+
+    interface SavingMessageDescriptorBase {
+      className?: string | undefined;
+      confirmationText?: string | undefined;
+      priority?: number | undefined;
+      time?: number | undefined;
+      confirmationTime?: number | undefined;
+      showConfirmation?: boolean | undefined;
+      hideOnViewChanged?: boolean | undefined;
+      persistent?: boolean | undefined;
+      messageKey?: object | string | undefined;
     }
 
     interface SavingMessageDescriptorText extends SavingMessageDescriptorBase {
@@ -1011,11 +1143,12 @@ declare namespace InboxSDK {
     }
 
     interface AutocompleteSearchResultBase {
-      iconUrl?: string;
-      routeName?: string;
-      routeParams?: string[];
-      externalURL?: string;
-      onClick?: () => void;
+      iconUrl?: string | undefined;
+      iconHTML?: string | undefined;
+      routeName?: string | undefined;
+      routeParams?: string[] | undefined;
+      externalURL?: string | undefined;
+      onClick?: (() => void) | undefined;
     }
 
     interface AutocompleteSearchResultText extends AutocompleteSearchResultBase {
@@ -1067,7 +1200,7 @@ declare namespace InboxSDK {
 
   export namespace Global {
     interface GlobalInstance {
-      addSidebarContentPanel(contentPanelDescriptor: Conversations.ContentPanelDescriptor): Conversations.ContentPanelView;
+      addSidebarContentPanel(contentPanelDescriptor: Conversations.ContentPanelDescriptor): Promise<Conversations.ContentPanelView>;
     }
   }
 }

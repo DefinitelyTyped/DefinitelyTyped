@@ -1,5 +1,5 @@
 import { Transform, TransformOptions } from 'stream';
-import * as Assembler from '../Assembler';
+import Assembler = require('../Assembler');
 
 export = StreamBase;
 
@@ -11,7 +11,7 @@ declare namespace StreamBase {
     type ObjectFilterFunction = (asm: Assembler) => boolean | undefined;
 
     interface StreamOptions extends TransformOptions {
-        objectFilter?: ObjectFilterFunction;
-        includeUndecided?: boolean;
+        objectFilter?: ObjectFilterFunction | undefined;
+        includeUndecided?: boolean | undefined;
     }
 }

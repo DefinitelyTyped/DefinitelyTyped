@@ -18,15 +18,15 @@ declare module 'leaflet' {
             /**
              * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying requests.
              */
-            proxy?: string;
+            proxy?: string | undefined;
             /**
              * Dictates if the service should use CORS when making GET requests.
              */
-            useCors?: boolean;
+            useCors?: boolean | undefined;
             /**
              * Will use this token to authenticate all calls to the service.
              */
-            token?: string;
+            token?: string | undefined;
         }
 
         type Basemaps =
@@ -55,8 +55,8 @@ declare module 'leaflet' {
         type SpatialReferenceExpression = number | SpatialReference;
 
         interface SpatialReference {
-            wkid?: number;
-            wkt?: string;
+            wkid?: number | undefined;
+            wkt?: string | undefined;
         }
 
         /**
@@ -64,10 +64,10 @@ declare module 'leaflet' {
          */
         interface BasemapLayerOptions extends L.TileLayerOptions {
             /**
-             * 	Will use this token to authenticate all calls to the service.
+             *     Will use this token to authenticate all calls to the service.
              *
              */
-            token?: string;
+            token?: string | undefined;
         }
 
         /**
@@ -94,7 +94,7 @@ declare module 'leaflet' {
              *
              * Default 0.1
              */
-            zoomOffsetAllowance?: number;
+            zoomOffsetAllowance?: number | undefined;
         }
 
         /**
@@ -141,20 +141,20 @@ declare module 'leaflet' {
              * Server response content type.
              * @default 'image'
              */
-            f?: string;
+            f?: string | undefined;
             /**
              * Position of the layer relative to other overlays.
              * @default 'front'
              */
-            position?: string;
+            position?: string | undefined;
             /**
-             * 	Closest zoom level the layer will be displayed on the map.
+             *     Closest zoom level the layer will be displayed on the map.
              */
-            maxZoom?: number;
+            maxZoom?: number | undefined;
             /**
              * Furthest zoom level the layer will be displayed on the map.
              */
-            minZoom?: number;
+            minZoom?: number | undefined;
         }
 
         /**
@@ -166,11 +166,11 @@ declare module 'leaflet' {
              */
             bringToBack(): this;
             /**
-             * 	Redraws this layer above all other overlay layers.
+             *     Redraws this layer above all other overlay layers.
              */
             bringToFront(): this;
             /**
-             * 	Returns the current opacity of the layer.
+             *     Returns the current opacity of the layer.
              */
             getOpacity(): number;
             /**
@@ -182,7 +182,7 @@ declare module 'leaflet' {
              */
             getTimeRange(): Date[];
             /**
-             * Redraws the layer with he passed time range.
+             * Redraws the layer with the passed time range.
              */
             setTimeRange(from: Date, to: Date): this;
             /**
@@ -207,23 +207,23 @@ declare module 'leaflet' {
              * Output format of the image.
              * @default 'png24'
              */
-            format?: string;
+            format?: string | undefined;
             /**
              * Allow the server to produce transparent images.
              */
-            transparent?: boolean;
+            transparent?: boolean | undefined;
             /**
              * Attribution from service metadata copyright text is automatically displayed in Leaflet's default control.
              * This property can be used for customization.
              */
-            attribution?: string;
+            attribution?: string | undefined;
             /**
              * An array of Layer IDs like [3,4,5] to show from the service.
              */
-            layers?: any[];
+            layers?: any[] | undefined;
             /**
-             * 	SQL filters to define what features will be included in the image rendered by the service. An object is
-             * 	used with keys that map each query to its respective layer.
+             *     SQL filters to define what features will be included in the image rendered by the service. An object is
+             *     used with keys that map each query to its respective layer.
              *
              * { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" }
              */
@@ -236,7 +236,7 @@ declare module 'leaflet' {
             /**
              * If enabled, appends a timestamp to each request to ensure a fresh image is created server-side.
              */
-            disableCache?: boolean;
+            disableCache?: boolean | undefined;
         }
 
         /**
@@ -337,47 +337,47 @@ declare module 'leaflet' {
              * Function that will be used for creating layers for GeoJSON points. If the option is not specified, simple
              * markers will be created). For point layers, custom panes should be passed through pointToLayer (example here).
              */
-            pointToLayer?: (feature: any, latLng: LatLngExpression) => void;
+            pointToLayer?: ((feature: any, latLng: LatLngExpression) => void) | undefined;
             /**
              * Function that will be used to get style options for vector layers created for GeoJSON features.
              */
-            style?: (feature: any, layer: L.Layer) => void;
+            style?: ((feature: any, layer: L.Layer) => void) | undefined;
             /**
-             * 	Provides an opportunity to introspect individual GeoJSON features in the layer.
+             *     Provides an opportunity to introspect individual GeoJSON features in the layer.
              */
-            onEachFeature?: (feature: any, layer: L.Layer) => void;
+            onEachFeature?: ((feature: any, layer: L.Layer) => void) | undefined;
             /**
              * An optional expression to filter features server side. String values should be denoted using single
              * quotes ie: where: "FIELDNAME = 'field value'"; More information about valid SQL syntax can be found here.
              */
-            where?: string;
+            where?: string | undefined;
             /**
              * Closest zoom level the layer will be displayed on the map. example: maxZoom:19
              */
-            maxZoom?: number;
+            maxZoom?: number | undefined;
             /**
              * Furthest zoom level the layer will be displayed on the map. example: minZoom:3
              */
-            minZoom?: number;
+            minZoom?: number | undefined;
             /**
              * Will remove layers from the internal cache when they are removed from the map.
              */
-            cacheLayers?: boolean;
+            cacheLayers?: boolean | undefined;
             /**
-             * 	An array of fieldnames to pull from the service. Includes all fields by default. You should always
-             * 	specify the name of the unique id for the service. Usually either `FID` or `OBJECTID`.
+             *     An array of fieldnames to pull from the service. Includes all fields by default. You should always
+             *     specify the name of the unique id for the service. Usually either `FID` or `OBJECTID`.
              */
-            fields?: string[];
+            fields?: string[] | undefined;
             /**
-             * 	When paired with to defines the time range of features to display. Requires the Feature Layer to be time
-             * 	enabled.
+             *     When paired with to defines the time range of features to display. Requires the Feature Layer to be time
+             *     enabled.
              */
-            from?: Date;
+            from?: Date | undefined;
             /**
              * When paired with from defines the time range of features to display. Requires the Feature Layer to be
              * time enabled.
              */
-            to?: Date;
+            to?: Date | undefined;
             /**
              * The name of the field to lookup the time of the feature. Can be an object like
              * {start:'startTime', end:'endTime'} or a string like 'created'.
@@ -387,32 +387,32 @@ declare module 'leaflet' {
              * Determines where features are filtered by time. By default features will be filtered by the server. If
              * set to 'client' all features are requested and filtered by the app before display.
              */
-            timeFilterMode?: 'server' | 'client';
+            timeFilterMode?: 'server' | 'client' | undefined;
             /**
-             * 	How much to simplify polygons and polylines. A higher value gives better performance, a lower value
-             * 	gives a more accurate representation.
+             *     How much to simplify polygons and polylines. A higher value gives better performance, a lower value
+             *     gives a more accurate representation.
              */
-            simplifyFactor?: number;
+            simplifyFactor?: number | undefined;
             /**
              * How many digits of precision to request from the server. Wikipedia has a great reference of digit
              * precision to meters.
              */
-            precision?: number;
+            precision?: number | undefined;
             /**
              * The vector renderer to use to draw the service. Usually L.svg() is preferable but setting to `L.canvas()`
              * can have performance benefits for large polygon layers.
              */
-            renderer?: L.SVG | L.Canvas;
+            renderer?: L.SVG | L.Canvas | undefined;
             /**
              * Set this to false if your own service supports GeoJSON as an output format but you'd like to ask for
              * Geoservices JSON instead.
              */
-            isModern?: boolean;
+            isModern?: boolean | undefined;
             /**
              * When utilizing esri-leaflet-renderers '2.0.2' or above, this option makes it possible to override the
              * symbology defined by the service itself.
              */
-            ignoreRenderer?: boolean;
+            ignoreRenderer?: boolean | undefined;
         }
 
         type StyleCallback = (feature: any) => any;
@@ -456,7 +456,7 @@ declare module 'leaflet' {
              */
             setFeatureStyle(id: string | number, style: L.PathOptions | StyleCallback): this;
             /**
-             * 	Given the ID of a feature, reset that feature to the original style.
+             *     Given the ID of a feature, reset that feature to the original style.
              */
             resetStyle(): this;
             /**
@@ -485,7 +485,7 @@ declare module 'leaflet' {
              */
             setWhere(where: string, callback?: FeatureCallbackHandler, context?: any): this;
             /**
-             * 	Returns the current time range as an array like [from, to]
+             *     Returns the current time range as an array like [from, to]
              */
             getTimeRange(): Date[];
             /**
@@ -603,19 +603,23 @@ declare module 'leaflet' {
             /**
              * URL of the ArcGIS service you would like to consume.
              */
-            url?: string;
+            url?: string | undefined;
             /**
              * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying POST requests.
              */
-            proxy?: string;
+            proxy?: string | undefined;
             /**
              * If this service should use CORS when making GET requests.
              */
-            useCors?: boolean;
+            useCors?: boolean | undefined;
             /**
              * Operation timeout
              */
-            timeout?: number;
+            timeout?: number | undefined;
+            /**
+             * Will include credentials for CORS requests
+             */
+             withCredentials?: boolean | undefined;
         }
 
         /**
@@ -946,6 +950,10 @@ declare module 'leaflet' {
              * The WKID of a datum transformation for the server to apply when reprojecting output features.
              */
             transform(datumTranformation: SpatialReferenceExpression): this;
+            /**
+             * Ensures that no geometry or duplicate field values will be returned in the subsequent request.
+             */
+            distinct(): this;
         }
 
         /**
@@ -1044,19 +1052,19 @@ declare module 'leaflet' {
              */
             contains(contains: boolean): this;
             /**
-             * 	An array or comma-separated list of field names to search. If not specified, all fields are searched.
+             *     An array or comma-separated list of field names to search. If not specified, all fields are searched.
              */
             fields(fields: string | string[]): this;
             /**
-             * 	The well known ID (ex. 4326) for the results.
+             *     The well known ID (ex. 4326) for the results.
              */
             spatialReference(sr: number): this;
             /**
-             * 	Add a layer definition to the find task.
+             *     Add a layer definition to the find task.
              */
             layerDef(id: number, where: string): this;
             /**
-             * 	Layers to perform find task on. Accepts an array of layer IDs or comma-separated list.
+             *     Layers to perform find task on. Accepts an array of layer IDs or comma-separated list.
              */
             layers(layers: string | string[]): this;
             /**

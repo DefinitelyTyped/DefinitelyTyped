@@ -61,9 +61,9 @@ function test_support() {
 }
 
 function test_events() {
-	$(document).on('pjax:popstate', function(e) {
-		if (e.direction === 'back') {
-			console.log('pjax:popstate is OK');
-		}
-	});
+    $(document).on('pjax:popstate', function(e) {
+        if (e.direction === 'back') {
+            console.log('pjax:popstate is OK');
+        }
+    });
 }

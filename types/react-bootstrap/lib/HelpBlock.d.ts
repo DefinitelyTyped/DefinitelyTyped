@@ -2,7 +2,7 @@ import * as React from 'react';
 
 declare namespace HelpBlock {
     export interface HelpBlockProps extends React.HTMLProps<HelpBlock> {
-        bsClass?: string;
+        bsClass?: string | undefined;
     }
 }
 declare class HelpBlock extends React.Component<HelpBlock.HelpBlockProps> { }

@@ -17225,7 +17225,7 @@ declare namespace dojox {
             get(property:"searchContainerNode"): boolean;
             watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
             /**
-             * A parameter needed by RadioGroupSlide only. An optional paramter to force
+             * A parameter needed by RadioGroupSlide only. An optional parameter to force
              * the ContentPane to slide in from a set direction. Defaults
              * to "random", or specify one of "top", "left", "right", "bottom"
              * to slideFrom top, left, right, or bottom.
@@ -18171,7 +18171,7 @@ declare namespace dojox {
                 get(property:"searchContainerNode"): boolean;
                 watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
                 /**
-                 * A parameter needed by RadioGroupSlide only. An optional paramter to force
+                 * A parameter needed by RadioGroupSlide only. An optional parameter to force
                  * the ContentPane to slide in from a set direction. Defaults
                  * to "random", or specify one of "top", "left", "right", "bottom"
                  * to slideFrom top, left, right, or bottom.
@@ -23352,7 +23352,7 @@ declare namespace dojox {
             get(property:"refreshOnShow"): boolean;
             watch(property: "refreshOnShow", callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void }): { unwatch(): void }
             /**
-             * A parameter needed by RadioGroupSlide only. An optional paramter to force
+             * A parameter needed by RadioGroupSlide only. An optional parameter to force
              * the ContentPane to slide in from a set direction. Defaults
              * to "random", or specify one of "top", "left", "right", "bottom"
              * to slideFrom top, left, right, or bottom.
@@ -24411,7 +24411,7 @@ declare namespace dojox {
             get(property:"ownerDocument"): Object;
             watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
             /**
-             * A parameter needed by RadioGroupSlide only. An optional paramter to force
+             * A parameter needed by RadioGroupSlide only. An optional parameter to force
              * the ContentPane to slide in from a set direction. Defaults
              * to "random", or specify one of "top", "left", "right", "bottom"
              * to slideFrom top, left, right, or bottom.
@@ -25307,7 +25307,7 @@ declare namespace dojox {
             get(property:"searchContainerNode"): boolean;
             watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
             /**
-             * A parameter needed by RadioGroupSlide only. An optional paramter to force
+             * A parameter needed by RadioGroupSlide only. An optional parameter to force
              * the ContentPane to slide in from a set direction. Defaults
              * to "random", or specify one of "top", "left", "right", "bottom"
              * to slideFrom top, left, right, or bottom.

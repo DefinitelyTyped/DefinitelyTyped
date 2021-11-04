@@ -2,7 +2,7 @@
 // Project: https://github.com/wix/protractor-helpers
 // Definitions by: John Cant <https://github.com/johncant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as webdriver from "selenium-webdriver";
 

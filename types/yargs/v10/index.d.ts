@@ -3,8 +3,8 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -23,6 +23,8 @@
 // when all parameters are optional and more than one
 
 declare namespace yargs {
+    type BuilderCallback = ((args: Argv) => Argv) | ((args: Argv) => void);
+
     interface Argv {
         (): Arguments;
         (args: string[], cwd?: string): Arguments;
@@ -44,10 +46,19 @@ declare namespace yargs {
         coerce(key: string | string[], func: (arg: any) => any): Argv;
         coerce(opts: { [key: string]: (arg: any) => any; }): Argv;
 
-        command(command: string | string[], description: string, builder?: (args: Argv) => Argv, handler?: (args: Arguments) => void): Argv;
+        /**
+         * Define the commands exposed by your application.
+         * @param command Should be a string representing the command or an array of strings representing the command and its aliases.
+         * @param description Use to provide a description for each command your application accepts (the values stored in `argv._`).
+         * Set `description` to false to create a hidden command. Hidden commands don't show up in the help output and aren't available for completion.
+         * @param [builder] Object to give hints about the options that your command accepts.
+         * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
+         * @param [handler] Function, which will be executed with the parsed `argv` object.
+         */
+        command(command: string | string[], description: string, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], description: string, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], description: string, module: CommandModule): Argv;
-        command(command: string | string[], showInHelp: false, builder?: (args: Argv) => Argv, handler?: (args: Arguments) => void): Argv;
+        command(command: string | string[], showInHelp: false, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], showInHelp: false, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], showInHelp: false, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
@@ -108,7 +119,7 @@ declare namespace yargs {
 
         exitProcess(enabled: boolean): Argv;
 
-        fail(func: (msg: string, err: Error) => any): Argv;
+        fail(func: (msg: string, err: Error, yargs: Argv) => any): Argv;
 
         getCompletion(args: string[], done: (completions: string[]) => void): Argv;
 
@@ -140,8 +151,9 @@ declare namespace yargs {
         options(key: string, options: Options): Argv;
         options(options: { [key: string]: Options }): Argv;
 
-        parse(): Arguments;
-        parse(arg: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
+        parse(arg?: string | ReadonlyArray<string>): Arguments;
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         pkgConf(key: string | string[], cwd?: string): Argv;
 
@@ -227,68 +239,69 @@ declare namespace yargs {
     }
 
     interface RequireDirectoryOptions {
-        recurse?: boolean;
-        extensions?: string[];
-        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
-        include?: RegExp | ((pathToFile: string) => boolean);
-        exclude?: RegExp | ((pathToFile: string) => boolean);
+        recurse?: boolean | undefined;
+        extensions?: string[] | undefined;
+        visit?: ((commandObject: any, pathToFile?: string, filename?: string) => any) | undefined;
+        include?: RegExp | ((pathToFile: string) => boolean) | undefined;
+        exclude?: RegExp | ((pathToFile: string) => boolean) | undefined;
     }
 
     interface Options {
-        alias?: string | string[];
-        array?: boolean;
-        boolean?: boolean;
-        choices?: Choices;
-        coerce?: (arg: any) => any;
-        config?: boolean;
-        configParser?: (configPath: string) => object;
-        conflicts?: string | string[] | { [key: string]: string | string[] };
-        count?: boolean;
+        alias?: string | string[] | undefined;
+        array?: boolean | undefined;
+        boolean?: boolean | undefined;
+        choices?: Choices | undefined;
+        coerce?: ((arg: any) => any) | undefined;
+        config?: boolean | undefined;
+        configParser?: ((configPath: string) => object) | undefined;
+        conflicts?: string | string[] | { [key: string]: string | string[] } | undefined;
+        count?: boolean | undefined;
         default?: any;
-        defaultDescription?: string;
+        defaultDescription?: string | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        demand?: boolean | string;
-        demandOption?: boolean | string;
-        desc?: string;
-        describe?: string;
-        description?: string;
-        global?: boolean;
-        group?: string;
-        hidden?: boolean;
-        implies?: string | string[] | { [key: string]: string | string[] };
-        nargs?: number;
-        normalize?: boolean;
-        number?: boolean;
-        require?: boolean | string;
-        required?: boolean | string;
-        requiresArg?: boolean | string;
-        skipValidation?: boolean;
-        string?: boolean;
-        type?: "array" | "count" | PositionalOptionsType;
+        demand?: boolean | string | undefined;
+        demandOption?: boolean | string | undefined;
+        desc?: string | undefined;
+        describe?: string | undefined;
+        description?: string | undefined;
+        global?: boolean | undefined;
+        group?: string | undefined;
+        hidden?: boolean | undefined;
+        implies?: string | string[] | { [key: string]: string | string[] } | undefined;
+        nargs?: number | undefined;
+        normalize?: boolean | undefined;
+        number?: boolean | undefined;
+        require?: boolean | string | undefined;
+        required?: boolean | string | undefined;
+        requiresArg?: boolean | string | undefined;
+        skipValidation?: boolean | undefined;
+        string?: boolean | undefined;
+        type?: "array" | "count" | PositionalOptionsType | undefined;
     }
 
     interface PositionalOptions {
-        alias?: string | string[];
-        choices?: Choices;
-        coerce?: (arg: any) => any;
-        conflicts?: string | string[] | { [key: string]: string | string[] };
+        alias?: string | string[] | undefined;
+        array?: boolean | undefined;
+        choices?: Choices | undefined;
+        coerce?: ((arg: any) => any) | undefined;
+        conflicts?: string | string[] | { [key: string]: string | string[] } | undefined;
         default?: any;
-        desc?: string;
-        describe?: string;
-        description?: string;
-        implies?: string | string[] | { [key: string]: string | string[] };
-        normalize?: boolean;
-        type?: PositionalOptionsType;
+        desc?: string | undefined;
+        describe?: string | undefined;
+        description?: string | undefined;
+        implies?: string | string[] | { [key: string]: string | string[] } | undefined;
+        normalize?: boolean | undefined;
+        type?: PositionalOptionsType | undefined;
     }
 
     interface CommandModule {
-        aliases?: string[] | string;
-        builder?: CommandBuilder;
-        command?: string[] | string;
-        describe?: string | false;
+        aliases?: string[] | string | undefined;
+        builder?: CommandBuilder | undefined;
+        command?: string[] | string | undefined;
+        describe?: string | false | undefined;
         handler: (args: any) => void;
     }
 

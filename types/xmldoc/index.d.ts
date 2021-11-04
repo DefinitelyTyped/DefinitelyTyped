@@ -1,9 +1,10 @@
 // Type definitions for xmldoc 1.1
-// Project: https://www.npmjs.com/package/xmldoc
+// Project: https://github.com/nfarina/xmldoc
 // Definitions by:  Xavier Stouder <https://github.com/Xstoudi>
 //                  Andrew Sheehan <https://github.com/ajsheehan>
 //                  Jordi Bunster <https://github.com/notlaforge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped): // TypeScript Version: 2.1
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export class XmlDocument extends XmlElement {
     constructor(xml: string);
@@ -70,10 +71,10 @@ export class XmlCommentNode {
 }
 
 export interface XmlOptions {
-    compressed?: boolean;
-    html?: boolean;
-    preserveWhitespace?: boolean;
-    trimmed?: boolean;
+    compressed?: boolean | undefined;
+    html?: boolean | undefined;
+    preserveWhitespace?: boolean | undefined;
+    trimmed?: boolean | undefined;
 }
 
 export interface XmlTag {

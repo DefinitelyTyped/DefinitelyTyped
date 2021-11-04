@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "target": "ES5",
         "module": "commonjs",
         "lib": [
             "es6"
@@ -18,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "msnodesqlv8.d.ts",
         "mssql-tests.ts"
     ]
 }

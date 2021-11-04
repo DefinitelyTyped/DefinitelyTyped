@@ -7,66 +7,66 @@
 import * as Q from "q";
 
 interface PushResponse {
-	/**
-	 * Name ref (key) of the child resource
-	 */
-	name : string;
+    /**
+     * Name ref (key) of the child resource
+     */
+    name : string;
 }
 
 interface FirebaseConfig {
-	/**
-	 * path for the Firebase instance
-	 */
-	url : string;
+    /**
+     * path for the Firebase instance
+     */
+    url : string;
 
-	/**
-	 * Token for authorisation
-	 */
-	auth: string;
+    /**
+     * Token for authorisation
+     */
+    auth: string;
 }
 
 interface FirebaseClient {
-	/**
-	 * Creates a new FirebaseClient given the provided configuration
-	 */
-	new (config : FirebaseConfig) : FirebaseClient;
+    /**
+     * Creates a new FirebaseClient given the provided configuration
+     */
+    new (config : FirebaseConfig) : FirebaseClient;
 
-	/**
-	 * Retrieves all objects at the base path
-	 */
-	get<T>() : Q.Promise<T>;
+    /**
+     * Retrieves all objects at the base path
+     */
+    get<T>() : Q.Promise<T>;
 
-	/**
-	 * Retrieves an object
-	 * @param path Relative path from the base for the resource
-	 */
-	get<T>(path : string) : Q.Promise<T>;
+    /**
+     * Retrieves an object
+     * @param path Relative path from the base for the resource
+     */
+    get<T>(path : string) : Q.Promise<T>;
 
-	/**
-	 * Returns a promise of the HTTP response from setting the value at the given path
-	 * @param path Relative path from the base for the resource
-	 * @param data Data to be set as the value for the given path
-	 */
-	set<T>(path : string, data : T) : Q.Promise<T>;
+    /**
+     * Returns a promise of the HTTP response from setting the value at the given path
+     * @param path Relative path from the base for the resource
+     * @param data Data to be set as the value for the given path
+     */
+    set<T>(path : string, data : T) : Q.Promise<T>;
 
-	/**
-	 * Update a node at a given path
-	 * @param path Relative path from the base for the resource
-	 * @param value Value of the response
-	 */
-	update<T>(path : string, value : T) : Q.Promise<T>;
+    /**
+     * Update a node at a given path
+     * @param path Relative path from the base for the resource
+     * @param value Value of the response
+     */
+    update<T>(path : string, value : T) : Q.Promise<T>;
 
-	/**
-	 * Deletes the resource at a given path
-	 * @param path Relative path from the base for the resource
-	 */
-	delete(path : string) :  Q.Promise<void>;
+    /**
+     * Deletes the resource at a given path
+     * @param path Relative path from the base for the resource
+     */
+    delete(path : string) :  Q.Promise<void>;
 
-	/**
-	 * @param path Relative path from the base for the resource
-	 * @param value Object to push to the path
-	 */
-	push<T>(path : string, value : T) : Q.Promise<PushResponse>;
+    /**
+     * @param path Relative path from the base for the resource
+     * @param value Object to push to the path
+     */
+    push<T>(path : string, value : T) : Q.Promise<PushResponse>;
 }
 
 declare var FirebaseClient: FirebaseClient;

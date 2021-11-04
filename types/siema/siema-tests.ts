@@ -10,6 +10,7 @@ const siema = new Siema({
     multipleDrag: true,
     threshold: 20,
     loop: false,
+    rtl: false,
     onInit: () => {},
     onChange: () => {},
 });
@@ -25,3 +26,4 @@ siema.prepend(elem, () => {});
 siema.append(elem, () => {});
 siema.destroy();
 siema.destroy(true, () => {});
+siema.goTo(siema.perPage);

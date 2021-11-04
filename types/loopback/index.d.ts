@@ -1,5 +1,5 @@
 // Type definitions for Loopback 3.2
-// Project: https://github.com/strongloop/loopback
+// Project: https://github.com/strongloop/loopback, http://loopback.io
 // Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 //                 Tim Schumacher <https://github.com/enko>
 //                 Sequoia McDowell <https://github.com/sequoia>
@@ -120,7 +120,7 @@ declare namespace l {
              * @en
              * @returns {any} the model clas
              */
-            model(Model: any|string, config: {dataSource: string|any, public?: boolean, relations?: any}): any;
+            model(Model: any|string, config: {dataSource: string|any, public?: boolean | undefined, relations?: any}): any;
 
             /**
              * Get the models exported by the app. Returns only models defined using `app.model()
@@ -200,7 +200,7 @@ declare namespace l {
              * @returns {any} this (fluent API
              * @header app.middlewareFromConfig(factory, config
              */
-            middlewareFromConfig(factory: () => void, config: {phase: string, enabled?: boolean, params?: any[]|any, paths?: any[]|string|RegExp}): any;
+            middlewareFromConfig(factory: () => void, config: {phase: string, enabled?: boolean | undefined, params?: any[]|any | undefined, paths?: any[]|string|RegExp | undefined}): any;
 
             /**
              * Register (new) middleware phases.
@@ -737,8 +737,8 @@ declare namespace l {
        * @interface
        * @property {string} path HTTP path (relative to the model) at which the method is exposed.
        * @property {'get' | 'post' | 'patch' | 'put' | 'del' | 'all'} verb HTTP method (verb) at which the method is available.
-       * @property {number} status	Default HTTP status set when the callback is called without an error.
-       * @property {number} errorStatus	Default HTTP status set when the callback is called with an error.
+       * @property {number} status    Default HTTP status set when the callback is called without an error.
+       * @property {number} errorStatus    Default HTTP status set when the callback is called with an error.
        */
       interface RemoteHttpOptions {
             /**
@@ -758,20 +758,20 @@ declare namespace l {
             verb: 'get' | 'post' | 'patch' | 'put' | 'del' | 'all';
 
             /**
-             * status	Default HTTP status set when the callback is called without an error.
+             * status    Default HTTP status set when the callback is called without an error.
              * ```
              * {status: 201}
              * ```
              */
-            status?: number;
+            status?: number | undefined;
 
             /**
-             * errorStatus	Default HTTP status set when the callback is called with an error.
+             * errorStatus    Default HTTP status set when the callback is called with an error.
              * ```
              * {errorStatus: 400}
              * ```
              */
-            errorStatus?: number;
+            errorStatus?: number | undefined;
       }
 
       /**
@@ -796,32 +796,32 @@ declare namespace l {
                   {arg: 'age', type: 'number'},...],
                ... }
              */
-            accepts?: RemoteMethodArgument[];
+            accepts?: RemoteMethodArgument[] | undefined;
 
             /**
              * Text description of the method, used by API documentation generators such as Swagger.
              You can put long strings in an array if needed (see note below).
              */
-            description?: string|string[];
+            description?: string|string[] | undefined;
 
             /**
              *
              */
-            http?: RemoteHttpOptions;
+            http?: RemoteHttpOptions | undefined;
 
             /**
              *
              * boolean. Whether the method is static (eg. `MyModel.myMethod`). Use `false` to define the method on the prototype (for example, `MyModel.prototype.myMethod`). Default is true.
              * default: true
              */
-            isStatic?:	boolean;
+            isStatic?: boolean | undefined;
 
             /**
              *
              Additional notes, used by API documentation generators like Swagger.
              You can put long strings in an array if needed (see note below).
              */
-            notes?: string | string[];
+            notes?: string | string[] | undefined;
 
             /**
              * Describes the remote method's callback arguments; See Argument descriptions. The err argument is assumed; do not specify.
@@ -830,24 +830,24 @@ declare namespace l {
              * returns: {arg: 'greeting', type: 'string'}`
              * ```
              */
-            returns?: RemoteMethodArgument;
+            returns?: RemoteMethodArgument | undefined;
       }
 
       /**
        * @interface
-       * @property {string} arg	Argument name
+       * @property {string} arg    Argument name
        * @property {string | string[]} description A text description of the argument.
-       * @property {any} http http	Object or Function	For input arguments: a function or an object describing mapping from HTTP request to the argument value.
-       * @property {boolean} required	True if argument is required; false otherwise.
+       * @property {any} http http    Object or Function    For input arguments: a function or an object describing mapping from HTTP request to the argument value.
+       * @property {boolean} required    True if argument is required; false otherwise.
        * @property {boolean} root For callback arguments: set this property to true if your function has a single callback argument. Otherwise the root object returned is an object
        * @property {"any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String"} type
        * @property {string} default Default value that will be used to populate loopback-explorer input fields and swagger documentation
        */
       interface RemoteMethodArgument {
             /**
-             * 	Argument name
+             *     Argument name
              */
-            arg:	string;
+            arg: string;
             /**
              * A text description of the argument. This is used by API documentation generators like Swagger.
              You can split long descriptions into arrays of strings (lines) to keep line lengths manageable.
@@ -859,38 +859,38 @@ declare namespace l {
              ]
              ```
              */
-            description?:	string | string[];
+            description?: string | string[] | undefined;
             /**
-             * http	Object or Function	For input arguments: a function or an object describing mapping from HTTP request to the argument value. See HTTP mapping of input arguments below.
+             * http    Object or Function    For input arguments: a function or an object describing mapping from HTTP request to the argument value. See HTTP mapping of input arguments below.
              * http.target
              * Map the callback argument value to the HTTP response object. The following values are supported.
 
              * * status sets the res.statusCode to the provided value
              * * header sets the http.header or arg named header to the value
              */
-            http?: RemoteHttpOptions;
+            http?: RemoteHttpOptions | undefined;
 
             /**
-             * 	True if argument is required; false otherwise.
+             *     True if argument is required; false otherwise.
              */
-            required?:	boolean;
+            required?: boolean | undefined;
 
             /**
-             * 	For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller.
+             *     For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller.
              *    Otherwise the root object returned is a map (argument-name to argument-value).
              */
-            root?:	boolean;
+            root?: boolean | undefined;
 
             /**
-             * 	Argument datatype; must be a Loopback type. Additionally, callback arguments allow a special type "file"; see below.
+             *     Argument datatype; must be a Loopback type. Additionally, callback arguments allow a special type "file"; see below.
              */
             type: "any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String";
 
             /**
-             *	Default value that will be used to populate loopback-explorer input fields and swagger documentation.
+             *    Default value that will be used to populate loopback-explorer input fields and swagger documentation.
              *    Note: This value will not be passed into remote methods function if argument is not present.
              */
-            default?:	string;
+            default?: string | undefined;
       }
 
       /**
@@ -1111,7 +1111,7 @@ declare namespace l {
 
             /**
              * Disable a sharedMethod with the given static or prototype method name.
-             * @param {string} methodName	The method name
+             * @param {string} methodName    The method name
              */
             disableMethodByName(methodName: string): void;
 
@@ -1439,11 +1439,11 @@ declare namespace l {
              */
             static find<T = any>(
                   filter: {
-                        fields?: string|any|any[];
-                        include?: string|any|any[];
-                        limit?: number;
-                        order?: string;
-                        skip?: number;
+                        fields?: string|any|any[] | undefined;
+                        include?: string|any|any[] | undefined;
+                        limit?: number | undefined;
+                        order?: string | undefined;
+                        skip?: number | undefined;
                         where?: any;
                   },
                   callback: CallbackWithResult<T[]>
@@ -1472,11 +1472,11 @@ declare namespace l {
              */
             static find<T = any>(
                   filter?: {
-                        fields?: string|any|any[];
-                        include?: string|any|any[];
-                        limit?: number;
-                        order?: string;
-                        skip?: number;
+                        fields?: string|any|any[] | undefined;
+                        include?: string|any|any[] | undefined;
+                        limit?: number | undefined;
+                        order?: string | undefined;
+                        skip?: number | undefined;
                         where?: any;
                   }
             ): Promise<T[] | null>;
@@ -1508,8 +1508,8 @@ declare namespace l {
             static findById<T = any>(
                   id: any,
                   filter: {
-                        fields?: string|any|any[];
-                        include?: string|any|any[];
+                        fields?: string|any|any[] | undefined;
+                        include?: string|any|any[] | undefined;
                   },
                   callback: CallbackWithResult<T>
             ): void;
@@ -1526,8 +1526,8 @@ declare namespace l {
             static findById<T = any>(
                   id: any,
                   filter?: {
-                        fields?: string|any|any[];
-                        include?: string|any|any[];
+                        fields?: string|any|any[] | undefined;
+                        include?: string|any|any[] | undefined;
                   },
             ): Promise<T | null>;
 
@@ -1568,10 +1568,10 @@ declare namespace l {
              */
             static findOne<T = any>(
                   filter: {
-                        fields?: string|any|any[];
-                        include?: string|any|any[];
-                        order?: string;
-                        skip?: number;
+                        fields?: string|any|any[] | undefined;
+                        include?: string|any|any[] | undefined;
+                        order?: string | undefined;
+                        skip?: number | undefined;
                         where?: any;
                   },
                   callback: CallbackWithResult<T>
@@ -1599,10 +1599,10 @@ declare namespace l {
              */
             static findOne<T = any>(
                   filter?: {
-                        fields?: string|any|any[];
-                        include?: string|any|any[];
-                        order?: string;
-                        skip?: number;
+                        fields?: string|any|any[] | undefined;
+                        include?: string|any|any[] | undefined;
+                        order?: string | undefined;
+                        skip?: number | undefined;
                         where?: any;
                   }
             ): Promise<T | null>;
@@ -1658,11 +1658,11 @@ declare namespace l {
             static findOrCreate<T = any>(
                   data: any,
                   filter: {
-                        fields?: string | any | any[];
-                        include?: string | any | any[];
-                        limit?: number;
-                        order?: string;
-                        skip?: number;
+                        fields?: string | any | any[] | undefined;
+                        include?: string | any | any[] | undefined;
+                        limit?: number | undefined;
+                        order?: string | undefined;
+                        skip?: number | undefined;
                         where?: any;
                   },
                   callback: CallbackWithMultipleResults<T, boolean>
@@ -1697,11 +1697,11 @@ declare namespace l {
             static findOrCreate<T = any>(
                   data: any,
                   filter?: {
-                        fields?: string | any | any[];
-                        include?: string | any | any[];
-                        limit?: number;
-                        order?: string;
-                        skip?: number;
+                        fields?: string | any | any[] | undefined;
+                        include?: string | any | any[] | undefined;
+                        limit?: number | undefined;
+                        order?: string | undefined;
+                        skip?: number | undefined;
                         where?: any;
                   }
             ): Promise<{instance: T, created: boolean} | null>;
@@ -2353,14 +2353,14 @@ declare namespace l {
        */
       function token(
             options?: {
-                  cookies?: any[],
-                  headers?: any[],
-                  params?: any[],
-                  searchDefaultTokenKeys?: boolean,
-                  enableDoublecheck?: boolean,
-                  overwriteExistingToken?: boolean,
+                  cookies?: any[] | undefined,
+                  headers?: any[] | undefined,
+                  params?: any[] | undefined,
+                  searchDefaultTokenKeys?: boolean | undefined,
+                  enableDoublecheck?: boolean | undefined,
+                  overwriteExistingToken?: boolean | undefined,
                   model?(): void|string,
-                  currentUserLiteral?: string
+                  currentUserLiteral?: string | undefined
             }): RequestHandler;
 
       /**
@@ -3193,9 +3193,10 @@ declare namespace l {
       /**
        * The Role model
        * @class Role
+       * @inherits {PersistedModel}
        * @header Role objec
        */
-      class Role {
+      class Role extends PersistedModel {
             /**
              * List roles for a given principal.
              * @param {any} context The security context.

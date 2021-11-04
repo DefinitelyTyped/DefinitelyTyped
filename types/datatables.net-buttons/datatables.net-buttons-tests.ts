@@ -150,6 +150,45 @@ const config_3: DataTables.ButtonsSettings = {
     }
 };
 
+const config_4: DataTables.Settings = {
+    // Buttons change text
+    buttons: [{
+        extend: 'excel',
+        text: 'Excel',
+        className: 'class',
+        filename: "exported_file.csv",
+        exportOptions: {
+            columns: ':visible'
+        }
+    },
+    {
+        extend: 'excel',
+        text: 'Excel',
+        className: 'class',
+        filename: "exported_file.csv",
+        exportOptions: {
+            columns: [1, 6, 2, 3, 4]
+        }
+    },
+    {
+        action(e, dt, node, config) { },
+        available(dt, config) { return true; },
+        destroy(dt, node, config) { },
+        enabled: true,
+        init(dt, node, config) { },
+        key: 'a',
+        name: 'name',
+        namespace: 'namespace',
+        titleAttr: 'title',
+        title: 'title'
+    }],
+    language: {
+        buttons: {
+            excel: 'this is excel button'
+        }
+    },
+};
+
 // Statics
 const buttons = new $.fn.dataTable.Buttons($("selector").DataTable(), config_3);
 const version = $.fn.dataTable.Buttons.version;
@@ -185,3 +224,22 @@ dt.button(0)
     .css('background', 'blue');
 
 dt.buttons().destroy();
+
+const config_5: DataTables.Settings = {
+    buttons: [
+        {
+            text: 'Create CSV',
+            action(e, dt, node, config) {
+                // Do custom processing
+                // ...
+
+                // Call the default csvHtml5 action method to create the CSV file
+                // TODO: If TypeScript version is bumped to 3.7, we can use the conditional operator i.e. $.fn.dataTable.ext.buttons.csvHtml5.action?.call(this, e, dt, node, config)
+                const action = $.fn.dataTable.ext.buttons.csvHtml5.action;
+                if (action) {
+                    action.call(this, e, dt, node, config);
+                }
+            }
+        }
+    ]
+};

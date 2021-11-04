@@ -2,28 +2,34 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
+
+// NOTE: forward declarations for tests
+declare function setInterval(...args: any[]): any;
+declare function clearInterval(...args: any[]): any;
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
 
 interface Props extends React.Attributes {
     hello: string;
-    world?: string;
+    world?: string | undefined;
     foo: number;
 }
 
 interface State {
-    inputValue?: string;
-    seconds?: number;
+    inputValue?: string | undefined;
+    seconds?: number | undefined;
 }
 
 interface Context {
-    someValue?: string;
+    someValue?: string | undefined;
 }
 
 interface ChildContext {
@@ -89,7 +95,7 @@ class ModernComponent extends React.Component<Props, State>
         someOtherValue: React.PropTypes.string
     };
 
-    context: Context;
+    context: Context = {};
 
     getChildContext() {
         return {
@@ -133,7 +139,7 @@ class ModernComponentNoState extends React.Component<Props> { }
 class ModernComponentNoPropsAndState extends React.Component { }
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 
 function StatelessComponent(props: SCProps) {
@@ -433,7 +439,7 @@ const PropTypesSpecification: React.ComponentSpec<any, any> = {
             return null;
         }
     },
-    render: (): React.ReactElement<any> | null => {
+    render: (): React.ReactElement | null => {
         return null;
     }
 };
@@ -485,9 +491,12 @@ const ContextTypesSpecification: React.ComponentSpec<any, any> = {
 
 const mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => 42);
+const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
+const mappedChildrenArrayWithKnownChildren: number[] =
+    React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
-let onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
+let onlyChild: React.ReactElement = React.Children.only(React.DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
@@ -502,7 +511,7 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: NodeJS.Timer;
+    private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1
@@ -530,33 +539,6 @@ ReactDOM.render(React.createElement(Timer), container);
 createFragment({
     a: React.DOM.div(),
     b: ["a", false, React.createElement("span")]
-});
-
-//
-// CSSTransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(CSSTransitionGroup)({
-    component: React.createClass({
-        render: (): null => null
-    }),
-    childFactory: (c) => c,
-    transitionName: "transition",
-    transitionAppear: false,
-    transitionEnter: true,
-    transitionLeave: true,
-    id: "some-id",
-    className: "some-class"
-});
-
-React.createFactory(CSSTransitionGroup)({
-    transitionName: {
-        enter: "enter",
-        enterActive: "enterActive",
-        leave: "leave",
-        leaveActive: "leaveActive",
-        appear: "appear",
-        appearActive: "appearActive"
-    }
 });
 
 //
@@ -659,11 +641,6 @@ if (TestUtils.isDOMComponent(container)) {
 }
 
 //
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
-
-//
 // update addon
 // --------------------------------------------------------------------------
 {
@@ -724,7 +701,7 @@ const formEvent: InputFormEvent = changeEvent;
     interface ComponentProps {
         prop1: string;
         prop2: string;
-        prop3?: string;
+        prop3?: string | undefined;
     }
     class ComponentWithDefaultProps extends React.Component<ComponentProps> {
         static defaultProps = {

@@ -1,9 +1,8 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODOs
-		"dt-header": false,
-		"no-duplicate-imports": false,
-		"use-default-type-parameter": false
-	}
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-duplicate-imports": false,
+        "use-default-type-parameter": false
+    }
 }

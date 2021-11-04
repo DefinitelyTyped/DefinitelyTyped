@@ -1,154 +1,196 @@
 // Type definitions for better-scroll 1.12
 // Project: https://github.com/ustbhuangyi/better-scroll
 // Definitions by: cloudstone <https://github.com/stoneChen>
+//                 jack <https://github.com/cnjack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 2.2
-export interface WheelOption {
-    selectedIndex: number;
-    rotate: number;
-    adjustTime: number;
-    wheelWrapperClass: string;
-    wheelItemClass: string;
+declare namespace BScroll {
+    interface WheelOption {
+        selectedIndex: number;
+        rotate: number;
+        adjustTime: number;
+        wheelWrapperClass: string;
+        wheelItemClass: string;
+    }
+
+    interface PageOption {
+        x: number;
+        y: number;
+        pageX: number;
+        pageY: number;
+    }
+
+    interface SlideOption {
+        loop: boolean;
+        el: Element;
+        threshold: number;
+        stepX: number;
+        stepY: number;
+        speed: number;
+        listenFlick: boolean;
+    }
+
+    interface ScrollBarOption {
+        fade: boolean;
+    }
+
+    interface PullDownOption {
+        threshold: number;
+        stop: number;
+    }
+
+    interface PullUpOption {
+        threshold: number;
+    }
+
+    interface MouseWheelOption {
+      speed: number;
+      invert: boolean;
+      easeTime: number;
+    }
+
+    interface ZoomOption {
+      start: number;
+      min: number;
+      max: number;
+    }
+
+    interface InfinityOption {
+      fetch: (count: number) => void;
+      render: (item: any, div: Element) => Element;
+      createTombstone: () => Element;
+    }
+
+    interface BounceObjectOption {
+        top?: boolean | undefined;
+        bottom?: boolean | undefined;
+        left?: boolean | undefined;
+        right?: boolean | undefined;
+    }
+
+    interface DoubleClick {
+      delay: number;
+    }
+
+    interface EaseOption {
+        swipe?: {
+            style: string;
+            fn: (t: number) => number;
+        } | undefined;
+        swipeBounce?: {
+            style: string;
+            fn: (t: number) => number;
+        } | undefined;
+        bounce?: {
+            style: string;
+            fn: (t: number) => number;
+        } | undefined;
+    }
+
+    interface BsOption {
+        startX: number;
+        startY: number;
+        scrollX: boolean;
+        scrollY: boolean;
+        freeScroll: boolean;
+        directionLockThreshold: number;
+        eventPassthrough: string | boolean;
+        click: boolean;
+        dblclick: boolean | DoubleClick;
+        tap: boolean;
+        bounce: boolean | BounceObjectOption;
+        bounceTime: number;
+        momentum: boolean;
+        momentumLimitTime: number;
+        momentumLimitDistance: number;
+        swipeTime: number;
+        swipeBounceTime: number;
+        deceleration: number;
+        flickLimitTime: number;
+        flickLimitDistance: number;
+        resizePolling: number;
+        probeType: number;
+        preventDefault: boolean;
+        preventDefaultException: object;
+        HWCompositing: boolean;
+        useTransition: boolean;
+        useTransform: boolean;
+        bindToWrapper: boolean;
+        disableMouse: boolean;
+        disableTouch: boolean;
+        observeDOM: boolean;
+        autoBlur: boolean;
+        stopPropagation: boolean;
+        /**
+         * for picker
+         * wheel: {
+         *   selectedIndex: 0,
+         *   rotate: 25,
+         *   adjustTime: 400
+         * }
+         */
+        wheel: Partial<WheelOption> | boolean;
+        /**
+         * for slide
+         * snap: {
+         *   loop: boolean,
+         *   el: domEl,
+         *   threshold: 0.1,
+         *   stepX: 100,
+         *   stepY: 100,
+         *   listenFlick: true
+         * }
+         */
+        snap: Partial<SlideOption> | boolean;
+        /**
+         * for scrollbar
+         * scrollbar: {
+         *   fade: true
+         * }
+         */
+        scrollbar: Partial<ScrollBarOption> | boolean;
+        /**
+         * for pull down and refresh
+         * pullDownRefresh: {
+         *   threshold: 50,
+         *   stop: 20
+         * }
+         */
+        pullDownRefresh: Partial<PullDownOption> | boolean;
+        /**
+         * for pull up and load
+         * pullUpLoad: {
+         *   threshold: 50
+         * }
+         */
+        pullUpLoad: Partial<PullUpOption> | boolean;
+
+        // mouseWheel: {
+        //  speed: 20,
+        //  invert: false,
+        //  easeTime: 300
+        // }
+        mouseWheel: Partial<MouseWheelOption> | boolean;
+
+        // zoom: {
+        //  start: 1,
+        //  min: 1,
+        //  max: 4
+        // }
+        zoom: Partial<ZoomOption> | boolean;
+
+        // https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options-advanced.html
+        infinity: Partial<InfinityOption> | boolean;
+    }
+
+    interface Position {
+        x: number;
+        y: number;
+    }
 }
 
-export interface PageOption {
-    x: number;
-    y: number;
-    pageX: number;
-    pageY: number;
-}
-
-export interface SlideOption {
-    loop: boolean;
-    el: Element;
-    threshold: number;
-    stepX: number;
-    stepY: number;
-    speed: number;
-    listenFlick: boolean;
-}
-
-export interface ScrollBarOption {
-    fade: boolean;
-}
-
-export interface PullDownOption {
-    threshold: number;
-    stop: number;
-}
-
-export interface PullUpOption {
-    threshold: number;
-}
-
-export interface BounceObjectOption {
-    top?: boolean;
-    bottom?: boolean;
-    left?: boolean;
-    right?: boolean;
-}
-
-export interface EaseOption {
-    swipe?: {
-        style: string;
-        fn: (t: number) => number;
-    };
-    swipeBounce?: {
-        style: string;
-        fn: (t: number) => number;
-    };
-    bounce?: {
-        style: string;
-        fn: (t: number) => number;
-    };
-}
-
-export interface BsOption {
-    startX: number;
-    startY: number;
-    scrollX: boolean;
-    scrollY: boolean;
-    freeScroll: boolean;
-    directionLockThreshold: number;
-    eventPassthrough: string | boolean;
-    click: boolean;
-    tap: boolean;
-    bounce: boolean | BounceObjectOption;
-    bounceTime: number;
-    momentum: boolean;
-    momentumLimitTime: number;
-    momentumLimitDistance: number;
-    swipeTime: number;
-    swipeBounceTime: number;
-    deceleration: number;
-    flickLimitTime: number;
-    flickLimitDistance: number;
-    resizePolling: number;
-    probeType: number;
-    preventDefault: boolean;
-    preventDefaultException: object;
-    HWCompositing: boolean;
-    useTransition: boolean;
-    useTransform: boolean;
-    bindToWrapper: boolean;
-    disableMouse: boolean;
-    disableTouch: boolean;
-    observeDOM: boolean;
-    autoBlur: boolean;
-    stopPropagation: boolean;
-    /**
-     * for picker
-     * wheel: {
-     *   selectedIndex: 0,
-     *   rotate: 25,
-     *   adjustTime: 400
-     * }
-     */
-    wheel: Partial<WheelOption> | boolean;
-    /**
-     * for slide
-     * snap: {
-     *   loop: boolean,
-     *   el: domEl,
-     *   threshold: 0.1,
-     *   stepX: 100,
-     *   stepY: 100,
-     *   listenFlick: true
-     * }
-     */
-    snap: Partial<SlideOption> | boolean;
-    /**
-     * for scrollbar
-     * scrollbar: {
-     *   fade: true
-     * }
-     */
-    scrollbar: Partial<ScrollBarOption> | boolean;
-    /**
-     * for pull down and refresh
-     * pullDownRefresh: {
-     *   threshold: 50,
-     *   stop: 20
-     * }
-     */
-    pullDownRefresh: Partial<PullDownOption> | boolean;
-    /**
-     * for pull up and load
-     * pullUpLoad: {
-     *   threshold: 50
-     * }
-     */
-    pullUpLoad: Partial<PullUpOption> | boolean;
-}
-
-export interface Position {
-    x: number;
-    y: number;
-}
-
-export default class BScroll {
-    constructor(element: Element | string, options?: Partial<BsOption>);
+declare class BScroll {
+    constructor(element: Element | string, options?: Partial<BScroll.BsOption>);
 
     x: number;
     y: number;
@@ -161,7 +203,7 @@ export default class BScroll {
     enabled: boolean;
     isInTransition: boolean;
     isAnimating: boolean;
-    options: BsOption;
+    options: BScroll.BsOption;
 
     refresh(): void;
 
@@ -185,7 +227,7 @@ export default class BScroll {
 
     prev(time?: number, easing?: object): void;
 
-    getCurrentPage(): PageOption;
+    getCurrentPage(): BScroll.PageOption;
 
     wheelTo(index: number): void;
 
@@ -214,7 +256,7 @@ export default class BScroll {
             'scroll' |
             'scrollEnd' |
             'touchEnd',
-        fn: (pos: Position) => any
+        fn: (pos: BScroll.Position) => any
     ): void;
 
     off(
@@ -236,3 +278,5 @@ export default class BScroll {
 
     trigger(type: string): void;
 }
+
+export = BScroll;

@@ -9,4 +9,28 @@ ibmdb.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<d
       //
     });
   });
+
+    // ibmdb.ODBCResult
+    conn.queryResult('select 1 from sysibm.sysdummy1', (err, data) => {
+      data.getColumnMetadataSync();
+      data.fetchAll({fetchMode: 3}, (err, data) => {
+        //
+      });
+    });
+});
+
+/** imdb.ODBCStatement */
+const service = new ibmdb.ODBCStatement();
+service.executeSync();
+ service.executeSync(
+  ["test"]
+);
+ service._executeSync();
+ service._executeSync(
+  ["test"]
+);
+
+/** ibm.Database */
+new ibmdb.Database({
+    connected: true,
 });

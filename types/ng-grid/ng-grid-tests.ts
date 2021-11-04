@@ -25,26 +25,26 @@ var options4: ngGrid.IGridOptions = {
 };
 
 var columnDef: ngGrid.IColumnDef = {
-	width:{},
-	minWidth:{},
-	visible:false,
-	field:'',
-	displayName:'',
-	sortable:false,
-	resizable:false,
-	groupable:false,
-	pinnable:false,
-	editableCellTemplate:'',
-	enableCellEdit:false,
-	cellEditableCondition:'',
-	sortFn:(a:any, b:any):number=> { return 0 },
-	cellTemplate:'',
-	cellClass:'',
-	headerClass:'',
-	headerCellTemplate:'',
-	cellFilter:'',
-	aggLabelFilter:'',
-	pinned:false
+    width:{},
+    minWidth:{},
+    visible:false,
+    field:'',
+    displayName:'',
+    sortable:false,
+    resizable:false,
+    groupable:false,
+    pinnable:false,
+    editableCellTemplate:'',
+    enableCellEdit:false,
+    cellEditableCondition:'',
+    sortFn:(a:any, b:any):number=> { return 0 },
+    cellTemplate:'',
+    cellClass:'',
+    headerClass:'',
+    headerCellTemplate:'',
+    cellFilter:'',
+    aggLabelFilter:'',
+    pinned:false
 }
 
 var searchProvider: ngGrid.ISearchProvider = <ngGrid.ISearchProvider>{};

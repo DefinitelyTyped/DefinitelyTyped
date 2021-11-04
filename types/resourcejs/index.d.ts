@@ -2,7 +2,7 @@
 // Project: https://github.com/travist/resourcejs
 // Definitions by: Shaun Luttin <https://github.com/shaunluttin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.2
 
 import express = require("express");
 import mongoose = require("mongoose");
@@ -21,25 +21,25 @@ declare namespace resourcejs {
     type MethodBuild<T> = (options?: T) => ResourceEndpoint;
 
     interface RestOptions extends HttpMethodOptions {
-        beforePut?: HttpHandler;
-        beforePatch?: HttpHandler;
-        beforePost?: HttpHandler;
-        beforeIndex?: HttpHandler;
-        beforeGet?: HttpHandler;
-        afterPut?: HttpHandler;
-        afterPatch?: HttpHandler;
-        afterPost?: HttpHandler;
-        afterIndex?: HttpHandler;
-        afterGet?: HttpHandler;
+        beforePut?: HttpHandler | undefined;
+        beforePatch?: HttpHandler | undefined;
+        beforePost?: HttpHandler | undefined;
+        beforeIndex?: HttpHandler | undefined;
+        beforeGet?: HttpHandler | undefined;
+        afterPut?: HttpHandler | undefined;
+        afterPatch?: HttpHandler | undefined;
+        afterPost?: HttpHandler | undefined;
+        afterIndex?: HttpHandler | undefined;
+        afterGet?: HttpHandler | undefined;
     }
 
     interface VirtualOptions extends HttpMethodOptions {
-        path?: string;
+        path?: string | undefined;
     }
 
     interface HttpMethodOptions {
-        before?: HttpHandler;
-        after?: HttpHandler;
+        before?: HttpHandler | undefined;
+        after?: HttpHandler | undefined;
     }
 
     /**

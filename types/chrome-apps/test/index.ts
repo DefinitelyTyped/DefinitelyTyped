@@ -34,22 +34,14 @@ var distortion = audioCtx.createWaveShaper();
 var gainNode = audioCtx.createGain();
 var biquadFilter = audioCtx.createBiquadFilter();
 
-navigator.getUserMedia({
-    audio: true
-},
-    (stream) => {
-        const source = audioCtx.createMediaStreamSource(stream);
-        source.connect(analyser);
-        analyser.connect(distortion);
-        distortion.connect(biquadFilter);
-        biquadFilter.connect(gainNode);
-        gainNode.connect(audioCtx.destination); // connecting the different audio graph nodes together
-    },
-    (error) => {
-        console.error(error);
-    }
-);
-
+navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+    const source = audioCtx.createMediaStreamSource(stream);
+    source.connect(analyser);
+    analyser.connect(distortion);
+    distortion.connect(biquadFilter);
+    biquadFilter.connect(gainNode);
+    gainNode.connect(audioCtx.destination); // connecting the different audio graph nodes together
+});
 
 ///
 /// HTML5 Canvas
@@ -799,6 +791,10 @@ const deviceAttr = chrome.enterprise.deviceAttributes;
 
 if (deviceAttr.getDirectoryDeviceId && deviceAttr.getDeviceAssetId) {
     if (deviceAttr.getDeviceSerialNumber && deviceAttr.getDeviceAnnotatedLocation) {
+        void deviceAttr.getDirectoryDeviceId;
+        void deviceAttr.getDeviceAssetId;
+        void deviceAttr.getDeviceSerialNumber;
+        void deviceAttr.getDeviceAnnotatedLocation;
         console.log('API OK :)');
     }
 }
@@ -813,9 +809,9 @@ chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((loc) => loc.charA
 
 // ENTERPRISE - PLATFORM KEYS
 
-if (chrome.enterprise.platformKeys.getTokens) {
-    if (chrome.enterprise.platformKeys.importCertificate) {
-        if (chrome.enterprise.platformKeys.removeCertificate) {
+if (chrome.enterprise.platformKeys.getTokens as any) {
+    if (chrome.enterprise.platformKeys.importCertificate as any) {
+        if (chrome.enterprise.platformKeys.removeCertificate as any) {
             console.log('API Present');
         }
     }
@@ -917,7 +913,7 @@ chrome.app.runtime.onLaunched.addListener(() => {
 
 // #region chrome.gcm
 
-const gcmMessage = <chrome.gcm.OutgoingMessage>{};
+const gcmMessage = {} as chrome.gcm.OutgoingMessage;
 gcmMessage.data = {
     /*goog: 'any', should not be allowed, and it is not :) */
     test: true
@@ -1078,8 +1074,7 @@ chrome.networking.config.finishAuthentication(filter.HexSSID || '', 'rejected');
 // #region chrome.networking.onc
 
 const TLSFormatExample = {
-    NetworkConfigurations: <chrome.networking.onc.NetworkConfigProperties>
-        {
+    NetworkConfigurations: {
             GUID: '{00f79111-51e0-e6e0-76b3b55450d80a1b}',
             Name: 'MyTTLSNetwork',
             Type: 'WiFi',
@@ -1103,7 +1098,7 @@ const TLSFormatExample = {
                 'SSID': 'MyTTLSNetwork',
                 'Security': 'WPA-EAP'
             }
-        }
+        } as chrome.networking.onc.NetworkConfigProperties
 }
 
 chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
@@ -1114,6 +1109,7 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
         if (networkObj.WiFi) {
             // WiFi active :)
             console.log('Wifi BSID: ' + networkObj.WiFi.BSSID);
+            const state = networkObj.WiFi.TetheringState;
         }
         chrome.networking.onc.setProperties(networkObj.GUID || '', {
             WiFi: {
@@ -1123,6 +1119,19 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
         // Test that we can't get passphrase
         chrome.networking.onc.getProperties(networkObj.GUID || '', (props) => {
             const WiFiResult = props.WiFi;
+        });
+        chrome.networking.onc.getState(networkObj.GUID || '', (state) => {
+            const wifiState = state.WiFi || {};
+            return wifiState.TetheringState;
+        });
+        chrome.networking.onc.getManagedProperties(networkObj.GUID || '', (result) => {
+            const wifiResult = result.WiFi;
+            if (wifiResult !== undefined) {
+                const managed = wifiResult.HexSSID;
+                if (managed !== undefined) {
+                    return managed.UserPolicy;
+                }
+            }
         });
     }
 });
@@ -1197,6 +1206,8 @@ if (chrome.platformKeys.subtleCrypto &&
     chrome.platformKeys.subtleCrypto() &&
     chrome.platformKeys.subtleCrypto().sign &&
     chrome.platformKeys.subtleCrypto().exportKey) {
+    void chrome.platformKeys.subtleCrypto().sign;
+    void chrome.platformKeys.subtleCrypto().exportKey;
     console.log('Subtle crypto working (Y)')
 }
 
@@ -1998,5 +2009,8 @@ appview.connect('id of app');
 document.appendChild(appview);
 //#endregion
 
+// #region HTMLElement correctly subtypes Element in TS3.1.
+const htmlElement = document.querySelector('zzzzzz') as HTMLElement;
+//#endregion
 
 

@@ -1,5 +1,3 @@
-
-
 let resultStr: string;
 let resultBool: boolean;
 let resultNum: number;
@@ -17,7 +15,7 @@ resultStr = faker.address.cityPrefix();
 resultStr = faker.address.citySuffix();
 resultStr = faker.address.streetName();
 resultStr = faker.address.streetAddress();
-resultStr = faker.address.streetAddress(false);;
+resultStr = faker.address.streetAddress(false);
 resultStr = faker.address.streetSuffix();
 resultStr = faker.address.streetPrefix();
 resultStr = faker.address.secondaryAddress();
@@ -60,13 +58,13 @@ resultDate = faker.date.recent();
 resultDate = faker.date.recent(100);
 resultStr = faker.date.month();
 resultStr = faker.date.month({
-	abbr: true,
-	context: true
+    abbr: true,
+    context: true,
 });
 resultStr = faker.date.weekday();
 resultStr = faker.date.weekday({
-	abbr: true,
-	context: true
+    abbr: true,
+    context: true,
 });
 
 resultStr = faker.finance.account();
@@ -89,13 +87,13 @@ resultStr = faker.hacker.ingverb();
 resultStr = faker.hacker.phrase();
 
 resultStr = faker.helpers.randomize();
-resultNum = faker.helpers.randomize([1,2,3,4]);
+resultNum = faker.helpers.randomize([1, 2, 3, 4]);
 resultStr = faker.helpers.randomize(['foo', 'bar', 'quux']);
 resultStr = faker.helpers.slugify('foo bar quux');
 resultStr = faker.helpers.replaceSymbolWithNumber('foo# bar#');
 resultStr = faker.helpers.replaceSymbols('foo# bar? quux#');
 resultStrArr = faker.helpers.shuffle(['foo', 'bar', 'quux']);
-resultStr = faker.helpers.mustache('{{foo}}{{bar}}', {foo: 'x', bar: 'y'});
+resultStr = faker.helpers.mustache('{{foo}}{{bar}}', { foo: 'x', bar: 'y' });
 
 const card = faker.helpers.createCard();
 resultStr = card.name;
@@ -159,24 +157,25 @@ resultStr = faker.phone.phoneFormats();
 resultNum = faker.random.number();
 resultNum = faker.random.number(0);
 resultNum = faker.random.number({
-	min: 0,
-	max: 0,
-	precision: 0
+    min: 0,
+    max: 0,
+    precision: 0,
 });
 resultStr = faker.random.arrayElement();
-resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'])
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'] as ReadonlyArray<string>);
 resultStr = faker.random.objectElement();
-resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
+resultStr = faker.random.objectElement({ foo: 'bar', field: 'foo' });
 resultStr = faker.random.uuid();
 resultBool = faker.random.boolean();
 
-resultStr = faker.system.fileName( "foo", "bar" );
-resultStr = faker.system.commonFileName( "foo", "bar" );
+resultStr = faker.system.fileName('foo', 'bar');
+resultStr = faker.system.commonFileName('foo', 'bar');
 resultStr = faker.system.mimeType();
 resultStr = faker.system.commonFileType();
 resultStr = faker.system.commonFileExt();
 resultStr = faker.system.fileType();
-resultStr = faker.system.fileExt( "foo" );
+resultStr = faker.system.fileExt('foo');
 resultStr = faker.system.semver();
 
 import fakerEn = require('faker/locale/en');

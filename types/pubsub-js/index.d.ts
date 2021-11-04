@@ -1,39 +1,59 @@
-// Type definitions for PubSubJS 1.5.2
+// Type definitions for PubSubJS 1.8.0
 // Project: https://github.com/mroderick/PubSubJS
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Matthias Lindinger <https://github.com/morpheus-87>
+//                 Profesor08 <https://github.com/Profesor08>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PubSubJS {
-    interface Base extends Publish, Subscribe, Unsubscribe, ClearAllSubscriptions {
-        version: string;
+    interface Base<T = any, M = Message>
+        extends CountSubscriptions,
+            ClearAllSubscriptions,
+            GetSubscriptions,
+            Publish<T, M>,
+            Subscribe<T, M>,
+            Unsubscribe<T> {
         name: string;
+        version: string;
     }
 
-    interface Publish{
-        publish(message: any, data: any): boolean;
+    type Token = string;
 
-        publish(message:any, data:any, sync:boolean, immediateExceptions:Function): boolean;
+    type Message = string | symbol;
 
-        publishSync(message: any, data: any): boolean;
+    type SubscriptionListener<T> = (message: string, data?: T) => void;
+
+    interface CountSubscriptions {
+        countSubscriptions(token: Token): number;
     }
 
-    interface Subscribe{
-        subscribe(message: any, func: Function): any;
+    interface ClearAllSubscriptions {
+        clearAllSubscriptions(token?: Token): void;
     }
 
-
-    interface Unsubscribe{
-        unsubscribe(tokenOrFunction: any): any;
+    interface GetSubscriptions {
+        getSubscriptions(token: Token): Message[];
     }
 
+    interface Publish<T, M> {
+        publish(message: M, data?: T): boolean;
 
-    interface ClearAllSubscriptions{
-        clearAllSubscriptions(): any;
+        publishSync(message: M, data?: T): boolean;
+    }
+
+    interface Subscribe<T, M> {
+        subscribe(message: M, func: SubscriptionListener<T>): Token;
+
+        subscribeOnce(message: M, func: SubscriptionListener<T>): Base<T, M>;
+    }
+
+    interface Unsubscribe<T> {
+        unsubscribe(tokenOrFunction: Token | SubscriptionListener<T>): Token | boolean;
     }
 }
 
 declare var PubSub: PubSubJS.Base;
 
-declare module "pubsub-js" {
-  export = PubSub;
+declare module 'pubsub-js' {
+    export = PubSub;
 }

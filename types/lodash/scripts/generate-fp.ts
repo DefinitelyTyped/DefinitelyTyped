@@ -153,6 +153,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     for (const filePath of filePaths) {
         const definitions = await parseFile(filePath, commonTypes);
         for (const definition of definitions) {
+            definition.overloads = definition.overloads.filter(o => !o.params.some(p => p.includes('StringIterator')));
             if (definition.overloads.every(o => o.params.length <= 1 && (o.returnType === "typeof _" || o.returnType === "LoDashStatic"))) {
                 // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
                 // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
@@ -746,7 +747,14 @@ function curryParams(
     };
     // Remove the `extends` constraint from interface type parameters, because sometimes they extend things that aren't passed to the interface.
     for (const typeParam of interfaceDef.typeParams) {
-        if (!_.startsWith(typeParam.extends, "keyof ")) // We need to keep `extends keyof` constraints, because they're needed for TObject[TKey] to work.
+        // 1. retain `extends keyof X` constraints so that TObject[TKey] still works.
+        // 2. retain `any[]` constraints so that variadic generics work.
+        // 3. retain `(...args: any[]) => any` constraints so that function-based generics work
+        if (!_.startsWith(typeParam.extends, "keyof ")
+            && typeParam.extends !== "any[]"
+            && typeParam.extends !== "(...args: any) => any"
+            && typeParam.extends !== "(...args: any[]) => any"
+        )
             delete typeParam.extends;
     }
     return interfaceDef;

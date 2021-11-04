@@ -9,11 +9,11 @@ console.log(flakeIdGen1.next());
 
 // create flake IDs using a callback
 flakeIdGen1.next((err, id) => {
-	console.info(id);
+    console.info(id);
 });
 
 flakeIdGen1.next((err, id) => {
-	console.info(id);
+    console.info(id);
 });
 
 let flakeIdGen2 = new FlakeId();

@@ -42,12 +42,14 @@ class ReactGeosuggest extends React.Component {
                     fixtures={fixtures}
                     getSuggestLabel={getSuggestLabel}
                     highlightMatch={true}
+                    ignoreEnter={true}
                     ignoreTab={true}
                     initialValue="Hamburg"
                     inputClassName="inputClassName"
                     label="label"
                     location={new google.maps.LatLng(53.558572, 9.9278215)}
                     maxFixtures={10}
+                    placeDetailFields={['ALL']}
                     onActivateSuggest={onActivateSuggest}
                     onBlur={onBlur}
                     onChange={onChange}

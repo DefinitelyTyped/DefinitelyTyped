@@ -1,6 +1,6 @@
-import { PureComponent, Validator, Requireable } from "react";
-import * as PropTypes from "prop-types";
-import { RenderedSection } from "./Grid";
+import { PureComponent, Validator, Requireable } from 'react';
+import * as PropTypes from 'prop-types';
+import { RenderedSection } from './Grid';
 
 export type OnSectionRenderedParams = RenderedSection;
 
@@ -14,15 +14,15 @@ export type ChildProps = {
  */
 export type ArrowKeyStepperProps = {
     children: (props: ChildProps) => React.ReactNode;
-    className?: string;
+    className?: string | undefined;
     columnCount: number;
     rowCount: number;
-    mode?: "edges" | "cells";
-    disabled?: boolean;
-    isControlled?: boolean;
-    onScrollToChange?: (params: ScrollIndices) => void;
-    scrollToColumn?: number;
-    scrollToRow?: number;
+    mode?: 'edges' | 'cells' | undefined;
+    disabled?: boolean | undefined;
+    isControlled?: boolean | undefined;
+    onScrollToChange?: ((params: ScrollIndices) => void) | undefined;
+    scrollToColumn?: number | undefined;
+    scrollToRow?: number | undefined;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose
@@ -39,15 +39,14 @@ export type ScrollIndices = {
 
 export type ScrollIndexes = ScrollIndices;
 
-export class ArrowKeyStepper extends PureComponent<
-    ArrowKeyStepperProps,
-    ScrollIndices
-> {
+export class ArrowKeyStepper extends PureComponent<ArrowKeyStepperProps, ScrollIndices> {
     static defaultProps: {
         disabled: false;
         isControlled: false;
-        mode: "edges";
+        mode: 'edges';
         scrollToColumn: 0;
         scrollToRow: 0;
     };
 }
+
+export default ArrowKeyStepper;

@@ -1,30 +1,43 @@
 import { aql, db, query } from "@arangodb";
-import { md5 } from "@arangodb/crypto";
+import { md5, genRandomBytes } from "@arangodb/crypto";
 import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
 import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
 import cookieTransport = require("@arangodb/foxx/sessions/transports/cookie");
+import createAuth = require("@arangodb/foxx/auth");
 
 console.warnStack(new Error(), "something went wrong");
 
 interface User {
     username: string;
-    password?: string;
+    password?: string | undefined;
 }
 const coll = module.context.collection("users")!;
 coll.save({ username: "user" });
 const doc = coll.any();
 console.log(doc.username);
 
+const coll2 = db._collection(coll.name());
+console.log(coll2 === coll);
+
 const users = coll as ArangoDB.Collection<User>;
 const admin = users.firstExample({ username: "admin" })!;
 users.update(admin, { password: md5("hunter2") });
-console.logLines("user", admin._key, admin.username);
+console.logLines("user", users.documentId(admin._key), admin.username);
 
 db._query(aql`
     FOR u IN ${users}
     RETURN u
 `);
+
+db._query(
+    aql`
+        FOR u IN ${users}
+        LIMIT 0, 10
+        RETURN u
+    `,
+    { fullCount: true }
+);
 
 interface Banana {
     color: string;
@@ -67,7 +80,34 @@ router.get("/", (req, res) => {
     } else {
         res.json({ success: false });
     }
+})
+.queryParam("noJoi", {
+    validate(value) {
+        return { value };
+    }
 });
+
+router.put(
+    (request: Foxx.Request, response: Foxx.Response) => {
+        try {
+            // $ExpectType string
+            const id = db._executeTransaction({
+                collections: {
+                    read: "users",
+                    write: ["groups", "member"],
+                    allowImplicit: false,
+                },
+                action: (params) => {
+                    return "1234";
+                },
+                params: JSON.parse(request.body),
+            });
+            response.json({id});
+        } catch (e) {
+            e.error = true;
+            response.json(e);
+        }
+    });
 
 router.use((req, res, next) => {
     if (req.is("json")) res.throw("too many requests");
@@ -87,6 +127,18 @@ router.use(
     })
 );
 
+router.use((req, res, next) => {
+    if (!req.auth || !req.auth.basic) {
+        res.throw(401);
+    } else if (
+        req.auth.basic.username !== "admin" ||
+        req.auth.basic.password !== "hunter2"
+    ) {
+        res.throw(403);
+    }
+    next();
+});
+
 console.log(
     query`
         FOR u IN users
@@ -97,6 +149,10 @@ console.log(
     `.toArray()
 );
 
+const auth = createAuth({ method: "pbkdf2" });
+const authData = auth.create("hunter2");
+console.log(authData.iter);
+
 const view = db._view("yolo")!;
 view.properties({
     consolidationIntervalMsec: 123,
@@ -105,3 +161,5 @@ view.properties({
         segmentThreshold: 234
     }
 });
+
+console.log(Buffer.concat([Buffer.allocUnsafe(4), genRandomBytes(4)], 8));

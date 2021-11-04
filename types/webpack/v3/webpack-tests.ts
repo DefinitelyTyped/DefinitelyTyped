@@ -98,6 +98,91 @@ configuration = {
 };
 
 //
+// https://webpack.js.org/configuration/externals/
+//
+configuration = {
+    externals : {
+        react: 'react'
+    },
+};
+
+configuration = {
+    externals : {
+        lodash : {
+            commonjs: 'lodash',
+            amd: 'lodash',
+            root: '_' // indicates global variable
+        }
+      },
+};
+
+configuration = {
+    externals : {
+        subtract : {
+            root: ['math', 'subtract']
+        }
+    }
+};
+
+configuration = {
+    externals: [
+        // Disable TSLint for allowing non-arrow functions
+        /* tslint:disable-next-line:only-arrow-functions */
+        function(context, request, callback) {
+          if (/^yourregex$/.test(request)) {
+            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+            /* tslint:disable-next-line:no-void-expression */
+            return callback(null, 'commonjs ' + request);
+          }
+          callback({}, {});
+        }
+      ]
+};
+
+configuration = {
+    externals: [
+        {
+            // String
+            react: 'react',
+            // Object
+            lodash : {
+                commonjs: 'lodash',
+                amd: 'lodash',
+                root: '_' // indicates global variable
+            },
+            // Array
+            subtract: ['./math', 'subtract']
+            },
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line:only-arrow-functions */
+            function(context, request, callback) {
+              if (/^yourregex$/.test(request)) {
+                // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+                /* tslint:disable-next-line:no-void-expression */
+                return callback(null, 'commonjs ' + request);
+              }
+              callback({}, {});
+            },
+            // Regex
+            /^(jquery|\$)$/i
+    ]
+};
+
+configuration = {
+    externals: [
+        "add",
+        {
+            subtract: {
+                root: "subtract",
+                commonjs2: "./subtract",
+                commonjs: ["./math", "subtract"],
+                amd: "subtract"
+            }
+        }
+    ]
+};
+
+//
 // https://webpack.github.io/docs/code-splitting.html
 //
 
@@ -355,8 +440,11 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        warnings: false
-    }
+        dead_code: true,
+        collapse_vars: true,
+        drop_debugger: true,
+    },
+    warnings: false,
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,

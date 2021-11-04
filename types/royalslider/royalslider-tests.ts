@@ -145,7 +145,7 @@ slider.currSlide // current slide object
 slider.numSlides // total number of slides
 
 slider.isFullscreen // indicates if slider is in fullscreen mode
-slider.nativeFS		// indicates if browser supports native fullscreen
+slider.nativeFS        // indicates if browser supports native fullscreen
 
 slider.width // width of slider
 slider.height // height of slider

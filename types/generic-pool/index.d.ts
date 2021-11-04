@@ -19,11 +19,12 @@ export class Pool<T> extends EventEmitter {
 
     start(): void;
     acquire(priority?: number): PromiseLike<T>;
-    release(resource: T): void;
-    destroy(resource: T): void;
+    release(resource: T): PromiseLike<void>;
+    destroy(resource: T): PromiseLike<void>;
     drain(): PromiseLike<void>;
     clear(): PromiseLike<void>;
-    use<U>(cb: (resource: T) => U): PromiseLike<U>;
+    use<U>(cb: (resource: T) => U | PromiseLike<U>): PromiseLike<U>;
+    isBorrowedResource(resource: T): boolean;
 }
 
 export interface Factory<T> {
@@ -33,18 +34,19 @@ export interface Factory<T> {
 }
 
 export interface Options {
-    max?: number;
-    min?: number;
-    maxWaitingClients?: number;
-    testOnBorrow?: boolean;
-    acquireTimeoutMillis?: number;
-    fifo?: boolean;
-    priorityRange?: number;
-    autostart?: boolean;
-    evictionRunIntervalMillis?: number;
-    numTestsPerRun?: number;
-    softIdleTimeoutMillis?: number;
-    idleTimeoutMillis?: number;
+    max?: number | undefined;
+    min?: number | undefined;
+    maxWaitingClients?: number | undefined;
+    testOnBorrow?: boolean | undefined;
+    testOnReturn?: boolean | undefined;
+    acquireTimeoutMillis?: number | undefined;
+    fifo?: boolean | undefined;
+    priorityRange?: number | undefined;
+    autostart?: boolean | undefined;
+    evictionRunIntervalMillis?: number | undefined;
+    numTestsPerEvictionRun?: number | undefined;
+    softIdleTimeoutMillis?: number | undefined;
+    idleTimeoutMillis?: number | undefined;
 }
 
 export function createPool<T>(factory: Factory<T>, opts?: Options): Pool<T>;

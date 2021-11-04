@@ -4,12 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ExtensionDefinition } from 'jsreport-core';
+import { ExtensionDefinition, Template } from 'jsreport-core';
+
+declare namespace JsReportJsrender {
+    interface JsRenderTemplate extends Template {
+        engine: 'jsrender' | string;
+    }
+}
 
 declare module 'jsreport-core' {
-	interface Template {
-		engine: 'jsrender' | string;
-	}
+    interface TemplateRegistry {
+        JsRenderTemplate: JsReportJsrender.JsRenderTemplate;
+    }
 }
 
 declare function JsReportJsrender(): ExtensionDefinition;

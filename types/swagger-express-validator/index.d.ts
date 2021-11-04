@@ -1,4 +1,4 @@
-// Type definitions for swagger-express-validator 0.0
+// Type definitions for swagger-express-validator 1.0
 // Project: https://github.com/gargol/swagger-express-validator
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,12 +10,12 @@ declare function SwaggerExpressValidator(options: SwaggerExpressValidator.Option
 
 declare namespace SwaggerExpressValidator {
     interface Options {
-        schema: string;
-        validateRequest?: boolean;
-        validateResponse?: boolean;
-        allowNullable?: boolean;
-        requestValidationFn?: (req: Request, data: any, errors: any) => void;
-        responseValidationFn?: (req: Request, data: any, errors: any) => void;
+        schema: any;
+        validateRequest?: boolean | undefined;
+        validateResponse?: boolean | undefined;
+        allowNullable?: boolean | undefined;
+        requestValidationFn?: ((req: Request, data: any, errors: any) => void) | undefined;
+        responseValidationFn?: ((req: Request, data: any, errors: any) => void) | undefined;
     }
 
     function validator(options: Options): RequestHandler;

@@ -8,8 +8,8 @@
 import { Middleware, Action, Dispatch } from 'redux';
 
 export interface MiddlewareOptions {
-    eventName?: string;
-    execute?: <S>(action: Action, emitBound: SocketIOClient.Socket, next: Dispatch<S>, dispatch: Dispatch<S>) => any;
+    eventName?: string | undefined;
+    execute?: (<S>(action: Action, emitBound: SocketIOClient.Socket, next: Dispatch<S>, dispatch: Dispatch<S>) => any) | undefined;
 }
 
 export default function createSocketIoMiddleware(

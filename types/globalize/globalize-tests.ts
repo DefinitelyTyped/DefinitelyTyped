@@ -24,12 +24,12 @@ Globalize.loadTimeZone({});
 let dateOutput: Date;
 
 let dateFormatter = en.dateFormatter({
-	skeleton: "",
-	date: "full",
-	time: "full",
-	datetime: "full",
-	raw: "",
-	timeZone: ""
+    skeleton: "",
+    date: "full",
+    time: "full",
+    datetime: "full",
+    raw: "",
+    timeZone: ""
 });
 strOutput = dateFormatter(new Date());
 
@@ -37,17 +37,22 @@ dateFormatter = Globalize.dateFormatter({});
 strOutput = dateFormatter(new Date());
 
 let dateParser = en.dateParser({
-	skeleton: "",
-	date: "full",
-	time: "full",
-	datetime: "full",
-	raw: "",
-	timeZone: ""
+    skeleton: "",
+    date: "full",
+    time: "full",
+    datetime: "full",
+    raw: "",
+    timeZone: ""
 });
 dateOutput = dateParser("");
 
 dateParser = Globalize.dateParser({});
 dateOutput = dateParser("");
+
+let dateToPartsFormatter = Globalize.dateToPartsFormatter({});
+let datePartsOutput: Globalize.DateFormatPart[];
+datePartsOutput = dateToPartsFormatter(new Date());
+datePartsOutput = Globalize.formatDateToParts(new Date(), {});
 
 strOutput = en.formatDate(new Date(), {});
 strOutput = Globalize.formatDate(new Date(), {});
@@ -71,6 +76,9 @@ strOutput = numberFormatter(20);
 numberFormatter = Globalize.numberFormatter({ style: "decimal" });
 strOutput = numberFormatter(20.2);
 
+numberFormatter = Globalize.numberFormatter({ compact: "short" });
+strOutput = numberFormatter(27588910);
+
 let numberParser = en.numberParser();
 let numOutput = numberParser("20");
 
@@ -82,6 +90,12 @@ strOutput = Globalize.formatNumber(20, { style: "decimal" });
 
 numOutput = en.parseNumber("20");
 numOutput = Globalize.parseNumber("20", { style: "percent" });
+
+let numberToPartsFormatter = Globalize.numberToPartsFormatter({});
+let numPartsOutput: Globalize.NumberFormatPart[];
+
+numPartsOutput = numberToPartsFormatter(1999999);
+numPartsOutput = Globalize.formatNumberToParts(1999999, {});
 
 let pluralGenerator = en.pluralGenerator();
 strOutput = pluralGenerator(20);

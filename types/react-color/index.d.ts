@@ -1,20 +1,28 @@
-// Type definitions for react-color 2.13
-// Project: https://github.com/casesandberg/react-color/
-// Definitions by: Karol Janyst <https://github.com/LKay>, Marks Polakovs <https://github.com/markspolakovs>, Matthieu Montaudouin <https://github.com/mntdn>
+// Type definitions for react-color 3.0
+// Project: https://github.com/casesandberg/react-color/, http://casesandberg.github.io/react-color
+// Definitions by:  Karol Janyst <https://github.com/LKay>,
+//                  Marks Polakovs <https://github.com/markspolakovs>,
+//                  Matthieu Montaudouin <https://github.com/mntdn>,
+//                  Nokogiri <https://github.com/nkgrnkgr>,
+//                  0815Strohhut <https://github.com/0815Strohhut>,
+//                  Daniel Fürst <https://github.com/dnlfrst>,
+//                  Erick Tamayo <https://github.com/ericktamayo>,
+//                  Alexander P. Cerutti <https://github.com/alexandercerutti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
+import { ClassAttributes, ReactNode } from "react";
+import { Classes } from "reactcss";
 
 export interface HSLColor {
-    a?: number;
+    a?: number | undefined;
     h: number;
     l: number;
     s: number;
 }
 
 export interface RGBColor {
-    a?: number;
+    a?: number | undefined;
     b: number;
     g: number;
     r: number;
@@ -28,17 +36,21 @@ export interface ColorResult {
     rgb: RGBColor;
 }
 
-export type ColorChangeHandler = (color: ColorResult) => void;
+export type ColorChangeHandler = (color: ColorResult, event: React.ChangeEvent<HTMLInputElement>) => void;
 
 export interface ColorPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    onChange?: ColorChangeHandler;
-    onChangeComplete?: ColorChangeHandler;
+    color?: Color | undefined;
+    className?: string | undefined;
+    styles?: Partial<Classes<any>> | undefined;
+    onChange?: ColorChangeHandler | undefined;
+    onChangeComplete?: ColorChangeHandler | undefined;
 }
 
 export interface CustomPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    pointer?: ReactNode;
+    color?: Color | undefined;
+    pointer?: ReactNode | undefined;
+    className?: string | undefined;
+    styles?: Partial<Classes<any>> | undefined;
     onChange: ColorChangeHandler;
 }
 
@@ -51,7 +63,10 @@ export { default as CompactPicker, CompactPickerProps } from "./lib/components/c
 export { default as GithubPicker, GithubPickerProps } from "./lib/components/github/Github";
 export { default as HuePicker, HuePickerProps } from "./lib/components/hue/Hue";
 export { default as MaterialPicker, MaterialPickerProps } from "./lib/components/material/Material";
-export { default as PhotoshopPicker, PhotoshopPickerProps } from "./lib/components/photoshop/Photoshop";
+export {
+    default as PhotoshopPicker,
+    PhotoshopPickerProps
+} from "./lib/components/photoshop/Photoshop";
 export { default as SketchPicker, SketchPickerProps } from "./lib/components/sketch/Sketch";
 export { default as SliderPicker, SliderPickerProps } from "./lib/components/slider/Slider";
 export { default as SwatchesPicker, SwatchesPickerProps } from "./lib/components/swatches/Swatches";

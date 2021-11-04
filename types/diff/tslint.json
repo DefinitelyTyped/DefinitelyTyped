@@ -1,7 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "interface-name": false,
-        "export-just-namespace": false
-    }
-}
+{ "extends": "dtslint/dt.json" }

@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@sap/xsenv": [
-                "sap__xsenv"
+            "@sap/*": [
+                "sap__*"
             ]
         },
         "types": [],

@@ -1,6 +1,9 @@
-// Type definitions for node-schedule 1.2
-// Project: https://github.com/tejasmanohar/node-schedule/
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner <https://github.com/flowpl>
+// Type definitions for node-schedule 1.3
+// Project: https://github.com/node-schedule/node-schedule
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+//                 Florian Plattner <https://github.com/flowpl>
+//                 Tieu Philippe Khim <https://github.com/spike008t>
+//                 Seohyun Yoon <https://github.com/seohyun0120>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -96,6 +99,7 @@ export class Range {
 
 export type Recurrence = number | Range | string;
 export type RecurrenceSegment = Recurrence | Recurrence[];
+export type Timezone = string;
 
 export class RecurrenceRule {
     /**
@@ -108,6 +112,7 @@ export class RecurrenceRule {
     month: RecurrenceSegment;
     second: RecurrenceSegment;
     year: RecurrenceSegment;
+    tz: Timezone;
 
     constructor(
         year?: RecurrenceSegment,
@@ -116,7 +121,8 @@ export class RecurrenceRule {
         dayOfWeek?: RecurrenceSegment,
         hour?: RecurrenceSegment,
         minute?: RecurrenceSegment,
-        second?: RecurrenceSegment
+        second?: RecurrenceSegment,
+        tz?: Timezone,
     );
 
     nextInvocationDate(base: Date): Date;
@@ -129,15 +135,19 @@ export interface RecurrenceSpecDateRange {
     /**
      * Starting date in date range.
      */
-    start: Date | string | number;
+    start?: Date | string | number | undefined;
     /**
      * Ending date in date range.
      */
-    end: Date | string | number;
+    end?: Date | string | number | undefined;
     /**
      * Cron expression string.
      */
     rule: string;
+    /**
+     * Timezone
+     */
+    tz?: Timezone | undefined;
 }
 
 /**
@@ -147,13 +157,17 @@ export interface RecurrenceSpecObjLit {
     /**
      * Day of the month.
      */
-    date?: RecurrenceSegment;
-    dayOfWeek?: RecurrenceSegment;
-    hour?: RecurrenceSegment;
-    minute?: RecurrenceSegment;
-    month?: RecurrenceSegment;
-    second?: RecurrenceSegment;
-    year?: RecurrenceSegment;
+    date?: RecurrenceSegment | undefined;
+    dayOfWeek?: RecurrenceSegment | undefined;
+    hour?: RecurrenceSegment | undefined;
+    minute?: RecurrenceSegment | undefined;
+    month?: RecurrenceSegment | undefined;
+    second?: RecurrenceSegment | undefined;
+    year?: RecurrenceSegment | undefined;
+    /**
+     * Timezone
+     */
+    tz?: Timezone | undefined;
 }
 
 export class Invocation {
@@ -171,7 +185,7 @@ export class Invocation {
  * @param rule     scheduling info
  * @param callback callback to be executed on each invocation
  */
-export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
+export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number, callback: JobCallback): Job;
 
 /**
  * Create a schedule job.
@@ -179,7 +193,7 @@ export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecD
  * @param rule     scheduling info
  * @param callback callback to be executed on each invocation
  */
-export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
+export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number, callback: JobCallback): Job;
 
 /**
  * Changes the timing of a Job, canceling all pending invocations.

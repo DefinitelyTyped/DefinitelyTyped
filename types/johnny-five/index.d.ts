@@ -1,9 +1,13 @@
-// Type definitions for johnny-five
+// Type definitions for johnny-five 1.3.0
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
 //                 Simon Colmer <https://github.com/workshop2>
+//                 XtrimSystems <https://github.com/xtrimsystems>
+//                 Marcin Obiedziński <https://github.com/marcinobiedz>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 ///<reference types="node"/>
 
@@ -12,23 +16,23 @@ export interface AccelerometerOption {
 }
 
 export interface AccelerometerGeneralOption {
-    controller?: string;
+    controller?: string | undefined;
 }
 
 export interface AccelerometerAnalogOption extends AccelerometerGeneralOption {
     pins: Array<string>;
-    sensitivity?: number;
-    aref?: number;
-    zeroV?: number | Array<number>;
-    autoCalibrate?: boolean;
+    sensitivity?: number | undefined;
+    aref?: number | undefined;
+    zeroV?: number | Array<number> | undefined;
+    autoCalibrate?: boolean | undefined;
 }
 
 export interface AccelerometerMPU6050Option extends AccelerometerGeneralOption {
-    sensitivity?: number;
+    sensitivity?: number | undefined;
 }
 
 export interface AccelerometerMMA7361Option extends AccelerometerGeneralOption {
-    sleepPin?: number | string;
+    sleepPin?: number | string | undefined;
 }
 
 export declare class Accelerometer {
@@ -56,9 +60,9 @@ export declare class Accelerometer {
 
 export interface AltimeterOption {
     controller: string;
-    address?: number;
-    freq?: number;
-    elevation?: number;
+    address?: number | undefined;
+    freq?: number | undefined;
+    elevation?: number | undefined;
 }
 
 export declare class Altimeter {
@@ -97,11 +101,11 @@ export declare class Animation {
 }
 
 export interface BoardOption {
-    id?: number | string;
-    port?: string | any;
-    repl?: boolean;
-    debug?: boolean;
-    timeout?: number;
+    id?: number | string | undefined;
+    port?: string | any | undefined;
+    repl?: boolean | undefined;
+    debug?: boolean | undefined;
+    timeout?: number | undefined;
     io?: any;
 }
 
@@ -110,21 +114,20 @@ export declare class Board {
 
     io: any;
     id: string;
-    repl: any;
+    repl: Repl;
     isReady: boolean;
     pins: Array<Pin>;
     port: string;
-    inject: Repl;
 
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
-    pinMode(pin: number, mode: number): void;
-    analogWrite(pin: number, value: number): void;
-    analogRead(pin: number, cb: (item: number) => void): void;
-    digitalWrite(pin: number, value: number): void;
-    digitalRead(pin: number, cb: (item: number) => void): void;
-    servoWrite(pin: number, angle: number): void;
+    pinMode(pin: number | string, mode: number): void;
+    analogWrite(pin: number | string, value: number): void;
+    analogRead(pin: number | string, cb: (item: number) => void): void;
+    digitalWrite(pin: number | string, value: number): void;
+    digitalRead(pin: number | string, cb: (item: number) => void): void;
+    servoWrite(pin: number | string, angle: number): void;
     shiftOut(dataPin: Pin, clockPin: Pin, isBigEndian: boolean, value: number): void;
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
@@ -133,10 +136,10 @@ export declare class Board {
 
 export interface ButtonOption {
     pin: number | string;
-    invert?: boolean;
-    isPullup?: boolean;
-    isPulldown?: boolean;
-    holdtime?: number;
+    invert?: boolean | undefined;
+    isPullup?: boolean | undefined;
+    isPulldown?: boolean | undefined;
+    holdtime?: number | undefined;
 }
 
 export declare class Button {
@@ -156,9 +159,38 @@ export declare class Button {
     on(event: "release", cb: () => void): this;
 }
 
+export interface CollectionPinOptions {
+  pins: Array<string | number>;
+  [key: string]: any;
+}
+
+export declare class Collection<Base = {}> {
+  static installMethodForwarding(target: object, source: object): object;
+
+  constructor(options: Array<number | string | object> | CollectionPinOptions);
+
+  type?: Base | undefined;
+
+  add(...args: Array<number | object>): number;
+
+  each(callback: (item: Base, index: number) => void): this;
+
+  forEach(callback: (item: Base, index: number) => void): this;
+
+  includes(item: Base): boolean;
+
+  indexOf(item: Base): number;
+
+  map(callback: (item: Base, index: number) => void): Array<any>;
+
+  slice(begin?: number, end?: number): Collection<Base>;
+
+  byId(id: any): Base | undefined;
+}
+
 export interface CompassOption {
     controller: string;
-    gauss?: number;
+    gauss?: number | undefined;
 }
 
 export declare class Compass {
@@ -174,25 +206,32 @@ export declare class Compass {
 
 export interface ESCOption {
     pin: number | string;
-    range?: Array<number>;
-    startAt?: number;
-    controller?: string;
-    device?: string;
-    neutral?: number;
+    pwmRange?: Array<number> | undefined;
+    address?: string | undefined;
+    controller?: 'PCA9685' | 'DEFAULT' | undefined;
+    device?: 'FORWARD' | 'FORWARD_REVERSE' | 'FORWARD_REVERSE_BRAKE' | undefined;
+    neutral?: number | undefined;
 }
 
 export declare class ESC {
+    static Collection: ESCs;
+
     constructor(option: number | string | ESCOption);
 
     id: string;
     pin: number | string;
-    range: Array<number>;
+    pwmRange: Array<number>;
     readonly value: number;
 
-    speed(value: number): void;
-    min(): void;
-    max(): void;
-    stop(): void;
+    throttle(value: number): this;
+    brake(): this;
+}
+
+export declare class ESCs extends Collection<ESC> {
+  constructor(option: Array<number | string | ESCOption>);
+
+  throttle(value: number): this;
+  brake(): this;
 }
 
 export declare class Fn {
@@ -217,13 +256,13 @@ export declare class Fn {
 }
 
 export interface GyroGeneralOption {
-    controller?: string;
+    controller?: string | undefined;
 }
 
 export interface GyroAnalogOption extends GyroGeneralOption {
     pins: Array<string>;
     sensitivity: number;
-    resolution?: number;
+    resolution?: number | undefined;
 }
 
 export interface GyroMPU6050Option extends GyroGeneralOption {
@@ -251,8 +290,8 @@ export declare class Gyro {
 }
 
 export interface HygrometerOption {
-    controller?: string;
-    freq?: number;
+    controller?: string | undefined;
+    freq?: number | undefined;
 }
 
 export declare class Hygrometer {
@@ -268,8 +307,8 @@ export declare class Hygrometer {
 }
 
 export interface IMUGeneralOption {
-    controller?: string;
-    freq?: number;
+    controller?: string | undefined;
+    freq?: number | undefined;
 }
 
 export interface IMUMPU6050Option extends IMUGeneralOption {
@@ -296,7 +335,7 @@ export declare module IR {
     export interface ArrayOption {
         pins: Array<number> | Array<string>;
         emitter: number | string;
-        freq?: number;
+        freq?: number | undefined;
     }
 
     export interface LoadCalibrationOption {
@@ -322,9 +361,9 @@ export declare module IR {
 
 export interface JoystickOption {
     pins: Array<string>;
-    invert?: boolean;
-    invertX?: boolean;
-    invertY?: boolean;
+    invert?: boolean | undefined;
+    invertX?: boolean | undefined;
+    invertY?: boolean | undefined;
 }
 
 export declare class Joystick {
@@ -343,18 +382,18 @@ export declare class Joystick {
 }
 
 export interface LCDGeneralOption {
-    rows?: number;
-    cols?: number;
+    rows?: number | undefined;
+    cols?: number | undefined;
 }
 
 export interface LCDI2COption extends LCDGeneralOption {
     controller: string;
-    backlight?: number;
+    backlight?: number | undefined;
 }
 
 export interface LCDParallelOption extends LCDGeneralOption {
     pins: Array<any>;
-    backlight?: number;
+    backlight?: number | undefined;
 }
 
 export declare class LCD {
@@ -364,30 +403,30 @@ export declare class LCD {
     rows: number;
     cols: number;
 
-    print(message: string): void;
-    useChar(char: string): void;
-    clear(): void;
-    cursor(row: number, col: number): void;
-    home(): void;
-    on(): void;
-    off(): void;
-    display(): void;
-    noDisplay(): void;
-    blink(): void;
-    noBlink(): void;
-    autoscroll(): void;
-    noAutoscroll(): void;
-    bgColor(color: any): void;
-    noBacklight(): void;
-    backlight(): void;
+    print(message: string): this;
+    useChar(char: string): this;
+    clear(): this;
+    cursor(row: number, col: number): this;
+    home(): this;
+    on(): this;
+    off(): this;
+    display(): this;
+    noDisplay(): this;
+    blink(): this;
+    noBlink(): this;
+    autoscroll(): this;
+    noAutoscroll(): this;
+    bgColor(color: any): this;
+    noBacklight(): this;
+    backlight(): this;
 }
 
 export interface LedOption {
     pin: number;
-    type?: string;
-    controller?: string;
-    address?: number;
-    isAnode?: boolean;
+    type?: string | undefined;
+    controller?: string | undefined;
+    address?: number | undefined;
+    isAnode?: boolean | undefined;
 }
 
 export declare class Led {
@@ -414,8 +453,8 @@ export declare module Led {
 
     export interface DigitsOption {
         pins: any;
-        devices?: number;
-        controller?: string;
+        devices?: number | undefined;
+        controller?: string | undefined;
     }
 
     export class Digits {
@@ -439,15 +478,15 @@ export declare module Led {
 
     export interface MatrixOption {
         pins: any;
-        devices?: number;
+        devices?: number | undefined;
     }
 
     export interface MatrixIC2Option {
         controller: string;
-        addresses?: Array<any>;
-        isBicolor?: boolean;
+        addresses?: Array<any> | undefined;
+        isBicolor?: boolean | undefined;
         dims?: any;
-        rotation?: number;
+        rotation?: number | undefined;
     }
 
     export class Matrix {
@@ -476,8 +515,8 @@ export declare module Led {
 
     export interface RGBOption {
         pins: Array<number>;
-        isAnode?: boolean;
-        controller?: string;
+        isAnode?: boolean | undefined;
+        controller?: string | undefined;
     }
 
     export class RGB {
@@ -514,18 +553,25 @@ export class Motion {
     on(event: "calibrated", cb: () => void): this;
 }
 
+export interface MotorPins {
+    pwm: number;
+    dir: number;
+    cdir?: number | undefined;
+    brake?:number | undefined;
+}
+
 export interface MotorOption {
-    pins: any;
-    current?: any;
-    invertPWM?: boolean;
-    address?: number;
-    controller?: string;
+    pins: MotorPins;
+    current?: SensorOption | undefined;
+    invertPWM?: boolean | undefined;
+    address?: number | undefined;
+    controller?: string | undefined;
     register?: any;
     bits?: any;
 }
 
 export declare class Motor {
-    constructor(option: Array<number> | MotorOption);
+    constructor(option: number[] | MotorOption);
 
     readonly isOn: boolean;
 
@@ -533,16 +579,30 @@ export declare class Motor {
     fwd(speed: number): void;
     reverse(speed: number): void;
     rev(speed: number): void;
-    start(): void;
-    start(speed: number): void;
+    start(speed?: number): void;
+    stop(): void;
+    brake(): void;
+    release(): void;
+}
+
+export declare class Motors {
+    constructor(option: number[] | MotorOption[]);
+
+    readonly isOn: boolean;
+
+    forward(speed: number): void;
+    fwd(speed: number): void;
+    reverse(speed: number): void;
+    rev(speed: number): void;
+    start(speed?: number): void;
     stop(): void;
     brake(): void;
     release(): void;
 }
 
 export interface OrientiationOption {
-    controller?: string;
-    freq?: number;
+    controller?: string | undefined;
+    freq?: number | undefined;
 }
 
 export declare class Orientiation {
@@ -577,9 +637,9 @@ export declare class Piezo {
 }
 
 export interface PinOption {
-    id?: number | string;
+    id?: number | string | undefined;
     pin: number | string;
-    type?: string;
+    type?: string | undefined;
 }
 
 export interface PinState {
@@ -614,8 +674,8 @@ export declare class Pin {
 
 export interface PingOption {
     pin: number | string;
-    freq?: number;
-    pulse?: number;
+    freq?: number | undefined;
+    pulse?: number | undefined;
 }
 
 export declare class Ping {
@@ -625,7 +685,8 @@ export declare class Ping {
 export declare interface ProximityOption {
     pin: number | string;
     controller: string;
-}   
+    freq?: number | undefined;
+}
 
 export declare interface ProximityData {
     cm: number;
@@ -641,7 +702,7 @@ export declare class Proximity {
 
 export interface RelayOption {
     pin: number | string;
-    type?: string;
+    type?: string | undefined;
 }
 
 export declare class Relay {
@@ -663,8 +724,9 @@ export interface Repl {
 
 export interface SensorOption {
     pin: number | string;
-    freq?: boolean;
-    threshold?: number;
+    freq?: boolean | undefined;
+    threshold?: number | undefined;
+    enabled?: boolean | undefined;
 }
 
 export declare class Sensor {
@@ -692,22 +754,22 @@ export declare class Sensor {
 
 export interface ServoGeneralOption {
     pin: number | string;
-    range?: Array<number>;
-    type?: string;
-    startAt?: number;
-    isInverted?: boolean;
-    center?: boolean;
-    controller?: string;
+    range?: Array<number> | undefined;
+    type?: string | undefined;
+    startAt?: number | undefined;
+    isInverted?: boolean | undefined;
+    center?: boolean | undefined;
+    controller?: string | undefined;
 }
 
 export interface ServoPCA9685Option extends ServoGeneralOption {
-    address?: number;
+    address?: number | undefined;
 }
 
 export interface ServoSweepOpts {
     range: Array<number>;
-    interval?: number;
-    step?: number;
+    interval?: number | undefined;
+    step?: number | undefined;
 }
 
 export declare class Servo {
@@ -742,7 +804,7 @@ export declare class Servo {
 
 export interface ShiftRegisterOption {
     pins: any;
-    isAnode?: boolean;
+    isAnode?: boolean | undefined;
 }
 
 export declare class ShiftRegister {
@@ -762,8 +824,8 @@ export declare class ShiftRegister {
 export interface SonarOption {
     pin: number | string;
     device: string;
-    freq?: number;
-    threshold?: number;
+    freq?: number | undefined;
+    threshold?: number | undefined;
 }
 
 export declare class Sonar {
@@ -780,8 +842,8 @@ export interface StepperOption {
     pins: any;
     stepsPerRev: number;
     type: number;
-    rpm?: number;
-    direction?: number;
+    rpm?: number | undefined;
+    direction?: number | undefined;
 }
 
 export declare module Stepper {
@@ -817,7 +879,7 @@ export declare class Stepper {
 
 export interface SwitchOption {
     pin: number | string;
-    type?: "NO" | "NC";
+    type?: "NO" | "NC" | undefined;
 }
 
 export declare class Switch {
@@ -833,10 +895,10 @@ export declare class Switch {
 }
 
 export interface ThermometerOption {
-    controller?: string;
+    controller?: string | undefined;
     pin: string | number;
-    toCelsius?: (val: number) => number;
-    freq?: number;
+    toCelsius?: ((val: number) => number) | undefined;
+    freq?: number | undefined;
 }
 
 export declare class Thermometer {

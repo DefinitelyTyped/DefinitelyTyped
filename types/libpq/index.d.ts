@@ -2,12 +2,11 @@
 // Project: https://github.com/brianc/node-libpq#readme
 // Definitions by: Vlad Rindevich <https://github.com/Lodin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { Buffer } from 'buffer';
 
 declare namespace Libpq {
     interface NotifyMsg {
@@ -20,16 +19,16 @@ declare namespace Libpq {
         severity: string;
         sqlState: string;
         messagePrimary: string;
-        messageDetail?: string;
-        messageHint?: string;
-        statementPosition?: string;
-        internalPosition?: string;
-        internalQuery?: string;
-        context?: string;
-        schemaName?: string;
-        tableName?: string;
-        dataTypeName?: string;
-        constraintName?: string;
+        messageDetail?: string | undefined;
+        messageHint?: string | undefined;
+        statementPosition?: string | undefined;
+        internalPosition?: string | undefined;
+        internalQuery?: string | undefined;
+        context?: string | undefined;
+        schemaName?: string | undefined;
+        tableName?: string | undefined;
+        dataTypeName?: string | undefined;
+        constraintName?: string | undefined;
         sourceFile: string;
         sourceLine: string;
         sourceFunction: string;

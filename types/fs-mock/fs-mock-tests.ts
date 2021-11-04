@@ -12,11 +12,11 @@ var fs: FS = new FS({
 });
 
 var fsopts: FS.Opts = {
-	windows: true,
-	drives: ["A", "B"],
-	root: "/"
+    windows: true,
+    drives: ["A", "B"],
+    root: "/"
 };
 
 fs.rename("/a/b.txt", "/a/c/txt", (err?: Error): void => {
-	// nothing
+    // nothing
 });

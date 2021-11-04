@@ -1,6 +1,6 @@
-// Type definitions for google-apps-script-oauth2 24.0
+// Type definitions for non-npm package google-apps-script-oauth2 38.0
 // Project: https://github.com/googlesamples/apps-script-oauth2
-// Definitions by: dhayab <https://github.com/dhayab>
+// Definitions by: dhayab <https://github.com/dhayab>, George Dietrich <https://github.com/blacksmoke16>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -9,13 +9,9 @@
 declare namespace GoogleAppsScriptOAuth2 {
     interface OAuth2 {
         /**
-         * The supported locations for passing the state parameter.
-         */
-        STATE_PARAMETER_LOCATION: typeof StateParameterLocation;
-        /**
          * The supported formats for the returned OAuth2 token.
          */
-        TOKEN_FORMAT: typeof TokenFormat;
+        TOKEN_FORMAT: TokenFormat;
         /**
          * Creates a new OAuth2 service with the name specified.
          * It's usually best to create and configure your service once at the start of your script,
@@ -23,10 +19,30 @@ declare namespace GoogleAppsScriptOAuth2 {
          */
         createService(serviceName: string): OAuth2Service;
         /**
-         * Returns the redirect URI that will be used for a given script.
+         * Returns the redirect URI that will be used for a given script.  Defaults to the scriptID of the script being executed.
          * Often this URI needs to be entered into a configuration screen of your OAuth provider.
          */
-        getRedirectUri(scriptId: string): string;
+        getRedirectUri(scriptId?: string): string;
+    }
+
+    interface Storage {
+        /**
+         * Gets a stored value.
+         * If optSkipMemoryCheck, bypass the local memory cache when fetching the token.
+         */
+        getValue(key: string, optSkipMemoryCheck?: boolean): any;
+        /**
+         * Stores value.
+         */
+        setValue(key: string, value: any): void;
+        /**
+         * Removes a stored value.
+         */
+        removeValue(key: string): void;
+        /**
+         * Resets the storage, removing all stored data.
+         */
+        reset(): void;
     }
 
     interface OAuth2Service {
@@ -41,8 +57,22 @@ declare namespace GoogleAppsScriptOAuth2 {
          * The first step in getting an OAuth2 token is to have the user visit this URL
          * and approve the authorization request. The user will then be redirected back to your
          * application using callback function name specified, so that the flow may continue.
+         * Accepts an object of additional parameters that should be
+         * stored in the state token and made available in the callback function.
          */
-        getAuthorizationUrl(): string;
+        getAuthorizationUrl(optAdditionalParameters?: object): string;
+        /**
+         * Gets an id token for this service if present. This token can be used in HTTP
+         * requests to the service's endpoint. This method will throw an error if the
+         * user's access was not granted or has expired.
+         */
+        getIdToken(): string | undefined;
+        /**
+         * Gets the storage layer for this service, used to persist tokens.
+         * Custom values associated with the service can be stored here as well.
+         * The key <code>null</code> is used to to store the token and should not be used.
+         */
+        getStorage(): Storage;
         /**
          * Gets the last error that occurred this execution when trying to
          * automatically refresh or generate an access token.
@@ -55,8 +85,9 @@ declare namespace GoogleAppsScriptOAuth2 {
         getRedirectUri(): string;
         /**
          * Gets the token from the service's property store or cache.
+         * If optSkipMemoryCheck, bypass the local memory cache when fetching the token.
          */
-        getToken(): object | null;
+        getToken(optSkipMemoryCheck?: boolean): object | null;
         /**
          * Completes the OAuth2 flow using the request data passed in to the callback function.
          */
@@ -73,9 +104,14 @@ declare namespace GoogleAppsScriptOAuth2 {
          */
         refresh(): void;
         /**
-         * Resets the service, removing access and requiring the service to be re-authorized.
+         * Resets the service; removing access and requiring the service to be re-authorized.
+         * Deletes any additional data related to the service that was stored in cache/properties.
          */
         reset(): void;
+        /**
+         * Sets additional JWT claims to use for Service Account authorization.
+         */
+        setAdditionalClaims(additionalClaims: { [key: string]: string }): OAuth2Service;
         /**
          * Sets the service's authorization base URL (required).
          * For Google services this URL should be `https://accounts.google.com/o/oauth2/auth`.
@@ -88,6 +124,13 @@ declare namespace GoogleAppsScriptOAuth2 {
          * appropriate if you want to share access across users.
          */
         setCache(cache: GoogleAppsScript.Cache.Cache): OAuth2Service;
+        /**
+         * Sets the lock to use when checking and refreshing credentials (optional).
+         * Using a lock will ensure that only one execution will be able to access the
+         * stored credentials at a time. This can prevent race conditions that arise
+         * when two executions attempt to refresh an expired token.
+         */
+        setLock(lock: GoogleAppsScript.Lock.Lock): OAuth2Service;
         /**
          * Sets the name of the authorization callback function (required).
          * This is the function that will be called when the user completes the authorization flow
@@ -115,6 +158,14 @@ declare namespace GoogleAppsScriptOAuth2 {
          */
         setExpirationMinutes(expirationMinutes: string): OAuth2Service;
         /**
+         * Sets the OAuth2 grant_type to use when obtaining an access token. This does
+         * not need to be set when using either the authorization code flow (AKA
+         * 3-legged OAuth) or the service account flow. The most common usage is to set
+         * it to "client_credentials" and then also set the token headers to include
+         * the Authorization header required by the OAuth2 provider.
+         */
+        setGrantType(grantType: string): OAuth2Service;
+        /**
          * Sets the issuer (iss) value to use for Service Account authorization.
          * If not set the client ID will be used instead.
          */
@@ -135,11 +186,22 @@ declare namespace GoogleAppsScriptOAuth2 {
          */
         setPropertyStore(propertyStore: GoogleAppsScript.Properties.Properties): OAuth2Service;
         /**
+         * Sets the URI to redirect to when the OAuth flow has completed. By default the
+         * library will provide this value automatically, but in some rare cases you may
+         * need to override it.
+         */
+        setRedirectUri(redirectUri: string): OAuth2Service;
+        /**
+         * Sets the service's refresh URL. Some OAuth providers require a different URL
+         * to be used when generating access tokens from a refresh token.
+         */
+        setRefreshUrl(refreshUrl: string): OAuth2Service;
+        /**
          * Sets the scope or scopes to request during the authorization flow (optional).
          * If the scope value is an array it will be joined using the separator before being sent to the server,
          * which is is a space character by default.
          */
-        setScope(scope: string | string[], separator?: string): OAuth2Service;
+        setScope(scope: string | ReadonlyArray<string>, separator?: string): OAuth2Service;
         /**
          * Sets the subject (sub) value to use for Service Account authorization.
          */
@@ -163,26 +225,15 @@ declare namespace GoogleAppsScriptOAuth2 {
         setTokenUrl(tokenUrl: string): OAuth2Service;
     }
 
-    enum StateParameterLocation {
-        /**
-         * Pass the state parameter in the authorization URL.
-         */
-        AUTHORIZATION_URL,
-        /**
-         * Pass the state token in the redirect URL, as a workaround for APIs that don't support the state parameter.
-         */
-        REDIRECT_URL,
-    }
-
     enum TokenFormat {
         /**
          * JSON format, for example `{"access_token": "..."}`.
          */
-        JSON,
+        JSON = 'application/json',
         /**
          * Form URL-encoded, for example `access_token=...`.
          */
-        FORM_URL_ENCODED,
+        FORM_URL_ENCODED = 'application/x-www-form-urlencoded',
     }
 
     interface TokenPayload {

@@ -2,14 +2,14 @@ import Ember from 'ember';
 import { assertType } from './lib/assert';
 
 const ExtendClass = Ember.Object.extend({
-    foo: 'hello'
+    foo: 'hello',
 });
 
 class ES6Class extends Ember.Object {
     bar: string;
 }
 
-let TestClass = Ember.Object;
+const TestClass = Ember.Object;
 
 if (ExtendClass.detect(TestClass)) {
     assertType<string>(TestClass.create().foo);

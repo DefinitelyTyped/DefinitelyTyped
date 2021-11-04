@@ -128,33 +128,33 @@ export function appendFile(filename: string, data: any, callback?: (err: Error) 
 export function appendFile(filename: string, data: any, option: OpenOptions | string, callback?: (err: Error) => void): void;
 export function appendFileSync(filename: string, data: any, option?: OpenOptions | string): void;
 export function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
-export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
+export function watchFile(filename: string, options: { persistent?: boolean | undefined; interval?: number | undefined; }, listener: { curr: Stats; prev: Stats; }): void;
 export function unwatchFile(filename: string, listener?: Stats): void;
-export function watch(filename: string, options?: { persistent?: boolean; }, listener?: (event: string, filename: string) => any): FSWatcher;
+export function watch(filename: string, options?: { persistent?: boolean | undefined; }, listener?: (event: string, filename: string) => any): FSWatcher;
 export function exists(path: string, callback?: (exists: boolean) => void): void;
 export function existsSync(path: string): boolean;
 export function ensureDir(path: string, cb: (err: Error) => void): void;
 export function ensureDirSync(path: string): void;
 
 export interface OpenOptions {
-    encoding?: string;
-    flag?: string;
+    encoding?: string | undefined;
+    flag?: string | undefined;
 }
 
 export function createReadStream(path: string | Buffer, options?: {
-    flags?: string;
-    encoding?: string;
-    fd?: number;
-    mode?: number;
-    autoClose?: boolean;
-    start?: number;
-    end?: number;
+    flags?: string | undefined;
+    encoding?: string | undefined;
+    fd?: number | undefined;
+    mode?: number | undefined;
+    autoClose?: boolean | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
 }): ReadStream;
 export function createWriteStream(path: string | Buffer, options?: {
-    flags?: string;
-    encoding?: string;
-    fd?: number;
-    mode?: number;
+    flags?: string | undefined;
+    encoding?: string | undefined;
+    fd?: number | undefined;
+    mode?: number | undefined;
 }): WriteStream;
 
 // promisified versions

@@ -2,29 +2,49 @@
 // Project: https://github.com/edwardhotchkiss/mongoose-paginate
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>, simonxca <https://github.com/simonxca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="mongoose" />
 
 declare module 'mongoose' {
   export interface PaginateOptions {
-    select?: Object | string;
-    sort?: Object | string;
-    populate?: Array<Object> | Array<string> | Object | string;
-    lean?: boolean;
-    leanWithId?: boolean;
-    offset?: number;
-    page?: number;
-    limit?: number;
+    select?: Object | string | undefined;
+    sort?: Object | string | undefined;
+    populate?:
+      | Array<Object>
+      | Array<string>
+      | Object
+      | string
+      | QueryPopulateOptions | undefined;
+    lean?: boolean | undefined;
+    leanWithId?: boolean | undefined;
+    offset?: number | undefined;
+    page?: number | undefined;
+    limit?: number | undefined;
+  }
+
+  interface QueryPopulateOptions {
+    /** space delimited path(s) to populate */
+    path: string;
+    /** optional fields to select */
+    select?: any;
+    /** optional query conditions to match */
+    match?: any;
+    /** optional model to use for population */
+    model?: string | Model<any> | undefined;
+    /** optional query options like sort, limit, etc */
+    options?: any;
+    /** deep populate */
+    populate?: QueryPopulateOptions | QueryPopulateOptions[] | undefined;
   }
 
   export interface PaginateResult<T> {
     docs: Array<T>;
     total: number;
     limit: number;
-    page?: number;
-    pages?: number;
-    offset?: number;
+    page?: number | undefined;
+    pages?: number | undefined;
+    offset?: number | undefined;
   }
 
   interface PaginateModel<T extends Document> extends Model<T> {

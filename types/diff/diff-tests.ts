@@ -1,24 +1,55 @@
-import jsdiff = require('diff');
+import Diff = require('diff');
+
 const one = 'beep boop';
 const other = 'beep boob blah';
 
-let diff = jsdiff.diffChars(one, other);
-printDiff(diff);
+let changes = Diff.diffChars(one, other);
+examineChanges(changes);
 
-const diffArraysResult = jsdiff.diffArrays<string>(['a', 'b', 'c'], ['a', 'c', 'd']);
+// $ExpectType void
+Diff.diffChars(one, other, {
+    callback: (err, value) => {
+        err; // $ExpectType undefined
+        value; // $ExpectType Change[] | undefined
+    },
+});
+// $ExpectType void
+Diff.diffChars(one, other, (err, value) => {
+    err; // $ExpectType undefined
+    value; // $ExpectType Change[] | undefined
+});
+
+const diffArraysResult = Diff.diffArrays(['a', 'b', 'c'], ['a', 'c', 'd']);
 diffArraysResult.forEach(result => {
-    if (result.added) {
-        console.log(`added ${result.value.length} line(s):`, ...result.value);
-    } else if (result.removed) {
-        console.log(`removed ${result.value.length} line(s):`, ...result.value);
-    } else {
-        console.log(`no changes`);
-    }
+    result.added; // $ExpectType boolean | undefined
+    result.removed; // $ExpectType boolean | undefined
+    result.value; // $ExpectType string[]
+    result.count; // $ExpectType number | undefined
+});
+
+interface DiffObj {
+    value: number;
+}
+const a: DiffObj = { value: 0 };
+const b: DiffObj = { value: 1 };
+const c: DiffObj = { value: 2 };
+const d: DiffObj = { value: 3 };
+const arrayOptions: Diff.ArrayOptions<DiffObj, DiffObj> = {
+    comparator: (left, right) => {
+        return left.value === right.value;
+    },
+};
+const arrayChanges = Diff.diffArrays([a, b, c], [a, b, d], arrayOptions);
+arrayChanges.forEach(result => {
+    result.added; // $ExpectType boolean | undefined
+    result.removed; // $ExpectType boolean | undefined
+    result.value; // $ExpectType DiffObj[]
+    result.count; // $ExpectType number | undefined
 });
 
 // --------------------------
 
-class LineDiffWithoutWhitespace extends jsdiff.Diff {
+class LineDiffWithoutWhitespace extends Diff.Diff {
     tokenize(value: string): any {
         return value.split(/^/m);
     }
@@ -29,71 +60,71 @@ class LineDiffWithoutWhitespace extends jsdiff.Diff {
 }
 
 const obj = new LineDiffWithoutWhitespace();
-diff = obj.diff(one, other);
-printDiff(diff);
+changes = obj.diff(one, other);
+examineChanges(changes);
 
-function printDiff(diff: jsdiff.IDiffResult[]) {
-    function addLineHeader(decorator: string, str: string | string[]) {
-        return (typeof str === 'string' ? str.split("\n") : str).map((line, index, array) => {
-            if (index === array.length - 1 && line === "") {
-                return line;
-            } else {
-                return decorator + line;
-            }
-        }).join("\n");
-    }
-
-    diff.forEach((part) => {
-        if (part.added) {
-            console.log(addLineHeader("+", part.value));
-        } else if (part.removed) {
-            console.log(addLineHeader("-", part.value));
-        } else {
-            console.log(addLineHeader(" ", part.value));
-        }
+function examineChanges(diff: Diff.Change[]) {
+    diff.forEach(part => {
+        part.added; // $ExpectType boolean | undefined
+        part.removed; // $ExpectType boolean | undefined
+        part.value; // $ExpectType string
+        part.count; // $ExpectType number | undefined
     });
 }
 
-function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUniDiff) {
-    const verifyPatch = jsdiff.parsePatch(
-        jsdiff.createTwoFilesPatch("oldFile.ts", "newFile.ts", oldStr, newStr,
-            "old", "new", { context: 1 }));
+function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: Diff.ParsedDiff) {
+    const verifyPatch = Diff.parsePatch(
+        Diff.createTwoFilesPatch('oldFile.ts', 'newFile.ts', oldStr, newStr, 'old', 'new', {
+            context: 1,
+        })
+    );
 
-    if (JSON.stringify(verifyPatch[0], Object.keys(verifyPatch[0]).sort()) !== JSON.stringify(uniDiff, Object.keys(uniDiff).sort())) {
-        console.error("Patch did not match uniDiff");
+    if (
+        JSON.stringify(verifyPatch[0], Object.keys(verifyPatch[0]).sort()) !==
+        JSON.stringify(uniDiff, Object.keys(uniDiff).sort())
+    ) {
+        throw new Error('Patch did not match uniDiff');
     }
 }
-function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUniDiff) {
-    const verifyApply = [
-        jsdiff.applyPatch(oldStr, uniDiff),
-        jsdiff.applyPatch(oldStr, [uniDiff])
-    ];
-    jsdiff.applyPatches([uniDiff], {
-        loadFile: (index: number, callback: (err: Error, data: string) => void) => {
+function verifyApplyMethods(oldStr: string, newStr: string, uniDiffStr: string) {
+    const uniDiff = Diff.parsePatch(uniDiffStr)[0];
+    const verifyApply = [Diff.applyPatch(oldStr, uniDiff), Diff.applyPatch(oldStr, [uniDiff])];
+    const options: Diff.ApplyPatchesOptions = {
+        loadFile(index, callback) {
+            index; // $ExpectType ParsedDiff
             callback(undefined, one);
         },
-        patched: (index: number, content: string) => {
+        patched(index, content) {
+            index; // $ExpectType ParsedDiff
             verifyApply.push(content);
         },
-        complete: (err?: Error) => {
+        complete(err) {
             if (err) {
-                console.error(err);
+                throw err;
             }
 
             verifyApply.forEach(result => {
                 if (result !== newStr) {
-                    console.error("Result did not match newStr");
+                    throw new Error('Result did not match newStr');
                 }
             });
-        }
-    });
+        },
+        compareLine(_, line, operator, patchContent) {
+            if (operator === ' ') {
+                return true;
+            }
+            return line === patchContent;
+        },
+        fuzzFactor: 0
+    };
+    Diff.applyPatches([uniDiff], options);
+    Diff.applyPatches(uniDiffStr, options);
 }
 
-const uniDiffPatch = jsdiff.structuredPatch("oldFile.ts", "newFile.ts", one, other,
-    "old", "new", { context: 1 });
+const uniDiffPatch = Diff.structuredPatch('oldFile.ts', 'newFile.ts', one, other, 'old', 'new', {
+    context: 1,
+});
 verifyPatchMethods(one, other, uniDiffPatch);
 
-const uniDiffStr = jsdiff.createPatch("file.ts", one, other, "old", "new",
-    { context: 1 });
-const uniDiffApply = jsdiff.parsePatch(uniDiffStr)[0];
-verifyApplyMethods(one, other, uniDiffApply);
+const uniDiffStr = Diff.createPatch('file.ts', one, other, 'old', 'new', { context: 1 });
+verifyApplyMethods(one, other, uniDiffStr);

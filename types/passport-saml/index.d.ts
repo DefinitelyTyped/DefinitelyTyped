@@ -1,9 +1,11 @@
-// Type definitions for passport-saml 0.15
+// Type definitions for passport-saml 1.1
 // Project: https://github.com/bergie/passport-saml
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 //                 Damian Assennato <https://github.com/dassennato>
+//                 Karol Samborski <https://github.com/ksamborski>
+//                 Jose Colella <https://github.com/josecolella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import passport = require('passport');
 import express = require('express');
@@ -19,63 +21,87 @@ export interface CacheProvider {
     remove(key: string, callback: (err: Error | null, key: string) => void | null): void;
 }
 
-export type VerifiedCallback =	(err: Error | null, user: {}, info: {}) => void;
+export type VerifiedCallback = (err: Error | null, user?: object, info?: object) => void;
 
-export type VerifyWithRequest = (req: express.Request, profile: {}, done: VerifiedCallback) => void;
+export type VerifyWithRequest = (req: express.Request, profile: Profile, done: VerifiedCallback) => void;
 
-export type VerifyWithoutRequest = (profile: {}, done: VerifiedCallback) => void;
+export type VerifyWithoutRequest = (profile: Profile, done: VerifiedCallback) => void;
 
 export class Strategy extends passport.Strategy {
     constructor(config: SamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
     authenticate(req: express.Request, options: AuthenticateOptions | AuthorizeOptions): void;
-    logout(req: express.Request, callback: (err: Error | null, url: string) => void): void;
-    generateServiceProviderMetadata(decryptionCert: string): string;
+    logout(req: express.Request, callback: (err: Error | null, url?: string) => void): void;
+    generateServiceProviderMetadata(decryptionCert: string | null, signingCert?: string | null): string;
 }
+
+export type CertCallback = (callback: (err: Error | null, cert?: string | string[]) => void) => void;
 
 export interface SamlConfig {
     // Core
-    callbackUrl?: string;
-    path?: string;
-    protocol?: string;
-    host?: string;
-    entryPoint: string;
-    issuer: string;
-    privateCert?: string;
-    cert?: {};
-    decryptionPvk?: string;
-    signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512';
+    callbackUrl?: string | undefined;
+    path?: string | undefined;
+    protocol?: string | undefined;
+    host?: string | undefined;
+    entryPoint?: string | undefined;
+    issuer?: string | undefined;
+    privateCert?: string | undefined;
+    cert?: string | string[] | CertCallback | undefined;
+    decryptionPvk?: string | undefined;
+    signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512' | undefined;
 
     // Additional SAML behaviors
-    additionalParams?: {};
-    additionalAuthorizeParams?: {};
-    identifierFormat?: string;
-    acceptedClockSkewMs?: number;
-    attributeConsumingServiceIndex?: string;
-    disableRequestedAuthnContext?: boolean;
-    authnContext?: string;
-    forceAuthn?: boolean;
-    skipRequestCompression?: boolean;
-    authnRequestBinding?: string;
+    additionalParams?: any;
+    additionalAuthorizeParams?: any;
+    identifierFormat?: string | undefined;
+    acceptedClockSkewMs?: number | undefined;
+    attributeConsumingServiceIndex?: string | undefined;
+    disableRequestedAuthnContext?: boolean | undefined;
+    authnContext?: string | undefined;
+    forceAuthn?: boolean | undefined;
+    skipRequestCompression?: boolean | undefined;
+    authnRequestBinding?: string | undefined;
+    RACComparison?: 'exact' | 'minimum' | 'maximum' | 'better' | undefined;
+    providerName?: string | undefined;
+    passive?: boolean | undefined;
+    idpIssuer?: string | undefined;
+    audience?: string | undefined;
 
     // InResponseTo Validation
-    validateInResponseTo?: boolean;
-    requestIdExpirationPeriodMs?: number;
-    cacheProvider?: CacheProvider;
+    validateInResponseTo?: boolean | undefined;
+    requestIdExpirationPeriodMs?: number | undefined;
+    cacheProvider?: CacheProvider | undefined;
 
     // Passport
-    name?: string;
-    passReqToCallback?: boolean;
+    name?: string | undefined;
+    passReqToCallback?: boolean | undefined;
 
     // Logout
-    logoutUrl?: string;
-    additionalLogoutParams?: {};
-    logoutCallbackUrl?: string;
+    logoutUrl?: string | undefined;
+    additionalLogoutParams?: any;
+    logoutCallbackUrl?: string | undefined;
 }
 
 export interface AuthenticateOptions extends passport.AuthenticateOptions {
-    additionalParams?: {};
+    additionalParams?: object | undefined;
 }
 
 export interface AuthorizeOptions extends AuthenticateOptions {
-    samlFallback?: string;
+    samlFallback?: string | undefined;
 }
+
+export type Profile = {
+  issuer?: string | undefined;
+  sessionIndex?: string | undefined;
+  nameID?: string | undefined;
+  nameIDFormat?: string | undefined;
+  nameQualifier?: string | undefined;
+  spNameQualifier?: string | undefined;
+  ID?: string | undefined;
+  mail?: string | undefined; // InCommon Attribute urn:oid:0.9.2342.19200300.100.1.3
+  email?: string | undefined; // `mail` if not present in the assertion
+  getAssertionXml(): string; // get the raw assertion XML
+  getAssertion(): object; // get the assertion XML parsed as a JavaScript object
+  getSamlResponseXml(): string; // get the raw SAML response XML
+} & {
+  [attributeName: string]: unknown; // arbitrary `AttributeValue`s
+};

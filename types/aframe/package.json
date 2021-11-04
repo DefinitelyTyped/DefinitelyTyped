@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@tweenjs/tween.js": "^18.6.1",
+        "three": "*"
+    }
+}

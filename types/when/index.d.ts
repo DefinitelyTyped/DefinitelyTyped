@@ -3,6 +3,7 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare function When(): When.Promise<void>;
 declare function When<T>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>): When.Promise<T>;
 declare function When<T, U>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 
@@ -231,6 +232,7 @@ declare namespace When {
      *    - fulfilled with promiseOrValue's value after it is fulfilled
      *    - rejected with promiseOrValue's reason after it is rejected
      */
+    function resolve(): Promise<void>;
     function resolve<T>(promiseOrValue: T | Promise<T> | Thenable<T>): Promise<T>;
 
     interface Deferred<T> {
@@ -285,7 +287,7 @@ declare namespace When {
         ): Promise<TResult1 | TResult2>;
         then<TResult>(
             onFulfilled: ((value: T) => TResult | Thenable<TResult>),
-            onRejected?: ((reason: any) => TResult | Thenable<TResult>) | undefined | null,
+            onRejected?: ((reason: any) => TResult | Thenable<TResult>) | null,
             onProgress?: (update: any) => void
         ): Promise<TResult>;
         then<TResult>(
@@ -294,8 +296,8 @@ declare namespace When {
             onProgress?: (update: any) => void
         ): Promise<T | TResult>;
         then(
-            onFulfilled?: ((value: T) => T | Thenable<T>) | undefined | null,
-            onRejected?: ((reason: any) => T | Thenable<T>) | undefined | null,
+            onFulfilled?: ((value: T) => T | Thenable<T>) | null,
+            onRejected?: ((reason: any) => T | Thenable<T>) | null,
             onProgress?: (update: any) => void
         ): Promise<T>;
 

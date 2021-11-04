@@ -5,15 +5,15 @@ import { Commit } from './commit';
 import { Index } from './index';
 
 export interface RevertOptions {
-    version?: number;
-    mainline?: number;
-    mergeOpts?: MergeOptions;
-    checkoutOpts?: CheckoutOptions;
+    version?: number | undefined;
+    mainline?: number | undefined;
+    mergeOpts?: MergeOptions | undefined;
+    checkoutOpts?: CheckoutOptions | undefined;
     [key: string]: any;
 }
 
 export class Revert {
-    static revert(repo: Repository, commit: Commit, givenOpts: RevertOptions): Promise<number>;
+    static revert(repo: Repository, commit: Commit, givenOpts?: RevertOptions): Promise<number>;
     /**
      * Reverts the given commit against the given "our" commit, producing an index that reflects the result of the revert.
      */

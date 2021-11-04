@@ -1,12 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
@@ -23,7 +21,8 @@
         "test/globals.tsx",
         "test/animated.tsx",
         "test/init-example.tsx",
-        "test/ART.tsx",
-        "test/legacy-properties.tsx"
+        "test/legacy-properties.tsx",
+        "test/stylesheet-create.tsx",
+        "test/stylesheet-flatten.tsx"
     ]
 }

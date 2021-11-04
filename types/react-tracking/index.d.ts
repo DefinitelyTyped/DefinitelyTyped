@@ -1,13 +1,18 @@
-// Type definitions for react-tracking 5.0
+// Type definitions for react-tracking 8.1
 // Project: https://github.com/NYTimes/react-tracking
 // Definitions by: Eloy Durán <https://github.com/alloy>
+//                 Christopher Pappas <https://github.com/damassi>
+//                 Chen Asraf <https://github.com/chenasraf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
 
-export interface TrackingProp {
-    trackEvent({}): any;
+export interface TrackingProp<P = {}> {
+    /**
+     * This function tracks an event, along with related data.
+     */
+    trackEvent(data: Partial<P>): void;
 
     /**
      * This method returns all of the contextual tracking data up until this point in the component hierarchy.
@@ -15,9 +20,16 @@ export interface TrackingProp {
     getTrackingData(): {};
 }
 
+export interface TrackingHook<P = {}> extends TrackingProp<P> {
+    /**
+     * This component will pass any tracking data as context to tracking calls made in any components within its subtree.
+     */
+    Track: TrackingComponent<P>;
+}
+
 type Falsy = false | null | undefined | "";
 
-interface Options<T> {
+export interface Options<T> {
     /**
      * By default, data tracking objects are pushed to `window.dataLayer[]`. This is a good default if you use Google
      * Tag Manager. You can override this by passing in a dispatch function as a second parameter to the tracking
@@ -35,7 +47,7 @@ interface Options<T> {
      * returned from this function call will be merged with the context data and then dispatched. A use case for this
      * would be that you want to provide extra tracking data without adding it to the context.
      */
-    dispatchOnMount?: boolean | ((contextData: T) => T);
+    dispatchOnMount?: boolean | ((contextData: T) => T) | undefined;
 
     /**
      * When there's a need to implicitly dispatch an event with some data for every component, you can define an
@@ -50,13 +62,43 @@ interface Options<T> {
     process?(ownTrackingData: T): T | Falsy;
 }
 
-export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) => T);
+export interface DecoratorOptions<T> extends Options<T> {
+    /**
+     * When set to `true`, adding a ref to the wrapped component will actually return the instance of the underlying
+     * component.
+     *
+     * Default is `false`.
+     */
+    forwardRef?: boolean | undefined;
+}
+
+export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any], [value, err]: [any, any]) => T | Falsy);
 
 // Duplicated from ES6 lib to remove the `void` typing, otherwise `track` can’t be used as a HOC function that passes
 // through a JSX component that be used without casting.
 type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction;
-type MethodDecorator = <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T>;
-type Decorator = ClassDecorator & MethodDecorator;
+type MethodDecorator = <T>(
+    target: object,
+    propertyKey: string | symbol,
+    descriptor: TypedPropertyDescriptor<T>,
+) => TypedPropertyDescriptor<T>;
+export type Decorator = ClassDecorator & MethodDecorator;
+
+/**
+ * A React context used to support passing and dispatching tracking data throughout a tree of components.
+ */
+export type TrackingContext<T = any> = React.Context<{
+    tracking: Options<T> & { data?: {} | undefined };
+}>;
+export const ReactTrackingContext: TrackingContext;
+
+/**
+ * A React hook used to tap into the tracking context.
+ *
+ * @param trackingData represents the data to be tracked (or a function returning that data)
+ * @param options Additional options
+ */
+export function useTracking<P = {}>(trackingData?: Partial<P>, options?: Partial<Options<P>>): TrackingHook<P>;
 
 /**
  * This is the type of the `track` function. It’s declared as an interface so that consumers can extend the typing and
@@ -65,8 +107,16 @@ type Decorator = ClassDecorator & MethodDecorator;
  * For examples of such extensions see: https://github.com/artsy/reaction/blob/master/src/utils/track.ts
  */
 export interface Track<T = any, P = any, S = any> {
-    <K extends keyof T>(trackingInfo?: TrackingInfo<Pick<T, K>, P, S>, options?: Options<Partial<T>>): Decorator;
+    <K extends keyof T>(
+        trackingInfo?: TrackingInfo<Pick<T, K>, P, S>,
+        options?: DecoratorOptions<Partial<T>>,
+    ): Decorator;
 }
+
+/**
+ * This component will pass any tracking data as context to tracking calls made in any components within its subtree.
+ */
+export type TrackingComponent<P = {}> = React.FC<React.PropsWithChildren<{}>>;
 
 export const track: Track;
 export default track;

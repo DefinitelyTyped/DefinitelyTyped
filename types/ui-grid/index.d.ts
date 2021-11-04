@@ -134,9 +134,9 @@ declare namespace uiGrid {
     export interface IGridInstanceOf<TEntity> {
         /**
          * adds a row header column to the grid
-         * @param {IColumnDef} colDef The column definition
-         * @param {number} order Number that indicates where the column should be placed in the grid.
-         * @param {boolean} stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
+         * @param colDef The column definition
+         * @param order Number that indicates where the column should be placed in the grid.
+         * @param stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
          */
         addRowHeaderColumn(colDef: IColumnDefOf<TEntity>, order?: number, stopColumnBuild?: boolean): void;
         /**
@@ -145,16 +145,16 @@ declare namespace uiGrid {
         assignTypes(): void;
         /**
          * Populates columnDefs from the provided data
-         * @param {IRowBuilder} rowBuilder function to be called
+         * @param rowBuilder function to be called
          */
         buildColumnDefsFromData(rowBuilder: IRowBuilder<TEntity>): void;
         /**
          * creates GridColumn objects from the columnDefinition.
          * Calls each registered columnBuilder to further process the column
-         * @param {IBuildColumnsOptions} options An object containing options to use when building columns
+         * @param options An object containing options to use when building columns
          *        * orderByColumnDefs: defaults to false.  When true, buildColumns will order existing columns
          *        according to the order within the column definitions
-         * @returns {ng.IPromise} A promise to load any needed column resources
+         * @returns A promise to load any needed column resources
          */
         buildColumns(options: IBuildColumnsOptions): ng.IPromise<any>;
         /**
@@ -165,23 +165,23 @@ declare namespace uiGrid {
          * Calls the callbacks based on the type of data change that has occurred.
          * Always calls the ALL callbacks, calls the ROW, EDIT, COLUMN and OPTIONS callbacks
          * if the event type is matching, or if the type is ALL.
-         * @param {number} type the type of event that occurred - one of the uiGridConstants.dataChange values
+         * @param type the type of event that occurred - one of the uiGridConstants.dataChange values
          *        (ALL, ROW, EDIT, COLUMN, OPTIONS
          */
         callDataChangeCallbacks(type: number): void;
         /**
          * Clears all filters and optionally refreshes the visible rows.
-         * @param {boolean} [refreshRows=true] Refresh the rows?
-         * @param {boolean} [clearConditions=true] Clear conditions?
-         * @param {boolean} [clearFlags=true] Clear flags?
-         * @returns {ng.IPromise<any>} If refreshRows is true, returns a promise of the rows refreshing
+         * @param [refreshRows=true] Refresh the rows?
+         * @param [clearConditions=true] Clear conditions?
+         * @param [clearFlags=true] Clear flags?
+         * @returns If refreshRows is true, returns a promise of the rows refreshing
          */
         clearAllFilters(refreshRows: boolean, clearConditions: boolean,
             clearFlags: boolean): ng.IPromise<any>;
         /**
          * refreshes the grid when a column refresh is notified, which triggers handling of the visible flag.
          * This is called on uiGridConstants.dataChange.COLUMN, and is registered as a dataChangeCallback in grid.js
-         * @param {string} name column name
+         * @param name column name
          */
         columnRefreshCallback(name: string): void;
         /**
@@ -202,86 +202,86 @@ declare namespace uiGrid {
         flagScrollingVertically(): void;
         /**
          * Gets the displayed value of a cell after applying any the cellFilter
-         * @param {IGridRow} row Row to access
-         * @param {IGridColumn} col Column to access
-         * @returns {string} Cell display value
+         * @param row Row to access
+         * @param col Column to access
+         * @returns Cell display value
          */
         getCellDisplayValue(row: IGridRowOf<TEntity>, col: IGridColumnOf<TEntity>): string;
         /**
          * Gets the displayed value of a cell
-         * @param {IGridRow} row Row to access
-         * @param {IGridColumn} col Column to access
-         * @returns {any} Cell value
+         * @param row Row to access
+         * @param col Column to access
+         * @returns Cell value
          */
         getCellValue(row: IGridRowOf<TEntity>, col: IGridColumnOf<TEntity>): any;
         /**
          * returns a grid colDef for the column name
-         * @param {string} name Column name
-         * @returns {IColumnDef} The column definition
+         * @param name Column name
+         * @returns The column definition
          */
         getColDef(name: string): IColumnDefOf<TEntity>;
         /**
          * returns a grid column by name
-         * @param {string} name Column name
-         * @returns {IGridColumn} The column
+         * @param name Column name
+         * @returns The column
          */
         getColumn(name: string): IGridColumnOf<TEntity>;
         /**
          * Return the columns that the grid is currently being sorted by
-         * @returns {Array<IGridColumn>} the columns that the grid is currently being sorted by
+         * @returns the columns that the grid is currently being sorted by
          */
         getColumnSorting(): Array<IGridColumnOf<TEntity>>;
         /**
          * Returns the $parse-able accessor for a column within its $scope
-         * @param {IGridColumn} col Column object
-         * @returns {string} $parse-able accessor for a column within its $scope
+         * @param col Column object
+         * @returns $parse-able accessor for a column within its $scope
          */
         getGridQualifiedColField(col: IGridColumnOf<TEntity>): string;
         /**
          * returns all columns except for rowHeader columns
-         * @returns {Array<IGridColumn>} All data columns
+         * @returns All data columns
          */
         getOnlyDataColumns(): Array<IGridColumnOf<TEntity>>;
         /**
          * returns the GridRow that contains the rowEntity
-         * @param {TEntity} rowEntity the gridOptionms.data array element instance
-         * @param {Array<IGridRow>} rows The rows to look in.  if not provided then it looks in grid.rows
+         * @param rowEntity the gridOptionms.data array element instance
+         * @param rows The rows to look in.  if not provided then it looks in grid.rows
          */
         getRow(rowEntity: TEntity, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
         /**
          * Triggered when the browser window resizes; automatically resizes the grid
-         * @param {ng.IAngularEvent} $event Resize event
+         * @param $event Resize event
          */
         handleWindowResize($event: ng.IAngularEvent): void;
         /**
          * returns true if leftContainer exists
-         * @returns {boolean} container exists?
+         * @returns container exists?
          */
         hasLeftContainer(): boolean;
         /**
          * returns true if rightContainer exists
-         * @returns {boolean} container exists?
+         * @returns container exists?
          */
         hasRightContainer(): boolean;
         /**
          * returns true if leftContainer has columns
-         * @returns {boolean} container has columns
+         * @returns container has columns
          */
         hasLeftContainerColumns(): boolean;
         /**
          * returns true if rightContainer has columns
-         * @returns {boolean} container has columns
+         * @returns container has columns
          */
         hasRightContainerColumns(): boolean;
         /**
          * Is grid right to left
-         * @returns {boolean} true if grid is RTL
+         * @returns true if grid is RTL
          */
         isRTL(): boolean;
         /**
          * Checks if column is a row header
-         * @param {IGridColumn} column The column
-         * @returns {boolean} true if the column is a row header
+         * @param column The column
+         * @returns true if the column is a row header
          */
         isRowHeaderColumn(column: IGridColumnOf<TEntity>): boolean;
         /**
@@ -299,8 +299,8 @@ declare namespace uiGrid {
          *
          * Rows are identified using the hashKey if configured.  If not configured, then rows
          * are identified using the gridOptions.rowEquality function
-         * @param {Array<TEntity>} newRawData The new grid data
-         * @return {ng.IPromise<any>} Promise which resolves when the rows have been created or removed
+         * @param newRawData The new grid data
+         * @return Promise which resolves when the rows have been created or removed
          */
         modifyRows(newRawData: Array<TEntity>): ng.IPromise<any>;
         /**
@@ -309,7 +309,7 @@ declare namespace uiGrid {
          * might be particularly relevant where you've changed values within the data
          * and you'd like cell classes to be re-evaluated, or changed config within
          * the columnDef and you'd like headerCellClasses to be re-evaluated.
-         * @param {string} type one of the uiGridConstants.dataChange values [ALL, ROW, EDIT, COLUMN], which tells
+         * @param type one of the uiGridConstants.dataChange values [ALL, ROW, EDIT, COLUMN], which tells
          * us which refreshes to fire
          */
         notifyDataChange(type: string): void;
@@ -319,15 +319,15 @@ declare namespace uiGrid {
         precompileCellTemplates(): void;
         /**
          * processes all RowBuilders for the gridRow
-         * @param {IGridRow} gridRow reference to gridRow
-         * @returns {IGridRow} the gridRow with all additional behavior added
+         * @param gridRow reference to gridRow
+         * @returns the gridRow with all additional behavior added
          */
         processRowBuilders(gridRow: IGridRowOf<TEntity>): IGridRowOf<TEntity>;
         /**
          * calls the row processors, specifically
          * intended to reset the sorting when an edit is called,
          * registered as a dataChangeCallback on uiGridConstants.dataChange.EDIT
-         * @param {string} name column name
+         * @param name column name
          */
         processRowsCallback(name: string): void;
         /**
@@ -340,7 +340,7 @@ declare namespace uiGrid {
         queueRefresh(): void;
         /**
          * Redraw the rows and columns based on our current scroll position
-         * @param {boolean} [rowsAdded] Optional to indicate rows are added and the scroll percentage must be
+         * @param [rowsAdded] Optional to indicate rows are added and the scroll percentage must be
          *        recalculated
          */
         redrawCanvas(rowsAdded?: boolean): void;
@@ -353,36 +353,36 @@ declare namespace uiGrid {
          *
          * If you only want to resize the grid, not regenerate all the rows
          * and columns, you should consider directly calling refreshCanvas instead.
-         * @param {boolean} rowsAltered Optional flag for refreshing when the number of rows has changed
+         * @param rowsAltered Optional flag for refreshing when the number of rows has changed
          */
         refresh(rowsAltered?: boolean): void;
         /**
          * Builds all styles and recalculates much of the grid sizing
-         * @param {boolean} buildStyles optional parameter.  Use TBD
-         * @returns {ng.IPromise<any>} promise that is resolved when the canvas
+         * @param buildStyles optional parameter.  Use TBD
+         * @returns promise that is resolved when the canvas
          *          has been refreshed
          */
         refreshCanvas(buildStyles?: boolean): ng.IPromise<any>;
         /**
          * Refresh the rendered rows on screen?  Note: not functional at present
-         * @returns {ng.IPromise<any>} promise that is resolved when render completes?
+         * @returns promise that is resolved when render completes?
          */
         refreshRows(): ng.IPromise<any>;
         /**
          * When the build creates columns from column definitions, the columnbuilders will be called to add
          * additional properties to the column.
-         * @param {IColumnBuilder} columnBuilder function to be called
+         * @param columnBuilder function to be called
          */
         registerColumnBuilder(columnBuilder: IColumnBuilder<TEntity>): void;
         /**
          * Register a "columns processor" function. When the columns are updated,
          * the grid calls each registered "columns processor", which has a chance
          * to alter the set of columns, as long as the count is not modified.
-         * @param {IColumnProcessor} columnProcessor column processor function, which
+         * @param columnProcessor column processor function, which
          *        is run in the context of the grid (i.e. this for the function will be the grid), and
          *        which must return an updated renderedColumnsToProcess which can be passed to the next processor
          *        in the chain
-         * @param {number} priority the priority of this processor.  In general we try to do them in 100s to leave room
+         * @param priority the priority of this processor.  In general we try to do them in 100s to leave room
          * for other people to inject columns processors at intermediate priorities.
          * Lower priority columnsProcessors run earlier.priority
          */
@@ -405,17 +405,17 @@ declare namespace uiGrid {
          * - COLUMN calls COLUMN and ALL callbacks
          * - OPTIONS calls OPTIONS and ALL callbacks
          *
-         * @param {(grid: IGridInstance) => void} callback function to be called
-         * @param {Array<string>} types the types of data change you want to be informed of.  Values from
+         * @param callback function to be called
+         * @param types the types of data change you want to be informed of.  Values from
          * the uiGridConstants.dataChange values ( ALL, EDIT, ROW, COLUMN, OPTIONS ).  Optional and defaults to
          * ALL
-         * @returns {Function} deregister function - a function that can be called to deregister this callback
+         * @returns deregister function - a function that can be called to deregister this callback
          */
         registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types?: Array<string>): Function;
         /**
          * When the build creates rows from gridOptions.data, the rowBuilders will be called to add
          * additional properties to the row.
-         * @param {IRowBuilder} rowBuilder Function to be called
+         * @param rowBuilder Function to be called
          */
         registerRowBuilder(rowBuilder: IRowBuilder<TEntity>): void;
         /**
@@ -424,10 +424,10 @@ declare namespace uiGrid {
          * to alter the set of rows (sorting, etc) as long as the count is not
          * modified.
          *
-         * @param {IRowProcessor} rowProcessor rows processor function, which
+         * @param rowProcessor rows processor function, which
          * is run in the context of the grid (i.e. this for the function will be the grid), and must
          * return the updated rows list, which is passed to the next processor in the chain
-         * @param {number} priority the priority of this processor.
+         * @param priority the priority of this processor.
          *        In general we try to do them in 100s to leave room for other people to inject rows processors at
          *        intermediate priorities.  Lower priority rowsProcessors run earlier. At present all rows visible
          *        is running at 50, filter is running at 100, sort is at 200, grouping at 400, selectable rows at
@@ -438,45 +438,45 @@ declare namespace uiGrid {
          * registered a styleComputation function
          *
          * If the function returns a value it will be appended into the grid's `<style>` block
-         * @param {IStyleComputation} styleComputation function
+         * @param styleComputation function
          */
         registerStyleComputation(styleComputation: ($scope: ng.IScope) => string): void;
         /**
          * Remove a registered rows processor
-         * @param {IRowProcessor} rows processor function
+         * @param rows processor function
          */
         removeRowsProcessor(rows: IRowProcessor<TEntity>): void;
         /**
          * Return the columns that the grid is currently being sorted by
-         * @param {IGridColumn} [excludedColumn] Optional GridColumn to exclude from having its sorting reset
+         * @param [excludedColumn] Optional GridColumn to exclude from having its sorting reset
          */
         resetColumnSorting(excludedColumn: IGridColumnOf<TEntity>): void;
         /**
          * Scroll the grid such that the specified
          * row and column is in view
-         * @param {TEntity} rowEntity gridOptions.data[] array element to make visible
-         * @param {IColumnDef} colDef to make visible
-         * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
+         * @param rowEntity gridOptions.data[] array element to make visible
+         * @param colDef to make visible
+         * @returns a promise that is resolved after any scrolling is finished
          */
         scrollTo(rowEntity?: TEntity, colDef?: IColumnDefOf<TEntity>): ng.IPromise<any>;
         /**
          * Scrolls the grid to make a certain row and column combo visible,
          * in the case that it is not completely visible on the screen already.
-         * @param {IGridRow} gridRow row to make visible
-         * @param {IGridColumn} gridCol column to make visible
-         * @returns {ng.IPromise<any>} a promise that is resolved when scrolling is complete
+         * @param gridRow row to make visible
+         * @param gridCol column to make visible
+         * @returns a promise that is resolved when scrolling is complete
          */
         scrollToIfNecessary(gridRow: IGridRowOf<TEntity>, gridCol: IGridColumnOf<TEntity>): ng.IPromise<any>;
         /**
          * Set the sorting on a given column, optionally resetting any existing sorting on the Grid.
          * Emits the sortChanged event whenever the sort criteria are changed.
-         * @param {IGridColumn} column Column to set the sorting on
-         * @param {uiGridConstants.ASC|uiGridConstants.DESC} [direction] Direction to sort by,
+         * @param column Column to set the sorting on
+         * @param [direction] Direction to sort by,
          *        either descending or ascending.  If not provided, the column will iterate through the sort
          *        directions: ascending, descending, unsorted.
-         * @param {boolean} [add] Add this column to the sorting. If not provided or set to `false`, the Grid will
+         * @param [add] Add this column to the sorting. If not provided or set to `false`, the Grid will
          *        reset any existing sorting and sort by this column only
-         * @returns {ng.IPromise<IGridColumn>} A resolved promise that supplies the column.
+         * @returns A resolved promise that supplies the column.
          */
         sortColumn(column: IGridColumnOf<TEntity>, direction?: string, add?: boolean)
             : ng.IPromise<IGridColumnOf<TEntity>>;
@@ -487,14 +487,14 @@ declare namespace uiGrid {
         /**
          * recalculates the footer height,
          * registered as a dataChangeCallback on uiGridConstants.dataChange.OPTIONS
-         * @param {string} name column name
+         * @param name column name
          */
         updateFooterHeightCallback(name: string): void;
         /**
          * reference to the application scope (the parent scope of the ui-grid element). Assigned in ui-grid controller
          * use gridOptions.appScopeProvider to override the default assignment of $scope.$parent with any reference
          */
-        appScope?: ng.IScope;
+        appScope?: ng.IScope | undefined;
         /**
         * returns an array of columns in the grid
         */
@@ -502,33 +502,33 @@ declare namespace uiGrid {
         /**
          * returns the total column footer height
          */
-        columnFooterHeight?: number;
+        columnFooterHeight?: number | undefined;
         /**
          * returns the total footer height gridFooter + columnFooter
          */
-        footerHeight?: number;
+        footerHeight?: number | undefined;
         /**
          * returns or sets grid height in pixels
          */
-        gridHeight?: number;
+        gridHeight?: number | undefined;
         /**
          * set to true when Grid is scrolling horizontally. Set to false via debounced method
          */
-        isScrollingHorizontally?: boolean;
+        isScrollingHorizontally?: boolean | undefined;
         /**
          * set to true when Grid is scrolling vertically. Set to false via debounced method
          */
-        isScrollingVertically?: boolean;
+        isScrollingVertically?: boolean | undefined;
         /**
          * set one of the uiGridConstants.scrollDirection values (UP, DOWN, LEFT, RIGHT, NONE),
          * which tells us which direction we are scrolling. Set to NONE via debounced method
          */
-        scrollDirection?: number;
+        scrollDirection?: number | undefined;
         
         id: number;
     }
     export interface IBuildColumnsOptions {
-        orderByColumnDefs?: boolean;
+        orderByColumnDefs?: boolean | undefined;
     }
     export interface IStyleComputation {
         ($scope: ng.IScope): string;
@@ -556,25 +556,25 @@ declare namespace uiGrid {
         /**
          * Default time in milliseconds to throttle aggregation calcuations, defaults to 500ms
          */
-        aggregationCalcThrottle?: number;
+        aggregationCalcThrottle?: number | undefined;
         /**
          * by default, the parent scope of the ui-grid element will be assigned to grid.appScope
          * this property allows you to assign any reference you want to grid.appScope
          */
-        appScopeProvider?: ng.IScope | Object;
+        appScopeProvider?: ng.IScope | Object | undefined;
         /**
          * Array of columnDef objects.  Only required property is name.
          */
-        columnDefs?: Array<IColumnDefOf<TEntity>>;
+        columnDefs?: Array<IColumnDefOf<TEntity>> | undefined;
         /**
          * The height of the footer rows (column footer and grid footer) in pixels
          */
-        columnFooterHeight?: number;
+        columnFooterHeight?: number | undefined;
         /**
          * Turn virtualization on when number of columns goes over this number, defaults to 10
          * @default 10
          */
-        columnVirtualizationThreshold?: number;
+        columnVirtualizationThreshold?: number | undefined;
         /**
          * (mandatory) Array of data to be rendered into the grid, providing the data source or data binding for
          * the grid.
@@ -609,40 +609,40 @@ declare namespace uiGrid {
          * Where you do this, you need to take care in updating the data - you can't just update `$scope.myData` to some
          * other array, you need to update $scope.gridOptions.data to point to that new array as well.
          */
-        data?: Array<TEntity> | string;
+        data?: Array<TEntity> | string | undefined;
         /**
          * True by default. When enabled, this setting displays a column
          * menu within each column.
          * @default true
          */
-        enableColumnMenus?: boolean;
+        enableColumnMenus?: boolean | undefined;
         /**
          * False by default. When enabled, this setting adds filter
          * boxes to each column header, allowing filtering within the column for the entire grid.
          * Filtering can then be disabled on individual columns using the columnDefs.
          * @default false
          */
-        enableFiltering?: boolean;
+        enableFiltering?: boolean | undefined;
         /**
         * False by default. When enabled, this adds a settings icon in the top right of the grid,
         * which floats above the column header. The menu by default gives access to show/hide columns,
         * but can be customized to show additional actions.
         * @default false
         */
-        enableGridMenu?: boolean;
+        enableGridMenu?: boolean | undefined;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
          * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
-        enableHorizontalScrollbar?: boolean | number;
+        enableHorizontalScrollbar?: boolean | number | undefined;
         /**
          * True by default. When enabled, a newly initialized grid will check to see if it is tall enough to display
          * at least one row of data.  If the grid is not tall enough, it will resize the DOM element to display
          * minRowsToShow number of rows.
          * @default true
          */
-        enableMinHeightCheck?: boolean;
+        enableMinHeightCheck?: boolean | undefined;
         /**
          * True by default. When enabled, this setting allows uiGrid to add
          * `$$hashKey`-type properties (similar to Angular) to elements in the `data` array. This allows
@@ -655,32 +655,32 @@ declare namespace uiGrid {
          * and are altering the data set often.
          * @default true
          */
-        enableRowHashing?: boolean;
+        enableRowHashing?: boolean | undefined;
         /**
          * True by default. When enabled, this setting adds sort
          * widgets to the column headers, allowing sorting of the data for the entire grid.
          * Sorting can then be disabled on individual columns using the columnDefs.
          * @default true
          */
-        enableSorting?: boolean;
+        enableSorting?: boolean | undefined;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the vertical scrollbar for the grid.
          * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
-        enableVerticalScrollbar?: boolean | number;
+        enableVerticalScrollbar?: boolean | number | undefined;
         /**
          * Extra columns to to render outside of the viewport, which helps with smoothness of scrolling.
          * Defaults to 4
          * @default 4
          */
-        excessColumns?: number;
+        excessColumns?: number | undefined;
         /**
          * Extra rows to to render outside of the viewport, which helps with smoothness of scrolling.
          * Defaults to 4
          * @default 4
          */
-        excessRows?: number;
+        excessRows?: number | undefined;
         /**
          * Array of property names in data to ignore when auto-generating column names.  Provides the
          * inverse of columnDefs - columnDefs is a list of columns to include, excludeProperties is a list of columns
@@ -690,7 +690,7 @@ declare namespace uiGrid {
          *
          * Defaults to ['$$hashKey']
          */
-        excludeProperties?: Array<string>;
+        excludeProperties?: Array<string> | undefined;
         /**
          * Set to true if your columns are all related directly to fields in a flat object structure - i.e.
          * each of your columns associate directly with a propery one each of the entities in your data array.
@@ -702,7 +702,7 @@ declare namespace uiGrid {
          * By default false
          * @default false
          */
-        flatEntityAccess?: boolean;
+        flatEntityAccess?: boolean | undefined;
         /**
          * (optional) ui-grid/ui-grid-footer by default.  This footer shows the per-column
          * aggregation totals.
@@ -713,13 +713,13 @@ declare namespace uiGrid {
          * information.
          * @default 'ui-grid/ui-grid-footer'
          */
-        footerTemplate?: string;
+        footerTemplate?: string | undefined;
         /**
          * (optional) ui-grid/ui-grid-grid-footer by default. This template by default shows the
          * total items at the bottom of the grid, and the selected items if selection is enabled.
          * @default 'ui-grid/ui-grid-grid-footer'
          */
-        gridFooterTemplate?: string
+        gridFooterTemplate?: string | undefined
         /**
          * Null by default. When provided, this setting uses a custom header
          * template, rather than the default template. Can be set to either the name of a template file:
@@ -737,46 +737,46 @@ declare namespace uiGrid {
          * current 'ui-grid-header.html' template in github as your starting point.
          * @default null
          */
-        headerTemplate?: string;
+        headerTemplate?: string | undefined;
         /**
          * Defaults to 4
          * @default 4
          */
-        horizontalScrollThreshold?: number;
+        horizontalScrollThreshold?: number | undefined;
         /**
          * Number of rows from the end of the dataset
          * at which infinite scroll will trigger a request
          * for more data
          * @default 20
          */
-        infiniteScrollRowsFromEnd?: number;
+        infiniteScrollRowsFromEnd?: number | undefined;
         /**
          * Inform the grid of whether there are rows
          * to load when scrolling up
          * @default false
          */
-        infiniteScrollUp?: boolean;
+        infiniteScrollUp?: boolean | undefined;
         /**
          * Inform the grid of whether there are rows
          * to load scrolling down
          * @default true
          */
-        infiniteScrollDown?: boolean;
+        infiniteScrollDown?: boolean | undefined;
         /**
          * Defaults to 200
          * @default 200
          */
-        maxVisibleColumnCount?: number;
+        maxVisibleColumnCount?: number | undefined;
         /**
          * Minimum number of rows to show when the grid doesn't have a defined height. Defaults to "10".
          * @default 10
          */
-        minRowsToShow?: number;
+        minRowsToShow?: number | undefined;
         /**
          * Columns can't be smaller than this, defaults to 10 pixels
          * @default 10
          */
-        minimumColumnSize?: number;
+        minimumColumnSize?: number | undefined;
         /**
          * A callback that returns the gridApi once the grid is instantiated, which is
          * then used to interact with the grid programatically.
@@ -784,14 +784,14 @@ declare namespace uiGrid {
          * Note that the gridApi.core.renderingComplete event is identical to this
          * callback, but has the advantage that it can be called from multiple places
          * if needed
-         * @param {IGridApi} gridApi
+         * @param gridApi
          */
-        onRegisterApi?: (gridApi: IGridApiOf<TEntity>) => void;
+        onRegisterApi?: ((gridApi: IGridApiOf<TEntity>) => void) | undefined;
         /**
          * The height of the row in pixels, defaults to 30
          * @default 30
          */
-        rowHeight?: number;
+        rowHeight?: number | undefined;
         /**
          * 'ui-grid/ui-grid-row' by default. When provided, this setting uses a
          * custom row template.  Can be set to either the name of a template file:
@@ -806,71 +806,71 @@ declare namespace uiGrid {
          * </br>Refer to the custom row template tutorial for more information.
          * @default 'ui-grid/ui-grid-row'
          */
-        rowTemplate?: string;
+        rowTemplate?: string | undefined;
         /**
          * Default time in milliseconds to debounce scroll events, defaults to 300ms
          * @default 300
          */
-        scrollDebounce?: number;
+        scrollDebounce?: number | undefined;
         /**
          * Defaults to 4
          * @default 4
          */
-        scrollThreshold?: number;
+        scrollThreshold?: number | undefined;
         /**
          * Whether or not to show the column footer, defaults to false
          * The column footer displays column aggregates
          * @default false
          */
-        showColumnFooter?: boolean;
+        showColumnFooter?: boolean | undefined;
         /**
          * Whether or not to show the footer, defaults to false
          * The footer display Total Rows and Visible Rows (filtered rows)
          * @default false
          */
-        showGridFooter?: boolean;
+        showGridFooter?: boolean | undefined;
         /**
          * True by default. When set to false, this setting will replace the
          * standard header template with '<div></div>', resulting in no header being shown.
          * @default true
          */
-        showHeader?: boolean;
+        showHeader?: boolean | undefined;
         /**
          * Turn virtualization on when number of data elements goes over this number, defaults to 20
          * @default 20
          */
-        virtualizationThreshold?: number;
+        virtualizationThreshold?: number | undefined;
         /**
          * Disables client side filtering. When true, handle the filterChanged event and set data,
          * defaults to false
          * @default false
          */
-        useExternalFiltering?: boolean;
+        useExternalFiltering?: boolean | undefined;
         /**
          * Disables client side sorting. When true, handle the sortChanged event and do the sorting there
          * @default false
          */
-        useExternalSorting?: boolean;
+        useExternalSorting?: boolean | undefined;
         /**
          * Default time in milliseconds to throttle scroll events to, defaults to 70ms
          * @default 70
          */
-        wheelScrollThrottle?: number;
+        wheelScrollThrottle?: number | undefined;
         /**
          * This function returns the identity value uniquely identifying this row,
          * if one is not present it does not set it.
          *
          * By default it returns the `$$hashKey` property but can be overridden to use any property
          * or set of properties you want.
-         * @param {IGridRow} row The row for which you want the unique id
-         * @returns {string} row uid
+         * @param row The row for which you want the unique id
+         * @returns row uid
          */
         getRowIdentity?(row: IGridRowOf<TEntity>): any;
         /**
          * By default, rows are compared using object equality.  This option can be overridden
          * to compare on any data item property or function
-         * @param {TEntity} entityA First Data Item to compare
-         * @param {TEntity} entityB Second Data Item to compare
+         * @param entityA First Data Item to compare
+         * @param entityB Second Data Item to compare
          */
         rowEquality?(entityA: TEntity, entityB: TEntity): boolean;
         /**
@@ -882,15 +882,15 @@ declare namespace uiGrid {
          */
         rowIdentity?(row: IGridRowOf<TEntity>): any;
 
-        fastWatch?: boolean;
+        fastWatch?: boolean | undefined;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
         /**
          * adds a row header column to the grid
-         * @param {IColumnDef} column Column Definition
-         * @param {number} order Number that indicates where the column should be placed in the grid.
-         * @param {boolean} stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
+         * @param column Column Definition
+         * @param order Number that indicates where the column should be placed in the grid.
+         * @param stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
          */
         addRowHeaderColumn(column: IColumnDefOf<TEntity>, order?: number, stopColumnBuild?: boolean): void;
         /**
@@ -900,8 +900,8 @@ declare namespace uiGrid {
          * remove again, which can simplify management of which items are included
          * in the menu when.  (Noting that in most cases the shown and active functions
          * provide a better way to handle visibility of menu items)
-         * @param {IGridInstance} grid the grid on which we are acting
-         * @param {Array<IMenuItem>} items menu items in the format as described in the tutorial, with
+         * @param grid the grid on which we are acting
+         * @param items menu items in the format as described in the tutorial, with
          * the added note that if you want to use remove you must also specify an `id` field,
          * which is provided when you want to remove an item.  The id should be unique.
 
@@ -909,10 +909,10 @@ declare namespace uiGrid {
         addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>): void;
         /**
          * Clears all filters and optionally refreshes the visible rows.
-         * @param {boolean} [refreshRows=true] Defaults to true.
-         * @param {boolean} [clearConditions=false] Defaults to false.
-         * @param {boolean} [clearFlags=false] Defaults to false.
-         * @returns {ng.IPromise<any>} If `refreshRows` is true, returns a promise of the rows refreshing.
+         * @param [refreshRows=true] Defaults to true.
+         * @param [clearConditions=false] Defaults to false.
+         * @param [clearFlags=false] Defaults to false.
+         * @returns If `refreshRows` is true, returns a promise of the rows refreshing.
          */
         clearAllFilters(refreshRows?: boolean, clearConditions?: boolean,
             clearFlags?: boolean): ng.IPromise<Array<IGridRowOf<TEntity>>>;
@@ -922,20 +922,19 @@ declare namespace uiGrid {
          * If the row is currently invisible then sets it to visible and calls
          * both grid refresh and emits the rowsVisibleChanged event
          * TODO: if a filter is active then we can't just set it to visible?
-         * @param {TEntity} rowEntity gridOptions.data[] array instance
+         * @param rowEntity gridOptions.data[] array instance
          */
         clearRowInvisible(rowEntity: TEntity): void;
         /**
          * Returns all visible rows
-         * @param {IGridInstance} grid the grid you want to get visible rows from
-         * @returns {Array<IGridRow>} an array of gridRow
+         * @returns an array of gridRow
          */
-        getVisibleRows(grid: IGridInstanceOf<TEntity>): Array<IGridRowOf<TEntity>>;
+        getVisibleRows(): Array<IGridRowOf<TEntity>>;
         /**
          * Trigger a grid resize, normally this would be picked
          * up by a watch on window size, but in some circumstances it is necessary
          * to call this manually
-         * @returns {ng.IPromise<any>} promise that is resolved when render completes?
+         * @returns promise that is resolved when render completes?
          */
         handleWindowResize(): void;
         /**
@@ -944,7 +943,7 @@ declare namespace uiGrid {
          * might be particularly relevant where you've changed values within the data
          * and you'd like cell classes to be re-evaluated, or changed config within
          * the columnDef and you'd like headerCellClasses to be re-evaluated.
-         * @param {string} type one of the
+         * @param type one of the
          *        uiGridConstants.dataChange values (ALL, ROW, EDIT, COLUMN), which tells
          *        us which refreshes to fire.
          */
@@ -952,12 +951,12 @@ declare namespace uiGrid {
         /**
          * Refresh the rendered grid on screen.
          *
-         * @param {boolean} [rowsAltered] Optional flag for refreshing when the number of rows has changed.
+         * @param [rowsAltered] Optional flag for refreshing when the number of rows has changed.
          */
         refresh(rowsAltered?: boolean): ng.IPromise<any>;
         /**
          * Refresh the rendered rows on screen?  Note: not functional at present
-         * @returns {ng.IPromise<any>} promise that is resolved when render completes?
+         * @returns promise that is resolved when render completes?
          */
         refreshRows(): ng.IPromise<boolean>;
         /**
@@ -966,10 +965,10 @@ declare namespace uiGrid {
          * to alter the set of columns as long as the count is not
          * modified.
          *
-         * @param {IColumnProcessor} processorFunction columns processor function, which
+         * @param processorFunction columns processor function, which
          *        is run in the context of the grid (i.e. this for the function will be the grid), and must
          *        return the updated columns list, which is passed to the next processor in the chain
-         * @param {number} priority the priority of this processor.  In general we try to do them in 100s to leave room
+         * @param priority the priority of this processor.  In general we try to do them in 100s to leave room
          *        for other people to inject columns processors at intermediate priorities.  Lower priority
          *        columnsProcessors run earlier.
          *
@@ -983,10 +982,10 @@ declare namespace uiGrid {
          * to alter the set of rows (sorting, etc) as long as the count is not
          * modified.
          *
-         * @param {IRowProcessor} rowProcessor rows processor function, which
+         * @param rowProcessor rows processor function, which
          *        is run in the context of the grid (i.e. this for the function will be the grid), and must
          *        return the updated rows list, which is passed to the next processor in the chain
-         * @param {number} priority the priority of this processor.  In general we try to do them in 100s to leave room
+         * @param priority the priority of this processor.  In general we try to do them in 100s to leave room
          *        for other people to inject rows processors at intermediate priorities.  Lower priority rowsProcessors
          *        run earlier.
          *
@@ -997,25 +996,25 @@ declare namespace uiGrid {
         /**
          * Scroll the grid such that the specified
          * row and column is in view
-         * @param {TEntity} entity gridOptions.data[] array instance to make visible
-         * @param {IColumnDef} colDef to make visible
-         * @returns {ng.IPromise<any>} a promise that is resolved after any scrolling is finished
+         * @param entity gridOptions.data[] array instance to make visible
+         * @param colDef to make visible
+         * @returns a promise that is resolved after any scrolling is finished
          */
         scrollTo(entity: TEntity, colDef: IColumnDefOf<TEntity>): void; /*A row entity can be anything?*/
         /**
          * Scrolls the grid to make a certain row and column combo visible,
          * in the case that it is not completely visible on the screen already.
-         * @param {IGridRow} gridRow row to make visible
-         * @param {IGridColumn} gridCol column to make visible
-         * @returns {ng.IPromise<any>} a promise that is resolved when scrolling is complete
+         * @param gridRow row to make visible
+         * @param gridCol column to make visible
+         * @returns a promise that is resolved when scrolling is complete
          */
         scrollToIfNecessary(gridRow: IGridRowOf<TEntity>, gridCol: IGridColumnOf<TEntity>): void;
         /**
          * A null handling method that can be used when building custom sort
          * functions
-         * @param {any} a Sort value a
-         * @param {any} b Sort value b
-         * @returns {number} null if there were no nulls/undefineds, otherwise returns
+         * @param a Sort value a
+         * @param b Sort value b
+         * @returns null if there were no nulls/undefineds, otherwise returns
          * a sort value that should be passed back from the sort function
          */
         sortHandleNulls(a: any, b: any): number;
@@ -1032,15 +1031,15 @@ declare namespace uiGrid {
         on: {
             /**
              * is raised when the canvas height has changed
-             * @param {ng.IScope} scope Grid scope
-             * @param {canvasHeightChangedHandler} handler Callback
+             * @param scope Grid scope
+             * @param handler Callback
              */
             canvasHeightChanged: (scope: ng.IScope, handler: canvasHeightChangedHandler) => void;
             /**
              * The visibility of a column has changed, the column itself is passed out as a parameter of the event
-             * @param {ng.IScope} scope The scope of the controller. This is used to deregister this event when the
+             * @param scope The scope of the controller. This is used to deregister this event when the
              *        scope is destroyed
-             * @param {columnVisibilityChangedHandler} callBack Will be called when the event is emited.
+             * @param callBack Will be called when the event is emited.
              *        The function passes back the GridCol that has changed
              */
             columnVisibilityChanged: (scope: ng.IScope, callBack: columnVisibilityChangedHandler<TEntity>) => void;
@@ -1048,14 +1047,14 @@ declare namespace uiGrid {
              * is raised after the filter is changed.
              * The nature of the watch expression doesn't allow notification of what changed,
              * so the receiver of this event will need to re-extract the filter conditions from the columns.
-             * @param {ng.IScope} scope Grid scope
-             * @param {filterChangedHandler} handler Callback
+             * @param scope Grid scope
+             * @param handler Callback
              */
             filterChanged: (scope: ng.IScope, handler: filterChangedHandler<TEntity>) => void;
             /**
              * is raised after the cache of visible rows is changed
-             * @param {ng.IScope} scope Grid scope
-             * @param {rowsRenderedHandler} handler callback
+             * @param scope Grid scope
+             * @param handler callback
              */
             rowsRendered: (scope: ng.IScope, handler: rowsRenderedHandler<TEntity>) => void;
             /**
@@ -1064,26 +1063,26 @@ declare namespace uiGrid {
              * (unlike in the selection feature). We can plausibly know which row was changed when setRowInvisible is
              * called, but in that situation the user already knows which row they changed.
              * When a filter runs we don't know what changed, and that is the one that would have been useful.
-             * @param {ng.IScope} scope Grid scope
-             * @param {rowsVisibleChangedHandler} handler callback
+             * @param scope Grid scope
+             * @param handler callback
              */
             rowsVisibleChanged: (scope: ng.IScope, handler: rowsVisibleChangedHandler<TEntity>) => void;
             /**
              * is raised when scroll begins. Is throttled, so won't be raised too frequently
-             * @param {ng.IScope} scope Grid scope
-             * @param {scrollBeginHandler} handler callback
+             * @param scope Grid scope
+             * @param handler callback
              */
             scrollBegin: (scope: ng.IScope, handler: scrollBeginHandler) => void;
             /**
              * is raised when scroll has finished. Is throttled, so won't be raised too frequently
-             * @param {ng.IScope} scope Grid scope
-             * @param {scrollEndHandler} handler callback
+             * @param scope Grid scope
+             * @param handler callback
              */
             scrollEnd: (scope: ng.IScope, handler: scrollEndHandler) => void;
             /**
              * is raised after the sort criteria on one or more columns have changed
-             * @param {ng.IScope} scope Grid scope
-             * @param {sortChangedHandler} handler callback
+             * @param scope Grid scope
+             * @param handler callback
              */
             sortChanged: (scope: ng.IScope, handler: sortChangedHandler<TEntity>) => void;
         };
@@ -1091,15 +1090,15 @@ declare namespace uiGrid {
     export interface columnVisibilityChangedHandler<TEntity> {
         /**
          * Column visibility changed event handler
-         * @param {IGridColumn} column Ui Grid column
+         * @param column Ui Grid column
          */
         (column: IGridColumnOf<TEntity>): void;
     }
     export interface canvasHeightChangedHandler {
         /**
          * Canvas height changed callback
-         * @param {number} oldHeight old Height
-         * @param {number} newHeight new Height
+         * @param oldHeight old Height
+         * @param newHeight new Height
          */
         (oldHeight: number, newHeight: number): void;
     }
@@ -1107,7 +1106,7 @@ declare namespace uiGrid {
     export interface filterChangedHandler<TEntity> {
         /**
          * Filter changed event callback
-         * @param {IGridApi} gridApi grid api
+         * @param gridApi grid api
          */
         (gridApi: IGridApiOf<TEntity>): void;
     }
@@ -1115,7 +1114,7 @@ declare namespace uiGrid {
     export interface rowsRenderedHandler<TEntity> {
         /**
          * Rows rendered event callback
-         * @param {IGridApi} gridApi Grid api object
+         * @param gridApi Grid api object
          */
         (gridApi: IGridApiOf<TEntity>): void;
     }
@@ -1123,7 +1122,7 @@ declare namespace uiGrid {
     export interface rowsVisibleChangedHandler<TEntity> {
         /**
          * Rows visible changed event callback
-         * @param {IGridApi} gridApi grid api object
+         * @param gridApi grid api object
          */
         (gridApi: IGridApiOf<TEntity>): void;
     }
@@ -1131,7 +1130,7 @@ declare namespace uiGrid {
     export interface scrollBeginHandler {
         /**
          * Scroll begin event callback
-         * @param {JQueryMouseEventObject} scrollEvent Mouse scroll event
+         * @param scrollEvent Mouse scroll event
          */
         (scrollEvent: JQueryMouseEventObject): void;
     }
@@ -1139,7 +1138,7 @@ declare namespace uiGrid {
     export interface scrollEndHandler {
         /**
          * Scroll end event callback
-         * @param {JQueryMouseEventObject} scrollEvent Mouse scroll event
+         * @param scrollEvent Mouse scroll event
          */
         (scrollEvent: JQueryMouseEventObject): void;
     }
@@ -1147,8 +1146,8 @@ declare namespace uiGrid {
     export interface sortChangedHandler<TEntity> {
         /**
          * Sort change event callback
-         * @param {IGridInstance} grid instance
-         * @param {IGridColumn} array of gridColumns that have sorting on them, sorted in priority order
+         * @param grid instance
+         * @param array of gridColumns that have sorting on them, sorted in priority order
          */
         (grid: IGridInstanceOf<TEntity>, columns: Array<IGridColumnOf<TEntity>>): void;
     }
@@ -1164,7 +1163,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            allowCellFocus?: boolean;
+            allowCellFocus?: boolean | undefined;
         }
 
         /**
@@ -1176,7 +1175,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            modifierKeysToMultiSelectCells?: boolean;
+            modifierKeysToMultiSelectCells?: boolean | undefined;
         }
 
         /**
@@ -1188,19 +1187,19 @@ declare namespace uiGrid {
              * Group header rows, for example, would set this to false.
              * Defaults to true
              */
-            allowCellFocus?: boolean;
+            allowCellFocus?: boolean | undefined;
         }
 
         export interface ICellNavApi<TEntity> {
             // Methods
             /**
              * Gets the currently selected rows and columns.  array is empty if no selection has occurred
-             * @returns {Array<IRowCol>} an array containing the current selection
+             * @returns an array containing the current selection
              */
             getCurrentSelection(): Array<IRowCol<TEntity>>;
             /**
              * Gets the current focused cell.  value is null if no selection has occurred
-             * @returns {IRowCol} the current (or last if Grid does not have focus) focused row and column
+             * @returns the current (or last if Grid does not have focus) focused row and column
              */
             getFocusedCell(): IRowCol<TEntity>;
             /**
@@ -1211,8 +1210,8 @@ declare namespace uiGrid {
             rowColSelectIndex(rowCol: IRowCol<TEntity>): number;
             /**
              * Brings the specified row and column into view, and sets focus to that cell
-             * @param {TEntity} rowEntity gridOptions.data[] array instance to make visible and set focus
-             * @param {IColumnDef} colDef Column definition to make visible and set focus
+             * @param rowEntity gridOptions.data[] array instance to make visible and set focus
+             * @param colDef Column definition to make visible and set focus
              */
             scrollToFocus(rowEntity: TEntity, colDef: IColumnDef): ng.IPromise<any>;
 
@@ -1220,24 +1219,24 @@ declare namespace uiGrid {
             on: {
                 /**
                  * raised when the active cell is changed
-                 * @param {ng.IScope} scope The grid scope
-                 * @param {navigateHandler} handler Callback
+                 * @param scope The grid scope
+                 * @param handler Callback
                  */
                 navigate: (scope: ng.IScope, handler: navigateHandler<TEntity>) => void;
                 /**
                  * viewPortKeyDown is raised when the viewPort receives a keyDown event.
                  * Cells never get focus in uiGrid due to the difficulties of setting focus on a cell that is
                  * not visible in the viewport. Use this event whenever you need a keydown event on a cell.
-                 * @param {ng.IScope} scope The grid scope
-                 * @param {viewportKeyDownHandler} handler Callback
+                 * @param scope The grid scope
+                 * @param handler Callback
                  */
                 viewPortKeyDown: (scope: ng.IScope, handler: viewportKeyDownHandler<TEntity>) => void;
                 /**
                  * viewPortKeyPress is raised when the viewPort receives a keyPress event.
                  * Cells never get focus in uiGrid due to the difficulties of setting focus on a cell that is
                  * not visible in the viewport. Use this event whenever you need a keypress event on a cell.
-                 * @param {ng.IScope} scope The grid scope
-                 * @param {viewportKeyPressHandler} handler Callback
+                 * @param scope The grid scope
+                 * @param handler Callback
                  */
                 viewPortKeyPress: (scope: ng.IScope, handler: viewportKeyPressHandler<TEntity>) => void;
             };
@@ -1246,8 +1245,8 @@ declare namespace uiGrid {
         export interface navigateHandler<TEntity> {
             /**
              * Callback for navigate event
-             * @param {IRowCol} newRowCol New position
-             * @param {IRowCol} oldRowCol Old position
+             * @param newRowCol New position
+             * @param oldRowCol Old position
              */
             (newRowCol: IRowCol<TEntity>, oldRowCol: IRowCol<TEntity>): void;
         }
@@ -1255,8 +1254,8 @@ declare namespace uiGrid {
         export interface viewportKeyDownHandler<TEntity> {
             /**
              * Callback for viewport key down event
-             * @param {JQueryKeyEventObject} event Keydown event
-             * @param {IRowCol} rowCol Current row Col position
+             * @param event Keydown event
+             * @param rowCol Current row Col position
              */
             (event: JQueryKeyEventObject, rowCol: IRowCol<TEntity>): void;
         }
@@ -1264,8 +1263,8 @@ declare namespace uiGrid {
         export interface viewportKeyPressHandler<TEntity> {
             /**
              * Callback for viewport key press event
-             * @param {JQueryKeyEventObject} event Keypress event
-             * @param {IRowCol} rowCol Current row Col position
+             * @param event Keypress event
+             * @param rowCol Current row Col position
              */
             (event: JQueryKeyEventObject, rowCol: IRowCol<TEntity>): void;
         }
@@ -1324,13 +1323,13 @@ declare namespace uiGrid {
              * If specified, either a value or function evaluated before editing cell.
              * If falsy, then editing of cell is not allowed.
              */
-            cellEditableCondition?: any | { ($scope: ng.IScope): boolean };
+            cellEditableCondition?: any | { ($scope: ng.IScope): boolean } | undefined;
             /** A filter that you would like to apply to the values in the options list of the dropdown */
-            editDropdownFilter?: string;
+            editDropdownFilter?: string | undefined;
             /** the label for the "id" field in the editDropdownOptionsArray. Defaults to 'id' */
-            editDropdownIdLabel?: string;
+            editDropdownIdLabel?: string | undefined;
             /** an array of values in the format [ {id: xxx, value: xxx} ], which is populated into the edit dropdown */
-            editDropdownOptionsArray?: Array<IEditDropdown>;
+            editDropdownOptionsArray?: Array<IEditDropdown> | undefined;
             /**
              * a path to a property on row.entity containing an array of values in the format `[{id: xxx, value:
              * xxx}]`,
@@ -1338,9 +1337,9 @@ declare namespace uiGrid {
              * dependent on the backing row entity.  If this property is set then editDropdownOptionsArray will be
              * ignored.
              */
-            editDropdownRowEntityOptionsArrayPath?: string;
+            editDropdownRowEntityOptionsArrayPath?: string | undefined;
             /** the label of the 'value' field in the editDropdownOptionsArray.  Defaults to 'value' */
-            editDropdownValueLabel?: string;
+            editDropdownValueLabel?: string | undefined;
             /**
              * A function that should be called when any files have been chosen by the user.
              * You should use this to process the files appropriately for your application.
@@ -1371,9 +1370,9 @@ declare namespace uiGrid {
                reader.readAsText( files[0] );
            }
              */
-            editFileChooserCallback?: (gridRow: uiGrid.IGridRowOf<TEntity>,
+            editFileChooserCallback?: ((gridRow: uiGrid.IGridRowOf<TEntity>,
                                        gridCol: IGridColumnOf<TEntity>,
-                                       files: FileList) => void;
+                                       files: FileList) => void) | undefined;
             /**
              * A bindable string value that is used when binding to edit controls instead of colDef.field
              * For example if you have a complex property on an object like:
@@ -1386,18 +1385,18 @@ declare namespace uiGrid {
              colDef.field = 'state.name';
              colDef.editModelField = 'state';
              */
-            editModelField?: string;
+            editModelField?: string | undefined;
             /**
              * Cell template to be used when editing this column. Can be Url or text template.
              * Defaults to gridOptions.editableCellTemplate
              */
-            editableCellTemplate?: string;
+            editableCellTemplate?: string | undefined;
             /** Enable editing on a column */
-            enableCellEdit?: boolean;
+            enableCellEdit?: boolean | undefined;
             /** If true, then editor is invoked as soon as cell receives focus. Default false.
              * _Requires both the cellNav feature and the edit feature to be enabled_
              */
-            enableCellEditOnFocus?: boolean;
+            enableCellEditOnFocus?: boolean | undefined;
         }
 
         export interface IEditDropdown {
@@ -1413,27 +1412,27 @@ declare namespace uiGrid {
              * If specified, either a value or function to be used by all columns before editing.
              * If falsy, then editing of cell is not allowed
              */
-            cellEditableCondition?: any | { ($scope: ng.IScope): boolean };
+            cellEditableCondition?: any | { ($scope: ng.IScope): boolean } | undefined;
             /**
              * If specified, cellTemplate to use as the editor for all columns.
              * defaults to 'ui-grid/cellTextEditor'
              * @default 'ui-grid/cellTextEditor'
              */
-            editableCellTemplate?: string;
+            editableCellTemplate?: string | undefined;
             /**
              * If defined, sets the default value for the editable flag on each individual colDefs if their individual
              * enableCellEdit configuration is not defined.
              * Defaults to undefined.
              * @default undefined
              */
-            enableCellEdit?: boolean;
+            enableCellEdit?: boolean | undefined;
             /**
              * If true, then editor is invoked as soon as cell receives focus.
              * Default false.
              * _requires cellNav feature and the edit feature to be enabled_
              * @default false
              */
-            enableCellEditOnFocus?: boolean;
+            enableCellEditOnFocus?: boolean | undefined;
         }
 
         /**
@@ -1441,7 +1440,7 @@ declare namespace uiGrid {
          */
         export interface IGridRow {
             /** enable editing on row, grouping for example might disable editing on group header rows */
-            enableCellEdit?: boolean;
+            enableCellEdit?: boolean | undefined;
         }
 
         /**
@@ -1452,19 +1451,19 @@ declare namespace uiGrid {
                 /**
                  * raised when cell editing is complete
                  * @param scope The grid scope
-                 * @param {afterCellEditHandler} handler Callback
+                 * @param handler Callback
                  */
                 afterCellEdit: (scope: ng.IScope, handler: afterCellEditHandler<TEntity>) => void;
                 /**
                  * raised when cell editing starts on a cell
                  * @param scope The grid scope
-                 * @param {beginCellEditHandler} handler Callback
+                 * @param handler Callback
                  */
                 beginCellEdit: (scope: ng.IScope, handler: beginCellEditHandler<TEntity>) => void;
                 /**
                  * raised when cell editing is cancelled on a cell
                  * @param scope The grid scope
-                 * @param {cancelCellEditHandler} handler Callback
+                 * @param handler Callback
                  */
                 cancelCellEdit: (scope: ng.IScope, handler: cancelCellEditHandler<TEntity>) => void;
             }
@@ -1472,19 +1471,19 @@ declare namespace uiGrid {
         export interface afterCellEditHandler<TEntity> {
             /**
              * raised when cell editing is complete
-             * @param {TEntity} rowEntity the options.data element that was edited
-             * @param {IColumnDefOf} colDef The column that was edited
-             * @param {any} newValue New Value
-             * @param {any} oldValue Old Value
+             * @param rowEntity the options.data element that was edited
+             * @param colDef The column that was edited
+             * @param newValue New Value
+             * @param oldValue Old Value
              */
             (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>, newValue: any, oldValue: any): void;
         }
 
         /**
          * raised when cell editing starts on a cell
-         * @param {TEntity} rowEntity the options.data element that was edited
-         * @param {IColumnDefOf} colDef The column that was edited
-         * @param {JQueryEventObject} triggerEvent the event that triggered the edit. Useful to prevent losing
+         * @param rowEntity the options.data element that was edited
+         * @param colDef The column that was edited
+         * @param triggerEvent the event that triggered the edit. Useful to prevent losing
          *     keystrokes on some complex editors
          */
         export interface beginCellEditHandler<TEntity> {
@@ -1493,8 +1492,8 @@ declare namespace uiGrid {
 
         /**
          * raised when cell editing is cancelled on a cell
-         * @param {TEntity} rowEntity the options.data element that was edited
-         * @param {IColumnDefOf} colDef The column that was edited
+         * @param rowEntity the options.data element that was edited
+         * @param colDef The column that was edited
          */
         export interface cancelCellEditHandler<TEntity> {
             (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>): void;
@@ -1522,32 +1521,32 @@ declare namespace uiGrid {
             /**
              * Width in pixels of the expandable column. Defaults to 40
              */
-            expandableRowHeaderWidth?: number;
+            expandableRowHeaderWidth?: number | undefined;
             /**
              * Whether or not to use expandable feature.  Allows you to turn off expandable on specific grids within
              * your application, or in specific modes on this grid.
              * Defaults to true.
              */
-            enableExpandable?: boolean;
+            enableExpandable?: boolean | undefined;
             /**
              * Show a rowHeader to provide the expandable buttons. If set to false then implies you're going to use a
              * custom method for expanding and collapsing the subgrids.
              * Defaults to true.
              */
-            enableExpandableRowHeader?: boolean;
+            enableExpandableRowHeader?: boolean | undefined;
             /**
              * Height in pixels of the expanded subgrid.
              * Defaults to 150
              */
-            expandableRowHeight?: number;
+            expandableRowHeight?: number | undefined;
             /**
              * reference to the parent grid scope (the parent scope of the sub-grid element)
              */
-            expandableRowScope?: ng.IScope | Object;
+            expandableRowScope?: ng.IScope | Object | undefined;
             /**
              * Mandatory. The template for your expanded row
              */
-            expandableRowTemplate?: string;
+            expandableRowTemplate?: string | undefined;
         }
 
         /**
@@ -1569,7 +1568,7 @@ declare namespace uiGrid {
             toggleAllRows(): void;
             /**
              * Toggle a specific row
-             * @param {TEntity} rowEntity The data entity for the row you want to expand
+             * @param rowEntity The data entity for the row you want to expand
              */
             toggleRowExpansion(rowEntity: TEntity): void;
 
@@ -1577,8 +1576,8 @@ declare namespace uiGrid {
             on: {
                 /**
                  * raised when cell editing is complete
-                 * @param {ng.IScope} scope
-                 * @param {rowExpandedStateChangedHandler} handler
+                 * @param scope
+                 * @param handler
                  */
                 rowExpandedStateChanged: (scope: ng.IScope, handler: rowExpandedStateChangedHandler<TEntity>) => void;
             };
@@ -1587,7 +1586,7 @@ declare namespace uiGrid {
         export interface rowExpandedStateChangedHandler<TEntity> {
             /**
              * Raised when cell editing is complete
-             * @param {IGridRow} row The row that was expanded
+             * @param row The row that was expanded
              */
             (row: IGridRowOf<TEntity>): void;
         }
@@ -1601,7 +1600,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            isExpanded?: boolean;
+            isExpanded?: boolean | undefined;
         }
     }
 
@@ -1614,11 +1613,11 @@ declare namespace uiGrid {
              * the alignment you'd like for this specific column when exported into a pdf.
              * Can be 'left', 'right', 'center' or any other valid pdfMake alignment option.
              */
-            exporterPdfAlign?: string;
+            exporterPdfAlign?: string | undefined;
             /**
              * Suppresses export for this column. Used by selection and expandable.
              */
-            exporterSuppressExport?: boolean;
+            exporterSuppressExport?: boolean | undefined;
         }
 
         /**
@@ -1629,29 +1628,29 @@ declare namespace uiGrid {
              * This promise is needed when exporting all rows, and the data need to be provided by server side.
              * Default is null
              * @default null
-             * @returns {ng.IPromise<Array<TEntity>>} A promise to load all data from server
+             * @returns A promise to load all data from server
              */
-            exporterAllDataFn?: () => ng.IPromise<Array<TEntity>>;
+            exporterAllDataFn?: (() => ng.IPromise<Array<TEntity>>) | undefined;
             /**
              * @deprecated
              * DEPRECATED - exporterAllDataFn used to be called this, but it wasn't a promise,
              * it was a function that returned a promise. Deprecated, but supported for backward compatibility,
              * use exporterAllDataFn instead.
-             * @returns {ng.IPromise<Array<TEntity>>} A promise to load all data from server
+             * @returns A promise to load all data from server
              */
-            exporterAllDataPromise?: () => ng.IPromise<Array<TEntity>>;
+            exporterAllDataPromise?: (() => ng.IPromise<Array<TEntity>>) | undefined;
             /**
              * The character to use as column separator link
              * Defaults to ','
              * @default ','
              */
-            exporterCsvColumnSeparator?: string;
+            exporterCsvColumnSeparator?: string | undefined;
             /**
              * The default filename to use when saving the downloaded csv. This will only work in some browsers.
              * Defaults to 'download.csv'
              * @default 'download.csv'
              */
-            exporterCsvFilename?: string;
+            exporterCsvFilename?: string | undefined;
             /**
              * A function to call for each field before exporting it.
              * Allows massaging of raw data into a display format, for example if you have applied filters to convert
@@ -1659,16 +1658,16 @@ declare namespace uiGrid {
              * The method is called once for each field exported, and provides the grid,
              * the gridCol, and the GridRow for you to use as context in massaging the data.
              *
-             * @param {IGridInstance} grid The grid
-             * @param {IGridRow} row Current row
-             * @param {IGridColumn} col Current column
-             * @param {any} value The cell value
-             * @returns {any} Formatted value
+             * @param grid The grid
+             * @param row Current row
+             * @param col Current column
+             * @param value The cell value
+             * @returns Formatted value
              */
-            exporterFieldCallback?: (grid: IGridInstanceOf<TEntity>,
+            exporterFieldCallback?: ((grid: IGridInstanceOf<TEntity>,
                                      row: uiGrid.IGridRowOf<TEntity>,
                                      col: IGridColumnOf<TEntity>,
-                                     value: any) => any;
+                                     value: any) => any) | undefined;
             /**
              * A function to apply to the header displayNames before exporting. Useful for internationalisation,
              * for example if you were using angular-translate you'd set this to $translate.instant.
@@ -1676,43 +1675,43 @@ declare namespace uiGrid {
              *
              * Behaviour can be changed to pass in name instead of displayName through use
              * of exporterHeaderFilterUseName: true.
-             * @param {string} displayName
-             * @returns {string} The filtered header
+             * @param displayName
+             * @returns The filtered header
              */
-            exporterHeaderFilter?: (displayName: string) => string;
+            exporterHeaderFilter?: ((displayName: string) => string) | undefined;
             /**
              * Defaults to false, which leads to displayName being passed into the headerFilter.
              * If set to true, then will pass name instead.
              * @default false
              */
-            exporterHeaderFilterUseName?: boolean;
+            exporterHeaderFilterUseName?: boolean | undefined;
             /**
              * Add csv export menu items to the ui-grid grid menu, if it's present. Defaults to true.
              * @default true
              */
-            exporterMenuCsv?: boolean;
+            exporterMenuCsv?: boolean | undefined;
             /**
              * Add excel export menu items to the ui-grid grid menu, if it's present. Defaults to true.
              * @default true
              */
-            exporterMenuExcel?: boolean;
+            exporterMenuExcel?: boolean | undefined;
             /**
              * An option to determine the starting point for the menu items created by the exporter
              * @default 200
              */
-            exporterMenuItemOrder?: number;
+            exporterMenuItemOrder?: number | undefined;
             /**
              * The text to show on the exporter menu button link
              * Defaults to 'Export'
              * @default 'Export'
              */
-            exporterMenuLabel?: string;
+            exporterMenuLabel?: string | undefined;
             /**
              * Add pdf export menu items to the ui-grid grid menu, if it's present.
              * Defaults to true.
              * @default true
              */
-            exporterMenuPdf?: boolean;
+            exporterMenuPdf?: boolean | undefined;
             /**
              * Some versions of excel don't like the utf-16 BOM on the front,
              * and it comes through as ï»¿ in the first column header.
@@ -1721,16 +1720,16 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            exporterOlderExcelCompatibility?: boolean;
+            exporterOlderExcelCompatibility?: boolean | undefined;
             /**
              * A custom callback routine that changes the pdf document,
              * adding any custom styling or content that is supported by pdfMake.
              * Takes in the complete docDefinition, and must return an updated docDefinition ready for pdfMake.
              * Example
              * In this example we add a style to the style array, so that we can use it in our footer definition.
-             * @param {any} docDefinition Document definition in pdfMake format
+             * @param docDefinition Document definition in pdfMake format
              */
-            exporterPdfCustomFormatter?: (docDefinition: any) => any;
+            exporterPdfCustomFormatter?: ((docDefinition: any) => any) | undefined;
             /**
              * The default style in pdfMake format
              * @todo replace with pdfmake format
@@ -1742,38 +1741,38 @@ declare namespace uiGrid {
              * Defaults to 'download.pdf'
              * @default 'download.pdf'
              */
-            exporterPdfFilename?: string;
+            exporterPdfFilename?: string | undefined;
             /**
              * The footer section for pdf exports. Can be simple text, a more complex object in pdfMake format, or it
              * can be a function, allowing page numbers and the like
              * @todo replace any with pdfmake format
              */
-            exporterPdfFooter?: string | any | { (currentPage: number, pageCount: number): string };
+            exporterPdfFooter?: string | any | { (currentPage: number, pageCount: number): string } | undefined;
             /**
              * The header section for pdf exports. Can be simple text, a more complex object in pdfMake format, or it
              * can be a function, allowing page numbers and the like
              * @todo replace any with pdfmake format
              */
-            exporterPdfHeader?: string | any | { (currentPage: number, pageCount: number): string };
+            exporterPdfHeader?: string | any | { (currentPage: number, pageCount: number): string } | undefined;
             /**
              * The maxium grid width - the current grid width will be scaled to match this,
              * with any fixed width columns being adjusted accordingly.
              * Defaults to 720 (for A4 landscape), use 670 for LETTER
              * @default 720
              */
-            exporterPdfMaxGridWidth?: number;
+            exporterPdfMaxGridWidth?: number | undefined;
             /**
              * The orientation, should be a valid pdfMake value, 'landscape' or 'portrait'
              * Defaults to landscape
              * @default 'landscape'
              */
-            exporterPdfOrientation?: string;
+            exporterPdfOrientation?: string | undefined;
             /**
              * The orientation, should be a valid pdfMake paper size, usually 'A4' or 'LETTER' pdfMake page sizes
              * Defaults to A4
              * @default 'A4'
              */
-            exporterPdfPageSize?: string;
+            exporterPdfPageSize?: string | undefined;
             /**
              * exporterPdfTableHeaderStyle
              * @todo replace any with pdfmake format
@@ -1804,13 +1803,13 @@ declare namespace uiGrid {
              * Defaults to: []
              * @default []
              */
-            exporterSuppressColumns?: Array<string>;
+            exporterSuppressColumns?: Array<string> | undefined;
             /**
              * Don't show the export menu button, implying the user will roll their own UI for calling the exporter
              * Defaults to false
              * @default false
              */
-            exporterSuppressMenu?: boolean;
+            exporterSuppressMenu?: boolean | undefined;
         }
 
         /**
@@ -1822,7 +1821,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            exporterEnableExporting?: boolean;
+            exporterEnableExporting?: boolean | undefined;
         }
 
         /**
@@ -1831,9 +1830,9 @@ declare namespace uiGrid {
         export interface IGridExporterApi {
             /**
              * Exports rows from the grid in csv format, the data exported is selected based on the provided options
-             * @param {string} rowTypes which rows to export, valid values are uiGridExporterConstants.ALL,
+             * @param rowTypes which rows to export, valid values are uiGridExporterConstants.ALL,
              * uiGridExporterConstants.VISIBLE, uiGridExporterConstants.SELECTED
-             * @param {string} colTypes which columns to export, valid values are uiGridExporterConstants.ALL,
+             * @param colTypes which columns to export, valid values are uiGridExporterConstants.ALL,
              * uiGridExporterConstants.VISIBLE
              */
             csvExport(rowTypes: string, colTypes: string): void;
@@ -1841,9 +1840,9 @@ declare namespace uiGrid {
              * Exports rows from the grid in pdf format, the data exported is selected based on the provided options
              * Note that this function has a dependency on pdfMake, all going well this has been installed for you. The
              * resulting pdf opens in a new browser window.
-             * @param {string} rowTypes which rows to export, valid values are uiGridExporterConstants.ALL,
+             * @param rowTypes which rows to export, valid values are uiGridExporterConstants.ALL,
              * uiGridExporterConstants.VISIBLE, uiGridExporterConstants.SELECTED
-             * @param {string} colTypes which columns to export, valid values are uiGridExporterConstants.ALL,
+             * @param colTypes which columns to export, valid values are uiGridExporterConstants.ALL,
              * uiGridExporterConstants.VISIBLE
              */
             pdfExport(rowTypes: string, colTypes: string): void;
@@ -1875,7 +1874,7 @@ declare namespace uiGrid {
          */
         export interface IColumnDef {
             /** Enable grouping on this column.  Defaults to true. */
-            enableGrouping?: boolean;
+            enableGrouping?: boolean | undefined;
             /**
              * Set the grouping for a column.
              * Note that aggregation used to be included in grouping, but is now separately set on the column via
@@ -1898,17 +1897,17 @@ declare namespace uiGrid {
                  * number, starts at 0, if less than 0 or undefined then we're aggregating in this column
                  */
                 groupPriority: number
-            };
+            } | undefined;
             /**
              * Show the aggregation menu on this column.  Defaults to true
              * @default true
              */
-            groupingShowAggregationMenu?: boolean;
+            groupingShowAggregationMenu?: boolean | undefined;
             /**
              * Show the grouping (group and ungroup items) menu on this column.  Defaults to true
              * @default true
              */
-            groupingShowGroupingMenu?: boolean;
+            groupingShowGroupingMenu?: boolean | undefined;
         }
 
         /**
@@ -1920,20 +1919,20 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            enableGrouping?: boolean;
+            enableGrouping?: boolean | undefined;
             /**
              * Enable row grouping for entire grid.
              * Defaults to true
              * @default true
              */
-            enableGroupHeaderSelection?: boolean;
+            enableGroupHeaderSelection?: boolean | undefined;
             /**
              * The string to use for the grouping header row label on rows which contain
              * a null or undefined value in the grouped column.
              * Defaults to "Null"
              * @default 'Null'
              */
-            groupingNullLabel?: string;
+            groupingNullLabel?: string | undefined;
             /**
              * Shows counts on the groupHeader rows.
              * Note that if you are using a cellFilter or a sortingAlgorithm which relies on a specific format or data
@@ -1941,7 +1940,7 @@ declare namespace uiGrid {
              * groupingShowCounts enabled. Defaults to true except on columns of type 'date'
              * @default true
              */
-            groupingShowCounts?: boolean;
+            groupingShowCounts?: boolean | undefined;
         }
 
         /**
@@ -1953,10 +1952,10 @@ declare namespace uiGrid {
              * Sets the aggregation type on a column.
              * If the column is currently grouped then it removes the grouping first.
              * If the aggregationDef is null then will result in the aggregation being removed.
-             * @param {string} columnName The name of the column we want to aggregate
-             * @param {string | function} or aggregationDef one of the recognised types from uiGridGroupingConstants or
+             * @param columnName The name of the column we want to aggregate
+             * @param or aggregationDef one of the recognised types from uiGridGroupingConstants or
              * a custom aggregation function.
-             * @param {string} [aggregationLabel] The label to use for aggregation
+             * @param [aggregationLabel] The label to use for aggregation
              */
             aggregateColumn(columnName: string, or: string | Function, aggregationLabel?: string): void;
             /**
@@ -1970,7 +1969,7 @@ declare namespace uiGrid {
              * Adds expandedState to the information provided by the internal getGrouping,
              * and removes any aggregations that have a source of grouping
              * (i.e. will be automatically reapplied when we regroup the column)
-             * @param {boolean} getExpanded whether or not to return the expanded state
+             * @param getExpanded whether or not to return the expanded state
              */
             getGrouping(getExpanded: boolean): IGridGroupingConfiguration;
             /**
@@ -1978,13 +1977,13 @@ declare namespace uiGrid {
              * If the column doesn't have a sort, adds one, by default ASC.
              * This column will move to the left of any non-group columns.
              * The move is handled in a columnProcessor, so it gets called as part of refresh.
-             * @param {string} columnName the name of the column we want to group
+             * @param columnName the name of the column we want to group
              */
             groupColumn(columnName: string): void;
             /**
              * Set the grouping configuration for this grid, used by the saveState feature,
              * but can also be used by any user to specify a combined grouping and aggregation configuration
-             * @param {IGridGroupingConfiguration} config The config to apply, in the format provided out by getGrouping
+             * @param config The config to apply, in the format provided out by getGrouping
              */
             setGrouping(config: IGridGroupingConfiguration): void;
             /**
@@ -1993,7 +1992,7 @@ declare namespace uiGrid {
              *
              * This column will move to the right of any other group columns, the move is handled in a columnProcessor,
              * so it gets called as part of refresh
-             * @param {string} columnName the name of the column to ungroup
+             * @param columnName the name of the column to ungroup
              */
             ungroupColumn(columnName: string): void;
 
@@ -2001,14 +2000,14 @@ declare namespace uiGrid {
             on: {
                 /**
                  * raised whenever aggregation is changed, added or removed from a column
-                 * @param {ng.IScope} scope Grid Scope
-                 * @param {aggregationChangedHandler} handler Callback method
+                 * @param scope Grid Scope
+                 * @param handler Callback method
                  */
                 aggregationChanged: (scope: ng.IScope, handler: aggregationChangedHandler<TEntity>) => void;
                 /**
                  * raised whenever the grouped columns change
-                 * @param {ng.IScope} scope Grid Scope
-                 * @param {groupingChangedHandler} handler Callback method
+                 * @param scope Grid Scope
+                 * @param handler Callback method
                  */
                 groupingChanged: (scope: ng.IScope, handler: groupingChangedHandler<TEntity>) => void;
             };
@@ -2028,7 +2027,7 @@ declare namespace uiGrid {
             /**
              * Hash of currently expanded nodes
              */
-            expandedState?: IGridExpandedHash;
+            expandedState?: IGridExpandedHash | undefined;
         }
 
         export interface IGripGroup {
@@ -2052,7 +2051,7 @@ declare namespace uiGrid {
         export interface aggregationChangedHandler<TEntity> {
             /**
              * raised whenever aggregation is changed, added or removed from a column
-             * @param {IGridColumn} col the column which on which aggregation changed.
+             * @param col the column which on which aggregation changed.
              *        The aggregation type is available as col.treeAggregation.type
              */
             (col: IGridColumnOf<TEntity>): void;
@@ -2061,7 +2060,7 @@ declare namespace uiGrid {
         export interface groupingChangedHandler<TEntity> {
             /**
              * raised whenever the grouped columns changes
-             * @param {IGridColumn} col the column which on which grouping changed.
+             * @param col the column which on which grouping changed.
              *   The new grouping is available as col.grouping
              */
             (col: IGridColumnOf<TEntity>): void;
@@ -2086,48 +2085,48 @@ declare namespace uiGrid {
              * A mandatory callback function that adds data to the source data array.
              * The grid generally doesn't add rows to the source data array,
              * it is tidier to handle this through a user callback.
-             * @param {IGridInstance} grid The grid we're importing into, may be useful in some way
-             * @param {Array<TEntity>} newObjects An array of new objects that you should add to your data
+             * @param grid The grid we're importing into, may be useful in some way
+             * @param newObjects An array of new objects that you should add to your data
              */
-            importerDataAddCallback?: (grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void;
+            importerDataAddCallback?: ((grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void) | undefined;
             /**
              * A callback function that provides custom error handling,
              * rather than the standard grid behaviour of an alert box and a console message.
              * You might use this to internationalise the console log messages,
              * or to write to a custom logging routine that returned errors to the server.
-             * @param {IGridInstance} grid the grid we're importing into, may be useful if you're positioning messages
-             * @param {string} errorKey one of the i18n keys the importer can return -
+             * @param grid the grid we're importing into, may be useful if you're positioning messages
+             * @param errorKey one of the i18n keys the importer can return -
              *        * importer.noHeaders
              *        * importer.noObjects
              *        * importer.invalidCsv
              *        * importer.invalidJson
              *        * importer.jsonNotArray
-             * @param {string} consoleMessage the English console message that importer would have written
-             * @param {any} context the context data that importer would have appended to that console message,
+             * @param consoleMessage the English console message that importer would have written
+             * @param context the context data that importer would have appended to that console message,
              *        often the file content itself or the element that is in error
              */
-            importerErrorCallback?: (grid: IGridInstanceOf<TEntity>, errorKey: string, consoleMessage: string,
-                context: any) => void;
+            importerErrorCallback?: ((grid: IGridInstanceOf<TEntity>, errorKey: string, consoleMessage: string,
+                context: any) => void) | undefined;
             /**
              * A callback function that will filter (usually translate) a single header.
              * Used when you want to match the passed in column names to the column displayName after the header filter.
              * Your callback routine needs to return the filtered header value.
-             * @param {string} displayName The displayName to translate
-             * @returns {string} The translated name
+             * @param displayName The displayName to translate
+             * @returns The translated name
              */
-            importerHeaderFilter?: (displayName: string) => string;
+            importerHeaderFilter?: ((displayName: string) => string) | undefined;
             /**
              * A callback that massages the data for each object.
              * For example, you might have data stored as a code value, but display the decode.
              * This callback can be used to change the decoded value back into a code.
              * Defaults to angular.identity.
-             * @param {IGridInstance} grid The grid
-             * @param {TEntity} newObject The new object as importer has created it.  Modify it and return modified
+             * @param grid The grid
+             * @param newObject The new object as importer has created it.  Modify it and return modified
              * version
-             * @returns {TEntity} The modified object
+             * @returns The modified object
              * @default angular.identity
              */
-            importerObjectCallback?: (grid: IGridInstanceOf<TEntity>, newObject: TEntity) => TEntity;
+            importerObjectCallback?: ((grid: IGridInstanceOf<TEntity>, newObject: TEntity) => TEntity) | undefined;
             /**
              * A callback function that will process headers using custom
              * logic.  Set this callback function if the headers that your user will provide in their
@@ -2141,19 +2140,19 @@ declare namespace uiGrid {
              *
              * Your callback routine should respond by processing the header array, and returning an array
              * of matching column names.  A null value in any given position means "don't import this column"
-             * @param {IGridInstance} grid the grid we're importing into
-             * @param {Array<string>} headerArray an array of the text from the first row of the csv file,
+             * @param grid the grid we're importing into
+             * @param headerArray an array of the text from the first row of the csv file,
              * which you need to match to column.names
-             * @returns {Array<string>} array of matching column names, in the same order as the headerArray
+             * @returns array of matching column names, in the same order as the headerArray
              */
-            importerProcessHeaders?: (grid: IGridInstanceOf<TEntity>, headerArray: Array<string>) => Array<string>;
+            importerProcessHeaders?: ((grid: IGridInstanceOf<TEntity>, headerArray: Array<string>) => Array<string>) | undefined;
             /**
              * Whether or not importer is enabled.  Automatically set
              * to false if the user's browser does not support the required fileApi.
              * Otherwise defaults to true.
              * @default true
              */
-            enableImporter?: boolean;
+            enableImporter?: boolean | undefined;
             /**
              * An object on which we call `new` to create each new row before inserting it into
              * the data array.  Typically this would be a $resource entity, which means that if you're using
@@ -2162,13 +2161,13 @@ declare namespace uiGrid {
              * Defaults to a vanilla javascript object
              * @default {}
              */
-            importerNewObject?: Function;
+            importerNewObject?: Function | undefined;
             /**
              * Whether or not to show an item in the grid menu.
              * Defaults to true.
              * @default true
              */
-            importerShowMenu?: boolean;
+            importerShowMenu?: boolean | undefined;
         }
 
         /**
@@ -2177,7 +2176,7 @@ declare namespace uiGrid {
         export interface IGridImporterApi {
             /**
              * Imports a file into the grid using the file object provided. Bypasses the grid menu
-             * @param {File} fileObject The file we want to import as a javascript File object
+             * @param fileObject The file we want to import as a javascript File object
              */
             importFile(fileObject: File): void;
         }
@@ -2203,7 +2202,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableInfiniteScroll?: boolean;
+            enableInfiniteScroll?: boolean | undefined;
         }
 
         /**
@@ -2222,20 +2221,20 @@ declare namespace uiGrid {
              * for users.
              *
              * See infinite_scroll tutorial for example of usage
-             * @param {boolean} scrollUp if set to false flags that there are no more pages upwards, so don't fire any
+             * @param scrollUp if set to false flags that there are no more pages upwards, so don't fire any
              *        more infinite scroll events upward
-             * @param {boolean} scrollDown if set to false flags that there are no more pages downwards, so don't fire
+             * @param scrollDown if set to false flags that there are no more pages downwards, so don't fire
              *        any more infinite scroll events downward
-             * @returns {ng.IPromise<any>} a promise that is resolved when the grid scrolling is fully adjusted.
+             * @returns a promise that is resolved when the grid scrolling is fully adjusted.
              *          If you're planning to remove pages, you should wait on this promise first, or you'll break the
              *          scroll positioning
              */
             dataLoaded(scrollUp: boolean, scrollDown: boolean): ng.IPromise<any>;
             /**
              * Adjusts the scroll position after you've removed data at the bottom
-             * @param {boolean} scrollUp flag that there are pages upwards, fire infinite scroll events upward
-             * @param {boolean} scrollDown flag that there are pages downwards, so fire infinite scroll events downward
-             * @returns {ng.IPromise<any>} A promise that is resolved when scrolling finishes
+             * @param scrollUp flag that there are pages upwards, fire infinite scroll events upward
+             * @param scrollDown flag that there are pages downwards, so fire infinite scroll events downward
+             * @returns A promise that is resolved when scrolling finishes
              */
             dataRemovedBottom(scrollUp: boolean, scrollDown: boolean): ng.IPromise<any>;
             /**
@@ -2244,17 +2243,17 @@ declare namespace uiGrid {
              * and if you're doing this in response to a needMoreData you should wait
              * until the promise from loadData has resolved before you start removing data
              *
-             * @param {IGridInstance} grid the grid we're working on
-             * @param {boolean} scrollUp flag that there are pages upwards, fire infinite scroll events upward
-             * @param {boolean} scrollDown flag that there are pages downwards, so fire infinite scroll events downward
-             * @returns {ng.IPromise<any>} A promise that is resolved when scrolling finishes
+             * @param grid the grid we're working on
+             * @param scrollUp flag that there are pages upwards, fire infinite scroll events upward
+             * @param scrollDown flag that there are pages downwards, so fire infinite scroll events downward
+             * @returns A promise that is resolved when scrolling finishes
              */
             dataRemovedBottom(grid: IGridInstanceOf<TEntity>, scrollUp: boolean, scrollDown: boolean): ng.IPromise<any>;
             /**
              * Adjusts the scroll position after you've removed data at the bottom
-             * @param {boolean} scrollUp flag that there are pages upwards, fire infinite scroll events upward
-             * @param {boolean} scrollDown flag that there are pages downwards, so fire infinite scroll events downward
-             * @returns {ng.IPromise<any>} A promise that is resolved when scrolling finishes
+             * @param scrollUp flag that there are pages upwards, fire infinite scroll events upward
+             * @param scrollDown flag that there are pages downwards, so fire infinite scroll events downward
+             * @returns A promise that is resolved when scrolling finishes
              */
             dataRemovedTop(scrollUp: boolean, scrollDown: boolean): ng.IPromise<any>;
             /**
@@ -2263,10 +2262,10 @@ declare namespace uiGrid {
              * and if you're doing this in response to a needMoreData you should wait
              * until the promise from loadData has resolved before you start removing data
              *
-             * @param {IGridInstance} grid the grid we're working on
-             * @param {boolean} scrollUp flag that there are pages upwards, fire infinite scroll events upward
-             * @param {boolean} scrollDown flag that there are pages downwards, so fire infinite scroll events downward
-             * @returns {ng.IPromise<any>} A promise that is resolved when scrolling finishes
+             * @param grid the grid we're working on
+             * @param scrollUp flag that there are pages upwards, fire infinite scroll events upward
+             * @param scrollDown flag that there are pages downwards, so fire infinite scroll events downward
+             * @returns A promise that is resolved when scrolling finishes
              */
             dataRemovedTop(grid: IGridInstanceOf<TEntity>, scrollUp: boolean, scrollDown: boolean): ng.IPromise<any>;
             /**
@@ -2276,9 +2275,9 @@ declare namespace uiGrid {
              * existing grid for a new data set
              *
              * You must tell us whether there is data upwards or downwards after the reset
-             * @param {boolean} scrollUp flag that there are pages upwards, fire infinite scroll events upward
-             * @param {boolean} scrollDown flag that there are pages downwards, so fire infinite scroll events downward
-             * @returns {ng.IPromise<any>} A promise that is resolved when scrolling finishes
+             * @param scrollUp flag that there are pages upwards, fire infinite scroll events upward
+             * @param scrollDown flag that there are pages downwards, so fire infinite scroll events downward
+             * @returns A promise that is resolved when scrolling finishes
              */
             resetScroll(scrollUp: boolean, scrollDown: boolean): ng.IPromise<any>;
             /**
@@ -2310,7 +2309,7 @@ declare namespace uiGrid {
             /**
              * Enable column moving for the column
              */
-            enableColumnMoving?: boolean;
+            enableColumnMoving?: boolean | undefined;
         }
 
         /**
@@ -2323,15 +2322,15 @@ declare namespace uiGrid {
              * Defaults to true.
              * @default true
              */
-            enableColumnMoving?: boolean;
+            enableColumnMoving?: boolean | undefined;
         }
 
         export interface IGridMoveColumnsApi {
             // Methods
             /**
              * Method can be used to change column position
-             * @param {number} originalPosition Original column position as a 0 indexed integer
-             * @param {number} newPosition New column position as a 0 indexed integer
+             * @param originalPosition Original column position as a 0 indexed integer
+             * @param newPosition New column position as a 0 indexed integer
              */
             moveColumn(originalPosition: number, newPosition: number): void;
 
@@ -2339,10 +2338,10 @@ declare namespace uiGrid {
             on: {
                 /**
                  * Raised when a column is moved
-                 * @param {ng.IScope} scope Grid Scope
-                 * @param {columnPositionChangedHandler} handler Callback Function
+                 * @param scope Grid Scope
+                 * @param handler Callback Function
                  */
-                columnPositionChanged?: (scope: ng.IScope, handler: columnPositionChangedHandler) => void;
+                columnPositionChanged?: ((scope: ng.IScope, handler: columnPositionChangedHandler) => void) | undefined;
             };
         }
         export interface columnPositionChangedHandler {
@@ -2359,53 +2358,53 @@ declare namespace uiGrid {
              * Enables pagination, defaults to true
              * @default true
              */
-            enablePagination?: boolean;
+            enablePagination?: boolean | undefined;
             /**
              * Enables the paginator at the bottom of the grid. Turn this off, if you want to implement your own
              * controls outside the grid
              */
-            enablePaginationControls?: boolean;
+            enablePaginationControls?: boolean | undefined;
             /**
              * Current page number, defaults to 1
              * @default 1
              */
-            paginationCurrentPage?: number;
+            paginationCurrentPage?: number | undefined;
             /**
              * Page size, defaults to the first item in paginationPageSizes, or 0 if paginationPageSizes is empty
              */
-            paginationPageSize?: number;
+            paginationPageSize?: number | undefined;
             /**
              * Array of page sizes, defaults to [250, 500, 1000]
              * @default [250, 500, 1000]
              */
-            paginationPageSizes?: Array<number>;
+            paginationPageSizes?: Array<number> | undefined;
             /**
              * A custom template for the pager, defaults to ui-grid/pagination
              * @default 'ui-grid/pagination'
              */
-            paginationTemplate?: string;
+            paginationTemplate?: string | undefined;
             /**
              * Total number of items, set automatically when client side pagination,
              * needs set by user for server side pagination
              */
-            totalItems?: number;
+            totalItems?: number | undefined;
             /**
              * Disables client side pagination. When true, handle the paginationChanged event and set data and
              * totalItems, defaults to false
              * @default false
              */
-            useExternalPagination?: boolean;
+            useExternalPagination?: boolean | undefined;
         }
         export interface IGridPaginationApi {
             // Methods
             /**
              * Get the current page
-             * @returns {number} the number of the current page
+             * @returns the number of the current page
              */
             getPage(): number;
             /**
              * Get the total number of pages
-             * @returns {number} the total number of pages
+             * @returns the total number of pages
              */
             getTotalPages(): number;
             /**
@@ -2418,7 +2417,7 @@ declare namespace uiGrid {
             previousPage(): void;
             /**
              * Moves to the requested page
-             * @param {number} page The number of the page that should be displayed
+             * @param page The number of the page that should be displayed
              */
             seek(page: number): void;
 
@@ -2426,8 +2425,8 @@ declare namespace uiGrid {
             on: {
                 /**
                  * This event fires when the pageSize or currentPage changes
-                 * @param {ng.IScope} scope The grid scope
-                 * @param {paginationChangedHandler} handler Callback
+                 * @param scope The grid scope
+                 * @param handler Callback
                  */
                 paginationChanged: (scope: ng.IScope, handler: paginationChangedHandler) => void;
             };
@@ -2435,8 +2434,8 @@ declare namespace uiGrid {
 
         /**
          * The callback for paginationChanged
-         * @param {number} newPage requested page number
-         * @param {number} pageSize requested page size
+         * @param newPage requested page number
+         * @param pageSize requested page size
          */
         export interface paginationChangedHandler {
             (newPage: number, pageSize: number): void;
@@ -2452,17 +2451,17 @@ declare namespace uiGrid {
              * Enable pinning for the individual column.  Defaults to true
              * @default true
              */
-            enablePinning?: boolean;
+            enablePinning?: boolean | undefined;
             /**
              * Column is pinned left when grid is rendered.  Defaults to false
              * @default false
              */
-            pinnedLeft?: boolean;
+            pinnedLeft?: boolean | undefined;
             /**
              * Column is pinned right when grid is rendered.  Defaults to false
              * @default false
              */
-            pinnedRight?: boolean;
+            pinnedRight?: boolean | undefined;
         }
 
         /**
@@ -2474,23 +2473,23 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enablePinning?: boolean;
+            enablePinning?: boolean | undefined;
         }
 
         export interface IGridPinningApi<TEntity> {
             // Methods
             /**
              * Pin column left, right, or none
-             * @param {IGridColumn} col The column being pinned
-             * @param {string} container One of the recognized container types from uiGridPinningConstants
+             * @param col The column being pinned
+             * @param container One of the recognized container types from uiGridPinningConstants
              */
             pinColumn(col: IGridColumnOf<TEntity>, container: string): void;
 
             // Events
             /**
              * raised when column pin state has changed
-             * @param {ng.IScope} scope The grid scope
-             * @param {columnPinHandler} handler Callback
+             * @param scope The grid scope
+             * @param handler Callback
              */
             columnPin: (scope: ng.IScope, handler: columnPinHandler) => void;
         }
@@ -2498,8 +2497,8 @@ declare namespace uiGrid {
         export interface columnPinHandler {
             /**
              * Callback to columnPin event
-             * @param {IColumnDef} colDef The column that was changed
-             * @param {string} container The render container the column is in.  Options:
+             * @param colDef The column that was changed
+             * @param container The render container the column is in.  Options:
              *        * uiGridPinningConstants.container.LEFT
              *        * uiGridPinningConstants.container.RIGHT,
              *        * uiGridPinningConstants.container.NONE
@@ -2525,7 +2524,7 @@ declare namespace uiGrid {
              * Enable column resizing on an individual column
              * Defaults to GridOptions.enableColumnResizing
              */
-            enableColumnResizing?: boolean;
+            enableColumnResizing?: boolean | undefined;
         }
         /**
          * Column Resizing Grid Options
@@ -2536,7 +2535,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableColumnResizing?: boolean;
+            enableColumnResizing?: boolean | undefined;
         }
 
         /**
@@ -2547,8 +2546,8 @@ declare namespace uiGrid {
             on: {
                 /**
                  * Raised when column is resized
-                 * @param {ng.IScope} scope Grid Scope
-                 * @param {columnSizeChangedHandler} handler Callback
+                 * @param scope Grid Scope
+                 * @param handler Callback
                  */
                 columnSizeChanged: (scope: ng.IScope, handler: columnSizeChangedHandler) => void;
             };
@@ -2557,8 +2556,8 @@ declare namespace uiGrid {
         export interface columnSizeChangedHandler {
             /**
              * Callback when column size is changed
-             * @param {IColumnDef} colDef The column that was resized
-             * @param {number} delta The change in the size of the column
+             * @param colDef The column that was resized
+             * @param delta The change in the size of the column
              */
             (colDef: IColumnDef, delta: number): void;
         }
@@ -2574,7 +2573,7 @@ declare namespace uiGrid {
              * If set to -1, then saves are never triggered by timer
              * (implying that the user will call flushDirtyRows() manually)
              */
-            rowEditWaitInterval?: number;
+            rowEditWaitInterval?: number | undefined;
         }
 
         export interface IGridRowEditApi<TEntity> {
@@ -2582,28 +2581,28 @@ declare namespace uiGrid {
             /**
              * Triggers a save event for all currently dirty rows.
              * Could be used where user presses a save button or navigates away from the page
-             * @param {IGridInstance} grid The grid
-             * @returns {ng.IPromise<Array<any>>} a promise that represents the aggregate of all of the individual save
+             * @param grid The grid
+             * @returns a promise that represents the aggregate of all of the individual save
              *          promises.  i.e. it will be resolved when all the individual save promises have been resolved.
              */
             flushDirtyRows(grid?: IGridInstanceOf<TEntity>): ng.IPromise<Array<any>>;
             /**
              * Returns all currently dirty rows
-             * @param {IGridInstance} grid The target grid
-             * @returns {Array<IGridRow>} An array of gridRows that are currently dirty
+             * @param grid The target grid
+             * @returns An array of gridRows that are currently dirty
              */
             getDirtyRows(grid?: IGridInstanceOf<TEntity>): Array<IGridRowOf<TEntity>>;
             /**
              * Returns all currently errored rows
-             * @param {IGridInstance} grid The target grid
-             * @returns {Array<IGridRow>} An array of gridRows that are currently in error
+             * @param grid The target grid
+             * @returns An array of gridRows that are currently in error
              */
             getErrorRows(grid?: IGridInstanceOf<TEntity>): Array<IGridRowOf<TEntity>>;
             /**
              * Sets each of the rows passed in dataRows to be clean,
              * removing them from the dirty cache and the error cache,
              * and clearing the error flag and the dirty flag
-             * @param {Array<TEntity>} dataRows the data entities for which the gridRows should be set clean
+             * @param dataRows the data entities for which the gridRows should be set clean
              */
             setRowsClean(dataRows: Array<TEntity>): void;
             /**
@@ -2611,14 +2610,14 @@ declare namespace uiGrid {
              * Note that if you have only just inserted the rows into your data,
              * you will need to wait for a $digest cycle before the gridRows are present.  As a result, this is often
              * wrapped with $interval or $timeout.
-             * @param {Array<TEntity>} dataRows the data entities for which the gridRows should be set dirty
+             * @param dataRows the data entities for which the gridRows should be set dirty
              */
             setRowsDirty(dataRows: Array<TEntity>): void;
             /**
              * Sets the promise associated with the row save, mandatory that the saveRow event handler calls this method
              * somewhere before returning
-             * @param {any} rowEntity A data row from the grid for which a save has been initiated
-             * @param {ng.IPromise<any>} savePromise A promise that will be resolved when the save is successful, or
+             * @param rowEntity A data row from the grid for which a save has been initiated
+             * @param savePromise A promise that will be resolved when the save is successful, or
              *        rejected if the save fails
              */
             setSavePromise(rowEntity: Object, savePromise: ng.IPromise<any>): void;
@@ -2633,8 +2632,8 @@ declare namespace uiGrid {
                  *
                  * Your method should call setSavePromise somewhere in the body before returning control.
                  * The feature will then wait, with the gridRow greyed out whilst this promise is being resolved.
-                 * @param {ng.IScope} scope The grid scope
-                 * @param {saveRowHandler} handler Callback
+                 * @param scope The grid scope
+                 * @param handler Callback
                  */
                 saveRow: (scope: ng.IScope, handler: saveRowHandler<TEntity>) => void;
             };
@@ -2643,7 +2642,7 @@ declare namespace uiGrid {
         export interface saveRowHandler<TEntity> {
             /**
              * Callback method for save row
-             * @param {TEntity} rowEntity The options.data element that was edited
+             * @param rowEntity The options.data element that was edited
              */
             (rowEntity: TEntity): void;
         }
@@ -2659,7 +2658,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveFilter?: boolean;
+            saveFilter?: boolean | undefined;
             /**
              * Save the current focused cell. On returning to this focused cell we'll also scroll.
              * This option is preferred to the saveScroll option, so is set to true by default.
@@ -2676,13 +2675,13 @@ declare namespace uiGrid {
              * Defaults to true (unless saveScroll is true)
              * @default true
              */
-            saveFocus?: boolean;
+            saveFocus?: boolean | undefined;
             /**
              * Save the grouping configuration. If set to true and the grouping feature is not enabled then does
              * nothing. Defaults to true
              * @default true
              */
-            saveGrouping?: boolean;
+            saveGrouping?: boolean | undefined;
             /**
              * Save the grouping row expanded states.
              * If set to true and the grouping feature is not enabled then does nothing.
@@ -2692,7 +2691,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            saveGroupingExpandedStates?: boolean;
+            saveGroupingExpandedStates?: boolean | undefined;
             /**
              * Restore the current column order.
              * Note that unless you've provided the user with some way to reorder their columns
@@ -2700,13 +2699,13 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveOrder?: boolean;
+            saveOrder?: boolean | undefined;
             /**
              * Save pinning state for columns.
              * Defaults to true
              * @default true
              */
-            savePinning?: boolean;
+            savePinning?: boolean | undefined;
             /**
              * A function that can be called, passing in a rowEntity, and that will return a unique id for that row.
              * This might simply return the id field from that row (if you have one),
@@ -2717,7 +2716,7 @@ declare namespace uiGrid {
              * Defaults to undefined
              * @default undefined
              */
-            saveRowIdentity?: boolean;
+            saveRowIdentity?: boolean | undefined;
             /**
              * Save the current scroll position.
              * Note that this is saved as the percentage of the grid scrolled -
@@ -2731,7 +2730,7 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            saveScroll?: boolean;
+            saveScroll?: boolean | undefined;
             /**
              * Save the currently selected rows.
              * If the saveRowIdentity callback is defined, then it will save the id of the row and select that.
@@ -2743,27 +2742,27 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveSelection?: boolean;
+            saveSelection?: boolean | undefined;
             /**
              * Save the current sort state for each column
              * Defaults to true
              *
              * @default true
              */
-            saveSort?: boolean;
+            saveSort?: boolean | undefined;
             /**
              * Save the treeView configuration. If set to true and the treeView feature is not enabled then does
              * nothing.
              *
              * @default true;
              */
-            saveTreeView?: boolean;
+            saveTreeView?: boolean | undefined;
             /**
              * Save whether or not columns are visible
              * Defaults to true
              * @default true
              */
-            saveVisible?: boolean;
+            saveVisible?: boolean | undefined;
             /**
              * Save the current column widths.
              * Note that unless you've provided the user with some way to resize their columns
@@ -2771,27 +2770,27 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            saveWidths?: boolean;
+            saveWidths?: boolean | undefined;
         }
 
         export interface IGridSaveStateApi {
             // Methods
             /**
              * Restores the provided state into the grid
-             * @param {ng.IScope} $scope A scope we can broadcast on
-             * @param {IGridSavedState} state The state that should ve restored into the grid
+             * @param $scope A scope we can broadcast on
+             * @param state The state that should ve restored into the grid
              */
             restore($scope: ng.IScope, state: IGridSavedState): void;
             /**
              * Packages the current state of the grid into an object, and provides it to the user for saving
-             * @returns {IGridSavedState} Current grid state as a POJO
+             * @returns Current grid state as a POJO
              */
             save(): IGridSavedState;
         }
 
         export interface IGridSavedState {
-            columns?: Array<ISavedColumn>;
-            scrollFocus?: ISavedScrollFocus;
+            columns?: Array<ISavedColumn> | undefined;
+            scrollFocus?: ISavedScrollFocus | undefined;
             selection: Array<IRowVal>;
             grouping: grouping.IGridGroupingConfiguration;
             treeView: treeBase.ITreeState;
@@ -2799,17 +2798,17 @@ declare namespace uiGrid {
 
         interface ISavedColumn {
             name: string;
-            visible?: boolean;
-            width?: number;
-            sort?: ISortInfo;
-            filters?: Array<IFilterOptions>;
-            pinned?: string;
+            visible?: boolean | undefined;
+            width?: number | undefined;
+            sort?: ISortInfo | undefined;
+            filters?: Array<IFilterOptions> | undefined;
+            pinned?: string | undefined;
         }
 
         interface ISavedScrollFocus {
-            focus?: boolean;
-            colName?: string;
-            rowVal?: IRowVal;
+            focus?: boolean | undefined;
+            colName?: string | undefined;
+            rowVal?: IRowVal | undefined;
         }
 
         interface IRowVal {
@@ -2829,29 +2828,29 @@ declare namespace uiGrid {
              * GridOptions.showGridFooter must also be set to true.
              * @default true
              */
-            enableFooterTotalSelected?: boolean;
+            enableFooterTotalSelected?: boolean | undefined;
             /**
              * Enable selection by clicking anywhere on the row.
              * Defaults to false if enableRowHeaderSelection is true, otherwise defaults to false.
              */
-            enableFullRowSelection?: boolean;
+            enableFullRowSelection?: boolean | undefined;
             /**
              * Enable a row header to be used for selection
              * Defaults to true
              * @default true
              */
-            enableRowHeaderSelection?: boolean;
+            enableRowHeaderSelection?: boolean | undefined;
             /**
              * Enable row selection for entire grid.
              * Defaults to true
              */
-            enableRowSelection?: boolean;
+            enableRowSelection?: boolean | undefined;
             /**
              * Enable the select all checkbox at the top of the selectionRowHeader
              * Defaults to true
              * @default true
              */
-            enableSelectAll?: boolean;
+            enableSelectAll?: boolean | undefined;
             /**
              * If selected rows are changed in bulk, either via the API or via the selectAll checkbox,
              * then a separate event is fired.
@@ -2859,24 +2858,24 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableSelectionBatchEvent?: boolean;
+            enableSelectionBatchEvent?: boolean | undefined;
             /**
              * Makes it possible to specify a method that evaluates for each row and sets its "enableSelection"
              * property.
              */
-            isRowSelectable?: (row: IGridRow) => boolean;
+            isRowSelectable?: ((row: IGridRow) => boolean) | undefined;
             /**
              * Enable multiple row selection only when using the ctrlKey or shiftKey. Requires multiSelect to be true.
              * Defaults to false
              * @default false
              */
-            modifierKeysToMultiSelect?: boolean;
+            modifierKeysToMultiSelect?: boolean | undefined;
             /**
              * Enable multiple row selection for entire grid
              * Defaults to true
              * @default true
              */
-            multiSelect?: boolean;
+            multiSelect?: boolean | undefined;
             /**
              * Prevent a row from being unselected.
              * Works in conjunction with multiselect = false and gridApi.selection.selectRow() to allow you to
@@ -2885,13 +2884,13 @@ declare namespace uiGrid {
              * Defaults to false
              * @default false
              */
-            noUnselect?: boolean;
+            noUnselect?: boolean | undefined;
             /**
              * can be used to set a custom width for the row header selection column
              * Defaults to 30px
              * @default 30
              */
-            selectionRowHeaderWidth?: number;
+            selectionRowHeaderWidth?: number | undefined;
         }
         /**
          * Selection related grid row
@@ -2904,17 +2903,16 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableSelection?: boolean;
+            enableSelection?: boolean | undefined;
             /**
              * Selected state of row.
              * Should be readonly.
              * Make any changes to selected state using setSelected().
              * Defaults to false
              *
-             * @readonly
              * @default false
              */
-            isSelected?: boolean;
+            isSelected?: boolean | undefined;
             /**
              * Sets the isSelected property and updates the selectedCount
              * Changes to isSelected state should only be made via this function
@@ -2929,7 +2927,7 @@ declare namespace uiGrid {
             // Methods
             /**
              * Unselects All Rows
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param event object if raised from event
              */
             clearSelectedRows(event?: ng.IAngularEvent): void;
             /**
@@ -2937,33 +2935,33 @@ declare namespace uiGrid {
              * The grid doesn't automatically select rows when you add extra data -
              * so when you add data you need to explicitly check whether the selectAll is set,
              * and then call setVisible rows if it is
-             * @returns {boolean} Whether or not selectAll checkbox is ticked
+             * @returns Whether or not selectAll checkbox is ticked
              */
             getSelectAllState(): boolean;
             /**
              * returns all selected rows as gridRows
-             * @returns {Array<IGridRow>} The selected rows
+             * @returns The selected rows
              */
             getSelectedGridRows(): Array<uiGrid.IGridRowOf<TEntity>>;
             /**
              * Gets selected rows as entities
-             * @returns {Array<TEntity>} Selected row entities
+             * @returns Selected row entities
              */
             getSelectedRows(): Array<TEntity>;
             /**
              * Selects all rows.  Does nothing if multiselect = false
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param event object if raised from event
              */
             selectAllRows(event?: ng.IAngularEvent): void;
             /**
              * Selects all visible rows.  Does nothing if multiselect = false
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param event object if raised from event
              */
             selectAllVisibleRows(event?: ng.IAngularEvent): void;
             /**
              * Select row by data
-             * @param {TEntity} rowEntity gridOptions.data[] array value
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param rowEntity gridOptions.data[] array value
+             * @param event object if raised from event
              */
             selectRow(rowEntity: TEntity, event?: ng.IAngularEvent): void;
             /**
@@ -2973,30 +2971,30 @@ declare namespace uiGrid {
              * In this context visible means of those rows that are theoretically visible (i.e. not filtered),
              * rather than rows currently rendered on the screen.
              *
-             * @param {number} index Index within rowsVisible array
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param index Index within rowsVisible array
+             * @param event object if raised from event
              */
             selectRowByVisibleIndex(index: number, event?: ng.IAngularEvent): void;
             /**
              * Sets the current gridOption.modifierKeysToMultiSelect to true or false
-             * @param {boolean} multiSelect true to only allow multiple rows when using ctrlKey or shiftKey is used
+             * @param multiSelect true to only allow multiple rows when using ctrlKey or shiftKey is used
              */
             setModifierKeysToMultiSelect(multiSelect: boolean): void;
             /**
              * Sets the current gridOption.multiSelect to true or false
-             * @param {boolean} multiSelect true to allow multiple rows
+             * @param multiSelect true to allow multiple rows
              */
             setMultiSelect(multiSelect: boolean): void;
             /**
              * Toggles data row as selected or unselected
-             * @param {TEntity} rowEntity gridOptions.data[] array value
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param rowEntity gridOptions.data[] array value
+             * @param event object if raised from event
              */
             toggleRowSelection(rowEntity: TEntity, event?: ng.IAngularEvent): void;
             /**
              * UnSelect the data row
-             * @param {TEntity} rowEntity gridOptions.data[] array value
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param rowEntity gridOptions.data[] array value
+             * @param event object if raised from event
              */
             unSelectRow(rowEntity: TEntity, event?: ng.IAngularEvent): void;
 
@@ -3004,16 +3002,16 @@ declare namespace uiGrid {
             on: {
                 /**
                  * is raised after the row.isSelected state is changed
-                 * @param {ng.IScope} scope grid scope
-                 * @param {rowSelectionChangedHandler} handler callback
+                 * @param scope grid scope
+                 * @param handler callback
                  */
                 rowSelectionChanged: (scope: ng.IScope, handler: rowSelectionChangedHandler<TEntity>) => void;
                 /**
                  * is raised after the row.isSelected state is changed in bulk,
                  * if the enableSelectionBatchEvent option is set to true (which it is by default).
                  * This allows more efficient processing of bulk events.
-                 * @param {ng.IScope} scope grid scope
-                 * @param {rowSelectionChangedBatchHandler} handler callback
+                 * @param scope grid scope
+                 * @param handler callback
                  */
                 rowSelectionChangedBatch: (scope: ng.IScope, handler: rowSelectionChangedBatchHandler<TEntity>) => void;
             };
@@ -3021,8 +3019,8 @@ declare namespace uiGrid {
         export interface rowSelectionChangedHandler<TEntity> {
             /**
              * Callback for row selection changed
-             * @param {IGridRow} row The selected rows
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param row The selected rows
+             * @param event object if raised from event
              */
             (row: uiGrid.IGridRowOf<TEntity>, event?: ng.IAngularEvent): void;
         }
@@ -3030,8 +3028,8 @@ declare namespace uiGrid {
         export interface rowSelectionChangedBatchHandler<TEntity> {
             /**
              * Callback for row selection changed batch
-             * @param {IGridRow} row The selected rows
-             * @param {ng.IAngularEvent} event object if raised from event
+             * @param row The selected rows
+             * @param event object if raised from event
              */
             (row: Array<uiGrid.IGridRowOf<TEntity>>, event?: ng.IAngularEvent): void;
         }
@@ -3052,9 +3050,9 @@ declare namespace uiGrid {
              *
              * This function will be called after the the default finalizerFn.  Defaults to undefined
              * @default undefined
-             * @param {IGridTreeBaseAggregationObject} aggregation Aggregation object
+             * @param aggregation Aggregation object
              */
-            customTreeAggregationFinalizerFn?: (aggregation: IGridTreeBaseAggregationObject) => void;
+            customTreeAggregationFinalizerFn?: ((aggregation: IGridTreeBaseAggregationObject) => void) | undefined;
             /**
              * A custom function that aggregates rows into some form of total.
              * Aggregations run row-by-row, the function needs to be capable of creating a running total.
@@ -3062,17 +3060,17 @@ declare namespace uiGrid {
              * The function will be provided the aggregation item (in which you can store running totals),
              * the row value that is to be aggregated,
              * and that same row value converted to a number (most aggregations work on numbers)
-             * @param {IGridTreeBaseAggregationObject} aggregation
-             * @param {any} fieldValue Value of the field
-             * @param {number} numValue Numeric value of the field
-             * @param {IGridRow} row Row objet
+             * @param aggregation
+             * @param fieldValue Value of the field
+             * @param numValue Numeric value of the field
+             * @param row Row objet
              */
-            customTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
-                row: IGridRowOf<TEntity>) => void;
+            customTreeAggregationFn?: ((aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
+                row: IGridRowOf<TEntity>) => void) | undefined;
             /**
              * A custom label to use for this aggregation.  If providedm, we don't use native i18n
              */
-            treeAggregationLabel?: string;
+            treeAggregationLabel?: string | undefined;
             /**
              * Use one of the native or grid-level aggregation methods for calculating aggregations on this column.
              * Native method are in the constants file and include: SUM, COUNT, MIN, MAX, AVG.
@@ -3090,7 +3088,7 @@ declare namespace uiGrid {
              * Defaults to undefined.
              * @default undefined
              */
-            treeAggregationType?: string;
+            treeAggregationType?: string | undefined;
             /**
              * Store calculated aggregations into the entity,
              * allowing them to be displayed in the grid using a standard cellTemplate.
@@ -3108,7 +3106,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            treeAggregationUpdateEntity?: boolean;
+            treeAggregationUpdateEntity?: boolean | undefined;
         }
 
         /**
@@ -3121,13 +3119,13 @@ declare namespace uiGrid {
              * Defaults to true, grouping overrides to false
              * @default true
              */
-            showTreeExpandNoChildren?: boolean;
+            showTreeExpandNoChildren?: boolean | undefined;
             /**
              * If set to false, don't create the row header. Youll need to programatically control the expand states
              * Defaults to true
              * @default true
              */
-            showTreeRowHeader?: boolean;
+            showTreeRowHeader?: boolean | undefined;
             /**
              * Define custom aggregation functions.
              * The properties of this object will be aggregation types available for use on columnDef
@@ -3143,7 +3141,7 @@ declare namespace uiGrid {
              * Defaults to {}
              * @default {}
              */
-            treeCustomAggregations?: { [index: string]: IGridTreeBaseCustomAggregation<TEntity>; };
+            treeCustomAggregations?: { [index: string]: IGridTreeBaseCustomAggregation<TEntity>; } | undefined;
             /**
              * Number of pixels of indent for the icon at each tree level, wider indents are visually more pleasing,
              * but will make the tree row header wider
@@ -3151,11 +3149,11 @@ declare namespace uiGrid {
              *
              * @default 10
              */
-            treeIndent?: number;
+            treeIndent?: number | undefined;
             /**
              * If set to true, row header even if there are no tree nodes
              */
-            treeRowHeaderAlwaysVisible?: boolean;
+            treeRowHeaderAlwaysVisible?: boolean | undefined;
             /**
              * Base width of the tree header, provides for a single level of tree.
              * This is incremented by treeIndent for each extra level
@@ -3163,20 +3161,20 @@ declare namespace uiGrid {
              *
              * @default 30
              */
-            treeRowHeaderBaseWidth?: number;
+            treeRowHeaderBaseWidth?: number | undefined;
         }
 
         export interface IGridTreeBaseCustomAggregation<TEntity> {
             label: string;
             aggregationFn: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
                 row?: IGridRowOf<TEntity>) => void;
-            finalizerFn?: (aggregation: IGridTreeBaseAggregationObject) => void;
+            finalizerFn?: ((aggregation: IGridTreeBaseAggregationObject) => void) | undefined;
         }
         export interface IGridTreeBaseAggregationObject {
             count: number;
             sum: number;
             value: number;
-            rendered?: string;
+            rendered?: string | undefined;
         }
 
         export interface IGridTreeBaseApi<TEntity> {
@@ -3187,13 +3185,13 @@ declare namespace uiGrid {
             collapseAllRows(): void;
             /**
              * collapse the specified row. When you expand the row again, all grandchildren will retain their state
-             * @param {IGridRow} row The row to collapse
+             * @param row The row to collapse
              */
             collapseRow(row: IGridRowOf<TEntity>): void;
             /**
              * collapse all children of the specified row. When you expand the row again, all grandchildren will be
              * collapsed
-             * @param {IGridRow} row The row to collapse children of
+             * @param row The row to collapse children of
              */
             collapseRowChildren(row: IGridRowOf<TEntity>): void;
             /**
@@ -3202,12 +3200,12 @@ declare namespace uiGrid {
             expandAllRows(): void;
             /**
              * Expand the immediate children of the specified row
-             * @param {IGridRow} row The row to expand
+             * @param row The row to expand
              */
             expandRow(row: IGridRowOf<TEntity>): void;
             /**
              * Get the children of the specified row
-             * @param {IGridRow} row The row you want the children of
+             * @param row The row you want the children of
              * @returns Array<IGridRow> Array of children rows
              */
             getRowChildren(row: IGridRowOf<TEntity>): Array<IGridRowOf<TEntity>>;
@@ -3215,18 +3213,18 @@ declare namespace uiGrid {
              * Get the tree state for this grid, used by the saveState feature Returned treeState as an object
              * ```{ expandedState: { uid: 'expanded', uid: 'collapsed' } }```
              * where expandedState is a hash of row uid and the current expanded state
-             * @returns {ITreeState} tree state
+             * @returns tree state
              * NOTE this is an incomplete feature in uiGrid
              */
             getTreeState(): ITreeState;
             /**
              * Set the expanded states of the tree
-             * @param {ITreeState} config The config you want to apply, in the format provided by getTreeState
+             * @param config The config you want to apply, in the format provided by getTreeState
              */
             setTreeState(config: ITreeState): void;
             /**
              * call expand if row is collapsed, and collapse if it is expanded
-             * @param {IGridRow} row The row to toggle
+             * @param row The row to toggle
              */
             toggleRowTreeState(row: IGridRowOf<TEntity>): void;
 
@@ -3234,8 +3232,8 @@ declare namespace uiGrid {
             on: {
                 /**
                  * Raised when a row is collapsed.  Doesn't really have a purpose at the moment.  Included for symmetry
-                 * @param {ng.IScope} scope Grid scope
-                 * @param {rowCollapsedHandler} handler Callback
+                 * @param scope Grid scope
+                 * @param handler Callback
                  */
                 rowCollapsed: (scope: ng.IScope, handler: rowCollapsedHandler<TEntity>) => void;
                 /**
@@ -3245,8 +3243,8 @@ declare namespace uiGrid {
                  * in your callback you can retrieve the children of this row and load them into the grid data.
                  *
                  * When the data is loaded, the grid will automatically refresh to show these new rows.
-                 * @param {ng.IScope} scope Grid Scope
-                 * @param {rowExpandedHandler} handler Callback
+                 * @param scope Grid Scope
+                 * @param handler Callback
                  */
                 rowExpanded: (scope: ng.IScope, handler: rowExpandedHandler<TEntity>) => void;
             };
@@ -3261,7 +3259,7 @@ declare namespace uiGrid {
         export interface rowCollapsedHandler<TEntity> {
             /**
              * Row Collapsed callback
-             * @param {IGridRow} row The row that was collapsed.  You can also retrieve the grid from this row with
+             * @param row The row that was collapsed.  You can also retrieve the grid from this row with
              * row.grid
              */
             (row: IGridRowOf<TEntity>): void;
@@ -3270,7 +3268,7 @@ declare namespace uiGrid {
         export interface rowExpandedHandler<TEntity> {
             /**
              * Row Expanded callback
-             * @param {IGridRow} row The row that was expanded.  You can also retrieve the grid from this row with
+             * @param row The row that was expanded.  You can also retrieve the grid from this row with
              * row.grid
              */
             (row: IGridRowOf<TEntity>): void;
@@ -3300,7 +3298,7 @@ declare namespace uiGrid {
              * Defaults to true
              * @default true
              */
-            enableTreeView?: boolean;
+            enableTreeView?: boolean | undefined;
         }
 
         export interface IUiGridTreeViewConstants extends ISharedTreeConstants {
@@ -3567,35 +3565,35 @@ declare namespace uiGrid {
         /** Column definition */
         colDef: uiGrid.IColumnDefOf<TEntity>;
         /** Default sort on this column */
-        defaultSort?: ISortInfo;
+        defaultSort?: ISortInfo | undefined;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
          */
-        displayName?: string;
+        displayName?: string | undefined;
         /**
          * field must be provided if you wish to bind to a property in the data source.
          * Should be an angular expression that evaluates against grid.options.data array element.
          * Can be a complex expression: employee.address.city, or can be a function: employee.getFullAddress().
          * See the angular docs on binding expressions.
          */
-        field?: string;
+        field?: string | undefined;
         /** Filter on this column */
-        filter?: IFilterOptions;
+        filter?: IFilterOptions | undefined;
         /** Filters for this column. Includes 'term' property bound to filter input elements */
-        filters?: Array<IFilterOptions>;
+        filters?: Array<IFilterOptions> | undefined;
         /** Reference to grid containing the column */
         grid: IGridInstanceOf<TEntity>;
-        name?: string;
+        name?: string | undefined;
         /** Sort on this column */
-        sort?: ISortInfo;
+        sort?: ISortInfo | undefined;
         /**
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
          * respectively.
          */
-        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
+        sortingAlgorithm?: ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number) | undefined;
         /** Column width */
         width: number;
         /**
@@ -3667,7 +3665,7 @@ declare namespace uiGrid {
          * defaults to false
          * if set to true hides the label text in the aggregation footer, so only the value is displayed.
          */
-        aggregationHideLabel?: boolean;
+        aggregationHideLabel?: boolean | undefined;
         /**
          * The aggregation that you'd like to show in the columnFooter for this column.
          * Valid values are in uiGridConstants, and currently include:
@@ -3679,22 +3677,22 @@ declare namespace uiGrid {
          * in this case your function needs to accept the full set of visible rows,
          * and return a value that should be shown
          */
-        aggregationType?: number | Function;
+        aggregationType?: number | Function | undefined;
         /**
          * cellClass can be a string specifying the class to append to a cell
          * or it can be a function(row,rowRenderIndex, col, colRenderIndex)
          * that returns a class name
          */
-        cellClass?: string | ICellClassGetter<TEntity>;
+        cellClass?: string | ICellClassGetter<TEntity> | undefined;
         /** cellFilter is a filter to apply to the content of each cell */
-        cellFilter?: string;
+        cellFilter?: string | undefined;
         /**
          * a custom template for each cell in this column.
          * The default is ui-grid/uiGridCell.
          * If you are using the cellNav feature,
          * this template must contain a div that can receive focus.
          */
-        cellTemplate?: string;
+        cellTemplate?: string | undefined;
         /**
          * Whether or not to show a tooltip when a user hovers over the cell.
          * If set to false, no tooltip.
@@ -3705,14 +3703,14 @@ declare namespace uiGrid {
          * Defaults to false
          * @default false
          */
-        cellTooltip?: boolean | string | ICellTooltipGetter<TEntity>;
+        cellTooltip?: boolean | string | ICellTooltipGetter<TEntity> | undefined;
         /** Default object of sort information */
-        defaultSort?: ISortInfo;
+        defaultSort?: ISortInfo | undefined;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
          */
-        displayName?: string;
+        displayName?: string | undefined;
         /**
          * if column menus are enabled, controls the column menus for this specific column
          * (i.e. if gridOptions.enableColumnMenus, then you can control column menus using this option.
@@ -3721,68 +3719,68 @@ declare namespace uiGrid {
          * ). Defaults to true.
          * @default true
          */
-        enableColumnMenu?: boolean;
+        enableColumnMenu?: boolean | undefined;
         /**
          * Override for column menus everywhere - if set to false then you get no column menus.
          * Defaults to true
          * @default true
          */
-        enableColumnMenus?: boolean;
+        enableColumnMenus?: boolean | undefined;
         /** turn off filtering for an individual column, where you've turned on filtering for the overall grid */
-        enableFiltering?: boolean;
+        enableFiltering?: boolean | undefined;
         /**
          * When set to false, this setting prevents a user from hiding the column using the column menu or the grid
          * menu.
          * @default true
          */
-        enableHiding?: boolean;
+        enableHiding?: boolean | undefined;
         /**
          * When enabled, this setting adds sort widgets to the column header, allowing sorting of the data in the
          * individual column.
          * @default true
          */
-        enableSorting?: boolean;
+        enableSorting?: boolean | undefined;
         /**
          * field must be provided if you wish to bind to a property in the data source.
          * Should be an angular expression that evaluates against grid.options.data array element
          * Can be a complex expression: employee.address.city, or can be a function: employee.getFullAddress().
          * See the angular docs on binding expressions.
          */
-        field?: string;
+        field?: string | undefined;
         /**
          * Specify a single filter field on this column.
          * A filter consists of a condition, a term, and a placeholder:
          */
-        filter?: IFilterOptions;
+        filter?: IFilterOptions | undefined;
         /**
          * @default false
          * When true uiGrid will apply the cellFilter before applying search filters
          */
-        filterCellFiltered?: boolean;
+        filterCellFiltered?: boolean | undefined;
         /**
          * a custom template for the filter input. The default is ui-grid/ui-grid-filter
          */
-        filterHeaderTemplate?: string;
+        filterHeaderTemplate?: string | undefined;
         /** Specify multiple filter fields */
-        filters?: Array<IFilterOptions>;
+        filters?: Array<IFilterOptions> | undefined;
         /**
          * footerCellClass can be a string specifying the class to append to a cell or it can be
          * a function(row,rowRenderIndex, col, colRenderIndex) that returns a class name
          */
-        footerCellClass?: string | IHeaderFooterCellClassGetter<TEntity>;
+        footerCellClass?: string | IHeaderFooterCellClassGetter<TEntity> | undefined;
         /** footerCellFilter is a filter to apply to the content of the column footer */
-        footerCellFilter?: string;
+        footerCellFilter?: string | undefined;
         /** a custom template for the footer for this column. The default is ui-grid/uiGridFooterCell */
-        footerCellTemplate?: string;
+        footerCellTemplate?: string | undefined;
         /**
          * headerCellClass can be a string specifying the class to append to a cell or it can be
          * a function(row,rowRenderIndex, col, colRenderIndex) that returns a class name
          */
-        headerCellClass?: string | IHeaderFooterCellClassGetter<TEntity>;
+        headerCellClass?: string | IHeaderFooterCellClassGetter<TEntity> | undefined;
         /** headerCellFilter is a filter to apply to the content of the column header */
-        headerCellFilter?: string;
+        headerCellFilter?: string | undefined;
         /** a custom template for the header for this column. The default is ui-grid/uiGridHeaderCell */
-        headerCellTemplate?: string;
+        headerCellTemplate?: string | undefined;
         /**
          * Whether or not to show a tooltip when a user hovers over the header cell.
          * If set to false, no tooltip.
@@ -3793,20 +3791,20 @@ declare namespace uiGrid {
          * if a static string then shows that static string.
          * @default false
          */
-        headerTooltip?: boolean | string | IHeaderTooltipGetter<TEntity>;
+        headerTooltip?: boolean | string | IHeaderTooltipGetter<TEntity> | undefined;
         /** sets the maximum column width */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
         /** used to add menu items to a column. Refer to the tutorial on this functionality */
-        menuItems?: Array<IMenuItem>;
+        menuItems?: Array<IMenuItem> | undefined;
         /** Sets the minimum column width */
-        minWidth?: number;
+        minWidth?: number | undefined;
         /**
          * (mandatory) each column should have a name,
          * although for backward compatibility with 2.x name can be omitted if field is present
          */
-        name?: string;
+        name?: string | undefined;
         /** An object of sort information */
-        sort?: ISortInfo;
+        sort?: ISortInfo | undefined;
         /**
          * @default false
          * When true uiGrid will apply the cellFilter before sorting the data
@@ -3817,7 +3815,7 @@ declare namespace uiGrid {
          * which handles the returned type.
          * You may specify one of the sortingAlgorithms found in the rowSorter service.
          */
-        sortCellFiltered?: boolean;
+        sortCellFiltered?: boolean | undefined;
         /**
          *(optional) An array of sort directions, specifying the order that they should cycle through as
          * the user repeatedly clicks on the column heading. The default is [null, uiGridConstants.ASC, uiGridConstants.DESC].
@@ -3825,20 +3823,20 @@ declare namespace uiGrid {
          * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
-        sortDirectionCycle?: Array<null | string>;
+        sortDirectionCycle?: Array<null | string> | undefined;
         /**
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
          * respectively.
          */
-        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
+        sortingAlgorithm?: ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number) | undefined;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
          * @default false
          */
-        suppressRemoveSort?: boolean;
+        suppressRemoveSort?: boolean | undefined;
         /**
          * the type of the column, used in sorting. If not provided then the grid will guess the type.
          * Add this only if the grid guessing is not to your satisfaction.
@@ -3846,16 +3844,16 @@ declare namespace uiGrid {
          * One of:
          * 'string', 'boolean', 'number', 'date', 'object', 'numberStr'
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * sets whether or not the column is visible
          * @default true
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * sets the column width.  Can be either a number or a percentage, or an * for auto.
          */
-        width?: number | string;
+        width?: number | string | undefined;
     }
 
     export interface ICellClassGetter<TEntity> {
@@ -3874,24 +3872,24 @@ declare namespace uiGrid {
     }
     export interface IMenuItem {
         /** controls the title that is displayed in the menu */
-        title?: string;
+        title?: string | undefined;
         /** the icon shown alongside that title */
-        icon?: string;
+        icon?: string | undefined;
         /** the method to call when the menu is clicked */
-        action?: ($event: ng.IAngularEvent) => void;
+        action?: (($event: ng.IAngularEvent) => void) | undefined;
         /** a function to evaluate to determine whether or not to show the item */
-        shown?: () => boolean;
+        shown?: (() => boolean) | undefined;
         /** a function to evaluate to determine whether or not the item is currently selected */
-        active?: () => boolean;
+        active?: (() => boolean) | undefined;
         /** context to pass to the action function, available in this.context in your handler */
         context?: any;
         /** if set to true, the menu should stay open after the action, defaults to false */
-        leaveOpen?: boolean;
+        leaveOpen?: boolean | undefined;
     }
     export interface ISortInfo {
-        direction?: string;
-        ignoreSort?: boolean;
-        priority?: number;
+        direction?: string | undefined;
+        ignoreSort?: boolean | undefined;
+        priority?: number | undefined;
     }
 
     export interface IFilterOptions {
@@ -3901,42 +3899,42 @@ declare namespace uiGrid {
          * or you can supply a custom filter function that gets passed the
          * following arguments: [searchTerm, cellValue, row, column].
          */
-        condition?: number | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean);
+        condition?: number | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean) | undefined;
         /**
          * If set, the filter field will be pre-populated with this value
          */
-        term?: string;
+        term?: string | undefined;
         /** String that will be set to the <input>.placeholder attribute */
-        placeholder?: string;
+        placeholder?: string | undefined;
         /**
          * String that will be set to the <input>.ariaLabel attribute. This is what is read as a label to screen reader users.
          */
-        ariaLabel?: string;
+        ariaLabel?: string | undefined;
         /**
          * set this to true if you have defined a custom function in condition,
          * and your custom function doesn't require a term
          * (so it can run even when the term is null)
          */
-        noTerm?: boolean;
+        noTerm?: boolean | undefined;
         /**
          * only flag currently available is caseSensitive, set to false if you don't want case sensitive matching
          */
-        flags?: IFilterFlags;
+        flags?: IFilterFlags | undefined;
         /**
          * defaults to uiGridConstants.filter.INPUT, which gives a text box. If set to uiGridConstants.filter.SELECT
          * then a select box will be shown with options selectOptions
          */
-        type?: number | string;
+        type?: number | string | undefined;
         /**
          * options in the format [{ value: 1, label: 'male' }]. No i18n filter is provided, you need to perform the i18n
          * on the values before you provide them
          */
-        selectOptions?: Array<ISelectOption>;
+        selectOptions?: Array<ISelectOption> | undefined;
         /**
          * If set to true then the 'x' button that cancels/clears the filter will not be shown.
          * @default false
          */
-        disableCancelFilterButton?: boolean;
+        disableCancelFilterButton?: boolean | undefined;
     }
     export interface ISelectOption {
         value: number | string;
@@ -3944,6 +3942,6 @@ declare namespace uiGrid {
     }
 
     export interface IFilterFlags {
-        caseSensitive?: boolean;
+        caseSensitive?: boolean | undefined;
     }
 }

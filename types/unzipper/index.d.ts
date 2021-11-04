@@ -1,13 +1,14 @@
-// Type definitions for unzipper 0.9
+// Type definitions for unzipper 0.10
 // Project: https://github.com/ZJONSSON/node-unzipper#readme
 // Definitions by: s73obrien <https://github.com/s73obrien>
 //                 Nate <https://github.com/natemara>
 //                 Bart <https://github.com/bartje321>
+//                 Ken Human <https://github.com/kenhuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { Readable, Stream, PassThrough, Duplex } from "stream";
+import { Readable, Stream, PassThrough, Duplex, Transform } from "stream";
 import { ClientRequest, RequestOptions } from "http";
 
 export interface PullStream extends Duplex {
@@ -16,7 +17,9 @@ export interface PullStream extends Duplex {
 }
 
 export interface Entry extends PassThrough {
-    autodrain(): Promise<void>;
+    autodrain(): Transform & {
+        promise(): Promise<void>;
+    };
     buffer(): Promise<Buffer>;
     path: string;
 
@@ -26,7 +29,7 @@ export interface Entry extends PassThrough {
 
     type: string;
     vars: {
-        signature?: number;
+        signature?: number | undefined;
         versionsNeededToExtract: number;
         flags: number;
         compressionMethod: number;
@@ -77,37 +80,43 @@ export interface CentralDirectory {
     sizeOfCentralDirectory: number;
     offsetToStartOfCentralDirectory: number;
     commentLength: number;
-    files: [
-        {
-            signature: number;
-            versionMadeBy: number;
-            versionsNeededToExtract: number;
-            flags: number;
-            compressionMethod: number;
-            lastModifiedTime: number;
-            lastModifiedDate: number;
-            crc32: number;
-            compressedSize: number;
-            uncompressedSize: number;
-            fileNameLength: number;
-            extraFieldLength: number;
-            fileCommentLength: number;
-            diskNumber: number;
-            internalFileAttributes: number;
-            externalFileAttributes: number;
-            offsetToLocalFileHeader: number;
-            path: string;
-            comment: string;
-            stream: (password?: string) => Entry;
-            buffer: (password?: string) => Promise<Buffer>;
-        }
-    ];
+    files: File[];
+    extract: (opts: ParseOptions) => Promise<void>;
 }
 
-export class ParseOptions {
-    verbose?: boolean;
-    path?: string;
-    // more options?
+export interface File {
+    signature: number;
+    versionMadeBy: number;
+    versionsNeededToExtract: number;
+    flags: number;
+    compressionMethod: number;
+    lastModifiedTime: number;
+    lastModifiedDate: number;
+    crc32: number;
+    compressedSize: number;
+    uncompressedSize: number;
+    fileNameLength: number;
+    extraFieldLength: number;
+    fileCommentLength: number;
+    diskNumber: number;
+    internalFileAttributes: number;
+    externalFileAttributes: number;
+    offsetToLocalFileHeader: number;
+    pathBuffer: Buffer;
+    path: string;
+    isUnicode: number;
+    extra: any;
+    type: 'Directory' | 'File';
+    comment: string;
+    stream: (password?: string) => Entry;
+    buffer: (password?: string) => Promise<Buffer>;
+}
+
+export interface ParseOptions {
+    verbose?: boolean | undefined;
+    path?: string | undefined;
+    concurrency?: number | undefined;
+    forceStream?: boolean | undefined;
 }
 
 export type ParseStream = PullStream & {
@@ -115,5 +124,5 @@ export type ParseStream = PullStream & {
 };
 
 export function Parse(opts?: ParseOptions): ParseStream;
-export function ParseOne(match: RegExp, opts: ParseOptions): Duplex;
+export function ParseOne(match?: RegExp, opts?: ParseOptions): Duplex;
 export function Extract(opts?: ParseOptions): ParseStream;

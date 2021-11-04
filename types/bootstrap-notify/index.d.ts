@@ -8,56 +8,56 @@
 
 interface JQueryStatic {
     notify(message: string): NotifyReturn;
-	notify(opts: NotifyOptions, settings?: NotifySettings): NotifyReturn;
-	notifyDefaults(settings: NotifySettings): void;
-	notifyClose(): void;
-	notifyClose(command: string): void;
+    notify(opts: NotifyOptions, settings?: NotifySettings): NotifyReturn;
+    notifyDefaults(settings: NotifySettings): void;
+    notifyClose(): void;
+    notifyClose(command: string): void;
 }
 
 interface NotifyOptions {
-	message: string;
-	title?: string;
-	icon?: string;
-	url?: string;
-	target?: string;
+    message: string;
+    title?: string | undefined;
+    icon?: string | undefined;
+    url?: string | undefined;
+    target?: string | undefined;
 }
 
 interface NotifySettings {
-	element?: string;
-	position?: string;
-	type?: string;
-	allow_dismiss?: boolean;
-	allow_duplicates?: boolean;
-	newest_on_top?: boolean;
-	showProgressbar?: boolean;
-	placement?: {
-		from?: string;
-		align?: string;
-	};
-	offset?: number | {
-		x?: number;
-		y?: number;
-	};
-	spacing?: number;
-	z_index?: number;
-	delay?: number;
-	timer?: number;
-	url_target?: string;
-	mouse_over?: string;
-	animate?: {
-		enter?: string;
-		exit?: string;
-	};
-	onShow?: () => void;
-	onShown?: () => void;
-	onClose?: () => void;
-	onClosed?: () => void;
-	icon_type?: string;
-	template?: string;
+    element?: string | undefined;
+    position?: string | undefined;
+    type?: string | undefined;
+    allow_dismiss?: boolean | undefined;
+    allow_duplicates?: boolean | undefined;
+    newest_on_top?: boolean | undefined;
+    showProgressbar?: boolean | undefined;
+    placement?: {
+        from?: string | undefined;
+        align?: string | undefined;
+    } | undefined;
+    offset?: number | {
+        x?: number | undefined;
+        y?: number | undefined;
+    } | undefined;
+    spacing?: number | undefined;
+    z_index?: number | undefined;
+    delay?: number | undefined;
+    timer?: number | undefined;
+    url_target?: string | undefined;
+    mouse_over?: string | undefined;
+    animate?: {
+        enter?: string | undefined;
+        exit?: string | undefined;
+    } | undefined;
+    onShow?: (($ele: JQuery) => void) | undefined;
+    onShown?: (($ele: JQuery) => void) | undefined;
+    onClose?: (($ele: JQuery) => void) | undefined;
+    onClosed?: (($ele: JQuery) => void) | undefined;
+    icon_type?: string | undefined;
+    template?: string | undefined;
 }
 
 interface NotifyReturn {
-	$ele: JQueryStatic;
-	close: () => void;
-	update: (command: string, update: any) => void;
+    $ele: JQuery;
+    close: () => void;
+    update: (command: string, update: any) => void;
 }

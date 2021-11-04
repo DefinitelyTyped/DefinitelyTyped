@@ -1,7 +1,7 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "interface-name": false,
-    "no-empty-interface": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "interface-name": false,
+        "no-empty-interface": false
+    }
 }

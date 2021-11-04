@@ -15,6 +15,6 @@ declare namespace ee {
     }
 }
 
-declare function ee(obj: any): ee.Emitter;
+declare function ee(obj?: any): ee.Emitter;
 
 export = ee;

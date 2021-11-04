@@ -2,8 +2,8 @@
 // Project: https://github.com/adriantoine/enzyme-to-json#readme
 // Definitions by: Joscha Feth <https://github.com/joscha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import { ReactWrapper, ShallowWrapper } from 'enzyme';
 
-export default function toJson<P, S>(wrapper: ShallowWrapper<P, S> | ReactWrapper<P, S> | Cheerio): object;
+export default function toJson<P, S>(wrapper: ShallowWrapper<P, S> | ReactWrapper<P, S> | cheerio.Cheerio): object;

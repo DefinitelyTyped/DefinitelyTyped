@@ -1,12 +1,13 @@
-// Type definitions for d3-fetch 1.1
+// Type definitions for d3-fetch 3.0
 // Project: https://d3js.org/d3-fetch/
 // Definitions by: Hugues Stefanski <https://github.com/ledragon>
+//                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 3.0.1
 
-import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
+import { DSVParsedArray, DSVRowArray, DSVRowString } from "d3-dsv";
 
 /**
  * Fetches the binary file at the specified input URL and returns it as a Promise of a Blob.
@@ -33,13 +34,16 @@ export function buffer(url: string, init?: RequestInit): Promise<ArrayBuffer>;
  *
  * If init is specified, it is passed along to the underlying call to fetch.
  *
+ * The generic parameter describes the column names as a union of string literal types.
+ *
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function csv(
+export function csv<Columns extends string>(
     url: string,
-    init?: RequestInit,
-): Promise<DSVParsedArray<DSVRowString>>;
+    init?: RequestInit
+// tslint:disable-next-line:no-unnecessary-generics
+): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the CSV file at the specified input URL and returns
  * a promise of an array of objects representing the parsed rows.
@@ -47,7 +51,8 @@ export function csv(
  * The specified row conversion function is used to map and filter row objects to a more-specific representation;
  * see dsv.csvParse for details.
  *
- * The generic parameter describes the type of the object representation of a parsed row.
+ * The first generic parameter describes the type of the object representation of a parsed row.
+ * The second generic parameter describes the column names as a union of string literal types.
  *
  * @param url A valid URL string.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
@@ -55,9 +60,9 @@ export function csv(
  * the row is skipped and will be omitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csv<ParsedRow extends DSVRowAny>(
+export function csv<ParsedRow extends object, Columns extends string = string>(
     url: string,
-    row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
 /**
  * Fetches the CSV file at the specified input URL and returns
@@ -68,7 +73,8 @@ export function csv<ParsedRow extends DSVRowAny>(
  * The specified row conversion function is used to map and filter row objects to a more-specific representation;
  * see dsv.csvParse for details.
  *
- * The generic parameter describes the type of the object representation of a parsed row.
+ * The first generic parameter describes the type of the object representation of a parsed row.
+ * The second generic parameter describes the column names as a union of string literal types.
  *
  * @param url A valid URL string.
  * @param init An request initialization object.
@@ -77,10 +83,10 @@ export function csv<ParsedRow extends DSVRowAny>(
  * the row is skipped and will be omitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csv<ParsedRow extends DSVRowAny>(
+export function csv<ParsedRow extends object, Columns extends string = string>(
     url: string,
     init: RequestInit,
-    row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /**
@@ -90,15 +96,18 @@ export function csv<ParsedRow extends DSVRowAny>(
  *
  * If init is specified, it is passed along to the underlying call to fetch.
  *
+ * The generic parameter describes the column names as a union of string literal types.
+ *
  * @param delimiter The delimiter character used in the DSV file to be fetched.
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function dsv(
+export function dsv<Columns extends string>(
     delimiter: string,
     url: string,
-    init?: RequestInit,
-): Promise<DSVParsedArray<DSVRowString>>;
+    init?: RequestInit
+// tslint:disable-next-line:no-unnecessary-generics
+): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the DSV file with the specified delimiter character at the specified input URL and returns
  * a promise of an array of objects representing the parsed rows.
@@ -106,7 +115,8 @@ export function dsv(
  * The specified row conversion function is used to map and filter row objects to a more-specific representation;
  * see dsv.parse for details.
  *
- * The generic parameter describes the type of the object representation of a parsed row.
+ * The first generic parameter describes the type of the object representation of a parsed row.
+ * The second generic parameter describes the column names as a union of string literal types.
  *
  * @param delimiter The delimiter character used in the DSV file to be fetched.
  * @param url A valid URL string.
@@ -115,10 +125,10 @@ export function dsv(
  * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function dsv<ParsedRow extends DSVRowAny>(
+export function dsv<ParsedRow extends object, Columns extends string = string>(
     delimiter: string,
     url: string,
-    row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
 /**
  * Fetches the DSV file with the specified delimiter character at the specified input URL and returns
@@ -129,7 +139,8 @@ export function dsv<ParsedRow extends DSVRowAny>(
  * The specified row conversion function is used to map and filter row objects to a more-specific representation;
  * see dsv.parse for details.
  *
- * The generic parameter describes the type of the object representation of a parsed row.
+ * The first generic parameter describes the type of the object representation of a parsed row.
+ * The second generic parameter describes the column names as a union of string literal types.
  *
  * @param delimiter The delimiter character used in the DSV file to be fetched.
  * @param url A valid URL string.
@@ -139,11 +150,11 @@ export function dsv<ParsedRow extends DSVRowAny>(
  * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function dsv<ParsedRow extends DSVRowAny>(
+export function dsv<ParsedRow extends object, Columns extends string = string>(
     delimiter: string,
     url: string,
     init: RequestInit,
-    row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /**
@@ -164,19 +175,23 @@ export function html(url: string, init?: RequestInit): Promise<Document>;
  * @param url A valid URL string.
  * @param init An optional object of image properties to set.
  */
-export function image(url: string, init?: {[key: string]: any}): Promise<HTMLImageElement>;
+export function image(url: string, init?: Partial<HTMLImageElement>): Promise<HTMLImageElement>;
 
 /**
  * Fetches the json file at the specified input URL and returns it as a Promise of a parsed JSON object.
  *
  * If init is specified, it is passed along to the underlying call to fetch.
  *
+ * If the server returns a status code of [204 No Content](https://developer.mozilla.org/docs/Web/HTTP/Status/204)
+ * or [205 Reset Content](https://developer.mozilla.org/docs/Web/HTTP/Status/205), the promise resolves to `undefined`.
+ *
  * The generic parameter describes the type of the object parsed from the returned JSON.
  *
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject>;
+// tslint:disable-next-line:no-unnecessary-generics
+export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject | undefined>;
 
 /**
  * Fetches the file at the specified input URL as text, parses it as SVG and returns a Promise of an SVG Document.
@@ -204,13 +219,16 @@ export function text(url: string, init?: RequestInit): Promise<string>;
  *
  * If init is specified, it is passed along to the underlying call to fetch.
  *
+ * The generic parameter describes the column names as a union of string literal types.
+ *
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function tsv(
+export function tsv<Columns extends string>(
     url: string,
-    init?: RequestInit,
-): Promise<DSVParsedArray<DSVRowString>>;
+    init?: RequestInit
+// tslint:disable-next-line:no-unnecessary-generics
+): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the TSV file at the specified input URL and returns
  * a promise of an array of objects representing the parsed rows. The values of the properties of the parsed row
@@ -219,7 +237,8 @@ export function tsv(
  * The specified row conversion function is used to map and filter row objects to a more-specific representation;
  * see dsv.tsvParse for details.
  *
- * The generic parameter describes the type of the object representation of a parsed row.
+ * The first generic parameter describes the type of the object representation of a parsed row.
+ * The second generic parameter describes the column names as a union of string literal types.
  *
  * @param url A valid URL string.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
@@ -227,9 +246,9 @@ export function tsv(
  * the row is skipped and will be omitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsv<ParsedRow extends DSVRowAny>(
+export function tsv<ParsedRow extends object, Columns extends string = string>(
     url: string,
-    row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
 /**
  * Fetches the TSV file at the specified input URL and returns
@@ -240,7 +259,8 @@ export function tsv<ParsedRow extends DSVRowAny>(
  * The specified row conversion function is used to map and filter row objects to a more-specific representation;
  * see dsv.tsvParse for details.
  *
- * The generic parameter describes the type of the object representation of a parsed row.
+ * The first generic parameter describes the type of the object representation of a parsed row.
+ * The second generic parameter describes the column names as a union of string literal types.
  *
  * @param url A valid URL string.
  * @param init An request initialization object.
@@ -249,10 +269,10 @@ export function tsv<ParsedRow extends DSVRowAny>(
  * the row is skipped and will be omitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsv<ParsedRow extends DSVRowAny>(
+export function tsv<ParsedRow extends object, Columns extends string = string>(
     url: string,
     init: RequestInit,
-    row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /**

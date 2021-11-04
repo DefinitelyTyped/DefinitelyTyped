@@ -1,44 +1,34 @@
+import jsesc = require("jsesc");
 
-import jsesc = require('jsesc');
-import Opts = jsesc.Opts;
-
-// ---- ---- ---- ---- ---- ---- ----
-
-var num: number;
-var str: string;
-var bool: boolean;
-var opts: Opts;
-var opts: Opts;
+jsesc.version; // $ExpectType string
 
 // ---- ---- ---- ---- ---- ---- ----
 
-str = jsesc.version;
+jsesc("", { quotes: "single" }); // $ExpectType string
+jsesc("", { quotes: "double" }); // $ExpectType string
+jsesc("", { quotes: "backtick" }); // $ExpectType string
+jsesc("", { quotes: "foo" }); // $ExpectError
+jsesc("", { numbers: "binary" }); // $ExpectType string
+jsesc("", { numbers: "octal" }); // $ExpectType string
+jsesc("", { numbers: "decimal" }); // $ExpectType string
+jsesc("", { numbers: "hexadecimal" }); // $ExpectType string
+jsesc("", { numbers: "foo" }); // $ExpectError
+jsesc("", { wrap: true }); // $ExpectType string
+jsesc("", { es6: true }); // $ExpectType string
+jsesc("", { escapeEverything: true }); // $ExpectType string
+jsesc("", { minimal: true }); // $ExpectType string
+jsesc("", { isScriptContext: true }); // $ExpectType string
+jsesc("", { compact: false }); // $ExpectType string
+jsesc("", { indent: "  " }); // $ExpectType string
+jsesc("", { indentLevel: 2 }); // $ExpectType string
+jsesc("", { json: false }); // $ExpectType string
+jsesc("", { lowercaseHex: true }); // $ExpectType string
 
 // ---- ---- ---- ---- ---- ---- ----
 
-opts = {
-	quotes: str
-};
-opts = {
-	wrap: bool
-};
-opts = {
-	es6: bool
-};
-opts = {
-	escapeEverything: bool
-};
-opts = {
-	compact: bool
-};
-opts = {
-	indent: str
-};
-opts = {
-	json: bool
-};
-
-// ---- ---- ---- ---- ---- ---- ----
-
-str = jsesc(str);
-str = jsesc(str, opts);
+jsesc(""); // $ExpectType string
+jsesc("", { quotes: "single" }); // $ExpectType string
+jsesc(1); // $ExpectType string
+jsesc(1, { quotes: "single" }); // $ExpectType string
+jsesc({}); // $ExpectType string
+jsesc({}, { quotes: "single" }); // $ExpectType string

@@ -11,25 +11,26 @@ type s = number;
 declare namespace XOAuth2 {
     interface Options {
         /** User e-mail address */
-        user?: string;
+        user?: string | undefined;
         /** Client ID value */
-        clientId?: string;
+        clientId?: string | undefined;
         /** Client secret value */
-        clientSecret?: string;
+        clientSecret?: string | undefined;
         /** Refresh token for an user */
-        refreshToken?: string;
+        refreshToken?: string | undefined;
         /** Endpoint for token generation, defaults to 'https://accounts.google.com/o/oauth2/token' */
-        accessUrl?: string;
+        accessUrl?: string | undefined;
         /** An existing valid accessToken */
-        accessToken?: string;
+        accessToken?: string | undefined;
         /** Private key for JSW */
-        privateKey?: string | { key: string; passphrase: string; };
+        privateKey?: string | { key: string; passphrase: string; } | undefined;
         /** Optional Access Token expire time in ms */
-        expires?: ms;
+        expires?: ms | undefined;
         /** Optional TTL for Access Token in seconds */
-        timeout?: s;
+        timeout?: s | undefined;
         /** Function to run when a new access token is required */
         provisionCallback?(user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void): void;
+        serviceClient?: string | undefined;
     }
 
     interface Token {
@@ -39,7 +40,7 @@ declare namespace XOAuth2 {
     }
 
     interface RequestParams {
-        customHeaders?: http.OutgoingHttpHeaders;
+        customHeaders?: http.OutgoingHttpHeaders | undefined;
     }
 }
 
@@ -49,7 +50,7 @@ declare class XOAuth2 extends Stream {
     accessToken: string | false;
     expires: number;
 
-    constructor(options: XOAuth2.Options, logger: shared.Logger);
+    constructor(options?: XOAuth2.Options, logger?: shared.Logger);
 
     /** Returns or generates (if previous has expired) a XOAuth2 token */
     getToken(renew: boolean, callback: (err: Error | null, accessToken: string) => void): void;
@@ -71,7 +72,12 @@ declare class XOAuth2 extends Stream {
      * As we do only a simple POST request we do not actually require complicated
      * logic support (no redirects, no nothing) anyway.
      */
-    postRequest(url: string, payload: string | Buffer | Readable | { [key: string]: string }, params: XOAuth2.RequestParams, callback: (err: Error | null, buf: Buffer) => void): void;
+    postRequest(
+        url: string,
+        payload: string | Buffer | Readable | { [key: string]: string },
+        params: XOAuth2.RequestParams,
+        callback: (err: Error | null, buf: Buffer) => void
+    ): void;
 
     /** Encodes a buffer or a string into Base64url format */
     toBase64URL(data: Buffer | string): string;

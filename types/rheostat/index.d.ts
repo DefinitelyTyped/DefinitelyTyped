@@ -1,6 +1,6 @@
-// Type definitions for rheostat 2.1
+// Type definitions for rheostat 3.0
 // Project: https://github.com/airbnb/rheostat
-// Definitions by: Sasha Bayan <https://github.com/SashaBayan>, Wil Lee <https://github.com/kourge>
+// Definitions by: Sasha Bayan <https://github.com/SashaBayan>, Wil Lee <https://github.com/kourge>, Stefan Wer <https://github.com/StefanWerW>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -20,6 +20,7 @@ export interface PublicState {
 }
 
 export interface Events {
+  getNextHandlePosition?(handleIdx: number, percentPosition: number): number;
   onClick?(): any;
   onChange?(publicState: PublicState): any;
   onKeyPress?(): any;
@@ -30,19 +31,21 @@ export interface Events {
 }
 
 export interface Props extends Events {
-  algorithm?: Algorithm;
-  className?: string;
-  disabled?: boolean;
-  handle?: React.ReactType;
-  max?: number;
-  min?: number;
-  orientation?: Orientation;
-  pitComponent?: React.ReactType;
-  pitPoints?: number[];
-  progressBar?: React.ReactType;
-  snap?: boolean;
-  snapPoints?: number[];
-  values?: number[];
+  algorithm?: Algorithm | undefined;
+  autoAdjustVerticalPosition?: boolean | undefined;
+  background?: React.ElementType | undefined;
+  className?: string | undefined;
+  disabled?: boolean | undefined;
+  handle?: React.ElementType | undefined;
+  max?: number | undefined;
+  min?: number | undefined;
+  orientation?: Orientation | undefined;
+  pitComponent?: React.ElementType | undefined;
+  pitPoints?: number[] | undefined;
+  progressBar?: React.ElementType | undefined;
+  snap?: boolean | undefined;
+  snapPoints?: number[] | undefined;
+  values?: number[] | undefined;
 }
 
 export default class Rheostat extends React.Component<Props, never> {}

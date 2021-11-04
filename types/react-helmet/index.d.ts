@@ -1,36 +1,81 @@
-// Type definitions for react-helmet 5.0
+// Type definitions for react-helmet 6.1
 // Project: https://github.com/nfl/react-helmet
-// Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>, François Nguyen <https://github.com/lith-light-g>, Kok Sam <https://github.com/sammkj>, Yui T. <https://github.com/yuit>
+// Definitions by: Evan Bremer <https://github.com/evanbb>
+//                 Isman Usoh <https://github.com/isman-usoh>
+//                 François Nguyen <https://github.com/lith-light-g>
+//                 Kok Sam <https://github.com/sammkj>
+//                 Yui T. <https://github.com/yuit>
+//                 Yamagishi Kazutoshi <https://github.com/ykzts>
+//                 Justin Hall <https://github.com/wKovacs64>
+//                 Andriy2 <https://github.com/Andriy2>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import * as React from "react";
 
-export interface HelmetProps {
-    async?: boolean;
-    base?: any;
-    bodyAttributes?: Object;
-    defaultTitle?: string;
-    defer?: boolean;
-    encodeSpecialCharacters?: boolean;
-    htmlAttributes?: any;
-    onChangeClientState?: (newState: any) => void;
-    link?: Array<any>;
-    meta?: Array<any>;
-    noscript?: Array<any>;
-    script?: Array<any>;
-    style?: Array<any>;
-    title?: string;
-    titleAttributes?: Object;
-    titleTemplate?: string;
+interface OtherElementAttributes {
+    [key: string]: string | number | boolean | null | undefined;
 }
 
-export class Helmet extends React.Component<HelmetProps> {
-    static peek(): HelmetData;
+type HtmlProps = JSX.IntrinsicElements["html"] & OtherElementAttributes;
+
+type BodyProps = JSX.IntrinsicElements["body"] & OtherElementAttributes;
+
+type LinkProps = JSX.IntrinsicElements["link"];
+
+type MetaProps = JSX.IntrinsicElements["meta"];
+
+export interface HelmetTags {
+    baseTag: any[];
+    linkTags: HTMLLinkElement[];
+    metaTags: HTMLMetaElement[];
+    noscriptTags: any[];
+    scriptTags: HTMLScriptElement[];
+    styleTags: HTMLStyleElement[];
+}
+
+export interface HelmetProps {
+    async?: boolean | undefined;
+    base?: any;
+    bodyAttributes?: BodyProps | undefined;
+    children?: React.ReactNode;
+    defaultTitle?: string | undefined;
+    defer?: boolean | undefined;
+    encodeSpecialCharacters?: boolean | undefined;
+    htmlAttributes?: HtmlProps | undefined;
+    onChangeClientState?: ((newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void) | undefined;
+    link?: LinkProps[] | undefined;
+    meta?: MetaProps[] | undefined;
+    noscript?: any[] | undefined;
+    script?: any[] | undefined;
+    style?: any[] | undefined;
+    title?: string | undefined;
+    titleAttributes?: object | undefined;
+    titleTemplate?: string | undefined;
+}
+
+/**
+ * Used by Helmet.peek()
+ */
+export type HelmetPropsToState = HelmetTags &
+    Pick<
+        HelmetProps,
+        "bodyAttributes" | "defer" | "htmlAttributes" | "onChangeClientState" | "title" | "titleAttributes"
+    > & {
+        encode: Required<HelmetProps["encodeSpecialCharacters"]>;
+    };
+
+declare class Helmet extends React.Component<HelmetProps> {
+    static peek(): HelmetPropsToState;
     static rewind(): HelmetData;
     static renderStatic(): HelmetData;
     static canUseDOM: boolean;
 }
+
+declare const HelmetExport: typeof Helmet;
+
+export { HelmetExport as Helmet };
+export default HelmetExport;
 
 export interface HelmetData {
     base: HelmetDatum;
@@ -47,7 +92,7 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.Component<any>;
+    toComponent(): React.ReactElement;
 }
 
 export interface HelmetHTMLBodyDatum {
@@ -57,11 +102,7 @@ export interface HelmetHTMLBodyDatum {
 
 export interface HelmetHTMLElementDatum {
     toString(): string;
-    toComponent(): React.HTMLAttributes<HTMLElement>;
+    toComponent(): React.HTMLAttributes<HTMLHtmlElement>;
 }
 
-export const peek: () => HelmetData;
-export const rewind: () => HelmetData;
-export const renderStatic: () => HelmetData;
 export const canUseDOM: boolean;
-export default Helmet;

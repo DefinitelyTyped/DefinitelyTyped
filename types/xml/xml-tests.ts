@@ -114,7 +114,7 @@ test('supports stream interface', t => {
         t.is(stanza, results.shift());
     });
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
         xmlStream.on('close', () => {
             t.same(results, []);
             resolve();
@@ -145,7 +145,7 @@ test('streams end properly', t => {
         t.ok(gotData);
     });
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
         xmlStream.on('close',  () => {
             t.ok(gotData);
             resolve();

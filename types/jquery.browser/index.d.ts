@@ -7,34 +7,34 @@
 /// <reference types="jquery" />
 
 export interface Matchs {
-    version?: string;
-    versionNumber?: number;
-    platform?: string;
-    mobile?: boolean;
-    desktop?: boolean;
-    webkit?: boolean;
-    name?: string;
-    android?: boolean;
-    bb?: boolean;
-    blackberry?: boolean;
-    ipad?: boolean;
-    iphone?: boolean;
-    ipod?: boolean;
-    kindle?: boolean;
-    playbook?: boolean;
-    silk?: boolean;
-    ['windows phone']?: boolean;
-    cros?: boolean;
-    mac?: boolean;
-    linux?: boolean;
-    win?: boolean;
-    chrome?: boolean;
-    opr?: boolean;
-    safari?: boolean;
-    rv?: boolean;
-    iemobile?: boolean;
-    msie?: boolean;
-    msedge?: boolean;
+    version?: string | undefined;
+    versionNumber?: number | undefined;
+    platform?: string | undefined;
+    mobile?: boolean | undefined;
+    desktop?: boolean | undefined;
+    webkit?: boolean | undefined;
+    name?: string | undefined;
+    android?: boolean | undefined;
+    bb?: boolean | undefined;
+    blackberry?: boolean | undefined;
+    ipad?: boolean | undefined;
+    iphone?: boolean | undefined;
+    ipod?: boolean | undefined;
+    kindle?: boolean | undefined;
+    playbook?: boolean | undefined;
+    silk?: boolean | undefined;
+    ['windows phone']?: boolean | undefined;
+    cros?: boolean | undefined;
+    mac?: boolean | undefined;
+    linux?: boolean | undefined;
+    win?: boolean | undefined;
+    chrome?: boolean | undefined;
+    opr?: boolean | undefined;
+    safari?: boolean | undefined;
+    rv?: boolean | undefined;
+    iemobile?: boolean | undefined;
+    msie?: boolean | undefined;
+    msedge?: boolean | undefined;
     uaMatch: ((ua?: string) => Matchs);
 }
 declare global {

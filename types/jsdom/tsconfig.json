@@ -1,27 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["ESNext", "DOM"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "parse5": [ "parse5/v4" ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "jsdom-tests.ts"
+        "jsdom-tests.ts",
+        "test/core.ts",
+        "index.d.ts"
     ]
 }

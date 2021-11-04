@@ -1,18 +1,16 @@
 {
+    "exclude": ["fix-tslint.ts", "update-config"],
     "compilerOptions": {
-        "module": "commonjs",
         "target": "es6",
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
+        "strict": true,
         "baseUrl": "../types",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
         "typeRoots": [
             "../types"
         ],
         "types": [],
+        "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true
     }
 }

@@ -1,12 +1,16 @@
-// Type definitions for jest-axe 2.2
+// Type definitions for jest-axe 3.5
 // Project: https://github.com/nickcolley/jest-axe
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
+// Definitions by: erbridge <https://github.com/erbridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 
-import { AxeResults, Result, RunOnly } from "axe-core";
+import { AxeResults, Result, RunOptions, Spec } from 'axe-core';
+
+export interface JestAxeConfigureOptions extends RunOptions {
+    globalOptions?: Spec | undefined;
+}
 
 /**
  * Version of the aXe verifier with defaults set.
@@ -17,24 +21,13 @@ import { AxeResults, Result, RunOnly } from "axe-core";
 export const axe: JestAxe;
 
 /**
- * Core options to run aXe.
- */
-export interface AxeOptions {
-    elementRef?: boolean;
-    iframes?: boolean;
-    rules?: object;
-    runOnly?: RunOnly;
-    selectors?: boolean;
-}
-
-/**
  * Runs aXe on HTML.
  *
  * @param html   Raw HTML string to verify with aXe.
  * @param options   Options to run aXe.
  * @returns Promise for the results of running aXe.
  */
-export type JestAxe = (html: string, options?: AxeOptions) => Promise<AxeResults>;
+export type JestAxe = (html: Element | string, options?: RunOptions) => Promise<AxeResults>;
 
 /**
  * Creates a new aXe verifier function.
@@ -42,7 +35,7 @@ export type JestAxe = (html: string, options?: AxeOptions) => Promise<AxeResults
  * @param options   Options to run aXe.
  * @returns New aXe verifier function.
  */
-export function configureAxe(options?: AxeOptions): JestAxe;
+export function configureAxe(options?: JestAxeConfigureOptions): JestAxe;
 
 /**
  * Results from asserting whether aXe verification passed.
@@ -78,8 +71,11 @@ export const toHaveNoViolations: {
 
 declare global {
     namespace jest {
-        interface Matchers<R> {
-            toHaveNoViolations: IToHaveNoViolations;
+        interface Matchers<R, T> {
+            toHaveNoViolations(): R;
         }
     }
+
+    // axe-core depends on a global Node
+    interface Node {}
 }

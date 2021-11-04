@@ -68,15 +68,9 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         suggestions: this.getSuggestions('')
     };
     // endregion region Rendering methods
+    inputRef = React.createRef<HTMLInputElement>();
     render(): JSX.Element {
         const {value, suggestions} = this.state;
-        const inputProps = {
-            placeholder: `Type 'c'`,
-            value,
-            onChange: this
-                .onChange
-                .bind(this)
-        };
 
         const theme = {
             input: 'themed-input-class',
@@ -94,7 +88,17 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             renderSuggestion={this.renderSuggestion}
             onSuggestionSelected={this.onSuggestionsSelected}
             alwaysRenderSuggestions={true}
-            inputProps={inputProps}
+            shouldRenderSuggestions={(value, reason) => reason !== 'input-focused'}
+            inputProps={{
+                placeholder: `Type 'c'`,
+                value,
+                onChange: (e, changeEvent) => this.onChange(e, changeEvent),
+                onBlur: (e) => { console.log(e.relatedTarget); },
+                ref: this.inputRef
+            }}
+            containerProps={{
+                className: 'some-css-class'
+            }}
             theme={theme}/>;
     }
 
@@ -107,7 +111,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         return <span className={className}>{suggestion.name}</span>;
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
@@ -135,7 +139,8 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // endregion
 }
 
-const LanguageAutosuggest = Autosuggest as { new (): Autosuggest<Language> };
+const LanguageAutosuggestSingle = Autosuggest as { new (): Autosuggest<Language> };
+const LanguageAutosuggestMulti = Autosuggest as { new (): Autosuggest<Language, LanguageGroup> };
 
 export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     // region Fields
@@ -192,13 +197,6 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     // endregion region Rendering methods
     render(): JSX.Element {
         const {value, suggestions} = this.state;
-        const inputProps = {
-            placeholder: `Type 'c'`,
-            value,
-            onChange: this
-                .onChange
-                .bind(this)
-        };
 
         const theme = {
             input: 'themed-input-class',
@@ -207,7 +205,7 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
             sectionTitle: { color: 'blue' }
         };
 
-        return <LanguageAutosuggest
+        return <LanguageAutosuggestSingle
             suggestions={suggestions}
             onSuggestionsFetchRequested={this
             .onSuggestionsFetchRequested
@@ -216,7 +214,11 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
             renderSuggestion={this.renderSuggestion}
             onSuggestionSelected={this.onSuggestionsSelected}
             alwaysRenderSuggestions={true}
-            inputProps={inputProps}
+            inputProps={{
+                placeholder: `Type 'c'`,
+                value,
+                onChange: (e, changeEvent) => this.onChange(e, changeEvent),
+            }}
             theme={theme}/>;
     }
 
@@ -229,7 +231,7 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
         return <span className={className}>{suggestion.name}</span>;
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
@@ -352,15 +354,8 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     // endregion region Rendering methods
     render(): JSX.Element {
         const {value, suggestions} = this.state;
-        const inputProps = {
-            placeholder: `Type 'c'`,
-            value,
-            onChange: this
-                .onChange
-                .bind(this)
-        };
 
-        return <LanguageAutosuggest
+        return <LanguageAutosuggestMulti
             multiSection={true}
             suggestions={suggestions}
             onSuggestionsFetchRequested={this
@@ -375,7 +370,11 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
             highlightFirstSuggestion={true}
             renderInputComponent={this.renderInputComponent}
             renderSuggestionsContainer={this.renderSuggestionsContainer}
-            inputProps={inputProps}/>;
+            inputProps={{
+                placeholder: `Type 'c'`,
+                value,
+                onChange: (e, changeEvent) => this.onChange(e, changeEvent),
+            }}/>;
     }
 
     protected onSuggestionSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
@@ -392,7 +391,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.InputProps<Language>): JSX.Element {
+    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): JSX.Element {
         return (
             <div>
                 <input {...inputProps} />
@@ -408,7 +407,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         );
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
@@ -496,20 +495,17 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     // endregion region Rendering methods
     render(): JSX.Element {
         const {value, suggestions} = this.state;
-        const inputProps = {
-            placeholder: "Type 'c'",
-            value,
-            onChange: this
-                .onChange
-                .bind(this)
-        };
 
         return<PersonAutosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             getSuggestionValue={this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
-            inputProps={inputProps}/>;
+            inputProps={{
+                placeholder: "Type 'c'",
+                value,
+                onChange: (e, changeEvent) => this.onChange(e, changeEvent),
+            }}/>;
     }
 
     protected renderSuggestion(suggestion: Person, params: Autosuggest.RenderSuggestionParams): JSX.Element {
@@ -538,7 +534,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
        </span>;
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
@@ -568,3 +564,77 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
 
 ReactDOM.render(
    <ReactAutosuggestCustomTest/>, document.getElementById('app'));
+
+const test: Autosuggest.InputProps<{ foo: string }> = {
+    onChange: () => {},
+    value: 'foo',
+    anything: false // $ExpectError
+};
+
+function testSingleSection() {
+    const suggestions: string[] = [];
+    <Autosuggest
+        suggestions={suggestions}
+
+        // Required
+        getSuggestionValue={suggestion => suggestion}
+        inputProps={{
+            onChange: () => {},
+            value: ''
+        }}
+        onSuggestionsFetchRequested={() => {}}
+        renderSuggestion={suggestion => suggestion}
+    />;
+}
+
+function testMultiSections() {
+    interface Section { title: string; suggestions: string[]; }
+    const sections: Section[] = [];
+    <Autosuggest
+        multiSection
+        suggestions={sections}
+        getSectionSuggestions={section => section.suggestions}
+
+        // Required
+        getSuggestionValue={(suggestion: string) => suggestion}
+        inputProps={{
+            onChange: () => {},
+            value: ''
+        }}
+        onSuggestionsFetchRequested={() => {}}
+        renderSuggestion={suggestion => suggestion}
+    />;
+}
+
+const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = event => {
+    const element = event.target;
+    // `value` only exists on the input element, but sometimes this function is
+    // called with a `target` pointing to a non-input element. For example, when
+    // the user clicks on a suggestion. Reduced test case:
+    // https://stackblitz.com/edit/oliverjash-react-autosuggest-1lhfk3?file=index.tsx
+    element.value; // $ExpectError
+};
+
+{
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onChange">> = props => null;
+
+    const invalidOnChange = (event: React.FormEvent<HTMLDivElement>) => { };
+    const onChange = (event: React.FormEvent<HTMLElement>) => { };
+    <CustomInput
+        // $ExpectError
+        onChange={invalidOnChange}
+    />;
+    <CustomInput onChange={onChange} />;
+}
+
+{
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onBlur">> = props => null;
+
+    const invalidOnBlur = (event: React.FocusEvent<HTMLDivElement>) => { };
+    const onBlur = (event: React.FocusEvent<HTMLElement>) => { };
+    <CustomInput
+        // $ExpectError
+        onBlur={invalidOnBlur}
+    />;
+    <CustomInput onBlur={onBlur} />;
+}

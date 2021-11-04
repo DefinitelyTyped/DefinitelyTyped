@@ -26,7 +26,7 @@ declare namespace __ParcelModuleApi {
         loaded: boolean;
         parent: any;
         children: any[];
-        hot?: Hot;
+        hot?: Hot | undefined;
     }
     type ModuleId = string|number;
 
@@ -141,11 +141,11 @@ declare namespace __ParcelModuleApi {
         /**
          * If true the update process continues even if some modules are not accepted (and would bubble to the entry point).
          */
-        ignoreUnaccepted?: boolean;
+        ignoreUnaccepted?: boolean | undefined;
         /**
          * Indicates that apply() is automatically called by check function
          */
-        autoApply?: boolean;
+        autoApply?: boolean | undefined;
     }
     /**
     * Inside env you can pass any variable

@@ -1,13 +1,13 @@
 // Added in addition to code from https://hapijs.com/api/16.1.1#route-options > plugins
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 // In the plugin code
-declare module '../../' {
+declare module 'hapi' {
     interface PluginSpecificConfiguration {
         coolPlugin: {
             optionA: string;
-            optionB?: boolean;
+            optionB?: boolean | undefined;
         }
     }
 }

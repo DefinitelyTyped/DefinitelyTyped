@@ -1,23 +1,24 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface ReactScrollLinkProps {
     to: string;
-    containerId?: string;
-    activeClass?: string;
-    spy?: boolean;
-    hashSpy?: boolean;
-    smooth?: boolean | string;
-    offset?: number;
-    delay?: number;
-    isDynamic?: boolean;
+    containerId?: string | undefined;
+    activeClass?: string | undefined;
+    spy?: boolean | undefined;
+    hashSpy?: boolean | undefined;
+    smooth?: boolean | string | undefined;
+    offset?: number | undefined;
+    delay?: number | undefined;
+    isDynamic?: boolean | undefined;
     onClick?(): void;
-    duration?: number | string;
-    absolute?: boolean;
+    duration?: number | string | ((distance: number) => number) | undefined;
+    absolute?: boolean | undefined;
     onSetActive?(to: string): void;
     onSetInactive?(): void;
-    ignoreCancelEvents?: boolean;
+    ignoreCancelEvents?: boolean | undefined;
+    saveHashHistory?: boolean | undefined;
 }
 
 export type LinkProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;
 
-export default class Link extends React.Component<LinkProps> { }
+export default class Link extends React.Component<LinkProps> {}

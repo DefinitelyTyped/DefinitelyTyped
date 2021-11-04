@@ -9,43 +9,43 @@ interface plupload_settings {
     url: string,
 
     /** Filters */
-    filters?: plupload_filters,
+    filters?: plupload_filters | undefined,
 
     /** Control the request */
     headers?: any;
-    max_retries?: number;
-    multipart?: boolean;
+    max_retries?: number | undefined;
+    multipart?: boolean | undefined;
     multipart_params?: any;
 
     /** Chunk */
-    chunk_size?: number | string;
+    chunk_size?: number | string | undefined;
 
     /** Client-Side Image Resize */
-    resize?: plupload_resize;
+    resize?: plupload_resize | undefined;
 
     /** Drag&Drop Files from the Desktop */
-    drop_element?: string;
+    drop_element?: string | undefined;
 
     /** Useful Options */
-    multi_selection?: boolean;
-    required_features?: string | any;
-    unique_names?: boolean;
+    multi_selection?: boolean | undefined;
+    required_features?: string | any | undefined;
+    unique_names?: boolean | undefined;
 
     /** Optional */
-    runtimes?: string;
-    file_data_name?: string;
+    runtimes?: string | undefined;
+    file_data_name?: string | undefined;
     container?: any;
-    flash_swf_url?: string;
-    silverlight_xap_url?: string;
+    flash_swf_url?: string | undefined;
+    silverlight_xap_url?: string | undefined;
 
     /** Events */
-    init?: plupload_events;
+    init?: plupload_events | undefined;
 }
 
 interface plupload_filters {
-    mime_types?: plupload_filters_mime_types[];
-    max_file_size?: number | string;
-    prevent_duplicates?: boolean;
+    mime_types?: plupload_filters_mime_types[] | undefined;
+    max_file_size?: number | string | undefined;
+    prevent_duplicates?: boolean | undefined;
 }
 
 interface plupload_filters_mime_types {
@@ -54,11 +54,11 @@ interface plupload_filters_mime_types {
 }
 
 interface plupload_resize {
-    width?: number;
-    height?: number;
-    crop?: boolean;
-    quality?: number;
-    preserve_headers?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    crop?: boolean | undefined;
+    quality?: number | undefined;
+    preserve_headers?: boolean | undefined;
 }
 
 interface plupload_queue_progress {
@@ -101,23 +101,23 @@ interface plupload_event_Error {
 }
 
 interface plupload_events {
-    Init?: plupload_event;
-    PostInit?: plupload_event;
-    OptionChanged?: plupload_event_OptionChanged;
-    Refresh?: plupload_event;
-    StateChanged?: plupload_event;
-    UploadFile?: plupload_event_file;
-    BeforeUpload?: plupload_event_file;
-    QueueChanged?: plupload_event;
-    UploadProgress?: plupload_event_file;
-    FilesRemoved?: plupload_event_files;
-    FileFiltered?: plupload_event_file;
-    FilesAdded?: plupload_event_files;
-    FileUploaded?: plupload_event_FileUploaded;
-    ChunkUploaded?: plupload_event_ChunkUploaded;
-    UploadComplete?: plupload_event_files;
-    Error?: plupload_event_Error;
-    Destroy?: plupload_event;
+    Init?: plupload_event | undefined;
+    PostInit?: plupload_event | undefined;
+    OptionChanged?: plupload_event_OptionChanged | undefined;
+    Refresh?: plupload_event | undefined;
+    StateChanged?: plupload_event | undefined;
+    UploadFile?: plupload_event_file | undefined;
+    BeforeUpload?: plupload_event_file | undefined;
+    QueueChanged?: plupload_event | undefined;
+    UploadProgress?: plupload_event_file | undefined;
+    FilesRemoved?: plupload_event_files | undefined;
+    FileFiltered?: plupload_event_file | undefined;
+    FilesAdded?: plupload_event_files | undefined;
+    FileUploaded?: plupload_event_FileUploaded | undefined;
+    ChunkUploaded?: plupload_event_ChunkUploaded | undefined;
+    UploadComplete?: plupload_event_files | undefined;
+    Error?: plupload_event_Error | undefined;
+    Destroy?: plupload_event | undefined;
 }
 
 interface plupload_response {
@@ -144,169 +144,169 @@ declare namespace plupload {
         constructor(settings: plupload_settings);
 
         /**
-		 * Unique id for the Uploader instance.
-		 *
-		 * @property id
-		 * @type String
-		 */
+         * Unique id for the Uploader instance.
+         *
+         * @property id
+         * @type String
+         */
         id: string;
 
         /**
-		 * Current state of the total uploading progress. This one can either be plupload.STARTED or plupload.STOPPED.
-		 * These states are controlled by the stop/start methods. The default value is STOPPED.
-		 *
-		 * @property state
-		 * @type Number
-		 */
+         * Current state of the total uploading progress. This one can either be plupload.STARTED or plupload.STOPPED.
+         * These states are controlled by the stop/start methods. The default value is STOPPED.
+         *
+         * @property state
+         * @type Number
+         */
         state: number;
 
         /**
-		 * Map of features that are available for the uploader runtime. Features will be filled
-		 * before the init event is called, these features can then be used to alter the UI for the end user.
-		 * Some of the current features that might be in this map is: dragdrop, chunks, jpgresize, pngresize.
-		 *
-		 * @property features
-		 * @type Object
-		 */
+         * Map of features that are available for the uploader runtime. Features will be filled
+         * before the init event is called, these features can then be used to alter the UI for the end user.
+         * Some of the current features that might be in this map is: dragdrop, chunks, jpgresize, pngresize.
+         *
+         * @property features
+         * @type Object
+         */
         features: any;
 
         /**
-		 * Current runtime name.
-		 *
-		 * @property runtime
-		 * @type String
-		 */
+         * Current runtime name.
+         *
+         * @property runtime
+         * @type String
+         */
         runtime: string;
 
         /**
-		 * Current upload queue, an array of File instances.
-		 *
-		 * @property files
-		 * @type Array
-		 * @see plupload.File
-		 */
+         * Current upload queue, an array of File instances.
+         *
+         * @property files
+         * @type Array
+         * @see plupload.File
+         */
         files: Array<any>;
 
         /**
-		 * Object with name/value settings.
-		 *
-		 * @property settings
-		 * @type Object
-		 */
+         * Object with name/value settings.
+         *
+         * @property settings
+         * @type Object
+         */
         settings: any;
 
         /**
-		 * Total progess information. How many files has been uploaded, total percent etc.
-		 *
-		 * @property total
-		 * @type plupload.QueueProgress
-		 */
+         * Total progess information. How many files has been uploaded, total percent etc.
+         *
+         * @property total
+         * @type plupload.QueueProgress
+         */
         total: plupload_queue_progress;
 
         /**
-		 * Initializes the Uploader instance and adds internal event listeners.
-		 *
-		 * @method init
-		 */
+         * Initializes the Uploader instance and adds internal event listeners.
+         *
+         * @method init
+         */
         init(): void;
 
         /**
-		 * Set the value for the specified option(s).
-		 *
-		 * @method setOption
-		 * @since 2.1
-		 * @param {String|Object} option Name of the option to change or the set of key/value pairs
-		 * @param {Mixed} [value] Value for the option (is ignored, if first argument is object)
-		 */
+         * Set the value for the specified option(s).
+         *
+         * @method setOption
+         * @since 2.1
+         * @param {String|Object} option Name of the option to change or the set of key/value pairs
+         * @param {Mixed} [value] Value for the option (is ignored, if first argument is object)
+         */
         setOption(option: string | any, value?: any): void;
 
         /**
-		 * Get the value for the specified option or the whole configuration, if not specified.
-		 *
-		 * @method getOption
-		 * @since 2.1
-		 * @param {String} [option] Name of the option to get
-		 * @return {Mixed} Value for the option or the whole set
-		 */
+         * Get the value for the specified option or the whole configuration, if not specified.
+         *
+         * @method getOption
+         * @since 2.1
+         * @param {String} [option] Name of the option to get
+         * @return {Mixed} Value for the option or the whole set
+         */
         getOption(option?: string): any;
 
         /**
-		 * Refreshes the upload instance by dispatching out a refresh event to all runtimes.
-		 * This would for example reposition flash/silverlight shims on the page.
-		 *
-		 * @method refresh
-		 */
+         * Refreshes the upload instance by dispatching out a refresh event to all runtimes.
+         * This would for example reposition flash/silverlight shims on the page.
+         *
+         * @method refresh
+         */
         refresh(): void;
 
         /**
-		 * Starts uploading the queued files.
-		 *
-		 * @method start
-		 */
+         * Starts uploading the queued files.
+         *
+         * @method start
+         */
         start(): void;
 
         /**
-		 * Stops the upload of the queued files.
-		 *
-		 * @method stop
-		 */
+         * Stops the upload of the queued files.
+         *
+         * @method stop
+         */
         stop(): void;
 
         /**
-		 * Disables/enables browse button on request.
-		 *
-		 * @method disableBrowse
-		 * @param {Boolean} disable Whether to disable or enable (default: true)
-		 */
+         * Disables/enables browse button on request.
+         *
+         * @method disableBrowse
+         * @param {Boolean} disable Whether to disable or enable (default: true)
+         */
         disableBrowse(disable: boolean): void;
 
         // TODO: Make plupload.File typing
         /**
-		 * Returns the specified file object by id.
-		 *
-		 * @method getFile
-		 * @param {String} id File id to look for.
-		 * @return {plupload.File} File object or undefined if it wasn't found;
-		 */
+         * Returns the specified file object by id.
+         *
+         * @method getFile
+         * @param {String} id File id to look for.
+         * @return {plupload.File} File object or undefined if it wasn't found;
+         */
         getFile(id: string): any;
 
         /**
-		 * Adds file to the queue programmatically. Can be native file, instance of Plupload.File,
-		 * instance of mOxie.File, input[type="file"] element, or array of these. Fires FilesAdded,
-		 * if any files were added to the queue. Otherwise nothing happens.
-		 *
-		 * @method addFile
-		 * @since 2.0
-		 * @param {plupload.File|mOxie.File|File|Node|Array} file File or files to add to the queue.
-		 * @param {String} [fileName] If specified, will be used as a name for the file
-		 */
+         * Adds file to the queue programmatically. Can be native file, instance of Plupload.File,
+         * instance of mOxie.File, input[type="file"] element, or array of these. Fires FilesAdded,
+         * if any files were added to the queue. Otherwise nothing happens.
+         *
+         * @method addFile
+         * @since 2.0
+         * @param {plupload.File|mOxie.File|File|Node|Array} file File or files to add to the queue.
+         * @param {String} [fileName] If specified, will be used as a name for the file
+         */
         addFile(file: any, fileName?: string): void;
 
         /**
-		 * Removes a specific file.
-		 *
-		 * @method removeFile
-		 * @param {plupload.File|String} file File to remove from queue.
-		 */
+         * Removes a specific file.
+         *
+         * @method removeFile
+         * @param {plupload.File|String} file File to remove from queue.
+         */
         removeFile(file: any): any;
 
         /**
-		 * Removes part of the queue and returns the files removed. This will also trigger the
-		 * FilesRemoved and QueueChanged events.
-		 *
-		 * @method splice
-		 * @param {Number} [start=0] Start index to remove from.
-		 * @param {Number} [length] Number of files to remove (defaults to number of files in the queue).
-		 * @return {Array} Array of files that was removed.
-		 */
+         * Removes part of the queue and returns the files removed. This will also trigger the
+         * FilesRemoved and QueueChanged events.
+         *
+         * @method splice
+         * @param {Number} [start=0] Start index to remove from.
+         * @param {Number} [length] Number of files to remove (defaults to number of files in the queue).
+         * @return {Array} Array of files that was removed.
+         */
         splice(start?: number, length?: number): any;
 
         /**
-		 * Dispatches the specified event name and its arguments to all listeners.
-		 * @method trigger
-	 	 * @param {String} name Event name to fire.
+         * Dispatches the specified event name and its arguments to all listeners.
+         * @method trigger
+          * @param {String} name Event name to fire.
          * @param {Object..} Multiple arguments to pass along to the listener functions.
-		*/
+        */
         trigger(name: string, Multiple: any): any;
         
         hasEventListener(name: string): any;
@@ -319,156 +319,156 @@ declare namespace plupload {
     export const VERSION: string;
 
     /**
-	 * The state of the queue before it has started and after it has finished
-	 *
-	 * @property STOPPED
-	 * @static
-	 * @final
-	 */
+     * The state of the queue before it has started and after it has finished
+     *
+     * @property STOPPED
+     * @static
+     * @final
+     */
     export const STOPPED: number;
 
     /**
-	 * Upload process is running
-	 *
-	 * @property STARTED
-	 * @static
-	 * @final
-	 */
+     * Upload process is running
+     *
+     * @property STARTED
+     * @static
+     * @final
+     */
     export const STARTED: number;
 
     /**
-	 * File is queued for upload
-	 *
-	 * @property QUEUED
-	 * @static
-	 * @final
-	 */
+     * File is queued for upload
+     *
+     * @property QUEUED
+     * @static
+     * @final
+     */
     export const QUEUED: number;
 
     /**
-	 * File is being uploaded
-	 *
-	 * @property UPLOADING
-	 * @static
-	 * @final
-	 */
+     * File is being uploaded
+     *
+     * @property UPLOADING
+     * @static
+     * @final
+     */
     export const UPLOADING: number;
 
     /**
-	 * File has failed to be uploaded
-	 *
-	 * @property FAILED
-	 * @static
-	 * @final
-	 */
+     * File has failed to be uploaded
+     *
+     * @property FAILED
+     * @static
+     * @final
+     */
     export const FAILED: number;
 
     /**
-	 * File has been uploaded successfully
-	 *
-	 * @property DONE
-	 * @static
-	 * @final
-	 */
+     * File has been uploaded successfully
+     *
+     * @property DONE
+     * @static
+     * @final
+     */
     export const DONE: number;
 
     /**
-	 * Generic error for example if an exception is thrown inside Silverlight.
-	 *
-	 * @property GENERIC_ERROR
-	 * @static
-	 * @final
-	 */
+     * Generic error for example if an exception is thrown inside Silverlight.
+     *
+     * @property GENERIC_ERROR
+     * @static
+     * @final
+     */
     export const GENERIC_ERROR: number;
 
     /**
-	 * HTTP transport error. For example if the server produces a HTTP status other than 200.
-	 *
-	 * @property HTTP_ERROR
-	 * @static
-	 * @final
-	 */
+     * HTTP transport error. For example if the server produces a HTTP status other than 200.
+     *
+     * @property HTTP_ERROR
+     * @static
+     * @final
+     */
     export const HTTP_ERROR: number;
 
     /**
-	 * Generic I/O error. For example if it wasn't possible to open the file stream on local machine.
-	 *
-	 * @property IO_ERROR
-	 * @static
-	 * @final
-	 */
+     * Generic I/O error. For example if it wasn't possible to open the file stream on local machine.
+     *
+     * @property IO_ERROR
+     * @static
+     * @final
+     */
     export const IO_ERROR: number;
 
     /**
-	 * @property SECURITY_ERROR
-	 * @static
-	 * @final
-	 */
+     * @property SECURITY_ERROR
+     * @static
+     * @final
+     */
     export const SECURITY_ERROR: number;
 
     /**
-	 * Initialization error. Will be triggered if no runtime was initialized.
-	 *
-	 * @property INIT_ERROR
-	 * @static
-	 * @final
-	 */
+     * Initialization error. Will be triggered if no runtime was initialized.
+     *
+     * @property INIT_ERROR
+     * @static
+     * @final
+     */
     export const INIT_ERROR: number;
 
     /**
-	 * File size error. If the user selects a file that is too large or is empty it will be blocked and
-	 * an error of this type will be triggered.
-	 *
-	 * @property FILE_SIZE_ERROR
-	 * @static
-	 * @final
-	 */
+     * File size error. If the user selects a file that is too large or is empty it will be blocked and
+     * an error of this type will be triggered.
+     *
+     * @property FILE_SIZE_ERROR
+     * @static
+     * @final
+     */
     export const FILE_SIZE_ERROR: number;
 
     /**
-	 * File extension error. If the user selects a file that isn't valid according to the filters setting.
-	 *
-	 * @property FILE_EXTENSION_ERROR
-	 * @static
-	 * @final
-	 */
+     * File extension error. If the user selects a file that isn't valid according to the filters setting.
+     *
+     * @property FILE_EXTENSION_ERROR
+     * @static
+     * @final
+     */
     export const FILE_EXTENSION_ERROR: number;
 
     /**
-	 * Duplicate file error. If prevent_duplicates is set to true and user selects the same file again.
-	 *
-	 * @property FILE_DUPLICATE_ERROR
-	 * @static
-	 * @final
-	 */
+     * Duplicate file error. If prevent_duplicates is set to true and user selects the same file again.
+     *
+     * @property FILE_DUPLICATE_ERROR
+     * @static
+     * @final
+     */
     export const FILE_DUPLICATE_ERROR: number;
 
     /**
-	 * Runtime will try to detect if image is proper one. Otherwise will throw this error.
-	 *
-	 * @property IMAGE_FORMAT_ERROR
-	 * @static
-	 * @final
-	 */
+     * Runtime will try to detect if image is proper one. Otherwise will throw this error.
+     *
+     * @property IMAGE_FORMAT_ERROR
+     * @static
+     * @final
+     */
     export const IMAGE_FORMAT_ERROR: number;
 
     /**
-	 * While working on files runtime may run out of memory and will throw this error.
-	 *
-	 * @since 2.1.2
-	 * @property MEMORY_ERROR
-	 * @static
-	 * @final
-	 */
+     * While working on files runtime may run out of memory and will throw this error.
+     *
+     * @since 2.1.2
+     * @property MEMORY_ERROR
+     * @static
+     * @final
+     */
     export const MEMORY_ERROR: number;
 
     /**
-	 * Each runtime has an upper limit on a dimension of the image it can handle. If bigger, will throw this error.
-	 *
-	 * @property IMAGE_DIMENSIONS_ERROR
-	 * @static
-	 * @final
-	 */
+     * Each runtime has an upper limit on a dimension of the image it can handle. If bigger, will throw this error.
+     *
+     * @property IMAGE_DIMENSIONS_ERROR
+     * @static
+     * @final
+     */
     export const IMAGE_DIMENSIONS_ERROR: number;
 
     export const mimeTypes: any;
@@ -767,4 +767,8 @@ declare namespace plupload {
      * @param {String} cb Callback - the actual routine that every added file must pass
      */
     function addFileFilter(name: string, cb: Function): void;
+}
+
+declare module 'plupload' {
+    export = plupload;
 }

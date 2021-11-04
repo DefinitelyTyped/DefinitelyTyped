@@ -1,16 +1,26 @@
-import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation, Location } from 'history';
+import {
+    createBrowserHistory,
+    createMemoryHistory,
+    createHashHistory,
+    createLocation,
+    Location,
+    LocationDescriptor,
+    History,
+    MemoryHistory,
+} from 'history';
 import * as LocationUtils from 'history/LocationUtils';
 import * as PathUtils from 'history/PathUtils';
 import * as DOMUtils from 'history/DOMUtils';
 import * as ExecutionEnvironment from 'history/ExecutionEnvironment';
 
-let input = { value: "" };
+let input = { value: '' };
 
 {
-    let history = createBrowserHistory();
+    let history = createBrowserHistory<{ some: 'state' }>();
 
-    // Listen for changes to the current location. The
-    // listener is called once immediately.
+    history.location.state; // $ExpectType { some: "state"; }
+
+    // Listen for changes to the current location. The listener is called once immediately.
     let unlisten = history.listen(function (location) {
         console.log(location.pathname);
     });
@@ -28,11 +38,20 @@ let input = { value: "" };
     history.push({
         pathname: '/about',
         search: '?the=search',
-        state: { some: 'state' }
+        state: { some: 'state' },
     });
 
     // Change just the search on an existing location.
     history.push({ pathname: location.pathname, search: '?the=other+search' });
+
+    // Function parameter allows testing of ambiguous location type (i.e. either string or object)
+    (location: LocationDescriptor<{ some: 'state' }>) => {
+        // Push a new entry of ambiguous type
+        history.push(location);
+
+        // Replace the current entry with one of ambiguous type
+        history.replace(location);
+    };
 
     // Go back to the previous history entry. The following
     // two lines are synonymous.
@@ -43,7 +62,7 @@ let input = { value: "" };
 }
 
 {
-    let history = createMemoryHistory();
+    let history: MemoryHistory<{ the: 'state' }> = createMemoryHistory();
 
     // Pushing a path string.
     history.push('/the/path');
@@ -65,12 +84,12 @@ let input = { value: "" };
     unblock();
 
     history.entries.forEach(function (location) {
-        let typedLocation: Location = location;
+        let typedLocation: Location<{ the: 'state' }> = location;
     });
 }
 
 {
-    let history = createHashHistory()
+    let history = createHashHistory();
     history.listen(function (location) {
         if (input.value !== '') {
             return 'Are you sure you want to leave this page?';
@@ -91,18 +110,18 @@ let input = { value: "" };
         forceRefresh: false,
         getUserConfirmation(message, callback) {
             callback(window.confirm(message)); // The default behavior
-        }
+        },
     });
 }
 
 {
-    let location1 = LocationUtils.createLocation('path/1', { state: 1 });
+    let location1 = LocationUtils.createLocation('path/1', 1);
     let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
     LocationUtils.locationsAreEqual(location1, location2);
 }
 
 {
-    let location1 = LocationUtils.createLocation({ pathname: 'path/1' }, { state: 1 });
+    let location1 = LocationUtils.createLocation({ pathname: 'path/1' }, 1);
     let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
     LocationUtils.locationsAreEqual(location1, location2);
 }
@@ -114,14 +133,25 @@ let input = { value: "" };
 }
 
 {
-    let eventTarget: EventTarget;
-    DOMUtils.addEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
-    DOMUtils.removeEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
-    DOMUtils.getConfirmation('confirm?', (result) => console.log(result));
+    const anything: any = {};
+    const eventTarget: EventTarget = anything;
+    DOMUtils.addEventListener(eventTarget, 'onload', function (event) {
+        event.preventDefault();
+    });
+    DOMUtils.removeEventListener(eventTarget, 'onload', function (event) {
+        event.preventDefault();
+    });
+    DOMUtils.getConfirmation('confirm?', result => console.log(result));
     let booleanValues = DOMUtils.supportsGoWithoutReloadUsingHash() && DOMUtils.supportsHistory();
 }
 
 {
     let supportsDOM = ExecutionEnvironment.canUseDOM;
     let isExtraneousPopstateEvent = DOMUtils.isExtraneousPopstateEvent;
+}
+
+{
+    const anything: any = {};
+    const history: History = anything;
+    history.location.state; // $ExpectType unknown
 }

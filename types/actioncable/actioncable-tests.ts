@@ -1,7 +1,3 @@
-interface HelloChannel extends ActionCable.Channel {
-  hello(world: string, name?: string): void;
-}
-
 App = {};
 App.cable = ActionCable.createConsumer();
 const helloChannel = App.cable.subscriptions.create('NetworkChannel', {
@@ -17,8 +13,10 @@ const helloChannel = App.cable.subscriptions.create('NetworkChannel', {
   hello(world: string, name: string = 'John Doe'): void {
     console.log(`Hello, ${world}! name[${name}]`);
   }
-}) as HelloChannel;
+});
 
+// Methods introduced in the mixin param are available in the channel
+// subscription instance.
 helloChannel.hello('World');
 
 const channelParams: ActionCable.ChannelNameWithParams = {
@@ -37,5 +35,10 @@ const channelWithParams = App.cable.subscriptions.create(channelParams, {
   },
   received(obj: Object): void {
     console.log(obj);
+  },
+  bye(): void {
+    // Methods introduced in the mixin param can read channel methods.
+    this.unsubscribe();
+    console.log('Goodbye!');
   }
 });

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="node" />
-
 export interface DomToImage {
   toSvg(node: Node, options?: Options): Promise<string>;
   toPng(node: Node, options?: Options): Promise<string>;
@@ -15,14 +13,14 @@ export interface DomToImage {
 }
 
 export interface Options {
-  filter?: (node: Node) => boolean;
-  bgcolor?: string;
-  width?: number;
-  height?: number;
-  style?: {};
-  quality?: number;
-  imagePlaceholder?: string;
-  cachebust?: boolean;
+  filter?: ((node: Node) => boolean) | undefined;
+  bgcolor?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  style?: {} | undefined;
+  quality?: number | undefined;
+  imagePlaceholder?: string | undefined;
+  cacheBust?: boolean | undefined;
 }
 
 export const DomToImage: DomToImage;

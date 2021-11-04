@@ -6,9 +6,9 @@
 
 /// <reference types="node"/>
 
-import { IncomingMessage, ServerResponse, Server } from 'http';
+import { IncomingMessage, ServerResponse as HttpServerResponse, Server } from 'http';
 import { RequestHandler } from 'micro';
-export type ServerResponse = ServerResponse;
+export type ServerResponse = HttpServerResponse;
 export type ServerRequest = IncomingMessage & {
     params: { [key: string]: string },
     query: { [key: string]: string }

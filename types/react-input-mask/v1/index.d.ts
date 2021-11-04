@@ -21,7 +21,7 @@ declare namespace ReactInputMask {
         /**
          * Character to cover unfilled editable parts of mask. Default character is "_". If set to null, unfilled parts will be empty, like in ordinary input.
          */
-        maskChar?: string | null;
+        maskChar?: string | null | undefined;
         /**
          * Defines format characters with characters as keys and corresponding RegExp string as values. Default ones:
          * ```
@@ -31,15 +31,15 @@ declare namespace ReactInputMask {
          *   "*": "[A-Za-z0-9]"
          * }```
          */
-        formatChars?: { [key: string]: string };
+        formatChars?: { [key: string]: string } | undefined;
         /**
          * Show mask even in empty input without focus.
          */
-        alwaysShowMask?: boolean;
+        alwaysShowMask?: boolean | undefined;
         /**
          * Use inputRef instead of ref if you need input node to manage focus, selection, etc.
          */
-        inputRef?: React.Ref<HTMLInputElement>;
+        inputRef?: React.Ref<HTMLInputElement> | undefined;
     }
 }
 

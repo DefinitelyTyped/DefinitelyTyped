@@ -1,5 +1,5 @@
 // Type definitions for vis.js 4.21
-// Project: https://github.com/almende/vis
+// Project: https://github.com/almende/vis, http://visjs.org
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
 //                 MacLeod Broad <https://github.com/macleodbroad-wf>
 //                 Adrian Caballero <https://github.com/adripanico>
@@ -11,6 +11,9 @@
 //                 Oleksii Kachura <https://github.com/alex-kachura>
 //                 dcop <https://github.com/dcop>
 //                 Avraham Essoudry <https://github.com/avrahamcool>
+//                 Dmitriy Trifonov <https://github.com/divideby>
+//                 Sam Welek <https://github.com/tiberiushunter>
+//                 Slaven Tomac <https://github.com/slavede>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
@@ -24,11 +27,12 @@ export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 export type IdType = string | number;
 export type SubgroupType = IdType;
 export type DateType = Date | number | string;
+export type DirectionType = 'from' | 'to';
 export type HeightWidthType = IdType;
 export type TimelineItemType = 'box' | 'point' | 'range' | 'background';
 export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
 export type TimelineTimeAxisScaleType = 'millisecond' | 'second' | 'minute' | 'hour' |
-  'weekday' | 'day' | 'month' | 'year';
+  'weekday' | 'day' | 'week' | 'month' | 'year';
 export type TimelineEventPropertiesResultWhatType = 'item' | 'background' | 'axis' |
   'group-label' | 'custom-time' | 'current-time';
 export type TimelineEvents =
@@ -59,31 +63,31 @@ export type TopBottomEnumType = 'top' | 'bottom';
 export type RightLeftEnumType = 'right' | 'left';
 
 export interface LegendPositionOptions {
-  visible?: boolean;
-  position?: LegendPositionType;
+  visible?: boolean | undefined;
+  position?: LegendPositionType | undefined;
 }
 
 export interface LegendOptions {
-  enabled?: boolean;
-  icons?: boolean;
-  iconSize?: number;
-  iconSpacing?: number;
-  left?: LegendPositionOptions;
-  right?: LegendPositionOptions;
+  enabled?: boolean | undefined;
+  icons?: boolean | undefined;
+  iconSize?: number | undefined;
+  iconSpacing?: number | undefined;
+  left?: LegendPositionOptions | undefined;
+  right?: LegendPositionOptions | undefined;
 }
 
 export interface DataItem {
-  className?: string;
+  className?: string | undefined;
   content: string;
-  end?: DateType;
+  end?: DateType | undefined;
   group?: any;
-  id?: IdType;
+  id?: IdType | undefined;
   start: DateType;
-  style?: string;
-  subgroup?: SubgroupType;
-  title?: string;
-  type?: string;
-  editable?: boolean;
+  style?: string | undefined;
+  subgroup?: SubgroupType | undefined;
+  title?: string | undefined;
+  type?: string | undefined;
+  editable?: boolean | undefined;
 }
 
 export interface PointItem extends DataItem {
@@ -96,24 +100,26 @@ export interface SubGroupStackOptions {
 }
 
 export interface DataGroup {
-  className?: string;
+  className?: string | undefined;
   content: string;
   id: IdType;
-  options?: DataGroupOptions;
-  style?: string;
-  subgroupOrder?: string | (() => void);
-  title?: string;
-  nestedGroups?: number[];
-  subgroupStack?: SubGroupStackOptions | boolean;
+  options?: DataGroupOptions | undefined;
+  style?: string | undefined;
+  subgroupOrder?: string | (() => void) | undefined;
+  title?: string | undefined;
+  nestedGroups?: IdType[] | undefined;
+  subgroupStack?: SubGroupStackOptions | boolean | undefined;
+  visible?: boolean | undefined;
+  showNested?: boolean | undefined;
 }
 
 export interface DataGroupOptions {
-  drawPoints?: Graph2dDrawPointsOption | (() => void); // TODO
-  excludeFromLegend?: boolean;
-  interpolation?: boolean | InterpolationOptions;
-  shaded?: Graph2dShadedOption;
-  style?: string;
-  yAxisOrientation?: RightLeftEnumType;
+  drawPoints?: Graph2dDrawPointsOption | (() => void) | undefined; // TODO
+  excludeFromLegend?: boolean | undefined;
+  interpolation?: boolean | InterpolationOptions | undefined;
+  shaded?: Graph2dShadedOption | undefined;
+  style?: string | undefined;
+  yAxisOrientation?: RightLeftEnumType | undefined;
 }
 
 export interface InterpolationOptions {
@@ -121,79 +127,79 @@ export interface InterpolationOptions {
 }
 
 export interface TimelineEditableOption {
-  add?: boolean;
-  remove?: boolean;
-  updateGroup?: boolean;
-  updateTime?: boolean;
-  overrideItems?: boolean;
+  add?: boolean | undefined;
+  remove?: boolean | undefined;
+  updateGroup?: boolean | undefined;
+  updateTime?: boolean | undefined;
+  overrideItems?: boolean | undefined;
 }
 
 export type TimelineFormatLabelsFunction = (date: Date, scale: string, step: number) => string;
 
 export interface TimelineFormatLabelsOption {
-  millisecond?: string;
-  second?: string;
-  minute?: string;
-  hour?: string;
-  weekday?: string;
-  day?: string;
-  week?: string;
-  month?: string;
-  year?: string;
+  millisecond?: string | undefined;
+  second?: string | undefined;
+  minute?: string | undefined;
+  hour?: string | undefined;
+  weekday?: string | undefined;
+  day?: string | undefined;
+  week?: string | undefined;
+  month?: string | undefined;
+  year?: string | undefined;
 }
 
 export interface TimelineFormatOption {
-  minorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction;
-  majorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction;
+  minorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction | undefined;
+  majorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction | undefined;
 }
 
 export interface TimelineGroupEditableOption {
-  add?: boolean;
-  remove?: boolean;
-  order?: boolean;
+  add?: boolean | undefined;
+  remove?: boolean | undefined;
+  order?: boolean | undefined;
 }
 
 export interface TimelineHiddenDateOption {
   start: DateType;
   end: DateType;
-  repeat?: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  repeat?: 'daily' | 'weekly' | 'monthly' | 'yearly' | undefined;
 }
 
 export interface TimelineItemsAlwaysDraggableOption {
-  item?: boolean;
-  range?: boolean;
+  item?: boolean | undefined;
+  range?: boolean | undefined;
 }
 
 export interface TimelineMarginItem {
-  horizontal?: number;
-  vertical?: number;
+  horizontal?: number | undefined;
+  vertical?: number | undefined;
 }
 
 export type TimelineMarginItemType = number | TimelineMarginItem;
 
 export interface TimelineMarginOption {
-  axis?: number;
-  item?: TimelineMarginItemType;
+  axis?: number | undefined;
+  item?: TimelineMarginItemType | undefined;
 }
 
 export interface TimelineOrientationOption {
-  axis?: string;
-  item?: string;
+  axis?: string | undefined;
+  item?: string | undefined;
 }
 
 export interface TimelineTimeAxisOption {
-  scale?: TimelineTimeAxisScaleType;
-  step?: number;
+  scale?: TimelineTimeAxisScaleType | undefined;
+  step?: number | undefined;
 }
 
 export interface TimelineRollingModeOption {
-  follow?: boolean;
-  offset?: number;
+  follow?: boolean | undefined;
+  offset?: number | undefined;
 }
 
 export interface TimelineTooltipOption {
-  followMouse: boolean;
-  overflowMethod: 'cap' | 'flip';
+  followMouse?: boolean | undefined;
+  overflowMethod?: 'cap' | 'flip' | undefined;
 }
 
 export type TimelineOptionsConfigureFunction = (option: string, path: string[]) => boolean;
@@ -214,68 +220,69 @@ export type TimelineOptionsTemplateFunction = (item?: any, element?: any, data?:
 export type TimelineOptionsComparisonFunction = (a: any, b: any) => number;
 
 export interface TimelineOptions {
-  align?: TimelineAlignType;
-  autoResize?: boolean;
-  clickToUse?: boolean;
-  configure?: TimelineOptionsConfigureType;
-  dataAttributes?: TimelineOptionsDataAttributesType;
-  editable?: TimelineOptionsEditableType;
-  end?: DateType;
-  format?: TimelineFormatOption;
-  groupEditable?: TimelineOptionsGroupEditableType;
-  groupOrder?: TimelineOptionsGroupOrderType;
-  groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction;
-  groupTemplate?: TimelineOptionsTemplateFunction;
-  height?: HeightWidthType;
-  hiddenDates?: TimelineOptionsHiddenDatesType;
-  horizontalScroll?: boolean;
-  itemsAlwaysDraggable?: TimelineOptionsItemsAlwaysDraggableType;
-  locale?: string;
-  locales?: any; // TODO
-  moment?: MomentConstructor;
-  margin?: TimelineOptionsMarginType;
-  max?: DateType;
-  maxHeight?: HeightWidthType;
-  maxMinorChars?: number;
-  min?: DateType;
-  minHeight?: HeightWidthType;
-  moveable?: boolean;
-  multiselect?: boolean;
-  multiselectPerGroup?: boolean;
-  onAdd?: TimelineOptionsItemCallbackFunction;
-  onAddGroup?: TimelineOptionsGroupCallbackFunction;
-  onUpdate?: TimelineOptionsItemCallbackFunction;
-  onMove?: TimelineOptionsItemCallbackFunction;
-  onMoveGroup?: TimelineOptionsGroupCallbackFunction;
-  onMoving?: TimelineOptionsItemCallbackFunction;
-  onRemove?: TimelineOptionsItemCallbackFunction;
-  onRemoveGroup?: TimelineOptionsGroupCallbackFunction;
-  order?: TimelineOptionsComparisonFunction;
-  orientation?: TimelineOptionsOrientationType;
-  rollingMode?: TimelineRollingModeOption;
-  rtl?: boolean;
-  selectable?: boolean;
-  showCurrentTime?: boolean;
-  showMajorLabels?: boolean;
-  showMinorLabels?: boolean;
-  showTooltips?: boolean;
-  stack?: boolean;
-  stackSubgroups?: boolean;
-  snap?: TimelineOptionsSnapFunction;
-  start?: DateType;
-  template?: TimelineOptionsTemplateFunction;
-  visibleFrameTemplate?: TimelineOptionsTemplateFunction;
-  throttleRedraw?: number;
-  timeAxis?: TimelineTimeAxisOption;
-  type?: string;
-  tooltip?: TimelineTooltipOption;
-  tooltipOnItemUpdateTime?: boolean | { template(item: any): any };
-  verticalScroll?: boolean;
-  width?: HeightWidthType;
-  zoomable?: boolean;
-  zoomKey?: string;
-  zoomMax?: number;
-  zoomMin?: number;
+  align?: TimelineAlignType | undefined;
+  autoResize?: boolean | undefined;
+  clickToUse?: boolean | undefined;
+  configure?: TimelineOptionsConfigureType | undefined;
+  dataAttributes?: TimelineOptionsDataAttributesType | undefined;
+  editable?: TimelineOptionsEditableType | undefined;
+  end?: DateType | undefined;
+  format?: TimelineFormatOption | undefined;
+  groupEditable?: TimelineOptionsGroupEditableType | undefined;
+  groupOrder?: TimelineOptionsGroupOrderType | undefined;
+  groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction | undefined;
+  groupTemplate?: TimelineOptionsTemplateFunction | undefined;
+  height?: HeightWidthType | undefined;
+  hiddenDates?: TimelineOptionsHiddenDatesType | undefined;
+  horizontalScroll?: boolean | undefined;
+  itemsAlwaysDraggable?: TimelineOptionsItemsAlwaysDraggableType | undefined;
+  locale?: string | undefined;
+  locales?: Locales | undefined;
+  moment?: MomentConstructor | undefined;
+  margin?: TimelineOptionsMarginType | undefined;
+  max?: DateType | undefined;
+  maxHeight?: HeightWidthType | undefined;
+  maxMinorChars?: number | undefined;
+  min?: DateType | undefined;
+  minHeight?: HeightWidthType | undefined;
+  moveable?: boolean | undefined;
+  multiselect?: boolean | undefined;
+  multiselectPerGroup?: boolean | undefined;
+  onAdd?: TimelineOptionsItemCallbackFunction | undefined;
+  onAddGroup?: TimelineOptionsGroupCallbackFunction | undefined;
+  onInitialDrawComplete?: (() => void) | undefined;
+  onUpdate?: TimelineOptionsItemCallbackFunction | undefined;
+  onMove?: TimelineOptionsItemCallbackFunction | undefined;
+  onMoveGroup?: TimelineOptionsGroupCallbackFunction | undefined;
+  onMoving?: TimelineOptionsItemCallbackFunction | undefined;
+  onRemove?: TimelineOptionsItemCallbackFunction | undefined;
+  onRemoveGroup?: TimelineOptionsGroupCallbackFunction | undefined;
+  order?: TimelineOptionsComparisonFunction | undefined;
+  orientation?: TimelineOptionsOrientationType | undefined;
+  rollingMode?: TimelineRollingModeOption | undefined;
+  rtl?: boolean | undefined;
+  selectable?: boolean | undefined;
+  showCurrentTime?: boolean | undefined;
+  showMajorLabels?: boolean | undefined;
+  showMinorLabels?: boolean | undefined;
+  showTooltips?: boolean | undefined;
+  stack?: boolean | undefined;
+  stackSubgroups?: boolean | undefined;
+  snap?: TimelineOptionsSnapFunction | undefined;
+  start?: DateType | undefined;
+  template?: TimelineOptionsTemplateFunction | undefined;
+  visibleFrameTemplate?: TimelineOptionsTemplateFunction | undefined;
+  throttleRedraw?: number | undefined;
+  timeAxis?: TimelineTimeAxisOption | undefined;
+  type?: string | undefined;
+  tooltip?: TimelineTooltipOption | undefined;
+  tooltipOnItemUpdateTime?: boolean | { template(item: any): any } | undefined;
+  verticalScroll?: boolean | undefined;
+  width?: HeightWidthType | undefined;
+  zoomable?: boolean | undefined;
+  zoomKey?: string | undefined;
+  zoomMax?: number | undefined;
+  zoomMin?: number | undefined;
 }
 
 /**
@@ -286,19 +293,19 @@ export interface TimelineOptions {
 export type TimelineAnimationType = boolean | AnimationOptions;
 
 export interface TimelineAnimationOptions {
-  animation?: TimelineAnimationType;
+  animation?: TimelineAnimationType | undefined;
 }
 
 export interface TimelineEventPropertiesResult {
   /**
    *  The id of the clicked group
    */
-  group?: number | null;
+  group?: number | null | undefined;
 
   /**
    * The id of the clicked item.
    */
-  item?: IdType | null;
+  item?: IdType | null | undefined;
 
   /**
    * Absolute horizontal position of the click event.
@@ -333,7 +340,7 @@ export interface TimelineEventPropertiesResult {
   /**
    * Name of the clicked thing.
    */
-  what?: TimelineEventPropertiesResultWhatType;
+  what?: TimelineEventPropertiesResultWhatType | undefined;
 
   /**
    * The original click event.
@@ -351,7 +358,7 @@ export interface DataSetOptions extends DataSetQueueOptions {
    * this field name can be specified in the DataSet using the option fieldId.
    * For example CouchDB uses the field "_id" to identify documents.
    */
-  fieldId?: string;
+  fieldId?: string | undefined;
 
   /**
    * An object containing field names as key, and data types as value.
@@ -376,7 +383,7 @@ export interface DataSetQueueOptions {
    * max: number - When the queue exceeds the given maximum number of entries, the queue is flushed automatically. Default value is Infinity.
    * Default value is Infinity.
    */
-  queue?: any | boolean;
+  queue?: any | boolean | undefined;
 }
 
 export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
@@ -457,7 +464,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
    */
-  get(id: IdType, options?: DataSelectionOptions<T>): T;
+  get(id: IdType, options?: DataSelectionOptions<T>): T | null;
 
   /**
    * Get multiple items from the DataSet.
@@ -492,7 +499,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @param [options] Optional options.
    * @returns The mapped items.
    */
-  map(callback: (item: T, id: IdType) => any, options?: DataSelectionOptions<T>): any[];
+  map<M>(callback: (item: T, id: IdType) => M, options?: DataSelectionOptions<T>): M[];
 
   /**
    * Find the item with maximum value of specified field.
@@ -563,7 +570,7 @@ export interface DataSelectionOptions<T> {
    * When fields is defined, only the properties whose name is specified
    * in fields will be included in the returned items.
    */
-  fields?: string[] | any;
+  fields?: string[] | any | undefined;
 
   /**
    * An object containing field names as key, and data types as value.
@@ -587,7 +594,7 @@ export interface DataSelectionOptions<T> {
   /**
    * Order the items by a field name or custom sort function.
    */
-  order?: string | any;
+  order?: string | ((a: T, b: T) => number) | undefined;
 
   /**
    * Determine the type of output of the get function.
@@ -595,7 +602,7 @@ export interface DataSelectionOptions<T> {
    * The default returnType is an Array.
    * The Object type will return a JSON object with the ID's as keys.
    */
-  returnType?: string;
+  returnType?: "Array" | "Object" | undefined;
 }
 
 export class DataView<T extends DataItem | DataGroup> {
@@ -607,8 +614,8 @@ export type DataItemCollectionType = DataItem[] | DataSet<DataItem> | DataView<D
 export type DataGroupCollectionType = DataGroup[] | DataSet<DataGroup> | DataView<DataGroup>;
 
 export interface TitleOption {
-  text?: string;
-  style?: string;
+  text?: string | undefined;
+  style?: string | undefined;
 }
 
 export interface RangeType {
@@ -617,45 +624,45 @@ export interface RangeType {
 }
 
 export interface DataAxisSideOption {
-  range?: RangeType;
+  range?: RangeType | undefined;
   format?(): string;
-  title?: TitleOption;
+  title?: TitleOption | undefined;
 }
 
 export interface Graph2dBarChartOption {
-  width?: number;
-  minWidth?: number;
-  sideBySide?: boolean;
-  align?: Graph2dBarChartAlign;
+  width?: number | undefined;
+  minWidth?: number | undefined;
+  sideBySide?: boolean | undefined;
+  align?: Graph2dBarChartAlign | undefined;
 }
 
 export interface Graph2dDataAxisOption {
-  orientation?: TimelineOptionsOrientationType;
-  showMinorLabels?: boolean;
-  showMajorLabels?: boolean;
-  majorLinesOffset?: number;
-  minorLinesOffset?: number;
-  labelOffsetX?: number;
-  labelOffsetY?: number;
-  iconWidth?: number;
-  width?: string;
-  icons?: boolean;
-  visible?: boolean;
-  alignZeros?: boolean;
-  left?: DataAxisSideOption;
-  right?: DataAxisSideOption;
+  orientation?: TimelineOptionsOrientationType | undefined;
+  showMinorLabels?: boolean | undefined;
+  showMajorLabels?: boolean | undefined;
+  majorLinesOffset?: number | undefined;
+  minorLinesOffset?: number | undefined;
+  labelOffsetX?: number | undefined;
+  labelOffsetY?: number | undefined;
+  iconWidth?: number | undefined;
+  width?: string | undefined;
+  icons?: boolean | undefined;
+  visible?: boolean | undefined;
+  alignZeros?: boolean | undefined;
+  left?: DataAxisSideOption | undefined;
+  right?: DataAxisSideOption | undefined;
 }
 
 export interface Graph2dDrawPointsOption {
-  enabled?: boolean;
+  enabled?: boolean | undefined;
   onRender?(): boolean; // TODO
-  size?: number;
+  size?: number | undefined;
   style: Graph2dDrawPointsStyle;
 }
 
 export interface Graph2dShadedOption {
-  orientation?: TopBottomEnumType;
-  groupid?: IdType;
+  orientation?: TopBottomEnumType | undefined;
+  groupid?: IdType | undefined;
 }
 
 export type Graph2dOptionBarChart = number | Graph2dBarChartOption;
@@ -664,47 +671,47 @@ export type Graph2dOptionDrawPoints = boolean | Graph2dDrawPointsOption;
 export type Graph2dLegendOption = boolean | LegendOptions;
 
 export interface Graph2dOptions {
-  autoResize?: boolean;
-  barChart?: Graph2dOptionBarChart;
-  clickToUse?: boolean;
-  configure?: TimelineOptionsConfigureType;
-  dataAxis?: Graph2dOptionDataAxis;
-  defaultGroup?: string;
-  drawPoints?: Graph2dOptionDrawPoints;
-  end?: DateType;
+  autoResize?: boolean | undefined;
+  barChart?: Graph2dOptionBarChart | undefined;
+  clickToUse?: boolean | undefined;
+  configure?: TimelineOptionsConfigureType | undefined;
+  dataAxis?: Graph2dOptionDataAxis | undefined;
+  defaultGroup?: string | undefined;
+  drawPoints?: Graph2dOptionDrawPoints | undefined;
+  end?: DateType | undefined;
   format?: any; // TODO
-  graphHeight?: HeightWidthType;
-  height?: HeightWidthType;
+  graphHeight?: HeightWidthType | undefined;
+  height?: HeightWidthType | undefined;
   hiddenDates?: any; // TODO
-  legend?: Graph2dLegendOption;
-  locale?: string;
-  locales?: any; // TODO
-  moment?: MomentConstructor;
-  max?: DateType;
-  maxHeight?: HeightWidthType;
-  maxMinorChars?: number;
-  min?: DateType;
-  minHeight?: HeightWidthType;
-  moveable?: boolean;
-  multiselect?: boolean;
-  orientation?: string;
-  sampling?: boolean;
-  showCurrentTime?: boolean;
-  showMajorLabels?: boolean;
-  showMinorLabels?: boolean;
-  sort?: boolean;
-  stack?: boolean;
-  start?: DateType;
-  style?: Graph2dStyleType;
-  throttleRedraw?: number;
-  timeAxis?: TimelineTimeAxisOption;
-  width?: HeightWidthType;
-  yAxisOrientation?: RightLeftEnumType;
-  zoomable?: boolean;
-  zoomKey?: string;
-  zoomMax?: number;
-  zoomMin?: number;
-  zIndex?: number;
+  legend?: Graph2dLegendOption | undefined;
+  locale?: string | undefined;
+  locales?: Locales | undefined;
+  moment?: MomentConstructor | undefined;
+  max?: DateType | undefined;
+  maxHeight?: HeightWidthType | undefined;
+  maxMinorChars?: number | undefined;
+  min?: DateType | undefined;
+  minHeight?: HeightWidthType | undefined;
+  moveable?: boolean | undefined;
+  multiselect?: boolean | undefined;
+  orientation?: string | undefined;
+  sampling?: boolean | undefined;
+  showCurrentTime?: boolean | undefined;
+  showMajorLabels?: boolean | undefined;
+  showMinorLabels?: boolean | undefined;
+  sort?: boolean | undefined;
+  stack?: boolean | undefined;
+  start?: DateType | undefined;
+  style?: Graph2dStyleType | undefined;
+  throttleRedraw?: number | undefined;
+  timeAxis?: TimelineTimeAxisOption | undefined;
+  width?: HeightWidthType | undefined;
+  yAxisOrientation?: RightLeftEnumType | undefined;
+  zoomable?: boolean | undefined;
+  zoomKey?: string | undefined;
+  zoomMax?: number | undefined;
+  zoomMin?: number | undefined;
+  zIndex?: number | undefined;
 }
 
 export class Graph2d {
@@ -739,7 +746,7 @@ export class Graph2d {
   setCurrentTime(time: DateType): void;
   setCustomTime(time: DateType, id?: IdType): void;
   setCustomTimeTitle(title: string, id?: IdType): void;
-  setData(data: { groups?: DataGroupCollectionType; items?: DataItemCollectionType }): void;
+  setData(data: { groups?: DataGroupCollectionType | undefined; items?: DataItemCollectionType | undefined }): void;
   setGroups(groups?: DataGroupCollectionType): void;
   setItems(items: DataItemCollectionType): void;
   setOptions(options: TimelineOptions): void;
@@ -772,8 +779,10 @@ export class Timeline {
   );
 
   /**
-   * Add new vertical bar representing a custom time that can be dragged by the user. Parameter time can be a Date, Number, or String, and is new Date() by default.
-   * Parameter id can be Number or String and is undefined by default. The id is added as CSS class name of the custom time bar, allowing to style multiple time bars differently.
+   * Add new vertical bar representing a custom time that can be dragged by the user.
+   * Parameter time can be a Date, Number, or String, and is new Date() by default.
+   * Parameter id can be Number or String and is undefined by default.
+   * The id is added as CSS class name of the custom time bar, allowing to style multiple time bars differently.
    * The method returns id of the created bar.
    */
   addCustomTime(time: DateType, id?: IdType): IdType;
@@ -854,7 +863,8 @@ export class Timeline {
   removeCustomTime(id: IdType): void;
 
   /**
-   * Set a current time. This can be used for example to ensure that a client's time is synchronized with a shared server time. Only applicable when option showCurrentTime is true.
+   * Set a current time. This can be used for example to ensure that a client's time is synchronized with a shared server time.
+   * Only applicable when option showCurrentTime is true.
    */
   setCurrentTime(time: DateType): void;
 
@@ -877,7 +887,7 @@ export class Timeline {
    * This is a convenience method for individually calling both setItems(items) and setGroups(groups).
    * Both items and groups can be an Array with Objects, a DataSet (offering 2 way data binding), or a DataView (offering 1 way data binding).
    */
-  setData(data: { groups?: DataGroupCollectionType; items?: DataItemCollectionType }): void;
+  setData(data: { groups?: DataGroupCollectionType | undefined; items?: DataItemCollectionType | undefined }): void;
 
   /**
    * Set a data set with groups for the Timeline.
@@ -890,12 +900,14 @@ export class Timeline {
   setItems(items: DataItemCollectionType): void;
 
   /**
-   * Set or update options. It is possible to change any option of the timeline at any time. You can for example switch orientation on the fly.
+   * Set or update options. It is possible to change any option of the timeline at any time.
+   * You can for example switch orientation on the fly.
    */
   setOptions(options: TimelineOptions): void;
 
   /**
-   * Select one or multiple items by their id. The currently selected items will be unselected. To unselect all selected items, call `setSelection([])`.
+   * Select one or multiple items by their id. The currently selected items will be unselected.
+   * To unselect all selected items, call `setSelection([])`.
    */
   setSelection(ids: IdType | IdType[], options?: { focus: boolean, animation: TimelineAnimationOptions }): void;
 
@@ -950,39 +962,39 @@ export interface TimelineWindow {
 }
 
 export interface TimelineItemEditableOption {
-  remove?: boolean;
-  updateGroup?: boolean;
-  updateTime?: boolean;
+  remove?: boolean | undefined;
+  updateGroup?: boolean | undefined;
+  updateTime?: boolean | undefined;
 }
 
 export type TimelineItemEditableType = boolean | TimelineItemEditableOption;
 
 export interface TimelineItem {
-  className?: string;
-  align?: TimelineAlignType;
+  className?: string | undefined;
+  align?: TimelineAlignType | undefined;
   content: string;
-  end?: DateType;
-  group?: IdType;
+  end?: DateType | undefined;
+  group?: IdType | undefined;
   id: IdType;
   start: DateType;
-  style?: string;
-  subgroup?: IdType;
-  title?: string;
-  type?: TimelineItemType;
-  editable?: TimelineItemEditableType;
+  style?: string | undefined;
+  subgroup?: IdType | undefined;
+  title?: string | undefined;
+  type?: TimelineItemType | undefined;
+  editable?: TimelineItemEditableType | undefined;
 }
 
 export interface TimelineGroup {
-  className?: string;
+  className?: string | undefined;
   content: string | HTMLElement;
   id: IdType;
-  style?: string;
-  order?: number;
-  subgroupOrder?: TimelineOptionsGroupOrderType;
-  title?: string;
-  visible?: boolean;
-  nestedGroups?: IdType[];
-  showNested?: boolean;
+  style?: string | undefined;
+  order?: number | undefined;
+  subgroupOrder?: TimelineOptionsGroupOrderType | undefined;
+  title?: string | undefined;
+  visible?: boolean | undefined;
+  nestedGroups?: IdType[] | undefined;
+  showNested?: boolean | undefined;
 }
 
 export interface VisSelectProperties {
@@ -1003,6 +1015,8 @@ export type NetworkEvents =
   'dragStart' |
   'dragging' |
   'dragEnd' |
+  'controlNodeDragging' |
+  'controlNodeDragEnd' |
   'hoverNode' |
   'blurNode' |
   'hoverEdge' |
@@ -1038,7 +1052,7 @@ export class Network {
   constructor(container: HTMLElement, data: Data, options?: Options);
 
   /**
-   * 	Remove the network from the DOM and remove all Hammer bindings and references.
+   *     Remove the network from the DOM and remove all Hammer bindings and references.
    */
   destroy(): void;
 
@@ -1130,7 +1144,7 @@ export class Network {
   cluster(options?: ClusterOptions): void;
 
   /**
-   * 	This method looks at the provided node and makes a cluster of it and all it's connected nodes.
+   *     This method looks at the provided node and makes a cluster of it and all it's connected nodes.
    * The behaviour can be customized by proving the options object.
    * All options of this object are explained below.
    * The joinCondition is only presented with the connected nodes.
@@ -1194,6 +1208,16 @@ export class Network {
   getBaseEdge(clusteredEdgeId: IdType): IdType;
 
   /**
+   * For the given clusteredEdgeId, this method will return all the original
+   * base edge id's provided in data.edges.
+   * For a non-clustered (i.e. 'base') edge, clusteredEdgeId is returned.
+   * Only the base edge id's are returned.
+   * All clustered edges id's under clusteredEdgeId are skipped,
+   * but scanned recursively to return their base id's.
+   */
+  getBaseEdges(clusteredEdgeId: IdType): IdType[];
+
+  /**
    * Visible edges between clustered nodes are not the same edge as the ones provided
    * in data.edges passed on network creation. With each layer of clustering, copies of
    * the edges between clusters are created and the previous edges are hidden,
@@ -1245,7 +1269,7 @@ export class Network {
   getSeed(): number;
 
   /**
-   * 	Programatically enable the edit mode.
+   *     Programatically enable the edit mode.
    * Similar effect to pressing the edit button.
    */
   enableEditMode(): void;
@@ -1257,7 +1281,7 @@ export class Network {
   disableEditMode(): void;
 
   /**
-   * 	Go into addNode mode. Having edit mode or manipulation enabled is not required.
+   *     Go into addNode mode. Having edit mode or manipulation enabled is not required.
    * To get out of this mode, call disableEditMode().
    * The callback functions defined in handlerFunctions still apply.
    * To use these methods without having the manipulation GUI, make sure you set enabled to false.
@@ -1299,7 +1323,7 @@ export class Network {
   getPositions(nodeId: IdType): Position;
 
   /**
-   * 	When using the vis.DataSet to load your nodes into the network,
+   *     When using the vis.DataSet to load your nodes into the network,
    * this method will put the X and Y positions of all nodes into that dataset.
    * If you're loading your nodes from a database and have this dynamically coupled with the DataSet,
    * you can use this to stablize your network once, then save the positions in that database
@@ -1337,7 +1361,7 @@ export class Network {
    *
    * @param nodeOrEdgeId a node or edge id
    */
-  getConnectedNodes(nodeOrEdgeId: IdType): IdType[] | Array<{ fromId: IdType, toId: IdType }>;
+  getConnectedNodes(nodeOrEdgeId: IdType, direction?: DirectionType): IdType[] | Array<{ fromId: IdType, toId: IdType }>;
 
   /**
    * Returns an array of edgeIds of the edges connected to this node.
@@ -1490,7 +1514,7 @@ export interface FocusOptions extends ViewPortOptions {
    * the node once the zoom-in animation is finished.
    * Default value is true.
    */
-  locked?: boolean;
+  locked?: boolean | undefined;
 }
 
 /**
@@ -1501,19 +1525,19 @@ export interface ViewPortOptions {
    * The scale is the target zoomlevel.
    * Default value is 1.0.
    */
-  scale?: number;
+  scale?: number | undefined;
 
   /**
    * The offset (in DOM units) is how many pixels from the center the view is focussed.
    * Default value is {x:0,y:0}
    */
-  offset?: Position;
+  offset?: Position | undefined;
 
   /**
    * For animation you can either use a Boolean to use it with the default options or
    * disable it or you can define the duration (in milliseconds) and easing function manually.
    */
-  animation?: AnimationOptions | boolean;
+  animation?: AnimationOptions | boolean | undefined;
 }
 
 /**
@@ -1524,7 +1548,7 @@ export interface MoveToOptions extends ViewPortOptions {
   /**
    * The position (in canvas units!) is the position of the central focus point of the camera.
    */
-  position?: Position;
+  position?: Position | undefined;
 }
 
 /**
@@ -1568,7 +1592,7 @@ export interface FitOptions {
   /**
    * The nodes can be used to zoom to fit only specific nodes in the view.
    */
-  nodes?: string[];
+  nodes?: string[] | undefined;
 
   /**
    * For animation you can either use a Boolean to use it with the default options or
@@ -1578,8 +1602,8 @@ export interface FitOptions {
 }
 
 export interface SelectionOptions {
-  unselectAll?: boolean;
-  highlightEdges?: boolean;
+  unselectAll?: boolean | undefined;
+  highlightEdges?: boolean | undefined;
 }
 
 /**
@@ -1622,7 +1646,7 @@ export interface ClusterOptions {
    * This is also the style object that is provided in the processProperties function for fine tuning.
    * If undefined, default node options will be used.
    */
-  clusterNodeProperties?: NodeOptions;
+  clusterNodeProperties?: NodeOptions | undefined;
 
   /**
    * Optional.
@@ -1632,7 +1656,7 @@ export interface ClusterOptions {
    * If none are provided, the options from the edges that are replaced are used.
    * If undefined, default edge options will be used.
    */
-  clusterEdgeProperties?: EdgeOptions;
+  clusterEdgeProperties?: EdgeOptions | undefined;
 }
 
 /**
@@ -1676,7 +1700,7 @@ export interface Properties {
   previousSelection?: {
     nodes: string[];
     edges: string[];
-  };
+  } | undefined;
 }
 
 export interface Callback {
@@ -1684,30 +1708,30 @@ export interface Callback {
 }
 
 export interface Data {
-  nodes?: Node[] | DataSet<Node>;
-  edges?: Edge[] | DataSet<Edge>;
+  nodes?: Node[] | DataSet<Node> | undefined;
+  edges?: Edge[] | DataSet<Edge> | undefined;
 }
 
 export interface Node extends NodeOptions {
-  id?: IdType;
+  id?: IdType | undefined;
 }
 
 export interface Edge extends EdgeOptions {
-  from?: IdType;
-  to?: IdType;
-  id?: IdType;
+  from?: IdType | undefined;
+  to?: IdType | undefined;
+  id?: IdType | undefined;
 }
 
 export interface Locales {
   [language: string]: LocaleMessages | undefined;
-  en?: LocaleMessages;
-  cn?: LocaleMessages;
-  de?: LocaleMessages;
-  es?: LocaleMessages;
-  it?: LocaleMessages;
-  nl?: LocaleMessages;
-  'pt-br'?: LocaleMessages;
-  ru?: LocaleMessages;
+  en?: LocaleMessages | undefined;
+  cn?: LocaleMessages | undefined;
+  de?: LocaleMessages | undefined;
+  es?: LocaleMessages | undefined;
+  it?: LocaleMessages | undefined;
+  nl?: LocaleMessages | undefined;
+  'pt-br'?: LocaleMessages | undefined;
+  ru?: LocaleMessages | undefined;
 }
 
 export interface LocaleMessages {
@@ -1727,23 +1751,23 @@ export interface LocaleMessages {
 }
 
 export interface Options {
-  autoResize?: boolean;
+  autoResize?: boolean | undefined;
 
-  width?: string;
+  width?: string | undefined;
 
-  height?: string;
+  height?: string | undefined;
 
-  locale?: string;
+  locale?: string | undefined;
 
-  locales?: Locales;
+  locales?: Locales | undefined;
 
-  clickToUse?: boolean;
+  clickToUse?: boolean | undefined;
 
-  configure?: any; // http://visjs.org/docs/network/configure.html#
+  configure?: NetworkConfigure | undefined;
 
-  edges?: EdgeOptions;
+  edges?: EdgeOptions | undefined;
 
-  nodes?: NodeOptions;
+  nodes?: NodeOptions | undefined;
 
   groups?: any;
 
@@ -1757,209 +1781,238 @@ export interface Options {
 }
 
 export interface Image {
-  unselected?: string;
-  selected?: string;
+  unselected?: string | undefined;
+  selected?: string | undefined;
+}
+
+export interface NetworkConfigure {
+  enabled?: boolean | undefined;
+  filter?: string | string[] | boolean | undefined; // please note, filter could be also a function. This case is not represented here
+  container?: any;
+  showButton?: boolean | undefined;
 }
 
 export interface Color {
-  border?: string;
+  border?: string | undefined;
 
-  background?: string;
+  background?: string | undefined;
 
   highlight?: string | {
-    border?: string;
-    background?: string;
-  };
+    border?: string | undefined;
+    background?: string | undefined;
+  } | undefined;
 
   hover?: string | {
-    border?: string;
-    background?: string;
-  };
+    border?: string | undefined;
+    background?: string | undefined;
+  } | undefined;
 }
 
 export interface NodeOptions {
-  borderWidth?: number;
+  borderWidth?: number | undefined;
 
-  borderWidthSelected?: number;
+  borderWidthSelected?: number | undefined;
 
-  brokenImage?: string;
+  brokenImage?: string | undefined;
 
-  color?: Color;
+  color?: string | Color | undefined;
 
   fixed?: boolean | {
-    x?: boolean,
-    y?: boolean,
-  };
+    x?: boolean | undefined,
+    y?: boolean | undefined,
+  } | undefined;
 
-  font?: string | {
-    color?: string,
-    size?: number, // px
-    face?: string,
-    background?: string,
-    strokeWidth?: number, // px
-    strokeColor?: string,
-    align?: string,
-    vadjust?: string,
-    multi?: string,
-    bold?: string | FontOptions,
-    ital?: string | FontOptions,
-    boldital?: string | FontOptions,
-    mono?: string | FontOptions,
-  };
+  font?: string | Font | undefined;
 
-  group?: string;
+  group?: string | undefined;
 
-  hidden?: boolean;
+  hidden?: boolean | undefined;
 
   icon?: {
-    face?: string,
-    code?: string,
-    size?: number,  // 50,
-    color?: string,
-  };
+    face?: string | undefined,
+    code?: string | undefined,
+    size?: number | undefined,  // 50,
+    color?: string | undefined,
+  } | undefined;
 
-  image?: string | Image;
+  image?: string | Image | undefined;
 
-  label?: string;
+  label?: string | undefined;
 
-  labelHighlightBold?: boolean;
+  labelHighlightBold?: boolean | undefined;
 
-  level?: number;
+  level?: number | undefined;
 
-  mass?: number;
+  margin?: {
+    top?: number | undefined;
+    right?: number | undefined;
+    bottom?: number | undefined;
+    left?: number | undefined;
+  } | undefined;
 
-  physics?: boolean;
+  mass?: number | undefined;
 
-  scaling?: OptionsScaling;
+  physics?: boolean | undefined;
 
-  shadow?: boolean | OptionsShadow;
+  scaling?: OptionsScaling | undefined;
 
-  shape?: string;
+  shadow?: boolean | OptionsShadow | undefined;
+
+  shape?: string | undefined;
 
   shapeProperties?: {
-    borderDashes: boolean | number[], // only for borders
-    borderRadius: number,     // only for box shape
-    interpolation: boolean,  // only for image and circularImage shapes
-    useImageSize: boolean,  // only for image and circularImage shapes
-    useBorderWithImage: boolean  // only for image shape
-  };
+    borderDashes?: boolean | number[] | undefined, // only for borders
+    borderRadius?: number | undefined,     // only for box shape
+    interpolation?: boolean | undefined,  // only for image and circularImage shapes
+    useImageSize?: boolean | undefined,  // only for image and circularImage shapes
+    useBorderWithImage?: boolean | undefined  // only for image shape
+  } | undefined;
 
-  size?: number;
+  size?: number | undefined;
 
-  title?: string;
+  title?: string | undefined;
 
-  value?: number;
+  value?: number | undefined;
 
-  x?: number;
+  /**
+   * If false, no widthConstraint is applied. If a number is specified, the minimum and maximum widths of the node are set to the value.
+   * The node's label's lines will be broken on spaces to stay below the maximum and the node's width
+   * will be set to the minimum if less than the value.
+   */
+  widthConstraint?: number | boolean | { minimum?: number | undefined, maximum?: number | undefined } | undefined;
 
-  y?: number;
+  x?: number | undefined;
+
+  y?: number | undefined;
 }
 
 export interface EdgeOptions {
   arrows?: string | {
-    to?: boolean | {
-      enabled?: boolean,
-      scaleFactor?: number,
-    },
-    middle?: boolean | {
-      enabled?: boolean,
-      scaleFactor?: number,
-    },
-    from?: boolean | {
-      enabled?: boolean,
-      scaleFactor?: number,
-    }
-  };
+    to?: boolean | ArrowHead | undefined
+    middle?: boolean | ArrowHead | undefined
+    from?: boolean | ArrowHead | undefined
+  } | undefined;
 
-  arrowStrikethrough?: boolean;
+  endPointOffset?: {
+    from?: number | undefined,
+    to?: number | undefined
+  } | undefined;
+
+  arrowStrikethrough?: boolean | undefined;
+
+  chosen?: boolean | {
+    edge?: boolean | undefined, // please note, chosen.edge could be also a function. This case is not represented here
+    label?: boolean | undefined, // please note, chosen.label could be also a function. This case is not represented here
+  } | undefined;
 
   color?: string | {
-    color?: string,
-    highlight?: string,
-    hover?: string,
-    inherit?: boolean | string,
-    opacity?: number,
-  };
+    color?: string | undefined,
+    highlight?: string | undefined,
+    hover?: string | undefined,
+    inherit?: boolean | string | undefined,
+    opacity?: number | undefined,
+  } | undefined;
 
-  dashes?: boolean | number[];
+  dashes?: boolean | number[] | undefined;
 
-  font?: string | {
-    color?: string,
-    size?: number, // px
-    face?: string,
-    background?: string,
-    strokeWidth?: number, // px
-    strokeColor?: string,
-    align?: string,
-    vadjust?: string,
-    multi?: string,
-    bold?: string | FontOptions,
-    ital?: string | FontOptions,
-    boldital?: string | FontOptions,
-    mono?: string | FontOptions,
-  };
+  font?: string | Font | undefined;
 
-  hidden?: boolean;
+  hidden?: boolean | undefined;
 
-  hoverWidth?: number; // please note, hoverWidth could be also a function. This case is not represented here
+  hoverWidth?: number | undefined; // please note, hoverWidth could be also a function. This case is not represented here
 
-  label?: string;
+  label?: string | undefined;
 
-  labelHighlightBold?: boolean;
+  labelHighlightBold?: boolean | undefined;
 
-  length?: number;
+  length?: number | undefined;
 
-  physics?: boolean;
+  physics?: boolean | undefined;
 
-  scaling?: OptionsScaling;
+  scaling?: OptionsScaling | undefined;
 
-  selectionWidth?: number; // please note, selectionWidth could be also a function. This case is not represented here
+  selectionWidth?: number | undefined; // please note, selectionWidth could be also a function. This case is not represented here
 
-  selfReferenceSize?: number;
+  selfReferenceSize?: number | undefined;
 
-  shadow?: boolean | OptionsShadow;
+  selfReference?: {
+    size?: number | undefined,
+    angle?: number | undefined,
+    renderBehindTheNode?: boolean | undefined
+  } | undefined;
+
+  shadow?: boolean | OptionsShadow | undefined;
 
   smooth?: boolean | {
     enabled: boolean,
     type: string,
-    forceDirection?: string | boolean,
+    forceDirection?: string | boolean | undefined,
     roundness: number,
-  };
+  } | undefined;
 
-  title?: string;
+  title?: string | undefined;
 
-  value?: number;
+  value?: number | undefined;
 
-  width?: number;
+  width?: number | undefined;
+
+  widthConstraint?: number | boolean | {
+    maximum?: number | undefined;
+  } | undefined;
 }
 
-export interface FontOptions {
-  color?: string;
-  size?: number;
-  face?: string;
-  mod?: string;
-  vadjust?: string;
+export interface ArrowHead {
+  enabled?: boolean | undefined;
+  imageHeight?: number | undefined;
+  imageWidth?: number | undefined;
+  scaleFactor?: number | undefined;
+  src?: string | undefined;
+  type?: string | undefined;
+}
+
+export interface Font {
+  color?: string | undefined;
+  size?: number | undefined; // px
+  face?: string | undefined;
+  background?: string | undefined;
+  strokeWidth?: number | undefined; // px
+  strokeColor?: string | undefined;
+  align?: string | undefined;
+  vadjust?: number | undefined;
+  multi?: boolean | string | undefined;
+  bold?: string | FontStyles | undefined;
+  ital?: string | FontStyles | undefined;
+  boldital?: string | FontStyles | undefined;
+  mono?: string | FontStyles | undefined;
+}
+
+export interface FontStyles {
+  color?: string | undefined;
+  size?: number | undefined;
+  face?: string | undefined;
+  mod?: string | undefined;
+  vadjust?: number | undefined;
 }
 
 export interface OptionsScaling {
-  min?: number;
-  max?: number;
+  min?: number | undefined;
+  max?: number | undefined;
   label?: boolean | {
-    enabled?: boolean,
-    min?: number,
-    max?: number,
-    maxVisible?: number,
-    drawThreshold?: number
-  };
+    enabled?: boolean | undefined,
+    min?: number | undefined,
+    max?: number | undefined,
+    maxVisible?: number | undefined,
+    drawThreshold?: number | undefined
+  } | undefined;
   customScalingFunction?(min?: number, max?: number, total?: number, value?: number): number;
 }
 
 export interface OptionsShadow {
-  enabled: boolean;
-  color: string;
-  size: number;
-  x: number;
-  y: number;
+  enabled?: boolean | undefined;
+  color?: string | undefined;
+  size?: number | undefined;
+  x?: number | undefined;
+  y?: number | undefined;
 }
 
 export as namespace vis;

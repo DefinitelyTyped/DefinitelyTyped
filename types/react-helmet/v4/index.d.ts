@@ -8,7 +8,7 @@
 
 import * as React from "react";
 
-declare function ReactHelmet(): ReactHelmet.HelmetComponent;
+declare class ReactHelmet extends React.Component<ReactHelmet.HelmetProps> {}
 
 declare namespace ReactHelmet {
     function peek(): ReactHelmet.HelmetData;
@@ -16,15 +16,15 @@ declare namespace ReactHelmet {
 
     interface HelmetProps {
         base?: any;
-        defaultTitle?: string;
+        defaultTitle?: string | undefined;
         htmlAttributes?: any;
-        link?: Array<any>;
-        meta?: Array<any>;
-        script?: Array<any>;
-        style?: Array<any>;
-        title?: string;
-        titleTemplate?: string;
-        onChangeClientState?: (newState: any) => void;
+        link?: Array<any> | undefined;
+        meta?: Array<any> | undefined;
+        script?: Array<any> | undefined;
+        style?: Array<any> | undefined;
+        title?: string | undefined;
+        titleTemplate?: string | undefined;
+        onChangeClientState?: ((newState: any) => void) | undefined;
     }
 
     interface HelmetData {
@@ -39,10 +39,8 @@ declare namespace ReactHelmet {
 
     interface HelmetDatum {
         toString(): string;
-        toComponent(): React.Component<any>;
+        toComponent(): React.ReactElement;
     }
-
-    class HelmetComponent extends React.Component<HelmetProps> {}
 }
 
 export = ReactHelmet;

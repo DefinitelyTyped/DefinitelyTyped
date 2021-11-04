@@ -1,5 +1,5 @@
 // Type definitions for dottie 2.0
-// Project: https://github.com/mickhansen/dottie
+// Project: https://github.com/mickhansen/dottie.js
 // Definitions by: Dom Armstrong <https://github.com/domarmstrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -25,14 +25,14 @@ declare namespace dottie {
         /**
          * force overwrite defined non-object keys into objects if needed
          */
-        force?: boolean;
+        force?: boolean | undefined;
     }
 
     interface TransformOptions {
         /**
          * Use a custom delimiter for path
          */
-        delimiter?: string;
+        delimiter?: string | undefined;
     }
 
     interface Dottie {

@@ -222,24 +222,24 @@ declare namespace Logger {
     function resolveLevel(value: LogLevel): number;
 
     interface Stream {
-        type?: string;
-        level?: LogLevel;
-        path?: string;
-        stream?: NodeJS.WritableStream | Stream;
-        closeOnExit?: boolean;
-        period?: string;
-        count?: number;
-        name?: string;
-        reemitErrorEvents?: boolean;
+        type?: string | undefined;
+        level?: LogLevel | undefined;
+        path?: string | undefined;
+        stream?: NodeJS.WritableStream | Stream | undefined;
+        closeOnExit?: boolean | undefined;
+        period?: string | undefined;
+        count?: number | undefined;
+        name?: string | undefined;
+        reemitErrorEvents?: boolean | undefined;
     }
 
     interface LoggerOptions {
         name: string;
-        streams?: Stream[];
-        level?: LogLevel;
-        stream?: NodeJS.WritableStream;
-        serializers?: Serializers;
-        src?: boolean;
+        streams?: Stream[] | undefined;
+        level?: LogLevel | undefined;
+        stream?: NodeJS.WritableStream | undefined;
+        serializers?: Serializers | undefined;
+        src?: boolean | undefined;
         [custom: string]: any;
     }
 
@@ -256,10 +256,10 @@ declare namespace Logger {
     }
 
     interface RingBufferOptions {
-        limit?: number;
+        limit?: number | undefined;
     }
 
-    class RingBuffer extends EventEmitter implements NodeJS.WritableStream {
+    class RingBuffer extends EventEmitter {
         constructor(options: RingBufferOptions);
 
         writable: boolean;
@@ -269,6 +269,29 @@ declare namespace Logger {
         end(record?: any): void;
         destroy(): void;
         destroySoon(): void;
+    }
+
+    interface RotatingFileStreamOptions {
+        path: string;
+        count?: number | undefined;
+        period?: string | undefined;
+    }
+
+    class RotatingFileStream extends EventEmitter {
+        constructor(options: RotatingFileStreamOptions);
+
+        writable: boolean;
+        periodNum: number;
+        periodScope: string;
+        stream: any;
+        rotQueue: any[];
+        rotating: boolean;
+
+        write(record: any): boolean;
+        end(record?: any): void;
+        destroy(): void;
+        destroySoon(): void;
+        rotate(): void;
     }
 }
 

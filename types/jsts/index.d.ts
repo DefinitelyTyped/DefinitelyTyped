@@ -8,6 +8,26 @@
 declare namespace jsts {
     export var version: string;
 
+    namespace algorithm {
+        import Point = jsts.geom.Point;
+        import Coordinate = jsts.geom.Coordinate;
+
+        export class Orientation {
+            static CLOCKWISE: number;
+            static RIGHT: number;
+            static COUNTERCLOCKWISE: number;
+            static LEFT: number;
+            static COLLINEAR: number;
+            static STRAIGHT: number;
+
+            static index(p1: Point, p2: Point, q: Point): number;
+
+            static isCCW(ring: Coordinate[]): boolean;
+        }
+
+        export class BoundaryNodeRule {}
+    }
+
     namespace geom {
 
 
@@ -77,6 +97,23 @@ declare namespace jsts {
              * @return {Point} A new Point.
              */
             createPoint(coordinates: Coordinate): Point;
+            /**
+            * Creates a LinearRing using the given Coordinates; a null or empty array
+            * will create an empty LinearRing. Consecutive points must not be equal.
+            *
+            * @param {Coordinate[]}
+            *          coordinates an array without null elements, or an empty array,
+            * or null.
+            * @return {LineString} A new LinearRing.
+            */
+            createLinearRing(coordinates: Array<Coordinate>): LinearRing;
+            /**
+            * Creates a Polygon using the given LinearRing.
+            *
+            * @param {LinearRing} A LinearRing constructed by coordinates.
+            * @return {Polygon} A new Polygon.
+            */
+            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;            
 
         }
 
@@ -191,6 +228,12 @@ declare namespace jsts {
             compareTo(other: Coordinate): number;
         }
 
+        export class CoordinateSequence {
+            static X: number;
+            static Y: number;
+            static Z: number;
+            static M: number;
+        }
         /**
          * Defines a rectangular region of the 2D coordinate plane. It is often used to
          * represent the bounding box of a {@link Geometry}, e.g. the minimum and
@@ -1557,6 +1600,94 @@ declare namespace jsts {
             toString(): string;
         }
 
+        export class IntersectionMatrix {
+            static matches(
+                actualDimensionValue: number,
+                requiredDimensionSymbol: string
+            ): boolean;
+
+            static matches(
+                actualDimensionSymbols: string,
+                requiredDimensionSymbols: string
+            ): boolean;
+
+            static isTrue(actualDimensionValue: number): boolean;
+
+            isIntersects(): boolean;
+
+            isCovers(): boolean;
+
+            isCoveredBy(): boolean;
+
+            set(dimensionSymbols: [string, string, string]): void;
+
+            set(row: number, col: number, dimensionValue: number): void;
+
+            isContains(): boolean;
+
+            setAtLeast(dimensionSymbols: [string, string, string]): void;
+
+            setAtLeast(row: number, col: number, dimensionValue: number): void;
+
+            setAtLeastIfValid(
+                row: number,
+                col: number,
+                minimumDimensionValue: number
+            ): void;
+
+            isWithin(): boolean;
+
+            isTouches(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            isOverlaps(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            isEquals(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            toString(): string;
+
+            setAll(dimensionValue: number): void;
+
+            get(row: number, column: number): number;
+
+            transpose(): IntersectionMatrix;
+
+            matches(
+                requiredDimensionSymbols: [
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string
+                ]
+            ): boolean;
+
+            add(im: IntersectionMatrix): void;
+
+            isDisjoint(): boolean;
+
+            isCrosses(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            constructor(elements?: string[]);
+
+            constructor(other?: IntersectionMatrix);
+        }
+
         /**
          * Models an OGC SFS <code>LinearRing</code>. A LinearRing is a LineString
          * which is both closed and simple. In other words, the first and last
@@ -1677,6 +1808,508 @@ declare namespace jsts {
              */
             getNumInteriorRing(): number;
         }
+
+        namespace util {
+            export class AffineTransformation {
+                static translationInstance(x: number, y: number): AffineTransformation;
+
+                static shearInstance(
+                    xShear: number,
+                    yShear: number
+                ): AffineTransformation;
+
+                static reflectionInstance(
+                    x0: number,
+                    y0: number,
+                    x1?: number,
+                    y1?: number
+                ): AffineTransformation;
+
+                static rotationInstance(theta: number): AffineTransformation;
+
+                static rotationInstance(
+                    sinTheta: number,
+                    cosTheta: number
+                ): AffineTransformation;
+
+                static rotationInstance(
+                    theta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                static rotationInstance(
+                    sinTheta: number,
+                    cosTheta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                static scaleInstance(
+                    xScale: number,
+                    yScale: number,
+                    x?: number,
+                    y?: number
+                ): AffineTransformation;
+
+                setToReflectionBasic(
+                    x0: number,
+                    y0: number,
+                    x1: number,
+                    y1: number
+                ): AffineTransformation;
+
+                getInverse(): AffineTransformation;
+
+                compose(trans: AffineTransformation): AffineTransformation;
+
+                equals(obj: AffineTransformation): boolean;
+
+                setToScale(xScale: number, yScale: number): AffineTransformation;
+
+                isIdentity(): boolean;
+
+                scale(xScale: number, yScale: number): AffineTransformation;
+
+                setToIdentity(): AffineTransformation;
+
+                isGeometryChanged(): boolean;
+
+                setTransformation(trans: AffineTransformation): AffineTransformation;
+
+                setTransformation(
+                    m00: number,
+                    m01: number,
+                    m02: number,
+                    m10: number,
+                    m11: number,
+                    m12: number
+                ): AffineTransformation;
+
+                setToRotation(theta: number): AffineTransformation;
+
+                setToRotation(sinTheta: number, cosTheta: number): AffineTransformation;
+
+                setToRotation(
+                    theta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                setToRotation(
+                    sinTheta: number,
+                    cosTheta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                getMatrixEntries(): [number, number, number, number, number, number];
+
+                filter(seq: CoordinateSequence, i: number): void;
+
+                rotate(theta: number): AffineTransformation;
+
+                rotate(sinTheta: number, cosTheta: number): AffineTransformation;
+
+                rotate(theta: number, x: number, y: number): AffineTransformation;
+
+                rotate(
+                    sinTheta: number,
+                    cosTheta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                getDeterminant(): number;
+
+                composeBefore(trans: AffineTransformation): AffineTransformation;
+
+                setToShear(xShear: number, yShear: number): AffineTransformation;
+
+                isDone(): boolean;
+
+                clone(): AffineTransformation;
+
+                translate(x: number, y: number): AffineTransformation;
+
+                setToReflection(x: number, y: number): AffineTransformation;
+
+                setToReflection(
+                    x0: number,
+                    y0: number,
+                    x1: number,
+                    y1: number
+                ): AffineTransformation;
+
+                toString(): string;
+
+                setToTranslation(dx: number, dy: number): AffineTransformation;
+
+                shear(xShear: number, yShear: number): AffineTransformation;
+
+                transform<T extends Geometry>(g: T): T;
+
+                transform(src: Coordinate, dest: Coordinate): Coordinate;
+
+                transform(seq: CoordinateSequence, i: number): void;
+
+                reflect(
+                    x0: number,
+                    y0: number,
+                    x1?: number,
+                    y1?: number
+                ): AffineTransformation;
+
+                constructor(trans?: AffineTransformation);
+
+                constructor(
+                    m00: number,
+                    m01: number,
+                    m02: number,
+                    m10: number,
+                    m11: number,
+                    m12: number
+                );
+
+                constructor(
+                    src0: Coordinate,
+                    src1: Coordinate,
+                    src2: Coordinate,
+                    dest0: Coordinate,
+                    dest1: Coordinate,
+                    dest2: Coordinate
+                );
+            }
+        }
+
+        /**
+         * Represents a line segment defined by two {@link Coordinate}s. Provides
+         * methods to compute various geometric properties and relationships of line
+         * segments.
+         * <p>
+         * This class is designed to be easily mutable (to the extent of having its
+         * contained points public). This supports a common pattern of reusing a single
+         * LineSegment object as a way of computing segment properties on the segments
+         * defined by arrays or lists of {@link Coordinate}s.
+         *
+         * @param {Coordinate}
+         *          p0
+         * @param {Coordinate}
+         *          p1
+         * @constructor
+         */
+        export class LineSegment {
+            p0: Coordinate;
+            p1: Coordinate;
+
+            constructor(p0: Coordinate, p1: Coordinate);
+            /**
+             * Computes the midpoint of a segment
+             *
+             * @param {jsts.geom.Coordinate} p0
+             * @param {jsts.geom.Coordinate} p1
+             * @return {jsts.geom.Coordinate} the midpoint of the segment
+             */
+            static midPoint(p0: Coordinate, p1: Coordinate): Coordinate;
+
+            /**
+             * @param {number} i
+             * @return {jsts.geom.Coordinate}
+             */
+            getCoordinate(): number;
+
+            /**
+             * Computes the length of the line segment.
+             *
+             * @return {number} the length of the line segment.
+             */
+            getLength(): number;
+
+            /**
+             * Tests whether the segment is horizontal.
+             *
+             * @return {boolean} <code>true</code> if the segment is horizontal.
+             */
+            isHorizontal(): boolean;
+
+            /**
+             * Tests whether the segment is vertical.
+             *
+             * @return {boolean} <code>true</code> if the segment is vertical.
+             */
+            isVertical(): boolean;
+
+            /**
+             * Determines the orientation of a LineSegment relative to this segment.
+             * The concept of orientation is specified as follows:
+             * Given two line segments A and L,
+             * <ul>
+             * <li>A is to the left of a segment L if A lies wholly in the
+             * closed half-plane lying to the left of L
+             * <li>A is to the right of a segment L if A lies wholly in the
+             * closed half-plane lying to the right of L
+             * <li>otherwise, A has indeterminate orientation relative to L. This
+             * happens if A is collinear with L or if A crosses the line determined by L.
+             * </ul>
+             *
+             * @param {jsts.geom.LineSegment} seg the LineSegment to compare
+             *
+             * @return 1 if <code>seg</code> is to the left of this segment<br />
+             * -1 if <code>seg</code> is to the right of this segment<br />
+             * 0 if <code>seg</code> has indeterminate orientation relative to this segment
+             */
+            orientationIndex1(seg: LineSegment): 1 | -1 | 0;
+
+            /**
+             * Determines the orientation index of a {@link Coordinate} relative to this segment.
+             * The orientation index is as defined in {@link CGAlgorithms#computeOrientation}.
+             *
+             * @param {jsts.geom.Coordinate} p the coordinate to compare
+             *
+             * @return 1 (LEFT) if <code>p</code> is to the left of this segment
+             * @return -1 (RIGHT) if <code>p</code> is to the right of this segment
+             * @return 0 (COLLINEAR) if <code>p</code> is collinear with this segment
+             *
+             * @see CGAlgorithms#computeOrientation(Coordinate, Coordinate, Coordinate)
+             */
+            orientationIndex2(p: Coordinate): 1 | -1 | 0;
+
+            /**
+             * Reverses the direction of the line segment.
+             */
+            reverse(): void;
+
+            /**
+             * Puts the line segment into a normalized form.
+             * This is useful for using line segments in maps and indexes when
+             * topological equality rather than exact equality is desired.
+             * A segment in normalized form has the first point smaller
+             * than the second (according to the standard ordering on {@link Coordinate}).
+             */
+            normalize(): void;
+
+            /**
+             * Computes the angle that the vector defined by this segment
+             * makes with the X-axis.
+             * The angle will be in the range [ -PI, PI ] radians.
+             *
+             * @return {number} the angle this segment makes with the X-axis (in radians)
+             */
+            angle(): number;
+
+            /**
+             * Computes the midpoint of the segment
+             *
+             * @return {jsts.geom.Coordinate} the midpoint of the segment
+             */
+            midPoint(): Coordinate;
+
+            /**
+             * Computes the distance between this line segment and another segment.
+             *
+             * @param {jsts.geom.LineSegment | jsts.geom.Coordinate}
+             * @return {number} the distance to the other segment
+             */
+            distance(geom: LineSegment | Coordinate): number;
+
+            /**
+             * Computes the {@link Coordinate} that lies a given
+             * fraction along the line defined by this segment.
+             * A fraction of <code>0.0</code> returns the start point of the segment;
+             * a fraction of <code>1.0</code> returns the end point of the segment.
+             * If the fraction is < 0.0 or > 1.0 the point returned
+             * will lie before the start or beyond the end of the segment.
+             *
+             * @param {number} segmentLengthFraction the fraction of the segment length along the line
+             * @return {jsts.geom.Coordinate} the point at that distance
+             */
+            pointAlong(segmentLengthFraction: number): Coordinate;
+
+            /**
+             * Computes the {@link Coordinate} that lies a given
+             * fraction along the line defined by this segment and offset from
+             * the segment by a given distance.
+             * A fraction of <code>0.0</code> offsets from the start point of the segment;
+             * a fraction of <code>1.0</code> offsets from the end point of the segment.
+             * The computed point is offset to the left of the line if the offset distance is
+             * positive, to the right if negative.
+             *
+             * @param {number} segmentLengthFraction the fraction of the segment length along the line
+             * @param {number} offsetDistance the distance the point is offset from the segment
+             *    (positive is to the left, negative is to the right)
+             * @return {jsts.geom.Coordinate} the point at that distance and offset
+             */
+            pointAlongOffset(
+                segmentLengthFraction: number,
+                offsetDistance: number
+            ): Coordinate;
+
+            /**
+             * Computes the Projection Factor for the projection of the point p onto this
+             * LineSegment. The Projection Factor is the constant r by which the vector for
+             * this segment must be multiplied to equal the vector for the projection of
+             * <tt>p<//t> on the line
+             * defined by this segment.
+             * <p>
+             * The projection factor returned will be in the range <tt>(-inf, +inf)</tt>.
+             *
+             * @param {Coordinate} p the point to compute the factor for.
+             * @return {double} the projection factor for the point.
+             */
+            projectionFactor(p: Coordinate): number;
+
+            /**
+             * Computes the fraction of distance (in <tt>[0.0, 1.0]</tt>)
+             * that the projection of a point occurs along this line segment.
+             * If the point is beyond either ends of the line segment,
+             * the closest fractional value (<tt>0.0</tt> or <tt>1.0</tt>) is returned.
+             * <p>
+             * Essentially, this is the {@link #projectionFactor} clamped to
+             * the range <tt>[0.0, 1.0]</tt>.
+             * If the segment has zero length, 1.0 is returned.
+             *
+             * @param {jsts.geom.Coordinate} inputPt the point
+             * @return {number} the fraction along the line segment the projection of the point occurs
+             */
+            segmentFraction(inputPt: Coordinate): number;
+
+            /**
+             * Compute the projection of a point onto the line determined
+             * by this line segment.
+             * <p>
+             * Note that the projected point
+             * may lie outside the line segment.  If this is the case,
+             * the projection factor will lie outside the range [0.0, 1.0].
+             * @param {jsts.geom.Coordinate} p
+             * @return {jsts.geom.Coordinate}
+             */
+            project1(p: Coordinate): Coordinate;
+
+            /**
+             * Project a line segment onto this line segment and return the resulting
+             * line segment.  The returned line segment will be a subset of
+             * the target line line segment.  This subset may be null, if
+             * the segments are oriented in such a way that there is no projection.
+             * <p>
+             * Note that the returned line may have zero length (i.e. the same endpoints).
+             * This can happen for instance if the lines are perpendicular to one another.
+             *
+             * @param {jsts.geom.LineSegment} seg the line segment to project
+             * @return {jsts.geom.LineSegment} the projected line segment, or <code>null</code> if there is no overlap
+             */
+            project2(seg: LineSegment): LineSegment;
+
+            /**
+             * Computes the closest point on this line segment to another point.
+             *
+             * @param {Coordinate}
+             *          p the point to find the closest point to.
+             * @return {Coordinate} a Coordinate which is the closest point on the line
+             *         segment to the point p.
+             */
+            closestPoint(p: Coordinate): Coordinate;
+
+            /**
+             * Computes the closest points on two line segments.
+             *
+             * @param {LineSegment}
+             *          line the segment to find the closest point to.
+             * @return {[]} a pair of Coordinates which are the closest points on the line
+             *         segments.
+             */
+            closestPoints(line: LineSegment): [Coordinate, Coordinate];
+
+            /**
+             * Computes an intersection point between two line segments, if there is one.
+             * There may be 0, 1 or many intersection points between two segments. If there
+             * are 0, null is returned. If there is 1 or more, exactly one of them is
+             * returned (chosen at the discretion of the algorithm). If more information is
+             * required about the details of the intersection, the
+             * {@link RobustLineIntersector} class should be used.
+             *
+             * @param {LineSegment}
+             *          line a line segment.
+             * @return {Coordinate} an intersection point, or <code>null</code> if there
+             *         is none.
+             *
+             * @see RobustLineIntersector
+             */
+            intersection(line: LineSegment): Coordinate | null;
+
+            setCoordinates(ls: LineSegment): void;
+
+            setCoordinates2(p0: Coordinate, p1: Coordinate): void;
+
+            /**
+             * Computes the perpendicular distance between the (infinite) line defined
+             * by this line segment and a point.
+             *
+             * @param {jsts.geom.Coordinate} p the coordinate
+             * @return {number} the perpendicular distance between the defined line and the given point
+             */
+            distancePerpendicular(p: Coordinate): number;
+
+            /**
+             * Computes the intersection point of the lines of infinite extent defined
+             * by two line segments (if there is one).
+             * There may be 0, 1 or an infinite number of intersection points
+             * between two lines.
+             * If there is a unique intersection point, it is returned.
+             * Otherwise, <tt>null</tt> is returned.
+             * If more information is required about the details of the intersection,
+             * the {@link RobustLineIntersector} class should be used.
+             *
+             * @param {jsts.geom.LineSegment} line a line segment defining an straight line with infinite extent
+             * @return {jsts.geom.Coordinate} an intersection point,
+             * or <code>null</code> if there is no point of intersection
+             * or an infinite number of intersection points
+             *
+             * @see RobustLineIntersector
+             */
+            lineIntersection(line: LineSegment): Coordinate | null;
+
+            /**
+             * Creates a LineString with the same coordinates as this segment
+             *
+             * @param {jsts.geom.GeometryFactory} geomFactory the geometery factory to use
+             * @return {jsts.geom.LineString} a LineString with the same geometry as this segment
+             */
+            toGeometry(geomFactory: GeometryFactory): LineString;
+
+            /**
+             *  Returns <code>true</code> if <code>other</code> has the same values for
+             *  its points.
+             *
+             * @param {Object} o a <code>LineSegment</code> with which to do the comparison.
+             * @return {boolean} <code>true</code> if <code>other</code> is a <code>LineSegment</code>
+             *      with the same values for the x and y ordinates.
+             */
+            equals(o: LineSegment): boolean;
+
+            /**
+             *  Compares this object with the specified object for order.
+             *  Uses the standard lexicographic ordering for the points in the LineSegment.
+             *
+             *@param {Object} o  the <code>LineSegment</code> with which this <code>LineSegment</code>
+             *      is being compared
+             *@return {number} a negative integer, zero, or a positive integer as this <code>LineSegment</code>
+             *      is less than, equal to, or greater than the specified <code>LineSegment</code>
+             */
+            compareTo(o: LineSegment): number;
+
+            /**
+             *  Returns <code>true</code> if <code>other</code> is
+             *  topologically equal to this LineSegment (e.g. irrespective
+             *  of orientation).
+             *
+             * @param {jsts.geom.LineSegment} other  a <code>LineSegment</code> with which to do the comparison.
+             * @return {boolean} <code>true</code> if <code>other</code> is a <code>LineSegment</code>
+             *      with the same values for the x and y ordinates.
+             */
+            equalsTopo(other: LineSegment): boolean;
+
+            toString(): string;
+        }
     }
 
     namespace io {
@@ -1764,14 +2397,470 @@ declare namespace jsts {
             reducePrecision(geometry: geom.Geometry): void;
         }
 
-
-
         export class WKTWriter {
             /**
              * @constructor
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
-            
+
+            /**
+             * Converts a <code>Geometry</code> to its Well-known Text representation.
+             *
+             * @param {Geometry} geometry a <code>Geometry</code> to process.
+             * @return {string} a <Geometry Tagged Text> string (see the OpenGIS Simple
+             *         Features Specification).
+             */
+             write(geometry: geom.Geometry): string;
+        }
+    }
+
+    namespace operation {
+        import Geometry = jsts.geom.Geometry;
+        import PrecisionModel = jsts.geom.PrecisionModel;
+        import BoundaryNodeRule = jsts.algorithm.BoundaryNodeRule;
+
+        export class GeometryGraphOperation {
+            getArgGeometry(i: number): Geometry;
+
+            setComputationPrecision(pm: PrecisionModel): void;
+
+            constructor(g0: Geometry, g1?: Geometry);
+
+            constructor(
+                g0: Geometry,
+                g1: Geometry,
+                boundaryNodeRule: BoundaryNodeRule
+            );
+        }
+
+        namespace relate {
+            import Geometry = jsts.geom.Geometry;
+            import IntersectionMatrix = jsts.geom.IntersectionMatrix;
+
+            export class RelateOp extends GeometryGraphOperation {
+                static covers(g1: Geometry, g2: Geometry): boolean;
+
+                static intersects(g1: Geometry, g2: Geometry): boolean;
+
+                static touches(g1: Geometry, g2: Geometry): boolean;
+
+                static equalsTopo(g1: Geometry, g2: Geometry): boolean;
+
+                static relate(
+                    g1: Geometry,
+                    g2: Geometry,
+                    boundaryNodeRule?: BoundaryNodeRule
+                ): IntersectionMatrix;
+
+                static overlaps(g1: Geometry, g2: Geometry): boolean;
+
+                static crosses(g1: Geometry, g2: Geometry): boolean;
+
+                static contains(g1: Geometry, g2: Geometry): boolean;
+
+                getIntersectionMatrix(): IntersectionMatrix;
+
+                constructor(
+                    g1: Geometry,
+                    g2: Geometry,
+                    boundaryNodeRule?: BoundaryNodeRule
+                );
+            }
+        }
+          
+        namespace buffer {
+            import Geometry = jsts.geom.Geometry;
+            import PrecisionModel = jsts.geom.PrecisionModel;
+
+            export class BufferParameters {
+                /**
+                 * Specifies a round line buffer end cap style.
+                 *
+                 * @type {int}
+                 */
+                static CAP_ROUND: number;
+                /**
+                 * Specifies a flat line buffer end cap style.
+                 *
+                 * @type {int}
+                 */
+                static CAP_FLAT: number;
+                /**
+                 * Specifies a square line buffer end cap style.
+                 *
+                 * @type {int}
+                 */
+                static CAP_SQUARE: number;
+                /**
+                 * Specifies a round join style.
+                 *
+                 * @type {int}
+                 */
+                static JOIN_ROUND: number;
+                /**
+                 * Specifies a mitre join style.
+                 */
+                static JOIN_MITRE: number;
+                /**
+                 * Specifies a bevel join style.
+                 *
+                 * @type {int}
+                 */
+                static JOIN_BEVEL: number;
+
+                /**
+                 * The default number of facets into which to divide a fillet of 90 degrees. A
+                 * value of 8 gives less than 2% max error in the buffer distance. For a max
+                 * error of < 1%, use QS = 12. For a max error of < 0.1%, use QS = 18.
+                 *
+                 * @type {int}
+                 */
+                static DEFAULT_QUADRANT_SEGMENTS: number;
+                /**
+                 * The default mitre limit Allows fairly pointy mitres.
+                 *
+                 * @type {double}
+                 */
+                static DEFAULT_MITRE_LIMIT: number;
+
+                /**
+                 * Contains the parameters which describe how a buffer should be constructed.
+                 *
+                 * @constructor
+                 */
+                constructor(
+                    quadrantSegments?: number,
+                    endCapStyle?: number,
+                    joinStyle?: number,
+                    mitreLimit?: number
+                );
+
+                /**
+                 * Gets the number of quadrant segments which will be used
+                 *
+                 * @return the number of quadrant segments.
+                 */
+                getQuadrantSegments(): number;
+
+                /**
+                 * Sets the number of segments used to approximate a angle fillet
+                 *
+                 * @param {int}
+                 *          quadrantSegments the number of segments in a fillet for a quadrant.
+                 */
+                setQuadrantSegments(quadrantSegments: number): void;
+
+                /**
+                 * Sets the number of line segments used to approximate an angle fillet.
+                 * <ul>
+                 * <li>If <tt>quadSegs</tt> >= 1, joins are round, and <tt>quadSegs</tt>
+                 * indicates the number of segments to use to approximate a quarter-circle.
+                 * <li>If <tt>quadSegs</tt> = 0, joins are bevelled (flat)
+                 * <li>If <tt>quadSegs</tt> < 0, joins are mitred, and the value of qs
+                 * indicates the mitre ration limit as
+                 *
+                 * <pre>
+                 * mitreLimit= |
+                 * <tt>
+                 * quadSegs
+                 * </tt>
+                 * |
+                 * </pre>
+                 *
+                 * </ul>
+                 * For round joins, <tt>quadSegs</tt> determines the maximum error in the
+                 * approximation to the true buffer curve. The default value of 8 gives less
+                 * than 2% max error in the buffer distance. For a max error of < 1%, use QS =
+                 * 12. For a max error of < 0.1%, use QS = 18. The error is always less than the
+                 * buffer distance (in other words, the computed buffer curve is always inside
+                 * the true curve).
+                 *
+                 * @param quadrantSegments
+                 *          the number of segments in a fillet for a quadrant.
+                 */
+                setQuadrantSegments(quadSegs: number): void;
+
+                /**
+                 * Computes the maximum distance error due to a given level of approximation to
+                 * a true arc.
+                 *
+                 * @param quadSegs
+                 *          the number of segments used to approximate a quarter-circle.
+                 * @return the error of approximation.
+                 */
+                bufferDistanceError(quadSegs: number): number;
+
+                /**
+                 * Gets the end cap style.
+                 *
+                 * @return the end cap style.
+                 */
+                getEndCapStyle(): number;
+
+                /**
+                 * Specifies the end cap style of the generated buffer. The styles supported are
+                 * {@link #CAP_ROUND}, {@link #CAP_BUTT}, and {@link #CAP_SQUARE}. The
+                 * default is CAP_ROUND.
+                 *
+                 * @param {int}
+                 *          endCapStyle the end cap style to specify.
+                 */
+                setEndCapStyle(endCapStyle: number): void;
+
+                /**
+                 * Gets the join style
+                 *
+                 * @return the join style code.
+                 */
+                getJoinStyle(): number;
+
+                /**
+                 * Sets the join style for outside (reflex) corners between line segments.
+                 * Allowable values are {@link JOIN_ROUND} (which is the default),
+                 * {@link JOIN_MITRE} and {link JOIN_BEVEL}.
+                 *
+                 * @param joinStyle
+                 *          the code for the join style.
+                 */
+                setJoinStyle(joinStyle: number): void;
+
+                /**
+                 * Gets the mitre ratio limit.
+                 *
+                 * @return the limit value.
+                 */
+                getMitreLimit(): number;
+
+                /**
+                 * Sets the limit on the mitre ratio used for very sharp corners. The mitre
+                 * ratio is the ratio of the distance from the corner to the end of the mitred
+                 * offset corner. When two line segments meet at a sharp angle, a miter join
+                 * will extend far beyond the original geometry. (and in the extreme case will
+                 * be infinitely far.) To prevent unreasonable geometry, the mitre limit allows
+                 * controlling the maximum length of the join corner. Corners with a ratio which
+                 * exceed the limit will be beveled.
+                 *
+                 * @param mitreLimit
+                 *          the mitre ratio limit.
+                 */
+                setMitreLimit(mitreLimit: number): void;
+
+                /**
+                 * Sets whether the computed buffer should be single-sided. A single-sided
+                 * buffer is constructed on only one side of each input line.
+                 * <p>
+                 * The side used is determined by the sign of the buffer distance:
+                 * <ul>
+                 * <li>a positive distance indicates the left-hand side
+                 * <li>a negative distance indicates the right-hand side
+                 * </ul>
+                 * The single-sided buffer of point geometries is the same as the regular
+                 * buffer.
+                 * <p>
+                 * The End Cap Style for single-sided buffers is always ignored, and forced to
+                 * the equivalent of <tt>CAP_FLAT</tt>.
+                 *
+                 * @param isSingleSided
+                 *          true if a single-sided buffer should be constructed.
+                 */
+                setSingleSided(isSingleSided: boolean): void;
+
+                /**
+                 * Tests whether the buffer is to be generated on a single side only.
+                 *
+                 * @return true if the generated buffer is to be single-sided.
+                 */
+                isSingleSided(): boolean;
+            }
+
+            /**
+             * Computes the buffer of a geometry, for both positive and negative buffer
+             * distances.
+             *
+             * In GIS, the positive buffer of a geometry is defined as
+             * the Minkowski sum or difference of the geometry
+             * with a circle of radius equal to the absolute value of the buffer distance.
+             * In the CAD/CAM world buffers are known as </i>offset curves</i>.
+             * In morphological analysis they are known as <i>erosion</i> and
+             * <i>dilation</i>
+             *
+             * The buffer operation always returns a polygonal result.
+             * The negative or zero-distance buffer of lines and points is always an empty
+             * {@link Polygon}.
+             *
+             * Since true buffer curves may contain circular arcs,
+             * computed buffer polygons can only be approximations to the true geometry.
+             * The user can control the accuracy of the curve approximation by specifying
+             * the number of linear segments used to approximate curves.
+             *
+             * The <b>end cap style</b> of a linear buffer may be specified. The
+             * following end cap styles are supported:
+             * <ul
+             * <li>{@link #CAP_ROUND} - the usual round end caps
+             * <li>{@link #CAP_BUTT} - end caps are truncated flat at the line ends
+             * <li>{@link #CAP_SQUARE} - end caps are squared off at the buffer distance
+             * beyond the line ends
+             * </ul>
+             *
+             */
+            export class BufferOp {
+                /**
+                 * A number of digits of precision which leaves some computational "headroom"
+                 * for floating point operations.
+                 *
+                 * This value should be less than the decimal precision of double-precision
+                 * values (16).
+                 *
+                 * @type {int}
+                 */
+                static MAX_PRECISION_DIGITS: number;
+
+                /**
+                 * Initializes a buffer computation for the given geometry with the given set of
+                 * parameters.
+                 *
+                 * @param {Geometry}
+                 *          g the geometry to buffer.
+                 * @param {BufferParameters}
+                 *          bufParams the buffer parameters to use.
+                 * @constructor
+                 */
+                constructor(g: Geometry, bufParams: BufferParameters);
+
+                /**
+                 * Compute a scale factor to limit the precision of a given combination of
+                 * Geometry and buffer distance. The scale factor is determined by a combination
+                 * of the number of digits of precision in the (geometry + buffer distance),
+                 * limited by the supplied <code>maxPrecisionDigits</code> value.
+                 *
+                 * @param {Geometry}
+                 *          g the Geometry being buffered.
+                 * @param {double}
+                 *          distance the buffer distance.
+                 * @param {int}
+                 *          maxPrecisionDigits the max # of digits that should be allowed by the
+                 *          precision determined by the computed scale factor.
+                 *
+                 * @return {double} a scale factor for the buffer computation.
+                 */
+                static precisionScaleFactor(
+                    g: Geometry,
+                    distance: number,
+                    maxPrecisionDigits: number
+                ): number;
+
+                /**
+                 * Computes the buffer of a geometry for a given buffer distance.
+                 *
+                 * @param {Geometry}
+                 *          g the geometry to buffer.
+                 * @param {double}
+                 *          distance the buffer distance.
+                 * @return {Geometry} the buffer of the input geometry.
+                 */
+                static bufferOp(g: Geometry, distance: number): Geometry;
+
+                /**
+                 * Computes the buffer for a geometry for a given buffer distance and accuracy
+                 * of approximation.
+                 *
+                 * @param {Geometry}
+                 *          g the geometry to buffer.
+                 * @param {double}
+                 *          distance the buffer distance.
+                 * @param {BufferParameters}
+                 *          params the buffer parameters to use.
+                 * @return {Geometry} the buffer of the input geometry.
+                 *
+                 */
+                static bufferOp2(
+                    g: Geometry,
+                    distance: number,
+                    params: BufferParameters
+                ): Geometry;
+
+                /**
+                 * Computes the buffer for a geometry for a given buffer distance and accuracy
+                 * of approximation.
+                 *
+                 * @param {Geometry}
+                 *          g the geometry to buffer.
+                 * @param {double}
+                 *          distance the buffer distance.
+                 * @param {int}
+                 *          quadrantSegments the number of segments used to approximate a
+                 *          quarter circle.
+                 * @return {Geometry} the buffer of the input geometry.
+                 *
+                 */
+                static bufferOp3(
+                    g: Geometry,
+                    distance: number,
+                    quadrantSegments: number
+                ): Geometry;
+
+                /**
+                 * Computes the buffer for a geometry for a given buffer distance and accuracy
+                 * of approximation.
+                 *
+                 * @param {Geometry}
+                 *          g the geometry to buffer.
+                 * @param {double}
+                 *          distance the buffer distance.
+                 * @param {int}
+                 *          quadrantSegments the number of segments used to approximate a
+                 *          quarter circle.
+                 * @param {int}
+                 *          endCapStyle the end cap style to use.
+                 * @return {Geometry} the buffer of the input geometry.
+                 *
+                 */
+                static bufferOp4(
+                    g: Geometry,
+                    distance: number,
+                    quadrantSegments: number,
+                    endCapStyle: number
+                ): Geometry;
+
+                /**
+                 * Specifies the end cap style of the generated buffer. The styles supported are
+                 * {@link #CAP_ROUND}, {@link #CAP_BUTT}, and {@link #CAP_SQUARE}. The
+                 * default is CAP_ROUND.
+                 *
+                 * @param {int}
+                 *          endCapStyle the end cap style to specify.
+                 */
+                setEndCapStyle(endCapStyle: number): void;
+
+                /**
+                 * Sets the number of segments used to approximate a angle fillet
+                 *
+                 * @param {int}
+                 *          quadrantSegments the number of segments in a fillet for a quadrant.
+                 */
+                setQuadrantSegments(quadrantSegments: number): void;
+
+                /**
+                 * Returns the buffer computed for a geometry for a given buffer distance.
+                 *
+                 * @param {double}
+                 *          dist the buffer distance.
+                 * @return {Geometry} the buffer of the input geometry.
+                 */
+                getResultGeometry(dist: number): Geometry;
+
+                /**
+                 * @param {int}
+                 *          precisionDigits
+                 */
+                bufferReducedPrecision2(precisionDigits: number): void;
+
+                /**
+                 * @param {PrecisionModel}
+                 *          fixedPM
+                 */
+                bufferFixedPrecision(fixedPM: PrecisionModel): void;
+            }
         }
     }
 }

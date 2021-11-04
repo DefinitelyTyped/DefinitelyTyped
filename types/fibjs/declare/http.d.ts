@@ -1,9 +1,9 @@
 /***************************************************************************
  *                                                                         *
  *   This file was automatically generated with idlc.js                    *
- *	 build info: 								   						   *
- *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 12 2018 07:22:40                                     *
+ *     build info:                                                               *
+ *       - fibjs    : 0.25.0                                                   *
+ *       - date    : Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -196,316 +196,316 @@
 
 /** module Or Internal Object */
 /**
-	* @brief 超文本传输协议模块，用以支持 http 协议处理，模块别名：https
-	* @detail 
-	*/
+    * @brief 超文本传输协议模块，用以支持 http 协议处理，模块别名：https
+    * @detail 
+    */
 declare module "http" {
-	
+    
 
-	module http {
-		
-		
-		/**
-		 * 
-		 * @brief 返回标准的 HTTP 响应状态码的集合，以及各自的简短描述。
-		 * 
-		 * 
-		 */
-		export const STATUS_CODES: any[];
-		
-		/**
-		 * 
-		 * @brief 返回http客户端的 HttpCookie 对象列表
-		 * 
-		 * 
-		 */
-		export const cookies: any[];
-		
-		/**
-		 * 
-		 * @brief 查询和设置超时时间
-		 * 
-		 * 
-		 */
-		export const timeout: number;
-		
-		/**
-		 * 
-		 * @brief cookie功能开关，默认开启
-		 * 
-		 * 
-		 */
-		export const enableCookie: boolean;
-		
-		/**
-		 * 
-		 * @brief 自动redirect功能开关，默认开启
-		 * 
-		 * 
-		 */
-		export const autoRedirect: boolean;
-		
-		/**
-		 * 
-		 * @brief 查询和设置 body 最大尺寸，以 MB 为单位，缺省为 -1，不限制尺寸
-		 * 
-		 * 
-		 */
-		export const maxBodySize: number;
-		
-		/**
-		 * 
-		 * @brief 查询和设置 http 请求中的浏览器标识
-		 * 
-		 * 
-		 */
-		export const userAgent: string;
-		
-		/**
-		 * 
-		 * @brief 查询和设置 keep-alive 最大缓存连接数，缺省 128
-		 * 
-		 * 
-		 */
-		export const poolSize: number;
-		
-		/**
-		 * 
-		 * @brief 查询和设置 keep-alive 缓存连接超时时间，缺省 10000 ms
-		 * 
-		 * 
-		 */
-		export const poolTimeout: number;
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 http 请求对象，参见 HttpRequest
-		 * 
-		 * 
-		 */
-		export class Request extends Class_HttpRequest {}
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 http 响应对象，参见 HttpResponse
-		 * 
-		 * 
-		 */
-		export class Response extends Class_HttpResponse {}
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 http cookie 对象，参见 HttpCookie
-		 * 
-		 * 
-		 */
-		export class Cookie extends Class_HttpCookie {}
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 http 服务器，参见 HttpServer
-		 * 
-		 * 
-		 */
-		export class Server extends Class_HttpServer {}
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 http 客户端，参见 HttpClient
-		 * 
-		 * 
-		 */
-		export class Client extends Class_HttpClient {}
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 https 服务器，参见 HttpsServer
-		 * 
-		 * 
-		 */
-		export class HttpsServer extends Class_HttpsServer {}
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 http 协议处理器对象，参见 HttpHandler
-		 * 
-		 * 
-		 */
-		export class Handler extends Class_HttpHandler {}
-		
-		
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个 http 静态文件处理器，用以用静态文件响应 http 消息
-		 * 
-		 * fileHandler 支持 gzip 预压缩，当请求接受 gzip 编码，且相同路径下 filename.ext.gz 文件存在时，将直接返回此文件，
-		 * 从而避免重复压缩带来服务器负载。
-		 * @param root 文件根路径
-		 * @param mimes 扩展 mime 设置
-		 * @param autoIndex 是否支持浏览目录文件，缺省为 false，不支持
-		 * @return 返回一个静态文件处理器用于处理 http 消息
-		 * 
-		 * 
-		 * 
-		 */
-		export function fileHandler(root: string, mimes?: object/** = v8::Object::New(isolate)*/, autoIndex?: boolean/** = false*/): Class_Handler;
-	
-		/**
-		 * 
-		 * @brief 发送 http 请求到指定的流对象，并返回结果
-		 * @param conn 指定处理请求的流对象
-		 * @param req 要发送的 HttpRequest 对象
-		 * @return 返回服务器响应
-		 * 
-		 * 
-		 * @async
-		 */
-		export function request(conn: Class_Stream, req: Class_HttpRequest): Class_HttpResponse;
-	
-		/**
-		 * 
-		 * @brief 请求指定的 url，并返回结果
-		 * opts 包含请求的附加选项，支持的内容如下：
-		 * ```JavaScript
-		 * {
-		 * "query": {},
-		 * "body": SeekedStream | Buffer | String | {},
-		 * "json": {},
-		 * "headers": {}
-		 * }
-		 * ```
-		 * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
-		 * @param method 指定 http 请求方法：GET, POST 等
-		 * @param url 指定 url，必须是包含主机的完整 url
-		 * @param opts 指定附加信息
-		 * @return 返回服务器响应
-		 * 
-		 * 
-		 * @async
-		 */
-		export function request(method: string, url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
-	
-		/**
-		 * 
-		 * @brief 用 GET 方法请求指定的 url，并返回结果，等同于 request("GET", ...)
-		 * opts 包含请求的附加选项，支持的内容如下：
-		 * ```JavaScript
-		 * {
-		 * "query": {},
-		 * "body": SeekedStream | Buffer | String | {},
-		 * "json": {},
-		 * "headers": {}
-		 * }
-		 * ```
-		 * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
-		 * @param url 指定 url，必须是包含主机的完整 url
-		 * @param opts 指定附加信息
-		 * @return 返回服务器响应
-		 * 
-		 * 
-		 * @async
-		 */
-		export function get(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
-	
-		/**
-		 * 
-		 * @brief 用 POST 方法请求指定的 url，并返回结果，等同于 request("POST", ...)
-		 * opts 包含请求的附加选项，支持的内容如下：
-		 * ```JavaScript
-		 * {
-		 * "query": {},
-		 * "body": SeekedStream | Buffer | String | {},
-		 * "json": {},
-		 * "headers": {}
-		 * }
-		 * ```
-		 * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
-		 * @param url 指定 url，必须是包含主机的完整 url
-		 * @param opts 指定附加信息
-		 * @return 返回服务器响应
-		 * 
-		 * 
-		 * @async
-		 */
-		export function post(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
-	
-		/**
-		 * 
-		 * @brief 用 DELETE 方法请求指定的 url，并返回结果，等同于 request("DELETE", ...)
-		 * opts 包含请求的附加选项，支持的内容如下：
-		 * ```JavaScript
-		 * {
-		 * "query": {},
-		 * "body": SeekedStream | Buffer | String | {},
-		 * "json": {},
-		 * "headers": {}
-		 * }
-		 * ```
-		 * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
-		 * @param url 指定 url，必须是包含主机的完整 url
-		 * @param opts 指定附加信息
-		 * @return 返回服务器响应
-		 * 
-		 * 
-		 * @async
-		 */
-		export function del(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
-	
-		/**
-		 * 
-		 * @brief 用 PUT 方法请求指定的 url，并返回结果，等同于 request("PUT", ...)
-		 * opts 包含请求的附加选项，支持的内容如下：
-		 * ```JavaScript
-		 * {
-		 * "query": {},
-		 * "body": SeekedStream | Buffer | String | {},
-		 * "json": {},
-		 * "headers": {}
-		 * }
-		 * ```
-		 * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
-		 * @param url 指定 url，必须是包含主机的完整 url
-		 * @param opts 指定附加信息
-		 * @return 返回服务器响应
-		 * 
-		 * 
-		 * @async
-		 */
-		export function put(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
-	
-		/**
-		 * 
-		 * @brief 用 PATCH 方法请求指定的 url，并返回结果，等同于 request("PATCH", ...)
-		 * opts 包含请求的附加选项，支持的内容如下：
-		 * ```JavaScript
-		 * {
-		 * "query": {},
-		 * "body": SeekedStream | Buffer | String | {},
-		 * "json": {},
-		 * "headers": {}
-		 * }
-		 * ```
-		 * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
-		 * @param url 指定 url，必须是包含主机的完整 url
-		 * @param opts 指定附加信息
-		 * @return 返回服务器响应
-		 * 
-		 * 
-		 * @async
-		 */
-		export function patch(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
-	
-	} /** end of `module http` */
-	export = http
+    module http {
+        
+        
+        /**
+         * 
+         * @brief 返回标准的 HTTP 响应状态码的集合，以及各自的简短描述。
+         * 
+         * 
+         */
+        export const STATUS_CODES: any[];
+        
+        /**
+         * 
+         * @brief 返回http客户端的 HttpCookie 对象列表
+         * 
+         * 
+         */
+        export const cookies: any[];
+        
+        /**
+         * 
+         * @brief 查询和设置超时时间
+         * 
+         * 
+         */
+        export const timeout: number;
+        
+        /**
+         * 
+         * @brief cookie功能开关，默认开启
+         * 
+         * 
+         */
+        export const enableCookie: boolean;
+        
+        /**
+         * 
+         * @brief 自动redirect功能开关，默认开启
+         * 
+         * 
+         */
+        export const autoRedirect: boolean;
+        
+        /**
+         * 
+         * @brief 查询和设置 body 最大尺寸，以 MB 为单位，缺省为 -1，不限制尺寸
+         * 
+         * 
+         */
+        export const maxBodySize: number;
+        
+        /**
+         * 
+         * @brief 查询和设置 http 请求中的浏览器标识
+         * 
+         * 
+         */
+        export const userAgent: string;
+        
+        /**
+         * 
+         * @brief 查询和设置 keep-alive 最大缓存连接数，缺省 128
+         * 
+         * 
+         */
+        export const poolSize: number;
+        
+        /**
+         * 
+         * @brief 查询和设置 keep-alive 缓存连接超时时间，缺省 10000 ms
+         * 
+         * 
+         */
+        export const poolTimeout: number;
+        
+        
+        /**
+         * 
+         * @brief 创建一个 http 请求对象，参见 HttpRequest
+         * 
+         * 
+         */
+        export class Request extends Class_HttpRequest {}
+        
+        
+        /**
+         * 
+         * @brief 创建一个 http 响应对象，参见 HttpResponse
+         * 
+         * 
+         */
+        export class Response extends Class_HttpResponse {}
+        
+        
+        /**
+         * 
+         * @brief 创建一个 http cookie 对象，参见 HttpCookie
+         * 
+         * 
+         */
+        export class Cookie extends Class_HttpCookie {}
+        
+        
+        /**
+         * 
+         * @brief 创建一个 http 服务器，参见 HttpServer
+         * 
+         * 
+         */
+        export class Server extends Class_HttpServer {}
+        
+        
+        /**
+         * 
+         * @brief 创建一个 http 客户端，参见 HttpClient
+         * 
+         * 
+         */
+        export class Client extends Class_HttpClient {}
+        
+        
+        /**
+         * 
+         * @brief 创建一个 https 服务器，参见 HttpsServer
+         * 
+         * 
+         */
+        export class HttpsServer extends Class_HttpsServer {}
+        
+        
+        /**
+         * 
+         * @brief 创建一个 http 协议处理器对象，参见 HttpHandler
+         * 
+         * 
+         */
+        export class Handler extends Class_HttpHandler {}
+        
+        
+        
+        
+        /**
+         * 
+         * @brief 创建一个 http 静态文件处理器，用以用静态文件响应 http 消息
+         * 
+         * fileHandler 支持 gzip 预压缩，当请求接受 gzip 编码，且相同路径下 filename.ext.gz 文件存在时，将直接返回此文件，
+         * 从而避免重复压缩带来服务器负载。
+         * @param root 文件根路径
+         * @param mimes 扩展 mime 设置
+         * @param autoIndex 是否支持浏览目录文件，缺省为 false，不支持
+         * @return 返回一个静态文件处理器用于处理 http 消息
+         * 
+         * 
+         * 
+         */
+        export function fileHandler(root: string, mimes?: object/** = v8::Object::New(isolate)*/, autoIndex?: boolean/** = false*/): Class_Handler;
+    
+        /**
+         * 
+         * @brief 发送 http 请求到指定的流对象，并返回结果
+         * @param conn 指定处理请求的流对象
+         * @param req 要发送的 HttpRequest 对象
+         * @return 返回服务器响应
+         * 
+         * 
+         * @async
+         */
+        export function request(conn: Class_Stream, req: Class_HttpRequest): Class_HttpResponse;
+    
+        /**
+         * 
+         * @brief 请求指定的 url，并返回结果
+         * opts 包含请求的附加选项，支持的内容如下：
+         * ```JavaScript
+         * {
+         * "query": {},
+         * "body": SeekedStream | Buffer | String | {},
+         * "json": {},
+         * "headers": {}
+         * }
+         * ```
+         * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
+         * @param method 指定 http 请求方法：GET, POST 等
+         * @param url 指定 url，必须是包含主机的完整 url
+         * @param opts 指定附加信息
+         * @return 返回服务器响应
+         * 
+         * 
+         * @async
+         */
+        export function request(method: string, url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+    
+        /**
+         * 
+         * @brief 用 GET 方法请求指定的 url，并返回结果，等同于 request("GET", ...)
+         * opts 包含请求的附加选项，支持的内容如下：
+         * ```JavaScript
+         * {
+         * "query": {},
+         * "body": SeekedStream | Buffer | String | {},
+         * "json": {},
+         * "headers": {}
+         * }
+         * ```
+         * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
+         * @param url 指定 url，必须是包含主机的完整 url
+         * @param opts 指定附加信息
+         * @return 返回服务器响应
+         * 
+         * 
+         * @async
+         */
+        export function get(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+    
+        /**
+         * 
+         * @brief 用 POST 方法请求指定的 url，并返回结果，等同于 request("POST", ...)
+         * opts 包含请求的附加选项，支持的内容如下：
+         * ```JavaScript
+         * {
+         * "query": {},
+         * "body": SeekedStream | Buffer | String | {},
+         * "json": {},
+         * "headers": {}
+         * }
+         * ```
+         * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
+         * @param url 指定 url，必须是包含主机的完整 url
+         * @param opts 指定附加信息
+         * @return 返回服务器响应
+         * 
+         * 
+         * @async
+         */
+        export function post(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+    
+        /**
+         * 
+         * @brief 用 DELETE 方法请求指定的 url，并返回结果，等同于 request("DELETE", ...)
+         * opts 包含请求的附加选项，支持的内容如下：
+         * ```JavaScript
+         * {
+         * "query": {},
+         * "body": SeekedStream | Buffer | String | {},
+         * "json": {},
+         * "headers": {}
+         * }
+         * ```
+         * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
+         * @param url 指定 url，必须是包含主机的完整 url
+         * @param opts 指定附加信息
+         * @return 返回服务器响应
+         * 
+         * 
+         * @async
+         */
+        export function del(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+    
+        /**
+         * 
+         * @brief 用 PUT 方法请求指定的 url，并返回结果，等同于 request("PUT", ...)
+         * opts 包含请求的附加选项，支持的内容如下：
+         * ```JavaScript
+         * {
+         * "query": {},
+         * "body": SeekedStream | Buffer | String | {},
+         * "json": {},
+         * "headers": {}
+         * }
+         * ```
+         * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
+         * @param url 指定 url，必须是包含主机的完整 url
+         * @param opts 指定附加信息
+         * @return 返回服务器响应
+         * 
+         * 
+         * @async
+         */
+        export function put(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+    
+        /**
+         * 
+         * @brief 用 PATCH 方法请求指定的 url，并返回结果，等同于 request("PATCH", ...)
+         * opts 包含请求的附加选项，支持的内容如下：
+         * ```JavaScript
+         * {
+         * "query": {},
+         * "body": SeekedStream | Buffer | String | {},
+         * "json": {},
+         * "headers": {}
+         * }
+         * ```
+         * 其中 body，json 不得同时出现。缺省为 {}，不包含任何附加信息
+         * @param url 指定 url，必须是包含主机的完整 url
+         * @param opts 指定附加信息
+         * @return 返回服务器响应
+         * 
+         * 
+         * @async
+         */
+        export function patch(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+    
+    } /** end of `module http` */
+    export = http
 }
 
 /** endof `module Or Internal Object` */

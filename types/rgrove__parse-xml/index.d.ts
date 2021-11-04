@@ -8,7 +8,7 @@ declare function parseXml(name: string, options?: parseXml.ParseOptions): parseX
 
 declare namespace parseXml {
     interface NodeBase {
-      parent?: NodeBase;
+      parent?: NodeBase | undefined;
       type: string;
     }
 
@@ -37,16 +37,16 @@ declare namespace parseXml {
         attributes: { [key: string]: string };
         children: NodeBase[];
         name: string;
-        preserveWhitespace?: string;
+        preserveWhitespace?: string | undefined;
     }
 
     type Node = CData | Comment | Element | Text;
 
     interface ParseOptions {
-        ignoreUndefinedEntities?: boolean;
-        preserveCdata?: boolean;
-        preserveComments?: boolean;
-        resolveUndefinedEntity?: (ref: string) => string;
+        ignoreUndefinedEntities?: boolean | undefined;
+        preserveCdata?: boolean | undefined;
+        preserveComments?: boolean | undefined;
+        resolveUndefinedEntity?: ((ref: string) => string) | undefined;
     }
 }
 

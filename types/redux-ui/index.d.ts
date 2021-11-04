@@ -10,24 +10,28 @@ import * as Redux from 'redux';
 export interface uiParams<UIStateShape> {
   // optional key which is used to determine the UI path in which state will
   // be stored. if omitted this is randomly generated.
-  key?: string;
+  key?: string | undefined;
 
   // optional persist, defaults to false. if set to true persist will keep UI
   // state for this component after it unmounts. if set to false the UI state
   // will be deleted and recreated when the component remounts
-  persist?: boolean;
+  persist?: boolean | undefined;
 
   // **required**: UI state for the component
   state: UIStateShape;
+
+  // customReducer: you can handle the UI state for this component's scope
+  // by dispatching actions
+  reducer?(state: any, action: any): any;
 
   // optional mergeProps passed to react-redux' @connect
   mergeProps?(stateProps: any, dispatchProps: any, ownProps: any): any;
 
   // optional `options` passed to react-redux @connect
   options?: {
-    pure?: boolean;
-    withRef?: boolean;
-  };
+    pure?: boolean | undefined;
+    withRef?: boolean | undefined;
+  } | undefined;
 }
 
 export interface ReduxUIProps<UIStateShape> {

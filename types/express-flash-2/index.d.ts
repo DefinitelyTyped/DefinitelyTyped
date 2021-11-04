@@ -2,7 +2,7 @@
 // Project: https://github.com/jack2gs/express-flash-2
 // Definitions by: Matheus Salmi <https://github.com/mathsalmi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require('express');
 
@@ -16,7 +16,7 @@ export = flash;
 declare global {
     namespace Express {
         interface Request {
-            session?: Session;
+            session?: Session | undefined;
         }
 
         interface Session {
@@ -51,7 +51,7 @@ declare global {
             flash(type: string, msg: string | any[]): void;
 
             locals: {
-                flash: Flash
+                flash?: Flash | undefined
             };
         }
     }

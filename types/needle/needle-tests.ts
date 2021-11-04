@@ -73,14 +73,18 @@ function API_head() {
 
 function API_get() {
     // using promises
+    let resp: needle.NeedleResponse;
+
     needle('get', 'google.com/search?q=syd+barrett')
-        .then((resp) => {
+        .then((_resp) => {
             // if no http:// is found, Needle will automagically prepend it.
+            resp = _resp;
         });
 
     // using callback
-    needle.get('google.com/search?q=syd+barrett', (err, resp) => {
+    needle.get('google.com/search?q=syd+barrett', (err, _resp) => {
         // if no http:// is found, Needle will automagically prepend it.
+        resp = _resp;  // assign response
     });
 }
 
@@ -290,6 +294,27 @@ function FileUpload() {
     });
     needle.put('https://api.app.com/v2', fs.createReadStream('myfile.txt'), (err, resp, body) => {
         // stream content is uploaded verbatim
+    });
+}
+
+async function Timeout() {
+    await needle('get', 'http://test.com/', null, {
+        timeout: 7,
+        open_timeout: 8,
+        read_timeout: 9,
+        response_timeout: 10,
+    });
+}
+
+async function LocalAddress() {
+    await needle('get', 'http://test.com/', null, {
+        localAddress: '169.254.6.9',
+    });
+}
+
+async function UriModifier() {
+    await needle('get', 'http://test.com/', null, {
+        uri_modifier: s => s.replace('test', ''),
     });
 }
 

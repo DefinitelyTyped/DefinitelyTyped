@@ -117,7 +117,7 @@ var uiGridConstants: uiGrid.IUiGridConstants;
 
 gridApi.core.clearAllFilters(true);
 gridApi.core.addToGridMenu(gridInstance, [menuItem]);
-gridApi.core.getVisibleRows(gridInstance);
+gridApi.core.getVisibleRows();
 gridApi.core.handleWindowResize();
 gridApi.core.queueGridRefresh();
 gridApi.core.queueRefresh();

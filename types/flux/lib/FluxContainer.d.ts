@@ -13,14 +13,14 @@ import * as React from "react";
 /** Default options to create a Container. */
 export interface RealOptions {
     /** @default true */
-    pure?: boolean;
+    pure?: boolean | undefined;
     /** @default false */
-    withProps?: boolean;
+    withProps?: boolean | undefined;
     /** @default false */
-    withContext?: boolean;
+    withContext?: boolean | undefined;
 }
 
-export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
+export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.FunctionComponent<TProps>;
 
 export type StoresList = Array<FluxStore<any>>;
 
@@ -45,7 +45,7 @@ export function create<TProps, TState, TContext, TStatic>(base: Component<TProps
  * This is a way to connect stores to a functional stateless view.
  */
 export function createFunctional<TProps, TState>(
-    viewFn: (props: TProps) => React.ReactElement<TState>,
+    viewFn: (props: TState) => React.ReactElement<TState>,
     getStores: (maybeProps?: TProps, maybeContext?: any) => Array<FluxStore<any>>,
     calculateState: (prevState?: TState, maybeProps?: TProps, maybeContext?: any) => TState,
     options?: RealOptions

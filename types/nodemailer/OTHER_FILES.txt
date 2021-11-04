@@ -1,0 +1,7 @@
+lib/dkim/message-parser.d.ts
+lib/dkim/relaxed-body.d.ts
+lib/dkim/sign.d.ts
+lib/mime-node/last-newline.d.ts
+lib/smtp-connection/data-stream.d.ts
+lib/smtp-connection/http-proxy-client.d.ts
+lib/smtp-pool/pool-resource.d.ts

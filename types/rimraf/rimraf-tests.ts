@@ -1,10 +1,7 @@
 import rimraf = require('rimraf');
 
-rimraf('./xyz', (err: Error) => { });
+rimraf('./xyz', (_: Error | null | undefined) => {});
 rimraf.sync('./xyz');
 
-rimraf('./xyz', { glob: { ignore: '' } }, (err: Error) => { });
+rimraf('./xyz', { glob: { ignore: '' } }, (_: Error | null | undefined) => {});
 rimraf.sync('./xyz', { glob: { ignore: '' } });
-
-rimraf.EMFILE_MAX = 0;
-rimraf.BUSYTRIES_MAX = 0;

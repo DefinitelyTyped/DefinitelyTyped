@@ -9,6 +9,6 @@ var session: Session;
 var command: Command<any> = new Command(session);
 
 command
-	.findByXpath("some xpath")
-	.click()
-	.end();
+    .findByXpath("some xpath")
+    .click()
+    .end();

@@ -1,0 +1,10 @@
+src/BitcoinHelpers.d.ts
+src/Constants.d.ts
+src/EthereumHelpers.d.ts
+src/Redemption.d.ts
+src/CommonTypes.d.ts
+src/Deposit.d.ts
+src/TBTC.d.ts
+src/lib/BitcoinSPV.d.ts
+src/lib/BitcoinTxParser.d.ts
+src/lib/ElectrumClient.d.ts

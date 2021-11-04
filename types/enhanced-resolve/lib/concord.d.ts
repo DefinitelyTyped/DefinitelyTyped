@@ -16,9 +16,9 @@ export interface Type {
 }
 
 export interface ConcordContext {
-    environments?: string[];
-    referrer?: string;
-    supportedResourceTypes?: string[];
+    environments?: string[] | undefined;
+    referrer?: string | undefined;
+    supportedResourceTypes?: string[] | undefined;
 }
 
 declare function parseType(type: string): Type;

@@ -2238,7 +2238,7 @@ const doesNotThrow = (func: Function) => {
         {
             let schema = { format: 'custom' },
                 callCount = 0,
-                options = <JsenSettings>{
+                options = {
                     formats: {
                         custom: () => {
                             callCount++;
@@ -2275,7 +2275,7 @@ const doesNotThrow = (func: Function) => {
                     maximum: 10
                 },
                 callCount = 0,
-                options = <JsenSettings>{
+                options = {
                     formats: {
                         custom: () => {
                             callCount++;
@@ -2311,7 +2311,7 @@ const doesNotThrow = (func: Function) => {
                         },
                         format: 'passwordsMatch'
                     },
-                    options = <JsenSettings>{
+                    options = {
                         formats: {
                             passwordsMatch: (obj: any) => {
                                 callCount++;
@@ -2369,7 +2369,7 @@ const doesNotThrow = (func: Function) => {
                 },
                 additionalProperties: false
             },
-            options = {
+            options: jsen.JsenSettings = {
                 greedy: true,
                 schemas: {
                     external: {

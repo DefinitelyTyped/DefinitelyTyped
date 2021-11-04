@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@recurly/*": [
+                "recurly__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "test/3d-secure.ts",
+        "test/adyen.ts",
+        "test/apple-pay.ts",
+        "test/bank-account.ts",
+        "test/configure.ts",
+        "test/elements.ts",
+        "test/gift-card.ts",
+        "test/paypal.ts",
+        "test/recurly-error.ts",
+        "test/validate.ts",
+        "test/pricing/checkout.ts",
+        "test/pricing/subscription.ts",
+        "test/token/elements.ts",
+        "test/token/hosted-field.ts"
+    ]
+}

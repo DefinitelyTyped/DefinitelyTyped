@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@atlaskit/single-select": ["atlaskit__single-select"]
+            "@atlaskit/*": ["atlaskit__*"]
         }
     },
     "files": ["index.d.ts", "atlaskit__single-select-tests.tsx"]

@@ -1,18 +1,18 @@
 // Type definitions for dropkickjs 2.1
-// Project: http://dropkickjs.com/
+// Project: http://dropkickjs.com/, https://github.com/robdel12/dropkick
 // Definitions by: Dmitry Pesterev <https://github.com/VorobeY1326>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface DropkickOptions {
-    disabled?: boolean;
-    form?: Node;
-    length?: number;
-    mobile?: boolean;
-    multiple?: boolean;
-    options?: string[];
-    selectedIndex?: number;
-    selectedOptions?: string[];
-    value?: string;
+    disabled?: boolean | undefined;
+    form?: Node | undefined;
+    length?: number | undefined;
+    mobile?: boolean | undefined;
+    multiple?: boolean | undefined;
+    options?: string[] | undefined;
+    selectedIndex?: number | undefined;
+    selectedOptions?: string[] | undefined;
+    value?: string | undefined;
 
     change?(): void;
     close?(): void;

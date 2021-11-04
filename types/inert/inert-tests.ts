@@ -98,7 +98,6 @@ const provision = async () => {
                     }
                     return new Error('');
                 },
-                BAD_listing: true,
             },
         },
         options: { files: { relativeTo: __dirname } }

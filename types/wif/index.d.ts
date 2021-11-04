@@ -12,7 +12,7 @@ export interface WIFReturn {
 }
 
 export function decodeRaw(buffer: Buffer, version?: number): WIFReturn;
-export function decode(string: string, version: number): WIFReturn;
+export function decode(string: string, version?: number): WIFReturn;
 
 export function encodeRaw(
     version: number,
@@ -21,7 +21,7 @@ export function encodeRaw(
 ): Buffer;
 
 export function encode(
-    version: number | WIFReturn,
+    version: number,
     privateKey: Buffer,
     compressed: boolean
-): Buffer;
+): string;

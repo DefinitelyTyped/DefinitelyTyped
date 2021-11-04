@@ -12,10 +12,8 @@
  *         if (err) throw err;
  *     });
  */
-// tslint:disable-next-line strict-export-declare-modifiers
 declare function cmdShim(from: string, to: string, cb: (err: any) => void): undefined;
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare namespace cmdShim {
     /**
      * Create a cmd shim at `to` for the command line program at `from`, but will just
@@ -29,5 +27,4 @@ declare namespace cmdShim {
     function ifExists(from: string, to: string, cb: (err: any) => void): undefined;
 }
 
-// tslint:disable-next-line strict-export-declare-modifiers
 export = cmdShim;

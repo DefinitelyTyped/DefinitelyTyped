@@ -105,7 +105,7 @@ namespace HttpAndRegularPromiseTests {
         theAnswer: number;
         letters: string[];
         snack: string;
-        nothing?: string;
+        nothing?: string | undefined;
     }
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
@@ -235,7 +235,7 @@ mod.service('name', ($scope: ng.IScope) => {});
 mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
 mod.service({
     MyCtrl: class {},
-    MyCtrl2: () => {}, // tslint:disable-line:object-literal-shorthand
+    MyCtrl2: () => {},
     MyCtrl3: ['$fooService', ($fooService: any) => {}]
 });
 mod.constant('name', 23);
@@ -253,6 +253,30 @@ angular.module('qprovider-test', [])
         const provider: ng.IQProvider = $qProvider.errorOnUnhandledRejections(false);
         const currentValue: boolean = $qProvider.errorOnUnhandledRejections();
     }]);
+
+let $compileProvider: ng.ICompileProvider;
+let urlListRegex: RegExp;
+
+urlListRegex = $compileProvider.aHrefSanitizationWhitelist();
+$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.aHrefSanitizationTrustedUrlList();
+$compileProvider.aHrefSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+urlListRegex = $compileProvider.imgSrcSanitizationWhitelist();
+$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.imgSrcSanitizationTrustedUrlList();
+$compileProvider.imgSrcSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+let $httpProvider: ng.IHttpProvider;
+$httpProvider.xsrfWhitelistedOrigins = ['https://example.com'];
+$httpProvider.xsrfTrustedOrigins = ['https://example.com'];
+
+let $sceDelegateProvider: ng.ISCEDelegateProvider;
+let urlList: any[];
+urlList = $sceDelegateProvider.bannedResourceUrlList();
+$sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
+urlList = $sceDelegateProvider.trustedResourceUrlList();
+$sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
 
 // Promise signature tests
 let foo: ng.IPromise<number>;
@@ -293,6 +317,14 @@ foo.then((x) => {
     // x is infered to be a number, which is the resolved value of a promise
     x.toFixed();
 });
+
+namespace TestPromiseInterop {
+    declare const promiseInterop: ng.IPromise<number>;
+    const ngStringPromise: ng.IPromise<string> =
+        promiseInterop.then((num) => Promise.resolve(String(num)));
+    const caughtStringPromise: ng.IPromise<string|number> =
+        promiseInterop.catch((reason) => Promise.resolve('oh noes'));
+}
 
 // $q signature tests
 namespace TestQ {
@@ -777,6 +809,9 @@ let elementArray = angular.element(document.querySelectorAll('div'));
 let elementReadyFn = angular.element(() => {
     console.log('ready');
 });
+angular.element(window);
+declare let windowService: angular.IWindowService;
+angular.element(windowService);
 
 // $timeout signature tests
 namespace TestTimeout {
@@ -1001,7 +1036,7 @@ angular.module('docsTimeDirective', [])
         return {
             link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes) {
                 let format: any;
-                let timeoutId: any;
+                let timeoutId: angular.IPromise<any>;
 
                 function updateTime() {
                     element.text(dateFilter(new Date(), format));
@@ -1210,9 +1245,9 @@ const componentModule = angular.module('componentExample', [])
     });
 
 interface ICopyExampleUser {
-    name?: string;
-    email?: string;
-    gender?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+    gender?: string | undefined;
 }
 
 interface ICopyExampleScope {
@@ -1470,6 +1505,10 @@ function testIHttpParamSerializerJQLikeProvider() {
     });
 }
 
+function testJqLiteRestoreBehavior() {
+    angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement(); // $ExpectType void
+}
+
 function anyOf2<T1, T2>(v1: T1, v2: T2) {
     return Math.random() < 0.5 ? v1 : v2;
 }
@@ -1502,16 +1541,35 @@ interface MyScope extends ng.IScope {
     foo: string;
 }
 
-const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope> = (
-        templateElement: JQLite,
-        templateAttributes: ng.IAttributes,
-        transclude: ng.ITranscludeFunction
-    ): ng.IDirectiveLinkFn<MyScope> => {
-    return (
-        scope: MyScope,
-        instanceElement: JQLite,
-        instanceAttributes: ng.IAttributes
-    ) => {
-        return null;
-    };
-};
+interface MyElement extends JQLite {
+    foo: string;
+}
+
+interface MyAttributes extends ng.IAttributes {
+    foo: string;
+}
+interface MyController extends ng.INgModelController {
+    foo: string;
+}
+
+angular.module('WithGenerics', [])
+    .directive('directiveUsingGenerics', () => {
+        return {
+            restrict: 'E',
+            link(scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) {
+                scope['name'] = 'Jeff';
+            }
+        };
+    })
+    .directive('linkFunctionUsingGenerics', () => {
+        return (scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) => {
+            scope['name'] = 'Jeff';
+        };
+    });
+
+angular.errorHandlingConfig(); // $ExpectType IErrorHandlingConfig
+// $ExpectType void
+angular.errorHandlingConfig({
+    objectMaxDepth: 5,
+    urlErrorParamsEnabled: true,
+});

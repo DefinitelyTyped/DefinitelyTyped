@@ -35,12 +35,12 @@ ChartMogul.Customer.create(config, {
     name: "",
     external_id: "",
     attributes: {
-		tags: ["important", "Prio1"],
-		custom: [
-			{type: "String", key: "channel", value: "Facebook", source: "integration"},
-			{type: "Integer", key: "age", value: 18}
-		]
-	}
+        tags: ["important", "Prio1"],
+        custom: [
+            {type: "String", key: "channel", value: "Facebook", source: "integration"},
+            {type: "Integer", key: "age", value: 18}
+        ]
+    }
 });
 
 // $ExpectType Promise<Customer>

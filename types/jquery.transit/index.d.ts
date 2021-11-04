@@ -1,20 +1,38 @@
 // Type definitions for jQuery.transit.js 0.9.9
 // Project: http://ricostacruz.com/jquery.transit/
 // Definitions by: MrBigDog2U <https://github.com/MrBigDog2U>
+//                 Jhsosa <https://github.com/Jhsosa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
-
 // Transit //////////////////////////////////////////////////
 
 interface JQueryTransitOptions {
-	opacity?: number;
-	duration?: number;
-	delay?: number;
-	easing?: string;
-	complete?: () => void;
-	scale?: any;
+    translate?: number[] | string | string[] | undefined;
+    x?: number | string | undefined;
+    y?: number | string | undefined;
+    width?: number | string | undefined;
+    height?: number | string | undefined;
+    margin?: string | undefined;
+    marginTop?: string | undefined;
+    marginLeft?: string | undefined;
+    marginRight?: string | undefined;
+    marginBottom?: string | undefined;
+    skewX?: string | undefined;
+    skewY?: string | undefined;
+    perspective?: string | undefined;
+    rotate?: number | string | undefined;
+    rotateX?: string | undefined;
+    rotateY?: string | undefined;
+    rotate3d?: string | undefined;
+    transform?: string | undefined;
+    transformOrigin?: string | undefined;
+    opacity?: number | undefined;
+    duration?: number | undefined;
+    delay?: number | undefined;
+    easing?: string | undefined;
+    complete?: (() => void) | undefined;
+    scale?: number | number[] | undefined;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,7 +44,6 @@ interface JQuery {
     transition(options: JQueryTransitOptions, duration: number, easing: string): JQuery;
     transition(options: JQueryTransitOptions, complete: () => void): JQuery;
     transition(options: JQueryTransitOptions, duration: number, easing: string, complete: () => void): JQuery;
-
     /**
      * Set one or more CSS properties for the set of matched elements.
      *

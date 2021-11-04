@@ -2,7 +2,7 @@
 // Project: https://github.com/domenic/sinon-chai
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>, Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 /// <reference types="sinon" />
@@ -84,6 +84,6 @@ declare global {
     }
 }
 
-declare function sinonChai(chai: any, utils: any): void;
+declare const sinonChai: Chai.ChaiPlugin;
 declare namespace sinonChai { }
 export = sinonChai;

@@ -1,12 +1,12 @@
-// Type definitions for react-loadable 5.4
+// Type definitions for react-loadable 5.5
 // Project: https://github.com/thejameskyle/react-loadable#readme
-// Definitions by: Diogo Franco <https://github.com/Kovensky>
+// Definitions by: Jessica Franco <https://github.com/Jessidhia>
 //                 Oden S. <https://github.com/odensc>
 //                 Ian Ker-Seymer <https://github.com/ianks>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Ian Mobley <https://github.com/iMobs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 /// <reference types="react" />
 
@@ -28,20 +28,19 @@ declare namespace LoadableExport {
          * If you don't want to render anything you can pass a function that returns null
          * (this is considered a valid React component).
          */
-        // NOTE: () => null is only needed until React.SFC supports components returning null
-        loading: React.ComponentType<LoadingComponentProps> | (() => null);
+        loading: React.ComponentType<LoadingComponentProps>;
         /**
          * Defaults to 200, in milliseconds.
          *
          * Only show the loading component if the loader() has taken this long to succeed or error.
          */
-        delay?: number | false | null;
+        delay?: number | false | null | undefined;
         /**
          * Disabled by default.
          *
          * After the specified time in milliseconds passes, the component's `timedOut` prop will be set to true.
          */
-        timeout?: number | false | null;
+        timeout?: number | false | null | undefined;
 
         /**
          * Optional array of module paths that `Loadable.Capture`'s `report` function will be applied on during
@@ -53,7 +52,7 @@ declare namespace LoadableExport {
          * });
          * ```
          */
-        modules?: string[];
+        modules?: string[] | undefined;
 
         /**
          * An optional function which returns an array of Webpack module ids which you can get
@@ -66,7 +65,7 @@ declare namespace LoadableExport {
          * });
          * ```
          */
-        webpack?: () => number[];
+        webpack?: (() => Array<string | number>) | undefined;
     }
 
     interface OptionsWithoutRender<Props> extends CommonOptions {
@@ -189,7 +188,7 @@ declare namespace LoadableExport {
 
 declare const LoadableExport: LoadableExport.Loadable;
 
-/* tslint:disable-next-line */
+/* tslint:disable-next-line:no-declare-current-package no-single-declare-module */
 declare module "react-loadable" {
     export = LoadableExport;
 }

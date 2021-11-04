@@ -1,53 +1,53 @@
-// Type definitions for backbone.paginator 2.0.2
+// Type definitions for backbone.paginator 2.0
 // Project: https://github.com/backbone-paginator/backbone.paginator
 // Definitions by: Nyamazing <https://github.com/Nyamazing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 
 declare module 'backbone' {
   interface PageableState {
-    firstPage?:    number;
-    lastPage?:     number;
-    currentPage?:  number;
-    pageSize?:     number;
-    totalPages?:   number;
-    totalRecords?: number;
-    sortKey?:      string;
-    order?:        number;
+    firstPage?:    number | undefined;
+    lastPage?:     number | undefined;
+    currentPage?:  number | undefined;
+    pageSize?:     number | undefined;
+    totalPages?:   number | undefined;
+    totalRecords?: number | undefined;
+    sortKey?:      string | undefined;
+    order?:        number | undefined;
   }
 
   interface PageableQueryParams {
-    currentPage?:  string;
-    pageSize?:     string;
-    totalPages?:   string;
-    totalRecords?: string;
-    sortKey?:      string;
-    order?:        string;
+    currentPage?:  string | undefined;
+    pageSize?:     string | undefined;
+    totalPages?:   string | undefined;
+    totalRecords?: string | undefined;
+    sortKey?:      string | undefined;
+    order?:        string | undefined;
     directions?:   any;
   }
 
   interface PageableInitialOptions {
-    comparator?: (...options: any[]) => number;
-    full?: boolean;
-    state?: PageableState;
-    queryParam?: PageableQueryParams;
+    comparator?: ((...options: any[]) => number) | undefined;
+    full?: boolean | undefined;
+    state?: PageableState | undefined;
+    queryParam?: PageableQueryParams | undefined;
   }
 
   interface PageableParseLinksOptions {
-    xhr?: JQueryXHR;
+    xhr?: JQueryXHR | undefined;
   }
 
   interface PageableSetSortingOptions<TModel extends Model> {
-    side?: string;
-    full?: boolean;
-    sortValue?: (model: TModel, sortKey: string) => any | string;
+    side?: string | undefined;
+    full?: boolean | undefined;
+    sortValue?: ((model: TModel, sortKey: string) => any | string) | undefined;
   }
 
   interface PageableSwitchModeOptions {
-    fetch?:      boolean;
-    resetState?: boolean;
+    fetch?:      boolean | undefined;
+    resetState?: boolean | undefined;
   }
 
   type PageableGetPageOptions = CollectionFetchOptions|Silenceable;

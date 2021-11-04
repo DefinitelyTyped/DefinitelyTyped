@@ -30,7 +30,7 @@ function callHighlighterUpdate(session: AceAjax.IEditSession, firstRow: number, 
 var assert: any;
 var renderer: AceAjax.VirtualRenderer;
 
-const aceEditorHighlighSelectedWorkTests = {
+const aceEditorHighlightSelectedWordTests = {
     setUp: function(next) {
         var session = new AceAjax.EditSession(lipsum);
         var editor = new AceAjax.Editor(renderer, session);

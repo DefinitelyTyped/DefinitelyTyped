@@ -1,86 +1,89 @@
-// Type definitions for podcast v0.1.0
+// Type definitions for podcast 1.3
 // Project: https://github.com/maxnowack/node-podcast
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
+//                 Malo Bourgon <https://github.com/malob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
-interface PodcastStatic
-{
-    new(options: IFeedOptions): PodcastStatic;
+export = Podcast;
 
-    item(options: IItemOptions): void;
-    xml(indent?: string): string;
+declare class Podcast {
+    constructor(options?: Podcast.FeedOptions, items?: ReadonlyArray<Podcast.Item>);
+
+    addItem(item: Podcast.Item): void;
+    buildXml(indent?: boolean | string): string;
 }
 
-interface IFeedOptions
-{
-    title: string;
-    description?: string;
-    generator?: string;
-    feed_url: string;
-    site_url: string;
-    image_url?: string;
-    docs?: string;
-    author: string;
-    managingEditor?: string;
-    webMaster?: string;
-    copyright?: string;
-    language?: string;
-    categories?: string[];
-    pubDate?: Date;
-    ttl?: number;
-    itunesAuthor?: string;
-    itunesSubtitle?: string;
-    itunesSummary?: string;
-    itunesOwner?: IItunesOwner;
-    itunesExplicit?: boolean;
-    itunesCategory?: IItunesCategory;
-    itunesImage?: string;
-}
-
-interface IItunesOwner
-{
-    name: string;
-    email: string;
-}
-interface IItunesCategory
-{
-    name: string;
-    subcats: IItunesSubCategory[]
-}
-interface IItunesSubCategory
-{
-    name: string;
-    subcat: string[] /* ? */
-}
-
-interface IItemOptions
-{
-    title: string;
-    description: string;
-    url: string;
-    guid: string;
-    categories?: string[];
-    author?: string;
-    date: Date;
-    lat?: number;
-    long?: number;
-    enclosure?: {
-        url: string;
-        file?: string;
-        size?: number;
-        mime?: string;
+declare namespace Podcast {
+    interface BaseFeedOptions {
+        title?: string | undefined;
+        description?: string | undefined;
+        generator?: string | undefined;
+        docs?: string | undefined;
+        author: string;
+        managingEditor?: string | undefined;
+        webMaster?: string | undefined;
+        copyright?: string | undefined;
+        language?: string | undefined;
+        categories?: string[] | undefined;
+        pubDate?: Date | string | undefined;
+        ttl?: number | undefined;
+        itunesAuthor?: string | undefined;
+        itunesSubtitle?: string | undefined;
+        itunesSummary?: string | undefined;
+        itunesOwner?: FeedItunesOwner | undefined;
+        itunesExplicit?: boolean | undefined;
+        itunesCategory?: FeedItunesCategory[] | undefined;
+        itunesImage?: string | undefined;
+        itunesType?: "episodic" | "serial" | undefined;
+        customNamespaces?: object | undefined;
+        customElements?: object[] | undefined;
     }
-    itunesAuthor?: string;
-    itunesExplicit?: boolean;
-    itunesSubtitle?: string;
-    itunesSummary?: string;
-    itunesDuration?: number;
-    itunesKeywords?: string[];
-}
 
-declare var Podcast: PodcastStatic;
+    interface FeedItunesOwner {
+        name: string;
+        email: string;
+    }
 
-declare module "podcast"
-{
-    export = Podcast;
+    interface FeedItunesCategory {
+        text: string;
+        subcats?: FeedItunesCategory[] | undefined;
+    }
+
+    type FeedOptions = BaseFeedOptions &
+        ({ feedUrl: string } | { feed_url: string }) &
+        ({ siteUrl: string } | { site_url: string }) &
+        ({ imageUrl?: string | undefined } | { image_url?: string | undefined });
+
+    interface Item {
+        title?: string | undefined;
+        description?: string | undefined;
+        url: string;
+        guid?: string | undefined;
+        categories?: string[] | undefined;
+        author?: string | undefined;
+        date: Date | string;
+        lat?: number | undefined;
+        long?: number | undefined;
+        enclosure?: ItemEnclosure | undefined;
+        content?: string | undefined;
+        itunesAuthor?: string | undefined;
+        itunesExplicit?: boolean | undefined;
+        itunesSubtitle?: string | undefined;
+        itunesSummary?: string | undefined;
+        itunesDuration?: number | string | undefined;
+        itunesImage?: string | undefined;
+        itunesSeason?: number | undefined;
+        itunesEpisode?: number | undefined;
+        itunesTitle?: string | undefined;
+        itunesEpisodeType?: 'full' | 'trailer' | 'bonus' | undefined;
+        customElements?: object[] | undefined;
+    }
+
+    interface ItemEnclosure {
+        url: string;
+        file?: string | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+    }
 }

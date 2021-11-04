@@ -1,30 +1,88 @@
+import { install, log, TabtabEnv, uninstall, parseEnv, completionItem } from 'tabtab';
+import minimist = require('minimist');
 
-/// <reference types="node" />
+// $ExpectType CompletionItem
+completionItem({ name: 'foo' });
 
-import tabtab = require('tabtab');
-import child_process = require('child_process');
-import string_decoder = require('string_decoder');
+// $ExpectType CompletionItem
+completionItem('bar');
 
-if (process.argv.slice(2)[0] === 'completion') {
-    tabtab.complete('pkgname', function(err, data) {
-        if (err || !data) return;
-        if (/^--\w?/.test(data.last)) return tabtab.log(['help', 'version'], data, '--');
-        if (/^-\w?/.test(data.last)) return tabtab.log(['n', 'o', 'd', 'e'], data, '-');
-        tabtab.log(['list', 'of', 'commands'], data);
+const opts = minimist(process.argv.slice(2), {
+    string: ['foo', 'bar'],
+    boolean: ['help', 'version', 'loglevel'],
+});
 
-        child_process.exec('rake -H', {encoding: null}, function(err, stdout, stderr) {
-            if (err) return;
-            var decoder = new string_decoder.StringDecoder('utf8');
-            var parsed = tabtab.parseOut(decoder.write(stdout));
-            if (/^--\w?/.test(data.last)) return tabtab.log(parsed.longs, data, '--');
-            if (/^-\w?/.test(data.last)) return tabtab.log(parsed.shorts, data, '-');
+const args = opts._;
+
+// tslint:disable: no-void-expression
+const completion = (env: TabtabEnv) => {
+    if (!env.complete) return;
+
+    // Write your completions there
+
+    if (env.prev === 'foo') {
+        return log(['is', 'this', 'the', 'real', 'life']);
+    }
+
+    if (env.prev === 'bar') {
+        return log(['is', 'this', 'just', 'fantasy']);
+    }
+
+    if (env.prev === '--loglevel') {
+        return log(['error', 'warn', 'info', 'notice', 'verbose']);
+    }
+
+    return log([
+        '--help',
+        '--version',
+        '--loglevel',
+        'foo',
+        'bar',
+        'install-completion',
+        'completion',
+        'someCommand:someCommand is some kind of command with a description',
+        {
+            name: 'someOtherCommand:hey',
+            description: 'You must add a description for items with ":" in them',
+        },
+        'anotherOne',
+    ]);
+};
+// tslint:enable: no-void-expression
+
+const run = (): Promise<void> => {
+    const cmd = args[0];
+
+    // Write your CLI there
+
+    // Here we install for the program `tabtab-test` (this file), with
+    // completer being the same program. Sometimes, you want to complete
+    // another program that's where the `completer` option might come handy.
+    if (cmd === 'install-completion') {
+        return install({
+            name: 'tabtab-test',
+            completer: 'tabtab-test',
         });
+    }
 
-        child_process.exec('cake', {encoding: null}, function(err, stdout, stderr) {
-            if (err) return;
-            var decoder = new string_decoder.StringDecoder('utf8');
-            var tasks = tabtab.parseTasks(decoder.write(stdout), 'cake');
-            tabtab.log(tasks, data);
+    if (cmd === 'uninstall-completion') {
+        // Here we uninstall for the program `tabtab-test` (this file).
+        return uninstall({
+            name: 'tabtab-test',
         });
-    });
-}
+    }
+
+    // The completion command is added automatically by tabtab when the program
+    // is completed.
+    if (cmd === 'completion') {
+        return new Promise<void>(res => {
+            const env = parseEnv(process.env);
+            completion(env);
+            res();
+        });
+    }
+
+    return new Promise<void>((_, rej) => rej());
+};
+
+run().catch(e => console.error(e));

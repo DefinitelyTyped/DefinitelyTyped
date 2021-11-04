@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import * as EventEmitter from "events";
+import { EventEmitter } from "events";
 
 export class Id {
     scheme: string;
@@ -171,7 +171,7 @@ export class Exception {
 
     code: number;
     name: string;
-    path?: string;
+    path?: string | undefined;
 
     // tslint:disable-next-line ban-types
     constructor(code: number, name: string, path: string, ctor: Function);

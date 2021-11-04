@@ -1,10 +1,10 @@
 // Type definitions for react-google-places-suggest 3.4
-// Project: https://xuopled.github.io/react-google-places-suggest
+// Project: https://github.com/xuopled/react-google-places-suggest
 // Definitions by: Vasily Nesterov <https://github.com/vasilysn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 import { Component, ReactNode } from "react";
 
 export default ReactGooglePlacesSuggest;
@@ -19,16 +19,16 @@ declare namespace ReactGooglePlacesSuggest {
 
     interface Props {
         autocompletionRequest: google.maps.places.AutocompletionRequest;
-        children?: ReactNode;
-        customRender?: (prediction?: Prediction) => JSX.Element | string;
-        customContainerRender?: (
+        children?: ReactNode | undefined;
+        customRender?: ((prediction?: Prediction) => JSX.Element | string) | undefined;
+        customContainerRender?: ((
             predictions: ReadonlyArray<Prediction>
-        ) => JSX.Element | string;
+        ) => JSX.Element | string) | undefined;
         googleMaps: typeof google.maps;
-        onSelectSuggest?: (
+        onSelectSuggest?: ((
             geocodedPrediction: GeocodedPrediction,
             originalPrediction: Prediction
-        ) => any;
-        textNoResults?: string | null;
+        ) => any) | undefined;
+        textNoResults?: string | null | undefined;
     }
 }

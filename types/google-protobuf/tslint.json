@@ -1,17 +1,12 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "align": false,
         "array-type": false,
-        "new-parens": false,
-        "no-consecutive-blank-lines": false,
         "interface-over-type-literal": false,
-        "no-relative-import-in-test": false,
-        "no-var": false,
+        "new-parens": false,
+        "no-unnecessary-generics": false,
         "prefer-declare-function": false,
         "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false,
-        "no-unnecessary-generics": false
+        "strict-export-declare-modifiers": false
     }
 }

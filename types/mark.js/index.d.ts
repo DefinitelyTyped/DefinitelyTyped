@@ -2,6 +2,8 @@
 // Project: https://markjs.io/
 // Definitions by: Soner Köksal <https://github.com/renjfk>
 //                 Roman Hotsiy <https://github.com/RomanGotsiy>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Joao Lourenco <https://github.com/blackstarzes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -10,20 +12,26 @@
 declare namespace Mark {
     type MarkAccuracy = 'partially' | 'complementary' | 'exactly';
 
+    interface MarkAccuracyObject {
+        value: MarkAccuracy;
+        limiters?: string[] | undefined;
+    }
+
     interface MarkOptions {
-        element?: string;
-        className?: string;
-        exclude?: string[];
-        separateWordSearch?: boolean;
-        accuracy?: MarkAccuracy | { value: MarkAccuracy };
-        diacritics?: boolean;
-        synonyms?: { [index: string]: string };
-        iframes?: boolean;
-        iframesTimeout?: number;
-        acrossElements?: boolean;
-        caseSensitive?: boolean;
-        ignoreJoiners?: boolean;
-        wildcards?: 'disabled' | 'enabled' | 'withSpaces';
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        separateWordSearch?: boolean | undefined;
+        accuracy?: MarkAccuracy | MarkAccuracyObject | undefined;
+        diacritics?: boolean | undefined;
+        synonyms?: { [index: string]: string } | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
+        acrossElements?: boolean | undefined;
+        caseSensitive?: boolean | undefined;
+        ignoreJoiners?: boolean | undefined;
+        ignorePunctuation?: string[] | undefined;
+        wildcards?: 'disabled' | 'enabled' | 'withSpaces' | undefined;
 
         each?(element: Element): void;
 
@@ -38,21 +46,61 @@ declare namespace Mark {
 
         done?(marksTotal: number): void;
 
-        debug?: boolean;
-        log?: object;
+        debug?: boolean | undefined;
+        log?: object | undefined;
+    }
+
+    interface MarkRegExpOptions {
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
+        acrossElements?: boolean | undefined;
+        ignoreGroups?: number | undefined;
+        each?(element: Element): void;
+        filter?(
+            textNode: Element,
+            term: string,
+            marksSoFar: number,
+            marksTotal: number
+        ): boolean;
+        noMatch?(term: string): void;
+        done?(marksTotal: number): void;
+        debug?: boolean | undefined;
+        log?: object | undefined;
+    }
+
+    interface MarkRangesOptions {
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
+        each?(element: Element, range: Range): void;
+        filter?(
+            textNode: Element,
+            term: string,
+            marksSoFar: number,
+            marksTotal: number
+        ): boolean;
+        noMatch?(term: string): void;
+        done?(marksTotal: number): void;
+        debug?: boolean | undefined;
+        log?: object | undefined;
     }
 
     interface UnmarkOptions {
-        element?: string;
-        className?: string;
-        exclude?: string[];
-        iframes?: boolean;
-        iframesTimeout?: number;
+        element?: string | undefined;
+        className?: string | undefined;
+        exclude?: string[] | undefined;
+        iframes?: boolean | undefined;
+        iframesTimeout?: number | undefined;
 
         done?(marksTotal: number): void;
 
-        debug?: boolean;
-        log?: object;
+        debug?: boolean | undefined;
+        log?: object | undefined;
     }
 
     interface Range {
@@ -84,7 +132,7 @@ declare class Mark {
      * Note that groups will be ignored and mark.js will always find all matches, regardless of the g flag.
      * @param options Optional options
      */
-    markRegExp(regexp: RegExp, options?: Mark.MarkOptions): void;
+    markRegExp(regexp: RegExp, options?: Mark.MarkRegExpOptions): void;
 
     /**
      * A method to mark ranges with a start position and length. They will be applied
@@ -95,7 +143,7 @@ declare class Mark {
      */
     markRanges(
         ranges: ReadonlyArray<Mark.Range>,
-        options?: Mark.MarkOptions
+        options?: Mark.MarkRangesOptions
     ): void;
 
     /**

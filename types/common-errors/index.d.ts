@@ -51,10 +51,10 @@ export namespace helpers {
     function generateClass(
         name: string,
         options?: {
-            extends?: Error,
-            globalize?: boolean,
-            args?: string[],
-            generateMessage?: GenerateMessageMethod
+            extends?: Error | undefined,
+            globalize?: boolean | undefined,
+            args?: string[] | undefined,
+            generateMessage?: GenerateMessageMethod | undefined
         }
     ): ErrorConstructor;
 }
@@ -183,6 +183,11 @@ export class HttpStatusError extends global.Error {
      * @param req the request object
      */
     constructor(err: Error, req?: express.Request);
+
+    /**
+     * Status code for this error.
+     */
+    statusCode: number;
 }
 
 /**

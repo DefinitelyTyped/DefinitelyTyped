@@ -2,7 +2,7 @@
 // Project: https://github.com/mailcheck/mailcheck
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.8
 
 /// <reference types="jquery" />
 
@@ -35,9 +35,9 @@ declare namespace MailcheckModule {
     }
 
     export interface ISplitEmail {
-        topLevelDomain?: string;
-        domain?: string;
-        address?: string;
+        topLevelDomain?: string | undefined;
+        domain?: string | undefined;
+        address?: string | undefined;
     }
 
     export interface ISuggestion {
@@ -46,23 +46,31 @@ declare namespace MailcheckModule {
         full: string;
     }
 
-    export interface IOptions {
+    export interface IAsynchronousOptions {
         email: string;
-        domains?: string[];
-        secondLevelDomains?: string[];
-        topLevelDomains?: string[];
-        distanceFunction?: IDistanceFunction;
-        suggested?: ISuggested | IJQuerySuggested;
-        empty?: IEmpty | IJQueryEmpty;
+        domains?: string[] | undefined;
+        secondLevelDomains?: string[] | undefined;
+        topLevelDomains?: string[] | undefined;
+        distanceFunction?: IDistanceFunction | undefined;
+        suggested: ISuggested | IJQuerySuggested;
+        empty?: IEmpty | IJQueryEmpty | undefined;
     }
+    export interface ISynchronousOptions {
+        email: string;
+        domains?: string[] | undefined;
+        secondLevelDomains?: string[] | undefined;
+        topLevelDomains?: string[] | undefined;
+        distanceFunction?: IDistanceFunction | undefined;
 
+    }
     export interface Static {
         defaultDomains: string[];
         defaultSecondLevelDomains: string[];
         defaultTopLevelDomains: string[];
         domainThreshold: number;
         topLevelThreshold: number;
-        run(opts: IOptions):void;
+        run(opts: IAsynchronousOptions):void;
+        run(opts: ISynchronousOptions):ISuggestion | undefined;
         suggest: ISuggestFunction;
         encodeEmail(email: string): string;
         splitEmail(email: string): ISplitEmail;
@@ -73,7 +81,8 @@ declare namespace MailcheckModule {
 }
 
 interface JQuery {
-    mailcheck(opts: MailcheckModule.IOptions): void;
+    mailcheck(opts: MailcheckModule.IAsynchronousOptions):void;
+    mailcheck(opts: MailcheckModule.ISynchronousOptions):MailcheckModule.ISuggestion | void;
 }
 
 declare module 'mailcheck' {

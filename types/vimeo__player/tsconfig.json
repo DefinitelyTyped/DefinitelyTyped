@@ -15,8 +15,8 @@
         ],
         "types": [],
         "paths": {
-            "@vimeo/player": [
-                "vimeo__player"
+            "@vimeo/*": [
+                "vimeo__*"
             ]
         },
         "noEmit": true,

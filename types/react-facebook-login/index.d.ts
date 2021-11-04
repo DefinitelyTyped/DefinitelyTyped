@@ -1,4 +1,4 @@
-// Type definitions for react-facebook-login 3.6
+// Type definitions for react-facebook-login 4.1
 // Project: https://github.com/keppelen/react-facebook-login
 // Definitions by: Alexandre Paré <https://github.com/apare>, Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,53 +6,64 @@
 
 import * as React from "react";
 
-interface ReactFacebookLoginProps {
+export interface ReactFacebookLoginProps {
     appId: string;
-    callback(userInfo: ReactFacebookLoginInfo): void;
+    callback(userInfo: ReactFacebookLoginInfo | ReactFacebookFailureResponse): void;
     onFailure?(response: ReactFacebookFailureResponse): void;
 
-    autoLoad?: boolean;
-    buttonStyle?: React.CSSProperties;
-    containerStyle?: React.CSSProperties;
-    cookie?: boolean;
-    cssClass?: string;
-    disableMobileRedirect?: boolean;
-    fields?: string;
-    icon?: string | React.ReactNode;
-    isDisabled?: boolean;
-    language?: string;
+    autoLoad?: boolean | undefined;
+    buttonStyle?: React.CSSProperties | undefined;
+    containerStyle?: React.CSSProperties | undefined;
+    cookie?: boolean | undefined;
+    cssClass?: string | undefined;
+    disableMobileRedirect?: boolean | undefined;
+    fields?: string | undefined;
+    icon?: React.ReactNode | undefined;
+    isDisabled?: boolean | undefined;
+    language?: string | undefined;
     onClick?(event: React.MouseEvent<HTMLDivElement>): void;
-    reAuthenticate?: boolean;
-    redirectUri?: string;
-    scope?: string;
-    size?: "small" | "medium" | "metro";
-    textButton?: string;
-    typeButton?: string;
-    version?: string;
-    xfbml?: boolean;
-    isMobile?: boolean;
-    tag?: Node | React.Component<any>;
+    reAuthenticate?: boolean | undefined;
+    redirectUri?: string | undefined;
+    scope?: string | undefined;
+    size?: "small" | "medium" | "metro" | undefined;
+    textButton?: string | undefined;
+    typeButton?: string | undefined;
+    version?: string | undefined;
+    xfbml?: boolean | undefined;
+    isMobile?: boolean | undefined;
+    tag?: Node | React.Component<any> | undefined;
+    returnScopes?: boolean | undefined;
+    state?: string | undefined;
+    authType?: string | undefined;
+    responseType?: string | undefined;
 }
 
 export interface ReactFacebookFailureResponse {
-    status?: string;
+    status?: string | undefined;
 }
 
 export interface ReactFacebookLoginInfo {
     id: string;
+    userID: string;
     accessToken: string;
-    name?: string;
-    email?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+    picture?: {
+        data: {
+          height?: number | undefined,
+          is_silhouette?: boolean | undefined,
+          url?: string | undefined,
+          width?: number | undefined,
+      },
+    } | undefined;
 }
 
-interface ReactFacebookLoginState {
-    isSdkLoaded?: boolean;
-    isProcessing?: boolean;
+export interface ReactFacebookLoginState {
+    isSdkLoaded?: boolean | undefined;
+    isProcessing?: boolean | undefined;
 }
 
-declare class ReactFacebookLogin extends React.Component<
+export default class ReactFacebookLogin extends React.Component<
     ReactFacebookLoginProps,
     ReactFacebookLoginState
 > {}
-
-export default ReactFacebookLogin;

@@ -1,0 +1,12 @@
+export type exports = string;
+declare const CHAR: string;
+declare const VARCHAR: string;
+declare const CLOB: string;
+declare const INTEGER: string;
+declare const BIGINT: string;
+declare const NUMERIC: string;
+declare const DOUBLE_PRECISION: string;
+declare const TIMESTAMP: string;
+declare const TIMESTAMP_WITH_TIME_ZONE: string;
+declare const DATE: string;
+export {};

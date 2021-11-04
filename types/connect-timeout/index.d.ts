@@ -14,10 +14,9 @@ declare namespace Express {
         clearTimeout(): void;
 
         /**
-         *
-         * @return {boolean} true if timeout fired; false otherwise.
+         * @summary true if timeout fired; false otherwise.
          */
-        timedout(event: string, message: string): boolean;
+        timedout: boolean;
     }
 }
 
@@ -34,7 +33,7 @@ declare module "connect-timeout" {
              * @summary Controls if this module will "respond" in the form of forwarding an error.
              * @type {boolean}
              */
-            respond?: boolean;
+            respond?: boolean | undefined;
         }
     }
 

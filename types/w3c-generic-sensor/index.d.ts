@@ -1,12 +1,10 @@
-// Type definitions for W3C Generic Sensor API 1.0
+// Type definitions for non-npm package W3C Generic Sensor API 1.0
 // Project: https://www.w3.org/TR/generic-sensor/
 // Definitions by: Kenneth Rohde Christiansen <https://github.com/kenchris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 // Explainer: https://www.w3.org/TR/motion-sensors/
-
-/// <reference types="geometry-dom" />
 
 declare class SensorErrorEvent extends Event {
     constructor(type: string, errorEventInitDict: SensorErrorEventInit);
@@ -19,7 +17,7 @@ interface SensorErrorEventInit extends EventInit {
 
 declare class Sensor extends EventTarget {
     readonly activated: boolean;
-    readonly timestamp?: number; // Should be DOMHighResTimeStamp.
+    readonly timestamp?: number | undefined; // Should be DOMHighResTimeStamp.
     start(): void;
     stop(): void;
 
@@ -32,67 +30,71 @@ declare class Sensor extends EventTarget {
 }
 
 interface SensorOptions {
-    frequency?: number;
+    frequency?: number | undefined;
+}
+
+interface MotionSensorOptions extends SensorOptions {
+    referenceFrame?: "device" | "screen" | undefined;
 }
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/
 
 declare class Accelerometer extends Sensor {
-  constructor(options?: SensorOptions);
-  readonly x?: number;
-  readonly y?: number;
-  readonly z?: number;
+  constructor(options?: MotionSensorOptions);
+  readonly x?: number | undefined;
+  readonly y?: number | undefined;
+  readonly z?: number | undefined;
 }
 
 declare class LinearAccelerationSensor extends Accelerometer {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }
 
 declare class GravitySensor extends Accelerometer {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }
 
 // Gyroscope: https://www.w3.org/TR/gyroscope/
 
 declare class Gyroscope extends Sensor {
-    constructor(options?: SensorOptions);
-    readonly x?: number;
-    readonly y?: number;
-    readonly z?: number;
+    constructor(options?: MotionSensorOptions);
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
 }
 
 // Magnetometer: https://www.w3.org/TR/magnetometer/
 
 declare class Magnetometer extends Sensor {
-    constructor(options?: SensorOptions);
-    readonly x?: number;
-    readonly y?: number;
-    readonly z?: number;
+    constructor(options?: MotionSensorOptions);
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
 }
 
 declare class UncalibratedMagnetometer extends Sensor {
-    constructor(options?: SensorOptions);
-    readonly x?: number;
-    readonly y?: number;
-    readonly z?: number;
-    readonly xBias?: number;
-    readonly yBias?: number;
-    readonly zBias?: number;
+    constructor(options?: MotionSensorOptions);
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
+    readonly xBias?: number | undefined;
+    readonly yBias?: number | undefined;
+    readonly zBias?: number | undefined;
 }
 
 // Orientation Sensor: https://www.w3.org/TR/orientation-sensor/
 
-type RotationMatrixType = Float32Array | Float64Array | GeometryDom.DOMMatrix;
+type RotationMatrixType = Float32Array | Float64Array | DOMMatrix;
 
 declare class OrientationSensor extends Sensor {
-    readonly quaternion?: number[];
+    readonly quaternion?: number[] | undefined;
     populateMatrix(targetMatrix: RotationMatrixType): void;
 }
 
 declare class AbsoluteOrientationSensor extends OrientationSensor {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }
 
 declare class RelativeOrientationSensor extends OrientationSensor {
-    constructor(options?: SensorOptions);
+    constructor(options?: MotionSensorOptions);
 }

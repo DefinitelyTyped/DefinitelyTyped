@@ -52,24 +52,24 @@ declare namespace SIPml {
     type EventSubscriptionType = string;
 
     interface Configuration {
-      audio_remote?: HTMLElement;
-      bandwidth?: { audio: number; video: number; };
+      audio_remote?: HTMLElement | undefined;
+      bandwidth?: { audio: number; video: number; } | undefined;
       events_listener?: {
         events: EventSubscriptionType | EventSubscriptionType[];
         listener: (e: Session.Event) => void
-      };
-      expires?: number;
-      from?: string;
-      sip_caps?: Object[];
-      sip_headers?: Object[];
-      video_local?: HTMLElement;
-      video_remote?: HTMLElement;
+      } | undefined;
+      expires?: number | undefined;
+      from?: string | undefined;
+      sip_caps?: Object[] | undefined;
+      sip_headers?: Object[] | undefined;
+      video_local?: HTMLElement | undefined;
+      video_remote?: HTMLElement | undefined;
       video_size?: {
-        minWidth?: number;
-        maxWidth?: number;
-        minHeight?: number;
-        maxHeight?: number;
-      };
+        minWidth?: number | undefined;
+        maxWidth?: number | undefined;
+        minHeight?: number | undefined;
+        maxHeight?: number | undefined;
+      } | undefined;
     }
 
     class Call extends Session implements EventTarget<Call.EventSubscriptionType, Session.Event> {
@@ -184,30 +184,30 @@ declare namespace SIPml {
     type EventSubscriptionType = string;
 
     interface Configuration {
-      bandwidth?: { audio: number; video: number; };
-      display_name?: string;
-      enable_click2call?: boolean;
-      enable_early_ims?: boolean;
-      enable_media_stream_cache?: boolean;
-      enable_rtcweb_breaker?: boolean;
+      bandwidth?: { audio: number; video: number; } | undefined;
+      display_name?: string | undefined;
+      enable_click2call?: boolean | undefined;
+      enable_early_ims?: boolean | undefined;
+      enable_media_stream_cache?: boolean | undefined;
+      enable_rtcweb_breaker?: boolean | undefined;
       events_listener?: {
         events: EventSubscriptionType | EventSubscriptionType[];
         listener: (e: Stack.Event) => void
-      };
-      ice_servers?: Object[];
-      impi?: string;
-      impu?: string;
-      outbound_proxy_url?: string;
-      password?: string;
-      realm?: string;
-      sip_headers?: Object[];
+      } | undefined;
+      ice_servers?: Object[] | undefined;
+      impi?: string | undefined;
+      impu?: string | undefined;
+      outbound_proxy_url?: string | undefined;
+      password?: string | undefined;
+      realm?: string | undefined;
+      sip_headers?: Object[] | undefined;
       video_size?: {
-        minWidth?: number;
-        maxWidth?: number;
-        minHeight?: number;
-        maxHeight?: number;
-      };
-      websocket_proxy_url?: string;
+        minWidth?: number | undefined;
+        maxWidth?: number | undefined;
+        minHeight?: number | undefined;
+        maxHeight?: number | undefined;
+      } | undefined;
+      websocket_proxy_url?: string | undefined;
     }
 
     class Event extends SIPml.Event {

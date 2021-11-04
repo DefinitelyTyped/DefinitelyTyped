@@ -7,10 +7,10 @@
 import jwt = require("jsonwebtoken");
 import fs = require("fs");
 
-var token: string;
-var cert: Buffer;
+let token: string;
+let cert: Buffer;
 
-interface ITestObject {
+interface TestObject {
     foo: string;
 }
 
@@ -42,12 +42,18 @@ token = jwt.sign(testObject, cert, { algorithm: "RS256" });
 const privKey: Buffer = fs.readFileSync("encrypted_private.key"); // get private key
 const secret = { key: privKey.toString(), passphrase: "keypwd" };
 token = jwt.sign(testObject, secret, { algorithm: "RS256" }); // the algorithm option is mandatory in this case
+token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: "RS256" });
 
 // sign asynchronously
-jwt.sign(testObject, cert, { algorithm: "RS256" }, function(
-    err: Error,
-    token: string,
-) {
+jwt.sign(testObject, cert, { algorithm: "RS256" }, (
+    err: Error | null,
+    token: string | undefined,
+) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
     console.log(token);
 });
 
@@ -56,72 +62,147 @@ jwt.sign(testObject, cert, { algorithm: "RS256" }, function(
  * https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
  */
 // verify a token symmetric
-jwt.verify(token, "shhhhh", function(err, decoded) {
-    const result = decoded as ITestObject;
+jwt.verify(token, "shhhhh", (err, decoded) => {
+    const result = decoded as TestObject;
 
     console.log(result.foo); // bar
 });
 
 // use external time for verifying
-jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, function(err, decoded) {
-  const result = decoded as ITestObject
+jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
+    const result = decoded as TestObject;
 
-  console.log(result.foo) // bar
+    console.log(result.foo); // bar
 });
 
 // invalid token
-jwt.verify(token, "wrong-secret", function(err, decoded) {
+jwt.verify(token, "wrong-secret", (err, decoded) => {
     // err
     // decoded undefined
 });
 
+// verify with encrypted RSA SHA256 private key
+jwt.verify(token, secret, (err, decoded) => {
+    const result = decoded as TestObject;
+
+    console.log(result.foo); // bar
+});
+
 // verify a token asymmetric
 cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, function(err, decoded) {
-    const result = decoded as ITestObject;
+jwt.verify(token, cert, (err, decoded) => {
+    const result = decoded as TestObject;
+
+    console.log(result.foo); // bar
+});
+
+// verify a token assymetric with async key fetch function
+function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
+    cert = fs.readFileSync("public.pem");
+
+    callback(null, cert);
+}
+
+jwt.verify(token, getKey, (err, decoded) => {
+    const result = decoded as TestObject;
 
     console.log(result.foo); // bar
 });
 
 // verify audience
 cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { audience: "urn:foo" }, function(err, decoded) {
+jwt.verify(token, cert, { audience: "urn:foo" }, (err, decoded) => {
+    // if audience mismatch, err == invalid audience
+});
+jwt.verify(token, cert, { audience: /urn:f[o]{2}/ }, (err, decoded) => {
+    // if audience mismatch, err == invalid audience
+});
+jwt.verify(token, cert, { audience: [/urn:f[o]{2}/, "urn:bar"] }, (err, decoded) => {
     // if audience mismatch, err == invalid audience
 });
 
 // verify issuer
 cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { audience: "urn:foo", issuer: "urn:issuer" }, function(
+jwt.verify(token, cert, { audience: "urn:foo", issuer: "urn:issuer" }, (
     err,
     decoded,
-) {
+) => {
     // if issuer mismatch, err == invalid issuer
 });
 
 // verify algorithm
 cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { algorithms: ["RS256"] }, function(err, decoded) {
+jwt.verify(token, cert, { algorithms: ["RS256"] }, (err, decoded) => {
     // if algorithm mismatch, err == invalid algorithm
 });
 
 // verify without expiration check
 cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
+jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });
+
+cert = fs.readFileSync("public.pem"); // get public key
+jwt.verify(token, cert, (_err, payload) => {
+    if (payload) {
+        // $ExpectType JwtPayload
+        payload;
+    }
+});
+
+cert = fs.readFileSync("public.pem"); // get public key
+jwt.verify(token, cert, {}, (_err, payload) => {
+    if (payload) {
+        // $ExpectType JwtPayload
+        payload;
+    }
+});
+
+cert = fs.readFileSync("public.pem"); // get public key
+jwt.verify(token, cert, { complete: true }, (_err, payload) => {
+    if (payload) {
+        // $ExpectType Jwt
+        payload;
+    }
+});
+
+cert = fs.readFileSync("public.pem"); // get public key
+const verified = jwt.verify(token, cert);
+
+if (typeof verified !== 'string') {
+    // $ExpectType JwtPayload
+    verified;
+}
+
+cert = fs.readFileSync("public.pem"); // get public key
+const verified2 = jwt.verify(token, cert, { complete: true });
+
+if (typeof verified2 !== 'string') {
+    // $ExpectType Jwt
+    verified2;
+}
 
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
-var decoded = jwt.decode(token);
+// $ExpectType string | JwtPayload | null
+jwt.decode(token);
 
-decoded = jwt.decode(token, { complete: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false });
 
-if (decoded !== null && typeof decoded === "object") {
-    console.log(decoded.foo);
-}
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { json: false });
 
-decoded = jwt.decode(token, { json: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false, json: false });
 
-decoded = jwt.decode(token, { complete: false, json: false });
+// $ExpectType JwtPayload | null
+jwt.decode(token, { json: true });
+
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true });
+
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true, json: true });

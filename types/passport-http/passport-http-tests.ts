@@ -8,7 +8,7 @@ import express = require("express");
 
 interface UserInterface {
     username: string;
-    password?: string;
+    password?: string | undefined;
 }
 
 class User {
@@ -24,6 +24,9 @@ function validateNonce(nonce: string) {
 
 function validateParams(nonce: string, cnonce: string, nc: number, opaque: string) {
 }
+
+new http.BasicStrategy({passReqToCallback: false}, (username, password, done) => {});
+new http.BasicStrategy({passReqToCallback: true}, (req, username, password, done) => {});
 
 passport.use(new http.BasicStrategy((username, password, done) => {
     User.findOne({

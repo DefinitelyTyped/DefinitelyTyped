@@ -24,7 +24,7 @@ declare namespace Notifications {
     type NotificationShow = (opts?: Notification) => Action;
 
     interface NotificationsProps extends Attributes {
-        notifications?: Notification[];
+        notifications?: Notification[] | undefined;
     }
 
     const reducer: NotificationsReducer<any>;

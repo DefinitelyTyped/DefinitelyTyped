@@ -1,5 +1,5 @@
 // Type definitions for json-rpc-ws 4.0
-// Project: https://www.npmjs.com/package/json-rpc-ws
+// Project: https://github.com/andyet/json-rpc-ws
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 //                 Margus Lamp <https://github.com/mlamp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -100,10 +100,10 @@ export interface Connection {
 }
 
 export interface Payload<ParamType> {
-    jsonrpc?: '2.0';
+    jsonrpc?: '2.0' | undefined;
     id: string;
     method: string;
-    params?: ParamType;
+    params?: ParamType | undefined;
     result?: any;
     error?: any;
 }

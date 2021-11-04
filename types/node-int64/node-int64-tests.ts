@@ -13,7 +13,7 @@ import Int64 = require('node-int64');
 
 // x's value is what we expect (the decimal value of 0x123456789)
 let x = new Int64(0x123456789);
-//!! 	[Int64 value:4886718345 octets:00 00 00 01 23 45 67 89]
+//!!     [Int64 value:4886718345 octets:00 00 00 01 23 45 67 89]
 
 // We can set the value as a number
 let a: Int64 = new Int64(64);
@@ -25,7 +25,7 @@ let b: Int64 = new Int64(73876293, 827235);
 // precision.  But that's okay - it's still useful because it's internal
 // representation (octets) is what we passed in
 let y = new Int64('123456789abcdef0');
-//!! 	[Int64 value:Infinity octets:12 34 56 78 9a bc de f0]
+//!!     [Int64 value:Infinity octets:12 34 56 78 9a bc de f0]
 
 // Get the underlying Buffer object
 let buffer: Buffer = y.buffer;

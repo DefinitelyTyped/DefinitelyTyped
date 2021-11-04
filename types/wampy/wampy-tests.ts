@@ -20,8 +20,14 @@ ws.options({
     onClose: () => console.log('See you next time!'),
     onError: () => console.log('Breakdown happened'),
     onReconnect: () => console.log('Reconnecting...'),
-    onReconnectSuccess: () => console.log('Successfully reconnected!')
+    onReconnectSuccess: () => console.log('Successfully reconnected!'),
+    uriValidation: 'loose',
 });
+
+ws.options({
+    // $ExpectError
+    uriValidation: 'wrong',
+})
 
 ws.connect();
 ws.connect('/my-socket-path');
@@ -40,6 +46,10 @@ ws.subscribe('system.monitor.update', (args: DataArgs) =>
     {
         console.log('Received client.message event!');
     });
+
+ws.subscribe('system.monitor.update', (args: DataArgs) => {}, { match: 'prefix' })
+// $ExpectError
+ws.subscribe('system.monitor.update', (args: DataArgs) => {}, { match: 'wrong' })
 
 let f1 = () => console.log('Subscribe processing!');
 

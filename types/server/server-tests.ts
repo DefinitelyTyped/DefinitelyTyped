@@ -15,6 +15,10 @@ import {
 } from "server/reply";
 
 server([
+    get("/log", ctx => {
+        ctx.log.info("Logged message");
+        return status(200).send("Look at the console.");
+    }),
     get("/", ctx => "Hello, World!"),
     post("/", ctx => console.log(ctx.data)),
     del("/", ctx => ({ ok: true })),
@@ -52,3 +56,29 @@ server([
     ctx => status(200),
     ctx => type("application/json")
 ]);
+
+// Test all the options work
+server(
+    {
+        port: 3000,
+        secret: 'my-secret',
+        public: 'public',
+        views: 'views',
+        engine: 'pug',
+        env: 'development',
+        favicon: 'public/logo.png',
+        parser: { body: { limit: '1mb' } },
+        security: {
+            dnsPrefetchControl: { allow: true },
+        },
+        session: {
+            resave: false,
+            saveUninitialized: true,
+            cookie: {},
+            secret: 'INHERITED',
+            store: undefined,
+        },
+        log: 'alert',
+    },
+    [get('/', ctx => 'Hello, World!')],
+);

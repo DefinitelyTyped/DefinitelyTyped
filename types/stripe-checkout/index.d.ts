@@ -1,9 +1,9 @@
 // Type definitions for Stripe Checkout 1.0
-// Project: https://stripe.com/checkout
+// Project: https://stripe.com/checkout, https://github.com/matthewmueller/stripe-checkout
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="stripe-v2"/>
+/// <reference types="stripe-v3"/>
 
 interface StripeCheckoutStatic {
     configure(options: StripeCheckoutOptions): StripeCheckoutHandler;
@@ -15,24 +15,25 @@ interface StripeCheckoutHandler {
 }
 
 interface StripeCheckoutOptions {
-    key?: string;
-    token?(token: stripe.StripeCardTokenResponse): void;
-    image?: string;
-    name?: string;
-    description?: string;
-    amount?: number;
-    locale?: string;
-    currency?: string;
-    panelLabel?: string;
-    zipCode?: boolean;
-    billingAddress?: boolean;
-    email?: string;
-    shippingAddress?: boolean;
-    label?: string;
-    allowRememberMe?: boolean;
-    bitcoin?: boolean;
-    alipay?: boolean | 'auto';
-    alipayReusable?: boolean;
+    key?: string | undefined;
+    token?(token: stripe.Token): void;
+    source?(source: stripe.Source): void;
+    image?: string | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
+    amount?: number | undefined;
+    locale?: string | undefined;
+    currency?: string | undefined;
+    panelLabel?: string | undefined;
+    zipCode?: boolean | undefined;
+    billingAddress?: boolean | undefined;
+    email?: string | undefined;
+    shippingAddress?: boolean | undefined;
+    label?: string | undefined;
+    allowRememberMe?: boolean | undefined;
+    bitcoin?: boolean | undefined;
+    alipay?: boolean | 'auto' | undefined;
+    alipayReusable?: boolean | undefined;
     opened?(): void;
     closed?(): void;
 }

@@ -12,20 +12,20 @@ declare namespace gapi.client.analytics.provisioning {
 }
 
 interface DataQuery {
-    "ids"                   ?: string;
-    "start-date"            ?: string;
-    "30daysAgo"             ?: string;
-    "end-date"              ?: string;
-    "yesterday"             ?: string;
-    "metrics"               ?: string;
-    "dimensions"            ?: string;
-    "sort"                  ?: string;
-    "filters"               ?: string;
-    "segment"               ?: string;
-    "samplingLevel"         ?: string;
-    "include-empty-rows"    ?: string;
-    "start-index"           ?: string;
-    "max-results"           ?: string;
+    "ids"                   ?: string | undefined;
+    "start-date"            ?: string | undefined;
+    "30daysAgo"             ?: string | undefined;
+    "end-date"              ?: string | undefined;
+    "yesterday"             ?: string | undefined;
+    "metrics"               ?: string | undefined;
+    "dimensions"            ?: string | undefined;
+    "sort"                  ?: string | undefined;
+    "filters"               ?: string | undefined;
+    "segment"               ?: string | undefined;
+    "samplingLevel"         ?: string | undefined;
+    "include-empty-rows"    ?: string | undefined;
+    "start-index"           ?: string | undefined;
+    "max-results"           ?: string | undefined;
 }
 declare namespace gapi.client.analytics.data {}
 declare namespace gapi.client.analytics.data.ga {
@@ -40,34 +40,34 @@ declare namespace gapi.client.analytics.data.realtime {
 
 declare namespace gapi.client.analytics.kB {}
 declare namespace gapi.client.analytics.kB.parameters {
-	export interface AnalyticsParameter {
-		"type"              ?: string;
-		"description"       ?: string;
-		"default"           ?: string;
-		"enum"              ?: string[];
-		"enumDescriptions"  ?: string[];
-		"location"          ?: string;
-	}
+    export interface AnalyticsParameter {
+        "type"              ?: string | undefined;
+        "description"       ?: string | undefined;
+        "default"           ?: string | undefined;
+        "enum"              ?: string[] | undefined;
+        "enumDescriptions"  ?: string[] | undefined;
+        "location"          ?: string | undefined;
+    }
         export interface alt extends AnalyticsParameter {}
-	export class alt {}
+    export class alt {}
         export interface fields extends AnalyticsParameter {}
-	export class fields {}
+    export class fields {}
         export interface key extends AnalyticsParameter {}
-	export class key {}
+    export class key {}
         export interface oauth_token extends AnalyticsParameter {}
-	export class oauth_token {}
+    export class oauth_token {}
         export interface prettyPrint extends AnalyticsParameter {}
-	export class prettyPrint {}
+    export class prettyPrint {}
         export interface quotaUser extends AnalyticsParameter {}
-	export class quotaUser {}
+    export class quotaUser {}
         export interface userIP extends AnalyticsParameter {}
-	export class userIP {}
+    export class userIP {}
 }
 
 interface View {
-    accountId       ?: string;
-    webPropertyId   ?: string;
-    webViewId       ?: string;
+    accountId       ?: string | undefined;
+    webPropertyId   ?: string | undefined;
+    webViewId       ?: string | undefined;
 }
 declare namespace gapi.client.analytics.management {}
 declare namespace gapi.client.analytics.management.accountSummaries {

@@ -1,12 +1,46 @@
-import express = require('express');
-import exphbs = require('express-handlebars');
+import express = require("express");
+import exphbs = require("express-handlebars");
+import { ExpressHandlebars } from "express-handlebars";
 
-var app = express();
+ExpressHandlebars; // $ExpectType typeof ExpressHandlebars
+new ExpressHandlebars(); // $ExpectType ExpressHandlebars
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+const app = express();
 
-app.listen(1337);
-console.log('Test Express Handlebars app on port 1337..');
-console.log('Done');
-process.exit(0);
+const hbs = exphbs.create({ defaultLayout: "main" });
+
+exphbs.create({
+    partialsDir: ["shared/templates/", "views/partials/"],
+    helpers: {
+        transform: (msg: string) => msg.toLocaleLowerCase(),
+    },
+});
+
+hbs.getTemplate("shared/templates/", { encoding: "latin1" });
+
+hbs.getTemplates("shared/templates/", {
+    cache: app.enabled("view cache"),
+    precompiled: true,
+});
+
+app.engine("handlebars", hbs.engine);
+app.engine("handlebars", exphbs());
+
+app.set("view engine", "handlebars");
+
+hbs.renderView("test", (err: any) => {});
+hbs.renderView("test", (err: any, content?: string) => {});
+hbs.renderView(
+    "test",
+    {
+        layout: "main",
+    },
+    (err: any) => {},
+);
+hbs.renderView(
+    "test",
+    {
+        layout: "main",
+    },
+    (err: any, content?: string) => {},
+);

@@ -1,6 +1,7 @@
-// Type definitions for google-protobuf 3.2
+// Type definitions for google-protobuf 3.15
 // Project: https://github.com/google/google-protobuf
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
+//                 Chaitanya Kamatham <https://github.com/kamthamc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
@@ -8,7 +9,7 @@ type ScalarFieldType = boolean | number | string;
 type RepeatedFieldType = ScalarFieldType[] | Uint8Array[];
 type AnyFieldType = ScalarFieldType | RepeatedFieldType | Uint8Array;
 type FieldValue = string | number | boolean | Uint8Array | FieldValueArray | undefined;
-interface FieldValueArray extends Array<FieldValue> {} // tslint:disable-line no-empty-interface
+interface FieldValueArray extends Array<FieldValue> {}
 
 export abstract class Message {
   getJsPbMessageId(): (string | undefined);
@@ -17,7 +18,7 @@ export abstract class Message {
     data: Message.MessageArray,
     messageId: (string | number),
     suggestedPivot: number,
-    repeatedFields?: number[],
+    repeatedFields?: number[] | null,
     oneofFields?: number[][] | null): void;
   static toObjectList<T extends Message>(
     field: T[],
@@ -52,7 +53,7 @@ export abstract class Message {
     msg: Message,
     fieldNumber: number,
     noLazyCreate: boolean,
-    valueCtor: typeof Message): Map<any, any>;
+    valueCtor?: typeof Message): Map<any, any>;
   static setField(
     msg: Message,
     fieldNumber: number,
@@ -109,8 +110,8 @@ export abstract class Message {
   static equals(m1: Message, m2: Message): boolean;
   static compareExtensions(extension1: {}, extension2: {}): boolean;
   static compareFields(field1: any, field2: any): boolean;
-  cloneMessage(): Message;
-  clone(): Message;
+  cloneMessage(): this;
+  clone(): this;
   static clone<T extends Message>(msg: T): T;
   static cloneMessage<T extends Message>(msg: T): T;
   static copyInto(fromMessage: Message, toMessage: Message): void;
@@ -184,17 +185,35 @@ export class Map<K, V> {
   getEntryList(): Array<[K, V]>;
   entries(): Map.Iterator<[K, V]>;
   keys(): Map.Iterator<K>;
+  values(): Map.Iterator<V>;
   forEach(
     callback: (entry: V, key: K) => void,
     thisArg?: {}): void;
   set(key: K, value: V): this;
   get(key: K): (V | undefined);
   has(key: K): boolean;
+  serializeBinary(
+    fieldNumber: number,
+    writer: BinaryWriter,
+    keyWriterFn: (field: number, key: K) => void,
+    valueWriterFn: (field: number, value: V, writerCallback: BinaryWriteCallback) => void,
+    writeCallback?: BinaryWriteCallback
+  ): void;
+  static deserializeBinary<K, V>(
+    map: Map<K, V>,
+    reader: BinaryReader,
+    keyReaderFn: (reader: BinaryReader) => K,
+    valueReaderFn: (reader: BinaryReader, value: any, readerCallback: BinaryReadCallback) => V,
+    readCallback?: BinaryReadCallback,
+    defaultKey?: K,
+    defaultValue?: V
+  ): void;
 }
 
 export namespace Map {
   // This is implemented by jspb.Map.ArrayIteratorIterable_, but that class shouldn't be exported
   interface Iterator<T> {
+    [Symbol.iterator](): Iterator<T>;
     next(): IteratorResult<T>;
   }
   interface IteratorResult<T> {
@@ -205,7 +224,9 @@ export namespace Map {
 
 type BinaryReadReader = (msg: any, binaryReader: BinaryReader) => void;
 
-type BinaryRead = (msg: any, reader: BinaryReadReader) => void;
+type BinaryRead = (msg: any, reader: BinaryReadReader) => any;
+
+type BinaryReadCallback = (value: any, binaryReader: BinaryReader) => void;
 
 type BinaryWriteCallback = (value: any, binaryWriter: BinaryWriter) => void;
 

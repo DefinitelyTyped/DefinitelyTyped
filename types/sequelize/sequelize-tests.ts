@@ -1,6 +1,16 @@
 import Sequelize = require("sequelize");
 import Q = require('q');
 import Bluebird = require('bluebird');
+import SequelizeAsDefault from 'sequelize';
+import { Sequelize as SequelizeAsIndividualExport } from 'sequelize';
+
+//
+// Import checks
+// ~~~~~~~~~~~~~
+//
+Sequelize.Model.Instance
+SequelizeAsDefault.Model.Instance
+SequelizeAsIndividualExport.Model.Instance
 
 //
 //  Fixtures
@@ -31,19 +41,26 @@ s.transaction().then( ( a ) => t = a );
 // ~~~~~~~~~~
 //
 
-interface GUserAttributes {
-    id? : number;
-    username? : string;
+interface GUserCreationAttributes {
+    id? : number | undefined
+    username? : string | undefined;
     email: string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
-const GUser = s.define<GUserInstance, GUserAttributes>('user', {
+interface GUserAttributes {
+    id : number;
+    username? : string | undefined;
+    email: string;
+}
+
+interface GUserInstance extends Sequelize.Instance<GUserAttributes>, GUserAttributes {}
+const GUser = s.define<GUserInstance, GUserAttributes, GUserCreationAttributes>('user', {
     id: Sequelize.INTEGER,
     username: Sequelize.STRING,
     email: Sequelize.STRING
 });
 GUser.create({ id : 1, username : 'one', email: 'one@lol.com' }).then((guser) => guser.save());
+GUser.create({ email: 'two@lol.com' }).then((guser) => guser.save())
 
 var schema : Sequelize.DefineAttributes = {
     key : { type : Sequelize.STRING, primaryKey : true },
@@ -53,8 +70,8 @@ var schema : Sequelize.DefineAttributes = {
 s.define('user', schema);
 
 interface GTaskAttributes {
-    revision? : number;
-    name? : string;
+    revision? : number | undefined;
+    name? : string | undefined;
 }
 interface GTaskInstance extends Sequelize.Instance<GTaskAttributes> {
   upRevision(): void;
@@ -119,6 +136,7 @@ User.hasMany( User, {
     foreignKey : 'parent',
     foreignKeyConstraint : true
 } );
+User.hasOne( Task, { foreignKey : 'userId', as : 'activeTasks', scope : { active : true } } );
 
 User.belongsToMany( Task, { through : 'UserTasks' } );
 User.belongsToMany( User, { through : Task } );
@@ -220,7 +238,7 @@ barcode.setProduct(product, { save: true }).then(() => { });
 
 barcode.createProduct();
 barcode.createProduct({ id: 1, name: 'Crowbar' });
-barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product) => { });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product: ProductInstance) => { });
 
 product.getWarehouse();
 product.getWarehouse({ scope: null }).then(w => w.capacity);
@@ -238,6 +256,13 @@ product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { })
 warehouse.getProducts();
 warehouse.getProducts({ where: {}, scope: false });
 warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
+
+interface ProductInstanceIncludeBarcode extends ProductInstance {
+    barcode: BarcodeInstance
+}
+warehouse.getProducts({ where: {}, scope: false, include: {model: Barcode, as: 'barcode'} }).then((products) => {
+    (products[0] as ProductInstanceIncludeBarcode).barcode
+});
 
 warehouse.setProducts();
 warehouse.setProducts([product]);
@@ -351,9 +376,9 @@ customer.countBranches({ scope: 'baz' }).then((result: number) => { });
 
 
 interface ProductAttributes {
-    id?: number;
-    name?: string;
-    price?: number;
+    id?: number | undefined;
+    name?: string | undefined;
+    price?: number | undefined;
 };
 
 interface ProductInstance extends Sequelize.Instance<ProductAttributes>, ProductAttributes {
@@ -365,26 +390,26 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
     // belongsTo association mixins:
     getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
     setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
-    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes, WarehouseInstance>;
 };
 
 interface BarcodeAttributes {
-    id?: number;
-    code?: string;
-    dateIssued?: Date;
+    id?: number | undefined;
+    code?: string | undefined;
+    dateIssued?: Date | undefined;
 };
 
 interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, BarcodeAttributes {
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
-    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes, ProductInstance>;
 };
 
 interface WarehouseAttributes {
-    id?: number;
-    address?: string;
-    capacity?: number;
+    id?: number | undefined;
+    address?: string | undefined;
+    capacity?: number | undefined;
 };
 
 interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, WarehouseAttributes {
@@ -414,9 +439,9 @@ interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, War
 };
 
 interface BranchAttributes {
-    id?: number;
-    address?: string;
-    rank?: number;
+    id?: number | undefined;
+    address?: string | undefined;
+    rank?: number | undefined;
 };
 
 interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAttributes {
@@ -446,15 +471,15 @@ interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAtt
 };
 
 interface WarehouseBranchAttributes {
-    distance?: number;
+    distance?: number | undefined;
 };
 
 interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchAttributes>, WarehouseBranchAttributes { };
 
 interface CustomerAttributes {
-    id?: number;
-    fullname?: string;
-    credit?: number;
+    id?: number | undefined;
+    fullname?: string | undefined;
+    credit?: number | undefined;
 };
 
 interface CustomerInstance extends Sequelize.Instance<CustomerAttributes>, CustomerAttributes {
@@ -833,10 +858,13 @@ user.changed( 'name' );
 user.changed();
 
 user.previous( 'name' );
+user.previous();
 
 user.save().then( ( p ) => p );
 user.save( { fields : ['a'] } ).then( ( p ) => p );
 user.save( { transaction : t } );
+user.save( { hooks: false } );
+user.save( { hooks: true } );
 
 user.reload();
 user.reload( { attributes : ['bNumber'] } );
@@ -919,6 +947,9 @@ User.findAll( { include : [{ model : Task, paranoid: false }] } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
+User.findAll( { where : { username : Buffer.from("a name") } } );
+User.findAll( { where : { username : [Buffer.from("a name")] } } );
+User.findAll( { where : { username : [true] } } );
 User.findAll( { where : { username : { like : '%2' } } } );
 User.findAll( { where : { theDate : { '..' : ['2013-01-02', '2013-01-11'] } } } );
 User.findAll( { where : { intVal : { '!..' : [8, 10] } } } );
@@ -945,6 +976,8 @@ User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ m
 User.findAll( { order : s.literal( 'email =' ) } );
 User.findAll( { order : [s.literal( 'email = ' + s.escape( 'test@sequelizejs.com' ) )] } );
 User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
+User.findAll( { order : s.random() } );
+User.findAll( { order : [s.random()] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
@@ -972,13 +1005,84 @@ User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new D
 User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
 User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
-User.findById( 'a string' );
-User.findById( 42 );
-User.findById( Buffer.from('a buffer') );
+var options: Sequelize.AnyFindOptions = { where: { $and: Sequelize.where( Sequelize.fn( 'char_length', Sequelize.col('username') ), 4 ) } };
+User.findAll( options );
 
-User.findByPrimary( 'a string' );
-User.findByPrimary( 42 );
-User.findByPrimary( Buffer.from('a buffer') );
+User.findById( 1 );
+User.findById( 1, { attributes : ['id'] } );
+User.findById( 1, { logging : function(  ) { } } );
+User.findById( 1, { transaction : t } );
+User.findById( 1, { include : [User] } );
+User.findById( 1, { include : [{ model : User }] });
+User.findById( 1, { include : [{ model : User, as : 'ToDo' }] });
+User.findById( 1, { include : [User, { model : User, as : 'ToDo' }] });
+User.findById( 'id' );
+User.findById( 'id', { attributes : ['id'] } );
+User.findById( 'id', { logging : function(  ) { } } );
+User.findById( 'id', { transaction : t } );
+User.findById( 'id', { include : [User] } );
+User.findById( 'id', { include : [{ model : User }] });
+User.findById( 'id', { include : [{ model : User, as : 'ToDo' }] });
+User.findById( 'id', { include : [User, { model : User, as : 'ToDo' }] });
+User.findById( Buffer.from('id') );
+User.findById( Buffer.from('id'), { attributes : ['id'] } );
+User.findById( Buffer.from('id'), { logging : function(  ) { } } );
+User.findById( Buffer.from('id'), { transaction : t } );
+User.findById( Buffer.from('id'), { include : [User] } );
+User.findById( Buffer.from('id'), { include : [{ model : User }] });
+User.findById( Buffer.from('id'), { include : [{ model : User, as : 'ToDo' }] });
+User.findById( Buffer.from('id'), { include : [User, { model : User, as : 'ToDo' }] });
+
+User.findByPrimary( 1 );
+User.findByPrimary( 1, { attributes : ['id'] } );
+User.findByPrimary( 1, { logging : function(  ) { } } );
+User.findByPrimary( 1, { transaction : t } );
+User.findByPrimary( 1, { include : [User] } );
+User.findByPrimary( 1, { include : [{ model : User }] });
+User.findByPrimary( 1, { include : [{ model : User, as : 'ToDo' }] });
+User.findByPrimary( 1, { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPrimary( 'id' );
+User.findByPrimary( 'id', { attributes : ['id'] } );
+User.findByPrimary( 'id', { logging : function(  ) { } } );
+User.findByPrimary( 'id', { transaction : t } );
+User.findByPrimary( 'id', { include : [User] } );
+User.findByPrimary( 'id', { include : [{ model : User }] });
+User.findByPrimary( 'id', { include : [{ model : User, as : 'ToDo' }] });
+User.findByPrimary( 'id', { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPrimary( Buffer.from('id') );
+User.findByPrimary( Buffer.from('id'), { attributes : ['id'] } );
+User.findByPrimary( Buffer.from('id'), { logging : function(  ) { } } );
+User.findByPrimary( Buffer.from('id'), { transaction : t } );
+User.findByPrimary( Buffer.from('id'), { include : [User] } );
+User.findByPrimary( Buffer.from('id'), { include : [{ model : User }] });
+User.findByPrimary( Buffer.from('id'), { include : [{ model : User, as : 'ToDo' }] });
+User.findByPrimary( Buffer.from('id'), { include : [User, { model : User, as : 'ToDo' }] });
+
+User.findByPk( 1 );
+User.findByPk( 1, { attributes : ['id'] } );
+User.findByPk( 1, { logging : function(  ) { } } );
+User.findByPk( 1, { transaction : t } );
+User.findByPk( 1, { include : [User] } );
+User.findByPk( 1, { include : [{ model : User }] });
+User.findByPk( 1, { include : [{ model : User, as : 'ToDo' }] });
+User.findByPk( 1, { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPk( 'id' );
+User.findByPk( 'id', { attributes : ['id'] } );
+User.findByPk( 'id', { logging : function(  ) { } } );
+User.findByPk( 'id', { transaction : t } );
+User.findByPk( 'id', { include : [User] } );
+User.findByPk( 'id', { include : [{ model : User }] });
+User.findByPk( 'id', { include : [{ model : User, as : 'ToDo' }] });
+User.findByPk( 'id', { include : [User, { model : User, as : 'ToDo' }] });
+User.findByPk( Buffer.from('id') );
+User.findByPk( Buffer.from('id'), { attributes : ['id'] } );
+User.findByPk( Buffer.from('id'), { logging : function(  ) { } } );
+User.findByPk( Buffer.from('id'), { transaction : t } );
+User.findByPk( Buffer.from('id'), { include : [User] } );
+User.findByPk( Buffer.from('id'), { include : [{ model : User }] });
+User.findByPk( Buffer.from('id'), { include : [{ model : User, as : 'ToDo' }] });
+User.findByPk( Buffer.from('id'), { include : [User, { model : User, as : 'ToDo' }] });
+
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
@@ -1156,7 +1260,12 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
-queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' });
+queryInterface.addIndex( 'Group', ['from'], { type: 'FULLTEXT' });
+queryInterface.addIndex( 'Group', ['from'], { indicesType: 'FULLTEXT' } );
+queryInterface.addIndex( 'Group', ['from'], { concurrently: true } );
+queryInterface.addIndex( 'Group', ['data'], { using: 'gin', operator: 'jsonb_path_ops' } );
+queryInterface.addIndex( 'Group', { fields: ['data'], using: 'gin', operator: 'jsonb_path_ops' } );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
@@ -1177,6 +1286,8 @@ queryInterface.createTable( { tableName : 'y', schema : 'a' },
 queryInterface.changeColumn( { tableName : 'a', schema : 'b' }, 'c', { type : Sequelize.FLOAT },
     { logging : () => s } );
 queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
+queryInterface.bulkInsert({tableName:'users', schema:'test'}, [{}, {}, {}]);
+queryInterface.getForeignKeysForTables(['users']);
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
@@ -1230,7 +1341,7 @@ s.query( '' );
 s.query( '' ).then( function( res ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
-s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
+s.query( 'select ? as foo, ? as bar', { type : sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
 s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );
@@ -1458,7 +1569,7 @@ s.define( 'ScopeMe', {
     defaultScope : {
         where : {
             access_level : {
-                gte : 5
+                $gte : 5
             }
         }
     },
@@ -1511,7 +1622,7 @@ s.define( 'ScopeMe', {
     defaultScope : {
         where : {
             access_level : {
-                gte : 5
+                $gte : 5
             }
         }
     },
@@ -1519,7 +1630,7 @@ s.define( 'ScopeMe', {
         lowAccess : {
             where : {
                 access_level : {
-                    lte : 5
+                    $lte : 5
                 }
             }
         },
@@ -1587,7 +1698,7 @@ s.define( 'ScopeMe', {
     defaultScope : {
         where : {
             access_level : {
-                gte : 5
+                $gte : 5
             }
         }
     },
@@ -1595,7 +1706,7 @@ s.define( 'ScopeMe', {
         lowAccess : {
             where : {
                 access_level : {
-                    lte : 5
+                    $lte : 5
                 }
             }
         }
@@ -1752,6 +1863,7 @@ s.define('DefineOptionsIndexesTest', {
             {
                 name: "DefineOptionsIndexesTest_lower_email",
                 unique: true,
+                type: "SPATIAL",
                 fields: [
                     Sequelize.fn("LOWER", Sequelize.col("email"))
                 ]

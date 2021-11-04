@@ -1,9 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false,
-        "no-duplicate-imports": false,
-        "no-declare-current-package": false
+        "space-before-function-paren": false,
+        "only-arrow-functions": false
     }
 }

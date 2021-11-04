@@ -24,12 +24,12 @@ i18n.addTranslation('en-US', 'Common.ok', 'Ok');
 
 i18n.addTranslations('en-US', {
     Common: {
-        hello: 'Hello {$name} {$0}!'
-    }
+        hello: 'Hello {$name} {$0}!',
+    },
 });
 
 i18n.addTranslations('en-US', 'Common', {
-    hello: 'Hello {$name} {$0}!'
+    hello: 'Hello {$name} {$0}!',
 });
 i18n.__('foo');
 i18n.__('foo', { _locale: 'de-CH', _namespace: 'test' });
@@ -51,7 +51,7 @@ i18n.setOptions({
 
     // cleanups untrust/unknown tags, to secure your application against XSS attacks.
     // at browser side, default policy is to sanitize strings as a PCDATA
-    purify: () => { }, // On server side as a default option is that nothing is purifying (but you can provide function for that);
+    purify: () => {}, // On server side as a default option is that nothing is purifying (but you can provide function for that);
 
     // decides whether to show when there's no translation in the current and default language
     hideMissing: false,
@@ -64,7 +64,7 @@ i18n.setOptions({
     translationsHeaders: { 'Cache-Control': 'max-age=2628000' },
 
     // synchronizes server connection with locale on client. (method invoked by client will be with client side locale);
-    sameLocaleOnServerConnection: true
+    sameLocaleOnServerConnection: true,
 });
 
 i18n.parseNumber('7013217.715'); // 7,013,217.715
@@ -102,6 +102,11 @@ i18n.getAllKeysForLocale();
 i18n.getAllKeysForLocale('de-CH');
 i18n.getAllKeysForLocale('de-CH', true);
 
+i18n.normalize('en');
+
 i18n.onChangeLocale((newLocale: string) => {
     console.log(newLocale);
 });
+
+// $ExpectType number
+i18n.runWithLocale('de-CH', () => 1);

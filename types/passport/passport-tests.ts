@@ -2,13 +2,26 @@ import * as passport from 'passport';
 import express = require('express');
 import 'express-session';
 
+declare global {
+    namespace Express {
+        interface User {
+            username: string;
+            id?: number | undefined;
+        }
+    }
+}
+
+declare module 'express-session' {
+    interface SessionData {
+        error: any;
+    }
+}
+
 class TestStrategy extends passport.Strategy {
     name = 'test';
 
     authenticate(req: express.Request) {
-        const user: TestUser = {
-            id: 0,
-        };
+        const user: Express.User = { username: 'abc' };
         if (Math.random() > 0.5) {
             this.fail();
         } else {
@@ -35,24 +48,33 @@ const newFramework: passport.Framework = {
 passport.use(new TestStrategy());
 passport.framework(newFramework);
 
-interface TestUser {
-    id: number;
-}
-passport.serializeUser((user: TestUser, done: (err: any, id?: number) => void) => {
+passport.serializeUser((user, done: (err: any, id?: number) => void) => {
     done(null, user.id);
 });
-passport.serializeUser<TestUser, number>((user, done) => {
-    if (user.id > 0) {
+passport.serializeUser<number>((user, done) => {
+    if (user.id! > 0) {
         done(null, user.id);
     } else {
         done(new Error('user ID is invalid'));
     }
 });
-passport.deserializeUser((id, done) => {
-    done(null, { id });
+passport.serializeUser((user, done) => {
+    done(null, { id: user.id });
 });
-passport.deserializeUser<TestUser, number>((id, done) => {
-    const fetchUser = (id: number): Promise<TestUser> => {
+passport.deserializeUser((id, done) => {
+    done(null, { username: `${id}` });
+});
+passport.deserializeUser((id, done) => {
+    done(null, false);
+});
+passport.deserializeUser((id, done) => {
+    done(null, null);
+});
+passport.deserializeUser((id, done) => {
+    done('Error', false);
+});
+passport.deserializeUser<number>((id, done) => {
+    const fetchUser = (id: number): Promise<Express.User> => {
         return Promise.reject(new Error(`user not found: ${id}`));
     };
 
@@ -67,13 +89,17 @@ passport.use(new TestStrategy())
     .framework(newFramework);
 
 const app = express();
-app.configure(() => {
-    app.use(passport.initialize());
-    app.use(passport.session());
-});
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+    (req, res) => {
+        res.redirect('/');
+    });
+
+app.post('/login',
+    passport.authorize('local', { failureRedirect: '/login', failureFlash: true }),
     (req, res) => {
         res.redirect('/');
     });
@@ -83,7 +109,7 @@ app.post('/login', (req, res, next) => {
         if (err) { return next(err); }
         if (!user) {
             if (req.session) {
-                req.session['error'] = info.message;
+                req.session.error = info.message;
             }
             return res.redirect('/login');
         }
@@ -130,8 +156,11 @@ function authSetting(): void {
 }
 
 function ensureAuthenticated(req: express.Request, res: express.Response, next: (err?: any) => void) {
-    if (req.isAuthenticated()) { return next(); }
-    if (req.isUnauthenticated()) {
+    if (req.isAuthenticated()) {
+        const user: Express.User = req.user;
+        return next();
+    } else if (req.isUnauthenticated()) {
+        const user: undefined = req.user;
         res.redirect('/login');
     }
 }
@@ -142,21 +171,13 @@ passportInstance.use(new TestStrategy());
 const authenticator = new passport.Authenticator();
 authenticator.use(new TestStrategy());
 
-declare global {
-    namespace Express {
-        interface User {
-            username: string;
-        }
-    }
-}
-
 app.use((req: express.Request, res: express.Response, next: (err?: any) => void) => {
     if (req.user) {
         if (req.user.username) {
             req.user.username = "hello user";
         }
         if (req.user.id) {
-            req.user.id = "123";
+            req.user.id = 123;
         }
     }
     next();

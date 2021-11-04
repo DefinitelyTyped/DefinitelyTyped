@@ -1,6 +1,9 @@
-// Type definitions for react-native-google-signin 0.12
-// Project: https://github.com/devfd/react-native-google-signin
+// Type definitions for react-native-google-signin 1.0
+// Project: https://github.com/react-native-community/react-native-google-signin
 // Definitions by: Jacob Froman <https://github.com/j-fro>
+//                 Michele Bombardi <https://github.com/bm-software>
+//                 Christian Chown <https://github.com/christianchown>
+//                 Eric Chen <https://github.com/echentw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8,8 +11,9 @@ import * as React from 'react';
 import { ViewProps } from 'react-native';
 
 export interface GoogleSigninButtonProps extends ViewProps {
-    size?: GoogleSigninButton.Size;
-    color?: GoogleSigninButton.Color;
+    size?: GoogleSigninButton.Size | undefined;
+    color?: GoogleSigninButton.Color | undefined;
+    disabled?: boolean | undefined;
     onPress?(): void;
 }
 
@@ -32,67 +36,67 @@ export namespace GoogleSigninButton {
 
 export interface HasPlayServicesParams {
     /**
-     * When autoresolve is true, the user will be prompted to install Play
-     * Services if on Android and they are not installed.
+     * When showPlayServicesUpdateDialog is true, the user will be prompted to
+     * install Play Services if on Android and they are not installed.
+     * Default is true
      */
-    autoResolve?: boolean;
+    showPlayServicesUpdateDialog?: boolean | undefined;
 }
 
 export interface ConfigureParams {
     /**
      * The Google API scopes to request access to. Default is email and profile.
      */
-    scopes?: string[];
-
-    /**
-     * iOS client ID from Developer Console. Required for iOS.
-     */
-    iosClientId?: string;
+    scopes?: string[] | undefined;
 
     /**
      * Web client ID from Developer Console. Required for offline access
      */
-    webClientId?: string;
+    webClientId?: string | undefined;
+
+    /**
+     * If you want to specify the client ID of type iOS
+     */
+    iosClientId?: string | undefined;
 
     /**
      * Must be true if you wish to access user APIs on behalf of the user from
      * your own server
      */
-    offlineAccess?: boolean;
+    offlineAccess?: boolean | undefined;
 
     /**
      * Specifies a hosted domain restriction
      */
-    hostedDomain?: string;
+    hostedDomain?: string | undefined;
 
     /**
      * ANDROID ONLY. Specifies if the consent prompt should be shown at each login.
      */
-    forceConsentPrompt?: boolean;
+    forceConsentPrompt?: boolean | undefined;
 
     /**
      * ANDROID ONLY. An account name that should be prioritized.
      */
-    accountName?: string;
+    accountName?: string | undefined;
 }
 
 export interface User {
-    id: string | null;
-    name: string | null;
-    email: string | null;
-    scopes?: string[];
-    photo: string | null;
-    familyName: string | null;
-    givenName: string | null;
+    user: {
+        id: string | null;
+        name: string | null;
+        email: string | null;
+        photo: string | null;
+        familyName: string | null;
+        givenName: string | null;
+    };
+    scopes?: string[] | undefined;
     idToken: string | null;
+    accessToken: string | null;
     /**
-     * IOS ONLY. Use getAccessToken() on Android
+     * Deprecated
      */
-    accessToken: string;
-    /**
-     * IOS ONLY. Use getAccessToken() on Android
-     */
-    accessTokenExpirationDate: number;
+    accessTokenExpirationDate: number | null;
     /**
      * Not null only if a valid webClientId and offlineAccess: true was
      * specified in configure().
@@ -110,18 +114,13 @@ export namespace GoogleSignin {
     /**
      * Configures the library for login. MUST be called before attempting login
      */
-    function configure(params?: ConfigureParams): Promise<void>;
+    function configure(params?: ConfigureParams): void;
 
     /**
-     * Returns the current signed in user, or null if not signed in.
-     */
-    function currentUser(): User | null;
-
-    /**
-     * Returns a Promise that resolves with the current signed in user, or null
+     * Returns a Promise that resolves with the current signed in user or rejects
      * if not signed in.
      */
-    function currentUserAsync(): Promise<User | null>;
+    function signInSilently(): Promise<User>;
 
     /**
      * Prompts the user to sign in with their Google account. Resolves with the
@@ -135,12 +134,19 @@ export namespace GoogleSignin {
     function signOut(): Promise<void>;
 
     /**
-     * ANDROID ONLY. Resolves with the current signed in user's access token.
-     */
-    function getAccessToken(): Promise<string | null>;
-
-    /**
      * Removes your application from the user's authorized applications
      */
     function revokeAccess(): Promise<void>;
+
+    /**
+     * Returns whether the user is currently signed in
+     */
+    function isSignedIn(): Promise<boolean>;
 }
+
+export const statusCodes: {
+    SIGN_IN_CANCELLED: string;
+    IN_PROGRESS: string;
+    PLAY_SERVICES_NOT_AVAILABLE: string;
+    SIGN_IN_REQUIRED: string;
+};

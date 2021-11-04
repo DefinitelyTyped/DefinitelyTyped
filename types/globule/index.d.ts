@@ -7,20 +7,20 @@ import minimatch = require('minimatch');
 import glob = require('glob');
 
 interface FindOptions extends glob.IOptions {
-    src?: string;
-    filter?: string | ((filepath?: string, options?: any) => boolean);
-    nonull?: boolean;
-    matchBase?: boolean;
-    srcBase?: string;
-    prefixBase?: boolean;
+    src?: string | undefined;
+    filter?: string | ((filepath?: string, options?: any) => boolean) | undefined;
+    nonull?: boolean | undefined;
+    matchBase?: boolean | undefined;
+    srcBase?: string | undefined;
+    prefixBase?: boolean | undefined;
 }
 
 interface MappingOptions extends FindOptions {
-    srcBase?: string;
-    destBase?: string;
-    ext?: string;
-    extDot?: 'first' | 'last';
-    flatten?: boolean;
+    srcBase?: string | undefined;
+    destBase?: string | undefined;
+    ext?: string | undefined;
+    extDot?: 'first' | 'last' | undefined;
+    flatten?: boolean | undefined;
     rename?(p: string): string;
 }
 

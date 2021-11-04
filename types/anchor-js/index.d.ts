@@ -1,4 +1,4 @@
-// Type definitions for anchor-js 4.1
+// Type definitions for anchor-js 4.2
 // Project: https://github.com/bryanbraun/anchorjs
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,12 +16,14 @@ declare namespace anchorjs {
     type AnchorVisibility = 'always' | 'hover' | 'touch';
 
     interface AnchorOptions {
-        arialabel?: string;
-        class?: string;
-        icons?: string;
-        placement?: AnchorPlacement;
-        truncate?: number;
-        visible?: AnchorVisibility;
+        ariaLabel?: string | undefined;
+        base?: string | undefined;
+        class?: string | undefined;
+        icon?: string | undefined;
+        placement?: AnchorPlacement | undefined;
+        titleText?: string | undefined;
+        truncate?: number | undefined;
+        visible?: AnchorVisibility | undefined;
     }
 
     interface AnchorStatic {

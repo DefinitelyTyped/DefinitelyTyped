@@ -1,38 +1,38 @@
 import Observable = require('zen-observable');
 
-function assert(val: boolean) {
-    if (!val) {
-        throw new Error('Assertion Failure');
-    }
-}
-
-/**
- * Observable
- */
-
-new Observable<number>(observer => {
-    [1, 2, 3].forEach(one => observer.next(one));
-    observer.complete();
-})
-    .subscribe(val => assert(typeof val === 'number'));
+// $ExpectType Subscription
+new Observable<number>(
+    (
+        // $ExpectType SubscriptionObserver<number>
+        observer,
+    ) => {
+        observer.next(0);
+        observer.complete();
+    },
+).subscribe(
+    (
+        // $ExpectType number
+        value,
+    ) => {},
+);
 
 /**
  * Observable.of
  */
-
-Observable.of(1, 2, 3)
-    .subscribe(val => assert(typeof val === 'number'));
+// $ExpectType Observable<number>
+Observable.of(1, 2, 3);
 
 /**
  * Observable.from
  */
 
-Observable.from(Observable.of(1, 2, 3))
-    .subscribe(val => assert(typeof val === 'number'));
+// $ExpectType Observable<number>
+Observable.from(Observable.of(1, 2, 3));
 
-Observable.from([1, 2, 3])
-    .subscribe(val => assert(typeof val === 'number'));
+// $ExpectType Observable<number>
+Observable.from([1, 2, 3]);
 
+// $ExpectType Observable<number>
 Observable.from({
     subscribe(observer: ZenObservable.SubscriptionObserver<number>) {
         [1, 2, 3].forEach(one => observer.next(one));
@@ -40,74 +40,84 @@ Observable.from({
     },
     [Symbol.observable](this: ZenObservable.ObservableLike<number>) {
         return this;
-    }
-})
-    .subscribe(val => assert(typeof val === 'number'));
+    },
+});
 
+// $ExpectType Observable<number>
 Observable.from({
     [Symbol.observable]() {
         return Observable.of(1, 2, 3);
-    }
-})
-    .subscribe(val => assert(typeof val === 'number'));
+    },
+});
 
 /**
  * observable.forEach
  */
-
-Observable.of(1, 2, 3)
-    .forEach(val => assert(typeof val === 'number'));
+// $ExpectType Promise<void>
+Observable.of(1, 2, 3).forEach(
+    (
+        // $ExpectType number
+        val,
+    ) => {},
+);
 
 /**
  * observable.map
  */
 
-Observable.of(1, 2, 3)
-    .map(val => val.toString())
-    .subscribe(val => assert(typeof val === 'string'));
+// $ExpectType Observable<string>
+Observable.of(1, 2, 3).map((
+    // $ExpectType number
+    val,
+) => val.toString());
 
 /**
  * observable.filter
  */
+// $ExpectType Observable<number>
+Observable.of(1, 2, 3).filter(
+    (
+        // $ExpectType number
+        val,
+    ) => false,
+);
 
-Observable.of(1, 2, 3)
-    .filter(val => val !== 2)
-    .subscribe(val => assert(typeof val === 'number' && val !== 2));
+// $ExpectType Observable<number>
+Observable.of(1, 2, 3, null).filter(
+    (
+        // $ExpectType number | null
+        val,
+    ): val is number => false,
+);
 
 /**
  * observable.reduce
  */
+// $ExpectType Observable<number>
+Observable.of(1, 2, 3).reduce(
+    // $ExpectType (acc: number, val: number) => number
+    (acc, val) => acc + val,
+);
 
-Observable.of(1, 2, 3)
-    .reduce((acc, val) => acc + val)
-    .subscribe(val => assert(val === 6));
-
-Observable.of(1, 2, 3)
-    .reduce((acc, val) => acc + val, '')
-    .subscribe(val => assert(val === '123'));
+// $ExpectType Observable<string>
+Observable.of(1, 2, 3).reduce(
+    // $ExpectType (acc: string, val: number) => string
+    (acc, val) => acc + val,
+    '',
+);
 
 /**
  * observable.flatMap
  */
 
-Observable.of(1, 2, 3)
-    .flatMap(val => Observable.of(val.toString()))
-    .subscribe(val => assert(typeof val === 'string'));
+// $ExpectType Observable<string>
+Observable.of(1, 2, 3).flatMap((
+    // $ExpectType number
+    val,
+) => Observable.of(val.toString()));
 
 /**
  * observable.concat
  */
-
-Observable.of(1, 2, 3)
-.concat(Observable.of(4, 5, 6), Observable.of(7, 8, 9))
-.subscribe(val => assert(typeof val === 'number'));
-
-/**
- * ZenObservable
- */
-
-let subscriptionObserver: ZenObservable.SubscriptionObserver<never>;
-let subscription: ZenObservable.Subscription;
-let observer: ZenObservable.Observer<never>;
-let subscriber: ZenObservable.Subscriber<never>;
-let observableLike: ZenObservable.ObservableLike<never>;
+// $ExpectType Observable<number>
+Observable.of(1, 2, 3).concat(Observable.of(4, 5, 6), Observable.of(7, 8, 9));

@@ -40,18 +40,18 @@ export interface History {
 }
 
 export type HistoryOptions = {
-    getCurrentLocation?: () => Location;
-    finishTransition?: (nextLocation: Location) => boolean;
-    saveState?: (key: LocationKey, state: LocationState) => void;
-    go?: (n: number) => void;
-    getUserConfirmation?: (message: string, callback: (result: boolean) => void) => void;
-    keyLength?: number;
-    queryKey?: string | boolean;
-    stringifyQuery?: (obj: any) => string;
-    parseQueryString?: (str: string) => any;
-    basename?: string;
-    entries?: string | [any];
-    current?: number;
+    getCurrentLocation?: (() => Location) | undefined;
+    finishTransition?: ((nextLocation: Location) => boolean) | undefined;
+    saveState?: ((key: LocationKey, state: LocationState) => void) | undefined;
+    go?: ((n: number) => void) | undefined;
+    getUserConfirmation?: ((message: string, callback: (result: boolean) => void) => void) | undefined;
+    keyLength?: number | undefined;
+    queryKey?: string | boolean | undefined;
+    stringifyQuery?: ((obj: any) => string) | undefined;
+    parseQueryString?: ((str: string) => any) | undefined;
+    basename?: string | undefined;
+    entries?: string | [any] | undefined;
+    current?: number | undefined;
 }
 
 export type Location = {
@@ -61,14 +61,14 @@ export type Location = {
     state: LocationState;
     action: Action;
     key: LocationKey;
-    basename?: string;
+    basename?: string | undefined;
 };
 
 export type LocationDescriptorObject = {
-    pathname?: Pathname;
-    search?: Search;
-    query?: Query;
-    state?: LocationState;
+    pathname?: Pathname | undefined;
+    search?: Search | undefined;
+    query?: Query | undefined;
+    state?: LocationState | undefined;
 };
 
 export namespace History {

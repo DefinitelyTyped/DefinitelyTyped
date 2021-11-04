@@ -255,11 +255,11 @@ interface DOMPointInit {
     /**
      * z coordinate: 0
      */
-    z?: number;
+    z?: number | undefined;
     /**
      * w coordinate: 1
      */
-    w?: number;
+    w?: number | undefined;
 }
 
 declare var DOMRect: {

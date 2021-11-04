@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 /// <reference types="jquery"/>
 
 interface Select2QueryOptions {
-    term?: string;
-    page?: number;
+    term?: string | undefined;
+    page?: number | undefined;
     context?: any;
-    callback?: (result: { results: any; more?: boolean; context?: any; }) => void;
+    callback?: ((result: { results: any; more?: boolean | undefined; context?: any; }) => void) | undefined;
+    element?: JQuery | undefined;
 }
 
 interface AjaxFunction {
@@ -20,17 +20,17 @@ interface AjaxFunction {
 }
 
 interface Select2AjaxOptions extends JQueryAjaxSettings {
-    transport?: AjaxFunction;
+    transport?: AjaxFunction | undefined;
     /**
-    * Url to make request to, Can be string or a function returning a string.
-    */
+     * Url to make request to, Can be string or a function returning a string.
+     */
     url?: any;
-    dataType?: string;
-    quietMillis?: number;
-    cache?: boolean;
+    dataType?: string | undefined;
+    quietMillis?: number | undefined;
+    cache?: boolean | undefined;
     jsonpCallback?: any;
-    data?: (term: string, page: number, context: any) => any;
-    results?: (term: any, page: number, context: any) => any;
+    data?: ((term: string, page: number, context: any) => any) | undefined;
+    results?: ((term: any, page: number, context: any) => any) | undefined;
     params?: any;
 }
 
@@ -40,42 +40,42 @@ interface IdTextPair {
 }
 
 interface Select2Options {
-    width?: string;
-    dropdownAutoWidth?: boolean;
-    minimumInputLength?: number;
-    maximumInputLength?: number;
-    minimumResultsForSearch?: number;
-    maximumSelectionSize?: number;
-    placeholder?: string;
-    separator?: string;
-    allowClear?: boolean;
-    multiple?: boolean;
-    closeOnSelect?: boolean;
-    openOnEnter?: boolean;
-    id?: (object: any) => string;
-    matcher?: (term: string, text: string, option: any) => boolean;
-    formatSelection?: (object: any, container: JQuery, escapeMarkup: (markup: string) => string) => string;
-    formatResult?: (object: any, container: JQuery, query: any, escapeMarkup: (markup: string) => string) => string;
-    formatResultCssClass?: (object: any) => string;
-    formatNoMatches?: (term: string) => string;
-    formatSearching?: () => string;
-    formatInputTooShort?: (term: string, minLength: number) => string;
-    formatSelectionTooBig?: (maxSize: number) => string;
-    formatLoadMore?: (pageNumber: number) => string;
-    createSearchChoice?: (term: string, data: any) => any;
-    initSelection?: (element: JQuery, callback: (data: any) => void) => void;
-    tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Select2Options) => string;
-    tokenSeparators?: string[];
-    query?: (options: Select2QueryOptions) => void;
-    ajax?: Select2AjaxOptions;
+    width?: string | undefined;
+    dropdownAutoWidth?: boolean | undefined;
+    minimumInputLength?: number | undefined;
+    maximumInputLength?: number | undefined;
+    minimumResultsForSearch?: number | undefined;
+    maximumSelectionSize?: number | undefined;
+    placeholder?: string | undefined;
+    separator?: string | undefined;
+    allowClear?: boolean | undefined;
+    multiple?: boolean | undefined;
+    closeOnSelect?: boolean | undefined;
+    openOnEnter?: boolean | undefined;
+    id?: ((object: any) => string) | undefined;
+    matcher?: ((term: string, text: string, option: any) => boolean) | undefined;
+    formatSelection?: ((object: any, container: JQuery, escapeMarkup: (markup: string) => string) => string) | undefined;
+    formatResult?: ((object: any, container: JQuery, query: any, escapeMarkup: (markup: string) => string) => string) | undefined;
+    formatResultCssClass?: ((object: any) => string) | undefined;
+    formatNoMatches?: ((term: string) => string) | undefined;
+    formatSearching?: (() => string) | undefined;
+    formatInputTooShort?: ((term: string, minLength: number) => string) | undefined;
+    formatSelectionTooBig?: ((maxSize: number) => string) | undefined;
+    formatLoadMore?: ((pageNumber: number) => string) | undefined;
+    createSearchChoice?: ((term: string, data: any) => any) | undefined;
+    initSelection?: ((element: JQuery, callback: (data: any) => void) => void) | undefined;
+    tokenizer?: ((input: string, selection: any[], selectCallback: (token?: any) => void, options: Select2Options) => string | undefined | null) | undefined;
+    tokenSeparators?: string[] | undefined;
+    query?: ((options: Select2QueryOptions) => void) | undefined;
+    ajax?: Select2AjaxOptions | undefined;
     data?: any;
     tags?: any;
     containerCss?: any;
     containerCssClass?: any;
     dropdownCss?: any;
     dropdownCssClass?: any;
-    escapeMarkup?: (markup: string) => string;
-    nextSearchTerm?: (selectedObject: object, currentSearchTerm: string) => string;
+    escapeMarkup?: ((markup: string) => string) | undefined;
+    nextSearchTerm?: ((selectedObject: object, currentSearchTerm: string) => string) | undefined;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -92,66 +92,90 @@ interface Select2Plugin {
     (): JQuery;
     (it: IdTextPair): JQuery;
 
-	/**
-	 * Get the id value of the current selection
-	 */
+    /**
+     * Get the id value of the current selection
+     */
     (method: 'val'): any;
-	/**
-	 * Set the id value of the current selection
-	 * @params value Value to set the id to
-	 * @params triggerChange Should a change event be triggered
-	 */
+    /**
+     * Set the id value of the current selection
+     * @params value Value to set the id to
+     * @params triggerChange Should a change event be triggered
+     */
     (method: 'val', value: any, triggerChange?: boolean): any;
-	/**
-	 * Get the data object of the current selection
-	 */
+    /**
+     * Get the data object of the current selection
+     */
     (method: 'data'): any;
-	/**
-	 * Set the data of the current selection
-	 * @params value Object to set the data to
-	 * @params triggerChange Should a change event be triggered
-	 */
+    /**
+     * Set the data of the current selection
+     * @params value Object to set the data to
+     * @params triggerChange Should a change event be triggered
+     */
     (method: 'data', value: any, triggerChange?: boolean): any;
-	/**
-	 * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
-	 */
+    /**
+     * Whether it is open
+     */
+    (method: 'opened'): boolean;
+    /**
+     * Whether it is in focus
+     */
+    (method: 'isFocused'): boolean;
+    /**
+     * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
+     */
     (method: 'destroy'): JQuery;
-	/**
-	 * Opens the dropdown
-	 */
+    /**
+     * Opens the dropdown
+     */
     (method: 'open'): JQuery;
-	/**
-	 * Closes the dropdown
-	 */
+    /**
+     * Closes the dropdown
+     */
     (method: 'close'): JQuery;
-	/**
-	 * Enables or disables Select2 and its underlying form component
-	 * @param value True if it should be enabled false if it should be disabled
-	 */
+    /**
+     * Disables Select2
+     */
+    (method: 'disable'): JQuery;
+    /**
+     * Enables or disables Select2 and its underlying form component
+     * @param value True if it should be enabled false if it should be disabled
+     */
     (method: 'enable', value?: boolean): JQuery;
-	/**
-	 * Toggles readonly mode on Select2 and its underlying form component
-	 * @param value True if it should be readonly false if it should be read write
-	 */
+    /**
+     * Enable its focus
+     */
+    (method: 'focus'): JQuery;
+    /**
+     * Toggles readonly mode on Select2 and its underlying form component
+     * @param value True if it should be readonly false if it should be read write
+     */
     (method: 'readonly', value: boolean): JQuery;
-	/**
-	 * Retrieves the main container element that wraps all of DOM added by Select2
-	 */
+    /**
+     * Retrieves the main container element that wraps all of DOM added by Select2
+     */
     (method: 'container'): JQuery;
-	/**
-	 * Notifies Select2 that a drag and drop sorting operation has started
-	 */
+    /**
+     * Notifies Select2 that a drag and drop sorting operation has started
+     */
     (method: 'onSortStart'): JQuery;
-	/**
-	 * Notifies Select2 that a drag and drop sorting operation has finished
-	 */
+    /**
+     * Notifies Select2 that a drag and drop sorting operation has finished
+     */
     (method: 'onSortEnd'): JQuery;
-     /**
+    /**
      * Executes a new search using the provided value. Example: $("#tags").select2("search", "California")
      */
     (method: 'search'): JQuery;
 
     (options: Select2Options): JQuery;
+
+    /**
+     * Select2 exposes its default options via the $.fn.select2.defaults
+     * object. Properties changed in this object (same properties configurable
+     * through the constructor) will take effect for every instance created
+     * after the change.
+     */
+    defaults: Partial<Select2Options>;
 }
 
 interface JQuery {

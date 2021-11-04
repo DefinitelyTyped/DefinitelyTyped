@@ -1,6 +1,6 @@
-// Type definitions for Google API client 1.0
+// Type definitions for non-npm package Google API client 1.0
 // Project: https://developers.google.com
-// Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,13 +18,13 @@ declare namespace gapi {
          * @param callback the function that is called once the API interface is loaded
          */
         function load(name: string, version: string, callback: () => any): void;
-        function load(name: string, version: string): PromiseLike<void>;
+        function load(name: string, version: string): Promise<void>;
 
         /**
          * Creates a HTTP request for making RESTful requests.
          * An object encapsulating the various arguments for this method.
          */
-        function request<T>(args: {
+        function request(args: {
             /**
              * The URL to handle the request
              */
@@ -32,7 +32,7 @@ declare namespace gapi {
             /**
              * The HTTP request method to use. Default is GET
              */
-            method?: string;
+            method?: string | undefined;
             /**
              * URL params in key-value pair form
              */
@@ -49,7 +49,7 @@ declare namespace gapi {
             //  * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
             //  */
             // callback?: () => any;
-        }): Request<T>;
+        }): Request<any>;
 
         /**
          * Sets the API key for the application.
@@ -68,19 +68,19 @@ declare namespace gapi {
             body: string;
 
             // The map of HTTP response headers.
-            headers?: any[];
+            headers?: { [headerName: string]: string } | undefined;
 
             // HTTP status
-            status?: number;
+            status?: number | undefined;
 
             // HTTP status text
-            statusText?: string;
+            statusText?: string | undefined;
         }
 
         /**
          * An object encapsulating an HTTP request. This object is not instantiated directly, rather it is returned by gapi.client.request.
          */
-        interface Request<T> extends PromiseLike<Response<T>> {
+        interface Request<T> extends Promise<Response<T>> {
             /**
              * Executes the request and runs the supplied callback on response.
              * @param callback The callback function which executes when the request succeeds or fails.
@@ -100,7 +100,7 @@ declare namespace gapi {
         /**
          * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.
          */
-        interface Batch<T> extends PromiseLike<Response<ResponseMap<T>>> {
+        interface Batch<T> extends Promise<Response<ResponseMap<T>>> {
             /**
              * Adds a gapi.client.Request to the batch.
              * @param request The HTTP request to add to this batch.
@@ -141,7 +141,7 @@ declare namespace gapi {
         /**
          * Creates a batch object for batching individual requests.
          */
-        function newBatch<T>(): Batch<T>;
+        function newBatch(): Batch<any>;
     }
 
     namespace auth {
@@ -179,19 +179,19 @@ declare namespace gapi {
                 /**
                  * The application's client ID. Visit the Google Developers Console to get an OAuth 2.0 client ID.
                  */
-                client_id?: string;
+                client_id?: string | undefined;
                 /**
                  * If true, then login uses "immediate mode", which means that the token is refreshed behind the scenes, and no UI is shown to the user.
                  */
-                immediate?: boolean;
+                immediate?: boolean | undefined;
                 /**
                  * The OAuth 2.0 response type property. Default: token
                  */
-                response_type?: string;
+                response_type?: string | undefined;
                 /**
                  * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
                  */
-                scope?: string | string[];
+                scope?: string | string[] | undefined;
             },
             callback: (authResult: GoogleApiOAuth2TokenObject) => void): void;
 

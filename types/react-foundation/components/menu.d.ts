@@ -9,16 +9,16 @@ import { FlexboxPropTypes } from '../utils';
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Menu: React.StatelessComponent<MenuProps>;
+export declare const Menu: React.FunctionComponent<MenuProps>;
 export interface MenuProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {
-    alignment?: MenuAlignments;
-    iconsOnTop?: boolean;
-    isExpanded?: boolean;
-    isVertical?: boolean;
-    isDropdown?: boolean;
-    isSimple?: boolean;
-    isNested?: boolean;
-    horizontalOnMedium?: boolean;
+    alignment?: MenuAlignments | undefined;
+    iconsOnTop?: boolean | undefined;
+    isExpanded?: boolean | undefined;
+    isVertical?: boolean | undefined;
+    isDropdown?: boolean | undefined;
+    isSimple?: boolean | undefined;
+    isNested?: boolean | undefined;
+    horizontalOnMedium?: boolean | undefined;
 }
 /**
  * Menu item component.
@@ -26,9 +26,9 @@ export interface MenuProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUL
  * @param {Object} props
  * @returns {Object}
  */
-export declare const MenuItem: React.StatelessComponent<MenuItemProps>;
+export declare const MenuItem: React.FunctionComponent<MenuItemProps>;
 export interface MenuItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
-    isActive?: boolean;
+    isActive?: boolean | undefined;
 }
 /**
  * Menu text wrapper-component.

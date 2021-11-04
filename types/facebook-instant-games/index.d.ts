@@ -1,6 +1,8 @@
-// Type definitions for facebook-instant-games 6.2
+// Type definitions for non-npm package facebook-instant-games 6.3
 // Project: https://developers.facebook.com/docs/games/instant-games
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>, Øyvind Johansen Amundrud <https://github.com/oyvindjam>
+// Definitions by: Menushka Weeratunga <https://github.com/menushka>,
+//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>,
+//                 Liana Pigeot <https://github.com/nialna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -215,6 +217,7 @@ declare namespace FBInstant {
      * The tag must only include letters, numbers, and underscores and be 100 characters or less in length.
      * @param switchContextWhenMatched Optional extra parameter that specifies whether the player should be immediately switched to the new context when a match is found.
      * By default this will be false which will mean the player needs explicitly press play after being matched to switch to the new context.
+     * @param offlineMatch Optional extra parameter that specifies whether to start a match asynchronously. By default this will be false which means the game will start a match synchronously.
      * @returns A promise that resolves when the player has been added to a group thread and switched into the thread's context.
      * @throws INVALID_PARAM
      * @throws NETWORK_FAILURE
@@ -223,7 +226,7 @@ declare namespace FBInstant {
      * @throws CLIENT_UNSUPPORTED_OPERATION
      * @throws INVALID_OPERATION
      */
-    function matchPlayerAsync(matchTag?: string, switchContextWhenMatched?: boolean): Promise<void>;
+    function matchPlayerAsync(matchTag?: string, switchContextWhenMatched?: boolean, offlineMatch?: boolean): Promise<void>;
 
     /**
      * Checks if the current player is eligible for the matchPlayerAsync API.
@@ -245,6 +248,16 @@ declare namespace FBInstant {
      * @throws INVALID_PARAM
      */
     function getLeaderboardAsync(name: string): Promise<Leaderboard>;
+
+    /**
+     * Posts the player's best score for the session to Facebook.
+     * This API should be called whenever the player achieves their best score in a session, preferably at the end of an activity
+     * Scores posted using this API should be consistent & comparable across game sessions.
+     *
+     * @param score An integer value representing the player's best score in a session.
+     * @returns void
+     */
+    function postSessionScore(score: number): void;
 
     interface Player {
         /**
@@ -802,19 +815,19 @@ declare namespace FBInstant {
         title: string;
 
         /**
-         * he product's game-specified identifier
+         * The product's game-specified identifier
          */
         productID: string;
 
         /**
          * The product description
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
          * A link to the product's associated image
          */
-        imageURI?: string;
+        imageURI?: string | undefined;
 
         /**
          * The price of the product
@@ -832,8 +845,8 @@ declare namespace FBInstant {
      */
     interface ContextSizeResponse {
         answer: boolean;
-        minSize?: number;
-        maxSize?: number;
+        minSize?: number | undefined;
+        maxSize?: number | undefined;
     }
 
     /**
@@ -843,7 +856,7 @@ declare namespace FBInstant {
         /**
          * A developer-specified string, provided during the purchase of the product
          */
-        developerPayload?: string;
+        developerPayload?: string | undefined;
 
         /**
          * The identifier for the purchase transaction
@@ -875,17 +888,17 @@ declare namespace FBInstant {
         /**
          * The set of filters to apply to the context suggestions.
          */
-        filters?: ContextFilter[];
+        filters?: ContextFilter[] | undefined;
 
         /**
          * The maximum number of participants that a suggested context should ideally have.
          */
-        maxSize?: number;
+        maxSize?: number | undefined;
 
         /**
          * The minimum number of participants that a suggested context should ideally have.
          */
-        minSize?: number;
+        minSize?: number | undefined;
     }
 
     /**
@@ -939,7 +952,7 @@ declare namespace FBInstant {
         /**
          * An optional developer-specified payload, to be included in the returned purchase's signed request.
          */
-        developerPayload?: string;
+        developerPayload?: string | undefined;
     }
 
     /**
@@ -963,7 +976,7 @@ declare namespace FBInstant {
          * versions of your own call to action, pass an object with the default cta as the value of 'default' and another object mapping
          * locale keys to translations as the value of 'localizations'.
          */
-        cta?: (string | LocalizableContent);
+        cta?: (string | LocalizableContent) | undefined;
 
         /**
          * Data URL of a base64 encoded image.
@@ -993,14 +1006,14 @@ declare namespace FBInstant {
          *
          * If no strategy is specified, we default to 'IMMEDIATE'.
          */
-        strategy?: string;
+        strategy?: string | undefined;
 
         /**
          * Specifies notification setting for the custom update. This can be 'NO_PUSH' or 'PUSH', and defaults to 'NO_PUSH'.
          * Use push notification only for updates that are high-signal and immediately actionable for the recipients.
          * Also note that push notification is not always guaranteed, depending on user setting and platform policies.
          */
-        notification?: string;
+        notification?: string | undefined;
     }
 
     /**
@@ -1020,7 +1033,7 @@ declare namespace FBInstant {
         /**
          * Optional text message. If not specified, a localized fallback message will be provided instead.
          */
-        text?: string;
+        text?: string | undefined;
     }
 
     /**

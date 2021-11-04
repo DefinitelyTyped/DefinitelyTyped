@@ -1,7 +1,8 @@
 // Type definitions for pkijs
 // Project: https://github.com/PeculiarVentures/PKI.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="asn1js" />
 /// <reference types="pvutils" />
@@ -29,15 +30,15 @@ declare module "pkijs/src/AttributeTypeAndValue" {
     export default class AttributeTypeAndValue {
 
         /**
-         * 
-         * 
+         *
+         *
          * @type {ObjectIdentifier}
          * @memberOf AttributeTypeAndValue
          */
         type: ObjectIdentifier;
         /**
-         * 
-         * 
+         *
+         *
          * @type {*}
          * @memberOf AttributeTypeAndValue
          */
@@ -45,10 +46,10 @@ declare module "pkijs/src/AttributeTypeAndValue" {
 
         /**
          * Compare two AttributeTypeAndValue values, or AttributeTypeAndValue with ArrayBuffer value
-         * 
+         *
          * @param {(AttributeTypeAndValue|ArrayBuffer)} compareTo The value compare to current
          * @returns {boolean}
-         * 
+         *
          * @memberOf AttributeTypeAndValue
          */
         isEqual(compareTo: AttributeTypeAndValue|ArrayBuffer): boolean;
@@ -92,7 +93,7 @@ declare module "pkijs/src/GeneralName" {
 
         /**
          * value type - from a tagged value (0 for "otherName", 1 for "rfc822Name" etc.)
-         * 
+         *
          * @type {number}
          * @memberOf GeneralName
          */
@@ -100,7 +101,7 @@ declare module "pkijs/src/GeneralName" {
 
         /**
          * asn1js object having GENERAL_NAME value (type depends on "type" value)
-         * 
+         *
          * @type {*}
          * @memberOf GeneralName
          */
@@ -185,10 +186,10 @@ declare module "pkijs/src/Accuracy" {
 }
 
 declare module "pkijs/src/AccessDescription" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     /**
      * Class from RFC5280
-     * 
+     *
      * @export
      * @class AccessDescription
      */
@@ -207,7 +208,7 @@ declare module "pkijs/src/AccessDescription" {
 }
 
 declare module "pkijs/src/AuthorityKeyIdentifier" {
-    import GeneralName from "pkijs/src/AccessDescription";
+    import GeneralName from "pkijs/src/GeneralName";
     import { Integer, OctetString } from "asn1js";
 
     export default class AuthorityKeyIdentifier {
@@ -252,7 +253,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
         isForCertificate: boolean;
         /**
          * 0 = good, 1 = revoked, 2 = unknown
-         * 
+         *
          * @type {number}
          * @memberOf GetCertificateStatusResult
          */
@@ -263,7 +264,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
         tbsResponseData: ResponseData;
         signatureAlgorithm: AlgorithmIdentifier;
         signature: BitString;
-        certs?: Certificate[];
+        certs?: Certificate[] | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -279,7 +280,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
         getCertificateStatus(certificate: Certificate, issuerCertificate: Certificate): PromiseLike<GetCertificateStatusResult>;
         /**
          * Make signature for current OCSP Basic Response
-         * 
+         *
          * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
          * @returns {PromiseLike<ArrayBuffer>}
@@ -287,11 +288,11 @@ declare module "pkijs/src/BasicOCSPResponse" {
         sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
         /**
          * Verify existing OCSP Basic Response
-         * 
+         *
          * @param {{ trustedCerts?: Certificate[] }} parameters Additional parameters
          * @returns {PromiseLike<boolean>}
          */
-        verify(parameters?: { trustedCerts?: Certificate[] }): PromiseLike<boolean>;
+        verify(parameters?: { trustedCerts?: Certificate[] | undefined }): PromiseLike<boolean>;
 
         constructor(params?: any);
 
@@ -308,7 +309,7 @@ declare module "pkijs/src/CertID" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import Certificate from "pkijs/src/Certificate";
 
-    interface CreateFroCertificateParams {
+    interface CreateForCertificateParams {
         hashAlgorithm: string;
         issuerCertificate: Certificate;
     }
@@ -333,10 +334,10 @@ declare module "pkijs/src/CertID" {
         /**
          * Making OCSP certificate identifier for specific certificate
          * @param {Certificate} certificate Certificate making OCSP Request for
-         * @param {CreateFroCertificateParams} parameters Additional parameters
+         * @param {CreateForCertificateParams} parameters Additional parameters
          * @returns {Promise}
          */
-        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
+        createForCertificate(certificate: Certificate, parameters: CreateForCertificateParams): PromiseLike<void>;
 
         constructor(params?: any);
 
@@ -366,15 +367,15 @@ declare module "pkijs/src/Certificate" {
         notAfter: Time;
         subject: RelativeDistinguishedNames;
         subjectPublicKeyInfo: PublicKeyInfo;
-        issuerUniqueID?: ArrayBuffer;
-        subjectUniqueID?: ArrayBuffer;
-        extensions?: Extension[];
+        issuerUniqueID?: ArrayBuffer | undefined;
+        subjectUniqueID?: ArrayBuffer | undefined;
+        extensions?: Extension[] | undefined;
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -394,7 +395,7 @@ declare module "pkijs/src/Certificate" {
         getKeyHash(): PromiseLike<ArrayBuffer>;
         /**
          * Make a signature for current value from TBS section
-         * 
+         *
          * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
          * @param {string} [hashAlgorithm="SHA-1"] Hashing algorithm
          */
@@ -463,26 +464,26 @@ declare module "pkijs/src/CertificateRevocationList" {
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
     import RevokedCertificate from "pkijs/src/RevokedCertificate";
     import Time from "pkijs/src/Time";
-    import Extension from "pkijs/src/Extension";
+    import Extensions from "pkijs/src/Extensions";
     import PublicKeyInfo from "pkijs/src/PublicKeyInfo";
     import Certificate from "pkijs/src/Certificate";
     import { BitString, Sequence } from "asn1js";
 
     export default class CertificateRevocationList {
         tbs: ArrayBuffer;
-        version?: number;
+        version?: number | undefined;
         signature: AlgorithmIdentifier;
         issuer: RelativeDistinguishedNames;
         thisUpdate: Time;
-        nextUpdate?: Time;
-        revokedCertificates?: RevokedCertificate[];
-        crlExtension?: Extension[];
+        nextUpdate?: Time | undefined;
+        revokedCertificates?: RevokedCertificate[] | undefined;
+        crlExtensions?: Extensions | undefined;
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -502,8 +503,8 @@ declare module "pkijs/src/CertificateRevocationList" {
          * @returns {*}
          */
         verify(parameters: {
-            issuerCertificate?: Certificate;
-            publicKeyInfo?: PublicKeyInfo;
+            issuerCertificate?: Certificate | undefined;
+            publicKeyInfo?: PublicKeyInfo | undefined;
         }): PromiseLike<boolean>;
 
         constructor(params?: any);
@@ -544,13 +545,13 @@ declare module "pkijs/src/CertificationRequest" {
         version: number;
         subject: RelativeDistinguishedNames;
         subjectPublicKeyInfo: PublicKeyInfo;
-        attributes?: Attribute[];
+        attributes?: Attribute[] | undefined;
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -558,25 +559,25 @@ declare module "pkijs/src/CertificationRequest" {
 
         /**
          * Aux function making ASN1js Sequence from current TBS
-         * 
+         *
          * @returns {Sequence}
          */
         encodeTBS(): Sequence;
         /**
          * Makes signature for currect certification request
-         * 
+         *
          * @param {CryptoKey} privateKey WebCrypto private key
          * @param {string} [hashAlgorithm] String representing current hashing algorithm
          * @returns {PromiseLike<ArrayBuffer>}
-         * 
+         *
          * @memberOf CertificationRequest
          */
         sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
         /**
          * Verify existing certification request signature
-         * 
+         *
          * @returns {PromiseLike<boolean>}
-         * 
+         *
          * @memberOf CertificationRequest
          */
         verify(): PromiseLike<boolean>;
@@ -632,12 +633,12 @@ declare module "pkijs/src/CryptoEngine" {
          */
         constructor(parameters?: any);
 
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        exportKey(format: "jwk", key: CryptoKey): PromiseLike<JsonWebKey>;
-        exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): PromiseLike<ArrayBuffer>;
-        exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
+        exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): Promise<ArrayBuffer>;
+        exportKey(format: string, key: CryptoKey): Promise<JsonWebKey | ArrayBuffer>;
 
         /**
          * Convert WebCrypto keys between different export formats
@@ -651,21 +652,21 @@ declare module "pkijs/src/CryptoEngine" {
          */
         convert(inputFormat: string, outputFormat: string, keyData: BufferSource | JsonWebKey, algorithm: Algorithm, extractable: boolean, keyUsages: string[]): PromiseLike<BufferSource | JsonWebKey>;
 
-        generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair | CryptoKey>;
-        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair>;
-        generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
-        unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): PromiseLike<boolean>;
-        wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): PromiseLike<ArrayBuffer>;
-        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
-        deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): PromiseLike<ArrayBuffer>;
-        deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        digest(algorithm: AlgorithmIdentifier, data: BufferSource): PromiseLike<ArrayBuffer>;
-        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+        generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair | CryptoKey>;
+        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair>;
+        generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        sign(algorithm: string | RsaPssParams | EcdsaParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        verify(algorithm: string | RsaPssParams | EcdsaParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
+        wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): Promise<ArrayBuffer>;
+        decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+        deriveBits(algorithm: string | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
+        deriveKey(algorithm: string | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
+        encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams |  AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
     }
 }
 
@@ -698,9 +699,9 @@ declare module "pkijs/src/DistributionPoint" {
     import GeneralName from "pkijs/src/GeneralName";
 
     export default class DistributionPoint {
-        distributionPoint?: GeneralName[];
-        reasons?: BitString;
-        cRLIssuer?: GeneralName[];
+        distributionPoint?: GeneralName[] | undefined;
+        reasons?: BitString | undefined;
+        cRLIssuer?: GeneralName[] | undefined;
 
         constructor(params?: any);
 
@@ -717,7 +718,7 @@ declare module "pkijs/src/ECCCMSSharedInfo" {
 
     export default class ECCCMSSharedInfo {
         keyInfo: AlgorithmIdentifier;
-        entityUInfo?: OctetString;
+        entityUInfo?: OctetString | undefined;
         suppPubInfo: OctetString;
         /**
          * Compare values with default values for all class members
@@ -743,8 +744,8 @@ declare module "pkijs/src/ECPrivateKey" {
     export default class ECPrivateKey {
         version: number;
         privateKey: OctetString;
-        namedCurve?: string;
-        publicKey?: ECPublicKey;
+        namedCurve?: string | undefined;
+        publicKey?: ECPublicKey | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -895,10 +896,10 @@ declare module "pkijs/src/EnvelopedData" {
 
     export default class EnvelopedData {
         version: number;
-        originatorInfo?: OriginatorInfo;
+        originatorInfo?: OriginatorInfo | undefined;
         recipientInfos: RecipientInfo[];
         encryptedContentInfo: EncryptedContentInfo;
-        unprotectedAttrs?: Attribute[];
+        unprotectedAttrs?: Attribute[] | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -915,9 +916,9 @@ declare module "pkijs/src/EnvelopedData" {
          * @param {number} [variant] Variant = 1 is for "key transport", variant = 2 is for "key agreement". In fact the "variant" is unneccessary now because Google has no DH algorithm implementation. Thus key encryption scheme would be choosen by certificate type only: "key transport" for RSA and "key agreement" for ECC certificates.
          */
         addRecipientByCertificate(certificate: Certificate, parameters: {
-            oaepHashAlgorithm?: string;
-            kdfAlgorithm?: string;
-            kekEncryptionLength?: number;
+            oaepHashAlgorithm?: string | undefined;
+            kdfAlgorithm?: string | undefined;
+            kekEncryptionLength?: number | undefined;
         }, variant: number): boolean;
         /**
          * Add recipient based on pre-defined data like password or KEK
@@ -926,12 +927,22 @@ declare module "pkijs/src/EnvelopedData" {
          * @param {number} variant Variant = 1 for pre-defined "key encryption key" (KEK). Variant = 2 for password-based encryption.
          */
         addRecipientByPreDefinedData(preDefinedData: ArrayBuffer, parameters: {
-            keyIdentifier?: ArrayBuffer;
-            hmacHashAlgorithm?: string;
-            iterationCount?: number;
-            keyEncryptionAlgorithm?: Algorithm;
+            keyIdentifier?: ArrayBuffer | undefined;
+            hmacHashAlgorithm?: string | undefined;
+            iterationCount?: number | undefined;
+            keyEncryptionAlgorithm?: Algorithm | undefined;
             keyEncryptionAlgorithmParams?: any;
         }, variant: number): boolean;
+        /**
+         * Add a "RecipientInfo" using a KeyAgreeRecipientInfo of type RecipientKeyIdentifier.
+         * @param {CryptoKey} [key] Recipient's public key
+         * @param {ArrayBuffer} [keyId] The id for the recipient's public key
+         * @param {*} [parameters] Additional parameters for "fine tuning" the encryption process
+         */
+        addRecipientByKeyIdentifier(key: CryptoKey, keyId: ArrayBuffer, parameters?: {
+            kdfAlgorithm?: string | undefined;
+            kekEncryptionLength?: number | undefined;
+        }): boolean;
         /**
          * Create a new CMS Enveloped Data content with encrypted data
          * @param {Algorithm} contentEncryptionAlgorithm WebCrypto algorithm. For the moment here could be only "AES-CBC" or "AES-GCM" algorithms.
@@ -946,7 +957,7 @@ declare module "pkijs/src/EnvelopedData" {
          * @returns {Promise}
          */
         decrypt(recipientIndex: number, parameters: {
-            recipientCertificate: Certificate;
+            recipientCertificate?: Certificate;
             recipientPrivateKey: ArrayBuffer;
         }): PromiseLike<ArrayBuffer>;
 
@@ -1016,7 +1027,7 @@ declare module "pkijs/src/GeneralSubtree" {
     export default class GeneralSubtree {
         base: GeneralName;
         minimum: number | Integer;
-        maximum?: number | Integer;
+        maximum?: number | Integer | undefined;
 
         constructor(params?: any);
 
@@ -1076,7 +1087,7 @@ declare module "pkijs/src/IssuingDistributionPoint" {
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
 
     export default class IssuingDistributionPoint {
-        distributionPoint?: GeneralName[] | RelativeDistinguishedNames;
+        distributionPoint?: GeneralName[] | RelativeDistinguishedNames | undefined;
         onlyContainsUserCerts: boolean;
         onlySomeReasons: number;
         indirectCRL: boolean;
@@ -1098,8 +1109,8 @@ declare module "pkijs/src/KEKIdentifier" {
 
     export default class KEKIdentifier {
         keyIdentifier: OctetString;
-        date?: GeneralizedTime;
-        other?: OtherKeyAttribute;
+        date?: GeneralizedTime | undefined;
+        other?: OtherKeyAttribute | undefined;
 
         constructor(params?: any);
 
@@ -1170,7 +1181,7 @@ declare module "pkijs/src/KeyAgreeRecipientInfo" {
     export default class KeyAgreeRecipientInfo {
         version: number;
         originator: OriginatorIdentifierOrKey;
-        ukm?: OctetString;
+        ukm?: OctetString | undefined;
         keyEncryptionAlgorithm: AlgorithmIdentifier;
         recipientEncryptedKeys: RecipientEncryptedKeys;
         recipientCertificate: Certificate;
@@ -1204,7 +1215,7 @@ declare module "pkijs/src/KeyTransRecipientInfo" {
         encryptedKey: OctetString;
         /**
          * For some reasons we need to store recipient's certificate here
-         * 
+         *
          * @type {Certificate}
          * @memberOf KeyTransRecipientInfo
          */
@@ -1233,7 +1244,7 @@ declare module "pkijs/src/MacData" {
     export default class MacData {
         mac: DigestInfo;
         macSalt: OctetString;
-        iterations?: number;
+        iterations?: number | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1280,8 +1291,8 @@ declare module "pkijs/src/NameConstraints" {
     import GeneralSubtree from "pkijs/src/GeneralSubtree";
 
     export default class NameConstraints {
-        permittedSubtrees?: GeneralSubtree[];
-        excludedSubtrees?: GeneralSubtree[];
+        permittedSubtrees?: GeneralSubtree[] | undefined;
+        excludedSubtrees?: GeneralSubtree[] | undefined;
 
         constructor(params?: any);
 
@@ -1296,13 +1307,15 @@ declare module "pkijs/src/NameConstraints" {
 declare module "pkijs/src/OCSPRequest" {
     import TBSRequest from "pkijs/src/TBSRequest";
     import Signature from "pkijs/src/Signature";
+    import Certificate from "pkijs/src/Certificate";
+    import { CreateForCertificateParams } from "pkijs/src/CertID";
 
     export default class OCSPRequest {
         tbsRequest: TBSRequest;
-        optionalSignature?: Signature;
+        optionalSignature?: Signature | undefined;
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -1320,6 +1333,20 @@ declare module "pkijs/src/OCSPRequest" {
         static schema(parameters?: any): any;
         fromSchema(schema: any): void;
         toJSON(): any;
+        /**
+         * Making OCSP Request for specific certificate
+         * @param {Certificate} certificate Certificate making OCSP Request for
+         * @param {CreateForCertificateParams} parameters Additional parameters
+         * @returns {Promise}
+         */
+        createForCertificate(certificate: Certificate, parameters: CreateForCertificateParams): PromiseLike<void>;
+         /**
+          * Make signature for current OCSP Request
+          * @param {*} privateKey Private key for "subjectPublicKeyInfo" structure
+          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+          * @returns {Promise}
+          */
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
     }
 }
 
@@ -1328,11 +1355,10 @@ declare module "pkijs/src/OCSPResponse" {
     import ResponseBytes from "pkijs/src/ResponseBytes";
     import Certificate from "pkijs/src/Certificate";
     import { GetCertificateStatusResult } from "pkijs/src/BasicOCSPResponse";
-    import { CreateFroCertificateParams } from "pkijs/src/CertID";
 
     export default class OCSPResponse {
         responseStatus: Enumerated;
-        responseBytes?: ResponseBytes;
+        responseBytes?: ResponseBytes | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1346,13 +1372,6 @@ declare module "pkijs/src/OCSPResponse" {
          * @returns {*}
          */
         getCertificateStatus(certificate: Certificate, issuerCertificate: Certificate): PromiseLike<GetCertificateStatusResult>;
-        /**
-         * Making OCSP Request for specific certificate
-         * @param {Certificate} certificate Certificate making OCSP Request for
-         * @param {CreateFroCertificateParams} parameters Additional parameters
-         * @returns {Promise}
-         */
-        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
 
         constructor(params?: any);
 
@@ -1361,6 +1380,19 @@ declare module "pkijs/src/OCSPResponse" {
         fromSchema(schema: any): void;
         toSchema(): any;
         toJSON(): any;
+        /**
+         * Make a signature for current OCSP Response
+         * @param {*} privateKey Private key for "subjectPublicKeyInfo" structure
+         * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+         * @returns {Promise}
+         */
+        sign(privateKey: any, hashAlgorithm?: string): PromiseLike<any>;
+        /**
+         * Verify current OCSP Response
+         * @param {Certificate | null} issuerCertificate In order to decrease size of resp issuer cert could be ommited. In such case you need manually provide it.
+         * @returns {Promise}
+         */
+        verify(issuerCertificate?: Certificate): PromiseLike<any>;
     }
 }
 
@@ -1539,7 +1571,7 @@ declare module "pkijs/src/PasswordRecipientinfo" {
 
     export default class PasswordRecipientinfo {
         version: number;
-        keyDerivationAlgorithm?: AlgorithmIdentifier
+        keyDerivationAlgorithm?: AlgorithmIdentifier | undefined
         keyEncryptionAlgorithm: AlgorithmIdentifier
         encryptedKey: OctetString;
         password: ArrayBuffer;
@@ -1600,8 +1632,8 @@ declare module "pkijs/src/PKIStatusInfo" {
     import { Utf8String, BitString } from "asn1js";
     export default class PKIStatusInfo {
         status: number;
-        statusStrings?: Utf8String;
-        failInfo?: BitString;
+        statusStrings?: Utf8String | undefined;
+        failInfo?: BitString | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1621,8 +1653,8 @@ declare module "pkijs/src/PKIStatusInfo" {
 
 declare module "pkijs/src/PolicyConstraints" {
     export default class PolicyConstraints {
-        requireExplicitPolicy?: number;
-        inhibitPolicyMapping?: number;
+        requireExplicitPolicy?: number | undefined;
+        inhibitPolicyMapping?: number | undefined;
 
         constructor(params?: any);
 
@@ -1640,7 +1672,7 @@ declare module "pkijs/src/PolicyInformation" {
     export default class PolicyInformation {
         policyIdentifier: string;
         /**
-         * Value of the TIME class 
+         * Value of the TIME class
          */
         policyQualifiers: PolicyQualifierInfo[];
 
@@ -1712,8 +1744,8 @@ declare module "pkijs/src/PrivateKeyInfo" {
         version: number;
         privateKeyAlgorithm: AlgorithmIdentifier;
         privateKey: OctetString;
-        attributes?: Attribute[];
-        parsedKey?: ECPrivateKey | RSAPrivateKey;
+        attributes?: Attribute[] | undefined;
+        parsedKey?: ECPrivateKey | RSAPrivateKey | undefined;
         /**
          * Convert JSON value into current object
          * @param {JsonWebKey} json
@@ -1732,8 +1764,8 @@ declare module "pkijs/src/PrivateKeyInfo" {
 
 declare module "pkijs/src/PrivateKeyUsagePeriod" {
     export default class PrivateKeyUsagePeriod {
-        notBefore?: Date;
-        notAfter?: Date;
+        notBefore?: Date | undefined;
+        notAfter?: Date | undefined;
 
         constructor(params?: any);
 
@@ -1754,7 +1786,7 @@ declare module "pkijs/src/PublicKeyInfo" {
     export default class PublicKeyInfo {
         algorithm: AlgorithmIdentifier
         subjectPublicKey: BitString;
-        parsedKey?: ECPublicKey | RSAPublicKey;
+        parsedKey?: ECPublicKey | RSAPublicKey | undefined;
         /**
          * Convert JSON value into current object
          * @param {JsonWebKey} json
@@ -1868,8 +1900,8 @@ declare module "pkijs/src/RecipientKeyIdentifier" {
 
     export default class RecipientKeyIdentifier {
         subjectKeyIdentifier: OctetString;
-        date?: GeneralizedTime;
-        other?: OtherKeyAttribute;
+        date?: GeneralizedTime | undefined;
+        other?: OtherKeyAttribute | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1908,6 +1940,12 @@ declare module "pkijs/src/RelativeDistinguishedNames" {
         fromSchema(schema: any): void;
         toSchema(): any;
         toJSON(): any;
+        /**
+         * Compare two RDN values, or RDN with ArrayBuffer value
+         * @param {(RelativeDistinguishedNames|ArrayBuffer)} compareTo The value compare to current
+         * @returns {boolean}
+         */
+        isEqual(compareTo: RelativeDistinguishedNames|ArrayBuffer): boolean;
     }
 
 }
@@ -1918,7 +1956,7 @@ declare module "pkijs/src/Request" {
 
     export default class Request {
         reqCert: CertID;
-        singleRequestExtensions?: Extension[];
+        singleRequestExtensions?: Extension[] | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1973,7 +2011,7 @@ declare module "pkijs/src/ResponseData" {
         responseExtensions: Extension[];
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -2066,7 +2104,7 @@ declare module "pkijs/src/RSAPrivateKey" {
         exponent1: Integer;
         exponent2: Integer;
         coefficient: Integer;
-        otherPrimeInfos?: OtherPrimeInfo[];
+        otherPrimeInfos?: OtherPrimeInfo[] | undefined;
         /**
          * Convert JSON value into current object
          * @param {JsonWebKey} json
@@ -2114,28 +2152,28 @@ declare module "pkijs/src/RSASSAPSSParams" {
     export default class RSASSAPSSParams {
         /**
          * Algorithms of hashing (DEFAULT sha1)
-         * 
+         *
          * @type {AlgorithmIdentifier}
          * @memberOf RSASSAPSSParams
          */
         hashAlgorithm: AlgorithmIdentifier;
         /**
          * Algorithm of "mask generaion function (MGF)" (DEFAULT mgf1SHA1)
-         * 
+         *
          * @type {AlgorithmIdentifier}
          * @memberOf RSASSAPSSParams
          */
         maskGenAlgorithm: AlgorithmIdentifier;
         /**
          * Salt length (DEFAULT 20)
-         * 
+         *
          * @type {number}
          * @memberOf RSASSAPSSParams
          */
         saltLength: number;
         /**
          * (DEFAULT 1)
-         * 
+         *
          * @type {number}
          * @memberOf RSASSAPSSParams
          */
@@ -2160,7 +2198,7 @@ declare module "pkijs/src/Signature" {
     export default class Signature {
         signatureAlgorithm: AlgorithmIdentifier;
         signature: BitString;
-        certs?: Certificate[];
+        certs?: Certificate[] | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -2214,30 +2252,30 @@ declare module "pkijs/src/SignedData" {
     import SignerInfo from "pkijs/src/SignerInfo";
 
     interface VerifyParams {
-        signer?: number;
-        data?: ArrayBuffer;
-        trustedCerts?: Certificate[],
-        checkDate?: Date;
-        checkChain?: boolean;
-        includeSignerCertificate?: boolean;
-        extendedMode?: boolean;
+        signer?: number | undefined;
+        data?: ArrayBuffer | undefined;
+        trustedCerts?: Certificate[] | undefined,
+        checkDate?: Date | undefined;
+        checkChain?: boolean | undefined;
+        includeSignerCertificate?: boolean | undefined;
+        extendedMode?: boolean | undefined;
     }
 
     interface VerifyResult {
         date: Date;
         code: number;
         message: string;
-        signatureVerified?: boolean;
-        signerCertificate?: Certificate;
-        signerCertificateVerified?: boolean;
+        signatureVerified?: boolean | undefined;
+        signerCertificate?: Certificate | undefined;
+        signerCertificateVerified?: boolean | undefined;
     }
 
     export default class SignedData {
         version: number;
         digestAlgorithms: AlgorithmIdentifier[];
         encapContentInfo: EncapsulatedContentInfo
-        certificates?: Certificate[] | OtherCertificateFormat[]
-        crls?: CertificateRevocationList[] | OtherRevocationInfoFormat[]
+        certificates?: Certificate[] | OtherCertificateFormat[] | undefined
+        crls?: CertificateRevocationList[] | OtherRevocationInfoFormat[] | undefined
         signerInfos: SignerInfo[];
         /**
          * Compare values with default values for all class members
@@ -2248,7 +2286,7 @@ declare module "pkijs/src/SignedData" {
 
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -2257,13 +2295,13 @@ declare module "pkijs/src/SignedData" {
         verify(options: VerifyParams): PromiseLike<VerifyResult>;
         /**
          * Signing current SignedData
-         * 
+         *
          * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
          * @param {number} signerIndex Index number (starting from 0) of signer index to make signature for
          * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
          * @param {BufferSource} [data] Detached data
          * @returns {ArrayBuffer}
-         * 
+         *
          * @memberOf SignedData
          */
         sign(privateKey: CryptoKey, signerIndex: number, hashAlgorithm?: string, data?: BufferSource): ArrayBuffer;
@@ -2287,8 +2325,8 @@ declare module "pkijs/src/SignerInfo" {
         version: number;
         sid: any;
         digestAlgorithm: AlgorithmIdentifier;
-        signedAttrs?: SignedAndUnsignedAttributes;
-        unsignedAttrs?: SignedAndUnsignedAttributes;
+        signedAttrs?: SignedAndUnsignedAttributes | undefined;
+        unsignedAttrs?: SignedAndUnsignedAttributes | undefined;
         signatureAlgorithm: AlgorithmIdentifier;
         signature: OctetString;
         /**
@@ -2317,7 +2355,7 @@ declare module "pkijs/src/SingleResponse" {
         certID: CertID;
         certStatus: any;
         thisUpdate: Date;
-        nextUpdate?: Date;
+        nextUpdate?: Date | undefined;
         singleExtensions: Extension[];
         /**
          * Compare values with default values for all class members
@@ -2361,13 +2399,13 @@ declare module "pkijs/src/TBSRequest" {
 
     export default class TBSRequest {
         tbs: ArrayBuffer;
-        version?: number;
-        requestorName?: GeneralName;
+        version?: number | undefined;
+        requestorName?: GeneralName | undefined;
         requestList: Request[];
-        requestExtensions?: Extension;
+        requestExtensions?: Extension | undefined;
         /**
          * Convert current object to asn1js object and set correct values
-         * 
+         *
          * @param {boolean} [encodeFlag]
          * @returns {*}
          */
@@ -2413,10 +2451,10 @@ declare module "pkijs/src/TimeStampReq" {
     export default class TimeStampReq {
         version: number;
         messageImprint: MessageImprint;
-        reqPolicy?: string;
-        nonce?: Integer;
-        certReq?: boolean;
-        extensions?: Extension[];
+        reqPolicy?: string | undefined;
+        nonce?: Integer | undefined;
+        certReq?: boolean | undefined;
+        extensions?: Extension[] | undefined;
 
         /**
          * Compare values with default values for all class members
@@ -2443,7 +2481,7 @@ declare module "pkijs/src/TimeStampResp" {
 
     export default class TimeStampResp {
         status: PKIStatusInfo;
-        timeStampToken?: ContentInfo;
+        timeStampToken?: ContentInfo | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -2484,8 +2522,8 @@ declare module "pkijs/src/TSTInfo" {
 
     interface VerifyParams {
         data: BufferSource;
-        notBefore?: Date;
-        notAfter?: Date;
+        notBefore?: Date | undefined;
+        notAfter?: Date | undefined;
     }
 
     export default class TSTInfo {
@@ -2494,11 +2532,11 @@ declare module "pkijs/src/TSTInfo" {
         messageImprint: MessageImprint;
         serialNumber: Integer;
         genTime: Date;
-        accuracy?: Accuracy;
-        ordering?: boolean;
-        nonce?: Integer;
-        tsa?: GeneralName;
-        extensions?: Extension[];
+        accuracy?: Accuracy | undefined;
+        ordering?: boolean | undefined;
+        nonce?: Integer | undefined;
+        tsa?: GeneralName | undefined;
+        extensions?: Extension[] | undefined;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -2532,70 +2570,70 @@ declare module "pkijs/src/common" {
     function getEngine(): Engine;
     /**
      * Get crypto subtle from current "crypto engine" or "undefined"
-     * 
+     *
      * @returns {(SubtleCrypto | undefined)}
      */
     function getCrypto(): SubtleCrypto | undefined;
     /**
      * Initialize input Uint8Array by random values (with help from current "crypto engine")
-     * 
+     *
      * @param {ArrayBufferView} view
      * @returns {ArrayBufferView}
      */
     function getRandomValues(view: ArrayBufferView): ArrayBufferView;
     /**
      * Get OID for each specific WebCrypto algorithm
-     * 
+     *
      * @param {Algorithm} algorithm
      * @returns {string}
      */
     function getOIDByAlgorithm(algorithm: Algorithm): string;
     /**
      * Get default algorithm parameters for each kind of operation
-     * 
+     *
      * @param {string} algorithmName Algorithm name to get common parameters for
      * @param {string} operation Kind of operation: "sign", "encrypt", "generatekey", "importkey", "exportkey", "verify"
-     * @returns {{ algorithm: Algorithm; usages: string[]; }}
+     * @returns {{ algorithm: Algorithm; usages: KeyUsage[]; }}
      */
-    function getAlgorithmParameters(algorithmName: string, operation: string): { algorithm: Algorithm; usages: string[]; };
+    function getAlgorithmParameters(algorithmName: string, operation: string): { algorithm: Algorithm; usages: KeyUsage[]; };
     /**
      * Create CMS ECDSA signature from WebCrypto ECDSA signature
-     * 
+     *
      * @param {ArrayBuffer} signatureBuffer WebCrypto result of "sign" function
      * @returns {ArrayBuffer}
      */
     function createCMSECDSASignature(signatureBuffer: ArrayBuffer): ArrayBuffer;
     /**
      * String preparation function. In a future here will be realization of algorithm from RFC4518
-     * 
+     *
      * @param {string} inputString JavaScript string. As soon as for each ASN.1 string type we have a specific transformation function here we will work with pure JavaScript string
      * @returns {string} Formated string
      */
     function stringPrep(inputString: string): string;
     /**
      * Create a single ArrayBuffer from CMS ECDSA signature
-     * 
+     *
      * @param {Sequence} cmsSignature ASN.1 SEQUENCE contains CMS ECDSA signature
      * @returns {ArrayBuffer}
      */
     function createECDSASignatureFromCMS(cmsSignature: Sequence): ArrayBuffer;
     /**
      * Get WebCrypto algorithm by wel-known OID
-     * 
+     *
      * @param {string} oid Wel-known OID to search for
      * @returns {Algorithm}
      */
     function getAlgorithmByOID(oid: string): Algorithm;
     /**
      * Getting hash algorithm by signature algorithm
-     * 
+     *
      * @param {AlgorithmIdentifier} signatureAlgorithm Signature algorithm
      * @returns {string}
      */
     function getHashAlgorithm(signatureAlgorithm: AlgorithmIdentifier): string;
     /**
      * ANS X9.63 Key Derivation Function having a "Counter" as a parameter
-     * 
+     *
      * @param {string} hashFunction Used hash function
      * @param {ArrayBuffer} Zbuffer ArrayBuffer containing ECDH shared secret to derive from
      * @param {number} Counter
@@ -2604,7 +2642,7 @@ declare module "pkijs/src/common" {
     function kdfWithCounter(hashFunction: string, Zbuffer: ArrayBuffer, Counter: number, SharedInfo: ArrayBuffer): PromiseLike<{ counter: number; result: ArrayBuffer; }>
     /**
      * ANS X9.63 Key Derivation Function
-     * 
+     *
      * @param {string} hashFunction Used hash function
      * @param {ArrayBuffer} Zbuffer ArrayBuffer containing ECDH shared secret to derive from
      * @param {number} keydatalen Length (!!! in BITS !!!) of used kew derivation function

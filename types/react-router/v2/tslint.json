@@ -2,7 +2,12 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-empty-interface": false,
-        "no-unnecessary-generics": false
+        "jsdoc-format": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "no-unnecessary-generics": false,
+        "no-unnecessary-qualifier": false,
+        "strict-export-declare-modifiers": false,
+        "trim-file": false
     }
 }

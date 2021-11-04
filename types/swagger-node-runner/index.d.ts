@@ -1,5 +1,5 @@
-// Type definitions for swagger-node-runner 0.5
-// Project: https://www.npmjs.com/package/swagger-node-runner
+// Type definitions for swagger-node-runner 0.6
+// Project: https://github.com/theganyo/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -36,6 +36,7 @@ import { Spec } from "swagger-schema-official";
 import { EventEmitter } from "events";
 import * as Hapi from "hapi";
 import * as Restify from "restify";
+import { OutgoingHttpHeaders } from "http";
 
 /**
  * Config object for SwaggerNodeRunner
@@ -50,42 +51,42 @@ export interface Config {
      *
      * default is `false`
      */
-    mockMode?: boolean;
+    mockMode?: boolean | undefined;
     /**
      * If `true` resonse is validated
      *
      * default is `true`
      */
-    validateResponse?: boolean;
+    validateResponse?: boolean | undefined;
     /**
      *  Sets `NODE_CONFIG_DIR` env if not set yet
      */
-    configDir?: string;
+    configDir?: string | undefined;
     /**
      * Swagger controller directories
      *
      * default is array with `/api/controllers` relative to `appRoot`
      */
-    controllersDirs?: string[];
+    controllersDirs?: string[] | undefined;
     /**
      * Swagger mock controller directories
      *
      * default is array with `/api/mocks` relative to `appRoot`
      */
-    mockControllersDirs?: string[];
+    mockControllersDirs?: string[] | undefined;
     /**
      * Used for Bagpipes library
      *
      * default is `[api/fittings]`
      */
-    fittingsDirs?: string[];
+    fittingsDirs?: string[] | undefined;
     /**
      * Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
      *
      * default is `undefined`
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
      */
-    swaggerSecurityHandlers?: SwaggerSecurityHandlers;
+    swaggerSecurityHandlers?: SwaggerSecurityHandlers | undefined;
     /**
      * Used for Bagpipes library
      *
@@ -95,21 +96,21 @@ export interface Config {
     /**
      *  default is `null`
      */
-    defaultPipe?: string;
+    defaultPipe?: string | undefined;
     /**
      * default is `swagger_controllers`
      */
-    swaggerControllerPipe?: string;
+    swaggerControllerPipe?: string | undefined;
     /**
      * Absolute path to swagger.yml file, if not set default value is used.
      */
-    swaggerFile?: string;
+    swaggerFile?: string | undefined;
 }
 
 /** Internally stored version of config */
 export interface ConfigInternal {
     /** Config of SwaggerNodeRunner  */
-    swagger?: Config;
+    swagger?: Config | undefined;
 }
 
 /** Middleware used by `swagger-tools` */
@@ -117,12 +118,18 @@ export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
 
 /**
  * @param  callback - Error is returned if request is unauthorized.
- * The Error may include "message", "state", and "code" fields to be conveyed to the client in the response body and a
+ * The Error may include "message", and "code" fields to be conveyed to the client in the response body and a
  * "headers" field containing an object representing headers to be set on the response to the client.
  * In addition, if the Error has a statusCode field, the response statusCode will be set to match -
  * otherwise, the statusCode will be set to 403.
  */
-export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err: Error) => void) => void;
+export interface SwaggerToolsSecurityHandlerCallbackError {
+    code?: string | undefined;
+    headers?: OutgoingHttpHeaders | undefined;
+    message?: string | undefined;
+    statusCode?: number | undefined;
+}
+export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void) => void;
 
 /**
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:

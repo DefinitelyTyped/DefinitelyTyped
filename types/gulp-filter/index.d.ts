@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/gulp-filter
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -14,8 +15,8 @@ declare namespace filter {
     }
 
     interface Options extends Minimatch.IOptions {
-        restore?: boolean;
-        passthrough?: boolean;
+        restore?: boolean | undefined;
+        passthrough?: boolean | undefined;
     }
 
     // A transform stream with a .restore object

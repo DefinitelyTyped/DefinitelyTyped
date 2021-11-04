@@ -1,7 +1,6 @@
 {
     "files": [
         "index.d.ts",
-        "mocks.d.ts",
         "angular-mocks-tests.ts"
     ],
     "compilerOptions": {

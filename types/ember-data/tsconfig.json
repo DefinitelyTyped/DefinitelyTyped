@@ -5,18 +5,25 @@
             "es6",
             "dom"
         ],
+        "target": "es5",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@ember/*": [
+                "ember__*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
@@ -32,6 +39,7 @@
         "test/belongs-to.ts",
         "test/record-reference.ts",
         "test/injections.ts",
-        "test/error.ts"
+        "test/error.ts",
+        "test/promises.ts"
     ]
 }

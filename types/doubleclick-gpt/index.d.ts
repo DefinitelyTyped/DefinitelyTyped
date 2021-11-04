@@ -1,62 +1,105 @@
-// Type definitions for Google Publisher Tag v238
+// Type definitions for non-npm package Google Publisher Tag 2019111201.0
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
+//                 Joe Flateau <https://github.com/joeflateau>
+//                 Vanessa Garcia <https://github.com/vanessa-lyn>
+//                 Krishna Glick <https://github.com/krishnaglick>
+//                 Linus Thiel <https://github.com/linus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace googletag {
-    export type SingleSizeArray = number[];
+    type SingleSizeArray = number[];
 
-    export type NamedSize = string | string[];
+    type NamedSize = string | string[];
 
-    export type SingleSize = SingleSizeArray | NamedSize;
+    type SingleSize = SingleSizeArray | NamedSize;
 
-    export type MultiSize = SingleSize[];
+    type MultiSize = SingleSize[];
 
-    export type GeneralSize = SingleSize | MultiSize;
+    type GeneralSize = SingleSize | MultiSize;
 
-    export type SizeMapping = GeneralSize[];
+    type SizeMapping = GeneralSize[];
 
-    export type SizeMappingArray = SizeMapping[];
+    type SizeMappingArray = SizeMapping[];
 
-    export interface CommandArray {
-        push(f: Function): number;
+    interface CommandArray {
+        push(f: () => void): number;
     }
 
-    export interface Service {
+    interface Service {
         addEventListener(
-          eventType: string,
-            listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
-        ): void;
+            eventType: "slotRenderEnded",
+            listener: (event: events.SlotRenderEndedEvent) => void
+        ): Service;
+        addEventListener(
+            eventType: "slotRequested",
+            listener: (event: events.SlotRequestedEvent) => void
+        ): Service;
+        addEventListener(
+            eventType: "slotResponseReceived",
+            listener: (event: events.SlotResponseReceived) => void
+        ): Service;
+        addEventListener(
+            eventType: "slotVisibilityChanged",
+            listener: (event: events.SlotVisibilityChangedEvent) => void
+        ): Service;
+        addEventListener(
+            eventType: string,
+            listener: (event: events.Event) => void
+        ): Service;
         getSlots(): Slot[];
+        removeEventListener(
+            eventType: "slotRenderEnded",
+            listener: (event: events.SlotRenderEndedEvent) => void
+          ): Service;
+        removeEventListener(
+            eventType: "slotRequested",
+            listener: (event: events.SlotRequestedEvent) => void
+        ): Service;
+        removeEventListener(
+            eventType: "slotResponseReceived",
+            listener: (event: events.SlotResponseReceived) => void
+        ): Service;
+        removeEventListener(
+            eventType: "slotVisibilityChanged",
+            listener: (event: events.SlotVisibilityChangedEvent) => void
+        ): Service;
+        removeEventListener(
+            eventType: string,
+            listener: (event: events.Event) => void
+        ): Service;
     }
 
-    export interface CompanionAdsService extends Service {
+    interface CompanionAdsService extends Service {
         enableSyncLoading(): void;
         setRefreshUnfilledSlots(value: boolean): void;
     }
 
-    export interface ContentService extends Service {
-        setContent(slot: Slot, content: String): void;
+    interface ContentService extends Service {
+        setContent(slot: Slot, content: string): void;
     }
 
-    export interface LazyLoadOptionsConfig {
-        fetchMarginPercent?: number,
-        renderMarginPercent?: number,
-        mobileScaling?: number
+    interface LazyLoadOptionsConfig {
+        fetchMarginPercent?: number | undefined;
+        renderMarginPercent?: number | undefined;
+        mobileScaling?: number | undefined;
     }
 
-    export interface ResponseInformation {
+    interface ResponseInformation {
         advertiserId: string;
         campaignId: string;
-        creativeId?: number;
-        lineItemId?: number;
+        creativeId?: number | undefined;
+        creativeTemplateId?: number | undefined;
+        lineItemId?: number | undefined;
     }
 
-    export interface SafeFrameConfig {
-        allowOverlayExpansion?: boolean;
-        allowPushExpansion?: boolean;
-        sandbox?: boolean;
+    interface SafeFrameConfig {
+        allowOverlayExpansion?: boolean | undefined;
+        allowPushExpansion?: boolean | undefined;
+        sandbox?: boolean | undefined;
+        useUniqueDomain?: boolean | null | undefined;
     }
 
     interface Googletag {
@@ -68,7 +111,7 @@ declare namespace googletag {
         defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
         destroySlots(opt_slots?: Slot[]): boolean;
         disablePublisherConsole(): void;
-        display(div?: string | Element): void;
+        display(divOrSlot?: string | Element | Slot): void;
         enableServices(): void;
         getVersion(): string;
         openConsole(opt_div?: string): void;
@@ -78,7 +121,7 @@ declare namespace googletag {
         sizeMapping(): SizeMappingBuilder;
     }
 
-    export interface Slot {
+    interface Slot {
         addService(service: Service): Slot;
         clearCategoryExclusions(): Slot;
         clearTargeting(opt_key?: string): Slot;
@@ -98,9 +141,10 @@ declare namespace googletag {
         setForceSafeFrame(forceSafeFrame: boolean): Slot;
         setSafeFrameConfig(config: SafeFrameConfig): Slot;
         setTargeting(key: string, value: string | string[]): Slot;
+        updateTargetingFromMap(map: object): Slot;
     }
 
-    export interface PassbackSlot {
+    interface PassbackSlot {
         display(): void;
         get(key: string): string;
         set(key: string, value: string): PassbackSlot;
@@ -109,10 +153,10 @@ declare namespace googletag {
         setTagForChildDirectedTreatment(value: number): PassbackSlot;
         setTagForUnderAgeOfConsent(value: number): PassbackSlot;
         setTargeting(key: string, value: string | string[]): PassbackSlot;
-        updateTargetingFromMap(map: Object): PassbackSlot;
+        updateTargetingFromMap(map: object): PassbackSlot;
     }
 
-    export interface PubAdsService extends Service {
+    interface PubAdsService extends Service {
         clear(opt_slots?: Slot[]): boolean;
         clearCategoryExclusions(): PubAdsService;
         clearTagForChildDirectedTreatment(): PubAdsService;
@@ -146,40 +190,52 @@ declare namespace googletag {
         setTargeting(key: string, value: string | string[]): PubAdsService;
         setVideoContent(videoContentId: string, videoCmsId: string): void;
         updateCorrelator(): PubAdsService;
+        setPrivacySettings(settings: PrivacySettingsConfig): Slot;
     }
 
-    export interface SizeMappingBuilder {
+    interface PrivacySettingsConfig {
+        childDirectedTreatment?: boolean | null | undefined;
+        limitedAds?: boolean | null | undefined;
+        restrictDataProcessing?: boolean | null | undefined;
+        underAgeOfConsent?: boolean | null | undefined;
+    }
+
+    interface SizeMappingBuilder {
         addSize(viewportSize: SingleSizeArray, slotSize: GeneralSize): SizeMappingBuilder;
         build(): SizeMappingArray;
     }
 
-    export namespace events {
-        export interface ImpressionViewableEvent {
+    namespace events {
+        interface Event {
             serviceName: string;
             slot: Slot;
         }
 
-        export interface SlotOnloadEvent {
-            serviceName: string;
-            slot: Slot;
-        }
+        // tslint:disable-next-line:no-empty-interface
+        interface ImpressionViewableEvent extends Event {}
 
-        export interface SlotRenderEndedEvent {
-            advertiserId?: number;
-            creativeId?: number;
+        // tslint:disable-next-line:no-empty-interface
+        interface SlotOnloadEvent extends Event {}
+
+        interface SlotRenderEndedEvent extends Event {
+            advertiserId?: number | undefined;
+            campaignId?: number | undefined;
+            creativeId?: number | undefined;
             isEmpty: boolean;
-            lineItemId?: number;
-            serviceName: string;
+            lineItemId?: number | undefined;
             size: number[] | string;
-            slot: Slot;
-            sourceAgnosticCreativeId?: number;
-            sourceAgnosticLineItemId?: number;
+            sourceAgnosticCreativeId?: number | undefined;
+            sourceAgnosticLineItemId?: number | undefined;
         }
 
-        export interface slotVisibilityChangedEvent {
+        // tslint:disable-next-line:no-empty-interface
+        interface SlotRequestedEvent extends Event {}
+
+        // tslint:disable-next-line:no-empty-interface
+        interface SlotResponseReceived extends Event {}
+
+        interface SlotVisibilityChangedEvent extends Event {
             inViewPercentage: number;
-            serviceName: string;
-            slot: Slot;
         }
     }
 }

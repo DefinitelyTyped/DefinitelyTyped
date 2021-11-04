@@ -1,6 +1,5 @@
 // tslint:disable:no-arg
 // tslint:disable:no-var-keyword
-// tslint:disable:object-literal-key-quotes
 // tslint:disable:object-literal-shorthand
 // tslint:disable:one-variable-per-declaration
 // tslint:disable:only-arrow-functions
@@ -384,7 +383,7 @@ function examples() {
     }
 
     function bind_2() {
-        function handler(event: JQuery.Event<HTMLElement, any>) {
+        function handler(event: JQuery.TriggeredEvent<HTMLElement>) {
             alert(event.data.foo);
         }
 
@@ -830,7 +829,7 @@ function examples() {
             var len = kids.addClass('hilite').length;
 
             $('#results span:first').text(len);
-            $('#results span:last').text(event.target.tagName);
+            $('#results span:last').text((event.target as Element).tagName);
 
             event.preventDefault();
         });
@@ -1578,7 +1577,7 @@ function examples() {
 
     function event_related_target_0() {
         $('a').mouseout(function(event) {
-            alert((<HTMLElement> event.relatedTarget).nodeName); // "DIV"
+            alert((event.relatedTarget as HTMLElement).nodeName); // "DIV"
         });
     }
 
@@ -1614,12 +1613,12 @@ function examples() {
 
     function event_target_0() {
         $('body').click(function(event) {
-            $('#log').html('clicked: ' + event.target.nodeName);
+            $('#log').html('clicked: ' + (event.target as Node).nodeName);
         });
     }
 
     function event_target_1() {
-        function handler(event: JQuery.Event) {
+        function handler(event: JQuery.TriggeredEvent) {
             var target = $(event.target);
             if (target.is('li')) {
                 target.children().toggle();
@@ -1944,7 +1943,9 @@ function examples() {
         $('*', document.body).click(function(event) {
             event.stopPropagation();
             var domElement = $(this).get(0);
-            $('span:first').text('Clicked on - ' + domElement.nodeName);
+            if (domElement) {
+                $('span:first').text('Clicked on - ' + domElement.nodeName);
+            }
         });
     }
 
@@ -2334,7 +2335,9 @@ function examples() {
     }
 
     function jQuery_contains_0() {
+        // tslint:disable-next-line no-unnecessary-type-assertion
         $.contains(document.documentElement!, document.body); // true
+        // tslint:disable-next-line no-unnecessary-type-assertion
         $.contains(document.body, document.documentElement!); // false
     }
 
@@ -3016,10 +3019,10 @@ function examples() {
     function jQuery_proxy_0() {
         var me = {
             type: 'zombie',
-            test: function(event: JQuery.Event) {
+            test: function(event: JQuery.TriggeredEvent) {
                 // Without proxy, `this` would refer to the event target
                 // use event.target to reference that element.
-                var element = event.target;
+                var element = event.target as Element;
                 $(element).css('background-color', 'red');
 
                 // With proxy, `this` refers to the me object encapsulating
@@ -3031,7 +3034,7 @@ function examples() {
 
         var you = {
             type: 'person',
-            test: function(event: JQuery.Event) {
+            test: function(event: JQuery.TriggeredEvent) {
                 $('#log').append(this.type + ' ');
             },
         };
@@ -3073,7 +3076,7 @@ function examples() {
             type: 'dog',
 
             // Note that event comes *after* one and two
-            test: function(one: typeof you, two: typeof they, event: JQuery.Event<HTMLElement>) {
+            test: function(one: typeof you, two: typeof they, event: JQuery.TriggeredEvent<HTMLElement>) {
                 $('#log')
 
                 // `one` maps to `you`, the 1st additional
@@ -3450,21 +3453,26 @@ function examples() {
 
     function map_1() {
         var mappedItems = $('li').map(function(index) {
-            var replacement: Element | null = $('<li>').text($(this).text()).get(0);
-            if (index === 0) {
-                // Make the first item all caps
-                $(replacement).text($(replacement).text().toUpperCase());
-            } else if (index === 1 || index === 3) {
-                // Delete the second and fourth items
-                replacement = null;
-            } else if (index === 2) {
-                // Make two of the third item and add some text
-                var _replacement = [replacement, $('<li>').get(0)];
-                $(_replacement[0]).append('<b> - A</b>');
-                $(_replacement[1]).append('Extra <b> - B</b>');
+            var replacement: Element | undefined = $('<li>').text($(this).text()).get(0);
+            if (replacement) {
+                if (index === 0) {
+                    // Make the first item all caps
+                    $(replacement).text($(replacement).text().toUpperCase());
+                } else if (index === 1 || index === 3) {
+                    // Delete the second and fourth items
+                    replacement = undefined;
+                } else if (index === 2) {
+                    // Make two of the third item and add some text
+                    var li = $('<li>').get(0);
+                    if (li) {
+                        var _replacement = [replacement, li];
+                        $(_replacement[0]).append('<b> - A</b>');
+                        $(_replacement[1]).append('Extra <b> - B</b>');
+                    }
+                }
             }
 
-            // Replacement will be a dom element, null,
+            // Replacement will be a dom element, undefined,
             // or an array of dom elements
             return replacement;
         });
@@ -3794,7 +3802,7 @@ function examples() {
     }
 
     function on_1() {
-        function myHandler(event: JQuery.Event<HTMLElement, { foo: string; }>) {
+        function myHandler(event: JQuery.TriggeredEvent<HTMLElement, { foo: string; }>) {
             alert(event.data.foo);
         }
 
@@ -3953,8 +3961,11 @@ function examples() {
 
     function parent_1() {
         $('*', document.body).each(function() {
-            var parentTag = $(this).parent().get(0).tagName;
-            $(this).prepend(document.createTextNode(parentTag + ' > '));
+            var parent = $(this).parent().get(0);
+            if (parent) {
+                var parentTag = parent.tagName;
+                $(this).prepend(document.createTextNode(parentTag + ' > '));
+            }
         });
     }
 

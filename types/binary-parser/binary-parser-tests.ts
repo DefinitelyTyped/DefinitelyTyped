@@ -93,3 +93,42 @@ const parser5 = new Parser()
         length: '4',
         formatter: (arr) => { }
     });
+
+const parser6 = new Parser()
+    .nest("nested", {
+        type: new Parser()
+            .array("points", {
+                type: new Parser()
+                    .uint8("x")
+                    .uint8("y"),
+                length: 2
+            })
+    })
+    .choice("optional", {
+        tag: "nested.points[0].x",
+        choices: {
+            1: new Parser()
+                .uint8("number")
+        }
+    });
+
+const result = parser6.parse(Buffer.from([0x01, 0x02, 0x03, 0x04, 0x05]));
+
+// See the inferred static types on the IntelliSense.
+result.nested.points[0].x;
+result.nested.points[1].y;
+result.optional.number;
+
+const parser7 = new Parser()
+    // Signed 64-bit integer
+    .int64('a')
+    // Unsigned 64-bit integer
+    .uint64('b')
+    // Signed 64-bit integer (little endian)
+    .int64le('c')
+    // Signed 64-bit integer (big endian)
+    .int64be('d')
+    // Unsigned 64-bit integer (little endian)
+    .uint64le('e')
+    // Unsigned 64-bit integer (big endian)
+    .uint64be('f');

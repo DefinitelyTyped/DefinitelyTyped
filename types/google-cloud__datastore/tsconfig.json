@@ -14,8 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "@google-cloud/datastore": [
-                "google-cloud__datastore"
+            "@google-cloud/*": [
+                "google-cloud__*"
             ]
         },
         "noEmit": true,

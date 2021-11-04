@@ -7,10 +7,10 @@
 
 declare namespace stripComments {
     interface StripOptions {
-        safe?: boolean;
-        ignore?: RegExp | RegExp[];
-        space?: boolean;
-        trim?: boolean;
+        safe?: boolean | undefined;
+        ignore?: RegExp | RegExp[] | undefined;
+        space?: boolean | undefined;
+        trim?: boolean | undefined;
     }
 
     interface Strip {

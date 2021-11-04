@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "max-line-length": false,
         "no-declare-current-package": false,
         "no-object-literal-type-assertion": false,

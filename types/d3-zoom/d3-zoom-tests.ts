@@ -7,9 +7,9 @@
  */
 
 import * as d3Zoom from 'd3-zoom';
-import { ArrayLike, select, Selection, event } from 'd3-selection';
+import { ArrayLike, select, Selection } from 'd3-selection';
 import { Transition } from 'd3-transition';
-import { scaleLinear, ScaleLinear } from 'd3-scale';
+import { scaleLinear, ScaleLinear, ScaleTime, scaleTime } from 'd3-scale';
 import { interpolateZoom, interpolate, interpolateArray, ZoomInterpolator, ZoomView } from 'd3-interpolate';
 
 // --------------------------------------------------------------------------
@@ -65,11 +65,11 @@ const svg = select<SVGSVGElement, undefined>('svg')
     .attr('width', d => d.width)
     .attr('height', d => d.height);
 
-const g = svg.append<SVGGElement>('g');
+const g = svg.append('g');
 
 g.selectAll()
     .data<[number, number]>(points)
-    .enter().append<SVGCircleElement>('circle')
+    .enter().append('circle')
     .attr('cx', d => d[0])
     .attr('cy', d => d[1])
     .attr('r', 2.5);
@@ -89,9 +89,7 @@ interface GroupDatum {
 
 // Canvas Example -----------------------------------------------------------
 
-function zoomedCanvas(this: HTMLCanvasElement, d: CanvasDatum) {
-    // Cast d3 event to D3ZoomEvent to be used in zoom event handler
-    const e = <d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>> event;
+function zoomedCanvas(this: HTMLCanvasElement, event: d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>, d: CanvasDatum) {
     if (context) {
         context.save();
         context.clearRect(0, 0, this.width, this.height); // this element
@@ -110,10 +108,7 @@ canvasZoom = d3Zoom.zoom<HTMLCanvasElement, CanvasDatum>()
 
 // SVG Example --------------------------------------------------------------
 
-function zoomedSVGOverlay(this: SVGRectElement) {
-    // Cast d3 event to D3ZoomEvent to be used in zoom event handler
-    const e = <d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>> event;
-
+function zoomedSVGOverlay(this: SVGRectElement, event: d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>) {
     g.attr('transform', e.transform.toString());
 }
 
@@ -144,15 +139,12 @@ constraintFn = svgZoom.constrain();
 // filter() ----------------------------------------------------------------
 
 // chainable
-svgZoom = svgZoom.filter(function(d, i, group) {
-    // Cast d3 event to D3ZoomEvent to be used in filter logic
-    const e = <d3Zoom.D3ZoomEvent<SVGRectElement, SVGDatum>> event;
-
+svgZoom = svgZoom.filter(function(event: d3Zoom.D3ZoomEvent<SVGRectElement, SVGDatum>, d) {
     console.log('Overlay Rectangle width: ', this.width.baseVal.value); // this typing is SVGRectElement
     return e.sourceEvent.type !== 'brush' || !d.filterBrushEvent; // datum type is SVGDatum (as propagated to SVGRectElement with zoom event attached)
 });
 
-let filterFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => boolean;
+let filterFn: (this: SVGRectElement, event: any, d: SVGDatum) => boolean;
 filterFn = svgZoom.filter();
 
 // set and get touchable ---------------------------------------------------------
@@ -175,17 +167,15 @@ touchableFn = svgZoom.touchable();
 
 // wheelDelta() ----------------------------------------------------------------
 
-// chainable
-svgZoom = svgZoom.wheelDelta(function(d, i, group) {
-    // Cast d3 event to D3ZoomEvent to be used in filter logic
-    const e = <WheelEvent> event;
+// chainable with function
+svgZoom = svgZoom.wheelDelta(function(this: SVGRectElement, e) {
     const that: SVGRectElement = this;
-    const datum: SVGDatum = d;
-    const index: number = i;
-    const g: SVGRectElement[] | ArrayLike<SVGRectElement> = group;
 
     return -e.deltaY * (e.deltaMode ? 100 : 1) / 600;
 });
+
+// chainable with number
+svgZoom = svgZoom.wheelDelta(1);
 
 let wheelDeltaFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => number;
 wheelDeltaFn = svgZoom.wheelDelta();
@@ -199,7 +189,7 @@ extentAccessor = svgZoom.extent();
 svgZoom = svgZoom.extent([[0, 0], [200, 200]]);
 
 // chainable with accessor function
-svgZoom = svgZoom.extent(function(d, i, group) {
+svgZoom = svgZoom.extent(function(d) {
     console.log('Overlay Rectangle width: ', this.width.baseVal.value); // this typing is SVGRectElement
     return [[0, 0], [d.width, d.height]]; // datum type is SVGDatum
 });
@@ -226,6 +216,12 @@ svgZoom = svgZoom.clickDistance(5);
 
 const distance: number = svgZoom.clickDistance();
 
+// tapDistance() ---------------------------------------------------------
+
+svgZoom = svgZoom.tapDistance(5);
+
+const tapDistance: number = svgZoom.tapDistance();
+
 // duration() --------------------------------------------------------------
 
 // chainable
@@ -248,17 +244,17 @@ let zoomInterpolatorFactory: (a: ZoomView, b: ZoomView) => ZoomInterpolator;
 // Basic case without casting
 basicInterpolatorFactory = svgZoom.interpolate();
 
-// Assuming it is know that a specialized interpolation factory was used. E.g. ZoomInterpolator also has a duration
-// argument
+// Assuming it is know that a specialized interpolation factory was used. E.g. ZoomInterpolator also has a duration argument
 zoomInterpolatorFactory = svgZoom.interpolate<(a: ZoomView, b: ZoomView) => ZoomInterpolator>();
 
 // on() --------------------------------------------------------------------
 
 // chainable
 svgZoom = svgZoom.on('zoom', zoomedSVGOverlay);
-// svgZoom = svgZoom.on('zoom', zoomedCanvas); // fails, zoom event handler has wrong this and datum type
+// $ExpectError
+svgZoom = svgZoom.on('zoom', zoomedCanvas); // fails, zoom event handler has wrong this and datum type
 
-let zoomHandler: ((this: SVGRectElement, datum: SVGDatum, index: number, group: SVGRectElement[] | ArrayLike<SVGRectElement>) => void) | undefined;
+let zoomHandler: ((this: SVGRectElement, event: any, datum: SVGDatum) => void) | undefined;
 zoomHandler = svgZoom.on('zoom');
 
 // chainable remove handler
@@ -280,7 +276,7 @@ canvas.call(canvasZoom);
 // SVG Example --------------------------------------------------------------
 
 // attach the zoom behavior to an overlay svg rectangle
-const svgOverlay: Selection<SVGRectElement, SVGDatum, HTMLElement, any> = svg.append<SVGRectElement>('rect')
+const svgOverlay: Selection<SVGRectElement, SVGDatum, HTMLElement, any> = svg.append('rect')
     .attr('width', d => d.width)
     .attr('height', d => d.height)
     .style('fill', 'none')
@@ -297,27 +293,25 @@ const svgOverlayTransition = svgOverlay.transition();
 
 // use on selection
 svgZoom.transform(svgOverlay, d3Zoom.zoomIdentity);
-// svgZoom.transform(groupsSelection, d3Zoom.zoomIdentity); // fails, as groupSelection mismatches DOM Element type and datum type
+svgZoom.transform(svgOverlay, d3Zoom.zoomIdentity, [0, 0]);
+// $ExpectError
+svgZoom.transform(groupsSelection, d3Zoom.zoomIdentity); // fails, as groupSelection mismatches DOM Element type and datum type
 
-svgZoom.transform(svgOverlay, function(datum, index, groups) {
+svgZoom.transform(svgOverlay, function(event, d: SVGDatum) {
     const that: SVGRectElement = this;
-    const d: SVGDatum = datum;
-    const i: number = index;
-    const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
     console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
     console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
     return d3Zoom.zoomIdentity;
 });
+
 // use on transition
 svgOverlayTransition.call(svgZoom.transform, d3Zoom.zoomIdentity);
-// svgZoom.transform(groupsTransition, d3Zoom.zoomIdentity); // fails, as groupTransition mismatches DOM Element type and datum type
+// $ExpectError
+svgZoom.transform(groupsTransition, d3Zoom.zoomIdentity); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.transform(svgOverlayTransition, d3Zoom.zoomIdentity);
-svgZoom.transform(svgOverlayTransition, function(datum, index, groups) {
+svgZoom.transform(svgOverlayTransition, function(event, d: SVGDatum) {
     const that: SVGRectElement = this;
-    const d: SVGDatum = datum;
-    const i: number = index;
-    const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
     console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
     console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
     return d3Zoom.zoomIdentity;
@@ -327,7 +321,8 @@ svgZoom.transform(svgOverlayTransition, function(datum, index, groups) {
 
 // use on selection
 svgZoom.translateBy(svgOverlay, 20, 50);
-// svgZoom.translateBy(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
+// $ExpectError
+svgZoom.translateBy(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.translateBy(
     svgOverlay,
@@ -376,7 +371,8 @@ svgZoom.translateBy(
 
 // use on transition
 svgZoom.translateBy(svgOverlayTransition, 20, 50);
-// svgZoom.translateBy(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
+// $ExpectError
+svgZoom.translateBy(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.translateBy(
     svgOverlayTransition,
@@ -427,7 +423,9 @@ svgZoom.translateBy(
 
 // use on selection
 svgZoom.translateTo(svgOverlay, 20, 50);
-// svgZoom.translateTo(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
+svgZoom.translateTo(svgOverlay, 20, 50, [0, 0]);
+// $ExpectError
+svgZoom.translateTo(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.translateTo(
     svgOverlay,
@@ -476,7 +474,8 @@ svgZoom.translateTo(
 
 // use on transition
 svgZoom.translateTo(svgOverlayTransition, 20, 50);
-// svgZoom.translateTo(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
+// $ExpectError
+svgZoom.translateTo(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.translateTo(
     svgOverlayTransition,
@@ -527,7 +526,9 @@ svgZoom.translateTo(
 
 // use on selection
 svgZoom.scaleBy(svgOverlay, 3);
-// svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
+svgZoom.scaleBy(svgOverlay, 3, [0, 0]);
+// $ExpectError
+svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.scaleBy(svgOverlay, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -540,7 +541,8 @@ svgZoom.scaleBy(svgOverlay, function(datum, index, groups) {
 });
 // use on transition
 svgZoom.scaleBy(svgOverlayTransition, 3);
-// svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
+// $ExpectError
+svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.scaleBy(svgOverlayTransition, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -556,7 +558,9 @@ svgZoom.scaleBy(svgOverlayTransition, function(datum, index, groups) {
 
 // use on selection
 svgZoom.scaleTo(svgOverlay, 3);
-// svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
+svgZoom.scaleTo(svgOverlay, 3, [0, 0]);
+// $ExpectError
+svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.scaleTo(svgOverlay, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -569,7 +573,8 @@ svgZoom.scaleTo(svgOverlay, function(datum, index, groups) {
 });
 // use on transition
 svgZoom.scaleTo(svgOverlayTransition, 3);
-// svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
+// $ExpectError
+svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.scaleTo(svgOverlayTransition, function(datum, index, groups) {
     const that: SVGRectElement = this;
@@ -585,7 +590,7 @@ svgZoom.scaleTo(svgOverlayTransition, function(datum, index, groups) {
 // Test Zoom Event Interface
 // --------------------------------------------------------------------------
 
-const e: d3Zoom.D3ZoomEvent<SVGRectElement, SVGDatum> = event; // mock assignment
+declare const e: d3Zoom.D3ZoomEvent<SVGRectElement, SVGDatum>; // mock assignment
 
 const target: d3Zoom.ZoomBehavior<SVGRectElement, SVGDatum> = e.target;
 const type: 'start' | 'zoom' | 'end' | string = e.type;
@@ -608,6 +613,8 @@ const x: number = zTransform.x;
 const y: number = zTransform.y;
 const k: number = zTransform.k;
 
+zTransform = new d3Zoom.ZoomTransform(k, x, y);
+
 const transformedPoint: [number, number] = zTransform.apply([15, 20]);
 const transformedX: number = zTransform.applyX(15);
 const transformedY: number = zTransform.applyY(20);
@@ -616,15 +623,18 @@ const invertedPoint: [number, number] = zTransform.invert([150, 240]);
 const invertedX: number = zTransform.invertX(150);
 const invertedY: number = zTransform.invertY(240);
 
-// TODO: reScaleX, reScaleY
-
 let linearScale: ScaleLinear<number, number> = scaleLinear();
+let timeScale: ScaleTime<number, number> = scaleTime();
 
 linearScale = zTransform.rescaleX(linearScale);
 linearScale = zTransform.rescaleY(linearScale);
 
+timeScale = zTransform.rescaleX(timeScale);
+timeScale = zTransform.rescaleY(timeScale);
+
 const transformation: string = zTransform.toString();
 
+zTransform = zTransform.scale(2);
 zTransform = zTransform.translate(50, 40);
 
 // zoomIdentity -------------------------------------------------------------

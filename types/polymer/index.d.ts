@@ -2,6 +2,7 @@
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.4
 
 import { CustomElementConstructor } from "webcomponents.js";
 
@@ -12,27 +13,25 @@ declare global {
 
     interface PropObjectType {
       type: PropConstructorType;
-      value?: boolean | number | string | Function | Object;
-      reflectToAttribute?: boolean;
-      readOnly?: boolean;
-      notify?: boolean;
-      computed?: string;
-      observer?: string;
+      value?: boolean | number | string | Function | Object | undefined;
+      reflectToAttribute?: boolean | undefined;
+      readOnly?: boolean | undefined;
+      notify?: boolean | undefined;
+      computed?: string | undefined;
+      observer?: string | undefined;
     }
 
-    interface Base {
-      /** Need to allow all properties for callback methods. */
-      [prop: string]: any;
-
+    interface CommonBase {
       /* polymer-micro */
 
       // Attributes
 
-      hostAttributes?: {[name:string]:any};
+      hostAttributes?: {[name: string]: any} | undefined;
 
       reflectPropertiesToAttribute?(name: string): void;
 
-      serializeValueToAttribute?(value: any, attribute: string, node?: Element): void;
+      serializeValueToAttribute?
+          (value: any, attribute: string, node?: Element): void;
 
       deserialize?(value: string, type: NumberConstructor): number;
       deserialize?(value: string, type: BooleanConstructor): boolean;
@@ -45,7 +44,7 @@ declare global {
 
       // Behaviors
 
-      behaviors?:Object[];
+      behaviors?:Object[] | undefined;
 
       // Constructors
 
@@ -63,13 +62,13 @@ declare global {
 
       // Extends
 
-      extends?: string;
+      extends?: string | undefined;
 
       getNativePrototype?(tag: string): Object;
 
       // Properties
 
-      properties?:{[prop:string]:(PropConstructorType|PropObjectType);};
+      properties?:{[prop:string]:(PropConstructorType|PropObjectType);} | undefined;
 
       getPropertyInfo?(property: string): Object;
 
@@ -106,7 +105,7 @@ declare global {
 
       // Events
 
-      listeners?: {[key:string]:string;};
+      listeners?: {[key:string]:string;} | undefined;
 
       listen?(node: Element, eventName: string, methodName: string): void;
 
@@ -120,7 +119,8 @@ declare global {
 
       notifyPath?(path: string, value: any, fromAbove: any): void;
 
-      set?<Value>(path: string|(string|number)[], value: Value, root?: Object): void;
+      set?<Value>(path: string|(string|number)[], value: Value, root?: Object):
+          void;
 
       get?(path: string|(string|number)[], root?: Object): any;
 
@@ -139,7 +139,8 @@ declare global {
 
       unshift?(path: string, ...item: any[]): number;
 
-      notifySplices?(path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
+      notifySplices?
+          (path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
 
       // ResolveUrl
 
@@ -154,8 +155,6 @@ declare global {
       $$?(selector: string): Element;
 
       toggleClass?(name: string, bool?: boolean, node?: HTMLElement): void;
-
-      toggleAttribute?(name: string, bool?: boolean, node?: HTMLElement): void;
 
       classFollows?(name: string, toElement: HTMLElement, fromElement: HTMLElement): void;
 
@@ -195,11 +194,9 @@ declare global {
 
       createdCallback?():void;
 
-      attachedCallback?():void;
-
       detachedCallback?():void;
 
-      attributeChangedCallback?(name: string):void;
+      attributeChangedCallback?(attributeName: string, oldValue: string|null, newValue: string|null, namespace: string|null): void;
 
       extend?(prototype: Object, api: Object):Object;
 
@@ -207,7 +204,7 @@ declare global {
 
       copyOwnProperty?(name: string, source: Object, target: Object):void;
 
-      observers?: string[];
+      observers?: string[] | undefined;
 
       beforeRegister?(): void;
 
@@ -220,7 +217,23 @@ declare global {
       detached?(): void;
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
+        
+      getEffectiveChildren?(): Node[];
 
+      getEffectiveChildNodes?(): Node[];
+    }
+
+    // This is the type of a Polymer element after it has gone through the
+    // Polymer() function.
+    interface PolymerElement extends CommonBase, HTMLElement {}
+
+    interface Base extends CommonBase {
+      /** Need to allow all properties for callback methods. */
+      [prop: string]: any;
+
+      // Has to live on Base because it is incompatible with
+      // HTMLElement#toggleAttribute
+      toggleAttribute?(name: string, bool?: boolean, node?: HTMLElement): void;
     }
 
     interface DomApiStatic {
@@ -267,6 +280,8 @@ declare global {
       observeNodes(callback: (info: ObservedNodeInfo) => void): {};
 
       unobserveNodes(observer: {}): void;
+
+      getEffectiveChildNodes(): Node[];
 
       childNodes:Node[];
 

@@ -42,6 +42,19 @@ declare namespace SinonChrome {
 
     export var csi: Sinon.SinonSpy;
     export var loadTimes: Sinon.SinonSpy;
+
+    // Workaround for debugger being a reserved word and can't be exported as a namespace normally
+    // until https://github.com/Microsoft/TypeScript/issues/7840 is fixed
+    namespace _debugger {
+        export var attach: SinonChromeStub;
+        export var detach: SinonChromeStub;
+        export var getTargets: SinonChromeStub;
+        export var sendCommand: SinonChromeStub;
+
+        export var onDetach: SinonChrome.events.Event;
+        export var onEvent: SinonChrome.events.Event;
+    }
+    export { _debugger as debugger };
 }
 
 declare namespace SinonChrome.events {
@@ -136,10 +149,10 @@ declare namespace SinonChrome.browsingData {
 
 declare namespace SinonChrome.contentSettings {
     interface StubbedContentSetting {
-      clear: SinonChromeStub;
-      get: SinonChromeStub;
-      getResourceIdentifiers: SinonChromeStub;
-      set: SinonChromeStub;
+        clear: SinonChromeStub;
+        get: SinonChromeStub;
+        getResourceIdentifiers: SinonChromeStub;
+        set: SinonChromeStub;
     }
 
     export var cookies: StubbedContentSetting;
@@ -175,18 +188,6 @@ declare namespace SinonChrome.cookies {
     export var remove: SinonChromeStub;
     export var set: SinonChromeStub;
 }
-
-/* TODO: Uncomment once https://github.com/Microsoft/TypeScript/issues/7840 is fixed
-declare module SinonChrome.debugger {
-    export var attach: SinonChromeStub;
-    export var detach: SinonChromeStub;
-    export var getTargets: SinonChromeStub;
-    export var sendCommand: SinonChromeStub;
-
-    export var onDetach: SinonChrome.events.Event;
-    export var onEvent: SinonChrome.events.Event;
-}
-*/
 
 declare namespace SinonChrome.declarativeContent {
     export var PageStateMatcher: SinonChromeStub;
@@ -360,13 +361,13 @@ declare namespace SinonChrome.plugins {
     export interface Translations {
         [key: string]: {
             message: string;
-            description?: string;
+            description?: string | undefined;
             placeholders?: {
-              [key: string]: {
-                content: string;
-                example?: string;
-              };
-            };
+                [key: string]: {
+                    content: string;
+                    example?: string | undefined;
+                };
+            } | undefined;
         };
     }
     export class I18nPlugin {
@@ -406,9 +407,9 @@ declare namespace SinonChrome.privacy {
         translationServiceEnabled: SinonChrome.types.StubbedChromeSetting;
     };
     export var website: {
-      hyperlinkAuditingEnabled: SinonChrome.types.StubbedChromeSetting;
-      referrersEnabled: SinonChrome.types.StubbedChromeSetting;
-      thirdPartyCookiesAllowed: SinonChrome.types.StubbedChromeSetting;
+        hyperlinkAuditingEnabled: SinonChrome.types.StubbedChromeSetting;
+        referrersEnabled: SinonChrome.types.StubbedChromeSetting;
+        thirdPartyCookiesAllowed: SinonChrome.types.StubbedChromeSetting;
     };
 }
 
@@ -429,6 +430,7 @@ declare namespace SinonChrome.runtime {
     export var getManifest: SinonChromeStub;
     export var getPackageDirectoryEntry: SinonChromeStub;
     export var getPlatformInfo: SinonChromeStub;
+    export var openOptionsPage: SinonChromeStub;
     export var reload: SinonChromeStub;
     export var requestUpdateCheck: SinonChromeStub;
     export var restart: SinonChromeStub;
@@ -449,7 +451,7 @@ declare namespace SinonChrome.runtime {
 
     export var id: string;
     export var getURL: SinonChromeStub;
-    export var lastError: { message?: string };
+    export var lastError: { message?: string | undefined };
 }
 
 declare namespace SinonChrome.sessions {
@@ -462,11 +464,11 @@ declare namespace SinonChrome.sessions {
 
 declare namespace SinonChrome.storage {
     interface StubbedStorageArea {
-      clear: SinonChromeStub;
-      get: SinonChromeStub;
-      getBytesInUse: SinonChromeStub;
-      remove: SinonChromeStub;
-      set: SinonChromeStub;
+        clear: SinonChromeStub;
+        get: SinonChromeStub;
+        getBytesInUse: SinonChromeStub;
+        remove: SinonChromeStub;
+        set: SinonChromeStub;
     }
 
     export var local: StubbedStorageArea;

@@ -6,8 +6,8 @@
 
 declare namespace CanCan {
     interface Option {
-        instanceOf?: (instance: any, model: any) => boolean;
-        createError?: () => any;
+        instanceOf?: ((instance: any, model: any) => boolean) | undefined;
+        createError?: (() => any) | undefined;
     }
 }
 

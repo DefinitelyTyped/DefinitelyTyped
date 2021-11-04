@@ -18,25 +18,25 @@ declare namespace gzip {
          * Appends .gz file extension if true.
          * @default true
          */
-        append?: boolean;
+        append?: boolean | undefined;
         /**
          * Appends an arbitrary extension to the filename. Disables append and preExtension options.
          */
-        extension?: string;
+        extension?: string | undefined;
         /**
          * Appends an arbitrary pre-extension to the filename. Disables append and extension options.
          */
-        preExtension?: string;
+        preExtension?: string | undefined;
         /**
          * Minimum size required to compress a file.
          * @default false
          */
-        threshold?: number | string | boolean;
+        threshold?: number | string | boolean | undefined;
         /**
          * Options object to pass through to zlib.Gzip.
          * See <a href='https://nodejs.org/api/zlib.html#zlib_options'>zlib</a> documentation for more information.
          */
-        gzipOptions?: zlib.ZlibOptions;
+        gzipOptions?: zlib.ZlibOptions | undefined;
     }
 }
 

@@ -30,7 +30,7 @@ export interface requestAuthorization {
     basic?: {
         username: string;
         password: string;
-    };
+    } | undefined;
 }
 
 export interface Request extends http.IncomingMessage {
@@ -201,7 +201,7 @@ export interface Request extends http.IncomingMessage {
      */
     version(): string;
     params: any;
-    files?: { [name: string]: requestFileInterface };
+    files?: { [name: string]: requestFileInterface } | undefined;
 
     /**
      * Check if the incoming request is encrypted.
@@ -210,9 +210,9 @@ export interface Request extends http.IncomingMessage {
     /** available when bodyParser plugin is used */
     body?: any;
     /** available when authorizationParser plugin is used */
-    username?: string;
+    username?: string | undefined;
     /** available when authorizationParser plugin is used */
-    authorization?: requestAuthorization;
+    authorization?: requestAuthorization | undefined;
 
     timers: HandlerTiming[];
 }
@@ -260,11 +260,11 @@ export interface Route {
 export interface RouteOptions {
     name: string;
     method: string;
-    path?: string | RegExp;
-    url?: string | RegExp;
-    urlParamPattern?: RegExp;
-    contentType?: string | string[];
-    versions?: string | string[];
+    path?: string | RegExp | undefined;
+    url?: string | RegExp | undefined;
+    urlParamPattern?: RegExp | undefined;
+    contentType?: string | string[] | undefined;
+    versions?: string | string[] | undefined;
 }
 
 export interface RoutePathRegex extends RegExp {
@@ -321,35 +321,27 @@ export interface Router {
 
 export interface Server extends http.Server {
     use(handler: RequestHandler | RequestHandler[], ...handlers: RequestHandler[]): Server;
-    // tslint:disable-next-line unified-signatures
     use(handler: RequestHandler | RequestHandler[], ...handlers: RequestHandler[][]): Server;
 
     post(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     post(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     patch(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     patch(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     put(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     put(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     del(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     del(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     get(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     get(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     head(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     head(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     opts(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     opts(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     name: string;
@@ -368,65 +360,65 @@ export interface Server extends http.Server {
 }
 
 export interface ServerOptions {
-    ca?: string;
-    certificate?: string | string[] | Buffer | Buffer[];
-    key?: string | string[] | Buffer | Buffer[];
+    ca?: string | undefined;
+    certificate?: string | string[] | Buffer | Buffer[] | undefined;
+    key?: string | string[] | Buffer | Buffer[] | undefined;
     formatters?: any;
     log?: any;
-    name?: string;
+    name?: string | undefined;
     spdy?: any;
-    version?: string;
-    responseTimeHeader?: string;
+    version?: string | undefined;
+    responseTimeHeader?: string | undefined;
     responseTimeFormatter?(durationInMilliseconds: number): any;
-    handleUpgrades?: boolean;
-    router?: Router;
+    handleUpgrades?: boolean | undefined;
+    router?: Router | undefined;
     httpsServerOptions?: any;
-    socketio?: boolean;
+    socketio?: boolean | undefined;
 }
 
 export interface ClientOptions {
-    accept?: string;
-    connectTimeout?: number;
-    requestTimeout?: number;
+    accept?: string | undefined;
+    connectTimeout?: number | undefined;
+    requestTimeout?: number | undefined;
     dtrace?: any;
     gzip?: any;
     headers?: any;
     log?: any;
     retry?: any;
     signRequest?(): void;
-    url?: string;
-    userAgent?: string;
-    version?: string;
+    url?: string | undefined;
+    userAgent?: string | undefined;
+    version?: string | undefined;
 }
 
 export interface Client {
-    get(opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
-    head(opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any): any;
-    post(opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
-    put(opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
-    patch(opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
-    del(opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any): any;
+    get(opts: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    head(opts: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any): any;
+    post(opts: string | { path?: string | undefined; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    put(opts: string | { path?: string | undefined; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    patch(opts: string | { path?: string | undefined; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    del(opts: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any): any;
     basicAuth(username: string, password: string): any;
 }
 
 export interface HttpClient {
-    get(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
-    head(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
-    post(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
-    put(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
-    patch(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
-    del(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    get(opts?: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    head(opts?: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    post(opts?: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    put(opts?: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    patch(opts?: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    del(opts?: string | { path?: string | undefined; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
     basicAuth(username: string, password: string): any;
 }
 
 export interface ThrottleOptions {
-    burst?: number;
-    rate?: number;
-    ip?: boolean;
-    xff?: boolean;
-    username?: boolean;
+    burst?: number | undefined;
+    rate?: number | undefined;
+    ip?: boolean | undefined;
+    xff?: boolean | undefined;
+    username?: boolean | undefined;
     tokensTable?: any;
-    maxKeys?: number;
+    maxKeys?: number | undefined;
     overrides?: any;
 }
 
@@ -521,14 +513,13 @@ export function throttle(options?: ThrottleOptions): RequestHandler;
 export function conditionalRequest(): RequestHandler[];
 export function auditLogger(options: { log: any }): (req: Request, res: Response, route: Route, err: any) => void;
 export function fullResponse(): RequestHandler;
-// tslint:disable-next-line no-var
 export var defaultResponseHeaders: any;
 
 export function CORS(options?: CORSOptions): RequestHandler;
 export interface CORSOptions {
-    origins?: string[];
-    credentials?: boolean;
-    headers?: string[];
+    origins?: string[] | undefined;
+    credentials?: boolean | undefined;
+    headers?: string[] | undefined;
 }
 
 export const pre: {

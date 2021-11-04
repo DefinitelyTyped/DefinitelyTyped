@@ -46,7 +46,7 @@ Page.define({
         this.data.count;
     },
     methods: {
-        handleTapButton() {
+        handleTapButton(event) {
             this.data.count;
         }
     }

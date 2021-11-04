@@ -19,24 +19,26 @@ export interface FormStateMap {
 
 export interface FormState {
     registeredFields: RegisteredFieldState[];
-    fields?: {[name: string]: FieldState};
-    values?: { [fieldName: string]: any };
-    active?: string;
-    anyTouched?: boolean;
-    submitting?: boolean;
-    submitErrors?: { [fieldName: string]: string };
-    submitFailed?: boolean;
+    fields?: { [name: string]: FieldState } | undefined;
+    values?: { [fieldName: string]: any } | undefined;
+    active?: string | undefined;
+    anyTouched?: boolean | undefined;
+    error?: any;
+    submitting?: boolean | undefined;
+    submitErrors?: { [fieldName: string]: string } | undefined;
+    submitFailed?: boolean | undefined;
 }
 
 export interface RegisteredFieldState {
     name: string;
     type: FieldType;
+    count: number;
 }
 
 export interface FieldState {
-    active?: boolean;
-    touched?: boolean;
-    visited?: boolean;
+    active?: boolean | undefined;
+    touched?: boolean | undefined;
+    visited?: boolean | undefined;
 }
 
 export default reducer;

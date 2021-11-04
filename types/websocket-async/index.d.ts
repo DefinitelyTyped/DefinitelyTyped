@@ -84,4 +84,4 @@ declare class WebSocketClient {
     private _reset(): void;
 }
 
-export default WebSocketClient;
+export = WebSocketClient;

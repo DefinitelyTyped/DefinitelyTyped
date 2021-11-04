@@ -1,5 +1,5 @@
 // Type definitions for pouchdb-adapter-websql 6.1
-// Project: https://pouchdb.com/
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -9,8 +9,8 @@
 declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {
-            sqlite_plugin?: boolean;
-            websql_encoding?: 'UTF-8' | 'UTF-16';
+            sqlite_plugin?: boolean | undefined;
+            websql_encoding?: 'UTF-8' | 'UTF-16' | undefined;
         }
     }
 
@@ -20,7 +20,7 @@ declare namespace PouchDB {
             /**
              * Amount in MB to request for storage.
              */
-            size?: number;
+            size?: number | undefined;
             adapter: 'websql';
         }
     }

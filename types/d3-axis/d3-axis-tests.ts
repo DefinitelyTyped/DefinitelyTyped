@@ -69,7 +69,7 @@ containerElement = canvas; // fails, incompatible type
 let topAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisTop(scaleLinear());
 let rightAxis: d3Axis.Axis<Date> = d3Axis.axisRight<Date>(scaleTime());
 let bottomAxis: d3Axis.Axis<string> = d3Axis.axisBottom(scaleOrdinal<number>());
-let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scaleLinear<number>());
+let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scaleLinear());
 
 // --------------------------------------------------------------------------
 // Test Configure Axis
@@ -104,6 +104,7 @@ const tickArguments: any[] = leftAxis.tickArguments();
 // tickValues(...) ----------------------------------------------------------------
 
 topAxis = topAxis.tickValues([1, 3, 5, 7]);
+topAxis = topAxis.tickValues(new Set([1, 3, 5, 7]));
 
 bottomAxis = bottomAxis.tickValues(['strongly negative', 'strongly positive']);
 
@@ -140,6 +141,11 @@ num = rightAxis.tickSizeOuter();
 
 rightAxis = rightAxis.tickPadding(5);
 num = rightAxis.tickPadding();
+
+// offset(...) ---------------------------------------------------------------------
+
+rightAxis = rightAxis.offset(5);
+num = rightAxis.offset();
 
 // --------------------------------------------------------------------------
 // Test Apply Axis

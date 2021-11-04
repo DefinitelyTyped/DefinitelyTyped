@@ -10,12 +10,14 @@ const players: YT.Player[] = [
         videoId: "videoId",
         playerVars: {},
         events: {},
+        host: 'https://www.youtube.com',
     }),
     new YT.Player("id", {
         playerVars: {
             autohide: YT.AutoHide.AlwaysVisible,
             autoplay: YT.AutoPlay.AutoPlay,
             cc_load_policy: YT.ClosedCaptionsLoadPolicy.ForceOn,
+            cc_lang_pref: "en",
             color: "red",
             controls: YT.Controls.Hide,
             disablekb: YT.KeyboardControls.Disable,
@@ -28,6 +30,7 @@ const players: YT.Player[] = [
             listType: "search",
             loop: YT.Loop.Loop,
             modestbranding: YT.ModestBranding.Full,
+            mute: YT.Mute.Muted,
             origin: "localhost",
             playlist: "1,2",
             playsinline: YT.PlaysInline.Fullscreen,
@@ -78,6 +81,7 @@ ensureNumeric<YT.FullscreenButton>();
 ensureNumeric<YT.IvLoadPolicy>();
 ensureNumeric<YT.Loop>();
 ensureNumeric<YT.ModestBranding>();
+ensureNumeric<YT.Mute>();
 ensureNumeric<YT.PlaysInline>();
 ensureNumeric<YT.RelatedVideos>();
 ensureNumeric<YT.ShowInfo>();
@@ -86,7 +90,7 @@ const ensureString = <TValue extends string>() => {}
 
 ensureString<YT.ProgressBarColor>();
 ensureString<YT.ListType>();
-ensureString<YT.ListTypePlayer>();
+ensureString<YT.ListTypePlaylist>();
 ensureString<YT.ListTypeSearch>();
 ensureString<YT.ListTypeUserUploads>();
 ensureString<YT.SuggestedVideoQuality>();
@@ -164,7 +168,7 @@ player.cuePlaylist(["play", "list"], 7, 0, "default");
 
 player.cuePlaylist({
     list: "playlist",
-    listType: "player",
+    listType: "playlist",
 });
 
 player.cuePlaylist({
@@ -189,7 +193,7 @@ player.loadPlaylist(["play", "list"], 7, 0, "default");
 
 player.loadPlaylist({
     list: "playlist",
-    listType: "player",
+    listType: "playlist",
 });
 
 player.loadPlaylist({
@@ -278,5 +282,8 @@ player.addEventListener("onError", (event: YT.OnErrorEvent) => {});
 player.addEventListener("onApiChange", (event: YT.PlayerEvent) => {});
 
 const frame: HTMLIFrameElement = player.getIframe();
+
+const sphericalProperties: YT.SphericalProperties = player.getSphericalProperties();
+player.setSphericalProperties({yaw: 1, pitch: 2, roll: 3, fov: 50, enableOrientationSensor: true});
 
 player.destroy();

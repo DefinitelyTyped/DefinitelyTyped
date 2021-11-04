@@ -1,4 +1,4 @@
-// Type definitions for Microsoft Excel 14.0 Object Library - Excel 14.0
+// Type definitions for non-npm package Microsoft Excel 14.0 Object Library - Excel 14.0
 // Project: https://msdn.microsoft.com/en-us/library/fp179694.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -5426,7 +5426,6 @@ declare namespace Excel {
         readonly Parent: IconSet;
     }
 
-    // tslint:disable-next-line:interface-name
     interface IconSet {
         _Default(Index: any): Icon;
         readonly Application: Application;
@@ -5462,7 +5461,6 @@ declare namespace Excel {
         readonly Type: number;
     }
 
-    // tslint:disable-next-line:interface-name
     interface IconCriteria {
         _Default(Index: any): IconCriterion;
         readonly Count: number;
@@ -5480,7 +5478,6 @@ declare namespace Excel {
         Value: number | string;
     }
 
-    // tslint:disable-next-line:interface-name
     interface IconSets {
         _Default(Index: any): any;
         readonly Application: Application;

@@ -4,7 +4,7 @@ import * as React from "react";
 const ReactSoundRequiredOptions: JSX.Element = (
     <ReactSound
         url="http://test.com"
-        playStatus="STOPPED"
+        playStatus='STOPPED'
     />
 );
 
@@ -13,7 +13,7 @@ const callbackFn = () => ({});
 const ReactSoundAllOptions: JSX.Element = (
     <ReactSound
         url="http://test.com/audio.mp3"
-        playStatus="STOPPED"
+        playStatus='PAUSED'
         playFromPosition={0}
         position={0}
         volume={0}

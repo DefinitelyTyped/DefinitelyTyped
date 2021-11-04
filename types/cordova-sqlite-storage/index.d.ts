@@ -1,5 +1,5 @@
 // Type definitions for cordova-sqlite-storage 1.5
-// Project: https://github.com/litehelpers/Cordova-sqlite-storage
+// Project: https://github.com/xpbrew/cordova-sqlite-storage
 // Definitions by: rafw87 <https://github.com/rafw87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -22,22 +22,22 @@ declare namespace SQLitePlugin {
 
     interface OpenArgs {
         name: string;
-        location?: string;
-        iosDatabaseLocation?: string;
-        androidDatabaseImplementation?: number;
-        androidLockWorkaround?: number;
-        createFromLocation?: number;
+        location?: string | undefined;
+        iosDatabaseLocation?: string | undefined;
+        androidDatabaseImplementation?: number | undefined;
+        androidLockWorkaround?: number | undefined;
+        createFromLocation?: number | undefined;
         [key: string]: any;
     }
     interface DeleteArgs {
         name: string;
-        location?: string;
-        iosDatabaseLocation?: string;
+        location?: string | undefined;
+        iosDatabaseLocation?: string | undefined;
     }
 
     interface Results {
         rowsAffected: number;
-        insertId?: number;
+        insertId?: number | undefined;
         rows: {
             length: number;
             item(i: number): any;

@@ -11,7 +11,7 @@ const moment = MomentRange.extendMoment(Moment);
 
 type AppProps = ReactDateRangePicker.Props;
 
-const CustomSFCPaginationArrow: React.SFC<ReactDateRangePicker.PaginationArrowProps> = (props) => {
+const CustomSFCPaginationArrow: React.FC<ReactDateRangePicker.PaginationArrowProps> = (props) => {
     return (
         <div onClick={ props.onTrigger }>
         { (props.direction === 'next') ? '<' : '>' }
@@ -30,7 +30,7 @@ class CustomComponentClassPaginationArrow extends React.Component<ReactDateRange
 }
 
 class App extends React.Component<AppProps, any> {
-    handleSelect(value: AppProps, states: any): void {
+    handleSelect(value: ReactDateRangePicker.OnSelectCallbackParam, states: any): void {
         this.setState({ value, states });
     }
 
@@ -39,7 +39,9 @@ class App extends React.Component<AppProps, any> {
             <div>
                 <DateRangePicker {...this.props}
                     onSelect={this.handleSelect.bind(this)}
-                    value={this.state.value} />
+                    value={this.state.value}
+                    locale="en"
+                    className="example" />
                 <div>
                     <input type="text"
                         value={this.state.value ? this.state.value.start.format('LL') : ""}
@@ -56,7 +58,7 @@ class App extends React.Component<AppProps, any> {
 }
 
 class DateSinglePicker extends React.Component<AppProps, any> {
-    handleSelect(value: AppProps) {
+    handleSelect(value: ReactDateRangePicker.OnSelectCallbackParam) {
         this.setState({ value });
     }
 
@@ -170,7 +172,7 @@ export class Main extends React.Component {
                         />
                     </div>
                     <div className="example">
-                        <h4>With custom SFC paginationArrowComponent</h4>
+                        <h4>With custom FC paginationArrowComponent</h4>
                         <DateSinglePicker
                             paginationArrowComponent={ CustomSFCPaginationArrow }
                         />

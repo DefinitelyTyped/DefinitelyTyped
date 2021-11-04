@@ -2,6 +2,7 @@
 // Project: https://github.com/epeli/underscore.string
 // Definitions by: Ry Racherbaumer <https://github.com/rygine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as _ from 'underscore';
 
@@ -207,7 +208,7 @@ declare module 'underscore' {
          * ('-moz-transform') => 'MozTransform'
          * @param str
          */
-        camelize(str: string): string;
+        camelize(str: string, decapitalize?: boolean): string;
 
         /**
          * Converts a camelized or dasherized string into an underscored one.

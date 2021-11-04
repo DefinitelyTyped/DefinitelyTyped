@@ -11,7 +11,7 @@ const evr = false;
 const unr = false;
 
 // Options themselves
-const operationOptions = {
+const operationOptions: retry.OperationOptions = {
     retries: ret,
     factor: fac,
     minTimeout: min,
@@ -19,17 +19,18 @@ const operationOptions = {
     randomize: rnd,
     forever: evr,
     unref: unr,
+    maxRetryTime: max,
 };
 
-const timeoutOptions = {
+const timeoutsOptions: retry.TimeoutsOptions = {
+    retries: ret,
     factor: fac,
     minTimeout: min,
     maxTimeout: max,
     randomize: rnd,
 };
 
-const timeoutsOptions = {
-    retries: ret,
+const createTimeoutOptions: retry.CreateTimeoutOptions = {
     factor: fac,
     minTimeout: min,
     maxTimeout: max,
@@ -49,24 +50,26 @@ class Foo {
 
 const operation = retry.operation(operationOptions);
 
-operation.attempt((current) => {
-    const err = Math.random() >= 0.5 ? new Error('Happens to the best of us') : undefined;
-
-    const retry = operation.retry(err);
-
-    if (retry) {
-        const after = operation.attempts();
-    } else {
-        const errors = operation.errors();
-
-        const main = operation.mainError();
-    }
-
-    operation.stop();
+operation.errors(); // $ExpectType Error[]
+operation.mainError(); // $ExpectType Error | null
+operation.attempt(current => {
+    current; // $ExpectType number
 });
+operation.attempt(current => {}, { timeout: 10 });
+operation.attempt(current => {}, { callback: () => {} });
+operation.retry(); // $ExpectType boolean
+operation.retry(new Error()); // $ExpectType boolean
+operation.stop();
+operation.reset();
+operation.attempts(); // $ExpectType number
 
-const timeout = retry.createTimeout(att, timeoutOptions);
+retry.createTimeout(att); // $ExpectType number
+retry.createTimeout(att, createTimeoutOptions); // $ExpectType number
 
-const timeouts = retry.timeouts(timeoutsOptions);
+retry.timeouts(); // $ExpectType number[]
+retry.timeouts(timeoutsOptions); // $ExpectType number[]
 
-const wrap = retry.wrap(new Foo(), operationOptions, ['bar']);
+retry.wrap(new Foo());
+retry.wrap(new Foo(), ['bar']);
+retry.wrap(new Foo(), operationOptions, ['bar']);
+retry.wrap(new Foo(), operationOptions);

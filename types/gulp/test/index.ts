@@ -1,12 +1,11 @@
 import * as gulp from 'gulp';
-import * as undertaker from 'undertaker';
 import * as registry from 'undertaker-registry';
-import del = require("del");
 
 const minify: () => any = () => { };
 const jade: () => any = () => { };
 const someplugin: () => any = () => { };
 const promisedDel: (list: string[]) => any = (list) => { };
+const del: (pattern: string | string[]) => any = (pattern) => { };
 
 gulp.src('client/templates/*.jade')
     .pipe(jade())
@@ -50,14 +49,20 @@ const someNextTask = () => {
 
 gulp.task(someTask);
 
+const someTaskWithCb = (cb: gulp.TaskFunctionCallback) => {
+    cb();
+};
+
+gulp.task(someTaskWithCb);
+
 const foo: gulp.TaskFunction = () => { };
-foo.name === 'foo'; // true
+foo.displayName === 'foo'; // true
 
 const bar: gulp.TaskFunction = () => { };
-bar.name === ''; // true
+bar.displayName === ''; // true
 
-bar.name = 'bar';
-bar.name === ''; // true
+bar.displayName = 'bar';
+bar.displayName === ''; // true
 
 const test: gulp.TaskFunction = (done) => {
     done();

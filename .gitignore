@@ -11,6 +11,8 @@
 *.csproj
 *.map
 *.swp
+*.code-workspace
+*.log
 .DS_Store
 
 _Resharper.DefinitelyTyped
@@ -33,6 +35,7 @@ _infrastructure/tests/build
 !scripts/new-package.js
 !scripts/not-needed.js
 !scripts/lint.js
+!scripts/close-old-issues.js
 
 # npm
 node_modules
@@ -46,9 +49,15 @@ npm-debug.log
 .settings/launch.json
 .vs
 .vscode
+.history
 
 # yarn
 yarn.lock
 
 # pnpm
 shrinkwrap.yaml
+pnpm-lock.yaml
+pnpm-debug.log
+
+# Output of 'npm pack'
+*.tgz

@@ -21,11 +21,9 @@ declare namespace BlissNS {
         classProps: Object;
 
         create(tag: "a"): HTMLAnchorElement;
-        create(tag: "applet"): HTMLAppletElement;
         create(tag: "area"):HTMLAreaElement;
         create(tag: "audio"): HTMLAudioElement;
         create(tag: "base"): HTMLBaseElement;
-        create(tag: "basefont"): HTMLBaseFontElement;
         create(tag: "blockquote"): HTMLQuoteElement;
         create(tag: "body"): HTMLBodyElement;
         create(tag: "br"): HTMLBRElement;
@@ -75,11 +73,9 @@ declare namespace BlissNS {
         create<T>(options: Object): BlissDecoratedElement<T>;
 
         create(tag: "a", options: Object): HTMLAnchorElement;
-        create(tag: "applet", options: Object): HTMLAppletElement;
         create(tag: "area", options: Object): HTMLAreaElement;
         create(tag: "audio", options: Object): HTMLAudioElement;
         create(tag: "base", options: Object): HTMLBaseElement;
-        create(tag: "basefont", options: Object): HTMLBaseFontElement;
         create(tag: "blockquote", options: Object): HTMLQuoteElement;
         create(tag: "body", options: Object): HTMLBodyElement;
         create(tag: "br", options: Object): HTMLBRElement;
@@ -164,22 +160,22 @@ declare namespace BlissNS {
         all<T>(array: Array<T>, method: string, ...args: Array<any>): Array<T>;
 
         Class<T>(options: {
-            constructor?: Function;
-            extends?: Function;
-            abstract?: boolean;
-            lazy?: Object;
-            live?: Object;
-            static?: Object;
+            constructor?: Function | undefined;
+            extends?: Function | undefined;
+            abstract?: boolean | undefined;
+            lazy?: Object | undefined;
+            live?: Object | undefined;
+            static?: Object | undefined;
             [propertyName: string]:any;
         }): T;
 
         Class(options: {
-            constructor?: Function;
-            extends?: Function;
-            abstract?: boolean;
-            lazy?: Object;
-            live?: Object;
-            static?: Object;
+            constructor?: Function | undefined;
+            extends?: Function | undefined;
+            abstract?: boolean | undefined;
+            lazy?: Object | undefined;
+            live?: Object | undefined;
+            static?: Object | undefined;
             [propertyName: string]:any;
         }): Object;
 
@@ -210,22 +206,22 @@ declare namespace BlissNS {
         value<T>(property: string , ...properties: string[]): T;
 
         fetch(url: string, options?: {
-            method?: string;
-            data?: string;
-            headers?:{[key:string]:string};
+            method?: string | undefined;
+            data?: string | undefined;
+            headers?:{[key:string]:string} | undefined;
 
-            onreadystatechange?: (ev: ProgressEvent) => any;
-            readyState?: number;
+            onreadystatechange?: ((ev: ProgressEvent) => any) | undefined;
+            readyState?: number | undefined;
             response?: any;
             responseBody?: any;
-            responseText?: string;
-            responseType?: string;
+            responseText?: string | undefined;
+            responseType?: string | undefined;
             responseXML?: any;
-            status?: number;
-            statusText?: string;
-            timeout?: number;
-            upload?: XMLHttpRequestUpload;
-            withCredentials?: boolean;
+            status?: number | undefined;
+            statusText?: string | undefined;
+            timeout?: number | undefined;
+            upload?: XMLHttpRequestUpload | undefined;
+            withCredentials?: boolean | undefined;
 
             [propertyName: string]: any;
         }): Promise<XMLHttpRequest>;
@@ -272,28 +268,9 @@ declare namespace BlissNS {
         insertAdjacentElement(position: string, insertedElement: Element): Element;
         insertAdjacentHTML(where: string, html: string): T;
         insertAdjacentText(where: string, text: string): T;
-        msGetInputContext(): MSInputMethodContext;
         scrollIntoView(top?: boolean): T;
         setActive(): T;
         addEventListener(type: "MSContentZoom", listener: (ev: UIEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureChange", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureDoubleTap", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureEnd", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureHold", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureStart", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureTap", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGotPointerCapture", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSInertiaStart", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSLostPointerCapture", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSManipulationStateChanged", listener: (ev: MSManipulationEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerCancel", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerDown", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerEnter", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerLeave", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerMove", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerOut", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerOver", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerUp", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "abort", listener: (ev: UIEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "activate", listener: (ev: UIEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "ariarequest", listener: (ev: AriaRequestEvent) => any, useCapture?: boolean): T;
@@ -383,19 +360,16 @@ declare namespace BlissNS {
         getAttributeNode(name: string): Attr;
         getAttributeNodeNS(namespaceURI: string, localName: string): Attr;
         getBoundingClientRect(): ClientRect;
-        getClientRects(): ClientRectList;
         getElementsByTagName(name: "a"): NodeListOf<HTMLAnchorElement>;
         getElementsByTagName(name: "abbr"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "acronym"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "address"): NodeListOf<HTMLElement>;
-        getElementsByTagName(name: "applet"): NodeListOf<HTMLAppletElement>;
         getElementsByTagName(name: "area"): NodeListOf<HTMLAreaElement>;
         getElementsByTagName(name: "article"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "aside"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "audio"): NodeListOf<HTMLAudioElement>;
         getElementsByTagName(name: "b"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "base"): NodeListOf<HTMLBaseElement>;
-        getElementsByTagName(name: "basefont"): NodeListOf<HTMLBaseFontElement>;
         getElementsByTagName(name: "bdo"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "big"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "blockquote"): NodeListOf<HTMLQuoteElement>;
@@ -555,18 +529,15 @@ declare namespace BlissNS {
         getElementsByTagName(name: "video"): NodeListOf<HTMLVideoElement>;
         getElementsByTagName(name: "view"): NodeListOf<SVGViewElement>;
         getElementsByTagName(name: "wbr"): NodeListOf<HTMLElement>;
-        getElementsByTagName(name: "x-ms-webview"): NodeListOf<MSHTMLWebViewElement>;
         getElementsByTagName(name: "xmp"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: string): NodeListOf<Element>;
         getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>;
         hasAttribute(name: string): boolean;
         hasAttributeNS(namespaceURI: string, localName: string): boolean;
-        msGetRegionContent(): MSRangeCollection;
         msGetUntransformedBounds(): ClientRect;
         msMatchesSelector(selectors: string): boolean;
         msReleasePointerCapture(pointerId: number): T;
         msSetPointerCapture(pointerId: number): T;
-        msZoomTo(args: MsZoomToOptions): T;
         releasePointerCapture(pointerId: number): T;
         removeAttribute(name?: string): T;
         removeAttributeNS(namespaceURI: string, localName: string): T;
@@ -582,23 +553,6 @@ declare namespace BlissNS {
         webkitRequestFullScreen(): T;
         webkitRequestFullscreen(): T;
         getElementsByClassName(classNames: string): NodeListOf<Element>;
-        addEventListener(type: "MSGestureChange", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureDoubleTap", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureEnd", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureHold", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureStart", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGestureTap", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSGotPointerCapture", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSInertiaStart", listener: (ev: MSGestureEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSLostPointerCapture", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerCancel", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerDown", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerEnter", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerLeave", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerMove", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerOut", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerOver", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "MSPointerUp", listener: (ev: MSPointerEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "ariarequest", listener: (ev: AriaRequestEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "command", listener: (ev: CommandEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "gotpointercapture", listener: (ev: PointerEvent) => any, useCapture?: boolean): T;

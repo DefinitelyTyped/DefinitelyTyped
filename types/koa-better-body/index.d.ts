@@ -1,33 +1,97 @@
-// Type definitions for koa-better-body 3.0
-// Project: https://github.com/tunnckoCore/koa-better-body
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
+// Type definitions for koa-better-body 3.3
+// Project: https://github.com/tunnckoCore/opensource/tree/master/%40packages/koa-better-body
+// Definitions by: David Tanner <https://github.com/DavidTanner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import { Context } from 'koa';
 
-declare function KoaBetterBody(options?: KoaBetterBody.Options): KoaBetterBody.Body;
+declare function KoaBetterBody(
+  options?: KoaBetterBody.Options,
+): KoaBetterBody.Body;
 
 declare namespace KoaBetterBody {
   interface Options {
+    /**
+     * @default false
+     */
     fields?: boolean | string;
+    /**
+     * @default false
+     */
     files?: boolean | string;
+    /**
+     * @default true
+     */
     multipart?: boolean;
+    /**
+     * @default false
+     */
     textLimit?: string;
+    /**
+     * @default false
+     */
     formLimit?: string;
-    urlencodedLimit?: string;
+    /**
+     * @default false
+     */
     jsonLimit?: string;
-    bufferLimit?: string;
+    /**
+     * @default true
+     */
     jsonStrict?: boolean;
-    detectJSON?: () => any;
-    strict?: boolean;
-    delimiter?: symbol;
-    decodeURIComponent?: any;
-    maxKeys?: number;
+    /**
+     * @default () => false
+     */
+    detectJSON?: (ctx: Context) => boolean;
+    /**
+     * @default false
+     */
+    bufferLimit?: string;
+    /**
+     * @default false
+     */
     buffer?: boolean;
+    /**
+     * @default true
+     */
+    strict?: boolean;
+
+    /**
+     * @default '&'
+     */
+    delimiter?: string; // default: '&'
+    /**
+     * @default require('querystring').unescape
+     */
+    decodeURIComponent?: (query: string) => string; // default: require('querystring').unescape
+    /**
+     * @default 1000
+     */
+    maxKeys?: number; // default: 1000
+
+    /**
+     * @deprecated use formLimit instead
+     * @default config.formLimit
+     */
+    urlencodedLimit?: string;
+
+    /**
+     * @deprecated use delimiter instead
+     * @default config.delimiter
+     */
+    sep?: string;
+
+    /**
+     * @default undefined
+     */
+    onError?: (err: any, ctx: Context) => void;
+    /**
+     * @default undefined
+     */
+    handler?: (ctx: Context, options: Options, next: () => any) => void;
   }
 
-  type Body = (context: Context, next: () => void) => Generator;
+  type Body = (next: any) => Generator;
 }
 
 export = KoaBetterBody;

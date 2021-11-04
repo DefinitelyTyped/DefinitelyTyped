@@ -26,12 +26,12 @@ declare class Slack {
 declare namespace Slack {
 
     export interface WebhookOptions {
-        icon_emoji?: string;
-        response_type?: string;
-        channel?: string;
-        text?: string;
-        username?: string;
-        attachments?: any[];
+        icon_emoji?: string | undefined;
+        response_type?: string | undefined;
+        channel?: string | undefined;
+        text?: string | undefined;
+        username?: string | undefined;
+        attachments?: any[] | undefined;
         link_names?: any;
     }
 

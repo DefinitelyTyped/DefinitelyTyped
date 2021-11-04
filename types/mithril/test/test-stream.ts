@@ -1,260 +1,314 @@
-import stream = require('mithril/stream');
-import { Stream } from 'mithril/stream';
+import * as Stream from 'mithril/stream';
 
 {
-	const s = stream(1);
-	const initialValue = s();
-	s(2);
-	const newValue = s();
-	console.assert(initialValue === 1);
-	console.assert(newValue === 2);
+    const s = Stream(1);
+    const initialValue = s();
+    s(2);
+    const newValue = s();
+    console.assert(initialValue === 1);
+    console.assert(newValue === 2);
 }
 
 {
-	const s = stream();
-	console.assert(s() === undefined);
+    const s = Stream();
+    console.assert(s() === undefined);
 }
 
 {
-	const s: Stream<number | undefined> = stream(1);
-	s(undefined);
-	console.assert(s() === undefined);
+    const s: Stream<number | undefined> = Stream(1);
+    s(undefined);
+    console.assert(s() === undefined);
 }
 
 {
-	const s = stream(stream(1));
-	console.assert(s()() === 1);
+    const s = Stream(Stream(1));
+    console.assert(s()() === 1);
 }
 
 {
-	const s = stream();
-	const doubled = stream.combine(s => s() * 2, [s]);
-	s(2);
-	console.assert(doubled() === 4);
+    const s = Stream<number>();
+    const doubled = Stream.combine(s => s() * 2, [s]);
+    s(2);
+    console.assert(doubled() === 4);
 }
 
 {
-	const s = stream(2);
-	const doubled = stream.combine(s => s() * 2, [s]);
-	console.assert(doubled() === 4);
+    const s = Stream(2);
+    const doubled = Stream.combine(s => s() * 2, [s]);
+    console.assert(doubled() === 4);
 }
 
 {
-	const s1 = stream();
-	const s2 = stream();
-	const added = stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
-	s1(2);
-	s2(3);
-	console.assert(added() === 5);
+    const s1 = Stream<number>();
+    const s2 = Stream<number>();
+    const added = Stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
+    s1(2);
+    s2(3);
+    console.assert(added() === 5);
 }
 
 {
-	const s1 = stream(2);
-	const s2 = stream(3);
-	const added = stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
-	console.assert(added() === 5);
+    const s1 = Stream(2);
+    const s2 = Stream(3);
+    const added = Stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
+    console.assert(added() === 5);
 }
 
 {
-	const s1 = stream(2);
-	const s2 = stream();
-	const added = stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
-	s2(3);
-	console.assert(added() === 5);
+    const s1 = Stream(2);
+    const s2 = Stream<number>();
+    const added = Stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
+    s2(3);
+    console.assert(added() === 5);
 }
 
 {
-	let count = 0;
-	const a = stream();
-	const b = stream.combine(a => a() * 2, [a]);
-	const c = stream.combine(a => a() * a(), [a]);
-	const d = stream.combine((b, c) => {
-		count++;
-		return b() + c();
-	}, [b, c]);
-	a(3);
-	console.assert(d() === 15);
-	console.assert(count === 1);
+    let count = 0;
+    const a = Stream<number>();
+    const b = Stream.combine(a => a() * 2, [a]);
+    const c = Stream.combine(a => a() * a(), [a]);
+    const d = Stream.combine(
+        (b, c) => {
+            count++;
+            return b() + c();
+        },
+        [b, c],
+    );
+    a(3);
+    console.assert(d() === 15);
+    console.assert(count === 1);
 }
 
 {
-	let count = 0;
-	const a = stream(3);
-	const b = stream.combine(a => a() * 2, [a]);
-	const c = stream.combine(a => a() * a(), [a]);
-	const d = stream.combine((b, c) => {
-		count++;
-		return b() + c();
-	}, [b, c]);
-	console.assert(d() === 15);
-	console.assert(count === 1);
+    let count = 0;
+    const a = Stream(3);
+    const b = Stream.combine(a => a() * 2, [a]);
+    const c = Stream.combine(a => a() * a(), [a]);
+    const d = Stream.combine(
+        (b, c) => {
+            count++;
+            return b() + c();
+        },
+        [b, c],
+    );
+    console.assert(d() === 15);
+    console.assert(count === 1);
 }
 
 {
-	let streams: Array<Stream<any>> = [];
-	const a = stream();
-	const b = stream();
-	const c = stream.combine((a, b, changed) => {
-		streams = changed;
-	}, [a, b]);
-	a(3);
-	b(5);
-	console.assert(streams.length === 1);
-	console.assert(streams[0] === b);
+    let streams: Array<Stream<number>> = [];
+    const a = Stream<number>();
+    const b = Stream<number>();
+    const c = Stream.combine(
+        (a, b) => {
+            streams = [a, b];
+        },
+        [a, b],
+    );
+    a(3);
+    b(5);
+    console.assert(streams.length === 1);
+    console.assert(streams[0] === b);
 }
 
 {
-	let streams: Array<Stream<number>> = [];
-	const a = stream(3);
-	const b = stream(5);
-	const c = stream.combine((a, b, changed) => {
-		streams = changed;
-	}, [a, b]);
-	a(7);
-	console.assert(streams.length === 1);
-	console.assert(streams[0] === a);
+    let streams: Array<Stream<number>> = [];
+    const a = Stream(3);
+    const b = Stream(5);
+    const c = Stream.combine(
+        (a, b, changed) => {
+            streams = changed;
+        },
+        [a, b],
+    );
+    a(7);
+    console.assert(streams.length === 1);
+    console.assert(streams[0] === a);
 }
 
 {
-	const a = stream(1);
-	const b = stream.combine(a => undefined, [a]);
+    const a = Stream(1);
+    const b = Stream.combine(a => undefined, [a]);
 
-	console.assert(b() === undefined);
+    console.assert(b() === undefined);
 }
 
 {
-	const a = stream(1);
-	const b = stream.combine(a => stream(2), [a]);
-	console.assert(b()() === 2);
+    const a = Stream(1);
+    const b = Stream.combine(a => Stream(2), [a]);
+    console.assert(b()() === 2);
 }
 
 {
-	const a = stream(1);
-	const b = stream.combine(a => stream(), [a]);
-	console.assert(b()() === undefined);
+    const a = Stream(1);
+    const b = Stream.combine(a => Stream(), [a]);
+    console.assert(b()() === undefined);
 }
 
 {
-	const all = stream.merge([
-		stream(10),
-		stream("20"),
-		stream({value: 30}),
-	]);
+    const s = Stream(2);
+    const doubled = Stream.lift(v => v * 2, s);
+    console.assert(doubled() === 4);
 }
 
 {
-	const straggler = stream();
-	const all = stream.merge([
-		stream(10),
-		stream("20"),
-		straggler,
-	]);
-	console.assert(all() === undefined);
-	straggler(30);
+    const a = Stream(1);
+    const b = Stream('x');
+    const concated = Stream.lift((num, str) => str + num, a, b);
+    console.assert(concated() === 'x1');
 }
 
 {
-	let value = 0;
-	const id = (value: number) => value;
-	const a = stream<number>();
-	const b = stream<number>();
-
-	const all = stream.merge([a.map(id), b.map(id)]).map(data => {
-		value = data[0] + data[1];
-	});
-
-	a(1);
-	b(2);
-	console.assert(value === 3);
-
-	a(3);
-	b(4);
-	console.assert(value === 7);
+    const s1 = Stream<number>();
+    const s2 = Stream<number>();
+    const added = Stream.lift((n1, n2) => n1 + n2, s1, s2);
+    s1(2);
+    s2(3);
+    console.assert(added() === 5);
 }
 
 {
-	const s = stream();
-	const doubled = stream.combine(stream => stream * 2, [s]);
-	s.end(true);
-	s(3);
-	console.assert(doubled() === undefined);
+    const all = Stream.merge([Stream(10), Stream('20'), Stream({ value: 30 })]);
 }
 
 {
-	const s = stream(2);
-	const doubled = stream.combine(stream => stream * 2, [s]);
-	s.end(true);
-	s(3);
-	console.assert(doubled() === 4);
+    const straggler = Stream();
+    const all = Stream.merge([Stream(10), Stream('20'), straggler]);
+    console.assert(all() === undefined);
+    straggler(30);
 }
 
 {
-	const s = stream(2);
-	s.end(true);
-	const doubled = stream.combine(stream => stream * 2, [s]);
-	s(3);
-	console.assert(doubled() === undefined);
+    let value = 0;
+    const id = (value: number) => value;
+    const a = Stream<number>();
+    const b = Stream<number>();
+
+    const ab1 = Stream.merge([a, b]);
+    value = ab1()[0] + ab1()[1];
+    const ab2: Stream<number[]> = Stream.merge([a, b]).map(data => {
+        value = data[0] + data[1];
+        return data;
+    });
+
+    a(1);
+    b(2);
+    console.assert(value === 3);
+
+    a(3);
+    b(4);
+    console.assert(value === 7);
 }
 
 {
-	const s = stream(2);
-	const doubled = stream.combine(stream => stream * 2, [s]);
-	doubled.end(true);
-	s(4);
-	console.assert(doubled() === 4);
+    const s = Stream<number>();
+    const doubled = Stream.combine(stream => stream() * 2, [s]);
+    s.end(true);
+    s(3);
+    console.assert(doubled() === undefined);
+}
+
+{
+    const s = Stream(2);
+    const doubled = Stream.combine(stream => stream() * 2, [s]);
+    s.end(true);
+    s(3);
+    console.assert(doubled() === 4);
+}
+
+{
+    const s = Stream(2);
+    s.end(true);
+    const doubled = Stream.combine(stream => stream() * 2, [s]);
+    s(3);
+    console.assert(doubled() === undefined);
+}
+
+{
+    const s = Stream(2);
+    const doubled = Stream.combine(stream => stream() * 2, [s]);
+    doubled.end(true);
+    s(4);
+    console.assert(doubled() === 4);
+}
+
+// map
+
+{
+    const s = Stream('a');
+    const t = s.map(() => 1);
+    const n = t() + 1;
+    console.assert(n === 2);
+}
+
+{
+    const s = Stream(2);
+    const t = s.map(n => (n % 2 === 0 ? n : Stream.SKIP));
+    s(3);
+    const evenNum: number = t();
+    console.assert(evenNum === 2);
 }
 
 // scan
 
 {
-	const parent = stream<number>();
-	const child = stream.scan((out, p) => out - p, 123, parent);
+    const parent = Stream<number>();
+    const child = Stream.scan((out, p) => out - p, 123, parent);
 }
 
 {
-	const parent = stream<number>();
-	const child = stream.scan((arr, p) => arr.concat(p), [] as number[], parent);
-	parent(7);
+    const parent = Stream<number>();
+    const child = Stream.scan((arr, p) => arr.concat(p), [] as number[], parent);
+    parent(7);
 }
 
 // scanMerge
 
 {
-	const parent1 = stream<number>();
-	const parent2 = stream<number>();
+    const parent1 = Stream<number>();
+    const parent2 = Stream<number>();
 
-	const child = stream.scanMerge([
-		[parent1, (out, p1) => out + p1],
-		[parent2, (out, p2) => out + p2]
-	], -10);
+    const child = Stream.scanMerge(
+        [
+            [parent1, (out, p1) => out + p1],
+            [parent2, (out, p2) => out + p2],
+        ],
+        -10,
+    );
 }
 
 {
-	const parent1 = stream<string>();
-	const parent2 = stream<string>();
+    const parent1 = Stream<string>();
+    const parent2 = Stream<string>();
 
-	const child = stream.scanMerge([
-		[parent1, (out, p1) => out + p1],
-		[parent2, (out, p2) => out + p2 + p2]
-	], "a");
+    const child = Stream.scanMerge(
+        [
+            [parent1, (out, p1) => out + p1],
+            [parent2, (out, p2) => out + p2 + p2],
+        ],
+        'a',
+    );
 
-	parent1("b");
-	parent2("c");
-	parent1("b");
+    parent1('b');
+    parent2('c');
+    parent1('b');
 
-	console.assert(child() === 'abccb');
+    console.assert(child() === 'abccb');
 }
 
 {
-	const parent1 = stream<string>();
-	const parent2 = stream<number>();
-	const child = stream.scanMerge([
-		[parent1, (out, p1) => out + p1],
-		[parent2, (out, p2) => out + p2 + p2]
-	], "a");
+    const parent1 = Stream<string>();
+    const parent2 = Stream<number>();
+    const child = Stream.scanMerge(
+        [
+            [parent1, (out, p1) => out + p1],
+            [parent2, (out, p2) => out + p2 + p2],
+        ],
+        'a',
+    );
 
-	parent1("a");
-	parent2(1);
+    parent1('a');
+    parent2(1);
 
-	console.assert(child() === 'aa11');
+    console.assert(child() === 'aa11');
 }

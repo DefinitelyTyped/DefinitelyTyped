@@ -700,7 +700,8 @@ function panAndZoom() {
         .scale(y)
         .orient("left")
         .ticks(5)
-        .tickSize(-width);
+        .tickSize(-width)
+        .tickSubdivide(true);
 
     var zoom = d3.behavior.zoom()
         .x(x)
@@ -786,7 +787,11 @@ function populationPyramid() {
         .scale(y)
         .orient("right")
         .tickSize(-width)
-        .tickFormat(function (d) { return Math.round(d / 1e6) + "M"; } );
+        .tickFormat(function (d, i) {
+            // $ExpectType number
+            i;
+            return Math.round(d / 1e6) + "M";
+        });
 
     // An SVG element with a bottom-right origin.
     var svg = d3.select("body").append("svg")
@@ -1038,7 +1043,7 @@ namespace forceCollapsable {
     interface Node extends d3.layout.force.Node {
         id: string;
         _children: Node[];
-        children?: Node[];
+        children?: Node[] | undefined;
         size: number;
     }
 
@@ -1426,7 +1431,7 @@ function quadtree() {
         .attr("height", function (d) { return d.height; } );
 
     var point = svg.selectAll(".point")
-        .data(<{ scanned?: boolean; selected?: boolean; 0: number; 1: number }[]> data)
+        .data(<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }[]> data)
         .enter().append("circle")
         .attr("class", "point")
         .attr("cx", function (d) { return d[0]; } )
@@ -1457,8 +1462,8 @@ function quadtree() {
     }
 
     // Find the nodes within the specified rectangle.
-    function search(quadtree: d3.geom.quadtree.Quadtree<{ scanned?: boolean; selected?: boolean; 0: number; 1: number }>, x0: number, y0: number, x3: number, y3: number) {
-        quadtree.visit(function (node: d3.geom.quadtree.Node<{ scanned?: boolean; selected?: boolean; 0: number; 1: number }>, x1: number, y1: number, x2:number, y2: number) {
+    function search(quadtree: d3.geom.quadtree.Quadtree<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }>, x0: number, y0: number, x3: number, y3: number) {
+        quadtree.visit(function (node: d3.geom.quadtree.Node<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }>, x1: number, y1: number, x2:number, y2: number) {
             var p = node.point;
             if (p) {
                 p.scanned = true;
@@ -1701,7 +1706,7 @@ function streamGraph() {
     }
 
     // Inspired by Lee Byron's test data generator.
-    function bumpLayer(n: number): Array<{x: number; y: number;y0?:number;}> {
+    function bumpLayer(n: number): Array<{x: number; y: number;y0?:number | undefined;}> {
 
         function bump(a: number[]) {
             var x = 1 / (.1 + Math.random()),
@@ -1805,7 +1810,7 @@ namespace forceCollapsable2 {
             .attr("y1", function (d) { return (d.source as Node).y; } )
             .attr("x2", function (d) { return (d.target as Node).x; } )
             .attr("y2", function (d) { return (d.target as Node).y; } );
-        
+
         node.attr("cx", function (d) { return d.x; } )
             .attr("cy", function (d) { return d.y; } );
     }
@@ -2298,7 +2303,7 @@ function nestTest () {
       .map(function(d) { return d.key; })
       .sort(d3.ascending);
 
-    var entries = d3.nest<{foo: number; bar?: number}>()
+    var entries = d3.nest<{foo: number; bar?: number | undefined}>()
       .key(function(d) { return String(d.foo); })
       .entries([{foo: 1, bar: 0}, {foo: 2}, {foo: 1, bar: 1}]);
 
@@ -2307,12 +2312,12 @@ function nestTest () {
         .entries([{foo: 1}, {foo: 1}, {foo: 2}])
         .map(function(d) { return d.key; });
 
-    entries = d3.nest<{ foo: number; bar?: number }>()
+    entries = d3.nest<{ foo: number; bar?: number | undefined }>()
         .key(function(d) { return String(d.foo); })
         .sortValues(function(a, b) { return a.bar - b.bar; })
         .entries([{foo: 1, bar: 2}, {foo: 1, bar: 0}, {foo: 1, bar: 1}, {foo: 2}]);
 
-    entries = d3.nest<{ foo: number; bar?: number }>()
+    entries = d3.nest<{ foo: number; bar?: number | undefined }>()
         .key(function(d) { return String(d.foo); })
         .rollup(function(values) { return d3.sum<any>(values, function(d) { return d.bar; }); })
         .entries([{foo: 1, bar: 2}, {foo: 1, bar: 0}, {foo: 1, bar: 1}, {foo: 2}]);
@@ -2328,13 +2333,13 @@ function nestTest () {
         .rollup(function(values) { return values.length; })
         .entries([[0, 1], [0, 2], [1, 1], [1, 2], [0, 2]]);
 
-    entries = d3.nest<{ 0: number; 1: number; 2?: number }>()
+    entries = d3.nest<{ 0: number; 1: number; 2?: number | undefined }>()
         .key(function(d) { return String(d[0]); }).sortKeys(d3.ascending)
         .key(function(d) { return String(d[1]); }).sortKeys(d3.ascending)
         .sortValues(function(a, b) { return a[2] - b[2]; })
         .entries([[0, 1], [0, 2, 1], [1, 1], [1, 2], [0, 2, 0]]);
 
-    var map = d3.nest<{ 0: number; 1: number; 2?: number }>()
+    var map = d3.nest<{ 0: number; 1: number; 2?: number | undefined }>()
         .key(function(d) { return String(d[0]); }).sortKeys(d3.ascending)
         .key(function(d) { return String(d[1]); }).sortKeys(d3.ascending)
         .sortValues(function(a, b) { return a[2] - b[2]; })
@@ -2750,4 +2755,33 @@ class BrushAxisTest {
             .x(colorScale) // Color scale
             .y(d3.scale.pow());
     }
+}
+
+interface NodeWithText extends d3.layout.partition.Node { t: string; children?: NodeWithText[] | undefined; }
+function testPartition(data: Array<NodeWithText>) {
+        var width = 1000;
+        var height = 1000;
+
+        var div = d3.select('#partition').style('width', width)
+            .style('height', height).style('position', 'relative');
+        var partition = d3.layout.partition().size([width, height]);
+
+        const root: NodeWithText = { t: 'root', children: data};
+        var nodes = partition.nodes(root);
+        div.selectAll('.node').data(nodes).enter()
+            .append('div')
+            .style('position', 'absolute')
+            .style('left', function (d) { return d.x })
+            .style('top', function (d) { return d.y })
+            .style('width', function (d) { return d.dx })
+            .style('height', function (d) { return d.dy })
+            .style('border', '1px solid black')
+            .style('background-color', function (d: NodeWithText) {
+                if (d.t === 'root') {
+                    return 'blue'
+                } else {
+                    return 'red';
+                }
+            })
+            .text(function (d: NodeWithText) { return d.t; });
 }

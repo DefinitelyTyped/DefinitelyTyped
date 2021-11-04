@@ -16,6 +16,19 @@ export interface Logger {
   fatal(...params: any[]): void;
 }
 
+export interface ResolveHostnameOptions {
+  host?: string | undefined;
+  servername?: string | false | undefined;
+}
+
+export interface ResolveHostnameValue {
+  host: string;
+  servername: string | false;
+  _cached?: true | undefined;
+}
+
+export function resolveHostname(options: ResolveHostnameOptions | null | undefined, callback: (err: Error | null, value: ResolveHostnameValue) => void): void;
+
 /** Parses connection url to a structured configuration object */
 export function parseConnectionUrl(url: string): SMTPConnection.Options;
 /** Returns a bunyan-compatible logger interface. Uses either provided logger or creates a default console logger */

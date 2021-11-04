@@ -21,17 +21,23 @@ markerClusterGroupOptions = {
     iconCreateFunction: (cluster: L.MarkerCluster) => {
         const childMarkers: L.Marker[] = cluster.getAllChildMarkers();
         const childCount: number = cluster.getChildCount();
-        cluster.zoomToBounds();
+        cluster.zoomToBounds({padding: [1, 2]});
         const bounds: L.LatLngBounds = cluster.getBounds();
         return icon;
     },
     chunkedLoading: false,
-    chunkDelay: 100
+    chunkDelay: 100,
+    chunkInterval: 200,
+    chunkProgress: (processedMarkers, totalMarkers, timeElapsed) => {
+        console.log(`Reporting chunkProgress, processedMarkers: ${processedMarkers}, totalMarkers: ${totalMarkers}, timeElapsed: ${timeElapsed}.`);
+    }
 };
 
 markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {
     return L.divIcon();
 };
+
+markerClusterGroupOptions.clusterPane = "foobarPane";
 
 let markerClusterGroup: L.MarkerClusterGroup;
 markerClusterGroup = L.markerClusterGroup();
@@ -62,6 +68,7 @@ markerClusterGroup = markerClusterGroup
     .removeLayer(layer)
     .addLayers(layers)
     .removeLayers(layers)
+    .addLayers(layers, true)
     .clearLayers()
     // RefreshClusters
     .refreshClusters()

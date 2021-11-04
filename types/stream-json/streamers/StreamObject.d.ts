@@ -1,5 +1,5 @@
-import * as Chain from 'stream-chain';
-import * as StreamBase from './StreamBase';
+import Chain = require('stream-chain');
+import StreamBase = require('./StreamBase');
 
 export = StreamObject;
 

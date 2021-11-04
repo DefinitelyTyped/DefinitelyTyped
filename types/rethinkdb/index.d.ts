@@ -82,6 +82,8 @@ declare module "rethinkdb" {
         each<T>(cb: (err: Error, row: T) => boolean, done?: () => void): void; // returning false stops iteration
         next(cb: (err: Error, row: any) => void): void;
         next<T>(cb: (err: Error, row: T) => void): void;
+        next(): Promise<any>;
+        next<T>(): Promise<T>;
         toArray(cb: (err: Error, rows: any[]) => void): void;
         toArray<T>(cb: (err: Error, rows: T[]) => void): void;
         toArray(): Promise<any[]>;
@@ -101,36 +103,36 @@ declare module "rethinkdb" {
      */
     interface ConnectionOptions {
         /** The host to connect to (default `localhost`) */
-        host?: string;
+        host?: string | undefined;
 
         /** The port to connect on (default `28015`) */
-        port?: number;
+        port?: number | undefined;
 
         /** The default database (default `test`) */
-        db?: string;
+        db?: string | undefined;
 
         /** The user account to connect as (default `admin`) */
-        user?: string;
+        user?: string | undefined;
 
         /** The password for the user account to connect as (default `''`, empty) */
-        password?: string;
+        password?: string | undefined;
 
         /** Timeout period in seconds for the connection to be opened (default `20`) */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
          * A hash of options to support SSL connections (default `null`). Currently,
          * there is only one option available, and if the `ssl` option is specified,
          * this key is required.
          */
-        ssl?: TLSConnectionOptions;
+        ssl?: TLSConnectionOptions | undefined;
     }
 
     type waitFor = 'ready_for_outdated_reads' | 'ready_for_reads' | 'ready_for_writes';
 
     interface WaitOptions {
-        waitFor?: waitFor;
-        timeout?: number;
+        waitFor?: waitFor | undefined;
+        timeout?: number | undefined;
     }
 
     interface WaitResult {
@@ -144,7 +146,7 @@ declare module "rethinkdb" {
     interface ServerResult {
         id: string;
         proxy: boolean;
-        name?: string;
+        name?: string | undefined;
     }
 
     interface Connection {
@@ -176,10 +178,10 @@ declare module "rethinkdb" {
     }
 
     interface TableOptions {
-        primary_key?: string; // 'id'
-        durability?: string; // 'soft'
-        cache_size?: number;
-        datacenter?: string;
+        primary_key?: string | undefined; // 'id'
+        durability?: string | undefined; // 'soft'
+        cache_size?: number | undefined;
+        datacenter?: string | undefined;
     }
 
     interface GetTableOptions {
@@ -377,7 +379,7 @@ declare module "rethinkdb" {
 
         /**
          * Turn a sequence into an array or object, necessary when merging a sequence.
-         * 
+         *
          * See: https://www.rethinkdb.com/api/javascript/coerce_to/
          */
         coerceTo(key: 'array'): Expression<any[]>;
@@ -429,7 +431,7 @@ declare module "rethinkdb" {
         // Aggregate
         reduce(r: ReduceFunction<any>, base?: any): Expression<any>;
         count(): Expression<number>;
-        distinct(): Sequence;
+        distinct(opts?: { index: string }): Sequence;
         groupedMapReduce(group: ExpressionFunction<any>, map: ExpressionFunction<any>, reduce: ReduceFunction<any>, base?: any): Sequence;
         groupBy(...aggregators: Aggregator[]): Expression<Object>; // TODO: reduction object
         contains(prop: string): Expression<boolean>;
@@ -454,37 +456,37 @@ declare module "rethinkdb" {
     }
 
     interface InsertOptions {
-        conflict?: 'error' | 'replace' | 'update' | ((id: string, oldDoc: any, newDoc: any) => any);
-        durability?: 'hard' | 'soft';
-        returnChanges?: boolean | 'always';
+        conflict?: 'error' | 'replace' | 'update' | ((id: string, oldDoc: any, newDoc: any) => any) | undefined;
+        durability?: 'hard' | 'soft' | undefined;
+        returnChanges?: boolean | 'always' | undefined;
     }
 
     interface UpdateOptions {
-        nonAtomic?: boolean;
-        durability?: 'hard' | 'soft';
-        returnChanges?: boolean;
+        nonAtomic?: boolean | undefined;
+        durability?: 'hard' | 'soft' | undefined;
+        returnChanges?: boolean | undefined;
     }
 
     export interface DistanceOptions {
         /**
          * Unit for the distance. Possible values are `m` (meter, the default), `km` (kilometer), `mi` (international mile), `nm` (nautical mile), `ft` (international foot).
          */
-        unit?: 'm' | 'km' | 'mi' | 'nm' | 'ft';
+        unit?: 'm' | 'km' | 'mi' | 'nm' | 'ft' | undefined;
         /**
          * The reference ellipsoid to use for geographic coordinates. Possible values are `WGS84` (the default), a common standard for Earth’s geometry, or `unit_sphere`, a perfect sphere of 1 meter radius.
          */
-        geoSystem?: 'WGS84' | 'unit_sphere';
+        geoSystem?: 'WGS84' | 'unit_sphere' | undefined;
     }
 
     export interface CircleOptions extends DistanceOptions {
         /**
          * The number of vertices in the polygon or line. Defaults to 32.
          */
-        numVertices?: number;
+        numVertices?: number | undefined;
         /**
          * If `true` (the default) the circle is filled, creating a polygon; if `false` the circle is unfilled (creating a line).
          */
-        fill?: boolean;
+        fill?: boolean | undefined;
     }
 
     interface WriteResult {
@@ -513,8 +515,8 @@ declare module "rethinkdb" {
 
     interface Index {
         index: string;
-        left_bound?: string; // 'closed'
-        right_bound?: string; // 'open'
+        left_bound?: string | undefined; // 'closed'
+        right_bound?: string | undefined; // 'open'
     }
 
     interface BooleanMap {
@@ -539,6 +541,7 @@ declare module "rethinkdb" {
         le(value: T): Expression<boolean>;
 
         add(n: number): Expression<number>;
+        add(n: Expression<number>): Expression<number>;
 
         /**
          * Subtract two numbers.

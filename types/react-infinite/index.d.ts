@@ -12,24 +12,26 @@ export = Infinite;
 export as namespace Infinite;
 
 declare namespace Infinite {
-	interface InfiniteProps extends React.Props<Infinite> {
-		elementHeight: number | number[];
-		containerHeight?: number;
-		preloadBatchSize?: number | Object;
-		preloadAdditionalHeight?: number | Object;
-		handleScroll?: (node: React.ReactElement<any>) => void;
-		infiniteLoadBeginBottomOffset?: number;
-		infiniteLoadBeginEdgeOffset?: number;
-		onInfiniteLoad?: () => void;
-		loadingSpinnerDelegate?: React.ReactElement<any>;
-		isInfiniteLoading?: boolean;
-		timeScrollStateLastsForAfterUserScrolls?: number;
-		className?: string;
-		useWindowAsScrollContainer?: boolean;
-		displayBottomUpwards?: boolean;
-	}
+    interface InfiniteProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Infinite> | undefined;
+        elementHeight: number | number[];
+        containerHeight?: number | undefined;
+        preloadBatchSize?: number | Object | undefined;
+        preloadAdditionalHeight?: number | Object | undefined;
+        handleScroll?: ((node: React.ReactElement) => void) | undefined;
+        infiniteLoadBeginBottomOffset?: number | undefined;
+        infiniteLoadBeginEdgeOffset?: number | undefined;
+        onInfiniteLoad?: (() => void) | undefined;
+        loadingSpinnerDelegate?: React.ReactElement | undefined;
+        isInfiniteLoading?: boolean | undefined;
+        timeScrollStateLastsForAfterUserScrolls?: number | undefined;
+        className?: string | undefined;
+        useWindowAsScrollContainer?: boolean | undefined;
+        displayBottomUpwards?: boolean | undefined;
+    }
 }
 
 declare class Infinite extends React.Component<Infinite.InfiniteProps> {
-	static containerHeightScaleFactor(n: number): any;
+    static containerHeightScaleFactor(n: number): any;
 }

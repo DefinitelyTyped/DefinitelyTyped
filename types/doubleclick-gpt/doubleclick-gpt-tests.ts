@@ -41,7 +41,7 @@ googletag.openConsole();
 
 googletag.setAdIframeTitle("title");
 
-googletag.cmd.push(function() {
+googletag.cmd.push(() => {
     googletag.defineSlot("/1234567/sports", [160, 600]).
             addService(googletag.pubads());
 });
@@ -79,8 +79,8 @@ googletag.pubads().definePassback("/1234567/sports", [468, 60]).
             display();
 
 googletag.pubads().definePassback("/1234567/sports", [160, 600]).
-    updateTargetingFromMap({"color": "red",
-                                                    "interests": ["sports", "music", "movies"]}).
+    updateTargetingFromMap({color: "red",
+                            interests: ["sports", "music", "movies"]}).
             display();
 
 googletag.pubads().enableLazyLoad();
@@ -223,7 +223,8 @@ googletag.pubads().setForceSafeFrame(true);
 let pageConfig = {
     allowOverlayExpansion: true,
     allowPushExpansion: true,
-    sandbox: true
+    sandbox: true,
+    useUniqueDomain: true
 };
 
 let slotConfig = {allowOverlayExpansion: false};
@@ -262,10 +263,15 @@ googletag.pubads().updateCorrelator();
 // The listener will be called only when the pubads service renders a slot.
 // To listen to companion ads, add a similar listener to
 // googletag.companionAds().
-googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag.events.SlotRenderEndedEvent) {
+const slotRenderEndedListener1 = (event: googletag.events.SlotRenderEndedEvent) => {
     console.log("Slot has been rendered:");
-    console.log(event);
-});
+    console.log(event.isEmpty);
+    console.log(event.lineItemId);
+    console.log(event.creativeId);
+    console.log(event.campaignId);
+};
+googletag.pubads().addEventListener("slotRenderEnded", slotRenderEndedListener1);
+googletag.pubads().removeEventListener("slotRenderEnded", slotRenderEndedListener1);
 
 // 2. Slot render ended listener, slot specific logic.
 // Listeners operate at service level, which means that you cannot add a
@@ -273,21 +279,49 @@ googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag
 // however, programmatically filter a listener to respond only to a certain
 // ad slot, using this pattern:
 let targetSlot = slot1;
-googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag.events.SlotRenderEndedEvent) {
+const slotRenderEndedListener2 = (event: googletag.events.SlotRenderEndedEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-});
+};
+googletag.pubads().addEventListener("slotRenderEnded", slotRenderEndedListener2);
+googletag.pubads().removeEventListener("slotRenderEnded", slotRenderEndedListener2);
 
 // 3. Impression viewable listener, slot specific logic.
 // The listener will be called when the impression is considered viewable.
 // This event also operates at service level, but, as above, you can filter
 // to respond only to a certain ad slot by using this pattern:
-googletag.pubads().addEventListener("impressionViewable", function(event: googletag.events.ImpressionViewableEvent) {
+const impressionViewableListener = (event: googletag.events.ImpressionViewableEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-});
+};
+googletag.pubads().addEventListener("impressionViewable", impressionViewableListener);
+googletag.pubads().removeEventListener("impressionViewable", impressionViewableListener);
+
+const slotRequestedListener = (event: googletag.events.SlotRequestedEvent) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+};
+googletag.pubads().addEventListener("slotRequested", slotRequestedListener);
+googletag.pubads().removeEventListener("slotRequested", slotRequestedListener);
+
+const slotResponseReceivedListener = (event: googletag.events.SlotResponseReceived) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+};
+googletag.pubads().addEventListener("slotResponseReceived", slotResponseReceivedListener);
+googletag.pubads().removeEventListener("slotResponseReceived", slotResponseReceivedListener);
+
+const slotVisibilityChangedListener = (event: googletag.events.SlotVisibilityChangedEvent) => {
+    if (event.slot === targetSlot) {
+        console.log(event.inViewPercentage);
+    }
+};
+googletag.pubads().addEventListener("slotVisibilityChanged", slotVisibilityChangedListener);
+googletag.pubads().removeEventListener("slotVisibilityChanged", slotVisibilityChangedListener);
 
 let mapping1 = googletag.sizeMapping().
         addSize([1024, 768], [970, 250]).
@@ -317,7 +351,6 @@ slot.clearCategoryExclusions();
 
 // Make an ad request. Any ad can be returned for the slot.
 
-
 slot = googletag.defineSlot("/1234567/sports", [160, 600], "div-1").
         setTargeting("allow_expandable", "true").
         setTargeting("interests", ["sports", "music", "movies"]).
@@ -330,6 +363,13 @@ slot.clearTargeting("color");
 
 slot.clearTargeting();
 // All targeting has been cleared.
+
+// Targeting can also be set from an object:
+slot.updateTargetingFromMap({
+    allow_expandable: "true",
+    interests: ["sports", "music", "movies"],
+    color: "red"
+});
 
 slot = googletag.defineSlot("/1234567/sports", [160, 600], "div-1").
         addService(googletag.pubads());
@@ -447,6 +487,9 @@ slot.setTargeting("interests", ["sports", "music", "movies"]);
 // googletag.display accepts a div element as well as a div ID.
 googletag.display(new HTMLElement());
 
+// googletag.display accepts a slot
+googletag.display(slot);
+
 // pubads.display accepts a div element.
 googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());
 
@@ -456,3 +499,24 @@ googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], 
 
 // Request non-personalized ads
 googletag.pubads().setRequestNonPersonalizedAds(1);
+
+// Set Privacy Settings
+googletag.pubads().setPrivacySettings({
+  restrictDataProcessing: true,
+});
+
+// Request limited ads
+googletag.pubads().setPrivacySettings({
+  limitedAds: true
+});
+
+// Set multiple privacy settings at the same time.
+googletag.pubads().setPrivacySettings({
+  childDirectedTreatment: true,
+  underAgeOfConsent: true
+});
+
+// Clear the configuration for childDirectedTreatment.
+googletag.pubads().setPrivacySettings({
+  childDirectedTreatment: null
+});

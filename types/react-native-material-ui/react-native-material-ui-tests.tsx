@@ -13,6 +13,7 @@ import {
     DialogDefaultActions,
     BottomNavigation,
     Toolbar,
+    IconToggle,
     getTheme
 } from 'react-native-material-ui';
 
@@ -26,7 +27,7 @@ const theme = {
 
 const Example = () =>
     <ThemeContext.Provider value={getTheme(theme)}>
-        <View>
+        <View testID="viewTestID">
             <ActionButton style={{ positionContainer: { marginBottom: 3 }}} />
             <ActionButton icon="done" />
 
@@ -37,8 +38,13 @@ const Example = () =>
             <Avatar icon="mic" size={75} />
 
             <Badge />
+            <Badge text="3" />
+            <Badge icon="grade" />
+            <Badge icon={{ name: 'grade', color: 'blue', size: 10 }} />
+            <Badge size={10} />
 
-            <Button text="I'm a button" />
+            <IconToggle testID="iconToggleTestID" name="anIconToggle" />
+            <Button testID="buttonTestID" text="I'm a button" />
 
             <Card>
                 <ThemeContext.Consumer>
@@ -77,8 +83,9 @@ class BottomNavigationExample extends React.Component<null, {active: string}> {
 
     render() {
         return (
-            <BottomNavigation active={this.state.active} hidden={false} >
+            <BottomNavigation active={this.state.active} hidden={false}>
                 <BottomNavigation.Action
+                    testID="bottomNavActionTestID"
                     key="today"
                     icon="today"
                     label="Today"
@@ -137,3 +144,7 @@ class ToolbarExample extends React.Component<{}, {search: string}> {
         );
     }
 }
+
+const CheckboxExample = () => (
+    <Checkbox value="checked" onCheck={console.log} label="Check Me" style={{ icon: { color: 'pink' }}} />
+);

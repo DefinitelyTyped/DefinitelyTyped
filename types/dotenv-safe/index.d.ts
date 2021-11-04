@@ -1,49 +1,48 @@
-// Type definitions for dotenv-safe 5.0
+// Type definitions for dotenv-safe 8.1
 // Project: https://github.com/rolodato/dotenv-safe
 // Definitions by: Stan Goldmann <https://github.com/krenor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.2
 
-import env = require("dotenv")
+import dotenv = require('dotenv');
 
 export interface MissingEnvVarsError extends Error {
-  /**
-   * Path to example environment file.
-   */
-  sample: string
+    /**
+     * Path to example environment file.
+     */
+    sample: string;
 
-  /**
-   * Variables which existing in the sample file, but not in the loaded file.
-   */
-  missing: string[]
+    /**
+     * Variables which existing in the sample file, but not in the loaded file.
+     */
+    missing: string[];
 }
 
-export interface DotenvSafeOptions {
-  /**
-   * You can specify a custom path if your file containing environment variables is named or located differently.
-   * @default '.env'
-   */
-  path?: string,
-  /**
-   * Path to example environment file.
-   * @default ".env.example"
-   */
-  sample?: string,
-  /**
-   * Path to environment file.
-   * @default ".env"
-   */
-  silent?: boolean,
-  /**
-   * Encoding of your file containing environment variables.
-   * @default "utf8"
-   */
-  encoding?: string,
-  /**
-   * Enabling this option will not throw an error after loading.
-   * @default false
-   */
-  allowEmptyValues?: boolean,
+export interface DotenvSafeOptions extends dotenv.DotenvConfigOptions {
+    /**
+     * Path to example environment file. (Option 1)
+     * @default ".env.example"
+     */
+    example?: string | undefined;
+
+    /**
+     * Path to example environment file. (Option 2 -- example takes precedence)
+     * @default ".env.example"
+     */
+    sample?: string | undefined;
+
+    /**
+     * Enabling this option will not throw an error after loading.
+     * @default false
+     */
+    allowEmptyValues?: boolean | undefined;
+}
+
+export interface DotenvSafeConfigOutput extends dotenv.DotenvConfigOutput {
+    /**
+     * key-value pairs required by .env.example
+     */
+    required: dotenv.DotenvParseOutput;
 }
 
 /**
@@ -51,11 +50,4 @@ export interface DotenvSafeOptions {
  *
  * @throws MissingEnvVarsError
  */
-export function load(options?: DotenvSafeOptions): env.DotenvResult
-
-/**
- * Loads environment variables file into 'process.env'.
- *
- * @throws MissingEnvVarsError
- */
-export function config(options?: DotenvSafeOptions): env.DotenvResult
+export function config(options?: DotenvSafeOptions): DotenvSafeConfigOutput;

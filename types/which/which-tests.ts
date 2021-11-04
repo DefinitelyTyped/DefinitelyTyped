@@ -1,35 +1,48 @@
+import which = require('which');
 
-import which = require("which");
-
-which("cat", (err, path) => {
-  console.log(path);
+which('cat', (err, path) => {
+    path; // $ExpectType string | undefined
 });
 
-var path = which.sync("cat");
-console.log(path);
+const path = which.sync('cat'); // $ExpectType string
 
-which("cat", {all: true}, (err, paths) => {
-  if(err) return;
-  if(paths) {
-    for(let path of paths) {
-      console.log(path);
+which('cat', { all: true }, (err, paths) => {
+    if (err) return;
+    if (paths) {
+        for (const path of paths) {
+            path; // $ExpectType string
+        }
     }
-  }
 });
 
-var paths = which.sync("cat", {all: true});
-for(let path of paths) {
-  console.log(path);
+const promise: Promise<string> = which('cat');
+const promise1: Promise<string> = which('cat', { all: false });
+const promise2: Promise<string[]> = which('cat', { all: true });
+
+which('node')
+    .then(resolvedPath => {
+        resolvedPath; // $ExpectType string
+    })
+    .catch(er => {});
+
+async () => {
+    const path = await which('cat');
+};
+
+const paths = which.sync('cat', { all: true });
+for (const path of paths) {
+    path; // $ExpectType string
 }
 
-var paths2 = which.sync("cat", {all: true, nothrow: true});
-if(paths2 !== null) {
-  for(let path of paths2) {
-    console.log(path);
-  }
+const paths2 = which.sync('cat', { all: true, nothrow: true });
+if (paths2 !== null) {
+    for (const path of paths2) {
+        path; // $ExpectType string
+    }
 }
 
-var path2 = which.sync("cat", {path: 'replacement path', pathExt: 'replacement pathext'});
-which("cat", {path: 'replacement path', pathExt: 'replacement pathext'}, (err, path) => {
-  const a: string = path!;
+const path2 = which.sync('cat', { path: 'replacement path', pathExt: 'replacement pathext' });
+which('cat', { path: 'replacement path', pathExt: 'replacement pathext' }, (err, path) => {
+    const a: string = path!;
 });
+which.sync('cat'); // $ExpectType string

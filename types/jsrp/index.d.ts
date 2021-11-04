@@ -8,17 +8,17 @@ export as namespace jsrp;
 export interface ClientOptions {
     username: string;
     password: string;
-    length?: 2048 | 4096;
+    length?: 2048 | 4096 | undefined;
 }
 export interface ServerOptions {
     verifier: string;
     salt: string;
-    length?: 2048 | 4096;
+    length?: 2048 | 4096 | undefined;
+    b?: string;
 }
 
 export interface Verifier {
     verifier: string;
-
     salt: string;
 }
 
@@ -100,6 +100,13 @@ export class server {
      * @returns hex representation of B
      */
     getPublicKey(): string;
+
+    /**
+     * Returns the hex representation of the server's b value. This value is
+     * required to reconstruct the server object when calling init.
+     * @return the hex representation of the private key
+     */
+    getPrivateKey(): string;
 
     /**
      * Returns the hex representation of the salt, as was passed into {@link init}

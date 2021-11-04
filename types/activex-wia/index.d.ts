@@ -1,4 +1,4 @@
-// Type definitions for Windows Image Acquisition 2.0
+// Type definitions for non-npm package Windows Image Acquisition 2.0
 // Project: https://msdn.microsoft.com/en-us/library/windows/desktop/ms630368(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -628,7 +628,6 @@ declare namespace WIA {
     }
 
     /** The Items object contains a collection of Item objects. See the Items property on the Device or Item object for details on accessing the Items object. */
-    // tslint:disable-next-line interface-name
     interface Items {
         /** Adds a new Item with the specified Name and Flags. The Flags value is created by using the OR operation with members of the WiaItemFlags enumeration. */
         Add(Name: string, Flags: number): void;

@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import * as stream from 'stream';
-import * as https from 'https';
+import * as stream from "stream";
+import * as https from "https";
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -89,6 +89,7 @@ declare namespace request {
         forbidden: boolean;
         xhr: XMLHttpRequest;
         get(header: string): string;
+        redirects: string[];
     }
 
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
@@ -102,7 +103,7 @@ declare namespace request {
         field(name: string, val: string): this;
         get(field: string): string;
         on(name: string, handler: (event: any) => void): this;
-        on(name: 'error', handler: (err: any) => void): this;
+        on(name: "error", handler: (err: any) => void): this;
         part(): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
@@ -118,6 +119,7 @@ declare namespace request {
         withCredentials(): this;
         write(data: string | Buffer, encoding?: string): this;
         parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        maxResponseSize(size: number): this;
     }
 
     type Plugin = (req: Request) => void;

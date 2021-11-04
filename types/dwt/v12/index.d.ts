@@ -237,11 +237,11 @@ declare enum EnumDWT_Cap {
     CAP_PRINTERINDEX = 4136,
     /** Specifies the appropriate current CAP_PRINTER device mode.
      *  Note:
-     *  • TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
-     *  • TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
-     *  strings to be printed in order.
-     *  • TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
-     *  String followed by a value followed by a suffix string.
+     *  O TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
+     *  O TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
+     *    strings to be printed in order.
+     *  O TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
+     *    String followed by a value followed by a suffix string.
      */
     CAP_PRINTERMODE = 4137,
     /** Specifies the string(s) that are to be used in the string component when the current
@@ -668,7 +668,7 @@ declare enum EnumDWT_InterpolationMethod {
     IM_NEARESTNEIGHBOUR = 1,
     IM_BILINEAR = 2,
     IM_BICUBIC = 3,
-	IM_BESTQUALITY = 5
+    IM_BESTQUALITY = 5
 }
 
 /** Image type */
@@ -1239,15 +1239,15 @@ declare enum EnumDWT_FitWindowType {
 }
 
 declare enum EnumDWT_UploadDataFormat {
-	Binary = 0,
-	Base64 = 1
+    Binary = 0,
+    Base64 = 1
 }
 
 declare enum EnumDWT_MouseShape {
-	Default = 0,
-	Hand = 1,
-	Crosshair = 2,
-	Zoom = 3
+    Default = 0,
+    Hand = 1,
+    Crosshair = 2,
+    Zoom = 3
 }
 
 /**

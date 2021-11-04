@@ -2,7 +2,7 @@
 // Project: https://github.com/trainiac/express-jsonschema#readme
 // Definitions by: Arne Schubert <https://github.com/atd-schubert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Request, Response, NextFunction } from "express";
 import { JSONSchema4 } from "json-schema";

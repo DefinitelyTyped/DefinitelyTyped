@@ -1,0 +1,11 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "dt-header": false,
+        "export-just-namespace": false,
+        "no-trailing-whitespace": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false
+    }
+}

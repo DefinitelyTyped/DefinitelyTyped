@@ -1,8 +1,8 @@
 // Type definitions for mongorito 3.0
-// Project: https://github.com/vadimdemedes/mongorito
+// Project: https://github.com/vadimdemedes/mongorito, https://github.com/vdemedes/mongorito
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// Minimum TypeScript Version: 3.2
 
 import { Collection, CommonOptions, Db, IndexOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
 
@@ -62,7 +62,7 @@ export class Model extends Query {
      * @see mongodb.Collection#listIndexes()
      * @see mongodb.CommandCursor#toArray()
      */
-    static listIndexes(options?: { batchSize?: number, readPreference?: ReadPreference | string }): Promise<any[]>;
+    static listIndexes(options?: { batchSize?: number | undefined, readPreference?: ReadPreference | string | undefined }): Promise<any[]>;
 
     /**
      * @see mongodb.Collection#createIndex()
@@ -128,7 +128,7 @@ export enum ActionTypes {
 
 export interface GetAction {
     type: ActionTypes.GET;
-    key?: string;
+    key?: string | undefined;
 }
 
 export interface SetAction {
@@ -248,7 +248,7 @@ export interface PluginStore {
     dispatch: (arg: any) => any;
     getState: () => State;
     modelClass: ModelClass;
-    model?: Model;
+    model?: Model | undefined;
 }
 
 export type Reducer<S = any> = (state: S, action: Action) => Reducer;

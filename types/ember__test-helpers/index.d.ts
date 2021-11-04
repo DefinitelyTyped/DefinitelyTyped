@@ -1,16 +1,19 @@
-// Type definitions for @ember/test-helpers 0.7
+// Type definitions for @ember/test-helpers 2.0
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.7
 
 /// <reference types="ember" />
+/// <reference types="ember__error" />
 
 declare module '@ember/test-helpers' {
     // DOM Interaction Helpers
 
-    export type Target = string | Element;
+    export type Target = string | Element | Document;
 
     export { default as click } from '@ember/test-helpers/dom/click';
     export { default as doubleClick } from '@ember/test-helpers/dom/double-click';
@@ -20,6 +23,9 @@ declare module '@ember/test-helpers' {
     export { default as triggerEvent } from '@ember/test-helpers/dom/trigger-event';
     export { default as triggerKeyEvent } from '@ember/test-helpers/dom/trigger-key-event';
     export { default as fillIn } from '@ember/test-helpers/dom/fill-in';
+    export { default as typeIn } from '@ember/test-helpers/dom/type-in';
+    export { default as select } from '@ember/test-helpers/dom/select';
+    export { default as scrollTo } from '@ember/test-helpers/dom/scroll-to';
 
     // DOM Query Helpers
 
@@ -56,24 +62,25 @@ declare module '@ember/test-helpers' {
     export { default as setupApplicationContext } from '@ember/test-helpers/setup-application-context';
     export { default as teardownApplicationContext } from '@ember/test-helpers/teardown-application-context';
     export { default as validateErrorHandler } from '@ember/test-helpers/validate-error-handler';
+    export { default as setupOnerror, resetOnerror } from '@ember/test-helpers/setup-onerror';
 }
 
 declare module '@ember/test-helpers/dom/click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: MouseEventInit): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/double-click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: MouseEventInit): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/tap' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/focus' {
@@ -100,10 +107,10 @@ declare module '@ember/test-helpers/dom/trigger-key-event' {
     export type KeyEvent = 'keydown' | 'keyup' | 'keypress';
 
     export interface KeyModifiers {
-        ctrlKey?: boolean;
-        altKey?: boolean;
-        shiftKey?: boolean;
-        metaKey?: boolean;
+        ctrlKey?: boolean | undefined;
+        altKey?: boolean | undefined;
+        shiftKey?: boolean | undefined;
+        metaKey?: boolean | undefined;
     }
 
     export default function(target: Target, eventType: KeyEvent, key: number | string, modifiers?: KeyModifiers): Promise<void>;
@@ -115,12 +122,30 @@ declare module '@ember/test-helpers/dom/fill-in' {
     export default function(target: Target, text: string): Promise<void>;
 }
 
+declare module '@ember/test-helpers/dom/type-in' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, text: string, options?: {delay: number}): Promise<void>;
+}
+
 declare module '@ember/test-helpers/dom/find' {
     export default function(selector: string): Element | null;
 }
 
 declare module '@ember/test-helpers/dom/find-all' {
     export default function(selector: string): Element[];
+}
+
+declare module '@ember/test-helpers/dom/select' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, options: string | string[], keepPreviouslySelected?: boolean): Promise<void>;
+}
+
+declare module '@ember/test-helpers/dom/scroll-to' {
+    import { Target } from '@ember/test-helpers';
+
+    export default function(target: Target, x: number, y: number): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/get-root-element' {
@@ -144,9 +169,9 @@ declare module '@ember/test-helpers/setup-rendering-context' {
 
 declare module '@ember/test-helpers/dom/wait-for' {
     export interface Options {
-        timeout?: number;
-        count?: number;
-        timeoutMessage?: string;
+        timeout?: number | undefined;
+        count?: number | undefined;
+        timeoutMessage?: string | undefined;
     }
 
     export default function(selector: string, options?: Options): Promise<Element | Element[]>;
@@ -154,8 +179,8 @@ declare module '@ember/test-helpers/dom/wait-for' {
 
 declare module '@ember/test-helpers/wait-until' {
     export interface Options {
-        timeout?: number;
-        timeoutMessage?: string;
+        timeout?: number | undefined;
+        timeoutMessage?: string | undefined;
     }
 
     export default function<T>(callback: () => T, options?: Options): Promise<T>;
@@ -167,6 +192,7 @@ declare module '@ember/test-helpers/settled' {
         hasPendingTimers: boolean;
         hasPendingWaiters: boolean;
         hasPendingRequests: boolean;
+        hasPendingTransitions: boolean | null;
         pendingRequestCount: number;
     }
 
@@ -178,7 +204,7 @@ declare module '@ember/test-helpers/settled' {
 declare module '@ember/test-helpers/setup-context' {
     import Resolver from '@ember/application/resolver';
 
-    export default function<C extends object>(context: C, options?: { resolver?: Resolver }): Promise<C>;
+    export default function<C extends object>(context: C, options?: { resolver?: Resolver | undefined }): Promise<C>;
     export function getContext(): object;
     export function setContext(context: object): void;
     export function unsetContext(): void;
@@ -210,6 +236,11 @@ declare module '@ember/test-helpers/validate-error-handler' {
     import Error from '@ember/error';
 
     export default function(callback?: (error: Error) => void): { isValid: boolean, message: string };
+}
+
+declare module '@ember/test-helpers/setup-onerror' {
+    export default function setupOnerror(handler: (error: unknown) => void): void;
+    export function resetOnerror(): void;
 }
 
 declare module '@ember/test-helpers/application' {

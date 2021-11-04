@@ -1,8 +1,11 @@
+// package: google.protobuf
+// file: wrappers.proto
+
 import * as jspb from "../../index";
 
 export class DoubleValue extends jspb.Message {
   getValue(): number;
-  setValue(value: number): void;
+  setValue(value: number): DoubleValue;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DoubleValue.AsObject;
@@ -22,7 +25,7 @@ export namespace DoubleValue {
 
 export class FloatValue extends jspb.Message {
   getValue(): number;
-  setValue(value: number): void;
+  setValue(value: number): FloatValue;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FloatValue.AsObject;
@@ -42,7 +45,7 @@ export namespace FloatValue {
 
 export class Int64Value extends jspb.Message {
   getValue(): number;
-  setValue(value: number): void;
+  setValue(value: number): Int64Value;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Int64Value.AsObject;
@@ -62,7 +65,7 @@ export namespace Int64Value {
 
 export class UInt64Value extends jspb.Message {
   getValue(): number;
-  setValue(value: number): void;
+  setValue(value: number): UInt64Value;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UInt64Value.AsObject;
@@ -82,7 +85,7 @@ export namespace UInt64Value {
 
 export class Int32Value extends jspb.Message {
   getValue(): number;
-  setValue(value: number): void;
+  setValue(value: number): Int32Value;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Int32Value.AsObject;
@@ -102,7 +105,7 @@ export namespace Int32Value {
 
 export class UInt32Value extends jspb.Message {
   getValue(): number;
-  setValue(value: number): void;
+  setValue(value: number): UInt32Value;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UInt32Value.AsObject;
@@ -122,7 +125,7 @@ export namespace UInt32Value {
 
 export class BoolValue extends jspb.Message {
   getValue(): boolean;
-  setValue(value: boolean): void;
+  setValue(value: boolean): BoolValue;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): BoolValue.AsObject;
@@ -142,7 +145,7 @@ export namespace BoolValue {
 
 export class StringValue extends jspb.Message {
   getValue(): string;
-  setValue(value: string): void;
+  setValue(value: string): StringValue;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): StringValue.AsObject;
@@ -164,7 +167,7 @@ export class BytesValue extends jspb.Message {
   getValue(): Uint8Array | string;
   getValue_asU8(): Uint8Array;
   getValue_asB64(): string;
-  setValue(value: Uint8Array | string): void;
+  setValue(value: Uint8Array | string): BytesValue;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): BytesValue.AsObject;
@@ -181,4 +184,3 @@ export namespace BytesValue {
     value: Uint8Array | string,
   }
 }
-

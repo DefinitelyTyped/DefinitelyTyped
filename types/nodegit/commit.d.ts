@@ -8,6 +8,11 @@ import { Object } from './object';
 import { Tree } from './tree';
 import { TreeEntry } from './tree-entry';
 import { Diff } from './diff';
+import { Error } from './error';
+
+export interface HistoryEventEmitter extends EventEmitter {
+    start(): void;
+}
 
 export class Commit {
     static create(repo: Repository, updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree, parentCount: number, parents: any[]): Oid;
@@ -21,7 +26,16 @@ export class Commit {
     static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Commit>;
     static createWithSignature(repo: Repository, commitContent: string, signature: string, signatureField: string): Promise<Oid>;
 
-    amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree): Promise<Oid>;
+    amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree | Oid): Promise<Oid>;
+    amendWithSignature(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        messageEncoding: string,
+        message: string,
+        tree: Tree | Oid,
+        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
+    ): Promise<Oid>;
     author(): Signature;
     committer(): Signature;
 
@@ -75,11 +89,11 @@ export class Commit {
     /**
      * Walk the history from this commit backwards.
      * An EventEmitter is returned that will emit a "commit" event for each commit in the history, and one "end"
-     * event when the walk is completed. Don't forget to call start() on the returned event.
+     * event when the walk is completed. Don't forget to call start() on the returned EventEmitter.
      *
      *
      */
-    history(): EventEmitter;
+    history(): HistoryEventEmitter;
     /**
      * Retrieve the commit's parents as commit objects.
      *
@@ -117,4 +131,9 @@ export class Commit {
      *
      */
     body(): string;
+
+    getSignature(field?: string): Promise<{
+        signature: string
+        signedData: string
+    }>;
 }

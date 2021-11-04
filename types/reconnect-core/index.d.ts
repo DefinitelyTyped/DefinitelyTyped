@@ -1,5 +1,5 @@
 // Type definitions for reconnect-core 1.3
-// Project: https://www.npmjs.com/package/reconnect-core
+// Project: https://github.com/juliangruber/reconnect-core
 // Definitions by: James Bromwell <https://github.com/thw0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -16,10 +16,10 @@ declare namespace reconnect {
         (opts?: ModuleOptions<ConnectionType>, cb?: (con: ConnectionType) => void) => Instance<ArgType, ConnectionType>;
 
     interface ModuleOptions<ConnectionType> extends ExponentialOptions {
-        immediate?: boolean;
-        failAfter?: number;
-        onConnect?: (con: ConnectionType) => void;
-        strategy?: "fibonacci" | "exponential" | Backoff;
+        immediate?: boolean | undefined;
+        failAfter?: number | undefined;
+        onConnect?: ((con: ConnectionType) => void) | undefined;
+        strategy?: "fibonacci" | "exponential" | Backoff | undefined;
     }
 
     interface Instance<ArgType, ConnectionType> extends EventEmitter {

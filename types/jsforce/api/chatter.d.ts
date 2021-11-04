@@ -5,7 +5,7 @@ import { Stream } from 'stream';
 interface BatchRequestParams extends RequestParams {
     method: string;
     url: string;
-    richInput?: string;
+    richInput?: string | undefined;
 }
 
 interface BatchRequestResult {
@@ -21,13 +21,13 @@ interface BatchRequestResults {
 interface RequestParams {
     method: string;
     url: string;
-    body?: string;
+    body?: string | undefined;
 }
 
 export class RequestResult {
 }
 
-export class Request<T> implements Promise<T> {
+export class Request<T> implements PromiseLike<T> {
     constructor(chatter: Chatter, params: RequestParams);
 
     batchParams(): BatchRequestParams;
@@ -36,14 +36,12 @@ export class Request<T> implements Promise<T> {
 
     stream(): Stream;
 
-    catch<TResult>(onrejected?: ((reason: any) => (PromiseLike<TResult> | TResult)) | null | undefined): Promise<T | TResult>;
+    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null,
+                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null): Promise<TResult1 | TResult2>;
 
-    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null | undefined,
-                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null | undefined): Promise<TResult1 | TResult2>;
+    finally(onfinally?: () => void): Promise<T>;
 
     thenCall(callback?: (err: Error, records: T) => void): Query<T>;
-
-    readonly [Symbol.toStringTag]: 'Promise';
 }
 
 export class Resource<T> extends Request<T> {

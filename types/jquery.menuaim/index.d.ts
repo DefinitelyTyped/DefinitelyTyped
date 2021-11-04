@@ -38,14 +38,14 @@ interface JQueryMenuAimOptions {
     * that can trigger the above events. Defaults to "> li".
     * rowSelector: "> li",
     */
-    rowSelector?: string;
+    rowSelector?: string | undefined;
 
     /** You may have some menu rows that aren't submenus and therefore
     * shouldn't ever need to "activate." If so, filter submenu rows w/
     * this selector. Defaults to "*" (all elements).
     * submenuSelector: "*",
     */
-    submenuSelector?: string;
+    submenuSelector?: string | undefined;
 
     /** Direction the submenu opens relative to the main menu. This
     * controls which direction is "forgiving" as the user moves their
@@ -53,7 +53,7 @@ interface JQueryMenuAimOptions {
     * "left", "above", or "below". Defaults to "right".
     * submenuDirection: "right"
     */
-    submenuDirection?: string;
+    submenuDirection?: string | undefined;
 }
 
 interface JQuery {

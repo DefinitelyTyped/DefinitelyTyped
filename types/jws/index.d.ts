@@ -1,6 +1,6 @@
-// Type definitions for jws 3.1
+// Type definitions for jws 3.2
 // Project: https://github.com/brianloveswords/node-jws
-// Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>
+// Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>, Denis Olsem <https://github.com/dolsem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -29,6 +29,12 @@ export function verify(signature: string, algorithm: Algorithm, secretOrKey: str
  * and signature parts of the JWS Signature.
  */
 export function decode(signature: string): Signature;
+
+/**
+ * (Synchronous) Validates that the signature seems to be a legitimate JWS signature.
+ * @param signature JWS Signature
+ */
+export function isValid(signature: string): boolean;
 
 /**
  * Returns a new SignStream object.
@@ -131,23 +137,50 @@ export interface SignOptions {
      */
     privateKey?: any;
 
-    encoding?: string|Buffer|stream.Readable;
+    encoding?: string|Buffer|stream.Readable | undefined;
 }
 
 export interface VerifyOptions {
-    signature?: string|Buffer|stream.Readable;
-    algorithm?: Algorithm|Buffer|stream.Readable;
-    key?: string|stream.Readable|Buffer;
-    secret?: string|stream.Readable|Buffer;
-    publicKey?: string|stream.Readable|Buffer;
-    encoding?: string|Buffer|stream.Readable;
+    signature?: string|Buffer|stream.Readable | undefined;
+    algorithm?: Algorithm|Buffer|stream.Readable | undefined;
+    key?: string|stream.Readable|Buffer | undefined;
+    secret?: string|stream.Readable|Buffer | undefined;
+    publicKey?: string|stream.Readable|Buffer | undefined;
+    encoding?: string|Buffer|stream.Readable | undefined;
 }
 
-export type Algorithm = 'HS256' | 'HS384' | 'HS512' | 'RS256' |
-                        'RS384' | 'RS512' | 'ES256' | 'ES384' |
-                        'ES512' | 'none';
+export const ALGORITHMS: [
+    'HS256', 'HS384', 'HS512',
+    'RS256', 'RS384', 'RS512',
+    'PS256', 'PS384', 'PS512',
+    'ES256', 'ES384', 'ES512'
+];
 
-export interface Header {
+export type Algorithm = typeof ALGORITHMS[number] | 'none';
+
+export interface Header extends CertificateProperties {
     alg: Algorithm;
-    [name: string]: string;
+    jwk?: JWK | undefined;
+    typ?: string | undefined;
+    cty?: string | undefined;
+    crit?: ReadonlyArray<string> | undefined;
+}
+
+export interface JWK extends CertificateProperties {
+    alg?: Algorithm | undefined;
+    kty: string;
+    use?: string | undefined;
+    key_ops?: ReadonlyArray<string> | undefined;
+}
+
+export interface CertificateProperties extends PrivateProperties {
+    kid?: string | undefined;
+    x5u?: string | undefined;
+    x5c?: ReadonlyArray<string> | undefined;
+    x5t?: string | undefined;
+    'x5t#S256'?: string | undefined;
+}
+
+export interface PrivateProperties {
+    [name: string]: any;
 }

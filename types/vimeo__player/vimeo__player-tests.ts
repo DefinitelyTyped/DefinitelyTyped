@@ -289,6 +289,18 @@ player.setLoop(true).then((loop) => {
     // an error occurred
 });
 
+player.getMuted().then((muted) => {
+    // muted = whether muted is turned on or not
+}).catch((error) => {
+    // an error occurred
+});
+
+player.setMuted(true).then((muted) => {
+    // muted was turned on
+}).catch((error) => {
+    // an error occurred
+});
+
 player.getPaused().then((paused) => {
     // paused = whether or not the player is paused
 }).catch((error) => {
@@ -397,6 +409,30 @@ player.setVolume(0.5).then((volume) => {
     }
 });
 
+player.getSeeking().then((seeking) => {
+    // seeking = whether the player is seeking or not
+}).catch((error) => {
+    // an error occurred
+});
+
+player.getBuffered().then((buffered) => {
+    // buffered = an array of the buffered video time ranges.
+}).catch((error) => {
+    // an error occurred
+});
+
+player.getPlayed().then((played) => {
+    // played = array values of the played video time ranges.
+}).catch((error) => {
+    // an error occurred
+});
+
+player.getSeekable().then((seekable) => {
+    // seekable = array values of the seekable video time ranges.
+}).catch((error) => {
+    // an error occurred
+});
+
 // EVENTS
 
 player.on('play', (data) => {
@@ -483,6 +519,13 @@ player.on('bufferstart', (data) => {
 player.on('bufferend', (data) => {
    // no associated data with this event
 });
+
+player.on('seeking', (data) => {
+    // data is an object containing properties specific to that event
+    console.log(data.duration); // 61.857
+    console.log(data.percent);  // 0.485
+    console.log(data.seconds);  // 30
+ });
 
 player.on('error', (data) => {
     // data is an object containing properties specific to that event

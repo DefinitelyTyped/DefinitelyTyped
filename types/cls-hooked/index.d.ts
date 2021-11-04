@@ -1,4 +1,4 @@
-// Type definitions for cls-hooked 4.2
+// Type definitions for cls-hooked 4.3
 // Project: https://github.com/jeff-lewis/cls-hooked
 // Definitions by: Leo Liang <https://github.com/aleung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,9 +18,11 @@ export interface Namespace {
     bind<F extends Function>(fn: F, context?: any): F; // tslint:disable-line: ban-types
     bindEmitter(emitter: EventEmitter): void;
     createContext(): any;
+    enter(context: any): void;
+    exit(context: any): void;
 }
 
 export function createNamespace(name: string): Namespace;
-export function getNamespace(name: string): Namespace;
+export function getNamespace(name: string): Namespace | undefined;
 export function destroyNamespace(name: string): void;
 export function reset(): void;

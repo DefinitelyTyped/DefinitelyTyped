@@ -24,3 +24,8 @@ soundManager.setup({
         volume: 33
     }
 });
+
+// set mp3 format not required
+if (soundManager.audioFormats) {
+    soundManager.audioFormats.mp3.required = false;
+}

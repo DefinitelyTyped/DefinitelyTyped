@@ -2,7 +2,7 @@
 // Project: https://github.com/sass/node-sass-middleware
 // Definitions by: Pascal Garber <http://www.jumplink.eu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.7
 
 
 
@@ -17,35 +17,35 @@ interface Options extends sass.Options {
     /**
      * 
      */
-    dest?: string;
+    dest?: string | undefined;
     /**
      * 
      */
-    root?: string;
+    root?: string | undefined;
     /**
      * 
      */
-    prefix?: string;
+    prefix?: string | undefined;
     /**
      * 
      */
-    force?: boolean;
+    force?: boolean | undefined;
     /**
      * 
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
     /**
      * 
      */
-    indentedSyntax?: boolean;
+    indentedSyntax?: boolean | undefined;
     /**
      * 
      */
-    response?: boolean;
+    response?: boolean | undefined;
     /**
      * 
      */
-    error?: () => void;
+    error?: (() => void) | undefined;
 }
 
 /**

@@ -1,4 +1,4 @@
-// Type definitions for React (react-addons-test-utils) 0.14
+// Type definitions for React (react-addons-test-utils) 15.6
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,52 +13,52 @@ export = TestUtils;
 
 declare namespace TestUtils {
     export interface OptionalEventProperties {
-        bubbles?: boolean;
-        cancelable?: boolean;
-        currentTarget?: EventTarget;
-        defaultPrevented?: boolean;
-        eventPhase?: number;
-        isTrusted?: boolean;
-        nativeEvent?: Event;
+        bubbles?: boolean | undefined;
+        cancelable?: boolean | undefined;
+        currentTarget?: EventTarget | undefined;
+        defaultPrevented?: boolean | undefined;
+        eventPhase?: number | undefined;
+        isTrusted?: boolean | undefined;
+        nativeEvent?: Event | undefined;
         preventDefault?(): void;
         stopPropagation?(): void;
-        target?: EventTarget;
-        timeStamp?: Date;
-        type?: string;
+        target?: EventTarget | undefined;
+        timeStamp?: Date | undefined;
+        type?: string | undefined;
     }
 
     export interface SyntheticEventData extends OptionalEventProperties {
-        altKey?: boolean;
-        button?: number;
-        buttons?: number;
-        clientX?: number;
-        clientY?: number;
-        changedTouches?: TouchList;
-        charCode?: boolean;
-        clipboardData?: DataTransfer;
-        ctrlKey?: boolean;
-        deltaMode?: number;
-        deltaX?: number;
-        deltaY?: number;
-        deltaZ?: number;
-        detail?: number;
+        altKey?: boolean | undefined;
+        button?: number | undefined;
+        buttons?: number | undefined;
+        clientX?: number | undefined;
+        clientY?: number | undefined;
+        changedTouches?: TouchList | undefined;
+        charCode?: boolean | undefined;
+        clipboardData?: DataTransfer | undefined;
+        ctrlKey?: boolean | undefined;
+        deltaMode?: number | undefined;
+        deltaX?: number | undefined;
+        deltaY?: number | undefined;
+        deltaZ?: number | undefined;
+        detail?: number | undefined;
         getModifierState?(key: string): boolean;
-        key?: string;
-        keyCode?: number;
-        locale?: string;
-        location?: number;
-        metaKey?: boolean;
-        pageX?: number;
-        pageY?: number;
-        relatedTarget?: EventTarget;
-        repeat?: boolean;
-        screenX?: number;
-        screenY?: number;
-        shiftKey?: boolean;
-        targetTouches?: TouchList;
-        touches?: TouchList;
-        view?: AbstractView;
-        which?: number;
+        key?: string | undefined;
+        keyCode?: number | undefined;
+        locale?: string | undefined;
+        location?: number | undefined;
+        metaKey?: boolean | undefined;
+        pageX?: number | undefined;
+        pageY?: number | undefined;
+        relatedTarget?: EventTarget | undefined;
+        repeat?: boolean | undefined;
+        screenX?: number | undefined;
+        screenY?: number | undefined;
+        shiftKey?: boolean | undefined;
+        targetTouches?: TouchList | undefined;
+        touches?: TouchList | undefined;
+        view?: AbstractView | undefined;
+        which?: number | undefined;
     }
 
     export interface EventSimulator {
@@ -70,9 +70,8 @@ declare namespace TestUtils {
     }
 
     export interface ShallowRenderer {
-        getRenderOutput<E extends ReactElement<any>>(): E;
-        getRenderOutput(): ReactElement<any>;
-        render(element: ReactElement<any>, context?: any): void;
+        getRenderOutput<E extends ReactElement>(): E;
+        render(element: ReactElement, context?: any): void;
         unmount(): void;
     }
 
@@ -129,13 +128,13 @@ declare namespace TestUtils {
         mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
 
     export function isElementOfType<T extends HTMLElement>(
-        element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
+        element: ReactElement, type: string): element is ReactHTMLElement<T>;
     export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
-        element: ReactElement<any>, type: string): element is DOMElement<P, T>;
+        element: ReactElement, type: string): element is DOMElement<P, T>;
     export function isElementOfType<P>(
-        element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
+        element: ReactElement, type: SFC<P>): element is SFCElement<P>;
     export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-        element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
+        element: ReactElement, type: ClassType<P, T, C>): element is CElement<P, T>;
 
     export function isDOMComponent(instance: ReactInstance): instance is Element;
     export function isCompositeComponent(instance: ReactInstance): instance is Component<any>;
@@ -160,11 +159,11 @@ declare namespace TestUtils {
         root: Component<any>,
         tagName: string): Element;
 
-    export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T[];
 
-    export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T;
 

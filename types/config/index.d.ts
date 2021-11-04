@@ -4,6 +4,7 @@
 //                 Forrest Bice <https://github.com/forrestbice>
 //                 James Donald <https://github.com/jndonald3>
 //                 Alberto Vasquez <https://github.com/albertovasquez>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -36,7 +37,7 @@ declare namespace c {
         getEnv(varName: string): string;
 
         // Return the config for the project based on directory param if not directory then return default one (config).
-        loadFileConfigs(configDir: string): any;
+        loadFileConfigs(configDir?: string): any;
 
         // Return the sources for the configurations
         getConfigSources(): IConfigSource[];
@@ -45,9 +46,8 @@ declare namespace c {
         toObject(config?: any): any;
 
         /**
-         * This allows module developers to attach their configurations onto
-         * the 6 years agoInitial 0.4 checkin default configuration object so
-         * they can be configured by the consumers of the module.
+         * This allows module developers to attach their configurations onto the default configuration object
+         * so they can be configured by the consumers of the module.
          */
         setModuleDefaults(moduleName:string, defaults:any): any;
     }
@@ -60,7 +60,7 @@ declare namespace c {
 
     interface IConfigSource {
         name: string;
-        original?: string;
+        original?: string | undefined;
         parsed: any;
     }
 }

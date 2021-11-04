@@ -11,7 +11,7 @@ var makeFetchOptions = <TCol extends Backbone.PageableCollection<TestModel>>() =
     beforeSend: (jqxhr: JQueryXHR) => {},
     success: (model: TestModel, response: any, options: any) => {},
     error:   (collection: TCol, jqxhr: JQueryXHR, options: any) => {},
-    parse: '',
+    parse: false,
   };
 };
 
@@ -70,8 +70,8 @@ namespace InitializingWithOptions {
   });
 
   var testCollection6 = new TestCollection([
-    <TestModel>{},
-    <TestModel>{},
+    {} as TestModel,
+    {} as TestModel,
   ]);
 }
 

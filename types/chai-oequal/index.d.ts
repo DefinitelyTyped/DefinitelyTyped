@@ -2,6 +2,7 @@
 // Project: https://github.com/wrwrwr/chai-oequal
 // Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -22,7 +23,7 @@ declare namespace Chai {
 }
 
 declare module 'chai-oequal' {
-    function chaiOequal(chai: any, utils: any): void;
+    const chaiOequal: Chai.ChaiPlugin;
     namespace chaiOequal {}
     export = chaiOequal;
 }

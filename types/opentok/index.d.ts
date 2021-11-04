@@ -1,13 +1,14 @@
-// Type definitions for opentok v2.3.2
+// Type definitions for opentok v2.12.1
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
+//                 Andrej Mihajlov <https://github.com/pronebird>
+//                 Victor Alencar <https://github.com/valencar>
+//                 Luis Felipe Zaguini <https://github.com/zaguiini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'opentok' {
-
   namespace OpenTok {
-
     export type OutputMode = 'composed' | 'individual';
 
     export type ArchiveStatus = 'available' | 'expired' | 'failed' | 'paused' | 'started' | 'stopped' | 'uploaded';
@@ -25,21 +26,23 @@ declare module 'opentok' {
       hasAudio: boolean;
       hasVideo: boolean;
       outputMode: OutputMode;
+      resolution?: '640x480' | '1280x720' | undefined;
       url: string;
     }
 
     export interface ArchiveOptions {
-      name?: string;
-      hasAudio?: boolean;
-      hasVideo?: boolean;
-      outputMode?: OutputMode;
-      layout?: ArchiveLayoutOptions;
+      name?: string | undefined;
+      hasAudio?: boolean | undefined;
+      hasVideo?: boolean | undefined;
+      outputMode?: OutputMode | undefined;
+      layout?: ArchiveLayoutOptions | undefined;
+      resolution?: string | undefined;
     }
 
     export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
 
     export interface PredefinedArchiveLayoutOptions {
-      type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation';
+      type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation' | 'focus';
     }
 
     export interface CustomArchiveLayoutOptions {
@@ -52,9 +55,9 @@ declare module 'opentok' {
     export type ArchiveMode = 'manual' | 'always';
 
     export interface SessionOptions {
-      mediaMode?: MediaMode;
-      archiveMode?: ArchiveMode;
-      location?: string;
+      mediaMode?: MediaMode | undefined;
+      archiveMode?: ArchiveMode | undefined;
+      location?: string | undefined;
     }
 
     export interface Session {
@@ -63,31 +66,193 @@ declare module 'opentok' {
 
     export type Token = string;
 
+    export interface DialOptions {
+      headers?: { [key: string]: string } | undefined;
+      auth?: { [key: string]: string } | undefined;
+      secure: boolean;
+      from: string;
+    }
+
     export type Role = 'subscriber' | 'publisher' | 'moderator';
 
     export interface TokenOptions {
-      role?: Role;
-      data?: string;
-      expireTime?: number;
+      role?: Role | undefined;
+      data?: string | undefined;
+      expireTime?: number | undefined;
+      initialLayoutClassList?: string[] | undefined;
     }
 
     export interface ListArchivesOptions {
-      count?: number;
-      offset?: number;
-      sessionId?: string;
+      count?: number | undefined;
+      offset?: number | undefined;
+      sessionId?: string | undefined;
+    }
+
+    export type BroadcastLayoutType = 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation' | 'focus';
+
+    export interface BroadcastLayoutOptions {
+      type?: BroadcastLayoutType | undefined;
+    }
+
+    export interface CustomBroadcastLayoutOptions {
+      type: 'custom';
+      stylesheet: string;
+    }
+
+    export type BroadcastLayout = BroadcastLayoutOptions | CustomBroadcastLayoutOptions;
+
+    export interface BroadcastOutputOptionsRtmp {
+      id: string;
+      serverUrl: string;
+      streamName: string;
+      status?: string | undefined;
+    }
+
+    export interface BroadcastOutputOptions {
+      hls?: {} | undefined;
+      rtmp?: BroadcastOutputOptionsRtmp[] | undefined;
+    }
+
+    export interface BroadcastOptions {
+      outputs: BroadcastOutputOptions;
+      maxDuration?: number | undefined;
+      resolution?: '640x480' | '1280x720' | undefined;
+      layout: BroadcastLayout;
+    }
+
+    export interface ListBroadcastsOptions {
+      count?: number | undefined;
+      offset?: number | undefined;
+      sessionId?: string | undefined;
+    }
+
+    export interface BroadcastUrlsResponse {
+      hls?: string | undefined;
+      rtmp?: BroadcastOutputOptionsRtmp[] | undefined;
+    }
+
+    export interface Broadcast {
+      broadcastUrls: BroadcastUrlsResponse;
+      createdAt: number;
+      id: string;
+      projectId: number;
+      resolution: '640x480' | '1280x720';
+      sessionId: string;
+      status: string;
+      updatedAt: number;
+      stop(callback: (error: Error | null, broadcast: Broadcast) => void): void;
+    }
+
+    export interface BroadcastStopResponse {
+      id: string;
+      sessionId: string;
+      projectId: number;
+      createdAt: number;
+      updatedAt: number;
+      resolution: string;
+    }
+
+    export interface SignalOptions {
+      type: string;
+      data: any;
+    }
+
+    export interface SipInterconnect {
+      id: string;
+      connectionId: string;
+      streamId: string;
+    }
+
+    export type StreamId = string;
+
+    export interface Stream {
+      id: string;
+      name: string;
+      layoutClassList: string[];
+      videoType: 'camera' | 'screen';
     }
   }
 
   class OpenTok {
     constructor(apiKey: string, apiSecret: string);
 
-    public createSession(options: OpenTok.SessionOptions, callback: (err: Error, session: OpenTok.Session) => void): void;
-    public generateToken(sessionId: string, options: OpenTok.TokenOptions): OpenTok.Token;
-    public startArchive(sessionId: string, options: OpenTok.ArchiveOptions, callback: (err: Error, archive: OpenTok.Archive) => void): void;
-    public stopArchive(archiveId: string, callback: (err: Error, archive: OpenTok.Archive) => void): void;
-    public getArchive(archiveId: string, callback: (err: Error, archive: OpenTok.Archive) => void): void;
-    public deleteArchive(archiveId: string, callback: (err: Error) => void): void;
-    public listArchives(options: OpenTok.ListArchivesOptions, callback: (err: Error, archives: OpenTok.Archive[], totalCount: number) => void): void;
+    public createSession(
+      options: OpenTok.SessionOptions,
+      callback: (error: Error | null, session?: OpenTok.Session) => void,
+    ): void;
+    public deleteArchive(archiveId: string, callback: (error: Error | null) => void): void;
+    public dial(
+      sessionId: string,
+      token: OpenTok.Token,
+      sipUri: string,
+      options: OpenTok.DialOptions,
+      callback: (error: Error | null, sipInterconnect: OpenTok.SipInterconnect) => void,
+    ): void;
+    public forceDisconnect(sessionId: string, connectionId: string, callback: (error: Error | null) => void): void;
+    public generateToken(sessionId: string, options?: OpenTok.TokenOptions): OpenTok.Token;
+    public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
+    public getBroadcast(
+      broadcastId: string,
+      callback: (error: Error | null, broadcast?: OpenTok.Broadcast) => void,
+    ): void;
+    public getStream(
+      sessionId: string,
+      options: OpenTok.StreamId,
+      callback: (error: Error | null, stream?: OpenTok.Stream) => void,
+    ): void;
+    public listArchives(
+      options: OpenTok.ListArchivesOptions,
+      callback: (error: Error | null, archives?: OpenTok.Archive[], totalCount?: number) => void,
+    ): void;
+    public listBroadcasts(
+      options: OpenTok.ListBroadcastsOptions,
+      callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void,
+    ): void;
+    public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
+    public playDTMF(
+      sessionId: string,
+      connectionId: string,
+      digits: string,
+      callback: (error: Error | null) => void,
+    ): void;
+    public setArchiveLayout(
+      archiveId: string,
+      type: OpenTok.BroadcastLayoutType | 'custom',
+      stylesheet: string | null,
+      callback: (error: Error | null) => void,
+    ): void;
+    public setBroadcastLayout(
+      broadcastId: string,
+      type: OpenTok.BroadcastLayoutType | 'custom',
+      stylesheet: string | null,
+      callback: (error: Error | null) => void,
+    ): void;
+    public setStreamClassLists(
+      sessionId: string,
+      classListArray: ReadonlyArray<{ id: string; layoutClassList: string[] }>,
+      callback: (error: Error | null) => void,
+    ): void;
+    public signal(
+      sessionId: string,
+      connectionId: string | null,
+      data: OpenTok.SignalOptions,
+      callback: (error: Error | null) => void,
+    ): void;
+    public startArchive(
+      sessionId: string,
+      options: OpenTok.ArchiveOptions,
+      callback: (error: Error | null, archive?: OpenTok.Archive) => void,
+    ): void;
+    public startBroadcast(
+      sessionId: string,
+      options: OpenTok.BroadcastOptions,
+      callback: (error: Error | null, broadcast: OpenTok.Broadcast) => void,
+    ): void;
+    public stopArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
+    public stopBroadcast(
+      broadcastId: string,
+      callback: (error: Error | null, broadcast: OpenTok.BroadcastStopResponse) => void,
+    ): void;
   }
 
   export = OpenTok;

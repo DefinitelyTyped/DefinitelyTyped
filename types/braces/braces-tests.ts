@@ -1,10 +1,13 @@
 import braces = require("braces");
 
+const transform: braces.Transform = (str) => `foo_${str}`;
 const bracesOpts: braces.Options = {
-    expand: true,
+    transform,
+    expand: true
 };
 
-let strArrResult: string[];
+// $ExpectType string[]
+braces.expand('a/{x,y,z}/b');
 
-strArrResult = braces.expand('a/{x,y,z}/b');
-strArrResult = braces('a/{x,y,z}/b', bracesOpts);
+// $ExpectType string[]
+braces('a/{x,y,z}/b', bracesOpts);

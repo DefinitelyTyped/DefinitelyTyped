@@ -2,7 +2,6 @@
 // Project: https://github.com/kentcdodds/webpack-config-utils#readme
 // Definitions by: Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 export function getIfUtils<E extends EnvVars | string>(
     env: { [P in E]: boolean | string } | E,

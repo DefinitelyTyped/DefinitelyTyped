@@ -1,11 +1,14 @@
+// package: google.protobuf
+// file: duration.proto
+
 import * as jspb from "../../index";
 
 export class Duration extends jspb.Message {
   getSeconds(): number;
-  setSeconds(value: number): void;
+  setSeconds(value: number): Duration;
 
   getNanos(): number;
-  setNanos(value: number): void;
+  setNanos(value: number): Duration;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Duration.AsObject;
@@ -23,4 +26,3 @@ export namespace Duration {
     nanos: number,
   }
 }
-

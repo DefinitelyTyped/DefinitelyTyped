@@ -1,8 +1,8 @@
 import * as angular from 'angular';
 import * as ng from 'angular';
-import oc = require('oclazyload');
+import ocLazyLoad = require('oclazyload');
 
-angular.module('app', ['oc.lazyLoad']).config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider: oc.ILazyLoadProvider) {
+angular.module('app', [ocLazyLoad]).config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider: oc.ILazyLoadProvider) {
     $ocLazyLoadProvider.config({
         debug: true,
         events: true,
@@ -74,6 +74,10 @@ angular.module('app').controller('FooCtrl', ['$ocLazyLoad', function ($ocLazyLoa
             insertBefore: '#load_css_before',
             timeout: 5000
         });
+
+    $ocLazyLoad.load({
+        name: 'testModule'
+    });
 
     $ocLazyLoad.setModuleConfig({
         files: [

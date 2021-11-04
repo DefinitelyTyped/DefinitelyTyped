@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "base64-js-tests.ts"
+        "test/base64-js-tests.cjs.ts",
+        "test/base64-js-tests.global.ts"
     ]
 }

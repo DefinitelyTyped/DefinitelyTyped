@@ -1,7 +1,8 @@
-// Type definitions for koa-compress v2.x
+// Type definitions for koa-compress v4.x
 // Project: https://github.com/koajs/compress
 // Definitions by: Jerry Chin <https://github.com/hellopao>
-// Definitions: https://github.com/hellopao/DefinitelyTyped
+//                 Joel Gallant <https://github.com/joelgallant>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
@@ -16,28 +17,47 @@
 /// <reference types="node" />
 /// <reference types="koa" />
 
-declare module "koa-compress" {
+import * as Koa from "koa";
+import * as zlib from "zlib";
 
-    import * as Koa from "koa";
-    import * as zlib from "zlib";
+/**
+ * Compress middleware for Koa
+ */
+declare function koaCompress(options?: koaCompress.CompressOptions): Koa.Middleware;
 
-    interface CompressOptions extends zlib.ZlibOptions {
+declare namespace koaCompress {
+    export interface CompressOptions {
         /**
          * An optional function that checks the response content type to decide whether to compress. By default, it uses compressible.
          */
-        filter?: (content_type: string) => boolean;
+        filter?: ((mimeType: string) => boolean) | undefined;
 
         /**
          * Minimum response size in bytes to compress. Default 1024 bytes or 1kb.
          */
-        threshold?: number
+        threshold?: number | string | undefined;
+
+        /**
+         * An optional string, which specifies what encoders to use for requests
+         * without Accept-Encoding. Default: 'idenity'.
+         */
+        defaultEncoding?: string | undefined
+
+        /**
+         * Options for brotli compression.
+         */
+        br?: zlib.BrotliOptions | false | undefined;
+
+        /**
+         * Options for gzip compression.
+         */
+        gzip?: zlib.ZlibOptions | false | undefined;
+
+        /**
+         * Options for deflate compression.
+         */
+        deflate?: zlib.ZlibOptions | false | undefined;
     }
-
-    /**
-     * Compress middleware for Koa
-     */
-    function compress(options?: CompressOptions): Koa.Middleware;
-
-    namespace compress {}
-    export = compress;
 }
+
+export = koaCompress;

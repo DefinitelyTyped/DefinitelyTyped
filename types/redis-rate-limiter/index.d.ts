@@ -1,6 +1,7 @@
-// Type definitions for redis-rate-limiter 1.0.3
-// Project: https://github.com/TabDigital/redis-rate-limiter
+// Type definitions for redis-rate-limiter 1.2
+// Project: https://github.com/tabcorp/redis-rate-limiter
 // Definitions by: Seth Westphal <https://github.com/westy92>
+//                 Hasan Oezdemir <https://github.com/nodify-at>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -17,9 +18,11 @@ declare namespace RedisRateLimiter {
     export interface Options {
         redis: redis.RedisClient;
         key: 'ip' | ((req: express.Request) => string);
-        window?: number;
-        limit?: number;
-        rate?: string;
+        window?: number | undefined;
+        limit?: number | undefined;
+        rate?: string | undefined;
+        deleteImmediatelyIfRaceCondition?: boolean | undefined;
+        onPossibleRaceCondition?: ((key: string) => void) | undefined;
     }
 
     export interface Response {

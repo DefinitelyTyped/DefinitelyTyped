@@ -74,6 +74,14 @@ dir.files("./", function(err, files) {
     });
 });
 
+dir.files("./", { sync: true }).map(file => console.log(file.toLowerCase()));
+
+dir.promiseFiles("./")
+    .then(files => {
+        console.log(files);
+    })
+    .catch(e => console.error(e));
+
 dir.subdirs("./", function(err, subdirs) {
     console.log(subdirs);
 });

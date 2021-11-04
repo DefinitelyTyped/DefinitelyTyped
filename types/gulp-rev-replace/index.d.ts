@@ -2,18 +2,19 @@
 // Project: https://github.com/jamesknelson/gulp-rev-replace
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 
 declare namespace revReplace {
     interface Options {
-        canonicalUris?: boolean;
-        replaceInExtensions?: Array<string>;
-        prefix?: string;
-        manifest?: NodeJS.ReadWriteStream;
-        modifyUnreved?: Function;
-        modifyReved?: Function;
+        canonicalUris?: boolean | undefined;
+        replaceInExtensions?: Array<string> | undefined;
+        prefix?: string | undefined;
+        manifest?: NodeJS.ReadWriteStream | undefined;
+        modifyUnreved?: Function | undefined;
+        modifyReved?: Function | undefined;
     }
 }
 

@@ -54,22 +54,22 @@ declare namespace Phonon {
 
     /*** Options ***/
     interface PhononOptions {
-        navigator?: PhononNavigatorOptions;
-        i18n?: PhononI18nOptions | null;
+        navigator?: PhononNavigatorOptions | undefined;
+        i18n?: PhononI18nOptions | null | undefined;
     }
     interface PhononNavigatorOptions {
-        defaultPage?: string;
-        hashPrefix?: string;
-        animatePages?: boolean;
-        enableBrowserBackButton?: boolean;
-        templateRootDirectory?: string;
-        defaultTemplateExtension?: string;
-        useHash?: boolean;
+        defaultPage?: string | undefined;
+        hashPrefix?: string | undefined;
+        animatePages?: boolean | undefined;
+        enableBrowserBackButton?: boolean | undefined;
+        templateRootDirectory?: string | undefined;
+        defaultTemplateExtension?: string | undefined;
+        useHash?: boolean | undefined;
     }
     interface PhononI18nOptions {
-        directory?: string;
-        localeFallback?: string;
-        localePreferred?: string;
+        directory?: string | undefined;
+        localeFallback?: string | undefined;
+        localePreferred?: string | undefined;
     }
 
     /*** Navigation ***/
@@ -92,9 +92,9 @@ declare namespace Phonon {
     }
     interface PhononPageObject {
         page: string;
-        content?: string | null;
-        preventClose?: boolean;
-        readyDelay?: number;
+        content?: string | null | undefined;
+        preventClose?: boolean | undefined;
+        readyDelay?: number | undefined;
     }
     interface PhononOnCloseObject {
         close(): void;
@@ -120,11 +120,11 @@ declare namespace Phonon {
     interface PhononAjaxObject {
         method: string;
         url: string;
-        crossDomain?: boolean;
+        crossDomain?: boolean | undefined;
         dataType: string;
-        contentType?: string;
+        contentType?: string | undefined;
         data?: any;
-        timeout?: number;
+        timeout?: number | undefined;
         headers?: any;
         success(res: any, xhr: XMLHttpRequest): void;
         error?(res: any, flagError: PhononAjaxErrorFlag, xhr: XMLHttpRequest): void;

@@ -15,12 +15,12 @@ declare namespace jsf {
             /**
              * space seperated list of client identifiers
              */
-            execute?: String;
+            execute?: String | undefined;
 
             /**
              * space seperated list of client identifiers
              */
-            render?: String;
+            render?: String | undefined;
 
             /**
              * function to callback for event
