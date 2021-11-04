@@ -49,7 +49,7 @@ export class EventSourcePolyfill {
     static readonly CONNECTING: number;
     static readonly OPEN: number;
 
-    constructor(url: string, options: EventSourcePolyfillInit);
+    constructor(url: string, options?: EventSourcePolyfillInit);
 
     onerror: ((this: EventSource, ev: Event) => any) | null;
     onmessage: ((this: EventSource, ev: MessageEvent) => any) | null;
