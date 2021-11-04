@@ -9,6 +9,12 @@ interface MyContext { bar: string; }
 
 const app = new Koa<{}, {}>();
 
+class MyRouter extends Router {
+  myMethod() {
+    const prefix = this.opts.prefix; // $ExpectType string | undefined
+  }
+}
+
 const router = new Router<MyState, MyContext>({
     prefix: "/users"
 });
