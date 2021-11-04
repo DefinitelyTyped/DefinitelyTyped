@@ -215,3 +215,6 @@ router6.put<number>('/blah', async (ctx) => {
 router6.put<string>('/blerg', async (ctx) => {
     ctx.state = 'abc';
 });
+
+const optsName = router6.stack[0].opts.name; // $ExpectType string | null
+const layerName = router6.stack[0].name; // $ExpectType string | null
