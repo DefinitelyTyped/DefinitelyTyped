@@ -10,4 +10,8 @@ declare module 'leaflet' {
     interface MapOptions {
         fullscreenControl?: true | {pseudoFullscreen: boolean} | undefined;
     }
+    interface Map {
+        isFullscreen: () => boolean;
+        toggleFullscreen: () => void;
+    }
 }
