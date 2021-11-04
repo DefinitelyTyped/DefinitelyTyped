@@ -2,7 +2,6 @@
 // Project: https://www.ceddlbyexample.com/
 // Definitions by: Roland Broekema <https://github.com/broekema41>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export const ceddl: {
     /**
