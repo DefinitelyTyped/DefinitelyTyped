@@ -57,6 +57,7 @@ import {
     LogBox,
     MaskedViewIOS,
     Modal,
+    MouseEvent,
     NativeEventEmitter,
     NativeModule, // Not actually exported, not sure why
     NativeModules,
@@ -442,6 +443,12 @@ export class PressableTest extends React.Component<{}> {
         e.isDefaultPrevented();
     };
 
+    onHoverButton = (e: MouseEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    };
+
     render() {
         return (
             <>
@@ -490,6 +497,12 @@ export class PressableTest extends React.Component<{}> {
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}
                 >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* onHoverIn */}
+                <Pressable ref={this.myRef} onHoverIn={this.onHoverButton} style={{ backgroundColor: 'blue' }}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
