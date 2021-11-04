@@ -180,6 +180,17 @@ const products: Products.ProductCollection = {
                     name: 'Weight',
                     value: '2grams',
                 },
+                {
+                    id: 'attr_YgnZO5kg57MNqG',
+                    meta: [],
+                    name: 'Product template',
+                    value: [
+                        {
+                            label: 'Generic Template',
+                            value: 'genericTemplate',
+                        }
+                    ],
+                },
             ],
             related_products: [],
         },

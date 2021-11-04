@@ -4,5 +4,5 @@ export interface ProductAttribute {
     id: string;
     meta: any;
     name: string;
-    value: string | ProductAttributeOption[] | null;
+    value: string | number | ProductAttributeOption[] | null;
 }

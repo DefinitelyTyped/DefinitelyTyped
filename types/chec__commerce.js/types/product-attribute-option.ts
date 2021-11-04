@@ -1,4 +1,4 @@
 export interface ProductAttributeOption {
     label: string;
-    key: string;
+    value: string;
 }
