@@ -15,7 +15,10 @@
     ],
     "types": [],
     "noEmit": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@ceddl/*": ["ceddl__*"]
+    }
   },
   "files": [
     "index.d.ts",

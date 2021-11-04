@@ -1,4 +1,4 @@
-import ceddl, { ModelConfig } from '@ceddl/ceddl-polyfill';
+import { ceddl, ModelConfig } from '@ceddl/ceddl-polyfill';
 
 const myModel: ModelConfig = {
     key: 'product',
