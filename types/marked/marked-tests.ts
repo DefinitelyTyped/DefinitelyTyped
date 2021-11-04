@@ -37,7 +37,7 @@ let options: marked.MarkedOptions = {
     },
 };
 
-options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
+options.highlight = (code: string, lang: string, callback: (error: any, code?: string) => void) => {
     callback(new Error());
     callback(null, '');
 };

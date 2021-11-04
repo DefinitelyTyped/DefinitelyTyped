@@ -27,7 +27,7 @@ export function marked(src: string, options?: marked.MarkedOptions): string;
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  */
-export function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
+export function marked(src: string, callback: (error: any, parseResult: string) => void): void;
 
 /**
  * Compiles markdown to HTML asynchronously.
@@ -39,7 +39,7 @@ export function marked(src: string, callback: (error: any | undefined, parseResu
 export function marked(
     src: string,
     options: marked.MarkedOptions,
-    callback: (error: any | undefined, parseResult: string) => void,
+    callback: (error: any, parseResult: string) => void,
 ): void;
 
 export class Lexer extends marked.Lexer {}
@@ -65,7 +65,7 @@ export namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: (error: any | undefined, parseResult: string) => void): string;
+    function parse(src: string, callback: (error: any, parseResult: string) => void): string;
 
     /**
      * Compiles markdown to HTML.
@@ -78,7 +78,7 @@ export namespace marked {
     function parse(
         src: string,
         options?: MarkedOptions,
-        callback?: (error: any | undefined, parseResult: string) => void,
+        callback?: (error: any, parseResult: string) => void,
     ): string;
 
     /**
@@ -517,7 +517,7 @@ export namespace marked {
         highlight?(
             code: string,
             lang: string,
-            callback?: (error: any | undefined, code?: string) => void,
+            callback?: (error: any, code?: string) => void,
         ): string | void;
 
         /**
