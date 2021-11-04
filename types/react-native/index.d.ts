@@ -43,6 +43,7 @@
 //                 Arafat Zahan <https://github.com/kuasha420>
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Brett Lindsay <https://github.com/bdlindsay>
+//                 Saad Najmi <https://github.com/Saadnajmi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -428,7 +429,17 @@ export interface NativeTouchEvent {
     force?: number | undefined;
 }
 
+export interface NativeMouseEvent {
+    clientX: number,
+    clientY: number,
+    pageX: number,
+    pageY: number,
+    timestamp: number,
+}
+
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
+
+export interface MouseEvent extends NativeSyntheticEvent<NativeMouseEvent> {}
 
 // See https://reactnative.dev/docs/scrollview#contentoffset
 export interface PointPropType {
@@ -454,6 +465,16 @@ export interface PressableAndroidRippleConfig {
 }
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+   /**
+    * Called when the hover is activated to provide visual feedback.
+    */
+   onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
+
+   /**
+    * Called when the hover is deactivated to undo visual feedback.
+    */
+    onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
+
     /**
      * Called when a single tap gesture is detected.
      */
@@ -497,6 +518,16 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * scroll event. Defaults to true.
      */
     cancelable?: null | boolean | undefined;
+
+   /**
+    * Duration to wait after hover in before calling `onHoverIn`.
+    */
+   delayHoverIn?: number,
+
+   /**
+    * Duration to wait after hover out before calling `onHoverOut`.
+    */
+   delayHoverOut?: number,
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
