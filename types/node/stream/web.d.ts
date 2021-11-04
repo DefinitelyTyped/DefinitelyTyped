@@ -78,7 +78,7 @@ declare module 'stream/web' {
         done: true;
         value?: undefined;
     }
-
+    type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
     type ReadableStreamDefaultReadResult<T> =
         | ReadableStreamDefaultReadValueResult<T>
         | ReadableStreamDefaultReadDoneResult;
@@ -87,12 +87,67 @@ declare module 'stream/web' {
         (controller: ReadableByteStreamController): void | PromiseLike<void>;
     }
 
+    interface UnderlyingSinkAbortCallback {
+        (reason?: any): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSinkCloseCallback {
+        (): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSinkStartCallback {
+        (controller: WritableStreamDefaultController): any;
+    }
+
+    interface UnderlyingSinkWriteCallback<W> {
+        (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSourceCancelCallback {
+        (reason?: any): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSourcePullCallback<R> {
+        (controller: ReadableStreamController<R>): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSourceStartCallback<R> {
+        (controller: ReadableStreamController<R>): any;
+    }
+
+    interface TransformerFlushCallback<O> {
+        (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
+    }
+
+    interface TransformerStartCallback<O> {
+        (controller: TransformStreamDefaultController<O>): any;
+    }
+
+    interface TransformerTransformCallback<I, O> {
+        (chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
+    }
+
     interface UnderlyingByteSource {
         autoAllocateChunkSize?: number;
         cancel?: ReadableStreamErrorCallback;
         pull?: ReadableByteStreamControllerCallback;
         start?: ReadableByteStreamControllerCallback;
         type: 'bytes';
+    }
+
+    interface UnderlyingSource<R = any> {
+        cancel?: UnderlyingSourceCancelCallback;
+        pull?: UnderlyingSourcePullCallback<R>;
+        start?: UnderlyingSourceStartCallback<R>;
+        type?: undefined;
+    }
+
+    interface UnderlyingSink<W = any> {
+        abort?: UnderlyingSinkAbortCallback;
+        close?: UnderlyingSinkCloseCallback;
+        start?: UnderlyingSinkStartCallback;
+        type?: undefined;
+        write?: UnderlyingSinkWriteCallback<W>;
     }
 
     interface ReadableStreamErrorCallback {
@@ -112,7 +167,10 @@ declare module 'stream/web' {
 
     const ReadableStream: {
         prototype: ReadableStream;
-        new (underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
+        new (
+            underlyingSource: UnderlyingByteSource,
+            strategy?: QueuingStrategy<Uint8Array>,
+        ): ReadableStream<Uint8Array>;
         new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
 
@@ -153,6 +211,14 @@ declare module 'stream/web' {
         prototype: ReadableStreamDefaultController;
         new (): ReadableStreamDefaultController;
     };
+
+    interface Transformer<I = any, O = any> {
+        flush?: TransformerFlushCallback<O>;
+        readableType?: undefined;
+        start?: TransformerStartCallback<O>;
+        transform?: TransformerTransformCallback<I, O>;
+        writableType?: undefined;
+    }
 
     interface TransformStream<I = any, O = any> {
         readonly readable: ReadableStream<O>;
@@ -233,6 +299,11 @@ declare module 'stream/web' {
         new (): WritableStreamDefaultController;
     };
 
+    interface QueuingStrategy<T = any> {
+        highWaterMark?: number;
+        size?: QueuingStrategySize<T>;
+    }
+
     interface QueuingStrategySize<T = any> {
         (chunk?: T): number;
     }
@@ -278,14 +349,12 @@ declare module 'stream/web' {
         new (init: QueuingStrategyInit): CountQueuingStrategy;
     };
 
-    interface GenericTransformStream {
-        readonly readable: ReadableStream;
-        readonly writable: WritableStream;
-    }
-
-    interface TextEncoderStream extends GenericTransformStream, TextEncoderCommon {
+    interface TextEncoderStream {
+        /** Returns "utf-8". */
+        readonly encoding: 'utf-8';
         readonly readable: ReadableStream<Uint8Array>;
         readonly writable: WritableStream<string>;
+        readonly [Symbol.toStringTag]: string;
     }
 
     const TextEncoderStream: {
@@ -293,9 +362,23 @@ declare module 'stream/web' {
         new (): TextEncoderStream;
     };
 
-    interface TextDecoderStream extends GenericTransformStream, TextDecoderCommon {
+    interface TextDecoderOptions {
+        fatal?: boolean;
+        ignoreBOM?: boolean;
+    }
+
+    type BufferSource = ArrayBufferView | ArrayBuffer;
+
+    interface TextDecoderStream {
+        /** Returns encoding's name, lower cased. */
+        readonly encoding: string;
+        /** Returns `true` if error mode is "fatal", and `false` otherwise. */
+        readonly fatal: boolean;
+        /** Returns `true` if ignore BOM flag is set, and `false` otherwise. */
+        readonly ignoreBOM: boolean;
         readonly readable: ReadableStream<string>;
         readonly writable: WritableStream<BufferSource>;
+        readonly [Symbol.toStringTag]: string;
     }
 
     const TextDecoderStream: {
