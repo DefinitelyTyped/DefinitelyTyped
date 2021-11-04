@@ -173,6 +173,25 @@ const products: Products.ProductCollection = {
                 created_at: 1594413988,
                 updated_at: 1605921891,
             },
+            attributes: [
+                {
+                    id: 'attr_mL1vOoZW5Ra8Ze',
+                    meta: [],
+                    name: 'Weight',
+                    value: '2grams',
+                },
+                {
+                    id: 'attr_YgnZO5kg57MNqG',
+                    meta: [],
+                    name: 'Product template',
+                    value: [
+                        {
+                            label: 'Generic Template',
+                            value: 'genericTemplate',
+                        }
+                    ],
+                },
+            ],
             related_products: [],
         },
     ],
