@@ -61,3 +61,15 @@ const providedTimeout = {
 };
 
 <NavHashLink {...providedTimeout}/>;
+
+<NavHashLink
+  className="static"
+  style={isActive => ({ color: isActive ? 'green' : 'red' })}
+  to=""
+/>;
+
+<NavHashLink
+  className={isActive => (isActive ? 'active' : 'inactive')}
+  style={{ color: 'blue' }}
+  to=""
+/>;

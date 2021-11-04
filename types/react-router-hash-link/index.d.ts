@@ -16,10 +16,7 @@ export interface HashLinkProps extends LinkProps {
   timeout?: number | undefined;
 }
 
-export interface NavHashLinkProps extends Omit<NavLinkProps, 'className' | 'style'>, HashLinkProps {
-  className?: string;
-  style?: React.CSSProperties;
-}
+export interface NavHashLinkProps extends NavLinkProps, Omit<HashLinkProps, 'className' | 'style'> { }
 
 export class HashLink extends React.Component<HashLinkProps, any> { }
 
