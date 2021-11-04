@@ -42,6 +42,13 @@ export function marked(
     callback: (error: any | undefined, parseResult: string) => void,
 ): void;
 
+export class Lexer extends marked.Lexer {}
+export class Parser extends marked.Parser {}
+export class Tokenizer<T = never> extends marked.Tokenizer<T> {}
+export class Renderer<T = never> extends marked.Renderer<T> {}
+export class TextRenderer extends marked.TextRenderer {}
+export class Slugger extends marked.Slugger {}
+
 export namespace marked {
     const defaults: MarkedOptions;
 

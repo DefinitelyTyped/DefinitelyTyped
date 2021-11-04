@@ -253,3 +253,20 @@ const listAndListItemText: marked.Tokens.List = {
         },
     ],
 };
+
+// other exports
+
+// tslint:disable-next-line:no-duplicate-imports
+import { Lexer, Parser, Tokenizer, Renderer, TextRenderer, Slugger } from 'marked';
+
+const lexer2 = new Lexer();
+const tokens4 = lexer2.lex("# test");
+const parser2 = new Parser();
+console.log(parser2.parse(tokens4));
+
+const slugger2 = new Slugger();
+console.log(slugger2.slug('Test Slug'));
+
+marked.use({renderer: new Renderer()});
+marked.use({renderer: new TextRenderer()});
+marked.use({tokenizer: new Tokenizer()});
