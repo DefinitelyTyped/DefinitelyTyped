@@ -5075,6 +5075,10 @@
             "libraryName": "trim-newlines",
             "asOfVersion": "3.0.0"
         },
+        "trimblemaps__trimblemaps-js": {
+            "libraryName": "@trimblemaps/trimblemaps-js",
+            "asOfVersion": "3.2.0"
+        },
         "ts3-nodejs-library": {
             "libraryName": "ts3-nodejs-library",
             "asOfVersion": "2.0.0"
