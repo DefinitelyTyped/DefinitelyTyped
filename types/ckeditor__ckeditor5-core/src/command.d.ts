@@ -3,12 +3,25 @@ import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablem
 import Editor from './editor/editor';
 import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import { EditorWithUI } from './editor/editorwithui';
 
-export default class Command implements Observable {
+export default abstract class Command implements Observable {
     constructor(editor: Editor);
-    readonly editor: Editor;
-    value: unknown | undefined;
-    isEnabled: boolean;
+    readonly editor: Editor | EditorWithUI;
+    get value(): unknown | undefined;
+    protected set value(value: unknown | undefined);
+    get isEnabled(): boolean;
+    protected set isEnabled(value: boolean);
+    /**
+     * A flag indicating whether a command execution changes the editor data or not.
+     *
+     * Commands with `affectsData` set to `false` will not be automatically disabled in
+     * {@link module:core/editor/editor~Editor#isReadOnly read-only mode} and
+     * {@glink features/read-only#related-features other editor modes} with restricted user write permissions.
+     *
+     * **Note:** You do not have to set it for your every command. It will be `true` by default.
+     */
+    readonly affectsData: boolean;
     refresh(): void;
     forceDisabled(id: string): void;
     clearForceDisabled(id: string): void;

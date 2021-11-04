@@ -108,14 +108,11 @@ editor.plugins.has(class Foo {});
 editor.plugins.get(class Foo {});
 editor.plugins.get(class Foo extends Plugin {});
 
-class MyEmptyEditor extends Editor {
-    static builtinPlugins = [MyPlugin];
-}
-
 /**
  * Command
  */
-const command = new Command(new MyEmptyEditor());
+class MyCommand extends Command {}
+const command = new MyCommand(new MyUIEditor(''));
 command.execute();
 command.execute('foo', 'bar', true, false, 50033);
 command.execute(4545454, 'refresh', [], []);
@@ -124,8 +121,8 @@ command.execute({}, { foo: 5 });
 command.editor;
 // $ExpectType boolean
 command.isEnabled;
-
-comm = new Command(editor);
+// $ExpectType boolean
+command.affectsData;
 
 command.destroy();
 
@@ -133,13 +130,30 @@ command.execute();
 
 command.refresh();
 
+// $ExpectError
 command.value = 'foo';
 delete command.value;
 
+// $ExpectError
 command.isEnabled = false;
-command.isEnabled = true;
 // $ExpectError
 delete command.isEnabled;
+
+class MySimpleCommand extends Command {
+    constructor(public readonly editor: EditorWithUI) {
+        super(editor);
+    }
+    readonly affectsData: false;
+    refresh() {
+        this.value = 0;
+    }
+}
+// $ExpectType false
+new MySimpleCommand(new MyUIEditor('')).affectsData;
+// $ExpectType number
+new MySimpleCommand(new MyUIEditor('')).value;
+// $ExpectError
+new MySimpleCommand(new MyUIEditor('')).value = 5;
 
 /**
  * Context
