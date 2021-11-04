@@ -3408,6 +3408,14 @@ fp.now(); // $ExpectType number
     _.chain(func).debounce(42, options); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
     fp.debounce(42, func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     fp.debounce(42)(func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
+
+    const generic_func = <T>(v: T): T => v;
+    const debounced_generic_func = _.debounce(generic_func, 0, { leading: true }); // $ExpectType DebouncedFunc<(<T>(v: T) => T)>
+    debounced_generic_func('string'); // $ExpectType "string" | undefined
+    debounced_generic_func(42); // $ExpectType 42 | undefined
+    debounced_generic_func({ a: 1, b: 2}); // $ExpectType { a: number; b: number; } | undefined
+    debounced_generic_func('string' as string); // $ExpectType string | undefined
+    debounced_generic_func(42 as number); // $ExpectType number | undefined
 }
 
 // _.defer
