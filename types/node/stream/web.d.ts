@@ -83,6 +83,22 @@ declare module 'stream/web' {
         | ReadableStreamDefaultReadValueResult<T>
         | ReadableStreamDefaultReadDoneResult;
 
+    interface ReadableByteStreamControllerCallback {
+        (controller: ReadableByteStreamController): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingByteSource {
+        autoAllocateChunkSize?: number;
+        cancel?: ReadableStreamErrorCallback;
+        pull?: ReadableByteStreamControllerCallback;
+        start?: ReadableByteStreamControllerCallback;
+        type: 'bytes';
+    }
+
+    interface ReadableStreamErrorCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
+
     /** This Streams API interface represents a readable stream of byte data. */
     interface ReadableStream<R = any> {
         readonly locked: boolean;
@@ -91,11 +107,12 @@ declare module 'stream/web' {
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
-        forEach(callbackfn: (value: any, key: number, parent: ReadableStream<R>) => void, thisArg?: any): void;
+        [Symbol.asyncIterator](options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
     }
 
     const ReadableStream: {
         prototype: ReadableStream;
+        new (underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
         new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
 
@@ -109,9 +126,23 @@ declare module 'stream/web' {
         new <R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
     };
 
+
+
     const ReadableStreamBYOBReader: any;
     const ReadableStreamBYOBRequest: any;
-    const ReadableByteStreamController: any;
+
+    interface ReadableByteStreamController {
+        readonly byobRequest: undefined;
+        readonly desiredSize: number | null;
+        close(): void;
+        enqueue(chunk: ArrayBufferView): void;
+        error(error?: any): void;
+    }
+
+    const ReadableByteStreamController: {
+        prototype: ReadableByteStreamController;
+        new (): ReadableByteStreamController;
+    };
 
     interface ReadableStreamDefaultController<R = any> {
         readonly desiredSize: number | null;
