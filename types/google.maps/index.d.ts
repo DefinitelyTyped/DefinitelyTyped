@@ -3981,20 +3981,20 @@ declare namespace google.maps {
      * This map type displays a transparent layer of major streets on satellite
      * images.
      */
-    HYBRID = 'HYBRID',
+    HYBRID = 'hybrid',
     /**
      * This map type displays a normal street map.
      */
-    ROADMAP = 'ROADMAP',
+    ROADMAP = 'roadmap',
     /**
      * This map type displays satellite images.
      */
-    SATELLITE = 'SATELLITE',
+    SATELLITE = 'satellite',
     /**
      * This map type displays maps with physical features such as terrain and
      * vegetation.
      */
-    TERRAIN = 'TERRAIN',
+    TERRAIN = 'terrain',
   }
 }
 declare namespace google.maps {
@@ -4204,7 +4204,7 @@ declare namespace google.maps {
      * The maximum default z-index that the API will assign to a marker. You may
      * set a higher z-index to bring a marker to the front.
      */
-    static MAX_ZINDEX: number|string;
+    static MAX_ZINDEX: number;
   }
 }
 declare namespace google.maps {
@@ -5660,13 +5660,13 @@ declare namespace google.maps {
      * on user research and parameters such as recognised points of interest,
      * image quality, and distance from the given location.
      */
-    BEST = 'BEST',
+    BEST = 'best',
     /**
      * Return the Street View panorama that is the shortest distance from the
      * provided location. This works well only within a limited radius. The
      * recommended radius is 1km or less.
      */
-    NEAREST = 'NEAREST',
+    NEAREST = 'nearest',
   }
 }
 declare namespace google.maps {
@@ -5711,7 +5711,7 @@ declare namespace google.maps {
      * Uses the default sources of Street View, searches will not be limited to
      * specific sources.
      */
-    DEFAULT = 'DEFAULT',
+    DEFAULT = 'default',
     /**
      * Limits Street View searches to outdoor collections. Indoor collections
      * are not included in search results. Note also that the search only
@@ -5719,7 +5719,7 @@ declare namespace google.maps {
      * they&#39;re indoors or outdoors. For example, PhotoSpheres are not
      * returned because it&#39;s unknown whether they are indoors or outdoors.
      */
-    OUTDOOR = 'OUTDOOR',
+    OUTDOOR = 'outdoor',
   }
 }
 declare namespace google.maps {
@@ -6025,17 +6025,17 @@ declare namespace google.maps {
     /**
      * Use historical traffic data to best estimate the time spent in traffic.
      */
-    BEST_GUESS = 'BEST_GUESS',
+    BEST_GUESS = 'bestguess',
     /**
      * Use historical traffic data to make an optimistic estimate of what the
      * duration in traffic will be.
      */
-    OPTIMISTIC = 'OPTIMISTIC',
+    OPTIMISTIC = 'optimistic',
     /**
      * Use historical traffic data to make a pessimistic estimate of what the
      * duration in traffic will be.
      */
-    PESSIMISTIC = 'PESSIMISTIC',
+    PESSIMISTIC = 'pessimistic',
   }
 }
 declare namespace google.maps {
@@ -6724,29 +6724,29 @@ declare namespace google.maps.drawing {
      * Specifies that the <code>DrawingManager</code> creates circles, and that
      * the overlay given in the <code>overlaycomplete</code> event is a circle.
      */
-    CIRCLE = 'CIRCLE',
+    CIRCLE = 'circle',
     /**
      * Specifies that the <code>DrawingManager</code> creates markers, and that
      * the overlay given in the <code>overlaycomplete</code> event is a marker.
      */
-    MARKER = 'MARKER',
+    MARKER = 'marker',
     /**
      * Specifies that the <code>DrawingManager</code> creates polygons, and that
      * the overlay given in the <code>overlaycomplete</code> event is a polygon.
      */
-    POLYGON = 'POLYGON',
+    POLYGON = 'polygon',
     /**
      * Specifies that the <code>DrawingManager</code> creates polylines, and
      * that the overlay given in the <code>overlaycomplete</code> event is a
      * polyline.
      */
-    POLYLINE = 'POLYLINE',
+    POLYLINE = 'polyline',
     /**
      * Specifies that the <code>DrawingManager</code> creates rectangles, and
      * that the overlay given in the <code>overlaycomplete</code> event is a
      * rectangle.
      */
-    RECTANGLE = 'RECTANGLE',
+    RECTANGLE = 'rectangle',
   }
 }
 declare namespace google.maps.event {
@@ -6797,6 +6797,13 @@ declare namespace google.maps.event {
    * Removes all listeners for the given event for the given instance.
    */
   function clearListeners(instance: object, eventName: string): void;
+}
+declare namespace google.maps.event {
+  /**
+   * Returns if there are listeners for the given event on the given instance.
+   * Can be used to to save the computation of expensive event details.
+   */
+  function hasListeners(instance: object, eventName: string): boolean;
 }
 declare namespace google.maps.event {
   /**
