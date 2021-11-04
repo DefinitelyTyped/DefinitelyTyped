@@ -4194,7 +4194,7 @@ declare namespace chrome.history {
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of HistoryItem results) {...};
      */
-    export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
+    export function search(query: HistoryQuery, callback?: (results: HistoryItem[]) => void): void;
     /**
      * Adds a URL to the history at the current time with a transition type of "link".
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4206,19 +4206,19 @@ declare namespace chrome.history {
      * @param callback The callback parameter should be a function that looks like this:
      * function() {...};
      */
-    export function deleteRange(range: Range, callback: () => void): void;
+    export function deleteRange(range: Range, callback?: () => void): void;
     /**
      * Deletes all items from the history.
      * @param callback The callback parameter should be a function that looks like this:
      * function() {...};
      */
-    export function deleteAll(callback: () => void): void;
+    export function deleteAll(callback?: () => void): void;
     /**
      * Retrieves information about visits to a URL.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of VisitItem results) {...};
      */
-    export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
+    export function getVisits(details: Url, callback?: (results: VisitItem[]) => void): void;
     /**
      * Removes all occurrences of the given URL from the history.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
