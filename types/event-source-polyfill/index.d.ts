@@ -6,7 +6,9 @@
 
 declare global {
     // Declare empty stub interfaces for environments where "dom" lib is not included
+    // tslint:disable-next-line:no-empty-interface
     interface EventSource {}
+    // tslint:disable-next-line:no-empty-interface
     interface EventSourceInit {}
 }
 
@@ -57,11 +59,11 @@ export class EventSourcePolyfill {
 
     readonly readyState: number;
     readonly url: string;
-    readonly withCredentials: boolean
+    readonly withCredentials: boolean;
     readonly CLOSED: number;
     readonly CONNECTING: number;
     readonly OPEN: number;
-    
+
     close(): void;
     dispatchEvent(event: Event): boolean;
     addEventListener<K extends keyof EventSourceEventMap>(type: K, listener: (this: EventSource, ev: EventSourceEventMap[K]) => any, options?: any): void;
@@ -71,6 +73,7 @@ export class EventSourcePolyfill {
 }
 
 // defined as `type` to be compatible with typescript's lib.dom.d.ts
+// tslint:disable-next-line:interface-over-type-literal
 export type EventSourceConstructor = {
     prototype: any;
     new (url: string, eventSourceInitDict?: EventSourceInit): EventSource;
