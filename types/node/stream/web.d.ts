@@ -126,8 +126,6 @@ declare module 'stream/web' {
         new <R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
     };
 
-
-
     const ReadableStreamBYOBReader: any;
     const ReadableStreamBYOBRequest: any;
 
