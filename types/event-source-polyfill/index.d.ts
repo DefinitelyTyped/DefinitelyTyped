@@ -57,11 +57,12 @@ export class EventSourcePolyfill {
 
     readonly readyState: number;
     readonly url: string;
-    readonly withCredentials: boolean;
-    close(): void;
+    readonly withCredentials: boolean
     readonly CLOSED: number;
     readonly CONNECTING: number;
     readonly OPEN: number;
+    
+    close(): void;
     dispatchEvent(event: Event): boolean;
     addEventListener<K extends keyof EventSourceEventMap>(type: K, listener: (this: EventSource, ev: EventSourceEventMap[K]) => any, options?: any): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: any): void;
