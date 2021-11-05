@@ -203,6 +203,7 @@ dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number
 dur.minutes; // $ExpectType number
 dur.seconds; // $ExpectType number
+dur.set({ hour: 2, minutes: 15 }); // $ExpectType Duration
 
 dur.as('seconds'); // $ExpectType number
 dur.toObject();
@@ -371,6 +372,7 @@ d1.hasSame(d2, 'minute'); // $ExpectType boolean
 d1.hasSame(d2, 'year'); // $ExpectType boolean
 
 dur.toObject().days; // $ExpectType number | undefined
+dur.toObject().day; // $ExpectError
 dur.as('minutes'); // $ExpectType number
 dur.shiftTo('minutes').toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
