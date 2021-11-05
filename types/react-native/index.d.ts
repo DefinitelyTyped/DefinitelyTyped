@@ -44,7 +44,6 @@
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Brett Lindsay <https://github.com/bdlindsay>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Saad Najmi <https://github.com/Saadnajmi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
