@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import Cldr, {
   load,
   WindowsZone,
@@ -8,6 +10,8 @@ import Cldr, {
   NumberingSystem,
   WeekData,
 } from 'cldr';
+
+import { promisify } from 'util';
 
 // $ExpectType Cldr
 load('/path/to/cldr');
@@ -66,6 +70,9 @@ Cldr.getDocument('filename', (error: Error | null, document: Document) => {});
 // $ExpectType Document
 Cldr.getDocument('filename');
 
+// $ExpectType (arg1: string) => Promise<Document>
+promisify(Cldr.getDocument);
+
 // $ExpectType string
 Cldr.resolveParentLocaleId('localeid');
 
@@ -86,6 +93,12 @@ Cldr.preload((error: Error | undefined) => {});
 
 // $ExpectType void
 Cldr.preload(['localeid'], (error: Error | undefined) => {});
+
+// $ExpectType () => Promise<void>
+promisify(Cldr.preload);
+
+// $ExpectType (arg1: string[]) => Promise<void>
+promisify<string[]>(Cldr.preload);
 
 // $ExpectType Finder
 Cldr.createFinder(Cldr.getPrioritizedDocumentsForLocale('localeid', 'type'));

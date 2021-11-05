@@ -72,8 +72,8 @@ declare class Cldr {
 
     readonly windowsZonesByMapZone: WindowsZone[];
 
-    getDocument(fileName: string, cb: (err: null | Error, document: Document) => void): void;
     getDocument(fileName: string): Document;
+    getDocument(fileName: string, cb: (err: null | Error, document: Document) => void): void;
 
     resolveParentLocaleId(localeId: string): string;
 
