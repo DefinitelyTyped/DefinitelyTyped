@@ -8,9 +8,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "formidable": [
@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "restify-tests.ts"
+        "formidable-tests.ts"
     ]
 }
