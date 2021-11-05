@@ -73,3 +73,11 @@ const providedTimeout = {
   style={{ color: 'blue' }}
   to=""
 />;
+
+React.forwardRef<HTMLAnchorElement>((_, ref) =>
+  <HashLink ref={ref} to="/" />
+);
+
+React.forwardRef<HTMLAnchorElement>((_, ref) =>
+  <NavHashLink ref={ref} to="/" />
+);

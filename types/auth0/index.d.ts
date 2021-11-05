@@ -13,6 +13,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Dan Ursin <https://github.com/danursin>
 //                 Nathan Hardy <https://github.com/nhardy>
+//                 Nicholas Molen <https://github.com/robotastronaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
