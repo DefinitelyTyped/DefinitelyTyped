@@ -5866,6 +5866,18 @@ export class PatternBrush extends PencilBrush {
 }
 export class PencilBrush extends BaseBrush {
     /**
+     * Constructor
+     * @param {Canvas} canvas
+    */
+    constructor(canvas: Canvas);
+    /**
+     * Constructor
+     * @param {Canvas} canvas
+     * @return {PencilBrush} Instance of a pencil brush
+    */
+    initialize(canvas: Canvas): PencilBrush;
+
+    /**
      * Converts points to SVG path
      * @param points Array of points
      */

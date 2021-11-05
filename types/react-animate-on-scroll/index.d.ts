@@ -9,6 +9,7 @@ import * as React from 'react';
 export interface ScrollAnimationProps {
     animateIn?: string | undefined;
     animateOut?: string | undefined;
+    children?: React.ReactNode;
     offset?: number | undefined;
     duration?: number | undefined;
     delay?: number | undefined;

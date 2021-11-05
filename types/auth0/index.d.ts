@@ -13,6 +13,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Dan Ursin <https://github.com/danursin>
 //                 Nathan Hardy <https://github.com/nhardy>
+//                 Nicholas Molen <https://github.com/robotastronaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -1170,6 +1171,10 @@ export interface Organization {
     metadata?: any;
 }
 
+export interface OrganizationsPaged extends Omit<Page, 'length'> {
+    organizations: Organization[];
+}
+
 export interface CreateOrganization {
     name: string;
     display_name?: string | undefined;
@@ -1227,6 +1232,10 @@ export interface OrganizationMember {
     picture?: string | undefined;
     name?: string | undefined;
     email?: string | undefined;
+}
+
+export interface OrganizationMembersPaged extends Omit<Page, 'length'> {
+    members: OrganizationMember[];
 }
 
 export interface OrganizationInvitation {
@@ -1289,8 +1298,10 @@ export class OrganizationsManager {
 
     getAll(): Promise<Organization[]>;
     getAll(cb: (err: Error, organizations: Organization[]) => void): void;
-    getAll(params: PagingOptions): Promise<Organization[]>;
-    getAll(params: PagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions & { include_totals?: false; }): Promise<Organization[]>;
+    getAll(params: PagingOptions & { include_totals: true; }): Promise<OrganizationsPaged>;
+    getAll(params: PagingOptions & { include_totals?: false; }, cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions & { include_totals: true; }, cb: (err: Error, pagedOrganizations: OrganizationsPaged) => void): void;
     getAll(params: CheckpointPagingOptions): Promise<Organization[]>;
     getAll(params: CheckpointPagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
 
@@ -1338,8 +1349,10 @@ export class OrganizationsManager {
         cb: (err: Error, connection: OrganizationConnection) => void,
     ): void;
 
-    getMembers(params: ObjectWithId & PagingOptions): Promise<OrganizationMember[]>;
-    getMembers(params: ObjectWithId & PagingOptions, cb: (err: Error, members: OrganizationMember[]) => void): void;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }): Promise<OrganizationMember[]>;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }): Promise<OrganizationMembersPaged>;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }, cb: (err: Error, members: OrganizationMember[]) => void): void;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }, cb: (err: Error, pagedMembers: OrganizationMembersPaged) => void): void;
     getMembers(params: ObjectWithId & CheckpointPagingOptions): Promise<OrganizationMember[]>;
     getMembers(
         params: ObjectWithId & CheckpointPagingOptions,
@@ -1378,10 +1391,15 @@ export class OrganizationsManager {
     deleteInvitation(params: ObjectWithId & { invitation_id: string }): Promise<void>;
     deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
 
-    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string }): Promise<Role[]>;
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false }): Promise<Role[]>;
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true }): Promise<Omit<RolePage, 'length'>>;
     getMemberRoles(
-        params: ObjectWithId & PagingOptions & { user_id: string },
+        params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false },
         cb: (err: Error, roles: Role[]) => void,
+    ): void;
+    getMemberRoles(
+        params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true },
+        cb: (err: Error, roles: Omit<RolePage, 'length'>) => void,
     ): void;
 
     addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddOrganizationMemberRoles): Promise<void>;

@@ -99,6 +99,7 @@ export type Control = any;
 
 export interface Client extends EventEmitter {
 
+    connecting: boolean;
     connected: boolean;
 
     /**

@@ -23,6 +23,7 @@
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Terry Mun <https://github.com/terrymun>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 

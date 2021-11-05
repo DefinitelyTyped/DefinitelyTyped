@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.53
+// Type definitions for non-npm package Forge Viewer 7.55
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -2303,6 +2303,31 @@ declare namespace Autodesk {
           get type(): ViewableType;
         }
 
+        class StreamLine {
+          geometry: THREE.BufferGeometry;
+
+          advance(position: { x: number, y: number, z: number }): void;
+        }
+
+        class StreamLineBuilder {
+          constructor(viewer: Viewing.GuiViewer3D);
+
+          createStreamLine(streamLineSpecs: StreamLineSpecs): StreamLine;
+          destroyStreamLine(streamLine: StreamLine): void;
+          dispose(): void;
+        }
+
+        class StreamLineSpecs {
+          lineColor: THREE.Color;
+          lineData: {
+            points: Float32Array;
+            colors?: Float32Array;
+            scaleCallback?: (fraction: number) => number;
+          };
+          lineWidth: number;
+          opacity: number;
+        }
+
         class SurfaceShading {
           constructor(viewer: Viewing.GuiViewer3D, model: Viewing.Model, shadingData: SurfaceShadingData);
 
@@ -2750,8 +2775,8 @@ declare namespace Autodesk {
           getCalibration(): any;
           getCalibrationFactor(): number;
           getDefaultUnit(): string;
-          getMeasurement(unitType: string, precision: number): object;
-          getMeasurementList(unitType: string, precision: number): object[];
+          getMeasurement(unitType?: string, precision?: number): object;
+          getMeasurementList(unitType?: string, precision?: number): object[];
           getPrecision(): number;
           getPrecisionOptions(isFractional: boolean): string[];
           getUnitOptions(): object[];
@@ -2801,6 +2826,7 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
         hasViewables: boolean;
+        streamLineBuilder: DataVisualization.Core.StreamLineBuilder;
 
         constructor(viewer: Viewing.Viewer3D, options?: {
           type: string;

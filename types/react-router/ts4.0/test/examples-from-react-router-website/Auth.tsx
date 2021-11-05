@@ -55,9 +55,9 @@ const AuthButton = withRouter(({ history }) => (
   )
 ));
 
-const PrivateRoute: React.SFC<RouteProps> = ({ component, ...rest }) => (
+const PrivateRoute: React.FC<RouteProps> = ({ component, ...rest }) => (
   <Route {...rest} render={props => (
-    fakeAuth.isAuthenticated ? React.createElement(component! as React.SFC<any>, props) : (
+    fakeAuth.isAuthenticated ? React.createElement(component! as React.FC<any>, props) : (
       <Redirect to={{
         pathname: '/login',
         state: { from: props.location }
@@ -66,8 +66,8 @@ const PrivateRoute: React.SFC<RouteProps> = ({ component, ...rest }) => (
   )}/>
 );
 
-const Public: React.SFC<RouteComponentProps> = () => <h3>Public</h3>;
-const Protected: React.SFC<RouteComponentProps> = () => <h3>Protected</h3>;
+const Public: React.FC<RouteComponentProps> = () => <h3>Public</h3>;
+const Protected: React.FC<RouteComponentProps> = () => <h3>Protected</h3>;
 
 type Props = RouteComponentProps<{}, StaticContext, { from: { pathname: string; }; }>;
 

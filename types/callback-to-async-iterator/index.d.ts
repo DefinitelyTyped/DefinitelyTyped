@@ -14,4 +14,4 @@ export interface AsyncifyOptions<T, R> {
 export default function callbackToAsyncIterator<T, R = void>(
     listener: (callback: (message: T) => void) => Promise<R>,
     options?: AsyncifyOptions<T, R>,
-): AsyncIterator<T>;
+): AsyncIterableIterator<T>;

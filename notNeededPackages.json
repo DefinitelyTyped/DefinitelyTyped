@@ -64,6 +64,10 @@
             "libraryName": "ajv-keywords",
             "asOfVersion": "3.5.0"
         },
+        "alex": {
+            "libraryName": "alex",
+            "asOfVersion": "10.0.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
@@ -472,6 +476,10 @@
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
         },
+        "cesium": {
+            "libraryName": "cesium",
+            "asOfVersion": "1.70.0"
+        },
         "chai-http": {
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
@@ -813,6 +821,10 @@
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
         },
+        "cypress-recurse": {
+            "libraryName": "cypress-recurse",
+            "asOfVersion": "1.9.0"
+        },
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
@@ -1008,6 +1020,10 @@
         "ecmarkup": {
             "libraryName": "ecmarkup",
             "asOfVersion": "3.4.0"
+        },
+        "editly": {
+            "libraryName": "editly",
+            "asOfVersion": "0.11.3"
         },
         "eev": {
             "libraryName": "eev",
@@ -2033,6 +2049,10 @@
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
         },
+        "is-progressive": {
+            "libraryName": "is-progressive",
+            "asOfVersion": "4.0.0"
+        },
         "is-promise": {
             "libraryName": "is-promise",
             "asOfVersion": "2.2.0"
@@ -2360,10 +2380,6 @@
         "known": {
             "libraryName": "known",
             "asOfVersion": "3.0.0"
-        },
-        "koa-better-body": {
-            "libraryName": "koa-better-body",
-            "asOfVersion": "3.1.0"
         },
         "koa-jwt": {
             "libraryName": "koa-jwt",
@@ -3380,6 +3396,11 @@
         "paypal__paypal-js": {
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
+        },
+        "pdfjs-dist": {
+            "libraryName": "pdfjs-dist",
+            "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
+            "asOfVersion": "2.10.377"
         },
         "peerjs": {
             "libraryName": "peerjs",
@@ -5333,6 +5354,10 @@
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
+        },
+        "webpack-notifier": {
+            "libraryName": "webpack-notifier",
+            "asOfVersion": "1.14.0"
         },
         "webpack-subresource-integrity": {
             "libraryName": "webpack-subresource-integrity",

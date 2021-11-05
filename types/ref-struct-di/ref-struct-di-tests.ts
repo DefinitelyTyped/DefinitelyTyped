@@ -35,15 +35,15 @@ StructType({ x: ref.types.int }, { packed: boolean });
 // $ExpectType StructType<{ x: Type<number>; }>
 StructType({ x: "int" }, { packed: boolean });
 // $ExpectType StructType<{ x: Type<any>; }>
-StructType([["x", typeLike]]);
+StructType([[typeLike, "x"]]);
 // $ExpectType StructType<{ x: Type<any>; }>
-StructType([["x", typeLike]], undefined);
+StructType([[typeLike, "x"]], undefined);
 // $ExpectType StructType<{ x: Type<any>; }>
-StructType([["x", typeLike]], { packed: boolean });
+StructType([[typeLike, "x"]], { packed: boolean });
 // $ExpectType StructType<{ x: Type<number>; }>
-StructType([["x", ref.types.int]], { packed: boolean });
+StructType([[ref.types.int, "x"]], { packed: boolean });
 // $ExpectType StructType<{ x: Type<number>; }>
-StructType([["x", "int"]], { packed: boolean });
+StructType([["int", "x"]], { packed: boolean });
 
 // $ExpectType StructType<any>
 new StructType();
@@ -62,15 +62,15 @@ new StructType({ x: ref.types.int }, { packed: boolean });
 // $ExpectType StructType<{ x: Type<number>; }>
 new StructType({ x: "int" }, { packed: boolean });
 // $ExpectType StructType<{ x: Type<any>; }>
-new StructType([["x", typeLike]]);
+new StructType([[typeLike, "x"]]);
 // $ExpectType StructType<{ x: Type<any>; }>
-new StructType([["x", typeLike]], undefined);
+new StructType([[typeLike, "x"]], undefined);
 // $ExpectType StructType<{ x: Type<any>; }>
-new StructType([["x", typeLike]], { packed: boolean });
+new StructType([[typeLike, "x"]], { packed: boolean });
 // $ExpectType StructType<{ x: Type<number>; }>
-new StructType([["x", ref.types.int]], { packed: boolean });
+new StructType([[ref.types.int, "x"]], { packed: boolean });
 // $ExpectType StructType<{ x: Type<number>; }>
-new StructType([["x", "int"]], { packed: boolean });
+new StructType([["int", "x"]], { packed: boolean });
 
 declare const struct: ref_struct.StructType;
 

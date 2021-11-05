@@ -11,6 +11,9 @@ import * as pathToRegexp from 'path-to-regexp';
 declare namespace KoaRoute {
     type Path = string | RegExp | Array<string | RegExp>;
 
+    /**
+     * The Koa handler will receive parameters extracted from the route as extra arguments.
+     */
     type Handler = (this: Koa.Context, ctx: Koa.Context, ...params: any[]) => any;
 
     type CreateRoute = (routeFunc: Handler) => Koa.Middleware;

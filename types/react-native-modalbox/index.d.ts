@@ -8,6 +8,8 @@ import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export interface ModalProps {
+    children?: React.ReactNode;
+
     /**
      * Checks if the modal is open
      *
