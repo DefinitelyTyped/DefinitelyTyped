@@ -3679,6 +3679,10 @@ declare namespace uiGrid {
          */
         aggregationType?: number | Function | undefined;
         /**
+         * Allows float number in column width calculation
+         */
+        allowFloatWidth?: boolean | undefined;
+        /**
          * cellClass can be a string specifying the class to append to a cell
          * or it can be a function(row,rowRenderIndex, col, colRenderIndex)
          * that returns a class name
