@@ -5,6 +5,7 @@ import DatePicker, {
     setDefaultLocale,
     getDefaultLocale,
     ReactDatePickerProps,
+    ReactDatePickerCustomHeaderProps,
 } from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
 import { Modifier } from 'react-popper';
@@ -221,3 +222,26 @@ const props: ReactDatePickerProps = {
     popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
     ref={handleRef}
 />;
+
+const DatePickerCustomHeader = ({
+    monthDate,
+    date,
+    changeYear,
+    changeMonth,
+    customHeaderCount,
+    decreaseMonth,
+    increaseMonth,
+    decreaseYear,
+    increaseYear,
+    prevMonthButtonDisabled,
+    nextMonthButtonDisabled,
+    prevYearButtonDisabled,
+    nextYearButtonDisabled,
+}: ReactDatePickerCustomHeaderProps) => (
+    <div></div>
+);
+
+<DatePicker
+    onChange={() => {}}
+    renderCustomHeader={(props) => <DatePickerCustomHeader {...props} />}
+/>
