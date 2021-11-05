@@ -200,7 +200,7 @@ export interface SankeyPoint extends AbstractSeriesPoint {
 export interface SunburstPoint extends AbstractSeriesPoint {
     title: string;
     size?: number | undefined;
-    color?: number|string | undefined;
+    color?: number | string | undefined;
     label?: string | undefined;
     labelStyle?: CSSProperties | undefined;
     dontRotateLabel?: boolean | undefined;
@@ -460,10 +460,12 @@ export interface HintProps {
     value?: { [key: string]: any } | undefined;
     format?: ((x: any) => Array<{ title: any; value: any }>) | undefined;
     style?: CSSProperties | undefined; // default: {}
-    align?: {
-        horizontal?: 'auto' | 'left' | 'right' | 'leftEdge' | 'rightEdge' | undefined;
-        vertical?: 'auto' | 'bottom' | 'top' | 'bottomEdge' | 'topEdge' | undefined;
-    } | undefined; // default: {'horizontal':'auto','vertical':'auto'}
+    align?:
+        | {
+              horizontal?: 'auto' | 'left' | 'right' | 'leftEdge' | 'rightEdge' | undefined;
+              vertical?: 'auto' | 'bottom' | 'top' | 'bottomEdge' | 'topEdge' | undefined;
+          }
+        | undefined; // default: {'horizontal':'auto','vertical':'auto'}
     getAlignStyle?: RVGetAlignStyle | undefined;
     orientation?: 'bottomleft' | 'bottomright' | 'topleft' | 'topright' | undefined;
 }
@@ -480,12 +482,14 @@ export interface ChartLabelProps {
 export class ChartLabel<T = any> extends PureComponent<ChartLabelProps & T> {}
 
 export interface BordersProps {
-    style?: {
-        bottom?: CSSProperties | undefined;
-        left?: CSSProperties | undefined;
-        right?: CSSProperties | undefined;
-        top?: CSSProperties | undefined;
-    } | undefined; // default: {'all':{},'bottom':{},'left':{},'right':{},'top':{}}
+    style?:
+        | {
+              bottom?: CSSProperties | undefined;
+              left?: CSSProperties | undefined;
+              right?: CSSProperties | undefined;
+              top?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'all':{},'bottom':{},'left':{},'right':{},'top':{}}
     marginTop?: number | undefined;
     marginBottom?: number | undefined;
     marginLeft?: number | undefined;
@@ -506,11 +510,13 @@ export interface CrosshairProps {
     orientation?: 'left' | 'right' | undefined;
     itemsFormat?: ((x: any) => Array<{ title: any; value: any }>) | undefined;
     titleFormat?: ((x: any) => { title: any; value: any }) | undefined;
-    style?: {
-        line?: CSSProperties | undefined;
-        title?: CSSProperties | undefined;
-        box?: CSSProperties | undefined;
-    } | undefined; // default: {'line':{},'title':{},'box':{}}
+    style?:
+        | {
+              line?: CSSProperties | undefined;
+              title?: CSSProperties | undefined;
+              box?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'line':{},'title':{},'box':{}}
 }
 export class Crosshair<T = any> extends PureComponent<CrosshairProps & T> {}
 
@@ -563,12 +569,14 @@ export interface XAxisProps {
     top?: number | undefined;
     left?: number | undefined;
     title?: string | undefined;
-    style?: CSSProperties & {
-        line?: CSSProperties | undefined;
-        ticks?: CSSProperties | undefined;
-        text?: CSSProperties | undefined;
-        title?: CSSProperties | undefined;
-    } | undefined;
+    style?:
+        | (CSSProperties & {
+              line?: CSSProperties | undefined;
+              ticks?: CSSProperties | undefined;
+              text?: CSSProperties | undefined;
+              title?: CSSProperties | undefined;
+          })
+        | undefined;
     className?: string | undefined;
     hideTicks?: boolean | undefined;
     hideLine?: boolean | undefined;
@@ -599,12 +607,14 @@ export interface YAxisProps {
     top?: number | undefined;
     left?: number | undefined;
     title?: string | undefined;
-    style?: CSSProperties & {
-        line?: CSSProperties | undefined;
-        ticks?: CSSProperties | undefined;
-        text?: CSSProperties | undefined;
-        title?: CSSProperties | undefined;
-    } | undefined;
+    style?:
+        | (CSSProperties & {
+              line?: CSSProperties | undefined;
+              ticks?: CSSProperties | undefined;
+              text?: CSSProperties | undefined;
+              title?: CSSProperties | undefined;
+          })
+        | undefined;
     className?: string | undefined;
     hideTicks?: boolean | undefined;
     hideLine?: boolean | undefined;
@@ -824,7 +834,8 @@ export interface TreemapProps {
         | 'binary'
         | 'circlePack'
         | 'partition'
-        | 'partition-pivot' | undefined; // default: 'squarify'
+        | 'partition-pivot'
+        | undefined; // default: 'squarify'
     onLeafClick?: RVValueEventHandler<TreemapPoint> | undefined;
     onLeafMouseOver?: RVValueEventHandler<TreemapPoint> | undefined;
     onLeafMouseOut?: RVValueEventHandler<TreemapPoint> | undefined;
@@ -883,11 +894,13 @@ export interface RadarChartProps {
     hideInnerMostValues?: boolean | undefined; // default: true
     margin?: Margin | number | undefined;
     startingAngle?: number | undefined; // default: 1.5707963267948966
-    style?: {
-        axes?: CSSProperties | undefined;
-        labels?: CSSProperties | undefined;
-        polygons?: CSSProperties | undefined;
-    } | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'polygons':{'strokeWidth':0.5,'strokeOpacity':1,'fillOpacity':0.1}}
+    style?:
+        | {
+              axes?: CSSProperties | undefined;
+              labels?: CSSProperties | undefined;
+              polygons?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'polygons':{'strokeWidth':0.5,'strokeOpacity':1,'fillOpacity':0.1}}
     tickFormat?: RVTickFormat | undefined;
     width: number;
 }
@@ -906,11 +919,13 @@ export interface ParallelCoordinatesProps {
     }>;
     height: number;
     margin?: Margin | number | undefined;
-    style?: {
-        axes?: CSSProperties | undefined;
-        labels?: CSSProperties | undefined;
-        lines?: CSSProperties | undefined;
-    } | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'lines':{'strokeWidth':1,'strokeOpacity':1}}
+    style?:
+        | {
+              axes?: CSSProperties | undefined;
+              labels?: CSSProperties | undefined;
+              lines?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'lines':{'strokeWidth':1,'strokeOpacity':1}}
     showMarks?: boolean | undefined;
     tickFormat?: RVTickFormat | undefined;
     width: number;
@@ -938,11 +953,13 @@ export interface SankeyProps {
     onLinkClick?: RVValueEventHandler<SankeyPoint> | undefined;
     onLinkMouseOver?: RVValueEventHandler<SankeyPoint> | undefined;
     onLinkMouseOut?: RVValueEventHandler<SankeyPoint> | undefined;
-    style?: {
-        links?: CSSProperties | undefined;
-        rects?: CSSProperties | undefined;
-        labels?: CSSProperties | undefined;
-    } | undefined; // default: {'links':{},'rects':{},'labels':{}}
+    style?:
+        | {
+              links?: CSSProperties | undefined;
+              rects?: CSSProperties | undefined;
+              labels?: CSSProperties | undefined;
+          }
+        | undefined; // default: {'links':{},'rects':{},'labels':{}}
     width: number;
 }
 export class Sankey<T = any> extends Component<SankeyProps & T> {}
