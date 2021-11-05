@@ -61,3 +61,11 @@ const providedTimeout = {
 };
 
 <NavHashLink {...providedTimeout}/>;
+
+React.forwardRef<HTMLAnchorElement>((_, ref) =>
+  <HashLink ref={ref} to="/" />
+);
+
+React.forwardRef<HTMLAnchorElement>((_, ref) =>
+  <NavHashLink ref={ref} to="/" />
+);

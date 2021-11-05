@@ -21,8 +21,8 @@ export interface NavHashLinkProps extends Omit<NavLinkProps, 'className' | 'styl
   style?: React.CSSProperties;
 }
 
-export class HashLink extends React.Component<HashLinkProps, any> { }
+export const HashLink: React.ForwardRefExoticComponent<HashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
 
-export class NavHashLink extends React.Component<NavHashLinkProps, any> { }
+export const NavHashLink: React.ForwardRefExoticComponent<NavHashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
 
 export function genericHashLink<P>(Component: React.FunctionComponent<P>): React.FunctionComponent<P>;
