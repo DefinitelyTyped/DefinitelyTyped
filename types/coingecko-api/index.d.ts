@@ -3,7 +3,7 @@
 // Definitions by: Jan Klimo <https://github.com/janklimo>, Artem Ilinykh <https://github.com/singlesly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Locale = "en"|"de"|"es"|"fr"|"it"|"pl"|"ro"|"hu"|"nl"|"pt"|"sv"|"vi"|"tr"|"ru"|"ja"|"zh"|'zh-tw'|"ko"|"ar"|"th"|"id";
+type Locale = "ar"|"de"|"en"|"es"|"fr"|"hu"|"id"|"it"|"ja"|"ko"|"nl"|"pl"|"pt"|"ro"|"ru"|"sv"|"th"|"tr"|"vi"|"zh"|'zh-tw';
 
 type Localization = Record<Locale, string>;
 
