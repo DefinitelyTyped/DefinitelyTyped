@@ -129,7 +129,11 @@ function renderOutTestEmail() {
 // TestMjmlFontTag
 {
     const minProps: React.ReactNode = <MjmlFont />;
-    const maxProps: React.ReactNode = <MjmlFont href="" name="" />;
+    const maxProps: React.ReactNode = (
+        <MjmlFont href="" name="">
+            child
+        </MjmlFont>
+    );
 }
 // TestMjmlPreviewTag
 {

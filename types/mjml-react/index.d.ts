@@ -108,6 +108,7 @@ export class MjmlBody extends React.Component<MjmlBodyProps & ClassNameProps> { 
 
 // mj-font
 export interface MjmlFontProps {
+    children?: React.ReactNode;
     href?: string | undefined;
     name?: string | undefined;
 }
