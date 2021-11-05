@@ -1,3 +1,5 @@
+import { TailwindPlugin } from './plugin';
+
 export type TailwindVariant =
     | 'empty'
     | 'read-only'
@@ -181,6 +183,8 @@ export type TailwindCorePlugin =
     | 'mixBlendMode'
     | 'filter';
 
+export type TailwindColorFunction = (props: { opacityVariable: string; opacityValue: string }) => string;
+
 export interface TailwindColorGroup {
     readonly [key: string]: string;
 }
@@ -231,8 +235,10 @@ export interface TailwindValues {
     readonly [key: string]: string;
 }
 
+export type TailwindColorValue = string | TailwindColorGroup | TailwindColorFunction;
+
 export interface TailwindValuesColor {
-    readonly [key: string]: string | TailwindColorGroup;
+    readonly [key: string]: TailwindColorValue;
 }
 
 export interface TailwindValuesAnimation {
@@ -499,7 +505,7 @@ export interface TailwindConfig {
     theme: TailwindTheme;
     variants?: TailwindVariants;
     corePlugins?: TailwindCorePlugin[];
-    plugins?: any[];
+    plugins?: TailwindPlugin[];
     purge?: string[] | TailwindPurgeConfig;
     // Not documented yet.
     content?: string[] | { files: string[]; extract: any; transform: any };
