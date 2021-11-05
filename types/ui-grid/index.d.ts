@@ -2997,6 +2997,13 @@ declare namespace uiGrid {
              * @param event object if raised from event
              */
             unSelectRow(rowEntity: TEntity, event?: ng.IAngularEvent): void;
+            /**
+             * Unselect the specified row by visible index (i.e. if you specify row 0 you'll get the first visible row unselected).
+			 * In this context visible means of those rows that are theoretically visible (i.e. not filtered), rather than rows currently rendered on the screen.
+             * @param rowEntity index within the rowsVisible array
+             * @param event object if raised from event
+             */
+			unSelectRowByVisibleIndex(rowNum: number, event?: ng.IAngularEvent): void;
 
             // Events
             on: {
@@ -3201,8 +3208,9 @@ declare namespace uiGrid {
             /**
              * Expand the immediate children of the specified row
              * @param row The row to expand
+             * @param recursive true if you wish to expand the row's ancients
              */
-            expandRow(row: IGridRowOf<TEntity>): void;
+            expandRow(row: IGridRowOf<TEntity>, recursive: boolean): void;
             /**
              * Get the children of the specified row
              * @param row The row you want the children of
