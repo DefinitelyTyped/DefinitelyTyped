@@ -8,6 +8,15 @@ export interface DurationOptions {
 }
 
 export interface DurationObjectUnits {
+    year?: number | undefined;
+    quarter?: number | undefined;
+    month?: number | undefined;
+    week?: number | undefined;
+    day?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    millisecond?: number | undefined;
     years?: number | undefined;
     quarters?: number | undefined;
     months?: number | undefined;
@@ -149,7 +158,7 @@ export class Duration {
      * @example
      * Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
      */
-    static fromISOTime(text: string, opts: DurationOptions): Duration;
+    static fromISOTime(text: string, opts?: DurationOptions): Duration;
 
     /**
      * Create an invalid Duration.
