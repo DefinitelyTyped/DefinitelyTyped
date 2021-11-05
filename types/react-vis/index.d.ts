@@ -733,6 +733,9 @@ export interface DiscreteColorLegendProps {
               title: string;
               color?: string | undefined;
               disabled?: boolean | undefined;
+              strokeDasharray?: string;
+              strokeStyle?: string;
+              strokeWidth?: number;
           }
         | string
         | ReactChild

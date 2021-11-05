@@ -16,7 +16,8 @@ import {
     VerticalRectSeries,
     Treemap,
     Sunburst,
-    AreaSeries
+    AreaSeries,
+    DiscreteColorLegend
 } from 'react-vis';
 
 export function Example() {
@@ -277,6 +278,23 @@ export function AreaSeriesExample(): JSX.Element {
                 { x: 1, y: 11 },
                 { x: 1.5, y: 29 },
                 { x: 3, y: 7 },
+            ]}
+        />
+    );
+}
+
+export function DiscreteColorLegendExample(): JSX.Element {
+    return (
+        <DiscreteColorLegend
+            className="discrete-color-legend-example"
+            orientation="horizontal"
+            items={[
+              {
+                title: 'title',
+                color: '#ffffff',
+                strokeDasharray: '10, 10',
+                strokeWidth: 1
+              },
             ]}
         />
     );
