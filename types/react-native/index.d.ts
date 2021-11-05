@@ -468,7 +468,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
    /**
     * Called when the hover is activated to provide visual feedback.
     */
-   onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
+    onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
 
    /**
     * Called when the hover is deactivated to undo visual feedback.
@@ -522,12 +522,12 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
    /**
     * Duration to wait after hover in before calling `onHoverIn`.
     */
-   delayHoverIn?: number,
+    delayHoverIn?: number,
 
    /**
     * Duration to wait after hover out before calling `onHoverOut`.
     */
-   delayHoverOut?: number,
+    delayHoverOut?: number,
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
