@@ -126,10 +126,6 @@ export function registerBlockType<TAttributes extends Record<string, any> = {}>(
     metadata: BlockConfiguration<TAttributes>,
     settings?: Partial<BlockConfiguration<TAttributes>>,
 ): Block<TAttributes> | undefined;
-export function registerBlockType<TAttributes extends Record<string, any> = {}>(
-    name: string,
-    settings: BlockConfiguration<TAttributes>,
-): Block<TAttributes> | undefined;
 
 /**
  * Assigns the default block name.
