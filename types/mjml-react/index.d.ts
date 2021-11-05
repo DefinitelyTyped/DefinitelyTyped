@@ -75,7 +75,7 @@ export interface HrefProps {
 
 // mjml
 export interface MjmlProps {
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     lang?: string | undefined;
     owa?: string | undefined;
 }
@@ -83,10 +83,10 @@ export interface MjmlProps {
 export class Mjml extends React.Component<MjmlProps> { }
 
 // mj-head
-export class MjmlHead extends React.Component { }
+export class MjmlHead extends React.Component<{ children?: React.ReactNode }> { }
 
 // mj-attributes
-export class MjmlAttributes extends React.Component { }
+export class MjmlAttributes extends React.Component<{ children?: React.ReactNode }> { }
 export class MjmlAll extends React.Component<{ [key: string]: any; children?: React.ReactNode | undefined }> { }
 export class MjmlClass extends React.Component<{ [key: string]: any; children?: React.ReactNode | undefined; name: string }> { }
 
@@ -99,7 +99,7 @@ export class MjmlBreakpoint extends React.Component<MjmlBreakpointProps> { }
 
 // mj-body
 export interface MjmlBodyProps {
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     width ?: number | undefined;
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
@@ -115,18 +115,19 @@ export interface MjmlFontProps {
 export class MjmlFont extends React.Component<MjmlFontProps> { }
 
 // mj-preview
-export class MjmlPreview extends React.Component<{ children: string }> { }
+export class MjmlPreview extends React.Component<{ children?: string | undefined }> { }
 
 // mj-style
-export class MjmlStyle extends React.Component<{ children: string, inline?: boolean | undefined }> { }
+export class MjmlStyle extends React.Component<{ children?: string | undefined, inline?: boolean | undefined }> { }
 
 // mj-title
-export class MjmlTitle extends React.Component<{ children: string }> { }
+export class MjmlTitle extends React.Component<{ children?: string | undefined }> { }
 
 // mj-accordion
 export class MjmlAccordion extends React.Component<MjmlAccordionElementProps> { }
 
 export interface MjmlAccordionElementProps {
+    children?: React.ReactNode;
     fontFamily?: string | undefined;
     iconAlign?: string | undefined;
     iconWrappedUrl?: string | undefined;
@@ -142,6 +143,7 @@ export interface MjmlAccordionElementProps {
 export class MjmlAccordionElement extends React.Component<MjmlAccordionElementProps & ClassNameProps> { }
 
 export interface MjmlAccordionTextProps {
+    children?: React.ReactNode;
     color?: React.CSSProperties['color'] | undefined;
     fontFamily?: string | undefined;
     fontSize?: string | number | undefined;
@@ -151,6 +153,7 @@ export interface MjmlAccordionTextProps {
 export class MjmlAccordionText extends React.Component<MjmlAccordionTextProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlAccordionTitleProps {
+    children?: React.ReactNode;
     color?: React.CSSProperties['color'] | undefined;
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontFamily?: string | undefined;
@@ -162,7 +165,7 @@ export class MjmlAccordionTitle extends React.Component<MjmlAccordionTitleProps 
 // mj-button
 export interface MjmlButtonProps {
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontStyle?: string | undefined;
     fontSize?: string | number | undefined;
@@ -187,7 +190,7 @@ export interface MjmlCarouselProps {
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     align?: string | undefined;
     borderRadius?: string | number | undefined;
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     thumbnails?: 'hidden' | 'visible' | undefined;
     tbBorder?: React.CSSProperties['border'] | undefined;
     tbBorderRadius?: React.CSSProperties['borderRadius'] | undefined;
@@ -211,7 +214,7 @@ export interface MjmlCarouselImageProps {
 export class MjmlCarouselImage extends React.Component<MjmlCarouselImageProps & ClassNameProps & HrefProps> { }
 
 export interface MjmlColumnProps {
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     width?: string | number | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
@@ -233,7 +236,7 @@ export class MjmlDivider extends React.Component<MjmlDividerProps & ClassNamePro
 
 // mj-group
 export interface MjmlGroupProps {
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     width?: string | number | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
@@ -243,7 +246,7 @@ export class MjmlGroup extends React.Component<MjmlGroupProps & ClassNameProps> 
 
 // mj-hero
 export interface MjmlHeroProps {
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     width?: string | number | undefined;
     height?: string | number | undefined;
     mode?: 'fluid-height' | 'fixed-height' | undefined;
@@ -277,7 +280,7 @@ export class MjmlImage extends React.Component<MjmlImageProps & PaddingProps & C
 // mj-navbar
 export interface MjmlNavbarProps {
     baseUrl?: string | undefined;
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     hamburger?: 'hamburger' | undefined;
     align?: string | undefined;
     icoOpen?: string | undefined;
@@ -298,7 +301,7 @@ export interface MjmlNavbarProps {
 export class MjmlNavbar extends React.Component<MjmlNavbarProps> { }
 
 export interface MjmlNavbarLinkProps {
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     color?: React.CSSProperties['color'] | undefined;
     fontFamily?: string | undefined;
     fontSize?: string | number | undefined;
@@ -312,7 +315,7 @@ export interface MjmlNavbarLinkProps {
 export class MjmlNavbarLink extends React.Component<MjmlNavbarLinkProps & HrefProps & PaddingProps> { }
 
 // mj-raw
-export class MjmlRaw extends React.Component { }
+export class MjmlRaw extends React.Component<{ children?: React.ReactNode }> { }
 
 // mj-section
 export interface MjmlSectionProps {
@@ -332,7 +335,7 @@ export class MjmlSection extends React.Component<MjmlSectionProps & BorderProps 
 // mj-social
 export interface MjmlSocialProps {
     borderRadius?: string | number | undefined;
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     fontFamily?: string | undefined;
     fontSize?: string | number | undefined;
     iconSize?: string | undefined;
@@ -422,7 +425,7 @@ export class MjmlText extends React.Component<MjmlTextProps & PaddingProps & Cla
 
 // mj-wrapper
 export interface MjmlWrapperProps {
-    children: NonNullable<React.ReactNode>;
+    children?: React.ReactNode;
     fullWidth?: boolean | undefined;
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     backgroundUrl?: string | undefined;

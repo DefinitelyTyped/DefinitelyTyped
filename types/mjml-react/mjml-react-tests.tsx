@@ -81,7 +81,7 @@ function renderOutTestEmail() {
 
 // TestMjmlTag
 {
-    const minProps: React.ReactNode = <Mjml />; // $ExpectError
+    const minProps: React.ReactNode = <Mjml />;
     const maxProps: React.ReactNode = (
         <Mjml lang="" owa="">
             child
@@ -119,7 +119,7 @@ function renderOutTestEmail() {
 }
 // TestMjmlBodyTag
 {
-    const minProps: React.ReactNode = <MjmlBody />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlBody />;
     const maxProps: React.ReactNode = (
         <MjmlBody cssClass="" mjClass="" width={1} backgroundColor="">
             child
@@ -133,7 +133,8 @@ function renderOutTestEmail() {
 }
 // TestMjmlPreviewTag
 {
-    const minMaxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
+    const minProps: React.ReactNode = <MjmlPreview />;
+    const maxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
 
     // children cannot be anything other than string
     // prettier-ignore
@@ -141,7 +142,7 @@ function renderOutTestEmail() {
 }
 // TestMjmlStyleTag
 {
-    const minProps: React.ReactNode = <MjmlStyle>""</MjmlStyle>;
+    const minProps: React.ReactNode = <MjmlStyle />;
     const maxProps: React.ReactNode = <MjmlStyle inline>child</MjmlStyle>;
 
     // children cannot be anything other than string
@@ -150,7 +151,8 @@ function renderOutTestEmail() {
 }
 // TestMjmlTitleTag
 {
-    const minMaxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
+    const minProps: React.ReactNode = <MjmlTitle />;
+    const maxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
 
     // children cannot be anything other than string
     // prettier-ignore
@@ -158,12 +160,12 @@ function renderOutTestEmail() {
 }
 // TestMjmlButtonTag
 {
-    const minProps: React.ReactNode = <MjmlButton />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlButton />;
     const maxProps: React.ReactNode = <MjmlButton>child</MjmlButton>;
 }
 // TestMjmlColumnTag
 {
-    const minProps: React.ReactNode = <MjmlColumn />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlColumn />;
     const maxProps: React.ReactNode = <MjmlColumn>child</MjmlColumn>;
     const innerBackgroundColor: React.ReactNode = <MjmlColumn innerBackgroundColor="#BADA55">child</MjmlColumn>;
     const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>; // $ExpectError
@@ -175,12 +177,12 @@ function renderOutTestEmail() {
 }
 // TestMjmlGroupTag
 {
-    const minProps: React.ReactNode = <MjmlGroup />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlGroup />;
     const maxProps: React.ReactNode = <MjmlGroup>child</MjmlGroup>;
 }
 // TestMjmlHeroTag
 {
-    const minProps: React.ReactNode = <MjmlHero />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlHero />;
     const maxProps: React.ReactNode = <MjmlHero>child</MjmlHero>;
 }
 // TestMjmlImageTag
@@ -190,12 +192,12 @@ function renderOutTestEmail() {
 }
 // TestMjmlNavbarTag
 {
-    const minProps: React.ReactNode = <MjmlNavbar />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlNavbar />;
     const maxProps: React.ReactNode = <MjmlNavbar>child</MjmlNavbar>;
 }
 // TestMjmlNavbarLinkTag
 {
-    const minProps: React.ReactNode = <MjmlNavbarLink />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlNavbarLink />;
     const maxProps: React.ReactNode = <MjmlNavbarLink>child</MjmlNavbarLink>;
 }
 // TestMjmlRawTag
@@ -226,7 +228,7 @@ function renderOutTestEmail() {
 }
 // TestMjmlWrapperTag
 {
-    const minProps: React.ReactNode = <MjmlWrapper />; // $ExpectError
+    const minProps: React.ReactNode = <MjmlWrapper />;
     const maxProps: React.ReactNode = <MjmlWrapper>child</MjmlWrapper>;
 }
 
@@ -234,25 +236,29 @@ function renderOutTestEmail() {
 {
     {
         const minProps: React.ReactNode = <MjmlAccordion />;
+        const maxProps: React.ReactNode = <MjmlAccordion>child</MjmlAccordion>;
     }
     // MjmlAccordionElement
     {
         const minProps: React.ReactNode = <MjmlAccordionElement />;
+        const maxProps: React.ReactNode = <MjmlAccordionElement>child</MjmlAccordionElement>;
     }
     // MjmlAccordionText
     {
         const minProps: React.ReactNode = <MjmlAccordionText />;
+        const maxProps: React.ReactNode = <MjmlAccordionText>child</MjmlAccordionText>;
     }
     // TestMjmlAccordionTitleTag
     {
         const minProps: React.ReactNode = <MjmlAccordionTitle />;
+        const maxProps: React.ReactNode = <MjmlAccordionTitle>child</MjmlAccordionTitle>;
     }
 }
 // TestMjmlCarouselTag
 {
     // MjmlCarousel
     {
-        const minProps: React.ReactNode = <MjmlCarousel />; // $ExpectError
+        const minProps: React.ReactNode = <MjmlCarousel />;
         const maxProps: React.ReactNode = <MjmlCarousel>child</MjmlCarousel>;
     }
     // MjmlCarouselImage
@@ -270,7 +276,7 @@ function renderOutTestEmail() {
     }
     // MjmlSocial
     {
-        const minProps: React.ReactNode = <MjmlSocial />; // $ExpectError
+        const minProps: React.ReactNode = <MjmlSocial />;
         const maxProps: React.ReactNode = <MjmlSocial cssClass="">child</MjmlSocial>;
     }
 }
