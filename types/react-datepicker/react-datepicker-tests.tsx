@@ -244,4 +244,4 @@ const DatePickerCustomHeader = ({
 <DatePicker
     onChange={() => {}}
     renderCustomHeader={(props) => <DatePickerCustomHeader {...props} />}
-/>
+/>;
