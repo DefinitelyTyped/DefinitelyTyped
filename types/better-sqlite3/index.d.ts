@@ -6,8 +6,11 @@
 //                 Alessandro Vergani <https://github.com/loghorn>
 //                 Andrew Kaiser <https://github.com/andykais>
 //                 Mark Stewart <https://github.com/mrkstwrt>
+//                 Florian Stamer <https://github.com/stamerf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
+
+/// <reference types="node" />
 
 type VariableArgFunction = (...params: any[]) => any;
 type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
@@ -76,6 +79,7 @@ declare namespace BetterSqlite3 {
         backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
         table(name: string, options: VirtualTableOptions): this;
         unsafeMode(unsafe?: boolean): this;
+        serialize(options?: Database.SerializeOptions): Buffer;
     }
 
     interface DatabaseConstructor {
@@ -105,6 +109,10 @@ declare namespace Database {
         fileMustExist?: boolean | undefined;
         timeout?: number | undefined;
         verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
+    }
+
+    interface SerializeOptions {
+        attached?: string;
     }
 
     interface PragmaOptions {

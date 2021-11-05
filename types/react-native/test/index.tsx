@@ -64,8 +64,6 @@ import {
     NativeScrollEvent,
     NativeSyntheticEvent,
     PermissionsAndroid,
-    Picker,
-    PickerIOS,
     Platform,
     PlatformColor,
     Pressable,
@@ -493,6 +491,7 @@ export class PressableTest extends React.Component<{}> {
                         borderless: true,
                         color: 'green',
                         radius: 20,
+                        foreground: true,
                     }}
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}
@@ -1059,7 +1058,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput
                     ref={input => (this.username = input)}
                     textContentType="username"
-                    autoCompleteType="username"
+                    autoComplete="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -1321,13 +1320,6 @@ const DatePickerAndroidTest = () => {
         }
     });
 };
-
-const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
-        <Picker.Item label="Item1" value="v1" />
-        <Picker.Item label="Item2" value="v2" />
-    </Picker>
-);
 
 const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>('NativeBridgedComponent'); // $ExpectType HostComponent<{ nativeProp: string; }>
 

@@ -462,6 +462,11 @@ interface ListViewProps extends LayoutableProps, ClickableProps, TouchableProps 
     preloadItemNumber?: number;
 
     /**
+     * iOS only
+     */
+    bounces?: boolean;
+
+    /**
      * Passing the data and returns the row component.
      *
      * @param {Object} data - Data for row rendering
@@ -845,6 +850,17 @@ interface ScrollViewProps extends LayoutableProps, ClickableProps, TouchableProp
     };
 
     /**
+     * iOS only
+     */
+    bounces?: boolean;
+
+    /**
+     * iOS only
+     * https://developer.apple.com/documentation/uikit/uiscrollview/keyboarddismissmode
+     */
+    keyboardDismissMode?: 'none' | 'on-drag' | 'interactive' | 'onDrag';
+
+    /**
      * Called when the momentum scroll starts (scroll which occurs as the ScrollView starts gliding).
      */
     onMomentumScrollBegin?(): void;
@@ -1154,6 +1170,12 @@ interface ViewPagerProps extends LayoutableProps {
      * > Note that the view can always be scrolled by calling setPage.
      */
     scrollEnabled?: boolean;
+
+    /**
+     * iOS only
+     * https://developer.apple.com/documentation/uikit/uiscrollview/keyboarddismissmode
+     */
+    keyboardDismissMode?: 'none' | 'on-drag' | 'interactive' | 'onDrag';
 
     /**
      * Fires at most once per page is selected

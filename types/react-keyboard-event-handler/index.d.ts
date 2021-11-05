@@ -17,6 +17,6 @@ declare namespace KeyboardEventHandler {
     }
 }
 
-declare const KeyboardEventHandler: React.SFC<KeyboardEventHandler.KeyboardEventHandlerProps>;
+declare const KeyboardEventHandler: React.FC<KeyboardEventHandler.KeyboardEventHandlerProps>;
 export = KeyboardEventHandler;
 export as namespace KeyboardEventHandler;

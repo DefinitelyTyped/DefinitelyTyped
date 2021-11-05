@@ -7,7 +7,7 @@ declare var gtag: Gtag.Gtag;
 declare namespace Gtag {
   interface Gtag {
     (command: 'config', targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams): void;
-    (command: 'set', targetId: string, config: CustomParams | boolean): void;
+    (command: 'set', targetId: string, config: CustomParams | boolean | string): void;
     (command: 'set', config: CustomParams): void;
     (command: 'js', config: Date): void;
     (

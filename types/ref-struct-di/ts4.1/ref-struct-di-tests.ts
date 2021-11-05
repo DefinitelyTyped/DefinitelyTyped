@@ -31,11 +31,11 @@ StructType({ x: typeLike }, undefined);
 // $ExpectType StructType
 StructType({ x: typeLike }, { packed: boolean });
 // $ExpectType StructType
-StructType([["x", typeLike]]);
+StructType([[typeLike, "x"]]);
 // $ExpectType StructType
-StructType([["x", typeLike]], undefined);
+StructType([[typeLike, "x"]], undefined);
 // $ExpectType StructType
-StructType([["x", typeLike]], { packed: boolean });
+StructType([[typeLike, "x"]], { packed: boolean });
 
 // $ExpectType StructType
 new StructType();
@@ -50,11 +50,11 @@ new StructType({ x: typeLike }, undefined);
 // $ExpectType StructType
 new StructType({ x: typeLike }, { packed: boolean });
 // $ExpectType StructType
-new StructType([["x", typeLike]]);
+new StructType([[typeLike, "x"]]);
 // $ExpectType StructType
-new StructType([["x", typeLike]], undefined);
+new StructType([[typeLike, "x"]], undefined);
 // $ExpectType StructType
-new StructType([["x", typeLike]], { packed: boolean });
+new StructType([[typeLike, "x"]], { packed: boolean });
 
 declare const struct: ref_struct.StructType;
 

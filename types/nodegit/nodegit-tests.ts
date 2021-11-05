@@ -8,6 +8,12 @@ Git.Repository.init('path', 0).then(repository => {
     // Use repository
 });
 
+Git.Repository.initExt('path', {
+    flags: 0,
+}).then(repository => {
+    // Use repository
+});
+
 const repo = new Git.Repository();
 const id = new Git.Oid();
 const ref = new Git.Reference();
@@ -90,6 +96,10 @@ repo.getHeadCommit().then(async commit => {
         const deletions: Number = stats.deletions();
         const filesChanged: Number = stats.filesChanged();
     }
+});
+
+repo.getRemoteNames().then((remoteNames) => {
+    const names: string[] = remoteNames;
 });
 
 Git.version; // $ExpectType string

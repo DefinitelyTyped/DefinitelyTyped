@@ -116,7 +116,7 @@ export interface Track<T = any, P = any, S = any> {
 /**
  * This component will pass any tracking data as context to tracking calls made in any components within its subtree.
  */
-export type TrackingComponent<P = {}> = React.FC;
+export type TrackingComponent<P = {}> = React.FC<React.PropsWithChildren<{}>>;
 
 export const track: Track;
 export default track;

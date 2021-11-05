@@ -2,6 +2,7 @@ import Commerce = require('@chec/commerce.js');
 import { LineItem } from '../types/line-item';
 import { Cart as CartType } from '../types/cart';
 import { Price } from '../types/price';
+import { Asset } from '../types/asset';
 
 export type RequestMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
@@ -14,6 +15,7 @@ export interface AddUpdateResponse {
     quantity: number;
     line_total: Price;
     cart: CartType;
+    image: Asset | null;
 }
 
 export interface RemoveResponse {

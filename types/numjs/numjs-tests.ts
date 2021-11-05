@@ -17,9 +17,9 @@ arr.transpose(1, 0, 2);
 // array([[[ 0, 1, 2]],
 //        [[ 3, 4, 5]]])
 
-const b = nj.array([2, 3, 4]);
+const b = nj.array([2, 3, 4] as number[]);
 
-const c = nj.uint8([1, 2, 3]);
+const c = nj.uint8([1, 2, 3] as number[]);
 
 const d = nj.array<number[]>([[2], [3, 4]]);
 

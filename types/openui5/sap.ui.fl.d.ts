@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.96.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1168,28 +1168,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getVariants(): any[];
     /**
-     * Opens the Manage Views dialog.
-     */
-    openManagementDialog(
-      /**
-       * Indicates that if this is set to `true`, the former dialog will be destroyed before a new one is created
-       */
-      bCreateAlways: boolean,
-      /**
-       * style-class to be used
-       */
-      sClass: string
-    ): void;
-    /**
-     * Opens the Save as dialog.
-     */
-    openSaveAsDialogForKeyUser(
-      /**
-       * style-class to be used
-       */
-      sRtaStyleClassName: string
-    ): void;
-    /**
      * Removes all the controls in the association named {@link #getFor for}.
      */
     removeAllFor(): ID[];
@@ -1647,6 +1625,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetAbstract": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetRegistrationIds": undefined;
 

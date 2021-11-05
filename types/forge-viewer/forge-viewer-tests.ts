@@ -47,6 +47,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     await propertyTests(viewer);
     await propertyDbTests(model);
     await searchTests(viewer);
+    await streamLineTests(viewer);
     await stringExtractorTests(viewer);
     await visualClustersTests(viewer);
 });
@@ -445,6 +446,10 @@ async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
 
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
+    const m = ext.getMeasurementList();
+
+    ext.deleteMeasurements();
+    ext.setMeasurements(m);
 }
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
@@ -460,6 +465,23 @@ async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number
 function showHideTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     viewer.hideAll();
     viewer.showAll();
+}
+
+async function streamLineTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
+    const points = [ 10, 10, 10, 20, 20, 20, 30, 30, 30 ];
+    const builder = ext.streamLineBuilder;
+    const streamLine = builder.createStreamLine({
+        lineWidth: 8.0,
+        lineColor: new THREE.Color(0xff0080),
+        opacity: 1.0,
+        lineData: {
+            points: new Float32Array(points)
+        }
+    });
+
+    streamLine.advance({ x: 10.0, y: 10.0, z: 10.0 });
+    builder.destroyStreamLine(streamLine);
 }
 
 async function stringExtractorTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {

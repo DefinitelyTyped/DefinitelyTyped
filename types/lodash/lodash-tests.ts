@@ -5723,21 +5723,27 @@ fp.now(); // $ExpectType number
     const obj: AbcObject | null | undefined = anything;
     const dictionary: _.Dictionary<boolean> | null | undefined = anything;
     const numericDictionary: _.NumericDictionary<boolean> | null | undefined = anything;
+    const stringRecord: Record<string, string> = anything;
     const predicate = (element: string | number | boolean, key: string) => true;
     const predicate2 = (element: boolean, key: string) => true;
+    const predicate3 = (element: string, key: string) => true;
 
     _.pickBy(obj, predicate); // $ExpectType Partial<AbcObject>
     _.pickBy(dictionary, predicate2); // $ExpectType Dictionary<boolean>
     _.pickBy(numericDictionary, predicate2); // $ExpectType NumericDictionary<boolean>
+    _.pickBy(stringRecord, predicate3); // $ExpectType Dictionary<string>
     _(obj).pickBy(predicate); // $ExpectType Object<Partial<AbcObject>>
-    _(dictionary).pickBy(predicate2); // $ExpectType Object<Partial<Dictionary<boolean>>>
-    _(numericDictionary).pickBy(predicate2); // $ExpectType Object<Partial<NumericDictionary<boolean>>>
+    _(dictionary).pickBy(predicate2); // $ExpectType Object<Dictionary<boolean>>
+    _(numericDictionary).pickBy(predicate2); // $ExpectType Object<NumericDictionary<boolean>>
+    _(stringRecord).pickBy(predicate3); // $ExpectType Object<Dictionary<string>>
     _.chain(obj).pickBy(predicate); // $ExpectType ObjectChain<Partial<AbcObject>>
-    _.chain(dictionary).pickBy(predicate2); // $ExpectType ObjectChain<Partial<Dictionary<boolean>>>
-    _.chain(numericDictionary).pickBy(predicate2); // $ExpectType ObjectChain<Partial<NumericDictionary<boolean>>>
+    _.chain(dictionary).pickBy(predicate2); // $ExpectType ObjectChain<Dictionary<boolean>>
+    _.chain(numericDictionary).pickBy(predicate2); // $ExpectType ObjectChain<NumericDictionary<boolean>>
+    _.chain(stringRecord).pickBy(predicate3); // $ExpectType ObjectChain<Dictionary<string>>
     fp.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
     fp.pickBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
     fp.pickBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
+    fp.pickBy(predicate3)(stringRecord); // $ExpectType Dictionary<string>
 
     const mixedDictionary: _.Dictionary<string | number> | null | undefined = anything;
 

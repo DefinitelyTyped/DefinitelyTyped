@@ -312,8 +312,9 @@ export class DateLocalizer {
     messages: Messages;
 }
 
-export interface CalendarProps<TEvent extends object = Event, TResource extends object = object>
-    extends React.Props<Calendar<TEvent, TResource>> {
+export interface CalendarProps<TEvent extends object = Event, TResource extends object = object> {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<Calendar<TEvent, TResource>> | undefined;
     localizer: DateLocalizer;
 
     date?: stringOrDate | undefined;

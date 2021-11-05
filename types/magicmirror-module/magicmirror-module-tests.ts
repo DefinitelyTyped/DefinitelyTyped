@@ -1,4 +1,5 @@
 import * as NodeHelper from 'node_helper';
+import * as Log from 'logger';
 
 Module.register('test', {});
 interface TestConfig {
@@ -95,6 +96,7 @@ NodeHelper.create({
         return;
     },
     stop() {
+        Log.error('Oh no :-(');
         this.name;
         this.init();
         this.requiresVersion === 'abc';
@@ -104,6 +106,7 @@ NodeHelper.create({
     socketNotificationReceived(notification, payload) {
         notification === 'abc';
         this.myCustom();
+        Log.info('Woohoo');
     },
     myCustom() {
         console.log('hi');

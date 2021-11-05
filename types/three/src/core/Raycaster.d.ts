@@ -13,7 +13,7 @@ export interface Face {
     materialIndex: number;
 }
 
-export interface Intersection<TIntersected extends Object3D> {
+export interface Intersection<TIntersected extends Object3D = Object3D> {
     distance: number;
     distanceToRay?: number | undefined;
     point: Vector3;
