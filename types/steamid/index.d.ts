@@ -1,7 +1,7 @@
 // Type definitions for steamid 2.0
 // Project: https://github.com/DoctorMcKay/node-steamid
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
-//                 vanitasboi <https://github.com/vanitasboi>
+//                 joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 

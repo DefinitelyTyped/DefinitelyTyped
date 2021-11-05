@@ -601,7 +601,9 @@ const any: any = null;
 
     result = validator.isDivisibleBy('sample', 2);
 
-    const isEmailOptions: validator.IsEmailOptions = {};
+    const isEmailOptions: validator.IsEmailOptions = {
+        host_blacklist: ['domain']
+    };
     result = validator.isEmail('sample');
     result = validator.isEmail('sample', isEmailOptions);
 
@@ -768,6 +770,7 @@ const any: any = null;
     result = validator.isMobilePhone('sample', 'any');
     result = validator.isMobilePhone('sample');
     result = validator.isMobilePhone('sample', ['pl-PL', 'pt-PT']);
+    result = validator.isMobilePhone('sample', ['es-AR', 'es-CO']); // $ExpectType boolean
 
     result = validator.isMongoId('sample');
 

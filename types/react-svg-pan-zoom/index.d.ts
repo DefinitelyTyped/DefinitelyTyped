@@ -143,6 +143,7 @@ export interface OptionalProps {
 }
 
 export interface RequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen
@@ -174,6 +175,7 @@ export interface UncontrolledExtraOptionalProps {
 }
 
 export interface UncontrolledRequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen

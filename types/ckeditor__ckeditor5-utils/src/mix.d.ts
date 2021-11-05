@@ -19,4 +19,4 @@
  * Note: Properties which already exist in the base class will not be overriden.
  *
  */
-export default function mix<T>(baseClass: { new (...p: any[]): T }, ...mixins: Array<Partial<T>>): void;
+export default function mix(baseClass: {new (...p: any[]): any}, ...mixins: Array<Record<any, any>>): void;

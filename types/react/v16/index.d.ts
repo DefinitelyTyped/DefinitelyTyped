@@ -1208,7 +1208,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
+    interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
         charCode: number;
@@ -2252,6 +2252,7 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
+        imageSrcSet?: string | undefined;
         media?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;

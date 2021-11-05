@@ -69,6 +69,7 @@ class StaggeredTest extends React.Component {
             <StaggeredMotion defaultStyles={[{ h: 0 }, { h: 0 }, { h: 0 }]}
                 styles={this.getStyles.bind(this)}
                 >
+                    {() => <div />}
             </StaggeredMotion>
         )
     }

@@ -975,20 +975,20 @@ async function signupTest(): Promise<void> {
     signupResult.email_verified; // $ExpectType boolean
 }
 
-const decoded = idToken.decode('{YOUR_API_V2_TOKEN}');
+const decoded = idToken.decode('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
 decoded._raw; // $ExpectType string
 decoded.header; // $ExpectType any
 decoded.payload; // $ExpectType any
 decoded.signature; // $ExpectType string
 
-async () => {
+() => {
     const defaultOptions = {
         issuer: 'issuer',
         audience: ['clientId', 'clientIdAlt'],
         nonce: 'a1b2c3d4e5',
     };
-    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType string
-    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType string
+    idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
+    idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType DecodedToken
 };
 
 // Token manager
@@ -1056,6 +1056,22 @@ management.organizations.getAll({ page: 0, per_page: 5 }, (err, organizations: a
  */
 management.organizations.getAll({ page: 0, per_page: 5 }).then((organizations: auth0.Organization[]) => {
     console.log({ organizations });
+});
+
+/**
+ * Get All Organizations with pagination and totals using a callback
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }, (err, pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
+});
+
+/**
+ * Get All Organizations with pagination and totals returning a Promise
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }).then((pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
 });
 
 /**

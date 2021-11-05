@@ -326,13 +326,13 @@ declare module "node-forge" {
             issuer: {
                 getField(sn: string | CertificateFieldOptions): any;
                 addField(attr: CertificateField): void;
-                attributes: any[];
+                attributes: CertificateField[];
                 hash: any;
             };
             subject: {
                 getField(sn: string | CertificateFieldOptions): any;
                 addField(attr: CertificateField): void;
-                attributes: any[];
+                attributes: CertificateField[];
                 hash: any;
             };
             extensions: any[];

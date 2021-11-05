@@ -232,8 +232,11 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement | ReactText;
 
+    /**
+     * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
+     */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
-    type ReactFragment = {} | ReactNodeArray;
+    type ReactFragment = {} | Iterable<ReactNode>;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
@@ -392,9 +395,12 @@ declare namespace React {
     interface SuspenseProps {
         children?: ReactNode | undefined;
 
+        // TODO(react18): `fallback?: ReactNode;`
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
     }
+
+    // TODO(react18): Updated JSDoc to reflect that Suspense works on the server.
     /**
      * This feature is not yet available for server-side rendering.
      * Suspense support will be added in a later release.
@@ -1209,7 +1215,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
+    interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
         charCode: number;

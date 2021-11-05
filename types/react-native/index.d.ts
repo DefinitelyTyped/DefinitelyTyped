@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.65
+// Type definitions for react-native 0.66
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -1317,7 +1317,7 @@ export interface TextInputAndroidProps {
      * - `cc-exp-year`
      * - `off`
      */
-    autoCompleteType?:
+    autoComplete?:
         | 'cc-csc'
         | 'cc-exp'
         | 'cc-exp-month'
@@ -3175,136 +3175,6 @@ export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
      * Closes the drawer.
      */
     closeDrawer(): void;
-}
-
-/**
- * @see PickerIOS.ios.js
- */
-export interface PickerIOSItemProps {
-    value?: string | undefined;
-    label?: string | undefined;
-    textColor?: ProcessedColorValue | undefined;
-}
-
-/**
- * @see PickerIOS.ios.js
- */
-export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
-
-/**
- * @see Picker.js
- */
-export interface PickerItemProps {
-    testID?: string | undefined;
-    color?: ColorValue | undefined;
-    label: string;
-    value?: string | undefined;
-}
-
-export interface PickerPropsIOS extends ViewProps {
-    /**
-     * Style to apply to each of the item labels.
-     * @platform ios
-     */
-    itemStyle?: StyleProp<TextStyle> | undefined;
-}
-
-export interface PickerPropsAndroid extends ViewProps {
-    /**
-     * If set to false, the picker will be disabled, i.e. the user will not be able to make a
-     * selection.
-     * @platform android
-     */
-    enabled?: boolean | undefined;
-
-    /**
-     * On Android, specifies how to display the selection items when the user taps on the picker:
-     *
-     *   - 'dialog': Show a modal dialog. This is the default.
-     *   - 'dropdown': Shows a dropdown anchored to the picker view
-     *
-     * @platform android
-     */
-    mode?: 'dialog' | 'dropdown' | undefined;
-
-    /**
-     * Prompt string for this picker, used on Android in dialog mode as the title of the dialog.
-     * @platform android
-     */
-    prompt?: string | undefined;
-}
-
-/**
- * @see https://reactnative.dev/docs/picker
- * @see Picker.js
- */
-export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
-    /**
-     * Callback for when an item is selected. This is called with the
-     * following parameters:
-     * - itemValue: the value prop of the item that was selected
-     * - itemPosition: the index of the selected item in this picker
-     */
-    onValueChange?: ((itemValue: any, itemPosition: number) => void) | undefined;
-
-    /**
-     * Value matching value of one of the items.
-     * Can be a string or an integer.
-     */
-    selectedValue?: string | undefined;
-
-    style?: StyleProp<TextStyle> | undefined;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testId?: string | undefined;
-}
-
-/**
- * Picker has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-picker
- * @deprecated
- */
-export class Picker extends React.Component<PickerProps> {
-    /**
-     * On Android, display the options in a dialog.
-     */
-    static MODE_DIALOG: string;
-
-    /**
-     * On Android, display the options in a dropdown (this is the default).
-     */
-    static MODE_DROPDOWN: string;
-
-    static Item: React.ComponentType<PickerItemProps>;
-}
-
-/**
- * @see https://reactnative.dev/docs/pickerios
- * @see PickerIOS.ios.js
- */
-export interface PickerIOSProps extends ViewProps {
-    itemStyle?: StyleProp<TextStyle> | undefined;
-    onValueChange?: ((value: string) => void) | undefined;
-    selectedValue?: string | undefined;
-}
-
-/**
- * @see https://reactnative.dev/docs/pickerios
- * @see PickerIOS.ios.js
- */
-declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
-declare const PickerIOSBase: Constructor<NativeMethods> & typeof PickerIOSComponent;
-/**
- * PickerIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-picker
- * @deprecated
- */
-export class PickerIOS extends PickerIOSBase {
-    static Item: typeof PickerIOSItem;
 }
 
 /**
@@ -6881,7 +6751,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     /**
      * Experimental: When true offscreen child views (whose `overflow` value is
      * `hidden`) are removed from their native backing superview when offscreen.
-     * This canimprove scrolling performance on long lists. The default value is
+     * This can improve scrolling performance on long lists. The default value is
      * false.
      */
     removeClippedSubviews?: boolean | undefined;
@@ -8419,11 +8289,6 @@ export class StatusBar extends React.Component<StatusBarProps> {
     static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
 }
 
-/**
- * @deprecated Use StatusBar instead
- */
-export interface StatusBarIOSStatic extends NativeEventEmitter {}
-
 export interface TimePickerAndroidOpenOptions {
     hour?: number | undefined;
     minute?: number | undefined;
@@ -9706,12 +9571,6 @@ export type Settings = SettingsStatic;
 
 export const Share: ShareStatic;
 export type Share = ShareStatic;
-
-/**
- * @deprecated Use StatusBar instead
- */
-export const StatusBarIOS: StatusBarIOSStatic;
-export type StatusBarIOS = StatusBarIOSStatic;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;

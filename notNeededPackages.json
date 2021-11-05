@@ -64,6 +64,10 @@
             "libraryName": "ajv-keywords",
             "asOfVersion": "3.5.0"
         },
+        "alex": {
+            "libraryName": "alex",
+            "asOfVersion": "10.0.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
@@ -817,6 +821,10 @@
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
         },
+        "cypress-recurse": {
+            "libraryName": "cypress-recurse",
+            "asOfVersion": "1.9.0"
+        },
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
@@ -1012,6 +1020,10 @@
         "ecmarkup": {
             "libraryName": "ecmarkup",
             "asOfVersion": "3.4.0"
+        },
+        "editly": {
+            "libraryName": "editly",
+            "asOfVersion": "0.11.3"
         },
         "eev": {
             "libraryName": "eev",
@@ -2369,10 +2381,6 @@
             "libraryName": "known",
             "asOfVersion": "3.0.0"
         },
-        "koa-better-body": {
-            "libraryName": "koa-better-body",
-            "asOfVersion": "3.1.0"
-        },
         "koa-jwt": {
             "libraryName": "koa-jwt",
             "asOfVersion": "3.3.0"
@@ -3388,6 +3396,11 @@
         "paypal__paypal-js": {
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
+        },
+        "pdfjs-dist": {
+            "libraryName": "pdfjs-dist",
+            "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
+            "asOfVersion": "2.10.377"
         },
         "peerjs": {
             "libraryName": "peerjs",

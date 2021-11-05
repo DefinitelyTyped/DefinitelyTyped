@@ -83,7 +83,7 @@
     }
 
     interface LayerOptions {
-        name: string;
+        name: string | null;
         sensitive?: boolean | undefined;
         strict?: boolean | undefined;
         end?: boolean | undefined;
@@ -114,7 +114,7 @@
 
     class Layer {
         opts: LayerOptions;
-        name: string;
+        name: string | null;
         methods: string[];
         paramNames: ParamName[];
         stack: Middleware[];

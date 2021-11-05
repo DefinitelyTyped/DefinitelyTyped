@@ -7,7 +7,6 @@ import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
 // NOTE: forward declarations for tests
@@ -640,11 +639,6 @@ if (TestUtils.isDOMComponent(container)) {
 } else if (TestUtils.isCompositeComponent(new ModernComponent())) {
     new ModernComponent().props;
 }
-
-//
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
 
 //
 // update addon

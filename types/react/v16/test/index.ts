@@ -7,7 +7,6 @@ import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
@@ -698,11 +697,6 @@ createReactClass({
 });
 
 //
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
-
-//
 // update addon
 // --------------------------------------------------------------------------
 {
@@ -735,6 +729,8 @@ function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
 function handler(e: React.MouseEvent) {
     eventHandler(e);
 }
+
+const keyboardExtendsUI: React.UIEventHandler = (e: React.KeyboardEvent) => {};
 
 //
 // The SyntheticEvent.target.value should be accessible for onChange

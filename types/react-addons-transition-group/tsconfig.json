@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-addons-transition-group-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -17,6 +18,11 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "react": [
+                "react/v15"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     }

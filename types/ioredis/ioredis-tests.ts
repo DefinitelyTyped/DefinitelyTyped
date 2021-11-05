@@ -270,6 +270,11 @@ redis.get('foo').then((result: string | null) => {
 redis.sadd('set', 1, 3, 5, 7);
 redis.sadd('set', [1, 3, 5, 7]);
 
+// Test for ISMEMBER and MISMEMBER
+redis.sadd('set', 'val1', 'val2');
+redis.sismember('set', 'val1').then(console.log);
+redis.smismember('set', ...['val1', 'val2', 'val3']).then(console.log);
+
 // All arguments are passed directly to the redis server:
 redis.set('key', '100');
 redis.set('key', '100', 'XX');
@@ -552,7 +557,6 @@ redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id', cb);
 redis.xautoclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
-redis.xautoclaim('streamName', 'groupName', 'consumerName', 3600000, 'id', cb);
 redis.xdel('streamName', 'id').then(console.log);
 redis.xdel('streamName', 'id', cbNumber);
 redis.xgroup('CREATE', 'streamName', 'groupName', '$').then(console.log);

@@ -46,10 +46,11 @@ export interface TokenConfig {
     /**
      * A function used to compute the attributes for the node or mark
      * that takes a [markdown-it
-     * token](https://markdown-it.github.io/markdown-it/#Token) and
+     * token](https://markdown-it.github.io/markdown-it/#Token), list of [markdown-it
+     * token](https://markdown-it.github.io/markdown-it/#Token)s, the token's index and
      * returns an attribute object.
      */
-    getAttrs?(token: Token): Record<string, any>;
+    getAttrs?(token: Token, tokens: Token[], i: number): Record<string, any>;
 
     /**
      * When true, ignore content for the matched token.
