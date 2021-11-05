@@ -542,7 +542,18 @@ declare namespace TelegramBot {
         supports_streaming?: boolean | undefined;
     }
 
-    type InputMedia = InputMediaPhoto | InputMediaVideo;
+    type InputFile = any;
+
+    interface InputMediaAudio extends InputMediaBase {
+        type: 'audio';
+        thumb?: InputFile | string;
+        duration?: number;
+        performer?:	string;
+        title?:	string;
+        caption_entities?: MessageEntity[];
+    }
+
+    type InputMedia = InputMediaPhoto | InputMediaVideo | InputMediaAudio;
 
     interface VideoNote extends FileBase {
         length: number;
