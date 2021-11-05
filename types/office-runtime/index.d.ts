@@ -36,6 +36,9 @@ declare namespace OfficeRuntime {
    * @remarks
    * [Api set: SharedRuntime 1.1, Mailbox 1.10]
    *
+   * **Important**: In Outlook, support is only available with
+   * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+   *
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
    */
   interface Storage {
@@ -46,6 +49,9 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * **Important**: In Outlook, support is only available with
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     *
      * @param key Key of item to be retrieved. Must be a string.
      */
     getItem(key: string): Promise<string | null>;
@@ -55,6 +61,9 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
+     *
+     * **Important**: In Outlook, support is only available with
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param key Key of item to be set. Must be a string.
      * @param value Must be a string.
@@ -67,6 +76,9 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * **Important**: In Outlook, support is only available with
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     *
      * @param key Key of item to be removed. Must be a string.
      */
     removeItem(key: string): Promise<void>;
@@ -76,6 +88,9 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
+     *
+     * **Important**: In Outlook, support is only available with
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -87,6 +102,9 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * **Important**: In Outlook, support is only available with
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     *
      * @param keyValues Key-value pairs to be set. Must be strings.
      */
     setItems(keyValues: { [key: string]: string }): Promise<void>;
@@ -97,16 +115,21 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * **Important**: In Outlook, support is only available with
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
     removeItems(keys: string[]): Promise<void>;
     /**
      * Retrieves an array of all keys from storage.
-     *  Returns a Promise.
+     * Returns a Promise.
      *
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
+     * **Important**: In Outlook, support is only available with
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
      */
     getKeys(): Promise<string[]>;
   }
