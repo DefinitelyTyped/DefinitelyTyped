@@ -467,14 +467,14 @@ export interface PressableAndroidRippleConfig {
 }
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
-   /**
-    * Called when the hover is activated to provide visual feedback.
-    */
+    /**
+     * Called when the hover is activated to provide visual feedback.
+     */
     onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
 
-   /**
-    * Called when the hover is deactivated to undo visual feedback.
-    */
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     */
     onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
 
     /**
@@ -521,14 +521,14 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      */
     cancelable?: null | boolean | undefined;
 
-   /**
-    * Duration to wait after hover in before calling `onHoverIn`.
-    */
+    /**
+     * Duration to wait after hover in before calling `onHoverIn`.
+     */
     delayHoverIn?: number,
 
-   /**
-    * Duration to wait after hover out before calling `onHoverOut`.
-    */
+    /**
+     * Duration to wait after hover out before calling `onHoverOut`.
+     */
     delayHoverOut?: number,
 
     /**
