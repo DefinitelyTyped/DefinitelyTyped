@@ -7,7 +7,10 @@ type Locale = "ar"|"de"|"en"|"es"|"fr"|"hu"|"id"|"it"|"ja"|"ko"|"nl"|"pl"|"pt"|"
 
 type Localization = Record<Locale, string>;
 
-type Currency = "usd";
+type Currency = "aed"|"ars"|"aud"|"bch"|"bdt"|"bhd"|"bmd"|"bnb"|"brl"|"btc"|"cad"|"chf"|"clp"|"cny"|"czk"|"dkk"|"eos"|"eth"
+    |"eur"|"gbp"|"hkd"|"huf"|"idr"|"ils"|"inr"|"jpy"|"krw"|"kwd"|"lkr"|"ltc"|"mmk"|"mxn"|"myr"|"ngn"|"nok"|"nzd"|"php"
+    |"pkr"|"pln"|"rub"|"sar"|"sek"|"sgd"|"thb"|"try"|"twd"|"uah"|"usd"|"vef"|"vnd"|"xag"|"xau"|"xdr"|"xlm"|"xrp"|"zar"
+    |"bits"|"link"|"sats";
 
 type Order =
     | 'gecko_asc'
