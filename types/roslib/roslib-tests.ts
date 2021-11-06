@@ -8,7 +8,7 @@ ros.on('connection', function () {
     console.log('Connected to websocket server.');
 });
 
-ros.on('error', function (error) {
+ros.on('error', function (error: Error) {
     console.log('Error connecting to websocket server: ', error);
 });
 
