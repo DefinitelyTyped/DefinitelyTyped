@@ -9,7 +9,17 @@ export {};
 declare global {
     type FieldValue = string | number | boolean;
     /** Valid types for Field `type` property */
-    type FieldTypes = 'text' | 'radio' | 'select' | 'int' | 'integer' | 'float' | 'number';
+    type FieldTypes =
+        | 'text'
+        | 'textarea'
+        | 'radio'
+        | 'select'
+        | 'checkbox'
+        | 'int'
+        | 'integer'
+        | 'float'
+        | 'number'
+        | 'hidden';
 
     interface InitOptions {
         /** Used for this instance of GM_config */
