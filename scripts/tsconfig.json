@@ -2,6 +2,7 @@
     "exclude": ["fix-tslint.ts", "update-config"],
     "compilerOptions": {
         "target": "es6",
+        "module": "es2020",
         "strict": true,
         "baseUrl": "../types",
         "moduleResolution": "node",
