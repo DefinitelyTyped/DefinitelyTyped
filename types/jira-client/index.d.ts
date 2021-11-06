@@ -97,6 +97,12 @@ declare class JiraApi {
     listSprints(rapidViewId: string): Promise<JiraApi.JsonResponse>;
 
     /**
+     * Get details about a Sprint
+     * @param sprintId - the id for the sprint view
+     */
+     getSprint(sprintId: string): Promise<JiraApi.JsonResponse>;
+
+    /**
      * Add an issue to the project's current sprint
      * @param issueId - the id of the existing issue
      * @param sprintId - the id of the sprint to add it to
@@ -948,6 +954,13 @@ declare class JiraApi {
      * @param endpoint - Rest API endpoint
      */
     genericGet(endpoint: string): Promise<JiraApi.JsonResponse>;
+
+    /**
+     * Generic Get Request to the Agile API
+     * [Jira Doc](https://docs.atlassian.com/jira-software/REST/cloud/2/)
+     * @param endpoint - Rest API endpoint
+     */
+     genericAgileGet(endpoint: string): Promise<JiraApi.JsonResponse>;
 
     private makeRequestHeader(uri: string, options?: JiraApi.UriOptions);
 
