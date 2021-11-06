@@ -106,6 +106,9 @@ declare global {
 
     /* GM_configField and related */
     interface GM_configFieldConstructor {
+        /**
+         * @todo {@param customType} is absolutely not a boolean
+         */
         new (
             settings: Field,
             stored: FieldValue | undefined,
@@ -120,7 +123,6 @@ declare global {
         id: string;
         configId: string;
         node: Node | null;
-        /** @todo Update type */
         wrapper: Node | null;
         save: boolean;
         default: FieldValue;
