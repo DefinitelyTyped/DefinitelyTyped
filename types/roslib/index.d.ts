@@ -62,13 +62,11 @@ declare namespace ROSLIB {
 
         readonly transportOptions: RTCDataChannelInit | {};
 
-        on(eventName: string, callback: (event: any) => void): void;
+        on(eventName: string, callback: (event: any) => void): this;
 
-        on(eventName: 'error', callback: (error: Error) => void): void;
+        on(eventName: 'error', callback: (error: Error) => void): this;
 
-        on(eventName: 'connection', callback: () => void): void;
-
-        on(eventName: 'close', callback: () => void): void;
+        on(eventName: 'connection' | 'close', callback: () => void): this;
 
         /**
          * Connect to the specified WebSocket.
