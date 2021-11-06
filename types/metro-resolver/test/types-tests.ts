@@ -22,49 +22,50 @@ export const resultFailed: Result<number, string[]> = {
     candidates: ['module'],
 };
 
-export const assetFileResolution: AssetFileResolution = ["image.png"];
+export const assetFileResolution: AssetFileResolution = ['image.png'];
 
 export const fileResolution: FileResolution = {
-    type: "sourceFile",
-    filePath: "file"
+    type: 'sourceFile',
+    filePath: 'file',
 };
 
 export const resolution: Resolution = fileResolution;
 
 export const fileCandidates: FileCandidates = {
     type: 'asset',
-    name: 'image'
+    name: 'image',
 };
 
 export const fileAndDirCandidates: FileAndDirCandidates = {
     dir: fileCandidates,
-    file: fileCandidates
+    file: fileCandidates,
 };
 
 export const fileContext: FileContext = {
     doesFileExist: (filePath: string): boolean => true,
     isAssetFile: (filePath: string): boolean => true,
-    nodeModulesPaths: ["path"],
+    nodeModulesPaths: ['path'],
     preferNativePlatform: true,
     redirectModulePath: (modulePath: string): string | false => false,
-    resolveAsset: (dirPath: string, assetName: string, extension: string): ReadonlyArray<string> | undefined => undefined,
-    sourceExts: [".ts"]
+    resolveAsset: (dirPath: string, assetName: string, extension: string): ReadonlyArray<string> | undefined =>
+        undefined,
+    sourceExts: ['.ts'],
 };
 
 export const fileOrDirContext: FileOrDirContext = {
     ...fileContext,
-    getPackageMainPath: (packageJsonPath: string): string => "hello"
+    getPackageMainPath: (packageJsonPath: string): string => 'hello',
 };
 
 export const hasteContext: HasteContext = {
     ...fileOrDirContext,
     resolveHasteModule: (name: string): string | undefined => undefined,
-    resolveHastePackage: (name: string): string | undefined => undefined
+    resolveHastePackage: (name: string): string | undefined => undefined,
 };
 
 export const modulePathContext: ModulePathContext = {
     ...fileOrDirContext,
-    originModulePath: "path"
+    originModulePath: 'path',
 };
 
 export const resolutionContext: ResolutionContext = {
@@ -72,13 +73,13 @@ export const resolutionContext: ResolutionContext = {
     ...hasteContext,
     allowHaste: true,
     extraNodeModules: {
-        react: "react"
+        react: 'react',
     },
-    originModulePath: "path",
+    originModulePath: 'path',
     resolveRequest: (
         context: ResolutionContext,
         realModuleName: string,
         platform: string | null,
         moduleName: string | null,
-    ): Resolution => resolution
+    ): Resolution => resolution,
 };
