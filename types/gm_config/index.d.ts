@@ -1,4 +1,4 @@
-// Type definitions for non-npm library GM_config 0.1
+// Type definitions for non-npm package gm_config 0.1
 // Project: https://github.com/sizzlemctwizzle/GM_config/
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
