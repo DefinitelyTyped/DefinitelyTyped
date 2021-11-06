@@ -26,7 +26,7 @@ declare global {
         id: string;
         /** Label the opened config window */
         title?: string | HTMLElement;
-        fields: { [fieldId: string]: Field<CustomTypes> };
+        fields: Record<string, Field<CustomTypes>>;
         /** Optional styling to apply to the menu */
         css?: string;
         /** Element to use for the config panel */
@@ -140,7 +140,7 @@ declare global {
             stylish: string;
         };
         frame?: HTMLElement;
-        fields: { [fieldId: string]: Field<CustomTypes> };
+        fields: Record<string, Field<CustomTypes>>;
         onInit?: () => void;
         onOpen?: (document: Document, window: Window, frame: HTMLElement) => void;
         onSave?: () => void;
