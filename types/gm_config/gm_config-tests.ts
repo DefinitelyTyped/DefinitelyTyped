@@ -49,7 +49,7 @@ const myType: CustomType = {
 };
 
 const newConfig = new GM_configStruct({
-    id: 'Fart',
+    id: 'TestingCustomTypes',
     fields: {
         MyField: {
             type: 'myType',
