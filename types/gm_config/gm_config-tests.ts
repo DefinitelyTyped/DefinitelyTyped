@@ -16,3 +16,22 @@ GM_config.open();
 
 const username = GM_config.get('Name');
 GM_config.set('Name', '@types/gm_config');
+
+// Testing GM_configField
+const someField = new GM_configField(
+    {
+        label: 'My Field',
+        type: 'text',
+        default: 'Default Text',
+    },
+    undefined,
+    'MyField',
+    false,
+    'MyConfig',
+);
+
+document.body.appendChild(someField.toNode());
+GM_config.set('Name', someField.toValue()); // $ExpectError
+
+const value = someField.toValue();
+if (value) GM_config.set('Name', value);
