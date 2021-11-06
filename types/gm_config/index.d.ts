@@ -21,18 +21,18 @@ declare global {
         | 'number'
         | 'hidden';
 
-    interface InitOptions {
+    interface InitOptions<CustomTypes extends string = never> {
         /** Used for this instance of GM_config */
         id: string;
         /** Label the opened config window */
         title?: string | HTMLElement;
-        fields: { [fieldId: string]: Field };
+        fields: { [fieldId: string]: Field<CustomTypes> };
         /** Optional styling to apply to the menu */
         css?: string;
         /** Element to use for the config panel */
         frame?: HTMLElement;
         /** Custom fields */
-        types?: { [id: string]: CustomType };
+        types?: { [type in CustomTypes]: CustomType };
         /** Handlers for different events */
         events?: {
             init?: GM_configStruct['onInit'];
@@ -43,11 +43,11 @@ declare global {
         };
     }
 
-    interface Field {
+    interface Field<CustomTypes extends string = never> {
         /** Display label for the field */
         label?: string;
         /** Type of input */
-        type: FieldTypes | string;
+        type: FieldTypes | CustomTypes;
         /** Text to show on hover */
         title?: string;
         /** Default value for field */
@@ -65,17 +65,20 @@ declare global {
     /* GM_configStruct and related */
 
     interface GM_configStructConstructor {
-        new (options: InitOptions): GM_configStruct;
+        new <CustomTypes extends string = never>(options: InitOptions<CustomTypes>): GM_configStruct<CustomTypes>;
     }
 
     /** Initialize a GM_configStruct */
-    function GM_configInit(config: GM_configStruct, options: InitOptions): void;
+    function GM_configInit<CustomTypes extends string = never>(
+        config: GM_configStruct<CustomTypes>,
+        options: InitOptions<CustomTypes>,
+    ): void;
 
     function GM_configDefaultValue(type: FieldTypes): FieldValue;
 
-    interface GM_configStruct {
+    interface GM_configStruct<CustomTypes extends string = never> {
         /** Initialize GM_config */
-        init(options: InitOptions): void;
+        init(options: InitOptions<CustomTypes>): void;
 
         /** Display the config panel */
         open(): void;
@@ -137,7 +140,7 @@ declare global {
             stylish: string;
         };
         frame?: HTMLElement;
-        fields: { [fieldId: string]: Field };
+        fields: { [fieldId: string]: Field<CustomTypes> };
         onInit?: () => void;
         onOpen?: (document: Document, window: Window, frame: HTMLElement) => void;
         onSave?: () => void;
