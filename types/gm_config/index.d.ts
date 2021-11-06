@@ -21,6 +21,8 @@ declare global {
         css?: string;
         /** Element to use for the config panel */
         frame?: HTMLElement;
+        /** Custom fields */
+        types?: { [id: string]: CustomType };
 
         onInit?: () => void;
         onOpen?: () => void;
@@ -31,14 +33,21 @@ declare global {
 
     interface Field {
         /** Display label for the field */
-        label: string;
+        label?: string;
         /** Type of input */
-        type: FieldTypes;
+        type: FieldTypes | string;
         /** Text to show on hover */
         title?: string;
         /** Default value for field */
         default?: FieldValue;
         save?: boolean;
+    }
+
+    interface CustomType {
+        default?: FieldValue | null;
+        toNode?: (configId: string) => Node;
+        toValue?: () => FieldValue | null;
+        reset?: () => void;
     }
 
     /* GM_configStruct and related */
@@ -132,14 +141,11 @@ declare global {
 
     /* GM_configField and related */
     interface GM_configFieldConstructor {
-        /**
-         * @todo {@param customType} is absolutely not a boolean
-         */
         new (
             settings: Field,
             stored: FieldValue | undefined,
             id: string,
-            customType: boolean,
+            customType: CustomType | undefined,
             configId: string,
         ): GM_configField;
     }
@@ -157,7 +163,7 @@ declare global {
 
         create: GM_configStruct['create'];
 
-        toNode(): Node;
+        toNode(configId?: string): Node;
 
         /** Get value from field */
         toValue(): FieldValue | null;

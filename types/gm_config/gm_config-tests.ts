@@ -26,7 +26,7 @@ const someField = new GM_configField(
     },
     undefined,
     'MyField',
-    false,
+    undefined,
     'MyConfig',
 );
 
@@ -35,3 +35,27 @@ GM_config.set('Name', someField.toValue()); // $ExpectError
 
 const value = someField.toValue();
 if (value) GM_config.set('Name', value);
+
+// Testing custom types
+const myType: CustomType = {
+    default: null,
+    toNode() {
+        return document.createElement('a');
+    },
+    toValue() {
+        return 12;
+    },
+    reset() {},
+};
+
+const newConfig = new GM_configStruct({
+    id: 'Fart',
+    fields: {
+        MyField: {
+            type: 'myType',
+        },
+    },
+    types: {
+        myType,
+    },
+});
