@@ -4547,6 +4547,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simple-icons": {
+            "libraryName": "simple-icons",
+            "asOfVersion": "5.21.0"
+        },
         "simplebar": {
             "libraryName": "simplebar",
             "asOfVersion": "5.3.3"
