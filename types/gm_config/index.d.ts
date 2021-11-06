@@ -125,6 +125,8 @@ declare global {
         node: Node | null;
         wrapper: Node | null;
         save: boolean;
+        /** The stored value */
+        value: FieldValue;
         default: FieldValue;
 
         create: GM_configStruct['create'];
