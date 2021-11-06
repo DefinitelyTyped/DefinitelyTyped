@@ -21,7 +21,7 @@ declare global {
         | 'number'
         | 'hidden';
 
-    interface InitOptions<CustomTypes extends string = never> {
+    interface InitOptions<CustomTypes extends string> {
         /** Used for this instance of GM_config */
         id: string;
         /** Label the opened config window */
@@ -65,11 +65,11 @@ declare global {
     /* GM_configStruct and related */
 
     interface GM_configStructConstructor {
-        new <CustomTypes extends string = never>(options: InitOptions<CustomTypes>): GM_configStruct<CustomTypes>;
+        new <CustomTypes extends string>(options: InitOptions<CustomTypes>): GM_configStruct<CustomTypes>;
     }
 
     /** Initialize a GM_configStruct */
-    function GM_configInit<CustomTypes extends string = never>(
+    function GM_configInit<CustomTypes extends string>(
         config: GM_configStruct<CustomTypes>,
         options: InitOptions<CustomTypes>,
     ): void;
