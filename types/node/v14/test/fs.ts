@@ -562,6 +562,8 @@ async function testStat(
     util.promisify(fs.fstat)(fd, opts); // $ExpectType Promise<Stats | BigIntStats>
 
     // fs.promises mode
+    // $ExpectType FileHandle
+    await fs.promises.open(path);
     const fh = await fs.promises.open(path, 'r');
     fs.promises.stat(path); // $ExpectType Promise<Stats>
     fs.promises.lstat(path); // $ExpectType Promise<Stats>

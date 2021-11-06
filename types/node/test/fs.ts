@@ -407,6 +407,9 @@ async function testPromisify() {
 }
 
 async () => {
+    // openAsync
+    // $ExpectType FileHandle
+    await openAsync('./index.d.ts');
     const handle: FileHandle = await openAsync('test', 'r');
     const writeStream = fs.createWriteStream('./index.d.ts', {
         fd: handle,
@@ -603,6 +606,7 @@ async function testStat(
     util.promisify(fs.fstat)(fd, opts); // $ExpectType Promise<Stats | BigIntStats>
 
     // fs.promises mode
+    fs.promises.open(path); // $ExpectType Promise<FileHandle>
     const fh = await fs.promises.open(path, 'r');
     fs.promises.stat(path); // $ExpectType Promise<Stats>
     fs.promises.lstat(path); // $ExpectType Promise<Stats>
