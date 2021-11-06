@@ -1,4 +1,4 @@
-// Type definitions for non-npm package GM_config
+// Type definitions for non-npm library GM_config 0.1
 // Project: https://github.com/sizzlemctwizzle/GM_config/
 // Definitions by: Adam Thompson_Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,6 +21,12 @@ declare global {
         css?: string;
         /** Element to use for the config panel */
         frame?: HTMLElement;
+
+        onInit?: () => void;
+        onOpen?: () => void;
+        onSave?: () => void;
+        onClose?: () => void;
+        onReset?: () => void;
     }
 
     interface Field {
@@ -57,8 +63,11 @@ declare global {
 
         /** Directly set the value of a field */
         set(fieldId: string, value: FieldValue): void;
-        /** Get a config value */
-        get(fieldId: string): FieldValue;
+        /**
+         * Get a config value
+         * @param getLive If true, runs `field.toValue()` instead of just getting `field.value`
+         */
+        get(fieldId: string, getLive?: boolean): FieldValue;
         /** Save the current values */
         save(): void;
 
@@ -97,6 +106,23 @@ declare global {
 
         /** Log a string with multiple fallbacks */
         log(data: string): void;
+
+        /* Created from GM_configInit */
+        id: string;
+        title: string;
+        css: {
+            basic: string[];
+            basicPrefix: string;
+            stylish: string;
+        };
+        frame?: HTMLElement;
+        fields: { [fieldId: string]: Field };
+        onInit?: () => void;
+        onOpen?: () => void;
+        onSave?: () => void;
+        onClose?: () => void;
+        onReset?: () => void;
+        isOpen: boolean;
     }
 
     /** Default GM_config object */
