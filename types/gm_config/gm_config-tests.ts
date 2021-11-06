@@ -48,7 +48,7 @@ const myType: CustomType = {
     reset() {},
 };
 
-const newConfig = new GM_configStruct({
+const customTypesConfig = new GM_configStruct({
     id: 'TestingCustomTypes',
     fields: {
         MyField: {
@@ -57,5 +57,18 @@ const newConfig = new GM_configStruct({
     },
     types: {
         myType,
+    },
+});
+
+// Testing events
+const eventsConfig = new GM_configStruct({
+    id: 'TestingEvents',
+    fields: {},
+    events: {
+        init: () => alert('onInit()'),
+        open: () => alert('onOpen()'),
+        save: () => alert('onSave()'),
+        close: () => alert('onClose()'),
+        reset: () => alert('onReset()'),
     },
 });

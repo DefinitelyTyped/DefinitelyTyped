@@ -23,12 +23,14 @@ declare global {
         frame?: HTMLElement;
         /** Custom fields */
         types?: { [id: string]: CustomType };
-
-        onInit?: () => void;
-        onOpen?: () => void;
-        onSave?: () => void;
-        onClose?: () => void;
-        onReset?: () => void;
+        /** Handlers for different events */
+        events?: {
+            init?: GM_configStruct['onInit'];
+            open?: GM_configStruct['onOpen'];
+            save?: GM_configStruct['onSave'];
+            close?: GM_configStruct['onClose'];
+            reset?: GM_configStruct['onReset'];
+        };
     }
 
     interface Field {
@@ -127,7 +129,7 @@ declare global {
         frame?: HTMLElement;
         fields: { [fieldId: string]: Field };
         onInit?: () => void;
-        onOpen?: () => void;
+        onOpen?: (document: Document, window: Window, frame: HTMLElement) => void;
         onSave?: () => void;
         onClose?: () => void;
         onReset?: () => void;
