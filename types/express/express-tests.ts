@@ -19,7 +19,7 @@ namespace express_tests {
         '/static',
         express.static(__dirname + '/public', {
             setHeaders: res => {
-                // $ExpectType Response<any, Record<string, any>>
+                // $ExpectType Response<any, Record<string, any>, number>
                 res;
                 res.set('foo', 'bar');
             },
@@ -212,6 +212,12 @@ namespace express_tests {
         res.json();
         res.json(1); // $ExpectError
         res.send(1); // $ExpectError
+    });
+
+    // Response status code will be of type provided
+    router.get('/', (req: Request, res: express.Response<string, {}, 200>) => {
+        res.status(200);
+        res.status(500); // $ExpectError
     });
 
     app.use((req, res, next) => {

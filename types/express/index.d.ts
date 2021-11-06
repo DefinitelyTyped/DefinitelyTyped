@@ -124,8 +124,8 @@ declare namespace e {
         Locals extends Record<string, any> = Record<string, any>
     > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestParamHandler extends core.RequestParamHandler {}
-    export interface Response<ResBody = any, Locals extends Record<string, any> = Record<string, any>>
-        extends core.Response<ResBody, Locals> {}
+    export interface Response<ResBody = any, Locals extends Record<string, any> = Record<string, any>, StatusCode extends number = number>
+        extends core.Response<ResBody, Locals, StatusCode> {}
     interface Router extends core.Router {}
     interface Send extends core.Send {}
 }
