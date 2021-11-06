@@ -21,7 +21,7 @@ export function computeScores(string: string): number[];
  *
  * @param string A string for which a zalgo text check is run.
  * @param threshold A threshold ∈ [0, 1], 0.55 by default.
- * The higher the threshold, the more combining characters are needed for it to be detected as zalgo text. Default is 0.55
+ * The higher the threshold, the more combining characters are needed for it to be detected as zalgo text.
  * @returns Whether the string is a zalgo text string.
  */
 export function isZalgo(string: string, threshold?: number): boolean;
