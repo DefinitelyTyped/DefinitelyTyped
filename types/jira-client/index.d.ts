@@ -1,4 +1,4 @@
-// Type definitions for jira-client 6.21
+// Type definitions for jira-client 7.1
 // Project: http://github.com/jira-node/node-jira-client
 // Definitions by: Anatoliy Ostapenko <https://github.com/KOPTE3>
 //                 Orta Therox <https://github.com/orta>
