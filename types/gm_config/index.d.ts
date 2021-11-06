@@ -127,8 +127,7 @@ declare global {
         save: boolean;
         default: FieldValue;
 
-        /** Same thing as `GM_configStruct.prototype.create` */
-        create(): void;
+        create: GM_configStruct['create'];
 
         toNode(): Node;
 
