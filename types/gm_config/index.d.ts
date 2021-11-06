@@ -1,6 +1,6 @@
 // Type definitions for non-npm library GM_config 0.1
 // Project: https://github.com/sizzlemctwizzle/GM_config/
-// Definitions by: Adam Thompson_Sharpe <https://github.com/MysteryBlokHed>
+// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
