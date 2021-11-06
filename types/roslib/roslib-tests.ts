@@ -15,6 +15,8 @@ var ros = new ROSLIB.Ros({
 
 console.log(`ros.isConnected: ${ros.isConnected}`);
 
+console.log(`ros.transportLibrary: ${ros.transportLibrary.constructor.name ?? ros.transportLibrary}`);
+
 // Publishing a Topic
 // ------------------
 
