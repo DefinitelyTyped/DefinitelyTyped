@@ -955,7 +955,7 @@ export type ApplicationRequestHandler<T> = IRouterHandler<T> &
     ((...handlers: RequestHandlerParams[]) => T);
 
 export interface Application<
-    Locals extends Record<string, any> = Record<string, any>,
+    Locals extends Record<string, any> = Record<string, any>
 > extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
