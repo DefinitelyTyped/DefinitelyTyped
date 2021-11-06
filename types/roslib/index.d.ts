@@ -64,9 +64,7 @@ declare namespace ROSLIB {
 
         on(eventName: string, callback: (event: any) => void): this;
 
-        on(eventName: 'error', callback: (error: Error) => void): this;
-
-        on(eventName: 'connection' | 'close', callback: () => void): this;
+        on(eventName: 'connection' | 'close' | 'error', callback: (event: Event) => void): this;
 
         /**
          * Connect to the specified WebSocket.
