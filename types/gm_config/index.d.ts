@@ -7,7 +7,7 @@
 export {};
 
 declare global {
-    type FieldValue = string | number;
+    type FieldValue = string | number | boolean;
     /** Valid types for Field `type` property */
     type FieldTypes = 'text' | 'radio' | 'select' | 'int' | 'integer' | 'float' | 'number';
 
@@ -32,29 +32,35 @@ declare global {
         title?: string;
         /** Default value for field */
         default?: FieldValue;
+        save?: boolean;
     }
 
-    /** Default GM_config object */
-    let GM_config: GM_configStruct;
-    /** Create multiple GM_config instances */
-    let GM_configStruct: GM_configStructConstructor;
+    /* GM_configStruct and related */
 
     interface GM_configStructConstructor {
         new (options: InitOptions): GM_configStruct;
     }
 
+    /** Initialize a GM_configStruct */
+    function GM_configInit(config: GM_configStruct, options: InitOptions): void;
+
+    function GM_configDefaultValue(type: FieldTypes): FieldValue;
+
     interface GM_configStruct {
         /** Initialize GM_config */
         init(options: InitOptions): void;
 
-        /** Display config GUI to user */
+        /** Display the config panel */
         open(): void;
+        /** Close the config panel */
+        close(): void;
 
         /** Directly set the value of a field */
         set(fieldId: string, value: FieldValue): void;
-
         /** Get a config value */
         get(fieldId: string): FieldValue;
+        /** Save the current values */
+        save(): void;
 
         create(): HTMLElement;
 
@@ -62,15 +68,79 @@ declare global {
 
         remove(el: HTMLElement): void;
 
-        /** Save the current values */
-        save(): void;
+        /* Computed */
 
-        /** Close the config panel */
-        close(): void;
+        /** Whether GreaseMonkey functions are present */
+        isGM: boolean;
+        /**
+         * Either calls `localStorage.setItem` or `GM_setValue`.
+         * Shouldn't be directly called
+         */
+        setValue(name: string, value: FieldValue): Promise<void> | void;
+        /**
+         * Get a value. Shouldn't be directly called
+         *
+         * @param name The name of the value
+         * @param def The default to return if the value is not defined.
+         * Only for localStorage fallback
+         */
+        getValue(name: string, def: FieldValue): FieldValue;
+
+        /** Converts a JSON object to a string */
+        stringify(obj: object): string;
+        /**
+         * Converts a string to a JSON object
+         * @returns `undefined` if the string was an invalid object,
+         * otherwise returns the parsed object
+         */
+        parser(jsonString: string): object | void;
+
+        /** Log a string with multiple fallbacks */
+        log(data: string): void;
     }
 
-    /** Initialize GM_config */
-    function GM_configInit(config: GM_configStruct, options: InitOptions): void;
+    /** Default GM_config object */
+    let GM_config: GM_configStruct;
+    /** Create multiple GM_config instances */
+    let GM_configStruct: GM_configStructConstructor;
 
-    function GM_configDefaultValue(type: FieldTypes): FieldValue;
+    /* GM_configField and related */
+    interface GM_configFieldConstructor {
+        new (
+            settings: Field,
+            stored: FieldValue | undefined,
+            id: string,
+            customType: boolean,
+            configId: string,
+        ): GM_configField;
+    }
+
+    interface GM_configField {
+        settings: Field;
+        id: string;
+        configId: string;
+        node: Node | null;
+        /** @todo Update type */
+        wrapper: Node | null;
+        save: boolean;
+        default: FieldValue;
+
+        /** Same thing as `GM_configStruct.prototype.create` */
+        create(): void;
+
+        toNode(): Node;
+
+        /** Get value from field */
+        toValue(): FieldValue | null;
+
+        reset(): void;
+
+        remove(el?: HTMLElement): void;
+
+        reload(): void;
+
+        _checkNumberRange(num: number, warn: string): true | null;
+    }
+
+    let GM_configField: GM_configFieldConstructor;
 }
