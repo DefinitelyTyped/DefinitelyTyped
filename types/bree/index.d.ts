@@ -1,6 +1,6 @@
 // Type definitions for bree 6.5
 // Project: https://github.com/breejs/bree
-// Definitions by: Taylor Schley <https://github.com/shadogate15>
+// Definitions by: Taylor Schley <https://github.com/shadowgate15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
