@@ -10,15 +10,15 @@ declare namespace MDNS {
     // --- Error ---
 
     interface DnsSdError extends Error {
-        errorCode?:number;
+        errorCode?:number | undefined;
     }
 
     // --- Ads ---
 
     interface AdvertisementOptions {
-        name?:string;
-        interfaceIndex?:number;
-        networkInterface?:string;
+        name?:string | undefined;
+        interfaceIndex?:number | undefined;
+        networkInterface?:string | undefined;
         txtRecord?:any;
         host?:any;
         domain?:any;
@@ -38,9 +38,9 @@ declare namespace MDNS {
     // --- Browser ---
 
     interface BrowserOptions {
-        resolverSequence?:Array<(service:Service, next:()=>void)=>boolean>;
-        interfaceIndex?:number;
-        networkInterface?:string;
+        resolverSequence?:Array<(service:Service, next:()=>void)=>boolean> | undefined;
+        interfaceIndex?:number | undefined;
+        networkInterface?:string | undefined;
         domain?:any;
         context?:any;
         flags?:any;
@@ -67,8 +67,8 @@ declare namespace MDNS {
         fullname:string;
         host:string;
         interfaceIndex: number;
-        name?:string;
-        rawTxtRecord?:Buffer;
+        name?:string | undefined;
+        rawTxtRecord?:Buffer | undefined;
         txtRecord?:any;
         networkInterface:string;
         port:number;
@@ -80,7 +80,7 @@ declare namespace MDNS {
         new(serviceTypeIdentifier:string):ServiceType;
         new(name:string, protocol:string, ...subtypes:string[]):ServiceType;
         new(serviceTypeIdentifier:Array<string>):ServiceType;
-        new(serviceTypeIdentifier:{name:string; protocol:string; subtypes?:Array<string>}):ServiceType;
+        new(serviceTypeIdentifier:{name:string; protocol:string; subtypes?:Array<string> | undefined}):ServiceType;
         new(serviceType:ServiceType):ServiceType;
 
         fullyQualified:boolean;
@@ -94,7 +94,7 @@ declare namespace MDNS {
         toArray():Array<string>;
         fromArray(serviceTypeIdentifier:Array<string>):ServiceType;
 
-        fromJSON(serviceTypeIdentifier:{name:string; protocol:string; subtypes?:Array<string>}):ServiceType;
+        fromJSON(serviceTypeIdentifier:{name:string; protocol:string; subtypes?:Array<string> | undefined}):ServiceType;
         fromJSON(serviceType:ServiceType):ServiceType;
     }
 
@@ -132,7 +132,7 @@ declare namespace MDNS {
 
     function makeServiceType(serviceTypeIdentifier:Array<string>):ServiceType;
 
-    function makeServiceType(serviceTypeIdentifier:{name:string; protocol:string; subtypes?:Array<string>}):ServiceType;
+    function makeServiceType(serviceTypeIdentifier:{name:string; protocol:string; subtypes?:Array<string> | undefined}):ServiceType;
 
     function makeServiceType(serviceType:ServiceType):ServiceType;
 

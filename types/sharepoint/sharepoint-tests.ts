@@ -1618,8 +1618,8 @@ namespace CSR {
     }
 
     export interface KoFieldInForm {
-        renderingContext?: SPClientTemplates.RenderContext_FieldInForm;
-        value?: KnockoutObservable<any>;
+        renderingContext?: SPClientTemplates.RenderContext_FieldInForm | undefined;
+        value?: KnockoutObservable<any> | undefined;
     }
 
     interface FormRenderContexWithHook extends SPClientTemplates.RenderContext_FieldInForm {
@@ -1631,7 +1631,7 @@ namespace CSR {
     }
 
     interface FormContextHookField {
-        fieldSchema?: SPClientTemplates.FieldSchema_InForm;
+        fieldSchema?: SPClientTemplates.FieldSchema_InForm | undefined;
         lastValue?: any;
         getValue?(): any;
         updatedValueCallbacks: UpdatedValueCallback[];

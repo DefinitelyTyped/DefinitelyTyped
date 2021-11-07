@@ -22,20 +22,20 @@ export interface PhotoSwipeProps {
      * {@link http://photoswipe.com/documentation/options.html}
      * @default {}
      */
-    options?: Options;
+    options?: Options | undefined;
     /**
      * Callback after PhotoSwipe close
      */
-    onClose?: () => void;
+    onClose?: (() => void) | undefined;
     /**
      * id
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * class name
      * @default pswp
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Photoswipe event listener
      * Before slides change
@@ -43,26 +43,26 @@ export interface PhotoSwipeProps {
      * Update UI here (like "1 of X" indicator)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    beforeChange?: (instance: PhotoSwipe) => void;
+    beforeChange?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * After slides change
      * (after content changed)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    afterChange?: (instance: PhotoSwipe) => void;
+    afterChange?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Image loaded
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    imageLoadComplete?: (instance: PhotoSwipe, index: number, item: Item) => void;
+    imageLoadComplete?: ((instance: PhotoSwipe, index: number, item: Item) => void) | undefined;
     /**
      * Photoswipe event listener
      * Viewport size changed
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    resize?: (instance: PhotoSwipe) => void;
+    resize?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Triggers when PhotoSwipe "reads" slide object data,
@@ -70,63 +70,63 @@ export interface PhotoSwipeProps {
      * Use it to dynamically change properties
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    gettingData?: (instance: PhotoSwipe, index: number, item: Item) => void;
+    gettingData?: ((instance: PhotoSwipe, index: number, item: Item) => void) | undefined;
     /**
      * Photoswipe event listener
      * Mouse was used (triggers only once)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    mouseUsed?: (instance: PhotoSwipe) => void;
+    mouseUsed?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Opening zoom in animation starting
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomIn?: (instance: PhotoSwipe) => void;
+    initialZoomIn?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Opening zoom in animation finished
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomInEnd?: (instance: PhotoSwipe) => void;
+    initialZoomInEnd?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Closing zoom out animation started
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomOut?: (instance: PhotoSwipe) => void;
+    initialZoomOut?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Closing zoom out animation finished
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    initialZoomOutEnd?: (instance: PhotoSwipe) => void;
+    initialZoomOutEnd?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Allows overriding vertical margin for individual items
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    parseVerticalMargin?: (instance: PhotoSwipe, item: Item) => void;
+    parseVerticalMargin?: ((instance: PhotoSwipe, item: Item) => void) | undefined;
     /**
      * Photoswipe event listener
      * Gallery starts closing
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    close?: (instance: PhotoSwipe) => void;
+    close?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Gallery unbinds events
      * (triggers before closing animation)
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    unbindEvents?: (instance: PhotoSwipe) => void;
+    unbindEvents?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * After gallery is closed and closing animation finished.
      * Clean up your stuff here.
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    destroy?: (instance: PhotoSwipe) => void;
+    destroy?: ((instance: PhotoSwipe) => void) | undefined;
     /**
      * Photoswipe event listener
      * Called when the page scrolls.
@@ -140,19 +140,19 @@ export interface PhotoSwipeProps {
      * Look at the "Implementing inline gallery display" FAQ section for more info.
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    updateScrollOffset?: (instance: PhotoSwipe, _offset: { x: number; y: number }) => void;
+    updateScrollOffset?: ((instance: PhotoSwipe, _offset: { x: number; y: number }) => void) | undefined;
     /**
      * Photoswipe event listener
      * Allow to call preventDefault on down and up events
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    preventDragEvent?: (instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => void;
+    preventDragEvent?: ((instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => void) | undefined;
     /**
      * Photoswipe event listener
      * Share link clicked
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    shareLinkClick?: (instance: PhotoSwipe, e: MouseEvent, item: Item) => void;
+    shareLinkClick?: ((instance: PhotoSwipe, e: MouseEvent, item: Item) => void) | undefined;
 }
 
 export interface PhotoSwipeGalleryItem extends Item {
@@ -169,12 +169,12 @@ export interface PhotoSwipeGalleryProps extends Omit<PhotoSwipeProps, 'isOpen'> 
      * is open
      * @default false
      */
-    isOpen?: boolean;
+    isOpen?: boolean | undefined;
     /**
      * class name
      * @default pswp-gallery
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Thumbnail content
      * @default <img src={item.src} width='100' height='100'/>

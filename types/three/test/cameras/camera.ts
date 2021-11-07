@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { randFloatSpread } from 'three/src/math/MathUtils';
 
 let SCREEN_WIDTH = window.innerWidth;
 let SCREEN_HEIGHT = window.innerHeight;
@@ -91,9 +92,9 @@ function init() {
     const vertices = [];
 
     for (let i = 0; i < 10000; i++) {
-        vertices.push(THREE.MathUtils.randFloatSpread(2000)); // x
-        vertices.push(THREE.MathUtils.randFloatSpread(2000)); // y
-        vertices.push(THREE.MathUtils.randFloatSpread(2000)); // z
+        vertices.push(randFloatSpread(2000)); // x
+        vertices.push(randFloatSpread(2000)); // y
+        vertices.push(randFloatSpread(2000)); // z
     }
 
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));

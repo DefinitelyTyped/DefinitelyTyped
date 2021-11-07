@@ -39,22 +39,22 @@ export function setContext(globalContext: unknown): void;
 export function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
 
 export interface RoxSetupOptions {
-  version?: string;
+  version?: string | undefined;
   // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/4.9/api-reference/javascript-browser-api#_configurationfetchedhandler
   configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
-  debugLevel?: 'verbose';
+  debugLevel?: 'verbose' | undefined;
   // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/4.9/api-reference/javascript-browser-api#_using_the_impressionhandler_option
   impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
-  platform?: string;
-  freeze?: RoxFlagFreezeLevel;
-  disableNetworkFetch?: boolean;
-  devModeSecret?: string;
+  platform?: string | undefined;
+  freeze?: RoxFlagFreezeLevel | undefined;
+  disableNetworkFetch?: boolean | undefined;
+  devModeSecret?: string | undefined;
   /**
    * Set Roxy's URL for automated tests or local development.
    *
    * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/debugging/microservices-automated-testing-and-local-development
    */
-  roxy?: string;
+  roxy?: string | undefined;
 }
 
 export enum RoxFetcherStatus {
@@ -68,7 +68,7 @@ export interface RoxFetcherResult {
   fetcherStatus: RoxFetcherStatus;
   creationDate: Date;
   hasChanges: boolean;
-  errorDetails?: string;
+  errorDetails?: string | undefined;
 }
 
 export interface RoxReporting {
@@ -135,7 +135,7 @@ export enum RoxFlagFreezeLevel {
 }
 
 export interface RoxFlagOptions {
-  freeze?: RoxFlagFreezeLevel;
+  freeze?: RoxFlagFreezeLevel | undefined;
 }
 
 /**

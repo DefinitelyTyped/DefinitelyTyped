@@ -1,7 +1,7 @@
 # Definitely Typed for node-forge
 
 ## Current node-forge Version
-`v0.9.1`
+`v0.10.0`
 ## Usage
 
 ```bash
@@ -27,4 +27,3 @@ BSD-2-Clause
 [Aakash Goenka](https://github.com/a-k-g)
 [Rafal2228](https://github.com/rafal2228)
 [Beeno Tung](https://github.com/beenotung)
-[Nikita Koryabkin](https://github.com/Apologiz)

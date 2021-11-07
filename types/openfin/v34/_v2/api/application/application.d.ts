@@ -14,7 +14,7 @@ export interface ApplicationInfo {
     launchMode: string;
     manifest: object;
     manifestUrl: string;
-    parentUuid?: string;
+    parentUuid?: string | undefined;
     runtime: object;
 }
 export declare class NavigationRejectedReply extends Reply<'window-navigation-rejected', void> {
@@ -22,9 +22,9 @@ export declare class NavigationRejectedReply extends Reply<'window-navigation-re
     url: string;
 }
 export interface ConfigInterface {
-    desktop?: boolean;
-    startMenu?: boolean;
-    systemStartup?: boolean;
+    desktop?: boolean | undefined;
+    startMenu?: boolean | undefined;
+    systemStartup?: boolean | undefined;
 }
 export interface TrayInfo {
     bounds: Bounds;
@@ -68,7 +68,7 @@ export default class ApplicationModule extends Base {
  */
 export declare class Application extends EmitterBase {
     identity: Identity;
-    _manifestUrl?: string;
+    _manifestUrl?: string | undefined;
     private window;
     constructor(wire: Transport, identity: Identity);
     protected runtimeEventComparator: (listener: RuntimeEvent) => boolean;

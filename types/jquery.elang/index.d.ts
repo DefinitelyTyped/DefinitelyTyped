@@ -7,48 +7,48 @@
 /// <reference types="jquery" />
 
 interface IPageResource {
-    lang?: IPageLangItems;
-    selectedLang?: string;
+    lang?: IPageLangItems | undefined;
+    selectedLang?: string | undefined;
 }
 
 interface IPageLangItems {
-    en?: IPageLabels;
-    hu?: IPageLabels;
+    en?: IPageLabels | undefined;
+    hu?: IPageLabels | undefined;
 }
 
 interface IPageLabels {
-    lblTitle?: string;
-    lblPageHeader?: string;
-    lblSearchField?: string;
-    lblEditKeyField?: string;
-    lblEditValueField?: string;
-    lblFindedExpressionsHead?: string;
-    lblEditedExpressionsHead?: string;
-    lblFindHead?: string;
-    lblEditHead?: string;
-    lblFind?: string;
-    lblAdd?: string;
-    lblModify?: string;
-    lblRemove?: string;
-    lblSearchInExpressions?: string;
-    lblSearchInMeanings?: string;
-    lblSearchInExpressionsHlp?: string;
-    lblSearchInMeaningsHlp?: string;
-    lblTestHead?: string;
-    lblOrderedTest?: string;
-    lblRandomlyTest?: string;
-    lblTypedTest?: string;
-    lblSelectedTest?: string;
-    lblWrittedTest?: string;
-    lblVoicedTest?: string;
-    lblStartTest?: string;
-    lblStopTest?: string;
-    lblTypedTestHlp?: string;
-    lblSelectedTestHlp?: string;
-    lblOrderedTestHlp?: string;
-    lblRandomlyTestHlp?: string;
-    lblWrittedTestHlp?: string;
-    lblVoicedTestHlp?: string;
+    lblTitle?: string | undefined;
+    lblPageHeader?: string | undefined;
+    lblSearchField?: string | undefined;
+    lblEditKeyField?: string | undefined;
+    lblEditValueField?: string | undefined;
+    lblFindedExpressionsHead?: string | undefined;
+    lblEditedExpressionsHead?: string | undefined;
+    lblFindHead?: string | undefined;
+    lblEditHead?: string | undefined;
+    lblFind?: string | undefined;
+    lblAdd?: string | undefined;
+    lblModify?: string | undefined;
+    lblRemove?: string | undefined;
+    lblSearchInExpressions?: string | undefined;
+    lblSearchInMeanings?: string | undefined;
+    lblSearchInExpressionsHlp?: string | undefined;
+    lblSearchInMeaningsHlp?: string | undefined;
+    lblTestHead?: string | undefined;
+    lblOrderedTest?: string | undefined;
+    lblRandomlyTest?: string | undefined;
+    lblTypedTest?: string | undefined;
+    lblSelectedTest?: string | undefined;
+    lblWrittedTest?: string | undefined;
+    lblVoicedTest?: string | undefined;
+    lblStartTest?: string | undefined;
+    lblStopTest?: string | undefined;
+    lblTypedTestHlp?: string | undefined;
+    lblSelectedTestHlp?: string | undefined;
+    lblOrderedTestHlp?: string | undefined;
+    lblRandomlyTestHlp?: string | undefined;
+    lblWrittedTestHlp?: string | undefined;
+    lblVoicedTestHlp?: string | undefined;
 }
 
 interface ELangCommonStatic {
@@ -79,13 +79,13 @@ interface IELangDBEvents {
 
 interface IELangDB {
     cache?: any;
-    delegates?: IELangDBDelegates;
-    events?: IELangDBEvents;
-    isInitialized?: boolean;
-    options?: IELangDBOptions;
+    delegates?: IELangDBDelegates | undefined;
+    events?: IELangDBEvents | undefined;
+    isInitialized?: boolean | undefined;
+    options?: IELangDBOptions | undefined;
 
-    name?: string;
-    description?: string;
+    name?: string | undefined;
+    description?: string | undefined;
 
     initialize(options?: IELangDBOptions): void;
 

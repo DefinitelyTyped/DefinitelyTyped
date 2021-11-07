@@ -3,9 +3,9 @@ import LabelView from "../label/labelview";
 import View from "../view";
 
 export default class LabeledFieldView extends View {
-    class?: string;
+    class?: string | undefined;
     errorText: string | null;
-    fieldView: View;
+    fieldView: View & { value: string };
     infoText: string | null;
     readonly isEmpty: boolean;
     isEnabled: boolean;

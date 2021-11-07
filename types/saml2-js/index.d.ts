@@ -19,11 +19,11 @@ declare module 'saml2-js' {
         /** Certificate or certificates (array of certificate) for the identity provider. */
         certificates: string | string[];
         /** If true, forces re-authentication of users even if the user has a SSO session with the IdP. This can also be configured on the SP or on a per-method basis. */
-        force_authn?: boolean;
+        force_authn?: boolean | undefined;
         /** If true, signs the request. This can also be configured on the SP or on a per-method basis. */
-        sign_get_request?: boolean;
+        sign_get_request?: boolean | undefined;
         /** If true, allows unencrypted assertions. This can also be configured on the SP or on a per-method basis. */
-        allow_unencrypted_assertion?: boolean;
+        allow_unencrypted_assertion?: boolean | undefined;
     }
 
     /** Represents a service provider that relies on a trusted IdentityProvider for authentication and authorization in the SAML flow. */
@@ -74,11 +74,11 @@ declare module 'saml2-js' {
         /** URL of service provider assert endpoint. */
         assert_endpoint: string;
         /** Additional private keys to use when attempting to decrypt responses. Useful for adding backward-compatibility for old certificates after a rollover. */
-        alt_private_keys?: string[];
+        alt_private_keys?: string[] | undefined;
         /** Additional certificates to expose in the SAML metadata. Useful for staging new certificates for rollovers. */
-        alt_certs?: string[];
+        alt_certs?: string[] | undefined;
         /** If set, at least one of the <Audience> values within the <AudienceRestriction> condition of a SAML authentication response must match. Defaults to `entity_id`. */
-        audience?: string | RegExp;
+        audience?: string | RegExp | undefined;
         /**
          * To account for clock skew between IdP and SP, accept responses with a NotBefore condition
          * ahead of the current time (according to our clock) by this number of seconds.
@@ -86,29 +86,29 @@ declare module 'saml2-js' {
          * Defaults to 1.
          * Set it to 0 for optimum security but no tolerance for clock skew.
          */
-        notbefore_skew?: number;
+        notbefore_skew?: number | undefined;
         /** If true, forces re-authentication of users even if the user has a SSO session with the IdP. This can also be configured on the IdP or on a per-method basis. */
-        force_authn?: boolean;
+        force_authn?: boolean | undefined;
         /** Specifies AuthnContextClassRef. This can also be configured on a per-method basis. */
-        auth_context?: AuthnContextClassRef;
+        auth_context?: AuthnContextClassRef | undefined;
         /** Format for Name ID. This can also be configured on a per-method basis. */
-        nameid_format?: string;
+        nameid_format?: string | undefined;
         /** If true, signs the request. This can also be configured on the IdP or on a per-method basis. */
-        sign_get_request?: boolean;
+        sign_get_request?: boolean | undefined;
         /** If true, allows unencrypted assertions. This can also be configured on the IdP or on a per-method basis. */
-        allow_unencrypted_assertion?: boolean;
+        allow_unencrypted_assertion?: boolean | undefined;
     }
     export interface CreateLoginRequestUrlOptions {
         /** SAML relay state. */
-        relay_state?: string;
+        relay_state?: string | undefined;
         /** Specifies AuthnContextClassRef. This can also be configured on the SP. */
-        auth_context?: AuthnContextClassRef;
+        auth_context?: AuthnContextClassRef | undefined;
         /** Format for Name ID. This can also be configured on the SP. */
-        nameid_format?: string;
+        nameid_format?: string | undefined;
         /** If true, forces re-authentication of users even if the user has a SSO session with the IdP. This can also be configured on the IdP or SP. */
-        force_authn?: boolean;
+        force_authn?: boolean | undefined;
         /** If true, signs the request. This can also be configured on the IdP or SP. */
-        sign_get_request?: boolean;
+        sign_get_request?: boolean | undefined;
     }
     export interface RedirectAssertOptions {
         /** An object containing the parsed query string parameters. This object should contain the value for either a SAMLResponse or SAMLRequest. */
@@ -117,13 +117,13 @@ declare module 'saml2-js' {
             SAMLRequest?: any;
         };
         /** If true, allows unencrypted assertions. This can also be configured on the IdP or SP. */
-        allow_unencrypted_assertion?: boolean;
+        allow_unencrypted_assertion?: boolean | undefined;
         /** If false, allow the assertion to be valid without a SessionIndex attribute on the AuthnStatement node. */
-        require_session_index?: boolean;
+        require_session_index?: boolean | undefined;
     }
     export interface PostAssertOptions extends RedirectAssertOptions {
         /** If set, at least one of the <Audience> values within the <AudienceRestriction> condition of a SAML authentication response must match. Defaults to entity_id. */
-        audience?: string | RegExp;
+        audience?: string | RegExp | undefined;
         /**
          * To account for clock skew between IdP and SP, accept responses with a NotBefore condition
          * ahead of the current time (according to our clock) by this number of seconds.
@@ -131,27 +131,27 @@ declare module 'saml2-js' {
          * Defaults to 1.
          * Set it to 0 for optimum security but no tolerance for clock skew.
          */
-        notbefore_skew?: boolean;
+        notbefore_skew?: boolean | undefined;
     }
     export interface CreateLogoutRequestUrlOptions {
         /** Format for Name ID. This can also be configured on a per-method basis. */
-        name_id?: string;
+        name_id?: string | undefined;
         /** Session index to use for creating logout request. */
-        session_index?: string;
+        session_index?: string | undefined;
         /** If true, allows unencrypted assertions. This can also be configured on the IdP or SP. */
-        allow_unencrypted_assertion?: boolean;
+        allow_unencrypted_assertion?: boolean | undefined;
         /** If true, signs the request. This can also be configured on the IdP or SP. */
-        sign_get_request?: boolean;
+        sign_get_request?: boolean | undefined;
         /** SAML relay state. */
-        relay_state?: string;
+        relay_state?: string | undefined;
     }
     export interface CreateLogoutResponseUrlOptions {
         /** The ID of the request that this is in response to. Should be checked against any sent request IDs. */
-        in_response_to?: string;
+        in_response_to?: string | undefined;
         /** If true, signs the request. This can also be configured on the IdP or SP. */
-        sign_get_request?: boolean;
+        sign_get_request?: boolean | undefined;
         /** SAML relay state. */
-        relay_state?: string;
+        relay_state?: string | undefined;
     }
 
     export interface SAMLAssertResponse {
@@ -159,9 +159,9 @@ declare module 'saml2-js' {
         type: string;
         user: {
             name_id: string;
-            session_index?: string;
-            session_not_on_or_after?: string;
-            attributes?: { [attr: string]: string | string[] };
+            session_index?: string | undefined;
+            session_not_on_or_after?: string | undefined;
+            attributes?: { [attr: string]: string | string[] } | undefined;
         };
     }
 

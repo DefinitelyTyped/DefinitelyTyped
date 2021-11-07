@@ -33,8 +33,8 @@ export interface Mixin {
 
     received?(data: any): void;
 
-    readonly documentIsActive?: boolean;
-    readonly appearingOn?: string | null;
+    readonly documentIsActive?: boolean | undefined;
+    readonly appearingOn?: string | null | undefined;
 
     [key: string]: any;
 }
@@ -201,7 +201,7 @@ export function createWebSocketURL(url: string): string;
  */
 export const logger: {
     log(...messages: any[]): void;
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 };
 
 /**

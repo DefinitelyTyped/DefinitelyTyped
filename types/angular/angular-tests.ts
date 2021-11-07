@@ -105,7 +105,7 @@ namespace HttpAndRegularPromiseTests {
         theAnswer: number;
         letters: string[];
         snack: string;
-        nothing?: string;
+        nothing?: string | undefined;
     }
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
@@ -1245,9 +1245,9 @@ const componentModule = angular.module('componentExample', [])
     });
 
 interface ICopyExampleUser {
-    name?: string;
-    email?: string;
-    gender?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+    gender?: string | undefined;
 }
 
 interface ICopyExampleScope {

@@ -56,6 +56,24 @@ declare namespace grpc {
         /** Close the connection. */
         close(): void;
     }
+
+    const StatusOK: number;
+    const StatusCanceled: number;
+    const StatusUnknown: number;
+    const StatusInvalidArgument: number;
+    const StatusDeadlineExceeded: number;
+    const StatusNotFound: number;
+    const StatusAlreadyExists: number;
+    const StatusPermissionDenied: number;
+    const StatusResourceExhausted: number;
+    const StatusFailedPrecondition: number;
+    const StatusAborted: number;
+    const StatusOutOfRange: number;
+    const StatusUnimplemented: number;
+    const StatusInternal: number;
+    const StatusUnavailable: number;
+    const StatusDataLoss: number;
+    const StatusUnauthenticated: number;
 }
 
 export default grpc;

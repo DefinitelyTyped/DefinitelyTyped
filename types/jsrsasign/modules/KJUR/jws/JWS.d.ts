@@ -94,7 +94,7 @@ declare namespace jsrsasign.KJUR.jws {
             /** pretty printed JSON header by stringify */
             headerPP: string;
             /** JSON object of payload if payload is JSON string otherwise undefined */
-            payloadObj?: object;
+            payloadObj?: object | undefined;
             /** pretty printed JSON payload by stringify if payload is JSON otherwise Base64URL decoded raw string of payload */
             payloadPP: string;
             /** hexadecimal string of signature */
@@ -357,13 +357,13 @@ declare namespace jsrsasign.KJUR.jws {
             sJWT: string,
             key: string | RSAKey,
             acceptField?: {
-                alg?: string[];
-                aud?: string[];
-                iss?: string[];
-                jti?: string;
-                sub?: string[];
-                verifyAt?: string | number;
-                gracePeriod?: number;
+                alg?: string[] | undefined;
+                aud?: string[] | undefined;
+                iss?: string[] | undefined;
+                jti?: string | undefined;
+                sub?: string[] | undefined;
+                verifyAt?: string | number | undefined;
+                gracePeriod?: number | undefined;
             },
         ): boolean;
 

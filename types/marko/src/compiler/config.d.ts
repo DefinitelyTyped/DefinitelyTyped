@@ -1,11 +1,11 @@
 export default interface Config {
-    checkUpToDate?: boolean;
-    writeToDisk?: boolean;
-    assumeUpToDate?: boolean;
-    preserveWhitespace?: boolean;
-    output?: 'vdom' | 'html';
-    writeVersionComment?: boolean;
-    ignoreUnrecognizedTags?: boolean;
-    escapeAtTags?: boolean;
-    autoKeyEnabled?: boolean;
+    checkUpToDate?: boolean | undefined;
+    writeToDisk?: boolean | undefined;
+    assumeUpToDate?: boolean | undefined;
+    preserveWhitespace?: boolean | undefined;
+    output?: 'vdom' | 'html' | undefined;
+    writeVersionComment?: boolean | undefined;
+    ignoreUnrecognizedTags?: boolean | undefined;
+    escapeAtTags?: boolean | undefined;
+    autoKeyEnabled?: boolean | undefined;
 }

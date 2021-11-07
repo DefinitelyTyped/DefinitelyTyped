@@ -11,7 +11,7 @@ declare function gulpJsonmin(options?: gulpJsonmin.Options): Transform;
 
 declare namespace gulpJsonmin {
     interface Options {
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }
 }
 

@@ -8,22 +8,22 @@
 /** Options for the `sign` function */
 export interface SignOptions {
     /** Nonce generator. By default it is rfc6979 */
-    noncefn?: (message: Uint8Array, privateKey: Uint8Array, algo: Uint8Array | null,
-               data: Uint8Array | null, attempt: number) => Uint8Array;
+    noncefn?: ((message: Uint8Array, privateKey: Uint8Array, algo: Uint8Array | null,
+               data: Uint8Array | null, attempt: number) => Uint8Array) | undefined;
 
     /**
      * Additional data for noncefn (RFC 6979 3.6) (32 bytes).
      *
      * By default is `null`.
      */
-    data?: Uint8Array;
+    data?: Uint8Array | undefined;
 }
 
 export interface ecdhOptions {
-    data?: Uint8Array;
-    xbuf?: Uint8Array;
-    ybuf?: Uint8Array;
-    hashfn?: (x: Uint8Array, y: Uint8Array, data: Uint8Array) => Uint8Array;
+    data?: Uint8Array | undefined;
+    xbuf?: Uint8Array | undefined;
+    ybuf?: Uint8Array | undefined;
+    hashfn?: ((x: Uint8Array, y: Uint8Array, data: Uint8Array) => Uint8Array) | undefined;
 }
 
 /**

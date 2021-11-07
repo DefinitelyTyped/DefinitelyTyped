@@ -13,12 +13,12 @@ export declare type DefaultNavigatorOptions<ScreenOptions extends {}, ParamList 
     screenOptions?: ScreenOptions | ((props: {
         route: RouteProp<ParamList, keyof ParamList>;
         navigation: any;
-    }) => ScreenOptions);
+    }) => ScreenOptions) | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type EventMapBase = Record<string, {
     data?: any;
-    canPreventDefault?: boolean;
+    canPreventDefault?: boolean | undefined;
 }>;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type EventMapCore<State extends NavigationState> = {
@@ -46,7 +46,7 @@ export declare type EventArg<EventName extends string, CanPreventDefault extends
      * Type of the event (e.g. `focus`, `blur`)
      */
     readonly type: EventName;
-    readonly target?: string;
+    readonly target?: string | undefined;
 } & (CanPreventDefault extends true ? {
     /**
      * Whether `event.preventDefault()` was called on this event object.
@@ -57,7 +57,7 @@ export declare type EventArg<EventName extends string, CanPreventDefault extends
      */
     preventDefault(): void;
 } : {}) & (undefined extends Data ? {
-    readonly data?: Readonly<Data>;
+    readonly data?: Readonly<Data> | undefined;
 } : {
     readonly data: Readonly<Data>;
 });
@@ -86,11 +86,11 @@ export declare type EventEmitter<EventMap extends EventMapBase> = {
      */
     emit<EventName extends Extract<keyof EventMap, string>>(options: {
         type: EventName;
-        target?: string;
+        target?: string | undefined;
     } & (EventMap[EventName]['canPreventDefault'] extends true ? {
         canPreventDefault: true;
     } : {}) & (undefined extends EventMap[EventName]['data'] ? {
-        data?: EventMap[EventName]['data'];
+        data?: EventMap[EventName]['data'] | undefined;
     } : {
         data: EventMap[EventName]['data'];
     })): EventArg<EventName, EventMap[EventName]['canPreventDefault'], EventMap[EventName]['data']>;
@@ -111,7 +111,7 @@ export declare class PrivateValueStore<A, B, C> {
         a: A;
         b: B;
         c: C;
-    };
+    } | undefined;
 }
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type NavigationHelpersCommon<ParamList extends ParamListBase, State extends NavigationState = NavigationState> = {
@@ -136,10 +136,10 @@ declare type NavigationHelpersCommon<ParamList extends ParamListBase, State exte
      */
     navigate<RouteName extends keyof ParamList>(route: {
         key: string;
-        params?: ParamList[RouteName];
+        params?: ParamList[RouteName] | undefined;
     } | {
         name: RouteName;
-        key?: string;
+        key?: string | undefined;
         params: ParamList[RouteName];
     }): void;
     /**
@@ -194,21 +194,21 @@ export declare type NavigationContainerProps = {
     /**
      * Initial navigation state for the child navigators.
      */
-    initialState?: InitialState;
+    initialState?: InitialState | undefined;
     /**
      * Callback which is called with the latest navigation state when it changes.
      */
-    onStateChange?: (state: NavigationState | undefined) => void;
+    onStateChange?: ((state: NavigationState | undefined) => void) | undefined;
     /**
      * Callback which is called when an action is not handled.
      */
-    onUnhandledAction?: (action: NavigationAction) => void;
+    onUnhandledAction?: ((action: NavigationAction) => void) | undefined;
     /**
      * Whether this navigation container should be independent of parent containers.
      * If this is not set to `true`, this container cannot be nested inside another container.
      * Setting it to `true` disconnects any children navigators from parent container.
      */
-    independent?: boolean;
+    independent?: boolean | undefined;
     /**
      * Children elements to render.
      */
@@ -290,32 +290,32 @@ export declare type RouteConfig<ParamList extends ParamListBase, RouteName exten
     options?: ScreenOptions | ((props: {
         route: RouteProp<ParamList, RouteName>;
         navigation: any;
-    }) => ScreenOptions);
+    }) => ScreenOptions) | undefined;
     /**
      * Event listeners for this screen.
      */
     listeners?: ScreenListeners<State, EventMap> | ((props: {
         route: RouteProp<ParamList, RouteName>;
         navigation: any;
-    }) => ScreenListeners<State, EventMap>);
+    }) => ScreenListeners<State, EventMap>) | undefined;
     /**
      * Initial params object for the route.
      */
-    initialParams?: Partial<ParamList[RouteName]>;
+    initialParams?: Partial<ParamList[RouteName]> | undefined;
 } & ({
     /**
      * React component to render for this screen.
      */
     component: React.ComponentType<any>;
-    getComponent?: never;
-    children?: never;
+    getComponent?: never | undefined;
+    children?: never | undefined;
 } | {
     /**
      * Lazily get a React component to render for this screen.
      */
     getComponent: () => React.ComponentType<any>;
-    component?: never;
-    children?: never;
+    component?: never | undefined;
+    children?: never | undefined;
 } | {
     /**
      * Render callback to render content of this screen.
@@ -324,8 +324,8 @@ export declare type RouteConfig<ParamList extends ParamListBase, RouteName exten
         route: RouteProp<ParamList, RouteName>;
         navigation: any;
     }) => React.ReactNode;
-    component?: never;
-    getComponent?: never;
+    component?: never | undefined;
+    getComponent?: never | undefined;
 });
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type NavigationContainerEventMap = {
@@ -401,31 +401,31 @@ export declare type TypedNavigator<ParamList extends ParamListBase, State extend
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type NavigatorScreenParams<ParamList, State extends NavigationState = NavigationState> = {
-    screen?: never;
-    params?: never;
-    initial?: never;
+    screen?: never | undefined;
+    params?: never | undefined;
+    initial?: never | undefined;
     state: PartialState<State> | State | undefined;
 } | {
     [RouteName in keyof ParamList]: undefined extends ParamList[RouteName] ? {
         screen: RouteName;
-        params?: ParamList[RouteName];
-        initial?: boolean;
-        state?: never;
+        params?: ParamList[RouteName] | undefined;
+        initial?: boolean | undefined;
+        state?: never | undefined;
     } : {
         screen: RouteName;
         params: ParamList[RouteName];
-        initial?: boolean;
-        state?: never;
+        initial?: boolean | undefined;
+        state?: never | undefined;
     };
 }[keyof ParamList];
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type PathConfig = {
-    path?: string;
-    exact?: boolean;
-    parse?: Record<string, (value: string) => any>;
-    stringify?: Record<string, (value: any) => string>;
-    screens?: PathConfigMap;
-    initialRouteName?: string;
+    path?: string | undefined;
+    exact?: boolean | undefined;
+    parse?: Record<string, (value: string) => any> | undefined;
+    stringify?: Record<string, (value: any) => string> | undefined;
+    screens?: PathConfigMap | undefined;
+    initialRouteName?: string | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type PathConfigMap = {

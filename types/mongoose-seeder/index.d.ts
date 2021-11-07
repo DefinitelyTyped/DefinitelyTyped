@@ -7,8 +7,8 @@
 import * as Q from 'q';
 
 export interface IOptions {
-  dropDatabase?: boolean;
-  dropCollections?: boolean;
+  dropDatabase?: boolean | undefined;
+  dropCollections?: boolean | undefined;
 }
 
 type seedCallback = (err: any, dbData: any) => void;

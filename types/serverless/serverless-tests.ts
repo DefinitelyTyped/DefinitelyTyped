@@ -73,6 +73,18 @@ class BadVariablePlugin implements Plugin {
     };
 }
 
+// Test serverless cli log with no message
+serverless.cli.log(); // $ExpectError
+
+// Test serverless cli log with no entity
+serverless.cli.log('updating stack...');
+
+// Test serverless cli log with no options
+serverless.cli.log('updating stack...', 'serverless');
+
+// Test serverless cli log with all args supplied
+serverless.cli.log('updating stack...', 'serverless', { color: 'orange', bold: true, underline: true, entity: 'serverless' });
+
 // Test provider's 'request' method
 const provider = serverless.getProvider('aws');
 provider.request('AccessAnalyzer', 'createAnalyzer');
@@ -93,6 +105,9 @@ provider.request(
 
 // Test provider's 'getServerlessDeploymentBucketName'
 provider.getServerlessDeploymentBucketName().then(bucketName => {});
+
+// $ExpectType Credentials
+provider.getCredentials();
 
 // Test ApiGateway validator
 getHttp(
@@ -145,6 +160,7 @@ const awsServerless: Aws.Serverless = {
             maxPreviousDeploymentArtifacts: 1,
             blockPublicAccess: true,
             serverSideEncryption: 'testserverSideEncryption',
+            skipPolicySetup: true,
             sseKMSKeyId: 'testsseKMSKeyId',
             sseCustomerAlgorithim: 'testsseCustomerAlgorithim',
             sseCustomerKey: 'testsseCustomerKey',
@@ -164,6 +180,7 @@ const awsServerless: Aws.Serverless = {
         endpointType: 'regional',
         apiKeys: ['testApiKeys'],
         apiGateway: {
+            apiKeys: ['testApiKeys'],
             restApiId: 'testrestApiId',
             restApiRootResourceId: 'testrestApiRootResourceId',
             restApiResources: {
@@ -173,7 +190,29 @@ const awsServerless: Aws.Serverless = {
             apiKeySourceType: 'HEADER',
             minimumCompressionSize: 1,
             description: 'testdescription',
-            binaryMediaTypes: ['testbinaryMediaTypes']
+            binaryMediaTypes: ['testbinaryMediaTypes'],
+            usagePlan: {
+                quota: {
+                    limit: 1,
+                    offset: 1,
+                    period: '20'
+                },
+                throttle: {
+                    burstLimit: 1,
+                    rateLimit: 1
+                }
+            },
+            resourcePolicy: [
+                {
+                    Effect: 'Allow',
+                    Principal: 'testPrincipal',
+                    Action: 'testAction',
+                    Resource: 'testResource',
+                    Condition: {
+                        testcondition: 'testconditionvalue'
+                    }
+                }
+            ],
         },
         alb: {
             targetGroupPrefix: 'testtargetGroupPrefix',
@@ -467,6 +506,28 @@ const awsServerless: Aws.Serverless = {
                         existing: false
                     }
                 }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                prefix: 'testprefix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                suffix: 'testsuffix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
                     schedule: '1',
                 }, {
                     sns: {
@@ -488,6 +549,22 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         maximumRetryAttempts: 1,
+                        enabled: true
+                    }
+                }, {
+                    activemq: {
+                        arn: 'testarn',
+                        basicAuthArn: 'testBasicAuthArn',
+                        queue: 'testQueue',
+                        batchSize: 1,
+                        enabled: true
+                    }
+                }, {
+                    rabbitmq: {
+                        arn: 'testarn',
+                        basicAuthArn: 'testBasicAuthArn',
+                        queue: 'testQueue',
+                        batchSize: 1,
                         enabled: true
                     }
                 }, {
@@ -641,6 +718,12 @@ const awsServerless: Aws.Serverless = {
                 },
                 Condition: 'testcondition',
             },
+            testFunctionLambdaFunctionQualifiedArn: {
+                Description: 'testDescription',
+                Export: {
+                    Name: 'testFunctionLambdaFunctionQualifiedArn',
+                },
+            },
         },
     },
 };
@@ -666,6 +749,7 @@ const bunchOfConfigs: Aws.Serverless[] = [
         service: 'users',
         configValidationMode: 'off',
         unresolvedVariablesNotificationMode: 'error',
+        deprecationNotificationMode: 'error',
         provider: { name: 'aws' },
         functions: {}
     },
@@ -726,7 +810,31 @@ const bunchOfConfigs: Aws.Serverless[] = [
             }
         },
         functions: {}
-    }
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            httpApi: {
+                cors: {
+                    allowedOrigins: ['https://example.com'],
+                    allowedHeaders: [
+                        'Content-Type',
+                        'X-Amz-Date',
+                        'Authorization',
+                        'X-Api-Key',
+                        'X-Amz-Security-Token',
+                        'X-Amz-User-Agent',
+                    ],
+                    allowedMethods: ['OPTIONS', 'GET', 'POST'],
+                    allowCredentials: false,
+                    exposedResponseHeaders: ['x-wp-total', 'x-wp-totalpages'],
+                    maxAge: 86400,
+                },
+            },
+        },
+        functions: {},
+    },
 ];
 
 // Test Aws Class

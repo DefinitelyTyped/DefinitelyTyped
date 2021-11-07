@@ -10,8 +10,8 @@ export = RemoveMarkdown;
  * @param markdown Markdown text
  */
 declare function RemoveMarkdown(markdown: string, options?: {
-    stripListLeaders?: boolean
-    listUnicodeChar?: string
-    gfm?: boolean
-    useImgAltText?: boolean
+    stripListLeaders?: boolean | undefined
+    listUnicodeChar?: string | undefined
+    gfm?: boolean | undefined
+    useImgAltText?: boolean | undefined
 }): string;

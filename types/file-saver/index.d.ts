@@ -5,7 +5,7 @@
 //                 Chris Barr <https://github.com/chrismbarr>
 //                 HitkoDev <https://github.com/HitkoDev>
 //                 JounQin <https://github.com/JounQin>
-// Definitions:  https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/file-saver
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace FileSaver {
     interface FileSaverOptions {

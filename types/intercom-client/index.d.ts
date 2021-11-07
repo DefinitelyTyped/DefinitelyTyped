@@ -88,8 +88,8 @@ export class Users {
     list(): Promise<ApiResponse<UserList>>;
     list(cb: callback<ApiResponse<UserList>>): void;
 
-    listBy(params: { tag_id?: string; segment_id?: string }): Promise<ApiResponse<UserList>>;
-    listBy(params: { tag_id?: string; segment_id?: string }, cb: callback<ApiResponse<UserList>>): void;
+    listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }): Promise<ApiResponse<UserList>>;
+    listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }, cb: callback<ApiResponse<UserList>>): void;
 
     scroll: Scroll<User>;
 
@@ -113,8 +113,8 @@ export class Leads {
     list(): Promise<ApiResponse<LeadList>>;
     list(cb: callback<ApiResponse<LeadList>>): void;
 
-    listBy(params: { email?: string; tag_id?: string; segment_id?: string }): Promise<ApiResponse<LeadList>>;
-    listBy(params: { email?: string; tag_id?: string; segment_id?: string }, cb: callback<ApiResponse<LeadList>>): void;
+    listBy(params: { email?: string | undefined; tag_id?: string | undefined; segment_id?: string | undefined }): Promise<ApiResponse<LeadList>>;
+    listBy(params: { email?: string | undefined; tag_id?: string | undefined; segment_id?: string | undefined }, cb: callback<ApiResponse<LeadList>>): void;
 
     find(identifier: LeadIdentifier): Promise<ApiResponse<Lead>>;
     find(identifier: LeadIdentifier, cb: callback<ApiResponse<Lead>>): void;
@@ -169,8 +169,8 @@ export class Companies {
     list(): Promise<ApiResponse<CompanyList>>;
     list(cb: callback<ApiResponse<CompanyList>>): void;
 
-    listBy(params: { tag_id?: string; segment_id?: string }): Promise<ApiResponse<CompanyList>>;
-    listBy(params: { tag_id?: string; segment_id?: string }, cb: callback<ApiResponse<CompanyList>>): void;
+    listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }): Promise<ApiResponse<CompanyList>>;
+    listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }, cb: callback<ApiResponse<CompanyList>>): void;
 
     scroll: Scroll<Company>;
 

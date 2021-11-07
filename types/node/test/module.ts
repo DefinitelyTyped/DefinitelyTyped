@@ -1,5 +1,5 @@
-import Module = require('module');
-import { URL } from 'url';
+import Module = require('node:module');
+import { URL } from 'node:url';
 require.extensions[".ts"] = () => "";
 
 Module.runMain();
@@ -12,12 +12,9 @@ let paths: string[] = [];
 paths = m1.paths;
 m1 instanceof Module;
 
-Module.createRequireFromPath('./test')('test');
-
 let rf: (m: string) => any;
 
 rf = Module.createRequire('mod');
-rf = Module.createRequireFromPath('mod');
 rf = Module.createRequire(new URL('file:///C:/path/'));
 
 const aModule: NodeModule = new Module("s");
@@ -25,22 +22,16 @@ const bModule: NodeModule = new Module("b", aModule);
 
 const builtIn: string[] = Module.builtinModules;
 
-const customRequire1 = Module.createRequireFromPath('./test');
-const customRequire2 = Module.createRequire('./test');
+const customRequire2 = Module.createRequire('node:./test');
 
-customRequire1('test');
 customRequire2('test');
 
-const resolved1: string = customRequire1.resolve('test');
 const resolved2: string = customRequire2.resolve('test');
 
-const paths1: string[] | null  = customRequire1.resolve.paths('test');
 const paths2: string[] | null  = customRequire2.resolve.paths('test');
 
-const cachedModule1: Module | undefined = customRequire1.cache['/path/to/module.js'];
 const cachedModule2: Module | undefined = customRequire2.cache['/path/to/module.js'];
 
-const main1: Module | undefined = customRequire1.main;
 const main2: Module | undefined = customRequire2.main;
 
 Module.syncBuiltinESMExports();
@@ -56,3 +47,11 @@ const smap = new Module.SourceMap({
 });
 const pl: Module.SourceMapPayload = smap.payload;
 const entry: Module.SourceMapping = smap.findEntry(1, 1);
+
+// global
+{
+    const importmeta: ImportMeta = {} as any; // Fake because we cannot really access the true `import.meta` with the current build target
+    importmeta.url; // $ExpectType string
+    importmeta.resolve!('local', '/parent'); // $ExpectType Promise<string>
+    importmeta.resolve!('local', new URL('https://parent.module')); // $ExpectType Promise<string>
+}

@@ -1,6 +1,8 @@
 import * as React from 'react';
-import Tagify, { BaseTagData, ChangeEventData, EventData, TagifySettings } from '@yaireo/tagify';
-import Tags, { MixedTags, TagifyTagsReactProps } from '@yaireo/tagify/dist/react.tagify';
+import Tagify = require('@yaireo/tagify');
+import { BaseTagData, ChangeEventData, EventData, TagifySettings } from '@yaireo/tagify';
+import Tags = require('@yaireo/tagify/dist/react.tagify');
+import { MixedTags, TagifyTagsReactProps } from '@yaireo/tagify/dist/react.tagify';
 
 // Tests the minimal required attribute for the Tags component
 export function TestTagsMinimal(): React.ReactElement {

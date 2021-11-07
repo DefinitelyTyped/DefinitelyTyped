@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ConfigsOverloadOptions {
-    defaultEnv?: string;
-    env?: string;
+    defaultEnv?: string | undefined;
+    env?: string | undefined;
 }
 
 export interface ExtendableConfig {

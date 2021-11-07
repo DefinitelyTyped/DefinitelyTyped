@@ -5,22 +5,22 @@ import IconOrigin from './IconOrigin';
 import ImageStyle from './Image';
 
 export interface Options {
-    anchor?: number[];
-    anchorOrigin?: IconOrigin;
-    anchorXUnits?: IconAnchorUnits;
-    anchorYUnits?: IconAnchorUnits;
-    color?: Color | string;
-    crossOrigin?: string;
-    img?: HTMLImageElement | HTMLCanvasElement;
-    offset?: number[];
-    offsetOrigin?: IconOrigin;
-    opacity?: number;
-    scale?: number;
-    rotateWithView?: boolean;
-    rotation?: number;
-    size?: Size;
-    imgSize?: Size;
-    src?: string;
+    anchor?: number[] | undefined;
+    anchorOrigin?: IconOrigin | undefined;
+    anchorXUnits?: IconAnchorUnits | undefined;
+    anchorYUnits?: IconAnchorUnits | undefined;
+    color?: Color | string | undefined;
+    crossOrigin?: string | undefined;
+    img?: HTMLImageElement | HTMLCanvasElement | undefined;
+    offset?: number[] | undefined;
+    offsetOrigin?: IconOrigin | undefined;
+    opacity?: number | undefined;
+    scale?: number | undefined;
+    rotateWithView?: boolean | undefined;
+    rotation?: number | undefined;
+    size?: Size | undefined;
+    imgSize?: Size | undefined;
+    src?: string | undefined;
 }
 export default class Icon extends ImageStyle {
     constructor(opt_options?: Options);

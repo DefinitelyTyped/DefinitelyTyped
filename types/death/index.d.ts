@@ -47,11 +47,11 @@ declare function ON_DEATH(callback: (arg: Signal) => void): () => void;
  *  OFF_DEATH();
  */
 declare function ON_DEATH(options: {
-    debug?: boolean;
-    SIGINT?: boolean;
-    SIGTERM?: boolean;
-    SIGQUIT?: boolean;
-    uncaughtException?: false;
+    debug?: boolean | undefined;
+    SIGINT?: boolean | undefined;
+    SIGTERM?: boolean | undefined;
+    SIGQUIT?: boolean | undefined;
+    uncaughtException?: false | undefined;
 }): (callback: (signal: Signal) => void) => () => void;
 
 /**
@@ -78,10 +78,10 @@ declare function ON_DEATH(options: {
  *  OFF_DEATH();
  */
 declare function ON_DEATH(options: {
-    debug?: boolean;
-    SIGINT?: boolean;
-    SIGTERM?: boolean;
-    SIGQUIT?: boolean;
+    debug?: boolean | undefined;
+    SIGINT?: boolean | undefined;
+    SIGTERM?: boolean | undefined;
+    SIGQUIT?: boolean | undefined;
     uncaughtException: true;
 }): (callback: (signalOrErr: Signal | Error, origin?: string) => void) => () => void;
 

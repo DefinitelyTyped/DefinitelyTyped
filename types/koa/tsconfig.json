@@ -2,9 +2,10 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
+        "test/constructor.ts",
         "test/default.ts",
         "test/settings.ts",
-        "test/typed-response-body-tests.ts"
+        "test/typed-response-body.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

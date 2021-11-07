@@ -18,7 +18,7 @@ export interface LocalImage {
 
 export interface RemoteImage {
     source: { uri: string };
-    dimensions?: ImageDimensions;
+    dimensions?: ImageDimensions | undefined;
 }
 
 export type Image = LocalImage | RemoteImage;
@@ -40,8 +40,8 @@ export interface GestureState {
     moveY: number;
     previousMoveX: number;
     previousMoveY: number;
-    pinch?: number;
-    previousPinch?: number;
+    pinch?: number | undefined;
+    previousPinch?: number | undefined;
 
     x0: number;
     y0: number;
@@ -55,7 +55,7 @@ export interface GestureState {
     doubleTapUp: boolean;
 
     _accountsForMovesUpTo: number;
-    _singleTabFailed?: boolean;
+    _singleTabFailed?: boolean | undefined;
 }
 
 export type FlatListProps = Omit<
@@ -81,58 +81,58 @@ export interface Props extends ViewProps {
      * Image displayed first
      * @default 0
      */
-    initialPage?: number;
+    initialPage?: number | undefined;
 
     /**
      * Custom function to render your images, 1st param is the image props, 2nd is its dimensions
      */
-    imageComponent?: (imageProps: ImageProps, imageDimensions: ImageDimensions) => ReactNode;
+    imageComponent?: ((imageProps: ImageProps, imageDimensions: ImageDimensions) => ReactNode) | undefined;
 
     /**
      * Custom function to render the page of an image that couldn't be displayed
      */
-    errorComponent?: () => ReactNode;
+    errorComponent?: (() => ReactNode) | undefined;
 
     /**
      * Props to be passed to the underlying FlatList
      * @default { windowSize: 3 }
      */
-    flatListProps?: FlatListProps;
+    flatListProps?: FlatListProps | undefined;
 
     /**
      * Blank space to show between images
      */
-    pageMargin?: number;
+    pageMargin?: number | undefined;
 
     /**
      * Fired with the index of page that has been selected
      */
-    onPageSelected?: (page: number) => void;
+    onPageSelected?: ((page: number) => void) | undefined;
 
     /**
      * Called when page scrolling state has changed, see scroll state and events
      */
-    onPageScrollStateChanged?: (state: ScrollState) => void;
+    onPageScrollStateChanged?: ((state: ScrollState) => void) | undefined;
 
     /**
      * Scroll event, see scroll state and events
      */
-    onPageScroll?: (event: ScrollEvent) => void;
+    onPageScroll?: ((event: ScrollEvent) => void) | undefined;
 
     /**
      * Custom style for the FlatList component
      */
-    scrollViewStyle?: StyleProp<ViewStyle>;
+    scrollViewStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * Fired after a single tap
      */
-    onSingleTapConfirmed?: (page: number) => void;
+    onSingleTapConfirmed?: ((page: number) => void) | undefined;
 
     /**
      * Fired after a long press
      */
-    onLongPress?: (state: GestureState) => void;
+    onLongPress?: ((state: GestureState) => void) | undefined;
 }
 
 export default class Gallery extends PureComponent<Props> {}

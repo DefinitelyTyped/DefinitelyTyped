@@ -18,61 +18,61 @@ declare namespace NotificationSystem {
     export type CallBackFunction = (notification: Notification) => void;
 
     export interface Notification {
-        title?: string | JSX.Element;
-        message?: string | JSX.Element;
-        level?: "error" | "warning" | "info" | "success";
-        position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc";
-        autoDismiss?: number;
-        dismissible?: 'both' | 'button' | 'click' | 'hide' | 'none' | boolean;
-        action?: ActionObject;
-        children?: React.ReactNode;
-        onAdd?: CallBackFunction;
-        onRemove?: CallBackFunction;
-        uid?: number | string;
+        title?: string | JSX.Element | undefined;
+        message?: string | JSX.Element | undefined;
+        level?: "error" | "warning" | "info" | "success" | undefined;
+        position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc" | undefined;
+        autoDismiss?: number | undefined;
+        dismissible?: 'both' | 'button' | 'click' | 'hide' | 'none' | boolean | undefined;
+        action?: ActionObject | undefined;
+        children?: React.ReactNode | undefined;
+        onAdd?: CallBackFunction | undefined;
+        onRemove?: CallBackFunction | undefined;
+        uid?: number | string | undefined;
     }
 
     export interface ActionObject {
         label: string;
-        callback?: () => void;
+        callback?: (() => void) | undefined;
     }
 
     export interface ContainersStyle {
         DefaultStyle: React.CSSProperties;
-        tl?: React.CSSProperties;
-        tr?: React.CSSProperties;
-        tc?: React.CSSProperties;
-        bl?: React.CSSProperties;
-        br?: React.CSSProperties;
-        bc?: React.CSSProperties;
+        tl?: React.CSSProperties | undefined;
+        tr?: React.CSSProperties | undefined;
+        tc?: React.CSSProperties | undefined;
+        bl?: React.CSSProperties | undefined;
+        br?: React.CSSProperties | undefined;
+        bc?: React.CSSProperties | undefined;
     }
 
     export interface ItemStyle {
-        DefaultStyle?: React.CSSProperties;
-        success?: React.CSSProperties;
-        error?: React.CSSProperties;
-        warning?: React.CSSProperties;
-        info?: React.CSSProperties;
+        DefaultStyle?: React.CSSProperties | undefined;
+        success?: React.CSSProperties | undefined;
+        error?: React.CSSProperties | undefined;
+        warning?: React.CSSProperties | undefined;
+        info?: React.CSSProperties | undefined;
     }
 
     export interface WrapperStyle {
-        DefaultStyle?: React.CSSProperties;
+        DefaultStyle?: React.CSSProperties | undefined;
     }
 
     export interface Style {
         Wrapper?: any;
-        Containers?: ContainersStyle;
-        NotificationItem?: ItemStyle;
-        Title?: ItemStyle;
-        MessageWrapper?: WrapperStyle;
-        Dismiss?: ItemStyle;
-        Action?: ItemStyle;
-        ActionWrapper?: WrapperStyle;
+        Containers?: ContainersStyle | undefined;
+        NotificationItem?: ItemStyle | undefined;
+        Title?: ItemStyle | undefined;
+        MessageWrapper?: WrapperStyle | undefined;
+        Dismiss?: ItemStyle | undefined;
+        Action?: ItemStyle | undefined;
+        ActionWrapper?: WrapperStyle | undefined;
     }
 
     export interface Attributes extends React.ClassAttributes<System> {
-        noAnimation?: boolean;
-        style?: Style | boolean;
-        allowHTML?: boolean;
+        noAnimation?: boolean | undefined;
+        style?: Style | boolean | undefined;
+        allowHTML?: boolean | undefined;
     }
 
     export interface State {

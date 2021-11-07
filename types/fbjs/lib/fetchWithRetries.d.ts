@@ -7,13 +7,13 @@ declare function fetchWithRetries(uri: string, initWithRetries?: fetchWithRetrie
 declare namespace fetchWithRetries {
     interface InitWithRetries {
         body?: any;
-        cache?: string | null;
-        credentials?: string | null;
-        fetchTimeout?: number | null;
+        cache?: string | null | undefined;
+        credentials?: string | null | undefined;
+        fetchTimeout?: number | null | undefined;
         headers?: any;
-        method?: string | null;
-        mode?: string | null;
-        retryDelays?: number[] | null;
+        method?: string | null | undefined;
+        mode?: string | null | undefined;
+        retryDelays?: number[] | null | undefined;
     }
 }
 

@@ -7,13 +7,13 @@
 /// <reference types="jquery" />
 
 interface PlaygroundOptions{
-    height?: number;
-    width?: number;
-    refreshRate?: number;
-    keyTracker?: boolean;
-    mouseTracker?: boolean;
-    position?: string;
-    disableCollision?: boolean;
+    height?: number | undefined;
+    width?: number | undefined;
+    refreshRate?: number | undefined;
+    keyTracker?: boolean | undefined;
+    mouseTracker?: boolean | undefined;
+    position?: string | undefined;
+    disableCollision?: boolean | undefined;
 }
 
 interface Coordinate3D{
@@ -29,40 +29,40 @@ interface Size{
 
 interface SpriteOptions{
     animation?: any;
-    height?: number;
-    width?: number;
-    posx?: number;
-    posy?: number;
-    callback?: () => any;
+    height?: number | undefined;
+    width?: number | undefined;
+    posx?: number | undefined;
+    posy?: number | undefined;
+    callback?: (() => any) | undefined;
 }
 
 interface GroupOptions{
-    overflow?: string;
-    height?: number;
-    width?: number;
-    posx?: number;
-    posy?: number;
+    overflow?: string | undefined;
+    height?: number | undefined;
+    width?: number | undefined;
+    posx?: number | undefined;
+    posy?: number | undefined;
 }
 
 interface TileMapOptions{
-    sizex?: number;
-    sizey?: number;
-    height?: number;
-    width?: number;
-    posx?: number;
-    posy?: number;
-    buffer?: number;
+    sizex?: number | undefined;
+    sizey?: number | undefined;
+    height?: number | undefined;
+    width?: number | undefined;
+    posx?: number | undefined;
+    posy?: number | undefined;
+    buffer?: number | undefined;
 }
 
 interface AnimationOptions{
     imageURL: string;
-    numberOfFrame?: number;
-    delta?: number;
-    rate?: number;
-    type?: number;
-    distance?: number;
-    offsetx?: number;
-    offsety?: number;
+    numberOfFrame?: number | undefined;
+    delta?: number | undefined;
+    rate?: number | undefined;
+    type?: number | undefined;
+    distance?: number | undefined;
+    offsetx?: number | undefined;
+    offsety?: number | undefined;
 }
 
 interface Animation{

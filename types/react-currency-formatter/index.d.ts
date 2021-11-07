@@ -9,12 +9,12 @@ import * as React from 'react';
 
 interface CurrencyFormatterProps {
     quantity: number;
-    currency?: string;
-    locale?: string;
-    pattern?: string;
-    decimal?: string;
-    group?: string;
-    symbol?: string;
+    currency?: string | undefined;
+    locale?: string | undefined;
+    pattern?: string | undefined;
+    decimal?: string | undefined;
+    group?: string | undefined;
+    symbol?: string | undefined;
 }
 
 declare const reactCurrencyFormatter: React.ComponentClass<CurrencyFormatterProps>;

@@ -12,9 +12,9 @@ type args = {
 type helpOption = {
     name: string,
     type: string,
-    short?: string,
-    description?: string,
-    example?: string
+    short?: string | undefined,
+    description?: string | undefined,
+    example?: string | undefined
 };
 
 type module = {

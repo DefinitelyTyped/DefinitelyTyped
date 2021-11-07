@@ -12,11 +12,11 @@ export type AsyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>, do
 
 export interface CommonPropTypes {
     data: string | Data;
-    headers?: Headers;
-    enclosingCharacter?: string;
-    separator?: string;
-    filename?: string;
-    uFEFF?: boolean;
-    onClick?: SyncClickHandler | AsyncClickHandler;
-    asyncOnClick?: boolean;
+    headers?: Headers | undefined;
+    enclosingCharacter?: string | undefined;
+    separator?: string | undefined;
+    filename?: string | undefined;
+    uFEFF?: boolean | undefined;
+    onClick?: SyncClickHandler | AsyncClickHandler | undefined;
+    asyncOnClick?: boolean | undefined;
 }

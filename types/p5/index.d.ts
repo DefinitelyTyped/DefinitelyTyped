@@ -1,7 +1,8 @@
-// Type definitions for p5 0.9
+// Type definitions for p5 1.3
 // Project: https://github.com/processing/p5.js
 // Definitions by: p5-types <https://github.com/p5-types>
 //                 Pierre Krafft <https://github.com/Zalastax>
+//                 Rahul V <https://github.com/rahulv4667>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 

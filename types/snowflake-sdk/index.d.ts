@@ -1,10 +1,162 @@
-// Type definitions for snowflake-sdk 1.5
+// Type definitions for snowflake-sdk 1.6
 // Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+/**
+ * ### Related Docs
+ * - {@link  https://github.com/snowflakedb/snowflake-connector-nodejs/blob/master/lib/errors.js List of error codes and error factory createError()}
+ */
+export enum ErrorCode {
+    // 400001
+    ERR_INTERNAL_ASSERT_FAILED = 400001,
+    ERR_UNSUPPORTED_NODE_JS_VERSION = 400002,
+
+    // 401001
+    ERR_SF_NETWORK_COULD_NOT_CONNECT = 401001,
+    ERR_SF_RESPONSE_FAILURE = 401002,
+    ERR_SF_RESPONSE_NOT_JSON = 401003,
+    ERR_SF_RESPONSE_INVALID_TOKEN = 401004,
+
+    // 402001
+    ERR_LARGE_RESULT_SET_NETWORK_COULD_NOT_CONNECT = 402001,
+    ERR_LARGE_RESULT_SET_RESPONSE_FAILURE = 402002,
+
+    // 403001
+    ERR_GLOBAL_CONFIGURE_INVALID_LOG_LEVEL = 403001,
+    ERR_GLOBAL_CONFIGURE_INVALID_INSECURE_CONNECT = 403002,
+    ERR_GLOBAL_CONFIGURE_INVALID_OCSP_MODE = 403003,
+
+    // 404001
+    ERR_CONN_CREATE_MISSING_OPTIONS = 404001,
+    ERR_CONN_CREATE_INVALID_OPTIONS = 404002,
+    ERR_CONN_CREATE_MISSING_USERNAME = 404003,
+    ERR_CONN_CREATE_INVALID_USERNAME = 404004,
+    ERR_CONN_CREATE_MISSING_PASSWORD = 404005,
+    ERR_CONN_CREATE_INVALID_PASSWORD = 404006,
+    ERR_CONN_CREATE_MISSING_ACCOUNT = 404007,
+    ERR_CONN_CREATE_INVALID_ACCOUNT = 404008,
+    ERR_CONN_CREATE_MISSING_ACCESS_URL = 404009,
+    ERR_CONN_CREATE_INVALID_ACCESS_URL = 404010,
+    ERR_CONN_CREATE_INVALID_WAREHOUSE = 404011,
+    ERR_CONN_CREATE_INVALID_DATABASE = 404012,
+    ERR_CONN_CREATE_INVALID_SCHEMA = 404013,
+    ERR_CONN_CREATE_INVALID_ROLE = 404014,
+    ERR_CONN_CREATE_MISSING_PROXY_HOST = 404015,
+    ERR_CONN_CREATE_INVALID_PROXY_HOST = 404016,
+    ERR_CONN_CREATE_MISSING_PROXY_PORT = 404017,
+    ERR_CONN_CREATE_INVALID_PROXY_PORT = 404018,
+    ERR_CONN_CREATE_INVALID_STREAM_RESULT = 404019,
+    ERR_CONN_CREATE_INVALID_FETCH_AS_STRING = 404020,
+    ERR_CONN_CREATE_INVALID_FETCH_AS_STRING_VALUES = 404021,
+    ERR_CONN_CREATE_INVALID_REGION = 404022,
+    ERR_CONN_CREATE_INVALID_KEEP_ALIVE = 404023,
+    ERR_CONN_CREATE_INVALID_KEEP_ALIVE_HEARTBEAT_FREQ = 404024,
+    ERR_CONN_CREATE_INVALID_TREAT_INTEGER_AS_BIGINT = 404025,
+    ERR_CONN_CREATE_INVALID_PRIVATE_KEY = 404026,
+    ERR_CONN_CREATE_INVALID_PRIVATE_KEY_PATH = 404027,
+    ERR_CONN_CREATE_INVALID_PRIVATE_KEY_PASS = 404028,
+    ERR_CONN_CREATE_INVALID_OAUTH_TOKEN = 404029,
+    ERR_CONN_CREATE_INVALID_VALIDATE_DEFAULT_PARAMETERS = 404030,
+    ERR_CONN_CREATE_INVALID_APPLICATION = 404031,
+
+    // 405001
+    ERR_CONN_CONNECT_INVALID_CALLBACK = 405001,
+
+    // 405501
+    ERR_CONN_CONNECT_STATUS_CONNECTING = 405501, // sql state: 08002
+    ERR_CONN_CONNECT_STATUS_CONNECTED = 405502, // sql state: 08002
+    ERR_CONN_CONNECT_STATUS_DISCONNECTED = 405503, // sql state: 08002
+
+    // 406001
+    ERR_CONN_DESTROY_INVALID_CALLBACK = 406001,
+
+    // 406501
+    ERR_CONN_DESTROY_STATUS_PRISTINE = 406501,
+    ERR_CONN_DESTROY_STATUS_DISCONNECTED = 406502,
+
+    // 407001
+    ERR_CONN_REQUEST_STATUS_PRISTINE = 407001, // sql state: 08003
+    ERR_CONN_REQUEST_STATUS_DISCONNECTED = 407002, // sql state: 08003
+
+    // 408001
+    ERR_CONN_DESERIALIZE_MISSING_CONFIG = 408001,
+    ERR_CONN_DESERIALIZE_INVALID_CONFIG_TYPE = 408002,
+    ERR_CONN_DESERIALIZE_INVALID_CONFIG_FORM = 408003,
+
+    // 409001
+    ERR_CONN_EXEC_STMT_MISSING_OPTIONS = 409001,
+    ERR_CONN_EXEC_STMT_INVALID_OPTIONS = 409002,
+    ERR_CONN_EXEC_STMT_MISSING_SQL_TEXT = 409003,
+    ERR_CONN_EXEC_STMT_INVALID_SQL_TEXT = 409004,
+    ERR_CONN_EXEC_STMT_INVALID_INTERNAL = 409005,
+    ERR_CONN_EXEC_STMT_INVALID_PARAMETERS = 409006,
+    ERR_CONN_EXEC_STMT_INVALID_BINDS = 409007,
+    ERR_CONN_EXEC_STMT_INVALID_BIND_VALUES = 409008,
+    ERR_CONN_EXEC_STMT_INVALID_COMPLETE = 409009,
+    ERR_CONN_EXEC_STMT_INVALID_STREAM_RESULT = 409010,
+    ERR_CONN_EXEC_STMT_INVALID_FETCH_AS_STRING = 409011,
+    ERR_CONN_EXEC_STMT_INVALID_FETCH_AS_STRING_VALUES = 409012,
+
+    // 410001
+    ERR_CONN_FETCH_RESULT_MISSING_OPTIONS = 410001,
+    ERR_CONN_FETCH_RESULT_INVALID_OPTIONS = 410002,
+    ERR_CONN_FETCH_RESULT_MISSING_STATEMENT_ID = 410003,
+    ERR_CONN_FETCH_RESULT_INVALID_STATEMENT_ID = 410004,
+    ERR_CONN_FETCH_RESULT_INVALID_COMPLETE = 410005,
+    ERR_CONN_FETCH_RESULT_INVALID_STREAM_RESULT = 410006,
+    ERR_CONN_FETCH_RESULT_INVALID_FETCH_AS_STRING = 410007,
+    ERR_CONN_FETCH_RESULT_INVALID_FETCH_AS_STRING_VALUES = 410008,
+
+    // 411001
+    ERR_STMT_STREAM_ROWS_INVALID_OPTIONS = 411001,
+    ERR_STMT_STREAM_ROWS_INVALID_START = 411002,
+    ERR_STMT_STREAM_ROWS_INVALID_END = 411003,
+    ERR_STMT_STREAM_ROWS_INVALID_FETCH_AS_STRING = 411004,
+    ERR_STMT_STREAM_ROWS_INVALID_FETCH_AS_STRING_VALUES = 411005,
+
+    // 412001
+    ERR_OCSP_REVOKED = 412001,
+    ERR_OCSP_UNKNOWN = 412002,
+    ERR_OCSP_NO_SIGNATURE_ALGORITHM = 412003,
+    ERR_OCSP_INVALID_SIGNATURE = 412004,
+    ERR_OCSP_NO_RESPONSE = 412005,
+    ERR_OCSP_INVALID_VALIDITY = 412006,
+    ERR_OCSP_UNKNOWN_STATE = 412007,
+    ERR_OCSP_NOT_TWO_ELEMENTS = 412008,
+    ERR_OCSP_CACHE_EXPIRED = 412009,
+    ERR_OCSP_FAILED_PARSE_RESPONSE = 412010,
+    ERR_OCSP_INVALID_CERTIFICATE_VALIDITY = 412011,
+    ERR_OCSP_RESPONDER_TIMEOUT = 412012,
+    ERR_OCSP_CACHE_SERVER_TIMEOUT = 412013,
+    ERR_OCSP_FAILED_OBTAIN_OCSP_RESPONSE = 412014,
+
+    // 450001
+    ERR_STMT_FETCH_ROWS_MISSING_OPTIONS = 450001,
+    ERR_STMT_FETCH_ROWS_INVALID_OPTIONS = 450002,
+    ERR_STMT_FETCH_ROWS_MISSING_EACH = 450003,
+    ERR_STMT_FETCH_ROWS_INVALID_EACH = 450004,
+    ERR_STMT_FETCH_ROWS_MISSING_END = 450005,
+    ERR_STMT_FETCH_ROWS_INVALID_END = 450006,
+    ERR_STMT_FETCH_ROWS_FETCHING_RESULT = 450007,
+}
+
+export interface SnowflakeErrorExternal extends Error {
+    code?: ErrorCode;
+    sqlState?: string;
+    data?: object;
+    response?: object;
+    responseBody?: string;
+    cause?: Error;
+    isFatal?: boolean;
+}
+
+export interface SnowflakeError extends SnowflakeErrorExternal {
+    externalize?: () => SnowflakeErrorExternal;
+}
 
 /**
  * ### Related Docs
@@ -23,9 +175,10 @@ export interface ConnectionOptions {
     username: string;
 
     /**
-     * Password for the user.
+     * Password for the user. Set this option if you set the authenticator option to SNOWFLAKE or the Okta URL endpoint for your
+     * Okta account (e.g. https://<okta_account_name>.okta.com) or if you left the authenticator option unset.
      */
-    password: string;
+    password?: string;
 
     /**
      * @deprecated
@@ -34,27 +187,27 @@ export interface ConnectionOptions {
      * This parameter is no longer used because the region information, if required, is included as part of the full account name.
      * It is documented here only for backward compatibility
      */
-    region?: string;
+    region?: string | undefined;
 
     /**
      * The default database to use for the session after connecting.
      */
-    database?: string;
+    database?: string | undefined;
 
     /**
      * The default schema to use for the session after connecting.
      */
-    schema?: string;
+    schema?: string | undefined;
 
     /**
      * The default virtual warehouse to use for the session after connecting. Used for performing queries, loading data, etc.
      */
-    warehouse?: string;
+    warehouse?: string | undefined;
 
     /**
      * The default security role to use for the session after connecting.
      */
-    role?: string;
+    role?: string | undefined;
 
     /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
@@ -67,7 +220,7 @@ export interface ConnectionOptions {
      * If you set this parameter to true, make sure that your program explicitly disconnects from the server when your program
      * has finished. Do not exit without disconnecting.
      */
-    clientSessionKeepAlive?: boolean;
+    clientSessionKeepAlive?: boolean | undefined;
 
     /**
      * (Applies only when `clientSessionKeepAlive` is true)
@@ -82,9 +235,46 @@ export interface ConnectionOptions {
      * at least 4 hours, a heartbeat every 1 hour is normally sufficient to keep the connection alive. Heartbeat intervals of less
      * than 3600 seconds are rarely necessary or useful.
      */
-    clientSessionKeepAliveHeartbeatFrequency?: number;
+    clientSessionKeepAliveHeartbeatFrequency?: number | undefined;
 
-    jsTreatIntegerAsBigInt?: boolean;
+    jsTreatIntegerAsBigInt?: boolean | undefined;
+
+    /**
+     * Specifies the authenticator to use for verifying user login credentials. You can set this to one of the following values:
+     *  - SNOWFLAKE: Use the internal Snowflake authenticator. You must also set the password option.
+     *  - EXTERNALBROWSER: Use your web browser to authenticate with Okta, ADFS, or any other SAML 2.0-compliant identity provider
+     *    (IdP) that has been defined for your account.
+     *  - https://<okta_account_name>.okta.com: Use Native SSO through Okta.
+     *  - OAUTH: Use OAuth for authentication. You must also set the token option to the OAuth token (see below).
+     *  - SNOWFLAKE_JWT: Use key pair authentication. See Using Key Pair Authentication & Key Pair Rotation.
+     * The default value is SNOWFLAKE.
+     * For more information on authentication, see {@link https://docs.snowflake.com/en/user-guide/admin-security-fed-auth-use.html Managing/Using Federated Authentication}
+     *  and {@link https://docs.snowflake.com/en/user-guide/admin-security-fed-auth-use.html OAuth with Clients, Drivers, and Connectors}.
+     */
+    authenticator?: string;
+
+    /**
+     * Specifies the OAuth token to use for authentication. Set this option if you set the authenticator option to OAUTH.
+     */
+    token?: string;
+
+    /**
+     * Specifies the private key (in PEM format) for key pair authentication.
+     * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
+     */
+    privateKey?: string | Buffer;
+
+    /**
+     * Specifies the local path to the private key file (e.g. rsa_key.p8).
+     * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
+     */
+    privateKeyPath?: string;
+
+    /**
+     * Specifies the passcode to decrypt the private key file, if the file is encrypted.
+     * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
+     */
+    privateKeyPass?: string;
 }
 
 export interface Column {
@@ -121,7 +311,7 @@ export interface Column {
 
 export enum StatementStatus {
     Fetching = 'fetching',
-    Complete = 'complete'
+    Complete = 'complete',
 }
 
 export interface Statement {
@@ -181,7 +371,7 @@ export interface Statement {
      * Cancels this statement if possible.
      * @param fn The callback to use.
      */
-    cancel(fn: (err: Error, stmt: Statement) => void): void;
+    cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
     streamRows(): NodeJS.ReadableStream;
 }
@@ -251,7 +441,7 @@ export type Connection = NodeJS.EventEmitter & {
     /**
      * Establishes a connection if not in a fatal state.
      */
-    connect(fn: (err: Error, conn: Connection) => void): void;
+    connect(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
 
     /**
      * ### Related Docs
@@ -263,15 +453,15 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#batch-processing-results Batch Processing Results}
          */
-        streamResult?: boolean;
-        binds?: Binds;
+        streamResult?: boolean | undefined;
+        binds?: Binds | undefined;
 
         /**
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'>;
-        complete: (err: Error, stmt: Statement, rows: any[] | undefined) => void;
+        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
+        complete: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
     }): void;
 
     /**
@@ -283,7 +473,7 @@ export type Connection = NodeJS.EventEmitter & {
      * Immediately terminates the connection without waiting for
      * currently executing statements to complete.
      */
-    destroy(fn: (err: Error, conn: Connection) => void): void;
+    destroy(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
 
     /**
      * Returns a serialized version of this connection.
@@ -304,14 +494,14 @@ export enum ocspModes {
 }
 
 export interface ConfigureOptions {
-    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE';
-    insecureConnect?: boolean;
+    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | undefined;
+    insecureConnect?: boolean | undefined;
 
     /**
      * ### Related Docs
      * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#choosing-fail-open-or-fail-close-mode Choosing `Fail-Open` or `Fail-Close` Mode}
      */
-    ocspFailOpen?: boolean;
+    ocspFailOpen?: boolean | undefined;
 }
 
 /**

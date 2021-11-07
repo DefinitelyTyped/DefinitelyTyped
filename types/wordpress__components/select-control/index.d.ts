@@ -19,8 +19,8 @@ declare namespace SelectControl {
         keyof BaseControl.ControlProps | 'multiple' | 'onChange' | 'value'
     > &
         BaseControl.ControlProps & {
-            options?: readonly Option[];
-            value?: T;
+            options?: readonly Option[] | undefined;
+            value?: T | undefined;
             /**
              * A function that receives the value of the new option that is being
              * selected as input. If multiple is true the value received is an
@@ -28,7 +28,7 @@ declare namespace SelectControl {
              * is a single value with the new selected value.
              */
             onChange(value: T): void;
-        } & (T extends readonly string[] ? { multiple: true } : { multiple?: false });
+        } & (T extends readonly string[] ? { multiple: true } : { multiple?: false | undefined });
 }
 declare function SelectControl<T extends string | readonly string[]>(
     // tslint:disable-next-line:no-unnecessary-generics

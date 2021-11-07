@@ -40,9 +40,9 @@ export interface MarkerLayer {
     markRange(
         range: RangeCompatible,
         options?: {
-            reversed?: boolean;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
+            reversed?: boolean | undefined;
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
         },
     ): Marker;
 
@@ -50,8 +50,8 @@ export interface MarkerLayer {
     markPosition(
         position: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
         },
     ): Marker;
 
@@ -74,29 +74,29 @@ export interface MarkerLayer {
 
 export interface FindMarkerOptions {
     /** Only include markers that start at the given Point. */
-    startPosition?: PointCompatible;
+    startPosition?: PointCompatible | undefined;
 
     /** Only include markers that end at the given Point. */
-    endPosition?: PointCompatible;
+    endPosition?: PointCompatible | undefined;
 
     /** Only include markers that start inside the given Range. */
-    startsInRange?: RangeCompatible;
+    startsInRange?: RangeCompatible | undefined;
 
     /** Only include markers that end inside the given Range. */
-    endsInRange?: RangeCompatible;
+    endsInRange?: RangeCompatible | undefined;
 
     /** Only include markers that contain the given Point, inclusive. */
-    containsPoint?: PointCompatible;
+    containsPoint?: PointCompatible | undefined;
 
     /** Only include markers that contain the given Range, inclusive. */
-    containsRange?: RangeCompatible;
+    containsRange?: RangeCompatible | undefined;
 
     /** Only include markers that start at the given row number. */
-    startRow?: number;
+    startRow?: number | undefined;
 
     /** Only include markers that end at the given row number. */
-    endRow?: number;
+    endRow?: number | undefined;
 
     /** Only include markers that intersect the given row number. */
-    intersectsRow?: number;
+    intersectsRow?: number | undefined;
 }

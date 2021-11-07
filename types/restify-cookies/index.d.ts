@@ -8,14 +8,14 @@ import * as restify from 'restify';
 
 declare module 'restify' {
   interface CookieOptions {
-    encode?: (input: string) => string;
-    maxAge?: number;
-    domain?: string;
-    path?: string;
-    expires?: Date;
-    httpOnly?: boolean;
-    secure?: boolean;
-    sameSite?: boolean|'lax'|'strict'|'none';
+    encode?: ((input: string) => string) | undefined;
+    maxAge?: number | undefined;
+    domain?: string | undefined;
+    path?: string | undefined;
+    expires?: Date | undefined;
+    httpOnly?: boolean | undefined;
+    secure?: boolean | undefined;
+    sameSite?: boolean|'lax'|'strict'|'none' | undefined;
   }
 
   interface Request {

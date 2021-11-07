@@ -154,7 +154,7 @@ versionsArr = semver.rsort(['', new semver.SemVer('')]);
 diff = semver.diff(v1, v2, loose);
 
 // Ranges
-str = semver.validRange(str, loose);
+strn = semver.validRange(str, loose);
 bool = semver.satisfies(version, str, loose);
 strn = semver.maxSatisfying(versions, str, loose);
 strn = semver.minSatisfying(versions, str, loose);
@@ -174,6 +174,8 @@ semver.subset('1.x', '1.x'); // $ExpectType boolean
 semver.subset(new Range('1.2.3'), new Range('1.2.3')); // $ExpectType boolean
 semver.subset('^1.2.3-pre.0', '1.x', { includePrerelease: true }); // $ExpectType boolean
 semver.subset('', ''); // $ExpectType boolean
+semver.toComparators('1.x'); // $ExpectType string[][]
+semver.toComparators(new Range('1.2.3')); // $ExpectType string[][]
 
 // Coercion
 sem = semver.coerce(str);

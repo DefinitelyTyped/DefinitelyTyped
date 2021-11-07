@@ -191,7 +191,7 @@ interface UserComponent_user {
 type UserComponent_user$data = UserComponent_user;
 
 interface UserComponent_user$key {
-    readonly ' $data'?: UserComponent_user$data;
+    readonly ' $data'?: UserComponent_user$data | undefined;
     readonly ' $fragmentRefs': FragmentRefs<'UserComponent_user'>;
 }
 
@@ -250,7 +250,7 @@ type UserComponent_users = ReadonlyArray<{
 }>;
 type UserComponent_users$data = UserComponent_users;
 type UserComponent_users$key = ReadonlyArray<{
-    readonly ' $data'?: UserComponent_users$data;
+    readonly ' $data'?: UserComponent_users$data | undefined;
     readonly ' $fragmentRefs': FragmentRefs<'UserComponent_users'>;
 }>;
 
@@ -373,7 +373,7 @@ function RefetchableFragment() {
     type CommentBody_comment$data = CommentBody_comment;
 
     interface CommentBody_comment$key {
-        readonly ' $data'?: CommentBody_comment$data;
+        readonly ' $data'?: CommentBody_comment$data | undefined;
         readonly ' $fragmentRefs': FragmentRefs<'CommentBody_comment'>;
     }
 
@@ -422,8 +422,8 @@ function RefetchableFragment() {
  */
 function PaginationFragment() {
     interface FriendsListPaginationQueryVariables {
-        count?: number;
-        cursor?: string;
+        count?: number | undefined;
+        cursor?: string | undefined;
         id: string;
     }
 
@@ -455,7 +455,7 @@ function PaginationFragment() {
     type FriendsListComponent_user$data = FriendsListComponent_user;
 
     interface FriendsListComponent_user$key {
-        readonly ' $data'?: FriendsListComponent_user$data;
+        readonly ' $data'?: FriendsListComponent_user$data | undefined;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
     }
 
@@ -508,8 +508,8 @@ function PaginationFragment() {
 
 function PaginationFragment_WithNonNullUserProp() {
     interface FriendsListPaginationQueryVariables {
-        count?: number;
-        cursor?: string;
+        count?: number | undefined;
+        cursor?: string | undefined;
         id: string;
     }
 
@@ -541,7 +541,7 @@ function PaginationFragment_WithNonNullUserProp() {
     type FriendsListComponent_user$data = FriendsListComponent_user;
 
     interface FriendsListComponent_user$key {
-        readonly ' $data'?: FriendsListComponent_user$data;
+        readonly ' $data'?: FriendsListComponent_user$data | undefined;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
     }
 
@@ -601,8 +601,8 @@ function Mutation() {
         readonly feedback_like: {
             readonly feedback: {
                 readonly id: string;
-                readonly viewer_does_like?: boolean | null;
-                readonly like_count?: number | null;
+                readonly viewer_does_like?: boolean | null | undefined;
+                readonly like_count?: number | null | undefined;
             };
         } | null;
     }
@@ -611,8 +611,8 @@ function Mutation() {
         readonly feedback_like: {
             readonly feedback: {
                 readonly id: string;
-                readonly viewer_does_like?: boolean | null;
-                readonly like_count?: number | null;
+                readonly viewer_does_like?: boolean | null | undefined;
+                readonly like_count?: number | null | undefined;
             };
         } | null;
     }
@@ -946,7 +946,7 @@ function EntryPointTests() {
 
         const SuperParentComponent: EntryPointComponent<
             {},
-            { mainPanelA?: typeof entrypointA; mainPanelB?: typeof entrypointB },
+            { mainPanelA?: typeof entrypointA | undefined; mainPanelB?: typeof entrypointB | undefined },
             {},
             { foo: 'bar' }
         > = ({ entryPoints, extraProps }) => {

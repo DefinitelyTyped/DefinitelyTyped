@@ -11,34 +11,34 @@ import * as React from 'react';
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export interface TabsProps extends Omit<React.HTMLProps<HTMLDivElement>, 'className' | 'onSelect' | 'ref'> {
-    className?: string | string[] | { [name: string]: boolean };
-    defaultFocus?: boolean;
-    defaultIndex?: number;
-    disabledTabClassName?: string;
-    domRef?: (node?: HTMLElement) => void;
-    forceRenderTabPanel?: boolean;
-    onSelect?: (index: number, last: number, event: Event) => boolean | void;
-    selectedIndex?: number;
-    selectedTabClassName?: string;
-    selectedTabPanelClassName?: string;
+    className?: string | string[] | { [name: string]: boolean } | undefined;
+    defaultFocus?: boolean | undefined;
+    defaultIndex?: number | undefined;
+    disabledTabClassName?: string | undefined;
+    domRef?: ((node?: HTMLElement) => void) | undefined;
+    forceRenderTabPanel?: boolean | undefined;
+    onSelect?: ((index: number, last: number, event: Event) => boolean | void) | undefined;
+    selectedIndex?: number | undefined;
+    selectedTabClassName?: string | undefined;
+    selectedTabPanelClassName?: string | undefined;
 }
 
 export interface TabListProps extends Omit<React.HTMLProps<HTMLUListElement>, 'className'> {
-    className?: string | string[] | { [name: string]: boolean };
+    className?: string | string[] | { [name: string]: boolean } | undefined;
 }
 
 export interface TabProps extends Omit<React.HTMLProps<HTMLLIElement>, 'className' | 'tabIndex'> {
-    className?: string | string[] | { [name: string]: boolean };
-    disabled?: boolean;
-    disabledClassName?: string;
-    selectedClassName?: string;
-    tabIndex?: string;
+    className?: string | string[] | { [name: string]: boolean } | undefined;
+    disabled?: boolean | undefined;
+    disabledClassName?: string | undefined;
+    selectedClassName?: string | undefined;
+    tabIndex?: string | undefined;
 }
 
 export interface TabPanelProps extends Omit<React.HTMLProps<HTMLDivElement>, 'className'> {
-    className?: string | string[] | { [name: string]: boolean };
-    forceRender?: boolean;
-    selectedClassName?: string;
+    className?: string | string[] | { [name: string]: boolean } | undefined;
+    forceRender?: boolean | undefined;
+    selectedClassName?: string | undefined;
 }
 
 export declare class Tabs extends React.Component<TabsProps> {}

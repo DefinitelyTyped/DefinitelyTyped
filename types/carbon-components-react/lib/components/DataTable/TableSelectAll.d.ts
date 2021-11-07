@@ -3,12 +3,12 @@ import { ReactAttr } from "../../../typings/shared";
 import { InlineCheckboxProps } from "../InlineCheckbox";
 
 export interface TableSelectAllProps {
-    ariaLabel?: InlineCheckboxProps["ariaLabel"], // required but has default value
+    ariaLabel?: InlineCheckboxProps["ariaLabel"] | undefined, // required but has default value
     checked: NonNullable<InlineCheckboxProps["checked"]>,
-    className?: ReactAttr["className"],
-    disabled?: InlineCheckboxProps["disabled"],
+    className?: ReactAttr["className"] | undefined,
+    disabled?: InlineCheckboxProps["disabled"] | undefined,
     id: NonNullable<InlineCheckboxProps["id"]>,
-    indeterminate?: InlineCheckboxProps["indeterminate"],
+    indeterminate?: InlineCheckboxProps["indeterminate"] | undefined,
     name: NonNullable<InlineCheckboxProps["name"]>,
     onSelect: InlineCheckboxProps["onClick"],
 }

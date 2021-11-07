@@ -46,18 +46,18 @@ declare namespace oboe {
 
     interface Options {
         url: string;
-        method?: string;
-        headers?: Object;
+        method?: string | undefined;
+        headers?: Object | undefined;
         body?: any;
-        cached?: boolean;
-        withCredentials?: boolean;
+        cached?: boolean | undefined;
+        withCredentials?: boolean | undefined;
     }
 
     interface FailReason {
-        thrown?: Error;
-        statusCode?: number;
-        body?: string;
-        jsonBody?: Object;
+        thrown?: Error | undefined;
+        statusCode?: number | undefined;
+        body?: string | undefined;
+        jsonBody?: Object | undefined;
     }
 
     interface PatternMap {

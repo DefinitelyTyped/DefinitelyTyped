@@ -8,6 +8,11 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "paths": {
+            "d3-geo": [
+                "d3-geo/v1"
+            ]
+        },
         "jsx": "react",
         "types": [],
         "noEmit": true,

@@ -8,7 +8,7 @@ interface ErrorConstructor {
      *
      * @see https://v8.dev/docs/stack-trace-api#customizing-stack-traces
      */
-    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+    prepareStackTrace?: ((err: Error, stackTraces: NodeJS.CallSite[]) => any) | undefined;
 
     stackTraceLimit: number;
 }
@@ -71,14 +71,14 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "base64url" | "latin1" | "binary" | "hex";
 
 type WithImplicitCoercion<T> = T | { valueOf(): T };
 
 /**
  * Raw data is stored in instances of the Buffer class.
  * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
- * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+ * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'base64url'|'binary'(deprecated)|'hex'
  */
 declare class Buffer extends Uint8Array {
     /**
@@ -160,7 +160,7 @@ declare class Buffer extends Uint8Array {
     static isBuffer(obj: any): obj is Buffer;
     /**
      * Returns true if {encoding} is a valid encoding argument.
-     * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+     * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'base64url'|'binary'(deprecated)|'hex'
      *
      * @param encoding string to test.
      */
@@ -326,24 +326,24 @@ declare namespace NodeJS {
          * the getter function.
          * @default `false`
          */
-        getters?: 'get' | 'set' | boolean;
-        showHidden?: boolean;
+        getters?: 'get' | 'set' | boolean | undefined;
+        showHidden?: boolean | undefined;
         /**
          * @default 2
          */
-        depth?: number | null;
-        colors?: boolean;
-        customInspect?: boolean;
-        showProxy?: boolean;
-        maxArrayLength?: number | null;
+        depth?: number | null | undefined;
+        colors?: boolean | undefined;
+        customInspect?: boolean | undefined;
+        showProxy?: boolean | undefined;
+        maxArrayLength?: number | null | undefined;
         /**
          * Specifies the maximum number of characters to
          * include when formatting. Set to `null` or `Infinity` to show all elements.
          * Set to `0` or negative to show no characters.
          * @default Infinity
          */
-        maxStringLength?: number | null;
-        breakLength?: number;
+        maxStringLength?: number | null | undefined;
+        breakLength?: number | undefined;
         /**
          * Setting this to `false` causes each object key
          * to be displayed on a new line. It will also add new lines to text that is
@@ -354,8 +354,8 @@ declare namespace NodeJS {
          * For more information, see the example below.
          * @default `true`
          */
-        compact?: boolean | number;
-        sorted?: boolean | ((a: string, b: string) => number);
+        compact?: boolean | number | undefined;
+        sorted?: boolean | ((a: string, b: string) => number) | undefined;
     }
 
     interface CallSite {
@@ -433,11 +433,10 @@ declare namespace NodeJS {
     }
 
     interface ErrnoException extends Error {
-        errno?: number;
-        code?: string;
-        path?: string;
-        syscall?: string;
-        stack?: string;
+        errno?: number | undefined;
+        code?: string | undefined;
+        path?: string | undefined;
+        syscall?: string | undefined;
     }
 
     interface ReadableStream extends EventEmitter {
@@ -447,7 +446,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -577,7 +576,7 @@ declare namespace NodeJS {
     }
 
     interface RequireResolve {
-        (id: string, options?: { paths?: string[]; }): string;
+        (id: string, options?: { paths?: string[] | undefined; }): string;
         paths(request: string): string[] | null;
     }
 

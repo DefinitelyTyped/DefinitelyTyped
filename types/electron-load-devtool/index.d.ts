@@ -16,10 +16,10 @@ interface ElectronLoadDevtool {
 }
 
 interface ElectronLoadDevtoolOptions {
-    enabled?: boolean;
-    name?: string;
-    profile?: string;
-    version?: string;
+    enabled?: boolean | undefined;
+    name?: string | undefined;
+    profile?: string | undefined;
+    version?: string | undefined;
 }
 
 declare const electronLoadDevtool: ElectronLoadDevtool;

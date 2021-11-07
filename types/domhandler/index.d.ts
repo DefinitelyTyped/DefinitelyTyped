@@ -8,12 +8,12 @@ export interface DomHandlerOptions {
      * Indicates whether the whitespace in text nodes should be normalized
      * (= all whitespace should be replaced with single spaces). The default value is "false".
      */
-    normalizeWhitespace?: boolean;
+    normalizeWhitespace?: boolean | undefined;
 
     /***
      * Adds DOM level 1 properties to all elements.
      */
-    withDomLvl1?: boolean;
+    withDomLvl1?: boolean | undefined;
 
     /***
      * Indicates whether a startIndex property will be added to nodes.
@@ -21,7 +21,7 @@ export interface DomHandlerOptions {
      * indicating the position of the start of the node in the document.
      * The default value is "false".
      */
-    withStartIndices?: boolean;
+    withStartIndices?: boolean | undefined;
 
     /***
      * Indicates whether a endIndex property will be added to nodes.
@@ -29,18 +29,18 @@ export interface DomHandlerOptions {
      * indicating the position of the end of the node in the document.
      * The default value is "false".
      */
-    withEndIndices?: boolean;
+    withEndIndices?: boolean | undefined;
 }
 
 export interface DomElement {
-    attribs?: {[s: string]: string};
-    children?: DomElement[];
+    attribs?: {[s: string]: string} | undefined;
+    children?: DomElement[] | undefined;
     data?: any;
-    name?: string;
-    next?: DomElement;
-    parent?: DomElement;
-    prev?: DomElement;
-    type?: string;
+    name?: string | undefined;
+    next?: DomElement | undefined;
+    parent?: DomElement | undefined;
+    prev?: DomElement | undefined;
+    type?: string | undefined;
 }
 
 export interface Element extends DomElement {

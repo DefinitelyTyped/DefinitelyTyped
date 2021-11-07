@@ -19,19 +19,19 @@ declare namespace Consul {
     }
 
     interface CommonOptions {
-        consistent?: boolean;
-        dc?: string;
-        stale?: boolean;
-        token?: string;
-        wait?: string;
-        wan?: boolean;
+        consistent?: boolean | undefined;
+        dc?: string | undefined;
+        stale?: boolean | undefined;
+        token?: string | undefined;
+        wait?: string | undefined;
+        wan?: boolean | undefined;
 
-        ctx?: NodeJS.EventEmitter;
-        timeout?: number;
+        ctx?: NodeJS.EventEmitter | undefined;
+        timeout?: number | undefined;
     }
 
     interface Response extends HttpIncomingMessage {
-        body?: Object | string | Buffer;
+        body?: Object | string | Buffer | undefined;
     }
 
     interface Callback<TData> {
@@ -41,16 +41,16 @@ declare namespace Consul {
     namespace Acl {
 
         interface CreateOptions extends CommonOptions {
-            name?: string;
-            type?: string;
-            rules?: string;
+            name?: string | undefined;
+            type?: string | undefined;
+            rules?: string | undefined;
         }
 
         interface UpdateOptions extends CommonOptions {
             id: string;
-            name?: string;
-            type?: string;
-            rules?: string;
+            name?: string | undefined;
+            type?: string | undefined;
+            rules?: string | undefined;
         }
 
         interface DestroyOptions extends CommonOptions {
@@ -148,14 +148,14 @@ declare namespace Consul {
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
-                id?: string;
-                serviceid?: string;
-                http?: string;
-                script?: string;
-                interval?: string;
-                ttl?: string;
-                notes?: string;
-                status?: string;
+                id?: string | undefined;
+                serviceid?: string | undefined;
+                http?: string | undefined;
+                script?: string | undefined;
+                interval?: string | undefined;
+                ttl?: string | undefined;
+                notes?: string | undefined;
+                status?: string | undefined;
             }
 
             interface DeregisterOptions extends CommonOptions {
@@ -164,17 +164,17 @@ declare namespace Consul {
 
             interface PassOptions extends CommonOptions {
                 id: string;
-                note?: string;
+                note?: string | undefined;
             }
 
             interface WarnOptions extends CommonOptions {
                 id: string;
-                note?: string;
+                note?: string | undefined;
             }
 
             interface FailOptions extends CommonOptions {
                 id: string;
-                note?: string;
+                note?: string | undefined;
             }
         }
 
@@ -246,24 +246,24 @@ declare namespace Consul {
         namespace Service {
 
             interface RegisterCheck {
-                http?: string;
-                script?: string;
-                interval?: string;
-                ttl?: string;
-                notes?: string;
-                status?: string;
+                http?: string | undefined;
+                script?: string | undefined;
+                interval?: string | undefined;
+                ttl?: string | undefined;
+                notes?: string | undefined;
+                status?: string | undefined;
             }
 
             interface ListOptions extends CommonOptions { }
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
-                id?: string;
-                tags?: string[];
-                address?: string;
-                port?: number;
-                check?: RegisterCheck;
-                checks?: RegisterCheck[];
+                id?: string | undefined;
+                tags?: string[] | undefined;
+                address?: string | undefined;
+                port?: number | undefined;
+                check?: RegisterCheck | undefined;
+                checks?: RegisterCheck[] | undefined;
             }
 
             interface DeregisterOptions extends CommonOptions {
@@ -273,7 +273,7 @@ declare namespace Consul {
             interface MaintenanceOptions extends CommonOptions {
                 id: string;
                 enable: boolean;
-                reason?: string;
+                reason?: string | undefined;
             }
         }
 
@@ -327,19 +327,19 @@ declare namespace Consul {
         interface ServicesOptions extends Service.ListOptions { }
 
         interface MembersOptions extends CommonOptions {
-            wan?: boolean;
+            wan?: boolean | undefined;
         }
 
         interface SelfOptions extends CommonOptions { }
 
         interface MaintenanceOptions extends CommonOptions {
             enable: boolean;
-            reason?: string;
+            reason?: string | undefined;
         }
 
         interface JoinOptions extends CommonOptions {
             address: string;
-            wan?: boolean;
+            wan?: boolean | undefined;
         }
 
         interface ForceLeaveOptions extends CommonOptions {
@@ -431,7 +431,7 @@ declare namespace Consul {
         namespace Node {
 
             interface ListOptions extends CommonOptions {
-                dc?: string;
+                dc?: string | undefined;
             }
 
             interface ServicesOptions extends CommonOptions {
@@ -471,13 +471,13 @@ declare namespace Consul {
         namespace Service {
 
             interface ListOptions extends CommonOptions {
-                dc?: string;
+                dc?: string | undefined;
             }
 
             interface NodesOptions extends CommonOptions {
                 service: string;
-                dc?: string;
-                tag?: string;
+                dc?: string | undefined;
+                tag?: string | undefined;
             }
         }
 
@@ -568,13 +568,13 @@ declare namespace Consul {
         interface FireOptions extends CommonOptions {
             name: string;
             payload: string | Buffer;
-            node?: string;
-            service?: string;
-            tag?: string;
+            node?: string | undefined;
+            service?: string | undefined;
+            tag?: string | undefined;
         }
 
         interface ListOptions extends CommonOptions {
-            name?: string;
+            name?: string | undefined;
         }
     }
 
@@ -613,25 +613,25 @@ declare namespace Consul {
 
         interface NodeOptions extends CommonOptions {
             node: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface ChecksOptions extends CommonOptions {
             service: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface ServiceOptions extends CommonOptions {
             service: string;
-            dc?: string;
-            tag?: string;
-            passing?: boolean;
-            near?: string;
+            dc?: string | undefined;
+            tag?: string | undefined;
+            passing?: boolean | undefined;
+            near?: string | undefined;
         }
 
         interface StateOptions extends CommonOptions {
             state: string;
-            dc?: string;
+            dc?: string | undefined;
         }
     }
 
@@ -687,35 +687,35 @@ declare namespace Consul {
 
         interface GetOptions extends CommonOptions {
             key: string;
-            dc?: string;
-            recurse?: boolean;
-            index?: string;
-            wait?: string;
-            raw?: boolean;
-            buffer?: boolean;
+            dc?: string | undefined;
+            recurse?: boolean | undefined;
+            index?: string | undefined;
+            wait?: string | undefined;
+            raw?: boolean | undefined;
+            buffer?: boolean | undefined;
         }
 
         interface KeysOptions extends CommonOptions {
             key: string;
-            dc?: string;
-            separator?: string;
+            dc?: string | undefined;
+            separator?: string | undefined;
         }
 
         interface SetOptions extends CommonOptions {
             key: string;
             value: string | Buffer;
-            dc?: string;
-            flags?: number;
-            cas?: string;
-            acquire?: string;
-            release?: string;
+            dc?: string | undefined;
+            flags?: number | undefined;
+            cas?: string | undefined;
+            acquire?: string | undefined;
+            release?: string | undefined;
         }
 
         interface DelOptions extends CommonOptions {
             key: string;
-            dc?: string;
-            recurse?: boolean;
-            cas?: string;
+            dc?: string | undefined;
+            recurse?: boolean | undefined;
+            cas?: string | undefined;
         }
 
         interface DeleteOptions extends DelOptions { }
@@ -782,10 +782,10 @@ declare namespace Consul {
 
         interface Options {
             key: string;
-            session?: Object | string;
-            value?: string | Buffer;
-            lockwaittime?: string;
-            lockretrytime?: string;
+            session?: Object | string | undefined;
+            value?: string | Buffer | undefined;
+            lockwaittime?: string | undefined;
+            lockretrytime?: string | undefined;
         }
     }
 
@@ -810,39 +810,39 @@ declare namespace Consul {
     namespace Session {
 
         interface CreateOptions extends CommonOptions {
-            dc?: string;
-            lockdelay?: string;
-            name?: string;
-            node?: string;
-            checks?: string[];
-            behavior?: string;
-            ttl?: string;
+            dc?: string | undefined;
+            lockdelay?: string | undefined;
+            name?: string | undefined;
+            node?: string | undefined;
+            checks?: string[] | undefined;
+            behavior?: string | undefined;
+            ttl?: string | undefined;
         }
 
         interface DestroyOptions extends CommonOptions {
             id: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface InfoOptions extends CommonOptions {
             id: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface GetOptions extends InfoOptions { }
 
         interface NodeOptions extends CommonOptions {
             node: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface ListOptions extends CommonOptions {
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface RenewOptions extends CommonOptions {
             id: string;
-            dc?: string;
+            dc?: string | undefined;
         }
     }
 
@@ -955,15 +955,15 @@ declare namespace Consul {
     namespace Watch {
         
         interface WatchOptions {
-            key?: string;
+            key?: string | undefined;
         }
 
         interface Options {
             method: Function;
-            options?: CommonOptions & WatchOptions;
-            backoffFactor?: number;
-            backoffMax?: number;
-            maxAttempts?: number;
+            options?: CommonOptions & WatchOptions | undefined;
+            backoffFactor?: number | undefined;
+            backoffMax?: number | undefined;
+            maxAttempts?: number | undefined;
         }
     }
 
@@ -991,12 +991,12 @@ declare namespace Consul {
     }
 
     interface ConsulOptions {
-        host?: string;
-        port?: string;
-        secure?: boolean;
-        ca?: string[];
-        defaults?: CommonOptions;
-        promisify?: boolean | Function;
+        host?: string | undefined;
+        port?: string | undefined;
+        secure?: boolean | undefined;
+        ca?: string[] | undefined;
+        defaults?: CommonOptions | undefined;
+        promisify?: boolean | Function | undefined;
     }
 
     interface Consul {

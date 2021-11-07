@@ -1,3 +1,5 @@
+import { WebAppManifest } from 'web-app-manifest';
+
 // EXAMPLE 1
 const example1: WebAppManifest = {
     name: 'Donate App',

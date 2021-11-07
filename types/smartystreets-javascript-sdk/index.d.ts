@@ -280,8 +280,8 @@ export namespace usStreet {
         lastLine: string;
         /** 12-digit POSTNET™ barcode; consists of 5-digit ZIP Code, 4-digit add-on code, 2-digit delivery point, and 1-digit check digit. */
         deliveryPointBarcode: string;
-        /** @see Componenet */
-        components: Componenet;
+        /** @see Component */
+        components: Component;
         /** @see Metadata */
         metadata: Metadata;
         /** @see Analysis */
@@ -363,7 +363,7 @@ export namespace usStreet {
          * - **D** — Confirmed but missing secondary info; the main address is present in the USPS data, but it is missing secondary information (apartment, suite, etc.). (e.g., 122 Mast Rd Lee, NH)
          * - **[blank or null]** — The address is not present in the USPS database.
          */
-        dpvMatchCode?: string;
+        dpvMatchCode?: string | undefined;
         /**
          * Indicates which changes were made to the input address. Footnotes are delimited by a # character. See the [footnotes](https://smartystreets.com/docs/cloud/us-street-api#footnotes) table
          * below for details.
@@ -460,7 +460,7 @@ export namespace usStreet {
          * - **true** — The address was flagged by EWS, preventing a ZIP+4 match.
          * - **[blank]** — Address was not flagged by EWS.
          */
-        isEwsMatch?: boolean;
+        isEwsMatch?: boolean | undefined;
         /**
          * The horizontal component used for geographic positioning. It is the angle between 0° (the equator) and ±90° (north or south) at the poles. It is the first value in an ordered pair of
          * (latitude, longitude). A negative number denotes a location below the equator; a positive number is above the equator. Combining lat/long values enables you to pinpoint addresses on a map.
@@ -503,7 +503,7 @@ export namespace usStreet {
          *
          * Note: For some reason, known only to the US Postal Service, PO Boxes are always marked as "Residential."
          */
-        rdi?: string;
+        rdi?: string | undefined;
         /**
          * Indicates the type of record that was matched. Only given if a DPV match is made.
          * - **F** - Firm; the finest level of match available for an address. (e.g., [Julie Julia 11300 Center Ave Gilroy CA 95020-9257](https://bit.ly/36OLtAj))
@@ -545,11 +545,11 @@ export namespace usStreet {
         zipType: string;
     }
     /**
-     * Componenet
+     * Component
      *
      * https://smartystreets.com/docs/cloud/us-street-api#components
      */
-    interface Componenet {
+    interface Component {
         /** The USPS-preferred city name for this particular address, or an acceptable alternate if provided by the user */
         cityName: string;
         /** The default city name for this 5-digit ZIP Code */

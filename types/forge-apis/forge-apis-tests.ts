@@ -99,6 +99,14 @@ derivativesApi.translate(
                 },
             ],
         },
+        misc: {
+            workflow: 'my-workflow-id',
+            workflowAttributes: {
+                attribute1: 'attribute1',
+                attribute2: 2,
+                attribute3: [3],
+            },
+        },
     },
     {},
     authClientTwoLegged,

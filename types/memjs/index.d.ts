@@ -12,61 +12,61 @@ export interface ClientOptions {
      * How many seconds to wait until retrying a failed server.
      * @default 60
      */
-    failoverTime?: number;
+    failoverTime?: number | undefined;
     /**
      * The number of times to retry an operation in lieu of failures.
      * @default 2
      */
-    retries?: number;
+    retries?: number | undefined;
     /**
      * @default 0.2
      */
-    retry_delay?: number;
+    retry_delay?: number | undefined;
     /**
      * The default expiration in seconds to use. A `0` means never expire,
      * if it is greater than 30 days (60 x 60 x 24 x 30), it is
      * treated as a UNIX time (number of seconds since January 1, 1970).
      * @default 0
      */
-    expires?: number;
+    expires?: number | undefined;
     /**
      * A logger object that responds to `log(string)` method calls.
      * @default console
      */
     logger?: {
         log(...args: any[]): void;
-    };
+    } | undefined;
 }
 export interface ServerOptions {
     /**
      * Server username for fallback SASL authentication credentials.
      */
-    username?: string;
+    username?: string | undefined;
     /**
      * Server password for fallback SASL authentication credentials.
      */
-    password?: string;
+    password?: string | undefined;
     /**
      * `timeout` in seconds to determine failure for operations.
      * @default 0.5
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * `conntimeout` in seconds to connection failure.
      * @default 2 * timeout
      */
-    conntimeout?: number;
+    conntimeout?: number | undefined;
     /**
      * Whether to enable keep-alive functionality.
      * @default false
      */
-    keepAlive?: boolean;
+    keepAlive?: boolean | undefined;
     /**
      * `keepAliveDelay` in seconds to the initial delay before the first keep-
      * alive probe is sent on an idle socket.
      * @default 30
      */
-    keepAliveDelay?: number;
+    keepAliveDelay?: number | undefined;
 }
 export class Client {
     /**
@@ -160,11 +160,11 @@ export class Client {
      * @param options
      * @param callback
      */
-    set(key: string, value: string | Buffer, options: { expires?: number }): Promise<boolean>;
+    set(key: string, value: string | Buffer, options: { expires?: number | undefined }): Promise<boolean>;
     set(
         key: string,
         value: string | Buffer,
-        options: { expires?: number },
+        options: { expires?: number | undefined },
         callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
@@ -186,11 +186,11 @@ export class Client {
      * @param options
      * @param callback
      */
-    add(key: string, value: string | Buffer, options: { expires?: number }): Promise<boolean>;
+    add(key: string, value: string | Buffer, options: { expires?: number | undefined }): Promise<boolean>;
     add(
         key: string,
         value: string | Buffer,
-        options: { expires?: number },
+        options: { expires?: number | undefined },
         callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
@@ -212,11 +212,11 @@ export class Client {
      * @param options
      * @param callback
      */
-    replace(key: string, value: string | Buffer, options: { expires?: number }): Promise<boolean>;
+    replace(key: string, value: string | Buffer, options: { expires?: number | undefined }): Promise<boolean>;
     replace(
         key: string,
         value: string | Buffer,
-        options: { expires?: number },
+        options: { expires?: number | undefined },
         callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
@@ -256,12 +256,12 @@ export class Client {
     increment(
         key: string,
         amount: number,
-        options: { initial?: number; expires?: number }
-    ): Promise<{ success: boolean; value?: number | null }>;
+        options: { initial?: number | undefined; expires?: number | undefined }
+    ): Promise<{ success: boolean; value?: number | null | undefined }>;
     increment(
         key: string,
         amount: number,
-        options: { initial?: number; expires?: number },
+        options: { initial?: number | undefined; expires?: number | undefined },
         callback: (err: Error | null, success: boolean | null, value?: number | null) => void
     ): void;
 
@@ -286,12 +286,12 @@ export class Client {
     decrement(
         key: string,
         amount: number,
-        options: { initial?: number; expires?: number }
-    ): Promise<{ success: boolean; value?: number | null }>;
+        options: { initial?: number | undefined; expires?: number | undefined }
+    ): Promise<{ success: boolean; value?: number | null | undefined }>;
     decrement(
         key: string,
         amount: number,
-        options: { initial?: number; expires?: number },
+        options: { initial?: number | undefined; expires?: number | undefined },
         callback: (err: Error | null, success: boolean | null, value?: number | null) => void
     ): void;
 

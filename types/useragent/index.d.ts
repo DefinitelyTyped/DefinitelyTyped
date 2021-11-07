@@ -177,8 +177,8 @@ declare namespace useragent {
                   major: string;
                   minor: string;
                   patch: string;
-                  device?: string;
-                  os?: string;
+                  device?: string | undefined;
+                  os?: string | undefined;
               },
     ): Agent;
 

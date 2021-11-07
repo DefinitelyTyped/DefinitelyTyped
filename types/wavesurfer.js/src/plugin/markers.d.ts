@@ -1,47 +1,57 @@
-import { PluginDefinition, PluginParams, WaveSurferObserver, WaveSurferPlugin, WaveSurferUtil } from "../..";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
+import Observer from "../util/observer";
+import WaveSurfer from "../wavesurfer";
 
-export = WaveSurfer.MarkersPlugin;
-
-interface WaveSurfer {
-    addMarker(param: WaveSurfer.MarkerParams): WaveSurfer.Marker;
-    clearMarkers(): void;
+declare module "../../wavesurfer" {
+    interface WaveSurfer {
+        addMarker(param: MarkerParams): Marker;
+        clearMarkers(): void;
+    }
 }
-declare namespace WaveSurfer {
-    class MarkersPlugin extends WaveSurferObserver implements WaveSurferPlugin {
-        constructor(params: MarkersPluginParams, ws: WaveSurfer);
-        static create(params: MarkersPluginParams): PluginDefinition;
-        destroy(): void;
-        init(): void;
 
-        add(param: MarkerParams): Marker;
-        clear(): void;
-        remove(index: number): void;
+export default class MarkersPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: MarkersPluginParams, ws: WaveSurfer);
+    static create(params: MarkersPluginParams): PluginDefinition;
+    destroy(): void;
+    init(): void;
 
-        readonly markerHeight: number;
-        readonly markerWidth: number;
-        readonly markers: Marker[];
-        readonly params: MarkersPluginParams;
-        readonly style: WaveSurferUtil["style"];
-        readonly util: WaveSurferUtil;
-        readonly wavesurfer: WaveSurfer;
-        readonly wrapper: HTMLElement;
-    }
+    /** Add a marker. */
+    add(param: MarkerParams): Marker;
+    /** Remove all markers. */
+    clear(): void;
+    /** Remove a marker. */
+    remove(index: number): void;
 
-    interface Marker {
-        time: number;
-        label?: string;
-        color: string;
-        position: "top" | "bottom";
-    }
+    readonly markerHeight: number;
+    readonly markerWidth: number;
+    readonly markers: Marker[];
+    readonly params: MarkersPluginParams;
+    readonly style: WaveSurfer["util"]["style"];
+    readonly util: WaveSurfer["util"];
+    readonly wavesurfer: WaveSurfer;
+    readonly wrapper: HTMLElement;
+}
 
-    interface MarkersPluginParams {
-        markers?: MarkerParams[];
-    }
+export interface Marker {
+    time: number;
+    label?: string | undefined;
+    color: string;
+    position: "top" | "bottom";
+}
 
-    interface MarkerParams {
-        time: number;
-        label?: string;
-        color?: string;
-        position?: "top" | "bottom";
-    }
+export interface MarkersPluginParams {
+    /** Initial set of markers. */
+    markers?: MarkerParams[] | undefined;
+}
+
+export interface MarkerParams {
+    /** The time to set the marker at. */
+    time: number;
+    /** An optional marker label. */
+    label?: string | undefined;
+    /** Background color for marker. */
+    color?: string | undefined;
+    position?: "top" | "bottom" | undefined;
+    /** An HTML element to display instead of the default marker image. */
+    markerElement?: HTMLElement | undefined;
 }

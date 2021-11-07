@@ -19,41 +19,41 @@ declare namespace inert {
          * confine - serve file relative to this directory and returns 403 Forbidden if the path resolves outside the confine directory.
          * Defaults to true which uses the relativeTo route option as the confine. Set to false to disable this security feature.
          */
-        confine?: boolean;
+        confine?: boolean | undefined;
         /**
          * filename - an optional filename to specify if sending a 'Content-Disposition' header, defaults to the basename of path
          */
-        filename?: string;
+        filename?: string | undefined;
         /**
          * mode - specifies whether to include the 'Content-Disposition' header with the response. Available values:
          *  * false - header is not included. This is the default value.
          *  * 'attachment'
          *  *'inline'
          */
-        mode?: false | 'attachment' | 'inline';
+        mode?: false | 'attachment' | 'inline' | undefined;
         /**
          * lookupCompressed - if true, looks for for a pre-compressed version of the file with the same filename with an extension, depending on the accepted encoding. Defaults to false.
          */
-        lookupCompressed?: boolean;
+        lookupCompressed?: boolean | undefined;
         /**
          * lookupMap - an object which maps content encoding to expected file name extension. Defaults to `{ gzip: '.gz' }.
          */
-        lookupMap?: {[index: string]: string};
+        lookupMap?: {[index: string]: string} | undefined;
         /**
          * etagMethod - specifies the method used to calculate the ETag header response. Available values:
          *  * 'hash' - SHA1 sum of the file contents, suitable for distributed deployments. Default value.
          *  * 'simple' - Hex encoded size and modification date, suitable when files are stored on a single server.
          *  * false - Disable ETag computation.
          */
-        etagMethod?: 'hash' | 'simple' | false;
+        etagMethod?: 'hash' | 'simple' | false | undefined;
         /**
          * start - offset in file to reading from, defaults to 0.
          */
-        start?: number;
+        start?: number | undefined;
         /**
          * end - offset in file to stop reading from. If not set, will read to end of file.
          */
-        end?: number;
+        end?: number | undefined;
     }
 
     interface FileHandlerRouteObject extends ReplyFileHandlerOptions {
@@ -77,37 +77,37 @@ declare namespace inert {
          * The given string or strings specify the name(s) of the index file to look for. If true, looks for 'index.html'.
          * Any falsy value disables index file lookup. Defaults to true.
          */
-        index?: boolean | string | string[];
+        index?: boolean | string | string[] | undefined;
         /**
          * listing - optional boolean, determines if directory listing is generated when a directory is requested without an index document. Defaults to false.
          */
-        listing?: boolean;
+        listing?: boolean | undefined;
         /**
          * showHidden - optional boolean, determines if hidden files will be shown and served. Defaults to false.
          */
-        showHidden?: boolean;
+        showHidden?: boolean | undefined;
         /**
          * redirectToSlash - optional boolean, determines if requests for a directory without a trailing slash are redirected to the same path with the missing slash.
          * Useful for ensuring relative links inside the response are resolved correctly.
          * Disabled when the server config router.stripTrailingSlash is true.Defaults to false.
          */
-        redirectToSlash?: boolean;
+        redirectToSlash?: boolean | undefined;
         /**
          * lookupCompressed - optional boolean, instructs the file processor to look for the same filename with the '.gz' suffix for a pre-compressed
          * version of the file to serve if the request supports content encoding. Defaults to false.
          */
-        lookupCompressed?: boolean;
+        lookupCompressed?: boolean | undefined;
         /**
          * etagMethod - specifies the method used to calculate the ETag header response. Available values:
          *  * 'hash' - SHA1 sum of the file contents, suitable for distributed deployments. Default value.
          *  * 'simple' - Hex encoded size and modification date, suitable when files are stored on a single server.
          *  * false - Disable ETag computation.
          */
-        etagMethod?: 'hash' | 'simple' | false;
+        etagMethod?: 'hash' | 'simple' | false | undefined;
         /**
          * defaultExtension - optional string, appended to file requests if the requested file is not found. Defaults to no extension.
          */
-        defaultExtension?: string;
+        defaultExtension?: string | undefined;
     }
 
     /**
@@ -118,7 +118,7 @@ declare namespace inert {
         /**
          * sets the maximum number of file etag hash values stored in the etags cache. Defaults to 10000.
          */
-        etagsCacheMaxSize?: number;
+        etagsCacheMaxSize?: number | undefined;
     }
 }
 
@@ -137,7 +137,7 @@ declare module 'hapi' {
          *  * an object with one or more of the following options @see IFileHandler
          * @see {@link https://github.com/hapijs/inert#the-file-handler}
          */
-        file?: string | inert.RequestHandler<string> | inert.FileHandlerRouteObject;
+        file?: string | inert.RequestHandler<string> | inert.FileHandlerRouteObject | undefined;
         /**
          * The directory handler
          *
@@ -150,13 +150,13 @@ declare module 'hapi' {
          * The directory handler is an object with the following options:
          * @see {@link https://github.com/hapijs/inert#the-directory-handler}
          */
-        directory?: inert.DirectoryHandlerRouteObject;
+        directory?: inert.DirectoryHandlerRouteObject | undefined;
         files?: {
             /**
              * Set the relative path
              */
             relativeTo: string;
-        };
+        } | undefined;
     }
 
     interface ResponseToolkit {

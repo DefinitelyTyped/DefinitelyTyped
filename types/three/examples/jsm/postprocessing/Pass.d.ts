@@ -17,13 +17,11 @@ export class Pass {
     ): void;
 }
 
-export namespace Pass {
-    class FullScreenQuad {
-        constructor(material?: Material);
+export class FullScreenQuad {
+    constructor(material?: Material);
 
-        render(renderer: WebGLRenderer): void;
-        dispose(): void;
+    render(renderer: WebGLRenderer): void;
+    dispose(): void;
 
-        material: Material;
-    }
+    material: Material;
 }

@@ -3,7 +3,6 @@ import * as dom from '@wordpress/dom';
 // $ExpectType HTMLDivElement
 const element = document.createElement('div');
 
-// $ExpectType Node || ChildNode
 const node = element.previousSibling!;
 
 // $ExpectType Range

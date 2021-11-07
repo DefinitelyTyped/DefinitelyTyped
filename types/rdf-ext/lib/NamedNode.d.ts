@@ -9,4 +9,9 @@ interface NamedNodeExt<Iri extends string = string> extends NamedNode<Iri> {
   };
 }
 
+// tslint:disable-next-line:no-unnecessary-class
+declare class NamedNodeExt<Iri extends string = string> {
+    constructor(iri: Iri);
+}
+
 export = NamedNodeExt;

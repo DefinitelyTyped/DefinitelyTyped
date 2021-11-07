@@ -6,16 +6,16 @@
 import { Store, StoreConfig, CacheOptions, Cache } from "cache-manager";
 
 interface FsHashStoreOptions {
-    path?: string;
-    ttl?: number;
-    maxsize?: number;
-    subdirs?: boolean;
-    zip?: boolean;
+    path?: string | undefined;
+    ttl?: number | undefined;
+    maxsize?: number | undefined;
+    subdirs?: boolean | undefined;
+    zip?: boolean | undefined;
 }
 
 interface FsHashStoreConfig {
     store: FsHashStoreConstructor;
-    options?: FsHashStoreOptions;
+    options?: FsHashStoreOptions | undefined;
 }
 
 interface FsHashStoreConstructor {

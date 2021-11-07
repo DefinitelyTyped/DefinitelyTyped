@@ -38,5 +38,6 @@ inflection.foreign_key("MessageBusProperty");
 inflection.foreign_key("MessageBusProperty", true);
 
 inflection.ordinalize("the 1 pitch");
+inflection.version;
 
 inflection.transform("all job", [ "pluralize", "capitalize", "dasherize" ]);

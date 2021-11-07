@@ -7,9 +7,9 @@ import autobahn = require("autobahn");
 import * as Rx from "rx";
 
 interface IWampEvent {
-    args?: any[];
+    args?: any[] | undefined;
     kwargs?: any;
-    details?: autobahn.IEvent;
+    details?: autobahn.IEvent | undefined;
 }
 
 interface IObservableWampStatic {

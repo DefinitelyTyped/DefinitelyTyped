@@ -6,8 +6,10 @@ const element = new Element();
 // $ExpectType Tab
 new Tab(element);
 
-// $ExpectType Tab
+// $ExpectType Tab | null
 Tab.getInstance(element);
+// $ExpectType Tab
+Tab.getOrCreateInstance(element);
 
 element.addEventListener(Tab.Events.hidden, event => {
     // do something…

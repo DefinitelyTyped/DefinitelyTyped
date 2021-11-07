@@ -3,7 +3,7 @@ import { Group, Texture } from '../../../src/Three';
 import { XRHandModel, XRHandModelHandedness } from './XRHandModelFactory';
 
 export interface XRHandPrimitiveModelOptions {
-    primitive?: 'sphere' | 'box';
+    primitive?: 'sphere' | 'box' | undefined;
 }
 
 export class XRHandPrimitiveModel {

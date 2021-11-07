@@ -19,19 +19,19 @@ declare namespace umzug {
          * The params that gets passed to the migrations.
          * Might be an array or a synchronous function which returns an array.
          */
-        params?: Array<any>;
+        params?: Array<any> | undefined;
 
         /** The path to the migrations directory. */
-        path?: string;
+        path?: string | undefined;
 
         /** The pattern that determines whether or not a file is a migration. */
-        pattern?: RegExp;
+        pattern?: RegExp | undefined;
 
         /**
          * A function that receives and returns the to be executed function.
          * This can be used to modify the function.
          */
-        wrap?: <T>(fn: T) => T;
+        wrap?: (<T>(fn: T) => T) | undefined;
 
         /**
          * A function that maps a file path to a migration object in the form
@@ -41,7 +41,7 @@ declare namespace umzug {
          * See https://github.com/sequelize/umzug/tree/master/test/fixtures
          * for examples.
          */
-        customResolver?(path: string): { up: () => PromiseLike<any>, down?: () => PromiseLike<any> };
+        customResolver?(path: string): { up: () => PromiseLike<any>, down?: (() => PromiseLike<any>) | undefined };
 
     }
 
@@ -73,7 +73,7 @@ declare namespace umzug {
          * The path to the json storage.
          * Defaults to process.cwd() + '/umzug.json';
          */
-        path?: string;
+        path?: string | undefined;
 
     }
 
@@ -83,26 +83,26 @@ declare namespace umzug {
          * The configured instance of Sequelize.
          * Optional if `model` is passed.
          */
-        sequelize?: Sequelize.Sequelize;
+        sequelize?: Sequelize.Sequelize | undefined;
 
         /**
          * The to be used Sequelize model.
          * Must have column name matching `columnName` option
          * Optional of `sequelize` is passed.
          */
-        model?: Sequelize.Model<any, any>;
+        model?: Sequelize.Model<any, any> | undefined;
 
         /**
          * The name of the to be used model.
          * Defaults to 'SequelizeMeta'
          */
-        modelName?: string;
+        modelName?: string | undefined;
 
         /**
          * The name of table to create if `model` option is not supplied
          * Defaults to `modelName`
          */
-        tableName?: string;
+        tableName?: string | undefined;
 
         /**
          * The name of table column holding migration name.
@@ -123,58 +123,58 @@ declare namespace umzug {
         /**
          * The MongoDB database connection instance.
          */
-        connection?: MongoDB.Db;
+        connection?: MongoDB.Db | undefined;
 
         /**
          * The to be used Mongo collection cursor.
          * Defaults to collection created from collectionName attribute.
          */
-        collection?: MongoDB.Collection;
+        collection?: MongoDB.Collection | undefined;
 
         /**
          * The name of the collection used by the connection.
          * Defaults to 'migrations'
          */
-        collectionName?: string;
+        collectionName?: string | undefined;
 
     }
 
     interface ExecuteOptions {
-        migrations?: Array<string>;
-        method?: string;
+        migrations?: Array<string> | undefined;
+        method?: string | undefined;
     }
 
     interface UmzugOptions {
         /**
          * The storage.
          */
-        storage?: "json" | "sequelize" | "mongodb" | Storage;
+        storage?: "json" | "sequelize" | "mongodb" | Storage | undefined;
 
         /**
          * The options for the storage.
          */
-        storageOptions?: JSONStorageOptions | SequelizeStorageOptions | MongoDBStorageOptions | Object;
+        storageOptions?: JSONStorageOptions | SequelizeStorageOptions | MongoDBStorageOptions | Object | undefined;
 
         /**
          * The logging function.
          * A function that gets executed everytime migrations start and have ended.
          */
-        logging?: boolean | Function;
+        logging?: boolean | Function | undefined;
 
         /**
          * The name of the positive method in migrations.
          */
-        upName?: string;
+        upName?: string | undefined;
 
         /**
          * The name of the negative method in migrations.
          */
-        downName?: string;
+        downName?: string | undefined;
 
         /**
          * Options for defined migration
          */
-        migrations?: MigrationOptions | Migration[];
+        migrations?: MigrationOptions | Migration[] | undefined;
 
     }
 

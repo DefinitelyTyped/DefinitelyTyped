@@ -1,16 +1,18 @@
+import RBush from 'rbush';
 import { Coordinate } from '../../coordinate';
 import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
-import Feature, { FeatureLike } from '../../Feature';
+import Feature from '../../Feature';
 import Geometry from '../../geom/Geometry';
-import Layer from '../../layer/Layer';
 import VectorLayer from '../../layer/Vector';
 import { Pixel } from '../../pixel';
 import { FrameState } from '../../PluggableMap';
 import { TransformFunction } from '../../proj';
 import BuilderGroup from '../../render/canvas/BuilderGroup';
-import Source from '../../source/Source';
+import ExecutorGroup from '../../render/canvas/ExecutorGroup';
 import Style from '../../style/Style';
+import { HitMatch } from '../Map';
+import { FeatureCallback } from '../vector';
 import CanvasLayerRenderer from './Layer';
 
 export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
@@ -19,9 +21,9 @@ export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
         coordinate: Coordinate,
         frameState: FrameState,
         hitTolerance: number,
-        callback: (p0: FeatureLike, p1: Layer<Source>) => T,
-        declutteredFeatures: FeatureLike[],
-    ): T;
+        callback: FeatureCallback<T>,
+        matches: HitMatch<T>[],
+    ): T | undefined;
     /**
      * Asynchronous layer level hit detection.
      */
@@ -34,17 +36,23 @@ export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
      * Determine whether render should be called.
      */
     prepareFrame(frameState: FrameState): boolean;
+    /**
+     * Render declutter items for this layer
+     */
+    renderDeclutter(frameState: FrameState): void;
     renderFeature(
         feature: Feature<Geometry>,
         squaredTolerance: number,
         styles: Style | Style[],
         builderGroup: BuilderGroup,
         opt_transform?: TransformFunction,
+        opt_declutterBuilderGroup?: BuilderGroup,
     ): boolean;
     /**
      * Render the layer.
      */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
+    renderWorlds(executorGroup: ExecutorGroup, frameState: FrameState, opt_declutterTree?: RBush<any>): void;
     /**
      * Get a rendering container from an existing target, if compatible.
      */

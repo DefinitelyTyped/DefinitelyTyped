@@ -8,12 +8,12 @@ export interface ojMessages extends JetElement<ojMessagesSettableProperties> {
     position: ojMessages.Position | null;
     translations: {
         ariaLiveRegion?: {
-            navigationFromKeyboard?: string;
-            navigationToKeyboard?: string;
-            navigationToTouch?: string;
-            newMessage?: string;
-        };
-        labelLandmark?: string;
+            navigationFromKeyboard?: string | undefined;
+            navigationToKeyboard?: string | undefined;
+            navigationToTouch?: string | undefined;
+            newMessage?: string | undefined;
+        } | undefined;
+        labelLandmark?: string | undefined;
     };
     onDisplayChanged: ((event: JetElementCustomEvent<ojMessages["display"]>) => any) | null;
     onDisplayOptionsChanged: ((event: JetElementCustomEvent<ojMessages["displayOptions"]>) => any) | null;
@@ -44,12 +44,12 @@ export interface ojMessagesSettableProperties extends JetSettableProperties {
     position: ojMessages.Position | null;
     translations: {
         ariaLiveRegion?: {
-            navigationFromKeyboard?: string;
-            navigationToKeyboard?: string;
-            navigationToTouch?: string;
-            newMessage?: string;
-        };
-        labelLandmark?: string;
+            navigationFromKeyboard?: string | undefined;
+            navigationToKeyboard?: string | undefined;
+            navigationToTouch?: string | undefined;
+            newMessage?: string | undefined;
+        } | undefined;
+        labelLandmark?: string | undefined;
     };
 }
 export interface ojMessagesSettablePropertiesLenient extends Partial<ojMessagesSettableProperties> {
@@ -58,20 +58,20 @@ export interface ojMessagesSettablePropertiesLenient extends Partial<ojMessagesS
 export namespace ojMessages {
     // tslint:disable-next-line interface-over-type-literal
     type Position = {
-        my?: PositionAlign;
-        at?: PositionAlign;
-        offset?: PositionPoint;
-        of?: string | PositionPoint;
-        collision?: 'flip' | 'fit' | 'flipfit' | 'none';
+        my?: PositionAlign | undefined;
+        at?: PositionAlign | undefined;
+        offset?: PositionPoint | undefined;
+        of?: string | PositionPoint | undefined;
+        collision?: 'flip' | 'fit' | 'flipfit' | 'none' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionAlign = {
-        vertical?: 'top' | 'bottom' | 'center';
-        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom';
+        vertical?: 'top' | 'bottom' | 'center' | undefined;
+        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionPoint = {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     };
 }

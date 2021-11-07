@@ -7,30 +7,30 @@ declare namespace OpenLayers {
 
     export interface MapOptions {
 
-        projection?: string;
+        projection?: string | undefined;
 
-        maxExtend?: Bounds;
+        maxExtend?: Bounds | undefined;
 
-        center?: LonLat;
+        center?: LonLat | undefined;
     }
 
     export interface DistanceOptions {
         /**
          * Return details from the distance calculation.  Default is false.
          */
-        details?: boolean;
+        details?: boolean | undefined;
 
         /**
          * Calculate the distance from this geometry to the nearest edge of the target geometry.  Default is true.  If true, calling distanceTo from a geometry that is wholly contained within the target will result in a non-zero distance.  If false, whenever geometries intersect, calling distanceTo will return 0.  If false, details cannot be returned.
          */
-        edge?: boolean;
+        edge?: boolean | undefined;
     }
 
     export interface BoundsOptions {
         /**
          * Whether or not to include the border. Default is true.
          */
-        inclusive?: boolean;
+        inclusive?: boolean | undefined;
 
         /**
          * If a worldBounds is provided, the
@@ -38,7 +38,7 @@ declare namespace OpenLayers {
          * but can be wrapped around the dateline so it is contained by this
          * bounds.
          */
-        worldBounds?: Bounds;
+        worldBounds?: Bounds | undefined;
     }
 
     export interface WrapDateLineOptions {
@@ -48,7 +48,7 @@ declare namespace OpenLayers {
          * bound.
          * Default is 0.
          */
-        leftTolerance?: number;
+        leftTolerance?: number | undefined;
 
         /**
          * Allow for a margin of error
@@ -56,7 +56,7 @@ declare namespace OpenLayers {
          * bound.
          * Default is 0.
          */
-        rightTolerance?: number;
+        rightTolerance?: number | undefined;
     }
 
     export interface LayerOptions {
@@ -2250,7 +2250,7 @@ declare namespace OpenLayers {
          * - *dragging* {Boolean} Call setCenter with dragging true. Default is
          * false.
          */
-        pan(dx: number, dy: number, options?: { animate?: boolean; dragging?: boolean }): void;
+        pan(dx: number, dy: number, options?: { animate?: boolean | undefined; dragging?: boolean | undefined }): void;
 
         /**
          * APIMethod: panTo
@@ -3827,26 +3827,26 @@ declare namespace OpenLayers {
 
     namespace Layer {
         export interface WMSGetMapParams {
-            version?: string;
-            exceptions?: string;
-            transparent?: string;
-            format?: string;
-            styles?: string;
+            version?: string | undefined;
+            exceptions?: string | undefined;
+            transparent?: string | undefined;
+            format?: string | undefined;
+            styles?: string | undefined;
             layers: string;
-            service?: string;
+            service?: string | undefined;
         }
 
         export interface WMSOptions {
-            opacity?: number;
-            singleTile?: boolean;
-            isBaseLayer?: boolean;
-            encodeBBOX?: boolean;
-            noMagic?: boolean;
-            yx?: Object;
+            opacity?: number | undefined;
+            singleTile?: boolean | undefined;
+            isBaseLayer?: boolean | undefined;
+            encodeBBOX?: boolean | undefined;
+            noMagic?: boolean | undefined;
+            yx?: Object | undefined;
         }
 
         export interface TileOptions {
-            crossOriginKeyword?: string;
+            crossOriginKeyword?: string | undefined;
         }
 
         export class ArcGIS93Rest { }

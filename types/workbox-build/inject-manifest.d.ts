@@ -24,7 +24,7 @@ export interface InjectManifestConfig {
      *
      * @default true
      */
-    additionalManifestEntries?: ManifestEntry[];
+    additionalManifestEntries?: ManifestEntry[] | undefined;
 
     /**
      * Assets that match this will be assumed to be uniquely versioned via their
@@ -34,7 +34,7 @@ export interface InjectManifestConfig {
      * you provide a RegExp that will detect that, as it will reduce the bandwidth
      * consumed when precaching.
      */
-    dontCacheBustURLsMatching?: RegExp;
+    dontCacheBustURLsMatching?: RegExp | undefined;
 
     /**
      * Determines whether or not symlinks are followed when generating the precache
@@ -43,7 +43,7 @@ export interface InjectManifestConfig {
      *
      * @default true
      */
-    globFollow?: boolean;
+    globFollow?: boolean | undefined;
 
     /**
      * A set of patterns matching files to always exclude when generating the
@@ -52,7 +52,7 @@ export interface InjectManifestConfig {
      *
      * @default ['node_modules/**']
      */
-    globIgnores?: string[];
+    globIgnores?: string[] | undefined;
 
     /**
      * Files matching any of these patterns will be included in the precache
@@ -61,7 +61,7 @@ export interface InjectManifestConfig {
      *
      * @default ['**.{js,css,html}']
      */
-    globPatterns?: string[];
+    globPatterns?: string[] | undefined;
 
     /**
      * If true, an error reading a directory when generating a precache manifest
@@ -71,7 +71,7 @@ export interface InjectManifestConfig {
      *
      * @default true
      */
-    globStrict?: boolean;
+    globStrict?: boolean | undefined;
 
     /**
      * The string to find inside of the `swSrc` file. Once found, it will be replaced by
@@ -79,14 +79,14 @@ export interface InjectManifestConfig {
      *
      * @default 'self.__WB_MANIFEST'
      */
-    injectionPoint?: string;
+    injectionPoint?: string | undefined;
 
     /**
      * One or more functions which will be applied sequentially against the
      * generated manifest. If `modifyURLPrefix` or `dontCacheBustURLsMatching` are
      * also specified, their corresponding transformations will be applied first.
      */
-    manifestTransforms?: ManifestTransform[];
+    manifestTransforms?: ManifestTransform[] | undefined;
 
     /**
      * This value can be used to determine the maximum size of files that will be
@@ -95,14 +95,14 @@ export interface InjectManifestConfig {
      *
      * @default 2097152
      */
-    maximumFileSizeToCacheInBytes?: number;
+    maximumFileSizeToCacheInBytes?: number | undefined;
 
     /**
      * If set to 'production', then an optimized service worker bundle that excludes
      * debugging info will be produced. If not explicitly configured here, the `mode`
      * value configured in the current `webpack` compiltion will be used.
      */
-    mode?: string;
+    mode?: string | undefined;
 
     /**
      * A mapping of prefixes that, if present in an entry in the precache manifest,
@@ -114,7 +114,7 @@ export interface InjectManifestConfig {
      */
     modifyURLPrefix?: {
         [key: string]: string;
-    };
+    } | undefined;
 
     /**
      * If a URL is rendered based on some server-side logic, its contents may depend
@@ -125,7 +125,7 @@ export interface InjectManifestConfig {
      * it will be interpreted as unique versioning information that you've generated
      * for a given URL.
      */
-    templatedURLs?: object;
+    templatedURLs?: object | undefined;
 }
 
 export type InjectManifestResult = Promise<{

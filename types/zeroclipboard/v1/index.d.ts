@@ -34,46 +34,46 @@ declare class ZeroClipboard {
 interface ZeroClipboardOptions {
 
     /** Setting this to false would allow users to handle calling ZeroClipboard.activate(...); themselves instead of relying on our per-element mouseover handler */
-    autoActivate?: boolean;
+    autoActivate?: boolean | undefined;
 
     /** Include a "nocache" query parameter on requests for the SWF. */
-    cacheBust?: boolean;
+    cacheBust?: boolean | undefined;
 
     /** Debug enabled: send console messages with deprecation warnings, etc. */
-    debug?: boolean;
+    debug?: boolean | undefined;
 
     /** Forcibly set the hand cursor ("pointer") for all clipped elements. */
-    forceHandCursor?: boolean;
+    forceHandCursor?: boolean | undefined;
 
     /** URL to the movie. NOTE: For versions >= v1.3.x and < v2.x, you must use swfPath by setting moviePath! */
-    moviePath?: string;
+    moviePath?: string | undefined;
 
     /** URL to the movie, relative to the page. NOTE: For versions >= v1.3.x and < v2.x, you must use swfPath by setting moviePath! */
-    swfPath?: string;
+    swfPath?: string | undefined;
 
     /** Forcibly set the hand cursor ("pointer") for all clipped elements. */
     trustedDomains?: any;
 
     /** Sets the title of the div encapsulating the Flash object. */
-    title?: string;
+    title?: string | undefined;
 
     /** The z-index used by the Flash object. */
-    zIndex?: number;
+    zIndex?: number | undefined;
 
     /** DEPRECATED. The class used to indicate that a clipped element is active (is being clicked). */
-    activeClass?: string;
+    activeClass?: string | undefined;
 
     /** DEPRECATED. The class used to indicate that a clipped element is being hovered over. */
-    hoverClass?: string;
+    hoverClass?: string | undefined;
 
     /** DEPRECATED. SWF outbound scripting policy. Possible values: "never", "sameDomain", "always". */
-    allowScriptAccess?: string;
+    allowScriptAccess?: string | undefined;
 
     /** DEPRECATED, use trustedDomains instead! SWF inbound scripting policy: page origins that the SWF should trust. (single string or array of strings. */
     trustedOrigins?: any;
 
     /** DEPRECATED, use cacheBust instead! Include a "nocache" query parameter on requests for the SWF. */
-    useNoCache?: boolean;
+    useNoCache?: boolean | undefined;
 }
 
 // Support AMD.

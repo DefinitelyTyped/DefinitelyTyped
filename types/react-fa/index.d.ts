@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentClass, HTMLProps, StatelessComponent, ReactElement } from "react";
+import { Component, ComponentClass, HTMLProps, FunctionComponent, ReactElement } from "react";
 
 // fake intermediate interface to remove typing on size, as the typing
 // is overrided by react-fa
@@ -17,27 +17,27 @@ export type IconRotation = "45" | "90" | "135" | "180" | "225" | "270" | "315";
 export type IconFlip = "horizontal" | "vertical";
 export type IconStackSize = "1x" | "2x";
 
-type CustomComponent = string | ComponentClass<any> | StatelessComponent<any>;
+type CustomComponent = string | ComponentClass<any> | FunctionComponent<any>;
 
 export interface IconProps extends SizeOverrideHTMLProps<Icon> {
     name: string;
-    size?: IconSize;
-    spin?: boolean;
-    rotate?: IconRotation;
-    flip?: IconFlip;
-    fixedWidth?: boolean;
-    pulse?: boolean;
-    stack?: IconStackSize;
-    inverse?: boolean;
-    Component?: CustomComponent;
+    size?: IconSize | undefined;
+    spin?: boolean | undefined;
+    rotate?: IconRotation | undefined;
+    flip?: IconFlip | undefined;
+    fixedWidth?: boolean | undefined;
+    pulse?: boolean | undefined;
+    stack?: IconStackSize | undefined;
+    inverse?: boolean | undefined;
+    Component?: CustomComponent | undefined;
 }
 
 export type Icon = Component<IconProps>;
 export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
-    size?: IconSize;
-    children?: ReactElement<IconProps> | Array<ReactElement<IconProps>>;
+    size?: IconSize | undefined;
+    children?: ReactElement<IconProps> | Array<ReactElement<IconProps>> | undefined;
 }
 
 export type IconStack = Component<IconStackProps>;

@@ -18,6 +18,6 @@ declare class LineByLine {
 }
 
 interface Options {
-    readChunk?: number;
-    newLineCharacter?: string;
+    readChunk?: number | undefined;
+    newLineCharacter?: string | undefined;
 }

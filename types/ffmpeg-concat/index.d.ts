@@ -10,15 +10,15 @@ interface Transition {
 }
 
 interface ConcatOptions {
-    audio?: string;
-    cleanupFrames?: boolean;
-    concurrency?: number;
-    frameFormat?: 'jpg' | 'png' | 'raw';
-    log?: (stdout: string) => void;
+    audio?: string | undefined;
+    cleanupFrames?: boolean | undefined;
+    concurrency?: number | undefined;
+    frameFormat?: 'jpg' | 'png' | 'raw' | undefined;
+    log?: ((stdout: string) => void) | undefined;
     output: string;
-    tempDir?: string;
-    transition?: Transition;
-    transitions?: ReadonlyArray<Transition>;
+    tempDir?: string | undefined;
+    transition?: Transition | undefined;
+    transitions?: ReadonlyArray<Transition> | undefined;
     videos: ReadonlyArray<string>;
 }
 

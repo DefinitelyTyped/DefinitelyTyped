@@ -52,20 +52,20 @@ export interface Element {
 export interface XmppOptions {
     jid: string;
     password: string;
-    host?: string;
-    port?: number;
-    reconnect?: boolean;
-    autostart?: boolean; // if we start connecting to a given port
-    register?: boolean; // register account before authentication
-    legacySSL?: boolean; // connect to the legacy SSL port, requires at least the host to be specified
+    host?: string | undefined;
+    port?: number | undefined;
+    reconnect?: boolean | undefined;
+    autostart?: boolean | undefined; // if we start connecting to a given port
+    register?: boolean | undefined; // register account before authentication
+    legacySSL?: boolean | undefined; // connect to the legacy SSL port, requires at least the host to be specified
     credentials?: any; // Dictionary (optional) - TLS or SSL key and certificate credentials
-    actAs?: string; // if admin user act on behalf of another user (just user)
-    disallowTLS?: boolean; // prevent upgrading the connection to a secure one via TLS
-    preferred?: string; // Preferred SASL mechanism to use
-    bosh?: Bosh;
+    actAs?: string | undefined; // if admin user act on behalf of another user (just user)
+    disallowTLS?: boolean | undefined; // prevent upgrading the connection to a secure one via TLS
+    preferred?: string | undefined; // Preferred SASL mechanism to use
+    bosh?: Bosh | undefined;
 }
 
 export interface Bosh {
-    url?: string;
+    url?: string | undefined;
     prebind?(error: any, data: any): void;
 }

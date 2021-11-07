@@ -1,9 +1,9 @@
 import { User } from "../UsersClient";
 
 export interface Token {
-    name?: string;
-    token?: string;
-    sessionToken?: string;
+    name?: string | undefined;
+    token?: string | undefined;
+    sessionToken?: string | undefined;
 }
 export interface BotUser extends User {
     roles: string[];

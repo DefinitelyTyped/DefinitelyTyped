@@ -188,10 +188,10 @@ export interface ValidationTrace {
 export interface DigitalLinkInput {
     domain: string;
     identifier: Record<string, string>;
-    keyQualifiers?: Record<string, string>;
-    attributes?: Record<string, string>;
-    keyQualifiersOrder?: string[];
-    sortKeyQualifiers?: boolean;
+    keyQualifiers?: Record<string, string> | undefined;
+    attributes?: Record<string, string> | undefined;
+    keyQualifiersOrder?: string[] | undefined;
+    sortKeyQualifiers?: boolean | undefined;
 }
 
 export type RuleName =

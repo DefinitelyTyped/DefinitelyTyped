@@ -21,28 +21,28 @@ declare namespace MiniHtmlWebpackPlugin {
 
     interface PluginOptions {
         /** Optional, defaults to `index.html` */
-        filename?: string;
-        publicPath?: string;
-        context?: PluginContext;
+        filename?: string | undefined;
+        publicPath?: string | undefined;
+        context?: PluginContext | undefined;
         /** Optional, use this for choosing chunks to include to your page. */
-        chunks?: string[];
+        chunks?: string[] | undefined;
         /** define a template function to generate your own code */
-        template?: (context: PluginContext) => string | Promise<string>;
+        template?: ((context: PluginContext) => string | Promise<string>) | undefined;
     }
 
     interface PluginContext {
-        title?: string;
+        title?: string | undefined;
         /** Optional, defaults to `{ lang: 'en' }` */
-        htmlAttributes?: AttributesType;
+        htmlAttributes?: AttributesType | undefined;
         /** Optional, any additional HTML attached within <head> */
-        head?: string;
+        head?: string | undefined;
         /** Optional, any additional HTML attached within <body> */
-        body?: string;
-        css?: string[];
-        cssAttributes?: AttributesType;
-        js?: string[];
-        jsAttributes?: AttributesType;
-        publicPath?: string;
+        body?: string | undefined;
+        css?: string[] | undefined;
+        cssAttributes?: AttributesType | undefined;
+        js?: string[] | undefined;
+        jsAttributes?: AttributesType | undefined;
+        publicPath?: string | undefined;
     }
 
     type GenerateCSSReferencesOptions = GenerateAttributesOptions & FilesOptions;
@@ -50,12 +50,12 @@ declare namespace MiniHtmlWebpackPlugin {
     type GenerateJSReferencesOptions = GenerateAttributesOptions & FilesOptions;
 
     interface FilesOptions {
-        files?: string[];
-        publicPath?: string;
+        files?: string[] | undefined;
+        publicPath?: string | undefined;
     }
 
     interface GenerateAttributesOptions {
-        attributes?: AttributesType;
+        attributes?: AttributesType | undefined;
     }
 
     function defaultTemplate(options?: PluginContext): string;

@@ -65,10 +65,11 @@ function fullExample(): void {
     };
 
     const view = new google.picker.DocsView(google.picker.ViewId.DOCS);
-    view.setMimeTypes("image/png,image/jpeg,image/jpg");
+    view.setMimeTypes("image/png,image/jpeg,image/jpg").setEnableTeamDrives(true);
     const picker = new google.picker.PickerBuilder()
         .enableFeature(google.picker.Feature.NAV_HIDDEN)
         .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+        .enableFeature(google.picker.Feature.SUPPORT_TEAM_DRIVES)
         .setAppId("appId")
         .setOAuthToken("accessToken")
         .addView(view)

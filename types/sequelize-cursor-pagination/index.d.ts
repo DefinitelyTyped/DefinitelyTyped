@@ -1,7 +1,7 @@
 // Type definitions for sequelize-cursor-pagination 1.2
 // Project: https://github.com/Kaltsoon/sequelize-cursor-pagination
 // Definitions by: pilagod <https://github.com/pilagod>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
 import Sequelize = require('sequelize');
@@ -15,15 +15,15 @@ declare namespace SequelizeCursorPagination {
     }
 
     interface BasicPaginateOptions<T> {
-        where?: Sequelize.FindOptions<T>['where'];
-        attributes?: Sequelize.FindOptions<T>['attributes'];
-        include?: Sequelize.FindOptions<T>['include'];
-        limit?: number; // limit the number of records returned
-        desc?: boolean; // [default: false]
-        before?: string; // the before cursor
-        after?: string; // the after cursor
-        paginationField?: string; // [default: primaryKeyField]
-        subQuery?: boolean; // [default: undefined]
+        where?: Sequelize.FindOptions<T>['where'] | undefined;
+        attributes?: Sequelize.FindOptions<T>['attributes'] | undefined;
+        include?: Sequelize.FindOptions<T>['include'] | undefined;
+        limit?: number | undefined; // limit the number of records returned
+        desc?: boolean | undefined; // [default: false]
+        before?: string | undefined; // the before cursor
+        after?: string | undefined; // the after cursor
+        paginationField?: string | undefined; // [default: primaryKeyField]
+        subQuery?: boolean | undefined; // [default: undefined]
     }
 
     interface PaginateRawOptions<T> extends BasicPaginateOptions<T> {
@@ -31,12 +31,12 @@ declare namespace SequelizeCursorPagination {
     }
 
     interface PaginateInstOptions<T> extends BasicPaginateOptions<T> {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface WithPaginationOptions<MethodName extends string> {
-        methodName?: MethodName; // [default: 'paginate']
-        primaryKeyField?: string; // [default: 'id']
+        methodName?: MethodName | undefined; // [default: 'paginate']
+        primaryKeyField?: string | undefined; // [default: 'id']
     }
 
     type WithPaginationModel<MethodName extends string, Model, ModelInst, ModelAttrs> = Model & {

@@ -52,8 +52,8 @@ export interface Select2 {
 }
 
 export interface QueryOptions {
-    term?: string;
-    page?: number;
+    term?: string | undefined;
+    page?: number | undefined;
 }
 
 export interface SearchOptions {
@@ -63,20 +63,20 @@ export interface SearchOptions {
 export interface DataFormat {
     id: number | string;
     text: string;
-    selected?: boolean;
-    disabled?: boolean;
+    selected?: boolean | undefined;
+    disabled?: boolean | undefined;
 }
 
 export interface GroupedDataFormat {
     text: string;
-    children?: DataFormat[];
+    children?: DataFormat[] | undefined;
 
     id?: undefined;
 }
 
 export interface ProcessedResult<Result = DataFormat | GroupedDataFormat> {
     results: Result[];
-    pagination?: {more: boolean};
+    pagination?: {more: boolean} | undefined;
 }
 
 export interface LoadingData {
@@ -125,13 +125,13 @@ export interface TranslationArg {
 }
 
 export interface Translation {
-    errorLoading?: () => string;
-    inputTooLong?: (arg: TranslationArg) => string;
-    inputTooShort?: (arg: TranslationArg) => string;
-    loadingMore?: () => string;
-    maximumSelected?: (arg: TranslationArg) => string;
-    noResults?: () => string;
-    searching?: () => string;
+    errorLoading?: (() => string) | undefined;
+    inputTooLong?: ((arg: TranslationArg) => string) | undefined;
+    inputTooShort?: ((arg: TranslationArg) => string) | undefined;
+    loadingMore?: (() => string) | undefined;
+    maximumSelected?: ((arg: TranslationArg) => string) | undefined;
+    noResults?: (() => string) | undefined;
+    searching?: (() => string) | undefined;
 }
 
 export interface DataParams {
@@ -160,11 +160,11 @@ export interface Trigger {
 // --------------------------------------------------------------------------
 
 export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResult = any> extends JQueryAjaxSettingsBase {
-    delay?: number;
-    url?: string | ((params: QueryOptions) => string);
-    data?: (params: QueryOptions) => PlainObject | string;
-    transport?: (settings: JQueryAjaxSettings, success?: (data: RemoteResult) => undefined, failure?: () => undefined) => void;
-    processResults?: (data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>;
+    delay?: number | undefined;
+    url?: string | ((params: QueryOptions) => string) | undefined;
+    data?: ((params: QueryOptions) => PlainObject | string) | undefined;
+    transport?: ((settings: JQueryAjaxSettings, success?: (data: RemoteResult) => undefined, failure?: () => undefined) => void) | undefined;
+    processResults?: ((data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>) | undefined;
 }
 
 // --------------------------------------------------------------------------
@@ -184,10 +184,10 @@ export interface Select2RequireConfig {
         [id: string]: {
             [id: string]: string;
         };
-    };
-    config?: { [id: string]: {}; };
-    deps?: string[];
-    callback?: (...modules: any[]) => void;
+    } | undefined;
+    config?: { [id: string]: {}; } | undefined;
+    deps?: string[] | undefined;
+    callback?: ((...modules: any[]) => void) | undefined;
 }
 
 // --------------------------------------------------------------------------
@@ -195,48 +195,48 @@ export interface Select2RequireConfig {
 // --------------------------------------------------------------------------
 
 export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult = any> {
-    ajax?: AjaxOptions<Result, RemoteResult>;
-    allowClear?: boolean;
-    amdBase?: string;
-    amdLanguageBase?: string;
-    closeOnSelect?: boolean;
+    ajax?: AjaxOptions<Result, RemoteResult> | undefined;
+    allowClear?: boolean | undefined;
+    amdBase?: string | undefined;
+    amdLanguageBase?: string | undefined;
+    closeOnSelect?: boolean | undefined;
     containerCss?: any;
-    containerCssClass?: string;
-    data?: DataFormat[] | GroupedDataFormat[];
+    containerCssClass?: string | undefined;
+    data?: DataFormat[] | GroupedDataFormat[] | undefined;
     dataAdapter?: any;
-    debug?: boolean;
-    dir?: "ltr" | "rtl";
-    disabled?: boolean;
+    debug?: boolean | undefined;
+    dir?: "ltr" | "rtl" | undefined;
+    disabled?: boolean | undefined;
     dropdownAdapter?: any;
-    dropdownAutoWidth?: boolean;
+    dropdownAutoWidth?: boolean | undefined;
     dropdownCss?: any;
-    dropdownCssClass?: string;
-    dropdownParent?: JQuery;
-    escapeMarkup?: (markup: string) => string;
-    initSelection?: (element: JQuery, callback: (data: any) => void) => void;
-    language?: string | Translation;
-    matcher?: (params: SearchOptions, data: OptGroupData | OptionData) => OptGroupData | OptionData | null;
-    maximumInputLength?: number;
-    maximumSelectionLength?: number;
-    minimumInputLength?: number;
-    minimumResultsForSearch?: number;
-    multiple?: boolean;
-    placeholder?: string | IdTextPair;
+    dropdownCssClass?: string | undefined;
+    dropdownParent?: JQuery | undefined;
+    escapeMarkup?: ((markup: string) => string) | undefined;
+    initSelection?: ((element: JQuery, callback: (data: any) => void) => void) | undefined;
+    language?: string | Translation | undefined;
+    matcher?: ((params: SearchOptions, data: OptGroupData | OptionData) => OptGroupData | OptionData | null) | undefined;
+    maximumInputLength?: number | undefined;
+    maximumSelectionLength?: number | undefined;
+    minimumInputLength?: number | undefined;
+    minimumResultsForSearch?: number | undefined;
+    multiple?: boolean | undefined;
+    placeholder?: string | IdTextPair | undefined;
     resultsAdapter?: any;
     selectionAdapter?: any;
-    selectOnClose?: boolean;
-    sorter?: (data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>;
-    tags?: boolean;
-    templateResult?: (result: LoadingData | Result) => string | JQuery | null;
-    templateSelection?: (selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery;
-    theme?: string;
-    tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Options) => string;
-    tokenSeparators?: string[];
-    width?: string;
+    selectOnClose?: boolean | undefined;
+    sorter?: ((data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>) | undefined;
+    tags?: boolean | undefined;
+    templateResult?: ((result: LoadingData | Result) => string | JQuery | null) | undefined;
+    templateSelection?: ((selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery) | undefined;
+    theme?: string | undefined;
+    tokenizer?: ((input: string, selection: any[], selectCallback: () => void, options: Options) => string) | undefined;
+    tokenSeparators?: string[] | undefined;
+    width?: string | undefined;
 
     // Not in https://select2.org/configuration/options-api
-    createTag?: (params: SearchOptions) => (IdTextPair & Record<string, any>) | null;
-    insertTag?: (data: Array<OptionData | IdTextPair>, tag: IdTextPair) => void;
+    createTag?: ((params: SearchOptions) => (IdTextPair & Record<string, any>) | null) | undefined;
+    insertTag?: ((data: Array<OptionData | IdTextPair>, tag: IdTextPair) => void) | undefined;
 }
 
 // --------------------------------------------------------------------------

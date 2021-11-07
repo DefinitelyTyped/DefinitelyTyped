@@ -45,15 +45,15 @@ export default class Display {
 }
 
 export interface NvDisplayDefaults {
-    target?: HTMLCanvasElement;
-    context?: CanvasRenderingContext2D;
-    logo?: NvLogo;
-    scale?: number;
-    viewport?: boolean;
-    width?: number;
-    height?: number;
-    render_mode?: string;
-    prefer_js?: string;
+    target?: HTMLCanvasElement | undefined;
+    context?: CanvasRenderingContext2D | undefined;
+    logo?: NvLogo | undefined;
+    scale?: number | undefined;
+    viewport?: boolean | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    render_mode?: string | undefined;
+    prefer_js?: string | undefined;
     cursor_uri?: any;
     onFlush?(): void;
 }

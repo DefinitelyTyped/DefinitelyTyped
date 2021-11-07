@@ -1,10 +1,9 @@
-// Type definitions for csso 3.5
+// Type definitions for csso 4.2
 // Project: https://github.com/css/csso
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Erik Källén <https://github.com/erik-kallen>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 import * as csstree from 'css-tree';
 
 declare namespace csso {
@@ -20,15 +19,15 @@ declare namespace csso {
     }
 
     interface Usage {
-        tags?: string[];
-        ids?: string[];
-        classes?: string[];
-        scopes?: string[][];
+        tags?: string[] | undefined;
+        ids?: string[] | undefined;
+        classes?: string[] | undefined;
+        scopes?: string[][] | undefined;
         blacklist?: {
-            tags?: string[];
-            ids?: string[];
-            classes?: string[];
-        };
+            tags?: string[] | undefined;
+            ids?: string[] | undefined;
+            classes?: string[] | undefined;
+        } | undefined;
     }
 
     interface CompressOptions {
@@ -36,18 +35,18 @@ declare namespace csso {
          * Disable or enable a structure optimisations.
          * @default true
          */
-        restructure?: boolean;
+        restructure?: boolean | undefined;
         /**
          * Enables merging of @media rules with the same media query by splitted by other rules.
          * The optimisation is unsafe in general, but should work fine in most cases. Use it on your own risk.
          * @default false
          */
-        forceMediaMerge?: boolean;
+        forceMediaMerge?: boolean | undefined;
         /**
          * Transform a copy of input AST if true. Useful in case of AST reuse.
          * @default false
          */
-        clone?: boolean;
+        clone?: boolean | undefined;
         /**
          * Specify what comments to leave:
          * - 'exclamation' or true – leave all exclamation comments
@@ -55,15 +54,15 @@ declare namespace csso {
          * - false – remove all comments
          * @default true
          */
-        comments?: string | boolean;
+        comments?: string | boolean | undefined;
         /**
          * Usage data for advanced optimisations.
          */
-        usage?: Usage;
+        usage?: Usage | undefined;
         /**
          * Function to track every step of transformation.
          */
-        logger?: () => void;
+        logger?: (() => void) | undefined;
     }
 
     interface MinifyOptions {
@@ -71,26 +70,26 @@ declare namespace csso {
          * Generate a source map when true.
          * @default false
          */
-        sourceMap?: boolean;
+        sourceMap?: boolean | undefined;
         /**
          * Filename of input CSS, uses for source map generation.
          * @default '<unknown>'
          */
-        filename?: string;
+        filename?: string | undefined;
         /**
          * Output debug information to stderr.
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /**
          * Called right after parse is run.
          */
-        beforeCompress?: BeforeCompressFn | BeforeCompressFn[];
+        beforeCompress?: BeforeCompressFn | BeforeCompressFn[] | undefined;
         /**
          * Called right after compress() is run.
          */
-        afterCompress?: AfterCompressFn | AfterCompressFn[];
-        restructure?: boolean;
+        afterCompress?: AfterCompressFn | AfterCompressFn[] | undefined;
+        restructure?: boolean | undefined;
     }
 
     type BeforeCompressFn = (ast: object, options: CompressOptions) => void;
@@ -98,6 +97,7 @@ declare namespace csso {
 }
 
 interface Csso {
+    readonly version: string;
     /**
      * Minify source CSS passed as String
      * @param source
@@ -112,12 +112,12 @@ interface Csso {
      */
     minifyBlock(source: string, options?: csso.MinifyOptions & csso.CompressOptions): csso.Result;
 
-    /**
-     * Does the main task – compress an AST.
-     */
-    compress(ast: csstree.CssNode, options?: csso.CompressOptions): { ast: csstree.CssNode };
-
-    syntax: typeof csstree;
+    syntax: typeof csstree & {
+        /**
+         * Does the main task – compress an AST.
+         */
+        compress(ast: csstree.CssNode, options?: csso.CompressOptions): { ast: csstree.CssNode };
+    };
 }
 
 declare const csso: Csso;

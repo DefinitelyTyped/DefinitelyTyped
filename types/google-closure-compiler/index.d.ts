@@ -16,7 +16,7 @@ import * as child_process from 'child_process';
 interface JSONStreamFile {
     path: string;
     src: string;
-    srcmap?: string;  // TODO(evan): pass through source maps.
+    srcmap?: string | undefined;  // TODO(evan): pass through source maps.
 }
 
 interface Compiler {

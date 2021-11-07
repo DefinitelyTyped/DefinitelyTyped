@@ -10,10 +10,10 @@ export = Q;
 
 declare module 'q' {
     export interface IRetryOptions {
-        limit?: number;
-        interval?: number;
-        maxInterval?: number;
-        intervalMultiplier?: number;
+        limit?: number | undefined;
+        interval?: number | undefined;
+        maxInterval?: number | undefined;
+        intervalMultiplier?: number | undefined;
     }
 
     export function retry<U>(process: () => IPromise<U>, onFail: (reason: any, retries: number) => void, limit: number): Promise<U>;

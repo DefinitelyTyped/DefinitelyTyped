@@ -3,12 +3,12 @@ import { Sizes, SelectCallback } from 'react-bootstrap';
 
 declare namespace PanelGroup {
     export interface PanelGroupProps extends React.HTMLProps<PanelGroup> {
-        accordion?: boolean;
+        accordion?: boolean | undefined;
         activeKey?: any;
         defaultActiveKey?: any;
-        onSelect?: SelectCallback;
-        role?: string;
-        generateChildId?: Function;
+        onSelect?: SelectCallback | undefined;
+        role?: string | undefined;
+        generateChildId?: Function | undefined;
     }
 }
 declare class PanelGroup extends React.Component<PanelGroup.PanelGroupProps> { }

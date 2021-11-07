@@ -1,4 +1,4 @@
-// Type definitions for audio-play 2.2
+// Type definitions for audio-play 2.3
 // Project: https://github.com/audiojs/audio-play
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,7 @@ declare namespace audioPlay {
     interface AudioPlayHandle {
         play: () => any;
         pause: () => any;
+        currentTime: number;
     }
 
     /**
@@ -31,14 +32,14 @@ declare namespace audioPlay {
      * @param rate (not implemented) Playback rate, in percent, of the audio. (Default: 1)
      */
     interface Options {
-        start?: number;
-        end?: number;
-        autoplay?: boolean;
-        loop?: boolean;
-        rate?: number;
-        detune?: number;
-        volume?: number;
-        context?: AudioContext;
+        start?: number | undefined;
+        end?: number | undefined;
+        autoplay?: boolean | undefined;
+        loop?: boolean | undefined;
+        rate?: number | undefined;
+        detune?: number | undefined;
+        volume?: number | undefined;
+        context?: AudioContext | undefined;
     }
 }
 export = audioPlay;

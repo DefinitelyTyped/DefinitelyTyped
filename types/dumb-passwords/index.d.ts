@@ -10,5 +10,5 @@ export function rateOfUsage(
 ): {
     password: string;
     frequency: number;
-    message?: string;
+    message?: string | undefined;
 };

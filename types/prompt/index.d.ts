@@ -15,9 +15,9 @@ declare namespace prompt {
     type AskFunction = () => boolean;
 
     type RevalidatorSchema = Partial<Revalidator.ISchema<any>> & {
-        ask?: AskFunction;
-        name?: string;
-        raw?: [string, string];
+        ask?: AskFunction | undefined;
+        name?: string | undefined;
+        raw?: [string, string] | undefined;
     };
 
     interface Properties {
@@ -34,14 +34,14 @@ declare namespace prompt {
     }
 
     interface StartOptions {
-        allowEmpty?: boolean;
-        colors?: boolean;
-        delimiter?: string;
-        memory?: number;
-        message?: string;
-        noHandleSIGINT?: boolean;
-        stdin?: ReadStream;
-        stdout?: WriteStream;
+        allowEmpty?: boolean | undefined;
+        colors?: boolean | undefined;
+        delimiter?: string | undefined;
+        memory?: number | undefined;
+        message?: string | undefined;
+        noHandleSIGINT?: boolean | undefined;
+        stdin?: ReadStream | undefined;
+        stdout?: WriteStream | undefined;
     }
 }
 

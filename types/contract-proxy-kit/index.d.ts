@@ -19,12 +19,12 @@ declare namespace CPK {
     interface CommonConfig {
         networks?: {
             [id: string]: NetworkConfigEntry;
-        };
+        } | undefined;
     }
 
     interface Web3SpecificConfig extends CommonConfig {
         web3: object;
-        ownerAccount?: string;
+        ownerAccount?: string | undefined;
     }
 
     interface EthersSpecificConfig extends CommonConfig {
@@ -45,8 +45,8 @@ declare namespace CPK {
 
     interface TransactionResult {
         hash: string;
-        promiEvent?: object;
-        transactionResponse?: ethers.providers.TransactionResponse;
+        promiEvent?: object | undefined;
+        transactionResponse?: ethers.providers.TransactionResponse | undefined;
     }
 }
 

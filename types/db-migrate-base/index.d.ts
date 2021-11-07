@@ -1,7 +1,7 @@
 // Type definitions for db-migrate-base
 // Project: https://github.com/db-migrate/db-migrate-base
 // Definitions by: nickiannone <https://github.com/nickiannone>
-// Definitions: https://github.com/nickiannone/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
 /// <reference types="node"/>
@@ -21,21 +21,21 @@ declare namespace Base {
     }
 
     interface ColumnSpec {
-        length?: number;
+        length?: number | undefined;
         type: string;
-        unsigned?: boolean;
-        primaryKey?: boolean;
-        autoIncrement?: boolean;
-        notNull?: boolean;
-        unique?: boolean;
+        unsigned?: boolean | undefined;
+        primaryKey?: boolean | undefined;
+        autoIncrement?: boolean | undefined;
+        notNull?: boolean | undefined;
+        unique?: boolean | undefined;
         defaultValue?: any;
-        foreignKey?: ForeignKeySpec;
+        foreignKey?: ForeignKeySpec | undefined;
     }
 
     interface ForeignKeySpec {
         name: string;
         table: string;
-        rules?: ForeignKeyRules;
+        rules?: ForeignKeyRules | undefined;
         mapping: string | any;
     }
 
@@ -45,7 +45,7 @@ declare namespace Base {
     }
 
     interface RemoveForeignKeyOptions {
-        dropIndex?: boolean;
+        dropIndex?: boolean | undefined;
     }
 
     interface ColumnDef {
@@ -54,12 +54,12 @@ declare namespace Base {
     }
 
     interface CreateTableOptions {
-        columns?: Array<ColumnSpec>;
-        ifNotExists?: boolean;
+        columns?: Array<ColumnSpec> | undefined;
+        ifNotExists?: boolean | undefined;
     }
 
     interface DropTableOptions {
-        ifExists?: boolean;
+        ifExists?: boolean | undefined;
     }
 }
 

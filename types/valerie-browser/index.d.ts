@@ -332,7 +332,7 @@ declare namespace Valerie {
         new: (model: any, options?: ModelValidationStateOptions) => ModelValidationState;
 
         model: any;
-        options?: ModelValidationStateOptions
+        options?: ModelValidationStateOptions | undefined
 
         // methods
 
@@ -646,15 +646,15 @@ declare namespace Valerie {
 
     interface ValidationOptions {
         applicable? (): any;  // the function used to determine if the property is applicable
-        converter?: IConverter;  // the converter used to parse user entries and format display of the property's value
-        entryFormat?: string;  // the string used to format the property's value for display in a user entry
-        excludeFromSummary?: boolean;  // whether any validation failures for this property are excluded from a summary
-        invalidFailureMessage?: string;  // the message shown when the user has entered an invalid value
-        missingFailureMessage?: string;  // the message shown when a value is required but is missing
-        name?: () => any;  // the function used to determine the name of the property; used in failure messages
-        required?: () => any;  // the function used to determine if a value is required
+        converter?: IConverter | undefined;  // the converter used to parse user entries and format display of the property's value
+        entryFormat?: string | undefined;  // the string used to format the property's value for display in a user entry
+        excludeFromSummary?: boolean | undefined;  // whether any validation failures for this property are excluded from a summary
+        invalidFailureMessage?: string | undefined;  // the message shown when the user has entered an invalid value
+        missingFailureMessage?: string | undefined;  // the message shown when a value is required but is missing
+        name?: (() => any) | undefined;  // the function used to determine the name of the property; used in failure messages
+        required?: (() => any) | undefined;  // the function used to determine if a value is required
         rules?: any; //Valerie.array.<IRule>;  // the chain of rules used to validate the property's value
-        valueFormat?: string;  // the string use to format the property's value for display in a message
+        valueFormat?: string | undefined;  // the string use to format the property's value for display in a message
     }
 
     // The interface for a converter, a pair of functions: format and parse, which work in tandem on a single type of value.

@@ -8,42 +8,42 @@
 
 declare namespace Featherlight {
     interface Config {
-        namespace?: string;
-        targetAttr?: string;
-        variant?: string;
-        resetCss?: boolean;
-        background?: string;
-        openTrigger?: string;
-        closeTrigger?: string;
-        filter?: string;
-        root?: string;
-        openSpeed?: number | string;
-        closeSpeed?: number | string;
-        closeOnClick?: boolean | string;
-        closeOnEsc?: boolean;
-        closeIcon?: string;
-        loading?: string;
-        persist?: boolean | string;
-        otherClose?: string;
-        beforeOpen?: (event: JQueryEventObject) => any;
-        beforeContent?: (event: JQueryEventObject) => any;
-        beforeClose?: (event: JQueryEventObject) => any;
-        afterOpen?: (event: JQueryEventObject) => any;
-        afterContent?: (event: JQueryEventObject) => any;
-        afterClose?: (event: JQueryEventObject) => any;
-        onKeyUp?: (event: JQueryEventObject) => any;
-        onResize?: (event: JQueryEventObject) => any;
-        type?: string;
+        namespace?: string | undefined;
+        targetAttr?: string | undefined;
+        variant?: string | undefined;
+        resetCss?: boolean | undefined;
+        background?: string | undefined;
+        openTrigger?: string | undefined;
+        closeTrigger?: string | undefined;
+        filter?: string | undefined;
+        root?: string | undefined;
+        openSpeed?: number | string | undefined;
+        closeSpeed?: number | string | undefined;
+        closeOnClick?: boolean | string | undefined;
+        closeOnEsc?: boolean | undefined;
+        closeIcon?: string | undefined;
+        loading?: string | undefined;
+        persist?: boolean | string | undefined;
+        otherClose?: string | undefined;
+        beforeOpen?: ((event: JQueryEventObject) => any) | undefined;
+        beforeContent?: ((event: JQueryEventObject) => any) | undefined;
+        beforeClose?: ((event: JQueryEventObject) => any) | undefined;
+        afterOpen?: ((event: JQueryEventObject) => any) | undefined;
+        afterContent?: ((event: JQueryEventObject) => any) | undefined;
+        afterClose?: ((event: JQueryEventObject) => any) | undefined;
+        onKeyUp?: ((event: JQueryEventObject) => any) | undefined;
+        onResize?: ((event: JQueryEventObject) => any) | undefined;
+        type?: string | undefined;
         contentFilters?: any;
-        jquery?: JQuery;
-        image?: string;
-        html?: string;
-        ajax?: string;
-        text?: string;
+        jquery?: JQuery | undefined;
+        image?: string | undefined;
+        html?: string | undefined;
+        ajax?: string | undefined;
+        text?: string | undefined;
     }
 
     interface ContentFilter {
-        regex?: RegExp;
+        regex?: RegExp | undefined;
         test?(data: JQuery | string): boolean;
         process?(data: JQuery | string): JQuery | JQueryPromise<JQuery>;
     }

@@ -1,4 +1,4 @@
-// Type definitions for Koa 2.13.0
+// Type definitions for Koa 2.13.1
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
@@ -7,6 +7,7 @@
 //                 Wooram Jun <https://github.com/chatoo2412>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
+//                 vnoder <https://github.com/vnoder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -456,7 +457,25 @@ declare class Application<
     silent: boolean;
     keys: Keygrip | string[];
 
-    constructor();
+    /**
+     *
+     * @param {object} [options] Application options
+     * @param {string} [options.env='development'] Environment
+     * @param {string[]} [options.keys] Signed cookie keys
+     * @param {boolean} [options.proxy] Trust proxy headers
+     * @param {number} [options.subdomainOffset] Subdomain offset
+     * @param {string} [options.proxyIpHeader] Proxy IP header, defaults to X-Forwarded-For
+     * @param {number} [options.maxIpsCount] Max IPs read from proxy IP header, default to 0 (means infinity)
+     *
+     */
+    constructor(options?: {
+        env?: string | undefined,
+        keys?: string[] | undefined,
+        proxy?: boolean | undefined,
+        subdomainOffset?: number | undefined,
+        proxyIpHeader?: string | undefined,
+        maxIpsCount?: number | undefined
+    });
 
     /**
      * Shorthand for:
@@ -711,7 +730,7 @@ declare namespace Application {
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
-        respond?: boolean;
+        respond?: boolean | undefined;
     }
 
     type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> = ExtendableContext

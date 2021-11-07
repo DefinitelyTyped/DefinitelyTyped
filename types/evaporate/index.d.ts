@@ -20,47 +20,47 @@ declare namespace Evaporate {
     function create(config: CreateConfig): Promise<Evaporate>;
 
     interface CreateConfig {
-        readableStreams?: boolean;
-        readableStreamPartMethod?: null | ((file: File, start: number, end: number) => ReadableStream);
+        readableStreams?: boolean | undefined;
+        readableStreamPartMethod?: null | ((file: File, start: number, end: number) => ReadableStream) | undefined;
         bucket: string;
-        logging?: boolean;
-        maxConcurrentParts?: number;
-        partSize?: number;
-        retryBackoffPower?: number;
-        maxRetryBackoffSecs?: number;
-        progressIntervalMS?: number;
-        cloudfront?: boolean;
-        s3Acceleration?: boolean;
-        mockLocalStorage?: boolean;
-        encodeFilename?: boolean;
-        computeContentMd5?: boolean;
-        allowS3ExistenceOptimization?: boolean;
-        onlyRetryForSameFileName?: boolean;
-        timeUrl?: string;
-        cryptoMd5Method?: null | ((data: ArrayBuffer) => string);
-        cryptoHexEncodedHash256?: null | ((data: string | ArrayBuffer | null) => string);
-        aws_url?: string;
-        aws_key?: string;
-        awsRegion?: string;
-        awsSignatureVersion?: '2' | '4';
-        signerUrl?: string;
-        sendCanonicalRequestToSignerUrl?: boolean;
-        s3FileCacheHoursAgo?: null | number;
-        signParams?: object;
-        signHeaders?: object;
+        logging?: boolean | undefined;
+        maxConcurrentParts?: number | undefined;
+        partSize?: number | undefined;
+        retryBackoffPower?: number | undefined;
+        maxRetryBackoffSecs?: number | undefined;
+        progressIntervalMS?: number | undefined;
+        cloudfront?: boolean | undefined;
+        s3Acceleration?: boolean | undefined;
+        mockLocalStorage?: boolean | undefined;
+        encodeFilename?: boolean | undefined;
+        computeContentMd5?: boolean | undefined;
+        allowS3ExistenceOptimization?: boolean | undefined;
+        onlyRetryForSameFileName?: boolean | undefined;
+        timeUrl?: string | undefined;
+        cryptoMd5Method?: null | ((data: ArrayBuffer) => string) | undefined;
+        cryptoHexEncodedHash256?: null | ((data: string | ArrayBuffer | null) => string) | undefined;
+        aws_url?: string | undefined;
+        aws_key?: string | undefined;
+        awsRegion?: string | undefined;
+        awsSignatureVersion?: '2' | '4' | undefined;
+        signerUrl?: string | undefined;
+        sendCanonicalRequestToSignerUrl?: boolean | undefined;
+        s3FileCacheHoursAgo?: null | number | undefined;
+        signParams?: object | undefined;
+        signHeaders?: object | undefined;
         customAuthMethod?: null | ((
             signParams: object,
             signHeaders: object,
             stringToSign: string,
             signatureDateTime: string,
             canonicalRequest: string
-        ) => Promise<string>);
-        maxFileSize?: number;
-        signResponseHandler?: null | ((response: any, stringToSign: string, signatureDateTime: string) => Promise<string>);
-        xhrWithCredentials?: boolean;
-        localTimeOffset?: number;
-        evaporateChanged?: (evaporate: Evaporate, evaporatingCount: number) => void;
-        abortCompletionThrottlingMs?: number;
+        ) => Promise<string>) | undefined;
+        maxFileSize?: number | undefined;
+        signResponseHandler?: null | ((response: any, stringToSign: string, signatureDateTime: string) => Promise<string>) | undefined;
+        xhrWithCredentials?: boolean | undefined;
+        localTimeOffset?: number | undefined;
+        evaporateChanged?: ((evaporate: Evaporate, evaporatingCount: number) => void) | undefined;
+        abortCompletionThrottlingMs?: number | undefined;
     }
 
     interface TransferStats {
@@ -76,25 +76,25 @@ declare namespace Evaporate {
     interface AddConfig {
         name: string;
         file: File;
-        xAmzHeadersAtInitiate?: { [key: string]: string };
-        notSignedHeadersAtInitiate?: { [key: string]: string };
-        xAmzHeadersAtUpload?: { [key: string]: string };
-        xAmzHeadersAtComplete?: { [key: string]: string };
-        xAmzHeadersCommon?: { [key: string]: string };
-        started?: (file_key: string) => void;
-        uploadInitiated?: (s3UploadId?: string) => void;
-        paused?: (file_key: string) => void;
-        resumed?: (file_key: string) => void;
-        pausing?: (file_key: string) => void;
-        cancelled?: () => void;
-        complete?: (xhr: XMLHttpRequest, awsObjectKey: string, stats: TransferStats) => void;
-        nameChanged?: (awsObjectKey: string) => void;
-        info?: (msg: string) => void;
-        warn?: (msg: string) => void;
-        error?: (msg: string) => void;
-        progress?: (p: number, stats: TransferStats) => void;
-        contentType?: string;
-        beforeSigner?: (xhr: XMLHttpRequest, url: string) => void;
+        xAmzHeadersAtInitiate?: { [key: string]: string } | undefined;
+        notSignedHeadersAtInitiate?: { [key: string]: string } | undefined;
+        xAmzHeadersAtUpload?: { [key: string]: string } | undefined;
+        xAmzHeadersAtComplete?: { [key: string]: string } | undefined;
+        xAmzHeadersCommon?: { [key: string]: string } | undefined;
+        started?: ((file_key: string) => void) | undefined;
+        uploadInitiated?: ((s3UploadId?: string) => void) | undefined;
+        paused?: ((file_key: string) => void) | undefined;
+        resumed?: ((file_key: string) => void) | undefined;
+        pausing?: ((file_key: string) => void) | undefined;
+        cancelled?: (() => void) | undefined;
+        complete?: ((xhr: XMLHttpRequest, awsObjectKey: string, stats: TransferStats) => void) | undefined;
+        nameChanged?: ((awsObjectKey: string) => void) | undefined;
+        info?: ((msg: string) => void) | undefined;
+        warn?: ((msg: string) => void) | undefined;
+        error?: ((msg: string) => void) | undefined;
+        progress?: ((p: number, stats: TransferStats) => void) | undefined;
+        contentType?: string | undefined;
+        beforeSigner?: ((xhr: XMLHttpRequest, url: string) => void) | undefined;
     }
 
     type ImmutableOptionKeys =
@@ -106,6 +106,6 @@ declare namespace Evaporate {
     interface AddOverrideOptions extends Pick<CreateConfig, AddOverrideOptionKeys> {}
 
     interface PauseConfig {
-        force?: boolean;
+        force?: boolean | undefined;
     }
 }

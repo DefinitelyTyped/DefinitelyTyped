@@ -11,11 +11,11 @@ export interface StartOptions {
     /**
      * Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
      */
-    autoRestart?: boolean;
+    autoRestart?: boolean | undefined;
     /**
      * Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
      */
-    continuous?: boolean;
+    continuous?: boolean | undefined;
 }
 
 /**

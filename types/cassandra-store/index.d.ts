@@ -12,7 +12,7 @@ import { ClientOptions, Client, EmptyCallback } from 'cassandra-driver';
 interface CassandraStoreOptions {
     table: string;
     clientOptions: ClientOptions;
-    client?: Client | null;
+    client?: Client | null | undefined;
 }
 
 export = CassandraStore;

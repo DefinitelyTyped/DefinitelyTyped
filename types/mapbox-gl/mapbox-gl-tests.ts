@@ -665,7 +665,7 @@ map = new mapboxgl.Map({
 });
 
 const syncOnce: mapboxgl.Map = map.once('load', () => {});
-const asyncOnce: Promise<mapboxgl.Map> = map.once('load');
+const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once('load');
 
 /**
  * Marker
@@ -750,7 +750,7 @@ new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
 
-// $expectType boolean
+// $ExpectType boolean
 map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;
@@ -1500,7 +1500,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'symbol-avoid-edges': false,
     'symbol-z-order': eitherType('viewport-y', 'source'),
     'icon-allow-overlap': eitherType(false, styleFunction, expression),
-    'icon-ignore-placement': false,
+    'icon-ignore-placement': eitherType(false, expression),
     'icon-optional': false,
     'icon-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'icon-size': eitherType(0, styleFunction, expression),
@@ -1521,7 +1521,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),
     'text-letter-spacing': eitherType(0, expression),
-    'text-justify': eitherType('left', 'center', 'right', expression),
+    'text-justify': eitherType('auto', 'left', 'center', 'right', expression),
     'text-anchor': eitherType('center', styleFunction, expression),
     'text-max-angle': eitherType(0, expression),
     'text-rotate': eitherType(0, styleFunction, expression),
@@ -1783,7 +1783,7 @@ createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
     map.addImage('foo', fooImageBitmap);
 });
 
-// $ExpectType Map
+// $ExpectType void
 map.loadImage('foo', (error, result) => {});
 
 // KeyboardHandler

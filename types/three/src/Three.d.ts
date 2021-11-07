@@ -3,6 +3,7 @@
  */
 export * from './constants';
 export * from './Three.Legacy';
+export * from './utils';
 /**
  * Animation
  */
@@ -62,7 +63,6 @@ export * from './extras/curves/Curves';
 export * from './extras/core/Shape';
 export * from './extras/core/Path';
 export * from './extras/core/ShapePath';
-export * from './extras/core/Font';
 export * from './extras/core/CurvePath';
 export * from './extras/core/Curve';
 export * from './extras/DataUtils';
@@ -120,7 +120,6 @@ export * from './loaders/BufferGeometryLoader';
 export * from './loaders/LoadingManager';
 export * from './loaders/ImageLoader';
 export * from './loaders/ImageBitmapLoader';
-export * from './loaders/FontLoader';
 export * from './loaders/FileLoader';
 export * from './loaders/Loader';
 export * from './loaders/LoaderUtils';
@@ -139,7 +138,6 @@ export * from './math/interpolants/DiscreteInterpolant';
 export * from './math/interpolants/CubicInterpolant';
 export * from './math/Interpolant';
 export * from './math/Triangle';
-export * from './math/MathUtils';
 export * from './math/Spherical';
 export * from './math/Cylindrical';
 export * from './math/Plane';
@@ -158,6 +156,8 @@ export * from './math/Vector2';
 export * from './math/Quaternion';
 export * from './math/Color';
 export * from './math/SphericalHarmonics3';
+import * as MathUtils from './math/MathUtils';
+export { MathUtils };
 /**
  * Objects
  */
@@ -178,6 +178,7 @@ export * from './objects/Group';
  */
 export * from './renderers/WebGLMultisampleRenderTarget';
 export * from './renderers/WebGLCubeRenderTarget';
+export * from './renderers/WebGLMultipleRenderTargets';
 export * from './renderers/WebGLRenderTarget';
 export * from './renderers/WebGLRenderer';
 export * from './renderers/WebGL1Renderer';
@@ -188,6 +189,7 @@ export * from './renderers/shaders/ShaderChunk';
 export * from './renderers/webgl/WebGLBufferRenderer';
 export * from './renderers/webgl/WebGLCapabilities';
 export * from './renderers/webgl/WebGLClipping';
+export * from './renderers/webgl/WebGLCubeUVMaps';
 export * from './renderers/webgl/WebGLExtensions';
 export * from './renderers/webgl/WebGLGeometries';
 export * from './renderers/webgl/WebGLIndexedBufferRenderer';

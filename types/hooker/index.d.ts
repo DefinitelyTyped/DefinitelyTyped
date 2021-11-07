@@ -35,8 +35,8 @@ interface IHookerPostHookResult {}
 interface IHookerPreHookResult {}
 
 interface IHookerOptions {
-    pre?: HookerPreHookFunction;
-    post?: HookerPostHookFunction;
-    once?: boolean;
-    passName?: boolean;
+    pre?: HookerPreHookFunction | undefined;
+    post?: HookerPostHookFunction | undefined;
+    once?: boolean | undefined;
+    passName?: boolean | undefined;
 }

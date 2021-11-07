@@ -1,4 +1,4 @@
-import * as os from 'os';
+import * as os from 'node:os';
 {
     let result: string;
 
@@ -238,4 +238,8 @@ if (os.platform() === 'win32') {
     os.setPriority(2, prio + 1);
 
     os.setPriority(os.constants.priority.PRIORITY_LOW);
+}
+
+{
+    const dnull: string = os.devNull;
 }

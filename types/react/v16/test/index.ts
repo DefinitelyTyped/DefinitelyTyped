@@ -3,13 +3,10 @@ import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
-import * as TestUtils from "react-addons-test-utils";
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
@@ -24,13 +21,13 @@ interface Console {
 
 interface Props {
     hello: string;
-    world?: string | null;
+    world?: string | null | undefined;
     foo: number;
 }
 
 interface State {
-    inputValue?: string | null;
-    seconds?: number;
+    inputValue?: string | null | undefined;
+    seconds?: number | undefined;
 }
 
 interface Snapshot {
@@ -38,7 +35,7 @@ interface Snapshot {
 }
 
 interface Context {
-    someValue?: string | null;
+    someValue?: string | null | undefined;
 }
 
 interface ChildContext {
@@ -202,7 +199,7 @@ class ModernComponentNoState extends React.Component<Props> { }
 class ModernComponentNoPropsAndState extends React.Component { }
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 
 function FunctionComponent(props: SCProps) {
@@ -404,7 +401,7 @@ DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
 interface ForwardingRefComponentProps {
     hello: string;
-    world?: string | null;
+    world?: string | null | undefined;
     foo: number;
 }
 
@@ -417,12 +414,12 @@ ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
 // render function tests
 // need the explicit type declaration for typescript < 3.1
-const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} } = () => null;
+const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // $ExpectError
 React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
 
-const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} } = () => null;
+const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // $ExpectError
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
@@ -493,6 +490,22 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     },
     onAnimationStart: event => {
         const currentTarget: EventTarget & HTMLElement = event.currentTarget;
+    },
+    onBlur: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
+    },
+    onFocus: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
@@ -623,33 +636,6 @@ createFragment({
 });
 
 //
-// CSSTransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(CSSTransitionGroup)({
-    component: createReactClass({
-        render: (): null => null
-    }),
-    childFactory: (c) => c,
-    transitionName: "transition",
-    transitionAppear: false,
-    transitionEnter: true,
-    transitionLeave: true,
-    id: "some-id",
-    className: "some-class"
-});
-
-React.createFactory(CSSTransitionGroup)({
-    transitionName: {
-        enter: "enter",
-        enterActive: "enterActive",
-        leave: "leave",
-        leaveActive: "leaveActive",
-        appear: "appear",
-        appearActive: "appearActive"
-    }
-});
-
-//
 // LinkedStateMixin addon
 // --------------------------------------------------------------------------
 createReactClass({
@@ -711,49 +697,6 @@ createReactClass({
 });
 
 //
-// TestUtils addon
-// --------------------------------------------------------------------------
-
-const inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
-const node: Element = TestUtils.renderIntoDocument(DOM.div());
-
-TestUtils.Simulate.click(node);
-TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
-
-const renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
-renderer.render(React.createElement(Timer));
-const output: React.ReactElement<React.Props<Timer>> =
-    renderer.getRenderOutput();
-
-const foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
-    inst, ModernComponent);
-const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
-    inst, ModernComponent);
-
-// ReactTestUtils custom type guards
-
-const emptyElement1: React.ReactElement<Props> = React.createElement(ModernComponent);
-if (TestUtils.isElementOfType(emptyElement1, FunctionComponent)) {
-    emptyElement1.props.foo;
-}
-const emptyElement2: React.ReactElement<SCProps> = React.createElement(FunctionComponent);
-if (TestUtils.isElementOfType(emptyElement2, FunctionComponent)) {
-    emptyElement2.props.foo;
-}
-
-if (TestUtils.isDOMComponent(container)) {
-    const reassignedContainer: Element = container;
-} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
-    new ModernComponent({ hello: 'hi', foo: 3 }).props;
-}
-
-//
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
-
-//
 // update addon
 // --------------------------------------------------------------------------
 {
@@ -786,6 +729,8 @@ function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
 function handler(e: React.MouseEvent) {
     eventHandler(e);
 }
+
+const keyboardExtendsUI: React.UIEventHandler = (e: React.KeyboardEvent) => {};
 
 //
 // The SyntheticEvent.target.value should be accessible for onChange
@@ -826,7 +771,7 @@ const formEvent: InputFormEvent = changeEvent;
     interface ComponentProps {
         prop1: string;
         prop2: string;
-        prop3?: string;
+        prop3?: string | undefined;
     }
     class ComponentWithDefaultProps extends React.Component<ComponentProps> {
         static defaultProps = {
@@ -875,3 +820,34 @@ const propsWithChildren: React.PropsWithChildren<Props> = {
     foo: 42,
     children: functionComponent,
 };
+
+// JSXElemenConstructor vs Component assignability
+{
+    interface ExactProps {
+        value: 'A' | 'B';
+    }
+    interface NarrowerProps {
+        value: 'A';
+    }
+    interface WiderProps {
+        value: 'A' | 'B' | 'C';
+    }
+
+    // We don't actually care about the concrete type of `Wrapper` i.e.
+    // we don't care about the value created by `new Wrapper()`.
+    // We only care about the props we can pass to the component.
+    let Wrapper: React.JSXElementConstructor<ExactProps>;
+    // $ExpectError
+    Wrapper = class Narrower extends React.Component<NarrowerProps> {};
+    // $ExpectError
+    Wrapper = (props: NarrowerProps) => null;
+    Wrapper = class Exact extends React.Component<ExactProps> {};
+    Wrapper = (props: ExactProps) => null;
+    Wrapper = class Wider extends React.Component<WiderProps> {};
+    Wrapper = (props: WiderProps) => null;
+
+    React.createElement(Wrapper, { value: 'A' });
+    React.createElement(Wrapper, { value: 'B' });
+    // $ExpectError
+    React.createElement(Wrapper, { value: 'C' });
+}

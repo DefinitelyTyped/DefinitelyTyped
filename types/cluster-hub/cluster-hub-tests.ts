@@ -1,9 +1,9 @@
-import cluster = require('cluster');
+import cluster from 'cluster';
 import Hub = require('cluster-hub');
 
 const hub = new Hub();
 
-if (cluster.isMaster) {
+if (cluster.isPrimary) {
     const worker = cluster.fork();
 
     hub.on('master-to-master', (data) => {

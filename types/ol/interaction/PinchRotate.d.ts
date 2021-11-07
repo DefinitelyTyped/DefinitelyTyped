@@ -5,8 +5,8 @@ import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    duration?: number;
-    threshold?: number;
+    duration?: number | undefined;
+    threshold?: number | undefined;
 }
 export default class PinchRotate extends PointerInteraction {
     constructor(opt_options?: Options);

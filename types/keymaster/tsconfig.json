@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "keymaster-tests.ts"
+        "test/keymaster-tests.ts",
+        "test/keymaster-test-global.ts"
     ]
 }

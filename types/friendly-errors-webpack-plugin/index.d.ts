@@ -24,11 +24,11 @@ declare namespace FriendlyErrorsWebpackPlugin {
         compilationSuccessInfo?: {
             messages: string[],
             notes: string[],
-        };
+        } | undefined;
         onErrors?(severity: Severity, errors: string): void;
-        clearConsole?: boolean;
-        additionalFormatters?: Array<(errors: WebpackError[], type: Severity) => string[]>;
-        additionalTransformers?: Array<(error: any) => any>;
+        clearConsole?: boolean | undefined;
+        additionalFormatters?: Array<(errors: WebpackError[], type: Severity) => string[]> | undefined;
+        additionalTransformers?: Array<(error: any) => any> | undefined;
     }
 
     interface WebpackError {

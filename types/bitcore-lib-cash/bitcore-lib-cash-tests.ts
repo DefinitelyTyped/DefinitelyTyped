@@ -28,7 +28,14 @@ const tx = new bitcore.Transaction()
     .from(utxo)
     .change('bitcoinAddress')
     .addData(Buffer.from(''))
-    .sign('bitcoinAddressPrivateKey');
+    .sign('bitcoinAddressPrivateKey')
+    .sign('bitcoinAddressPrivateKey2',
+        bitcore.crypto.Signature.SIGHASH_ALL | bitcore.crypto.Signature.SIGHASH_FORKID
+    )
+    .sign('bitcoinAddressPrivateKey3',
+        null,
+        'schnorr'
+    );
 
 tx.verify();
 
@@ -41,3 +48,7 @@ const message = new bitcore.Message('sign this message');
 const signedMessageSig = message.sign(privateKey);
 
 message.verify(privateKey.toAddress(), signedMessageSig);
+
+const satoshis = bitcore.crypto.BN.fromNumber(10000);
+
+bitcore.Transaction.sighash.sign(transaction, privateKey, 0x41, 0, new bitcore.Script(''), satoshis, 0x10000, 'schnorr');

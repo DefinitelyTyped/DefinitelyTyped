@@ -13,7 +13,88 @@ let publicKeyFromRsaPem = forge.pki.publicKeyFromPem(publicKeyRSAPem);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
+cert.publicKey = keypair.publicKey;
+cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
+let certPem = forge.pki.certificateToPem(cert);
+let csr = forge.pki.createCertificationRequest();
+csr.publicKey = keypair.publicKey;
+csr.sign(keypair.privateKey);
+forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr));
+
+// From https://github.com/digitalbazaar/forge#rsakem
+{
+    // generate an RSA key pair asynchronously (uses web workers if available)
+    // use workers: -1 to run a fast core estimator to optimize # of workers
+    forge.pki.rsa.generateKeyPair({bits: 2048, workers: -1}, function(err, keypair) {
+        // keypair.privateKey, keypair.publicKey
+    });
+
+    // generate and encapsulate a 16-byte secret key
+    var kdf1 = new forge.kem.kdf1(forge.md.sha1.create());
+    var kem = forge.kem.rsa.create(kdf1);
+    var result = kem.encrypt(keypair.publicKey, 16);
+    // result has 'encapsulation' and 'key'
+
+    // encrypt some bytes
+    var iv = forge.random.getBytesSync(12);
+    var someBytes = 'hello world!';
+    var cipher = forge.cipher.createCipher('AES-GCM', result.key);
+    cipher.start({iv: iv});
+    cipher.update(forge.util.createBuffer(someBytes));
+    cipher.finish();
+    var encrypted = cipher.output.getBytes();
+    var tag = cipher.mode.tag.getBytes();
+
+    // send 'encrypted', 'iv', 'tag', and result.encapsulation to recipient
+
+    // decrypt encapsulated 16-byte secret key
+    var kdf1_2 = new forge.kem.kdf1(forge.md.sha1.create());
+    var kem_2 = forge.kem.rsa.create(kdf1_2);
+    var my_key = kem_2.decrypt(keypair.privateKey, result.encapsulation, 16);
+
+    // decrypt some bytes
+    var decipher = forge.cipher.createDecipher('AES-GCM', my_key);
+    decipher.start({iv: iv, tag: tag as any as forge.util.ByteStringBuffer});
+    decipher.update(forge.util.createBuffer(encrypted));
+    var pass = decipher.finish();
+
+    // pass is false if there was a failure (eg: authentication tag didn't match)
+    if(pass) {
+        if (decipher.output.getBytes() !== someBytes) throw Error('forge.util.binary.raw.encode / decode fail');
+    } else {
+        throw Error('forge.util.binary.raw.encode / decode fail');
+    }
+}
+
+// From https://github.com/digitalbazaar/forge#rc2
+{
+    // generate a random key and IV
+    var key_rc2 = forge.random.getBytesSync(16);
+    var iv_rc2 = forge.random.getBytesSync(8);
+
+    // encrypt some bytes
+    var someBytes_rc2 = 'hello world!';
+    var cipher_rc2 = forge.rc2.createEncryptionCipher(key_rc2);
+    cipher_rc2.start(iv_rc2);
+    cipher_rc2.update(forge.util.createBuffer(someBytes_rc2));
+    cipher_rc2.finish();
+    var encrypted_rc2 = cipher_rc2.output;
+    // outputs encrypted hex
+    console.log(encrypted_rc2.toHex());
+
+    // decrypt some bytes
+    var cipher_rc2_2 = forge.rc2.createDecryptionCipher(key_rc2);
+    cipher_rc2_2.start(iv_rc2);
+    cipher_rc2_2.update(encrypted_rc2);
+    cipher_rc2_2.finish();
+    // outputs decrypted hex
+    console.log(cipher_rc2_2.output.toHex());
+
+    if (cipher_rc2_2.output.toString() !== someBytes_rc2) {
+        throw Error('forge.util.binary.raw.encode / decode fail');
+    }
+}
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
@@ -140,6 +221,18 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    let count = 32;
+    forge.random.getBytes(count, (err, bytes) => {
+        if (err) {
+            throw err;
+        }
+        if (bytes.length !== count) {
+            throw new Error('invalid length');
+        }
+    });
+}
+
+{
     cert.publicKey = keypair.publicKey;
     cert.serialNumber = new Date().getTime() + '';
     cert.validity.notBefore = new Date();
@@ -189,11 +282,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         }
     ]);
 
-    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: "challengePassword" });
+    const attr: forge.pki.Attribute | undefined = csr.getAttribute({ name: "challengePassword" });
 
 
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
+
+    cert.issuer.attributes.map(attr => attr.name)
 }
 
 {
@@ -227,6 +322,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     forge.pki.verifyCertificateChain(caStore, [certificate], (verified, depth, chain) => {
         return true;
+    });
+
+    forge.pki.verifyCertificateChain(caStore, [certificate], {
+        verify: (verified, depth, chain) => {
+            return true;
+        },
+        validityCheckDate: new Date()
     });
 
     certificate.issued(certificate);
@@ -411,7 +513,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
 {
     let p7 = forge.pkcs7.createEnvelopedData();
-    let cert = forge.pki.certificateFromPem('PEM');
+    let cert = forge.pki.certificateFromPem(certPem);
     p7.addRecipient(cert);
     p7.content = forge.util.createBuffer('content');
     p7.encrypt();
@@ -419,13 +521,105 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-  publicKeyRsa.encrypt('content');
-  privateKeyRsa.decrypt('content');
+    let plainText = 'content'
+    let cipher = publicKeyRsa.encrypt(plainText);
+    let result = privateKeyRsa.decrypt(cipher);
+    if (result !== plainText) {
+        throw new Error('decrypt result not match')
+    }
 }
 {
-    let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey('testpem');
+    let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 }
 
 {
     publicKeyRsa.n.bitLength();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('md5', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha1', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha256', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha512', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+    // constructor tests
+    const bn = new forge.jsbn.BigInteger("AABB", 16);
+    const bn2 = new forge.jsbn.BigInteger("75643564363473453456342378564387956906736546456235345");
+}
+
+{
+    // method tests
+    let isBigInteger: forge.jsbn.BigInteger;
+    let isNumber: number;
+    let isBoolean: boolean;
+    let isString: string;
+    let isDivmod: forge.jsbn.BigInteger[];
+    let isByteArray: number[];
+
+    const bn = new forge.jsbn.BigInteger("75643564363473453456342378564387956906736546456235345");
+
+    isString = bn.toString();
+    isString = bn.toString(16);
+    isBigInteger = bn.negate();
+    isBigInteger = bn.abs();
+    isNumber = bn.compareTo(bn);
+    isNumber = bn.bitLength();
+    isBigInteger = bn.mod(bn);
+    isBigInteger = bn.modPowInt(0, bn);
+    isBigInteger = bn.clone();
+    isNumber = bn.intValue();
+    isNumber = bn.byteValue();
+    isNumber = bn.shortValue();
+    isNumber = bn.signum();
+    isByteArray = bn.toByteArray();
+    isBoolean = bn.equals(bn);
+    isBigInteger = bn.min(bn);
+    isBigInteger = bn.max(bn);
+    isBigInteger = bn.and(bn);
+    isBigInteger = bn.or(bn);
+    isBigInteger = bn.xor(bn);
+    isBigInteger = bn.andNot(bn);
+    isBigInteger = bn.not();
+    isBigInteger = bn.shiftLeft(0);
+    isBigInteger = bn.shiftRight(0);
+    isNumber = bn.getLowestSetBit();
+    isNumber = bn.bitCount();
+    isBoolean = bn.testBit(0);
+    isBigInteger = bn.clearBit(0);
+    isBigInteger = bn.flipBit(0);
+    isBigInteger = bn.add(bn);
+    isBigInteger = bn.subtract(bn);
+    isBigInteger = bn.multiply(bn);
+    isBigInteger = bn.squareTo(bn);
+    isBigInteger = bn.divide(bn);
+    isBigInteger = bn.remainder(bn);
+    isDivmod = bn.divideAndRemainder(bn);
+    isBigInteger = bn.pow(0);
+    isBigInteger = bn.modPow(bn, bn);
+    isBigInteger = bn.gcd(bn);
+    isBigInteger = bn.modInverse(bn);
+    isBoolean = bn.isProbablePrime(0);
 }

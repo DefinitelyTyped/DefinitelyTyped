@@ -26,5 +26,7 @@ export class WebXRManager extends EventDispatcher {
     setSession(value: XRSession): Promise<void>;
     getCamera(camera: Camera): Camera;
     setAnimationLoop(callback: XRFrameRequestCallback): void;
+    getFoveation(): number | undefined;
+    setFoveation(foveation: number): void;
     dispose(): void;
 }

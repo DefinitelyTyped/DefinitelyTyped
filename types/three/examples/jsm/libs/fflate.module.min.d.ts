@@ -17,7 +17,7 @@ export interface DeflateOptions {
      * - become 400 kB with level 1 in 10ms
      * - become 320 kB with level 9 in 100ms
      */
-    level?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+    level?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | undefined;
     /**
      * The memory level to use, ranging from 0-12. Increasing this increases speed and compression ratio at the cost of memory.
      *
@@ -27,7 +27,7 @@ export interface DeflateOptions {
      *
      * The default value is automatically determined based on the size of the input data.
      */
-    mem?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    mem?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
 }
 /**
  * Options for compressing data into a GZIP format
@@ -37,12 +37,12 @@ export interface GzipOptions extends DeflateOptions {
      * When the file was last modified. Defaults to the current time.
      * Set this to 0 to avoid revealing a modification date entirely.
      */
-    mtime?: Date | string | number;
+    mtime?: Date | string | number | undefined;
     /**
      * The filename of the data. If the `gunzip` command is used to decompress the data, it will output a file
      * with this name instead of the name of the compressed file.
      */
-    filename?: string;
+    filename?: string | undefined;
 }
 /**
  * Options for compressing data into a Zlib format
@@ -72,7 +72,7 @@ interface AsyncOptions {
      * Whether or not to "consume" the source data. This will make the typed array/buffer you pass in
      * unusable but will increase performance and reduce memory usage.
      */
-    consume?: boolean;
+    consume?: boolean | undefined;
 }
 /**
  * Options for compressing data asynchronously into a DEFLATE format
@@ -87,7 +87,7 @@ export interface AsyncInflateOptions extends AsyncOptions {
      * writing into a buffer you provide; the best you can do is provide the
      * size in bytes and be given back a new typed array.
      */
-    size?: number;
+    size?: number | undefined;
 }
 /**
  * Options for compressing data asynchronously into a GZIP format
@@ -649,7 +649,7 @@ export interface ZipAttributes {
      * by PKZIP's APPNOTE.txt, section 4.4.2.2. For example, 0 (the default)
      * is MS/DOS, 3 is UNIX, 19 is macOS.
      */
-    os?: number;
+    os?: number | undefined;
     /**
      * The file's attributes. These are traditionally somewhat complicated
      * and platform-dependent, so using them is scarcely necessary. However,
@@ -669,7 +669,7 @@ export interface ZipAttributes {
      *
      * If you want to set the Unix permissions, for instance, just bit shift by 16, e.g. 0644 << 16
      */
-    attrs?: number;
+    attrs?: number | undefined;
     /**
      * Extra metadata to add to the file. This field is defined by PKZIP's APPNOTE.txt,
      * section 4.4.28. At most 65,535 bytes may be used in each ID. The ID must be an
@@ -678,17 +678,17 @@ export interface ZipAttributes {
      * This field is incredibly rare and almost never needed except for compliance with
      * proprietary standards and software.
      */
-    extra?: Record<number, Uint8Array>;
+    extra?: Record<number, Uint8Array> | undefined;
     /**
      * The comment to attach to the file. This field is defined by PKZIP's APPNOTE.txt,
      * section 4.4.26. The comment must be at most 65,535 bytes long UTF-8 encoded. This
      * field is not read by consumer software.
      */
-    comment?: string;
+    comment?: string | undefined;
     /**
      * When the file was last modified. Defaults to the current time.
      */
-    mtime?: GzipOptions['mtime'];
+    mtime?: GzipOptions['mtime'] | undefined;
 }
 /**
  * Options for creating a ZIP archive
@@ -845,7 +845,7 @@ export interface ZipInputFile extends ZipAttributes {
      * APPNOTE.txt, section 4.4.4. Should be between 0 and 3. This is unlikely
      * to be necessary.
      */
-    flag?: number;
+    flag?: number | undefined;
     /**
      * The handler to be called when data is added. After passing this stream to
      * the ZIP file object, this handler will always be defined. To call it:
@@ -859,14 +859,14 @@ export interface ZipInputFile extends ZipAttributes {
      *
      * final = boolean, whether this is the final chunk in the stream
      */
-    ondata?: AsyncFlateStreamHandler;
+    ondata?: AsyncFlateStreamHandler | undefined;
     /**
      * A method called when the stream is no longer needed, for clean-up
      * purposes. This will not always be called after the stream completes,
      * so you may wish to call this.terminate() after the final chunk is
      * processed if you have clean-up logic.
      */
-    terminate?: AsyncTerminable;
+    terminate?: AsyncTerminable | undefined;
 }
 /**
  * A pass-through stream to keep data uncompressed in a ZIP archive.
@@ -876,11 +876,11 @@ export class ZipPassThrough implements ZipInputFile {
     crc: number;
     size: number;
     compression: number;
-    os?: number;
-    attrs?: number;
-    comment?: string;
-    extra?: Record<number, Uint8Array>;
-    mtime?: GzipOptions['mtime'];
+    os?: number | undefined;
+    attrs?: number | undefined;
+    comment?: string | undefined;
+    extra?: Record<number, Uint8Array> | undefined;
+    mtime?: GzipOptions['mtime'] | undefined;
     ondata: AsyncFlateStreamHandler;
     private c;
     /**
@@ -916,11 +916,11 @@ export class ZipDeflate implements ZipInputFile {
     size: number;
     compression: number;
     flag: 0 | 1 | 2 | 3;
-    os?: number;
-    attrs?: number;
-    comment?: string;
-    extra?: Record<number, Uint8Array>;
-    mtime?: GzipOptions['mtime'];
+    os?: number | undefined;
+    attrs?: number | undefined;
+    comment?: string | undefined;
+    extra?: Record<number, Uint8Array> | undefined;
+    mtime?: GzipOptions['mtime'] | undefined;
     ondata: AsyncFlateStreamHandler;
     private d;
     /**
@@ -946,11 +946,11 @@ export class AsyncZipDeflate implements ZipInputFile {
     size: number;
     compression: number;
     flag: 0 | 1 | 2 | 3;
-    os?: number;
-    attrs?: number;
-    comment?: string;
-    extra?: Record<number, Uint8Array>;
-    mtime?: GzipOptions['mtime'];
+    os?: number | undefined;
+    attrs?: number | undefined;
+    comment?: string | undefined;
+    extra?: Record<number, Uint8Array> | undefined;
+    mtime?: GzipOptions['mtime'] | undefined;
     ondata: AsyncFlateStreamHandler;
     private d;
     terminate: AsyncTerminable;
@@ -1043,7 +1043,7 @@ export interface UnzipDecoder {
      * A method to terminate any internal workers used by the stream. Subsequent
      * calls to push() should silently fail.
      */
-    terminate?: AsyncTerminable;
+    terminate?: AsyncTerminable | undefined;
 }
 /**
  * A constructor for a decoder for unzip streams
@@ -1085,11 +1085,11 @@ export interface UnzipFile {
     /**
      * The compressed size of the file
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * The original size of the file
      */
-    originalSize?: number;
+    originalSize?: number | undefined;
     /**
      * Starts reading from the stream. Calling this function will always enable
      * this stream, but ocassionally the stream will be enabled even without

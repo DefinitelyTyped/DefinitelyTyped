@@ -6,19 +6,19 @@
 
 declare namespace OpenApi {
     interface ApiOptions {
-        requestMiddleware?: () => any;
-        responseMiddleware?: () => any;
-        errorMiddleware?: () => any;
+        requestMiddleware?: (() => any) | undefined;
+        responseMiddleware?: (() => any) | undefined;
+        errorMiddleware?: (() => any) | undefined;
     }
 
     interface HttpMethodOptions {
-        rawBody?: boolean;
+        rawBody?: boolean | undefined;
     }
 
     interface HttpResponse {
-        statusCode?: number;
-        headers?: object;
-        body?: (object | string);
+        statusCode?: number | undefined;
+        headers?: object | undefined;
+        body?: (object | string) | undefined;
     }
 }
 

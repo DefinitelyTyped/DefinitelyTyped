@@ -6,32 +6,32 @@
 export interface Translations {
     de: string;
     en: string;
-    cz?: string;
-    dk?: string;
-    fr?: string;
-    gr?: string;
-    it?: string;
-    pl?: string;
-    tr?: string;
-    jp?: string;
-    es?: string;
+    cz?: string | undefined;
+    dk?: string | undefined;
+    fr?: string | undefined;
+    gr?: string | undefined;
+    it?: string | undefined;
+    pl?: string | undefined;
+    tr?: string | undefined;
+    jp?: string | undefined;
+    es?: string | undefined;
 }
 
 export interface PokemonEvolution {
     to: string;
-    level?: number;
-    happiness?: boolean;
-    trade?: boolean;
-    level_up?: boolean;
-    item?: string;
-    hold_item?: string;
-    move_learned?: string;
-    conditions?: string[];
+    level?: number | undefined;
+    happiness?: boolean | undefined;
+    trade?: boolean | undefined;
+    level_up?: boolean | undefined;
+    item?: string | undefined;
+    hold_item?: string | undefined;
+    move_learned?: string | undefined;
+    conditions?: string[] | undefined;
 }
 
 export interface PokemonAbility {
     name: string;
-    hidden?: boolean;
+    hidden?: boolean | undefined;
 }
 
 export interface StatObject {
@@ -52,35 +52,35 @@ export interface MegaEvolution {
     weight_eu: string;
     base_stats: StatObject;
     mega_stone: string;
-    image_suffix?: string;
+    image_suffix?: string | undefined;
 }
 
 export interface PokemonVariation {
-    condition?: string;
+    condition?: string | undefined;
     names: Translations;
     types: string[];
-    height_us?: string;
-    height_eu?: string;
-    weight_us?: string;
-    weight_eu?: string;
-    base_stats?: StatObject;
+    height_us?: string | undefined;
+    height_eu?: string | undefined;
+    weight_us?: string | undefined;
+    weight_eu?: string | undefined;
+    base_stats?: StatObject | undefined;
     pokeathlon_stats?: {
-        speed?: number[];
-        power?: number[];
-        stamina?: number[];
-        skill?: number[];
-        jump?: number[]
-    };
-    abilities?: string[];
-    image_suffix?: string;
+        speed?: number[] | undefined;
+        power?: number[] | undefined;
+        stamina?: number[] | undefined;
+        skill?: number[] | undefined;
+        jump?: number[] | undefined
+    } | undefined;
+    abilities?: string[] | undefined;
+    image_suffix?: string | undefined;
 }
 
 export interface Learnset {
     move: string;
-    level?: number;
-    tm?: string;
-    egg_move?: boolean;
-    variations?: string[];
+    level?: number | undefined;
+    tm?: string | undefined;
+    egg_move?: boolean | undefined;
+    variations?: string[] | undefined;
 }
 
 export interface MoveLearnset {
@@ -125,14 +125,14 @@ export interface Pokemon {
     base_friendship: number;
     base_stats: StatObject;
     pokeathlon_stats?: {
-        speed?: number[];
-        power?: number[];
-        stamina?: number[];
-        skill?: number[];
-        jump?: number[];
-    };
+        speed?: number[] | undefined;
+        power?: number[] | undefined;
+        stamina?: number[] | undefined;
+        skill?: number[] | undefined;
+        jump?: number[] | undefined;
+    } | undefined;
     mega_evolutions: MegaEvolution[];
-    variation_names?: Translations;
+    variation_names?: Translations | undefined;
     variations: PokemonVariation[];
     move_learnsets: MoveLearnset[];
 }
@@ -145,7 +145,7 @@ export interface MoveStatusCondition {
 export interface MoveStatModifier {
     stat: string;
     change_by: number;
-    affects_user?: boolean;
+    affects_user?: boolean | undefined;
 }
 
 export interface MoveContest {
@@ -178,10 +178,10 @@ export interface Move {
     affected_by_mirror_move: boolean;
     affected_by_kings_rock: boolean;
     in_battle_properties?: {
-        increased_critical_hit_ratio?: boolean;
-        status_conditions?: MoveStatusCondition[]
-    };
-    stat_modifiers?: MoveStatModifier[];
+        increased_critical_hit_ratio?: boolean | undefined;
+        status_conditions?: MoveStatusCondition[] | undefined
+    } | undefined;
+    stat_modifiers?: MoveStatModifier[] | undefined;
 }
 
 export interface Ability {
@@ -222,9 +222,9 @@ export interface LocationPokemon {
     max_level: number;
     rarity: string;
     games: string[];
-    day_times?: string[];
-    seasons?: string[];
-    variation?: string;
+    day_times?: string[] | undefined;
+    seasons?: string[] | undefined;
+    variation?: string | undefined;
 }
 
 export interface Location {
@@ -274,26 +274,26 @@ export interface ItemDescription {
 
 export interface ItemPokemonChange {
     field: string;
-    change_by_percent?: number;
-    revive?: boolean;
-    change_by?: number;
-    change?: string;
-    conditions?: string[];
+    change_by_percent?: number | undefined;
+    revive?: boolean | undefined;
+    change_by?: number | undefined;
+    change?: string | undefined;
+    conditions?: string[] | undefined;
 }
 
 export interface ItemMoveChange {
     field: string;
-    change_by_percent?: number;
-    change_by?: number;
-    change_by_max?: number;
+    change_by_percent?: number | undefined;
+    change_by?: number | undefined;
+    change_by_max?: number | undefined;
 }
 
 export interface ItemEffect {
     condition: string;
     target: string;
-    triggers_evolution?: boolean;
-    pokemon_changes?: ItemPokemonChange[];
-    move_changes?: ItemMoveChange[];
+    triggers_evolution?: boolean | undefined;
+    pokemon_changes?: ItemPokemonChange[] | undefined;
+    move_changes?: ItemMoveChange[] | undefined;
 }
 
 export interface Item {

@@ -121,7 +121,7 @@ declare class PizZip {
      * see https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
      * @param options the options to generate the zip file
      */
-    generate(options?: PizZip.GenerateOptions & { type?: 'string' | 'base64' }): string;
+    generate(options?: PizZip.GenerateOptions & { type?: 'string' | 'base64' | undefined }): string;
     generate(options: PizZip.GenerateOptions & { type: 'blob' }): Blob;
     generate(options: PizZip.GenerateOptions & { type: 'nodebuffer' }): Buffer;
     generate(options: PizZip.GenerateOptions & { type: 'arraybuffer' }): ArrayBuffer;
@@ -219,26 +219,26 @@ declare namespace PizZip {
          *
          * @default false
          */
-        base64?: boolean;
+        base64?: boolean | undefined;
         /**
          * set to true if the read data should be checked against its CRC32.
          *
          * @default false
          */
-        checkCRC32?: boolean;
+        checkCRC32?: boolean | undefined;
         /**
          * set to true if (and only if) the input is a string and has already been prepared with a 0xFF mask.
          *
          * @default false
          */
-        optimizedBinaryString?: boolean;
+        optimizedBinaryString?: boolean | undefined;
         /**
          * set to true to create folders in the file path automatically. Leaving it false will result in only virtual folders
          * (i.e. folders that merely represent part of the file path) being created.
          *
          * @default false
          */
-        createFolders?: boolean;
+        createFolders?: boolean | undefined;
         /**
          * the function to decode the file name / comment. Decodes from UTF-8 by default.
          * A zip file has a flag to say if the filename and comment are encoded with UTF-8.
@@ -253,29 +253,29 @@ declare namespace PizZip {
          * set to `true` if the data is base64 encoded. For example image data from a `<canvas>` element. Plain text and HTML do not need this option.
          * @default false
          */
-        base64?: boolean;
+        base64?: boolean | undefined;
         /**
          * set to `true` if the data should be treated as raw content, `false` if this is a text. If base64 is used, this defaults to `true`,
          * if the data is not a string, this will be set to `true`.
          * @default false
          */
-        binary?: boolean;
+        binary?: boolean | undefined;
         /**
          * the last modification date. defaults to the current date
          */
-        date?: Date;
+        date?: Date | undefined;
         /**
          * If set, specifies compression method to use for this specific file. If not, the default file compression will be used (no compression)
          * @default "STORE"
          */
-        compression?: Compression;
+        compression?: Compression | undefined;
         /**
          * With `STORE` (no compression), this parameter is ignored.
          * With `DEFLATE`, you can give the compression level with `compressionOptions : {level:6}` (or any level between 1 (best speed) and 9 (best compression)).
          */
         compressionOptions?: {
             level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-        } | null;
+        } | null | undefined;
         /**
          * The comment for this file.
          * the zip format has no flag or field to give the encoding of this field and PizZip will use UTF-8.
@@ -283,35 +283,35 @@ declare namespace PizZip {
          * If not set, PizZip will use the field comment on its options.
          * @default null
          */
-        comment?: string | null;
+        comment?: string | null | undefined;
         /**
          * Set to true if (and only if) the input is a "binary string" and has already been prepared with a 0xFF mask.
          * @default false
          */
-        optimizedBinaryString?: boolean;
+        optimizedBinaryString?: boolean | undefined;
         /**
          * Set to true if folders in the file path should be automatically created,
          * otherwise there will only be virtual folders that represent the path to the file.
          * @default false
          */
-        createFolders?: boolean;
+        createFolders?: boolean | undefined;
         /**
          * The UNIX permissions of the file, if any. Also accepts a string representing the octal value : "644", "755", etc.
          * On nodejs you can use the `mode` attribute of nodejs' fs.Stats.
          * @default null
          */
-        unixPermissions?: number | string | null;
+        unixPermissions?: number | string | null | undefined;
         /**
          * The DOS  permissions of the file, if any.
          * @default null
          */
-        dosPermissions?: number | null;
+        dosPermissions?: number | null | undefined;
         /**
          * Set to true if this is a directory and content should be ignored.
          * If true or if a permission says it's a folder, this entry be flagged as a folder and the content will be ignored.
          * @default false
          */
-        dir?: boolean;
+        dir?: boolean | undefined;
     }
 
     interface GenerateOptions {
@@ -319,12 +319,12 @@ declare namespace PizZip {
          * @deprecated use `type` instead. If `type` is not used, set to `false` to get the result as a raw byte string, `true` to encode it as base64.
          * @default false
          */
-        base64?: boolean;
+        base64?: boolean | undefined;
         /**
          * the default file compression method to use. Available methods are `STORE` and `DEFLATE`. You can also provide your own compression method.
          * @default "STORE"
          */
-        compression?: Compression;
+        compression?: Compression | undefined;
         /**
          * the options to use when compressing the file. With `STORE` (no compression), this parameter is ignored.
          * With `DEFLATE`, you can give the compression level with `compressionOptions : {level:6}`
@@ -336,7 +336,7 @@ declare namespace PizZip {
          */
         compressionOptions?: {
             level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-        } | null;
+        } | null | undefined;
         /**
          * The type of zip to return. Note : when using type = "uint8array", "arraybuffer" or "blob",
          * be sure to check if the browser supports it (you can use PizZip.support)
@@ -355,17 +355,17 @@ declare namespace PizZip {
          *
          * @default "base64"
          */
-        type?: 'base64' | 'string' | 'uint8array' | 'arraybuffer' | 'blob' | 'nodebuffer';
+        type?: 'base64' | 'string' | 'uint8array' | 'arraybuffer' | 'blob' | 'nodebuffer' | undefined;
         /**
          * The comment to use for the zip file.
          */
-        comment?: string;
+        comment?: string | undefined;
         /**
          * mime-type for the generated file. Useful when you need to generate a file with a different extension, ie: ".ods".
          *
          * @default "application/zip"
          */
-        mimeType?: string;
+        mimeType?: string | undefined;
         /**
          * The platform to use when generating the zip file. When using `DOS`, the attribute `dosPermissions` of each file is used.
          * When using `UNIX`, the attribute `unixPermissions` of each file is used.
@@ -374,7 +374,7 @@ declare namespace PizZip {
          * if you force the platform to `UNIX` the generated zip file will have a strange behavior on UNIX platforms.
          * @default "DOS"
          */
-        platform?: 'DOS' | 'UNIX' | NodeJS.Platform;
+        platform?: 'DOS' | 'UNIX' | NodeJS.Platform | undefined;
         /**
          * the function to encode the file name / comment.
          * By default, PizZip uses UTF-8 to encode the file names / comments. You can use this method to force an other encoding.

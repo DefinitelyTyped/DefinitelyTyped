@@ -24,6 +24,7 @@ const testContainerBuilder: azdata.ContainerBuilder<azdata.InputBoxComponent, an
     withItems: (component: azdata.Component[]) => { throw new Error('Not implemented'); },
     withLayout: (layout: any) => { throw new Error('Not implemented'); },
     withProperties: (properties: azdata.InputBoxProperties) => { throw new Error('Not implemented'); },
+    withProps: (properties: azdata.InputBoxProperties) => { throw new Error('Not implemented'); },
     withValidation: (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>) => { throw new Error('Not implemented'); }
 };
 testContainerBuilder.component();
@@ -54,3 +55,12 @@ const testLoadingComponent: azdata.LoadingComponent = {
     onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable()
 };
 testLoadingComponent.validate();
+
+azdata.window.createModelViewDialog('MyTitle', 'MyDialog', 'narrow');
+azdata.window.createModelViewDashboard('MyDashboardTitle', 'MyDashboard', { showIcon: true, alwaysShowTabs: false });
+
+const testCard: azdata.CardProperties = {
+    label: 'test-label',
+    iconHeight: '16px',
+    iconWidth: '16px'
+};

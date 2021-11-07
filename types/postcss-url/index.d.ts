@@ -19,43 +19,43 @@ declare namespace url {
             /**
              * URL pathname.
              */
-            pathname?: string;
+            pathname?: string | undefined;
 
             /**
              * Absolute path to asset.
              */
-            absolutePath?: string;
+            absolutePath?: string | undefined;
 
             /**
              * Current relative path to asset.
              */
-            relativePath?: string;
+            relativePath?: string | undefined;
 
             /**
              * Querystring from URL.
              */
-            search?: string;
+            search?: string | undefined;
 
             /**
              * Hash from URL.
              */
-            hash?: string;
+            hash?: string | undefined;
         },
         dir: {
             /**
              * PostCSS from option.
              */
-            from?: string;
+            from?: string | undefined;
 
             /**
              * PostCSS to option.
              */
-            to?: string;
+            to?: string | undefined;
 
             /**
              * File path.
              */
-            file?: string;
+            file?: string | undefined;
         },
     ) => string;
     type CustomHashFunction = (file: Buffer) => string;
@@ -67,12 +67,12 @@ declare namespace url {
          *
          * @default 'rebase'
          */
-        url?: 'copy' | 'inline' | 'rebase' | CustomTransformFunction;
+        url?: 'copy' | 'inline' | 'rebase' | CustomTransformFunction | undefined;
 
         /**
          * Specify the maximum file size to inline (in kilobytes).
          */
-        maxSize?: number;
+        maxSize?: number | undefined;
 
         /**
          * Do not warn when an SVG URL with a fragment is inlined.
@@ -82,50 +82,50 @@ declare namespace url {
          *
          * @default false
          */
-        ignoreFragmentWarning?: boolean;
+        ignoreFragmentWarning?: boolean | undefined;
 
         /**
          * Reduce size of inlined svg (IE9+, Android 3+)
          *
          * @default false
          */
-        optimizeSvgEncode?: boolean;
+        optimizeSvgEncode?: boolean | undefined;
 
         /**
          * Determine wether a file should be inlined.
          */
-        filter?: RegExp | CustomFilterFunction | string;
+        filter?: RegExp | CustomFilterFunction | string | undefined;
 
         /**
          * Specifies whether the URL's fragment identifer value, if present, will be added to the inlined data URI.
          *
          * @default false
          */
-        includeUriFragment?: boolean;
+        includeUriFragment?: boolean | undefined;
 
         /**
          * The fallback method to use if the maximum size is exceeded or the URL contains a hash.
          */
-        fallback?: CustomTransformFunction;
+        fallback?: CustomTransformFunction | undefined;
 
         /**
          * Specify the base path or list of base paths where to search images from.
          */
-        basePath?: string | string[];
+        basePath?: string | string[] | undefined;
 
         /**
          * The assets files will be copied in that destination.
          *
          * @default false
          */
-        assetsPath?: boolean | string;
+        assetsPath?: boolean | string | undefined;
 
         /**
          * Rename the path of the files by a hash name.
          *
          * @default false
          */
-        useHash?: boolean;
+        useHash?: boolean | undefined;
 
         /**
          * Hash options
@@ -134,18 +134,18 @@ declare namespace url {
             /**
              * Hashing method or custom function.
              */
-            method?: 'xxhash32' | 'xxhash64' | CustomHashFunction;
+            method?: 'xxhash32' | 'xxhash64' | CustomHashFunction | undefined;
 
             /**
              * Shrink hast to certain length.
              */
-            shrink?: number;
+            shrink?: number | undefined;
 
             /**
              * Append the original filename in resulting filename.
              */
-            append?: boolean;
-        };
+            append?: boolean | undefined;
+        } | undefined;
     }
 
     type Url = Plugin<Options | Options[]>;

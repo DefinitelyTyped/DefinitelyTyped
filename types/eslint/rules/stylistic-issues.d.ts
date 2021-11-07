@@ -604,7 +604,7 @@ export interface StylisticIssues extends Linter.RulesRecord {
                              * @default 'strict'
                              */
                             mode: "strict" | "minimum";
-                        }>;
+                        }> | undefined;
                         multiLine?: Partial<{
                             /**
                              * @default false
@@ -639,7 +639,7 @@ export interface StylisticIssues extends Linter.RulesRecord {
                                   }>
                                 | "value"
                                 | "colon";
-                        }>;
+                        }> | undefined;
                     }
               >
             | {
@@ -674,7 +674,7 @@ export interface StylisticIssues extends Linter.RulesRecord {
                        * @default 'strict'
                        */
                       mode: "strict" | "minimum";
-                  }>;
+                  }> | undefined;
                   multiLine?: Partial<{
                       /**
                        * @default false
@@ -688,7 +688,7 @@ export interface StylisticIssues extends Linter.RulesRecord {
                        * @default 'strict'
                        */
                       mode: "strict" | "minimum";
-                  }>;
+                  }> | undefined;
               },
         ]
     >;
@@ -1270,7 +1270,7 @@ export interface StylisticIssues extends Linter.RulesRecord {
                 | string
                 | {
                       selector: string;
-                      message?: string;
+                      message?: string | undefined;
                   }
             >
         ]

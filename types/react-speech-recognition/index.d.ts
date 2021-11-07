@@ -6,15 +6,15 @@
 interface Command {
     command: string | string[] | RegExp;
     callback: (...args: any[]) => unknown;
-    isFuzzyMatch?: boolean;
-    matchInterim?: boolean;
-    fuzzyMatchingThreshold?: number;
-    bestMatchOnly?: boolean;
+    isFuzzyMatch?: boolean | undefined;
+    matchInterim?: boolean | undefined;
+    fuzzyMatchingThreshold?: number | undefined;
+    bestMatchOnly?: boolean | undefined;
 }
 
 export interface ListeningOptions {
-    continuous?: boolean;
-    language?: string;
+    continuous?: boolean | undefined;
+    language?: string | undefined;
 }
 
 interface SpeechRecognition {
@@ -26,9 +26,9 @@ interface SpeechRecognition {
 }
 
 export interface SpeechRecognitionOptions {
-    transcribing?: boolean;
-    clearTranscriptOnListen?: boolean;
-    commands?: ReadonlyArray<Command>;
+    transcribing?: boolean | undefined;
+    clearTranscriptOnListen?: boolean | undefined;
+    commands?: ReadonlyArray<Command> | undefined;
 }
 
 export function useSpeechRecognition(

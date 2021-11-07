@@ -32,4 +32,8 @@ class MapController {
 
 import esriId = require("esri/identity/IdentityManager");
 
+esriId.enablePostMessageAuth();
 esriId.disablePostMessageAuth();
+
+import externalRenderers = require("esri/views/3d/externalRenderers");
+externalRenderers.forceWebGLContext(2);

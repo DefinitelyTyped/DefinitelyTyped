@@ -49,6 +49,7 @@ class ReactGeosuggest extends React.Component {
                     label="label"
                     location={new google.maps.LatLng(53.558572, 9.9278215)}
                     maxFixtures={10}
+                    placeDetailFields={['ALL']}
                     onActivateSuggest={onActivateSuggest}
                     onBlur={onBlur}
                     onChange={onChange}

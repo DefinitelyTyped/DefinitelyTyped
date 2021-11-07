@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    articleOnly?: boolean;
-    capitalize?: boolean;
-    caseInsensitive?: boolean;
-    numbers?: 'colloquial';
+    articleOnly?: boolean | undefined;
+    capitalize?: boolean | undefined;
+    caseInsensitive?: boolean | undefined;
+    numbers?: 'colloquial' | undefined;
 }
 
 declare function indefinite(word: string | number, opts?: Options): string;

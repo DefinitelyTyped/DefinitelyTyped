@@ -39,7 +39,7 @@ declare module "epub" {
         order: number;
         title: string;
         id: string;
-        href?: string;
+        href?: string | undefined;
     }
 
     class EPub extends EventEmitter {

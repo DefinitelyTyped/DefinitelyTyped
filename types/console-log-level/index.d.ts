@@ -2,7 +2,6 @@
 // Project: https://github.com/watson/console-log-level
 // Definitions by: Ali Ijaz Sheikh <https://github.com/ofrobots>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 type PrefixFunction = (level: string) => string;
 
@@ -13,11 +12,11 @@ declare namespace consoleLogLevel {
 }
 
 interface Options {
-    level?: consoleLogLevel.LogLevelNames;
-    prefix?: string | PrefixFunction;
-    stderr?: boolean;
+    level?: consoleLogLevel.LogLevelNames | undefined;
+    prefix?: string | PrefixFunction | undefined;
+    stderr?: boolean | undefined;
 }
 
-declare function consoleLogLevel(opts: Options): consoleLogLevel.Logger;
+declare function consoleLogLevel(opts?: Options): consoleLogLevel.Logger;
 
 export = consoleLogLevel;

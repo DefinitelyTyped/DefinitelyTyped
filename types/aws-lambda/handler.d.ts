@@ -100,8 +100,8 @@ export interface Context {
     awsRequestId: string;
     logGroupName: string;
     logStreamName: string;
-    identity?: CognitoIdentity;
-    clientContext?: ClientContext;
+    identity?: CognitoIdentity | undefined;
+    clientContext?: ClientContext | undefined;
 
     getRemainingTimeInMillis(): number;
 

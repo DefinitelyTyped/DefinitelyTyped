@@ -21,7 +21,7 @@ declare namespace StubTransportStatic {
          * Value that indicates if the BCC addresses must be included in generated message.
          * @type {boolean}
          */
-        keepBcc?: boolean;
+        keepBcc?: boolean | undefined;
     }
 }
 

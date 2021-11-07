@@ -187,7 +187,7 @@ export class Matrix4 implements Matrix {
     /**
      * Sets this matrix as shear transform.
      */
-    makeShear(x: number, y: number, z: number): Matrix4;
+    makeShear(xy: number, xz: number, yx: number, yz: number, zx: number, zy: number): Matrix4;
 
     /**
      * Sets this matrix to the transformation composed of translation, rotation and scale.

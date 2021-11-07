@@ -21,8 +21,8 @@ export interface StrategyOption {
     clientSecret: string;
     callbackURL: string;
 
-    scopeSeparator?: string;
-    customHeaders?: string;
+    scopeSeparator?: string | undefined;
+    customHeaders?: string | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {

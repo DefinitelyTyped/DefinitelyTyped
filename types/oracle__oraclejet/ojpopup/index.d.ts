@@ -7,12 +7,12 @@ export interface ojPopup extends baseComponent<ojPopupSettableProperties> {
     position: ojPopup.Position;
     tail: 'none' | 'simple';
     translations: {
-        ariaCloseSkipLink?: string;
-        ariaFocusSkipLink?: string;
-        ariaLiveRegionInitialFocusFirstFocusable?: string;
-        ariaLiveRegionInitialFocusFirstFocusableTouch?: string;
-        ariaLiveRegionInitialFocusNone?: string;
-        ariaLiveRegionInitialFocusNoneTouch?: string;
+        ariaCloseSkipLink?: string | undefined;
+        ariaFocusSkipLink?: string | undefined;
+        ariaLiveRegionInitialFocusFirstFocusable?: string | undefined;
+        ariaLiveRegionInitialFocusFirstFocusableTouch?: string | undefined;
+        ariaLiveRegionInitialFocusNone?: string | undefined;
+        ariaLiveRegionInitialFocusNoneTouch?: string | undefined;
     };
     onAutoDismissChanged: ((event: JetElementCustomEvent<ojPopup["autoDismiss"]>) => any) | null;
     onChromeChanged: ((event: JetElementCustomEvent<ojPopup["chrome"]>) => any) | null;
@@ -75,21 +75,21 @@ export namespace ojPopup {
     }
     // tslint:disable-next-line interface-over-type-literal
     type Position = {
-        my?: PositionAlign;
-        at?: PositionAlign;
-        offset?: PositionPoint;
-        of?: string | PositionPoint;
-        collision?: 'flip' | 'fit' | 'flipfit' | 'flipcenter' | 'none';
+        my?: PositionAlign | undefined;
+        at?: PositionAlign | undefined;
+        offset?: PositionPoint | undefined;
+        of?: string | PositionPoint | undefined;
+        collision?: 'flip' | 'fit' | 'flipfit' | 'flipcenter' | 'none' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionAlign = {
-        vertical?: 'top' | 'bottom' | 'center';
-        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom';
+        vertical?: 'top' | 'bottom' | 'center' | undefined;
+        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionPoint = {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     };
 }
 export interface ojPopupEventMap extends baseComponentEventMap<ojPopupSettableProperties> {
@@ -115,12 +115,12 @@ export interface ojPopupSettableProperties extends baseComponentSettableProperti
     position: ojPopup.Position;
     tail: 'none' | 'simple';
     translations: {
-        ariaCloseSkipLink?: string;
-        ariaFocusSkipLink?: string;
-        ariaLiveRegionInitialFocusFirstFocusable?: string;
-        ariaLiveRegionInitialFocusFirstFocusableTouch?: string;
-        ariaLiveRegionInitialFocusNone?: string;
-        ariaLiveRegionInitialFocusNoneTouch?: string;
+        ariaCloseSkipLink?: string | undefined;
+        ariaFocusSkipLink?: string | undefined;
+        ariaLiveRegionInitialFocusFirstFocusable?: string | undefined;
+        ariaLiveRegionInitialFocusFirstFocusableTouch?: string | undefined;
+        ariaLiveRegionInitialFocusNone?: string | undefined;
+        ariaLiveRegionInitialFocusNoneTouch?: string | undefined;
     };
 }
 export interface ojPopupSettablePropertiesLenient extends Partial<ojPopupSettableProperties> {

@@ -13,13 +13,13 @@ export interface Options {
     /**
      * name of input file
      */
-    inputName?: string;
+    inputName?: string | undefined;
     /**
      * name of output file
      */
-    outputName?: string;
+    outputName?: string | undefined;
     /**
      * if true, disables RunMD footer
      */
-    lame?: boolean;
+    lame?: boolean | undefined;
 }

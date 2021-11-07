@@ -371,9 +371,9 @@ interface ICollection extends IQueryAPI {
 /** Options associated with a create operation. */
 interface ICreateOptions {
     /** Specifies indexing directives. */
-    indexAction?: string;
+    indexAction?: string | undefined;
     /** Disables automatic generation of "id" field of the document to be created (if it is not provided) */
-    disableAutomaticIdGeneration?: string;
+    disableAutomaticIdGeneration?: string | undefined;
 }
 
 /** Options associated with a delete operation. */
@@ -382,7 +382,7 @@ interface IDeleteOptions {
      * The entity tag associated with the resource.
      * This is matched with the persisted resource before deletion.
      */
-    etag?: string;
+    etag?: string | undefined;
 }
 
 /** Will contain error information if an error occurs, undefined otherwise. */
@@ -409,13 +409,13 @@ interface IFeedOptions {
      * Max number of items to be returned in the enumeration operation.
      * Value is 100 by default
      */
-    pageSize?: number;
+    pageSize?: number | undefined;
     /** Opaque token for continuing the enumeration. */
-    continuation?: string;
+    continuation?: string | undefined;
     /** Allow scan on the queries which couldn't be served as indexing was opted out on the requested paths (only for queryDocuments() and queryAttachments()) */
-    enableScan?: boolean;
+    enableScan?: boolean | undefined;
     /** Allow order by with low precision (only for queryDocuments(), sortBy() and sortByDescending()) */
-    enableLowPrecisionOrderBy?: boolean;
+    enableLowPrecisionOrderBy?: boolean | undefined;
 }
 
 /**
@@ -430,18 +430,18 @@ interface IQueryResponse extends IQueryAPI {
 /** Options associated with a read operation. */
 interface IReadOptions {
     /** The conditional HTTP method ifNoneMatch value. */
-    ifNoneMatch?: string;
+    ifNoneMatch?: string | undefined;
 }
 
 /** Options associated with a replace operation. */
 interface IReplaceOptions {
     /** Specifies indexing directives. */
-    indexAction?: string;
+    indexAction?: string | undefined;
     /**
      * The entity tag associated with the resource.
      * This is matched with the persisted resource before deletion.
      */
-    etag?: string;
+    etag?: string | undefined;
 }
 
 /** Will contain error information if an error occurs, undefined otherwise. */
@@ -473,9 +473,9 @@ interface IDocumentMeta extends Object {
     id: string;
     _self: string;
     _ts: string;
-    _rid?: string;
-    _etag?: string;
-    _attachments?: string;
+    _rid?: string | undefined;
+    _etag?: string | undefined;
+    _attachments?: string | undefined;
 }
 
 /**
@@ -584,9 +584,9 @@ interface IQueryParam {
 /** Options associated with a upsert operation. */
 interface IUpsertOptions {
     /** Specifies indexing directives. */
-    indexAction?: string;
+    indexAction?: string | undefined;
     /** Disables automatic generation of "id" field of the document to be upserted (if it is not provided) */
-    disableAutomaticIdGeneration?: string;
+    disableAutomaticIdGeneration?: string | undefined;
 }
 
 /** List of error codes returned by database operations in the RequestCallback and FeedCallback. See the corresponding error message for more details. */

@@ -7,11 +7,11 @@ import * as React from 'react';
 import { TextProps } from 'react-native';
 
 export interface HighlighterProps extends TextProps {
-    autoEscape?: boolean;
-    highlightStyle?: TextProps['style'];
-    sanitize?: (text: string) => string;
+    autoEscape?: boolean | undefined;
+    highlightStyle?: TextProps['style'] | undefined;
+    sanitize?: ((text: string) => string) | undefined;
     searchWords: string[];
-    style?: TextProps['style'];
+    style?: TextProps['style'] | undefined;
     textToHighlight: string;
 }
 

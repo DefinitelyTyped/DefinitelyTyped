@@ -11,34 +11,34 @@ declare module 'scrollreveal' {
 
 declare namespace scrollReveal {
     interface ScrollRevealRotateObject {
-        x?: number;
-        y?: number;
-        z?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        z?: number | undefined;
     }
 
     interface ScrollRevealPositionObject {
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
+        top?: number | undefined;
+        right?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
     }
 
     interface ScrollRevealObjectOptions {
-        origin?: string;
-        distance?: string;
-        duration?: number;
-        delay?: number;
-        interval?: number;
-        rotate?: ScrollRevealRotateObject;
-        opacity?: number;
-        scale?: number;
-        easing?: string;
+        origin?: string | undefined;
+        distance?: string | undefined;
+        duration?: number | undefined;
+        delay?: number | undefined;
+        interval?: number | undefined;
+        rotate?: ScrollRevealRotateObject | undefined;
+        opacity?: number | undefined;
+        scale?: number | undefined;
+        easing?: string | undefined;
         container?: any;
-        mobile?: boolean;
-        reset?: boolean;
-        useDelay?: string;
-        viewFactor?: number;
-        viewOffset?: ScrollRevealPositionObject;
+        mobile?: boolean | undefined;
+        reset?: boolean | undefined;
+        useDelay?: string | undefined;
+        viewFactor?: number | undefined;
+        viewOffset?: ScrollRevealPositionObject | undefined;
         beforeReveal?(domEl: HTMLElement | NodeListOf<Element>): void;
         afterReveal?(domEl: HTMLElement | NodeListOf<Element>): void;
         beforeReset?(domEl: HTMLElement | NodeListOf<Element>): void;

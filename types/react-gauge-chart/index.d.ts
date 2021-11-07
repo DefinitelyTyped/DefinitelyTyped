@@ -9,113 +9,113 @@ export interface GaugeChartProps {
     /**
      * Used for the identification of the div surrounding the chart
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * Add className to the div container
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Add style to the div container
      * @default { width: '100%' }
      */
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 
     /**
      * Margin for the chart inside the containing SVG element
      * @default 0.05
      */
-    marginInPercent?: number;
+    marginInPercent?: number | undefined;
 
     /**
      * Corner radius for the elements in the chart
      * @default 6
      */
-    cornerRadius?: number;
+    cornerRadius?: number | undefined;
 
     /**
      * The number of elements displayed in the arc
      * @default 3
      */
-    nrOfLevels?: number;
+    nrOfLevels?: number | undefined;
 
     /**
      * The number where the pointer should point to (between 0 and 1)
      * @default 0.4
      */
-    percent?: number;
+    percent?: number | undefined;
 
     /**
      * The distance between the elements in the arc
      * @default 0.05
      */
-    arcPadding?: number;
+    arcPadding?: number | undefined;
 
     /**
      * The thickness of the arc
      * @default 0.2
      */
-    arcWidth?: number;
+    arcWidth?: number | undefined;
 
     /**
      * An array specifying the length of each individual arc. If this prop is set, the nrOfLevels prop will have no effect
      */
-    arcsLength?: number[];
+    arcsLength?: number[] | undefined;
 
     /**
      * An array of colors in HEX format displayed in the arc
      * @default ["#00FF00", "#FF0000"]
      */
-    colors?: string[];
+    colors?: string[] | undefined;
 
     /**
      * The color of the text
      * @default "#FFFFFF"
      */
-    textColor?: string;
+    textColor?: string | undefined;
 
     /**
      * The color of the needle triangle
      * @default "#464A4F"
      */
-    needleColor?: string;
+    needleColor?: string | undefined;
 
     /**
      * The color of the circle at the base of the needle
      * @default "#464A4F"
      */
-    needleBaseColor?: string;
+    needleBaseColor?: string | undefined;
 
     /**
      * Whether or not to hide the percentage display
      * @default false
      */
-    hideText?: boolean;
+    hideText?: boolean | undefined;
 
     /**
      * Whether or not to animate the needle when loaded
      * @default true
      */
-    animate?: boolean;
+    animate?: boolean | undefined;
 
     /**
      * The font size of gauge text
      * @default null
      */
-    fontSize?: string;
+    fontSize?: string | undefined;
 
     /**
      * Duration in ms for the needle animation
      * @default 3000
      */
-    animateDuration?: number;
+    animateDuration?: number | undefined;
 
     /**
      * Delay in ms before starting the needle animation
      * @default 500
      */
-    animDelay?: number;
+    animDelay?: number | undefined;
 
     /**
      * Format you own text value
@@ -125,7 +125,7 @@ export interface GaugeChartProps {
      * ```
      * @default null
      */
-    formatTextValue?: (value: string) => string;
+    formatTextValue?: ((value: string) => string) | undefined;
 }
 
 export default function GaugeChart(props: GaugeChartProps): React.ReactElement;

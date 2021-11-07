@@ -10,11 +10,11 @@ export interface editableValue<V, SP extends editableValueSettableProperties<V, 
         validatorHint: Array<'notewindow' | 'none'> | 'notewindow' | 'none';
     };
     help: {
-        instruction?: string;
+        instruction?: string | undefined;
     };
     helpHints: {
-        definition?: string;
-        source?: string;
+        definition?: string | undefined;
+        source?: string | undefined;
     };
     labelHint: string;
     messagesCustom: Message[];
@@ -80,11 +80,11 @@ export interface editableValueSettableProperties<V, SV = V, RV = V> extends base
         validatorHint: Array<'notewindow' | 'none'> | 'notewindow' | 'none';
     };
     help: {
-        instruction?: string;
+        instruction?: string | undefined;
     };
     helpHints: {
-        definition?: string;
-        source?: string;
+        definition?: string | undefined;
+        source?: string | undefined;
     };
     labelHint: string;
     messagesCustom: Message[];

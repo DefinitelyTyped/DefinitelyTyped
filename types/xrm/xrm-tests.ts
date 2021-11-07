@@ -1,7 +1,7 @@
 /// Demonstrate usage in the browser's window object
 
 window.Xrm.Utility.alertDialog("message", () => { });
-parent.Xrm.Page.context.getOrgLcid();
+parent && parent.Xrm.Page && parent.Xrm.Page.context && parent.Xrm.Page.context.getOrgLcid();
 
 /// Demonstrate clientglobalcontext.d.ts
 

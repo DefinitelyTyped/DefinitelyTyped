@@ -16,9 +16,9 @@ interface PgEars {
 
 declare function pg_ears(
     opts: ClientConfig & {
-        maxAttempts?: number;
+        maxAttempts?: number | undefined;
         // Interval between connection retries, in milliseconds.
-        checkInterval?: number;
+        checkInterval?: number | undefined;
     }
 ): PgEars;
 

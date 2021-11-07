@@ -8,10 +8,10 @@ export = compassVerticalRhythm;
 
 declare namespace compassVerticalRhythm {
     interface Options {
-        baseFontSize?: string;
-        baseLineHeight?: number | string;
-        rhythmUnit?: '%' | 'em' | 'ex' | 'ch' | 'px' | 'rem' | 'vw' | 'vh' | 'vmin';
-        defaultRhythmBorderWidth?: string;
+        baseFontSize?: string | undefined;
+        baseLineHeight?: number | string | undefined;
+        rhythmUnit?: '%' | 'em' | 'ex' | 'ch' | 'px' | 'rem' | 'vw' | 'vh' | 'vmin' | undefined;
+        defaultRhythmBorderWidth?: string | undefined;
         defaultRhythmBorderStyle?:
             | 'solid'
             | 'none'
@@ -22,9 +22,9 @@ declare namespace compassVerticalRhythm {
             | 'groove'
             | 'ridge'
             | 'inset'
-            | 'outset';
-        roundToNearestHalfLine?: boolean;
-        minLinePadding?: string;
+            | 'outset' | undefined;
+        roundToNearestHalfLine?: boolean | undefined;
+        minLinePadding?: string | undefined;
     }
 
     interface VerticalRhythmStyles {

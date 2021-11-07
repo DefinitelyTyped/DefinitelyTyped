@@ -8,7 +8,7 @@ import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 
 declare namespace Serializer {
     interface SerializerOptions {
-        encoding?: 'string' | 'object';
+        encoding?: 'string' | 'object' | undefined;
     }
 }
 

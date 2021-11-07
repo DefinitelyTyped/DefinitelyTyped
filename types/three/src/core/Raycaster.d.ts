@@ -13,23 +13,23 @@ export interface Face {
     materialIndex: number;
 }
 
-export interface Intersection {
+export interface Intersection<TIntersected extends Object3D = Object3D> {
     distance: number;
-    distanceToRay?: number;
+    distanceToRay?: number | undefined;
     point: Vector3;
-    index?: number;
-    face?: Face | null;
-    faceIndex?: number;
-    object: Object3D;
-    uv?: Vector2;
-    instanceId?: number;
+    index?: number | undefined;
+    face?: Face | null | undefined;
+    faceIndex?: number | undefined;
+    object: TIntersected;
+    uv?: Vector2 | undefined;
+    instanceId?: number | undefined;
 }
 
 export interface RaycasterParameters {
     Mesh?: any;
-    Line?: { threshold: number };
+    Line?: { threshold: number } | undefined;
     LOD?: any;
-    Points?: { threshold: number };
+    Points?: { threshold: number } | undefined;
     Sprite?: any;
 }
 
@@ -97,7 +97,11 @@ export class Raycaster {
      * @param recursive If true, it also checks all descendants. Otherwise it only checks intersecton with the object. Default is false.
      * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
      */
-    intersectObject(object: Object3D, recursive?: boolean, optionalTarget?: Intersection[]): Intersection[];
+    intersectObject<TIntersected extends Object3D>(
+        object: Object3D,
+        recursive?: boolean,
+        optionalTarget?: Array<Intersection<TIntersected>>,
+    ): Array<Intersection<TIntersected>>;
 
     /**
      * Checks all intersection between the ray and the objects with or without the descendants.
@@ -107,5 +111,9 @@ export class Raycaster {
      * @param recursive If true, it also checks all descendants of the objects. Otherwise it only checks intersecton with the objects. Default is false.
      * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
      */
-    intersectObjects(objects: Object3D[], recursive?: boolean, optionalTarget?: Intersection[]): Intersection[];
+    intersectObjects<TIntersected extends Object3D>(
+        objects: Object3D[],
+        recursive?: boolean,
+        optionalTarget?: Array<Intersection<TIntersected>>,
+    ): Array<Intersection<TIntersected>>;
 }

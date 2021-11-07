@@ -9,7 +9,6 @@ import {
     Polygon,
     Topology,
 } from 'topojson-specification';
-
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import { ProjectionLike } from '../proj';
@@ -18,9 +17,9 @@ import { ReadOptions, WriteOptions } from './Feature';
 import JSONFeature from './JSONFeature';
 
 export interface Options {
-    dataProjection?: ProjectionLike;
-    layerName?: string;
-    layers?: string[];
+    dataProjection?: ProjectionLike | undefined;
+    layerName?: string | undefined;
+    layers?: string[] | undefined;
 }
 export type TopoJSONGeometry = GeometryObject;
 export type TopoJSONGeometryCollection = GeometryCollection;

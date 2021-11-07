@@ -1,19 +1,25 @@
-// Type definitions for react-router-hash-link 1.2
-// Project: https://github.com/rafrex/react-router-hash-link
+// Type definitions for react-router-hash-link 2.4
+// Project: https://github.com/rafgraph/react-router-hash-link
 // Definitions by: Sam Baeck <https://github.com/zoompie>
+//                 Michael Vasyliv <https://github.com/michael-vasyliv>
+//                 Eli Robinson <https://github.com/EliRobinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.2
 
 import * as React from 'react';
 import { LinkProps, NavLinkProps } from 'react-router-dom';
 
 export interface HashLinkProps extends LinkProps {
-  smooth?: boolean;
-  scroll?: (element: HTMLElement) => void;
+  elementId?: string | undefined;
+  smooth?: boolean | undefined;
+  scroll?: ((element: HTMLElement) => void) | undefined;
+  timeout?: number | undefined;
 }
 
-export class HashLink extends React.Component<HashLinkProps, any> {}
+export interface NavHashLinkProps extends NavLinkProps, Omit<HashLinkProps, 'className' | 'style'> { }
 
-export interface NavHashLinkProps extends NavLinkProps, HashLinkProps {}
+export const HashLink: React.ForwardRefExoticComponent<HashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
 
-export class NavHashLink extends React.Component<NavHashLinkProps, any> {}
+export const NavHashLink: React.ForwardRefExoticComponent<NavHashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
+
+export function genericHashLink<P>(Component: React.FunctionComponent<P>): React.FunctionComponent<P>;

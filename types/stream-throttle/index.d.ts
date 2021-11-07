@@ -9,7 +9,7 @@ import { Transform } from 'stream';
 
 export interface ThrottleOptions {
   readonly rate: number;
-  readonly chunksize?: number;
+  readonly chunksize?: number | undefined;
 }
 
 export class Throttle extends Transform {

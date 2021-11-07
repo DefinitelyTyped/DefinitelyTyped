@@ -7,23 +7,23 @@ export interface ojTimeAxis extends dvtBaseComponent<ojTimeAxisSettablePropertie
     scale: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'quarters' | 'years';
     start: string;
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     onConverterChanged: ((event: JetElementCustomEvent<ojTimeAxis["converter"]>) => any) | null;
     onEndChanged: ((event: JetElementCustomEvent<ojTimeAxis["end"]>) => any) | null;
@@ -49,23 +49,23 @@ export interface ojTimeAxisSettableProperties extends dvtBaseComponentSettablePr
     scale: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'quarters' | 'years';
     start: string;
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface ojTimeAxisSettablePropertiesLenient extends Partial<ojTimeAxisSettableProperties> {
@@ -74,14 +74,14 @@ export interface ojTimeAxisSettablePropertiesLenient extends Partial<ojTimeAxisS
 export namespace ojTimeAxis {
     // tslint:disable-next-line interface-over-type-literal
     type Converters = {
-        default?: Converter<string>;
-        seconds?: Converter<string>;
-        minutes?: Converter<string>;
-        hours?: Converter<string>;
-        days?: Converter<string>;
-        weeks?: Converter<string>;
-        months?: Converter<string>;
-        quarters?: Converter<string>;
-        years?: Converter<string>;
+        default?: Converter<string> | undefined;
+        seconds?: Converter<string> | undefined;
+        minutes?: Converter<string> | undefined;
+        hours?: Converter<string> | undefined;
+        days?: Converter<string> | undefined;
+        weeks?: Converter<string> | undefined;
+        months?: Converter<string> | undefined;
+        quarters?: Converter<string> | undefined;
+        years?: Converter<string> | undefined;
     };
 }

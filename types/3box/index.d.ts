@@ -22,7 +22,7 @@ declare namespace Box {
     }
 
     interface Storage {
-        all(opts?: { metadata?: boolean }): Promise<any[] | undefined>;
+        all(opts?: { metadata?: boolean | undefined }): Promise<any[] | undefined>;
         get(key: string): Promise<any>;
         log(): StorageLog[];
         getMetadata(key: string): Promise<any>;
@@ -51,19 +51,19 @@ declare namespace Box {
         joinThread(
             name: string,
             opts?: {
-                firstModerator?: string;
-                members?: boolean;
-                noAutoSub?: boolean;
-                ghost?: boolean;
-                ghostBacklogLimit?: number;
+                firstModerator?: string | undefined;
+                members?: boolean | undefined;
+                noAutoSub?: boolean | undefined;
+                ghost?: boolean | undefined;
+                ghostBacklogLimit?: number | undefined;
             },
         ): Promise<Thread>;
-        joinThreadByAddress(address: string, name: string, opts?: { noAutoSub?: boolean }): Promise<Thread>;
+        joinThreadByAddress(address: string, name: string, opts?: { noAutoSub?: boolean | undefined }): Promise<Thread>;
         createConfidentialThread(name: string): Promise<Thread>;
         subscribeThread(
             address: string,
             config: object,
-            opts?: { name?: string; firstModerator?: string; members?: string },
+            opts?: { name?: string | undefined; firstModerator?: string | undefined; members?: string | undefined },
         ): Promise<Thread>;
         unsubscribeThread(address?: string): void;
         subscribedThreads(): void;
@@ -81,11 +81,11 @@ declare namespace Box {
 }
 
 declare class Box {
-    static getConfig(address: string, opts?: { profileServer?: string }): Promise<object>;
+    static getConfig(address: string, opts?: { profileServer?: string | undefined }): Promise<object>;
     static idUtils: {
-        verifyClaim(claim: string, opts?: { audience?: string }): Promise<object>;
+        verifyClaim(claim: string, opts?: { audience?: string | undefined }): Promise<object>;
         isMuportDID(address: string): Promise<boolean>;
-        isClaim(claim: string, opts?: { audience?: string }): Promise<boolean>;
+        isClaim(claim: string, opts?: { audience?: string | undefined }): Promise<boolean>;
     };
 
     DID: string;
@@ -101,16 +101,16 @@ declare class Box {
         address: string,
         ethereumProvider: any,
         opts?: {
-            consentCallback?: () => void;
-            pinningNode?: string;
+            consentCallback?: (() => void) | undefined;
+            pinningNode?: string | undefined;
             ipfs?: any;
-            addressServer?: string;
+            addressServer?: string | undefined;
         },
     ): Promise<Box>;
     static isLoggedIn(address: string): boolean;
     static create(ethereumProvider: any): Promise<Box>;
 
-    openSpace(name: string, opts?: { consentCallback?: () => void; onSyncDone?: () => void }): Promise<Box.Space>;
+    openSpace(name: string, opts?: { consentCallback?: (() => void) | undefined; onSyncDone?: (() => void) | undefined }): Promise<Box.Space>;
     auth(space: string[], user: { address: string }): void;
     syncDone: Promise<Box.Space>;
     onSyncDone(syncDoneFn: () => void): void;
@@ -119,24 +119,24 @@ declare class Box {
     static getProfile(
         address: string,
         opts?: {
-            blocklist?: (address: string) => boolean;
-            metadata?: string;
-            addressServer?: string;
+            blocklist?: ((address: string) => boolean) | undefined;
+            metadata?: string | undefined;
+            addressServer?: string | undefined;
             ipfs?: any;
-            useCacheService?: boolean;
-            profileServer?: string;
+            useCacheService?: boolean | undefined;
+            profileServer?: string | undefined;
         },
     ): Promise<any>;
-    static getProfiles(address: string, opts?: { profileServer?: string }): Promise<object>;
-    static profileGraphQL(query: object, opts?: { graphqlServer?: string }): Promise<object>;
+    static getProfiles(address: string, opts?: { profileServer?: string | undefined }): Promise<object>;
+    static profileGraphQL(query: object, opts?: { graphqlServer?: string | undefined }): Promise<object>;
     static getVerifiedAccounts(profile: object): Promise<object>;
 
     static getSpace(
         address: string,
         name: string,
-        opts?: { blocklist?: any; metadata?: string; profileServer?: string },
+        opts?: { blocklist?: any; metadata?: string | undefined; profileServer?: string | undefined },
     ): Promise<object>;
-    static listSpaces(address: string, opts?: { profileServer?: string }): Promise<object>;
+    static listSpaces(address: string, opts?: { profileServer?: string | undefined }): Promise<object>;
 
     public: Storage;
     private: Storage;
@@ -146,7 +146,7 @@ declare class Box {
         name: string,
         firstModerator: string,
         members: boolean,
-        opts?: { profileServer?: string },
+        opts?: { profileServer?: string | undefined },
     ): Promise<Box.ThreadPost[]>;
-    static getThreadByAddress(address: string, opts?: { profileServer?: string }): Promise<Box.ThreadPost[]>;
+    static getThreadByAddress(address: string, opts?: { profileServer?: string | undefined }): Promise<Box.ThreadPost[]>;
 }

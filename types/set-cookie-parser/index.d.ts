@@ -19,7 +19,7 @@ declare function parse(
 ): parse.CookieMap;
 declare function parse(
     input: string | ReadonlyArray<string> | IncomingMessage,
-    options?: parse.Options & { map?: false },
+    options?: parse.Options & { map?: false | undefined },
 ): parse.Cookie[];
 declare function parse(
     input: string | ReadonlyArray<string> | IncomingMessage,
@@ -33,7 +33,7 @@ declare namespace parse {
     ): CookieMap;
     function parse(
         input: string | ReadonlyArray<string> | IncomingMessage,
-        options?: Options & { map?: false },
+        options?: Options & { map?: false | undefined },
     ): Cookie[];
     function parse(input: string | ReadonlyArray<string> | IncomingMessage, options?: Options): Cookie[] | CookieMap;
 
@@ -66,33 +66,33 @@ declare namespace parse {
         /**
          * cookie path
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * absolute expiration date for the cookie
          */
-        expires?: Date;
+        expires?: Date | undefined;
         /**
          * relative max age of the cookie in seconds from when the client receives it (integer or undefined)
          * Note: when using with express's res.cookie() method, multiply maxAge by 1000 to convert to miliseconds
          */
-        maxAge?: number;
+        maxAge?: number | undefined;
         /**
          * domain for the cookie,
          * may begin with "." to indicate the named domain or any subdomain of it
          */
-        domain?: string;
+        domain?: string | undefined;
         /**
          * indicates that this cookie should only be sent over HTTPs
          */
-        secure?: boolean;
+        secure?: boolean | undefined;
         /**
          * indicates that this cookie should not be accessible to client-side JavaScript
          */
-        httpOnly?: boolean;
+        httpOnly?: boolean | undefined;
         /**
          * indicates a cookie ought not to be sent along with cross-site requests
          */
-        sameSite?: string;
+        sameSite?: string | undefined;
     }
 
     interface CookieMap {
@@ -104,17 +104,17 @@ declare namespace parse {
          * Calls dcodeURIComponent on each value
          * @default true
          */
-        decodeValues?: boolean;
+        decodeValues?: boolean | undefined;
         /**
          * Return an object instead of an array
          * @default false
          */
-        map?: boolean;
+        map?: boolean | undefined;
         /**
          * Suppress the warning that is loged when called on a request instead of a response
          * @default false
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 }
 

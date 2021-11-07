@@ -103,15 +103,15 @@ declare namespace Dicer {
         /**
          * This is the boundary used to detect the beginning of a new part.
          */
-        boundary?: string;
+        boundary?: string | undefined;
         /**
          * If true, preamble header parsing will be performed first.
          */
-        headerFirst?: boolean;
+        headerFirst?: boolean | undefined;
         /**
          * The maximum number of header key=>value pairs to parse Default: 2000 (same as node's http).
          */
-        maxHeaderPairs?: number;
+        maxHeaderPairs?: number | undefined;
     }
 
     /**

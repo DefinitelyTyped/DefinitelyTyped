@@ -36,7 +36,7 @@ declare namespace addressparser {
         /**
          * An array of grouped addresses.
          */
-        group?: EmailAddress[];
+        group?: EmailAddress[] | undefined;
     }
 }
 

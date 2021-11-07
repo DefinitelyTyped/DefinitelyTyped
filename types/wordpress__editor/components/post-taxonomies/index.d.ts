@@ -3,7 +3,7 @@ import { ComponentType, ReactNode } from 'react';
 
 declare namespace PostTaxonomies {
     interface Props {
-        children?: never;
+        children?: never | undefined;
         taxonomyWrapper?(content: ReactNode, taxonomy: Schema.Taxonomy<'edit'>): JSX.Element;
     }
 }

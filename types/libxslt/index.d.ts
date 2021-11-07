@@ -17,22 +17,22 @@ export const libxmljs: typeof xmljs;
 
 export interface ApplyOptions {
     outputFormat: 'string' | 'document';
-    noWrapParams?: boolean;
+    noWrapParams?: boolean | undefined;
 }
 
 export interface Stylesheet {
     apply(source: string, params?: object): string;
     apply(source: xmljs.Document, params?: object): xmljs.Document;
-    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'string', noWrapParams?: boolean }): string;
-    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'document', noWrapParams?: boolean }): xmljs.Document;
+    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'string', noWrapParams?: boolean | undefined }): string;
+    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'document', noWrapParams?: boolean | undefined }): xmljs.Document;
     apply(source: string | xmljs.Document, params?: object, options?: ApplyOptions): string | xmljs.Document;
 
     apply(source: string, callback: ApplyStringCallback): void;
     apply(source: xmljs.Document, callback: ApplyDocumentCallback): void;
     apply(source: string, params: object, callback: ApplyStringCallback): void;
     apply(source: xmljs.Document, params: object, callback: ApplyDocumentCallback): void;
-    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'string', noWrapParams?: boolean }, callback: ApplyStringCallback): void;
-    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'document', noWrapParams?: boolean }, callback: ApplyDocumentCallback): void;
+    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'string', noWrapParams?: boolean | undefined }, callback: ApplyStringCallback): void;
+    apply(source: string | xmljs.Document, params: object, options: { outputFormat: 'document', noWrapParams?: boolean | undefined }, callback: ApplyDocumentCallback): void;
     apply(source: string | xmljs.Document, params: object, options: ApplyOptions, callback: ApplyCallback): void;
 
     applyToFile(sourcePath: string, callback: ApplyStringCallback): void;

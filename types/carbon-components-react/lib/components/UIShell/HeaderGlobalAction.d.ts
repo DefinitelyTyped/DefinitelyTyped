@@ -3,7 +3,7 @@ import { ButtonProps } from "../Button";
 
 type ExcludedProps = "hasIconOnly" | "iconDescription" | "ref" | "tooltipPosition" | "type";
 export interface HeaderGlobalActionProps extends Omit<ButtonProps, ExcludedProps> {
-    isActive?: boolean,
+    isActive?: boolean | undefined,
 }
 
 declare const HeaderGlobalAction: ForwardRefReturn<HTMLButtonElement, HeaderGlobalActionProps>;

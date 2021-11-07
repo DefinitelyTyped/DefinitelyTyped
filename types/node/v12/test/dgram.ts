@@ -5,7 +5,7 @@ import * as dns from 'dns';
 {
     let ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
     });
-    ds.bind();
+    ds = ds.bind();
     ds.bind(41234);
     ds.bind(4123, 'localhost');
     ds.bind(4123, 'localhost', () => { });
@@ -15,8 +15,12 @@ import * as dns from 'dns';
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error | null, bytes: number): void => {
     });
     ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    ds = ds.close();
     ds.setMulticastInterface("127.0.0.1");
+    ds.setMulticastLoopback(false); // $ExpectType boolean
     ds = dgram.createSocket({ type: "udp4", reuseAddr: true, recvBufferSize: 1000, sendBufferSize: 1000, lookup: dns.lookup });
+    ds.setTTL(128); // $ExpectType number
+    ds.setMulticastTTL(128); // $ExpectType number
 }
 
 {

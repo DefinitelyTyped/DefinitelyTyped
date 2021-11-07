@@ -57,7 +57,7 @@ export class Drawable {
     notify(id: string, data?: JSObject): void;
     onCollision(object: Drawable): void;
     onEvent(eventType: string, data?: JSObject): void;
-    playSound(id: string, options?: { pan?: boolean, loop?: false }): void;
+    playSound(id: string, options?: { pan?: boolean | undefined, loop?: false | undefined }): void;
     setBehavior(behavior: string | { new(sprite: Drawable, options?: JSObject): Behavior }, options?: JSObject): void;
     setScale(scale: number): void;
     getCurrentWidth(): number;
@@ -97,7 +97,7 @@ export interface MenuItem {
     text: string;
     selectable: boolean;
     visible: boolean;
-    active?: boolean;
+    active?: boolean | undefined;
 }
 
 export interface MenuOptions {
@@ -200,9 +200,9 @@ export interface MapOptions {
     tileHeight: number;
     width: number;
     height: number;
-    viewportW?: number;
-    viewportH?: number;
-    buffer?: ArrayBuffer;
+    viewportW?: number | undefined;
+    viewportH?: number | undefined;
+    buffer?: ArrayBuffer | undefined;
 }
 
 export interface FXInstance {
@@ -242,11 +242,11 @@ export class _FX {
 }
 
 export interface EffectOptions {
-    easing?: string;
-    when?: string;
-    startValue?: number;
-    endValue?: number;
-    duration?: number;
+    easing?: string | undefined;
+    when?: string | undefined;
+    startValue?: number | undefined;
+    endValue?: number | undefined;
+    duration?: number | undefined;
 }
 
 export class Effect {
@@ -295,7 +295,7 @@ export interface DisplayOptions {
     width: number;
     height: number;
     type: string;
-    layers?: boolean[];
+    layers?: boolean[] | undefined;
     name: string;
 }
 
@@ -673,72 +673,72 @@ export interface GameOptions {
     width: number;
     height: number;
     debug: boolean;
-    scene?: Scene;
-    target?: string | HTMLElement;
-    sound?: boolean;
+    scene?: Scene | undefined;
+    target?: string | HTMLElement | undefined;
+    sound?: boolean | undefined;
 }
 
 export interface SceneOptions {
-    name?: string;
-    resources?: Res[];
-    opacity?: number;
-    layers?: number;
-    hudScene?: Scene;
+    name?: string | undefined;
+    resources?: Res[] | undefined;
+    opacity?: number | undefined;
+    layers?: number | undefined;
+    hudScene?: Scene | undefined;
 }
 
 export interface DrawableOptions {
-    x?: number;
-    y?: number;
-    behavior?: { new(sprite: Drawable, options?: JSObject): Behavior };
-    canCollide?: boolean;
-    canCollideFriendBullet?: boolean;
-    collideGroup?: number;
-    objectId?: string;
-    layer?: number;
-    map?: Map;
-    visible?: boolean;
-    pool?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    behavior?: { new(sprite: Drawable, options?: JSObject): Behavior } | undefined;
+    canCollide?: boolean | undefined;
+    canCollideFriendBullet?: boolean | undefined;
+    collideGroup?: number | undefined;
+    objectId?: string | undefined;
+    layer?: number | undefined;
+    map?: Map | undefined;
+    visible?: boolean | undefined;
+    pool?: number | undefined;
 }
 
 export interface SimpleTextOptions extends DrawableOptions {
-    text?: string;
-    width?: number;
-    height?: number;
-    fontFace?: string;
-    fontSize?: string;
-    fontStyle?: string;
-    fontWeight?: string;
-    align?: string;
-    color?: string;
+    text?: string | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    fontFace?: string | undefined;
+    fontSize?: string | undefined;
+    fontStyle?: string | undefined;
+    fontWeight?: string | undefined;
+    align?: string | undefined;
+    color?: string | undefined;
 }
 
 export interface PaintOptions extends DrawableOptions {
-    width?: number;
-    height?: number;
-    color?: string;
-    lineHeight?: number;
+    width?: number | undefined;
+    height?: number | undefined;
+    color?: string | undefined;
+    lineHeight?: number | undefined;
 }
 
 export interface BitmapTextOptions extends DrawableOptions {
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     offsetX: number;
     startY: number;
     charWidth: number;
     charHeight: number;
-    imageId?: string;
-    imageSrc?: string;
-    scrollOffsetX?: number;
-    scrollOffsetY?: number;
-    text?: string;
-    size?: string;
+    imageId?: string | undefined;
+    imageSrc?: string | undefined;
+    scrollOffsetX?: number | undefined;
+    scrollOffsetY?: number | undefined;
+    text?: string | undefined;
+    size?: string | undefined;
 }
 
 export interface SpriteOptions extends DrawableOptions {
-    easing?: string;
-    imageId?: string;
-    animations?: Animations;
-    data?: JSObject;
+    easing?: string | undefined;
+    imageId?: string | undefined;
+    animations?: Animations | undefined;
+    data?: JSObject | undefined;
 }
 
 export interface AnimOptions {
@@ -746,13 +746,13 @@ export interface AnimOptions {
     frameWidth: number;
     frameHeight: number;
     frameDuration: number;
-    offsetX?: number;
-    offsetY?: number;
-    frameSpacing?: number;
+    offsetX?: number | undefined;
+    offsetY?: number | undefined;
+    frameSpacing?: number | undefined;
 }
 
 export interface AnimationObject {
-    frameDuration?: number;
+    frameDuration?: number | undefined;
     frames: Array<{
         offsetX: number;
         offsetY: number;
@@ -763,11 +763,11 @@ export interface AnimationObject {
             y: number;
             x2: number;
             y2: number;
-        },
-        plane?: number;
+        } | undefined,
+        plane?: number | undefined;
     }>;
-    loop?: number;
-    speed?: number;
+    loop?: number | undefined;
+    speed?: number | undefined;
 }
 
 export interface JSObject {

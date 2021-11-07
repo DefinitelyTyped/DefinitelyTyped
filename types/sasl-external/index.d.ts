@@ -24,6 +24,6 @@ declare class ExternalMechanism implements Mechanism {
 
 declare namespace ExternalMechanism {
     interface Credentials {
-        authzid?: string;
+        authzid?: string | undefined;
     }
 }

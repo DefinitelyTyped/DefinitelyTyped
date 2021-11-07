@@ -10,7 +10,7 @@ pw.on('error', (err: Error) => {
 });
 
 const r1: Error | undefined = spawn.sync('foo').error;
-const r2: string[] = spawn.sync('foo').output;
+const r2: Array<Buffer | null> = spawn.sync('foo').output;
 const r3: Buffer = spawn.sync('foo').stdout;
 const r4: Buffer = spawn.sync('foo').stderr;
 const r5: number | null = spawn.sync('foo').status;

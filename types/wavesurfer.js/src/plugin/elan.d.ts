@@ -1,18 +1,19 @@
-import { PluginDefinition, PluginParams, WaveSurferObserver, WaveSurferPlugin } from "../..";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
+import Observer from "../util/observer";
+import WaveSurfer from "../wavesurfer";
 
-export = WaveSurfer.ElanPlugin;
+export default class ElanPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: ElanPluginParams, ws: WaveSurfer);
+    static create(params: ElanPluginParams): PluginDefinition;
+    destroy(): void;
+    init(): void;
+}
 
-declare namespace WaveSurfer {
-    class ElanPlugin extends WaveSurferObserver implements WaveSurferPlugin {
-        constructor(params: ElanPluginParams, ws: WaveSurfer);
-        static create(params: ElanPluginParams): PluginDefinition;
-        destroy(): void;
-        init(): void;
-    }
-
-    interface ElanPluginParams extends PluginParams {
-        container?: string | HTMLElement;
-        url?: string;
-        tiers?: unknown;
-    }
+export interface ElanPluginParams extends PluginParams {
+    /** CSS selector or HTML element where the ELAN information should be rendered. */
+    container?: string | HTMLElement | undefined;
+    /** The location of ELAN XML data. */
+    url?: string | undefined;
+    /** If set only shows the data tiers with the TIER_ID in this map. */
+    tiers?: unknown | undefined;
 }

@@ -51,8 +51,8 @@ declare namespace GoogleAdsScripts {
             longitude: number;
             radius: number;
             radiusUnits: string;
-            bidModifier?: number;
-            address?: AddressObject;
+            bidModifier?: number | undefined;
+            address?: AddressObject | undefined;
         }
 
         /** An operation representing creation of a new targeted proximity. */

@@ -1,5 +1,5 @@
 // tslint:disable-next-line: no-bad-reference
-/// <reference path="../ts3.5/index.d.ts"/>
+/// <reference path="../base.d.ts"/>
 
 // tslint:disable-next-line: no-single-declare-module
 declare module "jsdom" {

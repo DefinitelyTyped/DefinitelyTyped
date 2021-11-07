@@ -7,7 +7,7 @@ export class PolyhedronGeometry extends BufferGeometry {
      * @param [radius=1]
      * @param [detail=0]
      */
-    constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
+    constructor(vertices?: number[], indices?: number[], radius?: number, detail?: number);
 
     /**
      * @default 'PolyhedronGeometry'
@@ -20,6 +20,8 @@ export class PolyhedronGeometry extends BufferGeometry {
         radius: number;
         detail: number;
     };
+
+    static fromJSON(data: any): PolyhedronGeometry;
 }
 
 export { PolyhedronGeometry as PolyhedronBufferGeometry };

@@ -9,10 +9,10 @@ import * as $protobuf from 'protobufjs';
 /** Properties of a BatchHeader. */
 export interface IBatchHeader {
     /** BatchHeader signerPublicKey */
-    signerPublicKey?: string | null;
+    signerPublicKey?: string | null | undefined;
 
     /** BatchHeader transactionIds */
-    transactionIds?: string[] | null;
+    transactionIds?: string[] | null | undefined;
 }
 
 /** Represents a BatchHeader. */
@@ -103,16 +103,16 @@ export class BatchHeader implements IBatchHeader {
 /** Properties of a Batch. */
 export interface IBatch {
     /** Batch header */
-    header?: Uint8Array | null;
+    header?: Uint8Array | null | undefined;
 
     /** Batch headerSignature */
-    headerSignature?: string | null;
+    headerSignature?: string | null | undefined;
 
     /** Batch transactions */
-    transactions?: ITransaction[] | null;
+    transactions?: ITransaction[] | null | undefined;
 
     /** Batch trace */
-    trace?: boolean | null;
+    trace?: boolean | null | undefined;
 }
 
 /** Represents a Batch. */
@@ -209,7 +209,7 @@ export class Batch implements IBatch {
 /** Properties of a BatchList. */
 export interface IBatchList {
     /** BatchList batches */
-    batches?: IBatch[] | null;
+    batches?: IBatch[] | null | undefined;
 }
 
 /** Represents a BatchList. */
@@ -297,31 +297,31 @@ export class BatchList implements IBatchList {
 /** Properties of a TransactionHeader. */
 export interface ITransactionHeader {
     /** TransactionHeader batcherPublicKey */
-    batcherPublicKey?: string | null;
+    batcherPublicKey?: string | null | undefined;
 
     /** TransactionHeader dependencies */
-    dependencies?: string[] | null;
+    dependencies?: string[] | null | undefined;
 
     /** TransactionHeader familyName */
-    familyName?: string | null;
+    familyName?: string | null | undefined;
 
     /** TransactionHeader familyVersion */
-    familyVersion?: string | null;
+    familyVersion?: string | null | undefined;
 
     /** TransactionHeader inputs */
-    inputs?: string[] | null;
+    inputs?: string[] | null | undefined;
 
     /** TransactionHeader nonce */
-    nonce?: string | null;
+    nonce?: string | null | undefined;
 
     /** TransactionHeader outputs */
-    outputs?: string[] | null;
+    outputs?: string[] | null | undefined;
 
     /** TransactionHeader payloadSha512 */
-    payloadSha512?: string | null;
+    payloadSha512?: string | null | undefined;
 
     /** TransactionHeader signerPublicKey */
-    signerPublicKey?: string | null;
+    signerPublicKey?: string | null | undefined;
 }
 
 /** Represents a TransactionHeader. */
@@ -433,13 +433,13 @@ export class TransactionHeader implements ITransactionHeader {
 /** Properties of a Transaction. */
 export interface ITransaction {
     /** Transaction header */
-    header?: Uint8Array | null;
+    header?: Uint8Array | null | undefined;
 
     /** Transaction headerSignature */
-    headerSignature?: string | null;
+    headerSignature?: string | null | undefined;
 
     /** Transaction payload */
-    payload?: Uint8Array | null;
+    payload?: Uint8Array | null | undefined;
 }
 
 /** Represents a Transaction. */
@@ -533,7 +533,7 @@ export class Transaction implements ITransaction {
 /** Properties of a TransactionList. */
 export interface ITransactionList {
     /** TransactionList transactions */
-    transactions?: ITransaction[] | null;
+    transactions?: ITransaction[] | null | undefined;
 }
 
 /** Represents a TransactionList. */
@@ -621,22 +621,22 @@ export class TransactionList implements ITransactionList {
 /** Properties of a BlockHeader. */
 export interface IBlockHeader {
     /** BlockHeader blockNum */
-    blockNum?: number | Long | null;
+    blockNum?: number | Long | null | undefined;
 
     /** BlockHeader previousBlockId */
-    previousBlockId?: string | null;
+    previousBlockId?: string | null | undefined;
 
     /** BlockHeader signerPublicKey */
-    signerPublicKey?: string | null;
+    signerPublicKey?: string | null | undefined;
 
     /** BlockHeader batchIds */
-    batchIds?: string[] | null;
+    batchIds?: string[] | null | undefined;
 
     /** BlockHeader consensus */
-    consensus?: Uint8Array | null;
+    consensus?: Uint8Array | null | undefined;
 
     /** BlockHeader stateRootHash */
-    stateRootHash?: string | null;
+    stateRootHash?: string | null | undefined;
 }
 
 /** Represents a BlockHeader. */
@@ -739,13 +739,13 @@ export class BlockHeader implements IBlockHeader {
 /** Properties of a Block. */
 export interface IBlock {
     /** Block header */
-    header?: Uint8Array | null;
+    header?: Uint8Array | null | undefined;
 
     /** Block headerSignature */
-    headerSignature?: string | null;
+    headerSignature?: string | null | undefined;
 
     /** Block batches */
-    batches?: IBatch[] | null;
+    batches?: IBatch[] | null | undefined;
 }
 
 /** Represents a Block. */
@@ -839,16 +839,16 @@ export class Block implements IBlock {
 /** Properties of a ClientBatchListRequest. */
 export interface IClientBatchListRequest {
     /** ClientBatchListRequest headId */
-    headId?: string | null;
+    headId?: string | null | undefined;
 
     /** ClientBatchListRequest batchIds */
-    batchIds?: string[] | null;
+    batchIds?: string[] | null | undefined;
 
     /** ClientBatchListRequest paging */
-    paging?: IClientPagingControls | null;
+    paging?: IClientPagingControls | null | undefined;
 
     /** ClientBatchListRequest sorting */
-    sorting?: IClientSortControls[] | null;
+    sorting?: IClientSortControls[] | null | undefined;
 }
 
 /** Represents a ClientBatchListRequest. */
@@ -866,7 +866,7 @@ export class ClientBatchListRequest implements IClientBatchListRequest {
     public batchIds: string[];
 
     /** ClientBatchListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: IClientPagingControls | null | undefined;
 
     /** ClientBatchListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -948,16 +948,16 @@ export class ClientBatchListRequest implements IClientBatchListRequest {
 /** Properties of a ClientBatchListResponse. */
 export interface IClientBatchListResponse {
     /** ClientBatchListResponse status */
-    status?: ClientBatchListResponse.Status | null;
+    status?: ClientBatchListResponse.Status | null | undefined;
 
     /** ClientBatchListResponse batches */
-    batches?: IBatch[] | null;
+    batches?: IBatch[] | null | undefined;
 
     /** ClientBatchListResponse headId */
-    headId?: string | null;
+    headId?: string | null | undefined;
 
     /** ClientBatchListResponse paging */
-    paging?: IClientPagingResponse | null;
+    paging?: IClientPagingResponse | null | undefined;
 }
 
 /** Represents a ClientBatchListResponse. */
@@ -978,7 +978,7 @@ export class ClientBatchListResponse implements IClientBatchListResponse {
     public headId: string;
 
     /** ClientBatchListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: IClientPagingResponse | null | undefined;
 
     /**
      * Creates a new ClientBatchListResponse instance using the specified properties.
@@ -1072,7 +1072,7 @@ export namespace ClientBatchListResponse {
 /** Properties of a ClientBatchGetRequest. */
 export interface IClientBatchGetRequest {
     /** ClientBatchGetRequest batchId */
-    batchId?: string | null;
+    batchId?: string | null | undefined;
 }
 
 /** Represents a ClientBatchGetRequest. */
@@ -1163,10 +1163,10 @@ export class ClientBatchGetRequest implements IClientBatchGetRequest {
 /** Properties of a ClientBatchGetResponse. */
 export interface IClientBatchGetResponse {
     /** ClientBatchGetResponse status */
-    status?: ClientBatchGetResponse.Status | null;
+    status?: ClientBatchGetResponse.Status | null | undefined;
 
     /** ClientBatchGetResponse batch */
-    batch?: IBatch | null;
+    batch?: IBatch | null | undefined;
 }
 
 /** Represents a ClientBatchGetResponse. */
@@ -1181,7 +1181,7 @@ export class ClientBatchGetResponse implements IClientBatchGetResponse {
     public status: ClientBatchGetResponse.Status;
 
     /** ClientBatchGetResponse batch. */
-    public batch?: IBatch | null;
+    public batch?: IBatch | null | undefined;
 
     /**
      * Creates a new ClientBatchGetResponse instance using the specified properties.
@@ -1271,10 +1271,10 @@ export namespace ClientBatchGetResponse {
 /** Properties of a ClientPagingControls. */
 export interface IClientPagingControls {
     /** ClientPagingControls start */
-    start?: string | null;
+    start?: string | null | undefined;
 
     /** ClientPagingControls limit */
-    limit?: number | null;
+    limit?: number | null | undefined;
 }
 
 /** Represents a ClientPagingControls. */
@@ -1365,13 +1365,13 @@ export class ClientPagingControls implements IClientPagingControls {
 /** Properties of a ClientPagingResponse. */
 export interface IClientPagingResponse {
     /** ClientPagingResponse next */
-    next?: string | null;
+    next?: string | null | undefined;
 
     /** ClientPagingResponse start */
-    start?: string | null;
+    start?: string | null | undefined;
 
     /** ClientPagingResponse limit */
-    limit?: number | null;
+    limit?: number | null | undefined;
 }
 
 /** Represents a ClientPagingResponse. */
@@ -1465,10 +1465,10 @@ export class ClientPagingResponse implements IClientPagingResponse {
 /** Properties of a ClientSortControls. */
 export interface IClientSortControls {
     /** ClientSortControls keys */
-    keys?: string[] | null;
+    keys?: string[] | null | undefined;
 
     /** ClientSortControls reverse */
-    reverse?: boolean | null;
+    reverse?: boolean | null | undefined;
 }
 
 /** Represents a ClientSortControls. */
@@ -1559,13 +1559,13 @@ export class ClientSortControls implements IClientSortControls {
 /** Properties of a ClientBatchStatus. */
 export interface IClientBatchStatus {
     /** ClientBatchStatus batchId */
-    batchId?: string | null;
+    batchId?: string | null | undefined;
 
     /** ClientBatchStatus status */
-    status?: ClientBatchStatus.Status | null;
+    status?: ClientBatchStatus.Status | null | undefined;
 
     /** ClientBatchStatus invalidTransactions */
-    invalidTransactions?: ClientBatchStatus.IInvalidTransaction[] | null;
+    invalidTransactions?: ClientBatchStatus.IInvalidTransaction[] | null | undefined;
 }
 
 /** Represents a ClientBatchStatus. */
@@ -1669,13 +1669,13 @@ export namespace ClientBatchStatus {
     /** Properties of an InvalidTransaction. */
     interface IInvalidTransaction {
         /** InvalidTransaction transactionId */
-        transactionId?: string | null;
+        transactionId?: string | null | undefined;
 
         /** InvalidTransaction message */
-        message?: string | null;
+        message?: string | null | undefined;
 
         /** InvalidTransaction extendedData */
-        extendedData?: Uint8Array | null;
+        extendedData?: Uint8Array | null | undefined;
     }
 
     /** Represents an InvalidTransaction. */
@@ -1782,7 +1782,7 @@ export namespace ClientBatchStatus {
 /** Properties of a ClientBatchSubmitRequest. */
 export interface IClientBatchSubmitRequest {
     /** ClientBatchSubmitRequest batches */
-    batches?: IBatch[] | null;
+    batches?: IBatch[] | null | undefined;
 }
 
 /** Represents a ClientBatchSubmitRequest. */
@@ -1873,7 +1873,7 @@ export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
 /** Properties of a ClientBatchSubmitResponse. */
 export interface IClientBatchSubmitResponse {
     /** ClientBatchSubmitResponse status */
-    status?: ClientBatchSubmitResponse.Status | null;
+    status?: ClientBatchSubmitResponse.Status | null | undefined;
 }
 
 /** Represents a ClientBatchSubmitResponse. */
@@ -1975,13 +1975,13 @@ export namespace ClientBatchSubmitResponse {
 /** Properties of a ClientBatchStatusRequest. */
 export interface IClientBatchStatusRequest {
     /** ClientBatchStatusRequest batchIds */
-    batchIds?: string[] | null;
+    batchIds?: string[] | null | undefined;
 
     /** ClientBatchStatusRequest wait */
-    wait?: boolean | null;
+    wait?: boolean | null | undefined;
 
     /** ClientBatchStatusRequest timeout */
-    timeout?: number | null;
+    timeout?: number | null | undefined;
 }
 
 /** Represents a ClientBatchStatusRequest. */
@@ -2078,10 +2078,10 @@ export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
 /** Properties of a ClientBatchStatusResponse. */
 export interface IClientBatchStatusResponse {
     /** ClientBatchStatusResponse status */
-    status?: ClientBatchStatusResponse.Status | null;
+    status?: ClientBatchStatusResponse.Status | null | undefined;
 
     /** ClientBatchStatusResponse batchStatuses */
-    batchStatuses?: IClientBatchStatus[] | null;
+    batchStatuses?: IClientBatchStatus[] | null | undefined;
 }
 
 /** Represents a ClientBatchStatusResponse. */
@@ -2186,16 +2186,16 @@ export namespace ClientBatchStatusResponse {
 /** Properties of a ClientBlockListRequest. */
 export interface IClientBlockListRequest {
     /** ClientBlockListRequest headId */
-    headId?: string | null;
+    headId?: string | null | undefined;
 
     /** ClientBlockListRequest blockIds */
-    blockIds?: string[] | null;
+    blockIds?: string[] | null | undefined;
 
     /** ClientBlockListRequest paging */
-    paging?: IClientPagingControls | null;
+    paging?: IClientPagingControls | null | undefined;
 
     /** ClientBlockListRequest sorting */
-    sorting?: IClientSortControls[] | null;
+    sorting?: IClientSortControls[] | null | undefined;
 }
 
 /** Represents a ClientBlockListRequest. */
@@ -2213,7 +2213,7 @@ export class ClientBlockListRequest implements IClientBlockListRequest {
     public blockIds: string[];
 
     /** ClientBlockListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: IClientPagingControls | null | undefined;
 
     /** ClientBlockListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -2295,16 +2295,16 @@ export class ClientBlockListRequest implements IClientBlockListRequest {
 /** Properties of a ClientBlockListResponse. */
 export interface IClientBlockListResponse {
     /** ClientBlockListResponse status */
-    status?: ClientBlockListResponse.Status | null;
+    status?: ClientBlockListResponse.Status | null | undefined;
 
     /** ClientBlockListResponse blocks */
-    blocks?: IBlock[] | null;
+    blocks?: IBlock[] | null | undefined;
 
     /** ClientBlockListResponse headId */
-    headId?: string | null;
+    headId?: string | null | undefined;
 
     /** ClientBlockListResponse paging */
-    paging?: IClientPagingResponse | null;
+    paging?: IClientPagingResponse | null | undefined;
 }
 
 /** Represents a ClientBlockListResponse. */
@@ -2325,7 +2325,7 @@ export class ClientBlockListResponse implements IClientBlockListResponse {
     public headId: string;
 
     /** ClientBlockListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: IClientPagingResponse | null | undefined;
 
     /**
      * Creates a new ClientBlockListResponse instance using the specified properties.
@@ -2419,7 +2419,7 @@ export namespace ClientBlockListResponse {
 /** Properties of a ClientBlockGetByIdRequest. */
 export interface IClientBlockGetByIdRequest {
     /** ClientBlockGetByIdRequest blockId */
-    blockId?: string | null;
+    blockId?: string | null | undefined;
 }
 
 /** Represents a ClientBlockGetByIdRequest. */
@@ -2510,7 +2510,7 @@ export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
 /** Properties of a ClientBlockGetByNumRequest. */
 export interface IClientBlockGetByNumRequest {
     /** ClientBlockGetByNumRequest blockNum */
-    blockNum?: number | Long | null;
+    blockNum?: number | Long | null | undefined;
 }
 
 /** Represents a ClientBlockGetByNumRequest. */
@@ -2601,7 +2601,7 @@ export class ClientBlockGetByNumRequest implements IClientBlockGetByNumRequest {
 /** Properties of a ClientBlockGetByTransactionIdRequest. */
 export interface IClientBlockGetByTransactionIdRequest {
     /** ClientBlockGetByTransactionIdRequest transactionId */
-    transactionId?: string | null;
+    transactionId?: string | null | undefined;
 }
 
 /** Represents a ClientBlockGetByTransactionIdRequest. */
@@ -2695,7 +2695,7 @@ export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTr
 /** Properties of a ClientBlockGetByBatchIdRequest. */
 export interface IClientBlockGetByBatchIdRequest {
     /** ClientBlockGetByBatchIdRequest batchId */
-    batchId?: string | null;
+    batchId?: string | null | undefined;
 }
 
 /** Represents a ClientBlockGetByBatchIdRequest. */
@@ -2789,10 +2789,10 @@ export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdR
 /** Properties of a ClientBlockGetResponse. */
 export interface IClientBlockGetResponse {
     /** ClientBlockGetResponse status */
-    status?: ClientBlockGetResponse.Status | null;
+    status?: ClientBlockGetResponse.Status | null | undefined;
 
     /** ClientBlockGetResponse block */
-    block?: IBlock | null;
+    block?: IBlock | null | undefined;
 }
 
 /** Represents a ClientBlockGetResponse. */
@@ -2807,7 +2807,7 @@ export class ClientBlockGetResponse implements IClientBlockGetResponse {
     public status: ClientBlockGetResponse.Status;
 
     /** ClientBlockGetResponse block. */
-    public block?: IBlock | null;
+    public block?: IBlock | null | undefined;
 
     /**
      * Creates a new ClientBlockGetResponse instance using the specified properties.
@@ -2897,10 +2897,10 @@ export namespace ClientBlockGetResponse {
 /** Properties of a ClientEventsSubscribeRequest. */
 export interface IClientEventsSubscribeRequest {
     /** ClientEventsSubscribeRequest subscriptions */
-    subscriptions?: IEventSubscription[] | null;
+    subscriptions?: IEventSubscription[] | null | undefined;
 
     /** ClientEventsSubscribeRequest lastKnownBlockIds */
-    lastKnownBlockIds?: string[] | null;
+    lastKnownBlockIds?: string[] | null | undefined;
 }
 
 /** Represents a ClientEventsSubscribeRequest. */
@@ -2994,10 +2994,10 @@ export class ClientEventsSubscribeRequest implements IClientEventsSubscribeReque
 /** Properties of a ClientEventsSubscribeResponse. */
 export interface IClientEventsSubscribeResponse {
     /** ClientEventsSubscribeResponse status */
-    status?: ClientEventsSubscribeResponse.Status | null;
+    status?: ClientEventsSubscribeResponse.Status | null | undefined;
 
     /** ClientEventsSubscribeResponse responseMessage */
-    responseMessage?: string | null;
+    responseMessage?: string | null | undefined;
 }
 
 /** Represents a ClientEventsSubscribeResponse. */
@@ -3189,7 +3189,7 @@ export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeR
 /** Properties of a ClientEventsUnsubscribeResponse. */
 export interface IClientEventsUnsubscribeResponse {
     /** ClientEventsUnsubscribeResponse status */
-    status?: ClientEventsUnsubscribeResponse.Status | null;
+    status?: ClientEventsUnsubscribeResponse.Status | null | undefined;
 }
 
 /** Represents a ClientEventsUnsubscribeResponse. */
@@ -3292,10 +3292,10 @@ export namespace ClientEventsUnsubscribeResponse {
 /** Properties of a ClientEventsGetRequest. */
 export interface IClientEventsGetRequest {
     /** ClientEventsGetRequest subscriptions */
-    subscriptions?: IEventSubscription[] | null;
+    subscriptions?: IEventSubscription[] | null | undefined;
 
     /** ClientEventsGetRequest blockIds */
-    blockIds?: string[] | null;
+    blockIds?: string[] | null | undefined;
 }
 
 /** Represents a ClientEventsGetRequest. */
@@ -3389,10 +3389,10 @@ export class ClientEventsGetRequest implements IClientEventsGetRequest {
 /** Properties of a ClientEventsGetResponse. */
 export interface IClientEventsGetResponse {
     /** ClientEventsGetResponse status */
-    status?: ClientEventsGetResponse.Status | null;
+    status?: ClientEventsGetResponse.Status | null | undefined;
 
     /** ClientEventsGetResponse events */
-    events?: IEvent[] | null;
+    events?: IEvent[] | null | undefined;
 }
 
 /** Represents a ClientEventsGetResponse. */
@@ -3497,13 +3497,13 @@ export namespace ClientEventsGetResponse {
 /** Properties of an Event. */
 export interface IEvent {
     /** Event eventType */
-    eventType?: string | null;
+    eventType?: string | null | undefined;
 
     /** Event attributes */
-    attributes?: Event.IAttribute[] | null;
+    attributes?: Event.IAttribute[] | null | undefined;
 
     /** Event data */
-    data?: Uint8Array | null;
+    data?: Uint8Array | null | undefined;
 }
 
 /** Represents an Event. */
@@ -3598,10 +3598,10 @@ export namespace Event {
     /** Properties of an Attribute. */
     interface IAttribute {
         /** Attribute key */
-        key?: string | null;
+        key?: string | null | undefined;
 
         /** Attribute value */
-        value?: string | null;
+        value?: string | null | undefined;
     }
 
     /** Represents an Attribute. */
@@ -3693,7 +3693,7 @@ export namespace Event {
 /** Properties of an EventList. */
 export interface IEventList {
     /** EventList events */
-    events?: IEvent[] | null;
+    events?: IEvent[] | null | undefined;
 }
 
 /** Represents an EventList. */
@@ -3781,13 +3781,13 @@ export class EventList implements IEventList {
 /** Properties of an EventFilter. */
 export interface IEventFilter {
     /** EventFilter key */
-    key?: string | null;
+    key?: string | null | undefined;
 
     /** EventFilter matchString */
-    matchString?: string | null;
+    matchString?: string | null | undefined;
 
     /** EventFilter filterType */
-    filterType?: EventFilter.FilterType | null;
+    filterType?: EventFilter.FilterType | null | undefined;
 }
 
 /** Represents an EventFilter. */
@@ -3892,10 +3892,10 @@ export namespace EventFilter {
 /** Properties of an EventSubscription. */
 export interface IEventSubscription {
     /** EventSubscription eventType */
-    eventType?: string | null;
+    eventType?: string | null | undefined;
 
     /** EventSubscription filters */
-    filters?: IEventFilter[] | null;
+    filters?: IEventFilter[] | null | undefined;
 }
 
 /** Represents an EventSubscription. */
@@ -4071,10 +4071,10 @@ export class ClientPeersGetRequest implements IClientPeersGetRequest {
 /** Properties of a ClientPeersGetResponse. */
 export interface IClientPeersGetResponse {
     /** ClientPeersGetResponse status */
-    status?: ClientPeersGetResponse.Status | null;
+    status?: ClientPeersGetResponse.Status | null | undefined;
 
     /** ClientPeersGetResponse peers */
-    peers?: string[] | null;
+    peers?: string[] | null | undefined;
 }
 
 /** Represents a ClientPeersGetResponse. */
@@ -4177,7 +4177,7 @@ export namespace ClientPeersGetResponse {
 /** Properties of a ClientReceiptGetRequest. */
 export interface IClientReceiptGetRequest {
     /** ClientReceiptGetRequest transactionIds */
-    transactionIds?: string[] | null;
+    transactionIds?: string[] | null | undefined;
 }
 
 /** Represents a ClientReceiptGetRequest. */
@@ -4268,10 +4268,10 @@ export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
 /** Properties of a ClientReceiptGetResponse. */
 export interface IClientReceiptGetResponse {
     /** ClientReceiptGetResponse status */
-    status?: ClientReceiptGetResponse.Status | null;
+    status?: ClientReceiptGetResponse.Status | null | undefined;
 
     /** ClientReceiptGetResponse receipts */
-    receipts?: ITransactionReceipt[] | null;
+    receipts?: ITransactionReceipt[] | null | undefined;
 }
 
 /** Represents a ClientReceiptGetResponse. */
@@ -4376,16 +4376,16 @@ export namespace ClientReceiptGetResponse {
 /** Properties of a TransactionReceipt. */
 export interface ITransactionReceipt {
     /** TransactionReceipt stateChanges */
-    stateChanges?: IStateChange[] | null;
+    stateChanges?: IStateChange[] | null | undefined;
 
     /** TransactionReceipt events */
-    events?: IEvent[] | null;
+    events?: IEvent[] | null | undefined;
 
     /** TransactionReceipt data */
-    data?: Uint8Array[] | null;
+    data?: Uint8Array[] | null | undefined;
 
     /** TransactionReceipt transactionId */
-    transactionId?: string | null;
+    transactionId?: string | null | undefined;
 }
 
 /** Represents a TransactionReceipt. */
@@ -4482,13 +4482,13 @@ export class TransactionReceipt implements ITransactionReceipt {
 /** Properties of a StateChange. */
 export interface IStateChange {
     /** StateChange address */
-    address?: string | null;
+    address?: string | null | undefined;
 
     /** StateChange value */
-    value?: Uint8Array | null;
+    value?: Uint8Array | null | undefined;
 
     /** StateChange type */
-    type?: StateChange.Type | null;
+    type?: StateChange.Type | null | undefined;
 }
 
 /** Represents a StateChange. */
@@ -4591,7 +4591,7 @@ export namespace StateChange {
 /** Properties of a StateChangeList. */
 export interface IStateChangeList {
     /** StateChangeList stateChanges */
-    stateChanges?: IStateChange[] | null;
+    stateChanges?: IStateChange[] | null | undefined;
 }
 
 /** Represents a StateChangeList. */
@@ -4679,16 +4679,16 @@ export class StateChangeList implements IStateChangeList {
 /** Properties of a ClientStateListRequest. */
 export interface IClientStateListRequest {
     /** ClientStateListRequest stateRoot */
-    stateRoot?: string | null;
+    stateRoot?: string | null | undefined;
 
     /** ClientStateListRequest address */
-    address?: string | null;
+    address?: string | null | undefined;
 
     /** ClientStateListRequest paging */
-    paging?: IClientPagingControls | null;
+    paging?: IClientPagingControls | null | undefined;
 
     /** ClientStateListRequest sorting */
-    sorting?: IClientSortControls[] | null;
+    sorting?: IClientSortControls[] | null | undefined;
 }
 
 /** Represents a ClientStateListRequest. */
@@ -4706,7 +4706,7 @@ export class ClientStateListRequest implements IClientStateListRequest {
     public address: string;
 
     /** ClientStateListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: IClientPagingControls | null | undefined;
 
     /** ClientStateListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -4788,16 +4788,16 @@ export class ClientStateListRequest implements IClientStateListRequest {
 /** Properties of a ClientStateListResponse. */
 export interface IClientStateListResponse {
     /** ClientStateListResponse status */
-    status?: ClientStateListResponse.Status | null;
+    status?: ClientStateListResponse.Status | null | undefined;
 
     /** ClientStateListResponse entries */
-    entries?: ClientStateListResponse.IEntry[] | null;
+    entries?: ClientStateListResponse.IEntry[] | null | undefined;
 
     /** ClientStateListResponse stateRoot */
-    stateRoot?: string | null;
+    stateRoot?: string | null | undefined;
 
     /** ClientStateListResponse paging */
-    paging?: IClientPagingResponse | null;
+    paging?: IClientPagingResponse | null | undefined;
 }
 
 /** Represents a ClientStateListResponse. */
@@ -4818,7 +4818,7 @@ export class ClientStateListResponse implements IClientStateListResponse {
     public stateRoot: string;
 
     /** ClientStateListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: IClientPagingResponse | null | undefined;
 
     /**
      * Creates a new ClientStateListResponse instance using the specified properties.
@@ -4912,10 +4912,10 @@ export namespace ClientStateListResponse {
     /** Properties of an Entry. */
     interface IEntry {
         /** Entry address */
-        address?: string | null;
+        address?: string | null | undefined;
 
         /** Entry data */
-        data?: Uint8Array | null;
+        data?: Uint8Array | null | undefined;
     }
 
     /** Represents an Entry. */
@@ -5013,10 +5013,10 @@ export namespace ClientStateListResponse {
 /** Properties of a ClientStateGetRequest. */
 export interface IClientStateGetRequest {
     /** ClientStateGetRequest stateRoot */
-    stateRoot?: string | null;
+    stateRoot?: string | null | undefined;
 
     /** ClientStateGetRequest address */
-    address?: string | null;
+    address?: string | null | undefined;
 }
 
 /** Represents a ClientStateGetRequest. */
@@ -5110,13 +5110,13 @@ export class ClientStateGetRequest implements IClientStateGetRequest {
 /** Properties of a ClientStateGetResponse. */
 export interface IClientStateGetResponse {
     /** ClientStateGetResponse status */
-    status?: ClientStateGetResponse.Status | null;
+    status?: ClientStateGetResponse.Status | null | undefined;
 
     /** ClientStateGetResponse value */
-    value?: Uint8Array | null;
+    value?: Uint8Array | null | undefined;
 
     /** ClientStateGetResponse stateRoot */
-    stateRoot?: string | null;
+    stateRoot?: string | null | undefined;
 }
 
 /** Represents a ClientStateGetResponse. */
@@ -5312,13 +5312,13 @@ export class ClientStatusGetRequest implements IClientStatusGetRequest {
 /** Properties of a ClientStatusGetResponse. */
 export interface IClientStatusGetResponse {
     /** ClientStatusGetResponse status */
-    status?: ClientStatusGetResponse.Status | null;
+    status?: ClientStatusGetResponse.Status | null | undefined;
 
     /** ClientStatusGetResponse peers */
-    peers?: ClientStatusGetResponse.IPeer[] | null;
+    peers?: ClientStatusGetResponse.IPeer[] | null | undefined;
 
     /** ClientStatusGetResponse endpoint */
-    endpoint?: string | null;
+    endpoint?: string | null | undefined;
 }
 
 /** Represents a ClientStatusGetResponse. */
@@ -5423,7 +5423,7 @@ export namespace ClientStatusGetResponse {
     /** Properties of a Peer. */
     interface IPeer {
         /** Peer endpoint */
-        endpoint?: string | null;
+        endpoint?: string | null | undefined;
     }
 
     /** Represents a Peer. */
@@ -5518,16 +5518,16 @@ export namespace ClientStatusGetResponse {
 /** Properties of a ClientTransactionListRequest. */
 export interface IClientTransactionListRequest {
     /** ClientTransactionListRequest headId */
-    headId?: string | null;
+    headId?: string | null | undefined;
 
     /** ClientTransactionListRequest transactionIds */
-    transactionIds?: string[] | null;
+    transactionIds?: string[] | null | undefined;
 
     /** ClientTransactionListRequest paging */
-    paging?: IClientPagingControls | null;
+    paging?: IClientPagingControls | null | undefined;
 
     /** ClientTransactionListRequest sorting */
-    sorting?: IClientSortControls[] | null;
+    sorting?: IClientSortControls[] | null | undefined;
 }
 
 /** Represents a ClientTransactionListRequest. */
@@ -5545,7 +5545,7 @@ export class ClientTransactionListRequest implements IClientTransactionListReque
     public transactionIds: string[];
 
     /** ClientTransactionListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: IClientPagingControls | null | undefined;
 
     /** ClientTransactionListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -5627,16 +5627,16 @@ export class ClientTransactionListRequest implements IClientTransactionListReque
 /** Properties of a ClientTransactionListResponse. */
 export interface IClientTransactionListResponse {
     /** ClientTransactionListResponse status */
-    status?: ClientTransactionListResponse.Status | null;
+    status?: ClientTransactionListResponse.Status | null | undefined;
 
     /** ClientTransactionListResponse transactions */
-    transactions?: ITransaction[] | null;
+    transactions?: ITransaction[] | null | undefined;
 
     /** ClientTransactionListResponse headId */
-    headId?: string | null;
+    headId?: string | null | undefined;
 
     /** ClientTransactionListResponse paging */
-    paging?: IClientPagingResponse | null;
+    paging?: IClientPagingResponse | null | undefined;
 }
 
 /** Represents a ClientTransactionListResponse. */
@@ -5657,7 +5657,7 @@ export class ClientTransactionListResponse implements IClientTransactionListResp
     public headId: string;
 
     /** ClientTransactionListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: IClientPagingResponse | null | undefined;
 
     /**
      * Creates a new ClientTransactionListResponse instance using the specified properties.
@@ -5751,7 +5751,7 @@ export namespace ClientTransactionListResponse {
 /** Properties of a ClientTransactionGetRequest. */
 export interface IClientTransactionGetRequest {
     /** ClientTransactionGetRequest transactionId */
-    transactionId?: string | null;
+    transactionId?: string | null | undefined;
 }
 
 /** Represents a ClientTransactionGetRequest. */
@@ -5842,10 +5842,10 @@ export class ClientTransactionGetRequest implements IClientTransactionGetRequest
 /** Properties of a ClientTransactionGetResponse. */
 export interface IClientTransactionGetResponse {
     /** ClientTransactionGetResponse status */
-    status?: ClientTransactionGetResponse.Status | null;
+    status?: ClientTransactionGetResponse.Status | null | undefined;
 
     /** ClientTransactionGetResponse transaction */
-    transaction?: ITransaction | null;
+    transaction?: ITransaction | null | undefined;
 }
 
 /** Represents a ClientTransactionGetResponse. */
@@ -5860,7 +5860,7 @@ export class ClientTransactionGetResponse implements IClientTransactionGetRespon
     public status: ClientTransactionGetResponse.Status;
 
     /** ClientTransactionGetResponse transaction. */
-    public transaction?: ITransaction | null;
+    public transaction?: ITransaction | null | undefined;
 
     /**
      * Creates a new ClientTransactionGetResponse instance using the specified properties.
@@ -5950,16 +5950,16 @@ export namespace ClientTransactionGetResponse {
 /** Properties of a ConsensusPeerMessage. */
 export interface IConsensusPeerMessage {
     /** ConsensusPeerMessage messageType */
-    messageType?: string | null;
+    messageType?: string | null | undefined;
 
     /** ConsensusPeerMessage content */
-    content?: Uint8Array | null;
+    content?: Uint8Array | null | undefined;
 
     /** ConsensusPeerMessage name */
-    name?: string | null;
+    name?: string | null | undefined;
 
     /** ConsensusPeerMessage version */
-    version?: string | null;
+    version?: string | null | undefined;
 }
 
 /** Represents a ConsensusPeerMessage. */
@@ -6056,22 +6056,22 @@ export class ConsensusPeerMessage implements IConsensusPeerMessage {
 /** Properties of a ConsensusBlock. */
 export interface IConsensusBlock {
     /** ConsensusBlock blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 
     /** ConsensusBlock previousId */
-    previousId?: Uint8Array | null;
+    previousId?: Uint8Array | null | undefined;
 
     /** ConsensusBlock signerId */
-    signerId?: Uint8Array | null;
+    signerId?: Uint8Array | null | undefined;
 
     /** ConsensusBlock blockNum */
-    blockNum?: number | Long | null;
+    blockNum?: number | Long | null | undefined;
 
     /** ConsensusBlock payload */
-    payload?: Uint8Array | null;
+    payload?: Uint8Array | null | undefined;
 
     /** ConsensusBlock summary */
-    summary?: Uint8Array | null;
+    summary?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusBlock. */
@@ -6174,7 +6174,7 @@ export class ConsensusBlock implements IConsensusBlock {
 /** Properties of a ConsensusPeerInfo. */
 export interface IConsensusPeerInfo {
     /** ConsensusPeerInfo peerId */
-    peerId?: Uint8Array | null;
+    peerId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusPeerInfo. */
@@ -6262,10 +6262,10 @@ export class ConsensusPeerInfo implements IConsensusPeerInfo {
 /** Properties of a ConsensusSettingsEntry. */
 export interface IConsensusSettingsEntry {
     /** ConsensusSettingsEntry key */
-    key?: string | null;
+    key?: string | null | undefined;
 
     /** ConsensusSettingsEntry value */
-    value?: string | null;
+    value?: string | null | undefined;
 }
 
 /** Represents a ConsensusSettingsEntry. */
@@ -6359,10 +6359,10 @@ export class ConsensusSettingsEntry implements IConsensusSettingsEntry {
 /** Properties of a ConsensusStateEntry. */
 export interface IConsensusStateEntry {
     /** ConsensusStateEntry address */
-    address?: string | null;
+    address?: string | null | undefined;
 
     /** ConsensusStateEntry data */
-    data?: Uint8Array | null;
+    data?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusStateEntry. */
@@ -6453,10 +6453,10 @@ export class ConsensusStateEntry implements IConsensusStateEntry {
 /** Properties of a ConsensusRegisterRequest. */
 export interface IConsensusRegisterRequest {
     /** ConsensusRegisterRequest name */
-    name?: string | null;
+    name?: string | null | undefined;
 
     /** ConsensusRegisterRequest version */
-    version?: string | null;
+    version?: string | null | undefined;
 }
 
 /** Represents a ConsensusRegisterRequest. */
@@ -6550,13 +6550,13 @@ export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
 /** Properties of a ConsensusRegisterResponse. */
 export interface IConsensusRegisterResponse {
     /** ConsensusRegisterResponse status */
-    status?: ConsensusRegisterResponse.Status | null;
+    status?: ConsensusRegisterResponse.Status | null | undefined;
 
     /** ConsensusRegisterResponse chainHead */
-    chainHead?: IConsensusBlock | null;
+    chainHead?: IConsensusBlock | null | undefined;
 
     /** ConsensusRegisterResponse peers */
-    peers?: IConsensusPeerInfo[] | null;
+    peers?: IConsensusPeerInfo[] | null | undefined;
 }
 
 /** Represents a ConsensusRegisterResponse. */
@@ -6571,7 +6571,7 @@ export class ConsensusRegisterResponse implements IConsensusRegisterResponse {
     public status: ConsensusRegisterResponse.Status;
 
     /** ConsensusRegisterResponse chainHead. */
-    public chainHead?: IConsensusBlock | null;
+    public chainHead?: IConsensusBlock | null | undefined;
 
     /** ConsensusRegisterResponse peers. */
     public peers: IConsensusPeerInfo[];
@@ -6664,7 +6664,7 @@ export namespace ConsensusRegisterResponse {
 /** Properties of a ConsensusNotifyPeerConnected. */
 export interface IConsensusNotifyPeerConnected {
     /** ConsensusNotifyPeerConnected peerInfo */
-    peerInfo?: IConsensusPeerInfo | null;
+    peerInfo?: IConsensusPeerInfo | null | undefined;
 }
 
 /** Represents a ConsensusNotifyPeerConnected. */
@@ -6676,7 +6676,7 @@ export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnect
     constructor(properties?: IConsensusNotifyPeerConnected);
 
     /** ConsensusNotifyPeerConnected peerInfo. */
-    public peerInfo?: IConsensusPeerInfo | null;
+    public peerInfo?: IConsensusPeerInfo | null | undefined;
 
     /**
      * Creates a new ConsensusNotifyPeerConnected instance using the specified properties.
@@ -6755,7 +6755,7 @@ export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnect
 /** Properties of a ConsensusNotifyPeerDisconnected. */
 export interface IConsensusNotifyPeerDisconnected {
     /** ConsensusNotifyPeerDisconnected peerId */
-    peerId?: Uint8Array | null;
+    peerId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusNotifyPeerDisconnected. */
@@ -6849,10 +6849,10 @@ export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisc
 /** Properties of a ConsensusNotifyPeerMessage. */
 export interface IConsensusNotifyPeerMessage {
     /** ConsensusNotifyPeerMessage message */
-    message?: IConsensusPeerMessage | null;
+    message?: IConsensusPeerMessage | null | undefined;
 
     /** ConsensusNotifyPeerMessage senderId */
-    senderId?: Uint8Array | null;
+    senderId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusNotifyPeerMessage. */
@@ -6864,7 +6864,7 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
     constructor(properties?: IConsensusNotifyPeerMessage);
 
     /** ConsensusNotifyPeerMessage message. */
-    public message?: IConsensusPeerMessage | null;
+    public message?: IConsensusPeerMessage | null | undefined;
 
     /** ConsensusNotifyPeerMessage senderId. */
     public senderId: Uint8Array;
@@ -6946,7 +6946,7 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
 /** Properties of a ConsensusNotifyBlockNew. */
 export interface IConsensusNotifyBlockNew {
     /** ConsensusNotifyBlockNew block */
-    block?: IConsensusBlock | null;
+    block?: IConsensusBlock | null | undefined;
 }
 
 /** Represents a ConsensusNotifyBlockNew. */
@@ -6958,7 +6958,7 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
     constructor(properties?: IConsensusNotifyBlockNew);
 
     /** ConsensusNotifyBlockNew block. */
-    public block?: IConsensusBlock | null;
+    public block?: IConsensusBlock | null | undefined;
 
     /**
      * Creates a new ConsensusNotifyBlockNew instance using the specified properties.
@@ -7037,7 +7037,7 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
 /** Properties of a ConsensusNotifyBlockValid. */
 export interface IConsensusNotifyBlockValid {
     /** ConsensusNotifyBlockValid blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusNotifyBlockValid. */
@@ -7128,7 +7128,7 @@ export class ConsensusNotifyBlockValid implements IConsensusNotifyBlockValid {
 /** Properties of a ConsensusNotifyBlockInvalid. */
 export interface IConsensusNotifyBlockInvalid {
     /** ConsensusNotifyBlockInvalid blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusNotifyBlockInvalid. */
@@ -7219,7 +7219,7 @@ export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid
 /** Properties of a ConsensusNotifyBlockCommit. */
 export interface IConsensusNotifyBlockCommit {
     /** ConsensusNotifyBlockCommit blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusNotifyBlockCommit. */
@@ -7392,10 +7392,10 @@ export class ConsensusNotifyAck implements IConsensusNotifyAck {
 /** Properties of a ConsensusSendToRequest. */
 export interface IConsensusSendToRequest {
     /** ConsensusSendToRequest message */
-    message?: IConsensusPeerMessage | null;
+    message?: IConsensusPeerMessage | null | undefined;
 
     /** ConsensusSendToRequest peerId */
-    peerId?: Uint8Array | null;
+    peerId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusSendToRequest. */
@@ -7407,7 +7407,7 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
     constructor(properties?: IConsensusSendToRequest);
 
     /** ConsensusSendToRequest message. */
-    public message?: IConsensusPeerMessage | null;
+    public message?: IConsensusPeerMessage | null | undefined;
 
     /** ConsensusSendToRequest peerId. */
     public peerId: Uint8Array;
@@ -7489,7 +7489,7 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
 /** Properties of a ConsensusSendToResponse. */
 export interface IConsensusSendToResponse {
     /** ConsensusSendToResponse status */
-    status?: ConsensusSendToResponse.Status | null;
+    status?: ConsensusSendToResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusSendToResponse. */
@@ -7592,7 +7592,7 @@ export namespace ConsensusSendToResponse {
 /** Properties of a ConsensusBroadcastRequest. */
 export interface IConsensusBroadcastRequest {
     /** ConsensusBroadcastRequest message */
-    message?: IConsensusPeerMessage | null;
+    message?: IConsensusPeerMessage | null | undefined;
 }
 
 /** Represents a ConsensusBroadcastRequest. */
@@ -7604,7 +7604,7 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
     constructor(properties?: IConsensusBroadcastRequest);
 
     /** ConsensusBroadcastRequest message. */
-    public message?: IConsensusPeerMessage | null;
+    public message?: IConsensusPeerMessage | null | undefined;
 
     /**
      * Creates a new ConsensusBroadcastRequest instance using the specified properties.
@@ -7683,7 +7683,7 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
 /** Properties of a ConsensusBroadcastResponse. */
 export interface IConsensusBroadcastResponse {
     /** ConsensusBroadcastResponse status */
-    status?: ConsensusBroadcastResponse.Status | null;
+    status?: ConsensusBroadcastResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusBroadcastResponse. */
@@ -7785,7 +7785,7 @@ export namespace ConsensusBroadcastResponse {
 /** Properties of a ConsensusInitializeBlockRequest. */
 export interface IConsensusInitializeBlockRequest {
     /** ConsensusInitializeBlockRequest previousId */
-    previousId?: Uint8Array | null;
+    previousId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusInitializeBlockRequest. */
@@ -7879,7 +7879,7 @@ export class ConsensusInitializeBlockRequest implements IConsensusInitializeBloc
 /** Properties of a ConsensusInitializeBlockResponse. */
 export interface IConsensusInitializeBlockResponse {
     /** ConsensusInitializeBlockResponse status */
-    status?: ConsensusInitializeBlockResponse.Status | null;
+    status?: ConsensusInitializeBlockResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusInitializeBlockResponse. */
@@ -8074,10 +8074,10 @@ export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockR
 /** Properties of a ConsensusSummarizeBlockResponse. */
 export interface IConsensusSummarizeBlockResponse {
     /** ConsensusSummarizeBlockResponse status */
-    status?: ConsensusSummarizeBlockResponse.Status | null;
+    status?: ConsensusSummarizeBlockResponse.Status | null | undefined;
 
     /** ConsensusSummarizeBlockResponse summary */
-    summary?: Uint8Array | null;
+    summary?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusSummarizeBlockResponse. */
@@ -8187,7 +8187,7 @@ export namespace ConsensusSummarizeBlockResponse {
 /** Properties of a ConsensusFinalizeBlockRequest. */
 export interface IConsensusFinalizeBlockRequest {
     /** ConsensusFinalizeBlockRequest data */
-    data?: Uint8Array | null;
+    data?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusFinalizeBlockRequest. */
@@ -8278,10 +8278,10 @@ export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockReq
 /** Properties of a ConsensusFinalizeBlockResponse. */
 export interface IConsensusFinalizeBlockResponse {
     /** ConsensusFinalizeBlockResponse status */
-    status?: ConsensusFinalizeBlockResponse.Status | null;
+    status?: ConsensusFinalizeBlockResponse.Status | null | undefined;
 
     /** ConsensusFinalizeBlockResponse blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusFinalizeBlockResponse. */
@@ -8476,7 +8476,7 @@ export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest
 /** Properties of a ConsensusCancelBlockResponse. */
 export interface IConsensusCancelBlockResponse {
     /** ConsensusCancelBlockResponse status */
-    status?: ConsensusCancelBlockResponse.Status | null;
+    status?: ConsensusCancelBlockResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusCancelBlockResponse. */
@@ -8579,7 +8579,7 @@ export namespace ConsensusCancelBlockResponse {
 /** Properties of a ConsensusCheckBlocksRequest. */
 export interface IConsensusCheckBlocksRequest {
     /** ConsensusCheckBlocksRequest blockIds */
-    blockIds?: Uint8Array[] | null;
+    blockIds?: Uint8Array[] | null | undefined;
 }
 
 /** Represents a ConsensusCheckBlocksRequest. */
@@ -8670,7 +8670,7 @@ export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest
 /** Properties of a ConsensusCheckBlocksResponse. */
 export interface IConsensusCheckBlocksResponse {
     /** ConsensusCheckBlocksResponse status */
-    status?: ConsensusCheckBlocksResponse.Status | null;
+    status?: ConsensusCheckBlocksResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusCheckBlocksResponse. */
@@ -8773,7 +8773,7 @@ export namespace ConsensusCheckBlocksResponse {
 /** Properties of a ConsensusCommitBlockRequest. */
 export interface IConsensusCommitBlockRequest {
     /** ConsensusCommitBlockRequest blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusCommitBlockRequest. */
@@ -8864,7 +8864,7 @@ export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest
 /** Properties of a ConsensusCommitBlockResponse. */
 export interface IConsensusCommitBlockResponse {
     /** ConsensusCommitBlockResponse status */
-    status?: ConsensusCommitBlockResponse.Status | null;
+    status?: ConsensusCommitBlockResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusCommitBlockResponse. */
@@ -8967,7 +8967,7 @@ export namespace ConsensusCommitBlockResponse {
 /** Properties of a ConsensusIgnoreBlockRequest. */
 export interface IConsensusIgnoreBlockRequest {
     /** ConsensusIgnoreBlockRequest blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusIgnoreBlockRequest. */
@@ -9058,7 +9058,7 @@ export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest
 /** Properties of a ConsensusIgnoreBlockResponse. */
 export interface IConsensusIgnoreBlockResponse {
     /** ConsensusIgnoreBlockResponse status */
-    status?: ConsensusIgnoreBlockResponse.Status | null;
+    status?: ConsensusIgnoreBlockResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusIgnoreBlockResponse. */
@@ -9161,7 +9161,7 @@ export namespace ConsensusIgnoreBlockResponse {
 /** Properties of a ConsensusFailBlockRequest. */
 export interface IConsensusFailBlockRequest {
     /** ConsensusFailBlockRequest blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 }
 
 /** Represents a ConsensusFailBlockRequest. */
@@ -9252,7 +9252,7 @@ export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
 /** Properties of a ConsensusFailBlockResponse. */
 export interface IConsensusFailBlockResponse {
     /** ConsensusFailBlockResponse status */
-    status?: ConsensusFailBlockResponse.Status | null;
+    status?: ConsensusFailBlockResponse.Status | null | undefined;
 }
 
 /** Represents a ConsensusFailBlockResponse. */
@@ -9355,7 +9355,7 @@ export namespace ConsensusFailBlockResponse {
 /** Properties of a ConsensusBlocksGetRequest. */
 export interface IConsensusBlocksGetRequest {
     /** ConsensusBlocksGetRequest blockIds */
-    blockIds?: Uint8Array[] | null;
+    blockIds?: Uint8Array[] | null | undefined;
 }
 
 /** Represents a ConsensusBlocksGetRequest. */
@@ -9446,10 +9446,10 @@ export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
 /** Properties of a ConsensusBlocksGetResponse. */
 export interface IConsensusBlocksGetResponse {
     /** ConsensusBlocksGetResponse status */
-    status?: ConsensusBlocksGetResponse.Status | null;
+    status?: ConsensusBlocksGetResponse.Status | null | undefined;
 
     /** ConsensusBlocksGetResponse blocks */
-    blocks?: IConsensusBlock[] | null;
+    blocks?: IConsensusBlock[] | null | undefined;
 }
 
 /** Represents a ConsensusBlocksGetResponse. */
@@ -9640,10 +9640,10 @@ export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetReque
 /** Properties of a ConsensusChainHeadGetResponse. */
 export interface IConsensusChainHeadGetResponse {
     /** ConsensusChainHeadGetResponse status */
-    status?: ConsensusChainHeadGetResponse.Status | null;
+    status?: ConsensusChainHeadGetResponse.Status | null | undefined;
 
     /** ConsensusChainHeadGetResponse block */
-    block?: IConsensusBlock | null;
+    block?: IConsensusBlock | null | undefined;
 }
 
 /** Represents a ConsensusChainHeadGetResponse. */
@@ -9658,7 +9658,7 @@ export class ConsensusChainHeadGetResponse implements IConsensusChainHeadGetResp
     public status: ConsensusChainHeadGetResponse.Status;
 
     /** ConsensusChainHeadGetResponse block. */
-    public block?: IConsensusBlock | null;
+    public block?: IConsensusBlock | null | undefined;
 
     /**
      * Creates a new ConsensusChainHeadGetResponse instance using the specified properties.
@@ -9749,10 +9749,10 @@ export namespace ConsensusChainHeadGetResponse {
 /** Properties of a ConsensusSettingsGetRequest. */
 export interface IConsensusSettingsGetRequest {
     /** ConsensusSettingsGetRequest blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 
     /** ConsensusSettingsGetRequest keys */
-    keys?: string[] | null;
+    keys?: string[] | null | undefined;
 }
 
 /** Represents a ConsensusSettingsGetRequest. */
@@ -9846,10 +9846,10 @@ export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest
 /** Properties of a ConsensusSettingsGetResponse. */
 export interface IConsensusSettingsGetResponse {
     /** ConsensusSettingsGetResponse status */
-    status?: ConsensusSettingsGetResponse.Status | null;
+    status?: ConsensusSettingsGetResponse.Status | null | undefined;
 
     /** ConsensusSettingsGetResponse entries */
-    entries?: IConsensusSettingsEntry[] | null;
+    entries?: IConsensusSettingsEntry[] | null | undefined;
 }
 
 /** Represents a ConsensusSettingsGetResponse. */
@@ -9955,10 +9955,10 @@ export namespace ConsensusSettingsGetResponse {
 /** Properties of a ConsensusStateGetRequest. */
 export interface IConsensusStateGetRequest {
     /** ConsensusStateGetRequest blockId */
-    blockId?: Uint8Array | null;
+    blockId?: Uint8Array | null | undefined;
 
     /** ConsensusStateGetRequest addresses */
-    addresses?: string[] | null;
+    addresses?: string[] | null | undefined;
 }
 
 /** Represents a ConsensusStateGetRequest. */
@@ -10052,10 +10052,10 @@ export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
 /** Properties of a ConsensusStateGetResponse. */
 export interface IConsensusStateGetResponse {
     /** ConsensusStateGetResponse status */
-    status?: ConsensusStateGetResponse.Status | null;
+    status?: ConsensusStateGetResponse.Status | null | undefined;
 
     /** ConsensusStateGetResponse entries */
-    entries?: IConsensusStateEntry[] | null;
+    entries?: IConsensusStateEntry[] | null | undefined;
 }
 
 /** Represents a ConsensusStateGetResponse. */
@@ -10161,7 +10161,7 @@ export namespace ConsensusStateGetResponse {
 /** Properties of a GenesisData. */
 export interface IGenesisData {
     /** GenesisData batches */
-    batches?: IBatch[] | null;
+    batches?: IBatch[] | null | undefined;
 }
 
 /** Represents a GenesisData. */
@@ -10249,10 +10249,10 @@ export class GenesisData implements IGenesisData {
 /** Properties of a Policy. */
 export interface IPolicy {
     /** Policy name */
-    name?: string | null;
+    name?: string | null | undefined;
 
     /** Policy entries */
-    entries?: Policy.IEntry[] | null;
+    entries?: Policy.IEntry[] | null | undefined;
 }
 
 /** Represents a Policy. */
@@ -10351,10 +10351,10 @@ export namespace Policy {
     /** Properties of an Entry. */
     interface IEntry {
         /** Entry type */
-        type?: Policy.EntryType | null;
+        type?: Policy.EntryType | null | undefined;
 
         /** Entry key */
-        key?: string | null;
+        key?: string | null | undefined;
     }
 
     /** Represents an Entry. */
@@ -10446,7 +10446,7 @@ export namespace Policy {
 /** Properties of a PolicyList. */
 export interface IPolicyList {
     /** PolicyList policies */
-    policies?: IPolicy[] | null;
+    policies?: IPolicy[] | null | undefined;
 }
 
 /** Represents a PolicyList. */
@@ -10534,10 +10534,10 @@ export class PolicyList implements IPolicyList {
 /** Properties of a Role. */
 export interface IRole {
     /** Role name */
-    name?: string | null;
+    name?: string | null | undefined;
 
     /** Role policyName */
-    policyName?: string | null;
+    policyName?: string | null | undefined;
 }
 
 /** Represents a Role. */
@@ -10628,7 +10628,7 @@ export class Role implements IRole {
 /** Properties of a RoleList. */
 export interface IRoleList {
     /** RoleList roles */
-    roles?: IRole[] | null;
+    roles?: IRole[] | null | undefined;
 }
 
 /** Represents a RoleList. */
@@ -10716,13 +10716,13 @@ export class RoleList implements IRoleList {
 /** Properties of a ChangeLogEntry. */
 export interface IChangeLogEntry {
     /** ChangeLogEntry parent */
-    parent?: Uint8Array | null;
+    parent?: Uint8Array | null | undefined;
 
     /** ChangeLogEntry additions */
-    additions?: Uint8Array[] | null;
+    additions?: Uint8Array[] | null | undefined;
 
     /** ChangeLogEntry successors */
-    successors?: ChangeLogEntry.ISuccessor[] | null;
+    successors?: ChangeLogEntry.ISuccessor[] | null | undefined;
 }
 
 /** Represents a ChangeLogEntry. */
@@ -10817,10 +10817,10 @@ export namespace ChangeLogEntry {
     /** Properties of a Successor. */
     interface ISuccessor {
         /** Successor successor */
-        successor?: Uint8Array | null;
+        successor?: Uint8Array | null | undefined;
 
         /** Successor deletions */
-        deletions?: Uint8Array[] | null;
+        deletions?: Uint8Array[] | null | undefined;
     }
 
     /** Represents a Successor. */
@@ -10997,10 +10997,10 @@ export class DisconnectMessage implements IDisconnectMessage {
 /** Properties of a PeerRegisterRequest. */
 export interface IPeerRegisterRequest {
     /** PeerRegisterRequest endpoint */
-    endpoint?: string | null;
+    endpoint?: string | null | undefined;
 
     /** PeerRegisterRequest protocolVersion */
-    protocolVersion?: number | null;
+    protocolVersion?: number | null | undefined;
 }
 
 /** Represents a PeerRegisterRequest. */
@@ -11258,7 +11258,7 @@ export class GetPeersRequest implements IGetPeersRequest {
 /** Properties of a GetPeersResponse. */
 export interface IGetPeersResponse {
     /** GetPeersResponse peerEndpoints */
-    peerEndpoints?: string[] | null;
+    peerEndpoints?: string[] | null | undefined;
 }
 
 /** Represents a GetPeersResponse. */
@@ -11510,13 +11510,13 @@ export class PingResponse implements IPingResponse {
 /** Properties of a GossipMessage. */
 export interface IGossipMessage {
     /** GossipMessage content */
-    content?: Uint8Array | null;
+    content?: Uint8Array | null | undefined;
 
     /** GossipMessage contentType */
-    contentType?: GossipMessage.ContentType | null;
+    contentType?: GossipMessage.ContentType | null | undefined;
 
     /** GossipMessage timeToLive */
-    timeToLive?: number | null;
+    timeToLive?: number | null | undefined;
 }
 
 /** Represents a GossipMessage. */
@@ -11619,7 +11619,7 @@ export namespace GossipMessage {
 /** Properties of a NetworkAcknowledgement. */
 export interface INetworkAcknowledgement {
     /** NetworkAcknowledgement status */
-    status?: NetworkAcknowledgement.Status | null;
+    status?: NetworkAcknowledgement.Status | null | undefined;
 }
 
 /** Represents a NetworkAcknowledgement. */
@@ -11719,13 +11719,13 @@ export namespace NetworkAcknowledgement {
 /** Properties of a GossipBlockRequest. */
 export interface IGossipBlockRequest {
     /** GossipBlockRequest blockId */
-    blockId?: string | null;
+    blockId?: string | null | undefined;
 
     /** GossipBlockRequest nonce */
-    nonce?: string | null;
+    nonce?: string | null | undefined;
 
     /** GossipBlockRequest timeToLive */
-    timeToLive?: number | null;
+    timeToLive?: number | null | undefined;
 }
 
 /** Represents a GossipBlockRequest. */
@@ -11819,7 +11819,7 @@ export class GossipBlockRequest implements IGossipBlockRequest {
 /** Properties of a GossipBlockResponse. */
 export interface IGossipBlockResponse {
     /** GossipBlockResponse content */
-    content?: Uint8Array | null;
+    content?: Uint8Array | null | undefined;
 }
 
 /** Represents a GossipBlockResponse. */
@@ -11907,7 +11907,7 @@ export class GossipBlockResponse implements IGossipBlockResponse {
 /** Properties of a GossipBatchResponse. */
 export interface IGossipBatchResponse {
     /** GossipBatchResponse content */
-    content?: Uint8Array | null;
+    content?: Uint8Array | null | undefined;
 }
 
 /** Represents a GossipBatchResponse. */
@@ -11995,13 +11995,13 @@ export class GossipBatchResponse implements IGossipBatchResponse {
 /** Properties of a GossipBatchByBatchIdRequest. */
 export interface IGossipBatchByBatchIdRequest {
     /** GossipBatchByBatchIdRequest id */
-    id?: string | null;
+    id?: string | null | undefined;
 
     /** GossipBatchByBatchIdRequest nonce */
-    nonce?: string | null;
+    nonce?: string | null | undefined;
 
     /** GossipBatchByBatchIdRequest timeToLive */
-    timeToLive?: number | null;
+    timeToLive?: number | null | undefined;
 }
 
 /** Represents a GossipBatchByBatchIdRequest. */
@@ -12098,13 +12098,13 @@ export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest
 /** Properties of a GossipBatchByTransactionIdRequest. */
 export interface IGossipBatchByTransactionIdRequest {
     /** GossipBatchByTransactionIdRequest ids */
-    ids?: string[] | null;
+    ids?: string[] | null | undefined;
 
     /** GossipBatchByTransactionIdRequest nonce */
-    nonce?: string | null;
+    nonce?: string | null | undefined;
 
     /** GossipBatchByTransactionIdRequest timeToLive */
-    timeToLive?: number | null;
+    timeToLive?: number | null | undefined;
 }
 
 /** Represents a GossipBatchByTransactionIdRequest. */
@@ -12204,13 +12204,13 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
 /** Properties of a GossipConsensusMessage. */
 export interface IGossipConsensusMessage {
     /** GossipConsensusMessage message */
-    message?: Uint8Array | null;
+    message?: Uint8Array | null | undefined;
 
     /** GossipConsensusMessage senderId */
-    senderId?: Uint8Array | null;
+    senderId?: Uint8Array | null | undefined;
 
     /** GossipConsensusMessage timeToLive */
-    timeToLive?: number | null;
+    timeToLive?: number | null | undefined;
 }
 
 /** Represents a GossipConsensusMessage. */
@@ -12307,16 +12307,16 @@ export class GossipConsensusMessage implements IGossipConsensusMessage {
 /** Properties of a TpRegisterRequest. */
 export interface ITpRegisterRequest {
     /** TpRegisterRequest family */
-    family?: string | null;
+    family?: string | null | undefined;
 
     /** TpRegisterRequest version */
-    version?: string | null;
+    version?: string | null | undefined;
 
     /** TpRegisterRequest namespaces */
-    namespaces?: string[] | null;
+    namespaces?: string[] | null | undefined;
 
     /** TpRegisterRequest maxOccupancy */
-    maxOccupancy?: number | null;
+    maxOccupancy?: number | null | undefined;
 }
 
 /** Represents a TpRegisterRequest. */
@@ -12413,7 +12413,7 @@ export class TpRegisterRequest implements ITpRegisterRequest {
 /** Properties of a TpRegisterResponse. */
 export interface ITpRegisterResponse {
     /** TpRegisterResponse status */
-    status?: TpRegisterResponse.Status | null;
+    status?: TpRegisterResponse.Status | null | undefined;
 }
 
 /** Represents a TpRegisterResponse. */
@@ -12592,7 +12592,7 @@ export class TpUnregisterRequest implements ITpUnregisterRequest {
 /** Properties of a TpUnregisterResponse. */
 export interface ITpUnregisterResponse {
     /** TpUnregisterResponse status */
-    status?: TpUnregisterResponse.Status | null;
+    status?: TpUnregisterResponse.Status | null | undefined;
 }
 
 /** Represents a TpUnregisterResponse. */
@@ -12689,16 +12689,16 @@ export namespace TpUnregisterResponse {
 /** Properties of a TpProcessRequest. */
 export interface ITpProcessRequest {
     /** TpProcessRequest header */
-    header?: ITransactionHeader | null;
+    header?: ITransactionHeader | null | undefined;
 
     /** TpProcessRequest payload */
-    payload?: Uint8Array | null;
+    payload?: Uint8Array | null | undefined;
 
     /** TpProcessRequest signature */
-    signature?: string | null;
+    signature?: string | null | undefined;
 
     /** TpProcessRequest contextId */
-    contextId?: string | null;
+    contextId?: string | null | undefined;
 }
 
 /** Represents a TpProcessRequest. */
@@ -12710,7 +12710,7 @@ export class TpProcessRequest implements ITpProcessRequest {
     constructor(properties?: ITpProcessRequest);
 
     /** TpProcessRequest header. */
-    public header?: ITransactionHeader | null;
+    public header?: ITransactionHeader | null | undefined;
 
     /** TpProcessRequest payload. */
     public payload: Uint8Array;
@@ -12795,13 +12795,13 @@ export class TpProcessRequest implements ITpProcessRequest {
 /** Properties of a TpProcessResponse. */
 export interface ITpProcessResponse {
     /** TpProcessResponse status */
-    status?: TpProcessResponse.Status | null;
+    status?: TpProcessResponse.Status | null | undefined;
 
     /** TpProcessResponse message */
-    message?: string | null;
+    message?: string | null | undefined;
 
     /** TpProcessResponse extendedData */
-    extendedData?: Uint8Array | null;
+    extendedData?: Uint8Array | null | undefined;
 }
 
 /** Represents a TpProcessResponse. */
@@ -12905,7 +12905,7 @@ export namespace TpProcessResponse {
 /** Properties of a Setting. */
 export interface ISetting {
     /** Setting entries */
-    entries?: Setting.IEntry[] | null;
+    entries?: Setting.IEntry[] | null | undefined;
 }
 
 /** Represents a Setting. */
@@ -12994,10 +12994,10 @@ export namespace Setting {
     /** Properties of an Entry. */
     interface IEntry {
         /** Entry key */
-        key?: string | null;
+        key?: string | null | undefined;
 
         /** Entry value */
-        value?: string | null;
+        value?: string | null | undefined;
     }
 
     /** Represents an Entry. */
@@ -13089,10 +13089,10 @@ export namespace Setting {
 /** Properties of a TpStateEntry. */
 export interface ITpStateEntry {
     /** TpStateEntry address */
-    address?: string | null;
+    address?: string | null | undefined;
 
     /** TpStateEntry data */
-    data?: Uint8Array | null;
+    data?: Uint8Array | null | undefined;
 }
 
 /** Represents a TpStateEntry. */
@@ -13183,10 +13183,10 @@ export class TpStateEntry implements ITpStateEntry {
 /** Properties of a TpStateGetRequest. */
 export interface ITpStateGetRequest {
     /** TpStateGetRequest contextId */
-    contextId?: string | null;
+    contextId?: string | null | undefined;
 
     /** TpStateGetRequest addresses */
-    addresses?: string[] | null;
+    addresses?: string[] | null | undefined;
 }
 
 /** Represents a TpStateGetRequest. */
@@ -13277,10 +13277,10 @@ export class TpStateGetRequest implements ITpStateGetRequest {
 /** Properties of a TpStateGetResponse. */
 export interface ITpStateGetResponse {
     /** TpStateGetResponse entries */
-    entries?: ITpStateEntry[] | null;
+    entries?: ITpStateEntry[] | null | undefined;
 
     /** TpStateGetResponse status */
-    status?: TpStateGetResponse.Status | null;
+    status?: TpStateGetResponse.Status | null | undefined;
 }
 
 /** Represents a TpStateGetResponse. */
@@ -13380,10 +13380,10 @@ export namespace TpStateGetResponse {
 /** Properties of a TpStateSetRequest. */
 export interface ITpStateSetRequest {
     /** TpStateSetRequest contextId */
-    contextId?: string | null;
+    contextId?: string | null | undefined;
 
     /** TpStateSetRequest entries */
-    entries?: ITpStateEntry[] | null;
+    entries?: ITpStateEntry[] | null | undefined;
 }
 
 /** Represents a TpStateSetRequest. */
@@ -13474,10 +13474,10 @@ export class TpStateSetRequest implements ITpStateSetRequest {
 /** Properties of a TpStateSetResponse. */
 export interface ITpStateSetResponse {
     /** TpStateSetResponse addresses */
-    addresses?: string[] | null;
+    addresses?: string[] | null | undefined;
 
     /** TpStateSetResponse status */
-    status?: TpStateSetResponse.Status | null;
+    status?: TpStateSetResponse.Status | null | undefined;
 }
 
 /** Represents a TpStateSetResponse. */
@@ -13577,10 +13577,10 @@ export namespace TpStateSetResponse {
 /** Properties of a TpStateDeleteRequest. */
 export interface ITpStateDeleteRequest {
     /** TpStateDeleteRequest contextId */
-    contextId?: string | null;
+    contextId?: string | null | undefined;
 
     /** TpStateDeleteRequest addresses */
-    addresses?: string[] | null;
+    addresses?: string[] | null | undefined;
 }
 
 /** Represents a TpStateDeleteRequest. */
@@ -13671,10 +13671,10 @@ export class TpStateDeleteRequest implements ITpStateDeleteRequest {
 /** Properties of a TpStateDeleteResponse. */
 export interface ITpStateDeleteResponse {
     /** TpStateDeleteResponse addresses */
-    addresses?: string[] | null;
+    addresses?: string[] | null | undefined;
 
     /** TpStateDeleteResponse status */
-    status?: TpStateDeleteResponse.Status | null;
+    status?: TpStateDeleteResponse.Status | null | undefined;
 }
 
 /** Represents a TpStateDeleteResponse. */
@@ -13777,10 +13777,10 @@ export namespace TpStateDeleteResponse {
 /** Properties of a TpReceiptAddDataRequest. */
 export interface ITpReceiptAddDataRequest {
     /** TpReceiptAddDataRequest contextId */
-    contextId?: string | null;
+    contextId?: string | null | undefined;
 
     /** TpReceiptAddDataRequest data */
-    data?: Uint8Array | null;
+    data?: Uint8Array | null | undefined;
 }
 
 /** Represents a TpReceiptAddDataRequest. */
@@ -13874,7 +13874,7 @@ export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
 /** Properties of a TpReceiptAddDataResponse. */
 export interface ITpReceiptAddDataResponse {
     /** TpReceiptAddDataResponse status */
-    status?: TpReceiptAddDataResponse.Status | null;
+    status?: TpReceiptAddDataResponse.Status | null | undefined;
 }
 
 /** Represents a TpReceiptAddDataResponse. */
@@ -13974,10 +13974,10 @@ export namespace TpReceiptAddDataResponse {
 /** Properties of a TpEventAddRequest. */
 export interface ITpEventAddRequest {
     /** TpEventAddRequest contextId */
-    contextId?: string | null;
+    contextId?: string | null | undefined;
 
     /** TpEventAddRequest event */
-    event?: IEvent | null;
+    event?: IEvent | null | undefined;
 }
 
 /** Represents a TpEventAddRequest. */
@@ -13992,7 +13992,7 @@ export class TpEventAddRequest implements ITpEventAddRequest {
     public contextId: string;
 
     /** TpEventAddRequest event. */
-    public event?: IEvent | null;
+    public event?: IEvent | null | undefined;
 
     /**
      * Creates a new TpEventAddRequest instance using the specified properties.
@@ -14068,7 +14068,7 @@ export class TpEventAddRequest implements ITpEventAddRequest {
 /** Properties of a TpEventAddResponse. */
 export interface ITpEventAddResponse {
     /** TpEventAddResponse status */
-    status?: TpEventAddResponse.Status | null;
+    status?: TpEventAddResponse.Status | null | undefined;
 }
 
 /** Represents a TpEventAddResponse. */
@@ -14165,7 +14165,7 @@ export namespace TpEventAddResponse {
 /** Properties of a MessageList. */
 export interface IMessageList {
     /** MessageList messages */
-    messages?: IMessage[] | null;
+    messages?: IMessage[] | null | undefined;
 }
 
 /** Represents a MessageList. */
@@ -14253,13 +14253,13 @@ export class MessageList implements IMessageList {
 /** Properties of a Message. */
 export interface IMessage {
     /** Message messageType */
-    messageType?: Message.MessageType | null;
+    messageType?: Message.MessageType | null | undefined;
 
     /** Message correlationId */
-    correlationId?: string | null;
+    correlationId?: string | null | undefined;
 
     /** Message content */
-    content?: Uint8Array | null;
+    content?: Uint8Array | null | undefined;
 }
 
 /** Represents a Message. */

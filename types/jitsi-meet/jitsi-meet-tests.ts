@@ -5,6 +5,7 @@ import {
     InterfaceConfig,
     JitsiMeetExternalAPI, RecordingMode,
     RecordingOptions, VideoConferenceJoinedEvent,
+    JitsiMeetExternalAPIConstructor
 } from 'jitsi-meet/index';
 
 /**
@@ -329,44 +330,43 @@ const options: ExternalAPIOptions = {
     },
 };
 
-// These current don't work due to the implementation being dynamically loaded at runtime.
-// They are kept here as an example test for future use should Jitsi publish as module rather than dynamic loading.
-//
-// const api = new JitsiMeetExternalAPI('typescript', options)
-//
-// api.captureLargeVideoScreenshot().then()
-// api.getAvailableDevices().then()
-// api.getCurrentDevices().then()
-// let getParticipantsInfo: any = api.getParticipantsInfo()
-// let getVideoQuality: any = api.getVideoQuality()
-// api.isDeviceListAvailable().then()
-// api.isMultipleAudioInputSupported().then()
-// api.pinParticipant('typescript')
-// api.resizeLargeVideo(1440,  1080)
-// api.setAudioInputDevice('mic', 'atype')
-// api.setAudioOutputDevice('speaker', 'atype')
-// api.setLargeVideoParticipant('typescript')
-// api.setVideoInputDevice('camera', 'vtype')
-// api.startRecording({
-//     mode: 'stream',
-//     dropboxToken: 'drop',
-//     shouldShare: false,
-//     rtmpStreamKey: 'rtmp',
-//     rtmpBroadcastID: 'rtmp',
-//     youtubeStreamKey: 'youtube',
-//     youtubeBroadcastID: 'youtube',
-// })
-// api.stopRecording('file')
-// api.executeCommand('toggleTileView')
-// let getNumberOfParticipants: number = api.getNumberOfParticipants()
-// let getAvatarURL: string = api.getAvatarURL('typescript')
-// let getDisplayName: string = api.getDisplayName('typescript')
-// let getEmail: string = api.getEmail('typescript')
-// let getIFrame: HTMLIFrameElement = api.getIFrame()
-// api.isAudioMuted().then()
-// api.isVideoMuted().then()
-// api.isAudioAvailable().then()
-// api.isVideoAvailable().then()
-// api.dispose()
-//
-// api.addListener('videoConferenceJoined', (e: VideoConferenceJoinedEvent) => {})
+const JitsiMeetExternalAPI = (window as any).JitsiMeetExternalAPI as JitsiMeetExternalAPIConstructor;
+
+const api = new JitsiMeetExternalAPI('typescript', options);
+
+api.captureLargeVideoScreenshot().then();
+api.getAvailableDevices().then();
+api.getCurrentDevices().then();
+const getParticipantsInfo: any = api.getParticipantsInfo();
+const getVideoQuality: any = api.getVideoQuality();
+api.isDeviceListAvailable().then();
+api.isMultipleAudioInputSupported().then();
+api.pinParticipant('typescript');
+api.resizeLargeVideo(1440,  1080);
+api.setAudioInputDevice('mic', 'atype');
+api.setAudioOutputDevice('speaker', 'atype');
+api.setLargeVideoParticipant('typescript');
+api.setVideoInputDevice('camera', 'vtype');
+api.startRecording({
+    mode: 'stream',
+    dropboxToken: 'drop',
+    shouldShare: false,
+    rtmpStreamKey: 'rtmp',
+    rtmpBroadcastID: 'rtmp',
+    youtubeStreamKey: 'youtube',
+    youtubeBroadcastID: 'youtube',
+});
+api.stopRecording('file');
+api.executeCommand('toggleTileView');
+const getNumberOfParticipants: number = api.getNumberOfParticipants();
+const getAvatarURL: string = api.getAvatarURL('typescript');
+const getDisplayName: string = api.getDisplayName('typescript');
+const getEmail: string = api.getEmail('typescript');
+const getIFrame: HTMLIFrameElement = api.getIFrame();
+api.isAudioMuted().then();
+api.isVideoMuted().then();
+api.isAudioAvailable().then();
+api.isVideoAvailable().then();
+api.dispose();
+
+api.addListener('videoConferenceJoined', (e: VideoConferenceJoinedEvent) => {});

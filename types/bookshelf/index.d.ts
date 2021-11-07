@@ -3,6 +3,7 @@
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Ian Serpa <http://github.com/ianldgs>
+//                 Ryan Williams <https://github.com/RyWilliams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -26,6 +27,7 @@ declare function Bookshelf(knex: knex): Bookshelf;
 
 declare namespace Bookshelf {
     type SortOrder = 'ASC' | 'asc' | 'DESC' | 'desc';
+    type Relations = string | WithRelatedQuery | (string | WithRelatedQuery)[];
 
     abstract class Events<T> {
         on(event?: string, callback?: EventFunction<T>, context?: any): void;
@@ -37,9 +39,9 @@ declare namespace Bookshelf {
 
     interface IModelBase {
         /** Should be declared as a getter instead of a plain property. */
-        hasTimestamps?: boolean | string[];
+        hasTimestamps?: boolean | string[] | undefined;
         /** Should be declared as a getter instead of a plain property. Should be required, but cannot have abstract properties yet. */
-        tableName?: string;
+        tableName?: string | undefined;
     }
 
     interface ModelBase<T extends Model<any>> extends IModelBase {}
@@ -124,6 +126,7 @@ declare namespace Bookshelf {
          */
         fetch(options?: FetchOptions): BlueBird<T>;
         fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
+        fetchPage(options?: FetchPageOptions): BlueBird<Collection<T> & Pagination>;
         hasMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             foreignKey?: string,
@@ -134,7 +137,7 @@ declare namespace Bookshelf {
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
-        load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
+        load(relations: Relations, options?: SyncOptions): BlueBird<T>;
         morphMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             name?: string,
@@ -182,6 +185,7 @@ declare namespace Bookshelf {
     abstract class CollectionBase<T extends Model<any>> extends Events<T> {
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L573
         length: number;
+        models: T[];
 
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L21
         constructor(models?: T[], options?: CollectionOptions<T>);
@@ -211,7 +215,12 @@ declare namespace Bookshelf {
         slice(begin?: number, end?: number): void;
         toJSON(options?: SerializeOptions): any[];
         unshift(model: any, options?: CollectionAddOptions): void;
-        where(match: { [key: string]: any }, firstOnly: boolean): T | Collection<T>;
+        where(match: { [key: string]: any }): Collection<T>;
+        where(
+            key: string,
+            operatorOrValue: string | number | boolean,
+            valueIfOperator?: string | string[] | number | number[] | boolean,
+        ): Collection<T>;
 
         // lodash methods
         includes(value: any, fromIndex?: number): boolean;
@@ -288,7 +297,7 @@ declare namespace Bookshelf {
         detach(ids: any[], options?: SyncOptions): BlueBird<any>;
         detach(options?: SyncOptions): BlueBird<any>;
         fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
-        load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
+        load(relations: Relations, options?: SyncOptions): BlueBird<Collection<T>>;
         orderBy(column: string, order?: SortOrder): Collection<T>;
 
         // Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
@@ -311,96 +320,109 @@ declare namespace Bookshelf {
     }
 
     interface ModelOptions {
-        tableName?: string;
-        hasTimestamps?: boolean;
-        parse?: boolean;
-    }
-
-    interface LoadOptions extends SyncOptions {
-        withRelated: (string | WithRelatedQuery)[];
+        tableName?: string | undefined;
+        hasTimestamps?: boolean | undefined;
+        parse?: boolean | undefined;
     }
 
     interface FetchOptions extends SyncOptions {
         /** @default true */
-        require?: boolean;
-        columns?: string | string[];
-        withRelated?: (string | WithRelatedQuery)[];
+        require?: boolean | undefined;
+        columns?: string | string[] | undefined;
+        withRelated?: (string | WithRelatedQuery)[] | undefined;
     }
 
     interface WithRelatedQuery {
-        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder;
+        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder | void;
     }
 
     interface FetchAllOptions extends FetchOptions {}
 
+    interface FetchPageOptions extends FetchOptions {
+        pageSize?: number;
+        page?: number;
+        limit?: number;
+        offset?: number;
+        disableCount?: boolean;
+    }
+
+    interface Pagination {
+        pagination: {
+            rowCount: number;
+            pageCount: number;
+            page: number;
+            pageSize: number;
+        }
+    }
+
     interface SaveOptions extends SyncOptions {
-        method?: string;
-        defaults?: string;
-        patch?: boolean;
+        method?: string | undefined;
+        defaults?: string | undefined;
+        patch?: boolean | undefined;
         /** @default true */
-        require?: boolean;
+        require?: boolean | undefined;
         /** @default true */
-        autoRefresh?: boolean;
+        autoRefresh?: boolean | undefined;
     }
 
     interface DestroyOptions extends SyncOptions {
         /** @default true */
-        require?: boolean;
+        require?: boolean | undefined;
     }
 
     interface SerializeOptions {
-        shallow?: boolean;
-        omitPivot?: boolean;
+        shallow?: boolean | undefined;
+        omitPivot?: boolean | undefined;
         /** @default true */
-        visibility?: boolean;
+        visibility?: boolean | undefined;
     }
 
     interface SetOptions {
-        unset?: boolean;
+        unset?: boolean | undefined;
     }
 
     interface TimestampOptions {
-        method?: string;
+        method?: string | undefined;
     }
 
     interface SyncOptions {
-        transacting?: Knex.Transaction;
-        debug?: boolean;
-        withSchema?: string;
+        transacting?: Knex.Transaction | undefined;
+        debug?: boolean | undefined;
+        withSchema?: string | undefined;
     }
 
     interface CollectionOptions<T> {
-        comparator?: boolean | string | ((a: T, b: T) => number);
+        comparator?: boolean | string | ((a: T, b: T) => number) | undefined;
     }
 
     interface CollectionAddOptions extends EventOptions {
-        at?: number;
-        merge?: boolean;
+        at?: number | undefined;
+        merge?: boolean | undefined;
     }
 
     interface CollectionFetchOptions {
-        require?: boolean;
-        withRelated?: string | string[];
+        require?: boolean | undefined;
+        withRelated?: string | string[] | undefined;
     }
 
     interface CollectionFetchOneOptions {
-        require?: boolean;
-        columns?: string | string[];
+        require?: boolean | undefined;
+        columns?: string | string[] | undefined;
     }
 
     interface CollectionSetOptions extends EventOptions {
-        add?: boolean;
-        remove?: boolean;
-        merge?: boolean;
+        add?: boolean | undefined;
+        remove?: boolean | undefined;
+        merge?: boolean | undefined;
     }
 
     interface PivotOptions {
-        query?: Function | any;
-        require?: boolean;
+        query?: Function | any | undefined;
+        require?: boolean | undefined;
     }
 
     interface EventOptions {
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     interface EventFunction<T> {

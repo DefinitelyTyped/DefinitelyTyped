@@ -17,31 +17,31 @@ declare module "gulp-help-doc" {
              * Defines  max line width for the printed output lines
              * (by default is 80 characters long)
              */
-            lineWidth?: number,
+            lineWidth?: number | undefined,
 
             /**
              * Defines max width of the column width tasks or args names
              * (by default is 20 characters long)
              */
-            keysColumnWidth?: number,
+            keysColumnWidth?: number | undefined,
 
             /**
              * Defines number of empty characters for left-padding of the output
              */
-            padding?: number,
+            padding?: number | undefined,
 
             /**
              * Printing engine (by default is console). Accepted any device
              * which has log() function defined to do output.
              */
-            logger?: { log: Function },
+            logger?: { log: Function } | undefined,
 
             /**
              * Path to a gulpfile (default is gulpfile.js)
              * Normally, there is no need to change this option. It may be used
              * for some special cases, like mocking gulpfile for testing.
              */
-            gulpfile?: string
+            gulpfile?: string | undefined
         }
 
         interface Usage {

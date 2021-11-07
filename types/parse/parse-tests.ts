@@ -434,6 +434,15 @@ function test_user_acl_roles() {
         },
     );
 
+    Parse.User.requestEmailVerification("email@example.com").then(
+        data => {
+            // The current user is now set to user.
+        },
+        error => {
+            // The token could not be validated.
+        },
+    );
+
     // By specifying no write privileges for the ACL, we can ensure the role cannot be altered.
     const role = new Parse.Role("Administrator", groupACL);
     role.getUsers().add(userList[0]);
@@ -916,7 +925,8 @@ async function test_schema(
     notPointer: Exclude<FieldType, Parse.Pointer>,
     notPolygon: Exclude<FieldType, Parse.Polygon>,
 ) {
-    Parse.Schema.all();
+    // $ExpectType RestSchema[]
+    await Parse.Schema.all();
 
     const schema = new Parse.Schema("TestSchema");
 
@@ -999,7 +1009,8 @@ async function test_schema(
     schema.deleteField("defaultFieldString");
     schema.deleteIndex("testIndex");
     schema.delete().then(results => {});
-    schema.get().then(results => {});
+    // $ExpectType RestSchema
+    await schema.get();
     schema.purge().then(results => {});
     schema.save().then(results => {});
     schema.update().then(results => {});
@@ -1407,8 +1418,8 @@ function testObject() {
         someString: string;
     }
     interface OptionalObjectAttributes {
-        example?: boolean;
-        another?: string;
+        example?: boolean | undefined;
+        another?: string | undefined;
     }
 
     async function testSave(

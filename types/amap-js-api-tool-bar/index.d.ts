@@ -22,7 +22,7 @@ declare namespace AMap {
             /**
              * 相对于地图容器左上角的偏移量
              */
-            offset?: Pixel;
+            offset?: Pixel | undefined;
             /**
              * 控件停靠位置
              * LT:左上角;
@@ -30,41 +30,41 @@ declare namespace AMap {
              * LB:左下角;
              * RB:右下角;
              */
-            position?: Position;
+            position?: Position | undefined;
             /**
              * 标尺键盘是否可见
              */
-            ruler?: boolean;
+            ruler?: boolean | undefined;
             /**
              * 定位失败后，是否开启IP定位
              */
-            noIpLocate?: boolean;
+            noIpLocate?: boolean | undefined;
             /**
              * 是否显示定位按钮
              */
-            locate?: boolean;
+            locate?: boolean | undefined;
             /**
              * 是否使用精简模式
              */
-            liteStyle?: boolean;
+            liteStyle?: boolean | undefined;
             /**
              * 方向键盘是否可见
              */
-            direction?: boolean;
+            direction?: boolean | undefined;
             /**
              * 是否自动定位，即地图初始化加载完成后，是否自动定位的用户所在地，仅在支持HTML5的浏览器中有效
              */
-            autoPosition?: boolean;
+            autoPosition?: boolean | undefined;
             /**
              * 自定义定位图标，值为Marker对象
              */
-            locationMarker?: Marker;
+            locationMarker?: Marker | undefined;
             /**
              * 是否使用高德定位sdk用来辅助优化定位效果
              */
-            useNative?: boolean;
+            useNative?: boolean | undefined;
             // internal
-            timeout?: number;
+            timeout?: number | undefined;
         }
     }
 

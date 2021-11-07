@@ -5,6 +5,13 @@ let client = ldap.createClient({
     url: 'ldap://127.0.0.1:1389'
 });
 
+let clientWithMultipleURLs = ldap.createClient({
+    url: [
+        'ldap://127.0.0.1:1389',
+        'ldap://127.0.0.2:1389'
+    ]
+});
+
 client.bind('cn=root', 'secret', (err: Error): void => {
     // nothing
 });
@@ -59,6 +66,10 @@ let change = new ldap.Change({
 });
 
 client.modify('cn=foo, o=example', change, function (err) {
+    // nothing
+});
+
+client.exop('1.3.6.1.4.1.4203.1.11.1', Buffer.from('', 'hex'), function (err) {
     // nothing
 });
 

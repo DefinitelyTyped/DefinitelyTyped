@@ -7,16 +7,17 @@
 import * as React from 'react';
 
 export interface ScrollAnimationProps {
-    animateIn?: string;
-    animateOut?: string;
-    offset?: number;
-    duration?: number;
-    delay?: number;
-    initiallyVisible?: boolean;
-    animateOnce?: boolean;
-    style?: object;
-    scrollableParentSelector?: string;
-    className?: string;
+    animateIn?: string | undefined;
+    animateOut?: string | undefined;
+    children?: React.ReactNode;
+    offset?: number | undefined;
+    duration?: number | undefined;
+    delay?: number | undefined;
+    initiallyVisible?: boolean | undefined;
+    animateOnce?: boolean | undefined;
+    style?: object | undefined;
+    scrollableParentSelector?: string | undefined;
+    className?: string | undefined;
 }
 
 export default class ScrollAnimation extends React.Component<ScrollAnimationProps> {

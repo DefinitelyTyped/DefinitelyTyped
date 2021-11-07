@@ -1,47 +1,40 @@
-import { WaveSurferObserver, Drawer, WaveSurferPlugin, PluginDefinition, PluginParams, WaveSurferUtil } from "../..";
-import RegionsPlugin = require("./regions");
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
+import Drawer from "../drawer";
+import Observer from "../util/observer";
+import WaveSurfer from "../wavesurfer";
+import RegionsPlugin from "./regions";
 
-export = WaveSurfer.MinimapPlugin;
+export default class MinimapPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: MinimapPluginParams, ws: WaveSurfer);
+    static create(params: MinimapPluginParams): PluginDefinition;
+    destroy(): void;
+    init(): void;
 
-declare namespace WaveSurfer {
-    class MinimapPlugin extends WaveSurferObserver implements WaveSurferPlugin {
-        constructor(params: MinimapPluginParams, ws: WaveSurfer);
-        static create(params: MinimapPluginParams): PluginDefinition;
-        destroy(): void;
-        init(): void;
+    bindMinmapEvents(): void;
+    bindWavesurferEvents(): void;
+    createElements(): void;
+    getWidth(): number;
+    moveOverviewRegion(pixels: number): void;
+    regions(): void;
+    render(): void;
+    renderRegions(): void;
 
-        bindMinmapEvents(): void;
-        bindWavesurferEvents(): void;
-        createElements(): void;
-        getWidth(): number;
-        moveOverviewRegion(pixels: number): void;
-        regions(): void;
-        render(): void;
-        renderRegions(): void;
+    readonly draggingOverview: boolean;
+    readonly drawer: Drawer;
+    readonly overviewPosition: number;
+    readonly overviewRegion: HTMLElement | null;
+    readonly overviewWidth: number | null;
+    readonly params: MinimapPluginParams;
+    readonly ratio: number;
+    readonly regionsPlugin: RegionsPlugin | null;
+    readonly renderEvent: string;
+    readonly util: WaveSurfer["util"];
+    readonly waveShowedWidth: number;
+    readonly waveWidth: number;
+    readonly wavesurfer: WaveSurfer;
+}
 
-        readonly draggingOverview: boolean;
-        readonly drawer: Drawer;
-        readonly overviewPosition: number;
-        readonly overviewRegion: HTMLElement | null;
-        readonly overviewWidth: number | null;
-        readonly params: MinimapPluginParams;
-        readonly ratio: number;
-        readonly regionsPlugin: RegionsPlugin | null;
-        readonly renderEvent: string;
-        readonly util: WaveSurferUtil;
-        readonly waveShowedWidth: number;
-        readonly waveWidth: number;
-        readonly wavesurfer: WaveSurfer;
-    }
-
-    interface MinimapPluginParams extends PluginParams {
-        container?: string | HTMLElement | false;
-
-        showRegions?: boolean;
-        regionsPluginName?: string;
-        showOverview?: boolean;
-        overviewBorderColor?: string;
-        overviewBorderSize?: number;
-        height?: number;
-    }
+export interface MinimapPluginParams extends PluginParams {
+    /** CSS selector or HTML element where the map should be rendered. By default it is simply appended after the waveform. */
+    container?: string | HTMLElement | false | undefined;
 }

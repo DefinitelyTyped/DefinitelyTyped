@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Security Command Center API v1 1.0
-// Project: https://console.cloud.google.com/apis/api/securitycenter.googleapis.com/overview
+// Project: https://cloud.google.com/security-command-center
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

@@ -8,6 +8,7 @@
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Daniel Cassidy <https://github.com/djcsdy>
 //                 Drew Wyatt <https://github.com/drewwyatt>
+//                 Zack Haigh <https://github.com/zetagame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -342,7 +343,7 @@ declare namespace jwplayer {
         | 'remove';
 
     interface JWPlayer {
-        addButton(icon: string, label: string, handler: () => void, id: string): void;
+        addButton(icon: string, label: string, handler: () => void, id: string): JWPlayer;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];
@@ -368,36 +369,36 @@ declare namespace jwplayer {
         getWidth(): number;
         getVisualQuality(): QualityLevel | undefined;
         getPlaybackRate(): number;
-        load(playlist: any[] | string): void;
-        on<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
-        on(event: NoParamEvent, callback: () => void): void;
-        once<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
-        once(event: NoParamEvent, callback: () => void): void;
-        off(event: keyof EventParams | NoParamEvent): void;
-        off(event: NoParamEvent, callback: () => void): void;
-        off<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
-        trigger<TEvent extends keyof EventParams>(event: TEvent, args: EventParams[TEvent]): void;
-        trigger(event: NoParamEvent): void;
-        pause(state?: boolean): void;
-        play(state?: boolean): void;
+        load(playlist: any[] | string): JWPlayer;
+        on<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): JWPlayer;
+        on(event: NoParamEvent, callback: () => void): JWPlayer;
+        once<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): JWPlayer;
+        once(event: NoParamEvent, callback: () => void): JWPlayer;
+        off(event: keyof EventParams | NoParamEvent): JWPlayer;
+        off(event: NoParamEvent, callback: () => void): JWPlayer;
+        off<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): JWPlayer;
+        trigger<TEvent extends keyof EventParams>(event: TEvent, args: EventParams[TEvent]): JWPlayer;
+        trigger(event: NoParamEvent): JWPlayer;
+        pause(state?: boolean): JWPlayer;
+        play(state?: boolean): JWPlayer;
         playAd(tag: string): void;
         playlistItem(index: number): void;
         registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
-        remove(): void;
-        removeButton(id: string): void;
-        resize(width: number, height: number): void;
-        seek(position: number): void;
+        remove(): JWPlayer;
+        removeButton(id: string): JWPlayer;
+        resize(width: number, height: number): JWPlayer;
+        seek(position: number): JWPlayer;
         setControls(controls: boolean): void;
         setCurrentAudioTrack(index: number): void;
         setCurrentCaptions(index: number): void;
         setCurrentQuality(index: number): void;
         setPlaybackRate(rate: number): void;
         setFullscreen(state: boolean): void;
-        setMute(state?: boolean): void;
+        setMute(state?: boolean): JWPlayer;
         setup(options: any): JWPlayer;
-        setVolume(volume: number): void;
-        setCaptions(options: CaptionOptions): void;
-        stop(): void;
+        setVolume(volume: number): JWPlayer;
+        setCaptions(options: CaptionOptions): JWPlayer;
+        stop(): JWPlayer;
     }
 
     interface JWPlayerStatic {

@@ -27,7 +27,7 @@ declare namespace Boom {
         /** reformat() - rebuilds error.output using the other object properties. */
         reformat: () => string;
         /** "If message is unset, the 'error' segment of the header will not be present and isMissing will be true on the error object." mentioned in @see {@link https://github.com/hapijs/boom#boomunauthorizedmessage-scheme-attributes} */
-        isMissing?: boolean;
+        isMissing?: boolean | undefined;
         /** https://github.com/hapijs/boom#createstatuscode-message-data and https://github.com/hapijs/boom/blob/v4.3.0/lib/index.js#L99 */
         data: Data;
     }
@@ -63,7 +63,7 @@ declare namespace Boom {
      * @param options optional additional options
      * @see {@link https://github.com/hapijs/boom#boomifyerror-options}
      */
-    export function boomify(error: Error, options?: { statusCode?: number, message?: string, override?: boolean }): BoomError<null>;
+    export function boomify(error: Error, options?: { statusCode?: number | undefined, message?: string | undefined, override?: boolean | undefined }): BoomError<null>;
 
     /**
      * Decorates an error with the boom properties

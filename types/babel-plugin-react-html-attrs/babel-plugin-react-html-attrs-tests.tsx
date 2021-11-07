@@ -100,6 +100,11 @@ const htmlAttributesTest = (
         />
         <iframe allowfullscreen="" allowtransparency="" seamless="" />
 
+        <picture>
+            <source media="test" srcSet="test" width={50} height={50} />
+            <img src="test" width={100} height={100} />
+        </picture>
+
         <img crossorigin="anonymous" referrerpolicy="origin" srcset="test" usemap="test" tabindex="-1" />
 
         <ins datetime="test" />

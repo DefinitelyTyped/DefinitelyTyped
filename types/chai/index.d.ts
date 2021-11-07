@@ -5,7 +5,6 @@
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>,
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>,
 //                 Shaun Luttin <https://github.com/shaunluttin>,
 //                 Gintautas Miselis <https://github.com/Naktibalda>,
 //                 Satana Charuwichitratana <https://github.com/micksatana>,
@@ -341,13 +340,13 @@ declare namespace Chai {
     }
 
     interface Property {
-        (name: string, value: any, message?: string): Assertion;
-        (name: string, message?: string): Assertion;
+        (name: string | symbol, value: any, message?: string): Assertion;
+        (name: string | symbol, message?: string): Assertion;
     }
 
     interface OwnPropertyDescriptor {
-        (name: string, descriptor: PropertyDescriptor, message?: string): Assertion;
-        (name: string, message?: string): Assertion;
+        (name: string | symbol, descriptor: PropertyDescriptor, message?: string): Assertion;
+        (name: string | symbol, message?: string): Assertion;
     }
 
     interface Length extends LanguageChains, NumericComparison {
@@ -507,7 +506,7 @@ declare namespace Chai {
         notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply equal (==) to expected.
+         * Asserts that actual is deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -517,7 +516,7 @@ declare namespace Chai {
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is not deeply equal (==) to expected.
+         * Asserts that actual is not deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -527,7 +526,7 @@ declare namespace Chai {
         notDeepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply strict equal (===) to expected.
+         * Alias to deepEqual
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -1195,7 +1194,7 @@ declare namespace Chai {
          * @param length   Potential expected length of object.
          * @param message   Message to display on error.
          */
-        lengthOf<T extends { readonly length?: number }>(object: T, length: number, message?: string): void;
+        lengthOf<T extends { readonly length?: number | undefined }>(object: T, length: number, message?: string): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1480,6 +1479,17 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         includeMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in any order.
+         * Uses a strict equality check (===). Duplicates are ignored.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential not contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeMembers<T>(superset: T[], subset: T[], message?: string): void;
 
         /**
          * Asserts that subset is included in superset using deep equality checking.

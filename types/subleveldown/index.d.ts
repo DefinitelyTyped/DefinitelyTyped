@@ -20,13 +20,13 @@ interface SubDownOptions extends CodecOptions {
      * Character for separating sublevel prefixes from user keys and each other. Should be outside the character (or byte) range of user keys.
      * @default '!'
      */
-    separator?: string;
+    separator?: string | undefined;
 
     /**
      * Optional open hook called when the underlying `levelup` instance has been opened.
      * The hook receives a callback which must be called to finish opening.
      */
-    open?: SubDownOpenHook;
+    open?: SubDownOpenHook | undefined;
 
     // TODO: Remove and inherit from constructor options from levelup package
     [key: string]: any;

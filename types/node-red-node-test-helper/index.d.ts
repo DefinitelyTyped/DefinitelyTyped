@@ -128,7 +128,7 @@ declare namespace nodeRedNodeTestHelper {
     type TestFlowsItem<TNodeDef extends NodeDef = NodeDef> = Partial<TNodeDef> & {
         id: string;
         type: string;
-        wires?: string[][];
+        wires?: string[][] | undefined;
     };
     type TestFlows = TestFlowsItem[];
     type TestCredentials<TCred> = NodeCredentials<TCred>;

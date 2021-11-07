@@ -1,23 +1,23 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "tailwindcss-tests.ts"
+        "test/tailwindcss-tests.ts",
+        "test/tailwindcss-plugin-tests.ts",
+        "test/tailwindcss-default-config-code-tests.ts",
+        "test/tailwindcss-default-config-value-tests.ts"
     ]
 }

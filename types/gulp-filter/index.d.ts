@@ -15,8 +15,8 @@ declare namespace filter {
     }
 
     interface Options extends Minimatch.IOptions {
-        restore?: boolean;
-        passthrough?: boolean;
+        restore?: boolean | undefined;
+        passthrough?: boolean | undefined;
     }
 
     // A transform stream with a .restore object

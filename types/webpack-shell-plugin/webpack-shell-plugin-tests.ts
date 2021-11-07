@@ -1,4 +1,4 @@
-/// <reference types="webpack-dev-server" />
+/// <reference types="webpack-dev-server/v3" />
 import WebpackShellPlugin = require('webpack-shell-plugin');
 import path = require('path');
 import { Configuration, Plugin } from 'webpack';

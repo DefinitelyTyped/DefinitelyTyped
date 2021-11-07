@@ -48,7 +48,7 @@ type NonScalar = Vector | MultidimensionalMatrix;
 
 declare class Tensor {
     x: TensorValue;
-    y?: TensorValue;
+    y?: TensorValue | undefined;
 
     add(tensor: Tensor | TensorValue): Tensor;
     sub(tensor: Tensor | TensorValue): Tensor;
@@ -105,7 +105,7 @@ declare class Dopri {
     ymid: Vector;
     iterations: number;
     msg: string;
-    events?: boolean | VectorBoolean;
+    events?: boolean | VectorBoolean | undefined;
 
     at(x: Vector): Vector | Matrix;
 }

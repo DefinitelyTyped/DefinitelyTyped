@@ -4,7 +4,7 @@ import { Query } from "history";
 
 export interface IndexRedirectProps extends ClassAttributes<any> {
     to: RoutePattern;
-    query?: Query;
+    query?: Query | undefined;
 }
 
 type IndexRedirect = ComponentClass<IndexRedirectProps>;

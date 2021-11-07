@@ -288,23 +288,23 @@ export interface VastRequestOptions {
     /**
      * A custom timeout for the requests (default 0)
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * A boolean to enable the withCredentials options for the XHR and FLASH URLHandlers (default false)
      */
-    withCredentials?: boolean;
+    withCredentials?: boolean | undefined;
     /**
      * A number of Wrapper responses that can be received with no InLine response (default 0)
      */
-    wrapperLimit?: number;
+    wrapperLimit?: number | undefined;
     /**
      * Custom urlhandler to be used instead of the default ones urlhandlers
      */
-    urlHandler?: VASTClientUrlHandler;
+    urlHandler?: VASTClientUrlHandler | undefined;
     /**
      * Allows you to parse all the ads contained in the VAST or to parse them ad by ad or adPod by adPod (default true)
      */
-    resolveAll?: boolean;
+    resolveAll?: boolean | undefined;
 }
 
 export interface VastResponse {
@@ -322,9 +322,9 @@ export interface VastError {
      *      VAST error 303: No VAST response after one or more Wrappers.
      */
     ERRORCODE: string | number;
-    ERRORMESSAGE?: string;
-    extensions?: VastAdExtension[];
-    system?: VastSystem | string | null;
+    ERRORMESSAGE?: string | undefined;
+    extensions?: VastAdExtension[] | undefined;
+    system?: VastSystem | string | null | undefined;
 }
 
 export interface VastCreative {

@@ -16,7 +16,7 @@ export interface HLocation<S = unknown> {
     search: string;
     state: S;
     hash: string;
-    key?: string;
+    key?: string | undefined;
 }
 export type WindowLocation<S = unknown> = Window['location'] & HLocation<S>;
 
@@ -39,18 +39,18 @@ export interface History {
 export class Router extends React.Component<RouterProps & React.HTMLProps<HTMLDivElement>> {}
 
 export interface RouterProps {
-    basepath?: string;
-    primary?: boolean;
-    location?: WindowLocation;
-    component?: React.ComponentType | string;
+    basepath?: string | undefined;
+    primary?: boolean | undefined;
+    location?: WindowLocation | undefined;
+    component?: React.ComponentType | string | undefined;
 }
 
 export type RouteComponentProps<TParams = {}> = Partial<TParams> & {
-    path?: string;
-    default?: boolean;
-    location?: WindowLocation;
-    navigate?: NavigateFn;
-    uri?: string;
+    path?: string | undefined;
+    default?: boolean | undefined;
+    location?: WindowLocation | undefined;
+    navigate?: NavigateFn | undefined;
+    uri?: string | undefined;
 };
 
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
@@ -62,11 +62,11 @@ export type AnchorProps = Omit<
 
 export interface LinkProps<TState> extends AnchorProps {
     to: string;
-    replace?: boolean;
-    getProps?: (props: LinkGetProps) => {};
-    state?: TState;
+    replace?: boolean | undefined;
+    getProps?: ((props: LinkGetProps) => {}) | undefined;
+    state?: TState | undefined;
     /** @deprecated If using React >= 16.4, use ref instead. */
-    innerRef?: React.Ref<HTMLAnchorElement>;
+    innerRef?: React.Ref<HTMLAnchorElement> | undefined;
 }
 
 export interface LinkGetProps {
@@ -86,11 +86,11 @@ export interface Link<TState>
     > {}
 
 export interface RedirectProps<TState> {
-    from?: string;
+    from?: string | undefined;
     to: string;
-    noThrow?: boolean;
-    state?: TState;
-    replace?: boolean;
+    noThrow?: boolean | undefined;
+    state?: TState | undefined;
+    replace?: boolean | undefined;
 }
 
 export class Redirect<TState> extends React.Component<RouteComponentProps<RedirectProps<TState>>> {}
@@ -116,8 +116,8 @@ export interface NavigateFn {
 }
 
 export interface NavigateOptions<TState> {
-    state?: TState;
-    replace?: boolean;
+    state?: TState | undefined;
+    replace?: boolean | undefined;
 }
 
 export interface LocationProps {
@@ -127,8 +127,8 @@ export interface LocationProps {
 export class Location extends React.Component<LocationProps> {}
 
 export interface LocationProviderProps {
-    history?: History;
-    children?: React.ReactNode | LocationProviderRenderFn;
+    history?: History | undefined;
+    children?: React.ReactNode | LocationProviderRenderFn | undefined;
 }
 
 export type LocationProviderRenderFn = (context: LocationContext) => React.ReactNode;
@@ -177,6 +177,8 @@ export function useLocation(): WindowLocation;
 
 export function useNavigate(): NavigateFn;
 
-export function useParams(): any;
+// TODO: In the next major release update we should update the type parameter default of TPrams from `any` to `{}`,
+// it is currently being keep for backwards compatibility with version 1.3.7 or below.
+export function useParams<TParams extends { [Param in keyof TParams]?: string } = any>(): TParams;
 
 export function useMatch(pathname: string): null | { uri: string; path: string; [param: string]: string };

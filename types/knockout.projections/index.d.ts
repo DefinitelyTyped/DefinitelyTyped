@@ -18,7 +18,7 @@ interface KnockoutObservableArrayFunctions<T> {
     }): KnockoutMappedObservableArray<TResult>;
     map<TResult>(mappingOptions: {
         mapping: (value: T) => TResult;
-        disposeItem?: (mappedItem: TResult) => void;
+        disposeItem?: ((mappedItem: TResult) => void) | undefined;
     }): KnockoutMappedObservableArray<TResult>;
     map<TResult>(mappingOptions: (value: T) => TResult): KnockoutMappedObservableArray<TResult>;
     

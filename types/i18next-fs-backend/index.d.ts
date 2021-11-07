@@ -1,13 +1,14 @@
-// Type definitions for i18next-fs-backend 1.0
+// Type definitions for i18next-fs-backend 1.1
 // Project: https://github.com/i18next/i18next-fs-backend
-// Definitions by: Nejc Drobnič <https://github.com/quantumlytangled>
+// Definitions by: Nejc Drobnič <https://github.com/quantumlyy>
+//                 Jeroen "Favna" Claassens <https://github.com/favna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BackendModule, InitOptions, Services, ReadCallback } from 'i18next';
 
 export namespace i18next {
     interface InitOptions {
-        backend?: i18nextFsBackend.i18nextFsBackendOptions;
+        backend?: i18nextFsBackend.i18nextFsBackendOptions | undefined;
     }
 }
 
@@ -15,11 +16,11 @@ export namespace i18nextFsBackend {
     type loadPathFunction = (language: string, namespace: string) => string;
 
     interface i18nextFsBackendOptions {
-        loadPath?: string | loadPathFunction;
-        addPath?: string;
-        ident?: number;
-        parse?: (data: string) => unknown;
-        stringify?: (data: unknown) => string;
+        loadPath?: string | loadPathFunction | undefined;
+        addPath?: string | undefined;
+        ident?: number | undefined;
+        parse?: ((data: string) => unknown) | undefined;
+        stringify?: ((data: unknown) => string) | undefined;
     }
 }
 

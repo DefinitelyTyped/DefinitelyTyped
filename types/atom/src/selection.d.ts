@@ -25,8 +25,8 @@ export interface Selection {
     setScreenRange(
         screenRange: RangeCompatible,
         options?: {
-            preserveFolds?: boolean;
-            autoscroll?: boolean;
+            preserveFolds?: boolean | undefined;
+            autoscroll?: boolean | undefined;
         },
     ): void;
 
@@ -37,9 +37,9 @@ export interface Selection {
     setBufferRange(
         bufferRange: RangeCompatible,
         options?: {
-            reversed?: boolean;
-            preserveFolds?: boolean;
-            autoscroll?: boolean;
+            reversed?: boolean | undefined;
+            preserveFolds?: boolean | undefined;
+            autoscroll?: boolean | undefined;
         },
     ): void;
 
@@ -72,7 +72,7 @@ export interface Selection {
 
     // Modifying the selected range
     /** Clears the selection, moving the marker to the head. */
-    clear(options?: { autoscroll?: boolean }): void;
+    clear(options?: { autoscroll?: boolean | undefined }): void;
 
     /** Selects the text from the current cursor position to a given screen position. */
     selectToScreenPosition(position: PointCompatible): void;
@@ -313,7 +313,7 @@ export interface Selection {
      *  Combines the given selection into this selection and then destroys the
      *  given selection.
      */
-    merge(otherSelection: Selection, options?: { preserveFolds?: boolean; autoscroll?: boolean }): void;
+    merge(otherSelection: Selection, options?: { preserveFolds?: boolean | undefined; autoscroll?: boolean | undefined }): void;
 
     // Comparing to other selections
     /**

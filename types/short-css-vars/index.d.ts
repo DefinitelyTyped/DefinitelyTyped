@@ -48,11 +48,11 @@ declare namespace ShortCssVars {
         /**
          * Custom formatter
          */
-        formatter?: CustomFormatter;
+        formatter?: CustomFormatter | undefined;
         /**
          * Rule to ignore certain variable names
          */
-        ignore?: IgnoreType;
+        ignore?: IgnoreType | undefined;
     }
 
     interface CustomFormatter {

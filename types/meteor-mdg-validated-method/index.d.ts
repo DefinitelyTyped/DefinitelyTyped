@@ -65,12 +65,12 @@ declare module 'meteor/mdg:validated-method' {
         name: TName & string;
         validate: ((arg: Argument<TRun> extends NoArguments ? any : Argument<TRun>) => any) | null;
         applyOptions?: {
-            noRetry?: boolean;
-            returnStubValue?: boolean;
-            throwStubExceptions?: boolean;
-            onResultReceived?: (result: any) => void;
+            noRetry?: boolean | undefined;
+            returnStubValue?: boolean | undefined;
+            throwStubExceptions?: boolean | undefined;
+            onResultReceived?: ((result: any) => void) | undefined;
             [key: string]: any;
-        };
+        } | undefined;
         run: TRun;
     }
 
@@ -88,7 +88,7 @@ declare module 'meteor/mdg:validated-method' {
             ? TRunAlias extends TRun
                 ? ReadonlyArray<Mixin<TName, TRunAlias>>
                 : never
-            : never;
+            : never | undefined;
     }
 
     type Return<TFunc> = TFunc extends (...args: any[]) => infer TReturn ? TReturn : never;

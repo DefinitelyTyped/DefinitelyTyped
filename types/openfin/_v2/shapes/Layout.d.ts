@@ -1,11 +1,11 @@
 import { Identity } from './Identity';
 export interface Layout {
     settings: {
-        popoutWholeStack?: boolean;
-        constrainDragToContainer?: boolean;
-        showPopoutIcon?: boolean;
-        showMaximiseIcon?: boolean;
-        showCloseIcon?: boolean;
+        popoutWholeStack?: boolean | undefined;
+        constrainDragToContainer?: boolean | undefined;
+        showPopoutIcon?: boolean | undefined;
+        showMaximiseIcon?: boolean | undefined;
+        showCloseIcon?: boolean | undefined;
     };
     content: LayoutContent;
 }
@@ -24,6 +24,6 @@ export interface LayoutComponent {
     componentState: {
         identity: Identity;
         url: string;
-        title?: string;
+        title?: string | undefined;
     };
 }

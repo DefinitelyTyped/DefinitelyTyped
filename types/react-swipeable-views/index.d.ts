@@ -24,37 +24,37 @@ export interface SpringConfig {
 }
 
 export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
-    animateHeight?: boolean;
-    animateTransitions?: boolean;
-    axis?: AxisType;
-    containerStyle?: React.CSSProperties;
-    disabled?: boolean;
+    animateHeight?: boolean | undefined;
+    animateTransitions?: boolean | undefined;
+    axis?: AxisType | undefined;
+    containerStyle?: React.CSSProperties | undefined;
+    disabled?: boolean | undefined;
     /*
      * This is the config used to disable lazy loading, if true it will render all the views in first rendering.
      */
-    disableLazyLoading?: boolean;
-    enableMouseEvents?: boolean;
-    hysteresis?: number;
-    ignoreNativeScroll?: boolean;
-    index?: number;
-    onChangeIndex?: OnChangeIndexCallback;
-    onSwitching?: OnSwitchingCallback;
-    onTransitionEnd?: OnTransitionEndCallback;
-    resistance?: boolean;
-    style?: React.CSSProperties;
-    slideStyle?: React.CSSProperties;
-    springConfig?: SpringConfig;
-    slideClassName?: string;
-    threshold?: number;
+    disableLazyLoading?: boolean | undefined;
+    enableMouseEvents?: boolean | undefined;
+    hysteresis?: number | undefined;
+    ignoreNativeScroll?: boolean | undefined;
+    index?: number | undefined;
+    onChangeIndex?: OnChangeIndexCallback | undefined;
+    onSwitching?: OnSwitchingCallback | undefined;
+    onTransitionEnd?: OnTransitionEndCallback | undefined;
+    resistance?: boolean | undefined;
+    style?: React.CSSProperties | undefined;
+    slideStyle?: React.CSSProperties | undefined;
+    springConfig?: SpringConfig | undefined;
+    slideClassName?: string | undefined;
+    threshold?: number | undefined;
 }
 
 export interface SwipeableViewsState {
-    indexCurrent?: number;
-    indexLatest?: number;
-    isDragging?: boolean;
-    isFirstRender?: boolean;
-    heightLatest?: number;
-    displaySameSlide?: boolean;
+    indexCurrent?: number | undefined;
+    indexLatest?: number | undefined;
+    isDragging?: boolean | undefined;
+    isFirstRender?: boolean | undefined;
+    heightLatest?: number | undefined;
+    displaySameSlide?: boolean | undefined;
 }
 
 export default class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> { }

@@ -10,14 +10,14 @@ declare namespace parse {
          *
          * @default true
          */
-        loc?: boolean;
+        loc?: boolean | undefined;
 
         /**
          * Appends source information to node’s location.
          *
          * @default null
          */
-        source?: string;
+        source?: string | undefined;
     }
 
     type ValueNode = ObjectNode | ArrayNode | LiteralNode;
@@ -36,7 +36,7 @@ declare namespace parse {
 
     interface ASTNode {
         type: string;
-        loc?: Location;
+        loc?: Location | undefined;
     }
 
     interface ObjectNode extends ASTNode {

@@ -21,16 +21,16 @@ interface Console {
      */
     countReset(label?: string): void;
     /**
-     * The `console.debug()` function is an alias for {@link console.log()}.
+     * The `console.debug()` function is an alias for {@link console.log}.
      */
     debug(message?: any, ...optionalParams: any[]): void;
     /**
-     * Uses {@link util.inspect()} on `obj` and prints the resulting string to `stdout`.
+     * Uses {@link util.inspect} on `obj` and prints the resulting string to `stdout`.
      * This function bypasses any custom `inspect()` function defined on `obj`.
      */
     dir(obj: any, options?: NodeJS.InspectOptions): void;
     /**
-     * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
+     * This method calls {@link console.log} passing it the arguments received. Please note that this method does not produce any XML formatting
      */
     dirxml(...data: any[]): void;
     /**
@@ -43,7 +43,7 @@ interface Console {
      */
     group(...label: any[]): void;
     /**
-     * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
+     * The `console.groupCollapsed()` function is an alias for {@link console.group}.
      */
     groupCollapsed(...label: any[]): void;
     /**
@@ -51,7 +51,7 @@ interface Console {
      */
     groupEnd(): void;
     /**
-     * The {@link console.info()} function is an alias for {@link console.log()}.
+     * The {@link console.info} function is an alias for {@link console.log}.
      */
     info(message?: any, ...optionalParams: any[]): void;
     /**
@@ -68,19 +68,19 @@ interface Console {
      */
     time(label?: string): void;
     /**
-     * Stops a timer that was previously started by calling {@link console.time()} and prints the result to `stdout`.
+     * Stops a timer that was previously started by calling {@link console.time} and prints the result to `stdout`.
      */
     timeEnd(label?: string): void;
     /**
-     * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
+     * For a timer that was previously started by calling {@link console.time}, prints the elapsed time and other `data` arguments to `stdout`.
      */
     timeLog(label?: string, ...data: any[]): void;
     /**
-     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
+     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format} formatted message and stack trace to the current position in the code.
      */
     trace(message?: any, ...optionalParams: any[]): void;
     /**
-     * The {@link console.warn()} function is an alias for {@link console.error()}.
+     * The {@link console.warn} function is an alias for {@link console.error}.
      */
     warn(message?: any, ...optionalParams: any[]): void;
 
@@ -124,7 +124,7 @@ interface Console {
 }
 
 interface Error {
-    stack?: string;
+    stack?: string | undefined;
 }
 
 // Declare "static" methods in Error
@@ -137,7 +137,7 @@ interface ErrorConstructor {
      *
      * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
      */
-    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+    prepareStackTrace?: ((err: Error, stackTraces: NodeJS.CallSite[]) => any) | undefined;
 
     stackTraceLimit: number;
 }
@@ -211,7 +211,7 @@ interface NodeRequire extends NodeRequireFunction {
 }
 
 interface RequireResolve {
-    (id: string, options?: { paths?: string[]; }): string;
+    (id: string, options?: { paths?: string[] | undefined; }): string;
     paths(request: string): string[] | null;
 }
 
@@ -511,17 +511,17 @@ declare namespace NodeJS {
          * the getter function.
          * @default `false`
          */
-        getters?: 'get' | 'set' | boolean;
-        showHidden?: boolean;
+        getters?: 'get' | 'set' | boolean | undefined;
+        showHidden?: boolean | undefined;
         /**
          * @default 2
          */
-        depth?: number | null;
-        colors?: boolean;
-        customInspect?: boolean;
-        showProxy?: boolean;
-        maxArrayLength?: number | null;
-        breakLength?: number;
+        depth?: number | null | undefined;
+        colors?: boolean | undefined;
+        customInspect?: boolean | undefined;
+        showProxy?: boolean | undefined;
+        maxArrayLength?: number | null | undefined;
+        breakLength?: number | undefined;
         /**
          * Setting this to `false` causes each object key
          * to be displayed on a new line. It will also add new lines to text that is
@@ -532,16 +532,21 @@ declare namespace NodeJS {
          * For more information, see the example below.
          * @default `true`
          */
-        compact?: boolean | number;
-        sorted?: boolean | ((a: string, b: string) => number);
+        compact?: boolean | number | undefined;
+        sorted?: boolean | ((a: string, b: string) => number) | undefined;
     }
 
     interface ConsoleConstructorOptions {
         stdout: WritableStream;
-        stderr?: WritableStream;
-        ignoreErrors?: boolean;
-        colorMode?: boolean | 'auto';
-        inspectOptions?: InspectOptions;
+        stderr?: WritableStream | undefined;
+        ignoreErrors?: boolean | undefined;
+        colorMode?: boolean | 'auto' | undefined;
+        inspectOptions?: InspectOptions | undefined;
+        /**
+         * Set group indentation
+         * @default 2
+         */
+        groupIndentation?: number | undefined;
     }
 
     interface ConsoleConstructor {
@@ -625,11 +630,10 @@ declare namespace NodeJS {
     }
 
     interface ErrnoException extends Error {
-        errno?: number;
-        code?: string;
-        path?: string;
-        syscall?: string;
-        stack?: string;
+        errno?: number | undefined;
+        code?: string | undefined;
+        path?: string | undefined;
+        syscall?: string | undefined;
     }
 
     class EventEmitter {
@@ -658,7 +662,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -704,10 +708,10 @@ declare namespace NodeJS {
 
     interface ProcessRelease {
         name: string;
-        sourceUrl?: string;
-        headersUrl?: string;
-        libUrl?: string;
-        lts?: string;
+        sourceUrl?: string | undefined;
+        headersUrl?: string | undefined;
+        libUrl?: string | undefined;
+        lts?: string | undefined;
     }
 
     interface ProcessVersions {
@@ -754,7 +758,7 @@ declare namespace NodeJS {
     type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
 
     interface Socket extends ReadWriteStream {
-        isTTY?: true;
+        isTTY?: true | undefined;
     }
 
     interface ProcessEnv {
@@ -856,24 +860,24 @@ declare namespace NodeJS {
          *
          * @default 'Warning'
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * A unique identifier for the warning instance being emitted.
          */
-        code?: string;
+        code?: string | undefined;
 
         /**
          * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
          *
          * @default process.emitWarning
          */
-        ctor?: Function;
+        ctor?: Function | undefined;
 
         /**
          * Additional text to include with the error.
          */
-        detail?: string;
+        detail?: string | undefined;
     }
 
     interface Process extends EventEmitter {
@@ -913,7 +917,7 @@ declare namespace NodeJS {
 
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode?: number;
+        exitCode?: number | undefined;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -960,7 +964,7 @@ declare namespace NodeJS {
         title: string;
         arch: string;
         platform: Platform;
-        mainModule?: NodeModule;
+        mainModule?: NodeModule | undefined;
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
@@ -990,7 +994,7 @@ declare namespace NodeJS {
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean | undefined}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
@@ -1004,7 +1008,7 @@ declare namespace NodeJS {
         /**
          * Only available with `--experimental-report`
          */
-        report?: ProcessReport;
+        report?: ProcessReport | undefined;
 
         resourceUsage(): ResourceUsage;
 

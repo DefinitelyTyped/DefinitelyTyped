@@ -5,10 +5,10 @@ import { TextInputSharedProps } from "./props";
 import { ForwardRefReturn } from "../../../typings/shared";
 
 export interface TextInputProps extends TextInputSharedProps {
-    inline?: boolean,
-    size?: "sm" | "md" | "lg" | "xl",
-    warn?: boolean,
-    warnText?: React.ReactNode,
+    inline?: boolean | undefined,
+    size?: "sm" | "md" | "lg" | "xl" | undefined,
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
 interface TextInputFC extends ForwardRefReturn<HTMLInputElement, TextInputProps> {

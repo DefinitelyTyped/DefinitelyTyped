@@ -11,11 +11,11 @@ declare namespace WebFont {
     export function load(config:WebFont.Config):void;
     export interface Config {
         /** Setting this to false will disable html classes (defaults to true) */
-        classes?:boolean;
+        classes?:boolean | undefined;
         /** Settings this to false will disable callbacks/events (defaults to true) */
-        events?:boolean;
+        events?:boolean | undefined;
         /** Time (in ms) until the fontinactive callback will be triggered (defaults to 5000) */
-        timeout?:number;
+        timeout?:number | undefined;
         /** This event is triggered when all fonts have been requested. */
         loading?():void;
         /** This event is triggered when the fonts have rendered. */
@@ -30,34 +30,34 @@ declare namespace WebFont {
         fontinactive?(familyName:string, fvd:string):void;
 
         /** Child window or iframes to manage fonts for */
-        context?:Array<string>;
+        context?:Array<string> | undefined;
 
-        custom?:Custom;
-        google?:Google;
-        typekit?:Typekit;
-        fontdeck?:Fontdeck;
-        monotype?:Monotype;
+        custom?:Custom | undefined;
+        google?:Google | undefined;
+        typekit?:Typekit | undefined;
+        fontdeck?:Fontdeck | undefined;
+        monotype?:Monotype | undefined;
     }
     export interface Google {
-        api?: string;
+        api?: string | undefined;
         families:Array<string>;
-        text?: string;
+        text?: string | undefined;
     }
     export interface Typekit {
-        id?:string;
+        id?:string | undefined;
     }
     export interface Custom {
-        families?:Array<string>;
-        urls?:Array<string>;
-        testStrings?:{[fontFamily:string]:string};
+        families?:Array<string> | undefined;
+        urls?:Array<string> | undefined;
+        testStrings?:{[fontFamily:string]:string} | undefined;
     }
     export interface Fontdeck {
-        id?:string;
+        id?:string | undefined;
     }
     export interface Monotype {
-        projectId?:string;
-        version?:number;
-        loadAllFonts?:boolean;
+        projectId?:string | undefined;
+        version?:number | undefined;
+        loadAllFonts?:boolean | undefined;
     }
 
 }

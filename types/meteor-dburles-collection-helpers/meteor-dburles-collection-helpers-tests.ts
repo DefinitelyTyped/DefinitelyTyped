@@ -9,7 +9,7 @@ import {
 } from 'meteor/dburles:collection-helpers';
 
 interface Author {
-    _id?: string;
+    _id?: string | undefined;
     firstName: string;
     lastName: string;
     // function properties are automatically detected as helpers; no need to specify
@@ -18,7 +18,7 @@ interface Author {
 }
 
 interface Book {
-    _id?: string;
+    _id?: string | undefined;
     authorId: string;
     name: string;
     author: () => Author | undefined;
@@ -103,8 +103,8 @@ const bookData: Data<Book> = {
 interface OptionalHelpers {
     _id: string;
     value: number;
-    increment?: () => void;
-    zero?: Helper<number>;
+    increment?: (() => void) | undefined;
+    zero?: Helper<number> | undefined;
 }
 
 const optionalHelpers = new Mongo.Collection<OptionalHelpers>('optionalHelpers');
@@ -184,7 +184,7 @@ recursiveHelpers.findOne(rh1)!.factorial(4);
 interface RecursiveOptionalHelpers {
     _id: string;
     value: number;
-    factorial?: (arg: number) => number;
+    factorial?: ((arg: number) => number) | undefined;
 }
 
 const recursiveOptionalHelpers = new Mongo.Collection<RecursiveHelpers>('recursiveHelpers');
@@ -229,13 +229,13 @@ mandatoryIds.upsert('new ID', { ...withoutId, _id: 'new ID' }).numberAffected;
 // null does not count as a helper type
 // however, Helper<null> and Helper<T | null> should work more or less correctly
 interface ComplicatedMembers {
-    _id?: string;
+    _id?: string | undefined;
     nullable: number | null;
     alwaysNull: null;
     helperNull: Helper<null>;
     helperNumber: Helper<number>;
     helperNullableFalse: Helper<false | null>;
-    optionalHelperString?: Helper<string>;
+    optionalHelperString?: Helper<string> | undefined;
     // tslint:disable-next-line void-return
     helperVoidableNumber: Helper<number | void>;
     methodUnion: (() => boolean) | ((arg: number) => boolean);
@@ -383,12 +383,12 @@ const numberOrVoid: number | void = asComplicatedMembers.helperVoidableNumber;
 // on Full<T>
 // and it even works on methods
 interface ActuallyOptionalHelpers {
-    _id?: string;
+    _id?: string | undefined;
     value: number;
     getValue: OptionalHelper<() => number>;
-    incrementValue?: OptionalHelper<() => void>;
+    incrementValue?: OptionalHelper<() => void> | undefined;
     optionalHelperValue: OptionalHelper<number>;
-    optionalHelperName?: OptionalHelper<string>;
+    optionalHelperName?: OptionalHelper<string> | undefined;
 }
 const actuallyOptionalHelpers = new Mongo.Collection<ActuallyOptionalHelpers>('actuallyOptionalHelpers');
 

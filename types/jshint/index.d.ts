@@ -41,11 +41,11 @@ export interface LintUnused {
 }
 
 export interface LintData {
-    functions?: LintFunction[];
-    options?: LintOptions;
-    errors?: LintError[];
-    globals?: string[];
-    unused?: LintUnused[];
+    functions?: LintFunction[] | undefined;
+    options?: LintOptions | undefined;
+    errors?: LintError[] | undefined;
+    globals?: string[] | undefined;
+    unused?: LintUnused[] | undefined;
     member?: any;
     implieds?: any;
     /* istanbul ignore next */

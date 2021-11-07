@@ -17,26 +17,26 @@ export interface ojLegend<K, D> extends dvtBaseComponent<ojLegendSettablePropert
     scrolling: 'off' | 'asNeeded';
     symbolHeight: number;
     symbolWidth: number;
-    textStyle?: object;
+    textStyle?: object | undefined;
     valign: 'middle' | 'bottom' | 'top';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     onAsChanged: ((event: JetElementCustomEvent<ojLegend<K, D>["as"]>) => any) | null;
     onDataChanged: ((event: JetElementCustomEvent<ojLegend<K, D>["data"]>) => any) | null;
@@ -137,50 +137,50 @@ export interface ojLegendSettableProperties<K, D> extends dvtBaseComponentSettab
     scrolling: 'off' | 'asNeeded';
     symbolHeight: number;
     symbolWidth: number;
-    textStyle?: object;
+    textStyle?: object | undefined;
     valign: 'middle' | 'bottom' | 'top';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface ojLegendSettablePropertiesLenient<K, D> extends Partial<ojLegendSettableProperties<K, D>> {
     [key: string]: any;
 }
 export interface ojLegendItem extends JetElement<ojLegendItemSettableProperties> {
-    borderColor?: string;
-    categories?: string[];
-    categoryVisibility?: 'hidden' | 'visible';
-    color?: string;
-    drilling?: 'on' | 'off' | 'inherit';
-    lineStyle?: 'dotted' | 'dashed' | 'solid';
-    lineWidth?: number;
-    markerColor?: string;
+    borderColor?: string | undefined;
+    categories?: string[] | undefined;
+    categoryVisibility?: 'hidden' | 'visible' | undefined;
+    color?: string | undefined;
+    drilling?: 'on' | 'off' | 'inherit' | undefined;
+    lineStyle?: 'dotted' | 'dashed' | 'solid' | undefined;
+    lineWidth?: number | undefined;
+    markerColor?: string | undefined;
     markerShape: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-    markerSvgClassName?: string;
-    markerSvgStyle?: object;
+    markerSvgClassName?: string | undefined;
+    markerSvgStyle?: object | undefined;
     pattern?: 'smallChecker' | 'smallCrosshatch' | 'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' |
-       'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none';
-    shortDesc?: string;
-    source?: string;
-    svgClassName?: string;
-    svgStyle?: object;
-    symbolType?: 'line' | 'lineWithMarker' | 'image' | 'marker';
+       'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | undefined;
+    shortDesc?: string | undefined;
+    source?: string | undefined;
+    svgClassName?: string | undefined;
+    svgStyle?: object | undefined;
+    symbolType?: 'line' | 'lineWithMarker' | 'image' | 'marker' | undefined;
     text: string;
     onBorderColorChanged: ((event: JetElementCustomEvent<ojLegendItem["borderColor"]>) => any) | null;
     onCategoriesChanged: ((event: JetElementCustomEvent<ojLegendItem["categories"]>) => any) | null;
@@ -229,34 +229,34 @@ export interface ojLegendItemEventMap extends HTMLElementEventMap {
     'textChanged': JetElementCustomEvent<ojLegendItem["text"]>;
 }
 export interface ojLegendItemSettableProperties extends JetSettableProperties {
-    borderColor?: string;
-    categories?: string[];
-    categoryVisibility?: 'hidden' | 'visible';
-    color?: string;
-    drilling?: 'on' | 'off' | 'inherit';
-    lineStyle?: 'dotted' | 'dashed' | 'solid';
-    lineWidth?: number;
-    markerColor?: string;
+    borderColor?: string | undefined;
+    categories?: string[] | undefined;
+    categoryVisibility?: 'hidden' | 'visible' | undefined;
+    color?: string | undefined;
+    drilling?: 'on' | 'off' | 'inherit' | undefined;
+    lineStyle?: 'dotted' | 'dashed' | 'solid' | undefined;
+    lineWidth?: number | undefined;
+    markerColor?: string | undefined;
     markerShape: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-    markerSvgClassName?: string;
-    markerSvgStyle?: object;
+    markerSvgClassName?: string | undefined;
+    markerSvgStyle?: object | undefined;
     pattern?: 'smallChecker' | 'smallCrosshatch' | 'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' |
-       'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none';
-    shortDesc?: string;
-    source?: string;
-    svgClassName?: string;
-    svgStyle?: object;
-    symbolType?: 'line' | 'lineWithMarker' | 'image' | 'marker';
+       'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | undefined;
+    shortDesc?: string | undefined;
+    source?: string | undefined;
+    svgClassName?: string | undefined;
+    svgStyle?: object | undefined;
+    symbolType?: 'line' | 'lineWithMarker' | 'image' | 'marker' | undefined;
     text: string;
 }
 export interface ojLegendItemSettablePropertiesLenient extends Partial<ojLegendItemSettableProperties> {
     [key: string]: any;
 }
 export interface ojLegendSection extends JetElement<ojLegendSectionSettableProperties> {
-    collapsible?: 'on' | 'off';
-    text?: string;
-    textHalign?: 'center' | 'end' | 'start';
-    textStyle?: object;
+    collapsible?: 'on' | 'off' | undefined;
+    text?: string | undefined;
+    textHalign?: 'center' | 'end' | 'start' | undefined;
+    textStyle?: object | undefined;
     onCollapsibleChanged: ((event: JetElementCustomEvent<ojLegendSection["collapsible"]>) => any) | null;
     onTextChanged: ((event: JetElementCustomEvent<ojLegendSection["text"]>) => any) | null;
     onTextHalignChanged: ((event: JetElementCustomEvent<ojLegendSection["textHalign"]>) => any) | null;
@@ -276,10 +276,10 @@ export interface ojLegendSectionEventMap extends HTMLElementEventMap {
     'textStyleChanged': JetElementCustomEvent<ojLegendSection["textStyle"]>;
 }
 export interface ojLegendSectionSettableProperties extends JetSettableProperties {
-    collapsible?: 'on' | 'off';
-    text?: string;
-    textHalign?: 'center' | 'end' | 'start';
-    textStyle?: object;
+    collapsible?: 'on' | 'off' | undefined;
+    text?: string | undefined;
+    textHalign?: 'center' | 'end' | 'start' | undefined;
+    textStyle?: object | undefined;
 }
 export interface ojLegendSectionSettablePropertiesLenient extends Partial<ojLegendSectionSettableProperties> {
     [key: string]: any;

@@ -55,9 +55,9 @@ export class LazyPoint extends Point {
 }
 
 export interface Options {
-    radius?: number;
-    enabled?: boolean;
-    initialPoint?: Coordinates;
+    radius?: number | undefined;
+    enabled?: boolean | undefined;
+    initialPoint?: Coordinates | undefined;
 }
 
 export interface UpdateOptions {

@@ -43,8 +43,8 @@ export interface RelayRefetchProp {
     hasMore: undefined; // ensures no RelayPaginationProp is used with a refetch container
 }
 export interface RefetchOptions {
-    force?: boolean;
-    fetchPolicy?: 'store-or-network' | 'network-only';
+    force?: boolean | undefined;
+    fetchPolicy?: 'store-or-network' | 'network-only' | undefined;
 }
 
 type ObserverOrCallback = Observer<void> | ((error: Error | null | undefined) => void);
@@ -118,8 +118,8 @@ interface QueryRendererProps<TOperation extends OperationType> {
 }
 declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<
     {
-        cacheConfig?: CacheConfig | null;
-        fetchPolicy?: FetchPolicy;
+        cacheConfig?: CacheConfig | null | undefined;
+        fetchPolicy?: FetchPolicy | undefined;
     } & QueryRendererProps<TOperation>
 > {}
 export { ReactRelayQueryRenderer as QueryRenderer };
@@ -133,25 +133,25 @@ export const ReactRelayContext: React.Context<RelayContext | null>;
 
 export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
 
-export type Container<Props> = React.ComponentType<ContainerProps<Props> & { componentRef?: (ref: any) => void }>;
+export type Container<Props> = React.ComponentType<ContainerProps<Props> & { componentRef?: ((ref: any) => void) | undefined }>;
 
 export function createFragmentContainer<Props>(
-    Component: React.ComponentType<Props & { relay?: RelayProp }>,
+    Component: React.ComponentType<Props & { relay?: RelayProp | undefined }>,
     fragmentSpec: Record<string, GraphQLTaggedNode>,
 ): Container<Props>;
 
 interface ConnectionData {
-    edges?: ReadonlyArray<any> | null;
-    pageInfo?: Partial<PageInfo> | null;
+    edges?: ReadonlyArray<any> | null | undefined;
+    pageInfo?: Partial<PageInfo> | null | undefined;
 }
 
 export interface ConnectionConfig<Props = object> {
-    direction?: 'backward' | 'forward';
-    getConnectionFromProps?: (props: Props) => ConnectionData | null | undefined;
-    getFragmentVariables?: (prevVars: Variables, totalCount: number) => Variables;
+    direction?: 'backward' | 'forward' | undefined;
+    getConnectionFromProps?: ((props: Props) => ConnectionData | null | undefined) | undefined;
+    getFragmentVariables?: ((prevVars: Variables, totalCount: number) => Variables) | undefined;
     getVariables: (
         props: Props,
-        paginationInfo: { count: number; cursor?: string | null },
+        paginationInfo: { count: number; cursor?: string | null | undefined },
         fragmentVariables: Variables,
     ) => Variables;
     query: GraphQLTaggedNode;

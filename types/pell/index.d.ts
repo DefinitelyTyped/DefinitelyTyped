@@ -15,30 +15,30 @@ export function exec(command: string, value?: string): void;
 export interface pellConfig<T extends HTMLElement> {
     element: T;
     onChange: (html: string) => void;
-    defaultParagraphSeparator?: string;
-    styleWithCSS?: boolean;
+    defaultParagraphSeparator?: string | undefined;
+    styleWithCSS?: boolean | undefined;
     actions: pellAction[];
-    classes?: pellClasses;
+    classes?: pellClasses | undefined;
 }
 
 export interface pellClasses {
-    actionbar?: string;
-    button?: string;
-    content?: string;
-    selected?: string;
+    actionbar?: string | undefined;
+    button?: string | undefined;
+    content?: string | undefined;
+    selected?: string | undefined;
 }
 
 export type pellAction = pellBuiltinAction | pellActionConfig | pellCustomActionConfig;
 export interface pellActionConfig {
     name: pellAction;
-    icon?: string;
-    title?: string;
+    icon?: string | undefined;
+    title?: string | undefined;
     result: () => void;
 }
 export interface pellCustomActionConfig {
-    name?: string;
+    name?: string | undefined;
     icon: string;
-    title?: string;
+    title?: string | undefined;
     result: () => void;
 }
 

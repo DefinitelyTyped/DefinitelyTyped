@@ -93,21 +93,21 @@ interface locale {
 }
 
 interface colors {
-    default?: string;
-    background?: string;
-    background_warning?: string;
-    string?: string;
-    number?: string;
-    colon?: string;
-    keys?: string;
-    keys_whiteSpace?: string;
-    primitive?: string;
+    default?: string | undefined;
+    background?: string | undefined;
+    background_warning?: string | undefined;
+    string?: string | undefined;
+    number?: string | undefined;
+    colon?: string | undefined;
+    keys?: string | undefined;
+    keys_whiteSpace?: string | undefined;
+    primitive?: string | undefined;
 }
 
 interface error {
-    reason?: string;
-    line?: number;
-    theme?: string;
+    reason?: string | undefined;
+    line?: number | undefined;
+    theme?: string | undefined;
 }
 
 interface style {
@@ -123,22 +123,22 @@ interface style {
 
 interface JSONInputProperties {
     locale: locale;
-    id?: string;
+    id?: string | undefined;
     placeholder?: any;
-    reset?: boolean;
-    viewOnly?: boolean;
+    reset?: boolean | undefined;
+    viewOnly?: boolean | undefined;
     onChange?: any;
     onBlur?: any;
-    confirmGood?: boolean;
-    height?: string;
-    width?: string;
-    onKeyPressUpdate?: string;
-    waitAfterKeyPress?: number;
-    modifyErrorText?: (errorReason: string) => string;
-    error?: error;
-    colors?: colors;
-    style?: style;
-    theme?: string;
+    confirmGood?: boolean | undefined;
+    height?: string | undefined;
+    width?: string | undefined;
+    onKeyPressUpdate?: string | undefined;
+    waitAfterKeyPress?: number | undefined;
+    modifyErrorText?: ((errorReason: string) => string) | undefined;
+    error?: error | undefined;
+    colors?: colors | undefined;
+    style?: style | undefined;
+    theme?: string | undefined;
 }
 
 declare class JSONInput extends React.Component<JSONInputProperties> {

@@ -884,7 +884,7 @@ interface TextEditorEdit {
 
 interface TreeDataProvider<E> {
     getChildren(element: E | null): E[] | Promise<E[]>;
-    getParent?(element: E): E;
+    getParent?(element: E): E | null;
     getTreeItem(element: E): TreeItem;
 }
 
@@ -929,6 +929,17 @@ declare class TreeView<E> extends Disposable {
 
 /// https://docs.nova.app/api-reference/workspace/
 
+// The line is optional, unless a column is specified
+declare type FileLocation =
+    | {
+          line?: number;
+          column?: never;
+      }
+    | {
+          line: number;
+          column?: number;
+      };
+
 interface Workspace {
     readonly path: string | null;
     readonly config: Configuration;
@@ -942,7 +953,13 @@ interface Workspace {
     contains(path: string): boolean;
     relativizePath(path: string): string;
     openConfig(identifier?: string): void;
-    openFile(uri: string): Promise<TextEditor | null>;
+    openFile(uri: string, options?: FileLocation): Promise<TextEditor | null>;
+    openNewTextDocument(
+        options?: {
+            content?: string;
+            syntax?: string;
+        } & FileLocation,
+    ): Promise<TextEditor | null>;
     showInformativeMessage(message: string): void;
     showWarningMessage(message: string): void;
     showErrorMessage(message: string): void;

@@ -6,11 +6,11 @@ import { ObjectEvent } from '../Object';
 import DragBox, { DragBoxEvent } from './DragBox';
 
 export interface Options {
-    className?: string;
-    condition?: Condition;
-    duration?: number;
-    out?: boolean;
-    minArea?: number;
+    className?: string | undefined;
+    condition?: Condition | undefined;
+    duration?: number | undefined;
+    out?: boolean | undefined;
+    minArea?: number | undefined;
 }
 export default class DragZoom extends DragBox {
     constructor(opt_options?: Options);
@@ -21,6 +21,9 @@ export default class DragZoom extends DragBox {
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
+    on(type: 'boxcancel', listener: (evt: DragBoxEvent) => void): EventsKey;
+    once(type: 'boxcancel', listener: (evt: DragBoxEvent) => void): EventsKey;
+    un(type: 'boxcancel', listener: (evt: DragBoxEvent) => void): void;
     on(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     once(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     un(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): void;

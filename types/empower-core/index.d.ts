@@ -25,7 +25,7 @@ declare namespace empowerCore {
          *
          * @default false
          */
-        destructive?: boolean;
+        destructive?: boolean | undefined;
         /**
          * Defaults to `true`, meaning assertion methods have their this value bound to the
          * original assertion. Setting to `false` causes the this reference to be passed
@@ -33,13 +33,13 @@ declare namespace empowerCore {
          *
          * @default true
          */
-        bindReceiver?: boolean;
+        bindReceiver?: boolean | undefined;
         // TODO: Add type for event.
-        onError?: (event: any) => any;
+        onError?: ((event: any) => any) | undefined;
         // TODO: Add type for event.
-        onSuccess?: (event: any) => any;
+        onSuccess?: ((event: any) => any) | undefined;
         // TODO: Add type for powerAssertContext.
-        modifyMessageBeforeAssert?: (params: { originalMessage: string, powerAssertContext: any }) => string;
+        modifyMessageBeforeAssert?: ((params: { originalMessage: string, powerAssertContext: any }) => string) | undefined;
         /**
          * Target patterns for power assert feature instrumentation.
          *
@@ -52,7 +52,7 @@ declare namespace empowerCore {
          * formally recommended, but you can attach any data here and it will be passed to
          * the `onSuccess` and `onError` handlers.
          */
-        patterns?: Pattern[];
+        patterns?: Pattern[] | undefined;
         /**
          * Methods matching these patterns will not be instrumented by the code transform,
          * but they will be wrapped at runtime and trigger events in the `onSuccess` and `onError`
@@ -63,14 +63,14 @@ declare namespace empowerCore {
          *
          * @default []
          */
-        wrapOnlyPatterns?: Pattern[];
+        wrapOnlyPatterns?: Pattern[] | undefined;
     }
 
     type Pattern = string | PatternObject;
 
     interface PatternObject {
         pattern: string;
-        defaultMessage?: string;
+        defaultMessage?: string | undefined;
         [name: string]: any;
     }
 

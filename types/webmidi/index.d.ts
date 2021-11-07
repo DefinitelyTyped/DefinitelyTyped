@@ -1,6 +1,6 @@
 // Type definitions for Web MIDI API 2.0
 // Project: http://www.w3.org/TR/webmidi/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Navigator {
@@ -83,12 +83,12 @@ declare namespace WebMidi {
         /**
          * The manufacturer of the port.
          */
-        manufacturer?: string;
+        manufacturer?: string | undefined;
 
         /**
          * The system name of the port.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * A descriptor property to distinguish whether the port is an input or an output
@@ -99,7 +99,7 @@ declare namespace WebMidi {
         /**
          * The version of the port.
          */
-        version?: string;
+        version?: string | undefined;
 
         /**
          * The state of the device.

@@ -1,7 +1,7 @@
 import dayjs = require('dayjs');
-import * as dayjsPreciseRange from 'dayjs-precise-range';
+import preciseDiff = require('dayjs-precise-range');
 
-dayjs.extend(dayjsPreciseRange);
+dayjs.extend(preciseDiff); // $ExpectType Dayjs
 
 // Static methods
 const m1 = dayjs();

@@ -34,14 +34,14 @@ export type Color = string | undefined;
 export function colored(char: string, color: Color): string;
 
 export interface PlotConfig {
-    offset?: number;
-    padding?: string;
-    height?: number;
-    colors?: Color[];
-    min?: number;
-    max?: number;
-    symbols?: [string, string, string, string, string, string, string, string, string, string];
-    format?: (x: number, i: number) => string;
+    offset?: number | undefined;
+    padding?: string | undefined;
+    height?: number | undefined;
+    colors?: Color[] | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    symbols?: [string, string, string, string, string, string, string, string, string, string] | undefined;
+    format?: ((x: number, i: number) => string) | undefined;
 }
 
 export function plot(series: ReadonlyArray<number | number[]>, cfg?: PlotConfig): string;

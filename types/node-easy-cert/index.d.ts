@@ -58,10 +58,10 @@ declare namespace CertManager {
          * Path where certificates should be stored.
          * @default "/{USER_HOME}/{.node_easy_certs}/"
          */
-        rootDirPath?: string;
+        rootDirPath?: string | undefined;
 
         /** The default attributes of a generated cert, you can change it here */
-        defaultCertAttrs?: CertificateAttribute[];
+        defaultCertAttrs?: CertificateAttribute[] | undefined;
     }
 
     interface GenerateConfig {
@@ -72,7 +72,7 @@ declare namespace CertManager {
          * Should overwrite any existing file.
          * @default false
          */
-        overwrite?: boolean;
+        overwrite?: boolean | undefined;
     }
 
     type GenerateCallback = (err: Error | CertErrors | null, keyPath: string, certPath: string) => any;

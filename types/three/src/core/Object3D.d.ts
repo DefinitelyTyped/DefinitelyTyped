@@ -10,14 +10,14 @@ import { Camera } from './../cameras/Camera';
 import { Material } from './../materials/Material';
 import { Group } from './../objects/Group';
 import { Intersection, Raycaster } from './Raycaster';
-import { EventDispatcher } from './EventDispatcher';
+import { EventDispatcher, BaseEvent, Event } from './EventDispatcher';
 import { BufferGeometry } from './BufferGeometry';
 import { AnimationClip } from '../animation/AnimationClip';
 
 /**
  * Base class for scene graph objects
  */
-export class Object3D extends EventDispatcher {
+export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     constructor();
 
     /**
@@ -308,6 +308,11 @@ export class Object3D extends EventDispatcher {
      * Removes object as child of this object.
      */
     remove(...object: Object3D[]): this;
+
+    /**
+     * Removes this object from its current parent.
+     */
+    removeFromParent(): this;
 
     /**
      * Removes all child objects.

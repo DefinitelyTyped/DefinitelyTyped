@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    float32?: boolean;
+    float32?: boolean | undefined;
 }
 
 declare function audioBufferToWav(buffer: AudioBuffer, options?: Options): ArrayBuffer;

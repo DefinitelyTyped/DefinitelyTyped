@@ -10,8 +10,8 @@ interface SIZE {
 }
 
 interface Defaults {
-    ttl?: number;
-    limit?: number;
+    ttl?: number | undefined;
+    limit?: number | undefined;
     bytes: number;
     compress: boolean;
     minFreeMem: number;
@@ -42,12 +42,12 @@ interface Stats {
 }
 
 interface Options {
-    ttl?: number;
-    limit?: number;
-    bytes?: number;
-    compress?: boolean;
-    minFreeMem?: number;
-    maxEvictBytes?: number;
+    ttl?: number | undefined;
+    limit?: number | undefined;
+    bytes?: number | undefined;
+    compress?: boolean | undefined;
+    minFreeMem?: number | undefined;
+    maxEvictBytes?: number | undefined;
 }
 
 declare class NanoCache {

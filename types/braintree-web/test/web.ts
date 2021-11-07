@@ -294,10 +294,7 @@ braintree.client.create(
                 hostedFieldsInstance.clear('expirationDate');
 
                 const state = braintree.hostedFields.getState();
-
-                const formValid = Object.keys(state.fields).every(key => {
-                    return state.fields[key].isValid;
-                });
+                Object.keys(state.fields).map(k => k as keyof typeof state.fields).every(k => state.fields[k].isValid);
 
                 hostedFieldsInstance.focus('cardholderName');
                 hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {
@@ -390,14 +387,16 @@ braintree.client.create(
                     {
                         token: event.payment.token,
                     },
-                    (err, tokenizedPayload) => {
+                    (err: braintree.BraintreeError, tokenizedPayload: braintree.ApplePayPayload) => {
                         if (err) {
                             session.completePayment(braintree.ApplePayStatusCodes.STATUS_FAILURE);
                             return;
                         }
-                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
 
                         // Send the tokenizedPayload to your server.
+                        console.log(tokenizedPayload.nonce);
+
+                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
                     },
                 );
             };
@@ -577,7 +576,7 @@ braintree.client.create(
                 intent: 'capture',
                 vault: true,
             })
-            .then(() => {
+            .then((paypalCheckout: braintree.PayPalCheckout) => {
                 // window.paypal.Buttons is now available to use
             });
 
@@ -832,5 +831,43 @@ braintree.threeDSecure.cancelVerifyCard(
         verifyPayload.nonce; // The nonce returned from the 3ds lookup call
         verifyPayload.liabilityShifted; // boolean
         verifyPayload.liabilityShiftPossible; // boolean
+    },
+);
+
+// Check if 'number' field is optional (#56167)
+braintree.hostedFields.create(
+    {
+        fields: {
+            cvv: {
+                container: '#cvv',
+                type: 'password',
+            },
+            cardholderName: {
+                container: '#cardholder-name',
+            },
+            expirationMonth: {
+                container: '#expiration-month',
+                select: {
+                    options: [
+                        '01 - Jan',
+                        '02 - Feb',
+                        '03 - Mar',
+                        '04 - Apr',
+                        '05 - May',
+                        '06 - Jun',
+                        '07 - Jul',
+                        '08 - Aug',
+                        '09 - Sep',
+                        '10 - Oct',
+                        '11 - Nov',
+                        '12 - Dec',
+                    ],
+                },
+            },
+            expirationYear: {
+                container: '#expiration-year',
+                select: true,
+            },
+        },
     },
 );

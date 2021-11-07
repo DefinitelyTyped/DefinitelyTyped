@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-redundant-jsdoc-2": false,
+        "semicolon": false,
+        "unified-signatures": false
+    }
+}

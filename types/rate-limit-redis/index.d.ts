@@ -12,11 +12,11 @@ import { Store, StoreIncrementCallback } from 'express-rate-limit';
 
 declare namespace RedisStore {
     interface Options {
-        expiry?: number;
-        prefix?: string;
-        resetExpiryOnChange?: boolean;
-        client?: RedisClient | IORedis.Redis;
-        redisURL?: string;
+        expiry?: number | undefined;
+        prefix?: string | undefined;
+        resetExpiryOnChange?: boolean | undefined;
+        client?: RedisClient | IORedis.Redis | undefined;
+        redisURL?: string | undefined;
     }
 }
 

@@ -4,24 +4,33 @@ import { MeshStandardMaterialParameters, MeshStandardMaterial } from './MeshStan
 import { Color } from './../math/Color';
 
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
-    clearcoat?: number;
-    clearcoatMap?: Texture | null;
-    clearcoatRoughness?: number;
-    clearcoatRoughnessMap?: Texture | null;
-    clearcoatNormalScale?: Vector2;
-    clearcoatNormalMap?: Texture | null;
+    clearcoat?: number | undefined;
+    clearcoatMap?: Texture | null | undefined;
+    clearcoatRoughness?: number | undefined;
+    clearcoatRoughnessMap?: Texture | null | undefined;
+    clearcoatNormalScale?: Vector2 | undefined;
+    clearcoatNormalMap?: Texture | null | undefined;
 
-    reflectivity?: number;
-    ior?: number;
+    reflectivity?: number | undefined;
+    ior?: number | undefined;
 
-    sheen?: Color;
+    sheen?: number | undefined;
+    sheenTint?: Color | undefined;
+    sheenRoughness?: number | undefined;
 
-    transmission?: number;
-    transmissionMap?: Texture | null;
+    transmission?: number | undefined;
+    transmissionMap?: Texture | null | undefined;
+    attenuationDistance?: number | undefined;
+    attenuationTint?: Color | undefined;
+
+    specularIntensity?: number | undefined;
+    specularTint?: Color | undefined;
+    specularIntensityMap?: Texture | null | undefined;
+    specularTintMap?: Texture | null | undefined;
 }
 
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
-    constructor(parameters: MeshPhysicalMaterialParameters);
+    constructor(parameters?: MeshPhysicalMaterialParameters);
 
     /**
      * @default 'MeshPhysicalMaterial'
@@ -74,9 +83,19 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     ior: number;
 
     /**
-     * @default null
+     * @default 0.0
      */
-    sheen: Color | null;
+    sheen: number;
+
+    /**
+     * @default Color( 0x000000 )
+     */
+    sheenTint: Color;
+
+    /**
+     * @default 1.0
+     */
+    sheenRoughness: number;
 
     /**
      * @default 0
@@ -87,4 +106,44 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
      * @default null
      */
     transmissionMap: Texture | null;
+
+    /**
+     * @default 0.01
+     */
+    thickness: number;
+
+    /**
+     * @default null
+     */
+    thicknessMap: Texture | null;
+
+    /**
+     * @default 0.0
+     */
+    attenuationDistance: number;
+
+    /**
+     * @default Color( 1, 1, 1 )
+     */
+    attenuationTint: Color;
+
+    /**
+     * @default 1.0
+     */
+    specularIntensity: number;
+
+    /**
+     * @default Color(1, 1, 1)
+     */
+    specularTint: Color;
+
+    /**
+     * @default null
+     */
+    specularIntensityMap: Texture | null;
+
+    /**
+     * @default null
+     */
+    specularTintMap: Texture | null;
 }

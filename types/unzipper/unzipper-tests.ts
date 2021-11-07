@@ -17,7 +17,7 @@ createReadStream("http://example.org/path/to/archive.zip")
         const s1: string = entry.path;
         const s2: string = entry.type;
         const o1: {
-            signature?: number;
+            signature?: number | undefined;
             versionsNeededToExtract: number;
             flags: number;
             compressionMethod: number;

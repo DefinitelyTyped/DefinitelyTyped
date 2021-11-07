@@ -4,9 +4,9 @@ import PrettyProps, { CommonProps, Inter, Obj } from "pretty-proptypes";
 interface PropsProps {
     readonly overrides?: {
         readonly [key: string]: React.ComponentType<CommonProps>;
-    };
+    } | undefined;
     readonly props: {
-        readonly component?: Obj | Inter;
+        readonly component?: Obj | Inter | undefined;
     };
 }
 

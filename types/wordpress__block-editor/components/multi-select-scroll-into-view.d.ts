@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 
 declare namespace MultiSelectScrollIntoView {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const MultiSelectScrollIntoView: ComponentType<MultiSelectScrollIntoView.Props>;

@@ -5,7 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace flowjs {
-    interface Flow {
+    class Flow {
+        constructor(options?: FlowOptions);
         support: boolean;
         supportDirectory: boolean;
         opts: FlowOptions;
@@ -15,7 +16,7 @@ declare namespace flowjs {
             domNodes: ReadonlyArray<HTMLElement>,
             isDirectory?: boolean,
             singleFile?: boolean,
-            attributes?: object
+            attributes?: object,
         ): void;
         assignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
         unAssignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
@@ -59,8 +60,8 @@ declare namespace flowjs {
         chunkRetryInterval?: number;
         progressCallbacksInterval?: number;
         speedSmoothingFactor?: number;
-        successStatuses?: string[];
-        permanentErrors?: string[];
+        successStatuses?: number[];
+        permanentErrors?: number[];
     }
 
     interface FlowFile {
@@ -146,8 +147,7 @@ declare namespace flowjs {
     type FlowEvent = FlowEventMap[keyof FlowEventMap];
 
     type FlowEventFromEventName<T extends EventName> = FlowEventMap[T];
-    type FlowEventTypeFromFlowEvent<T extends FlowEvent> =
-        T extends FlowEventFromEventName<infer U> ? U : never;
+    type FlowEventTypeFromFlowEvent<T extends FlowEvent> = T extends FlowEventFromEventName<infer U> ? U : never;
 
     type FileSuccessCallbackArguments = [FlowFile, string, FlowChunk];
     type FileProgressCallbackArguments = [FlowFile, FlowChunk];

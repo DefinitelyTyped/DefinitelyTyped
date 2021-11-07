@@ -32,6 +32,8 @@ I18n.locales.no = ["nb", "en"];
 I18n.locales.no = "nb";
 I18n.locales.no = locale => ["nb"];
 
+I18n.locales.get("de-DE");
+
 I18n.getFullScope("en");
 I18n.getFullScope("en", {});
 I18n.getFullScope(["en", "es"], {});

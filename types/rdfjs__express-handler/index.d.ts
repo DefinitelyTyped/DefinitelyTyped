@@ -24,15 +24,15 @@ interface BaseIriFromRequest {
 }
 
 interface RdfHandlerOptions {
-    factory?: DatasetCoreFactory;
-    formats?: typeof formats;
-    defaultMediaType?: string;
-    baseIriFromRequest?: boolean | BaseIriFromRequest;
+    factory?: DatasetCoreFactory | undefined;
+    formats?: typeof formats | undefined;
+    defaultMediaType?: string | undefined;
+    baseIriFromRequest?: boolean | BaseIriFromRequest | undefined;
 }
 
 interface RdfHandler {
     (options?: RdfHandlerOptions): RequestHandler;
-    attach(req: Request, res: Response): Promise<void>;
+    attach(req: Request, res: Response, options?: RdfHandlerOptions): Promise<void>;
 }
 
 declare const middleware: RdfHandler;

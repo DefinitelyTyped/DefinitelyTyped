@@ -6,14 +6,14 @@ import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
 export interface Options {
-    cacheSize?: number;
+    cacheSize?: number | undefined;
     layer: string;
-    minZoom?: number;
-    maxZoom?: number;
-    reprojectionErrorThreshold?: number;
-    tileLoadFunction?: LoadFunction;
-    url?: string;
-    wrapX?: boolean;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class Stamen extends XYZ {
     constructor(options: Options);

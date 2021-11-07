@@ -42,7 +42,7 @@ declare namespace TRTCCalling {
     interface GroupCallOptions {
         userIDList: string[];
         type: 1 | 2;
-        groupID?: string;
+        groupID?: string | undefined;
     }
 
     /** 接受当前的邀请参数类型 */
@@ -82,8 +82,8 @@ declare namespace TRTCCalling {
         inviteData: {
             version: string;
             callType: 1 | 2;
-            roomID?: number;
-            callEnd?: boolean;
+            roomID?: number | undefined;
+            callEnd?: boolean | undefined;
         };
         inviteID: string;
     }

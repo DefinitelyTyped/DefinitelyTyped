@@ -12,10 +12,10 @@ import TileSource from './Tile';
 export type Operation = (p0: number[][] | ImageData[], p1: object) => number[] | ImageData;
 export interface Options {
     sources: (Source | Layer)[];
-    operation?: Operation;
+    operation?: Operation | undefined;
     lib?: any;
-    threads?: number;
-    operationType?: 'pixel' | 'image';
+    threads?: number | undefined;
+    operationType?: 'pixel' | 'image' | undefined;
 }
 export default class RasterSource extends ImageSource {
     constructor(options: Options);

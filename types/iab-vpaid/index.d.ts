@@ -456,5 +456,5 @@ declare namespace iab.vpaid {
 
 interface Window {
     /** VPAID entry point */
-    getVPAIDAd?: () => iab.vpaid.VpaidCreative;
+    getVPAIDAd?: (() => iab.vpaid.VpaidCreative) | undefined;
 }

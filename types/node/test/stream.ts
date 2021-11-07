@@ -1,10 +1,13 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'stream';
-import { promisify } from 'util';
-import { createReadStream, createWriteStream } from 'fs';
-import { createGzip, constants } from 'zlib';
-import assert = require('assert');
-import { Http2ServerResponse } from 'http2';
-import { pipeline as pipelinePromise } from 'stream/promises';
+import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'node:stream';
+import { promisify } from 'node:util';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip, constants } from 'node:zlib';
+import assert = require('node:assert');
+import { Http2ServerResponse } from 'node:http2';
+import { text, json, buffer } from 'node:stream/consumers';
+import { pipeline as pipelinePromise } from 'node:stream/promises';
+import { stdout } from 'node:process';
+import 'node:stream/web';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -25,7 +28,8 @@ function simplified_stream_ctor_test() {
             error;
             // $ExpectType (error: Error | null) => void
             cb;
-        }
+        },
+        signal: new AbortSignal(),
     });
 
     new Writable({
@@ -67,6 +71,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         defaultEncoding: 'utf8',
+        signal: new AbortSignal(),
     });
 
     new Duplex({
@@ -189,7 +194,7 @@ function streamPipelineFinished() {
     let cancel = finished(process.stdin, (err?: Error | null) => {});
     cancel();
 
-    cancel = finished(process.stdin, { readable: false }, (err?: Error | null) => {});
+    cancel = finished(process.stdin, { readable: false, signal: new AbortSignal() }, (err?: Error | null) => {});
     cancel();
 
     pipeline(process.stdin, process.stdout, (err?: Error | null) => {});
@@ -294,6 +299,9 @@ function streamPipelineAsyncTransform() {
             yield null;
         },
         err => console.error(err));
+
+    // Accepts buffer as source
+    pipeline(Buffer.from('test'), stdout);
 }
 
 async function streamPipelineAsyncPromiseTransform() {
@@ -448,7 +456,28 @@ async function streamPipelineAsyncPromiseAbortTransform() {
         });
 }
 
-// http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
+async function readableToString() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType string
+    await text(r);
+}
+
+async function readableToJson() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType unknown
+    await json(r);
+}
+
+async function readableToBuffer() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType Buffer
+    await buffer(r);
+}
+
+// https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
     const rs = createReadStream(Buffer.from('file.txt'));
     const r = createReadStream('file.txt');
@@ -466,4 +495,30 @@ function stream_readable_pipe_test() {
     r.close();
     z.close();
     rs.close();
+}
+
+function stream_duplex_allowHalfOpen_test() {
+    const d = new Duplex();
+    assert(typeof d.allowHalfOpen === 'boolean');
+    d.allowHalfOpen = true;
+}
+
+addAbortSignal(new AbortSignal(), new Readable());
+
+{
+    const a = Readable.from(['test'], {
+        objectMode: true,
+    });
+}
+
+{
+    const a = new Readable();
+    a.unshift('something', 'utf8');
+}
+
+{
+    const readable = new Readable();
+    Readable.isDisturbed(readable); // $ExpectType boolean
+    const readableDidRead: boolean = readable.readableDidRead;
+    const readableAborted: boolean = readable.readableAborted;
 }

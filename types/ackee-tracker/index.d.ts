@@ -9,15 +9,15 @@ export interface TrackingOptions {
     /**
      * Defaults to `true`
      */
-    ignoreLocalhost?: boolean;
+    ignoreLocalhost?: boolean | undefined;
     /**
      * Defaults to `false`
      */
-    detailed?: boolean;
+    detailed?: boolean | undefined;
     /**
      * Defaults to `true`
      */
-    ignoreOwnVisits?: boolean;
+    ignoreOwnVisits?: boolean | undefined;
 }
 
 export interface AckeeTrackingReturn {
@@ -32,7 +32,7 @@ export interface ActionAttributes {
     /**
      * Positive float value that is added to all other numerical values of the key.
      */
-    value?: number;
+    value?: number | undefined;
 }
 
 export interface AckeeInstance {

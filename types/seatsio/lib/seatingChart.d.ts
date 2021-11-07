@@ -15,8 +15,8 @@ declare namespace Seatsio {
         startNewSession(successCallback?: () => void, failureCallback?: () => void): void;
         selectBestAvailable(config: BestAvailable): void;
         clearSelection(successCallback?: () => void, failureCallback?: () => void): void;
-        selectObjects(objects: string[] | Array<{ id: string; ticketType?: string; amount?: number }>, successCallback?: () => void, failureCallback?: () => void): void;
-        deselectObjects(objects: string[] | Array<{ id: string; ticketType?: string; amount?: number }>, successCallback?: () => void, failureCallback?: () => void): void;
+        selectObjects(objects: string[] | Array<{ id: string; ticketType?: string | undefined; amount?: number | undefined }>, successCallback?: () => void, failureCallback?: () => void): void;
+        deselectObjects(objects: string[] | Array<{ id: string; ticketType?: string | undefined; amount?: number | undefined }>, successCallback?: () => void, failureCallback?: () => void): void;
         selectCategories(categoryIds: string[], successCallback?: () => void, failureCallback?: () => void): void;
         deselectCategories(categoryIds: string[], successCallback?: () => void, failureCallback?: () => void): void;
         changeConfig(config: ChangeableSeatingChartConfig): void;
@@ -27,16 +27,16 @@ declare namespace Seatsio {
     }
 
     interface ChangeableSeatingChartConfig {
-        objectColor?: (object: BookableObject, defaultColor: string, extraConfig: ExtraConfig) => string;
-        objectLabel?: (object: BookableObject, defaultLabel: string, extraConfig: ExtraConfig) => string;
-        numberOfPlacesToSelect?: number;
-        maxSelectedObjects?: number | Array<{ quantity: number, ticketType?: string, category?: string }>;
-        ticketListings?: TicketListing[];
-        extraConfig?: ExtraConfig;
-        availableCategories?: string[];
-        unavailableCategories?: string[];
-        filteredCategories?: string[];
-        pricing?: PricingConfig[];
+        objectColor?: ((object: BookableObject, defaultColor: string, extraConfig: ExtraConfig) => string) | undefined;
+        objectLabel?: ((object: BookableObject, defaultLabel: string, extraConfig: ExtraConfig) => string) | undefined;
+        numberOfPlacesToSelect?: number | undefined;
+        maxSelectedObjects?: number | Array<{ quantity: number, ticketType?: string | undefined, category?: string | undefined }> | undefined;
+        ticketListings?: TicketListing[] | undefined;
+        extraConfig?: ExtraConfig | undefined;
+        availableCategories?: string[] | undefined;
+        unavailableCategories?: string[] | undefined;
+        filteredCategories?: string[] | undefined;
+        pricing?: PricingConfig[] | undefined;
     }
 
     interface TicketListing {
@@ -48,93 +48,93 @@ declare namespace Seatsio {
     interface SeatingChartConfig extends ChangeableSeatingChartConfig {
         divId: string;
         workspaceKey: string;
-        event?: string;
-        events?: string[];
-        chart?: string;
-        priceFormatter?: (price: number) => string;
-        objectWithoutPricingSelectable?: boolean;
-        objectWithoutCategorySelectable?: boolean;
-        selectedObjects?: Array<string | { label: string; amount?: number, ticketType?: string }>;
+        event?: string | undefined;
+        events?: string[] | undefined;
+        chart?: string | undefined;
+        priceFormatter?: ((price: number) => string) | undefined;
+        objectWithoutPricingSelectable?: boolean | undefined;
+        objectWithoutCategorySelectable?: boolean | undefined;
+        selectedObjects?: Array<string | { label: string; amount?: number | undefined, ticketType?: string | undefined }> | undefined;
         objectTooltip?: {
-            showActionHint?: boolean,
-            showAvailability?: boolean,
-            showCategory?: boolean,
-            showLabel?: boolean,
-            showPricing?: boolean,
-            showUnavailableNotice?: boolean,
-            stylizedLabel?: boolean,
-            confirmSelectionOnMobile?: string
-        };
-        tooltipInfo?: (object: BookableObject) => string;
-        language?: string;
-        messages?: { [key: string]: string };
-        priceLevelsTooltipMessage?: string;
-        selectedObjectsInputName?: string;
-        sectionColor?: (section: Section, defaultColor: string, extraConfig: ExtraConfig) => string;
-        objectIcon?: (object: BookableObject, defaultIcon: string, extraConfig: ExtraConfig) => string;
-        isObjectVisible?: (object: BookableObject, extraConfig: ExtraConfig) => string;
-        canGASelectionBeIncreased?: (gaArea: GeneralAdmissionArea, defaultValue: boolean, extraConfig: ExtraConfig, ticketType: string) => boolean;
-        selectBestAvailable?: BestAvailable;
-        showRowLines?: boolean;
-        alwaysShowSectionContents?: boolean;
-        session?: 'continue' | 'start' | 'manual' | 'none';
-        holdToken?: string;
-        holdTokenInputName?: string;
-        holdOnSelectForGAs?: boolean;
-        showLegend?: boolean;
+            showActionHint?: boolean | undefined,
+            showAvailability?: boolean | undefined,
+            showCategory?: boolean | undefined,
+            showLabel?: boolean | undefined,
+            showPricing?: boolean | undefined,
+            showUnavailableNotice?: boolean | undefined,
+            stylizedLabel?: boolean | undefined,
+            confirmSelectionOnMobile?: string | undefined
+        } | undefined;
+        tooltipInfo?: ((object: BookableObject) => string) | undefined;
+        language?: string | undefined;
+        messages?: { [key: string]: string } | undefined;
+        priceLevelsTooltipMessage?: string | undefined;
+        selectedObjectsInputName?: string | undefined;
+        sectionColor?: ((section: Section, defaultColor: string, extraConfig: ExtraConfig) => string) | undefined;
+        objectIcon?: ((object: BookableObject, defaultIcon: string, extraConfig: ExtraConfig) => string) | undefined;
+        isObjectVisible?: ((object: BookableObject, extraConfig: ExtraConfig) => string) | undefined;
+        canGASelectionBeIncreased?: ((gaArea: GeneralAdmissionArea, defaultValue: boolean, extraConfig: ExtraConfig, ticketType: string) => boolean) | undefined;
+        selectBestAvailable?: BestAvailable | undefined;
+        showRowLines?: boolean | undefined;
+        alwaysShowSectionContents?: boolean | undefined;
+        session?: 'continue' | 'start' | 'manual' | 'none' | undefined;
+        holdToken?: string | undefined;
+        holdTokenInputName?: string | undefined;
+        holdOnSelectForGAs?: boolean | undefined;
+        showLegend?: boolean | undefined;
         legend?: {
-            hideNonSelectableCategories?: boolean
-            hidePricing?: boolean
-        };
-        multiSelectEnabled?: boolean;
-        showMinimap?: boolean;
-        showActiveSectionTooltipOnMobile?: boolean;
-        showViewFromYourSeatOnMobile?: boolean;
-        showViewFromYourSeatOnDesktop?: boolean;
-        selectionValidators?: SelectionValidator[];
-        categories?: CategoryConfig[];
+            hideNonSelectableCategories?: boolean | undefined
+            hidePricing?: boolean | undefined
+        } | undefined;
+        multiSelectEnabled?: boolean | undefined;
+        showMinimap?: boolean | undefined;
+        showActiveSectionTooltipOnMobile?: boolean | undefined;
+        showViewFromYourSeatOnMobile?: boolean | undefined;
+        showViewFromYourSeatOnDesktop?: boolean | undefined;
+        selectionValidators?: SelectionValidator[] | undefined;
+        categories?: CategoryConfig[] | undefined;
         categoryFilter?: {
             enabled: boolean
             multiSelect: boolean
             zoomOnSelect: boolean
-        };
-        objectCategories?: { [objectLabel: string]: string };
-        objectCategory?: (object: BookableObject, categories: CategoryList, defaultCategory: Category, extraConfig: ExtraConfig) => Category;
-        mode?: 'normal' | 'static' | 'print';
-        loading?: string;
-        fitTo?: 'widthAndHeight' | 'width';
-        showZoomOutButtonOnMobile?: boolean;
-        showFullScreenButton?: boolean;
-        unifiedObjectPropertiesInCallbacks?: boolean;
-        channels?: string[];
-        colorScheme?: ColorScheme;
-        colors?: Colors;
-        stylePreset?: StylePreset;
-        style?: Style;
+        } | undefined;
+        objectCategories?: { [objectLabel: string]: string } | undefined;
+        objectCategory?: ((object: BookableObject, categories: CategoryList, defaultCategory: Category, extraConfig: ExtraConfig) => Category) | undefined;
+        mode?: 'normal' | 'static' | 'print' | undefined;
+        loading?: string | undefined;
+        fitTo?: 'widthAndHeight' | 'width' | undefined;
+        showZoomOutButtonOnMobile?: boolean | undefined;
+        showFullScreenButton?: boolean | undefined;
+        unifiedObjectPropertiesInCallbacks?: boolean | undefined;
+        channels?: string[] | undefined;
+        colorScheme?: ColorScheme | undefined;
+        colors?: Colors | undefined;
+        stylePreset?: StylePreset | undefined;
+        style?: Style | undefined;
 
-        onChartRendered?: (chart: SeatingChart) => void;
-        onChartRenderingFailed?: (chart: SeatingChart) => void;
-        onObjectClicked?: (object: BookableObject) => void;
-        onObjectSelected?: (object: BookableObject, selectedTicketType?: { price: number; ticketType?: string }) => void;
-        onObjectDeselected?: (object: BookableObject, deselectedTicketType?: { price: number; ticketType?: string }) => void;
-        onObjectMouseOver?: (object: BookableObject) => void;
-        onObjectMouseOut?: (object: BookableObject) => void;
-        onSelectedObjectBooked?: (object: BookableObject) => void;
-        onBestAvailableSelected?: (objects: BookableObject[], nextToEachOther: boolean | null) => void;
-        onBestAvailableSelectionFailed?: () => void;
-        onHoldSucceeded?: (objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string; label?: string }>) => void;
-        onHoldFailed?: (objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string; label?: string }>) => void;
-        onHoldTokenExpired?: () => void;
-        onReleaseHoldSucceeded?: (objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string; label?: string }>) => void;
-        onReleaseHoldFailed?: (objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string; label?: string }>) => void;
-        onSelectionValid?: () => void;
-        onSelectionInvalid?: (violations: Violations[]) => void;
-        onFullScreenOpened?: () => void;
-        onFullScreenClosed?: () => void;
+        onChartRendered?: ((chart: SeatingChart) => void) | undefined;
+        onChartRenderingFailed?: ((chart: SeatingChart) => void) | undefined;
+        onObjectClicked?: ((object: BookableObject) => void) | undefined;
+        onObjectSelected?: ((object: BookableObject, selectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
+        onObjectDeselected?: ((object: BookableObject, deselectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
+        onObjectMouseOver?: ((object: BookableObject) => void) | undefined;
+        onObjectMouseOut?: ((object: BookableObject) => void) | undefined;
+        onSelectedObjectBooked?: ((object: BookableObject) => void) | undefined;
+        onBestAvailableSelected?: ((objects: BookableObject[], nextToEachOther: boolean | null) => void) | undefined;
+        onBestAvailableSelectionFailed?: (() => void) | undefined;
+        onHoldSucceeded?: ((objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string | undefined; label?: string | undefined }>) => void) | undefined;
+        onHoldFailed?: ((objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string | undefined; label?: string | undefined }>) => void) | undefined;
+        onHoldTokenExpired?: (() => void) | undefined;
+        onReleaseHoldSucceeded?: ((objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string | undefined; label?: string | undefined }>) => void) | undefined;
+        onReleaseHoldFailed?: ((objects: BookableObject[], ticketTypes?: Array<{ price: number; ticketType?: string | undefined; label?: string | undefined }>) => void) | undefined;
+        onSelectionValid?: (() => void) | undefined;
+        onSelectionInvalid?: ((violations: Violations[]) => void) | undefined;
+        onFullScreenOpened?: (() => void) | undefined;
+        onFullScreenClosed?: (() => void) | undefined;
     }
 
     interface CategoryConfig {
-        accessible?: boolean;
+        accessible?: boolean | undefined;
         color: string;
         key: number;
         label: string;
@@ -154,14 +154,14 @@ declare namespace Seatsio {
         ticketTypes: Array<{
             ticketType: string
             price: number
-            label?: string
+            label?: string | undefined
         }>;
     }
 
     type PricingConfig = PricingConfigSimple | PricingConfigMulti;
 
     interface BestAvailable {
-        number?: number;
+        number?: number | undefined;
         category: string | string[];
         ticketTypes: { [ticketType: string]: number };
         clearSelection: boolean;
@@ -171,9 +171,9 @@ declare namespace Seatsio {
 
     type SelectionValidator = {
         type: 'noOrphanSeats'
-        mode?: 'lenient' | 'strict'
-        enabled?: boolean
-        highlight?: boolean
+        mode?: 'lenient' | 'strict' | undefined
+        enabled?: boolean | undefined
+        highlight?: boolean | undefined
     } | {
         type: 'consecutiveSeats'
     };

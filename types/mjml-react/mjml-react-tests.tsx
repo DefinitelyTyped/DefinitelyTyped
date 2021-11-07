@@ -48,7 +48,7 @@ import {
 } from 'mjml-react/utils';
 
 function renderOutTestEmail() {
-    // $ExpectType { html: string; errors: Error[]; }
+    // $ExpectType { html: string; errors: MjmlError[]; }
     const result = render(
         <Mjml>
             <MjmlHead>
@@ -121,7 +121,7 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlBody />;
     const maxProps: React.ReactNode = (
-        <MjmlBody cssClass="" width={1} backgroundColor="">
+        <MjmlBody cssClass="" mjClass="" width={1} backgroundColor="">
             child
         </MjmlBody>
     );
@@ -169,6 +169,8 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlColumn />;
     const maxProps: React.ReactNode = <MjmlColumn>child</MjmlColumn>;
+    const innerBackgroundColor: React.ReactNode = <MjmlColumn innerBackgroundColor="#BADA55">child</MjmlColumn>;
+    const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>; // $ExpectError
 }
 // TestMjmlDividerTag
 {
@@ -219,6 +221,7 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlTable />;
     const maxProps: React.ReactNode = <MjmlTable>child</MjmlTable>;
+    const roleProps: React.ReactNode = <MjmlTable role="presentation">child</MjmlTable>;
 }
 // TestMjmlTextTag
 {
@@ -272,6 +275,6 @@ function renderOutTestEmail() {
     // MjmlSocial
     {
         const minProps: React.ReactNode = <MjmlSocial />;
-        const maxProps: React.ReactNode = <MjmlSocial>child</MjmlSocial>;
+        const maxProps: React.ReactNode = <MjmlSocial cssClass="">child</MjmlSocial>;
     }
 }

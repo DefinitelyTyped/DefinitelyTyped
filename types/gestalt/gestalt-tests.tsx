@@ -1,23 +1,28 @@
 import {
     ActivationCard,
     Avatar,
+    AvatarGroup,
     AvatarPair,
     Badge,
     Box,
+    BoxProps,
     Button,
     ButtonGroup,
     Callout,
     Card,
     Checkbox,
     Collage,
+    ColorSchemeProvider,
     Column,
+    ComboBox,
     CompositeZIndex,
     Container,
+    Datapoint,
     Divider,
     Dropdown,
+    Fieldset,
     FixedZIndex,
     Flex,
-    GroupAvatar,
     Heading,
     Icon,
     IconButton,
@@ -30,10 +35,10 @@ import {
     Masonry,
     Modal,
     Module,
+    OnLinkNavigationProvider,
     PageHeader,
     Pog,
     Popover,
-    Provider,
     Pulsar,
     RadioButton,
     Row,
@@ -44,6 +49,7 @@ import {
     Sheet,
     Spinner,
     Stack,
+    Status,
     Sticky,
     Switch,
     Table,
@@ -83,15 +89,18 @@ const CheckUseReducedMotion = () => {
     title="Claim your website"
     message="Grow distribution and track Pins linked to your website"
     link={{
-        href: "foo",
-        label: "foo",
-        accessibilityLabel: "foo",
-        onClick: (({ event }) => { event.stopPropagation(); }),
-        rel: "nofollow",
-        target: "blank"
+        href: 'foo',
+        label: 'foo',
+        accessibilityLabel: 'foo',
+        onClick: ({ event }) => {
+            event.stopPropagation();
+        },
+        rel: 'nofollow',
+        target: 'blank',
     }}
 />;
 <Avatar name="Nicolas" />;
+<AvatarGroup accessibilityLabel="test-example" collaborators={[{ name: 'nicolas' }]} />;
 <AvatarPair
     size="md"
     collaborators={[
@@ -107,6 +116,32 @@ const CheckUseReducedMotion = () => {
 />;
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
+
+<Box aria-colspan={1} />;
+// $ExpectError
+<Box aria-colspan="foo" />;
+
+<Box
+    onDrag={event => {
+        event.movementX;
+    }}
+/>;
+
+<Box
+    onDrag={event => {
+        // $ExpectError
+        event.__nonExistentProperty__;
+    }}
+/>;
+
+// Test Box accepts Ref.
+() => {
+    const ref = React.useRef<HTMLDivElement>(null);
+    return <Box ref={ref} />;
+};
+// Test BoxProps can be forwarded to Box.
+(props: BoxProps) => <Box {...props} />;
+
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
 <ButtonGroup>
@@ -114,13 +149,20 @@ const CheckUseReducedMotion = () => {
     <Button text={'Click me'} />
 </ButtonGroup>;
 <Card />;
+<ComboBox
+    accessibilityClearButtonLabel="combobox"
+    id="combobox"
+    label="combobox"
+    noResultText="combobox"
+    options={[{ label: 'combobox', value: 'combobox' }]}
+/>;
 <Callout
     type="info"
     iconAccessibilityLabel="Info icon"
     title="Your business account was successfully created!"
     message="Get a badge, show up in more shopping experiences and more. Apply to the Verified Merchant Program—it’s free!"
-    primaryAction={{ href: 'https://pinterest.com', label: 'Get started' }}
-    secondaryAction={{ href: 'https://pinterest.com', label: 'Learn more' }}
+    primaryAction={{ accessibilityLabel: 'primary-callout', href: 'https://pinterest.com', label: 'Get started' }}
+    secondaryAction={{ accessibilityLabel: 'secondary-callout', href: 'https://pinterest.com', label: 'Learn more' }}
     dismissButton={{
         accessibilityLabel: 'Dismiss banner',
         onDismiss: () => {},
@@ -128,6 +170,7 @@ const CheckUseReducedMotion = () => {
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
 <Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<ColorSchemeProvider colorScheme="dark" id="docsExample" />;
 <Column span={1} />;
 <Container />;
 <ScrollBoundaryContainer />;
@@ -137,14 +180,24 @@ const CheckUseReducedMotion = () => {
     <Dropdown.Section label="View options">
         <Dropdown.Item
             option={{ value: 'item 1', label: 'Custom link 1' }}
-            handleSelect={({ item }) => {}}
+            onSelect={({ item }) => {}}
             selected={undefined}
         >
             <Text>Dropdown</Text>
         </Dropdown.Item>
+        <Dropdown.Link href="#" option={{ value: 'item 2', label: 'Url Link' }}></Dropdown.Link>
     </Dropdown.Section>
 </Dropdown>;
-<Flex />;
+<Fieldset legend="Fieldset Example">
+    <RadioButton id="id1" onChange={() => {}} />;
+    <RadioButton id="id2" onChange={() => {}} />;
+    <RadioButton id="id3" onChange={() => {}} />;
+</Fieldset>;
+<Flex>
+    <Flex.Item>
+        <Text>Flex</Text>
+    </Flex.Item>
+</Flex>;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;
@@ -158,13 +211,7 @@ const CheckUseReducedMotion = () => {
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
-<Module
-    id="foo"
-    icon="add"
-    iconAccessibilityLabel="hello"
-    title="world"
-    type='info'
-/>;
+<Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info" />;
 <Module.Expandable
     id="ModuleExample1"
     accessibilityExpandLabel="Expand the module"
@@ -177,12 +224,17 @@ const CheckUseReducedMotion = () => {
         },
     ]}
     expandedIndex={1}
-    onExpandedChange={(index) => {}}
+    onExpandedChange={index => {}}
 ></Module.Expandable>;
-<PageHeader title='Home'/>;
+<OnLinkNavigationProvider
+    onNavigation={() => {
+        return undefined;
+    }}
+/>;
+<PageHeader title="Home" />;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
-<Provider colorScheme={'light'} id="docsExample" />;
+
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
 <Row gap={1}>
@@ -199,19 +251,20 @@ const CheckUseReducedMotion = () => {
 >
     {({ onDismissStart }) => <Heading>Content {onDismissStart}</Heading>}
 </Sheet>;
+<Spinner show={true} accessibilityLabel="Example spinner" />;
 <Stack alignItems="center" gap={2}>
     <div />
     <div />
     <div />
 </Stack>;
-<Spinner show={true} accessibilityLabel="Example spinner" />;
+<Status type="problem" />;
 <Sticky top={0}>
     <div>Hello World</div>
 </Sticky>;
 <Switch id="id" onChange={() => {}} />;
-<Table maxHeight={1}/>;
-<Table maxHeight="75vh"/>;
-<Table>
+<Table accessibilityLabel="max height test" maxHeight={1} />;
+<Table accessibilityLabel="max height test 2" maxHeight="75vh" />;
+<Table accessibilityLabel="complex table">
     <Table.Header>
         <Table.Row>
             <Table.SortableHeaderCell onSortChange={() => {}} sortOrder={'asc'} status={'active'}>
@@ -295,8 +348,8 @@ const CheckUseReducedMotion = () => {
 <Text />;
 <TextArea id="id" onChange={() => {}} />;
 <TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
-<GroupAvatar collaborators={[{ name: 'nicolas' }]} />;
-<Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
+
+<Toast variant="error" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
@@ -317,15 +370,17 @@ const CheckUseReducedMotion = () => {
     title="Give $30, get $60 in ads credit"
     message="Earn $60 of ads credit, and give $30 of ads credit to a friend"
     dismissButton={{
-      accessibilityLabel: 'Dismiss banner',
-      onDismiss: () => {},
+        accessibilityLabel: 'Dismiss banner',
+        onDismiss: () => {},
     }}
     imageData={{
-      component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32}/>
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
     }}
-  >
+>
     <Upsell.Form
-        onSubmit={({ event }) => { event.preventDefault(); }}
+        onSubmit={({ event }) => {
+            event.preventDefault();
+        }}
         submitButtonText="Submit"
         submitButtonAccessibilityLabel="Submit name for ads credit"
     />
@@ -341,3 +396,10 @@ const CheckUseReducedMotion = () => {
 
 new FixedZIndex(1);
 new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);
+
+<Datapoint
+    title="Test Value"
+    value="100"
+    trend={{ accesibilityLabel: 'Trending up', value: 50 }}
+    trendSentiment="good"
+/>;

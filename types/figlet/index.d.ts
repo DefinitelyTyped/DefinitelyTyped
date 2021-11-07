@@ -1,6 +1,6 @@
 // Type definitions for figlet 1.5
 // Project: https://github.com/patorjk/figlet.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace figlet {
@@ -316,23 +316,23 @@ declare namespace figlet {
     }
 
     interface Options {
-        font?: Fonts;
-        horizontalLayout?: KerningMethods;
-        verticalLayout?: KerningMethods;
-        printDirection?: PrintDirection;
-        showHardBlanks?: boolean;
+        font?: Fonts | undefined;
+        horizontalLayout?: KerningMethods | undefined;
+        verticalLayout?: KerningMethods | undefined;
+        printDirection?: PrintDirection | undefined;
+        showHardBlanks?: boolean | undefined;
         /**
          * This option allows you to limit the width of the output.
          * For example, if you want your output to be a max of 80 characters wide, you would set this option to 80.
          * @default undefined
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * This option works in conjunction with "width".
          * If this option is set to true, then the library will attempt to break text up on whitespace when limiting the width.
          * @default false
          */
-        whitespaceBreak?: boolean;
+        whitespaceBreak?: boolean | undefined;
     }
     interface FontOptions {
         hardBlank: string;

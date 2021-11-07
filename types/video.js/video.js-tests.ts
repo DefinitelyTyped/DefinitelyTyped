@@ -1,5 +1,16 @@
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
+// $ExpectType boolean
+window.HELP_IMPROVE_VIDEOJS;
+// $ExpectType boolean | undefined
+window.VIDEOJS_NO_DYNAMIC_STYLE;
+
+const videoElement = document.createElement('video');
+// $ExpectType VideoJsPlayer
+videojs(videoElement);
+
+const audioElement = document.createElement('audio');
+
 const playerOptions: VideoJsPlayerOptions = {
     autoplay: 'muted',
     bigPlayButton: false,
@@ -8,6 +19,7 @@ const playerOptions: VideoJsPlayerOptions = {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
+        pictureInPictureToggle: audioElement.tagName !== 'AUDIO',
     },
     height: 10,
     loop: true,
@@ -35,6 +47,8 @@ const playerOptions: VideoJsPlayerOptions = {
             myOption: true,
         },
     },
+    fill: false,
+    responsive: false,
     sources: [
         {
             src: 'https://example.com/video.mp4',
@@ -70,7 +84,7 @@ playerOptions.controlBar! = {
     timeDivider: false,
 };
 
-videojs('example_video_1', playerOptions).ready(function() {
+videojs('example_video_1', playerOptions).ready(function playerReady() {
     // EXAMPLE: Start playing the video.
     const playPromise = this.play();
 
@@ -148,6 +162,14 @@ videojs('example_video_1', playerOptions).ready(function() {
 
     const networkState: videojs.NetworkState = this.networkState();
 
+    const responsive: boolean = this.responsive();
+
+    this.responsive(false);
+
+    const fill: boolean = this.fill();
+
+    this.fill(false);
+
     testEvents(this);
 
     testComponents(this);
@@ -157,6 +179,9 @@ videojs('example_video_1', playerOptions).ready(function() {
     testLogger();
 
     testMiddleware();
+
+    // $ExpectType CanPlayTypeResult
+    this.canPlayType('video/mp4');
 });
 
 function testEvents(player: videojs.Player) {
@@ -193,6 +218,8 @@ function testComponents(player: videojs.Player) {
     myWindow.open();
     myWindow.close();
     myWindow.myFunction();
+    myWindow.isDisposed(); // $ExpectType boolean
+    myWindow.dispose(); // $ExpectType void
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
@@ -248,12 +275,12 @@ function testPlugin(player: videojs.Player, options: {}) {
 }
 
 function testLogger() {
-    const mylogger = videojs.log.createLogger('mylogger');
-    const anotherlogger = mylogger.createLogger('anotherlogger');
+    const myLogger = videojs.log.createLogger('mylogger');
+    const anotherLogger = myLogger.createLogger('anotherlogger');
 
     videojs.log('hello');
-    mylogger('how are you');
-    anotherlogger('today');
+    myLogger('how are you');
+    anotherLogger('today');
 
     const currentLevel = videojs.log.level();
     videojs.log.level(videojs.log.levels.DEFAULT);
@@ -263,4 +290,17 @@ function testMiddleware() {
     videojs.use('*', () => ({
         setSource: (srcObj, next) => next(null, srcObj),
     }));
+}
+
+function testTech() {
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlaySource(
+        {
+            src: 'http://www.example.com/path/to/video.mp4',
+            type: 'video/mp4',
+        },
+        {},
+    );
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlayType('video/mp4');
 }

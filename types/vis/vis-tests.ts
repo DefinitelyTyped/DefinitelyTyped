@@ -16,11 +16,11 @@ new vis.Network(new HTMLDivElement(), { nodes: new vis.DataSet(), edges: new vis
 
 interface TestData {
   id: number;
-  text?: string;
+  text?: string | undefined;
   date?: any;
-  group?: number;
-  balance?: number;
-  first?: boolean;
+  group?: number | undefined;
+  balance?: number | undefined;
+  first?: boolean | undefined;
 }
 
 // create a DataSet

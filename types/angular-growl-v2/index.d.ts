@@ -15,27 +15,27 @@ declare module 'angular' {
          * Global Time-To-Leave configuration.
          */
         interface IGrowlTTLConfig {
-            success?: number;
-            error?: number;
-            warning?: number;
-            info?: number;
+            success?: number | undefined;
+            error?: number | undefined;
+            warning?: number | undefined;
+            info?: number | undefined;
         }
 
         /**
          * Custom configuration used in single message call.
          */
         interface IGrowlMessageConfig {
-            title?: string;
-            ttl?: number;
-            disableCountDown?: boolean;
-            disableIcons?: boolean;
-            disableCloseButton?: boolean;
-            onclose?: Function;
-            onopen?: Function;
-            position?: string;
-            referenceId?: number;
-            translateMessage?: boolean;
-            variables?: { [variable: string]: any; };
+            title?: string | undefined;
+            ttl?: number | undefined;
+            disableCountDown?: boolean | undefined;
+            disableIcons?: boolean | undefined;
+            disableCloseButton?: boolean | undefined;
+            onclose?: Function | undefined;
+            onopen?: Function | undefined;
+            position?: string | undefined;
+            referenceId?: number | undefined;
+            translateMessage?: boolean | undefined;
+            variables?: { [variable: string]: any; } | undefined;
         }
 
         /**

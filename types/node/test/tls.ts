@@ -14,8 +14,8 @@ import {
     rootCertificates,
     Server,
     TlsOptions,
-} from 'tls';
-import * as fs from 'fs';
+} from 'node:tls';
+import * as fs from 'node:fs';
 
 {
     const ctx: SecureContext = createSecureContext({
@@ -61,6 +61,9 @@ import * as fs from 'fs';
     const minVersion: string = DEFAULT_MIN_VERSION;
 
     const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
+
+    tlsSocket.getPeerX509Certificate(); // $ExpectType X509Certificate | undefined
+    tlsSocket.getX509Certificate(); // $ExpectType X509Certificate | undefined
 }
 
 {
@@ -295,4 +298,19 @@ import * as fs from 'fs';
 {
     const _options: TlsOptions = {};
     const _server = new Server(_options, (socket) => {});
+}
+
+{
+    const ctx: SecureContext = createSecureContext({
+        key: 'NOT REALLY A KEY',
+        cert: 'SOME CERTIFICATE',
+    });
+    const _options: TlsOptions = {
+        SNICallback: (servername: string, cb: (err: Error | null, ctx?: SecureContext) => void): void => {
+            cb(new Error('Not found'));
+            cb(new Error('Not found'), undefined);
+            cb(null, undefined);
+            cb(null, ctx);
+        },
+    };
 }

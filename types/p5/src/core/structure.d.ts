@@ -38,6 +38,15 @@ declare module '../../index' {
         loop(): void;
 
         /**
+         * By default, p5.js loops through <a href="#/p5/draw">draw()</a> continuously,
+         * executing the code within it. If the sketch is stopped with
+         * <a href="#/p5/noLoop">noLoop()</a> or resumed with <a href="#/p5/loop">loop()</a>,
+         * isLooping() returns the current state for use within custom event handlers.
+         *
+         */
+        isLooping(): boolean;
+
+        /**
          *   The push() function saves the current drawing
          *   style settings and transformations, while pop()
          *   restores these settings. Note that these functions

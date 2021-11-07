@@ -15,13 +15,13 @@ export as namespace yog;
 declare namespace yog {
     interface YogBootstrapOption {
         // 设置yog根目录，默认使用启动文件的目录
-        rootPath?: string;
+        rootPath?: string | undefined;
         // 设置plugins目录
-        pluginsPath?: string;
+        pluginsPath?: string | undefined;
         // 设置conf目录
-        confPath?: string;
+        confPath?: string | undefined;
         // 设置app，未设置则直接使用express
-        app?: express.Express;
+        app?: express.Express | undefined;
     }
     interface Request extends express.Request {
         CURRENT_APP: string;
@@ -33,22 +33,22 @@ declare namespace yog {
     }
 
     interface ActionObject {
-        get?: express.RequestHandler;
-        post?: express.RequestHandler;
-        put?: express.RequestHandler;
-        delete?: express.RequestHandler;
-        del?: express.RequestHandler;
-        copy?: express.RequestHandler;
-        head?: express.RequestHandler;
-        options?: express.RequestHandler;
-        purge?: express.RequestHandler;
-        lock?: express.RequestHandler;
-        unlock?: express.RequestHandler;
-        propfind?: express.RequestHandler;
-        view?: express.RequestHandler;
-        link?: express.RequestHandler;
-        unlick?: express.RequestHandler;
-        patch?: express.RequestHandler;
+        get?: express.RequestHandler | undefined;
+        post?: express.RequestHandler | undefined;
+        put?: express.RequestHandler | undefined;
+        delete?: express.RequestHandler | undefined;
+        del?: express.RequestHandler | undefined;
+        copy?: express.RequestHandler | undefined;
+        head?: express.RequestHandler | undefined;
+        options?: express.RequestHandler | undefined;
+        purge?: express.RequestHandler | undefined;
+        lock?: express.RequestHandler | undefined;
+        unlock?: express.RequestHandler | undefined;
+        propfind?: express.RequestHandler | undefined;
+        view?: express.RequestHandler | undefined;
+        link?: express.RequestHandler | undefined;
+        unlick?: express.RequestHandler | undefined;
+        patch?: express.RequestHandler | undefined;
         [key: string]: any;
     }
 

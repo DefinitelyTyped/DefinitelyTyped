@@ -35,25 +35,25 @@ declare namespace CbServer {
     interface InitOptions {
         systemKey: string;
         systemSecret: string;
-        logging?: boolean;
-        callback?: CbCallback;
-        authToken?: string;
-        userToken?: string;
-        email?: string;
-        password?: string;
-        registerUser?: boolean;
-        useUser?: APIUser;
-        URI?: string;
-        messagingURI?: string;
-        messagingPort?: number;
-        defaultQoS?: MessagingQOS;
-        callTimeout?: number;
+        logging?: boolean | undefined;
+        callback?: CbCallback | undefined;
+        authToken?: string | undefined;
+        userToken?: string | undefined;
+        email?: string | undefined;
+        password?: string | undefined;
+        registerUser?: boolean | undefined;
+        useUser?: APIUser | undefined;
+        URI?: string | undefined;
+        messagingURI?: string | undefined;
+        messagingPort?: number | undefined;
+        defaultQoS?: MessagingQOS | undefined;
+        callTimeout?: number | undefined;
     }
 
     interface APIUser {
         email: string;
         authToken: string;
-        user_id?: string;
+        user_id?: string | undefined;
     }
 
     interface KeyValuePair {
@@ -194,8 +194,8 @@ declare namespace CbServer {
     type QueryValue = string | number | boolean;
 
     interface QueryOptions {
-        offset?: number;
-        limit?: number;
+        offset?: number | undefined;
+        limit?: number | undefined;
     }
 
     interface QueryOptionsWithCollection
@@ -211,11 +211,11 @@ declare namespace CbServer {
             QueryOptions {}
 
     interface Query {
-        SELECTCOLUMNS?: string[];
-        SORT?: QuerySortDirections;
-        FILTERS?: QueryFilter[];
-        PAGESIZE?: number;
-        PAGENUM?: number;
+        SELECTCOLUMNS?: string[] | undefined;
+        SORT?: QuerySortDirections | undefined;
+        FILTERS?: QueryFilter[] | undefined;
+        PAGESIZE?: number | undefined;
+        PAGENUM?: number | undefined;
     }
 
     interface QueryFilter {
@@ -384,13 +384,13 @@ declare namespace CbServer {
     }
 
     interface TimerCreateOptions {
-        description?: string;
-        start_time?: Date;
-        repeats?: number;
-        frequency?: number;
-        service_name?: string;
-        user_id?: string;
-        user_token?: string;
+        description?: string | undefined;
+        start_time?: Date | undefined;
+        repeats?: number | undefined;
+        frequency?: number | undefined;
+        service_name?: string | undefined;
+        user_id?: string | undefined;
+        user_token?: string | undefined;
     }
 
     interface TimerClass {

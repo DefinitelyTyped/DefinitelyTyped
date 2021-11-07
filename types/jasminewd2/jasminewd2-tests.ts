@@ -142,7 +142,6 @@ describe('jasminewd', () => {
         }
       };
       jasmine.addMatchers(matchers);
-      jasmine.getEnv().addMatchers(matchers);
     });
   });
 });

@@ -53,16 +53,16 @@ export namespace DS {
     function errorsArrayToHash(errors: any[]): {};
 
     interface RelationshipOptions<Model> {
-        async?: boolean;
-        inverse?: RelationshipsFor<Model> | null;
-        polymorphic?: boolean;
+        async?: boolean | undefined;
+        inverse?: RelationshipsFor<Model> | null | undefined;
+        polymorphic?: boolean | undefined;
     }
 
     interface Sync {
         async: false;
     }
     interface Async {
-        async?: true;
+        async?: true | undefined;
     }
 
     /**
@@ -97,8 +97,8 @@ export namespace DS {
     const VERSION: string;
 
     interface AttrOptions<T = any> {
-        defaultValue?: T | (() => T);
-        allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
+        defaultValue?: T | (() => T) | undefined;
+        allowNull?: boolean | undefined; // TODO: restrict to boolean transform (TS 2.8)
     }
 
     /**
@@ -412,7 +412,7 @@ export namespace DS {
          * Create a JSON representation of the record, using the serialization
          * strategy of the store's adapter.
          */
-        serialize(options?: { includeId?: boolean }): {};
+        serialize(options?: { includeId?: boolean | undefined }): {};
         /**
          * Use [DS.JSONSerializer](DS.JSONSerializer.html) to
          * get the JSON representation of a record.
@@ -1034,9 +1034,9 @@ export namespace DS {
         findAll<K extends keyof ModelRegistry>(
             modelName: K,
             options?: {
-                reload?: boolean;
-                backgroundReload?: boolean;
-                include?: string;
+                reload?: boolean | undefined;
+                backgroundReload?: boolean | undefined;
+                include?: string | undefined;
                 adapterOptions?: any;
             },
         ): PromiseArray<ModelRegistry[K]>;

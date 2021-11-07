@@ -13,17 +13,17 @@ export interface RenderOptions {
      * Raw template data to use. Useful when you already have template data, obtained from .getTemplateData.
      * Either files, source or data must be supplied.
      */
-    data?: object[];
+    data?: object[] | undefined;
     /**
      * The template the supplied documentation will be rendered into.
      * Use the default or supply your own template for full control over the output.
      */
-    template?: string;
+    template?: string | undefined;
     /**
      * The initial heading depth.
      * For example, with a value of 2 the top-level markdown headings look like "## The heading".
      */
-    'heading-depth'?: number;
+    'heading-depth'?: number | undefined;
     /**
      * Specifies the default language used in '@example' blocks (for syntax-highlighting purposes).
      * In gfm mode, each '@example' is wrapped in a fenced-code block. Example usage: --example-lang js.
@@ -32,44 +32,44 @@ export interface RenderOptions {
      * for any '@example' by specifying the @lang subtag,
      * e.g @example @lang hbs. Specifying @example @lang off will disable code blocks for that example.
      */
-    'example-lang'?: string;
+    'example-lang'?: string | undefined;
     /**
      * Use an installed package containing helper and/or partial overrides.
      */
-    plugin?: string | string[];
+    plugin?: string | string[] | undefined;
     /**
      * handlebars helper files to override or extend the default set.
      */
-    helper?: string | string[];
+    helper?: string | string[] | undefined;
     /**
      * handlebars partial files to override or extend the default set.
      */
-    partial?: string | string[];
+    partial?: string | string[] | undefined;
     /**
      * Format identifier names in the code style,
      * (i.e. format using backticks or <code></code>).
      */
-    'name-format'?: string;
+    'name-format'?: string | undefined;
     /**
      * By default, dmd generates github-flavoured markdown.
      * Not all markdown parsers render gfm correctly.
      * If your generated docs look incorrect on sites other than Github
      * (e.g. npmjs.org) try enabling this option to disable Github-specific syntax.
      */
-    'no-gfm'?: boolean;
+    'no-gfm'?: boolean | undefined;
     /**
      * Put <hr> breaks between identifiers. Improves readability on bulky docs.
      */
-    separators?: boolean;
-    'module-index-format'?: StyleListFormat;
-    'global-index-format'?: StyleListFormat;
+    separators?: boolean | undefined;
+    'module-index-format'?: StyleListFormat | undefined;
+    'global-index-format'?: StyleListFormat | undefined;
     /**
      * Two options to render parameter lists: 'list' or 'table' (default).
      * Table format works well in most cases but switch to list if things begin to look crowded / squashed.
      */
-    'param-list-format'?: RenderListFormat;
-    'property-list-format'?: RenderListFormat;
-    'member-index-format'?: MemberIndexFormat;
+    'param-list-format'?: RenderListFormat | undefined;
+    'property-list-format'?: RenderListFormat | undefined;
+    'member-index-format'?: MemberIndexFormat | undefined;
 }
 
 export interface JsdocOptions {
@@ -77,7 +77,7 @@ export interface JsdocOptions {
      * By default results are cached to speed up repeat invocations.
      * Set to true to disable this.
      */
-    noCache?: boolean;
+    noCache?: boolean | undefined;
     /**
      * One or more filenames to process.
      * Accepts globs (e.g. *.js). Either files, source or data must be supplied.
@@ -87,12 +87,12 @@ export interface JsdocOptions {
      * A string containing source code to process.
      * Either files, source or data must be supplied.
      */
-    source?: string;
+    source?: string | undefined;
     /**
      * The path to the jsdoc configuration file.
      *  Default: path/to/jsdoc/conf.json.
      */
-    configure?: string;
+    configure?: string | undefined;
 }
 
 /**

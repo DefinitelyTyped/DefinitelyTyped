@@ -45,28 +45,28 @@ declare namespace WebpackHotClient {
 
     interface Options {
         /** Automatically configure every entry */
-        allEntries?: boolean;
+        allEntries?: boolean | undefined;
         /** Auto configure the given webpack config with the hot configuration */
-        autoConfigure?: boolean;
+        autoConfigure?: boolean | undefined;
         /** Host that the WebSocket listens on */
-        host?: WebpackHotHost | string;
+        host?: WebpackHotHost | string | undefined;
         /** Enable hot module reloading */
-        hmr?: boolean;
+        hmr?: boolean | undefined;
         /** Enable HTTPS */
-        https?: boolean;
+        https?: boolean | undefined;
         /** Level of information for webpack-hot-client to output */
-        logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent';
+        logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent' | undefined;
         /** Prepend timestamp to each log line */
-        logTime?: boolean;
+        logTime?: boolean | undefined;
         /** Port that the WebSocket listens on */
-        port?: number;
+        port?: number | undefined;
         /** Reload the page if a patch cannot be applied by webpack */
-        reload?: boolean;
+        reload?: boolean | undefined;
         /** Server instance for webpack-hot-client to connect to */
-        server?: net.Server;
+        server?: net.Server | undefined;
         /** Webpack stats configuration */
-        stats?: webpack.Options.Stats;
+        stats?: webpack.Options.Stats | undefined;
         /** Webpack compile target */
-        validTargets?: string[];
+        validTargets?: string[] | undefined;
     }
 }

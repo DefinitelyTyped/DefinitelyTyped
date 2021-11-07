@@ -24,7 +24,9 @@ declare namespace cheerio {
         next: Element | null;
         prev: Element | null;
         parent: Element;
-        data?: string;
+        data?: string | undefined;
+        startIndex?: number | undefined;
+        endIndex?: number | undefined;
     }
 
     interface TagElement {
@@ -45,8 +47,9 @@ declare namespace cheerio {
         parent: Element;
         parentNode: Element;
         nodeValue: string;
-        data?: string;
-        startIndex?: number;
+        data?: string | undefined;
+        startIndex?: number | undefined;
+        endIndex?: number | undefined;
     }
 
     interface CommentElement {
@@ -54,7 +57,9 @@ declare namespace cheerio {
         next: Element | null;
         prev: Element | null;
         parent: Element;
-        data?: string;
+        data?: string | undefined;
+        startIndex?: number | undefined;
+        endIndex?: number | undefined;
     }
 
     type AttrFunction = (el: Element, i: number, currentValue: string) => any;
@@ -274,17 +279,17 @@ declare namespace cheerio {
         // HTMLParser2 https://github.com/fb55/htmlparser2/wiki/Parser-options
         // DomHandler https://github.com/fb55/DomHandler
 
-        xmlMode?: boolean;
-        decodeEntities?: boolean;
-        lowerCaseTags?: boolean;
-        lowerCaseAttributeNames?: boolean;
-        recognizeCDATA?: boolean;
-        recognizeSelfClosing?: boolean;
-        normalizeWhitespace?: boolean;
-        withStartIndices?: boolean;
-        withEndIndices?: boolean;
-        ignoreWhitespace?: boolean;
-        _useHtmlParser2?: boolean;
+        xmlMode?: boolean | undefined;
+        decodeEntities?: boolean | undefined;
+        lowerCaseTags?: boolean | undefined;
+        lowerCaseAttributeNames?: boolean | undefined;
+        recognizeCDATA?: boolean | undefined;
+        recognizeSelfClosing?: boolean | undefined;
+        normalizeWhitespace?: boolean | undefined;
+        withStartIndices?: boolean | undefined;
+        withEndIndices?: boolean | undefined;
+        ignoreWhitespace?: boolean | undefined;
+        _useHtmlParser2?: boolean | undefined;
     }
 
     interface Selector {

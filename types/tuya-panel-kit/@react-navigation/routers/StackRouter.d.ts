@@ -6,31 +6,31 @@ export declare type StackActionType = {
         name: string;
         // tslint:disable-next-line interface-over-type-literal no-redundant-undefined
         key?: string | undefined;
-        params?: object;
+        params?: object | undefined;
     };
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 } | {
     type: 'PUSH';
     payload: {
         name: string;
         // tslint:disable-next-line no-redundant-undefined
         key?: string | undefined;
-        params?: object;
+        params?: object | undefined;
     };
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 } | {
     type: 'POP';
     payload: {
         count: number;
     };
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 } | {
     type: 'POP_TO_TOP';
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type StackRouterOptions = DefaultRouterOptions;
@@ -69,9 +69,9 @@ export declare type StackActionHelpers<ParamList extends ParamListBase> = {
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare const StackActions: {
     // tslint:disable-next-line no-redundant-undefined
-    replace(name: string, params?: object | undefined): StackActionType;
+    replace(name: string, params?: object): StackActionType;
     // tslint:disable-next-line no-redundant-undefined
-    push(name: string, params?: object | undefined): StackActionType;
+    push(name: string, params?: object): StackActionType;
     pop(count?: number): StackActionType;
     popToTop(): StackActionType;
 };

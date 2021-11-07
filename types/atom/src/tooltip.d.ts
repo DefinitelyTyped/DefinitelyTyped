@@ -22,42 +22,42 @@ export interface Tooltip {
 /** The options for a Bootstrap 3 Tooltip class, which Atom uses a variant of. */
 export interface TooltipOptions {
     /** Apply a CSS fade transition to the tooltip. */
-    animation?: boolean;
+    animation?: boolean | undefined;
 
     /** Appends the tooltip to a specific element. */
-    container?: string | HTMLElement | false;
+    container?: string | HTMLElement | false | undefined;
 
     /**
      *  Delay showing and hiding the tooltip (ms) - does not apply to manual
      *  trigger type.
      */
-    delay?: number | { show: number; hide: number };
+    delay?: number | { show: number; hide: number } | undefined;
 
     /** Allow HTML in the tooltip. */
-    html?: boolean;
+    html?: boolean | undefined;
 
     /** How to position the tooltip. */
-    placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
+    placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto' | undefined;
 
     /**
      *  If a selector is provided, tooltip objects will be delegated to the
      *  specified targets.
      */
-    selector?: string;
+    selector?: string | undefined;
 
     /** Base HTML to use when creating the tooltip. */
-    template?: string;
+    template?: string | undefined;
 
     /**
      *  Default title value if title attribute isn't present.
      *  If a function is given, it will be called with its this reference set to
      *  the element that the tooltip is attached to.
      */
-    title?: string | HTMLElement | (() => string);
+    title?: string | HTMLElement | (() => string) | undefined;
 
     /**
      *  How tooltip is triggered - click | hover | focus | manual.
      *  You may pass multiple triggers; separate them with a space.
      */
-    trigger?: string;
+    trigger?: string | undefined;
 }

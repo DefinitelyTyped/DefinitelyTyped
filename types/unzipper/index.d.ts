@@ -29,7 +29,7 @@ export interface Entry extends PassThrough {
 
     type: string;
     vars: {
-        signature?: number;
+        signature?: number | undefined;
         versionsNeededToExtract: number;
         flags: number;
         compressionMethod: number;
@@ -113,10 +113,10 @@ export interface File {
 }
 
 export interface ParseOptions {
-    verbose?: boolean;
-    path?: string;
-    concurrency?: number;
-    forceStream?: boolean;
+    verbose?: boolean | undefined;
+    path?: string | undefined;
+    concurrency?: number | undefined;
+    forceStream?: boolean | undefined;
 }
 
 export type ParseStream = PullStream & {

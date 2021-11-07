@@ -16,7 +16,7 @@ declare namespace echarts {
              *
              * @default ''
              */
-            position?: 'top' | 'bottom';
+            position?: 'top' | 'bottom' | undefined;
 
             /**
              * Options:
@@ -33,7 +33,7 @@ declare namespace echarts {
              * @default 'value'
              * @see https://echarts.apache.org/en/option.html#xAxis.type
              */
-            type?: BasicComponents.CartesianAxis.Type;
+            type?: BasicComponents.CartesianAxis.Type | undefined;
 
             /**
              * Offset of this axis relative to default position.
@@ -42,7 +42,7 @@ declare namespace echarts {
              * @default 0
              * @see https://echarts.apache.org/en/option.html#xAxis.offset
              */
-            offset?: number;
+            offset?: number | undefined;
         }
     }
 }

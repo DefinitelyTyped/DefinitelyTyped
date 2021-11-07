@@ -556,6 +556,7 @@ function empty() {
 
 function property() {
     expect('test').to.have.property('length');
+    expect('test').to.have.property(Symbol.for('length'));
     'test'.should.have.property('length');
     expect(4).to.not.have.property('length');
     (4).should.not.have.property('length');
@@ -594,6 +595,7 @@ function nestedProperty() {
 
 function property2() {
     expect('test').to.have.property('length', 4);
+    expect('test').to.have.property(Symbol.for('length'), 4);
     'test'.should.have.property('length', 4);
     expect('asd').to.have.property('constructor', String);
     'asd'.should.have.property('constructor', String);
@@ -640,6 +642,7 @@ function own() {
 
 function ownProperty() {
     expect('test').to.have.ownProperty('length');
+    expect('test').to.have.ownProperty(Symbol.for('length'));
     'test'.should.have.ownProperty('length');
     expect('test').to.haveOwnProperty('length');
     'test'.should.haveOwnProperty('length');
@@ -654,6 +657,7 @@ function ownProperty() {
     ({length: 12}).should.not.have.ownProperty('length', 'blah');
 
     expect('test').to.have.own.property('length');
+    expect('test').to.have.own.property(Symbol.for('length'));
     'test'.should.have.own.property('length');
     expect({length: 12}).to.have.own.property('length');
     ({length: 12}).should.have.own.property('length');
@@ -680,6 +684,7 @@ function ownProperty() {
 
 function ownPropertyDescriptor() {
     expect('test').to.have.ownPropertyDescriptor('length');
+    expect('test').to.have.ownPropertyDescriptor(Symbol.for('length'));
     expect('test').to.have.ownPropertyDescriptor('length', {
         enumerable: false,
         configurable: false,
@@ -1875,6 +1880,8 @@ suite('assert', () => {
         assert.includeMembers([1, 2, 3], [3]);
         assert.includeMembers([5, 6], [7, 8]);
         assert.includeMembers([5, 6], [5, 6, 0]);
+
+        assert.notIncludeMembers([ 1, 2, 3 ], [ 5, 1 ], 'not include members');
     });
 
     test('memberEquals', () => {

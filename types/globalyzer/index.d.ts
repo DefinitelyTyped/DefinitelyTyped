@@ -15,7 +15,7 @@ declare function globalyzer(
          * Use strict parsing (be strict about what's a glob and what's not)
          * @default false
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     },
 ): {
     base: string;

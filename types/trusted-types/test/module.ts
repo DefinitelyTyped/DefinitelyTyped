@@ -1,4 +1,4 @@
-import { trustedTypes as importedTrustedTypes, TrustedTypesEnforcer, TrustedTypeConfig } from 'trusted-types';
+import { TrustedTypeConfig, trustedTypes as importedTrustedTypes, TrustedTypesEnforcer } from 'trusted-types';
 
 // $ExpectType InternalTrustedTypePolicyFactory
 importedTrustedTypes;

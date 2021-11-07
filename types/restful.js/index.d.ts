@@ -221,10 +221,10 @@ export interface FullRequestInterceptor {
 
 export interface FullRequestInterceptorReturnValue {
     params?: any;
-    headers?: Headers;
+    headers?: Headers | undefined;
     data?: any;
-    method?: string;
-    url?: string;
+    method?: string | undefined;
+    url?: string | undefined;
 }
 
 export interface ResponseInterceptor {
@@ -232,10 +232,10 @@ export interface ResponseInterceptor {
 }
 
 export interface ResponseInterceptorReturnValue {
-    headers?: Headers;
+    headers?: Headers | undefined;
     data?: any;
-    method?: string;
-    url?: string;
+    method?: string | undefined;
+    url?: string | undefined;
 }
 
 export default function restful(endpoint: string): Api;

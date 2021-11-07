@@ -9,8 +9,8 @@ import { Context, Callback } from 'aws-lambda';
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 
 interface AwsLambdaFastifyOptions {
-    binaryMimeTypes?: string[];
-    callbackWaitsForEmptyEventLoop?: boolean;
+    binaryMimeTypes?: string[] | undefined;
+    callbackWaitsForEmptyEventLoop?: boolean | undefined;
 }
 
 type Handler<TEvent = FastifyRequest, TResult = FastifyReply> = (

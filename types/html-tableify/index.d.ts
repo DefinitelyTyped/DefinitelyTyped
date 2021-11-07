@@ -28,16 +28,16 @@ declare namespace tableify {
         name: T;
 
         /** Text align of the column. */
-        align?: Alignment;
+        align?: Alignment | undefined;
         /** Title of the column. */
-        title?: string;
+        title?: string | undefined;
     }
 
     /** Table config object for data with keys `T`. */
     interface Config<T> {
-        headers?: Array<Header<T>>;
+        headers?: Array<Header<T>> | undefined;
         /** Tidy the output HTML. */
-        tidy?: boolean;
+        tidy?: boolean | undefined;
     }
 }
 

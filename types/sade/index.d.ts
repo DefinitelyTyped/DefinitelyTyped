@@ -19,12 +19,12 @@ declare namespace sade {
          * Optionally define one or more aliases for the current Command.
          * When declared, the `opts.alias` value is passed directly to the [`prog.alias`](#progaliasnames) method.
          */
-        alias?: string | string[];
-        default?: boolean;
+        alias?: string | string[] | undefined;
+        default?: boolean | undefined;
     }
 
     interface ParseOptions extends mri.Options {
-        lazy?: boolean;
+        lazy?: boolean | undefined;
     }
 
     interface LazyOutput {

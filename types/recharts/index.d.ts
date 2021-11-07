@@ -1,29 +1,6 @@
 // Type definitions for Recharts 1.8
 // Project: http://recharts.org/, https://github.com/recharts/recharts
-// Definitions by: Raphael Mueller <https://github.com/rapmue>
-//                 Roy Xue <https://github.com/royxue>
-//                 Zheyang Song <https://github.com/ZheyangSong>
-//                 Rich Baird <https://github.com/richbai90>
-//                 Dan Torberg <https://github.com/caspeco-dan>
-//                 Peter Keuter <https://github.com/pkeuter>
-//                 Jamie Saunders <https://github.com/jrsaunde>
-//                 Harry Cruse <https://github.com/crusectrl>
-//                 Andrew Palugniok <https://github.com/apalugniok>
-//                 Robert Stigsson <https://github.com/RobertStigsson>
-//                 Kosaku Kurino <https://github.com/kousaku-maron>
-//                 Leon Ng <https://github.com/iflp>
-//                 Dave Vedder <https://github.com/veddermatic>
-//                 Konstantin Azizov <https://github.com/g07cha>
-//                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
-//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
-//                 Eliot Ball <https://github.com/eliotball>
-//                 Ville Kentta <https://github.com/vkentta>
-//                 Fabien Caylus <https://github.com/fcaylus>
-//                 Samuel Weckstrom <https://github.com/samuelweckstrom>
-//                 George Cheng <https://github.com/Gerhut>
-//                 Haldun Anil <https://github.com/haldunanil>
-//                 Tobias Knapp <https://github.com/t-knapp>
-//                 Jay Lim <https://github.com/jlxc106>
+// Definitions by: Dmitriy Serdtsev <https://github.com/in19farkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -67,7 +44,7 @@ export type PickedCSSStyleDeclarationKeys =
     'colorInterpolationFilters' | 'cursor' | 'direction' | 'display' | 'dominantBaseline' |
     'fill' | 'fillRule' | 'filter' | 'floodColor' |
     'floodOpacity' | 'font' | 'fontFamily' | 'fontStretch' | 'fontStyle' | 'fontVariant' |
-    'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
+    'letterSpacing' | 'lightingColor' |
     'markerEnd' | 'markerMid' | 'markerStart' | 'mask' | 'overflow' | 'pointerEvents' |
     'stopColor' | 'strokeDasharray' | 'strokeLinecap' | 'strokeLinejoin' | 'textAnchor' |
     'textDecoration' | 'unicodeBidi' | 'visibility' | 'writingMode' | 'transform';
@@ -222,6 +199,7 @@ export interface BarData {
 }
 
 export interface BarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
+    children?: React.ReactNode;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
     fill?: string;
@@ -243,7 +221,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     data?: ReadonlyArray<BarData>;
     background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
-    label?: boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
+    label?: boolean | Label | LabelProps | React.FC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
     id?: string;
 }
 
@@ -488,6 +466,7 @@ export type LineChartProps = CategoricalChartWrapper & EventAttributes;
 export class LineChart extends React.Component<LineChartProps> { }
 
 export interface PieProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
+    children?: React.ReactNode;
     className?: string;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     cx?: number | string;
@@ -879,6 +858,7 @@ export interface SectorProps extends EventAttributes, Partial<PresentationAttrib
 export class Sector extends React.Component<SectorProps> { }
 
 export interface TextProps extends Partial<PresentationAttributes> {
+    children?: React.ReactNode;
     className?: string;
     scaleToFit?: boolean;
     angle?: number;
@@ -926,7 +906,7 @@ export interface TooltipPayload {
 }
 
 export interface TooltipProps extends Animatable {
-    content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
+    content?: React.ReactElement | React.FunctionComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
     allowEscapeViewBox?: AllowEscapeViewBox;
     active?: boolean;
@@ -937,7 +917,7 @@ export interface TooltipProps extends Animatable {
     labelStyle?: object;
     contentStyle?: object;
     wrapperStyle?: object;
-    cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
+    cursor?: boolean | object | React.ReactElement | React.FunctionComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
     label?: string | number;
@@ -1009,6 +989,7 @@ export interface XPadding {
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface XAxisProps extends EventAttributes {
     allowDecimals?: boolean;
+    children?: React.ReactNode;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;
@@ -1069,6 +1050,7 @@ export interface YPadding {
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface YAxisProps extends EventAttributes {
     allowDecimals?: boolean;
+    children?: React.ReactNode;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;

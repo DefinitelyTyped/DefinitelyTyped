@@ -13,8 +13,8 @@
  * properties of account after the account is created.
  */
 export interface AccountInit {
-    iconUri?: string;
-    userName?: string;
+    iconUri?: string | undefined;
+    userName?: string | undefined;
 }
 /**
  * This interface represents filter for defining period of time, which will be used as a condition in _getAppsUsageInfo_ method.
@@ -29,14 +29,14 @@ export interface ApplicationUsageFilter {
      *
      * If only _endTime_ attribute is given, data will be accumulated from 90 days ago to _endTime_ date.
      */
-    endTime?: Date | null;
+    endTime?: Date | null | undefined;
     /**
      * The attribute to store the date, which is used as a lower bound for selecting data.
      *
      * If only _startTime_ attribute is given, by default _endTime_ is equal to the current date.
      * If _startTime_ date predates the 90 days from the current time, data will be accumulated from last 90 days.
      */
-    startTime?: Date | null;
+    startTime?: Date | null | undefined;
     /**
      * The attribute to store period of time, from which data is accumulated, in days.
      * The period of time begins _timeSpan_ days ago and ends with current date.
@@ -44,7 +44,7 @@ export interface ApplicationUsageFilter {
      * If the attribute is given, the attributes _startTime_ and _endTime_ of this interface are not taken into an account.
      * If _timeSpan_ is greater than 90, 90 will be used instead.
      */
-    timeSpan?: number | null;
+    timeSpan?: number | null | undefined;
 }
 /**
  * The ArchiveFileEntryOptions dictionary controls behavior when adding a file to an archive.
@@ -55,13 +55,13 @@ export interface ArchiveFileEntryOptions {
      *
      * @remark The default compression level is NORMAL.
      */
-    compressionLevel?: ArchiveCompressionLevel;
+    compressionLevel?: ArchiveCompressionLevel | undefined;
     /**
      * Path where _ArchiveFileEntry_ should be stored in an archive file.
      *
      * @remark If destination is not set, then the root directory of archive will be used (equivalent to destination = "").
      */
-    destination?: string;
+    destination?: string | undefined;
     /**
      * Controls whether leading directory information is stripped from the source file name before storing.
      *
@@ -79,7 +79,7 @@ export interface ArchiveFileEntryOptions {
      *
      * @remark The default value is false.
      */
-    stripSourceDirectory?: boolean;
+    stripSourceDirectory?: boolean | undefined;
 }
 /**
  * The ArchiveFileOptions dictionary represents the option to decide if an archive file can be overwritten when an archive file is opened.
@@ -97,7 +97,7 @@ export interface ArchiveFileOptions {
      *
      * See description of the _mode_ argument of the _open()_ method.
      */
-    overwrite?: boolean;
+    overwrite?: boolean | undefined;
 }
 /**
  * The EventInfo dictionary identifies an event with information such as event name. If it is an user event, the broadasting application's identifier is also specified.
@@ -114,14 +114,14 @@ export interface EventInfo {
      *
      * System events do not require an application identifier to be specified. If one is specified, the event will be interpreted as an user event.
      */
-    appId?: ApplicationId;
+    appId?: ApplicationId | undefined;
     /**
      * Name which describes the event.
      *
      * Must only contain the ASCII characters "\[A-Z\]\[a-z\]\[0-9\]\_" and may not begin with a digit.
      * Must be at least 1 byte in length and not exceed the maximum name length of 127 bytes.
      */
-    name?: string;
+    name?: string | undefined;
 }
 /**
  * Dictionary for specifying _ExifInformation_ attributes upon _ExifInformation_ creation.
@@ -130,25 +130,25 @@ export interface EventInfo {
  * For description of attributes please see the corresponding attributes in the _ExifInformation_ interface.
  */
 export interface ExifInit {
-    deviceMaker?: string;
-    deviceModel?: string;
-    exposureProgram?: ExposureProgram;
-    exposureTime?: string;
-    fNumber?: number;
-    flash?: boolean;
-    focalLength?: number;
-    gpsAltitude?: number;
-    gpsLocation?: SimpleCoordinates;
-    gpsProcessingMethod?: string;
-    gpsTime?: Date;
-    height?: number;
-    isoSpeedRatings?: number[];
-    orientation?: ImageContentOrientation;
-    originalTime?: Date;
-    uri?: string;
-    userComment?: string;
-    whiteBalance?: WhiteBalanceMode;
-    width?: number;
+    deviceMaker?: string | undefined;
+    deviceModel?: string | undefined;
+    exposureProgram?: ExposureProgram | undefined;
+    exposureTime?: string | undefined;
+    fNumber?: number | undefined;
+    flash?: boolean | undefined;
+    focalLength?: number | undefined;
+    gpsAltitude?: number | undefined;
+    gpsLocation?: SimpleCoordinates | undefined;
+    gpsProcessingMethod?: string | undefined;
+    gpsTime?: Date | undefined;
+    height?: number | undefined;
+    isoSpeedRatings?: number[] | undefined;
+    orientation?: ImageContentOrientation | undefined;
+    originalTime?: Date | undefined;
+    uri?: string | undefined;
+    userComment?: string | undefined;
+    whiteBalance?: WhiteBalanceMode | undefined;
+    width?: number | undefined;
 }
 /**
  * The dictionary that defines attributes to filter the items returned by the [listDirectory()](#FileSystemManager::listDirectory) method (or deprecated [listFiles()](#File::listFiles)).
@@ -176,45 +176,45 @@ export interface FileFilter {
      *
      * Files with created date earlier than this attribute or equal to it match the filtering criteria.
      */
-    endCreated?: Date;
+    endCreated?: Date | undefined;
     /**
      * The File modified attribute filter.
      *
      * Files with modified date earlier than this attribute or equal to it match the filtering criteria.
      */
-    endModified?: Date;
+    endModified?: Date | undefined;
     /**
      * If true match only directories, If false do not match directories.
      * May be undefined.
      *
      * @since 5.0
      */
-    isDirectory?: boolean;
+    isDirectory?: boolean | undefined;
     /**
      * If true match only files. If false do not match files.
      * May be undefined.
      *
      * @since 5.0
      */
-    isFile?: boolean;
+    isFile?: boolean | undefined;
     /**
      * The File name attribute filter.
      *
      * Files that have a name that corresponds with this attribute (either exactly or with the specified wildcards) match this filtering criteria.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The File created attribute filter.
      *
      * Files with created date later than this attribute or equal to it match the filtering criteria.
      */
-    startCreated?: Date;
+    startCreated?: Date | undefined;
     /**
      * The File modified attribute filter.
      *
      * Files with modified date later than this attribute or equal to it match the filtering criteria.
      */
-    startModified?: Date;
+    startModified?: Date | undefined;
 }
 /**
  * The KeyManagerAlias dictionary identifies items in the KeyManager.
@@ -232,17 +232,17 @@ export interface KeyManagerAlias {
      *
      * @since 5.5
      */
-    isProtected?: boolean;
+    isProtected?: boolean | undefined;
     /**
      * Name which describes the item.
      *
      * If this attribute contains any spaces, the spaces will be removed. Characters which are separated by spaces will be concatenated.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Package ID of the application which saved the item into the KeyManager.
      */
-    packageId?: PackageId;
+    packageId?: PackageId | undefined;
 }
 /**
  * The MediaControllerMetadataInit dictionary defines the properties of a MediaControllerMetadata to add in addItem method.
@@ -252,23 +252,23 @@ export interface KeyManagerAlias {
  * @since 5.5
  */
 export interface MediaControllerMetadataInit {
-    album?: string;
-    artist?: string;
-    author?: string;
-    copyright?: string;
-    date?: string;
-    description?: string;
-    duration?: string;
-    episodeNumber?: number;
-    episodeTitle?: string;
-    genre?: string;
-    picture?: string;
-    resolutionHeight?: number;
-    resolutionWidth?: number;
-    seasonNumber?: number;
-    seasonTitle?: string;
-    title?: string;
-    trackNum?: string;
+    album?: string | undefined;
+    artist?: string | undefined;
+    author?: string | undefined;
+    copyright?: string | undefined;
+    date?: string | undefined;
+    description?: string | undefined;
+    duration?: string | undefined;
+    episodeNumber?: number | undefined;
+    episodeTitle?: string | undefined;
+    genre?: string | undefined;
+    picture?: string | undefined;
+    resolutionHeight?: number | undefined;
+    resolutionWidth?: number | undefined;
+    seasonNumber?: number | undefined;
+    seasonTitle?: string | undefined;
+    title?: string | undefined;
+    trackNum?: string | undefined;
 }
 /**
  * The dictionary that specifies the byte stream data item that is transferred.
@@ -276,8 +276,8 @@ export interface MediaControllerMetadataInit {
  * @since 3.0
  */
 export interface MessagePortByteStreamDataItem {
-    key?: string;
-    value?: ByteStreamDataItemValue;
+    key?: string | undefined;
+    value?: ByteStreamDataItemValue | undefined;
 }
 /**
  * The dictionary that specifies the string data item that is transferred.
@@ -285,8 +285,8 @@ export interface MessagePortByteStreamDataItem {
  * @since 3.0
  */
 export interface MessagePortStringDataItem {
-    key?: string;
-    value?: StringDataItemValue;
+    key?: string | undefined;
+    value?: StringDataItemValue | undefined;
 }
 /**
  * The Query dictionary provides a query.
@@ -299,11 +299,11 @@ export interface Query {
     /**
      * The resource interface specified as a filter for the resource.
      */
-    resourceInterface?: ResourceInterface | null;
+    resourceInterface?: ResourceInterface | null | undefined;
     /**
      * The resource type specified as a filter for the resource.
      */
-    resourceType?: ResourceType | null;
+    resourceType?: ResourceType | null | undefined;
 }
 /**
  * The ResourcePolicy dictionary specifies resource attributes upon resource creation.
@@ -316,37 +316,37 @@ export interface ResourcePolicy {
      *
      * The default value is false
      */
-    isActive?: boolean;
+    isActive?: boolean | undefined;
     /**
      * Indicates resource that is allowed to be discovered.
      *
      * The default value is true
      */
-    isDiscoverable?: boolean;
+    isDiscoverable?: boolean | undefined;
     /**
      * When this value is set true, the resource is allowed to be discovered only if discovery request contains an explicit query string.
      *
      * The default value is false
      */
-    isExplicitDiscoverable?: boolean;
+    isExplicitDiscoverable?: boolean | undefined;
     /**
      * Indicates resource that is allowed to be observed.
      *
      * The default value is false
      */
-    isObservable?: boolean;
+    isObservable?: boolean | undefined;
     /**
      * Indicates secure resource.
      *
      * The default value is false
      */
-    isSecure?: boolean;
+    isSecure?: boolean | undefined;
     /**
      * Indicates resource which takes some delay to respond.
      *
      * The default value is false
      */
-    isSlow?: boolean;
+    isSlow?: boolean | undefined;
 }
 /**
  * The dictionary represents RowData holding 1 row of SQL selection results from another application.
@@ -355,11 +355,11 @@ export interface RowData {
     /**
      * An attribute to hold column names to select, update, and insert.
      */
-    columns?: string[];
+    columns?: string[] | undefined;
     /**
      * An attribute to hold values of columns to select, update, and insert.
      */
-    values?: string[];
+    values?: string[] | undefined;
 }
 /**
  * An object containing the various options for fetching the properties requested.
@@ -379,18 +379,18 @@ export interface SystemInfoOptions {
      * operation will be triggered only if the device property is a number and its value is greater than or equal to this number.
      * This attribute has no effect on the _get()_ method.
      */
-    highThreshold?: number;
+    highThreshold?: number | undefined;
     /**
      * An attribute to indicate that the _successCallback()_ method in the watch operation must be triggered only if the property is a number and its value is lower than or equal to this number.
      *
      * If both _highThreshold_ and _lowThreshold_ parameters are specified, the _successCallback()_ is triggered if and only if the property value is either lower than the value of _lowThreshold_ or higher than the value of _highThreshold_.
      * This attribute has no effect on the get method.
      */
-    lowThreshold?: number;
+    lowThreshold?: number | undefined;
     /**
      * The number of milliseconds beyond which the operation must be interrupted.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 }
 /**
  * The AccountChangeCallback interface defines callbacks for getting notified about account changes.

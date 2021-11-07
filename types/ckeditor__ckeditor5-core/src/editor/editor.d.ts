@@ -1,68 +1,69 @@
-import * as engine from "@ckeditor/ckeditor5-engine";
-import Config from "@ckeditor/ckeditor5-utils/src/config";
-import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import Locale from "@ckeditor/ckeditor5-utils/src/locale";
-import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import CommandCollection from "../commandcollection";
-import EditingKeystrokeHandler from "../editingkeystrokehandler";
-import Plugin, { LoadedPlugins } from "../plugin";
-import PluginCollection from "../plugincollection";
-import { EditorConfig } from "./editorconfig.d";
+import * as engine from '@ckeditor/ckeditor5-engine';
+import Config from '@ckeditor/ckeditor5-utils/src/config';
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import Locale from '@ckeditor/ckeditor5-utils/src/locale';
+import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import CommandCollection from '../commandcollection';
+import ContextPlugin from '../contextplugin';
+import EditingKeystrokeHandler from '../editingkeystrokehandler';
+import Plugin, { LoadedPlugins } from '../plugin';
+import PluginCollection from '../plugincollection';
+import { EditorConfig } from './editorconfig';
 
-export default abstract class Editor implements Emitter, Observable {
-    readonly commands: CommandCollection;
-    readonly config: Config;
-    readonly conversion: engine.conversion.Conversion;
-    readonly data: engine.controller.DataController;
-    readonly editing: engine.controller.EditingController;
-    isReadOnly: boolean;
-    readonly keystrokes: EditingKeystrokeHandler;
-    readonly locale: Locale;
-    readonly model: engine.model.Model;
-    readonly plugins: PluginCollection;
-    readonly state: "initializing" | "ready" | "destroyed";
-
-    static builtinPlugins: Array<typeof Plugin>;
-    static defaultConfig: Record<string, unknown>;
-
+export default abstract class Editor implements Observable {
     constructor(config?: EditorConfig);
+    readonly config: Config;
+    readonly plugins: PluginCollection;
+    readonly locale: Locale;
+    t: Locale['t'];
+    readonly commands: CommandCollection;
+    get state(): 'initializing' | 'ready' | 'destroyed';
+    protected set state(value: 'initializing' | 'ready' | 'destroyed');
+    get isReadOnly(): boolean;
+    protected set isReadOnly(value: boolean);
+    readonly model: engine.Model;
+    readonly data: engine.DataController;
+    readonly editing: engine.EditingController;
+    readonly conversion: engine.Conversion;
+    readonly keystrokes: EditingKeystrokeHandler;
+    initPlugins(): Promise<LoadedPlugins>;
     destroy(): Promise<void>;
     execute(commandName: string, ...args: unknown[]): any;
     focus(): void;
-    initPlugins(): Promise<LoadedPlugins>;
-    t: Locale["t"];
 
-    on: (
-        event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ): void;
-    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-        options?: { priority?: PriorityString | number },
-    ): void;
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-    ): void;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    delegate(...events: string[]): EmitterMixinDelegateChain;
-    stopDelegating(event?: string, emitter?: Emitter): void;
+    static builtinPlugins: Array<typeof Plugin | typeof ContextPlugin | string>;
+    static defaultConfig?: EditorConfig | undefined;
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
     bind(...bindProperties: string[]): BindChain;
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
+    on<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    listenTo<P extends string, E extends Emitter>(
+        emitter: E,
+        event: P,
+        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<E extends Emitter, P extends string>(
+        emitter?: E,
+        event?: P,
+        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    stopDelegating(event?: string, emitter?: Emitter): void;
 }

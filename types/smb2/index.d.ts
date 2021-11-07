@@ -1,7 +1,7 @@
 // Type definitions for smb2 0.2
 // Project: https://github.com/bchelli/node-smb2
 // Definitions by: Nick Whitlock <https://github.com/eezstreet>
-// Definitions: https://github.com/eezstreet/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = SMB2;
 
@@ -14,11 +14,11 @@ interface SMB2Options {
 
     password: string;
 
-    port?: number;
+    port?: number | undefined;
 
-    packetConcurrency?: number;
+    packetConcurrency?: number | undefined;
 
-    autoCloseTimeout?: number;
+    autoCloseTimeout?: number | undefined;
 }
 
 interface SMB2ReadFileOptions {

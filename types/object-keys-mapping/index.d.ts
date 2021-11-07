@@ -14,12 +14,12 @@ export function reverseCamelcase(origin: object): object;
 export function reverseCamelcase(origin: ReadonlyArray<object>): object[];
 
 export interface OperatorOptions {
-    camelcase?: boolean;
-    mapping?: object;
+    camelcase?: boolean | undefined;
+    mapping?: object | undefined;
 }
 
 export class Operator {
-    constructor(opts?: { camelcase?: boolean });
+    constructor(opts?: { camelcase?: boolean | undefined });
 
     map(origin: object): object;
     map(origin: ReadonlyArray<object>): object[];

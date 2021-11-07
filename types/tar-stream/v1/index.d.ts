@@ -13,18 +13,18 @@ export type Callback = (err?: Error | null) => any;
 // see https://github.com/mafintosh/tar-stream/blob/master/headers.js
 export interface Headers {
     name: string;
-    mode?: number;
-    uid?: number;
-    gid?: number;
-    size?: number;
-    mtime?: Date;
-    linkname?: string | null;
+    mode?: number | undefined;
+    uid?: number | undefined;
+    gid?: number | undefined;
+    size?: number | undefined;
+    mtime?: Date | undefined;
+    linkname?: string | null | undefined;
     type?: 'file' | 'link' | 'symlink' | 'character-device' | 'block-device' | 'directory' | 'fifo' |
-        'contiguous-file' | 'pax-header' | 'pax-global-header' | 'gnu-long-link-path' | 'gnu-long-path' | null;
-    uname?: string;
-    gname?: string;
-    devmajor?: number;
-    devminor?: number;
+        'contiguous-file' | 'pax-header' | 'pax-global-header' | 'gnu-long-link-path' | 'gnu-long-path' | null | undefined;
+    uname?: string | undefined;
+    gname?: string | undefined;
+    devmajor?: number | undefined;
+    devminor?: number | undefined;
 }
 
 export interface Pack extends stream.Readable {

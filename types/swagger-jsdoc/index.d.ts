@@ -48,9 +48,9 @@ declare namespace swaggerJSDoc {
      * Open API Specification (OAS) version 3.0 options
      */
     interface OAS3Options {
-        apis?: ReadonlyArray<string>;
-        definition?: OAS3Definition;
-        swaggerDefinition?: OAS3Definition;
+        apis?: ReadonlyArray<string> | undefined;
+        definition?: OAS3Definition | undefined;
+        swaggerDefinition?: OAS3Definition | undefined;
         [key: string]: any;
     }
 
@@ -60,49 +60,49 @@ declare namespace swaggerJSDoc {
     interface OAS3Definition {
         openapi: string;
         info: Information;
-        servers?: ReadonlyArray<Server>;
-        paths?: Paths;
-        components?: Components;
-        security?: ReadonlyArray<SecurityRequirement>;
-        tags?: ReadonlyArray<Tag>;
-        externalDocs?: ExternalDocumentation;
+        servers?: ReadonlyArray<Server> | undefined;
+        paths?: Paths | undefined;
+        components?: Components | undefined;
+        security?: ReadonlyArray<SecurityRequirement> | undefined;
+        tags?: ReadonlyArray<Tag> | undefined;
+        externalDocs?: ExternalDocumentation | undefined;
         [key: string]: any;
     }
 
     interface Information {
         title: string;
-        description?: string;
-        termsOfService?: string;
-        contact?: Contact;
-        license?: License;
+        description?: string | undefined;
+        termsOfService?: string | undefined;
+        contact?: Contact | undefined;
+        license?: License | undefined;
         version: string;
         [key: string]: any;
     }
 
     interface Contact {
-        name?: string;
-        url?: string;
-        email?: string;
+        name?: string | undefined;
+        url?: string | undefined;
+        email?: string | undefined;
         [key: string]: any;
     }
 
     interface License {
         name: string;
-        url?: string;
+        url?: string | undefined;
         [key: string]: any;
     }
 
     interface Server {
         url: string;
-        description?: string;
-        variables?: { [key: string]: ServerVariable };
+        description?: string | undefined;
+        variables?: { [key: string]: ServerVariable } | undefined;
         [key: string]: any;
     }
 
     interface ServerVariable {
-        enum?: ReadonlyArray<string>;
+        enum?: ReadonlyArray<string> | undefined;
         default: string;
-        description?: string;
+        description?: string | undefined;
         [key: string]: any;
     }
 
@@ -111,57 +111,57 @@ declare namespace swaggerJSDoc {
     }
 
     interface PathItem {
-        $ref?: string;
-        summary?: string;
-        description?: string;
-        get?: Operation;
-        put?: Operation;
-        post?: Operation;
-        delete?: Operation;
-        options?: Operation;
-        head?: Operation;
-        patch?: Operation;
-        trace?: Operation;
-        servers?: ReadonlyArray<Server>;
-        parameters?: Parameter | Reference;
+        $ref?: string | undefined;
+        summary?: string | undefined;
+        description?: string | undefined;
+        get?: Operation | undefined;
+        put?: Operation | undefined;
+        post?: Operation | undefined;
+        delete?: Operation | undefined;
+        options?: Operation | undefined;
+        head?: Operation | undefined;
+        patch?: Operation | undefined;
+        trace?: Operation | undefined;
+        servers?: ReadonlyArray<Server> | undefined;
+        parameters?: Parameter | Reference | undefined;
         [key: string]: any;
     }
 
     interface Operation {
-        tags?: string[];
-        summary?: string;
-        description?: string;
-        externalDocs?: ExternalDocumentation;
-        operationId?: string;
-        parameters?: ReadonlyArray<Parameter | Reference>;
-        requestBody?: RequestBody | Reference;
-        responses?: Responses;
-        callbacks?: { [key: string]: Callback | Reference };
-        deprecated?: boolean;
-        security?: ReadonlyArray<SecurityRequirement>;
-        servers?: ReadonlyArray<Server>;
+        tags?: string[] | undefined;
+        summary?: string | undefined;
+        description?: string | undefined;
+        externalDocs?: ExternalDocumentation | undefined;
+        operationId?: string | undefined;
+        parameters?: ReadonlyArray<Parameter | Reference> | undefined;
+        requestBody?: RequestBody | Reference | undefined;
+        responses?: Responses | undefined;
+        callbacks?: { [key: string]: Callback | Reference } | undefined;
+        deprecated?: boolean | undefined;
+        security?: ReadonlyArray<SecurityRequirement> | undefined;
+        servers?: ReadonlyArray<Server> | undefined;
         [key: string]: any;
     }
 
     interface Parameter {
         name: string;
         in: string;
-        description?: string;
-        required?: boolean;
-        deprecated?: boolean;
-        allowEmptyValue?: boolean;
-        style?: string;
-        explode?: boolean;
-        allowReserved?: boolean;
-        schema?: Schema | Reference;
+        description?: string | undefined;
+        required?: boolean | undefined;
+        deprecated?: boolean | undefined;
+        allowEmptyValue?: boolean | undefined;
+        style?: string | undefined;
+        explode?: boolean | undefined;
+        allowReserved?: boolean | undefined;
+        schema?: Schema | Reference | undefined;
         example?: any;
-        examples?: { [key: string]: Example | Reference };
+        examples?: { [key: string]: Example | Reference } | undefined;
         [key: string]: any;
     }
 
     interface Schema {
-        type?: string;
-        format?: string;
+        type?: string | undefined;
+        format?: string | undefined;
         [key: string]: any;
     }
 
@@ -170,71 +170,71 @@ declare namespace swaggerJSDoc {
     }
 
     interface Example {
-        summary?: string;
-        description?: string;
+        summary?: string | undefined;
+        description?: string | undefined;
         value?: any;
-        externalValue?: string;
+        externalValue?: string | undefined;
         [key: string]: any;
     }
 
     interface RequestBody {
-        description?: string;
+        description?: string | undefined;
         content: { [key: string]: MediaType };
-        required?: boolean;
+        required?: boolean | undefined;
         [key: string]: any;
     }
 
     interface Responses {
-        default?: Response | Reference;
+        default?: Response | Reference | undefined;
         [key: string]: any;
     }
 
     interface Response {
         description: string;
-        headers?: { [key: string]: Header | Reference };
-        content?: { [key: string]: MediaType };
-        links?: { [key: string]: Link | Reference };
+        headers?: { [key: string]: Header | Reference } | undefined;
+        content?: { [key: string]: MediaType } | undefined;
+        links?: { [key: string]: Link | Reference } | undefined;
         [key: string]: any;
     }
 
     interface Header {
-        description?: string;
-        required?: boolean;
-        deprecated?: boolean;
-        allowEmptyValue?: boolean;
-        style?: string;
-        explode?: boolean;
-        allowReserved?: boolean;
-        schema?: Schema | Reference;
+        description?: string | undefined;
+        required?: boolean | undefined;
+        deprecated?: boolean | undefined;
+        allowEmptyValue?: boolean | undefined;
+        style?: string | undefined;
+        explode?: boolean | undefined;
+        allowReserved?: boolean | undefined;
+        schema?: Schema | Reference | undefined;
         example?: any;
-        examples?: { [key: string]: Example | Reference };
+        examples?: { [key: string]: Example | Reference } | undefined;
         [key: string]: any;
     }
 
     interface MediaType {
-        schema?: Schema | Reference;
+        schema?: Schema | Reference | undefined;
         example?: any;
-        examples?: { [key: string]: Example | Reference };
-        encoding?: { [key: string]: Encoding };
+        examples?: { [key: string]: Example | Reference } | undefined;
+        encoding?: { [key: string]: Encoding } | undefined;
         [key: string]: any;
     }
 
     interface Encoding {
-        contentType?: string;
-        headers?: { [key: string]: Header | Reference };
-        style?: string;
-        explode?: boolean;
-        allowReserved?: boolean;
+        contentType?: string | undefined;
+        headers?: { [key: string]: Header | Reference } | undefined;
+        style?: string | undefined;
+        explode?: boolean | undefined;
+        allowReserved?: boolean | undefined;
         [key: string]: any;
     }
 
     interface Link {
-        operationRef?: string;
-        operationId?: string;
-        parameters?: { [key: string]: any };
-        requestBody?: { [key: string]: any };
-        description?: string;
-        server?: Server;
+        operationRef?: string | undefined;
+        operationId?: string | undefined;
+        parameters?: { [key: string]: any } | undefined;
+        requestBody?: { [key: string]: any } | undefined;
+        description?: string | undefined;
+        server?: Server | undefined;
         [key: string]: any;
     }
 
@@ -247,55 +247,55 @@ declare namespace swaggerJSDoc {
     }
 
     interface Components {
-        schemas?: { [key: string]: Schema | Reference };
-        responses?: { [key: string]: Response | Reference };
-        parameters?: { [key: string]: Parameter | Reference };
-        examples?: { [key: string]: Example | Reference };
-        requestBodies?: { [key: string]: RequestBody | Reference };
-        headers?: { [key: string]: Header | Reference };
-        securitySchemes?: { [key: string]: SecurityScheme | Reference };
-        links?: { [key: string]: Link | Reference };
-        callbacks?: { [key: string]: Callback | Reference };
+        schemas?: { [key: string]: Schema | Reference } | undefined;
+        responses?: { [key: string]: Response | Reference } | undefined;
+        parameters?: { [key: string]: Parameter | Reference } | undefined;
+        examples?: { [key: string]: Example | Reference } | undefined;
+        requestBodies?: { [key: string]: RequestBody | Reference } | undefined;
+        headers?: { [key: string]: Header | Reference } | undefined;
+        securitySchemes?: { [key: string]: SecurityScheme | Reference } | undefined;
+        links?: { [key: string]: Link | Reference } | undefined;
+        callbacks?: { [key: string]: Callback | Reference } | undefined;
         [key: string]: any;
     }
 
     interface SecurityScheme {
         type: string;
-        description?: string;
-        name?: string;
-        in?: string;
-        scheme?: string;
-        bearerFormat?: string;
-        flows?: OAuthFlows;
-        openIdConnectUrl?: string;
+        description?: string | undefined;
+        name?: string | undefined;
+        in?: string | undefined;
+        scheme?: string | undefined;
+        bearerFormat?: string | undefined;
+        flows?: OAuthFlows | undefined;
+        openIdConnectUrl?: string | undefined;
         [key: string]: any;
     }
 
     interface OAuthFlows {
-        implicit?: OAuthFlow;
-        password?: OAuthFlow;
-        clientCredentials?: OAuthFlow;
-        authorizationCode?: OAuthFlow;
+        implicit?: OAuthFlow | undefined;
+        password?: OAuthFlow | undefined;
+        clientCredentials?: OAuthFlow | undefined;
+        authorizationCode?: OAuthFlow | undefined;
         [key: string]: any;
     }
 
     interface OAuthFlow {
-        authorizationUrl?: string;
-        tokenUrl?: string;
-        refreshUrl?: string;
+        authorizationUrl?: string | undefined;
+        tokenUrl?: string | undefined;
+        refreshUrl?: string | undefined;
         scopes: { [key: string]: string };
         [key: string]: any;
     }
 
     interface Tag {
         name: string;
-        description?: string;
-        externalDocs?: ExternalDocumentation;
+        description?: string | undefined;
+        externalDocs?: ExternalDocumentation | undefined;
         [key: string]: any;
     }
 
     interface ExternalDocumentation {
-        description?: string;
+        description?: string | undefined;
         url: string;
         [key: string]: any;
     }
@@ -304,9 +304,9 @@ declare namespace swaggerJSDoc {
      * Open API Specification (OAS) version 2.0 options (fka Swagger specification)
      */
     interface Options {
-        apis?: ReadonlyArray<string>;
-        definition?: SwaggerDefinition;
-        swaggerDefinition?: SwaggerDefinition;
+        apis?: ReadonlyArray<string> | undefined;
+        definition?: SwaggerDefinition | undefined;
+        swaggerDefinition?: SwaggerDefinition | undefined;
         [key: string]: any;
     }
 
@@ -314,15 +314,15 @@ declare namespace swaggerJSDoc {
      * For describing Open API Specification (OAS) version 2.0 (fka Swagger specification)
      */
     interface SwaggerDefinition {
-        swagger?: string;
+        swagger?: string | undefined;
         info: Information;
-        host?: string;
-        basePath?: string;
-        schemes?: ReadonlyArray<string>;
-        consumes?: ReadonlyArray<string>;
-        produces?: ReadonlyArray<string>;
-        tags?: ReadonlyArray<Tag>;
-        externalDocs?: ExternalDocumentation;
+        host?: string | undefined;
+        basePath?: string | undefined;
+        schemes?: ReadonlyArray<string> | undefined;
+        consumes?: ReadonlyArray<string> | undefined;
+        produces?: ReadonlyArray<string> | undefined;
+        tags?: ReadonlyArray<Tag> | undefined;
+        externalDocs?: ExternalDocumentation | undefined;
         [key: string]: any;
     }
 }

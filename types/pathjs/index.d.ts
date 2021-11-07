@@ -23,10 +23,10 @@ interface IPathRoute{
 }
 
 interface IPathRoutes{
-    current?: string,
-    root?: string,
-    rescue?: Function,
-    previous?: string,
+    current?: string | undefined,
+    root?: string | undefined,
+    rescue?: Function | undefined,
+    previous?: string | undefined,
     defined: IDictionary<IPathRoute>
 }
 

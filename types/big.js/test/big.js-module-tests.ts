@@ -6,7 +6,7 @@
   Minor changes have been made such as adding variable definitions where required.
 */
 
-import { Big, RoundingMode } from 'big.js';
+import { Big, RoundingMode } from "big.js";
 
 function constructorTests() {
     const x: Big = new Big(9); // '9'
@@ -22,6 +22,14 @@ function staticPropertiesTests() {
     Big.DP = 40;
     Big.RM = 3;
     Big.RM = RoundingMode.RoundUp;
+    Big.RM = Big.roundUp;
+}
+
+function staticReadonlyPropertiesTests() {
+    Big.roundDown; // 0
+    Big.roundHalfUp; // 1
+    Big.roundHalfEven; // 2
+    Big.roundUp; // 3
 }
 
 function absTests() {
@@ -112,6 +120,17 @@ function powTests() {
     new Big(2).pow(1e+6); // Time taken (Node.js): 9 minutes 34 secs.
 }
 
+function precTests() {
+    const y = new Big(123.45);
+    y.prec(2); // '123.45'
+    y.prec(10); // '123.45'
+    y.prec(1, 0); // '123.4'
+    y.prec(1, 1); // '123.5'
+    y.prec(1, 2); // '123.4'
+    y.prec(1, 3); // '123.5'
+    y; // '123.45'
+}
+
 function roundTests() {
     const x = 123.45;
     Math.round(x); // 123
@@ -154,6 +173,36 @@ function toExponentialTests() {
     y.toExponential(3); // '4.560e+1'
 }
 
+function toExponentialWithRoundingModeTests() {
+    const x = 45.2285;
+    const y = new Big(x);
+    x.toExponential(); // '4.52285e+1'
+    y.toExponential(); // '4.52285e+1'
+    y.toExponential(0); // '5e+1'
+    y.toExponential(0, Big.roundDown); // '4e+1'
+    y.toExponential(0, Big.roundHalfUp); // '5e+1'
+    y.toExponential(0, Big.roundHalfEven); // '5e+1'
+    y.toExponential(0, Big.roundUp); // '5e+1'
+    x.toExponential(1); // '4.5e+1'
+    y.toExponential(1); // '4.5e+1'
+    y.toExponential(1, Big.roundDown); // '4.5e+1'
+    y.toExponential(1, Big.roundHalfUp); // '4.5e+1'
+    y.toExponential(1, Big.roundHalfEven); // '4.5e+1'
+    y.toExponential(1, Big.roundUp); // '4.6e+1'
+    x.toExponential(2); // '4.52e+1'
+    y.toExponential(2); // '4.52e+1'
+    y.toExponential(2, Big.roundDown); // '4.52e+1'
+    y.toExponential(2, Big.roundHalfUp); // '4.52e+1'
+    y.toExponential(2, Big.roundHalfEven); // '4.52e+1'
+    y.toExponential(2, Big.roundUp); // '4.53e+1'
+    x.toExponential(3); // '4.523e+1'
+    y.toExponential(3); // '4.523e+1'
+    y.toExponential(3, Big.roundDown); // '4.522e+1'
+    y.toExponential(3, Big.roundHalfUp); // '4.523e+1'
+    y.toExponential(3, Big.roundHalfEven); // '4.523e+1'
+    y.toExponential(3, Big.roundUp); // '4.523e+1'
+}
+
 function toFixedTests() {
     const x = 45.6;
     const y = new Big(x);
@@ -162,6 +211,36 @@ function toFixedTests() {
     y.toFixed(0); // '46'
     x.toFixed(3); // '45.600'
     y.toFixed(3); // '45.600'
+}
+
+function toFixedWithRoundingModeTests() {
+    const x = 45.2285;
+    const y = new Big(x);
+    x.toFixed(); // '45'
+    y.toFixed(); // '45.2285'
+    y.toFixed(0); // '45'
+    y.toFixed(0, Big.roundDown); // '45'
+    y.toFixed(0, Big.roundHalfUp); // '45'
+    y.toFixed(0, Big.roundHalfEven); // '45'
+    y.toFixed(0, Big.roundUp); // '46'
+    x.toFixed(1); // '45.2'
+    y.toFixed(1); // '45.2'
+    y.toFixed(1, Big.roundDown); // '45.2'
+    y.toFixed(1, Big.roundHalfUp); // '45.2'
+    y.toFixed(1, Big.roundHalfEven); // '45.2'
+    y.toFixed(1, Big.roundUp); // '45.3'
+    x.toFixed(2); // '45.23'
+    y.toFixed(2); // '45.23'
+    y.toFixed(2, Big.roundDown); // '45.22'
+    y.toFixed(2, Big.roundHalfUp); // '45.23'
+    y.toFixed(2, Big.roundHalfEven); // '45.23'
+    y.toFixed(2, Big.roundUp); // '45.23'
+    x.toFixed(3); // '45.228'
+    y.toFixed(3); // '45.229'
+    y.toFixed(3, Big.roundDown); // '45.228'
+    y.toFixed(3, Big.roundHalfUp); // '45.229'
+    y.toFixed(3, Big.roundHalfEven); // '45.228'
+    y.toFixed(3, Big.roundUp); // '45.229'
 }
 
 function toPrecisionTests() {
@@ -173,6 +252,43 @@ function toPrecisionTests() {
     y.toPrecision(1); // '5e+1'
     x.toPrecision(5); // '45.600'
     y.toPrecision(5); // '45.600'
+}
+
+function toPrecisionWithRoundingModeTests() {
+    const x = 45.2285;
+    const y = new Big(x);
+    x.toPrecision(); // '45.2285'
+    y.toPrecision(); // '45.2285'
+    x.toPrecision(1); // '5e+1'
+    y.toPrecision(1); // '5e+1'
+    y.toPrecision(1, Big.roundDown); // '4e+1'
+    y.toPrecision(1, Big.roundHalfUp); // '5e+1'
+    y.toPrecision(1, Big.roundHalfEven); // '5e+1'
+    y.toPrecision(1, Big.roundUp); // '5e+1'
+    x.toPrecision(2); // '45'
+    y.toPrecision(2); // '45'
+    y.toPrecision(2, Big.roundDown); // '45'
+    y.toPrecision(2, Big.roundHalfUp); // '45'
+    y.toPrecision(2, Big.roundHalfEven); // '45'
+    y.toPrecision(2, Big.roundUp); // '46'
+    x.toPrecision(3); // '45.2'
+    y.toPrecision(3); // '45.2'
+    y.toPrecision(3, Big.roundDown); // '45.2'
+    y.toPrecision(3, Big.roundHalfUp); // '45.2'
+    y.toPrecision(3, Big.roundHalfEven); // '45.2'
+    y.toPrecision(3, Big.roundUp); // '45.3'
+    x.toPrecision(5); // '45.228'
+    y.toPrecision(5); // '45.229'
+    y.toPrecision(5, Big.roundDown); // '45.228'
+    y.toPrecision(5, Big.roundHalfUp); // '45.229'
+    y.toPrecision(5, Big.roundHalfEven); // '45.228'
+    y.toPrecision(5, Big.roundUp); // '45.229'
+    x.toPrecision(7); // '45.22850'
+    y.toPrecision(7); // '45.22850'
+    y.toPrecision(7, Big.roundDown); // '45.22850'
+    y.toPrecision(7, Big.roundHalfUp); // '45.22850'
+    y.toPrecision(7, Big.roundHalfEven); // '45.22850'
+    y.toPrecision(7, Big.roundUp); // '45.22850'
 }
 
 function toStringTests() {

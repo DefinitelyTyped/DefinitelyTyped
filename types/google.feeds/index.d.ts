@@ -17,14 +17,14 @@ declare namespace google.feeds {
 }
 
 interface feedResult {
-    error?: feedError;
-    xmlDocument?: string;
+    error?: feedError | undefined;
+    xmlDocument?: string | undefined;
     feed: feedJSON;
 }
 
 interface findResult {
-    error?: feedError;
-    xmlDocument?: string;
+    error?: feedError | undefined;
+    xmlDocument?: string | undefined;
     findEntries: findEntry[];
 }
 

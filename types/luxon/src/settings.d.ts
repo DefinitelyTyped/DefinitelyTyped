@@ -4,51 +4,71 @@ import { Zone } from './zone';
  * Settings contains static getters and setters that control Luxon's overall behavior.
  * Luxon is a simple library with few options, but the ones it does have live here.
  */
-export namespace Settings {
+// tslint:disable-next-line:no-unnecessary-class
+export class Settings {
     /**
-     * The current function for returning the current timestamp.
+     * Get the callback for returning the current timestamp.
+     */
+    static get now(): () => number;
+
+    /**
+     * Set the callback for returning the current timestamp.
      * The function should return a number, which will be interpreted as an Epoch millisecond count
-     * @example
-     * Settings.now = () => Date.now() + 3000 // pretend it is 3 seconds in the future
-     * @example
-     * Settings.now = () => 0 // always pretend it's Jan 1, 1970 at midnight in UTC time
+     *
+     * @example Settings.now = () => Date.now() + 3000 // pretend it is 3 seconds in the future
+     * @example Settings.now = () => 0 // always pretend it's Jan 1, 1970 at midnight in UTC time
      */
-    function now(): number;
+    static set now(now: () => number);
 
     /**
-     * The default time zone to create DateTimes in. Does not affect existing instances.
-     * Set this to change {@link defaultZone}
+     * The default time zone object currently used to create DateTimes. Does not affect existing instances.
+     * The default value is the system's time zone (the one set on the machine that runs this code).
+     * Getting this property always returns a Zone object.
      */
-    let defaultZoneName: string;
+    static defaultZone: Zone | string;
 
     /**
-     * The default time zone object to create DateTimes in. Does not affect existing instances.
-     * Change by setting {@link defaultZoneName}
+     * Get the default locale to create DateTimes with. Does not affect existing instances.
      */
-    const defaultZone: Zone;
+    static get defaultLocale(): string;
 
     /**
-     * The default locale to create DateTimes with. Does not affect existing instances.
+     * Set the default locale to create DateTimes with. Does not affect existing instances.
      */
-    let defaultLocale: string;
+    static set defaultLocale(locale: string);
 
     /**
-     * The default numbering system to create DateTimes with. Does not affect existing instances.
+     * Get the default numbering system to create DateTimes with. Does not affect existing instances.
      */
-    let defaultNumberingSystem: string;
+    static get defaultNumberingSystem(): string;
 
     /**
-     * The default output calendar to create DateTimes with. Does not affect existing instances.
+     * Set the default numbering system to create DateTimes with. Does not affect existing instances.
      */
-    let defaultOutputCalendar: string;
+    static set defaultNumberingSystem(numberingSystem: string);
 
     /**
-     * Whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
+     * Get the default output calendar to create DateTimes with. Does not affect existing instances.
      */
-    let throwOnInvalid: boolean;
+    static get defaultOutputCalendar(): string;
+
+    /**
+     * Set the default output calendar to create DateTimes with. Does not affect existing instances.
+     */
+    static set defaultOutputCalendar(outputCalendar: string);
+
+    /**
+     * Get whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
+     */
+    static get throwOnInvalid(): boolean;
+
+    /**
+     * Set whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
+     */
+    static set throwOnInvalid(t: boolean);
 
     /**
      * Reset Luxon's global caches. Should only be necessary in testing scenarios.
      */
-    function resetCaches(): void;
+    static resetCaches(): void;
 }

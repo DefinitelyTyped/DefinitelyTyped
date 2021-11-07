@@ -1,4 +1,4 @@
-declare module "meteor/tiny-test" {
+declare module 'meteor/tiny-test' {
     interface ILengthAble {
         length: number;
     }

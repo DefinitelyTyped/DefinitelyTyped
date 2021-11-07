@@ -31,14 +31,14 @@ export namespace ojCombobox {
     }
     // tslint:disable-next-line interface-over-type-literal
     type Optgroup = {
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         label: string;
         children: Array<(Option | Optgroup)>;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Option = {
-        disabled?: boolean;
-        label?: string;
+        disabled?: boolean | undefined;
+        label?: string | undefined;
         value: any;
     };
     // tslint:disable-next-line interface-over-type-literal
@@ -53,10 +53,10 @@ export namespace ojCombobox {
     };
     // tslint:disable-next-line interface-over-type-literal
     type OptionsKeys = {
-        label?: string;
-        value?: string;
-        children?: string;
-        childKeys?: OptionsKeys;
+        label?: string | undefined;
+        value?: string | undefined;
+        children?: string | undefined;
+        childKeys?: OptionsKeys | undefined;
     };
 }
 export interface ojComboboxEventMap<V, SP extends ojComboboxSettableProperties<V, SV, RV>, SV = V, RV = V> extends editableValueEventMap<V, SP, SV, RV> {
@@ -72,22 +72,22 @@ export interface ojComboboxMany<K, D> extends ojCombobox<any[] | null, ojCombobo
     asyncValidators: Array<AsyncValidator<any[]>>;
     converter: Converter<any> | Validation.RegisteredConverter | null;
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null | undefined;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojCombobox.OptionsKeys;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojCombobox.OptionsKeys | undefined;
         };
-        children?: string;
-        label?: string;
-        value?: string;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readonly rawValue: string | null;
@@ -97,16 +97,16 @@ export interface ojComboboxMany<K, D> extends ojCombobox<any[] | null, ojCombobo
     value: any[] | null;
     valueOptions: Array<{
         value: any;
-        label?: string;
+        label?: string | undefined;
     }> | null;
     translations: {
-        filterFurther?: string;
-        noMatchesFound?: string;
+        filterFurther?: string | undefined;
+        noMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
     onAsyncValidatorsChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["asyncValidators"]>) => any) | null;
     onConverterChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["converter"]>) => any) | null;
@@ -169,22 +169,22 @@ export interface ojComboboxManySettableProperties<K, D> extends ojComboboxSettab
     asyncValidators: Array<AsyncValidator<any[]>>;
     converter: Converter<any> | Validation.RegisteredConverter | null;
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null | undefined;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojCombobox.OptionsKeys;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojCombobox.OptionsKeys | undefined;
         };
-        children?: string;
-        label?: string;
-        value?: string;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readonly rawValue: string | null;
@@ -194,16 +194,16 @@ export interface ojComboboxManySettableProperties<K, D> extends ojComboboxSettab
     value: any[] | null;
     valueOptions: Array<{
         value: any;
-        label?: string;
+        label?: string | undefined;
     }> | null;
     translations: {
-        filterFurther?: string;
-        noMatchesFound?: string;
+        filterFurther?: string | undefined;
+        noMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
 }
 export interface ojComboboxManySettablePropertiesLenient<K, D> extends Partial<ojComboboxManySettableProperties<K, D>> {
@@ -214,22 +214,22 @@ export interface ojComboboxOne<K, D> extends ojCombobox<any, ojComboboxOneSettab
     converter: Converter<any> | Validation.RegisteredConverter | null;
     filterOnOpen: 'none' | 'rawValue';
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null | undefined;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojCombobox.OptionsKeys;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojCombobox.OptionsKeys | undefined;
         };
-        children?: string;
-        label?: string;
-        value?: string;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readonly rawValue: string | null;
@@ -239,16 +239,16 @@ export interface ojComboboxOne<K, D> extends ojCombobox<any, ojComboboxOneSettab
     value: any;
     valueOption: {
         value: any;
-        label?: string;
+        label?: string | undefined;
     };
     translations: {
-        filterFurther?: string;
-        noMatchesFound?: string;
+        filterFurther?: string | undefined;
+        noMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
     onAsyncValidatorsChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["asyncValidators"]>) => any) | null;
     onConverterChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["converter"]>) => any) | null;
@@ -322,22 +322,22 @@ export interface ojComboboxOneSettableProperties<K, D> extends ojComboboxSettabl
     converter: Converter<any> | Validation.RegisteredConverter | null;
     filterOnOpen: 'none' | 'rawValue';
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null | undefined;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojCombobox.OptionsKeys;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojCombobox.OptionsKeys | undefined;
         };
-        children?: string;
-        label?: string;
-        value?: string;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readonly rawValue: string | null;
@@ -347,16 +347,16 @@ export interface ojComboboxOneSettableProperties<K, D> extends ojComboboxSettabl
     value: any;
     valueOption: {
         value: any;
-        label?: string;
+        label?: string | undefined;
     };
     translations: {
-        filterFurther?: string;
-        noMatchesFound?: string;
+        filterFurther?: string | undefined;
+        noMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
 }
 export interface ojComboboxOneSettablePropertiesLenient<K, D> extends Partial<ojComboboxOneSettableProperties<K, D>> {
@@ -391,14 +391,14 @@ export namespace ojSelect {
     }
     // tslint:disable-next-line interface-over-type-literal
     type Optgroup = {
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         label: string;
         children: Array<(Option | Optgroup)>;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Option = {
-        disabled?: boolean;
-        label?: string;
+        disabled?: boolean | undefined;
+        label?: string | undefined;
         value: any;
     };
     // tslint:disable-next-line interface-over-type-literal
@@ -413,10 +413,10 @@ export namespace ojSelect {
     };
     // tslint:disable-next-line interface-over-type-literal
     type OptionsKeys = {
-        label?: string;
-        value?: string;
-        children?: string;
-        childKeys?: OptionsKeys;
+        label?: string | undefined;
+        value?: string | undefined;
+        children?: string | undefined;
+        childKeys?: OptionsKeys | undefined;
     };
 }
 export interface ojSelectEventMap<V, SP extends ojSelectSettableProperties<V, SV>, SV = V> extends editableValueEventMap<V, SP, SV> {
@@ -430,22 +430,22 @@ export interface ojSelectSettablePropertiesLenient<V, SV> extends Partial<ojSele
 }
 export interface ojSelectMany<K, D> extends ojSelect<any[] | null, ojSelectManySettableProperties<K, D>> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null | undefined;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojSelect.OptionsKeys;
-        };
-        children?: string;
-        label?: string;
-        value?: string;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojSelect.OptionsKeys | undefined;
+        } | undefined;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readOnly: boolean;
@@ -454,19 +454,19 @@ export interface ojSelectMany<K, D> extends ojSelect<any[] | null, ojSelectManyS
     value: any[] | null;
     valueOptions: Array<{
         value: any;
-        label?: string;
+        label?: string | undefined;
     }> | null;
     translations: {
-        filterFurther?: string;
-        moreMatchesFound?: string;
-        noMatchesFound?: string;
-        oneMatchesFound?: string;
+        filterFurther?: string | undefined;
+        moreMatchesFound?: string | undefined;
+        noMatchesFound?: string | undefined;
+        oneMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        searchField?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        searchField?: string | undefined;
     };
     onMinimumResultsForSearchChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["minimumResultsForSearch"]>) => any) | null;
     onOptionRendererChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["optionRenderer"]>) => any) | null;
@@ -521,22 +521,22 @@ export interface ojSelectManyEventMap<K, D> extends ojSelectEventMap<any[] | nul
 }
 export interface ojSelectManySettableProperties<K, D> extends ojSelectSettableProperties<any[] | null> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null | undefined;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojSelect.OptionsKeys;
-        };
-        children?: string;
-        label?: string;
-        value?: string;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojSelect.OptionsKeys | undefined;
+        } | undefined;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readOnly: boolean;
@@ -545,19 +545,19 @@ export interface ojSelectManySettableProperties<K, D> extends ojSelectSettablePr
     value: any[] | null;
     valueOptions: Array<{
         value: any;
-        label?: string;
+        label?: string | undefined;
     }> | null;
     translations: {
-        filterFurther?: string;
-        moreMatchesFound?: string;
-        noMatchesFound?: string;
-        oneMatchesFound?: string;
+        filterFurther?: string | undefined;
+        moreMatchesFound?: string | undefined;
+        noMatchesFound?: string | undefined;
+        oneMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        searchField?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        searchField?: string | undefined;
     };
 }
 export interface ojSelectManySettablePropertiesLenient<K, D> extends Partial<ojSelectManySettableProperties<K, D>> {
@@ -565,22 +565,22 @@ export interface ojSelectManySettablePropertiesLenient<K, D> extends Partial<ojS
 }
 export interface ojSelectOne<K, D> extends ojSelect<any, ojSelectOneSettableProperties<K, D>> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null | undefined;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojSelect.OptionsKeys;
-        };
-        children?: string;
-        label?: string;
-        value?: string;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojSelect.OptionsKeys | undefined;
+        } | undefined;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readOnly: boolean;
@@ -589,19 +589,19 @@ export interface ojSelectOne<K, D> extends ojSelect<any, ojSelectOneSettableProp
     value: any;
     valueOption: {
         value: any;
-        label?: string;
+        label?: string | undefined;
     };
     translations: {
-        filterFurther?: string;
-        moreMatchesFound?: string;
-        noMatchesFound?: string;
-        oneMatchesFound?: string;
+        filterFurther?: string | undefined;
+        moreMatchesFound?: string | undefined;
+        noMatchesFound?: string | undefined;
+        oneMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        searchField?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        searchField?: string | undefined;
     };
     onMinimumResultsForSearchChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["minimumResultsForSearch"]>) => any) | null;
     onOptionRendererChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["optionRenderer"]>) => any) | null;
@@ -656,22 +656,22 @@ export interface ojSelectOneEventMap<K, D> extends ojSelectEventMap<any, ojSelec
 }
 export interface ojSelectOneSettableProperties<K, D> extends ojSelectSettableProperties<any> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null | undefined;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
-            label?: string;
-            value?: string;
-            children?: string;
-            childKeys?: ojSelect.OptionsKeys;
-        };
-        children?: string;
-        label?: string;
-        value?: string;
+            label?: string | undefined;
+            value?: string | undefined;
+            children?: string | undefined;
+            childKeys?: ojSelect.OptionsKeys | undefined;
+        } | undefined;
+        children?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     };
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     placeholder: string | null;
     readOnly: boolean;
@@ -680,19 +680,19 @@ export interface ojSelectOneSettableProperties<K, D> extends ojSelectSettablePro
     value: any;
     valueOption: {
         value: any;
-        label?: string;
+        label?: string | undefined;
     };
     translations: {
-        filterFurther?: string;
-        moreMatchesFound?: string;
-        noMatchesFound?: string;
-        oneMatchesFound?: string;
+        filterFurther?: string | undefined;
+        moreMatchesFound?: string | undefined;
+        noMatchesFound?: string | undefined;
+        oneMatchesFound?: string | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        searchField?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        searchField?: string | undefined;
     };
 }
 export interface ojSelectOneSettablePropertiesLenient<K, D> extends Partial<ojSelectOneSettableProperties<K, D>> {
@@ -700,11 +700,11 @@ export interface ojSelectOneSettablePropertiesLenient<K, D> extends Partial<ojSe
 }
 export interface Optgroup {
     children: Array<(Option | Optgroup)>;
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     label: string;
 }
 export interface Option {
-    disabled?: boolean;
-    label?: string;
+    disabled?: boolean | undefined;
+    label?: string | undefined;
     value: object;
 }

@@ -3,14 +3,15 @@ import Backend, { i18nextFsBackend } from 'i18next-fs-backend';
 
 //#region Plain options
 
-const plainOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions } = {
+const plainOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions; skipOnVariables: boolean } = {
     backend: {
         loadPath: '/locales/{{lng}}/{{ns}}.json',
         addPath: '/locales/{{lng}}/{{ns}}.missing.json',
         ident: 2,
         parse: JSON.parse,
-        stringify: JSON.stringify
-    }
+        stringify: JSON.stringify,
+    },
+    skipOnVariables: false,
 };
 
 i18next.use(Backend).init(plainOptions);

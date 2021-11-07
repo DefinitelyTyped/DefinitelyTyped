@@ -9,8 +9,8 @@ export as namespace zChat;
 export interface InitProps {
     account_key: string;
     authentication?: {
-        jwt_fn?: (callback: (jwt: string) => void) => void;
-    };
+        jwt_fn?: ((callback: (jwt: string) => void) => void) | undefined;
+    } | undefined;
 }
 
 export function init(initProps: InitProps): void;
@@ -62,9 +62,9 @@ export function sendOfflineMsg(
     options: {
         name: string;
         email: string;
-        phone?: string;
+        phone?: string | undefined;
         message: string;
-        department?: number;
+        department?: number | undefined;
     },
     callback: (err: Error) => void
 ): void;
@@ -75,7 +75,7 @@ export function removeTags(tags: ReadonlyArray<string>, callback?: (err: Error) 
 
 export function sendTyping(is_typing: boolean): void;
 
-export function getChatInfo(): { rating?: string; comment?: string };
+export function getChatInfo(): { rating?: string | undefined; comment?: string | undefined };
 
 export function sendChatRating(rating: 'good' | 'bad' | undefined, callback?: (err: Error) => void): void;
 
@@ -119,13 +119,13 @@ export namespace ChatEvent {
     }
         | BaseChatEventData & {
         type: 'chat.rating';
-        rating?: string;
-        new_rating?: string;
+        rating?: string | undefined;
+        new_rating?: string | undefined;
     }
         | BaseChatEventData & {
         type: 'chat.comment';
-        comment?: string;
-        new_comment?: string;
+        comment?: string | undefined;
+        new_comment?: string | undefined;
     };
 
     interface Action {
@@ -140,7 +140,7 @@ export namespace ChatEvent {
 
     interface Panel {
         heading: string;
-        paragraph?: string;
+        paragraph?: string | undefined;
         image_url: string;
         action: Action;
     }
@@ -154,7 +154,7 @@ export namespace ChatEvent {
     interface ListItem {
         heading: string;
         paragraph: string;
-        image_url?: string;
+        image_url?: string | undefined;
         action: Action;
     }
 
@@ -202,7 +202,7 @@ export interface Department {
 }
 
 export interface Attachment {
-    metadata?: AttachmentMetadata;
+    metadata?: AttachmentMetadata | undefined;
     mime_type: string;
     name: string;
     size: number;

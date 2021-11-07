@@ -62,7 +62,7 @@ export class BunserBuf extends EventEmitter {
     buf: Accumulator;
     state: 0 | 1;
     // replace "IntWrapper" with "number"?
-    pduLen?: false | IntWrapper;
+    pduLen?: false | IntWrapper | undefined;
 
     constructor();
 

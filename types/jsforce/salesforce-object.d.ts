@@ -44,7 +44,7 @@ export class SObject<T> {
         clear(): void;
     }
     approvalLayouts(callback?: Callback<ApprovalLayoutInfo>): Promise<ApprovalLayoutInfo>;
-    bulkload(operation: string, options?: { extIdField?: string }, input?: Array<Record<T>> | stream.Stream | string, callback?: Callback<RecordResult[]>): Batch;
+    bulkload(operation: string, options?: { extIdField?: string | undefined }, input?: Array<Record<T>> | stream.Stream | string, callback?: Callback<RecordResult[]>): Batch;
     compactLayouts$: {
         /** Returns a value from the cache if it exists, otherwise calls SObject.compactLayouts */
         (callback?: Callback<CompactLayoutInfo>): CompactLayoutInfo;
@@ -94,9 +94,9 @@ export class SObject<T> {
 }
 
 export interface FindOptions {
-    limit?: number;
-    offset?: number;
-    skip?: number;
+    limit?: number | undefined;
+    offset?: number | undefined;
+    skip?: number | undefined;
 }
 
 export interface UpdatedRecordsInfo {

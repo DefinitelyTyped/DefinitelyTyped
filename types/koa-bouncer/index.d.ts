@@ -68,9 +68,9 @@ declare namespace KoaBouncer {
     }
 
     interface MiddlewareOption {
-        getParams?: (ctx: Context) => any;
-        getQuery?: (ctx: Context) => any;
-        getBody?: (ctx: Context) => any;
+        getParams?: ((ctx: Context) => any) | undefined;
+        getQuery?: ((ctx: Context) => any) | undefined;
+        getBody?: ((ctx: Context) => any) | undefined;
     }
 
     export function middleware(opts?: MiddlewareOption): Middleware;

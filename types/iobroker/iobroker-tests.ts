@@ -319,6 +319,11 @@ adapter.getObjectListAsync({ startkey: 'foo', endkey: 'bar' }).then(result => {
     result && result.rows[0] && result.rows[0].id.toLowerCase();
 });
 
+adapter.delObject('foo');
+adapter.delObject('foo', {recursive: true});
+// $ExpectError
+adapter.delObject('foo', {someWeirdOption: 1});
+
 adapter.subscribeObjects('*');
 adapter.subscribeStates('*');
 adapter.subscribeForeignObjects('*');
@@ -492,9 +497,11 @@ const folderObj: ioBroker.FolderObject = {
     native: {},
 };
 
-// Repro from https://github.com/ioBroker/ioBroker.js-controller/issues/782
-// $ExpectError
+// This used to be an error: https://github.com/ioBroker/ioBroker.js-controller/issues/782
+// With JS-Controller 3.3 it no longer is.
 adapter.setState('id', { ack: false });
+// $ExpectError
+adapter.setState('id', {});
 
 // null is a valid state value
 adapter.setState("id", null);
@@ -507,6 +514,72 @@ adapter.setStateChangedAsync("id", null);
 adapter.setForeignStateChangedAsync("id", null);
 adapter.delBinaryState("id");
 adapter.delBinaryStateAsync("id").then(() => null);
+
+// Objects and arrays are not valid state values
+// $ExpectError
+adapter.setState("id", {an: "object"});
+// $ExpectError
+adapter.setForeignState("id", {an: "object"});
+// $ExpectError
+adapter.setStateAsync("id", {an: "object"});
+// $ExpectError
+adapter.setForeignStateAsync("id", {an: "object"});
+// $ExpectError
+adapter.setStateChanged("id", {an: "object"});
+// $ExpectError
+adapter.setForeignStateChanged("id", {an: "object"});
+// $ExpectError
+adapter.setStateChangedAsync("id", {an: "object"});
+// $ExpectError
+adapter.setForeignStateChangedAsync("id", {an: "object"});
+// $ExpectError
+adapter.setState("id", ["an", "array"]);
+// $ExpectError
+adapter.setForeignState("id", ["an", "array"]);
+// $ExpectError
+adapter.setStateAsync("id", ["an", "array"]);
+// $ExpectError
+adapter.setForeignStateAsync("id", ["an", "array"]);
+// $ExpectError
+adapter.setStateChanged("id", ["an", "array"]);
+// $ExpectError
+adapter.setForeignStateChanged("id", ["an", "array"]);
+// $ExpectError
+adapter.setStateChangedAsync("id", ["an", "array"]);
+// $ExpectError
+adapter.setForeignStateChangedAsync("id", ["an", "array"]);
+// $ExpectError
+adapter.setState("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignState("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setStateAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignStateAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setStateChanged("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignStateChanged("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setStateChangedAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignStateChangedAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setState("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignState("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setStateAsync("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignStateAsync("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setStateChanged("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignStateChanged("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setStateChangedAsync("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignStateChangedAsync("id", {val: ["an", "array"]});
 
 // Allow alias states
 adapter.getObjectAsync("id").then(obj => obj && obj.type === "state" && obj.common.alias && obj.common.alias.id.toUpperCase());
@@ -726,4 +799,37 @@ const userObject: ioBroker.UserObject = {
     });
 
     adapter.setForeignObject(null! as string, null! as ioBroker.Object);
+});
+
+// Test convenience types for subsets of SettableObject
+{
+    // Should be OK
+    const stateObj: ioBroker.SettableStateObject = {
+        type: 'state',
+        common: {
+            name: "Dummy name",
+            role: "value",
+            read: true,
+            write: false,
+            unit: "%"
+        },
+        native: {},
+    };
+}
+{
+    const stateObj: ioBroker.SettableDeviceObject = {
+        // $ExpectError
+        type: 'state',
+        common: {
+            name: "Dummy name",
+        },
+        native: {},
+    };
+}
+
+// Repro for https://github.com/ioBroker/adapter-core/issues/334
+(async () => {
+    const states = await adapter.getStatesAsync("foo");
+    // This should not error
+    states["foo"];
 });

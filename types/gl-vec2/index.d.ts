@@ -5,6 +5,7 @@
 // TypeScript Version: 3.3
 
 import add = require('./add');
+import ceil = require('./ceil');
 import clone = require('./clone');
 import copy = require('./copy');
 import create = require('./create');
@@ -27,6 +28,8 @@ import mul = require('./mul');
 import negate = require('./negate');
 import normalize = require('./normalize');
 import random = require('./random');
+import rotate = require('./rotate');
+import round = require('./round');
 import scale = require('./scale');
 import scaleAndAdd = require('./scaleAndAdd');
 import set = require('./set');
@@ -40,6 +43,7 @@ import transformMat4 = require('./transformMat4');
 
 export {
     add,
+    ceil,
     clone,
     copy,
     create,
@@ -62,6 +66,8 @@ export {
     negate,
     normalize,
     random,
+    rotate,
+    round,
     scale,
     scaleAndAdd,
     set,

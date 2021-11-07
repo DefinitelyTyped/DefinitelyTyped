@@ -453,7 +453,7 @@ declare namespace fin {
         /**
          * A boolean that will force dismissal even if the mouse is hovering over the notification
          */
-        ignoreMouseOver?: boolean;
+        ignoreMouseOver?: boolean | undefined;
         /**
          * A message of any primitive or composite-primitive type to be passed to the notification upon creation.
          */
@@ -461,11 +461,11 @@ declare namespace fin {
         /**
          * The timeout for displaying a notification.Can be in milliseconds or "never".
          */
-        timeout?: number | "never";
+        timeout?: number | "never" | undefined;
         /**
          * The url of the notification
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * A function that is called when a notification is clicked.
          */

@@ -12,12 +12,12 @@ function test_namespace() {
     analytics = analytics && data;
 
     interface AnalyticsParameter {
-        "type"              ?: string;
-        "description"       ?: string;
-        "default"           ?: string;
-        "enum"              ?: string[];
-        "enumDescriptions"  ?: string[];
-        "location"          ?: string;
+        "type"              ?: string | undefined;
+        "description"       ?: string | undefined;
+        "default"           ?: string | undefined;
+        "enum"              ?: string[] | undefined;
+        "enumDescriptions"  ?: string[] | undefined;
+        "location"          ?: string | undefined;
     }
     var kBI : AnalyticsParameter = new gapi.client.analytics.kB.parameters.alt();
     var kB = !!kBI;

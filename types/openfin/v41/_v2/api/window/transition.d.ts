@@ -1,6 +1,6 @@
 export interface TransitionBase {
     duration: number;
-    relative?: boolean;
+    relative?: boolean | undefined;
 }
 export interface Opacity extends TransitionBase {
     opacity: number;
@@ -15,10 +15,10 @@ export interface Size extends TransitionBase {
 }
 export interface TransitionOptions {
     interrupt: boolean;
-    tween?: string;
+    tween?: string | undefined;
 }
 export interface Transition {
-    opacity?: Opacity;
-    position?: Position;
-    size?: Size;
+    opacity?: Opacity | undefined;
+    position?: Position | undefined;
+    size?: Size | undefined;
 }

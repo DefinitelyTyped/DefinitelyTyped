@@ -107,7 +107,7 @@ declare namespace App {
     /**
      * 当场景为由从另一个小程序或公众号或App打开时，返回此字段
      */
-    referrerInfo?: ReferrerInfo;
+    referrerInfo?: ReferrerInfo | undefined;
   }
 
   interface PageNotFoundOption {
@@ -129,7 +129,7 @@ declare namespace App {
     /**
      * 全局对象
      */
-    globalData?: AnyObject;
+    globalData?: AnyObject | undefined;
     /**
      * 生命周期回调 监听应用初始化
      *

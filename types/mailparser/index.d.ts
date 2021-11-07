@@ -56,7 +56,7 @@ export interface EmailAddress {
     /**
      * The email address.
      */
-    address?: string;
+    address?: string | undefined;
     /**
      * The name part of the email/group.
      */
@@ -64,7 +64,7 @@ export interface EmailAddress {
     /**
      * An array of grouped addresses.
      */
-    group?: EmailAddress[];
+    group?: EmailAddress[] | undefined;
 }
 
 /**
@@ -109,7 +109,7 @@ export interface AttachmentCommon {
     /**
      * File name of the attachment.
      */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * A Map value that holds MIME headers for the attachment node.
      */
@@ -129,16 +129,16 @@ export interface AttachmentCommon {
     /**
      * The header value from `Content-ID`.
      */
-    contentId?: string;
+    contentId?: string | undefined;
     /**
      * `contentId` without `<` and `>`.
      */
-    cid?: string;   // e.g. '5.1321281380971@localhost'
+    cid?: string | undefined;   // e.g. '5.1321281380971@localhost'
     /**
      * If true then this attachment should not be offered for download
      * (at least not in the main attachments list).
      */
-    related?: boolean;
+    related?: boolean | undefined;
 }
 
 /**
@@ -203,58 +203,58 @@ export interface ParsedMail {
     /**
      * The plaintext body of the message.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * The plaintext body of the message formatted as HTML.
      */
-    textAsHtml?: string;
+    textAsHtml?: string | undefined;
     /**
      * The subject line.
      */
-    subject?: string;
+    subject?: string | undefined;
     /**
      * Either an array of two or more referenced Message-ID values or a single Message-ID value.
      *
      * Not set if no reference values present.
      */
-    references?: string[] | string;
+    references?: string[] | string | undefined;
     /**
      * A Date object for the `Date:` header.
      */
-    date?: Date;
+    date?: Date | undefined;
     /**
      * An address object or array of address objects for the `To:` header.
      */
-    to?: AddressObject | AddressObject[];
+    to?: AddressObject | AddressObject[] | undefined;
     /**
      * An address object for the `From:` header.
      */
-    from?: AddressObject;
+    from?: AddressObject | undefined;
     /**
      * An address object or array of address objects for the `Cc:` header.
      */
-    cc?: AddressObject | AddressObject[];
+    cc?: AddressObject | AddressObject[] | undefined;
     /**
      * An address object or array of address objects for the `Bcc:` header.
      * (usually not present)
      */
-    bcc?: AddressObject | AddressObject[];
+    bcc?: AddressObject | AddressObject[] | undefined;
     /**
      * An address object for the `Reply-To:` header.
      */
-    replyTo?: AddressObject;
+    replyTo?: AddressObject | undefined;
     /**
      * The Message-ID value string.
      */
-    messageId?: string;
+    messageId?: string | undefined;
     /**
      * The In-Reply-To value string.
      */
-    inReplyTo?: string;
+    inReplyTo?: string | undefined;
     /**
      * Priority of the e-mail.
      */
-    priority?: 'normal' | 'low' | 'high';
+    priority?: 'normal' | 'low' | 'high' | undefined;
 }
 
 /**
@@ -270,19 +270,19 @@ export interface MessageText {
      *
      * Is set if the message has at least one `text/html` node.
      */
-    html?: string | boolean;
+    html?: string | boolean | undefined;
     /**
      * Includes the plaintext version of the message.
      *
      * Is set if the message has at least one `text/plain` node.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * Includes the plaintext version of the message in HTML format.
      *
      * Is set if the message has at least one `text/plain` node.
      */
-    textAsHtml?: string;
+    textAsHtml?: string | undefined;
 }
 
 /**
@@ -307,7 +307,7 @@ export type Source = Buffer | Stream | string;
  * Options object for simpleParser.
  */
 export interface SimpleParserOptions extends StreamModule.TransformOptions {
-    keepCidLinks?: boolean;
+    keepCidLinks?: boolean | undefined;
 }
 
 /**

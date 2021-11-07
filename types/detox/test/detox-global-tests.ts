@@ -45,7 +45,6 @@ describe('Test', () => {
         await element(by.type('UIPickerView')).setColumnToValue(1, '6');
         await element(by.id('datePicker')).setDatePickerDate('2019-02-06T05:10:00-08:00', 'ISO8601');
         await element(by.id('slider')).adjustSliderToPosition(0.75);
-        await element(by.id('element')).getAttributes();
         await waitFor(element(by.id('element')))
             .toBeVisible()
             .withTimeout(2000);
@@ -67,6 +66,33 @@ describe('Test', () => {
             detox.trace.endSection('Turn off notifications');
         }
 
+        // type as AttributesOfAndroid
+        const androidAttributes = await element(by.id('element')).getAttributes() as Detox.AttributesOfAndroid;
+
+        // Shared properties should be available
+        androidAttributes.text;
+        androidAttributes.label;
+
+        // As well as Android properties
+        androidAttributes.width;
+        androidAttributes.height;
+
+        // $ExpectError
+        androidAttributes.activationPoint;
+
+        // type as AttributesOfIOS
+        const iOSAttributes = await element(by.id('element')).getAttributes() as Detox.AttributesOfIOS;
+
+        // Shared properties should be available
+        iOSAttributes.text;
+        iOSAttributes.label;
+
+        // As well as iOS properties
+        iOSAttributes.activationPoint;
+
+        // $ExpectError
+        iOSAttributes.width;
+
         /**
          * Expectations
          */
@@ -79,6 +105,10 @@ describe('Test', () => {
         await expect(element(by.id('element'))).toHaveSliderPosition(20);
         await expect(element(by.id('element'))).toHaveToggleValue(true);
         await waitFor(element(by.id('UniqueId204')))
+            .toBeVisible()
+            .withTimeout(2000);
+        await waitFor(element(by.id('element')))
+            .not
             .toBeVisible()
             .withTimeout(2000);
         await expect(element(by.id('element'))).not.toBeVisible();

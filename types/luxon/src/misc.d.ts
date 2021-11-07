@@ -6,55 +6,59 @@ export interface ZoneOptions {
      * You should rarely need this.
      * Defaults to false.
      */
-    keepLocalTime?: boolean;
+    keepLocalTime?: boolean | undefined;
     /**
      * @deprecated since 0.2.12. Use keepLocalTime instead
      */
-    keepCalendarTime?: boolean;
+    keepCalendarTime?: boolean | undefined;
 }
 
 /** @deprecated */
 export type EraLength = StringUnitLength;
 
-export type NumberingSystem = Intl.DateTimeFormatOptions extends { numberingSystem?: infer T } ? T :
-    | 'arab'
-    | 'arabext'
-    | 'bali'
-    | 'beng'
-    | 'deva'
-    | 'fullwide'
-    | 'gujr'
-    | 'guru'
-    | 'hanidec'
-    | 'khmr'
-    | 'knda'
-    | 'laoo'
-    | 'latn'
-    | 'limb'
-    | 'mlym'
-    | 'mong'
-    | 'mymr'
-    | 'orya'
-    | 'tamldec'
-    | 'telu'
-    | 'thai'
-    | 'tibt';
+export type NumberingSystem = Intl.DateTimeFormatOptions extends { numberingSystem?: infer T }
+    ? T
+    :
+          | 'arab'
+          | 'arabext'
+          | 'bali'
+          | 'beng'
+          | 'deva'
+          | 'fullwide'
+          | 'gujr'
+          | 'guru'
+          | 'hanidec'
+          | 'khmr'
+          | 'knda'
+          | 'laoo'
+          | 'latn'
+          | 'limb'
+          | 'mlym'
+          | 'mong'
+          | 'mymr'
+          | 'orya'
+          | 'tamldec'
+          | 'telu'
+          | 'thai'
+          | 'tibt';
 
-export type CalendarSystem = Intl.DateTimeFormatOptions extends { calendar?: infer T } ? T :
-    | 'buddhist'
-    | 'chinese'
-    | 'coptic'
-    | 'ethioaa'
-    | 'ethiopic'
-    | 'gregory'
-    | 'hebrew'
-    | 'indian'
-    | 'islamic'
-    | 'islamicc'
-    | 'iso8601'
-    | 'japanese'
-    | 'persian'
-    | 'roc';
+export type CalendarSystem = Intl.DateTimeFormatOptions extends { calendar?: infer T }
+    ? T
+    :
+          | 'buddhist'
+          | 'chinese'
+          | 'coptic'
+          | 'ethioaa'
+          | 'ethiopic'
+          | 'gregory'
+          | 'hebrew'
+          | 'indian'
+          | 'islamic'
+          | 'islamicc'
+          | 'iso8601'
+          | 'japanese'
+          | 'persian'
+          | 'roc';
 
 export type HourCycle = 'h11' | 'h12' | 'h23' | 'h24';
 

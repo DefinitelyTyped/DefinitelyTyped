@@ -61,7 +61,7 @@ declare namespace M {
         /**
          * Chip image
          */
-        img?: string;
+        img?: string | undefined;
     }
 
     interface ChipsOptions {

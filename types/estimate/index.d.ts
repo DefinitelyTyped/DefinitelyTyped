@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    speed?: number;
-    spaces?: RegExp;
+    speed?: number | undefined;
+    spaces?: RegExp | undefined;
 }
 
 export interface Estimate {

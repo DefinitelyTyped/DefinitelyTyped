@@ -163,6 +163,7 @@ const playingNowTrack : SpotifyApi.CurrentlyPlayingResponse = {
       "spotify": "https://open.spotify.com/episode/37tiGYf2ULC615a87yV9JO"
     },
     "href": "https://api.spotify.com/v1/episodes/37tiGYf2ULC615a87yV9JO",
+    "html_description": "<p>Com Luís Franco-Bastos</p>",
     "id": "37tiGYf2ULC615a87yV9JO",
     "images": [
       {
@@ -5905,7 +5906,156 @@ const usersSavedShows: SpotifyApi.UsersSavedShowsResponse = {
   "total": 3
 };
 
-
+/**
+ * Get user's saved shows
+ *
+ * GET /v1/me/episodes
+ * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes
+ */
+ const usersSavedEpisodes: SpotifyApi.UsersSavedEpisodesResponse = {
+    "href": "https://api.spotify.com/v1/me/shows?episodes=0&limit=20",
+    "items": [
+        {
+            "added_at": "2021-08-08T18:10:00Z",
+            "episode": {
+                "audio_preview_url" : "https://p.scdn.co/mp3-preview/7e8f7a00f1425d495bcb992bae48a19c31342490",
+                "description" : "Följ med till Riddarhuset och hör om dråpliga motiv och billiga lösningar på husets drygt 2 300 vapensköldar som nu studerats. Och hör hur stormakten Sveriges krig finansierades av Frankrike.  Skelögda ugglor och halshuggna troll är några av motiven på de drygt 2&nbsp;300 vapensköldar som hänger i Riddarhuset i Stockholm. Den svenska adelns grafiska profiler har nu hamnat under luppen när heraldikern Magnus Bäckmark som förste forskare skärskådat detta bortglömda kulturarvs estetik och historia. Vetenskapsradion Historia följer med honom till Riddarhuset för att fascineras av både vackra och tokfula motiv. Dessutom om att den svenska stormaktstiden nu måste omvärderas efter att historikern Svante Norrhem undersökt de enorma summor som Sverige erhöll av Frankrike. Under närmare 170 år var Sverige närmast en klientstat till Frankrike, där närmare 20 procent av svensk ekonomi bestod av franska subsidier. Tobias Svanelid undersöker hur förhållandet påverkade länderna och hur mycket av den svenska stormaktstiden som egentligen var fransk.",
+                "duration_ms" : 2685023,
+                "explicit" : false,
+                "external_urls" : {
+                  "spotify" : "https://open.spotify.com/episode/77o6BIVlYM3msb4MMIL1jH"
+                },
+                "href" : "https://api.spotify.com/v1/episodes/77o6BIVlYM3msb4MMIL1jH",
+                "html_description" : "<p>Följ med till Riddarhuset och hör om dråpliga motiv och billiga lösningar på husets drygt 2 300 vapensköldar som nu studerats. Och hör hur stormakten Sveriges krig finansierades av Frankrike.  Skelögda ugglor och halshuggna troll är några av motiven på de drygt 2&nbsp;300 vapensköldar som hänger i Riddarhuset i Stockholm. Den svenska adelns grafiska profiler har nu hamnat under luppen när heraldikern Magnus Bäckmark som förste forskare skärskådat detta bortglömda kulturarvs estetik och historia. Vetenskapsradion Historia följer med honom till Riddarhuset för att fascineras av både vackra och tokfula motiv. Dessutom om att den svenska stormaktstiden nu måste omvärderas efter att historikern Svante Norrhem undersökt de enorma summor som Sverige erhöll av Frankrike. Under närmare 170 år var Sverige närmast en klientstat till Frankrike, där närmare 20 procent av svensk ekonomi bestod av franska subsidier. Tobias Svanelid undersöker hur förhållandet påverkade länderna och hur mycket av den svenska stormaktstiden som egentligen var fransk.</p>",
+                "id" : "77o6BIVlYM3msb4MMIL1jH",
+                "images" : [ {
+                  "height" : 640,
+                  "url" : "https://i.scdn.co/image/8092469858486ff19eeefcea7ec5c17b72c9590a",
+                  "width" : 640
+                }, {
+                  "height" : 300,
+                  "url" : "https://i.scdn.co/image/7e921e844f4deb5a8fbdacba7abb6210357237e5",
+                  "width" : 300
+                }, {
+                  "height" : 64,
+                  "url" : "https://i.scdn.co/image/729df823ef7f9a6f8aaf57d532490c9aab43e0dc",
+                  "width" : 64
+                } ],
+                "is_externally_hosted" : false,
+                "is_playable" : true,
+                "language" : "sv",
+                "name" : "Riddarnas vapensköldar under lupp",
+                "release_date" : "2019-09-10",
+                "release_date_precision" : "day",
+                "show" : {
+                  "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA" ],
+                  "copyrights" : [ ],
+                  "description" : "Vi är där historien är. Ansvarig utgivare: Nina Glans",
+                  "explicit" : false,
+                  "external_urls" : {
+                    "spotify" : "https://open.spotify.com/show/38bS44xjbVVZ3No3ByF1dJ"
+                  },
+                  "href" : "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ",
+                  "id" : "38bS44xjbVVZ3No3ByF1dJ",
+                  "images" : [ {
+                    "height" : 640,
+                    "url" : "https://i.scdn.co/image/3c59a8b611000c8b10c8013013c3783dfb87a3bc",
+                    "width" : 640
+                  }, {
+                    "height" : 300,
+                    "url" : "https://i.scdn.co/image/2d70c06ac70d8c6144c94cabf7f4abcf85c4b7e4",
+                    "width" : 300
+                  }, {
+                    "height" : 64,
+                    "url" : "https://i.scdn.co/image/3dc007829bc0663c24089e46743a9f4ae15e65f8",
+                    "width" : 64
+                  } ],
+                  "is_externally_hosted" : false,
+                  "languages" : [ "sv" ],
+                  "media_type" : "audio",
+                  "name" : "Vetenskapsradion Historia",
+                  "publisher" : "Sveriges Radio",
+                  "type" : "show",
+                  "uri" : "spotify:show:38bS44xjbVVZ3No3ByF1dJ"
+                },
+                "type" : "episode",
+                "uri" : "spotify:episode:77o6BIVlYM3msb4MMIL1jH"
+              }
+        },
+        {
+            "added_at": "2021-06-20T22:10:29Z",
+            "episode": {
+                "audio_preview_url" : "https://p.scdn.co/mp3-preview/83bc7f2d40e850582a4ca118b33c256358de06ff",
+                "description" : "Följ med Tobias Svanelid till Sveriges äldsta tegelkyrka, till Edsleskog mitt i den dalsländska granskogen, där ett religiöst skrytbygge skulle resas över ett skändligt brott.  I Edsleskog i Dalsland gräver arkeologerna nu ut vad som en gång verkar ha varit en av Sveriges största medeltidskyrkor, och kanske också den äldsta som byggts i tegel, 1200-talets high-tech-material. Tobias Svanelid reser dit för att höra historien om den märkliga och bortglömda kyrkan som grundlades på platsen för ett prästmord och dessutom kan ha varit Skarabiskopens försök att lägga beslag på det vilda Dalsland. Dessutom om sjudagarsveckan  idag ett välkänt koncept runt hela världen, men hur gammal är egentligen veckans historia? Dick Harrison vet svaret.",
+                "duration_ms" : 2685023,
+                "explicit" : false,
+                "external_urls" : {
+                  "spotify" : "https://open.spotify.com/episode/0Q86acNRm6V9GYx55SXKwf"
+                },
+                "href" : "https://api.spotify.com/v1/episodes/0Q86acNRm6V9GYx55SXKwf",
+                "html_description" : "<p>Följ med Tobias Svanelid till Sveriges äldsta tegelkyrka, till Edsleskog mitt i den dalsländska granskogen, där ett religiöst skrytbygge skulle resas över ett skändligt brott.  I Edsleskog i Dalsland gräver arkeologerna nu ut vad som en gång verkar ha varit en av Sveriges största medeltidskyrkor, och kanske också den äldsta som byggts i tegel, 1200-talets high-tech-material. Tobias Svanelid reser dit för att höra historien om den märkliga och bortglömda kyrkan som grundlades på platsen för ett prästmord och dessutom kan ha varit Skarabiskopens försök att lägga beslag på det vilda Dalsland. Dessutom om sjudagarsveckan  idag ett välkänt koncept runt hela världen, men hur gammal är egentligen veckans historia? Dick Harrison vet svaret.</p>",
+                "id" : "0Q86acNRm6V9GYx55SXKwf",
+                "images" : [ {
+                  "height" : 640,
+                  "url" : "https://i.scdn.co/image/b2398424d6158a21fe8677e2de5f6f3d1dc4a04f",
+                  "width" : 640
+                }, {
+                  "height" : 300,
+                  "url" : "https://i.scdn.co/image/a52780a1d7e1bc42619413c3dea7042396c87f49",
+                  "width" : 300
+                }, {
+                  "height" : 64,
+                  "url" : "https://i.scdn.co/image/88e21be860cf11f0b95ee8dfb47ddb08a13319a7",
+                  "width" : 64
+                } ],
+                "is_externally_hosted" : false,
+                "is_playable" : true,
+                "language" : "sv",
+                "name" : "Okända katedralen i Dalsland",
+                "release_date" : "2019-09-03",
+                "release_date_precision" : "day",
+                "show" : {
+                  "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA" ],
+                  "copyrights" : [ ],
+                  "description" : "Vi är där historien är. Ansvarig utgivare: Nina Glans",
+                  "explicit" : false,
+                  "external_urls" : {
+                    "spotify" : "https://open.spotify.com/show/38bS44xjbVVZ3No3ByF1dJ"
+                  },
+                  "href" : "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ",
+                  "id" : "38bS44xjbVVZ3No3ByF1dJ",
+                  "images" : [ {
+                    "height" : 640,
+                    "url" : "https://i.scdn.co/image/3c59a8b611000c8b10c8013013c3783dfb87a3bc",
+                    "width" : 640
+                  }, {
+                    "height" : 300,
+                    "url" : "https://i.scdn.co/image/2d70c06ac70d8c6144c94cabf7f4abcf85c4b7e4",
+                    "width" : 300
+                  }, {
+                    "height" : 64,
+                    "url" : "https://i.scdn.co/image/3dc007829bc0663c24089e46743a9f4ae15e65f8",
+                    "width" : 64
+                  } ],
+                  "is_externally_hosted" : false,
+                  "languages" : [ "sv" ],
+                  "media_type" : "audio",
+                  "name" : "Vetenskapsradion Historia",
+                  "publisher" : "Sveriges Radio",
+                  "type" : "show",
+                  "uri" : "spotify:show:38bS44xjbVVZ3No3ByF1dJ"
+                },
+                "type" : "episode",
+                "uri" : "spotify:episode:0Q86acNRm6V9GYx55SXKwf"
+            }
+        }
+    ],
+    "limit": 20,
+    "next": null,
+    "offset": 0,
+    "previous": null,
+    "total": 3
+}
 
 /**
  * Get a User’s Top Artists and Tracks (Note: This is only Artists)
@@ -7897,6 +8047,7 @@ const searchEpisode: SpotifyApi.EpisodeSearchResponse = {
           "spotify": "https://open.spotify.com/episode/0ObtgY2z58L4lf0p56j1OK"
         },
         "href": "https://api.spotify.com/v1/episodes/0ObtgY2z58L4lf0p56j1OK",
+        "html_description": "<p>Disinformation, foreign interference, a global pandemic and an incumbent president who refused to say he'd accept the results — all were concerns headed into the 2020 election. If those challenges were a test of America's democratic system, did we pass? Jelani Cobb of The New Yorker and election law expert Michael Kang weigh in, with Joe Biden on the verge of becoming the president-elect. Listen to more election coverage from NPR: Up First on Apple Podcasts or Spotify The NPR Politics Podcast on Apple Podcasts or SpotifyIn participating regions, you'll also hear a local news segment that will help you make sense of what's going on in your community.Email us at considerthis@npr.org.</p>",
         "id": "0ObtgY2z58L4lf0p56j1OK",
         "images": [
           {
@@ -7936,6 +8087,7 @@ const searchEpisode: SpotifyApi.EpisodeSearchResponse = {
           "spotify": "https://open.spotify.com/episode/08FNi0gs2eA14wHUxGftKw"
         },
         "href": "https://api.spotify.com/v1/episodes/08FNi0gs2eA14wHUxGftKw",
+        "html_description": "<p>Even though we've been living with the pandemic for months, there's still lots of confusion about coronavirus tests and what the results do — and don't — mean. NPR correspondent Rob Stein explains the types of tests, when they are most accurate and how to make sense of the results. Email the show at shortwave@npr.org.</p>",
         "id": "08FNi0gs2eA14wHUxGftKw",
         "images": [
           {
@@ -8483,6 +8635,7 @@ const show: SpotifyApi.SingleShowResponse = {
         "spotify" : "https://open.spotify.com/episode/4nLBHCqEvCcRyWImnKo009"
       },
       "href" : "https://api.spotify.com/v1/episodes/4nLBHCqEvCcRyWImnKo009",
+      "html_description" : "<p>Tobias Svanelid besöker den svenska arkeologiska expeditionen på Cypern där man nu söker efter svaret på vad som drabbade bronsåldersstäderna för 3000 år sedan och orsakade bronsålderns kollaps.  - Det är som att jobba som Indiana Jones, berättar Alfred Sjelvgren som är en av arkeologerna som gräver på platsen. I Hala Sultan Tekke vid Larnaca på Cypern har svenska arkeologer under ledning av Peter Fischer grävt sedan 2010. Det de hittat är en av bronsålderns största och rikaste städer, där brons och purpurfärgade textilier en gång exporterades runt Medelhavet och ända upp till Sverige för drygt 3000 år sedan. Men den rika handelsstadens öde blev våldsamt. I likhet med så många andra Medelhavsstäder gick Hala Sultan Tekke under i en våldsam händelse som beskrivits som bronsålderns kollaps och kanske kan fynden från utgrävningen ge svar på vad som hände. - Jag tror att det är en kombination av bidragande orsaker som orsakade kollapsen, menar Peter Fischer, arkeologiprofessor vid Göteborgs universitet. Klimatförändringar, revolutioner och folkvandringar gjorde att många av bronsålderns högkulturer, inklusive den på Cypern, gick under.</p>",
       "id" : "4nLBHCqEvCcRyWImnKo009",
       "images" : [ {
         "height" : 640,
@@ -8630,6 +8783,7 @@ const episode: SpotifyApi.SingleEpisodeResponse = {
       "spotify": "https://open.spotify.com/episode/512ojhOuo1ktJprKbVcKyQ"
   },
   "href": "https://api.spotify.com/v1/episodes/512ojhOuo1ktJprKbVcKyQ",
+  "html_description": "<p>En ny tysk bok granskar för första gången Tredje rikets drogberoende, från Führerns knarkande till hans soldater på speed. Och kändisförfattaren Antony Beevor får nu kritik av en svensk kollega.  Hitler var beroende av sin livläkare, som gav honom mängder av narkotiska preparat, och blitzkrigssoldaterna knaprade 35 miljoner speedtabletter under invasionen av Frankrike 1940. I den nyutkomna boken Der Totale Rausch, Det totala ruset, ger författaren Norman Ohler för första gången en samlad bild av knarkandet i Tredje riket. Mycket tyder på att Hitler var gravt drogpåverkad under flera avgörande beslut under kriget, säger han, och får medhåll av medicinhistorikern Peter Steinkamp som undersökt de tyska soldaternas intensiva användande av pervitin, en variant av crystal meth.Dessutom får nu den kände militärhistoriska författaren Antony Beevor kritik för att hans senaste bok om Ardenneroffensiven lutar sig alltför tungt mot amerikanska källor, och dessutom innehåller många felaktiga detaljer. Det menar författarkollegan Christer Bergström, som själv skrivit en bok om striderna i Ardennerna.Programledare är Tobias Svanelid.</p>",
   "id": "512ojhOuo1ktJprKbVcKyQ",
   "images": [
       {
@@ -8794,6 +8948,7 @@ const episodes: SpotifyApi.MultipleEpisodesResponse = {
       "spotify" : "https://open.spotify.com/episode/77o6BIVlYM3msb4MMIL1jH"
     },
     "href" : "https://api.spotify.com/v1/episodes/77o6BIVlYM3msb4MMIL1jH",
+    "html_description" : "<p>Följ med till Riddarhuset och hör om dråpliga motiv och billiga lösningar på husets drygt 2 300 vapensköldar som nu studerats. Och hör hur stormakten Sveriges krig finansierades av Frankrike.  Skelögda ugglor och halshuggna troll är några av motiven på de drygt 2&nbsp;300 vapensköldar som hänger i Riddarhuset i Stockholm. Den svenska adelns grafiska profiler har nu hamnat under luppen när heraldikern Magnus Bäckmark som förste forskare skärskådat detta bortglömda kulturarvs estetik och historia. Vetenskapsradion Historia följer med honom till Riddarhuset för att fascineras av både vackra och tokfula motiv. Dessutom om att den svenska stormaktstiden nu måste omvärderas efter att historikern Svante Norrhem undersökt de enorma summor som Sverige erhöll av Frankrike. Under närmare 170 år var Sverige närmast en klientstat till Frankrike, där närmare 20 procent av svensk ekonomi bestod av franska subsidier. Tobias Svanelid undersöker hur förhållandet påverkade länderna och hur mycket av den svenska stormaktstiden som egentligen var fransk.</p>",
     "id" : "77o6BIVlYM3msb4MMIL1jH",
     "images" : [ {
       "height" : 640,
@@ -8856,6 +9011,7 @@ const episodes: SpotifyApi.MultipleEpisodesResponse = {
       "spotify" : "https://open.spotify.com/episode/0Q86acNRm6V9GYx55SXKwf"
     },
     "href" : "https://api.spotify.com/v1/episodes/0Q86acNRm6V9GYx55SXKwf",
+    "html_description" : "<p>Följ med Tobias Svanelid till Sveriges äldsta tegelkyrka, till Edsleskog mitt i den dalsländska granskogen, där ett religiöst skrytbygge skulle resas över ett skändligt brott.  I Edsleskog i Dalsland gräver arkeologerna nu ut vad som en gång verkar ha varit en av Sveriges största medeltidskyrkor, och kanske också den äldsta som byggts i tegel, 1200-talets high-tech-material. Tobias Svanelid reser dit för att höra historien om den märkliga och bortglömda kyrkan som grundlades på platsen för ett prästmord och dessutom kan ha varit Skarabiskopens försök att lägga beslag på det vilda Dalsland. Dessutom om sjudagarsveckan  idag ett välkänt koncept runt hela världen, men hur gammal är egentligen veckans historia? Dick Harrison vet svaret.</p>",
     "id" : "0Q86acNRm6V9GYx55SXKwf",
     "images" : [ {
       "height" : 640,

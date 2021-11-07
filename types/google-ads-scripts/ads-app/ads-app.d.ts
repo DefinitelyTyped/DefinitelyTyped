@@ -120,31 +120,31 @@ declare namespace GoogleAdsScripts {
              * This field is not allowed when the query uses GAQL. See here for details on how GAQL handles zero impressions.
              * Defaults to `true` for AWQL queries.
              */
-            includeZeroImpressions?: boolean;
+            includeZeroImpressions?: boolean | undefined;
             /**
              * Whether or not to represent money in micros ('1370000') or in currency ('1.37').
              * This field is not allowed when the query uses GAQL.
              * In that case, all money values are represented in micros.
              * Defaults to `false` for AWQL queries.
              */
-            returnMoneyInMicros?: boolean;
+            returnMoneyInMicros?: boolean | undefined;
             /**
              * For AWQL queries, the AdWords API version to query.
              * Sunsetted versions are not allowed.
              * For GAQL queries, the Google Ads API version to query.
              * Sunsetted versions for GAQL queries are also not allowed.
              */
-            apiVersion?: string;
+            apiVersion?: string | undefined;
             /**
              * Whether or not to convert Geo CriteriaIds (e.g. CountryCriteriaId and CityCriteriaId) into names (e.g. 'United States' and 'San Francisco').
              * Set to true if you want names. Set to `false` if you want numerical IDs. Defaults to `true`.
              */
-            resolveGeoNames?: boolean;
+            resolveGeoNames?: boolean | undefined;
         }
 
         interface SearchOptionalArguments {
             /** The AdWords API version to query. Sunsetted versions are not allowed. Defaults to the most recent supported version. */
-            apiVersion?: string;
+            apiVersion?: string | undefined;
         }
     }
 }

@@ -15,14 +15,14 @@ export interface DuckDuckGoImage {
 
 export function image_search(params: {
     query: string;
-    moderate?: boolean;
-    retries?: number;
-    iterations?: number;
+    moderate?: boolean | undefined;
+    retries?: number | undefined;
+    iterations?: number | undefined;
 }): Promise<DuckDuckGoImage[]>;
 
 export function image_search_generator(params: {
     query: string;
-    moderate?: boolean;
-    retries?: number;
-    iterations?: number;
+    moderate?: boolean | undefined;
+    retries?: number | undefined;
+    iterations?: number | undefined;
 }): Promise<DuckDuckGoImage[]>;

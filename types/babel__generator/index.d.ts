@@ -14,12 +14,12 @@ export interface GeneratorOptions {
     /**
      * Optional string to add as a block comment at the start of the output file.
      */
-    auxiliaryCommentBefore?: string;
+    auxiliaryCommentBefore?: string | undefined;
 
     /**
      * Optional string to add as a block comment at the end of the output file.
      */
-    auxiliaryCommentAfter?: string;
+    auxiliaryCommentAfter?: string | undefined;
 
     /**
      * Function that takes a comment (as a string) and returns true if the comment should be included in the output.
@@ -32,65 +32,65 @@ export interface GeneratorOptions {
      * Attempt to use the same line numbers in the output code as in the source code (helps preserve stack traces).
      * Defaults to `false`.
      */
-    retainLines?: boolean;
+    retainLines?: boolean | undefined;
 
     /**
      * Retain parens around function expressions (could be used to change engine parsing behavior)
      * Defaults to `false`.
      */
-    retainFunctionParens?: boolean;
+    retainFunctionParens?: boolean | undefined;
 
     /**
      * Should comments be included in output? Defaults to `true`.
      */
-    comments?: boolean;
+    comments?: boolean | undefined;
 
     /**
      * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
      */
-    compact?: boolean | 'auto';
+    compact?: boolean | 'auto' | undefined;
 
     /**
      * Should the output be minified. Defaults to `false`.
      */
-    minified?: boolean;
+    minified?: boolean | undefined;
 
     /**
      * Set to true to reduce whitespace (but not as much as opts.compact). Defaults to `false`.
      */
-    concise?: boolean;
+    concise?: boolean | undefined;
 
     /**
      * Used in warning messages
      */
-    filename?: string;
+    filename?: string | undefined;
 
     /**
      * Enable generating source maps. Defaults to `false`.
      */
-    sourceMaps?: boolean;
+    sourceMaps?: boolean | undefined;
 
     /**
      * A root for all relative URLs in the source map.
      */
-    sourceRoot?: string;
+    sourceRoot?: string | undefined;
 
     /**
      * The filename for the source code (i.e. the code in the `code` argument).
      * This will only be used if `code` is a string.
      */
-    sourceFileName?: string;
+    sourceFileName?: string | undefined;
 
     /**
      * Set to true to run jsesc with "json": true to print "\u00A9" vs. "©";
      */
-    jsonCompatibleStrings?: boolean;
+    jsonCompatibleStrings?: boolean | undefined;
 
     /**
      * Set to true to enable support for experimental decorators syntax before module exports.
      * Defaults to `false`.
      */
-    decoratorsBeforeExport?: boolean;
+    decoratorsBeforeExport?: boolean | undefined;
 
     /**
      * Options for outputting jsesc representation.
@@ -100,21 +100,21 @@ export interface GeneratorOptions {
          * The default value for the quotes option is 'single'. This means that any occurrences of ' in the input
          * string are escaped as \', so that the output can be used in a string literal wrapped in single quotes.
          */
-        quotes?: 'single' | 'double' | 'backtick';
+        quotes?: 'single' | 'double' | 'backtick' | undefined;
 
         /**
          * The default value for the numbers option is 'decimal'. This means that any numeric values are represented
          * using decimal integer literals. Other valid options are binary, octal, and hexadecimal, which result in
          * binary integer literals, octal integer literals, and hexadecimal integer literals, respectively.
          */
-        numbers?: 'binary' | 'octal' | 'decimal' | 'hexadecimal';
+        numbers?: 'binary' | 'octal' | 'decimal' | 'hexadecimal' | undefined;
 
         /**
          * The wrap option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the
          * output is a valid JavaScript string literal wrapped in quotes. The type of quotes can be specified through
          * the quotes setting.
          */
-        wrap?: boolean;
+        wrap?: boolean | undefined;
 
         /**
          * The es6 option takes a boolean value (true or false), and defaults to false (disabled). When enabled, any
@@ -123,19 +123,19 @@ export interface GeneratorOptions {
          * environments is a concern, don’t enable this setting. If the json setting is enabled, the value for the es6
          * setting is ignored (as if it was false).
          */
-        es6?: boolean;
+        es6?: boolean | undefined;
 
         /**
          * The escapeEverything option takes a boolean value (true or false), and defaults to false (disabled). When
          * enabled, all the symbols in the output are escaped — even printable ASCII symbols.
          */
-        escapeEverything?: boolean;
+        escapeEverything?: boolean | undefined;
 
         /**
          * The minimal option takes a boolean value (true or false), and defaults to false (disabled). When enabled,
          * only a limited set of symbols in the output are escaped: \0, \b, \t, \n, \f, \r, \\, \u2028, \u2029.
          */
-        minimal?: boolean;
+        minimal?: boolean | undefined;
 
         /**
          * The isScriptContext option takes a boolean value (true or false), and defaults to false (disabled). When
@@ -143,25 +143,25 @@ export interface GeneratorOptions {
          * is escaped as \x3C!-- (or \u003C!-- when the json option is enabled). This setting is useful when jsesc’s
          * output ends up as part of a <script> or <style> element in an HTML document.
          */
-        isScriptContext?: boolean;
+        isScriptContext?: boolean | undefined;
 
         /**
          * The compact option takes a boolean value (true or false), and defaults to true (enabled). When enabled,
          * the output for arrays and objects is as compact as possible; it’s not formatted nicely.
          */
-        compact?: boolean;
+        compact?: boolean | undefined;
 
         /**
          * The indent option takes a string value, and defaults to '\t'. When the compact setting is enabled (true),
          * the value of the indent option is used to format the output for arrays and objects.
          */
-        indent?: string;
+        indent?: string | undefined;
 
         /**
          * The indentLevel option takes a numeric value, and defaults to 0. It represents the current indentation level,
          * i.e. the number of times the value of the indent option is repeated.
          */
-        indentLevel?: number;
+        indentLevel?: number | undefined;
 
         /**
          * The json option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the
@@ -169,15 +169,15 @@ export interface GeneratorOptions {
          * Setting json: true implies quotes: 'double', wrap: true, es6: false, although these values can still be
          * overridden if needed — but in such cases, the output won’t be valid JSON anymore.
          */
-        json?: boolean;
+        json?: boolean | undefined;
 
         /**
          * The lowercaseHex option takes a boolean value (true or false), and defaults to false (disabled). When enabled,
          * any alphabetical hexadecimal digits in escape sequences as well as any hexadecimal integer literals (see the
          * numbers option) in the output are in lowercase.
          */
-        lowercaseHex?: boolean;
-    };
+        lowercaseHex?: boolean | undefined;
+    } | undefined;
 }
 
 export class CodeGenerator {
@@ -204,8 +204,8 @@ export interface GeneratorResult {
         version: number;
         sources: string[];
         names: string[];
-        sourceRoot?: string;
-        sourcesContent?: string[];
+        sourceRoot?: string | undefined;
+        sourcesContent?: string[] | undefined;
         mappings: string;
         file: string;
     } | null;

@@ -3,11 +3,11 @@ import { Formatter, Parser, WrappedFieldProps } from "../index";
 
 interface BaseFieldsProps<P = {}> {
     names: string[];
-    component?: ComponentType<any>;
-    format?: Formatter | null;
-    props?: P;
-    parse?: Parser;
-    withRef?: boolean;
+    component?: ComponentType<any> | undefined;
+    format?: Formatter | null | undefined;
+    props?: P | undefined;
+    parse?: Parser | undefined;
+    withRef?: boolean | undefined;
 }
 
 export interface GenericFields<P> extends Component<BaseFieldsProps<P> & P> {

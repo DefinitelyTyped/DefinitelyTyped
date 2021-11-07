@@ -27,13 +27,17 @@ Autodesk.Viewing.Initializer(options, async () => {
 
     globalTests();
     bubbleNodeTests(model);
+    bufferReaderTest(model);
     callbackTests(viewer);
     cameraTests(viewer);
     formattingTests();
     fragListTests(model);
     instanceTreeTests(model);
     modelTests(model);
-    await propertyDbTests(model);
+    modelStructurePanelTests(viewer);
+    preferencesTests(viewer);
+    showHideTests(viewer);
+    await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
     await dataVizPlanarTests(viewer);
@@ -41,7 +45,11 @@ Autodesk.Viewing.Initializer(options, async () => {
     await measureTests(viewer);
     await pixelCompareTests(viewer);
     await propertyTests(viewer);
+    await propertyDbTests(model);
     await searchTests(viewer);
+    await streamLineTests(viewer);
+    await stringExtractorTests(viewer);
+    await visualClustersTests(viewer);
 });
 
 function globalTests(): void {
@@ -63,6 +71,28 @@ function bubbleNodeTests(model: Autodesk.Viewing.Model): void {
     node.getInputFileType();
 }
 
+function bufferReaderTest(model: Autodesk.Viewing.Model): void {
+    const instanceTree = model.getInstanceTree();
+    const dbIds: number[] = [];
+
+    instanceTree.enumNodeChildren(instanceTree.getRootId(), (dbId) => {
+        if (instanceTree.getChildCount(dbId) === 0) {
+            dbIds.push(dbId);
+        }
+    });
+    const frags = model.getFragmentList();
+    const objFrags = frags.fragments.dbId2fragId;
+
+    for (const dbId of dbIds) {
+        for (const fragId of objFrags) {
+            const vbr = new Autodesk.Viewing.Private.VertexBufferReader(fragId);
+            const bc = new Autodesk.Viewing.Private.BoundsCallback(new THREE.Box3());
+
+            vbr.enumGeomsForObject(dbId, bc);
+        }
+    }
+}
+
 function callbackTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     const id = 2120;
     const fragId = viewer.model.getData().fragments.dbId2fragId[id];
@@ -81,6 +111,26 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     const up = new THREE.Vector3(0, 0, 1);
 
     viewer.navigation.setCameraUpVector(up);
+}
+
+async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        const instanceTree = model.getInstanceTree();
+        const ids: number[] = [];
+
+        instanceTree.enumNodeChildren(instanceTree.getRootId(), (dbId) => {
+            if (instanceTree.getChildCount(dbId) === 0) {
+                ids.push(dbId);
+            }
+        });
+
+        model.getBulkProperties(ids, {
+            propFilter: [ "Name"] },
+            (propResults) => {
+                resolve();
+            }
+        );
+    });
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
@@ -186,6 +236,13 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isSVF2();
 }
 
+function modelStructurePanelTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const options = Autodesk.Viewing.Extensions.generateDefaultViewerHandlerOptions(viewer);
+    const panel = new Autodesk.Viewing.Extensions.ViewerModelStructurePanel(options);
+
+    viewer.setModelStructurePanel(panel);
+}
+
 async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.Viewing.PixelCompare') as Autodesk.Extensions.PixelCompare.PixelCompare;
     const secondDoc = await loadDocument('urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LW90aGVyLWZvcmdlLWZpbGUucnZ0');
@@ -194,6 +251,107 @@ async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
     const mainModel = viewer.model;
 
     ext.compareTwoModels(mainModel, secondaryModel);
+}
+
+function preferencesTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    // $ExpectType boolean
+    viewer.prefs.alwaysUsePivot;
+    // $ExpectType boolean
+    viewer.prefs.ambientShadows;
+    // $ExpectType boolean
+    viewer.prefs.antialiasing;
+    // $ExpectType boolean
+    viewer.prefs.bimWalkGravity;
+    // $ExpectType string
+    viewer.prefs.bimWalkNavigatorType;
+    // $ExpectType boolean
+    viewer.prefs.bimWalkToolPopup;
+    // $ExpectType boolean
+    viewer.prefs.clickToSetCOI;
+    // $ExpectType string
+    viewer.prefs.defaultNavigationTool3D;
+    // $ExpectType boolean
+    viewer.prefs.disablePdfHighlight;
+    // $ExpectType boolean
+    viewer.prefs.displaySectionHatches;
+    // $ExpectType boolean
+    viewer.prefs.edgeRendering;
+    // $ExpectType boolean
+    viewer.prefs.enableCustomOrbitToolCursor;
+    // $ExpectType boolean
+    viewer.prefs.envMapBackground;
+    // $ExpectType string
+    viewer.prefs.explodeStrategy;
+    // $ExpectType boolean
+    viewer.prefs.firstPersonToolPopup;
+    // $ExpectType boolean
+    viewer.prefs.forceDoubleSided;
+    // $ExpectType boolean
+    viewer.prefs.forceLeafletCalibration;
+    // $ExpectType boolean
+    viewer.prefs.forcePDFCalibration;
+    // $ExpectType boolean
+    viewer.prefs.fusionOrbit;
+    // $ExpectType boolean
+    viewer.prefs.fusionOrbitConstrained;
+    // $ExpectType boolean
+    viewer.prefs.ghosting;
+    // $ExpectType boolean
+    viewer.prefs.grayscale;
+    // $ExpectType boolean
+    viewer.prefs.groundReflection;
+    // $ExpectType boolean
+    viewer.prefs.groundShadow;
+    // $ExpectType boolean
+    viewer.prefs.keyMapCmd;
+    // $ExpectType boolean
+    viewer.prefs.leftHandedMouseSetup;
+    // $ExpectType string
+    viewer.prefs.lightPreset;
+    // $ExpectType boolean
+    viewer.prefs.lineRendering;
+    // $ExpectType boolean
+    viewer.prefs.loadingAnimation;
+    // $ExpectType boolean
+    viewer.prefs.openPropertiesOnSelect;
+    // $ExpectType boolean
+    viewer.prefs.optimizeNavigation;
+    // $ExpectType boolean
+    viewer.prefs.orbitPastWorldPoles;
+    // $ExpectType boolean
+    viewer.prefs.pointRendering;
+    // $ExpectType boolean
+    viewer.prefs.progressiveRendering;
+    // $ExpectType boolean
+    viewer.prefs.restoreMeasurements;
+    // $ExpectType boolean
+    viewer.prefs.reverseHorizontalLookDirection;
+    // $ExpectType boolean
+    viewer.prefs.reverseMouseZoomDir;
+    // $ExpectType boolean
+    viewer.prefs.reverseVerticalLookDirection;
+    // $ExpectType number
+    viewer.prefs.selectionMode;
+    // $ExpectType boolean
+    viewer.prefs.selectionSetsPivot;
+    // $ExpectType boolean
+    viewer.prefs.swapBlackAndWhite;
+    // $ExpectType boolean
+    viewer.prefs.useLocalStorage;
+    // $ExpectType boolean
+    viewer.prefs.viewCube;
+    // $ExpectType boolean
+    viewer.prefs.viewCubeCompass;
+    // $ExpectType number
+    viewer.prefs.viewType;
+    // $ExpectType boolean
+    viewer.prefs.wheelSetsPivot;
+    // $ExpectType number
+    viewer.prefs.zoomDragSpeed;
+    // $ExpectType number
+    viewer.prefs.zoomScrollSpeed;
+    // $ExpectType boolean
+    viewer.prefs.zoomTowardsPivot;
 }
 
 function propertyDbTests(model: Autodesk.Viewing.Model): Promise<void> {
@@ -288,6 +446,10 @@ async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
 
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
+    const m = ext.getMeasurementList();
+
+    ext.deleteMeasurements();
+    ext.setMeasurements(m);
 }
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
@@ -298,6 +460,41 @@ async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number
             reject(err);
         });
     });
+}
+
+function showHideTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    viewer.hideAll();
+    viewer.showAll();
+}
+
+async function streamLineTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
+    const points = [ 10, 10, 10, 20, 20, 20, 30, 30, 30 ];
+    const builder = ext.streamLineBuilder;
+    const streamLine = builder.createStreamLine({
+        lineWidth: 8.0,
+        lineColor: new THREE.Color(0xff0080),
+        opacity: 1.0,
+        lineData: {
+            points: new Float32Array(points)
+        }
+    });
+
+    streamLine.advance({ x: 10.0, y: 10.0, z: 10.0 });
+    builder.destroyStreamLine(streamLine);
+}
+
+async function stringExtractorTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.StringExtractor') as Autodesk.Extensions.StringExtractor;
+
+    const strings = await ext.getDocumentStrings();
+}
+
+async function visualClustersTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.VisualClusters') as Autodesk.Extensions.VisualClusters;
+
+    await ext.setLayoutActive(true);
+    ext.reset();
 }
 
 function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {

@@ -2,91 +2,52 @@
 
 import React = require('react');
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
-
-    const [startTransition, done] = React.unstable_useTransition();
-    // $ExpectType boolean
-    done;
-
-    // $ExpectType boolean
-    const deferredToggle = React.unstable_useDeferredValue(toggle);
-
-    const [func] = React.useState(() => () => 0);
-
-    // $ExpectType () => number
-    func;
-    // $ExpectType () => number
-    const deferredFunc = React.unstable_useDeferredValue(func);
-
-    class Constructor {}
-    // $ExpectType typeof Constructor
-    const deferredConstructor = React.unstable_useDeferredValue(Constructor);
-
-    // $ExpectType () => string
-    const deferredConstructible = React.unstable_useDeferredValue(Constructible);
-
-    return () => {
-        startTransition(() => {
-            setToggle(toggle => !toggle);
-        });
-
-        // The function must be synchronous, even if it can start an asynchronous update
-        // it's no different from an useEffect callback in this respect
-        // $ExpectError
-        startTransition(async () => {});
-
-        // Unlike Effect callbacks, though, there is no possible destructor to return
-        // $ExpectError
-        startTransition(() => () => {});
-    };
-
-    function Constructible() {
-        return '';
-    }
+const { unstable_useSyncExternalStore: useSyncExternalStore } = React;
+// keep in sync with `use-sync-external-store-tests.ts`
+interface Store<State> {
+    getState(): State;
+    getServerState(): State;
+    subscribe(onStoreChange: () => void): () => void;
 }
 
-function Dialog() {
-    const nameId = React.unstable_useOpaqueIdentifier();
+declare const numberStore: Store<number>;
+function useVersion(): number {
+    return useSyncExternalStore(numberStore.subscribe, numberStore.getState);
+}
 
-    return (
-        <div role="dialog" aria-labelledby={nameId}>
-            <h2 id={nameId}></h2>
-        </div>
+function useStoreWrong() {
+    useSyncExternalStore(
+        // no unsubscribe returned
+        // $ExpectError
+        () => {
+            return null;
+        },
+        () => 1,
+    );
+
+    // `string` is not assignable to `number`
+    // $ExpectError
+    const version: number = useSyncExternalStore(
+        () => () => {},
+        () => '1',
     );
 }
 
-function InvalidOpaqueIdentifierUsage() {
-    const id = React.unstable_useOpaqueIdentifier();
-    // undesired, would warn in React should not type-check
-    const stringified1: string = id.toString();
-    // undesired, would warn in React should not type-check
-    const stringified2: string = id + '';
-
-    return null;
+declare const objectStore: Store<{ version: { major: number; minor: number }; users: string[] }>;
+function useUsers(): string[] {
+    return useSyncExternalStore(
+        objectStore.subscribe,
+        () => objectStore.getState().users,
+        () => objectStore.getServerState().users,
+    );
 }
 
-function startTransitionTest() {
-    function transitionToPage(page: string) {}
+function useExperimentalHooks() {
+    const [toggle, setToggle] = React.useState(false);
 
-    React.unstable_startTransition(() => {
-        transitionToPage('/');
-    });
-
-    // $ExpectError
-    React.unstable_startTransition(async () => {});
-}
-
-function suspenseTest() {
-    function DisplayData() {
-        return null;
-    }
-
-    function FlameChart() {
-        return (
-            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
-                <DisplayData />
-            </React.Suspense>
-        );
-    }
+    React.unstable_useInsertionEffect(() => {});
+    React.unstable_useInsertionEffect(() => {}, []);
+    React.unstable_useInsertionEffect(() => {
+        return () => {};
+    }, [toggle]);
 }

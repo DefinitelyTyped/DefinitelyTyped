@@ -11,6 +11,7 @@ interface TailwindColors {
     indigo: TailwindColorGroup;
     blue: TailwindColorGroup;
     lightBlue: TailwindColorGroup;
+    sky: TailwindColorGroup;
     cyan: TailwindColorGroup;
     teal: TailwindColorGroup;
     emerald: TailwindColorGroup;

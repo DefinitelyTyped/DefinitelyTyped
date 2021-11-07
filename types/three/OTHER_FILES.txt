@@ -8,7 +8,6 @@ examples/jsm/csm/CSM.d.ts
 examples/jsm/csm/CSMHelper.d.ts
 examples/jsm/csm/Frustum.d.ts
 examples/jsm/csm/Shader.d.ts
-examples/jsm/curves/CurveExtras.d.ts
 examples/jsm/curves/NURBSCurve.d.ts
 examples/jsm/curves/NURBSSurface.d.ts
 examples/jsm/curves/NURBSUtils.d.ts
@@ -31,13 +30,14 @@ examples/jsm/geometries/BoxLineGeometry.d.ts
 examples/jsm/geometries/ConvexGeometry.d.ts
 examples/jsm/geometries/DecalGeometry.d.ts
 examples/jsm/geometries/LightningStrike.d.ts
-examples/jsm/geometries/ParametricGeometries.d.ts
 examples/jsm/geometries/RoundedBoxGeometry.d.ts
 examples/jsm/geometries/TeapotGeometry.d.ts
 examples/jsm/helpers/LightProbeHelper.d.ts
 examples/jsm/helpers/PositionalAudioHelper.d.ts
 examples/jsm/helpers/VertexNormalsHelper.d.ts
 examples/jsm/helpers/VertexTangentsHelper.d.ts
+examples/jsm/interactive/HTMLMesh.d.ts
+examples/jsm/interactive/InteractiveGroup.d.ts
 examples/jsm/interactive/SelectionBox.d.ts
 examples/jsm/interactive/SelectionHelper.d.ts
 examples/jsm/libs/stats.module.d.ts
@@ -75,7 +75,6 @@ examples/jsm/loaders/TTFLoader.d.ts
 examples/jsm/loaders/VRMLLoader.d.ts
 examples/jsm/loaders/VRMLoader.d.ts
 examples/jsm/loaders/VTKLoader.d.ts
-examples/jsm/loaders/XLoader.d.ts
 examples/jsm/loaders/XYZLoader.d.ts
 examples/jsm/math/Capsule.d.ts
 examples/jsm/math/ColorConverter.d.ts
@@ -99,7 +98,6 @@ examples/jsm/misc/VolumeSlice.d.ts
 examples/jsm/modifiers/CurveModifier.d.ts
 examples/jsm/modifiers/EdgeSplitModifier.d.ts
 examples/jsm/modifiers/SimplifyModifier.d.ts
-examples/jsm/modifiers/TessellateModifier.d.ts
 examples/jsm/nodes/accessors/CameraNode.d.ts
 examples/jsm/nodes/accessors/ColorsNode.d.ts
 examples/jsm/nodes/accessors/LightNode.d.ts
@@ -181,7 +179,6 @@ examples/jsm/objects/Lensflare.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/MarchingCubes.d.ts
-examples/jsm/objects/Reflector.d.ts
 examples/jsm/objects/ReflectorRTT.d.ts
 examples/jsm/objects/Refractor.d.ts
 examples/jsm/objects/ShadowMesh.d.ts
@@ -225,6 +222,7 @@ examples/jsm/shaders/BrightnessContrastShader.d.ts
 examples/jsm/shaders/ColorCorrectionShader.d.ts
 examples/jsm/shaders/ColorifyShader.d.ts
 examples/jsm/shaders/ConvolutionShader.d.ts
+examples/jsm/shaders/CopyShader.d.ts
 examples/jsm/shaders/DepthLimitedBlurShader.d.ts
 examples/jsm/shaders/DigitalGlitch.d.ts
 examples/jsm/shaders/DOFMipMapShader.d.ts
@@ -232,7 +230,6 @@ examples/jsm/shaders/DotScreenShader.d.ts
 examples/jsm/shaders/FilmShader.d.ts
 examples/jsm/shaders/FocusShader.d.ts
 examples/jsm/shaders/FreiChenShader.d.ts
-examples/jsm/shaders/FresnelShader.d.ts
 examples/jsm/shaders/FXAAShader.d.ts
 examples/jsm/shaders/GammaCorrectionShader.d.ts
 examples/jsm/shaders/GodRaysShader.d.ts
@@ -245,7 +242,6 @@ examples/jsm/shaders/LuminosityHighPassShader.d.ts
 examples/jsm/shaders/LuminosityShader.d.ts
 examples/jsm/shaders/MirrorShader.d.ts
 examples/jsm/shaders/NormalMapShader.d.ts
-examples/jsm/shaders/ParallaxShader.d.ts
 examples/jsm/shaders/PixelShader.d.ts
 examples/jsm/shaders/RGBShiftShader.d.ts
 examples/jsm/shaders/SAOShader.d.ts
@@ -254,6 +250,7 @@ examples/jsm/shaders/SMAAShader.d.ts
 examples/jsm/shaders/SobelOperatorShader.d.ts
 examples/jsm/shaders/SSAOShader.d.ts
 examples/jsm/shaders/SSRShader.d.ts
+examples/jsm/shaders/SSRrShader.d.ts
 examples/jsm/shaders/SubsurfaceScatteringShader.d.ts
 examples/jsm/shaders/TechnicolorShader.d.ts
 examples/jsm/shaders/ToneMapShader.d.ts
@@ -272,3 +269,6 @@ examples/jsm/utils/SceneUtils.d.ts
 examples/jsm/utils/ShadowMapViewer.d.ts
 examples/jsm/utils/SkeletonUtils.d.ts
 examples/jsm/utils/UVsDebug.d.ts
+examples/jsm/webxr/OculusHandModel.d.ts
+examples/jsm/webxr/OculusHandPointerModel.d.ts
+examples/jsm/webxr/Text2D.d.ts

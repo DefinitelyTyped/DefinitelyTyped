@@ -9,11 +9,11 @@ import { Component } from "react";
 
 export namespace ReCaptcha {
     interface ReCaptchaProps {
-        elementID?: string;
+        elementID?: string | undefined;
         sitekey: string;
         action: string;
         verifyCallback?(response: string): void;
-        verifyCallbackName?: string;
+        verifyCallbackName?: string | undefined;
     }
 }
 

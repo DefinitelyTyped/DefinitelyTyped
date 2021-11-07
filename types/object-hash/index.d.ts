@@ -1,4 +1,4 @@
-// Type definitions for object-hash 2.1
+// Type definitions for object-hash 2.2
 // Project: https://github.com/puleos/object-hash
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Artur Diniz <https://github.com/artdiniz>
@@ -45,57 +45,67 @@ declare namespace objectHash {
         write?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
     }
 
-    interface Options {
+    interface BaseOptions {
         /**
          * @default 'sha1'
          */
-        algorithm?: 'sha1' | 'md5' | 'passthrough';
+        algorithm?: 'sha1' | 'md5' | 'passthrough' | undefined;
+
+        excludeKeys?: ((key: string) => boolean) | undefined;
+        /**
+         * @default false
+         */
+        excludeValues?: boolean | undefined;
+        /**
+         * @default false
+         */
+        ignoreUnknown?: boolean | undefined;
+
+        replacer?: ((value: any) => any) | undefined;
+        /**
+         * @default true
+         */
+        respectFunctionNames?: boolean | undefined;
+        /**
+         * @default true
+         */
+        respectFunctionProperties?: boolean | undefined;
+        /**
+         * @default true
+         */
+        respectType?: boolean | undefined;
+        /**
+         * @default false
+         */
+        unorderedArrays?: boolean | undefined;
+        /**
+         * @default true
+         */
+        unorderedObjects?: boolean | undefined;
+        /**
+         * @default true
+         */
+        unorderedSets?: boolean | undefined;
+    }
+
+    interface NormalOption extends BaseOptions {
         /**
          * @default 'hex'
          */
-        encoding?: 'buffer' | 'hex' | 'binary' | 'base64';
-
-        excludeKeys?: (key: string) => boolean;
-        /**
-         * @default false
-         */
-        excludeValues?: boolean;
-        /**
-         * @default false
-         */
-        ignoreUnknown?: boolean;
-
-        replacer?: (value: any) => any;
-        /**
-         * @default true
-         */
-        respectFunctionNames?: boolean;
-        /**
-         * @default true
-         */
-        respectFunctionProperties?: boolean;
-        /**
-         * @default true
-         */
-        respectType?: boolean;
-        /**
-         * @default false
-         */
-        unorderedArrays?: boolean;
-        /**
-         * @default true
-         */
-        unorderedObjects?: boolean;
-        /**
-         * @default true
-         */
-        unorderedSets?: boolean;
+        encoding?: 'hex' | 'binary' | 'base64' | undefined;
     }
+
+    interface WithBufferOption extends BaseOptions {
+        encoding: 'buffer';
+    }
+
+    type Options = NormalOption | WithBufferOption;
 }
 
 /**
  * @see https://github.com/puleos/object-hash#hashvalue-options
  */
-declare function objectHash(object: {} | null, options?: objectHash.Options): string;
+declare function objectHash(object: {} | null, options?: objectHash.NormalOption): string;
+declare function objectHash(object: {} | null, options?: objectHash.WithBufferOption): Buffer;
 
 export = objectHash;

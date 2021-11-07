@@ -13,7 +13,7 @@ export = KeyvPostgres;
 
 declare class KeyvPostgres extends EventEmitter implements Store<string | undefined> {
     readonly ttlSupport: false;
-    namespace?: string;
+    namespace?: string | undefined;
 
     constructor(options?: KeyvPostgres.Options);
 
@@ -25,8 +25,8 @@ declare class KeyvPostgres extends EventEmitter implements Store<string | undefi
 
 declare namespace KeyvPostgres {
     interface Options {
-        uri?: string;
-        table?: string;
-        keySize?: number;
+        uri?: string | undefined;
+        table?: string | undefined;
+        keySize?: number | undefined;
     }
 }

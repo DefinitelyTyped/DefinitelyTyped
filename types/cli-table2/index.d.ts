@@ -47,26 +47,26 @@ declare namespace CliTable2 {
     }
 
     interface TableConstructorOptions extends Partial<TableOptions> {
-        chars?: Partial<Record<CharName, string>>;
-        style?: Partial<TableInstanceOptions["style"]>;
+        chars?: Partial<Record<CharName, string>> | undefined;
+        style?: Partial<TableInstanceOptions["style"]> | undefined;
     }
 
     type CellValue = boolean | number | string | null | undefined;
 
     interface CellOptions {
         content: CellValue;
-        chars?: Partial<Record<CharName, string>>;
-        truncate?: string;
-        colSpan?: number;
-        rowSpan?: number;
-        hAlign?: HorizontalAlignment;
-        vAlign?: VerticalAlignment;
+        chars?: Partial<Record<CharName, string>> | undefined;
+        truncate?: string | undefined;
+        colSpan?: number | undefined;
+        rowSpan?: number | undefined;
+        hAlign?: HorizontalAlignment | undefined;
+        vAlign?: VerticalAlignment | undefined;
         style?: {
-            "padding-left"?: number;
-            "padding-right"?: number;
-            head?: string[];
-            border?: string[];
-        };
+            "padding-left"?: number | undefined;
+            "padding-right"?: number | undefined;
+            head?: string[] | undefined;
+            border?: string[] | undefined;
+        } | undefined;
     }
 
     interface GenericTable<T> extends Array<T> {

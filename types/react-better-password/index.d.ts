@@ -6,12 +6,12 @@
 
 import * as React from 'react';
 export interface PasswordProps {
-    className?: string;
-    mask?: '•' | string;
-    onChange?: (value: string) => void;
-    placeholder?: string;
-    show?: boolean;
-    timeout?: number;
-    value?: string;
+    className?: string | undefined;
+    mask?: '•' | string | undefined;
+    onChange?: ((value: string) => void) | undefined;
+    placeholder?: string | undefined;
+    show?: boolean | undefined;
+    timeout?: number | undefined;
+    value?: string | undefined;
 }
 export default class Password extends React.Component<PasswordProps> { }

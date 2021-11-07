@@ -63,24 +63,24 @@ declare namespace gitBranchIs {
          * tested
          * @default ''
          */
-        cwd?: string;
+        cwd?: string | undefined;
         /**
          * Extra arguments to pass to git
          * @default []
          */
-        gitArgs?: string[];
+        gitArgs?: string[] | undefined;
         /**
          * Path to the repository (i.e.
          * <code>--git-dir=</code> option to <code>git</code>).
          * @default ''
          */
-        gitDir?: string;
+        gitDir?: string | undefined;
         /**
          * Git binary name or path to use (default:
          * <code>'git'</code>).
          * @default 'git'
          */
-        gitPath?: string;
+        gitPath?: string | undefined;
     }
 }
 

@@ -10,13 +10,13 @@ declare namespace JQueryAwesomeCursor {
     type cssHandler = (name: string) => void;
 
     interface Options {
-        color?: string;
-        size?: number;
-        hotspot?: number[] | string;
-        flip?: flip;
-        rotate?: number;
-        outline?: string;
-        font?: Font;
+        color?: string | undefined;
+        size?: number | undefined;
+        hotspot?: number[] | string | undefined;
+        flip?: flip | undefined;
+        rotate?: number | undefined;
+        outline?: string | undefined;
+        font?: Font | undefined;
     }
 
     interface Font {

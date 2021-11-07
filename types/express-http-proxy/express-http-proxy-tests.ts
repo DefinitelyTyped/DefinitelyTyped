@@ -58,7 +58,7 @@ proxy("www.google.com", {
 proxy("www.google.com", {
     userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
         console.log(userReq.url, userRes.statusCode);
-        console.log(proxyReq.url, proxyRes.statusCode);
+        console.log(proxyReq.host, proxyRes.statusCode);
         if (headers["content-type"] === "image/png") {
             headers["x-custom-header"] = "additional-info";
         }
@@ -151,5 +151,17 @@ proxy("www.google.com", {
         return new Promise((resolve, reject) => {
             resolve(bodyContent);
         });
+    },
+});
+
+proxy("www.google.com", {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        const contentType = proxyRes.headers["content-type"];
+        if (contentType !== "text/html") {
+            return proxyResData;
+        }
+        // apply some transformation to proxyResData's HTML if you need
+        const modifiedHTML = proxyResData;
+        return modifiedHTML;
     },
 });

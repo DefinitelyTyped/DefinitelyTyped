@@ -14,15 +14,15 @@ var config: sql.config = {
     options: {
         encrypt: true
     },
-    pool: {
-        autostart: true
-    },
-    beforeConnect: conn => {
+    pool: {},
+    beforeConnect: (conn) => {
         conn.on('debug', message => console.info(message));
         conn.on('error', err => console.error(err));
         conn.removeAllListeners();
     }
 }
+
+var connectionString = 'Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true';
 
 var minimalConfig: sql.config = { server: 'ip' };
 
@@ -301,4 +301,124 @@ function test_mssql_errors() {
         err = preparedStatementError.originalError;
         err = transactionError.originalError;
     }
+}
+
+async function test_global_connect_config() {
+    const value = 'test_value';
+    try {
+        let pool = await sql.connect(config)
+        let result1 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+
+        console.dir(result1)
+
+        // Stored procedure
+
+        let result2 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .output('output_parameter', sql.VarChar(50))
+            .execute('procedure_name')
+
+        console.dir(result2)
+    } catch (err) {
+        // ... error checks
+    }
+}
+
+function test_globa_request_callback_config() {
+    const value = 'test_value';
+    sql.connect(config, err => {
+        // ... error checks
+
+        // Query
+
+        new sql.Request().query('select 1 as number', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+
+        // Stored Procedure
+
+        new sql.Request()
+        .input('input_parameter', sql.Int, value)
+        .output('output_parameter', sql.VarChar(50))
+        .execute('procedure_name', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+    })
+}
+
+function test_global_request_promise_config() {
+    const value = 'test_value';
+    sql.connect(connectionString).then(pool => {
+        // Query
+
+        return pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+    }).then(() => { }).catch(err => { });
+}
+
+async function test_global_connect_connection_string() {
+    const value = 'test_value';
+    try {
+        let pool = await sql.connect(connectionString)
+        let result1 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+
+        console.dir(result1)
+
+        // Stored procedure
+
+        let result2 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .output('output_parameter', sql.VarChar(50))
+            .execute('procedure_name')
+
+        console.dir(result2)
+    } catch (err) {
+        // ... error checks
+    }
+}
+
+function test_globa_request_callback_connection_string() {
+    const value = 'test_value';
+    sql.connect(connectionString, err => {
+        // ... error checks
+
+        // Query
+
+        new sql.Request().query('select 1 as number', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+
+        // Stored Procedure
+
+        new sql.Request()
+        .input('input_parameter', sql.Int, value)
+        .output('output_parameter', sql.VarChar(50))
+        .execute('procedure_name', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+    })
+}
+
+function test_global_request_promise_connection_string() {
+    const value = 'test_value';
+    sql.connect(connectionString).then(pool => {
+        // Query
+
+        return pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+    }).then(() => { }).catch(err => { });
 }

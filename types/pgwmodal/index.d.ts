@@ -4,24 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PgwModalOption {
-    content?: string;
-    target?: string;
-    url?: string;
-    title?: string;
-    titleBar?: boolean;
-    mainClassName?: string;
-    backdropClassName?: string;
-    maxWidth?: number;
-    angular?: boolean;
+    content?: string | undefined;
+    target?: string | undefined;
+    url?: string | undefined;
+    title?: string | undefined;
+    titleBar?: boolean | undefined;
+    mainClassName?: string | undefined;
+    backdropClassName?: string | undefined;
+    maxWidth?: number | undefined;
+    angular?: boolean | undefined;
     modalData?: any;
     ajaxOptions?: any;
-    closable?: boolean;
-    closeContent?: string;
-    closeOnEscape?: boolean;
-    closeOnBackgroundClick?: boolean;
-    loadingContent?: string;
-    errorContent?: string;
-    pushContent?: string;
+    closable?: boolean | undefined;
+    closeContent?: string | undefined;
+    closeOnEscape?: boolean | undefined;
+    closeOnBackgroundClick?: boolean | undefined;
+    loadingContent?: string | undefined;
+    errorContent?: string | undefined;
+    pushContent?: string | undefined;
 }
 
 interface PgwModalMethod {

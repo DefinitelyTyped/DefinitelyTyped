@@ -8,7 +8,7 @@ import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 
 declare namespace Serializer {
     interface SerializerOptions {
-        module?: 'esm' | 'ts' | string;
+        module?: 'esm' | 'ts' | string | undefined;
     }
 }
 

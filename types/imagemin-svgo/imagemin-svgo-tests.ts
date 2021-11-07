@@ -1,5 +1,5 @@
-import imagemin = require('imagemin');
-import imageminSvgo = require('imagemin-svgo');
+import imagemin from 'imagemin';
+import imageminSvgo from 'imagemin-svgo';
 
 imagemin(['*.svg'], {
     plugins: [

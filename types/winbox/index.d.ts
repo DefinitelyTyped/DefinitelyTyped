@@ -1,4 +1,4 @@
-// Type definitions for winbox 0.1
+// Type definitions for winbox 0.2
 // Project: https://nextapps-de.github.io/winbox/
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,61 +52,64 @@ declare namespace WinBox {
     }
 
     interface Params {
-        background?: string;
-        body?: HTMLElement;
-        border?: string | number;
-        bottom?: string | number;
-        class?: string | string[];
-        height?: string | number;
-        html?: string;
-        id?: string | number;
-        index?: number;
-        left?: string | number;
-        max?: boolean;
-        modal?: boolean;
-        mount?: Node;
-        right?: string | number;
-        root?: Node;
-        title?: string;
-        top?: string | number;
-        url?: string;
-        width?: string | number;
-        x?: "right" | "center" | string | number;
-        y?: "bottom" | "center" | string | number;
-        onclose?: (this: WinBox, force?: boolean) => boolean;
-        onfocus?: (this: WinBox) => void;
-        onblur?: (this: WinBox) => void;
-        onresize?: (this: WinBox, width: number, height: number) => void;
-        onmove?: (this: WinBox, x: number, y: number) => void;
+        background?: string | undefined;
+        body?: HTMLElement | undefined;
+        border?: string | number | undefined;
+        bottom?: string | number | undefined;
+        class?: string | string[] | undefined;
+        height?: string | number | undefined;
+        html?: string | undefined;
+        id?: string | number | undefined;
+        index?: number | undefined;
+        left?: string | number | undefined;
+        max?: boolean | undefined;
+        minheight?: string | number | undefined;
+        minwidth?: string | number | undefined;
+        modal?: boolean | undefined;
+        mount?: Node | undefined;
+        right?: string | number | undefined;
+        root?: Node | undefined;
+        splitscreen?: boolean | undefined;
+        title?: string | undefined;
+        top?: string | number | undefined;
+        url?: string | undefined;
+        width?: string | number | undefined;
+        x?: "right" | "center" | string | number | undefined;
+        y?: "bottom" | "center" | string | number | undefined;
+        onclose?: ((this: WinBox, force?: boolean) => boolean) | undefined;
+        onfocus?: ((this: WinBox) => void) | undefined;
+        onblur?: ((this: WinBox) => void) | undefined;
+        onresize?: ((this: WinBox, width: number, height: number) => void) | undefined;
+        onmove?: ((this: WinBox, x: number, y: number) => void) | undefined;
     }
 
     interface Params {
-        background?: string;
-        body?: HTMLElement;
-        border?: string | number;
-        bottom?: string | number;
-        class?: string | string[];
-        height?: string | number;
-        html?: string;
-        id?: string | number;
-        index?: number;
-        left?: string | number;
-        max?: boolean;
-        modal?: boolean;
-        mount?: Node;
-        right?: string | number;
-        root?: Node;
-        title?: string;
-        top?: string | number;
-        url?: string;
-        width?: string | number;
-        x?: "right" | "center" | string | number;
-        y?: "bottom" | "center" | string | number;
-        onclose?: (this: WinBox, force?: boolean) => boolean;
-        onfocus?: (this: WinBox) => void;
-        onblur?: (this: WinBox) => void;
-        onresize?: (this: WinBox, width: number, height: number) => void;
-        onmove?: (this: WinBox, x: number, y: number) => void;
+        background?: string | undefined;
+        body?: HTMLElement | undefined;
+        border?: string | number | undefined;
+        bottom?: string | number | undefined;
+        class?: string | string[] | undefined;
+        height?: string | number | undefined;
+        html?: string | undefined;
+        id?: string | number | undefined;
+        index?: number | undefined;
+        left?: string | number | undefined;
+        max?: boolean | undefined;
+        modal?: boolean | undefined;
+        mount?: Node | undefined;
+        right?: string | number | undefined;
+        root?: Node | undefined;
+        title?: string | undefined;
+        top?: string | number | undefined;
+        url?: string | undefined;
+        width?: string | number | undefined;
+        x?: "right" | "center" | string | number | undefined;
+        y?: "bottom" | "center" | string | number | undefined;
+        onclose?: ((this: WinBox, force?: boolean) => boolean) | undefined;
+        onfocus?: ((this: WinBox) => void) | undefined;
+        onblur?: ((this: WinBox) => void) | undefined;
+        onresize?: ((this: WinBox, width: number, height: number) => void) | undefined;
+        onmove?: ((this: WinBox, x: number, y: number) => void) | undefined;
     }
 }
 

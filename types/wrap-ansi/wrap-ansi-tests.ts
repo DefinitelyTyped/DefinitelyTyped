@@ -1,12 +1,11 @@
+import wrapAnsi from "wrap-ansi";
+// tslint:disable-next-line: no-duplicate-imports
 
-
-import wrapAnsi = require("wrap-ansi");
-
-wrapAnsi("input", 80) === "output";
-wrapAnsi("input", 80, {}) === "output";
-wrapAnsi("input", 80, { hard: true }) === "output";
-wrapAnsi("input", 80, { hard: false }) === "output";
-wrapAnsi("input", 80, { trim: true }) === "output";
-wrapAnsi("input", 80, { trim: false }) === "output";
-wrapAnsi("input", 80, { wordWrap: true }) === "output";
-wrapAnsi("input", 80, { wordWrap: false }) === "output";
+wrapAnsi("input", 80); // $ExpectType string
+wrapAnsi("input", 80, {}); // $ExpectType string
+wrapAnsi("input", 80, { hard: true }); // $ExpectType string
+wrapAnsi("input", 80, { hard: false }); // $ExpectType string
+wrapAnsi("input", 80, { trim: true }); // $ExpectType string
+wrapAnsi("input", 80, { trim: false }); // $ExpectType string
+wrapAnsi("input", 80, { wordWrap: true }); // $ExpectType string
+wrapAnsi("input", 80, { wordWrap: false }); // $ExpectType string

@@ -67,7 +67,7 @@ declare global {
                 | `system.host.${string}.${string}`
                 | `0_userdata.0.${string}`;
 
-                // Guaranteed channel objects
+            // Guaranteed channel objects
             type Channel =
                 | `script.js.${"common" | "global"}`
                 | `${string}.${number}.info`;
@@ -126,7 +126,7 @@ declare global {
             T extends ObjectIDs.Group ? GroupObject :
             T extends ObjectIDs.User ? UserObject :
             T extends ObjectIDs.Host ? HostObject :
-            T extends ObjectIDs.Config ? OtherObject & {type: "config"} :
+            T extends ObjectIDs.Config ? OtherObject & { type: "config" } :
             T extends ObjectIDs.AdapterScoped ? AdapterScopedObject :
             Read extends "read" ? ioBroker.Object : AnyObject;
 
@@ -187,7 +187,7 @@ declare global {
                 read?: string;
                 /** An optional conversion function when reading, e.g. `"(val * 9/5) + 32"` */
                 write?: string;
-            };
+            } ;
 
             /**
              * Dictionary of possible values for this state in the form
@@ -680,9 +680,24 @@ declare global {
             acl?: T['acl'];
         } : never;
         // in extend[Foreign]Object, most properties are optional
-        type PartialObjectWorker<T> = T extends AnyObject ? AnyPartialObject & {type?: T["type"]} : never;
+        type PartialObjectWorker<T> = T extends AnyObject ? AnyPartialObject & { type?: T["type"] } : never;
 
-        type SettableObject<T extends AnyObject = AnyObject> = SettableObjectWorker<T>;
         type PartialObject<T extends AnyObject = AnyObject> = PartialObjectWorker<T>;
+
+        // Convenient definitions for manually specifying settable object types
+        type SettableObject<T extends AnyObject = AnyObject> = SettableObjectWorker<T>;
+        type SettableStateObject = SettableObject<StateObject>;
+        type SettableChannelObject = SettableObject<ChannelObject>;
+        type SettableDeviceObject = SettableObject<DeviceObject>;
+        type SettableFolderObject = SettableObject<FolderObject>;
+        type SettableEnumObject = SettableObject<EnumObject>;
+        type SettableMetaObject = SettableObject<MetaObject>;
+        type SettableHostObject = SettableObject<HostObject>;
+        type SettableAdapterObject = SettableObject<AdapterObject>;
+        type SettableInstanceObject = SettableObject<InstanceObject>;
+        type SettableUserObject = SettableObject<UserObject>;
+        type SettableGroupObject = SettableObject<GroupObject>;
+        type SettableScriptObject = SettableObject<ScriptObject>;
+        type SettableOtherObject = SettableObject<OtherObject>;
     }
 }

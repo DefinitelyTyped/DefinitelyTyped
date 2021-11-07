@@ -12,3 +12,6 @@ color.rgba;
 color.hsla;
 color.hsva;
 color.cmyka;
+
+const noKeyword = parseColor('#333');
+noKeyword.keyword; // $ExpectType string | undefined

@@ -1,5 +1,5 @@
 // Type definitions for non-npm package BigQuery Data Transfer API v1 1.0
-// Project: https://cloud.google.com/bigquery/
+// Project: https://cloud.google.com/bigquery-transfer/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

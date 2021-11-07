@@ -13,7 +13,7 @@ export interface LogRecordOptions {
     level: string;
     msg: string;
     meta?: any;
-    tags?: string[];
+    tags?: string[] | undefined;
 }
 
 export interface LogRecord {
@@ -28,7 +28,7 @@ export class LogMessage {
     msg: string;
 
     meta?: any;
-    tags?: string[];
+    tags?: string[] | undefined;
 
     constructor(logRecordOptions: LogRecordOptions, opts: LambdaLogOptions);
 
@@ -44,21 +44,21 @@ export class LogMessage {
 export interface LambdaLogOptions {
     meta?: any;
     // Global tags array to include with every log
-    tags?: string[];
+    tags?: string[] | undefined;
     // Optional function which will run for every log to inject dynamic metadata
-    dynamicMeta?: (message: LogMessage) => any;
+    dynamicMeta?: ((message: LogMessage) => any) | undefined;
     // Enable debugging mode (log.debug messages)
-    debug?: boolean;
+    debug?: boolean | undefined;
     // Enable development mode which pretty-prints the log object to the console
-    dev?: boolean;
+    dev?: boolean | undefined;
     // Disables logging to the console (used for testing)
-    silent?: boolean;
+    silent?: boolean | undefined;
     // Optional replacer function for `JSON.stringify`
-    replacer?: (key: string, value: any) => any;
+    replacer?: ((key: string, value: any) => any) | undefined;
     // Optional stream to write stdout messages to
-    stdoutStream?: WriteStream;
+    stdoutStream?: WriteStream | undefined;
     // Optional stream to write stderr messages to
-    stderrStream?: WriteStream;
+    stderrStream?: WriteStream | undefined;
 }
 
 export interface LogLevels {

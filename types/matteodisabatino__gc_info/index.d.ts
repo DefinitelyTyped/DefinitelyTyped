@@ -65,17 +65,17 @@ export interface GcStats {
     /**
      * Number of bytes of memory allocated outside of v8's heap. (Node.js 12+)
      */
-    externalMemory?: number;
+    externalMemory?: number | undefined;
 
     /**
      * Size of all global handles in the heap. (Node.js 14+)
      */
-    totalGlobalHandlesSize?: number;
+    totalGlobalHandlesSize?: number | undefined;
 
     /**
      * Size of all allocated/used global handles in the heap. (Node.js 14+)
      */
-    usedGlobalHandlesSize?: number;
+    usedGlobalHandlesSize?: number | undefined;
 }
 
 export interface GcInfo {

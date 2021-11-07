@@ -9,12 +9,12 @@ import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    condition?: Condition;
-    extent?: Extent_1;
-    boxStyle?: StyleLike;
-    pixelTolerance?: number;
-    pointerStyle?: StyleLike;
-    wrapX?: boolean;
+    condition?: Condition | undefined;
+    extent?: Extent_1 | undefined;
+    boxStyle?: StyleLike | undefined;
+    pixelTolerance?: number | undefined;
+    pointerStyle?: StyleLike | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class Extent extends PointerInteraction {
     constructor(opt_options?: Options);
@@ -68,7 +68,7 @@ export default class Extent extends PointerInteraction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-declare class ExtentEvent extends BaseEvent {
+export class ExtentEvent extends BaseEvent {
     constructor(extent: Extent_1);
     /**
      * The current extent.

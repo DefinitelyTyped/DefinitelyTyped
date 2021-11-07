@@ -59,7 +59,7 @@ declare namespace CsvAsync {
     type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
 
     interface CastingContext {
-        readonly column?: number | string;
+        readonly column?: number | string | undefined;
         readonly empty_lines: number;
         readonly header: boolean;
         readonly index: number;
@@ -73,80 +73,80 @@ declare namespace CsvAsync {
         /**
          * Define the number of generated fields and the generation method.
          */
-        columns?: number | string[];
+        columns?: number | string[] | undefined;
 
         /**
          * Set the field delimiter.
          */
-        delimiter?: string;
+        delimiter?: string | undefined;
 
         /**
          * Period to run in milliseconds.
          */
-        duration?: number;
+        duration?: number | undefined;
 
         /**
          * If specified, then buffers will be decoded to strings using the
          * specified encoding.
          */
-        encoding?: string;
+        encoding?: string | undefined;
 
         /**
          * When to stop the generation.
          */
-        end?: number | Date;
+        end?: number | Date | undefined;
 
         /**
          * One or multiple characters to print at the end of the file; only
          * apply when objectMode is disabled.
          */
-        eof?: boolean | string;
+        eof?: boolean | string | undefined;
 
         /**
          * Generate buffers equals length as defined by the
          * `highWaterMark` option.
          */
-        fixed_size?: boolean;
-        fixedSize?: boolean;
+        fixed_size?: boolean | undefined;
+        fixedSize?: boolean | undefined;
 
         /**
          * The maximum number of bytes to store in the internal buffer before
          * ceasing to read from the underlying resource.
          */
-        high_water_mark?: number;
-        highWaterMark?: number;
+        high_water_mark?: number | undefined;
+        highWaterMark?: number | undefined;
 
         /**
          * Number of lines or records to generate.
          */
-        length?: number;
+        length?: number | undefined;
 
         /**
          * Maximum number of characters per word.
          */
-        max_word_length?: number;
-        maxWordLength?: number;
+        max_word_length?: number | undefined;
+        maxWordLength?: number | undefined;
 
         /**
          * Whether this stream should behave as a stream of objects.
          */
-        object_mode?: boolean;
-        objectMode?: boolean;
+        object_mode?: boolean | undefined;
+        objectMode?: boolean | undefined;
 
         /**
          * One or multiple characters used to delimit records.
          */
-        row_delimiter?: string;
+        row_delimiter?: string | undefined;
 
         /**
          * Generate idempotent random characters if a number provided.
          */
-        seed?: boolean | number;
+        seed?: boolean | number | undefined;
 
         /**
          * The time to wait between the generation of each records
          */
-        sleep?: number;
+        sleep?: number | undefined;
     }
 
     interface CsvParseOptions {
@@ -156,7 +156,7 @@ declare namespace CsvAsync {
          *
          * @deprecated Use {@link cast}
          */
-        auto_parse?: boolean | CastingFunction;
+        auto_parse?: boolean | CastingFunction | undefined;
 
         /**
          * If true, the parser will attempt to convert read data types to dates.
@@ -164,13 +164,13 @@ declare namespace CsvAsync {
          *
          * @deprecated Use {@link cast_date}
          */
-        auto_parse_date?: boolean | CastingDateFunction;
+        auto_parse_date?: boolean | CastingDateFunction | undefined;
 
         /**
          * If true, detect and exclude the byte order mark (BOM) from the CSV
          * input, if present.
          */
-        bom?: boolean;
+        bom?: boolean | undefined;
 
         /**
          * If true, the parser will attempt to convert input string to native
@@ -178,7 +178,7 @@ declare namespace CsvAsync {
          * as second argument and return a new value. More information about the
          * context properties is available below.
          */
-        cast?: boolean | CastingFunction;
+        cast?: boolean | CastingFunction | undefined;
 
         /**
          * If true, the parser will attempt to convert input string to dates.
@@ -186,7 +186,7 @@ declare namespace CsvAsync {
          * It requires the "auto_parse" option. Be careful, it relies
          * on `Date.parse`.
          */
-        cast_date?: boolean | CastingDateFunction;
+        cast_date?: boolean | CastingDateFunction | undefined;
 
         /**
          * List of fields as an array, a user defined callback accepting the
@@ -194,130 +194,130 @@ declare namespace CsvAsync {
          * in the first CSV line. Defaults to null. Affects the result data set
          * in the sense that records will be objects instead of arrays.
          */
-        columns?: ColumnOption[] | boolean | ((record: any) => ColumnOption[]);
+        columns?: ColumnOption[] | boolean | ((record: any) => ColumnOption[]) | undefined;
 
         /**
          * Treat all the characters after this one as a comment.
          * Default to '' (disabled).
          */
-        comment?: string;
+        comment?: string | undefined;
 
         /**
          * Set the field delimiter. One character only, defaults to comma.
          */
-        delimiter?: string | Buffer;
+        delimiter?: string | Buffer | undefined;
 
         /**
          * Set the escape character, one character only.
          * Defaults to double quotes.
          */
-        escape?: string | Buffer;
+        escape?: string | Buffer | undefined;
 
         /**
          * Start handling records from the requested number of records.
          */
-        from?: number;
+        from?: number | undefined;
 
         /**
          * Start handling records from the requested line number.
          */
-        from_line?: number;
+        from_line?: number | undefined;
 
         /**
          * Generate two properties `info` and `record` where `info` is a
          * snapshot of the info object at the time the record was created and
          * `record` is the parsed array or object.
          */
-        info?: boolean;
+        info?: boolean | undefined;
 
         /**
          * If true, ignore whitespace immediately following the delimiter (i.e.
          * left-trim all fields), defaults to false. Does not remove whitespace
          * in a quoted field.
          */
-        ltrim?: boolean;
+        ltrim?: boolean | undefined;
 
         /**
          * Maximum number of characters to be contained in the field and line
          * buffers before an exception is raised, used to guard against a wrong
          * delimiter or `record_delimiter`, default to 128,000 characters.
          */
-        max_record_size?: number;
+        max_record_size?: number | undefined;
 
         /**
          * Name of header-record title to name objects by.
          */
-        objname?: string;
+        objname?: string | undefined;
 
         /**
          * Optional character surrounding a field, one character only, defaults
          * to double quotes.
          */
-        quote?: string | boolean | Buffer;
+        quote?: string | boolean | Buffer | undefined;
 
         /**
          * Generate two properties raw and row where raw is the original CSV row
          * content and row is the parsed array or object.
          */
-        raw?: boolean;
+        raw?: boolean | undefined;
 
         /**
          * Preserve quotes inside unquoted field.
          */
-        relax?: boolean;
+        relax?: boolean | undefined;
 
         /**
          * Discard inconsistent columns count, default to false.
          */
-        relax_column_count?: boolean;
+        relax_column_count?: boolean | undefined;
 
         /**
          * One or multiple characters used to delimit record rows; defaults to
          * auto discovery if not provided. Supported auto discovery method are
          * Linux ("\n"), Apple ("\r") and Windows ("\r\n") row delimiters.
          */
-        record_delimiter?: string | string[] | Buffer | Buffer[];
+        record_delimiter?: string | string[] | Buffer | Buffer[] | undefined;
 
         /**
          * If true, ignore whitespace immediately preceding the delimiter (i.e.
          * right-trim all fields), defaults to false. Does not remove whitespace
          * in a quoted field.
          */
-        rtrim?: boolean;
+        rtrim?: boolean | undefined;
 
         /**
          * Dont generate empty values for empty lines.
          * Defaults to false
          */
-        skip_empty_lines?: boolean;
+        skip_empty_lines?: boolean | undefined;
 
         /**
          * Skip a line with error found inside and directly go process the
          * next line.
          */
-        skip_lines_with_error?: boolean;
+        skip_lines_with_error?: boolean | undefined;
 
         /**
          * Don't generate records for lines containing empty column values
          * (column matching /\s*\/), defaults to false.
          */
-        skip_lines_with_empty_values?: boolean;
+        skip_lines_with_empty_values?: boolean | undefined;
 
         /**
          * Stop handling records after the requested number of records.
          */
-        to?: number;
+        to?: number | undefined;
 
         /**
          * Stop handling records after the requested line number.
          */
-        to_line?: number;
+        to_line?: number | undefined;
 
         /**
          * If `true`, ignore whitespace immediately around the delimiter,
          * defaults to `false`. Does not remove whitespace in a quoted field.
          */
-        trim?: boolean;
+        trim?: boolean | undefined;
     }
 
     interface CsvStringifyOptions {
@@ -325,16 +325,16 @@ declare namespace CsvAsync {
          * Key-value object which defines custom cast for certain data types
          */
         cast?: {
-            boolean?: Cast<boolean>;
-            date?: Cast<Date>;
-            number?: Cast<number>;
+            boolean?: Cast<boolean> | undefined;
+            date?: Cast<Date> | undefined;
+            number?: Cast<number> | undefined;
 
             /**
              * Custom formatter for generic object values
              */
-            object?: Cast<Record<string, any>>;
-            string?: Cast<string>;
-        };
+            object?: Cast<Record<string, any>> | undefined;
+            string?: Cast<string> | undefined;
+        } | undefined;
 
         /**
          * List of fields, applied when `transform` returns an object, the order
@@ -344,61 +344,61 @@ declare namespace CsvAsync {
          * see the "header" option on how to print columns names on the
          * first line.
          */
-        columns?: string[] | PlainObject<string> | ParseColumnOption[];
+        columns?: string[] | PlainObject<string> | ParseColumnOption[] | undefined;
 
         /**
          * Set the field delimiter, one character only, defaults to a comma.
          */
-        delimiter?: string | Buffer;
+        delimiter?: string | Buffer | undefined;
 
         /**
          * Add the value of "options.RecordDelimiter" on the last line, default
          * to true.
          */
-        eof?: boolean;
+        eof?: boolean | undefined;
 
         /**
          * Defaults to the escape read option.
          */
-        escape?: string | Buffer;
-        header?: boolean;
+        escape?: string | Buffer | undefined;
+        header?: boolean | undefined;
 
         /**
          * The quote characters, defaults to the ", an empty quote value will
          * preserve the original field.
          */
-        quote?: string | Buffer | boolean;
+        quote?: string | Buffer | boolean | undefined;
 
         /**
          * Boolean, default to false, quote all the non-empty fields even if
          * not required.
          */
-        quoted?: boolean;
+        quoted?: boolean | undefined;
 
         /**
          * Boolean, no default, quote empty fields and overrides `quoted_string`
          * on empty strings when defined.
          */
-        quoted_empty?: boolean;
+        quoted_empty?: boolean | undefined;
 
         /**
          * Boolean, default to false, quote all fields matching a
          * regular expression.
          */
-        quoted_match?: boolean;
+        quoted_match?: boolean | undefined;
 
         /**
          * Boolean, default to false, quote all fields of type string even if
          * not required.
          */
-        quoted_string?: boolean;
+        quoted_string?: boolean | undefined;
 
         /**
          * String used to delimit record rows or a special value. Special values
          * are 'auto', 'unix', 'mac', 'windows', 'ascii', 'unicode'. Defaults
          * to 'auto' (discovered in source or 'unix' if no source is specified).
          */
-        record_delimiter?: RecordDelimiter;
+        record_delimiter?: RecordDelimiter | undefined;
     }
 
     interface TransformOptions {
@@ -406,13 +406,13 @@ declare namespace CsvAsync {
          * In the absence of a consumer, like a `stream.Readable`, trigger the
          * consumption of the stream.
          */
-        consume?: boolean;
+        consume?: boolean | undefined;
 
         /**
          * The number of transformation callbacks to run in parallel; only apply
          * with asynchronous handlers; default to "100".
          */
-        parallel?: number;
+        parallel?: number | undefined;
 
         /**
          * Pass user defined parameters to the user handler as last argument.

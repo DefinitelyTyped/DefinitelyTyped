@@ -44,18 +44,18 @@ declare namespace WebpackBar {
 
   interface Options {
     /** Display name */
-    name?: string;
+    name?: string | undefined;
     /** Color output of the progress bar */
-    color?: string;
+    color?: string | undefined;
     /** Enable the profiler for files and loaders */
-    profile?: boolean;
+    profile?: boolean | undefined;
     /** Stream to write to */
-    stream?: NodeJS.WriteStream;
+    stream?: NodeJS.WriteStream | undefined;
     /** Minimal output */
-    minimal?: boolean;
+    minimal?: boolean | undefined;
     /** Show compiled in time */
-    compiledIn?: boolean;
+    compiledIn?: boolean | undefined;
     /** Function called when all builds are finished */
-    done?: (sharedState: SharedState, ctx: WebpackBar) => void;
+    done?: ((sharedState: SharedState, ctx: WebpackBar) => void) | undefined;
   }
 }

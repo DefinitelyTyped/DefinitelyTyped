@@ -3,7 +3,8 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "dom.iterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

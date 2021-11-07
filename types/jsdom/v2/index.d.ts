@@ -43,20 +43,20 @@ export interface VirtualConsoleOptions {
 }
 
 export interface WindowProperties {
-    parsingMode?: string; // html, xml, auto, undefined
-    contentType?: string;
+    parsingMode?: string | undefined; // html, xml, auto, undefined
+    contentType?: string | undefined;
     parser?: any;
-    url?: string;
-    referrer?: string;
-    cookieJar?: CookieJar;
-    cookie?: string;
+    url?: string | undefined;
+    referrer?: string | undefined;
+    cookieJar?: CookieJar | undefined;
+    cookie?: string | undefined;
     resourceLoader?: any;
-    deferClose?: boolean;
-    concurrentNodeIterators?: number;
-    virtualConsole?: VirtualConsole;
-    created?: (something: any, window: Window) => any;
-    features?: FeatureOptions;
-    top?: Window;
+    deferClose?: boolean | undefined;
+    concurrentNodeIterators?: number | undefined;
+    virtualConsole?: VirtualConsole | undefined;
+    created?: ((something: any, window: Window) => any) | undefined;
+    features?: FeatureOptions | undefined;
+    top?: Window | undefined;
 }
 
 // tough-cookie
@@ -109,7 +109,7 @@ export interface FeatureOptions {
      * Allowed: ["script", "img", "css", "frame", "iframe", "link"] or false
      * Default for jsdom.env: false
      */
-    FetchExternalResources?: string[] | boolean;
+    FetchExternalResources?: string[] | boolean | undefined;
 
     /**
      * Enables/disables JavaScript execution
@@ -117,7 +117,7 @@ export interface FeatureOptions {
      * Allowed: ["script"] or false, 
      * Default for jsdom.env: false
      */
-    ProcessExternalResources?: string[] | boolean;
+    ProcessExternalResources?: string[] | boolean | undefined;
 
     /**
      * Filters resource downloading and processing to disallow those matching the given regular expression
@@ -125,60 +125,60 @@ export interface FeatureOptions {
      * Allowed: /url to be skipped/ or false
      * Example: /http:\/\/example.org/js/bad\.js/
      */
-    SkipExternalResources?: string | boolean;
+    SkipExternalResources?: string | boolean | undefined;
 }
 
 export interface EnvDocument {
     /**
      * the new document will have this referrer.
      */
-    referrer?: string;
+    referrer?: string | undefined;
     /**
      * manually set a cookie value, e.g. 'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'.
      */
-    cookie?: string;
+    cookie?: string | undefined;
     /**
      * a cookie domain for the manually set cookie; defaults to 127.0.0.1.
      */
-    cookieDomain?: string;
+    cookieDomain?: string | undefined;
 }
 
 export interface Config {
     /**
      * a HTML fragment
      */
-    html?: string;
+    html?: string | undefined;
     /**
      * a file which jsdom will load HTML from; the resulting window's location.href will be a file:// URL.
      */
-    file?: string;
+    file?: string | undefined;
     /**
      * sets the resulting window's location.href; if config.html and config.file are not provided, jsdom will load HTML from this URL
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * a string or array of strings, containing file names or URLs that will be inserted as <script> tags
      */
-    scripts?: string[];
+    scripts?: string[] | undefined;
     /**
      * an array of JavaScript strings that will be evaluated against the resulting document. Similar to scripts, but it accepts JavaScript instead of paths/URLs.
      */
-    src?: string[];
+    src?: string[] | undefined;
     /**
      * a custom cookie jar, if desired; see mikeal/request documentation.
      */
-    jar?: CookieJar;
+    jar?: CookieJar | undefined;
     /**
      *  either "auto", "html", or "xml". The default is "auto", which uses HTML behavior unless config.url responds with an XML Content-Type, or config.file contains a filename ending in .xml or .xhtml. Setting to "xml" will attempt to parse the document as an XHTML document. (jsdom is currently only OK at doing that.)
      */
-    parsingMode?: string;
-    document?: EnvDocument;
+    parsingMode?: string | undefined;
+    document?: EnvDocument | undefined;
     /**
      * Note: the default feature set for jsdom.env does not include fetching remote JavaScript and executing it. This is something that you will need to carefully enable yourself.
      */
-    features?: FeatureOptions;
+    features?: FeatureOptions | undefined;
 
-    virtualConsole?: VirtualConsole;
+    virtualConsole?: VirtualConsole | undefined;
 
     /**
      * Now that you know about created and loaded, you can see that done is essentially both of them smashed together:
@@ -186,14 +186,14 @@ export interface Config {
      * If window creation succeeds but there are script errors, then errors will be an array containing those errors, but window will still be usable.
      * If window creation fails, then errors will be an array containing the creation error, and window will not be passed.
      */
-    done?: Callback;
+    done?: Callback | undefined;
     /**
      * The loaded callback is called along with the window's 'load' event. This means it will only be called if creation succeeds without error. Note that by the time it has called, any external resources will have been downloaded, and any <script>s will have finished executing. If errors is non-null, it will contain an array of all JavaScript errors that occured during script execution. window will still be passed, however.
      */
-    loaded?: Callback;
+    loaded?: Callback | undefined;
 
     /**
      * The created callback is called as soon as the window is created, or if that process fails. You may access all window properties here; however, window.document is not ready for use yet, as the HTML has not been parsed. The primary use-case for created is to modify the window object (e.g. add new functions on built-in prototypes) before any scripts execute. You can also set an event handler for 'load' or other events on the window if you wish. But the loaded callback, below, can be more useful, since it includes script errors. If the error argument is non-null, it will contain whatever loading error caused the window creation to fail; in that case window will not be passed.
      */
-    created?: (error: Error, window: Window) => void;
+    created?: ((error: Error, window: Window) => void) | undefined;
 }

@@ -1,6 +1,6 @@
 // Type definitions for connect-pg-simple 4.2
 // Project: https://github.com/voxpelli/node-connect-pg-simple#readme
-// Definitions by: Pasi Eronen <https://github.com/pasieronen>
+// Definitions by: Pasi Eronen <https://github.com/pasieronen>, Samar Mohan <https://github.com/samarmohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -23,15 +23,16 @@ declare namespace connectPgSimple {
       touch(sid: string, session: SessionData, callback?: () => void): void;
   }
   interface PGStoreOptions {
-      pool?: Pool;
-      pgPromise?: object; // not typed to avoid dependency to "pg-promise" module (which includes its own types)
-      conString?: string;
-      conObject?: PoolConfig;
-      ttl?: number;
-      schemaName?: string;
-      tableName?: string;
-      pruneSessionInterval?: false | number;
-      errorLog?: (...args: any[]) => void;
+      pool?: Pool | undefined;
+      pgPromise?: object | undefined; // not typed to avoid dependency to "pg-promise" module (which includes its own types)
+      conString?: string | undefined;
+      conObject?: PoolConfig | undefined;
+      ttl?: number | undefined;
+      createTableIfMissing?: boolean | undefined;
+      schemaName?: string | undefined;
+      tableName?: string | undefined;
+      pruneSessionInterval?: false | number | undefined;
+      errorLog?: ((...args: any[]) => void) | undefined;
   }
 }
 

@@ -258,10 +258,7 @@ braintree.client.create(
                 hostedFieldsInstance.clear('expirationDate');
 
                 const state = braintree.hostedFields.getState();
-
-                const formValid = Object.keys(state.fields).every(key => {
-                    return state.fields[key].isValid;
-                });
+                Object.keys(state.fields).map(k => k as keyof typeof state.fields).every(k => state.fields[k].isValid);
 
                 hostedFieldsInstance.focus('cardholderName');
                 hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {

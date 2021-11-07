@@ -21,15 +21,15 @@ export interface StrategyOption extends passport.AuthenticateOptions {
     clientSecret: string;
     callbackURL: string;
 
-    scope?: string[];
-    userAgent?: string;
+    scope?: string[] | undefined;
+    userAgent?: string | undefined;
 
-    authorizationURL?: string;
-    tokenURL?: string;
-    scopeSeparator?: string;
-    customHeaders?: OutgoingHttpHeaders;
-    userProfileURL?: string;
-    userEmailURL?: string;
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    scopeSeparator?: string | undefined;
+    customHeaders?: OutgoingHttpHeaders | undefined;
+    userProfileURL?: string | undefined;
+    userEmailURL?: string | undefined;
 }
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
@@ -42,20 +42,20 @@ export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequir
     clientSecret: string;
     callbackURL: string;
 
-    scope?: string[];
-    userAgent?: string;
-    state?: string;
+    scope?: string[] | undefined;
+    userAgent?: string | undefined;
+    state?: string | undefined;
 
-    authorizationURL?: string;
-    tokenURL?: string;
-    scopeSeparator?: string;
-    customHeaders?: OutgoingHttpHeaders;
-    userProfileURL?: string;
-    userEmailURL?: string;
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    scopeSeparator?: string | undefined;
+    customHeaders?: OutgoingHttpHeaders | undefined;
+    userProfileURL?: string | undefined;
+    userEmailURL?: string | undefined;
 }
 
 export interface StrategyOptions extends _StrategyOptionsBase {
-    passReqToCallback?: false;
+    passReqToCallback?: false | undefined;
 }
 export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
     passReqToCallback: true;

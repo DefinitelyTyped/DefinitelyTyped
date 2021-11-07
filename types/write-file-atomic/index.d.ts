@@ -20,12 +20,12 @@ declare namespace writeFile {
         chown?: {
             uid: number;
             gid: number;
-        };
+        } | undefined;
         /**
          * @default 'utf8'
          */
-        encoding?: BufferEncoding;
-        fsync?: boolean;
-        mode?: number;
+        encoding?: BufferEncoding | undefined;
+        fsync?: boolean | undefined;
+        mode?: number | undefined;
     }
 }

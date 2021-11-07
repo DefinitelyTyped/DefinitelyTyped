@@ -75,10 +75,10 @@ interface Auth0Static {
 interface Auth0ClientOptions {
     clientID: string;
     callbackURL: string;
-    callbackOnLocationHash?: boolean;
-    responseType?: string;
+    callbackOnLocationHash?: boolean | undefined;
+    responseType?: string | undefined;
     domain: string;
-    forceJSONP?: boolean;
+    forceJSONP?: boolean | undefined;
 }
 
 /** Represents a normalized UserProfile. */
@@ -138,14 +138,14 @@ interface Auth0PopupOptions {
 }
 
 interface Auth0LoginOptions {
-    auto_login?: boolean;
-    responseType?: string;
-    connection?: string;
-    email?: string;
-    username?: string;
-    password?: string;
-    popup?: boolean;
-    popupOptions?: Auth0PopupOptions;
+    auto_login?: boolean | undefined;
+    responseType?: string | undefined;
+    connection?: string | undefined;
+    email?: string | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    popup?: boolean | undefined;
+    popupOptions?: Auth0PopupOptions | undefined;
 }
 
 interface Auth0SignupOptions extends Auth0LoginOptions {

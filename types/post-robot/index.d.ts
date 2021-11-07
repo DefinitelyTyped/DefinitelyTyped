@@ -12,17 +12,21 @@ type ZalgoPromise<T> = Promise<T>;
 // For the purposes of using the library on it's own Window is CrossDomain enough
 type CrossDomainWindowType = Window | null;
 type DomainMatcher = string | RegExp | string[];
-type HandlerType = (source: CrossDomainWindowType, origin: string, data: object) => void | ZalgoPromise<any>;
+type HandlerType = (event: {
+    source: CrossDomainWindowType,
+    origin: string,
+    data: any
+}) => ZalgoPromise<any>;
 type ErrorHandlerType = (err: any) => void;
 
 interface ServerOptionsType {
-    handler?: HandlerType;
-    errorHandler?: ErrorHandlerType;
-    window?: CrossDomainWindowType;
-    name?: string;
-    domain?: DomainMatcher;
-    once?: boolean;
-    errorOnClose?: boolean;
+    handler?: HandlerType | undefined;
+    errorHandler?: ErrorHandlerType | undefined;
+    window?: CrossDomainWindowType | undefined;
+    name?: string | undefined;
+    domain?: DomainMatcher | undefined;
+    once?: boolean | undefined;
+    errorOnClose?: boolean | undefined;
 }
 
 interface CancelableType {
@@ -39,9 +43,9 @@ export function once(
 ): ZalgoPromise<{ source: any; origin: string; data: object }>;
 
 interface RegularRequestOptionsType {
-    domain?: DomainMatcher;
-    fireAndForget?: false;
-    timeout?: number;
+    domain?: DomainMatcher | undefined;
+    fireAndForget?: false | undefined;
+    timeout?: number | undefined;
 }
 
 interface ResponseMessageEvent {
@@ -51,9 +55,9 @@ interface ResponseMessageEvent {
 }
 
 interface FireAndForgetRequestOptionsType {
-    domain?: DomainMatcher;
-    fireAndForget?: true;
-    timeout?: number;
+    domain?: DomainMatcher | undefined;
+    fireAndForget?: true | undefined;
+    timeout?: number | undefined;
 }
 
 // based on https://github.com/post-robot/src/public/send.js

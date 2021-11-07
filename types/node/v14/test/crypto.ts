@@ -73,6 +73,12 @@ import { promisify } from 'util';
 }
 
 {
+    // update Hmac with base64url encoded string
+    const message = Buffer.from('message').toString('base64url');
+    crypto.createHmac('sha256', 'key').update(message, 'base64url').digest();
+}
+
+{
     // crypto_cipher_decipher_string_test
     const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
     const clearText = 'This is the clear text.';
@@ -354,6 +360,13 @@ import { promisify } from 'util';
     crypto.randomFill(i32arr, (err: Error | null, buf: Int32Array) => void {});
     crypto.randomFill(i32arr, 2, (err: Error | null, buf: Int32Array) => void {});
     crypto.randomFill(i32arr, 2, 3, (err: Error | null, buf: Int32Array) => void {});
+}
+
+{
+    crypto.randomUUID({});
+    crypto.randomUUID({ disableEntropyCache: true });
+    crypto.randomUUID({ disableEntropyCache: false });
+    crypto.randomUUID();
 }
 
 {

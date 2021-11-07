@@ -22,6 +22,8 @@ export class TorusGeometry extends BufferGeometry {
         tubularSegments: number;
         arc: number;
     };
+
+    static fromJSON(data: any): TorusGeometry;
 }
 
 export { TorusGeometry as TorusBufferGeometry };

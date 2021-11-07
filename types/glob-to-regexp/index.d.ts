@@ -11,8 +11,8 @@ declare function GlobToRegExp(glob: string, options?: GlobToRegExp.Options): Reg
 
 declare namespace GlobToRegExp {
     interface Options {
-        extended?: boolean;
-        globstar?: boolean;
-        flags   ?: string;
+        extended?: boolean | undefined;
+        globstar?: boolean | undefined;
+        flags   ?: string | undefined;
     }
 }

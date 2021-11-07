@@ -962,7 +962,7 @@ interface GeneralCallbackResult {
     /**
      * 错误信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface SubNVue {
@@ -995,7 +995,7 @@ interface SubNVuesSetStyleOptions {
      * - absolute: 原生子窗体在页面中绝对定位
      * - dock: 原生子窗体在页面中停靠
      */
-    position?: 'static' | 'absolute' | 'dock';
+    position?: 'static' | 'absolute' | 'dock' | undefined;
     /**
      * 原生子窗体的停靠方式,仅当原生子窗体 "position" 属性值设置为 "dock" 时才生效
      * - top: 原生子窗体停靠则页面顶部
@@ -1003,47 +1003,47 @@ interface SubNVuesSetStyleOptions {
      * - left: 原生子窗体停靠在页面左侧
      * - right: 原生子窗体停靠在页面右侧
      */
-    dock?: 'top' | 'bottom' | 'left' | 'right';
+    dock?: 'top' | 'bottom' | 'left' | 'right' | undefined;
     /**
      * 原生子窗体的内置样式
      * - popup: 弹出层
      * - navigationBar: 导航栏
      */
-    type?: 'popup' | 'navigationBar';
+    type?: 'popup' | 'navigationBar' | undefined;
     /**
      * 原生子窗体的遮罩层,仅当原生子窗体 "type" 属性值设置为 "popup" 时才生效
      * - popup: 弹出层
      * - navigationBar: 导航栏
      */
-    mask?: 'popup' | 'navigationBar';
+    mask?: 'popup' | 'navigationBar' | undefined;
     /**
      * 原生子窗体的宽度
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 原生子窗体的高度
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 原生子窗体垂直向下的偏移量
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 原生子窗体垂直向上的偏移量
      */
-    bottom?: string;
+    bottom?: string | undefined;
     /**
      * 原生子窗体水平向左的偏移量
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 原生子窗体水平向右的偏移量
      */
-    right?: string;
+    right?: string | undefined;
     /**
      * 原生子窗体的边距
      */
-    margin?: string;
+    margin?: string | undefined;
 }
 
 interface RequestPaymentOptions {
@@ -1054,54 +1054,54 @@ interface RequestPaymentOptions {
      * - baidu: 百度收银台
      * - appleiap: 苹果应用内支付
      */
-    provider?: 'alipay' | 'wxpay' | 'baidu' | 'appleiap';
+    provider?: 'alipay' | 'wxpay' | 'baidu' | 'appleiap' | undefined;
     /**
      * 订单数据
      */
-    orderInfo?: string;
+    orderInfo?: string | undefined;
     /**
      * 时间戳从1970年1月1日至今的秒数，即当前的时间，微信小程序独有
      */
-    timeStamp?: string;
+    timeStamp?: string | undefined;
     /**
      * 随机字符串，长度为32个字符以下，微信小程序独有 。
      */
-    nonceStr?: string;
+    nonceStr?: string | undefined;
     /**
      * 统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id=xx，微信小程序独有
      */
-    package?: string;
+    package?: string | undefined;
     /**
      * 签名算法，暂支持 MD5 ，微信小程序独有
      */
-    signType?: string;
+    signType?: string | undefined;
     /**
      * 签名，具体签名方案参见小程序支付接口文档，微信小程序独有
      */
-    paySign?: string;
+    paySign?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface RequestOptions {
     /**
      * 资源url
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * 请求的参数
      */
-    data?: string | object | ArrayBuffer;
+    data?: string | object | ArrayBuffer | undefined;
     /**
      * 设置请求的 header，header 中不能设置 Referer。
      */
@@ -1110,38 +1110,38 @@ interface RequestOptions {
      * 默认为 GET
      * 可以是：OPTIONS，GET，HEAD，POST，PUT，DELETE，TRACE，CONNECT
      */
-    method?: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT';
+    method?: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined;
     /**
      * 如果设为json，会尝试对返回的数据做一次 JSON.parse
      */
-    dataType?: string;
+    dataType?: string | undefined;
     /**
      * 设置响应的数据类型。合法值：text、arraybuffer
      */
-    responseType?: string;
+    responseType?: string | undefined;
     /**
      * 成功返回的回调函数
      */
-    success?: (result: RequestSuccessCallbackResult) => void;
+    success?: ((result: RequestSuccessCallbackResult) => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: (result: GeneralCallbackResult) => void;
+    fail?: ((result: GeneralCallbackResult) => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: (result: GeneralCallbackResult) => void;
+    complete?: ((result: GeneralCallbackResult) => void) | undefined;
 }
 
 interface RequestSuccessCallbackResult {
     /**
      * 开发者服务器返回的数据
      */
-    data?: string;
+    data?: string | undefined;
     /**
      * 开发者服务器返回的 HTTP 状态码
      */
-    statusCode?: number;
+    statusCode?: number | undefined;
     /**
      * 开发者服务器返回的 HTTP Response Header
      */
@@ -1159,26 +1159,26 @@ interface UploadFileOption {
     /**
      * 开发者服务器 url
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * 文件类型，image/video/audio，仅支付宝小程序，且必填。
      * - image: 图像
      * - video: 视频
      * - audio: 音频
      */
-    fileType?: 'image' | 'video' | 'audio';
+    fileType?: 'image' | 'video' | 'audio' | undefined;
     /**
      * 要上传文件资源的路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * 文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 需要上传的文件列表。使用 files 时，filePath 和 name 不生效。仅 5+App 支持
      */
-    files?: UploadFileOptionFiles [];
+    files?: UploadFileOptionFiles [] | undefined;
     /**
      * HTTP 请求 Header, header 中不能设置 Referer
      */
@@ -1190,26 +1190,26 @@ interface UploadFileOption {
     /**
      * 成功返回的回调函数
      */
-    success?: (result: UploadFileSuccessCallbackResult) => void;
+    success?: ((result: UploadFileSuccessCallbackResult) => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: (result: GeneralCallbackResult) => void;
+    fail?: ((result: GeneralCallbackResult) => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: (result: GeneralCallbackResult) => void;
+    complete?: ((result: GeneralCallbackResult) => void) | undefined;
 }
 
 interface UploadFileOptionFiles {
     /**
      * multipart 提交时，表单的项目名，默认为 file，如果 name 不填或填的值相同，可能导致服务端读取文件时只能读取到一个文件。
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 要上传文件资源的路径
      */
-    uri?: string;
+    uri?: string | undefined;
 }
 
 interface UploadTask {
@@ -1227,22 +1227,22 @@ interface OnProgressUpdateResult {
     /**
      * 上传进度百分比
      */
-    progress?: number;
+    progress?: number | undefined;
     /**
      * 已经上传的数据长度，单位 Bytes
      */
-    totalBytesSent?: number;
+    totalBytesSent?: number | undefined;
     /**
      * 预期需要上传的数据总长度，单位 Bytes
      */
-    totalBytesExpectedToSend?: number;
+    totalBytesExpectedToSend?: number | undefined;
 }
 
 interface DownloadFileOption {
     /**
      * 下载资源的 url
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * HTTP 请求 Header，header 中不能设置 Referer
      */
@@ -1250,15 +1250,15 @@ interface DownloadFileOption {
     /**
      * 下载成功后以 tempFilePath 的形式传给页面，res = {tempFilePath: '文件的临时路径'}
      */
-    success?: (result: DownloadSuccessData) => void;
+    success?: ((result: DownloadSuccessData) => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface DownloadTask {
@@ -1276,44 +1276,44 @@ interface OnProgressDownloadResult {
     /**
      * 下载进度百分比
      */
-    progress?: number;
+    progress?: number | undefined;
     /**
      * 已经下载的数据长度，单位 Bytes
      */
-    totalBytesWritten?: number;
+    totalBytesWritten?: number | undefined;
     /**
      * 预期需要下载的数据总长度，单位 Bytes
      */
-    totalBytesExpectedToWrite?: number;
+    totalBytesExpectedToWrite?: number | undefined;
 }
 
 interface UploadFileSuccessCallbackResult {
     /**
      * 开发者服务器返回的数据
      */
-    data?: string;
+    data?: string | undefined;
     /**
      * 开发者服务器返回的 HTTP 状态码
      */
-    statusCode?: number;
+    statusCode?: number | undefined;
 }
 
 interface DownloadSuccessData {
     /**
      * 临时文件路径，下载后的文件会存储到一个临时文件
      */
-    tempFilePath?: string;
+    tempFilePath?: string | undefined;
     /**
      * 开发者服务器返回的 HTTP 状态码
      */
-    statusCode?: number;
+    statusCode?: number | undefined;
 }
 
 interface ConnectSocketOption {
     /**
      * 开发者服务器接口地址，必须是 wss 协议，且域名必须是后台配置的合法域名
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * HTTP 请求 Header，header 中不能设置 Referer
      */
@@ -1322,65 +1322,65 @@ interface ConnectSocketOption {
      * 默认为 GET
      * 可以是：OPTIONS，GET，HEAD，POST，PUT，DELETE，TRACE，CONNECT
      */
-    method?: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT';
+    method?: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined;
     /**
      * 子协议数组
      */
-    protocols?: string [];
+    protocols?: string [] | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SendSocketMessageOptions {
     /**
      * 需要发送的内容
      */
-    data?: string | ArrayBuffer;
+    data?: string | ArrayBuffer | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GeneralCallbackResult) => void;
+    success?: ((result: GeneralCallbackResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: (result: GeneralCallbackResult) => void;
+    fail?: ((result: GeneralCallbackResult) => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: (result: GeneralCallbackResult) => void;
+    complete?: ((result: GeneralCallbackResult) => void) | undefined;
 }
 
 interface CloseSocketOptions {
     /**
      * 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。如果这个参数没有被指定，默认的取值是1000 （表示正常连接关闭）
      */
-    code?: number;
+    code?: number | undefined;
     /**
      * 一个可读的字符串，表示连接被关闭的原因。这个字符串必须是不长于123字节的UTF-8 文本（不是字符）
      */
-    reason?: string;
+    reason?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GeneralCallbackResult) => void;
+    success?: ((result: GeneralCallbackResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: (result: GeneralCallbackResult) => void;
+    fail?: ((result: GeneralCallbackResult) => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: (result: GeneralCallbackResult) => void;
+    complete?: ((result: GeneralCallbackResult) => void) | undefined;
 }
 
 interface SocketTask {
@@ -1414,7 +1414,7 @@ interface OnSocketMessageCallbackResult {
     /**
      * 服务器返回的消息
      */
-    data?: string | ArrayBuffer;
+    data?: string | ArrayBuffer | undefined;
 }
 
 interface OnSocketOpenCallbackResult {
@@ -1428,231 +1428,231 @@ interface ChooseImageOptions {
     /**
      * 最多可以选择的图片张数，默认9
      */
-    count?: number;
+    count?: number | undefined;
     /**
      * original 原图，compressed 压缩图，默认二者都有
      */
-    sizeType?: string | string [];
+    sizeType?: string | string [] | undefined;
     /**
      * album 从相册选图，camera 使用相机，默认二者都有
      */
-    sourceType?: string | string [];
+    sourceType?: string | string [] | undefined;
     /**
      * 成功则返回图片的本地文件路径列表 tempFilePaths
      */
-    success?: (result: ChooseImageSuccessCallbackResult) => void;
+    success?: ((result: ChooseImageSuccessCallbackResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ChooseImageSuccessCallbackResult {
     /**
      * 图片的本地文件路径列表
      */
-    tempFilePaths?: string | any [];
+    tempFilePaths?: string | any [] | undefined;
     /**
      * 图片的本地文件列表，每一项是一个 File 对象
      */
-    tempFiles?: ChooseImageSuccessCallbackResultFile | ChooseImageSuccessCallbackResultFile [];
+    tempFiles?: ChooseImageSuccessCallbackResultFile | ChooseImageSuccessCallbackResultFile [] | undefined;
 }
 
 interface ChooseImageSuccessCallbackResultFile {
     /**
      * 本地文件路径
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * 本地文件大小，单位：B
      */
-    size?: number;
+    size?: number | undefined;
 }
 
 interface PreviewImageOptions {
     /**
      * 当前显示图片的链接，不填则默认为 urls 的第一张
      */
-    count?: string;
+    count?: string | undefined;
     /**
      * current 为当前显示图片的链接/索引值，不填或填写的值无效则为 urls 的第一张。App平台在 1.9.5至1.9.8之间，current为必填。不填会报错
      */
-    current?: string;
+    current?: string | undefined;
     /**
      * 需要预览的图片链接列表
      */
-    urls?: string | any [];
+    urls?: string | any [] | undefined;
     /**
      * 图片指示器样式
      * - default: 底部圆点指示器
      * - number: 顶部数字指示器
      * - none: 不显示指示器
      */
-    indicator?: 'default' | 'number' | 'none';
+    indicator?: 'default' | 'number' | 'none' | undefined;
     /**
      * 是否可循环预览
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
     /**
      * 长按图片显示操作菜单，如不填默认为保存相册，1.9.5 起支持。
      */
-    longPressActions?: LongPressActionsOptions;
+    longPressActions?: LongPressActionsOptions | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface LongPressActionsOptions {
     /**
      * 按钮的文字数组
      */
-    itemList?: string [];
+    itemList?: string [] | undefined;
     /**
      * 按钮的文字颜色，字符串格式，默认为"#000000"
      */
-    itemColor?: string;
+    itemColor?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: LongPressActionsSuccessData) => void;
+    success?: ((result: LongPressActionsSuccessData) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface LongPressActionsSuccessData {
     /**
      * 接口调用失败的回调函数
      */
-    tapIndex?: number;
+    tapIndex?: number | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    index?: number;
+    index?: number | undefined;
 }
 
 interface GetImageInfoOptions {
     /**
      * 图片的路径，可以是相对路径，临时文件路径，存储文件路径，网络图片路径
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetImageInfoSuccessData) => void;
+    success?: ((result: GetImageInfoSuccessData) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetImageInfoSuccessData {
     /**
      * 图片宽度，单位px
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 图片高度，单位px
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 返回图片的本地路径
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * 返回图片的方向
      */
-    orientation?: string;
+    orientation?: string | undefined;
     /**
      * 返回图片的格式
      */
-    type?: string;
+    type?: string | undefined;
 }
 
 interface SaveImageToPhotosAlbumOptions {
     /**
      * 图片文件路径，可以是临时文件路径也可以是永久文件路径，不支持网络图片路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CompressImageOptions {
     /**
      * 图片路径，图片的路径，可以是相对路径、临时文件路径、存储文件路径
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 压缩质量，范围0～100，数值越小，质量越低，压缩率越高（仅对jpg有效）
      */
-    quality?: number;
+    quality?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: (result: CompressImageSuccessData) => void;
+    fail?: ((result: CompressImageSuccessData) => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CompressImageSuccessData {
     /**
      * 压缩后图片的临时文件路径
      */
-    tempFilePath?: string;
+    tempFilePath?: string | undefined;
 }
 
 interface StartRecordOptions {
     /**
      * 录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'}
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface RecorderManager {
@@ -1698,185 +1698,185 @@ interface RecorderManagerStartOptions {
     /**
      * 指定录音的时长，单位 ms ，如果传入了合法的 duration ，在到达指定的 duration 后会自动停止录音，最大值 600000（10 分钟）,默认值 60000（1 分钟）
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 采样率，有效值 8000/16000/44100
      */
-    sampleRate?: number;
+    sampleRate?: number | undefined;
     /**
      * 录音通道数，有效值 1/2
      */
-    numberOfChannels?: number;
+    numberOfChannels?: number | undefined;
     /**
      * 编码码率，有效值见下表格
      */
-    encodeBitRate?: number;
+    encodeBitRate?: number | undefined;
     /**
      * 音频格式，有效值 aac/mp3
      */
-    format?: string;
+    format?: string | undefined;
     /**
      * 指定帧大小，单位 KB。传入 frameSize 后，每录制指定帧大小的内容后，会回调录制的文件内容，不指定则不会回调。暂仅支持 mp3 格式。
      */
-    frameSize?: number;
+    frameSize?: number | undefined;
 }
 
 interface PlayVoiceOptions {
     /**
      * 需要播放的语音文件的文件路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * original 原图，compressed 压缩图，默认二者都有
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBackgroundAudioPlayerStateOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetBackgroundAudioPlayerStateSuccessData) => void;
+    success?: ((result: GetBackgroundAudioPlayerStateSuccessData) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBackgroundAudioPlayerStateSuccessData {
     /**
      * 选定音频的长度（单位：s），只有在当前有音乐播放时返回
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 选定音频的播放位置（单位：s），只有在当前有音乐播放时返回
      */
-    currentPosition?: number;
+    currentPosition?: number | undefined;
     /**
      * 播放状态（2：没有音乐在播放，1：播放中，0：暂停中）
      */
-    status?: number;
+    status?: number | undefined;
     /**
      * 音频的下载进度（整数，80 代表 80%），只有在当前有音乐播放时返回
      */
-    downloadPercent?: number;
+    downloadPercent?: number | undefined;
     /**
      * 歌曲数据链接，只有在当前有音乐播放时返回
      */
-    dataUrl?: string;
+    dataUrl?: string | undefined;
 }
 
 interface GetBackgroundAudioOptions {
     /**
      * 音乐链接，目前支持的格式有 m4a, aac, mp3, wav
      */
-    dataUrl?: string;
+    dataUrl?: string | undefined;
     /**
      * 音乐标题
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 封面url
      */
-    coverImgUrl?: string;
+    coverImgUrl?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SeekBackgroundAudioOptions {
     /**
      * 音乐位置，单位：秒
      */
-    position?: number;
+    position?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface BackgroundAudioManager {
     /**
      * 当前音频的长度（单位：s），只有在当前有合法的 src 时返回
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 当前音频的播放位置（单位：s），只有在当前有合法的 src 时返回
      */
-    currentTime?: number;
+    currentTime?: number | undefined;
     /**
      * 当前是是否暂停或停止状态，true 表示暂停或停止，false 表示正在播放
      */
-    paused?: boolean;
+    paused?: boolean | undefined;
     /**
      * 音频的数据源，默认为空字符串，当设置了新的 src 时，会自动开始播放 ，目前支持的格式有 m4a, aac, mp3, wav
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 音频开始播放的位置（单位：s）
      */
-    startTime?: number;
+    startTime?: number | undefined;
     /**
      * 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲
      */
-    buffered?: number;
+    buffered?: number | undefined;
     /**
      * 音频标题，用于做原生音频播放器音频标题。原生音频播放器中的分享功能，分享出去的卡片标题，也将使用该值。
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 专辑名，原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值
      */
-    epname?: string;
+    epname?: string | undefined;
     /**
      * 歌手名，原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值
      */
-    singer?: string;
+    singer?: string | undefined;
     /**
      * 封面图url，用于做原生音频播放器背景图。原生音频播放器中的分享功能，分享出去的卡片配图及背景也将使用该图。
      */
-    coverImgUrl?: string;
+    coverImgUrl?: string | undefined;
     /**
      * 页面链接，原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值
      */
-    webUrl?: string;
+    webUrl?: string | undefined;
     /**
      * 音频协议。默认值为 'http'，设置 'hls' 可以支持播放 HLS 协议的直播音频
      */
-    protocol?: string;
+    protocol?: string | undefined;
     /**
      * 播放
      */
@@ -1958,43 +1958,43 @@ interface CreateInnerAudioContext {
     /**
      * 当前音频的长度（单位：s），只有在当前有合法的 src 时返回
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 当前音频的播放位置（单位：s），只有在当前有合法的 src 时返回
      */
-    currentTime?: number;
+    currentTime?: number | undefined;
     /**
      * 当前是是否暂停或停止状态，true 表示暂停或停止，false 表示正在播放
      */
-    paused?: boolean;
+    paused?: boolean | undefined;
     /**
      * 音频的数据链接，用于直接播放。
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 音频开始播放的位置（单位：s）
      */
-    startTime?: number;
+    startTime?: number | undefined;
     /**
      * 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲
      */
-    buffered?: number;
+    buffered?: number | undefined;
     /**
      * 是否自动开始播放，默认 false
      */
-    autoplay?: boolean;
+    autoplay?: boolean | undefined;
     /**
      * 是否循环播放，默认 false
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
     /**
      * 是否遵循系统静音开关，当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音，默认值 true
      */
-    obeyMuteSwitch?: boolean;
+    obeyMuteSwitch?: boolean | undefined;
     /**
      * 音量。范围 0~1。
      */
-    volume?: number;
+    volume?: number | undefined;
     /**
      * 暂停
      */
@@ -2101,75 +2101,75 @@ interface ChooseVideoOptions {
     /**
      * album 从相册选视频，camera 使用相机拍摄，默认为：['album', 'camera']
      */
-    sourceType?: string | any [];
+    sourceType?: string | any [] | undefined;
     /**
      * 是否压缩所选的视频源文件，默认值为true，需要压缩
      */
-    compressed?: boolean;
+    compressed?: boolean | undefined;
     /**
      * 拍摄视频最长拍摄时间，单位秒。最长支持 60 秒
      */
-    maxDuration?: number;
+    maxDuration?: number | undefined;
     /**
      * 摄像切换
      * - front: 前置摄像头
      * - back: 后置摄像头
      */
-    camera?: 'front' | 'back';
+    camera?: 'front' | 'back' | undefined;
     /**
      * 接口调用成功，返回视频文件的临时文件路径，详见返回参数说明
      */
-    success?: (result: ChooseVideoSuccess) => void;
+    success?: ((result: ChooseVideoSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SaveVideoToPhotosAlbumOptions {
     /**
      * 视频文件路径，可以是临时文件路径也可以是永久文件路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ChooseVideoSuccess {
     /**
      * 临时文件路径，下载后的文件会存储到一个临时文件
      */
-    tempFilePath?: string;
+    tempFilePath?: string | undefined;
     /**
      * 选定视频的时间长度
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 选定视频的数据量大小
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * 返回选定视频的长
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 返回选定视频的宽
      */
-    width?: number;
+    width?: number | undefined;
 }
 
 interface VideoContext {
@@ -2229,259 +2229,259 @@ interface CameraContextTakePhotoOptions {
      * - high: 高质量
      * - low: 低质量
      */
-    quality?: 'normal' | 'high' | 'low';
+    quality?: 'normal' | 'high' | 'low' | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: CameraContextTakePhotoResult) => void;
+    success?: ((result: CameraContextTakePhotoResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CameraContextTakePhotoResult {
     /**
      * 照片文件的临时路径，安卓是jpg图片格式，ios是png
      */
-    tempImagePath?: string;
+    tempImagePath?: string | undefined;
 }
 
 interface CameraContextStartRecordOptions {
     /**
      * 超过30s或页面onHide时会结束录像
      */
-    timeoutCallback?: (result: CameraContextStopRecordResult) => void;
+    timeoutCallback?: ((result: CameraContextStopRecordResult) => void) | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CameraContextStopRecordOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: CameraContextStopRecordResult) => void;
+    success?: ((result: CameraContextStopRecordResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CameraContextStopRecordResult {
     /**
      * 封面图片文件的临时路径
      */
-    tempThumbPath?: string;
+    tempThumbPath?: string | undefined;
     /**
      * 视频的文件的临时路径
      */
-    tempVideoPath?: string;
+    tempVideoPath?: string | undefined;
 }
 
 interface CameraFrame {
     /**
      * 图像数据矩形的宽度
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 图像数据矩形的高度
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 图像像素点数据，一维数组，每四项表示一个像素点的 rgba
      */
-    data?: ArrayBuffer;
+    data?: ArrayBuffer | undefined;
 }
 
 interface SaveFileOptions {
     /**
      * 需要保存的文件的临时路径
      */
-    tempFilePath?: string;
+    tempFilePath?: string | undefined;
     /**
      * 返回文件的保存路径，res = {savedFilePath: '文件的保存路径'}
      */
-    success?: (result: SaveFileSuccess) => void;
+    success?: ((result: SaveFileSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SaveFileSuccess {
     /**
      * 文件的保存路径
      */
-    savedFilePath?: string;
+    savedFilePath?: string | undefined;
 }
 
 interface GetFileInfoOptions {
     /**
      * 本地路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * 计算文件摘要的算法，默认值 md5，有效值：md5，sha1
      */
-    digestAlgorithm?: string;
+    digestAlgorithm?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetFileInfoSuccess) => void;
+    success?: ((result: GetFileInfoSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetFileInfoSuccess {
     /**
      * 文件大小，单位：B
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * 按照传入的 digestAlgorithm 计算得出的的文件摘要
      */
-    digest?: string;
+    digest?: string | undefined;
     /**
      * 调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface GetSavedFileListOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetSavedFileListSuccess) => void;
+    success?: ((result: GetSavedFileListSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetSavedFileListSuccess {
     /**
      * 接口调用结果
      */
-    errMsg?: number;
+    errMsg?: number | undefined;
     /**
      * 文件列表
      */
-    fileList?: string;
+    fileList?: string | undefined;
 }
 
 interface GetSavedFileInfoOptions {
     /**
      * 文件路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetSavedFileInfoSuccess) => void;
+    success?: ((result: GetSavedFileInfoSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetSavedFileInfoSuccess {
     /**
      * 接口调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
     /**
      * 文件大小，单位B
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * 文件保存时的时间戳，从1970/01/01 08:00:00 到该时刻的秒数
      */
-    createTime?: number;
+    createTime?: number | undefined;
 }
 
 interface RemoveSavedFileOptions {
     /**
      * 文件路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OpenDocumentOptions {
     /**
      * 文件路径
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * 文件类型，指定文件类型打开文件，有效值 doc, xls, ppt, pdf, docx, xlsx, pptx
      */
-    fileType?: string;
+    fileType?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetStorageOptions {
     /**
      * 本地缓存中的指定的 key
      */
-    key?: string;
+    key?: string | undefined;
     /**
      * 需要存储的内容，只支持原生类型、及能够通过 JSON.stringify 序列化的对象
      */
@@ -2489,141 +2489,141 @@ interface SetStorageOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetStorageOptions {
     /**
      * 本地缓存中的指定的 key
      */
-    key?: string;
+    key?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: any) => void;
+    success?: ((result: any) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetStorageInfoOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetStorageInfoSuccess) => void;
+    success?: ((result: GetStorageInfoSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetStorageInfoSuccess {
     /**
      * 当前storage中所有的 key
      */
-    keys?: string [];
+    keys?: string [] | undefined;
     /**
      * 当前占用的空间大小, 单位 kb
      */
-    currentSize?: number;
+    currentSize?: number | undefined;
     /**
      * 限制的空间大小，单位kb
      */
-    limitSize?: number;
+    limitSize?: number | undefined;
 }
 
 interface RemoveStorageOptions {
     /**
      * 本地缓存中的指定的 key
      */
-    key?: string;
+    key?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetLocationOptions {
     /**
      * 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于uni.openLocation的坐标
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度
      */
-    altitude?: boolean;
+    altitude?: boolean | undefined;
     /**
      * 传入 true 会解析地址
      */
-    geocode?: boolean;
+    geocode?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetLocationSuccess) => void;
+    success?: ((result: GetLocationSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetLocationSuccess {
     /**
      * 纬度，浮点数，范围为-90~90，负数表示南纬
      */
-    latitude?: number;
+    latitude?: number | undefined;
     /**
      * 经度，范围为-180~180，负数表示西经
      */
-    longitude?: number;
+    longitude?: number | undefined;
     /**
      * 速度，浮点数，单位m/s
      */
-    speed?: number;
+    speed?: number | undefined;
     /**
      * 位置的精确度
      */
-    accuracy?: string;
+    accuracy?: string | undefined;
     /**
      * 高度，单位 m
      */
-    altitude?: number;
+    altitude?: number | undefined;
     /**
      * 垂直精度，单位 m（Android 无法获取，返回 0）
      */
-    verticalAccuracy?: number;
+    verticalAccuracy?: number | undefined;
     /**
      * 水平精度，单位 m
      */
-    horizontalAccuracy?: number;
+    horizontalAccuracy?: number | undefined;
     /**
      * 地址信息
      */
@@ -2634,73 +2634,73 @@ interface ChooseLocationOptions {
     /**
      * 搜索关键字
      */
-    keyword?: string;
+    keyword?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: ChooseLocationSuccess) => void;
+    success?: ((result: ChooseLocationSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ChooseLocationSuccess {
     /**
      * 位置名称
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 详细地址
      */
-    address?: string;
+    address?: string | undefined;
     /**
      * 纬度，浮点数，范围为-90~90，负数表示南纬
      */
-    latitude?: number;
+    latitude?: number | undefined;
     /**
      * 经度，范围为-180~180，负数表示西经
      */
-    longitude?: number;
+    longitude?: number | undefined;
 }
 
 interface OpenLocationOptions {
     /**
      * 纬度，范围为-90~90，负数表示南纬
      */
-    latitude?: number;
+    latitude?: number | undefined;
     /**
      * 经度，范围为-180~180，负数表示西经
      */
-    longitude?: number;
+    longitude?: number | undefined;
     /**
      * 缩放比例，范围5~18，默认为18
      */
-    scale?: number;
+    scale?: number | undefined;
     /**
      * 位置名称
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 地址的详细说明
      */
-    address?: string;
+    address?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface MapContext {
@@ -2738,282 +2738,282 @@ interface MapContextGetCenterLocationOptions {
     /**
      * 接口调用成功的回调函数 ，res = { longitude: "经度", latitude: "纬度"}
      */
-    success?: (result: LocationObject) => void;
+    success?: ((result: LocationObject) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface LocationObject {
     /**
      * 纬度，浮点数，范围为-90~90，负数表示南纬
      */
-    latitude?: number;
+    latitude?: number | undefined;
     /**
      * 经度，范围为-180~180，负数表示西经
      */
-    longitude?: number;
+    longitude?: number | undefined;
 }
 
 interface MapContextTranslateMarkerOptions {
     /**
      * 指定marker
      */
-    markerId?: number;
+    markerId?: number | undefined;
     /**
      * 指定marker移动到的目标点
      */
-    destination?: LocationObject;
+    destination?: LocationObject | undefined;
     /**
      * 移动过程中是否自动旋转marker
      */
-    autoRotate?: boolean;
+    autoRotate?: boolean | undefined;
     /**
      * marker的旋转角度
      */
-    rotate?: number;
+    rotate?: number | undefined;
     /**
      * 动画持续时长，默认值1000ms，平移与旋转分别计算
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 动画结束回调函数
      */
-    animationEnd?: () => void;
+    animationEnd?: (() => void) | undefined;
 }
 
 interface MapContextIncludePointsOptions {
     /**
      * 要显示在可视区域内的坐标点列表，[{latitude, longitude}]
      */
-    points?: LocationObject [];
+    points?: LocationObject [] | undefined;
     /**
      * 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。
      */
-    padding?: number [];
+    padding?: number [] | undefined;
 }
 
 interface MapContextGetRegionOptions {
     /**
      * 接口调用成功的回调函数，res = {southwest, northeast}，西南角与东北角的经纬度
      */
-    success?: (result: MapContextGetRegionResult) => void;
+    success?: ((result: MapContextGetRegionResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface MapContextGetRegionResult {
     /**
      * 西南角的经纬度
      */
-    southwest?: LocationObject;
+    southwest?: LocationObject | undefined;
     /**
      * 东北角的经纬度
      */
-    northeast?: LocationObject;
+    northeast?: LocationObject | undefined;
 }
 
 interface MapContextGetScaleOptions {
     /**
      * 接口调用成功的回调函数，res = {scale}
      */
-    success?: (result: MapContextGetScaleResult) => void;
+    success?: ((result: MapContextGetScaleResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface MapContextGetScaleResult {
     /**
      * 地图缩放级别
      */
-    scale?: number;
+    scale?: number | undefined;
 }
 
 interface GetSystemInfoOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetSystemInfoResult) => void;
+    success?: ((result: GetSystemInfoResult) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetSystemInfoResult {
     /**
      * 手机品牌
      */
-    brand?: string;
+    brand?: string | undefined;
     /**
      * 手机型号
      */
-    model?: string;
+    model?: string | undefined;
     /**
      * 设备像素比
      */
-    pixelRatio?: number;
+    pixelRatio?: number | undefined;
     /**
      * 屏幕宽度
      */
-    screenWidth?: number;
+    screenWidth?: number | undefined;
     /**
      * 屏幕高度
      */
-    screenHeight?: number;
+    screenHeight?: number | undefined;
     /**
      * 可使用窗口宽度
      */
-    windowWidth?: number;
+    windowWidth?: number | undefined;
     /**
      * 可使用窗口高度
      */
-    windowHeight?: number;
+    windowHeight?: number | undefined;
     /**
      * 状态栏的高度
      */
-    statusBarHeight?: number;
+    statusBarHeight?: number | undefined;
     /**
      * 导航栏的高度
      */
-    navigationBarHeight?: number;
+    navigationBarHeight?: number | undefined;
     /**
      * 标题栏高度
      */
-    titleBarHeight?: number;
+    titleBarHeight?: number | undefined;
     /**
      * 程序设置的语言
      */
-    language?: string;
+    language?: string | undefined;
     /**
      * 引擎版本号
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * 设备磁盘容量
      */
-    storage?: string;
+    storage?: string | undefined;
     /**
      * 当前电量百分比
      */
-    currentBattery?: string;
+    currentBattery?: string | undefined;
     /**
      * 宿主APP名称
      */
-    appName?: string;
+    appName?: string | undefined;
     /**
      * App平台
      */
-    AppPlatform?: string;
+    AppPlatform?: string | undefined;
     /**
      * 宿主平台
      */
-    host?: string;
+    host?: string | undefined;
     /**
      * 当前运行的客户端
      */
-    app?: string;
+    app?: string | undefined;
     /**
      * 客户端基础库版本
      */
-    SDKVersion?: string;
+    SDKVersion?: string | undefined;
     /**
      * 宿主平台版本号
      */
-    swanNativeVersion?: string;
+    swanNativeVersion?: string | undefined;
     /**
      * 操作系统版本
      */
-    system?: string;
+    system?: string | undefined;
     /**
      * 客户端平台
      */
-    platform?: string;
+    platform?: string | undefined;
     /**
      * 用户字体大小设置
      */
-    fontSizeSetting?: number;
+    fontSizeSetting?: number | undefined;
     /**
      * 可使用窗口的顶部位置
      */
-    windowTop?: number;
+    windowTop?: number | undefined;
     /**
      * 可使用窗口的底部位置
      */
-    windowBottom?: number;
+    windowBottom?: number | undefined;
     /**
      * 允许微信使用相册的开关（仅 iOS 有效）
      */
-    albumAuthorized?: boolean;
+    albumAuthorized?: boolean | undefined;
     /**
      * 允许微信使用摄像头的开关
      */
-    cameraAuthorized?: boolean;
+    cameraAuthorized?: boolean | undefined;
     /**
      * 允许微信使用定位的开关
      */
-    locationAuthorized?: boolean;
+    locationAuthorized?: boolean | undefined;
     /**
      * 允许微信使用麦克风的开关
      */
-    microphoneAuthorized?: boolean;
+    microphoneAuthorized?: boolean | undefined;
     /**
      * 允许微信通知的开关
      */
-    notificationAuthorized?: boolean;
+    notificationAuthorized?: boolean | undefined;
     /**
      * 允许微信通知带有提醒的开关（仅 iOS 有效）
      */
-    notificationAlertAuthorized?: boolean;
+    notificationAlertAuthorized?: boolean | undefined;
     /**
      * 允许微信通知带有标记的开关（仅 iOS 有效）
      */
-    notificationBadgeAuthorized?: boolean;
+    notificationBadgeAuthorized?: boolean | undefined;
     /**
      * 允许微信通知带有声音的开关（仅 iOS 有效）
      */
-    notificationSoundAuthorized?: boolean;
+    notificationSoundAuthorized?: boolean | undefined;
     /**
      * 蓝牙的系统开关
      */
-    bluetoothEnabled?: boolean;
+    bluetoothEnabled?: boolean | undefined;
     /**
      * 地理位置的系统开关
      */
-    locationEnabled?: boolean;
+    locationEnabled?: boolean | undefined;
     /**
      * Wi-Fi 的系统开关
      */
-    wifiEnabled?: boolean;
+    wifiEnabled?: boolean | undefined;
     /**
      * 在竖屏正方向下的安全区域
      */
-    safeArea?: SafeAreaResult;
+    safeArea?: SafeAreaResult | undefined;
     /**
      * 上一次缓存的位置信息
      */
@@ -3024,611 +3024,611 @@ interface SafeAreaResult {
     /**
      * 安全区域左上角横坐标
      */
-    left?: number;
+    left?: number | undefined;
     /**
      * 安全区域右下角横坐标
      */
-    right?: number;
+    right?: number | undefined;
     /**
      * 安全区域左上角纵坐标
      */
-    top?: number;
+    top?: number | undefined;
     /**
      * 安全区域右下角纵坐标
      */
-    bottom?: number;
+    bottom?: number | undefined;
     /**
      * 安全区域的宽度，单位逻辑像素
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 安全区域的高度，单位逻辑像素
      */
-    height?: number;
+    height?: number | undefined;
 }
 
 interface GetNetworkTypeOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetNetworkTypeSuccess) => void;
+    success?: ((result: GetNetworkTypeSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetNetworkTypeSuccess {
     /**
      * 网络类型
      */
-    networkType?: string;
+    networkType?: string | undefined;
 }
 
 interface OnNetworkStatusChangeSuccess {
     /**
      * 当前是否有网络连接
      */
-    isConnected?: number;
+    isConnected?: number | undefined;
     /**
      * 网络类型
      */
-    networkType?: string;
+    networkType?: string | undefined;
 }
 
 interface OnKeyboardHeightChangeResult {
     /**
      * 键盘高度
      */
-    height?: number;
+    height?: number | undefined;
 }
 
 interface OnAccelerometerChangeSuccess {
     /**
      * X 轴
      */
-    x?: number;
+    x?: number | undefined;
     /**
      * Y 轴
      */
-    y?: number;
+    y?: number | undefined;
     /**
      * Z 轴
      */
-    z?: number;
+    z?: number | undefined;
 }
 
 interface StartAccelerometerOptions {
     /**
      * 成功返回的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopAccelerometerOptions {
     /**
      * 成功返回的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OnCompassChangeSuccess {
     /**
      * 面对的方向度数
      */
-    direction?: number;
+    direction?: number | undefined;
 }
 
 interface StartCompassOptions {
     /**
      * 成功返回的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopCompassOptions {
     /**
      * 成功返回的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface MakePhoneCallOptions {
     /**
      * 需要拨打的电话号码
      */
-    phoneNumber?: string;
+    phoneNumber?: string | undefined;
     /**
      * 成功返回的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ScanCodeOptions {
     /**
      * 是否只能从相机扫码，不允许从相册选择图片
      */
-    onlyFromCamera?: boolean;
+    onlyFromCamera?: boolean | undefined;
     /**
      * 扫码类型，参数类型是数组，二维码是'qrCode'，一维码是'barCode'，DataMatrix是‘datamatrix’，pdf417是‘pdf417’。
      */
-    scanType?: any [];
+    scanType?: any [] | undefined;
     /**
      * 成功返回的回调函数
      */
-    success?: (result: ScanCodeSuccessRes) => void;
+    success?: ((result: ScanCodeSuccessRes) => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ScanCodeSuccessRes {
     /**
      * 所扫码的内容
      */
-    result?: string;
+    result?: string | undefined;
     /**
      * 所扫码的类型
      */
-    scanType?: string;
+    scanType?: string | undefined;
     /**
      * 所扫码的字符集
      */
-    charSet?: string;
+    charSet?: string | undefined;
     /**
      * 当所扫的码为当前应用的合法二维码时，会返回此字段，内容为二维码携带的 path。
      */
-    path?: string;
+    path?: string | undefined;
 }
 
 interface SetClipboardDataOptions {
     /**
      * 需要设置的内容
      */
-    data?: string;
+    data?: string | undefined;
     /**
      * 成功返回的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetClipboardDataOptions {
     /**
      * 成功返回的回调函数
      */
-    success?: (result: GetClipboardDataSuccessRes) => void;
+    success?: ((result: GetClipboardDataSuccessRes) => void) | undefined;
     /**
      * 失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetClipboardDataSuccessRes {
     /**
      * 剪贴板的内容
      */
-    data?: string;
+    data?: string | undefined;
 }
 
 interface OpenBluetoothAdapterOptions {
     /**
      * 成功则返回成功初始化信息
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CloseBluetoothAdapterOptions {
     /**
      * 成功则返回成功关闭模块信息
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBluetoothAdapterStateOptions {
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: GetBluetoothAdapterStateSuccess) => void;
+    success?: ((result: GetBluetoothAdapterStateSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBluetoothAdapterStateSuccess {
     /**
      * 是否正在搜索设备
      */
-    discovering?: boolean;
+    discovering?: boolean | undefined;
     /**
      * 蓝牙适配器是否可用
      */
-    available?: boolean;
+    available?: boolean | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface OnBluetoothAdapterStateChangeResult {
     /**
      * 是否正在搜索设备
      */
-    discovering?: boolean;
+    discovering?: boolean | undefined;
     /**
      * 蓝牙适配器是否可用
      */
-    available?: boolean;
+    available?: boolean | undefined;
 }
 
 interface OnBluetoothDeviceFoundResult {
     /**
      * 设备列表信息
      */
-    devices?: BluetoothDeviceInfo [];
+    devices?: BluetoothDeviceInfo [] | undefined;
 }
 
 interface StartBluetoothDevicesDiscoveryOptions {
     /**
      * 蓝牙设备主 service 的 uuid 列表
      */
-    services?: any [];
+    services?: any [] | undefined;
     /**
      * 是否允许重复上报同一设备， 如果允许重复上报，则onDeviceFound 方法会多次上报同一设备，但是 RSSI 值会有不同
      */
-    allowDuplicatesKey?: boolean;
+    allowDuplicatesKey?: boolean | undefined;
     /**
      * 上报设备的间隔，默认为0，意思是找到新设备立即上报，否则根据传入的间隔上报
      */
-    interval?: number;
+    interval?: number | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopBluetoothDevicesDiscoveryOptions {
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: StopBluetoothDevicesDiscoverySuccess) => void;
+    success?: ((result: StopBluetoothDevicesDiscoverySuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopBluetoothDevicesDiscoverySuccess {
     /**
      * 成功：ok，错误：详细信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface GetBluetoothDevicesOptions {
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: GetBluetoothDevicesSuccess) => void;
+    success?: ((result: GetBluetoothDevicesSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBluetoothDevicesSuccess {
     /**
      * uuid 对应的的已连接设备列表
      */
-    devices?: BluetoothDeviceInfo [];
+    devices?: BluetoothDeviceInfo [] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface BluetoothDeviceInfo {
     /**
      * 蓝牙设备名称，某些设备可能没有
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 用于区分设备的 id
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 当前蓝牙设备的信号强度
      */
-    RSSI?: number;
+    RSSI?: number | undefined;
     /**
      * 当前蓝牙设备的广播数据段中的ManufacturerData数据段 （注意：vConsole 无法打印出 ArrayBuffer 类型数据）
      */
-    advertisData?: any [];
+    advertisData?: any [] | undefined;
     /**
      * 当前蓝牙设备的广播数据段中的ServiceUUIDs数据段
      */
-    advertisServiceUUIDs?: any [];
+    advertisServiceUUIDs?: any [] | undefined;
     /**
      * 当前蓝牙设备的广播数据段中的LocalName数据段
      */
-    localName?: string;
+    localName?: string | undefined;
     /**
      * 当前蓝牙设备的广播数据段中的ServiceData数据段
      */
-    serviceData?: any [];
+    serviceData?: any [] | undefined;
 }
 
 interface GetConnectedBluetoothDevicesOptions {
     /**
      * 蓝牙设备主 service 的 uuid 列表
      */
-    services?: any [];
+    services?: any [] | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: GetConnectedBluetoothDevicesSuccess) => void;
+    success?: ((result: GetConnectedBluetoothDevicesSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetConnectedBluetoothDevicesSuccess {
     /**
      * 搜索到的设备列表
      */
-    devices?: GetConnectedBluetoothDevicesSuccessData [];
+    devices?: GetConnectedBluetoothDevicesSuccessData [] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface GetConnectedBluetoothDevicesSuccessData {
     /**
      * 蓝牙设备名称，某些设备可能没有
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 用于区分设备的 id
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
 }
 
 interface CloseBLEConnectionOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
 }
 
 interface CreateBLEConnectionOptions {
     /**
      * 蓝牙设备 id，参考 getDevices 接口
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 超时时间
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OnBLEConnectionStateChangeSuccess {
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 连接目前的状态
      */
-    connected?: boolean;
+    connected?: boolean | undefined;
 }
 
 interface GetBLEDeviceServicesOptions {
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: GetBLEDeviceServicesSuccess) => void;
+    success?: ((result: GetBLEDeviceServicesSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBLEDeviceServicesSuccess {
     /**
      * 设备服务列表
      */
-    services?: GetBLEDeviceServicesSuccessData [];
+    services?: GetBLEDeviceServicesSuccessData [] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface GetBLEDeviceServicesSuccessData {
     /**
      * 蓝牙设备服务的 uuid
      */
-    uuid?: string;
+    uuid?: string | undefined;
     /**
      * 该服务是否为主服务
      */
-    isPrimary?: boolean;
+    isPrimary?: boolean | undefined;
 }
 
 interface GetBLEDeviceCharacteristicsOptions {
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 蓝牙服务 uuid
      */
-    serviceId?: string;
+    serviceId?: string | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: GetBLEDeviceCharacteristicsSuccess) => void;
+    success?: ((result: GetBLEDeviceCharacteristicsSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBLEDeviceCharacteristicsSuccess {
     /**
      * 设备特征值列表
      */
-    characteristics?: GetBLEDeviceCharacteristicsSuccessData [];
+    characteristics?: GetBLEDeviceCharacteristicsSuccessData [] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface GetBLEDeviceCharacteristicsSuccessData {
     /**
      * 蓝牙设备服务的 uuid
      */
-    uuid?: string;
+    uuid?: string | undefined;
     /**
      * 该特征值支持的操作类型
      */
@@ -3639,725 +3639,725 @@ interface ReadBLECharacteristicValueOptions {
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 蓝牙特征值对应服务的 uuid
      */
-    serviceId?: string;
+    serviceId?: string | undefined;
     /**
      * 蓝牙特征值的 uuid
      */
-    characteristicId?: string;
+    characteristicId?: string | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: ReadBLECharacteristicValueSuccess) => void;
+    success?: ((result: ReadBLECharacteristicValueSuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ReadBLECharacteristicValueSuccess {
     /**
      * 错误码
      */
-    errCode?: string;
+    errCode?: string | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface WriteBLECharacteristicValueOptions {
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 蓝牙特征值对应服务的 uuid
      */
-    serviceId?: string;
+    serviceId?: string | undefined;
     /**
      * 蓝牙特征值的 uuid
      */
-    characteristicId?: string;
+    characteristicId?: string | undefined;
     /**
      * 蓝牙设备特征值对应的二进制值
      */
-    value?: any [];
+    value?: any [] | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: StopBluetoothDevicesDiscoverySuccess) => void;
+    success?: ((result: StopBluetoothDevicesDiscoverySuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface NotifyBLECharacteristicValueChangeOptions {
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 蓝牙特征值对应服务的 uuid
      */
-    serviceId?: string;
+    serviceId?: string | undefined;
     /**
      * 蓝牙特征值的 uuid
      */
-    characteristicId?: string;
+    characteristicId?: string | undefined;
     /**
      * true: 启用 notify; false: 停用 notify
      */
-    state?: boolean;
+    state?: boolean | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
-    success?: (result: StopBluetoothDevicesDiscoverySuccess) => void;
+    success?: ((result: StopBluetoothDevicesDiscoverySuccess) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OnBLECharacteristicValueChangeSuccess {
     /**
      * 蓝牙设备 id，参考 device 对象
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 蓝牙特征值对应服务的 uuid
      */
-    serviceId?: string;
+    serviceId?: string | undefined;
     /**
      * 蓝牙特征值的 uuid
      */
-    characteristicId?: string;
+    characteristicId?: string | undefined;
     /**
      * 特征值最新的值 （注意：vConsole 无法打印出 ArrayBuffer 类型数据）
      */
-    value?: any [];
+    value?: any [] | undefined;
 }
 
 interface StartBeaconDiscoveryOptions {
     /**
      * iBeacon设备广播的 uuids
      */
-    uuids?: any [];
+    uuids?: any [] | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopBeaconDiscoveryOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBeaconsOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetBeaconsRes) => void;
+    success?: ((result: GetBeaconsRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetBeaconsRes {
     /**
      * 接口调用成功的回调函数
      */
-    beacons?: Beacon [];
+    beacons?: Beacon [] | undefined;
     /**
      * 调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface Beacon {
     /**
      * iBeacon 设备广播的 uuid
      */
-    uuid?: string;
+    uuid?: string | undefined;
     /**
      * iBeacon 设备的主 id
      */
-    major?: string;
+    major?: string | undefined;
     /**
      * iBeacon 设备的次 id
      */
-    minor?: string;
+    minor?: string | undefined;
     /**
      * 表示设备距离的枚举值
      */
-    proximity?: number;
+    proximity?: number | undefined;
     /**
      * iBeacon 设备的距离
      */
-    accuracy?: number;
+    accuracy?: number | undefined;
     /**
      * 表示设备的信号强度
      */
-    rssi?: number;
+    rssi?: number | undefined;
 }
 
 interface BeaconService {
     /**
      * 服务目前是否可用
      */
-    available?: boolean;
+    available?: boolean | undefined;
     /**
      * 目前是否处于搜索状态
      */
-    discovering?: boolean;
+    discovering?: boolean | undefined;
 }
 
 interface GetHCEStateOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StartHCEOptions {
     /**
      * 需要注册到系统的 AID 列表，每个 AID 为 String 类型
      */
-    aid_list?: any [];
+    aid_list?: any [] | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopHCEOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface HCEMessageRes {
     /**
      * 消息类型
      */
-    messageType?: number;
+    messageType?: number | undefined;
     /**
      * 客户端接收到 NFC 设备的指令
      */
-    data?: any [];
+    data?: any [] | undefined;
     /**
      * 此参数当且仅当 messageType=2 时有效
      */
-    reason?: number;
+    reason?: number | undefined;
 }
 
 interface SendHCEMessageOptions {
     /**
      * 二进制数据
      */
-    data?: any [];
+    data?: any [] | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StartWifiOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopWifiOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ConnectWifiOptions {
     /**
      * Wi-Fi 设备ssid
      */
-    SSID?: string;
+    SSID?: string | undefined;
     /**
      * Wi-Fi 设备bssid
      */
-    BSSID?: string;
+    BSSID?: string | undefined;
     /**
      * Wi-Fi 设备密码
      */
-    password?: string;
+    password?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetWifiListOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface WiFi {
     /**
      * Wi-Fi 的SSID
      */
-    SSID?: string;
+    SSID?: string | undefined;
     /**
      * Wi-Fi 的BSSID
      */
-    BSSID?: string;
+    BSSID?: string | undefined;
     /**
      * Wi-Fi 是否安全
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
     /**
      * Wi-Fi 信号强度
      */
-    signalStrength?: number;
+    signalStrength?: number | undefined;
 }
 
 interface SetWifiListOptions {
     /**
      * Wi-Fi 的SSID
      */
-    wifiList?: WiFiItem [];
+    wifiList?: WiFiItem [] | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface WiFiItem {
     /**
      * Wi-Fi 的SSID
      */
-    SSID?: string;
+    SSID?: string | undefined;
     /**
      * Wi-Fi 的BSSID
      */
-    BSSID?: string;
+    BSSID?: string | undefined;
     /**
      * Wi-Fi 设备密码
      */
-    password?: string;
+    password?: string | undefined;
 }
 
 interface GetConnectedWifiOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetConnectedWifiRes) => void;
+    success?: ((result: GetConnectedWifiRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetConnectedWifiRes {
     /**
      * 接口调用成功的回调函数
      */
-    wifi?: WiFi;
+    wifi?: WiFi | undefined;
 }
 
 interface ShowToastOptions {
     /**
      * 提示的内容
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 图标
      * - success: 显示成功图标
      * - loading: 显示加载图标
      * - none: 不显示图标
      */
-    icon?: 'success' | 'loading' | 'none';
+    icon?: 'success' | 'loading' | 'none' | undefined;
     /**
      * 自定义图标的本地路径，image 的优先级高于 icon
      */
-    image?: string;
+    image?: string | undefined;
     /**
      * 提示的延迟时间，单位毫秒，默认：1500
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 是否显示透明蒙层，防止触摸穿透，默认：false
      */
-    mask?: boolean;
+    mask?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowLoadingOptions {
     /**
      * 提示的内容
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 是否显示透明蒙层，防止触摸穿透，默认：false
      */
-    mask?: boolean;
+    mask?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowModalOptions {
     /**
      * 提示的标题
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 提示的内容
      */
-    content?: string;
+    content?: string | undefined;
     /**
      * 是否显示取消按钮，默认为 true
      */
-    showCancel?: boolean;
+    showCancel?: boolean | undefined;
     /**
      * 取消按钮的文字，默认为"取消"
      */
-    cancelText?: string;
+    cancelText?: string | undefined;
     /**
      * 取消按钮的文字颜色，默认为"#000000"
      */
-    cancelColor?: string;
+    cancelColor?: string | undefined;
     /**
      * 确定按钮的文字，默认为"确定"
      */
-    confirmText?: string;
+    confirmText?: string | undefined;
     /**
      * 确定按钮的文字颜色，默认为"#3CC51F"
      */
-    confirmColor?: string;
+    confirmColor?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: ShowModalRes) => void;
+    success?: ((result: ShowModalRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowModalRes {
     /**
      * 为 true 时，表示用户点击了确定按钮
      */
-    confirm?: boolean;
+    confirm?: boolean | undefined;
     /**
      * 为 true 时，表示用户点击了取消
      */
-    cancel?: boolean;
+    cancel?: boolean | undefined;
 }
 
 interface ShowActionSheetOptions {
     /**
      * 按钮的文字数组
      */
-    itemList?: any [];
+    itemList?: any [] | undefined;
     /**
      * 按钮的文字颜色，默认为"#000000"
      */
-    itemColor?: string;
+    itemColor?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: ShowActionSheetRes) => void;
+    success?: ((result: ShowActionSheetRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowActionSheetRes {
     /**
      * 用户点击的按钮，从上到下的顺序，从0开始
      */
-    tapIndex?: number;
+    tapIndex?: number | undefined;
 }
 
 interface SetNavigationBarTitleOptions {
     /**
      * 页面标题
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetNavigationbarColorOptions {
     /**
      * 前景颜色值，包括按钮、标题、状态栏的颜色
      */
-    frontColor?: string;
+    frontColor?: string | undefined;
     /**
      * 背景颜色值，有效值为十六进制颜色
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * 动画效果
      */
-    animation?: NavigationBarAnimation;
+    animation?: NavigationBarAnimation | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetTabBarBadgeOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 显示的文本，不超过 3 个半角字符
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface RemoveTabBarBadgeOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowTabBarRedDotOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface HideTabBarRedDotOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface NavigationBarAnimation {
     /**
      * 动画变化时间，默认0，单位：毫秒
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 动画变化方式，默认 linear
      * - linear: 动画从头到尾的速度是相同的
@@ -4365,224 +4365,224 @@ interface NavigationBarAnimation {
      * - easeOut: 动画以低速结束
      * - easeInOut: 动画以低速开始和结束
      */
-    timingFunc?: 'linear' | 'easeIn' | 'easeOut' | 'easeInOut';
+    timingFunc?: 'linear' | 'easeIn' | 'easeOut' | 'easeInOut' | undefined;
 }
 
 interface WindowResizeResult {
     /**
      * 变化后的窗口宽度，单位 px
      */
-    windowWidth?: number;
+    windowWidth?: number | undefined;
     /**
      * 变化后的窗口高度，单位 px
      */
-    windowHeight?: number;
+    windowHeight?: number | undefined;
 }
 
 interface SetTabBarBadgeOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 显示的文本
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface RemoveTabBarBadgeOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowTabBarRedDotOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface HideTabBarRedDotOptions {
     /**
      * tabBar的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetTabBarStyleOptions {
     /**
      * tab 上的文字默认颜色
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * tab 上的文字选中时的颜色
      */
-    selectedColor?: string;
+    selectedColor?: string | undefined;
     /**
      * tab 的背景色
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * tabbar上边框的颜色
      */
-    borderStyle?: string;
+    borderStyle?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetTabBarItemOptions {
     /**
      * tabBar 的哪一项，从左边算起，索引从0开始
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * tab 上按钮文字
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 图片路径
      */
-    iconPath?: string;
+    iconPath?: string | undefined;
     /**
      * 选中时的图片路径
      */
-    selectedIconPath?: string;
+    selectedIconPath?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowTabBarOptions {
     /**
      * 是否需要动画效果
      */
-    animation?: boolean;
+    animation?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface HideTabBarOptions {
     /**
      * 是否需要动画效果
      */
-    animation?: boolean;
+    animation?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetTopBarTextOptions {
     /**
      * 置顶栏文字内容
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface NavigateToOptions {
     /**
      * 需要跳转的应用内非 tabBar 的页面的路径 , 路径后可以带参数
      */
-    url?: string | string;
+    url?: string | string | undefined;
     /**
      * 窗口显示的动画类型
      * - auto: 自动选择动画效果
@@ -4596,102 +4596,102 @@ interface NavigateToOptions {
      * - zoom-fade-out: 从小到大逐渐放大并且从透明到不透明逐渐显示效果
      * - pop-in: 从右侧平移入栈动画效果
      */
-    animationType?: 'auto' | 'none' | 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in';
+    animationType?: 'auto' | 'none' | 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in' | undefined;
     /**
      * 窗口显示动画的持续时间，单位为 ms
      */
-    animationDuration?: number;
+    animationDuration?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface RedirectToOptions {
     /**
      * 需要跳转的应用内非 tabBar 的页面的路径 , 路径后可以带参数
      */
-    url?: string | string;
+    url?: string | string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ReLaunchOptions {
     /**
      * 需要跳转的应用内非 tabBar 的页面的路径 , 路径后可以带参数
      */
-    url?: string | string;
+    url?: string | string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SwitchTabOptions {
     /**
      * 需要跳转的 tabBar 页面的路径，路径后不能带参数
      */
-    url?: string | string;
+    url?: string | string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CreateIntersectionObserverOptions {
     /**
      * 所有阈值
      */
-    thresholds?: any [];
+    thresholds?: any [] | undefined;
     /**
      * 初始的相交比例
      */
-    initialRatio?: number;
+    initialRatio?: number | undefined;
     /**
      * 是否同时观测多个参照节点（而非一个）
      */
-    selectAll?: boolean;
+    selectAll?: boolean | undefined;
 }
 
 interface NavigateBackOptions {
     /**
      * 返回的页面数，如果 delta 大于现有页面数，则返回到首页
      */
-    delta?: number;
+    delta?: number | undefined;
     /**
      * 窗口关闭的动画类型
      * - auto: 自动选择动画效果
@@ -4705,18 +4705,18 @@ interface NavigateBackOptions {
      * - zoom-fade-in: 从大逐渐缩小并且从不透明到透明逐渐隐藏关闭动画
      * - pop-out: 从右侧平移出栈动画效果
      */
-    animationType?: 'auto' | 'none' | 'slide-out-right' | 'slide-out-left' | 'slide-out-top' | 'slide-out-bottom' | 'fade-out' | 'zoom-in' | 'zoom-fade-in' | 'pop-out';
+    animationType?: 'auto' | 'none' | 'slide-out-right' | 'slide-out-left' | 'slide-out-top' | 'slide-out-bottom' | 'fade-out' | 'zoom-in' | 'zoom-fade-in' | 'pop-out' | undefined;
     /**
      * 窗口关闭动画的持续时间，单位为 ms
      */
-    animationDuration?: number;
+    animationDuration?: number | undefined;
 }
 
 interface CreateAnimationOptions {
     /**
      * 动画持续时间，单位ms
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 定义动画的效果
      * - linear: 动画从头到尾的速度是相同的
@@ -4727,41 +4727,41 @@ interface CreateAnimationOptions {
      * - step-start: 动画第一帧就跳至结束状态直到结束
      * - step-end: 动画一直保持开始状态，最后一帧跳到结束状态
      */
-    timingFunction?: 'linear' | 'ease' | 'ease-in' | 'ease-in-out' | 'ease-out' | 'step-start' | 'step-end';
+    timingFunction?: 'linear' | 'ease' | 'ease-in' | 'ease-in-out' | 'ease-out' | 'step-start' | 'step-end' | undefined;
     /**
      * 动画延迟时间，单位 ms
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * 设置transform-origin
      */
-    transformOrigin?: string;
+    transformOrigin?: string | undefined;
 }
 
 interface PageScrollToOptions {
     /**
      * 滚动到页面的目标位置
      */
-    scrollTop?: number;
+    scrollTop?: number | undefined;
     /**
      * 滚动动画的时长
      */
-    duration?: number;
+    duration?: number | undefined;
 }
 
 interface StartPullDownRefreshOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SelectorQuery {
@@ -4810,7 +4810,7 @@ interface NodeInfo {
     /**
      * 节点的ID
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 节点的dataset
      */
@@ -4818,39 +4818,39 @@ interface NodeInfo {
     /**
      * 节点的左边界坐标
      */
-    left?: number;
+    left?: number | undefined;
     /**
      * 节点的右边界坐标
      */
-    right?: number;
+    right?: number | undefined;
     /**
      * 节点的上边界坐标
      */
-    top?: number;
+    top?: number | undefined;
     /**
      * 节点的下边界坐标
      */
-    bottom?: number;
+    bottom?: number | undefined;
     /**
      * 节点的宽度
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 节点的高度
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 节点的水平滚动位置
      */
-    scrollLeft?: number;
+    scrollLeft?: number | undefined;
     /**
      * 节点的垂直滚动位置
      */
-    scrollTop?: number;
+    scrollTop?: number | undefined;
     /**
      * 节点对应的 Context 对象
      */
-    context?: MapContext | CanvasContext | VideoContext | EditorContext;
+    context?: MapContext | CanvasContext | VideoContext | EditorContext | undefined;
 }
 
 interface EditorContext {
@@ -4900,11 +4900,11 @@ interface EditorContextInsertImageOptions {
     /**
      * 图片地址
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 图像无法显示时的替代文本
      */
-    alt?: string;
+    alt?: string | undefined;
     /**
      * data 被序列化为 name=value;name1=value2 的格式挂在属性 data-custom 上
      */
@@ -4912,41 +4912,41 @@ interface EditorContextInsertImageOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface EditorContextInsertTextOptions {
     /**
      * 文本内容
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface EditorContextSetContentsOptions {
     /**
      * 带标签的HTML内容
      */
-    html?: string;
+    html?: string | undefined;
     /**
      * 表示内容的delta对象
      */
@@ -4954,125 +4954,125 @@ interface EditorContextSetContentsOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface EditorContextGetContentsOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface EditorContextClearOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface EditorContextRemoveFormatOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface EditorContextUndoOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface EditorContextRedoOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface NodeField {
     /**
      * 是否返回节点 id
      */
-    id?: boolean;
+    id?: boolean | undefined;
     /**
      * 是否返回节点 dataset
      */
-    dataset?: boolean;
+    dataset?: boolean | undefined;
     /**
      * 是否返回节点布局位置（left right top bottom）
      */
-    rect?: boolean;
+    rect?: boolean | undefined;
     /**
      * 是否返回节点尺寸（width height）
      */
-    size?: boolean;
+    size?: boolean | undefined;
     /**
      * 是否返回节点的 scrollLeft scrollTop，节点必须是 scroll-view 或者 viewport
      */
-    scrollOffset?: boolean;
+    scrollOffset?: boolean | undefined;
     /**
      * 指定属性名列表，返回节点对应属性名的当前属性值（只能获得组件文档中标注的常规属性值，id class style 和事件绑定的属性值不可获取）
      */
-    properties?: string [];
+    properties?: string [] | undefined;
     /**
      * 指定样式名列表，返回节点对应样式名的当前值
      */
-    computedStyle?: string [];
+    computedStyle?: string [] | undefined;
     /**
      * 是否返回节点对应的 Context 对象
      */
-    context?: boolean;
+    context?: boolean | undefined;
 }
 
 interface IntersectionObserver {
@@ -5098,7 +5098,7 @@ interface ObserveResult {
     /**
      * 相交比例
      */
-    intersectionRatio?: number;
+    intersectionRatio?: number | undefined;
     /**
      * 相交区域的边界
      */
@@ -5106,34 +5106,34 @@ interface ObserveResult {
     /**
      * 目标节点布局区域的边界
      */
-    boundingClientRect?: ObserveNodeRect;
+    boundingClientRect?: ObserveNodeRect | undefined;
     /**
      * 参照区域的边界
      */
-    relativeRect?: ObserveNodeRect;
+    relativeRect?: ObserveNodeRect | undefined;
     /**
      * 相交检测时的时间戳
      */
-    time?: number;
+    time?: number | undefined;
 }
 
 interface ObserveNodeRect {
     /**
      * left
      */
-    left?: number;
+    left?: number | undefined;
     /**
      * right
      */
-    right?: number;
+    right?: number | undefined;
     /**
      * top
      */
-    top?: number;
+    top?: number | undefined;
     /**
      * bottom
      */
-    bottom?: number;
+    bottom?: number | undefined;
 }
 
 interface Animation {
@@ -5255,65 +5255,65 @@ interface CanvasContext {
     /**
      * 填充色
      */
-    fillStyle?: string | CanvasGradient | CanvasPattern;
+    fillStyle?: string | CanvasGradient | CanvasPattern | undefined;
     /**
      * 边框颜色
      */
-    strokeStyle?: string | CanvasGradient | CanvasPattern;
+    strokeStyle?: string | CanvasGradient | CanvasPattern | undefined;
     /**
      * 阴影的模糊级别
      */
-    shadowBlur?: number;
+    shadowBlur?: number | undefined;
     /**
      * 阴影的颜色
      */
-    shadowColor?: string;
+    shadowColor?: string | undefined;
     /**
      * 阴影相对于形状在水平方向的偏移
      */
-    shadowOffsetX?: number;
+    shadowOffsetX?: number | undefined;
     /**
      * 阴影相对于形状在竖直方向的偏移
      */
-    shadowOffsetY?: number;
+    shadowOffsetY?: number | undefined;
     /**
      * 线条的宽度
      */
-    lineWidth?: number;
+    lineWidth?: number | undefined;
     /**
      * 线条的端点样式
      * - butt:
      * - round:
      * - square:
      */
-    lineCap?: 'butt' | 'round' | 'square';
+    lineCap?: 'butt' | 'round' | 'square' | undefined;
     /**
      * 线条的结束交点样式
      * - bevel:
      * - round:
      * - miter:
      */
-    lineJoin?: 'bevel' | 'round' | 'miter';
+    lineJoin?: 'bevel' | 'round' | 'miter' | undefined;
     /**
      * 最大斜接长度
      */
-    miterLimit?: number;
+    miterLimit?: number | undefined;
     /**
      * 透明度
      */
-    globalAlpha?: number;
+    globalAlpha?: number | undefined;
     /**
      * 设置要在绘制新形状时应用的合成操作的类型
      */
-    globalCompositeOperation?: string;
+    globalCompositeOperation?: string | undefined;
     /**
      * 偏移量
      */
-    lineDashOffset?: number;
+    lineDashOffset?: number | undefined;
     /**
      * 字体样式
      */
-    font?: string;
+    font?: string | undefined;
     /**
      * 设置填充色
      */
@@ -5497,413 +5497,413 @@ interface CanvasTextMetrics {
     /**
      * 文本的宽度
      */
-    width?: number;
+    width?: number | undefined;
 }
 
 interface CanvasToTempFilePathOptions {
     /**
      * 画布x轴起点（默认0）
      */
-    x?: number;
+    x?: number | undefined;
     /**
      * 画布y轴起点（默认0）
      */
-    y?: number;
+    y?: number | undefined;
     /**
      * 画布宽度（默认为canvas宽度-x）
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 画布高度（默认为canvas高度-y）
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 输出图片宽度（默认为 width * 屏幕像素密度）
      */
-    destWidth?: number;
+    destWidth?: number | undefined;
     /**
      * 输出图片高度（默认为 height * 屏幕像素密度）
      */
-    destHeight?: number;
+    destHeight?: number | undefined;
     /**
      * 画布标识，传入 <canvas/> 的 canvas-id
      */
-    canvasId?: string;
+    canvasId?: string | undefined;
     /**
      * 目标文件的类型，默认为 'png'
      */
-    fileType?: string;
+    fileType?: string | undefined;
     /**
      * 图片的质量，取值范围为 (0, 1]，不在范围内时当作1.0处理
      */
-    quality?: number;
+    quality?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: CanvasToTempFilePathRes) => void;
+    success?: ((result: CanvasToTempFilePathRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CanvasToTempFilePathRes {
     /**
      * 导出生成的图片路径
      */
-    tempFilePath?: string;
+    tempFilePath?: string | undefined;
 }
 
 interface CanvasGetImageDataOptions {
     /**
      * 画布标识，传入 <canvas/> 的 canvas-id
      */
-    canvasId?: string;
+    canvasId?: string | undefined;
     /**
      * 将要被提取的图像数据矩形区域的左上角 x 坐标
      */
-    x?: number;
+    x?: number | undefined;
     /**
      * 将要被提取的图像数据矩形区域的左上角 y 坐标
      */
-    y?: number;
+    y?: number | undefined;
     /**
      * 将要被提取的图像数据矩形区域的宽度
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 将要被提取的图像数据矩形区域的高度
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: CanvasGetImageDataRes) => void;
+    success?: ((result: CanvasGetImageDataRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CanvasGetImageDataRes {
     /**
      * 回调信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
     /**
      * 图像数据矩形的宽度
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 图像数据矩形的高度
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
      */
-    data?: any [];
+    data?: any [] | undefined;
 }
 
 interface CanvasPutImageDataOptions {
     /**
      * 画布标识，传入 <canvas/> 的 canvas-id
      */
-    canvasId?: string;
+    canvasId?: string | undefined;
     /**
      * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
      */
-    data?: any [];
+    data?: any [] | undefined;
     /**
      * 源图像数据在目标画布中的位置偏移量（x 轴方向的偏移量）
      */
-    x?: number;
+    x?: number | undefined;
     /**
      * 源图像数据在目标画布中的位置偏移量（y 轴方向的偏移量）
      */
-    y?: number;
+    y?: number | undefined;
     /**
      * 源图像数据矩形区域的宽度
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 源图像数据矩形区域的高度
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetScreenBrightnessOptions {
     /**
      * 屏幕亮度值，范围 0~1，0 最暗，1 最亮
      */
-    value?: number;
+    value?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetScreenBrightnessOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetScreenBrightnessSuccessRes) => void;
+    success?: ((result: GetScreenBrightnessSuccessRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetScreenBrightnessSuccessRes {
     /**
      * 屏幕亮度值，范围 0~1，0 最暗，1 最亮。
      */
-    value?: number;
+    value?: number | undefined;
 }
 
 interface SetKeepScreenOnOptions {
     /**
      * 是否保持屏幕常亮
      */
-    keepScreenOn?: boolean;
+    keepScreenOn?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface VibrateLongOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface VibrateShortOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface AddPhoneContactOptions {
     /**
      * 头像本地文件路径
      */
-    photoFilePath?: string;
+    photoFilePath?: string | undefined;
     /**
      * 昵称
      */
-    nickName?: string;
+    nickName?: string | undefined;
     /**
      * 姓氏
      */
-    lastName?: string;
+    lastName?: string | undefined;
     /**
      * 中间名
      */
-    middleName?: string;
+    middleName?: string | undefined;
     /**
      * 名字
      */
-    firstName?: string;
+    firstName?: string | undefined;
     /**
      * 备注
      */
-    remark?: string;
+    remark?: string | undefined;
     /**
      * 手机号
      */
-    mobilePhoneNumber?: string;
+    mobilePhoneNumber?: string | undefined;
     /**
      * 微信号
      */
-    weChatNumber?: string;
+    weChatNumber?: string | undefined;
     /**
      * 联系地址国家
      */
-    addressCountry?: string;
+    addressCountry?: string | undefined;
     /**
      * 联系地址省份
      */
-    addressState?: string;
+    addressState?: string | undefined;
     /**
      * 联系地址城市
      */
-    addressCity?: string;
+    addressCity?: string | undefined;
     /**
      * 联系地址街道
      */
-    addressStreet?: string;
+    addressStreet?: string | undefined;
     /**
      * 联系地址邮政编码
      */
-    addressPostalCode?: string;
+    addressPostalCode?: string | undefined;
     /**
      * 公司
      */
-    organization?: string;
+    organization?: string | undefined;
     /**
      * 职位
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 工作传真
      */
-    workFaxNumber?: string;
+    workFaxNumber?: string | undefined;
     /**
      * 工作电话
      */
-    workPhoneNumber?: string;
+    workPhoneNumber?: string | undefined;
     /**
      * 公司电话
      */
-    hostNumber?: string;
+    hostNumber?: string | undefined;
     /**
      * 电子邮件
      */
-    email?: string;
+    email?: string | undefined;
     /**
      * 网站
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * 工作地址国家
      */
-    workAddressCountry?: string;
+    workAddressCountry?: string | undefined;
     /**
      * 工作地址省份
      */
-    workAddressState?: string;
+    workAddressState?: string | undefined;
     /**
      * 工作地址城市
      */
-    workAddressCity?: string;
+    workAddressCity?: string | undefined;
     /**
      * 工作地址街道
      */
-    workAddressStreet?: string;
+    workAddressStreet?: string | undefined;
     /**
      * 工作地址邮政编码
      */
-    workAddressPostalCode?: string;
+    workAddressPostalCode?: string | undefined;
     /**
      * 住宅传真
      */
-    homeFaxNumber?: string;
+    homeFaxNumber?: string | undefined;
     /**
      * 住宅电话
      */
-    homePhoneNumber?: string;
+    homePhoneNumber?: string | undefined;
     /**
      * 住宅地址国家
      */
-    homeAddressCountry?: string;
+    homeAddressCountry?: string | undefined;
     /**
      * 住宅地址省份
      */
-    homeAddressState?: string;
+    homeAddressState?: string | undefined;
     /**
      * 住宅地址城市
      */
-    homeAddressCity?: string;
+    homeAddressCity?: string | undefined;
     /**
      * 住宅地址街道
      */
-    homeAddressStreet?: string;
+    homeAddressStreet?: string | undefined;
     /**
      * 住宅地址邮政编码
      */
-    homeAddressPostalCode?: string;
+    homeAddressPostalCode?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetExtConfigOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetExtConfigRes) => void;
+    success?: ((result: GetExtConfigRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetExtConfigRes {
     /**
      * 调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
     /**
      * 第三方平台自定义的数据
      */
@@ -5921,27 +5921,27 @@ interface GetMenuButtonBoundingClientRectRes {
     /**
      * 小程序胶囊菜单按钮的宽度
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * 小程序胶囊菜单按钮的高度
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * 小程序胶囊菜单按钮的上边界坐标
      */
-    top?: number;
+    top?: number | undefined;
     /**
      * 小程序胶囊菜单按钮的右边界坐标
      */
-    right?: number;
+    right?: number | undefined;
     /**
      * 小程序胶囊菜单按钮的下边界坐标
      */
-    bottom?: number;
+    bottom?: number | undefined;
     /**
      * 小程序胶囊菜单按钮的左边界坐标
      */
-    left?: number;
+    left?: number | undefined;
 }
 
 interface GetProviderOptions {
@@ -5952,19 +5952,19 @@ interface GetProviderOptions {
      * - payment: 支付
      * - push: 推送
      */
-    service?: 'oauth' | 'share' | 'payment' | 'push';
+    service?: 'oauth' | 'share' | 'payment' | 'push' | undefined;
     /**
      * 接口调用成功的回调
      */
-    success?: (result: GetProviderRes) => void;
+    success?: ((result: GetProviderRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetProviderRes {
@@ -5975,11 +5975,11 @@ interface GetProviderRes {
      * - payment: 支付
      * - push: 推送
      */
-    service?: 'oauth' | 'share' | 'payment' | 'push';
+    service?: 'oauth' | 'share' | 'payment' | 'push' | undefined;
     /**
      * 得到的服务供应商
      */
-    provider?: any [];
+    provider?: any [] | undefined;
 }
 
 interface LoginOptions {
@@ -5990,46 +5990,46 @@ interface LoginOptions {
      * - sinaweibo: 新浪微博登录
      * - xiaomi: 小米登录
      */
-    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi';
+    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi' | undefined;
     /**
      * 超时时间，单位 ms
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: LoginRes) => void;
+    success?: ((result: LoginRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface LoginRes {
     /**
      * 描述信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
     /**
      * 登录服务商提供的登录信息，服务商不同返回的结果不完全相同
      */
-    authResult?: string;
+    authResult?: string | undefined;
     /**
      * 小程序用户临时登录凭证
      */
-    code?: string;
+    code?: string | undefined;
     /**
      * 头条小程序当前设备标识
      */
-    anonymousCode?: string;
+    anonymousCode?: string | undefined;
     /**
      * 支付宝小程序授权码
      */
-    authCode?: string;
+    authCode?: string | undefined;
     /**
      * 支付宝小程序登录失败的授权类型，key是授权失败的 scope，value 是对应的错误码
      */
@@ -6037,41 +6037,41 @@ interface LoginRes {
     /**
      * 支付宝小程序登录成功的授权 scope
      */
-    authSucessScope?: string [];
+    authSucessScope?: string [] | undefined;
 }
 
 interface CheckSessionOptions {
     /**
      * 接口调用成功的回调函数，session_key未过期
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数，session_key已过期
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface AuthorizeOptions {
     /**
      * 需要获取权限的scope
      */
-    scope?: string;
+    scope?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetUserInfoOptions {
@@ -6082,73 +6082,73 @@ interface GetUserInfoOptions {
      * - sinaweibo: 新浪微博登录
      * - xiaomi: 小米登录
      */
-    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi';
+    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi' | undefined;
     /**
      * 是否带上登录态信息，仅微信小程序生效。
      */
-    withCredentials?: boolean;
+    withCredentials?: boolean | undefined;
     /**
      * 指定返回用户信息的语言，zh_CN 简体中文，zh_TW 繁体中文，en 英文。默认为en，仅微信小程序生效。
      */
-    lang?: string;
+    lang?: string | undefined;
     /**
      * 超时时间，单位 ms
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetUserInfoRes) => void;
+    success?: ((result: GetUserInfoRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetUserInfoRes {
     /**
      * 用户信息对象，不包含 openid 等敏感信息
      */
-    userInfo?: UserInfo;
+    userInfo?: UserInfo | undefined;
     /**
      * 不包括敏感信息的原始数据字符串，用于计算签名。
      */
-    rawData?: string;
+    rawData?: string | undefined;
     /**
      * 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息，仅微信小程序生效。
      */
-    signature?: string;
+    signature?: string | undefined;
     /**
      * 包括敏感数据在内的完整用户信息的加密数据，详细见加密数据解密算法，仅微信小程序生效。
      */
-    encryptedData?: string;
+    encryptedData?: string | undefined;
     /**
      * 加密算法的初始向量，详细见加密数据解密算法，仅微信小程序生效。
      */
-    iv?: string;
+    iv?: string | undefined;
     /**
      * 描述信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface UserInfo {
     /**
      * 用户昵称
      */
-    nickname?: string;
+    nickname?: string | undefined;
     /**
      * 该服务商唯一用户标识
      */
-    openid?: string;
+    openid?: string | undefined;
     /**
      * 用户头像
      */
-    avatarUrl?: string;
+    avatarUrl?: string | undefined;
 }
 
 interface ShareOptions {
@@ -6158,7 +6158,7 @@ interface ShareOptions {
      * - qq: 分享到QQ好友
      * - weixin: 分享微信消息、朋友圈及微信小程序
      */
-    provider?: 'sinaweibo' | 'qq' | 'weixin';
+    provider?: 'sinaweibo' | 'qq' | 'weixin' | undefined;
     /**
      * 分享类型。默认图文0，纯文字1，纯图片2，音乐3，视频4，小程序5。
      * - 0: 图文
@@ -6168,69 +6168,69 @@ interface ShareOptions {
      * - 4: 视频
      * - 5: 小程序
      */
-    type?: '0' | '1' | '2' | '3' | '4' | '5';
+    type?: '0' | '1' | '2' | '3' | '4' | '5' | undefined;
     /**
      * 标题
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 场景。可取值“WXSceneSession”分享到聊天界面，“WXSenceTimeline”分享到朋友圈，“WXSceneFavorite”分享到微信收藏
      */
-    scene?: string;
+    scene?: string | undefined;
     /**
      * 摘要
      */
-    summary?: string;
+    summary?: string | undefined;
     /**
      * 跳转链接
      */
-    href?: string;
+    href?: string | undefined;
     /**
      * 图片地址
      */
-    imageUrl?: string;
+    imageUrl?: string | undefined;
     /**
      * 音视频地址
      */
-    mediaUrl?: string;
+    mediaUrl?: string | undefined;
     /**
      * 分享小程序
      */
-    miniProgram?: MiniProgramShareOptions;
+    miniProgram?: MiniProgramShareOptions | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface MiniProgramShareOptions {
     /**
      * 微信小程序原始id
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 点击链接进入的页面
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * 微信小程序版本类型，默认为0。
      * - 0: 正式版
      * - 1: 测试版
      * - 2: 体验版
      */
-    type?: '0' | '1' | '2';
+    type?: '0' | '1' | '2' | undefined;
     /**
      * 兼容低版本的网页链接
      */
-    webUrl?: string;
+    webUrl?: string | undefined;
 }
 
 interface SubscribePushOptions {
@@ -6240,19 +6240,19 @@ interface SubscribePushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush';
+    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface UnscribePushOptions {
@@ -6262,19 +6262,19 @@ interface UnscribePushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush';
+    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OnPushOptions {
@@ -6284,23 +6284,23 @@ interface OnPushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush';
+    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
     /**
      * 接收到透传数据回调，回调参数（Object）：messageId（消息id）、data（消息内容）
      */
-    callback?: () => void;
+    callback?: (() => void) | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OffPushOptions {
@@ -6310,364 +6310,364 @@ interface OffPushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush';
+    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ShowShareMenuOptions {
     /**
      * 是否使用带 shareTicket 的转发
      */
-    withShareTicket?: boolean;
+    withShareTicket?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface HideShareMenuOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface UpdateShareMenuOptions {
     /**
      * 是否使用带 shareTicket 的转发
      */
-    withShareTicket?: boolean;
+    withShareTicket?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetShareInfoOptions {
     /**
      * shareTicket
      */
-    shareTicket?: string;
+    shareTicket?: string | undefined;
     /**
      * 超时时间，单位 ms
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetShareInfoRes) => void;
+    success?: ((result: GetShareInfoRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetShareInfoRes {
     /**
      * 错误信息
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
     /**
      * 包括敏感数据在内的完整转发信息的加密数据
      */
-    encryptedData?: string;
+    encryptedData?: string | undefined;
     /**
      * 加密算法的初始向量
      */
-    iv?: string;
+    iv?: string | undefined;
 }
 
 interface ChooseAddressOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: ChooseAddressRes) => void;
+    success?: ((result: ChooseAddressRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ChooseAddressRes {
     /**
      * 调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
     /**
      * 收货人姓名
      */
-    userName?: string;
+    userName?: string | undefined;
     /**
      * 邮编
      */
-    postalCode?: string;
+    postalCode?: string | undefined;
     /**
      * 国标收货地址第一级地址
      */
-    provinceName?: string;
+    provinceName?: string | undefined;
     /**
      * 国标收货地址第二级地址
      */
-    cityName?: string;
+    cityName?: string | undefined;
     /**
      * 国标收货地址第三级地址
      */
-    countyName?: string;
+    countyName?: string | undefined;
     /**
      * 详细收货地址信息
      */
-    detailInfo?: string;
+    detailInfo?: string | undefined;
     /**
      * 收货地址国家码
      */
-    nationalCode?: string;
+    nationalCode?: string | undefined;
     /**
      * 收货人手机号码
      */
-    telNumber?: string;
+    telNumber?: string | undefined;
 }
 
 interface AddCardOptions {
     /**
      * 需要添加的卡券列表
      */
-    cardList?: AddCardData [];
+    cardList?: AddCardData [] | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: AddCardRes) => void;
+    success?: ((result: AddCardRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface AddCardData {
     /**
      * 卡券 id
      */
-    cardId?: string;
+    cardId?: string | undefined;
     /**
      * 卡券的扩展参数
      */
-    cardExt?: string;
+    cardExt?: string | undefined;
 }
 
 interface AddCardRes {
     /**
      * 卡券 id
      */
-    cardList?: CardData [];
+    cardList?: CardData [] | undefined;
 }
 
 interface CardData {
     /**
      * 加密 code，为用户领取到卡券的code加密后的字符串
      */
-    code?: string;
+    code?: string | undefined;
     /**
      * 用户领取到卡券的id
      */
-    cardId?: string;
+    cardId?: string | undefined;
     /**
      * 用户领取到卡券的扩展参数，与调用时传入的参数相同
      */
-    cardExt?: string;
+    cardExt?: string | undefined;
     /**
      * 是否成功
      */
-    isSuccess?: boolean;
+    isSuccess?: boolean | undefined;
 }
 
 interface OpenCardOptions {
     /**
      * 需要打开的卡券列表
      */
-    cardList?: OpenCardData [];
+    cardList?: OpenCardData [] | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OpenCardData {
     /**
      * 需要打开的卡券 Id
      */
-    cardId?: string;
+    cardId?: string | undefined;
     /**
      * 由 addCard 的返回对象中的加密 code 通过解密后得到
      */
-    code?: string;
+    code?: string | undefined;
 }
 
 interface OpenSettingOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetSettingOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: (result: AuthSetting) => void;
+    fail?: ((result: AuthSetting) => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface AuthSetting {
     /**
      * 是否授权用户信息
      */
-    'scope.userInfo'?: boolean;
+    'scope.userInfo'?: boolean | undefined;
     /**
      * 是否授权地理位置
      */
-    'scope.userLocation'?: boolean;
+    'scope.userLocation'?: boolean | undefined;
     /**
      * 是否授权通讯地址
      */
-    'scope.address'?: boolean;
+    'scope.address'?: boolean | undefined;
     /**
      * 是否授权发票抬头
      */
-    'scope.invoiceTitle'?: boolean;
+    'scope.invoiceTitle'?: boolean | undefined;
     /**
      * 是否授权获取发票
      */
-    'scope.invoice'?: boolean;
+    'scope.invoice'?: boolean | undefined;
     /**
      * 是否授权微信运动步数
      */
-    'scope.werun'?: boolean;
+    'scope.werun'?: boolean | undefined;
     /**
      * 是否授权录音功能
      */
-    'scope.record'?: boolean;
+    'scope.record'?: boolean | undefined;
     /**
      * 是否授权保存到相册
      */
-    'scope.writePhotosAlbum'?: boolean;
+    'scope.writePhotosAlbum'?: boolean | undefined;
     /**
      * 是否授权摄像头
      */
-    'scope.camera'?: boolean;
+    'scope.camera'?: boolean | undefined;
 }
 
 interface GetWeRunDataOptions {
     /**
      * 超时时间，单位 ms
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetWeRunDataRes) => void;
+    success?: ((result: GetWeRunDataRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface GetWeRunDataRes {
     /**
      * 调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
     /**
      * 包括敏感数据在内的完整用户信息的加密数据
      */
-    encryptedData?: string;
+    encryptedData?: string | undefined;
     /**
      * 加密算法的初始向量
      */
-    iv?: string;
+    iv?: string | undefined;
 }
 
 interface NavigateToMiniProgramOptions {
     /**
      * 要打开的uni-app appId
      */
-    appId?: string;
+    appId?: string | undefined;
     /**
      * 打开的页面路径，如果为空则打开首页
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * 需要传递给目标uni-app的数据
      */
@@ -6675,19 +6675,19 @@ interface NavigateToMiniProgramOptions {
     /**
      * 要打开的uni-app版本
      */
-    envVersion?: string;
+    envVersion?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface NavigateBackMiniProgramOptions {
@@ -6698,137 +6698,137 @@ interface NavigateBackMiniProgramOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ChooseInvoiceTitleOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: ChooseInvoiceTitleRes) => void;
+    success?: ((result: ChooseInvoiceTitleRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface ChooseInvoiceTitleRes {
     /**
      * 抬头类型（0：单位，1：个人）
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 抬头名称
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 抬头税号
      */
-    taxNumber?: string;
+    taxNumber?: string | undefined;
     /**
      * 单位地址
      */
-    companyAddress?: string;
+    companyAddress?: string | undefined;
     /**
      * 手机号码
      */
-    telephone?: string;
+    telephone?: string | undefined;
     /**
      * 银行名称
      */
-    bankName?: string;
+    bankName?: string | undefined;
     /**
      * 银行账号
      */
-    bankAccount?: string;
+    bankAccount?: string | undefined;
     /**
      * 接口调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface CheckIsSupportSoterAuthenticationOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: CheckIsSupportSoterAuthenticationRes) => void;
+    success?: ((result: CheckIsSupportSoterAuthenticationRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface CheckIsSupportSoterAuthenticationRes {
     /**
      * 接口调用成功的回调函数
      */
-    supportMode?: any [];
+    supportMode?: any [] | undefined;
     /**
      * 接口调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface StartSoterAuthenticationOptions {
     /**
      * 请求使用的可接受的生物认证方式
      */
-    requestAuthModes?: any [];
+    requestAuthModes?: any [] | undefined;
     /**
      * 挑战因子
      */
-    challenge?: string;
+    challenge?: string | undefined;
     /**
      * 验证描述，即识别过程中显示在界面上的对话框提示内容
      */
-    authContent?: string;
+    authContent?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: StartSoterAuthenticationRes) => void;
+    success?: ((result: StartSoterAuthenticationRes) => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StartSoterAuthenticationRes {
     /**
      * 错误码
      */
-    errCode?: number;
+    errCode?: number | undefined;
     /**
      * 生物认证方式
      */
-    authMode?: string;
+    authMode?: string | undefined;
     /**
      * 在设备安全区域（TEE）内获得的本机安全信息以及本次认证信息
      */
-    resultJSON?: string;
+    resultJSON?: string | undefined;
     /**
      * 接口调用结果
      */
-    errMsg?: string;
+    errMsg?: string | undefined;
 }
 
 interface CheckIsSoterEnrolledInDeviceOptions {
@@ -6838,19 +6838,19 @@ interface CheckIsSoterEnrolledInDeviceOptions {
      * - facial: 人脸识别（暂未支持）
      * - speech: 声纹识别（暂未支持）
      */
-    checkAuthMode?: 'fingerPrint' | 'facial' | 'speech';
+    checkAuthMode?: 'fingerPrint' | 'facial' | 'speech' | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface UpdateManager {
@@ -6891,169 +6891,169 @@ interface SetEnableDebugOptions {
     /**
      * 是否打开调试
      */
-    enableDebug?: boolean;
+    enableDebug?: boolean | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetBackgroundColorOptions {
     /**
      * 窗口的背景色，必须为十六进制颜色值
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * 顶部窗口的背景色，必须为十六进制颜色值，仅 iOS 支持
      */
-    backgroundColorTop?: string;
+    backgroundColorTop?: string | undefined;
     /**
      * 底部窗口的背景色，必须为十六进制颜色值，仅 iOS 支持
      */
-    backgroundColorBottom?: string;
+    backgroundColorBottom?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface SetBackgroundTextStyleOptions {
     /**
      * 下拉背景字体、loading 图的样式，值为：dark、light
      */
-    textStyle?: string;
+    textStyle?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface OnGyroscopeChangeSuccess {
     /**
      * x 轴方向角速度
      */
-    x?: number;
+    x?: number | undefined;
     /**
      * y 轴方向角速度
      */
-    y?: number;
+    y?: number | undefined;
     /**
      * z 轴方向角速度
      */
-    z?: number;
+    z?: number | undefined;
 }
 
 interface StartGyroscopeOptions {
     /**
      * 监听陀螺仪数据回调函数的执行频率：game（20ms/次）、ui（60ms/次）、normal （200ms/次）
      */
-    interval?: string;
+    interval?: string | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopGyroscopeOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface StopGyroscopeOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface LoadFontFaceOptions {
     /**
      * 定义的字体名称
      */
-    family?: string;
+    family?: string | undefined;
     /**
      * 字体资源的地址。建议格式为 TTF 和 WOFF，WOFF2 在低版本的iOS上会不兼容。
      */
-    source?: string;
+    source?: string | undefined;
     /**
      * 可选的字体描述符
      */
-    desc?: LoadFontFaceOptionsDesc;
+    desc?: LoadFontFaceOptionsDesc | undefined;
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (() => void) | undefined;
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (() => void) | undefined;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?: () => void;
+    complete?: (() => void) | undefined;
 }
 
 interface LoadFontFaceOptionsDesc {
     /**
      * 字体样式，可选值为 normal、italic、oblique
      */
-    style?: string;
+    style?: string | undefined;
     /**
      * 字体粗细，可选值为 normal、bold、100、200../ 900
      */
-    weight?: string;
+    weight?: string | undefined;
     /**
      * 设置小型大写字母的字体显示文本，可选值为 normal、small-caps、inherit
      */
-    variant?: string;
+    variant?: string | undefined;
 }

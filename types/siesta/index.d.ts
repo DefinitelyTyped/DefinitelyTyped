@@ -234,16 +234,16 @@ declare namespace Siesta {
         }
 
         interface IActionConfig extends IActionCall, IAction {
-            action?: IActionCall;
+            action?: IActionCall | undefined;
 
-            timeout?: number;
+            timeout?: number | undefined;
         }
 
         /**
          * @abstract
          */
         interface IAction {
-            desc?: string;
+            desc?: string | undefined;
         }
 
         namespace Action {
@@ -252,7 +252,7 @@ declare namespace Siesta {
                  * @mixin
                  */
                 interface IHasTarget {
-                    passTargetToNext?: boolean;
+                    passTargetToNext?: boolean | undefined;
 
                     target?: any;
 
@@ -271,7 +271,7 @@ declare namespace Siesta {
              * @class
              */
             interface Done extends IAction {
-                delay?: number;
+                delay?: number | undefined;
             }
 
             /**
@@ -293,7 +293,7 @@ declare namespace Siesta {
             interface Drag extends IAction {
                 by?: any;
 
-                dragOnly?: boolean;
+                dragOnly?: boolean | undefined;
 
                 source?: any;
 
@@ -355,7 +355,7 @@ declare namespace Siesta {
              * @class
              */
             interface Swipe extends IAction, Role.IHasTarget {
-                direction?: string;
+                direction?: string | undefined;
             }
 
             /**
@@ -364,7 +364,7 @@ declare namespace Siesta {
             interface Tap extends IAction, Role.IHasTarget {
                 options?: any;
 
-                text?: string;
+                text?: string | undefined;
             }
 
             /**
@@ -377,13 +377,13 @@ declare namespace Siesta {
              * @class
              */
             interface Wait extends IAction {
-                args?: any[];
+                args?: any[] | undefined;
 
-                delay?: number;
+                delay?: number | undefined;
 
-                timeout?: number;
+                timeout?: number | undefined;
 
-                waitFor?: string;
+                waitFor?: string | undefined;
             }
         }
 
@@ -961,9 +961,9 @@ declare namespace Siesta {
 
             scope?: any;
 
-            timeout?: number;
+            timeout?: number | undefined;
 
-            interval?: number;
+            interval?: number | undefined;
         }
 
         interface IWaitForReturn {
@@ -1033,9 +1033,9 @@ declare namespace Siesta {
         }
 
         interface IPositionConfig {
-            x?: number;
+            x?: number | undefined;
 
-            y?: number;
+            y?: number | undefined;
         }
 
         /**

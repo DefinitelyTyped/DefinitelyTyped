@@ -2,7 +2,8 @@
     "files": [
         "index.d.ts",
         "test/react-dom-tests.tsx",
-        "test/experimental-tests.tsx"
+        "test/experimental-tests.tsx",
+        "test/next-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

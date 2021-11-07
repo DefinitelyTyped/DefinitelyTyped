@@ -104,6 +104,8 @@ export default class Drawflow {
 
   import(data: any): void;
 
+  export(): any;
+
   /**
    *
    * @param name Name of module
@@ -150,8 +152,9 @@ export default class Drawflow {
   /**
    * Update data element. Ex: 5, { name: 'Drawflow' }
    * @param id
+   * @param data
    */
-  updateNodeDataFromId(id: string | number): void;
+  updateNodeDataFromId(id: string | number, data: any): void;
 
   /**
    * Add input to node. Ex id: 5
@@ -227,6 +230,8 @@ export default class Drawflow {
   clear(): void;
 
   addModule(moduleName: string): void;
+
+  removeModule(moduleName: string): void;
 
   changeModule(moduleName: string): void;
 

@@ -30,12 +30,12 @@ export interface Options {
     /**
      * How often GyroNorm returns data (in milliseconds)
      */
-    frequency?: number;
+    frequency?: number | undefined;
 
     /**
      * If the gravity related values to be normalized
      */
-    gravityNormalized?: boolean;
+    gravityNormalized?: boolean | undefined;
 
     /**
      * Can be GyroNorm.GAME or GyroNorm.WORLD. gn.GAME returns
@@ -43,22 +43,22 @@ export interface Options {
      * gn.WORLD returns the orientation values with respect to the actual
      * north direction of the world.
      */
-    orientationBase?: string;
+    orientationBase?: string | undefined;
 
     /**
      * How many digits after the decimal point will there be in the return values
      */
-    decimalCount?: number;
+    decimalCount?: number | undefined;
 
     /**
      * Function to be called to log messages from gyronorm.js
      */
-    logger?: LogListener;
+    logger?: LogListener | undefined;
 
     /**
      * If set to true it will return screen adjusted values
      */
-    screenAdjusted?: boolean;
+    screenAdjusted?: boolean | undefined;
 }
 
 export interface LoggerData {

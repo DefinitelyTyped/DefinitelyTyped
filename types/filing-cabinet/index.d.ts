@@ -34,11 +34,11 @@ declare namespace cabinet {
          * Path to a typescript configuration.
          * Could also be an object representing a pre-parsed typescript config
          */
-        tsConfig?: string | object;
+        tsConfig?: string | object | undefined;
         /**
          * For typescript files, whether to prefer *.js over *.d.ts
          */
-        noTypeDefinitions?: boolean;
+        noTypeDefinitions?: boolean | undefined;
     }
 
     type Resolver = (partial: string, filename: string, directory: string, config?: any) => void;

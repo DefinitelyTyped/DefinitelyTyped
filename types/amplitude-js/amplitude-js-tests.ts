@@ -181,6 +181,7 @@ const defaults: amplitude.Config = {
     eventUploadPeriodMillis: 30 * 1000, // 30s
     eventUploadThreshold: 30,
     forceHttps: true,
+    includeFbclid: false,
     includeGclid: false,
     includeReferrer: false,
     includeUtm: false,

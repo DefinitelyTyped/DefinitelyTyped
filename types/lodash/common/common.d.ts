@@ -116,23 +116,23 @@ declare module "../index" {
         /**
         * The "escape" delimiter.
         **/
-        escape?: RegExp;
+        escape?: RegExp | undefined;
         /**
         * The "evaluate" delimiter.
         **/
-        evaluate?: RegExp;
+        evaluate?: RegExp | undefined;
         /**
         * An object to import into the template as local variables.
         */
-        imports?: Dictionary<any>;
+        imports?: Dictionary<any> | undefined;
         /**
         * The "interpolate" delimiter.
         */
-        interpolate?: RegExp;
+        interpolate?: RegExp | undefined;
         /**
         * Used to reference the data object in the template text.
         */
-        variable?: string;
+        variable?: string | undefined;
     }
     /**
      * Creates a cache object to store key/value pairs.
@@ -166,7 +166,7 @@ declare module "../index" {
         /**
          * Removes all key-value entries from the map.
          */
-        clear?: () => void;
+        clear?: (() => void) | undefined;
     }
     interface MapCacheConstructor {
         new (): MapCache;

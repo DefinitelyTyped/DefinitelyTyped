@@ -1,7 +1,7 @@
 // Type definitions for non-npm package PowerApps Component Framework 1.3
 // Project: https://powerapps.microsoft.com
 // Definitions by: Joseph Pursley <https://github.com/jopursle>
-//                 Greg Hurlman <https://github.com/ghurlman>
+//                 Kaushik Kaul <https://github.com/kaushikkaul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

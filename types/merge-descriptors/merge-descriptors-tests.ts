@@ -7,7 +7,7 @@ function testAssertion(condition: boolean, errorMessage: string) {
 }
 
 interface MergedObject {
-    InSrc?: string;
+    InSrc?: string | undefined;
     name: string;
     InTarget: string;
 }

@@ -3,20 +3,20 @@ import * as React from "react";
 export type MultiInputProps = {
     data: any[];
     buttonProps?: any;
-    className?: string;
-    compact?: boolean;
-    disabled?: boolean;
-    disableStyles?: boolean;
+    className?: string | undefined;
+    compact?: boolean | undefined;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
     inputProps?: any;
     listProps?: any;
-    placeholder?: string;
+    placeholder?: string | undefined;
     popoverProps?: any;
     tagProps?: any;
     validationState?: {
       state?: any,
-      text?: string
-    };
-    onTagsUpdate?: (...args: any[]) => any;
+      text?: string | undefined
+    } | undefined;
+    onTagsUpdate?: ((...args: any[]) => any) | undefined;
 } & { [x: string]: any };
 
 declare class MultiInput extends React.Component<MultiInputProps> {}

@@ -26,6 +26,11 @@ export class LightShadow {
     radius: number;
 
     /**
+     * @default 8
+     */
+    blurSamples: number;
+
+    /**
      * @default new THREE.Vector2( 512, 512 )
      */
     mapSize: Vector2;
@@ -62,4 +67,5 @@ export class LightShadow {
     updateMatrices(light: Light, viewportIndex?: number): void;
     getViewport(viewportIndex: number): Vector4;
     getFrameExtents(): Vector2;
+    dispose(): void;
 }

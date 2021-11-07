@@ -24,10 +24,10 @@ export class Client extends EventEmitter {
 }
 
 export interface ConnectionOptions {
-    rxTimeoutMillis?: number;
-    txIntervalMillis?: number;
+    rxTimeoutMillis?: number | undefined;
+    txIntervalMillis?: number | undefined;
     heartbeatPacketType: PacketType;
-    keepAliveMillis?: number;
+    keepAliveMillis?: number | undefined;
 }
 
 export class Connection extends EventEmitter {

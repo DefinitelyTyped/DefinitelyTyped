@@ -8,42 +8,55 @@
 /// <reference types="jquery"/>
 
 interface BootstrapSelectOptions {
-    actionsBox?: boolean;
-    container?: string | boolean;
-    countSelectedText?: string | Function;
-    deselectAllText?: string;
-    dropdownAlignRight?: string | boolean;
-    dropupAuto?: boolean;
-    header?: string;
-    hideDisabled?: boolean;
-    iconBase?: string;
-    liveSearch?: boolean;
-    liveSearchNormalize?: boolean;
-    liveSearchPlaceholder?: string;
-    liveSearchStyle?: string;
-    maxOptions?: number | boolean;
-    maxOptionsText?: string | Array<any> | Function;
-    mobile?: boolean;
-    multipleSeparator?: string;
-    noneSelectedText?: string;
-    noneResultsText?: string;
-    selectAllText?: string;
-    selectedTextFormat?: string;
-    selectOnTab?: boolean;
-    showContent?: boolean;
-    showIcon?: boolean;
-    showSubtext?: boolean;
-    showTick?: boolean;
-    sanitize?: boolean;
-    sanitizeFn?: (unsafeElements: Array<HTMLElement | ChildNode | Node>) => void;
-    size?: 'auto' | number | boolean;
-    style?: string;
-    styleBase?: string;
-    tickIcon?: string;
-    title?: string;
-    virtualScroll?: boolean | number;
-    width?: string | boolean;
-    windowPadding?: number | number[];
+    actionsBox: boolean;
+    container: string | boolean;
+    countSelectedText: string | ((numSelected: number, numTotal: number) => string);
+    deselectAllText: string;
+    dropdownAlignRight: string | boolean;
+    dropupAuto: boolean;
+    header: string;
+    hideDisabled: boolean;
+    iconBase: string;
+    liveSearch: boolean;
+    liveSearchNormalize: boolean;
+    liveSearchPlaceholder: string;
+    liveSearchStyle: string;
+    maxOptions: number | boolean;
+    maxOptionsText: string | any[] | ((numAll: number, numGroup: number) => [string, string]);
+    mobile: boolean;
+    multipleSeparator: string;
+    noneResultsText: string;
+    noneSelectedText: string;
+    sanitize: boolean;
+    sanitizeFn(unsafeElements: Array<HTMLElement | ChildNode | Node>): void;
+    selectAllText: string;
+    selectedTextFormat: string;
+    selectOnTab: boolean;
+    showContent: boolean;
+    showIcon: boolean;
+    showSubtext: boolean;
+    showTick: boolean;
+    size: 'auto' | number | boolean;
+    style: string;
+    styleBase: string;
+    tickIcon: string;
+    title: string;
+    virtualScroll: boolean | number;
+    width: string | boolean;
+    windowPadding: number | number[];
+}
+
+interface BootstrapSelectDefaults extends BootstrapSelectOptions {
+    allowClear: boolean;
+    chunkSize: number;
+    display: boolean;
+    doneButton: boolean;
+    doneButtonText: string;
+    placeholder: null;
+    sanitize: boolean;
+    source: object;
+    template: object;
+    whiteList: Record<string, string[]>;
 }
 
 type MethodType =
@@ -59,7 +72,17 @@ type MethodType =
     | 'show'
     | 'destroy';
 
+interface SelectPicker {
+    (opts?: Partial<BootstrapSelectOptions>): JQuery;
+    (method: MethodType, ...args: Array<string | Array<string>>): JQuery;
+
+    readonly Constructor: {
+        BootstrapVersion: string;
+        readonly DEFAULTS: BootstrapSelectDefaults;
+        readonly VERSION: string;
+    };
+}
+
 interface JQuery {
-    selectpicker(opts?: BootstrapSelectOptions): JQuery;
-    selectpicker(method: MethodType, ...args: Array<string | Array<string>>): JQuery;
+    selectpicker: SelectPicker;
 }

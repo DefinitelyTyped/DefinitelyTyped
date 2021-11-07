@@ -1,0 +1,1 @@
+export { MisuseAlt as default } from "./";

@@ -9,9 +9,9 @@ import TileGrid from '../tilegrid/TileGrid';
 import TileSource from './Tile';
 
 export interface Options {
-    projection?: ProjectionLike;
-    tileGrid?: TileGrid;
-    wrapX?: boolean;
+    projection?: ProjectionLike | undefined;
+    tileGrid?: TileGrid | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class TileDebug extends TileSource {
     constructor(options: Options);

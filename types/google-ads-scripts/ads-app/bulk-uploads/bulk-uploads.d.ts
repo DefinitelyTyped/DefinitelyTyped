@@ -32,9 +32,9 @@ declare namespace GoogleAdsScripts {
 
         interface NewUploadOptionalArgs {
             /** File locale, specified in ISO format. Affects how numbers and dates are parsed. Defaults to en_US. See a full list in Supported Locales. */
-            fileLocale?: string;
+            fileLocale?: string | undefined;
             /** Whether or not to represent money in micros ('1370000') or in currency ('1.37'). Defaults to true. */
-            moneyInMicros?: boolean;
+            moneyInMicros?: boolean | undefined;
             /**
              * The time zone to use for dates. No default. The following formats are supported:
              *
@@ -44,7 +44,7 @@ declare namespace GoogleAdsScripts {
              *
              * **NOTE:** this field is required for offline conversion uploads.
              */
-            timeZone?: string;
+            timeZone?: string | undefined;
         }
 
         /** Represents a Bulk Upload which can be incrementally built up in CSV format and uploaded to the Bulk Uploads service. */

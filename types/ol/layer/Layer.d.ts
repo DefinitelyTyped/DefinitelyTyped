@@ -14,18 +14,18 @@ import { State as State_2 } from '../View';
 import BaseLayer from './Base';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    source?: Source;
-    map?: PluggableMap;
-    render?: RenderFunction;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    source?: Source | undefined;
+    map?: PluggableMap | undefined;
+    render?: RenderFunction | undefined;
 }
 export type RenderFunction = (p0: FrameState) => HTMLElement;
 export interface State {
@@ -34,7 +34,7 @@ export interface State {
     sourceState: State_1;
     visible: boolean;
     managed: boolean;
-    extent?: Extent;
+    extent?: Extent | undefined;
     zIndex: number;
     maxResolution: number;
     minResolution: number;

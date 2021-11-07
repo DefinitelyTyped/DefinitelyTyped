@@ -43,11 +43,11 @@ declare namespace Pool {
          * and started once there's room in the pool.
          * @default 1
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * Maximum number of workers waiting to be started when the pool is full.
          * The callback to `pool.acquire` will be called with an error in case this limit is reached.
          */
-        maxWaiting?: number;
+        maxWaiting?: number | undefined;
     }
 }

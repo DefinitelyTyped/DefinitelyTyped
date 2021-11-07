@@ -1,0 +1,1 @@
+export { LogoStumbleupon as default } from "./";

@@ -14,7 +14,7 @@ declare namespace namespace {
     };
 
     interface BuilderOptions {
-        factory?: DataFactory;
+        factory?: DataFactory | undefined;
     }
 }
 

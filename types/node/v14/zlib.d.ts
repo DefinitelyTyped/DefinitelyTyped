@@ -5,51 +5,51 @@ declare module 'zlib' {
         /**
          * @default constants.Z_NO_FLUSH
          */
-        flush?: number;
+        flush?: number | undefined;
         /**
          * @default constants.Z_FINISH
          */
-        finishFlush?: number;
+        finishFlush?: number | undefined;
         /**
          * @default 16*1024
          */
-        chunkSize?: number;
-        windowBits?: number;
-        level?: number; // compression only
-        memLevel?: number; // compression only
-        strategy?: number; // compression only
-        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
-        info?: boolean;
-        maxOutputLength?: number;
+        chunkSize?: number | undefined;
+        windowBits?: number | undefined;
+        level?: number | undefined; // compression only
+        memLevel?: number | undefined; // compression only
+        strategy?: number | undefined; // compression only
+        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined; // deflate/inflate only, empty dictionary by default
+        info?: boolean | undefined;
+        maxOutputLength?: number | undefined;
     }
 
     interface BrotliOptions {
         /**
          * @default constants.BROTLI_OPERATION_PROCESS
          */
-        flush?: number;
+        flush?: number | undefined;
         /**
          * @default constants.BROTLI_OPERATION_FINISH
          */
-        finishFlush?: number;
+        finishFlush?: number | undefined;
         /**
          * @default 16*1024
          */
-        chunkSize?: number;
+        chunkSize?: number | undefined;
         params?: {
             /**
              * Each key is a `constants.BROTLI_*` constant.
              */
             [key: number]: boolean | number;
-        };
-        maxOutputLength?: number;
+        } | undefined;
+        maxOutputLength?: number | undefined;
     }
 
     interface Zlib {
         /** @deprecated Use bytesWritten instead. */
         readonly bytesRead: number;
         readonly bytesWritten: number;
-        shell?: boolean | string;
+        shell?: boolean | string | undefined;
         close(callback?: () => void): void;
         flush(kind?: number, callback?: () => void): void;
         flush(callback?: () => void): void;

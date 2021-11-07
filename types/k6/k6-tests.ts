@@ -6,7 +6,6 @@ const __VU = 1;
 
 function test1() {
     const user = users[__VU - 1];
-    console.log(`${user.username}, ${user.password}`);
     sleep(3);
 }
 
@@ -191,11 +190,6 @@ function httpTest8() {
 
 function httpTest9() {
     const res = http.get('https://loadimpact.com');
-    for (const p in res.headers) {
-        if (res.headers.hasOwnProperty(p)) {
-            console.log(`${p} : ${res.headers[p]}`);
-        }
-    }
     check(res, {
         'status is 200': r => r.status === 200,
         'caption is correct': r => r.html('h1').text() === 'Example Domain',

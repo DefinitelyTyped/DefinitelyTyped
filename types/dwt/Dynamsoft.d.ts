@@ -19,9 +19,9 @@ export namespace DynamsoftStatic {
 }
 export interface DWTInitialConfig {
     WebTwainId: string;
-    Host?: string;
-    Port?: string;
-    SSLPort?: string;
+    Host?: string | undefined;
+    Port?: string | undefined;
+    SSLPort?: string | undefined;
 }
 export interface DynamsoftLib {
     /**
@@ -459,11 +459,11 @@ export interface ManagerEnv {
  */
 export interface Container {
     WebTwainId: string;
-    ContainerId?: string;
-    Width?: string | number;
-    Height?: string | number;
-    bNoUI?: boolean;
-    bLocalService?: boolean;
+    ContainerId?: string | undefined;
+    Width?: string | number | undefined;
+    Height?: string | number | undefined;
+    bNoUI?: boolean | undefined;
+    bLocalService?: boolean | undefined;
 }
 export interface Product {
     bActiveXEdition: boolean;

@@ -1,3 +1,4 @@
+import { Color } from '../math/Color';
 import { LineSegments } from './../objects/LineSegments';
 
 export class AxesHelper extends LineSegments {
@@ -10,4 +11,8 @@ export class AxesHelper extends LineSegments {
      * @default 'AxesHelper'
      */
     type: string;
+
+    setColors(xAxisColor: Color, yAxisColor: Color, zAxisColor: Color): this;
+
+    dispose(): void;
 }

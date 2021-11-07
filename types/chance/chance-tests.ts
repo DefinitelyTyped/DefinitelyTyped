@@ -215,3 +215,8 @@ sentence = chance.sentence({punctuation: ':'});
 sentence = chance.sentence({words: 10, punctuation: '?'});
 
 const postcode: string = chance.postcode();
+
+let mac: string = chance.mac_address();
+mac = chance.mac_address({});
+mac = chance.mac_address({separator: '-'});
+mac = chance.mac_address({networkVersion: true});

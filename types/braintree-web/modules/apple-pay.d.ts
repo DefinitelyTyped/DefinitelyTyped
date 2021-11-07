@@ -64,10 +64,31 @@ export enum ApplePayStatusCodes {
     STATUS_PIN_LOCKOUT,
 }
 
+export type ApplePayTokenizeValues = 'Yes' | 'No' | 'Unknown';
+
+export interface ApplePayDetails {
+    cardType: string;
+    cardholderName: string;
+    dpanLastTwo: string;
+}
+
 export interface ApplePayPayload {
-    merchantIdentifier: string;
-    domainName: string;
-    displayName: string;
+    nonce: string;
+    description: string;
+    type: string;
+    consumed: boolean;
+    details: ApplePayDetails;
+    binData: {
+        commercial: ApplePayTokenizeValues;
+        countryOfIssuance: string;
+        debit: ApplePayTokenizeValues;
+        durbinRegulated: ApplePayTokenizeValues;
+        healthcare: ApplePayTokenizeValues;
+        issuingBank: ApplePayTokenizeValues;
+        payroll: ApplePayTokenizeValues;
+        prepaid: ApplePayTokenizeValues;
+        productId: string;
+    };
 }
 
 export class ApplePaySession {
@@ -177,7 +198,7 @@ export interface ApplePay {
      * });
      */
     performValidation(
-        options: { validationURL: string; displayName?: string; merchantIdentifier?: string },
+        options: { validationURL: string; displayName?: string | undefined; merchantIdentifier?: string | undefined },
         callback: callback,
     ): void;
 

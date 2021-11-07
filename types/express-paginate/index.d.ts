@@ -9,8 +9,8 @@ import express = require("express");
 declare global {
     namespace Express {
         interface Request {
-            skip?: number;
-            offset?: number;
+            skip?: number | undefined;
+            offset?: number | undefined;
         }
     }
 }

@@ -6,6 +6,6 @@ export function usePreloadedQuery<TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,
     preloadedQuery: PreloadedQuery<TQuery>,
     options?: {
-        UNSTABLE_renderPolicy?: RenderPolicy;
+        UNSTABLE_renderPolicy?: RenderPolicy | undefined;
     },
 ): TQuery['response'];
