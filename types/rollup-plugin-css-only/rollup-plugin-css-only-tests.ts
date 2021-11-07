@@ -4,6 +4,6 @@ css({ output: 'bundle.css' });
 
 css({ output: false });
 
-css({ output: function (styles, styleNodes, bundle) {} });
+css({ output: (styles, styleNodes, bundle) => {} });
 
 css();
