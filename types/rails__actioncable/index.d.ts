@@ -181,6 +181,28 @@ export class Subscriptions<C = Consumer> {
     readonly subscriptions: Array<Subscription<C>>;
 
     create<M>(channelName: string | ChannelNameWithParams, mixin?: Mixin & M): Subscription<C> & Mixin & M;
+
+    add<T extends Subscription>(subscription: T): T;
+
+    remove<T extends Subscription>(subscription: T): T;
+
+    reject(identifier: string): Subscription[];
+
+    forget<T extends Subscription>(subscription: T): T;
+
+    findAll(identifier: string): Subscription[];
+
+    reload(): Subscription[];
+
+    notifyAll(callbackName: string, ...args: any): Subscription[];
+
+    notify(subscription: Subscription, callbackName: string, ...args: any): Subscription[];
+
+    subscribe(subscription: Subscription): void;
+
+    confirmSubscription(identifier: string): void;
+
+    sendCommand(subscription: Subscription, command: any): boolean;
 }
 
 /**
