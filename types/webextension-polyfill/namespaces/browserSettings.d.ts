@@ -100,6 +100,11 @@ export namespace BrowserSettings {
         overrideDocumentColors: Types.Setting;
 
         /**
+         * This setting controls whether a light or dark color scheme overrides the page's preferred color scheme.
+         */
+        overrideContentColorScheme: Types.Setting;
+
+        /**
          * This setting controls whether the document's fonts are used.
          */
         useDocumentFonts: Types.Setting;

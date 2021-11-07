@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.94.0
+// For Library Version: 1.96.0
 
 declare module "sap/base/assert" {
   /**
@@ -10846,12 +10846,6 @@ declare module "sap/ui/core/ComponentContainer" {
      */
     getWidth(): CSSSize;
     /**
-     * @SINCE 1.91
-     *
-     * Hides the placeholder that is shown on the component container.
-     */
-    hidePlaceholder(): void;
-    /**
      * Sets a new value for property {@link #getAsync async}.
      *
      * Flag whether the component should be created sync (default) or async. The default will be async when
@@ -11055,22 +11049,6 @@ declare module "sap/ui/core/ComponentContainer" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * @SINCE 1.91
-     *
-     * Shows the provided placeholder on the component container.
-     */
-    showPlaceholder(
-      /**
-       * Object containing the placeholder object
-       */
-      mSettings: {
-        /**
-         * The placeholder instance
-         */
-        placeholder: /* was: sap.ui.core.Placeholder */ any;
-      }
-    ): Promise<any>;
   }
 
   export interface $ComponentContainerSettings extends $ControlSettings {
@@ -11495,7 +11473,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getAppCacheBusterMode(): string;
     /**
-     * @deprecated (since 1.15.1) - Please use the rootComponent configuration option {@link sap.ui.core.Configuration#getRootComponent}.
+     * @deprecated (since 1.15.1) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also
+     * {@link topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
      *
      * The name of the application to start or empty.
      */
@@ -11609,7 +11588,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getOriginInfo(): boolean;
     /**
-     * @EXPERIMENTAL (since 1.15.1)
+     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link
+     * topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
      *
      * The name of the root component to start or empty.
      */
@@ -11627,6 +11607,14 @@ declare module "sap/ui/core/Configuration" {
      * It will be returned in uppercase. e.g. "EN", "DE"
      */
     getSAPLogonLanguage(): string;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Returns the security token handlers of an OData V4 model.
+     * See:
+     * 	#setSecurityTokenHandlers
+     */
+    getSecurityTokenHandlers(): Function[];
     /**
      * Returns the theme name
      */
@@ -11777,6 +11765,20 @@ declare module "sap/ui/core/Configuration" {
        */
       bRTL: boolean | null
     ): this;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Sets the security token handlers for an OData V4 model. See chapter "Security Token Handling" in {@link
+     * topic:9613f1f2d88747cab21896f7216afdac Model Instantiation and Data Access}.
+     * See:
+     * 	#getSecurityTokenHandlers
+     */
+    setSecurityTokenHandlers(
+      /**
+       * The security token handlers
+       */
+      aSecurityTokenHandlers: Function[]
+    ): void;
   }
   /**
    * @SINCE 1.50.0
@@ -12924,6 +12926,8 @@ declare module "sap/ui/core/Core" {
 
   import UI5Element from "sap/ui/core/Element";
 
+  import Component from "sap/ui/core/Component";
+
   import RenderManager from "sap/ui/core/RenderManager";
 
   import UIArea from "sap/ui/core/UIArea";
@@ -12931,8 +12935,6 @@ declare module "sap/ui/core/Core" {
   import Type from "sap/ui/model/Type";
 
   import Application from "sap/ui/app/Application";
-
-  import Component from "sap/ui/core/Component";
 
   import Configuration from "sap/ui/core/Configuration";
 
@@ -13314,6 +13316,8 @@ declare module "sap/ui/core/Core" {
       sId: ID | null | undefined
     ): UI5Element | undefined;
     /**
+     * @deprecated (since 1.95) - Please use {@link sap.ui.core.Component.create Component.create} instead.
+     *
      * Creates a component with the provided id and settings.
      *
      * When the optional parameter `sUrl` is given, then all request for resources of the library will be redirected
@@ -13367,7 +13371,7 @@ declare module "sap/ui/core/Core" {
        * the settings object for the component
        */
       mSettings?: object
-    ): void;
+    ): Component;
     /**
      * Returns a new instance of the RenderManager for exclusive use by the caller.
      *
@@ -13639,6 +13643,8 @@ declare module "sap/ui/core/Core" {
      */
     getApplication(): Application;
     /**
+     * @deprecated (since 1.95) - Please use {@link sap.ui.core.Component.get Component.get} instead.
+     *
      * Returns the registered component for the given id, if any.
      */
     getComponent(sId: string): Component;
@@ -13759,6 +13765,9 @@ declare module "sap/ui/core/Core" {
      */
     getRenderManager(): void;
     /**
+     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link
+     * topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
+     *
      * Returns the instance of the root component (if exists).
      */
     getRootComponent(): Component;
@@ -14008,7 +14017,7 @@ declare module "sap/ui/core/Core" {
      */
     loadLibrary(
       /**
-       * name of the library to load
+       * Name of the library to load
        */
       sLibrary: string,
       /**
@@ -14019,15 +14028,15 @@ declare module "sap/ui/core/Core" {
         | boolean
         | {
             /**
-             * URL to load the library from
-             */
-            url?: string;
-            /**
              * Whether to load the library asynchronously
              */
             async?: boolean;
+            /**
+             * URL to load the library from
+             */
+            url?: string;
           }
-    ): Object | Promise<any>;
+    ): object | Promise<object>;
     /**
      * Locks the Core. No browser events are dispatched to the controls.
      *
@@ -20700,6 +20709,23 @@ declare module "sap/ui/core/IconPool" {
       collectionName?: string
     ): string;
     /**
+     * Adds CSS code to load an icon font to the DOM
+     */
+    insertFontFaceStyle(
+      /**
+       * the file name of the font face
+       */
+      sFontFace: string,
+      /**
+       * the path to the font file
+       */
+      sPath: string,
+      /**
+       * the collection name, if not specified the font face is used
+       */
+      sCollectionName?: string
+    ): void;
+    /**
      * Returns whether the given `uri` is an icon URI.
      *
      * A string is an icon URI when it can be parsed as a URI and when it has one of the two forms
@@ -24708,6 +24734,11 @@ declare module "sap/ui/core/mvc/View" {
    * #byId}, elements or controls can be found with their view-local ID. Also see {@link topic:91f28be26f4d1014b6dd926db0e91070
    * "Support for Unique IDs"} in the documentation.
    *
+   * **Note: For Views defined using XML markup** On root level, you can only define content for the default
+   * aggregation, e.g. without adding the `<content>` tag. If you want to specify content for another
+   * aggregation of a view like `dependents`, place it in a child control's dependents aggregation or add
+   * it by using {@link sap.ui.core.mvc.XMLView.addDependent}.
+   *
    * View Definition: A view can be defined by {@link sap.ui.core.mvc.View.extend extending} this class and
    * implementing the {@link #createContent} method. The method must return one or many root controls that
    * will be rendered as content of the view.
@@ -27327,6 +27358,9 @@ declare module "sap/ui/core/RenderManager" {
      * When an <img> tag is rendered, the following two attributes are added by default and can be overwritten
      * with corresponding values in the `mAttributes` parameter:
      * 	 - `role: "presentation"` `alt: ""`
+     *
+     * **Note:** This function requires the {@link sap.ui.core.IconPool} module. Ensure that the module is loaded
+     * before this function is called to avoid syncXHRs.
      */
     icon(
       /**
@@ -28478,6 +28512,17 @@ declare module "sap/ui/core/routing/Router" {
 
   import Views from "sap/ui/core/routing/Views";
 
+  export type RouteInfo = {
+    /**
+     * The route name
+     */
+    name: string;
+    /**
+     * The route data
+     */
+    arguments: Record<string, string>;
+  };
+
   export default class Router extends EventProvider {
     /**
      * Instantiates a SAPUI5 Router
@@ -29162,7 +29207,7 @@ declare module "sap/ui/core/routing/Router" {
        * The hash to be matched
        */
       sHash: string
-    ): object | undefined;
+    ): RouteInfo | undefined;
     /**
      * Returns a target by its name.
      *
@@ -31193,11 +31238,22 @@ declare module "sap/ui/core/theming/Parameters" {
    */
   interface Parameters {
     /**
-     * Returns the current value for one or more theming parameters, depending on the given arguments. The synchronous
-     * usage of this API has been deprecated and only the asynchronous usage should still be used (see the 4th
-     * bullet point and the code examples below).
+     *  Returns the current value for one or more theming parameters, depending on the given arguments. The
+     * synchronous usage of this API has been deprecated and only the asynchronous usage should still be used
+     * (see the 4th bullet point and the code examples below).
+     *
+     *  The theming parameters are immutable and cannot be changed at runtime. Multiple `Parameters.get()`
+     * API calls for the same parameter name will always result in the same parameter value.
+     *
+     *  **Important, since 1.93:** When using the `Parameters.get()` API to retrieve theming parameters defined
+     * as CSS variables, please be aware that the API can also unknowingly retrieve arbitrary CSS variables
+     * defined in the DOM. All CSS variables defined via the `:root` pseudo-class can be retrieved this way.
+     * Please make sure to only access theming parameters defined in a UI5 theme/library.
      *
      *
+     *
+     *
+     *  The following API variants are available (see also the below examples):
      * 	 -  **(deprecated since 1.92)** If no parameter is given a key-value map containing all parameters is
      * 			returned
      * 	 -  **(deprecated since 1.94)** If a `string` is given as first parameter the value is returned as a
@@ -31208,8 +31264,9 @@ declare module "sap/ui/core/theming/Parameters" {
      * 			are loaded and available or within the callback in case not all CSS files are already loaded. This is
      * 			the **only asynchronous** API variant. This variant is the preferred way to retrieve theming parameters.
      * 			The structure of the return value is the same as listed above depending on the type of the name property
-     * 			within the `object`.  The returned key-value maps are a copy so changing values in the map does
-     * 			not have any effect
+     * 			within the `object`.
+     *
+     * The returned key-value maps are a copy so changing values in the map does not have any effect
      *
      *  Please see the examples below for a detailed guide on how to use the **asynchronous variant** of
      * the API.
@@ -33445,7 +33502,7 @@ declare module "sap/ui/core/UIComponent" {
      * A `sap.ui.core.UIComponent` subclass can additionally implement the {@link sap.ui.core.IAsyncContentCreation}
      * interface. When implementing this interface the loading and processing of an asynchronous `rootView`
      * will be chained into the result Promise of the {@link sap.ui.core.Component.create Component.create}
-     * factory. See Sample 1 below.
+     * factory. An additional async flag can be omitted. See Sample 1 below.
      *
      * Samples 2 and 3 show how subclasses can overwrite the `createContent` function to run asynchronously.
      * To create the root control asynchronously, the subclass has to define the `sap.ui.core.IAsyncContentCreation`
@@ -39144,18 +39201,20 @@ declare module "sap/ui/model/Binding" {
      */
     constructor(
       /**
-       * the model
+       * The model
        */
       oModel: Model,
       /**
-       * the path
+       * The path
        */
       sPath: string,
       /**
-       * the context object
+       * The context object
        */
       oContext: Context,
-
+      /**
+       * Additional, implementation-specific parameters
+       */
       mParameters?: object
     );
 
@@ -39193,27 +39252,27 @@ declare module "sap/ui/model/Binding" {
      */
     attachAggregatedDataStateChange(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `sap.ui.model.Binding` itself
+       * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
     ): void;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.model.Model`.
+     * Attaches the `fnFunction` event handler to the {@link #event:change change} event of this `sap.ui.model.Model`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.model.Binding` itself.
      */
     attachChange(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `sap.ui.model.Binding` itself
+       * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
     ): void;
@@ -39225,11 +39284,11 @@ declare module "sap/ui/model/Binding" {
      */
     attachDataReceived(
       /**
-       * Function to be called, when the event occurs
+       * Function to be called when the event occurs
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `sap.ui.model.Binding` itself
+       * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
     ): void;
@@ -39241,35 +39300,40 @@ declare module "sap/ui/model/Binding" {
      */
     attachDataRequested(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `sap.ui.model.Binding` itself
+       * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
     ): void;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:DataStateChange DataStateChange} event of this
-     * `sap.ui.model.Binding`.
+     * Attaches the `fnFunction` event handler to the {@link #event:DataStateChange DataStateChange} event of
+     * thi `sap.ui.model.Binding`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.model.Binding` itself.
      */
     attachDataStateChange(
       /**
-       * Function to be called, when the event occurs
+       * Function to be called when the event occurs
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `sap.ui.model.Binding` itself
+       * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
     ): void;
     /**
      * Attach multiple events.
      */
-    attachEvents(oEvents: Record<string, Function>): void;
+    attachEvents(
+      /**
+       * Events to attach to this binding
+       */
+      oEvents: Record<string, Function>
+    ): Binding;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      *
@@ -39278,11 +39342,11 @@ declare module "sap/ui/model/Binding" {
      */
     attachRefresh(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `sap.ui.model.Binding` itself
+       * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
     ): void;
@@ -39299,7 +39363,7 @@ declare module "sap/ui/model/Binding" {
      */
     detachAggregatedDataStateChange(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -39312,7 +39376,7 @@ declare module "sap/ui/model/Binding" {
      */
     detachChange(
       /**
-       * Function to be called, when the event occurs
+       * Function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -39325,7 +39389,7 @@ declare module "sap/ui/model/Binding" {
      */
     detachDataReceived(
       /**
-       * Function to be called, when the event occurs
+       * Function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -39339,7 +39403,7 @@ declare module "sap/ui/model/Binding" {
      */
     detachDataRequested(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -39353,7 +39417,7 @@ declare module "sap/ui/model/Binding" {
      */
     detachDataStateChange(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -39364,17 +39428,22 @@ declare module "sap/ui/model/Binding" {
     /**
      * Detach multiple events.
      */
-    detachEvents(oEvents: Record<string, Function>): void;
+    detachEvents(
+      /**
+       * Events to detach from this binding
+       */
+      oEvents: Record<string, Function>
+    ): Binding;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      */
     detachRefresh(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
-       * object on which to call the given function.
+       * Object on which to call the given function.
        */
       oListener?: object
     ): void;
@@ -39385,11 +39454,11 @@ declare module "sap/ui/model/Binding" {
      */
     fireDataReceived(
       /**
-       * Parameters to pass along with the event.
+       * Parameters to pass along with the event
        */
       oParameters: {
         /**
-         * Data received. In error cases it will be undefined.
+         * Data received; on error cases it will be undefined
          */
         data?: object;
       }
@@ -39399,7 +39468,7 @@ declare module "sap/ui/model/Binding" {
      */
     fireDataRequested(
       /**
-       * Parameters to pass along with the event.
+       * Parameters to pass along with the event
        */
       oParameters: object
     ): void;
@@ -39445,11 +39514,11 @@ declare module "sap/ui/model/Binding" {
      */
     initialize(): void;
     /**
-     * Returns whether the binding is initial, which means it did not get an initial value yet
+     * Returns whether the binding is initial, which means it did not get an initial value yet.
      */
     isInitial(): boolean;
     /**
-     * Returns whether the binding is relative, which means its path does not start with a slash ('/')
+     * Returns whether the binding is relative, which means its path does not start with a slash.
      */
     isRelative(): boolean;
     /**
@@ -39482,8 +39551,8 @@ declare module "sap/ui/model/Binding" {
     /**
      * Resumes the binding update. Change events will be fired again.
      *
-     * When the binding is resumed, a change event will be fired immediately, if the data has changed while
-     * the binding was suspended. For server-side models, a request to the server will be triggered, if a refresh
+     * When the binding is resumed, a change event will be fired immediately if the data has changed while the
+     * binding was suspended. For server-side models, a request to the server will be triggered if a refresh
      * was requested while the binding was suspended.
      */
     resume(): void;
@@ -40066,9 +40135,9 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     sort(
       /**
-       * array of Sorter instances which will be applied
+       * An array of Sorter instances which will be applied
        */
-      an: Sorter[]
+      aSorters: Sorter[]
     ): this;
   }
 }
@@ -40097,7 +40166,7 @@ declare module "sap/ui/model/CompositeBinding" {
    *
    * A `CompositeBinding` combines the values from all its binding parts (each an instance of `PropertyBinding`),
    * either by calling a formatter function or by involving a {@link sap.ui.model.CompositeType composite
-   * type}. When a formatter function is used, then the composite binding is automatically limited to `OneWay`
+   * type}. When a formatter function is used, the composite binding is automatically limited to `OneWay`
    * mode. When a type is used, the binding can also operate in `TwoWay` mode.
    *
    * Higher layers of the framework derive composite bindings from easy-to-write string representations (the
@@ -40163,7 +40232,7 @@ declare module "sap/ui/model/CompositeBinding" {
        */
       fnFunction: Function,
       /**
-       * object on which to call the given function.
+       * Object on which to call the given function
        */
       oListener?: object
     ): void;
@@ -40179,7 +40248,7 @@ declare module "sap/ui/model/CompositeBinding" {
        */
       fnFunction: Function,
       /**
-       * object on which to call the given function
+       * Object on which to call the given function
        */
       oListener?: object
     ): void;
@@ -40195,7 +40264,7 @@ declare module "sap/ui/model/CompositeBinding" {
        */
       fnFunction: Function,
       /**
-       * object on which to call the given function
+       * Object on which to call the given function
        */
       oListener?: object
     ): void;
@@ -40208,7 +40277,7 @@ declare module "sap/ui/model/CompositeBinding" {
        */
       fnFunction: Function,
       /**
-       * object on which to call the given function
+       * Object on which to call the given function
        */
       oListener?: object
     ): void;
@@ -40221,7 +40290,7 @@ declare module "sap/ui/model/CompositeBinding" {
        */
       fnFunction: Function,
       /**
-       * object on which to call the given function
+       * Object on which to call the given function
        */
       oListener?: object
     ): void;
@@ -40234,7 +40303,7 @@ declare module "sap/ui/model/CompositeBinding" {
        */
       fnFunction: Function,
       /**
-       * object on which to call the given function
+       * Object on which to call the given function
        */
       oListener?: object
     ): void;
@@ -40248,12 +40317,12 @@ declare module "sap/ui/model/CompositeBinding" {
     getExternalValue(): object;
     /**
      * Returns the current internal value of the bound target which is an array of the internal (JS native)
-     * values of nested bindings
+     * values of nested bindings.
      */
     getInternalValue(): any[];
     /**
      * Returns the current raw value of the bound target which is an array of the raw (model) values of nested
-     * bindings
+     * bindings.
      */
     getRawValue(): any[];
     /**
@@ -40262,10 +40331,10 @@ declare module "sap/ui/model/CompositeBinding" {
     getValue(): object;
     /**
      * Initialize the binding. The method should be called when creating a binding. The default implementation
-     * calls checkUpdate(true). Prevent checkUpdate to be triggered while initializing nestend bindings, it
-     * is sufficient to call checkUpdate when all nested bindings are initialized.
+     * calls checkUpdate(true). Prevent checkUpdate to be triggered while initializing nested bindings, it is
+     * sufficient to call checkUpdate when all nested bindings are initialized.
      */
-    initialize(): void;
+    initialize(): this;
     /**
      * Suspends the binding update. No change events will be fired.
      *
@@ -40276,12 +40345,12 @@ declare module "sap/ui/model/CompositeBinding" {
     resume(): void;
     /**
      * Sets the external value of a composite binding. If no CompositeType is assigned to the binding, the default
-     * implementation assumes a space separated list of values. This will cause the setValue to be called for
+     * implementation assumes a space-separated list of values. This will cause the setValue to be called for
      * each nested binding, except for undefined values in the array.
      */
     setExternalValue(
       /**
-       * the value to set for this binding
+       * The value to set for this binding
        */
       oValue: object
     ): undefined | Promise<any>;
@@ -40294,7 +40363,7 @@ declare module "sap/ui/model/CompositeBinding" {
        * the new values of the nested bindings
        */
       aValues: any[]
-    ): void;
+    ): undefined | Promise<any>;
     /**
      * Sets the raw value of the bound target. Parameter must be an array of values matching the raw (model)
      * types of nested bindings.
@@ -40304,7 +40373,7 @@ declare module "sap/ui/model/CompositeBinding" {
        * the new values of the nested bindings
        */
       aValues: any[]
-    ): void;
+    ): undefined | Promise<any>;
     /**
      * Sets the optional type and internal type for the binding. The type and internal type are used to do the
      * parsing/formatting correctly. The internal type is the property type of the element which the value is
@@ -40312,11 +40381,11 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     setType(
       /**
-       * the type for the binding
+       * The type for the binding
        */
       oType: CompositeType,
       /**
-       * the internal type of the element property which this binding is bound against.
+       * The internal type of the element property which this binding is bound against.
        */
       sInternalType: string
     ): void;
@@ -40326,7 +40395,7 @@ declare module "sap/ui/model/CompositeBinding" {
      */
     setValue(
       /**
-       * the values to set for this binding
+       * The values to set for this binding
        */
       aValues: any[]
     ): void;
@@ -40980,17 +41049,19 @@ declare module "sap/ui/model/Filter" {
      * You either pass a single object literal with the filter parameters or use the individual constructor
      * arguments. No matter which variant is used, only certain combinations of parameters are supported (the
      * following list uses the names from the object literal):
-     * 	 - A `path`, `operator` and one or two values (`value1`, `value2`), depending on the operator
-     * 	 - A `path` and a custom filter function `test`
-     * 	 - An array of other filters named `filters` and a Boolean flag `and` that specifies whether to combine
-     * 			the filters with an AND (`true`) or an OR (`false`) operator.  An error will be logged to the console
-     * 			if an invalid combination of parameters is provided. Please note that a model implementation may not
-     * 			support a custom filter function, e.g. if the model does not perform client side filtering. It also depends
-     * 			on the model implementation if the filtering is case sensitive or not. Client models filter case insensitive
-     * 			compared to the OData models which filter case sensitive by default. See particular model documentation
-     * 			for details The filter operators `Any` and `All` are only supported in V4 OData models. When creating
-     * 			a filter instance with these filter operators, the argument `variable` only accepts a string identifier
-     * 			and `condition` needs to be another filter instance.
+     * 	A `path`, `operator` and one or two values (`value1`, `value2`), depending on the operator A `path`
+     * and a custom filter function `test` An array of other filters named `filters` and a Boolean flag
+     * `and` that specifies whether to combine the filters with an AND (`true`) or an OR (`false`) operator.
+     *  An error will be logged to the console if an invalid combination of parameters is provided.
+     *
+     * Please note that a model implementation may not support a custom filter function, e.g. if the model does
+     * not perform client-side filtering. It also depends on the model implementation if the filtering is case
+     * sensitive or not. Client models filter case insensitive compared to the OData models which filter case
+     * sensitive by default. See particular model documentation for details.
+     *
+     * The filter operators {@link sap.ui.model.FilterOperator.Any "Any"} and {@link sap.ui.model.FilterOperator.All
+     * "All"} are only supported in V4 OData models. When creating a filter instance with these filter operators,
+     * the argument `variable` only accepts a string identifier and `condition` needs to be another filter instance.
      */
     constructor(
       /**
@@ -41003,15 +41074,19 @@ declare module "sap/ui/model/Filter" {
              */
             path?: string;
             /**
-             * Function which is used to filter the items and which should return a Boolean value to indicate whether
-             * the current item passes the filter
+             * Function used for the client-side filtering of items. It should return a Boolean indicating whether the
+             * current item passes the filter. If no test function is given, a default test function is used, based
+             * on the given filter operator and the comparator function.
              */
-            test?: Function;
+            test?: (p1: any) => boolean;
             /**
-             * Function which is used to compare two values, this is used for processing of equal, less than and greater
-             * than operators
+             * Function used to compare two values for equality and order during client-side filtering. Two values are
+             * given as parameters. The function is expected to return:
+             * 	a negative number if the first value is smaller than the second value, `0` if the two values are
+             * equal, a positive number if the first value is larger than the second value, `NaN` for non-comparable
+             * values.  If no function is given, {@link sap.ui.model.Filter.defaultComparator} is used.
              */
-            comparator?: Function;
+            comparator?: (p1: any, p2: any) => number;
             /**
              * Operator used for the filter
              */
@@ -41021,47 +41096,52 @@ declare module "sap/ui/model/Filter" {
              */
             value1?: any;
             /**
-             * Second value to use with the filter operator (only for some operators)
+             * Second value to use with the given filter operator, used only for the {@link sap.ui.model.FilterOperator.BT
+             * "BT" between} and {@link sap.ui.model.FilterOperator.NB "NB" not between} filter operators
              */
             value2?: any;
             /**
-             * The variable used in lambda operators (`Any` and `All`)
+             * The variable name used in lambda operators ({@link sap.ui.model.FilterOperator.Any "Any"} and {@link
+             * sap.ui.model.FilterOperator.All "All"})
              */
             variable?: string;
             /**
-             * A `Filter` instance which will be used as the condition for the lambda operator
+             * A filter instance which will be used as the condition for lambda operators ({@link sap.ui.model.FilterOperator.Any
+             * "Any"} and {@link sap.ui.model.FilterOperator.All "All"})
              */
             condition?: Filter;
             /**
-             * Array of filters on which logical conjunction is applied
+             * An array of filters on which the logical conjunction is applied
              */
             filters?: Filter[];
             /**
              * Indicates whether an "AND" logical conjunction is applied on the filters. If it's not set or set to `false`,
-             * an "OR" conjunction is applied
+             * an "OR" conjunction is applied.
              */
             and?: boolean;
             /**
-             * Indicates whether a string value should be compared case sensitive or not.
+             * Indicates whether a string value should be compared case sensitive or not. The handling of `undefined`
+             * depends on the model implementation.
              */
             caseSensitive?: boolean;
           }
         | string
         | Filter[],
       /**
-       * Either a filter operator or a custom filter function or a Boolean flag that defines how to combine multiple
-       * filters
+       * Either a filter operator or a custom filter function or a `boolean` flag that defines how to combine
+       * multiple filters
        */
       vOperator?:
         | (FilterOperator | keyof typeof FilterOperator)
-        | Function
+        | ((p1: any) => boolean)
         | boolean,
       /**
        * First value to use with the given filter operator
        */
       vValue1?: any,
       /**
-       * Second value to use with the given filter operator (only for some operators)
+       * Second value to use with the given filter operator, used only for the {@link sap.ui.model.FilterOperator.BT
+       * "BT" between} and {@link sap.ui.model.FilterOperator.NB "NB" not between} filter operators
        */
       vValue2?: any
     );
@@ -41069,7 +41149,7 @@ declare module "sap/ui/model/Filter" {
     /**
      * Compares two values
      *
-     * This is the default comparator function used for clientside filtering, if no custom comparator is given
+     * This is the default comparator function used for client-side filtering, if no custom comparator is given
      * in the constructor. It does compare just by using equal/less than/greater than with automatic type casting,
      * except for null values, which are neither less or greater, and string values where localeCompare is used.
      *
@@ -41084,7 +41164,7 @@ declare module "sap/ui/model/Filter" {
        * the second value to compare
        */
       b: any
-    ): int;
+    ): number;
     /**
      * Creates a new subclass of class sap.ui.model.Filter with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
@@ -41110,6 +41190,83 @@ declare module "sap/ui/model/Filter" {
      * Returns a metadata object for class sap.ui.model.Filter.
      */
     static getMetadata(): Metadata;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the comparator function as provided on construction of this filter, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.comparator`.
+     */
+    getComparator(): ((p1: any) => boolean) | undefined;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the filter instance which is used as the condition for lambda operators, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.condition`.
+     */
+    getCondition(): Filter | undefined;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the array of filters as specified on construction of this filter, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.filters`
+     */
+    getFilters(): Filter[] | undefined;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the filter operator used for this filter, see {@link sap.ui.model.Filter#constructor}, parameter
+     * `vFilterInfo.operator` or `vOperator`.
+     */
+    getOperator(): (FilterOperator | keyof typeof FilterOperator) | undefined;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the binding path for this filter, see {@link sap.ui.model.Filter#constructor}, parameter `vFilterInfo`
+     * or `vFilterInfo.path`.
+     */
+    getPath(): string | undefined;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the test function which is used to filter the items, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.test`.
+     */
+    getTest(): ((p1: any, p2: any) => boolean) | undefined;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the first value that is used with the given filter operator, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.value1` or `vValue1`.
+     */
+    getValue1(): any;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the second value that is used with the given filter operator, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.value2` or `vValue2`.
+     */
+    getValue2(): any;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the variable name used in lambda operators, see {@link sap.ui.model.Filter#constructor}, parameter
+     * `vFilterInfo.variable`.
+     */
+    getVariable(): string | undefined;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Indicates whether an "AND" logical conjunction is applied on the filters, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.and`.
+     */
+    isAnd(): boolean;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Indicates whether a string value should be compared case sensitive, see {@link sap.ui.model.Filter#constructor},
+     * parameter `vFilterInfo.caseSensitive`.
+     */
+    isCaseSensitive(): boolean;
   }
 }
 
@@ -41351,7 +41508,9 @@ declare module "sap/ui/model/json/JSONModel" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * Model implementation for JSON format
+   * Model implementation for the JSON format.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class JSONModel extends ClientModel {
     /**
@@ -41700,7 +41859,7 @@ declare module "sap/ui/model/ListBinding" {
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `ListBinding` itself
+       * Context object to call the event handler with; defaults to this `ListBinding` itself
        */
       oListener?: object
     ): void;
@@ -41719,7 +41878,7 @@ declare module "sap/ui/model/ListBinding" {
        */
       fnFunction: Function,
       /**
-       * Context object to call the event handler with, defaults to this `ListBinding` itself
+       * Context object to call the event handler with; defaults to this `ListBinding` itself
        */
       oListener?: object
     ): void;
@@ -41734,7 +41893,7 @@ declare module "sap/ui/model/ListBinding" {
        */
       fnFunction: Function,
       /**
-       * on which the given function had to be called
+       * On which object the given function had to be called
        */
       oListener?: object
     ): void;
@@ -41790,7 +41949,11 @@ declare module "sap/ui/model/ListBinding" {
        * The path of the property containing the key or a function getting the context as only parameter to calculate
        * a key to identify an entry
        */
-      vKey: Function | string
+      vKey: Function | string,
+      /**
+       * The configuration for the change detection
+       */
+      oExtendedChangeDetectionConfig: object
     ): void;
     /**
      * Applies a new set of filters to the list represented by this binding.
@@ -41799,18 +41962,18 @@ declare module "sap/ui/model/ListBinding" {
      * a server and it might execute asynchronously.
      *
      * Application and Control Filters: Each list binding maintains two separate lists of filters, one for filters
-     * defined by the control that owns the binding and another list for filters that an application can define
+     * defined by the control that owns the binding, and another list for filters that an application can define
      * in addition. When executing the filter operation, both sets of filters are combined.
      *
-     * By using the second parameter `sFilterType` of method `filter`, the caller can control which set of filters
+     * By using the `sFilterType` parameter of the `filter` method, the caller can control which set of filters
      * is modified. If no type is given, then the behavior depends on the model implementation and should be
      * documented in the API reference for that model.
      *
      * Auto-Grouping of Filters: Filters are first grouped according to their binding path. All filters belonging
-     * to the same group are ORed and after that the results of all groups are ANDed. Usually this means, all
-     * filters applied to a single table column are ORed, while filters on different table columns are ANDed.
-     * Please either use the automatic grouping of filters (where applicable) or use explicit AND/OR filters,
-     * a mixture of both is not supported.
+     * to the same path are ORed, and after that the results of all paths are ANDed. Usually this means that
+     * all filters applied to the same property are ORed, while filters on different properties are ANDed. Please
+     * use either the automatic grouping of filters (where applicable) or explicit AND/OR filters, as a mixture
+     * of both is not supported.
      */
     filter(
       /**
@@ -41839,22 +42002,22 @@ declare module "sap/ui/model/ListBinding" {
      */
     getContexts(
       /**
-       * the startIndex where to start the retrieval of contexts
+       * The startIndex where to start the retrieval of contexts
        */
       iStartIndex?: int,
       /**
-       * determines how many contexts to retrieve beginning from the start index.
+       * Determines how many contexts to retrieve beginning from the start index.
        */
       iLength?: int,
       /**
        * The maximum number of contexts to read before and after the given range; with this, controls can prefetch
-       * data that is likely to be needed soon, e.g. when scrolling down in a table. This parameter is model-specific
-       * and not implemented by all models.
+       * data that is likely to be needed soon, e.g. when scrolling down in a table; this parameter is model-specific
+       * and not implemented by all models
        */
       iMaximumPrefetchSize?: int,
       /**
        * Whether this call keeps the result of {@link #getCurrentContexts} untouched; since 1.86.0. This parameter
-       * is model-specific and not implemented by all models.
+       * is model-specific and not implemented by all models
        */
       bKeepCurrent?: boolean
     ): Context[];
@@ -41876,7 +42039,7 @@ declare module "sap/ui/model/ListBinding" {
      *
      * Returns an array of currently used binding contexts of the bound control.
      *
-     * This method does not trigger any data requests from the backend or delta calculation, but just returns
+     * This method does not trigger any data requests from the back end or a delta calculation, but just returns
      * the context array as last requested by the control. This can be used by the application to get access
      * to the data currently displayed by a list control.
      */
@@ -41890,6 +42053,17 @@ declare module "sap/ui/model/ListBinding" {
        */
       sPath: string
     ): any[];
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns the filters set via the constructor or via {@link #filter} for the given {@link sap.ui.model.FilterType}.
+     */
+    getFilters(
+      /**
+       * The FilterType
+       */
+      sFilterType: FilterType | keyof typeof FilterType
+    ): Filter[];
     /**
      * Gets the group for the given context. Must only be called if `isGrouped()` returns that grouping is enabled
      * for this binding. The grouping will be performed using the first sorter (in case multiple sorters are
@@ -41913,8 +42087,8 @@ declare module "sap/ui/model/ListBinding" {
      */
     getLength(): int;
     /**
-     * Indicates whether grouping is enabled for the binding. Grouping is enabled for a list binding, if at
-     * least one sorter exists on the binding and the first sorter is a grouping sorter.
+     * Indicates whether grouping is enabled for the binding. Grouping is enabled for a list binding if at least
+     * one sorter exists on the binding and the first sorter is a grouping sorter.
      */
     isGrouped(): boolean;
     /**
@@ -41951,7 +42125,7 @@ declare module "sap/ui/model/ListBinding" {
      * Instead of a single sorter also an array of sorters can be passed to the sort method. In this case they
      * are processed in the sequence in which they are contained in the array.
      *
-     * Grouping: Sorting and grouping are closely related, in case a list should be grouped, it must be sorted
+     * Grouping: Sorting and grouping are closely related. In case a list should be grouped, it must be sorted
      * by the property to group with. Grouping is enabled by setting the `group` property on the sorter object.
      * If it is enabled, you can get the current group of an item using {@link sap.ui.model.ListBinding.prototype.getGroup}.
      * In case multiple sorters are provided, grouping can only be done on the first sorter, nested grouping
@@ -41959,7 +42133,7 @@ declare module "sap/ui/model/ListBinding" {
      */
     sort(
       /**
-       * the Sorter object or an array of sorters which defines the sort order
+       * The Sorter object or an array of sorters which defines the sort order
        */
       aSorters: Sorter | any[]
     ): this;
@@ -41973,8 +42147,12 @@ declare module "sap/ui/model/message/MessageModel" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Context from "sap/ui/model/Context";
+
   /**
-   * Model implementation for Messages
+   * Model implementation for Messages.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class MessageModel extends ClientModel {
     /**
@@ -42013,17 +42191,17 @@ declare module "sap/ui/model/message/MessageModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Returns the value for the property with the given `sPropertyName`
+     * Returns the value for the property with the given `sPropertyName`.
      */
     getProperty(
       /**
-       * the path to the property
+       * The path to the property
        */
       sPath: string,
       /**
-       * the context which will be used to retrieve the property
+       * The context to resolve a relative path with
        */
-      oContext?: object
+      oContext?: Context
     ): any;
     /**
      * Sets the message data to the model.
@@ -42040,7 +42218,20 @@ declare module "sap/ui/model/message/MessageModel" {
      * Other models provide this method to set a new value for a specific property. `MessageModel` does not
      * support it as it supports the `OneWay` mode only.
      */
-    setProperty(): void;
+    setProperty(
+      /**
+       * Unused in this implementation
+       */
+      sPath: string,
+      /**
+       * Unused in this implementation
+       */
+      oValue: object,
+      /**
+       * Unused in this implementation
+       */
+      oContext: Context
+    ): void;
   }
 }
 
@@ -42163,7 +42354,7 @@ declare module "sap/ui/model/Model" {
        */
       oData: object,
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42179,7 +42370,7 @@ declare module "sap/ui/model/Model" {
      */
     attachParseError(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42201,7 +42392,7 @@ declare module "sap/ui/model/Model" {
        */
       oData: object,
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42218,7 +42409,7 @@ declare module "sap/ui/model/Model" {
      */
     attachPropertyChange(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42240,7 +42431,7 @@ declare module "sap/ui/model/Model" {
        */
       oData: object,
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42257,7 +42448,7 @@ declare module "sap/ui/model/Model" {
      */
     attachRequestCompleted(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42278,7 +42469,7 @@ declare module "sap/ui/model/Model" {
        */
       oData: object,
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42294,7 +42485,7 @@ declare module "sap/ui/model/Model" {
      */
     attachRequestFailed(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42315,7 +42506,7 @@ declare module "sap/ui/model/Model" {
        */
       oData: object,
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42331,7 +42522,7 @@ declare module "sap/ui/model/Model" {
      */
     attachRequestSent(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42344,111 +42535,103 @@ declare module "sap/ui/model/Model" {
      */
     bindContext(
       /**
-       * the path pointing to the property that should be bound
+       * The path pointing to the property that should be bound
        */
       sPath: string,
       /**
-       * the context object for this databinding (optional)
+       * The context object for this databinding
        */
       oContext?: Context,
       /**
-       * additional model specific parameters (optional)
+       * Additional model-specific parameters
        */
       mParameters?: object,
       /**
-       * event handlers can be passed to the binding ({change:myHandler})
+       * Event handlers can be passed to the binding ({change:myHandler})
        */
       oEvents?: object
     ): ContextBinding;
-    /**
-     * Implement in inheriting classes.
-     */
+
     bindList(
       /**
-       * the path pointing to the list / array that should be bound
+       * The path pointing to the list / array that should be bound
        */
       sPath: string,
       /**
-       * the context object for this databinding (optional)
+       * The context object for this databinding
        */
       oContext?: Context,
       /**
-       * initial sort order (can be either a sorter or an array of sorters) (optional)
+       * Initial sort order (can be either a sorter or an array of sorters)
        */
       aSorters?: Sorter | Sorter[],
       /**
-       * predefined filter/s (can be either a filter or an array of filters) (optional)
+       * Predefined filter/s (can be either a filter or an array of filters)
        */
       aFilters?: Filter | Filter[],
       /**
-       * additional model specific parameters (optional)
+       * Additional model-specific parameters
        */
       mParameters?: object
     ): ListBinding;
-    /**
-     * Implement in inheriting classes.
-     */
+
     bindProperty(
       /**
-       * the path pointing to the property that should be bound
+       * The path pointing to the property that should be bound
        */
       sPath: string,
       /**
-       * the context object for this databinding (optional)
+       * The context object for this databinding
        */
       oContext?: Context,
       /**
-       * additional model specific parameters (optional)
+       * Additional model-specific parameters
        */
       mParameters?: object
     ): PropertyBinding;
-    /**
-     * Implement in inheriting classes.
-     */
+
     bindTree(
       /**
-       * the path pointing to the tree / array that should be bound
+       * The path pointing to the tree / array that should be bound
        */
       sPath: string,
       /**
-       * the context object for this databinding (optional)
+       * The context object for this databinding
        */
       oContext?: Context,
       /**
-       * predefined filter/s contained in an array (optional)
+       * Predefined filter/s contained in an array
        */
       aFilters?: Filter[],
       /**
-       * additional model specific parameters (optional)
+       * Additional model specific parameters
        */
       mParameters?: object,
       /**
-       * predefined sap.ui.model.sorter/s contained in an array (optional)
+       * Predefined sap.ui.model.sorter/s contained in an array
        */
       aSorters?: Sorter[]
     ): TreeBinding;
-    /**
-     * Implement in inheriting classes.
-     */
+
     createBindingContext(
       /**
-       * the path to create the new context from
+       * The path to create the new context from
        */
       sPath: string,
       /**
-       * the context which should be used to create the new binding context
+       * The context which should be used to create the new binding context
        */
       oContext?: Context,
       /**
-       * the parameters used to create the new binding context
+       * The parameters used to create the new binding context
        */
       mParameters?: object,
       /**
-       * the function which should be called after the binding context has been created
+       * The function which should be called after the binding context has been created
        */
       fnCallBack?: Function,
       /**
-       * force reload even if data is already available. For server side models this should refetch the data from
+       * Force reload even if data is already available; for server-side models this should refetch the data from
        * the server
        */
       bReload?: boolean
@@ -42456,18 +42639,16 @@ declare module "sap/ui/model/Model" {
     /**
      * Destroys the model and clears the model data.
      *
-     * A model implementation may override this function and perform model specific cleanup tasks e.g. abort
+     * A model implementation may override this function and perform model-specific cleanup tasks e.g. abort
      * requests, prevent new requests, etc.
      * See:
      * 	sap.ui.base.Object.prototype.destroy
      */
     destroy(): void;
-    /**
-     * Implement in inheriting classes.
-     */
+
     destroyBindingContext(
       /**
-       * to destroy
+       * The context to destroy
        */
       oContext: Context
     ): void;
@@ -42478,7 +42659,7 @@ declare module "sap/ui/model/Model" {
      */
     detachParseError(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42494,7 +42675,7 @@ declare module "sap/ui/model/Model" {
      */
     detachPropertyChange(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42526,7 +42707,7 @@ declare module "sap/ui/model/Model" {
      */
     detachRequestFailed(
       /**
-       * The function to be called, when the event occurs
+       * The function to be called when the event occurs
        */
       fnFunction: Function,
       /**
@@ -42589,11 +42770,11 @@ declare module "sap/ui/model/Model" {
          */
         path?: string;
         /**
-         * the context of the property
+         * The context of the property
          */
         context?: object;
         /**
-         * the value of the property
+         * The value of the property
          */
         value?: object;
       }
@@ -42607,7 +42788,7 @@ declare module "sap/ui/model/Model" {
        */
       oParameters?: {
         /**
-         * The url which was sent to the backend.
+         * The url which was sent to the back end.
          */
         url?: string;
         /**
@@ -42649,7 +42830,7 @@ declare module "sap/ui/model/Model" {
          */
         statusText?: string;
         /**
-         * Response that has been received for the request ,as a text string
+         * Response that has been received for the request, as a text string
          */
         responseText?: string;
       }
@@ -42663,7 +42844,7 @@ declare module "sap/ui/model/Model" {
        */
       oParameters?: {
         /**
-         * The url which is sent to the backend.
+         * The url which is sent to the back end.
          */
         url?: string;
         /**
@@ -42675,7 +42856,7 @@ declare module "sap/ui/model/Model" {
          */
         async?: boolean;
         /**
-         * additional information for the request (if available) **deprecated**
+         * Additional information for the request (if available) **deprecated**
          */
         info?: string;
         /**
@@ -42720,9 +42901,7 @@ declare module "sap/ui/model/Model" {
      * Returns the meta model associated with this model if it is available for the concrete model type.
      */
     getMetaModel(): MetaModel;
-    /**
-     * Implement in inheriting classes.
-     */
+
     getObject(
       /**
        * Path to where to read the object
@@ -42733,7 +42912,7 @@ declare module "sap/ui/model/Model" {
        */
       oContext?: Context,
       /**
-       * Additional model specific parameters
+       * Additional model-specific parameters
        */
       mParameters?: object
     ): any;
@@ -42752,16 +42931,14 @@ declare module "sap/ui/model/Model" {
        */
       oContext?: Context
     ): any;
-    /**
-     * Implement in inheriting classes.
-     */
+
     getProperty(
       /**
-       * the path to where to read the attribute value
+       * The path to where to read the attribute value
        */
       sPath: string,
       /**
-       * the context with which the path should be resolved
+       * The context with which the path should be resolved
        */
       oContext?: Context
     ): any;
@@ -44132,6 +44309,8 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * annotations. It uses the existing {@link sap.ui.model.odata.ODataMetadata} as a foundation and merges
    * V4 annotations from the existing {@link sap.ui.model.odata.ODataAnnotations} directly into the corresponding
    * model element.
+   *
+   * This model is not prepared to be inherited from.
    *
    * Also, annotations from the "http://www.sap.com/Protocols/SAPData" namespace are lifted up from the `extensions`
    * array and transformed from objects into simple properties with an "sap:" prefix for their name. Note
@@ -45775,15 +45954,15 @@ declare module "sap/ui/model/odata/ODataUtils" {
      */
     formatValue(
       /**
-       * the value to format
+       * The value to format
        */
       vValue: any,
       /**
-       * the EDM type (e.g. Edm.Decimal)
+       * The EDM type (e.g. Edm.Decimal)
        */
       sType: string,
       /**
-       * Wether strings gets compared case sensitive or not
+       * Whether strings gets compared case sensitive or not
        */
       bCaseSensitive: boolean
     ): string;
@@ -48545,6 +48724,7 @@ declare module "sap/ui/model/odata/v2/Context" {
    * A context for the OData V2 model cannot be created at will, it has to be retrieved via:
    * 	 - an OData binding
    * 	 - a view element
+   * 	 - {@link sap.ui.model.odata.v2.ODataModel#callFunction}
    * 	 - {@link sap.ui.model.odata.v2.ODataModel#createBindingContext}
    * 	 - {@link sap.ui.model.odata.v2.ODataModel#createEntry}
    */
@@ -48576,6 +48756,18 @@ declare module "sap/ui/model/odata/v2/Context" {
      * Returns a metadata object for class sap.ui.model.odata.v2.Context.
      */
     static getMetadata(): Metadata;
+    /**
+     * @SINCE 1.96.0
+     *
+     * Returns a promise on the creation state of this context if it has been created via {@link sap.ui.model.odata.v2.ODataModel#createEntry};
+     * otherwise returns `undefined`.
+     *
+     * As long as the promise is not yet resolved or rejected, the entity represented by this context is transient.
+     *
+     * Once the promise is resolved, the entity for this context is stored in the back end and {@link #getPath}
+     * returns a path including the key predicate of the new entity.
+     */
+    created(): Promise<any>;
     /**
      * @SINCE 1.94.0
      *
@@ -49303,6 +49495,14 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
          */
         countMode?: CountMode | keyof typeof CountMode;
         /**
+         * A key used in combination with the resolved path of this binding to identify the entities created this
+         * binding's {@link #create} method.
+         *
+         * **Note:** Different controls or control aggregation bindings to the same collection must have different
+         * `createdEntitiesKey` values.
+         */
+        createdEntitiesKey?: string;
+        /**
          * An optional map of custom query parameters. Custom parameters must not start with `$`
          */
         custom?: Record<string, string>;
@@ -49525,6 +49725,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
    * Model implementation based on the OData protocol.
    *
    * See chapter {@link topic:6c47b2b39db9404582994070ec3d57a2 OData V2 Model} for a general introduction.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class ODataModel extends Model {
     /**
@@ -50049,6 +50251,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         countMode?: CountMode | keyof typeof CountMode;
         /**
+         * A key used in combination with the resolved path of the binding to identify the entities created via
+         * the binding's {@link #create} method.
+         *
+         * **Note:** Different controls or control aggregation bindings to the same collection must have different
+         * `createdEntitiesKey` values.
+         */
+        createdEntitiesKey?: string;
+        /**
          * Operation mode for this binding; if not specified, the default operation mode of this model is used
          */
         operationMode?: OperationMode | keyof typeof OperationMode;
@@ -50489,7 +50699,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * Name. A context object is returned which can be used to bind against the newly created object.
      *
      * For each created entry a request is created and stored in a request queue. The request queue can be submitted
-     * by calling {@link #submitChanges}. To delete a created entry from the request queue call {@link #deleteCreatedEntry}.
+     * by calling {@link #submitChanges}. As long as the context is transient (see {@link sap.ui.model.odata.v2.Context#isTransient}),
+     * {@link sap.ui.model.odata.v2.ODataModel#resetChanges} with the `bDeleteCreatedEntities` parameter set
+     * to `true` can be used to delete the created entity again.
+     *
+     * If the creation of the entity on the server failed, it is repeated automatically.
      *
      * The optional parameter `mParameters.properties` can be used as follows:
      * 	 - `properties` could be an array containing the property names which should be included in the new
@@ -50500,7 +50714,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      *
      * If there are no values specified, the properties will have `undefined` values.
      *
-     * Please note that deep creates (including data defined by navigation properties) are not supported.
+     * The `properties` can be modified via property bindings relative to the returned context instance.
      *
      * The parameter `expand` is supported since 1.78.0. If this parameter is set, the given navigation properties
      * are expanded automatically with the same $batch request in which the POST request for the creation is
@@ -50519,6 +50733,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * 			handler is called with the data and the response of the POST request. The response object of the success
      * 			handler call and the response parameter of the corresponding `requestFailed` and `requestCompleted` events
      * 			have an additional property `expandAfterCreateFailed` set to `true`.
+     *
+     * Note: If a server requires a property in the request, you must supply this property in the initial data,
+     * for example if the server requires a unit for an amount. This also applies if this property has a default
+     * value.
+     *
+     * Note: A deep create (including data defined by navigation properties) is not supported. The dependent
+     * entity has to be created using a second list binding, after this entity has been saved successfully in
+     * the back-end system.
      */
     createEntry(
       /**
@@ -50604,7 +50826,12 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oKeyProperties: object
     ): string;
     /**
+     * @deprecated - since 1.95.0; use {@link #resetChanges} instead
+     *
      * Deletes a created entry from the request queue and from the model.
+     *
+     * **Note:** Controls are not updated. Use {@link #resetChanges} instead to update also the controls, for
+     * example: `oModel.resetChanges([oContext.getPath()], undefined, true);`
      */
     deleteCreatedEntry(
       /**
@@ -51051,8 +51278,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * To get a copy of the entity without internal attributes, use `{select: "*"}` instead.
      *
      * **Note:** If `mParameters.select` is given and not all selected properties are available, this method
-     * returns `undefined` instead of incomplete data. If `mParameters.select` is not given, all properties
-     * available on the client are returned.
+     * returns `undefined` instead of incomplete data.
+     *
+     * **Note:** If `mParameters.select` is not given, all properties and navigation properties available on
+     * the client are returned.
      *
      * Example:
      *  With `mParameters` given as `{select: "Products/ProductName, Products", expand:"Products"}` no properties
@@ -51435,31 +51664,38 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         changeSetId?: string;
         /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link
-         * #setRefreshAfterChange} If given, this overrules the model-wide `refreshAfterChange` flag for this operation
+         * Since 1.46; defines whether to update all bindings after submitting this change operation, see {@link
+         * #setRefreshAfterChange}. If given, this overrules the model-wide `refreshAfterChange` flag for this operation
          * only.
          */
         refreshAfterChange?: boolean;
       }
     ): object;
     /**
-     * Resets changes that have been collected.
+     * Resets pending changes and aborts corresponding requests.
      *
-     * By default, only client data changes triggered through: {@link #createEntry} {@link #setProperty} are
-     * taken into account.
+     * By default, only changes triggered through {@link #createEntry} or {@link #setProperty} are taken into
+     * account. If `bAll` is set, also deferred requests triggered through {@link #create}, {@link #update}
+     * or {@link #remove} are taken into account.
      *
-     * If `bAll` is set to `true`, also deferred requests triggered through: {@link #create} {@link #update}
-     * {@link #remove} are taken into account.
+     * If `bDeleteCreatedEntities` is set, the entity is completely removed, provided it has been created
+     *
+     * 	 - via {@link #createEntry} and it is not yet persisted in the back end, or
+     * 	 - via {@link #callFunction}.
      */
     resetChanges(
       /**
-       * Array of paths that should be reset. If no array is passed, all changes will be reset.
+       * Paths to be be reset; if no array is passed, all changes are reset
        */
       aPath?: any[],
       /**
-       * If set to true, also deferred requests are taken into account.
+       * Whether also deferred requests are taken into account
        */
-      bAll?: boolean
+      bAll?: boolean,
+      /**
+       * Whether to delete the entities created via {@link #createEntry} or {@link #callFunction}; since 1.95.0
+       */
+      bDeleteCreatedEntities?: boolean
     ): Promise<any>;
     /**
      * Returns a promise, which will resolve with the security token as soon as it is available.
@@ -51865,17 +52101,17 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
      * Applies the given filters to the ODataTreeBinding.
      *
      * Please note that filters of type `FilterType.Control` are not supported for `OperationMode.Server`, here
-     * only filters of type `FilterType.Application` are allowed. Filters given via the constructor are always
-     * of type `Application` and will be sent with every backend request. See the constructor documentation
-     * for more information.
+     * only filters of type `FilterType.Application` are allowed. Filters given via {@link sap.ui.model.odata.v2.ODataModel#bindTree}
+     * are always of type `Application` and will be sent with every back-end request. For more information,
+     * see {@link sap.ui.model.odata.v2.ODataModel#bindTree}.
      *
      * Since 1.34.0, complete client-side filtering is supported for `OperationMode.Client` and also in `OperationMode.Auto`
-     * if the backend count is lower than the threshold. In this case, all types of filters will be applied
-     * on the client. See also: {@link sap.ui.model.odata.OperationMode.Auto}, {@link sap.ui.model.FilterType}.
+     * if the back-end count is lower than the threshold. In this case, all types of filters will be applied
+     * on the client. See also: {@link sap.ui.model.odata.OperationMode.Auto} and {@link sap.ui.model.FilterType}.
      *
-     * For the `OperationMode.Client` and `OperationMode.Auto`, you may also specify the binding parameter `useServersideApplicationFilters`
-     * in the constructor. If it is set, the filters of type `Application` will always be applied on the backend
-     * and trigger an OData request. See the constructor documentation for more information.
+     * For the `OperationMode.Client` and `OperationMode.Auto`, you may also specify the `useServersideApplicationFilters`
+     * binding parameter when creating an instance. If it is set, the filters of type `Application` will always
+     * be applied on the back end and trigger an OData request. For more information, see {@link sap.ui.model.odata.v2.ODataModel#bindTree}.
      * See:
      * 	sap.ui.model.TreeBinding.prototype.filter
      */
@@ -51993,10 +52229,10 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
       sGroupId?: string
     ): void;
     /**
-     * Sets the rootLevel The root level is the level of the topmost tree nodes, which will be used as an entry
+     * Sets the `rootLevel`. The root level is the level of the topmost tree nodes that will be used as an entry
      * point for OData services. This is only possible (and necessary) for OData services implementing the hierarchy
      * annotation specification, or when providing the annotation information locally as a binding parameter.
-     * See the constructor for API documentation on this.
+     * For more information, see {@link sap.ui.model.odata.v2.ODataModel#bindTree}.
      */
     setRootLevel(iRootLevel: int): void;
     /**
@@ -53021,8 +53257,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
    * @SINCE 1.37.0
    *
    * Context binding for an OData V4 model. An event handler can only be attached to this binding for the
-   * following events: 'AggregatedDataStateChange', 'change', 'dataReceived', 'dataRequested', and 'DataStateChange'.
-   * For other events, an error is thrown.
+   * following events: 'AggregatedDataStateChange', 'change', 'dataReceived', 'dataRequested', 'DataStateChange',
+   * 'patchCompleted', and 'patchSent'. For other events, an error is thrown.
    *
    * A context binding can also be used as an operation binding to support bound actions, action imports,
    * bound functions and function imports. If you want to control the execution time of an operation, for
@@ -53287,6 +53523,20 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      */
     isInitial(): boolean;
     /**
+     * @SINCE 1.95.0
+     * @EXPERIMENTAL
+     *
+     * Moves the bound entity into the given list binding. This binding loses its data. The method may only
+     * be called when this binding has finished loading. You can verify this by calling `oBinding.getBoundContext().requestObject()`.
+     * If that promise resolves, the binding has finished loading.
+     */
+    moveEntityTo(
+      /**
+       * The list binding to take the entity
+       */
+      oListBinding: ODataListBinding
+    ): void;
+    /**
      * @SINCE 1.37.0
      *
      * Refreshes the binding. Prompts the model to retrieve data from the server using the given group ID and
@@ -53341,6 +53591,18 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
       sPath?: string
     ): Promise<any>;
     /**
+     * @SINCE 1.87.0
+     *
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
+     * #refresh} if you do not need the promise.
+     */
+    requestRefresh(
+      /**
+       * The group ID to be used
+       */
+      sGroupId?: string
+    ): Promise<any>;
+    /**
      * @SINCE 1.40.1
      *
      * Resets all pending changes of this binding, see {@link #hasPendingChanges}. Resets also invalid user
@@ -53387,6 +53649,13 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * 	#resume
      */
     suspend(): void;
+    /**
+     * @SINCE 1.37.0
+     *
+     * Returns a string representation of this object including the binding path. If the binding is relative,
+     * the parent path is also given, separated by a '|'.
+     */
+    toString(): string;
   }
 }
 
@@ -53413,8 +53682,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
    * @SINCE 1.37.0
    *
    * List binding for an OData V4 model. An event handler can only be attached to this binding for the following
-   * events: 'AggregatedDataStateChange', 'change', 'dataReceived', 'dataRequested', 'DataStateChange' and
-   * 'refresh'. For other events, an error is thrown.
+   * events: 'AggregatedDataStateChange', 'change', 'createCompleted', 'createSent', 'dataReceived', 'dataRequested',
+   * 'DataStateChange', 'patchCompleted', 'patchSent', and 'refresh'. For other events, an error is thrown.
    */
   export default class ODataListBinding extends ListBinding {
     constructor();
@@ -53683,6 +53952,19 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      *
      * Filters are case sensitive unless the property `caseSensitive` is set to `false`. This property has to
      * be set on each filter, it is not inherited from a multi-filter.
+     *
+     * Application and Control Filters: Each list binding maintains two separate lists of filters, one for filters
+     * defined by the control that owns the binding, and another list for filters that an application can define
+     * in addition. When executing the filter operation, both sets of filters are combined.
+     *
+     * By using the `sFilterType` parameter of the `filter` method, the caller can control which set of filters
+     * is modified.
+     *
+     * Auto-Grouping of Filters: Filters are first grouped according to their binding path. All filters belonging
+     * to the same path are ORed, and after that the results of all paths are ANDed. Usually this means that
+     * all filters applied to the same property are ORed, while filters on different properties are ANDed. Please
+     * use either the automatic grouping of filters (where applicable) or explicit AND/OR filters, as a mixture
+     * of both is not supported.
      * See:
      * 	sap.ui.model.ListBinding#filter
      * 	#setAggregation
@@ -53981,6 +54263,18 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       fnFilter?: (p1: Message) => boolean
     ): Promise<Filter>;
     /**
+     * @SINCE 1.87.0
+     *
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
+     * #refresh} if you do not need the promise.
+     */
+    requestRefresh(
+      /**
+       * The group ID to be used
+       */
+      sGroupId?: string
+    ): Promise<any>;
+    /**
      * @SINCE 1.40.1
      *
      * Resets all pending changes of this binding, see {@link #hasPendingChanges}. Resets also invalid user
@@ -54101,6 +54395,13 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     suspend(): void;
     /**
+     * @SINCE 1.37.0
+     *
+     * Returns a string representation of this object including the binding path. If the binding is relative,
+     * the parent path is also given, separated by a '|'.
+     */
+    toString(): string;
+    /**
      * @SINCE 1.53.0
      *
      * Updates the binding's system query option `$apply` based on the given data aggregation information. Its
@@ -54198,6 +54499,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
    * not support any public events; attaching an event handler leads to an error.
    *
    * This model is read-only.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class ODataMetaModel extends MetaModel {
     constructor();
@@ -54844,6 +55147,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * Model implementation for OData V4.
    *
+   * This model is not prepared to be inherited from.
+   *
    * Every resource path (relative to the service root URL, no query options) according to "4 Resource Path"
    * in specification "OData Version 4.0 Part 2: URL Conventions" is a valid data binding path within this
    * model if a leading slash is added; for example "/" + "SalesOrderList('A%2FB%26C')" to access an entity
@@ -55067,9 +55372,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $$groupId?: string;
         /**
          * For operation bindings only: Whether $expand and $select from the parent binding are used in the request
-         * sent on {@link #execute}. If set to `true`, the binding must not set the $expand or $select parameter
-         * itself, the operation must be bound, and the return value and the binding parameter must belong to the
-         * same entity set.
+         * sent on {@link #execute}. If set to `true`, the binding must not set the $expand itself, the operation
+         * must be bound, and the return value and the binding parameter must belong to the same entity set.
          */
         $$inheritExpandSelect?: boolean;
         /**
@@ -55100,7 +55404,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     bindList(
       /**
-       * The binding path in the model; must not be empty or end with a slash
+       * The binding path in the model; must not end with a slash
        */
       sPath: string,
       /**
@@ -55201,8 +55505,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * as a separator and splits it into two parts. The part before the separator is resolved with the binding's
      * context and the result is transformed into a metadata context (see {@link sap.ui.model.odata.v4.ODataMetaModel#getMetaContext}).
      * The part following the separator is then interpreted relative to this metadata context, even if it starts
-     * with a '/'; a trailing '/' is allowed here, see {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject}
-     * for the effect it has.
+     * with a '/'; see {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject} for more details.
      *
      * If the target type specified in the corresponding control property's binding info is "any" and the binding
      * is relative or points to metadata, the binding may have an object value; in this case and unless the
@@ -55214,8 +55517,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     bindProperty(
       /**
-       * The binding path in the model; must not be empty. Must not end with a '/' unless the binding points to
-       * metadata.
+       * The binding path in the model; must not end with a slash
        */
       sPath: string,
       /**
@@ -55224,12 +55526,14 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       oContext?: Context1,
       /**
        * Map of binding parameters which can be OData query options as specified in "OData Version 4.0 Part 2:
-       * URL Conventions" or the binding-specific parameter "$$groupId". All "5.2 Custom Query Options" are allowed
-       * except for those with a name starting with "sap-" (unless starting with "sap-valid-"). All other query
-       * options lead to an error. Query options specified for the binding overwrite model query options. Note:
-       * The binding only creates its own data service request if it is absolute or if it is relative to a context
-       * created via {@link #createBindingContext}. The binding parameters are ignored in case the binding creates
-       * no own data service request or in case the binding points to metadata.
+       * URL Conventions" or the binding-specific parameters as specified below. The following OData query options
+       * are allowed:
+       * 	 All "5.2 Custom Query Options" except for those with a name starting with "sap-" (unless starting with
+       * "sap-valid-")  The $apply, $filter, and $search "5.1 System Query Options" if the path ends with
+       * a "$count" segment.  All other query options lead to an error. Query options specified for the binding
+       * overwrite model query options. Note: The binding only creates its own data service request if it is absolute
+       * or if it is relative to a context created via {@link #createBindingContext}. The binding parameters are
+       * ignored in case the binding creates no own data service request or in case the binding points to metadata.
        */
       mParameters?: {
         /**
@@ -55731,6 +56035,18 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
       sGroupId?: string | boolean
     ): void;
     /**
+     * @SINCE 1.87.0
+     *
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
+     * #refresh} if you do not need the promise.
+     */
+    requestRefresh(
+      /**
+       * The group ID to be used
+       */
+      sGroupId?: string
+    ): Promise<any>;
+    /**
      * @SINCE 1.69
      *
      * Requests the value of the property binding.
@@ -55825,6 +56141,13 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * 	sap.ui.model.Binding#suspend
      */
     suspend(): void;
+    /**
+     * @SINCE 1.37.0
+     *
+     * Returns a string representation of this object including the binding path. If the binding is relative,
+     * the parent path is also given, separated by a '|'.
+     */
+    toString(): string;
   }
 }
 
@@ -56042,7 +56365,7 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     static getMetadata(): Metadata;
     /**
-     * Returns the binding mode
+     * Returns the binding mode.
      */
     getBindingMode(): BindingMode | keyof typeof BindingMode;
     /**
@@ -56050,7 +56373,7 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     getExternalValue(): any;
     /**
-     * Returns the formatter function
+     * Returns the formatter function.
      */
     getFormatter(): Function;
     /**
@@ -56058,21 +56381,21 @@ declare module "sap/ui/model/PropertyBinding" {
      * model format} of this binding's type. If this binding doesn't have a type, the original value which is
      * stored in the model is returned.
      *
-     * This method will be used when targetType if set to "internal" or it's included in a {@link sap.ui.model.CompositeBinding
+     * This method will be used when targetType is set to "internal" or when it's included in a {@link sap.ui.model.CompositeBinding
      * CompositeBinding} and the CompositeBinding needs to have the related JavaScript primitive values for
      * its type or formatter.
      */
     getInternalValue(): any;
     /**
-     * Returns the raw model value, as it exists in the model dataset
+     * Returns the raw model value, as it exists in the model dataset.
      *
-     * This method will be used when targetType of a binding is set to "raw" or it's included in a {@link sap.ui.model.CompositeBinding
-     * CompositeBinding} and the CompositeBinding needs to have the related JavaScript primitive values for
-     * its type or formatter.
+     * This method will be used when targetType of a binding is set to "raw" or when it's include in a {@link
+     * sap.ui.model.CompositeBinding CompositeBinding} and the CompositeBinding needs to have the related JavaScript
+     * primitive values for its type or formatter.
      */
     getRawValue(): any;
     /**
-     * Returns the type if any for the binding.
+     * Returns the type (if any) for the binding.
      */
     getType(): Type;
     /**
@@ -56087,22 +56410,22 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     resume(): void;
     /**
-     * Sets the binding mode
+     * Sets the binding mode.
      */
     setBindingMode(
       /**
-       * the binding mode
+       * The binding mode
        */
       sBindingMode: BindingMode | keyof typeof BindingMode
     ): void;
     /**
      * Sets the value for this binding. The value is parsed and validated against its type and then set to the
      * binding. A model implementation should check if the current default binding mode permits setting the
-     * binding value and if so set the new value also in the model.
+     * binding value, and if so, set the new value in the model, too.
      */
     setExternalValue(
       /**
-       * the value to set for this binding
+       * The value to set for this binding
        */
       vValue: any
     ): undefined | Promise<any>;
@@ -56111,7 +56434,7 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     setFormatter(
       /**
-       * the formatter function for the binding
+       * The formatter function for the binding
        */
       fnFormatter: Function
     ): void;
@@ -56122,20 +56445,20 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     setInternalValue(
       /**
-       * the value to set for this binding
+       * The value to set for this binding
        */
       vValue: any
-    ): void;
+    ): Promise<any> | undefined;
     /**
      * Sets the value for this binding with the raw model value. This setter will perform type validation, in
      * case a type is defined on the binding.
      */
     setRawValue(
       /**
-       * the value to set for this binding
+       * The value to set for this binding
        */
       vValue: any
-    ): void;
+    ): Promise<any> | undefined;
     /**
      * Sets the optional type and internal type for the binding. The type and internal type are used to do the
      * parsing/formatting correctly. The internal type is the property type of the element which the value is
@@ -56143,17 +56466,17 @@ declare module "sap/ui/model/PropertyBinding" {
      */
     setType(
       /**
-       * the type for the binding
+       * The type for the binding
        */
       oType: Type,
       /**
-       * the internal type of the element property which this binding is bound against.
+       * The internal type of the element property which this binding is bound against.
        */
       sInternalType: string
     ): void;
     /**
      * Sets the value for this binding. A model implementation should check if the current default binding mode
-     * permits setting the binding value and if so set the new value also in the model.
+     * permits setting the binding value, and if so, set the new value in the model, too.
      */
     setValue(
       /**
@@ -56181,6 +56504,8 @@ declare module "sap/ui/model/resource/ResourceModel" {
 
   /**
    * Model implementation for resource bundles.
+   *
+   * This model is not prepared to be inherited from.
    *
    * This model allows to bind control properties against translatable texts. Its data is taken from a {@link
    * module:sap/base/i18n/ResourceBundle} and it only supports property bindings.
@@ -57166,18 +57491,18 @@ declare module "sap/ui/model/TreeBindingAdapter" {
      * @deprecated (since 1.52) - This method is marked as 'protected' which was meant to be overwritten by
      * its subclasses. It may be renamed or deleted and should only be called from this class or its subclasses.
      *
-     * Calculate the request length based on the given information
+     * Calculate the request length based on the given information.
      */
     _calculateRequestLength(
       /**
-       * the maximum group size
+       * The maximum group size
        */
-      iMaxGroupSize: int,
+      iMaxGroupSize: number,
       /**
-       * the information of the current section
+       * The information of the current section
        */
       oSection: object
-    ): void;
+    ): number;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
      * this `sap.ui.model.TreeBindingAdapter`.
@@ -57277,6 +57602,10 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       iThreshold?: number
     ): Context[];
     /**
+     * Returns the number of entries in the tree.
+     */
+    getLength(): number;
+    /**
      * Gets an array of nodes for the requested part of the tree.
      */
     getNodes(
@@ -57297,6 +57626,11 @@ declare module "sap/ui/model/TreeBindingAdapter" {
 }
 
 declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
+  import TreeBinding from "sap/ui/model/TreeBinding";
+
+  /**
+   * @deprecated - use {@link sap.ui.model.TreeBindingAdapter} instead
+   */
   export default class TreeBindingCompatibilityAdapter {
     /**
      * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
@@ -57304,7 +57638,16 @@ declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
      *
      * This module is only for experimental and internal use!
      */
-    constructor();
+    constructor(
+      /**
+       * The binding to add ListBinding functionality to
+       */
+      oBinding: TreeBinding,
+      /**
+       * The tree or tree table control using the given binding; the control is used for selection handling
+       */
+      oControl: object
+    );
   }
 }
 
@@ -57638,8 +57981,12 @@ declare module "sap/ui/model/type/Date" {
      * Returns a metadata object for class sap.ui.model.type.Date.
      */
     static getMetadata(): Metadata;
-
-    getOutputPattern(): void;
+    /**
+     * Returns the output pattern.
+     * See:
+     * 	sap.ui.core.format.DateFormat.getDateInstance
+     */
+    getOutputPattern(): string;
   }
 }
 
@@ -58539,7 +58886,9 @@ declare module "sap/ui/model/xml/XMLModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Model implementation for XML format
+   * Model implementation for the XML format.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class XMLModel extends ClientModel {
     /**
@@ -58578,35 +58927,35 @@ declare module "sap/ui/model/xml/XMLModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Returns the object for the given `path`
+     * Returns the object for the given path and context.
      */
     getObject(
       /**
-       * the path to the object
+       * The path to the object
        */
       sPath: string,
       /**
-       * the context which will be used to retrieve the object
+       * The context which will be used to retrieve the object
        */
       oContext?: object
-    ): any;
+    ): object;
     /**
-     * Returns the value for the property with the given `sPropertyName`
+     * Returns the value for the property with the given `sPropertyName`.
      */
     getProperty(
       /**
-       * the path to the property
+       * The path to the property
        */
       sPath: string,
       /**
-       * the context which will be used to retrieve the property
+       * The context which will be used to retrieve the property
        */
       oContext?: object
-    ): any;
+    ): string;
     /**
      * Serializes the current XML data of the model into a string.
      */
-    getXML(): undefined;
+    getXML(): string;
     /**
      * Load XML-encoded data from the server using a GET HTTP request and store the resulting XML data in the
      * model. Note: Due to browser security restrictions, most "Ajax" requests are subject to the same origin
@@ -58654,11 +59003,11 @@ declare module "sap/ui/model/xml/XMLModel" {
      */
     setNameSpace(
       /**
-       * the namespace URI
+       * The namespace URI
        */
       sNameSpace: string,
       /**
-       * the prefix for the namespace (optional)
+       * The prefix for the namespace
        */
       sPrefix?: string
     ): void;
@@ -58668,19 +59017,19 @@ declare module "sap/ui/model/xml/XMLModel" {
      */
     setProperty(
       /**
-       * path of the property to set
+       * Path of the property to set
        */
       sPath: string,
       /**
-       * value to set the property to
+       * Value to set the property to
        */
       oValue: any,
       /**
-       * the context which will be used to set the property
+       * The context which will be used to set the property
        */
       oContext?: object,
       /**
-       * whether to update other bindings dependent on this property asynchronously
+       * Whether to update other bindings dependent on this property asynchronously
        */
       bAsyncUpdate?: boolean
     ): boolean;
@@ -60600,7 +60949,8 @@ declare module "sap/ui/test/matchers/I18NText" {
    * The I18NText matcher checks if a control property has the same value as a text from an I18N file.
    *
    * The matcher automatically:
-   * 	 -  retrieves the text from the assigned 'i18n' model (name can be changed)
+   * 	 -  retrieves the text from the assigned 'i18n' model (name can be changed) or library resource bundle
+   *
    * 	 -  checks that the I18N key does actually exist in the file
    * 	 -  checks if asynchronously loaded I18N have actually been loaded
    *
@@ -60615,6 +60965,10 @@ declare module "sap/ui/test/matchers/I18NText" {
    *     }
    * }
    * ```
+   *
+   *
+   * As of version 1.95 if the `useLibraryBundle` flag is set to `true`, the library resource bundle of the
+   * control is used to resolve the i18n key.
    */
   export default class I18NText extends Matcher {
     /**
@@ -60681,6 +61035,12 @@ declare module "sap/ui/test/matchers/I18NText" {
      */
     getPropertyName(): string;
     /**
+     * Gets current value of property {@link #getUseLibraryBundle useLibraryBundle}.
+     *
+     * The boolean flag to indicate whether to utiliize the library bundle of the control
+     */
+    getUseLibraryBundle(): boolean;
+    /**
      * Checks if the control has a property that matches the I18N text
      */
     isMatching(
@@ -60743,6 +61103,19 @@ declare module "sap/ui/test/matchers/I18NText" {
        */
       sPropertyName: string
     ): this;
+    /**
+     * Sets a new value for property {@link #getUseLibraryBundle useLibraryBundle}.
+     *
+     * The boolean flag to indicate whether to utiliize the library bundle of the control
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setUseLibraryBundle(
+      /**
+       * New value for property `useLibraryBundle`
+       */
+      bUseLibraryBundle: boolean
+    ): this;
   }
 
   export interface $I18NTextSettings extends $MatcherSettings {
@@ -60765,6 +61138,11 @@ declare module "sap/ui/test/matchers/I18NText" {
      * The name of the {@link sap.ui.model.resource.ResourceModel} assigned to the control.
      */
     modelName?: string | PropertyBindingInfo;
+
+    /**
+     * The boolean flag to indicate whether to utiliize the library bundle of the control
+     */
+    useLibraryBundle?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -66420,11 +66798,11 @@ declare namespace sap {
     /**
      * The SAPUI5 Data Binding API.
      *
-     * The default binding mode for model implementations (if not implemented otherwise) is two way and the
-     * supported binding modes by the model are one way, two way and one time. The default binding mode can
+     * The default binding mode for model implementations (if not implemented otherwise) is two-way and the
+     * supported binding modes by the model are one-way, two-way and one-time. The default binding mode can
      * be changed by the application for each model instance. A model implementation should specify its supported
-     * binding modes and set the default binding mode accordingly (e.g. if the model supports only one way binding
-     * the default binding mode should also be set to one way).
+     * binding modes and set the default binding mode accordingly (e.g. if the model supports only one-way binding
+     * the default binding mode should also be set to one-way).
      *
      * The default size limit for models is 100. The size limit determines the number of entries used for the
      * list bindings.

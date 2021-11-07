@@ -3,17 +3,19 @@
 // Definitions by: hyun <https://github.com/KoreanThinker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ComponentClass, ReactElement, Component } from 'react';
+import { ComponentClass, ReactElement, Component, ReactNode } from 'react';
 import { StyleProp, TextStyle, TextProps, ViewStyle } from 'react-native';
 
 export interface MenuProps {
     button?: ReactElement | undefined;
+    children?: ReactNode;
     testID?: string | undefined;
     style?: StyleProp<ViewStyle> | undefined;
     onHidden?: (() => void) | undefined;
     animationDuration?: number | undefined;
 }
 export interface MenuItemProps {
+    children?: ReactNode;
     disabled?: boolean | undefined;
     testID?: string | undefined;
     disabledTextColor?: string | undefined;

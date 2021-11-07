@@ -25,6 +25,13 @@ export default class ReactVerticalTimelineComponentTests extends React.Component
                         Creative Direction, User Experience, Visual Design, SEO, Online Marketing
                     </p>
                 </VerticalTimelineElement>
+                <VerticalTimelineElement className="vertical-timeline-element--work" date="2020 - present" visible={false}>
+                    <h3 className="vertical-timeline-element-title">Master of Coin</h3>
+                    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
+                    <p>
+                        Take doge to the moon
+                    </p>
+                </VerticalTimelineElement>
             </VerticalTimeline>
         );
     }

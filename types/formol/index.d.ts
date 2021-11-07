@@ -17,6 +17,7 @@ export const FormolContext: {
 };
 
 interface FormolProps<V = any> {
+    children?: React.ReactNode;
     item?: V | undefined;
     types?: ReadonlyArray<string> | undefined;
     i18n?: any;
@@ -35,7 +36,11 @@ interface FormolProps<V = any> {
 declare const Formol: React.ComponentType<FormolProps>;
 export default Formol;
 
-export const Inliner: React.ComponentType;
+interface InlinerProps {
+    children?: React.ReactNode;
+}
+
+export const Inliner: React.ComponentType<InlinerProps>;
 
 interface FieldSetProps<V = any> {
     type?: string | undefined;
@@ -60,6 +65,7 @@ interface SwitchButtonProps {
 export const SwitchButton: React.ComponentType<SwitchButtonProps>;
 
 interface ConditionalProps<V = any> {
+    children?: React.ReactNode;
     show?: ((val: V) => boolean) | boolean | undefined;
     readOnly?: ((val: V) => boolean) | boolean | undefined;
     context?: any;

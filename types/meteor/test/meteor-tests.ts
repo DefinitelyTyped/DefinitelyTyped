@@ -210,6 +210,22 @@ namespace MeteorTests {
     var result = Meteor.call('foo', 1, 2);
 
     /**
+     * From Methods, Meteor.apply section
+     */
+    Meteor.apply('foo', []);
+    Meteor.apply('foo', [1, 2]);
+    Meteor.apply('foo', [1, 2], {});
+    Meteor.apply('foo', [1, 2], {
+        wait: true,
+        onResultReceived(error: any, result: any) {},
+        noRetry: true, // #56828
+        throwStubExceptions: false,
+        returnStubValue: true,
+    });
+    Meteor.apply('foo', [1, 2], {}, function (error: any, result: any) {});
+    var result = Meteor.apply('foo', [1, 2], {});
+
+    /**
      * From Collections, Mongo.Collection section
      */
     // DA: I added the "var" keyword in there
@@ -719,8 +735,8 @@ namespace MeteorTests {
     var body = Template.body;
 
     const Template2 = Template as TemplateStaticTyped<
-        { foo: string },
         'newTemplate2',
+        { foo: string },
         {
             state: ReactiveDict<{ bar: number }>;
             getFooBar(): string;
@@ -774,6 +790,18 @@ namespace MeteorTests {
             template.getFooBar();
         },
     });
+
+    const Template3 = Template as TemplateStaticTyped<'newTemplate3', string>;
+
+    const Template4 = Template as TemplateStaticTyped<'newTemplate4', () => number>;
+
+    Template4.newTemplate4.events({
+        test: (_event, instance) => {
+            instance.data(); // $ExpectType number
+        },
+    });
+
+    const Template5 = Template as TemplateStaticTyped<'newTemplate5'>;
 
     /**
      * From Match section
@@ -963,19 +991,20 @@ namespace MeteorTests {
 
     var reactiveDict2 = new ReactiveDict<{ foo: string }>();
     reactiveDict2.set({ foo: 'bar' });
-    reactiveDict2.set('foo2', 'bar'); // $ExpectError
+    reactiveDict2.set('foo1', 'bar'); // $ExpectError
 
     var reactiveDict3 = new ReactiveDict('reactive-dict-3');
     var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
-    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar', foo2: 'bar' });
 
     reactiveDict5.setDefault('foo', 'bar');
     reactiveDict5.setDefault({ foo: 'bar' });
 
     reactiveDict5.set('foo', 'bar');
     reactiveDict5.set({ foo: 'bar' });
+    reactiveDict5.set({ foo: 'bar', foo2: 'bar' });
 
-    reactiveDict5.set('foo2', 'bar'); // $ExpectError
+    reactiveDict5.set('foo1', 'bar'); // $ExpectError
     reactiveDict5.set('foo', 2); // $ExpectError
 
     reactiveDict5.get('foo') === 'bar';

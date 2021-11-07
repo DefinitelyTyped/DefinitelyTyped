@@ -18,6 +18,11 @@ const client = new CoinGecko();
 
     await client.coins.all({ order: 'gecko_asc', page: 2 });
 
+    await client.coins.fetchHistory('bitcoin', {
+        date: '30-10-2021',
+        localization: true
+    });
+
     /**
      * simple
      */

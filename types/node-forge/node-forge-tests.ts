@@ -287,6 +287,8 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
+
+    cert.issuer.attributes.map(attr => attr.name)
 }
 
 {

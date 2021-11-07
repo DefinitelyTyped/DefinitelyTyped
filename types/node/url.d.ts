@@ -72,6 +72,30 @@ declare module 'url' {
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
+     * The URL object has both a `toString()` method and `href` property that return string serializations of the URL.
+     * These are not, however, customizable in any way. The `url.format(URL[, options])` method allows for basic
+     * customization of the output.
+     * Returns a customizable serialization of a URL `String` representation of a `WHATWG URL` object.
+     *
+     * ```js
+     * import url from 'url';
+     * const myURL = new URL('https://a:b@測試?abc#foo');
+     *
+     * console.log(myURL.href);
+     * // Prints https://a:b@xn--g6w251d/?abc#foo
+     *
+     * console.log(myURL.toString());
+     * // Prints https://a:b@xn--g6w251d/?abc#foo
+     *
+     * console.log(url.format(myURL, { fragment: false, unicode: true, auth: false }));
+     * // Prints 'https://測試/?abc'
+     * ```
+     * @since v7.6.0
+     * @param urlObject A `WHATWG URL` object
+     * @param options
+     */
+    function format(urlObject: URL, options?: URLFormatOptions): string;
+    /**
      * The `url.format()` method returns a formatted URL string derived from`urlObject`.
      *
      * ```js
@@ -134,7 +158,6 @@ declare module 'url' {
      * @deprecated Legacy: Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
-    function format(urlObject: URL, options?: URLFormatOptions): string;
     function format(urlObject: UrlObject | string): string;
     /**
      * The `url.resolve()` method resolves a target URL relative to a base URL in a

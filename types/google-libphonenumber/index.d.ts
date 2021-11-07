@@ -147,6 +147,7 @@ declare namespace libphonenumber {
         truncateTooLongNumber(number: PhoneNumber): boolean;
         isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
         getLengthOfGeographicalAreaCode(number: PhoneNumber): number;
+        getNationalSignificantNumber(number: PhoneNumber): string;
     }
 
     export class AsYouTypeFormatter {

@@ -71,6 +71,10 @@ commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
         gateway: 'test_gateway',
         card: {
             number: '4242 4242 4242 4242',
+            expiry_month: '01',
+            expiry_year: '2023',
+            cvc: '123',
+            postal_zip_code: '94103',
         },
     },
 });

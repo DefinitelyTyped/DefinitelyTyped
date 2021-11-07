@@ -187,3 +187,5 @@ const columnTypes: MicrosoftGraph.ColumnTypes = "approvalStatus";
 const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unknownFutureValue";
 
 const filterMode: MicrosoftGraph.FilterMode = "include";
+
+const policyPlatformType: MicrosoftGraph.PolicyPlatformType = "androidForWork";

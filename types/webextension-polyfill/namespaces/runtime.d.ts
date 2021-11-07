@@ -49,6 +49,13 @@ export namespace Runtime {
          * Optional.
          */
         sender?: MessageSender;
+
+        /**
+         * If the port was disconnected due to an error, this will be set to an object with a string property message,
+         * giving you more information about the error. See onDisconnect.
+         * Optional.
+         */
+        error?: PortErrorType;
     }
 
     /**
@@ -220,6 +227,14 @@ export namespace Runtime {
         message?: string;
     }
 
+    /**
+     * If the port was disconnected due to an error, this will be set to an object with a string property message,
+     * giving you more information about the error. See onDisconnect.
+     */
+    interface PortErrorType {
+        message: string;
+    }
+
     interface Static {
         /**
          * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app.
@@ -242,7 +257,7 @@ export namespace Runtime {
          *
          * @returns The manifest details.
          */
-        getManifest(): Manifest.ManifestBase;
+        getManifest(): Manifest.WebExtensionManifest;
 
         /**
          * Converts a relative path within an app/extension install directory to a fully-qualified URL.
