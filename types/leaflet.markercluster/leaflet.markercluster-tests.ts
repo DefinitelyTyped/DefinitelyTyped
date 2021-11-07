@@ -83,7 +83,7 @@ const childCount: number = markerClusterGroup.getChildCount();
 markers = markerClusterGroup.getAllChildMarkers();
 
 markerClusterGroup.zoomToShowLayer(marker);
-markerClusterGroup.zoomToShowLayer(marker, () => { });
+markerClusterGroup.zoomToShowLayer(marker, () => {});
 
 let hasLayer: boolean;
 hasLayer = markerClusterGroup.hasLayer(layer);
@@ -91,16 +91,16 @@ hasLayer = markerClusterGroup.hasLayer(marker);
 
 // inheritance
 const Subclass1 = L.MarkerClusterGroup.extend({
-    myFunction() { }
+    myFunction() {}
 });
 class Subclass2 extends L.MarkerClusterGroup {
-    myFunction() { }
+    myFunction() {}
 }
 const Subclass3 = L.MarkerCluster.extend({
-    myFunction() { }
+    myFunction() {}
 });
 class Subclass4 extends L.MarkerCluster {
-    myFunction() { }
+    myFunction() {}
 }
 
 const s1 = new Subclass1(); // any
