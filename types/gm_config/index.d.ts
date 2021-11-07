@@ -18,18 +18,18 @@ type FieldTypes =
     | 'number'
     | 'hidden';
 
-interface InitOptions<CustomTypes extends string> {
+/** Init options where no custom types are defined */
+interface InitOptionsNoCustom {
     /** Used for this instance of GM_config */
     id: string;
     /** Label the opened config window */
     title?: string | HTMLElement;
-    fields: Record<string, Field<CustomTypes>>;
+    fields: Record<string, Field>;
     /** Optional styling to apply to the menu */
     css?: string;
     /** Element to use for the config panel */
     frame?: HTMLElement;
-    /** Custom fields */
-    types?: { [type in CustomTypes]: CustomType };
+
     /** Handlers for different events */
     events?: {
         init?: GM_configStruct['onInit'];
@@ -39,6 +39,16 @@ interface InitOptions<CustomTypes extends string> {
         reset?: GM_configStruct['onReset'];
     };
 }
+
+/** Init options where custom types are defined */
+interface InitOptionsCustom<CustomTypes extends string> extends Omit<InitOptionsNoCustom, 'fields'> {
+    fields: Record<string, Field<CustomTypes>>;
+    /** Custom fields */
+    types: { [type in CustomTypes]: CustomType };
+}
+
+/** Init options where the types key is only required if custom types are used */
+type InitOptions<CustomTypes extends string> = InitOptionsNoCustom | InitOptionsCustom<CustomTypes>;
 
 interface Field<CustomTypes extends string = never> {
     /** Display label for the field */

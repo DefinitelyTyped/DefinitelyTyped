@@ -130,6 +130,32 @@ const customTypesConfig = new GM_configStruct({
     },
 });
 
+// Missing the types key for custom type 'myMissingType'
+// $ExpectError
+new GM_configStruct({
+    id: 'MissingCustomTypes1',
+    fields: {
+        MyField: {
+            type: 'myMissingType',
+        },
+    },
+});
+
+/*
+ * This is commented out for now since effectively the same error occurs on different lines across TypeScript versions.
+ * Typescript <=3.7 has the error on the line with `new`, but >=3.8 has the error on the line with the `types` key
+ */
+// // Types key is empty when it should have a key for 'myMissingType'
+// new GM_configStruct({
+//     id: 'MissingCustomTypes2',
+//     fields: {
+//         MyField: {
+//             type: 'myMissingType',
+//         },
+//     },
+//     types: {}, // $ExpectError
+// });
+
 // Testing events
 const eventsConfig = new GM_configStruct({
     id: 'TestingEvents',
