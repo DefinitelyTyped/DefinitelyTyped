@@ -5,15 +5,14 @@
 
 /// <reference types="node" />
 import { Plugin, OutputBundle } from 'rollup';
-import { FilterPattern } from '@rollup/pluginutils';
 
 declare namespace css {
     interface Options {
         /**
          *  All CSS files will be parsed by default, but you can also specifically include/exclude files
          */
-        include?: FilterPattern;
-        exclude?: FilterPattern;
+        include?: ReadonlyArray<string | RegExp> | string | RegExp | null;
+        exclude?: ReadonlyArray<string | RegExp> | string | RegExp | null;
         /**
          * Callback that will be called ongenerate
          */
