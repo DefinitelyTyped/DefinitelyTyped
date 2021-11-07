@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
 
       - run: git config --global user.email "bot@typescriptlang.org"
       - run: git config --global user.name "TS Bot"
