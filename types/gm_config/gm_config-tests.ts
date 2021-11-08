@@ -45,7 +45,7 @@ GM_config.setValue('Name', 'DefinitelyTyped'); // $ExpectType void | Promise<voi
 
 GM_config.stringify({ message: 'Hello, World!' }); // $ExpectType string
 
-GM_config.parser('{"message":"Hello, World!"}'); // $ExpectType void | object
+GM_config.parser('{"message":"Hello, World!"}'); // $ExpectType any
 
 GM_config.log('Hello, World!'); // $ExpectType void
 
@@ -63,7 +63,7 @@ GM_config.fields; // $ExpectType Record<string, GM_configField>
 
 GM_config.onInit; // $ExpectType ((this: GM_configStruct) => void) | undefined
 GM_config.onOpen; // $ExpectType ((this: GM_configStruct, document: Document, window: Window, frame: HTMLElement) => void) | undefined
-GM_config.onSave; // $ExpectType ((this: GM_configStruct, values: {}) => void) | undefined
+GM_config.onSave; // $ExpectType ((this: GM_configStruct, values: any) => void) | undefined
 GM_config.onClose; // $ExpectType ((this: GM_configStruct) => void) | undefined
 GM_config.onReset; // $ExpectType ((this: GM_configStruct) => void) | undefined
 
@@ -88,15 +88,15 @@ myField.id; // $ExpectType string
 
 myField.configId; // $ExpectType string
 
-myField.node; // $ExpectType Node | null
+myField.node; // $ExpectType HTMLElement | null
 
-myField.wrapper; // $ExpectType Node | null
+myField.wrapper; // $ExpectType HTMLElement | null
 
 myField.save; // $ExpectType boolean
 
 myField.create(); // $ExpectType HTMLElement
 
-myField.toNode(); // $ExpectType Node
+myField.toNode(); // $ExpectType HTMLElement
 
 myField.reset(); // $ExpectType void
 

@@ -54,6 +54,7 @@ interface InitOptionsCustom<CustomTypes extends string> extends Omit<InitOptions
 type InitOptions<CustomTypes extends string> = InitOptionsNoCustom | InitOptionsCustom<CustomTypes>;
 
 interface Field<CustomTypes extends string = never> {
+    [key: string]: any;
     /** Display label for the field */
     label?: string | HTMLElement;
     /** Type of input */
@@ -105,9 +106,9 @@ interface GM_configStruct {
     /** Save the current values */
     save(): void;
 
-    read(store?: string): {};
+    read(store?: string): any;
 
-    write(store?: string, obj?: {}): {};
+    write(store?: string, obj?: any): any;
 
     /**
      *
@@ -118,7 +119,7 @@ interface GM_configStruct {
      * @todo Improve types based on
      * <https://github.com/sizzlemctwizzle/GM_config/blob/43fd0fe4/gm_config.js#L444-L455>
      */
-    create(...args: [string] | [string, any[]] | []): HTMLElement;
+    create(...args: [string] | [string, any] | []): HTMLElement;
 
     center(): void;
 
@@ -143,13 +144,13 @@ interface GM_configStruct {
     getValue(name: string, def: FieldValue): FieldValue;
 
     /** Converts a JSON object to a string */
-    stringify(obj: object): string;
+    stringify(obj: any): string;
     /**
      * Converts a string to a JSON object
      * @returns `undefined` if the string was an invalid object,
      * otherwise returns the parsed object
      */
-    parser(jsonString: string): object | void;
+    parser(jsonString: string): any;
 
     /** Log a string with multiple fallbacks */
     log(data: string): void;
@@ -166,7 +167,7 @@ interface GM_configStruct {
     fields: Record<string, GM_configField>;
     onInit?: (this: GM_configStruct) => void;
     onOpen?: (this: GM_configStruct, document: Document, window: Window, frame: HTMLElement) => void;
-    onSave?: (this: GM_configStruct, values: {}) => void;
+    onSave?: (this: GM_configStruct, values: any) => void;
     onClose?: (this: GM_configStruct) => void;
     onReset?: (this: GM_configStruct) => void;
     isOpen: boolean;
@@ -189,11 +190,12 @@ interface GM_configFieldConstructor {
 }
 
 interface GM_configField {
+    [key: string]: any;
     settings: Field;
     id: string;
     configId: string;
-    node: Node | null;
-    wrapper: Node | null;
+    node: HTMLElement | null;
+    wrapper: HTMLElement | null;
     save: boolean;
     /** The stored value */
     value: FieldValue;
@@ -201,7 +203,7 @@ interface GM_configField {
 
     create: GM_configStruct['create'];
 
-    toNode(this: GM_configField, configId?: string): Node;
+    toNode(this: GM_configField, configId?: string): HTMLElement;
 
     /** Get value from field */
     toValue(this: GM_configField): FieldValue | null;
