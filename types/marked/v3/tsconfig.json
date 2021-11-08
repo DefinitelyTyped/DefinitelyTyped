@@ -9,9 +9,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "marked": [ "marked/v3" ]
@@ -22,6 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "marked-terminal-tests.ts"
+        "marked-tests.ts"
     ]
 }
