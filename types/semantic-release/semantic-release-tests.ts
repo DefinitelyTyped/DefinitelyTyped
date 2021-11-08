@@ -154,8 +154,8 @@ const result3: lib.Result = {
         type: "minor",
         version: "1.2.0",
         gitTag: "v1.2.0",
-        gitHead: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
-        notes: ""
+        notes: "",
+        gitHead: "a018aff59995a17c0564fa3fd0cb96223f4d4096"
     },
     releases: [{
         name: "example-lib",
@@ -164,6 +164,15 @@ const result3: lib.Result = {
         version: "1.2.0",
         gitHead: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
         gitTag: "v1.2.0",
+        notes: "",
+        pluginName: "@semantic"
+    }, {
+        name: "example-lib",
+        url: "https://www.npmjs.com/package/example-lib",
+        type: "prerelease",
+        version: "1.2.0-pre.2",
+        gitHead: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
+        gitTag: "1.2.0-pre.2",
         notes: "",
         pluginName: "@semantic"
     }]
