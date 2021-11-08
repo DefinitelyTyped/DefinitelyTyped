@@ -9,9 +9,12 @@ type FieldValue = string | number | boolean;
 type FieldTypes =
     | 'text'
     | 'textarea'
+    | 'button'
     | 'radio'
     | 'select'
     | 'checkbox'
+    | 'unsigned int'
+    | 'unsinged integer'
     | 'int'
     | 'integer'
     | 'float'
@@ -51,8 +54,10 @@ interface InitOptionsCustom<CustomTypes extends string> extends Omit<InitOptions
 type InitOptions<CustomTypes extends string> = InitOptionsNoCustom | InitOptionsCustom<CustomTypes>;
 
 interface Field<CustomTypes extends string = never> {
+    /** Fields can have and use any keys */
+    [key: string]: any;
     /** Display label for the field */
-    label?: string;
+    label?: string | HTMLElement;
     /** Type of input */
     type: FieldTypes | CustomTypes;
     /** Text to show on hover */
@@ -72,20 +77,20 @@ interface CustomType {
 /* GM_configStruct and related */
 
 interface GM_configStructConstructor {
-    new <CustomTypes extends string>(options: InitOptions<CustomTypes>): GM_configStruct<CustomTypes>;
+    new <CustomTypes extends string>(options: InitOptions<CustomTypes>): GM_configStruct;
 }
 
 /** Initialize a GM_configStruct */
 declare function GM_configInit<CustomTypes extends string>(
-    config: GM_configStruct<CustomTypes>,
+    config: GM_configStruct,
     options: InitOptions<CustomTypes>,
 ): void;
 
 declare function GM_configDefaultValue(type: FieldTypes): FieldValue;
 
-interface GM_configStruct<CustomTypes extends string = never> {
+interface GM_configStruct {
     /** Initialize GM_config */
-    init(options: InitOptions<CustomTypes>): void;
+    init<CustomTypes extends string = never>(options: InitOptions<CustomTypes>): void;
 
     /** Display the config panel */
     open(): void;
@@ -102,7 +107,20 @@ interface GM_configStruct<CustomTypes extends string = never> {
     /** Save the current values */
     save(): void;
 
-    create(): HTMLElement;
+    read(store?: string): {};
+
+    write(store?: string, obj?: {}): {};
+
+    /**
+     *
+     * @param args If only one arg is passed, argument is passed to `document.createTextNode`.
+     * With any other amount, args[0] is passed to `document.createElement` and the second arg
+     * has something to do with event listeners?
+     *
+     * @todo Improve types based on
+     * <https://github.com/sizzlemctwizzle/GM_config/blob/43fd0fe4/gm_config.js#L444-L455>
+     */
+    create(...args: [string] | [string, any[]] | []): HTMLElement;
 
     center(): void;
 
@@ -147,10 +165,10 @@ interface GM_configStruct<CustomTypes extends string = never> {
         stylish: string;
     };
     frame?: HTMLElement;
-    fields: Record<string, Field<CustomTypes>>;
+    fields: Record<string, GM_configField>;
     onInit?: () => void;
     onOpen?: (document: Document, window: Window, frame: HTMLElement) => void;
-    onSave?: () => void;
+    onSave?: (values: {}) => void;
     onClose?: () => void;
     onReset?: () => void;
     isOpen: boolean;
