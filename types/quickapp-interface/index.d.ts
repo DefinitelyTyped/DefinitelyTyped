@@ -1,4 +1,4 @@
-// Type definitions for non-npm package quickapp-types 1.0
+// Type definitions for quickapp-interface 1.0
 // Project: https://github.com/vivoquickapp/quickapp-types
 // Definitions by: hapTeam <https://github.com/vivoquickapp>
 //                 chenjiangfeng <https://github.com/Jerome77777>
