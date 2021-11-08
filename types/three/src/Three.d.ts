@@ -58,7 +58,6 @@ export * from './core/Clock';
 /**
  * Extras
  */
-export * from './extras/objects/ImmediateRenderObject';
 export * from './extras/curves/Curves';
 export * from './extras/core/Shape';
 export * from './extras/core/Path';
