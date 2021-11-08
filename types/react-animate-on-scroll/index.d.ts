@@ -18,7 +18,7 @@ export interface ScrollAnimationProps {
     style?: object | undefined;
     scrollableParentSelector?: string | undefined;
     className?: string | undefined;
-    animatePreScroll: boolean | undefined
+    animatePreScroll: boolean | undefined;
 }
 
 export default class ScrollAnimation extends React.Component<ScrollAnimationProps> {
