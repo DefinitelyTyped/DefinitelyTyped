@@ -383,6 +383,31 @@ declare namespace SemanticRelease {
         type: ReleaseType;
 
         /**
+         * The release channel of the release.
+         */
+        channel?: string | undefined;
+
+        /**
+         * The git hash of the release.
+         */
+        gitHead: string;
+
+        /**
+         * The version without v
+         */
+        version: string;
+
+        /**
+         * The version with v prefix
+         */
+        gitTag: string;
+
+        /**
+         * The release name
+         */
+        name?: string;
+
+        /**
          * The release notes of the next release.
          */
         notes: string;
