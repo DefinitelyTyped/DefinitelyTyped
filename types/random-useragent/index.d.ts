@@ -33,16 +33,20 @@ export interface UserAgent {
  * Get a random user agent string (optionally using a filter).
  * @param [filter] - An `Array.prototype.filter()` callback function.
  */
+export function getRandom(): string;
+
 export function getRandom(
-    filter?: (value: UserAgent, index: number, array: UserAgent[]) => boolean
+    filter: (value: UserAgent, index: number, array: UserAgent[]) => boolean
 ): string | null;
 
 /**
  * Get a random user agent's parsed data (optionally using a filter).
  * @param [filter] - An `Array.prototype.filter()` callback function.
  */
+export function getRandomData(): UserAgent;
+
 export function getRandomData(
-    filter?: (value: UserAgent, index: number, array: UserAgent[]) => boolean
+    filter: (value: UserAgent, index: number, array: UserAgent[]) => boolean
 ): UserAgent | null;
 
 /**
