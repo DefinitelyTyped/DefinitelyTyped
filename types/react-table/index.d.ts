@@ -176,6 +176,7 @@ export type UseTableOptions<D extends object> = {
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
     getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
     autoResetHiddenColumns: boolean;
+    autoResetResize: boolean;
 }>;
 
 export type PropGetter<D extends object, Props, T extends object = never, P = Partial<Props>> =
