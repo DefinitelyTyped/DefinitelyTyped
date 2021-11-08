@@ -1,4 +1,4 @@
-// Type definitions for markdown-it-link-attributes 0.0.6
+// Type definitions for markdown-it-link-attributes 0.0
 // Project: https://github.com/rotorz/markdown-it-external-links
 // Definitions by: Daniil Pronin <https://github.com/grawl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
