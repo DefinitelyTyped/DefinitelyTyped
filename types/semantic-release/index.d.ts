@@ -9,6 +9,23 @@
 
 declare namespace SemanticRelease {
     /**
+     * While it may be trivial that multiple analyzeCommits (or any
+     * lifecycle plugins) can be defined, it is not that self-evident
+     * that the plugins executed AFTER the first one (for example, the
+     * default one: commit-analyzer) can change the result. This way it
+     * is possible to create more advanced rules or situations, e.g. if
+     * none of the commits would result in new release, then a default
+     * can be defined.
+     *
+     * For this reason, the types of semantic-release's default analyzer,
+     * commit-analyzer, are noted here.
+     *
+     * See [Plugin development](https://semantic-release.gitbook.io/semantic-release/developer-guide/plugin#multiple-analyzecommits-plugins)
+     * for more details.
+     */
+    type ReleaseType = "prerelease" | "prepatch" | "patch" | "preminor" | "minor" | "premajor" | "major";
+
+    /**
      * semantic-release options.
      *
      * Can be used to set any core option or plugin options.
@@ -363,7 +380,7 @@ declare namespace SemanticRelease {
         /**
          * The semver type of the release.
          */
-        type: "patch" | "minor" | "major";
+        type: ReleaseType;
 
         /**
          * The release notes of the next release.
@@ -522,7 +539,7 @@ declare namespace SemanticRelease {
         /**
          * The semver type of the release.
          */
-        type: "patch" | "minor" | "major";
+        type: ReleaseType;
 
         /**
          * The version of the release.
