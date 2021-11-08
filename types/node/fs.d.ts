@@ -269,7 +269,7 @@ declare module 'fs' {
     export class StatWatcher extends EventEmitter {
         /**
          * @since v14.3.0, v12.20.0
-         * When called, requests that the Node.js event loop not exit so long as the `fs.StatWatcher`` is active.
+         * When called, requests that the Node.js event loop not exit so long as the `fs.StatWatcher` is active.
          * Calling `watcher.ref()` multiple times will have no effect.
          * By default, all `fs.StatWatcher`` objects are "ref'ed", making it normally unnecessary to call `watcher.ref()`
          * unless `watcher.unref()` had been called previously.
@@ -2811,7 +2811,7 @@ declare module 'fs' {
         filename: PathLike,
         options:
             | {
-                  bigint: boolean | undefined;
+                  bigint?: boolean | undefined;
                   persistent?: boolean | undefined;
                   interval?: number | undefined;
               }
