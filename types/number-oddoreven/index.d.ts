@@ -3,5 +3,5 @@
 // Definitions by: ArthurKa <https://github.com/ArthurKa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isOddOrEven(ms: any): true;
+declare function isOddOrEven(num: any): true;
 export = isOddOrEven;
