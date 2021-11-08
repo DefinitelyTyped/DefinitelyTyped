@@ -394,6 +394,7 @@
 /types/babel-generator/                                 @yortus @johnnyestilles
 /types/babel-plugin-glaze/                              @kripod
 /types/babel-plugin-macros/                             @billykwok @coffee-cup @ifiokjr
+/types/babel-plugin-react-docgen/                       @forivall
 /types/babel-plugin-react-html-attrs/                   @insin
 /types/babel-plugin-react-pug/                          @jpap
 /types/babel-plugin-syntax-jsx/                         @marvinhagemeister
@@ -672,7 +673,7 @@
 /types/cacheable-request/                               @BendingBender @paulmelnikow
 /types/cached/                                          @Juraj-Masiar
 /types/cached-path-relative/                            @TeamworkGuy2
-/types/cadesplugin/                                     @Delagen @kmvi
+/types/cadesplugin/                                     @Delagen @kmvi @andrew0687
 /types/cal-heatmap/                                     @RetroChrisB
 /types/calc-percent/                                    @peterblazejewicz
 /types/calendar/                                        @ffflorian
@@ -4460,6 +4461,14 @@
 /types/method-override/                                 @santialbo
 /types/methods/                                         @cprecioso @michelbitter
 /types/metric-suffix/                                   @davidm77
+/types/metro/                                           @afoxman @tido64
+/types/metro-babel-transformer/                         @afoxman @tido64
+/types/metro-cache/                                     @afoxman @tido64
+/types/metro-config/                                    @afoxman @tido64
+/types/metro-core/                                      @afoxman @tido64
+/types/metro-resolver/                                  @afoxman @tido64
+/types/metro-source-map/                                @afoxman @tido64
+/types/metro-transform-worker/                          @afoxman @tido64
 /types/metrostations/                                   @peterblazejewicz
 /types/meyda/                                           @eramdam @hughrawlinson
 /types/mfiles/                                          @avonwyss
