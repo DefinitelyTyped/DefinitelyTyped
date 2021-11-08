@@ -1,5 +1,5 @@
 // Type definitions for rollup-plugin-css-only 3.1
-// Project: https://github.com/thgh/rollup-plugin-css-only (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/thgh/rollup-plugin-css-only
 // Definitions by: Mateusz Szewc <https://github.com/SitamMatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
