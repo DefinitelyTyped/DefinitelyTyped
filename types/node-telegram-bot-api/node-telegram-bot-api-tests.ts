@@ -35,6 +35,19 @@ MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo' });
 MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo', parse_mode: 'HTML' });
 MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo' });
 MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo', parse_mode: 'Markdown' });
+MyTelegramBot.sendMediaGroup(1234, [{
+    type: 'audio',
+    media: 'CQACAgIAAxkDAAIEumFyl5kzZaq1NXAlXXn566uiL0ubAAInDQACI1WRS6-y2v2Awe-MIQQ'
+}]);
+MyTelegramBot.sendMediaGroup(1234, [{
+    type: 'audio',
+    media: 'CQACAgIAAxkDAAIEumFyl5kzZaq1NXAlXXn566uiL0ubAAInDQACI1WRS6-y2v2Awe-MIQQ',
+    caption: 'hello',
+    parse_mode: 'MarkdownV2',
+    duration: 1234,
+    performer: 'Elvis',
+    title:	'world'
+}]);
 MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo' }, { fileOption: true });
 MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo', parse_mode: 'HTML' }, { fileOption: true });
 MyTelegramBot.sendPoll(1234, 'question', ['answer1', 'answer2'], { type: 'regular' });
