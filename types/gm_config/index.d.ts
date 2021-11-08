@@ -90,7 +90,7 @@ declare function GM_configDefaultValue(type: FieldTypes): FieldValue;
 
 interface GM_configStruct {
     /** Initialize GM_config */
-    init<CustomTypes extends string = never>(options: InitOptions<CustomTypes>): void;
+    init<CustomTypes extends string>(options: InitOptions<CustomTypes>): void;
 
     /** Display the config panel */
     open(): void;

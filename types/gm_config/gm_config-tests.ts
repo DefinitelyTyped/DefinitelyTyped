@@ -59,11 +59,11 @@ GM_config.css.stylish; // $ExpectType string
 
 GM_config.frame; // $ExpectType HTMLElement | undefined
 
-GM_config.fields; // $ExpectType Record<string, Field<never>>
+GM_config.fields; // $ExpectType Record<string, GM_configField>
 
 GM_config.onInit; // $ExpectType (() => void) | undefined
 GM_config.onOpen; // $ExpectType ((document: Document, window: Window, frame: HTMLElement) => void) | undefined
-GM_config.onSave; // $ExpectType (() => void) | undefined
+GM_config.onSave; // $ExpectType ((values: {}) => void) | undefined
 GM_config.onClose; // $ExpectType (() => void) | undefined
 GM_config.onReset; // $ExpectType (() => void) | undefined
 
