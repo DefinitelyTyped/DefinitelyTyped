@@ -24,7 +24,8 @@ export type FakeMethod =
     | 'requestAnimationFrame'
     | 'cancelAnimationFrame'
     | 'requestIdleCallback'
-    | 'cancelIdleCallback';
+    | 'cancelIdleCallback'
+    | 'performance';
 
 /**
  * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
