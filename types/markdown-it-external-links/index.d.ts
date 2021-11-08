@@ -19,5 +19,5 @@ declare namespace markdownItExternalLinks {
 }
 declare const markdownItExternalLinks: PluginWithOptions<markdownItExternalLinks.Config | markdownItExternalLinks.Config[]> & {
     readonly defaultRender: RenderRule;
-}
+};
 export = markdownItExternalLinks;
