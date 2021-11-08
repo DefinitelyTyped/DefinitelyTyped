@@ -260,6 +260,29 @@ declare module 'fs' {
          */
         readSync(): Dirent | null;
     }
+    /**
+     * Class: fs.StatWatcher
+     * @since v14.3.0, v12.20.0
+     * Extends `EventEmitter`
+     * A successful call to {@link watchFile} method will return a new fs.StatWatcher object.
+     */
+    export class StatWatcher extends EventEmitter {
+        /**
+         * @since v14.3.0, v12.20.0
+         * When called, requests that the Node.js event loop not exit so long as the `fs.StatWatcher`` is active.
+         * Calling `watcher.ref()` multiple times will have no effect.
+         * By default, all `fs.StatWatcher`` objects are "ref'ed", making it normally unnecessary to call `watcher.ref()`
+         * unless `watcher.unref()` had been called previously.
+         */
+        ref(): this;
+        /**
+         * @since v14.3.0, v12.20.0
+         * When called, the active `fs.StatWatcher`` object will not require the Node.js event loop to remain active.
+         * If there is no other activity keeping the event loop running, the process may exit before the `fs.StatWatcher`` object's callback is invoked.
+         * `Calling watcher.unref()` multiple times will have no effect.
+         */
+        unref(): this;
+    }
     export interface FSWatcher extends EventEmitter {
         /**
          * Stop watching for changes on the given `fs.FSWatcher`. Once stopped, the `fs.FSWatcher` object is no longer usable.
@@ -2788,17 +2811,18 @@ declare module 'fs' {
         filename: PathLike,
         options:
             | {
+                  bigint: boolean | undefined;
                   persistent?: boolean | undefined;
                   interval?: number | undefined;
               }
             | undefined,
         listener: (curr: Stats, prev: Stats) => void
-    ): void;
+    ): StatWatcher;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      */
-    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): void;
+    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): StatWatcher;
     /**
      * Stop watching for changes on `filename`. If `listener` is specified, only that
      * particular listener is removed. Otherwise, _all_ listeners are removed,
