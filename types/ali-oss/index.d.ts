@@ -163,6 +163,16 @@ declare namespace OSS {
         owner?: OwnerType;
     }
 
+    interface BucketPolicy {
+        Version: string;
+        Statement: Array<{
+            Action: string[];
+            Effect: 'Allow' | 'Deny';
+            Principal: string[];
+            Resource: string[];
+        }>;
+    }
+
     interface NormalSuccessResponse {
         /** response status */
         status: number;
@@ -615,6 +625,12 @@ declare namespace OSS {
         /** the operation timeout */
         timeout?: number | undefined;
     }
+
+    interface GetBucketPolicyResult {
+        policy: BucketPolicy | null;
+        status: number;
+        res: NormalSuccessResponse;
+    }
 }
 
 // cluster
@@ -914,6 +930,35 @@ declare class OSS {
      * Delete CORS rules of the bucket object.
      */
     deleteBucketCORS(name: string): Promise<OSS.NormalSuccessResponse>;
+
+    // policy operations
+    /**
+     * Adds or modify policy for a bucket.
+     */
+    putBucketPolicy(
+        name: string,
+        policy: OSS.BucketPolicy,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
+
+    /**
+     * Obtains the policy for a bucket.
+     */
+    getBucketPolicy(name: string, options?: OSS.RequestOptions): Promise<OSS.GetBucketPolicyResult>;
+
+    /**
+     * Deletes the policy added for a bucket.
+     */
+    deleteBuckyPolicy(
+        name: string,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
 
     /********************************************************** Object operations ********************************************/
     /**
