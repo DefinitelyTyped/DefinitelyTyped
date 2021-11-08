@@ -35,9 +35,7 @@ export interface UserAgent {
  */
 export function getRandom(): string;
 
-export function getRandom(
-    filter: (value: UserAgent, index: number, array: UserAgent[]) => boolean
-): string | null;
+export function getRandom(filter: (value: UserAgent, index: number, array: UserAgent[]) => boolean): string | null;
 
 /**
  * Get a random user agent's parsed data (optionally using a filter).
@@ -46,21 +44,17 @@ export function getRandom(
 export function getRandomData(): UserAgent;
 
 export function getRandomData(
-    filter: (value: UserAgent, index: number, array: UserAgent[]) => boolean
+    filter: (value: UserAgent, index: number, array: UserAgent[]) => boolean,
 ): UserAgent | null;
 
 /**
  * Get an array of all the user agent strings (optionally using a filter).
  * @param [filter] - An `Array.prototype.filter()` callback function.
  */
-export function getAll(
-    filter?: (value: UserAgent, index: number, array: UserAgent[]) => boolean
-): string[];
+export function getAll(filter?: (value: UserAgent, index: number, array: UserAgent[]) => boolean): string[];
 
 /**
  * Get an array of all the parsed user agent data (optionally using a filter).
  * @param [filter] - An `Array.prototype.filter()` callback function.
  */
-export function getAllData(
-    filter?: (value: UserAgent, index: number, array: UserAgent[]) => boolean
-): UserAgent[];
+export function getAllData(filter?: (value: UserAgent, index: number, array: UserAgent[]) => boolean): UserAgent[];
