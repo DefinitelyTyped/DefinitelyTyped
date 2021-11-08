@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "gm_config-tests.ts"]
+    "files": ["index.d.ts", "gm_config-tests.ts", "gm_config-unit-tests.ts"]
 }
