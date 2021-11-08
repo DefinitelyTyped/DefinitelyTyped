@@ -109,10 +109,16 @@ declare class SteamAPI {
 
     /**
      * Get users bans.
-     * @param id User ID(s)
+     * @param id User IDs
      * @returns Ban info
      */
     getUserBans(id: string[]): Promise<SteamAPI.PlayerBans[]>;
+
+    /**
+     * Get users bans.
+     * @param id User ID
+     * @returns Ban info
+     */
     getUserBans(id: string): Promise<SteamAPI.PlayerBans>;
 
     /**
@@ -168,10 +174,16 @@ declare class SteamAPI {
 
     /**
      * Get users summary.
-     * @param id User ID(s)
+     * @param id User IDs
      * @returns Summary
      */
     getUserSummary(id: string[]): Promise<SteamAPI.PlayerSummary[]>;
+
+    /**
+     * Get users summary.
+     * @param id User IDs
+     * @returns Summary
+     */
     getUserSummary(id: string): Promise<SteamAPI.PlayerSummary>;
 }
 
