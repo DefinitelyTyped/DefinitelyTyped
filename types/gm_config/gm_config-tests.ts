@@ -61,11 +61,11 @@ GM_config.frame; // $ExpectType HTMLElement | undefined
 
 GM_config.fields; // $ExpectType Record<string, GM_configField>
 
-GM_config.onInit; // $ExpectType (() => void) | undefined
-GM_config.onOpen; // $ExpectType ((document: Document, window: Window, frame: HTMLElement) => void) | undefined
-GM_config.onSave; // $ExpectType ((values: {}) => void) | undefined
-GM_config.onClose; // $ExpectType (() => void) | undefined
-GM_config.onReset; // $ExpectType (() => void) | undefined
+GM_config.onInit; // $ExpectType ((this: GM_configStruct) => void) | undefined
+GM_config.onOpen; // $ExpectType ((this: GM_configStruct, document: Document, window: Window, frame: HTMLElement) => void) | undefined
+GM_config.onSave; // $ExpectType ((this: GM_configStruct, values: {}) => void) | undefined
+GM_config.onClose; // $ExpectType ((this: GM_configStruct) => void) | undefined
+GM_config.onReset; // $ExpectType ((this: GM_configStruct) => void) | undefined
 
 GM_config.isOpen; // $ExpectType boolean
 
