@@ -172,7 +172,7 @@ const result3: lib.Result = {
         type: "prerelease",
         version: "1.2.0-pre.2",
         gitHead: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
-        gitTag: "1.2.0-pre.2",
+        gitTag: "v1.2.0-pre.2",
         notes: "",
         pluginName: "@semantic"
     }]
