@@ -59,7 +59,7 @@ class MyForm extends React.Component {
     }
 }
 
-const MyStatelessFunctionalComponent: React.SFC<any> = () => <div/>;
+const MyStatelessFunctionalComponent: React.FC<any> = () => <div/>;
 
 reduxForm({
     form: 'mySFCForm'
@@ -125,7 +125,7 @@ const ConnectedDecoratedInitializeFromStateFormFunction = connect(
     }),
 )(DecoratedInitializeFromStateFormFunction);
 
-// React ComponentClass instead of StatelessComponent
+// React ComponentClass instead of FunctionComponent
 
 class InitializeFromStateFormClass extends React.Component<Props> {
     render() {

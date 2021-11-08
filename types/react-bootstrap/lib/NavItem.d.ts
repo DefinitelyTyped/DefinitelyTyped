@@ -7,7 +7,7 @@ declare namespace NavItem {
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes | undefined;
         bsStyle?: string | undefined;
-        componentClass?: React.ReactType | undefined;
+        componentClass?: React.ElementType | undefined;
         defaultNavExpanded?: boolean | undefined;
         eventKey?: any;
         fixedBottom?: boolean | undefined;

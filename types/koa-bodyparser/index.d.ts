@@ -4,6 +4,7 @@
 //                 Anup Kishore <https://github.com/anup-2s>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Alexi Maschas <https://github.com/amaschas>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -55,6 +56,11 @@ declare namespace bodyParser {
          * limit of the text body. Default is 1mb.
          */
         textLimit?: string | undefined;
+
+        /**
+         * limit of the xml body. Default is 1mb.
+         */
+        xmlLimit?: string | undefined;
 
         /**
          * when set to true, JSON parser will only accept arrays and objects. Default is true

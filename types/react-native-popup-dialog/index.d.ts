@@ -14,11 +14,13 @@ export type OverlayPointerEventTypes = 'auto' | 'none';
 export type SlideFromTypes = 'top' | 'bottom' | 'left' | 'right';
 
 export interface DialogContentProps {
+    children?: React.ReactNode;
     style?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface DialogFooterProps {
     bordered?: boolean | undefined;
+    children?: React.ReactNode;
     style?: StyleProp<ViewStyle> | undefined;
 }
 
@@ -53,6 +55,7 @@ export interface OverlayProps {
 }
 
 export interface DialogProps {
+    children?: React.ReactNode;
     dialogTitle?: any;
     width?: number | undefined;
     height?: number | undefined;

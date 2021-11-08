@@ -81,6 +81,8 @@ export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex
  *   vertically or horizontally.
  */
 export interface TableProps extends React.ClassAttributes<Table> {
+    children?: React.ReactNode;
+
     /**
      * Pixel width of table. If all columns do not fit,
      * a horizontal scrollbar will appear.

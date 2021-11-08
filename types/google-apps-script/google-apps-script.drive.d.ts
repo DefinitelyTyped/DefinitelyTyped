@@ -171,6 +171,9 @@ declare namespace GoogleAppsScript {
       getName(): string;
       getOwner(): User;
       getParents(): FolderIterator;
+      getResourceKey(): string | null;
+      getSecurityUpdateEligible(): boolean;
+      getSecurityUpdateEnabled(): boolean;
       getSharingAccess(): Access;
       getSharingPermission(): Permission;
       getSize(): Integer;
@@ -199,6 +202,7 @@ declare namespace GoogleAppsScript {
       setName(name: string): File;
       setOwner(emailAddress: string): File;
       setOwner(user: Base.User): File;
+      setSecurityUpdateEnabled(enabled: boolean): File;
       setShareableByEditors(shareable: boolean): File;
       setSharing(accessType: Access, permissionType: Permission): File;
       setStarred(starred: boolean): File;
@@ -268,6 +272,9 @@ declare namespace GoogleAppsScript {
       getName(): string;
       getOwner(): User;
       getParents(): FolderIterator;
+      getResourceKey(): string | null;
+      getSecurityUpdateEligible(): boolean;
+      getSecurityUpdateEnabled(): boolean;
       getSharingAccess(): Access;
       getSharingPermission(): Permission;
       getSize(): Integer;
@@ -291,6 +298,7 @@ declare namespace GoogleAppsScript {
       setName(name: string): Folder;
       setOwner(emailAddress: string): Folder;
       setOwner(user: Base.User): Folder;
+      setSecurityUpdateEnabled(enabled: boolean): Folder;
       setShareableByEditors(shareable: boolean): Folder;
       setSharing(accessType: Access, permissionType: Permission): Folder;
       setStarred(starred: boolean): Folder;

@@ -15,6 +15,6 @@ export class Sprite extends Object3D {
     material: SpriteMaterial;
     center: Vector2;
 
-    raycast(raycaster: Raycaster, intersects: Array<Intersection<Object3D>>): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     copy(source: this): this;
 }

@@ -358,7 +358,7 @@ export interface HostComponent<P> extends Pick<React.ComponentClass<P>, Exclude<
 
 // see react-jsx.d.ts
 export function createElement<P>(
-    type: React.ReactType,
+    type: React.ElementType,
     props?: P,
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;
@@ -990,6 +990,8 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * The default is `true`.
      */
     allowFontScaling?: boolean | undefined;
+
+    children?: React.ReactNode;
 
     /**
      * This can be one of the following values:
@@ -2460,6 +2462,8 @@ export interface ViewProps
         GestureResponderHandlers,
         Touchable,
         AccessibilityProps {
+    children?: React.ReactNode;
+
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2732,6 +2736,8 @@ export class InputAccessoryView extends React.Component<InputAccessoryViewProps>
 
 export interface InputAccessoryViewProps {
     backgroundColor?: ColorValue | undefined;
+
+    children?: React.ReactNode;
 
     /**
      * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
@@ -5173,6 +5179,8 @@ export interface TouchableWithoutFeedbackProps
     extends TouchableWithoutFeedbackPropsIOS,
         TouchableWithoutFeedbackPropsAndroid,
         AccessibilityProps {
+    children?: React.ReactNode;
+
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */

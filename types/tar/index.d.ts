@@ -1,4 +1,4 @@
-// Type definitions for tar 4.0
+// Type definitions for tar 6.1
 // Project: https://github.com/npm/node-tar
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -102,8 +102,8 @@ export const fieldEnds: number[];
  */
 export const types: {
     0: string;
-    "\0": string;
-    "": string;
+    '\0': string;
+    '': string;
     1: string;
     2: string;
     3: string;
@@ -490,6 +490,14 @@ export interface ExtractOptions {
      */
     onentry?(entry: ReadEntry): void;
 
+    /**
+     * Set to true to omit calling `fs.chmod()` to ensure that the extracted file
+     * matches the entry mode. This also suppresses the call to `process.umask()`
+     * to determine the default umask value, since tar will extract with whatever
+     * mode is provided, and let the process `umask` apply normally.
+     */
+    noChmod?: boolean | undefined;
+
     // The following options are mostly internal, but can be modified in some
     // advanced use cases, such as re-using caches between runs.
 
@@ -658,7 +666,11 @@ export interface FileOptions {
  *
  * Archive data may be read from the returned stream.
  */
-export function create(options: CreateOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Readable;
+export function create(
+    options: CreateOptions,
+    fileList: ReadonlyArray<string>,
+    callback?: (err?: Error) => void,
+): stream.Readable;
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
@@ -668,7 +680,11 @@ export function create(options: CreateOptions, fileList: ReadonlyArray<string>, 
  */
 export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>): Promise<void>;
 export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: ReadonlyArray<string>): void;
-export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>, callback: (err?: Error) => void): void;
+export function create(
+    options: CreateOptions & FileOptions,
+    fileList: ReadonlyArray<string>,
+    callback: (err?: Error) => void,
+): void;
 
 /**
  * Alias for create
@@ -687,7 +703,11 @@ export const c: typeof create;
  *
  * Archive data should be written to the returned stream.
  */
-export function extract(options: ExtractOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
+export function extract(
+    options: ExtractOptions,
+    fileList?: ReadonlyArray<string>,
+    callback?: (err?: Error) => void,
+): stream.Writable;
 
 /**
  * Extract a tarball archive. The fileList is an array of paths to extract
@@ -701,7 +721,11 @@ export function extract(options: ExtractOptions, fileList?: ReadonlyArray<string
  */
 export function extract(options: ExtractOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
 export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
-export function extract(options: ExtractOptions & FileOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): void;
+export function extract(
+    options: ExtractOptions & FileOptions,
+    fileList: ReadonlyArray<string> | undefined,
+    callback: (err?: Error) => void,
+): void;
 
 /**
  * Alias for extract
@@ -716,7 +740,11 @@ export const x: typeof extract;
  *
  * Archive data should be written to the returned stream.
  */
-export function list(options?: ListOptions  & FileOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
+export function list(
+    options?: ListOptions & FileOptions,
+    fileList?: ReadonlyArray<string>,
+    callback?: (err?: Error) => void,
+): stream.Writable;
 
 /**
  * List the contents of a tarball archive. The fileList is an array of paths
@@ -741,7 +769,11 @@ export const t: typeof list;
  * starts with @, prepend it with ./.
  */
 export function replace(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function replace(options: ReplaceOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): Promise<void>;
+export function replace(
+    options: ReplaceOptions,
+    fileList: ReadonlyArray<string> | undefined,
+    callback: (err?: Error) => void,
+): Promise<void>;
 
 /**
  * Alias for replace
@@ -756,7 +788,11 @@ export const r: typeof replace;
  * To add a file that starts with @, prepend it with ./.
  */
 export function update(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function update(options: ReplaceOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): Promise<void>;
+export function update(
+    options: ReplaceOptions,
+    fileList: ReadonlyArray<string> | undefined,
+    callback: (err?: Error) => void,
+): Promise<void>;
 
 /**
  * Alias for update
