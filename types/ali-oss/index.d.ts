@@ -631,6 +631,12 @@ declare namespace OSS {
         status: number;
         res: NormalSuccessResponse;
     }
+
+    interface PostObjectParams {
+        policy: string;
+        OSSAccessKeyId: string;
+        Signature: string;
+    }
 }
 
 // cluster
@@ -1130,6 +1136,11 @@ declare class OSS {
         uploadId: string,
         options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
+
+    /**
+     * get postObject params.
+     */
+    calculatePostSignature(policy: OSS.BucketPolicy | string): OSS.PostObjectParams;
 
     /************************************************ RTMP Operations *************************************************************/
     /**
