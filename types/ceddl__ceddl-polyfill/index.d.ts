@@ -106,6 +106,7 @@ export interface ArrayField {
  */
 export interface ModelConfig {
     key: string;
+    root: boolean;
     extends?: string;
     fields: {
         [key: string]: {
