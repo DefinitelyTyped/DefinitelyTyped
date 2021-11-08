@@ -54,8 +54,6 @@ interface InitOptionsCustom<CustomTypes extends string> extends Omit<InitOptions
 type InitOptions<CustomTypes extends string> = InitOptionsNoCustom | InitOptionsCustom<CustomTypes>;
 
 interface Field<CustomTypes extends string = never> {
-    /** Fields can have and use any keys */
-    [key: string]: any;
     /** Display label for the field */
     label?: string | HTMLElement;
     /** Type of input */
@@ -69,9 +67,9 @@ interface Field<CustomTypes extends string = never> {
 
 interface CustomType {
     default?: FieldValue | null;
-    toNode?: (configId: string) => Node;
-    toValue?: () => FieldValue | null;
-    reset?: () => void;
+    toNode?: GM_configField['toNode'];
+    toValue?: GM_configField['toValue'];
+    reset?: GM_configField['reset'];
 }
 
 /* GM_configStruct and related */
@@ -166,11 +164,11 @@ interface GM_configStruct {
     };
     frame?: HTMLElement;
     fields: Record<string, GM_configField>;
-    onInit?: () => void;
-    onOpen?: (document: Document, window: Window, frame: HTMLElement) => void;
-    onSave?: (values: {}) => void;
-    onClose?: () => void;
-    onReset?: () => void;
+    onInit?: (this: GM_configStruct) => void;
+    onOpen?: (this: GM_configStruct, document: Document, window: Window, frame: HTMLElement) => void;
+    onSave?: (this: GM_configStruct, values: {}) => void;
+    onClose?: (this: GM_configStruct) => void;
+    onReset?: (this: GM_configStruct) => void;
     isOpen: boolean;
 }
 
@@ -203,12 +201,12 @@ interface GM_configField {
 
     create: GM_configStruct['create'];
 
-    toNode(configId?: string): Node;
+    toNode(this: GM_configField, configId?: string): Node;
 
     /** Get value from field */
-    toValue(): FieldValue | null;
+    toValue(this: GM_configField): FieldValue | null;
 
-    reset(): void;
+    reset(this: GM_configField): void;
 
     remove(el?: HTMLElement): void;
 
