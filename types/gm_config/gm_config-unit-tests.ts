@@ -1,6 +1,6 @@
 // This code is modified from a UserScript made to test GM_config by the creator
 // Changes have been made to support strict typing and follow TSLint settings
-// Licensed under MIT by sizzlemctwizzle
+// Original file licensed under MIT by sizzlemctwizzle
 
 const fieldDefs = {
     name: {
