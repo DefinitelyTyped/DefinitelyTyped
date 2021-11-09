@@ -87,17 +87,14 @@ export function debug(enabled?: boolean): boolean;
 /** Send a single Ahoy tracking event. */
 export function track(name: string, properties?: EventProperties): boolean;
 
-/** Track all views and clicks. */
-export function trackAll(): void;
-
 /** Track form control changes. */
-export function trackChanges(): void;
+export function trackChanges(selector: string): void;
 
 /** Track link and button clicks. */
-export function trackClicks(): void;
+export function trackClicks(selector: string): void;
 
 /** Track form submits. */
-export function trackSubmits(): void;
+export function trackSubmits(selector: string): void;
 
 /** Send a view event for the current page. */
 export function trackView(additionalProperties?: EventProperties): void;
@@ -135,17 +132,14 @@ declare namespace ahoy {
     /** Send a single Ahoy tracking event. */
     function track(name: string, properties?: EventProperties): boolean;
 
-    /** Track all views and clicks. */
-    function trackAll(): void;
-
     /** Track form control changes. */
-    function trackChanges(): void;
+    export function trackChanges(selector: string): void;
 
     /** Track link and button clicks. */
-    function trackClicks(): void;
+    export function trackClicks(selector: string): void;
 
     /** Track form submits. */
-    function trackSubmits(): void;
+    export function trackSubmits(selector: string): void;
 
     /** Send a view event for the current page. */
     function trackView(additionalProperties?: EventProperties): void;
