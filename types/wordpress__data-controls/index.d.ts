@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/data-controls 2.2.6
+// Type definitions for @wordpress/data-controls 2.2
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data-controls/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
