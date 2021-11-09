@@ -31,7 +31,7 @@ declare namespace yargs {
      * `Arguments<T>` to simplify the inferred type signature in client code.
      */
     interface Argv<T = {}> {
-        (): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        (): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
         (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
 
         /**
@@ -57,7 +57,7 @@ declare namespace yargs {
          * it will ignore the first parameter since it expects it to be the script name. In order to override
          * this behavior, use `.parse(process.argv.slice(1))` instead of .argv and the first parameter won't be ignored.
          */
-        argv: { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        argv: { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
 
         /**
          * Tell the parser to interpret `key` as an array.
@@ -135,7 +135,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: BuilderCallback<T, U>,
-            handler?: (args: Arguments<U>) => void,
+            handler?: (args: Arguments<U>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<U>;
@@ -143,7 +143,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<T>;
@@ -152,7 +152,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             showInHelp: false,
             builder?: BuilderCallback<T, U>,
-            handler?: (args: Arguments<U>) => void,
+            handler?: (args: Arguments<U>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<T>;
@@ -160,7 +160,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             showInHelp: false,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
         command<U>(module: CommandModule<T, U>): Argv<U>;
@@ -319,7 +319,7 @@ declare namespace yargs {
          * Method to execute when a failure occurs, rather than printing the failure message.
          * @param func Is called with the failure message that would have been printed, the Error instance originally thrown and yargs state when the failure occurred.
          */
-        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
+        fail(func: ((msg: string, err: Error, yargs: Argv<T>) => any) | boolean): Argv<T>;
 
         /**
          * Allows to programmatically get completion choices for any line.
@@ -327,6 +327,11 @@ declare namespace yargs {
          * @param done The callback to be called with the resulting completions.
          */
         getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
+
+        /**
+         * Returns a promise which resolves to a string containing the help text.
+         */
+        getHelp(): Promise<string>;
 
         /**
          * Indicate that an option (or group of options) should not be reset when a command is executed
@@ -440,8 +445,16 @@ declare namespace yargs {
          * Note: Providing a callback to parse() disables the `exitProcess` setting until after the callback is invoked.
          * @param [context]  Provides a useful mechanism for passing state information to commands
          */
-        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        parse(
+            arg: string | ReadonlyArray<string>,
+            context?: object,
+            parseCallback?: ParseCallback<T>,
+        ): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        parseSync(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parseSync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parseAsync(): Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        parseAsync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
 
         /**
          * If the arguments have not been parsed, this property is `false`.
@@ -494,12 +507,6 @@ declare namespace yargs {
         required(positionals: number, msg: string): Argv<T>;
 
         requiresArg(key: string | ReadonlyArray<string>): Argv<T>;
-
-        /**
-         * @deprecated since version 6.6.0
-         * Use '.global()' instead
-         */
-        reset(): Argv<T>;
 
         /** Set the name of your script ($0). Default is the base filename executed by node (`process.argv[1]`) */
         scriptName($0: string): Argv<T>;
@@ -597,10 +604,20 @@ declare namespace yargs {
          * and allows you to provide configuration for the positional arguments accepted by your program:
          */
         usage(message: string): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
-        usage<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
-        usage<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
+        usage<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void | Promise<void>): Argv<T>;
+        usage<U>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void | Promise<void>): Argv<T>;
+        usage<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+        ): Argv<T>;
+        usage<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: boolean,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+        ): Argv<T>;
 
         /**
          * Add an option (e.g. `--version`) that displays the version number (given by the version parameter) and exits the process.
@@ -636,120 +653,120 @@ declare namespace yargs {
 
     interface RequireDirectoryOptions {
         /** Look for command modules in all subdirectories and apply them as a flattened (non-hierarchical) list. */
-        recurse?: boolean;
+        recurse?: boolean | undefined;
         /** The types of files to look for when requiring command modules. */
-        extensions?: ReadonlyArray<string>;
+        extensions?: ReadonlyArray<string> | undefined;
         /**
          * A synchronous function called for each command module encountered.
          * Accepts `commandObject`, `pathToFile`, and `filename` as arguments.
          * Returns `commandObject` to include the command; any falsy value to exclude/skip it.
          */
-        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
+        visit?: ((commandObject: any, pathToFile?: string, filename?: string) => any) | undefined;
         /** Whitelist certain modules */
-        include?: RegExp | ((pathToFile: string) => boolean);
+        include?: RegExp | ((pathToFile: string) => boolean) | undefined;
         /** Blacklist certain modules. */
-        exclude?: RegExp | ((pathToFile: string) => boolean);
+        exclude?: RegExp | ((pathToFile: string) => boolean) | undefined;
     }
 
     interface Options {
         /** string or array of strings, alias(es) for the canonical option key, see `alias()` */
-        alias?: string | ReadonlyArray<string>;
+        alias?: string | ReadonlyArray<string> | undefined;
         /** boolean, interpret option as an array, see `array()` */
-        array?: boolean;
+        array?: boolean | undefined;
         /**  boolean, interpret option as a boolean flag, see `boolean()` */
-        boolean?: boolean;
+        boolean?: boolean | undefined;
         /** value or array of values, limit valid option arguments to a predefined set, see `choices()` */
-        choices?: Choices;
+        choices?: Choices | undefined;
         /** function, coerce or transform parsed command line values into another value, see `coerce()` */
-        coerce?: (arg: any) => any;
+        coerce?: ((arg: any) => any) | undefined;
         /** boolean, interpret option as a path to a JSON config file, see `config()` */
-        config?: boolean;
+        config?: boolean | undefined;
         /** function, provide a custom config parsing function, see `config()` */
-        configParser?: (configPath: string) => object;
+        configParser?: ((configPath: string) => object) | undefined;
         /** string or object, require certain keys not to be set, see `conflicts()` */
-        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
+        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
         /** boolean, interpret option as a count of boolean flags, see `count()` */
-        count?: boolean;
+        count?: boolean | undefined;
         /** value, set a default value for the option, see `default()` */
         default?: any;
         /** string, use this description for the default value in help content, see `default()` */
-        defaultDescription?: string;
+        defaultDescription?: string | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        demand?: boolean | string;
+        demand?: boolean | string | undefined;
         /** boolean or string, mark the argument as deprecated, see `deprecateOption()` */
-        deprecate?: boolean | string;
+        deprecate?: boolean | string | undefined;
         /** boolean or string, mark the argument as deprecated, see `deprecateOption()` */
-        deprecated?: boolean | string;
+        deprecated?: boolean | string | undefined;
         /** boolean or string, demand the option be given, with optional error message, see `demandOption()` */
-        demandOption?: boolean | string;
+        demandOption?: boolean | string | undefined;
         /** string, the option description for help content, see `describe()` */
-        desc?: string;
+        desc?: string | undefined;
         /** string, the option description for help content, see `describe()` */
-        describe?: string;
+        describe?: string | undefined;
         /** string, the option description for help content, see `describe()` */
-        description?: string;
+        description?: string | undefined;
         /** boolean, indicate that this key should not be reset when a command is invoked, see `global()` */
-        global?: boolean;
+        global?: boolean | undefined;
         /** string, when displaying usage instructions place the option under an alternative group heading, see `group()` */
-        group?: string;
+        group?: string | undefined;
         /** don't display option in help output. */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /**  string or object, require certain keys to be set, see `implies()` */
-        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
+        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
         /** number, specify how many arguments should be consumed for the option, see `nargs()` */
-        nargs?: number;
+        nargs?: number | undefined;
         /** boolean, apply path.normalize() to the option, see `normalize()` */
-        normalize?: boolean;
+        normalize?: boolean | undefined;
         /** boolean, interpret option as a number, `number()` */
-        number?: boolean;
+        number?: boolean | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        require?: boolean | string;
+        require?: boolean | string | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        required?: boolean | string;
+        required?: boolean | string | undefined;
         /** boolean, require the option be specified with a value, see `requiresArg()` */
-        requiresArg?: boolean;
+        requiresArg?: boolean | undefined;
         /** boolean, skips validation if the option is present, see `skipValidation()` */
-        skipValidation?: boolean;
+        skipValidation?: boolean | undefined;
         /** boolean, interpret option as a string, see `string()` */
-        string?: boolean;
-        type?: "array" | "count" | PositionalOptionsType;
+        string?: boolean | undefined;
+        type?: 'array' | 'count' | PositionalOptionsType | undefined;
     }
 
     interface PositionalOptions {
         /** string or array of strings, see `alias()` */
-        alias?: string | ReadonlyArray<string>;
+        alias?: string | ReadonlyArray<string> | undefined;
         /** boolean, interpret option as an array, see `array()` */
-        array?: boolean;
+        array?: boolean | undefined;
         /** value or array of values, limit valid option arguments to a predefined set, see `choices()` */
-        choices?: Choices;
+        choices?: Choices | undefined;
         /** function, coerce or transform parsed command line values into another value, see `coerce()` */
-        coerce?: (arg: any) => any;
+        coerce?: ((arg: any) => any) | undefined;
         /** string or object, require certain keys not to be set, see `conflicts()` */
-        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
+        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
         /** value, set a default value for the option, see `default()` */
         default?: any;
         /** boolean or string, demand the option be given, with optional error message, see `demandOption()` */
-        demandOption?: boolean | string;
+        demandOption?: boolean | string | undefined;
         /** string, the option description for help content, see `describe()` */
-        desc?: string;
+        desc?: string | undefined;
         /** string, the option description for help content, see `describe()` */
-        describe?: string;
+        describe?: string | undefined;
         /** string, the option description for help content, see `describe()` */
-        description?: string;
+        description?: string | undefined;
         /** string or object, require certain keys to be set, see `implies()` */
-        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
+        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
         /** boolean, apply path.normalize() to the option, see normalize() */
-        normalize?: boolean;
-        type?: PositionalOptionsType;
+        normalize?: boolean | undefined;
+        type?: PositionalOptionsType | undefined;
     }
 
     /** Remove keys K in T */
@@ -767,17 +784,26 @@ declare namespace yargs {
     /** Gives number[] if T is an array type, otherwise number. Preserves | undefined. */
     type ToNumber<T> = (Exclude<T, undefined> extends any[] ? number[] : number) | Extract<T, undefined>;
 
+    // prettier-ignore
     type InferredOptionType<O extends Options | PositionalOptions> =
+        O extends (
+            | { required: string | true }
+            | { require: string | true }
+            | { demand: string | true }
+            | { demandOption: string | true }
+        ) ?
+        Exclude<InferredOptionTypeInner<O>, undefined> :
+        InferredOptionTypeInner<O>;
+
+    // prettier-ignore
+    type InferredOptionTypeInner<O extends Options | PositionalOptions> =
         O extends { default: any, coerce: (arg: any) => infer T } ? T :
         O extends { default: infer D } ? D :
         O extends { type: "count" } ? number :
         O extends { count: true } ? number :
-        O extends { required: string | true } ? RequiredOptionType<O> :
-        O extends { require: string | true } ? RequiredOptionType<O> :
-        O extends { demand: string | true } ? RequiredOptionType<O> :
-        O extends { demandOption: string | true } ? RequiredOptionType<O> :
         RequiredOptionType<O> | undefined;
 
+    // prettier-ignore
     type RequiredOptionType<O extends Options | PositionalOptions> =
         O extends { type: "array", string: true } ? string[] :
         O extends { type: "array", number: true } ? number[] :
@@ -804,27 +830,27 @@ declare namespace yargs {
 
     interface CommandModule<T = {}, U = {}> {
         /** array of strings (or a single string) representing aliases of `exports.command`, positional args defined in an alias are ignored */
-        aliases?: ReadonlyArray<string> | string;
+        aliases?: ReadonlyArray<string> | string | undefined;
         /** object declaring the options the command accepts, or a function accepting and returning a yargs instance */
-        builder?: CommandBuilder<T, U>;
+        builder?: CommandBuilder<T, U> | undefined;
         /** string (or array of strings) that executes this command when given on the command line, first string may contain positional args */
-        command?: ReadonlyArray<string> | string;
+        command?: ReadonlyArray<string> | string | undefined;
         /** boolean (or string) to show deprecation notice */
-        deprecated?: boolean | string;
+        deprecated?: boolean | string | undefined;
         /** string used as the description for the command in help text, use `false` for a hidden command */
-        describe?: string | false;
+        describe?: string | false | undefined;
         /** a function which will be passed the parsed argv. */
-        handler: (args: Arguments<U>) => void;
+        handler: (args: Arguments<U>) => void | Promise<void>;
     }
 
-    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
+    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T> | Promise<Arguments<T>>, output: string) => void;
     type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>) | ((args: Argv<T>) => PromiseLike<Argv<U>>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
     type Choices = ReadonlyArray<string | number | true | undefined>;
-    type PositionalOptionsType = "boolean" | "number" | "string";
+    type PositionalOptionsType = 'boolean' | 'number' | 'string';
 }
 
 declare var yargs: yargs.Argv;
