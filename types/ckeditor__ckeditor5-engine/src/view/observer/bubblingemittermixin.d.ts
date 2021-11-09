@@ -1,9 +1,6 @@
-import { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
 
-export interface BubblingEmitter extends Emitter {
-    fire(eventOrInfo: EventInfo | string): unknown;
-}
+export type BubblingEmitter = Emitter;
 
 declare const BubblingEmitterMixin: BubblingEmitter;
 

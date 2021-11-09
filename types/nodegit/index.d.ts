@@ -6,6 +6,7 @@
 //                 Jibril Saffi <https://github.com/IGI-111>
 //                 Benjamin Schuster-Boeckler <https://github.com/DaGaMs>
 //                 Julien Chaumond <https://github.com/julien-c>
+//                 Jake Murzy <https://github.com/jmurzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';

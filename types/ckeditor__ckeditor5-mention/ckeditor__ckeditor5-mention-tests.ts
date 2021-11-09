@@ -58,7 +58,6 @@ command.execute({
 const htmlEl = document.createElement('div');
 new DomWrapperView(new Locale(), htmlEl).domElement === htmlEl;
 new DomWrapperView(new Locale(), htmlEl).element! === htmlEl;
-new DomWrapperView(htmlEl).element! === htmlEl;
 
 new MentionListItemView().children.first!.highlight();
 

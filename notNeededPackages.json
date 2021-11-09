@@ -64,6 +64,10 @@
             "libraryName": "ajv-keywords",
             "asOfVersion": "3.5.0"
         },
+        "alex": {
+            "libraryName": "alex",
+            "asOfVersion": "10.0.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
@@ -816,6 +820,10 @@
         "cypress-axe": {
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
+        },
+        "cypress-recurse": {
+            "libraryName": "cypress-recurse",
+            "asOfVersion": "1.9.0"
         },
         "dargs": {
             "libraryName": "dargs",
@@ -2373,10 +2381,6 @@
             "libraryName": "known",
             "asOfVersion": "3.0.0"
         },
-        "koa-better-body": {
-            "libraryName": "koa-better-body",
-            "asOfVersion": "3.1.0"
-        },
         "koa-jwt": {
             "libraryName": "koa-jwt",
             "asOfVersion": "3.3.0"
@@ -3392,6 +3396,11 @@
         "paypal__paypal-js": {
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
+        },
+        "pdfjs-dist": {
+            "libraryName": "pdfjs-dist",
+            "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
+            "asOfVersion": "2.10.377"
         },
         "peerjs": {
             "libraryName": "peerjs",
@@ -4538,6 +4547,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simple-icons": {
+            "libraryName": "simple-icons",
+            "asOfVersion": "5.21.0"
+        },
         "simplebar": {
             "libraryName": "simplebar",
             "asOfVersion": "5.3.3"
@@ -5065,6 +5078,10 @@
         "trim-newlines": {
             "libraryName": "trim-newlines",
             "asOfVersion": "3.0.0"
+        },
+        "trimblemaps__trimblemaps-js": {
+            "libraryName": "@trimblemaps/trimblemaps-js",
+            "asOfVersion": "3.2.0"
         },
         "ts3-nodejs-library": {
             "libraryName": "ts3-nodejs-library",

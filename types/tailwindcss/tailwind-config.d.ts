@@ -1,4 +1,8 @@
-export type Variant =
+import { TailwindPlugin } from './plugin';
+
+export type TailwindVariant =
+    | 'empty'
+    | 'read-only'
     | 'responsive'
     | 'first'
     | 'last'
@@ -16,72 +20,174 @@ export type Variant =
     | 'disabled'
     | 'dark';
 
-export type LiteralUnion<T extends U, U = string> = T | (U & Record<never, never>);
+export type TailwindCorePlugin =
+    | 'preflight'
+    | 'container'
+    | 'space'
+    | 'divideWidth'
+    | 'divideColor'
+    | 'divideStyle'
+    | 'divideOpacity'
+    | 'accessibility'
+    | 'appearance'
+    | 'backgroundAttachment'
+    | 'backgroundClip'
+    | 'backgroundColor'
+    | 'backgroundImage'
+    | 'gradientColorStops'
+    | 'backgroundOpacity'
+    | 'backgroundPosition'
+    | 'backgroundRepeat'
+    | 'backgroundSize'
+    | 'borderCollapse'
+    | 'borderColor'
+    | 'borderOpacity'
+    | 'borderRadius'
+    | 'borderStyle'
+    | 'borderWidth'
+    | 'boxSizing'
+    | 'cursor'
+    | 'display'
+    | 'flexDirection'
+    | 'flexWrap'
+    | 'placeItems'
+    | 'placeContent'
+    | 'placeSelf'
+    | 'alignItems'
+    | 'alignContent'
+    | 'alignSelf'
+    | 'justifyItems'
+    | 'justifyContent'
+    | 'justifySelf'
+    | 'flex'
+    | 'flexGrow'
+    | 'flexShrink'
+    | 'order'
+    | 'float'
+    | 'clear'
+    | 'fontFamily'
+    | 'fontWeight'
+    | 'height'
+    | 'fontSize'
+    | 'lineHeight'
+    | 'listStylePosition'
+    | 'listStyleType'
+    | 'margin'
+    | 'maxHeight'
+    | 'maxWidth'
+    | 'minHeight'
+    | 'minWidth'
+    | 'objectFit'
+    | 'objectPosition'
+    | 'opacity'
+    | 'outline'
+    | 'overflow'
+    | 'overscrollBehavior'
+    | 'padding'
+    | 'placeholderColor'
+    | 'placeholderOpacity'
+    | 'pointerEvents'
+    | 'position'
+    | 'inset'
+    | 'resize'
+    | 'boxShadow'
+    | 'ringWidth'
+    | 'ringOffsetColor'
+    | 'ringOffsetWidth'
+    | 'ringColor'
+    | 'ringOpacity'
+    | 'fill'
+    | 'stroke'
+    | 'strokeWidth'
+    | 'tableLayout'
+    | 'textAlign'
+    | 'textColor'
+    | 'textOpacity'
+    | 'textOverflow'
+    | 'fontStyle'
+    | 'textTransform'
+    | 'textDecoration'
+    | 'fontSmoothing'
+    | 'fontVariantNumeric'
+    | 'letterSpacing'
+    | 'userSelect'
+    | 'verticalAlign'
+    | 'visibility'
+    | 'whitespace'
+    | 'wordBreak'
+    | 'width'
+    | 'zIndex'
+    | 'gap'
+    | 'gridAutoFlow'
+    | 'gridTemplateColumns'
+    | 'gridAutoColumns'
+    | 'gridColumn'
+    | 'gridColumnStart'
+    | 'gridColumnEnd'
+    | 'gridTemplateRows'
+    | 'gridAutoRows'
+    | 'gridRow'
+    | 'gridRowStart'
+    | 'gridRowEnd'
+    | 'transform'
+    | 'transformOrigin'
+    | 'scale'
+    | 'rotate'
+    | 'translate'
+    | 'skew'
+    | 'transitionProperty'
+    | 'transitionTimingFunction'
+    | 'transitionDuration'
+    | 'transitionDelay'
+    | 'animation'
+    | 'columns'
+    | 'backdropFilter'
+    | 'backdropBlur'
+    | 'backdropBrightness'
+    | 'backdropContrast'
+    | 'backdropGrayscale'
+    | 'backdropHueRotate'
+    | 'backdropOpacity'
+    | 'backdropInvert'
+    | 'backdropSaturate'
+    | 'backdropSepia'
+    | 'aspectRatio'
+    | 'blur'
+    | 'brightness'
+    | 'caretColor'
+    | 'accentColor'
+    | 'contrast'
+    | 'content'
+    | 'dropShadow'
+    | 'grayscale'
+    | 'hueRotate'
+    | 'invert'
+    | 'saturate'
+    | 'scrollMargin'
+    | 'scrollPadding'
+    | 'sepia'
+    | 'textIndent'
+    | 'willChange'
+    | 'touchAction'
+    | 'isolation'
+    | 'scrollSnapType'
+    | 'scrollSnapAlign'
+    | 'scrollSnapStop'
+    | 'breakBefore'
+    | 'breakInside'
+    | 'breakAfter'
+    | 'scrollBehavior'
+    | 'boxDecorationBreak'
+    | 'backgroundOrigin'
+    | 'backgroundBlendMode'
+    | 'mixBlendMode'
+    | 'filter';
 
-export type TailwindScreens =
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl';
-
-export type TailwindScreensUnion = LiteralUnion<TailwindScreens>;
+export type TailwindColorFunction = (props: { opacityVariable: string; opacityValue: string }) => string;
 
 export interface TailwindColorGroup {
-    readonly '50': string;
-    readonly '100': string;
-    readonly '200': string;
-    readonly '300': string;
-    readonly '400': string;
-    readonly '500': string;
-    readonly '600': string;
-    readonly '700': string;
-    readonly '800': string;
-    readonly '900': string;
     readonly [key: string]: string;
 }
-
-export interface TailwindStandardSpacing {
-    readonly '0': string;
-    readonly '1': string;
-    readonly '2': string;
-    readonly '3': string;
-    readonly '4': string;
-    readonly '5': string;
-    readonly '6': string;
-    readonly '7': string;
-    readonly '8': string;
-    readonly '9': string;
-    readonly '10': string;
-    readonly '11': string;
-    readonly '12': string;
-    readonly '14': string;
-    readonly '16': string;
-    readonly '20': string;
-    readonly '24': string;
-    readonly '28': string;
-    readonly '32': string;
-    readonly '36': string;
-    readonly '40': string;
-    readonly '44': string;
-    readonly '48': string;
-    readonly '52': string;
-    readonly '56': string;
-    readonly '60': string;
-    readonly '64': string;
-    readonly '72': string;
-    readonly '80': string;
-    readonly '96': string;
-    readonly px: string;
-    readonly '0.5': string;
-    readonly '1.5': string;
-    readonly '2.5': string;
-    readonly '3.5': string;
-}
-
-export type TailwindStandardNegativeSpacing = {
-    [key in keyof TailwindStandardSpacing as `-${key}`]: string;
-};
 
 export interface TailwindAnimationConfig {
     [key: string]: {
@@ -97,21 +203,6 @@ export type TailwindFontConfig = [
         lineHeight: string;
     },
 ];
-
-export interface TailwindColorConfig {
-    readonly transparent: string;
-    readonly current: string;
-    readonly black: string;
-    readonly white: string;
-    readonly gray: TailwindColorGroup;
-    readonly red: TailwindColorGroup;
-    readonly yellow: TailwindColorGroup;
-    readonly green: TailwindColorGroup;
-    readonly blue: TailwindColorGroup;
-    readonly indigo: TailwindColorGroup;
-    readonly purple: TailwindColorGroup;
-    readonly pink: TailwindColorGroup;
-}
 
 export type TailwindValidLayers = 'base' | 'components' | 'utilities' | 'screens';
 
@@ -140,1083 +231,288 @@ export interface TailwindPurgeConfig {
     mode?: 'all' | undefined;
 }
 
+export interface TailwindValues {
+    readonly [key: string]: string;
+}
+
+export type TailwindColorValue = string | TailwindColorGroup | TailwindColorFunction;
+
+export interface TailwindValuesColor {
+    readonly [key: string]: TailwindColorValue;
+}
+
+export interface TailwindValuesAnimation {
+    readonly [key: string]: TailwindAnimationConfig;
+}
+
+export interface TailwindValuesFontFamily {
+    readonly [key: string]: string[];
+}
+
+export interface TailwindValuesFontSize {
+    readonly [key: string]: TailwindFontConfig;
+}
+
+export interface TailwindValuesDropShadow {
+    readonly [key: string]: string | string[];
+}
+
+export interface TailwindValuesOutline {
+    readonly [key: string]: string[];
+}
+
+export type TailwindThemeGetter<T> = ((getters: { theme: any; negative: any; colors: any; breakpoints: any }) => T) | T;
+
+export type TailwindThemeValue = TailwindThemeGetter<TailwindValues>;
+export type TailwindThemeColors = TailwindThemeGetter<TailwindValuesColor>;
+export type TailwindThemeAnimations = TailwindThemeGetter<TailwindValuesAnimation>;
+export type TailwindThemeFontFamilies = TailwindThemeGetter<TailwindValuesFontFamily>;
+export type TailwindThemeFontSizes = TailwindThemeGetter<TailwindValuesFontSize>;
+export type TailwindThemeOutlines = TailwindThemeGetter<TailwindValuesOutline>;
+export type TailwindThemeShadows = TailwindThemeGetter<TailwindValuesDropShadow>;
+
+export interface TailwindTheme {
+    readonly extend?: Omit<TailwindTheme, 'extend'>;
+    readonly screens?: TailwindThemeValue;
+    readonly colors?: TailwindThemeColors;
+    readonly columns?: TailwindThemeValue;
+    readonly spacing?: TailwindThemeValue;
+    readonly animation?: TailwindThemeValue;
+    readonly aspectRatio?: TailwindThemeValue;
+    readonly backdropBlur?: TailwindThemeValue;
+    readonly backdropBrightness?: TailwindThemeValue;
+    readonly backdropContrast?: TailwindThemeValue;
+    readonly backdropGrayscale?: TailwindThemeValue;
+    readonly backdropHueRotate?: TailwindThemeValue;
+    readonly backdropInvert?: TailwindThemeValue;
+    readonly backdropOpacity?: TailwindThemeValue;
+    readonly backdropSaturate?: TailwindThemeValue;
+    readonly backdropSepia?: TailwindThemeValue;
+    readonly backgroundColor?: TailwindThemeColors;
+    readonly backgroundImage?: TailwindThemeValue;
+    readonly backgroundOpacity?: TailwindThemeValue;
+    readonly backgroundPosition?: TailwindThemeValue;
+    readonly backgroundSize?: TailwindThemeValue;
+    readonly blur?: TailwindThemeValue;
+    readonly brightness?: TailwindThemeValue;
+    readonly borderColor?: TailwindThemeColors;
+    readonly borderOpacity?: TailwindThemeValue;
+    readonly borderRadius?: TailwindThemeValue;
+    readonly borderWidth?: TailwindThemeValue;
+    readonly boxShadow?: TailwindThemeValue;
+    readonly caretColor?: TailwindThemeColors;
+    readonly accentColor?: TailwindThemeColors;
+    readonly contrast?: TailwindThemeValue;
+    readonly container?: TailwindThemeValue;
+    readonly content?: TailwindThemeValue;
+    readonly cursor?: TailwindThemeValue;
+    readonly divideColor?: TailwindThemeColors;
+    readonly divideOpacity?: TailwindThemeValue;
+    readonly divideWidth?: TailwindThemeValue;
+    readonly dropShadow?: TailwindThemeShadows;
+    readonly fill?: TailwindThemeValue;
+    readonly grayscale?: TailwindThemeValue;
+    readonly hueRotate?: TailwindThemeValue;
+    readonly invert?: TailwindThemeValue;
+    readonly flex?: TailwindThemeValue;
+    readonly flexGrow?: TailwindThemeValue;
+    readonly flexShrink?: TailwindThemeValue;
+    readonly fontFamily?: TailwindThemeFontFamilies;
+    readonly fontSize?: TailwindThemeFontSizes;
+    readonly fontWeight?: TailwindThemeValue;
+    readonly gap?: TailwindThemeValue;
+    readonly gradientColorStops?: TailwindThemeColors;
+    readonly gridAutoColumns?: TailwindThemeValue;
+    readonly gridAutoRows?: TailwindThemeValue;
+    readonly gridColumn?: TailwindThemeValue;
+    readonly gridColumnEnd?: TailwindThemeValue;
+    readonly gridColumnStart?: TailwindThemeValue;
+    readonly gridRow?: TailwindThemeValue;
+    readonly gridRowStart?: TailwindThemeValue;
+    readonly gridRowEnd?: TailwindThemeValue;
+    readonly transformOrigin?: TailwindThemeValue;
+    readonly gridTemplateColumns?: TailwindThemeValue;
+    readonly gridTemplateRows?: TailwindThemeValue;
+    readonly height?: TailwindThemeValue;
+    readonly inset?: TailwindThemeValue;
+    readonly keyframes?: TailwindThemeAnimations;
+    readonly letterSpacing?: TailwindThemeValue;
+    readonly lineHeight?: TailwindThemeValue;
+    readonly listStyleType?: TailwindThemeValue;
+    readonly margin?: TailwindThemeValue;
+    readonly maxHeight?: TailwindThemeValue;
+    readonly maxWidth?: TailwindThemeValue;
+    readonly minHeight?: TailwindThemeValue;
+    readonly minWidth?: TailwindThemeValue;
+    readonly objectPosition?: TailwindThemeValue;
+    readonly opacity?: TailwindThemeValue;
+    readonly order?: TailwindThemeValue;
+    readonly outline?: TailwindThemeOutlines;
+    readonly padding?: TailwindThemeValue;
+    readonly placeholderColor?: TailwindThemeColors;
+    readonly placeholderOpacity?: TailwindThemeValue;
+    readonly ringColor?: TailwindThemeColors;
+    readonly ringOffsetColor?: TailwindThemeColors;
+    readonly ringOffsetWidth?: TailwindThemeValue;
+    readonly ringOpacity?: TailwindThemeValue;
+    readonly ringWidth?: TailwindThemeValue;
+    readonly rotate?: TailwindThemeValue;
+    readonly saturate?: TailwindThemeValue;
+    readonly scale?: TailwindThemeValue;
+    readonly scrollMargin?: TailwindThemeValue;
+    readonly scrollPadding?: TailwindThemeValue;
+    readonly sepia?: TailwindThemeValue;
+    readonly skew?: TailwindThemeValue;
+    readonly space?: TailwindThemeValue;
+    readonly stroke?: TailwindThemeValue;
+    readonly strokeWidth?: TailwindThemeValue;
+    readonly textColor?: TailwindThemeColors;
+    readonly textIndent?: TailwindThemeValue;
+    readonly textOpacity?: TailwindThemeValue;
+    readonly transitionDuration?: TailwindThemeValue;
+    readonly transitionDelay?: TailwindThemeValue;
+    readonly transitionProperty?: TailwindThemeValue;
+    readonly transitionTimingFunction?: TailwindThemeValue;
+    readonly translate?: TailwindThemeValue;
+    readonly width?: TailwindThemeValue;
+    readonly willChange?: TailwindThemeValue;
+    readonly zIndex?: TailwindThemeValue;
+}
+
+export type TailwindVariants = Partial<{
+    readonly extend: Omit<TailwindConfig['variants'], 'extend'>;
+    readonly accessibility: TailwindVariant[];
+    readonly alignContent: TailwindVariant[];
+    readonly alignItems: TailwindVariant[];
+    readonly alignSelf: TailwindVariant[];
+    readonly animation: TailwindVariant[];
+    readonly appearance: TailwindVariant[];
+    readonly backgroundAttachment: TailwindVariant[];
+    readonly backgroundClip: TailwindVariant[];
+    readonly backgroundColor: TailwindVariant[];
+    readonly backgroundImage: TailwindVariant[];
+    readonly backgroundOpacity: TailwindVariant[];
+    readonly backgroundPosition: TailwindVariant[];
+    readonly backgroundRepeat: TailwindVariant[];
+    readonly backgroundSize: TailwindVariant[];
+    readonly borderCollapse: TailwindVariant[];
+    readonly borderColor: TailwindVariant[];
+    readonly borderOpacity: TailwindVariant[];
+    readonly borderRadius: TailwindVariant[];
+    readonly borderStyle: TailwindVariant[];
+    readonly borderWidth: TailwindVariant[];
+    readonly boxShadow: TailwindVariant[];
+    readonly boxSizing: TailwindVariant[];
+    readonly clear: TailwindVariant[];
+    readonly container: TailwindVariant[];
+    readonly cursor: TailwindVariant[];
+    readonly display: TailwindVariant[];
+    readonly divideColor: TailwindVariant[];
+    readonly divideOpacity: TailwindVariant[];
+    readonly divideStyle: TailwindVariant[];
+    readonly divideWidth: TailwindVariant[];
+    readonly fill: TailwindVariant[];
+    readonly flex: TailwindVariant[];
+    readonly flexDirection: TailwindVariant[];
+    readonly flexGrow: TailwindVariant[];
+    readonly flexShrink: TailwindVariant[];
+    readonly flexWrap: TailwindVariant[];
+    readonly float: TailwindVariant[];
+    readonly fontFamily: TailwindVariant[];
+    readonly fontSize: TailwindVariant[];
+    readonly fontSmoothing: TailwindVariant[];
+    readonly fontStyle: TailwindVariant[];
+    readonly fontVariantNumeric: TailwindVariant[];
+    readonly fontWeight: TailwindVariant[];
+    readonly gap: TailwindVariant[];
+    readonly gradientColorStops: TailwindVariant[];
+    readonly gridAutoColumns: TailwindVariant[];
+    readonly gridAutoFlow: TailwindVariant[];
+    readonly gridAutoRows: TailwindVariant[];
+    readonly gridColumn: TailwindVariant[];
+    readonly gridColumnEnd: TailwindVariant[];
+    readonly gridColumnStart: TailwindVariant[];
+    readonly gridRow: TailwindVariant[];
+    readonly gridRowEnd: TailwindVariant[];
+    readonly gridRowStart: TailwindVariant[];
+    readonly gridTemplateColumns: TailwindVariant[];
+    readonly gridTemplateRows: TailwindVariant[];
+    readonly height: TailwindVariant[];
+    readonly inset: TailwindVariant[];
+    readonly justifyContent: TailwindVariant[];
+    readonly justifyItems: TailwindVariant[];
+    readonly justifySelf: TailwindVariant[];
+    readonly letterSpacing: TailwindVariant[];
+    readonly lineHeight: TailwindVariant[];
+    readonly listStylePosition: TailwindVariant[];
+    readonly listStyleType: TailwindVariant[];
+    readonly margin: TailwindVariant[];
+    readonly maxHeight: TailwindVariant[];
+    readonly maxWidth: TailwindVariant[];
+    readonly minHeight: TailwindVariant[];
+    readonly minWidth: TailwindVariant[];
+    readonly objectFit: TailwindVariant[];
+    readonly objectPosition: TailwindVariant[];
+    readonly opacity: TailwindVariant[];
+    readonly order: TailwindVariant[];
+    readonly outline: TailwindVariant[];
+    readonly overflow: TailwindVariant[];
+    readonly overscrollBehavior: TailwindVariant[];
+    readonly padding: TailwindVariant[];
+    readonly placeContent: TailwindVariant[];
+    readonly placeItems: TailwindVariant[];
+    readonly placeSelf: TailwindVariant[];
+    readonly placeholderColor: TailwindVariant[];
+    readonly placeholderOpacity: TailwindVariant[];
+    readonly pointerEvents: TailwindVariant[];
+    readonly position: TailwindVariant[];
+    readonly resize: TailwindVariant[];
+    readonly ringColor: TailwindVariant[];
+    readonly ringOffsetColor: TailwindVariant[];
+    readonly ringOffsetWidth: TailwindVariant[];
+    readonly ringOpacity: TailwindVariant[];
+    readonly ringWidth: TailwindVariant[];
+    readonly rotate: TailwindVariant[];
+    readonly scale: TailwindVariant[];
+    readonly skew: TailwindVariant[];
+    readonly space: TailwindVariant[];
+    readonly stroke: TailwindVariant[];
+    readonly strokeWidth: TailwindVariant[];
+    readonly tableLayout: TailwindVariant[];
+    readonly textAlign: TailwindVariant[];
+    readonly textColor: TailwindVariant[];
+    readonly textDecoration: TailwindVariant[];
+    readonly textOpacity: TailwindVariant[];
+    readonly textOverflow: TailwindVariant[];
+    readonly textTransform: TailwindVariant[];
+    readonly transform: TailwindVariant[];
+    readonly transformOrigin: TailwindVariant[];
+    readonly transitionDelay: TailwindVariant[];
+    readonly transitionDuration: TailwindVariant[];
+    readonly transitionProperty: TailwindVariant[];
+    readonly transitionTimingFunction: TailwindVariant[];
+    readonly translate: TailwindVariant[];
+    readonly userSelect: TailwindVariant[];
+    readonly verticalAlign: TailwindVariant[];
+    readonly visibility: TailwindVariant[];
+    readonly whitespace: TailwindVariant[];
+    readonly width: TailwindVariant[];
+    readonly wordBreak: TailwindVariant[];
+    readonly zIndex: TailwindVariant[];
+}>;
+
 export interface TailwindConfig {
-    theme: Partial<{
-        readonly extend: Omit<TailwindConfig['theme'], 'extend'>;
-        readonly screens: Record<TailwindScreensUnion, string>;
-        readonly colors: TailwindColorConfig;
-        readonly spacing: TailwindStandardSpacing & {
-            readonly [key: string]: string;
-        };
-        readonly animation: {
-            readonly none: string;
-            readonly spin: string;
-            readonly ping: string;
-            readonly pulse: string;
-            readonly bounce: string;
-        };
-        readonly backgroundColor: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-        };
-        readonly backgroundImage: {
-            readonly none: string;
-            readonly 'gradient-to-t': string;
-            readonly 'gradient-to-tr': string;
-            readonly 'gradient-to-r': string;
-            readonly 'gradient-to-br': string;
-            readonly 'gradient-to-b': string;
-            readonly 'gradient-to-bl': string;
-            readonly 'gradient-to-l': string;
-            readonly 'gradient-to-tl': string;
-        };
-        readonly backgroundOpacity: {
-            readonly '0': string;
-            readonly '5': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '25': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly '60': string;
-            readonly '70': string;
-            readonly '75': string;
-            readonly '80': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-        };
-        readonly backgroundPosition: {
-            readonly bottom: string;
-            readonly center: string;
-            readonly left: string;
-            readonly 'left-bottom': string;
-            readonly 'left-top': string;
-            readonly right: string;
-            readonly 'right-bottom': string;
-            readonly 'right-top': string;
-            readonly top: string;
-        };
-        readonly backgroundSize: {
-            readonly auto: string;
-            readonly cover: string;
-            readonly contain: string;
-        };
-        readonly borderColor: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-            readonly DEFAULT: string;
-            readonly [key: string]: string | TailwindColorGroup;
-        };
-        readonly borderOpacity: {
-            readonly '0': string;
-            readonly '5': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '25': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly '60': string;
-            readonly '70': string;
-            readonly '75': string;
-            readonly '80': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-            readonly [key: string]: string;
-        };
-        readonly borderRadius: {
-            readonly none: string;
-            readonly sm: string;
-            readonly DEFAULT: string;
-            readonly md: string;
-            readonly lg: string;
-            readonly xl: string;
-            readonly '2xl': string;
-            readonly '3xl': string;
-            readonly full: string;
-            readonly [key: string]: string;
-        };
-        readonly borderWidth: {
-            readonly '0': string;
-            readonly '2': string;
-            readonly '4': string;
-            readonly '8': string;
-            readonly DEFAULT: string;
-            readonly [key: string]: string;
-        };
-        readonly boxShadow: {
-            readonly sm: string;
-            readonly DEFAULT: string;
-            readonly md: string;
-            readonly lg: string;
-            readonly xl: string;
-            readonly '2xl': string;
-            readonly inner: string;
-            readonly none: string;
-            readonly [key: string]: string;
-        };
-        readonly container: {
-            readonly [key: string]: string;
-        };
-        readonly cursor: {
-            readonly auto: string;
-            readonly default: string;
-            readonly pointer: string;
-            readonly wait: string;
-            readonly text: string;
-            readonly move: string;
-            readonly 'not-allowed': string;
-        };
-        readonly divideColor: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-            readonly DEFAULT: string;
-            readonly [key: string]: string | TailwindColorGroup;
-        };
-        readonly divideOpacity: {
-            readonly '0': string;
-            readonly '5': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '25': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly '60': string;
-            readonly '70': string;
-            readonly '75': string;
-            readonly '80': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-            readonly [key: string]: string;
-        };
-        readonly divideWidth: {
-            readonly '0': string;
-            readonly '2': string;
-            readonly '4': string;
-            readonly '8': string;
-            readonly DEFAULT: string;
-            readonly [key: string]: string;
-        };
-        readonly fill: {
-            current: string;
-        };
-        readonly flex: {
-            readonly '1': string;
-            readonly auto: string;
-            readonly initial: string;
-            readonly none: string;
-            readonly [key: string]: string;
-        };
-        readonly flexGrow: {
-            readonly '0': string;
-            readonly DEFAULT: string;
-        };
-        readonly flexShrink: {
-            readonly '0': string;
-            readonly DEFAULT: string;
-        };
-        readonly fontFamily: {
-            readonly sans: string[];
-            readonly serif: string[];
-            readonly mono: string[];
-            readonly [key: string]: string[];
-        };
-        readonly fontSize: {
-            readonly xs: TailwindFontConfig;
-            readonly sm: TailwindFontConfig;
-            readonly base: TailwindFontConfig;
-            readonly lg: TailwindFontConfig;
-            readonly xl: TailwindFontConfig;
-            readonly '2xl': TailwindFontConfig;
-            readonly '3xl': TailwindFontConfig;
-            readonly '4xl': TailwindFontConfig;
-            readonly '5xl': TailwindFontConfig;
-            readonly '6xl': TailwindFontConfig;
-            readonly '7xl': TailwindFontConfig;
-            readonly '8xl': TailwindFontConfig;
-            readonly '9xl': TailwindFontConfig;
-            readonly [key: string]: TailwindFontConfig;
-        };
-        readonly fontWeight: {
-            readonly thin: string;
-            readonly extralight: string;
-            readonly light: string;
-            readonly normal: string;
-            readonly medium: string;
-            readonly semibold: string;
-            readonly bold: string;
-            readonly extrabold: string;
-            readonly black: string;
-        };
-        readonly gap: TailwindStandardSpacing;
-        readonly gradientColorStops: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-            readonly [key: string]: string | TailwindColorGroup;
-        };
-        readonly gridAutoColumns: {
-            readonly auto: string;
-            readonly min: string;
-            readonly max: string;
-            readonly fr: string;
-        };
-        readonly gridAutoRows: {
-            readonly auto: string;
-            readonly min: string;
-            readonly max: string;
-            readonly fr: string;
-        };
-        readonly gridColumn: {
-            readonly auto: string;
-            readonly 'span-1': string;
-            readonly 'span-2': string;
-            readonly 'span-3': string;
-            readonly 'span-4': string;
-            readonly 'span-5': string;
-            readonly 'span-6': string;
-            readonly 'span-7': string;
-            readonly 'span-8': string;
-            readonly 'span-9': string;
-            readonly 'span-10': string;
-            readonly 'span-11': string;
-            readonly 'span-12': string;
-            readonly 'span-full': string;
-        };
-        readonly gridColumnEnd: {
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly '7': string;
-            readonly '8': string;
-            readonly '9': string;
-            readonly '10': string;
-            readonly '11': string;
-            readonly '12': string;
-            readonly '13': string;
-            readonly auto: string;
-        };
-        readonly gridColumnStart: {
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly '7': string;
-            readonly '8': string;
-            readonly '9': string;
-            readonly '10': string;
-            readonly '11': string;
-            readonly '12': string;
-            readonly '13': string;
-            readonly auto: string;
-        };
-        readonly gridRow: {
-            readonly auto: string;
-            readonly 'span-1': string;
-            readonly 'span-2': string;
-            readonly 'span-3': string;
-            readonly 'span-4': string;
-            readonly 'span-5': string;
-            readonly 'span-6': string;
-            readonly 'span-full': string;
-        };
-        readonly gridRowStart: {
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly '7': string;
-            readonly auto: string;
-        };
-        readonly gridRowEnd: {
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly '7': string;
-            readonly auto: string;
-        };
-        readonly transformOrigin: {
-            readonly center: string;
-            readonly top: string;
-            readonly 'top-right': string;
-            readonly right: string;
-            readonly 'bottom-right': string;
-            readonly bottom: string;
-            readonly 'bottom-left': string;
-            readonly left: string;
-            readonly 'top-left': string;
-        };
-        readonly gridTemplateColumns: {
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly '7': string;
-            readonly '8': string;
-            readonly '9': string;
-            readonly '10': string;
-            readonly '11': string;
-            readonly '12': string;
-            readonly none: string;
-        };
-        readonly gridTemplateRows: {
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly none: string;
-        };
-        readonly height: TailwindStandardSpacing & {
-            readonly auto: string;
-            readonly '1/2': string;
-            readonly '1/3': string;
-            readonly '2/3': string;
-            readonly '1/4': string;
-            readonly '2/4': string;
-            readonly '3/4': string;
-            readonly '1/5': string;
-            readonly '2/5': string;
-            readonly '3/5': string;
-            readonly '4/5': string;
-            readonly '1/6': string;
-            readonly '2/6': string;
-            readonly '3/6': string;
-            readonly '4/6': string;
-            readonly '5/6': string;
-            readonly full: string;
-            readonly screen: string;
-        };
-        readonly inset: TailwindStandardSpacing &
-            TailwindStandardNegativeSpacing & {
-                readonly auto: string;
-                readonly '1/2': string;
-                readonly '1/3': string;
-                readonly '2/3': string;
-                readonly '1/4': string;
-                readonly '2/4': string;
-                readonly '3/4': string;
-                readonly full: string;
-                readonly '-1/2': string;
-                readonly '-1/3': string;
-                readonly '-2/3': string;
-                readonly '-1/4': string;
-                readonly '-2/4': string;
-                readonly '-3/4': string;
-                readonly '-full': string;
-            };
-        readonly keyframes: {
-            readonly spin: TailwindAnimationConfig;
-            readonly ping: TailwindAnimationConfig;
-            readonly pulse: TailwindAnimationConfig;
-            readonly bounce: TailwindAnimationConfig;
-        };
-        readonly letterSpacing: {
-            readonly tighter: string;
-            readonly tight: string;
-            readonly normal: string;
-            readonly wide: string;
-            readonly wider: string;
-            readonly widest: string;
-        };
-        readonly lineHeight: {
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly '7': string;
-            readonly '8': string;
-            readonly '9': string;
-            readonly '10': string;
-            readonly none: string;
-            readonly tight: string;
-            readonly snug: string;
-            readonly normal: string;
-            readonly relaxed: string;
-            readonly loose: string;
-        };
-        readonly listStyleType: {
-            readonly none: string;
-            readonly disc: string;
-            readonly decimal: string;
-        };
-        readonly margin: TailwindStandardSpacing &
-            TailwindStandardNegativeSpacing & {
-                readonly auto: string;
-            };
-        readonly maxHeight: TailwindStandardSpacing & {
-            readonly full: string;
-            readonly screen: string;
-        };
-        readonly maxWidth: {
-            readonly '0': string;
-            readonly none: string;
-            readonly xs: string;
-            readonly sm: string;
-            readonly md: string;
-            readonly lg: string;
-            readonly xl: string;
-            readonly '2xl': string;
-            readonly '3xl': string;
-            readonly '4xl': string;
-            readonly '5xl': string;
-            readonly '6xl': string;
-            readonly '7xl': string;
-            readonly full: string;
-            readonly min: string;
-            readonly max: string;
-            readonly prose: string;
-            readonly 'screen-sm': string;
-            readonly 'screen-md': string;
-            readonly 'screen-lg': string;
-            readonly 'screen-xl': string;
-            readonly 'screen-2xl': string;
-        };
-        readonly minHeight: {
-            readonly '0': string;
-            readonly full: string;
-            readonly screen: string;
-        };
-        readonly minWidth: {
-            readonly '0': string;
-            readonly full: string;
-            readonly min: string;
-            readonly max: string;
-        };
-        readonly objectPosition: {
-            readonly bottom: string;
-            readonly center: string;
-            readonly left: string;
-            readonly 'left-bottom': string;
-            readonly 'left-top': string;
-            readonly right: string;
-            readonly 'right-bottom': string;
-            readonly 'right-top': string;
-            readonly top: string;
-        };
-        readonly opacity: {
-            readonly '0': string;
-            readonly '5': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '25': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly '60': string;
-            readonly '70': string;
-            readonly '75': string;
-            readonly '80': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-        };
-        readonly order: {
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '4': string;
-            readonly '5': string;
-            readonly '6': string;
-            readonly '7': string;
-            readonly '8': string;
-            readonly '9': string;
-            readonly '10': string;
-            readonly '11': string;
-            readonly '12': string;
-            readonly first: string;
-            readonly last: string;
-            readonly none: string;
-        };
-        readonly outline: {
-            readonly none: string[];
-            readonly white: string[];
-            readonly black: string[];
-        };
-        readonly padding: TailwindStandardSpacing;
-        readonly placeholderColor: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-            readonly [key: string]: string | TailwindColorGroup;
-        };
-        readonly placeholderOpacity: {
-            readonly '0': string;
-            readonly '5': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '25': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly '60': string;
-            readonly '70': string;
-            readonly '75': string;
-            readonly '80': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-        };
-        readonly ringColor: {
-            readonly DEFAULT: string;
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-            readonly [key: string]: string | TailwindColorGroup;
-        };
-        readonly ringOffsetColor: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-            readonly [key: string]: string | TailwindColorGroup;
-        };
-        readonly ringOffsetWidth: {
-            readonly '0': string;
-            readonly '1': string;
-            readonly '2': string;
-            readonly '4': string;
-            readonly '8': string;
-            readonly [key: string]: string;
-        };
-        readonly ringOpacity: {
-            readonly '0': string;
-            readonly '5': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '25': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly '60': string;
-            readonly '70': string;
-            readonly '75': string;
-            readonly '80': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-            readonly DEFAULT: string;
-        };
-        readonly ringWidth: {
-            readonly '0': string;
-            readonly '1': string;
-            readonly '2': string;
-            readonly '4': string;
-            readonly '8': string;
-            readonly DEFAULT: string;
-        };
-        readonly rotate: {
-            readonly '0': string;
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '6': string;
-            readonly '12': string;
-            readonly '45': string;
-            readonly '90': string;
-            readonly '180': string;
-            readonly '-180': string;
-            readonly '-90': string;
-            readonly '-45': string;
-            readonly '-12': string;
-            readonly '-6': string;
-            readonly '-3': string;
-            readonly '-2': string;
-            readonly '-1': string;
-        };
-        readonly scale: {
-            readonly '0': string;
-            readonly '50': string;
-            readonly '75': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-            readonly '105': string;
-            readonly '110': string;
-            readonly '125': string;
-            readonly '150': string;
-        };
-        readonly skew: {
-            readonly '0': string;
-            readonly '1': string;
-            readonly '2': string;
-            readonly '3': string;
-            readonly '6': string;
-            readonly '12': string;
-            readonly '-12': string;
-            readonly '-6': string;
-            readonly '-3': string;
-            readonly '-2': string;
-            readonly '-1': string;
-        };
-        readonly space: TailwindStandardSpacing & TailwindStandardNegativeSpacing;
-        readonly stroke: {
-            readonly current: string;
-        };
-        readonly strokeWidth: {
-            readonly '0': string;
-            readonly '1': string;
-            readonly '2': string;
-        };
-        readonly textColor: {
-            readonly transparent: string;
-            readonly current: string;
-            readonly black: string;
-            readonly white: string;
-            readonly gray: TailwindColorGroup;
-            readonly red: TailwindColorGroup;
-            readonly yellow: TailwindColorGroup;
-            readonly green: TailwindColorGroup;
-            readonly blue: TailwindColorGroup;
-            readonly indigo: TailwindColorGroup;
-            readonly purple: TailwindColorGroup;
-            readonly pink: TailwindColorGroup;
-        };
-        readonly textOpacity: {
-            readonly '0': string;
-            readonly '5': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '25': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly '60': string;
-            readonly '70': string;
-            readonly '75': string;
-            readonly '80': string;
-            readonly '90': string;
-            readonly '95': string;
-            readonly '100': string;
-        };
-        readonly transitionDuration: {
-            readonly '75': string;
-            readonly '100': string;
-            readonly '150': string;
-            readonly '200': string;
-            readonly '300': string;
-            readonly '500': string;
-            readonly '700': string;
-            readonly '1000': string;
-            readonly DEFAULT: string;
-        };
-        readonly transitionDelay: {
-            readonly '75': string;
-            readonly '100': string;
-            readonly '150': string;
-            readonly '200': string;
-            readonly '300': string;
-            readonly '500': string;
-            readonly '700': string;
-            readonly '1000': string;
-        };
-        readonly transitionProperty: {
-            readonly none: string;
-            readonly all: string;
-            readonly DEFAULT: string;
-            readonly colors: string;
-            readonly opacity: string;
-            readonly shadow: string;
-            readonly transform: string;
-        };
-        readonly transitionTimingFunction: {
-            readonly DEFAULT: string;
-            readonly linear: string;
-            readonly in: string;
-            readonly out: string;
-            readonly 'in-out': string;
-        };
-        readonly translate: TailwindStandardSpacing &
-            TailwindStandardNegativeSpacing & {
-                readonly '1/2': string;
-                readonly '1/3': string;
-                readonly '2/3': string;
-                readonly '1/4': string;
-                readonly '2/4': string;
-                readonly '3/4': string;
-                readonly full: string;
-                readonly '-1/2': string;
-                readonly '-1/3': string;
-                readonly '-2/3': string;
-                readonly '-1/4': string;
-                readonly '-2/4': string;
-                readonly '-3/4': string;
-                readonly '-full': string;
-            };
-        readonly width: TailwindStandardSpacing & {
-            readonly auto: string;
-            readonly '1/2': string;
-            readonly '1/3': string;
-            readonly '2/3': string;
-            readonly '1/4': string;
-            readonly '2/4': string;
-            readonly '3/4': string;
-            readonly '1/5': string;
-            readonly '2/5': string;
-            readonly '3/5': string;
-            readonly '4/5': string;
-            readonly '1/6': string;
-            readonly '2/6': string;
-            readonly '3/6': string;
-            readonly '4/6': string;
-            readonly '5/6': string;
-            readonly '1/12': string;
-            readonly '2/12': string;
-            readonly '3/12': string;
-            readonly '4/12': string;
-            readonly '5/12': string;
-            readonly '6/12': string;
-            readonly '7/12': string;
-            readonly '8/12': string;
-            readonly '9/12': string;
-            readonly '10/12': string;
-            readonly '11/12': string;
-            readonly full: string;
-            readonly screen: string;
-            readonly min: string;
-            readonly max: string;
-        };
-        readonly zIndex: {
-            readonly '0': string;
-            readonly '10': string;
-            readonly '20': string;
-            readonly '30': string;
-            readonly '40': string;
-            readonly '50': string;
-            readonly auto: string;
-        };
-    }>;
-    variants: Partial<{
-        readonly extend: Omit<TailwindConfig['variants'], 'extend'>;
-        readonly accessibility: Variant[];
-        readonly alignContent: Variant[];
-        readonly alignItems: Variant[];
-        readonly alignSelf: Variant[];
-        readonly animation: Variant[];
-        readonly appearance: Variant[];
-        readonly backgroundAttachment: Variant[];
-        readonly backgroundClip: Variant[];
-        readonly backgroundColor: Variant[];
-        readonly backgroundImage: Variant[];
-        readonly backgroundOpacity: Variant[];
-        readonly backgroundPosition: Variant[];
-        readonly backgroundRepeat: Variant[];
-        readonly backgroundSize: Variant[];
-        readonly borderCollapse: Variant[];
-        readonly borderColor: Variant[];
-        readonly borderOpacity: Variant[];
-        readonly borderRadius: Variant[];
-        readonly borderStyle: Variant[];
-        readonly borderWidth: Variant[];
-        readonly boxShadow: Variant[];
-        readonly boxSizing: Variant[];
-        readonly clear: Variant[];
-        readonly container: Variant[];
-        readonly cursor: Variant[];
-        readonly display: Variant[];
-        readonly divideColor: Variant[];
-        readonly divideOpacity: Variant[];
-        readonly divideStyle: Variant[];
-        readonly divideWidth: Variant[];
-        readonly fill: Variant[];
-        readonly flex: Variant[];
-        readonly flexDirection: Variant[];
-        readonly flexGrow: Variant[];
-        readonly flexShrink: Variant[];
-        readonly flexWrap: Variant[];
-        readonly float: Variant[];
-        readonly fontFamily: Variant[];
-        readonly fontSize: Variant[];
-        readonly fontSmoothing: Variant[];
-        readonly fontStyle: Variant[];
-        readonly fontVariantNumeric: Variant[];
-        readonly fontWeight: Variant[];
-        readonly gap: Variant[];
-        readonly gradientColorStops: Variant[];
-        readonly gridAutoColumns: Variant[];
-        readonly gridAutoFlow: Variant[];
-        readonly gridAutoRows: Variant[];
-        readonly gridColumn: Variant[];
-        readonly gridColumnEnd: Variant[];
-        readonly gridColumnStart: Variant[];
-        readonly gridRow: Variant[];
-        readonly gridRowEnd: Variant[];
-        readonly gridRowStart: Variant[];
-        readonly gridTemplateColumns: Variant[];
-        readonly gridTemplateRows: Variant[];
-        readonly height: Variant[];
-        readonly inset: Variant[];
-        readonly justifyContent: Variant[];
-        readonly justifyItems: Variant[];
-        readonly justifySelf: Variant[];
-        readonly letterSpacing: Variant[];
-        readonly lineHeight: Variant[];
-        readonly listStylePosition: Variant[];
-        readonly listStyleType: Variant[];
-        readonly margin: Variant[];
-        readonly maxHeight: Variant[];
-        readonly maxWidth: Variant[];
-        readonly minHeight: Variant[];
-        readonly minWidth: Variant[];
-        readonly objectFit: Variant[];
-        readonly objectPosition: Variant[];
-        readonly opacity: Variant[];
-        readonly order: Variant[];
-        readonly outline: Variant[];
-        readonly overflow: Variant[];
-        readonly overscrollBehavior: Variant[];
-        readonly padding: Variant[];
-        readonly placeContent: Variant[];
-        readonly placeItems: Variant[];
-        readonly placeSelf: Variant[];
-        readonly placeholderColor: Variant[];
-        readonly placeholderOpacity: Variant[];
-        readonly pointerEvents: Variant[];
-        readonly position: Variant[];
-        readonly resize: Variant[];
-        readonly ringColor: Variant[];
-        readonly ringOffsetColor: Variant[];
-        readonly ringOffsetWidth: Variant[];
-        readonly ringOpacity: Variant[];
-        readonly ringWidth: Variant[];
-        readonly rotate: Variant[];
-        readonly scale: Variant[];
-        readonly skew: Variant[];
-        readonly space: Variant[];
-        readonly stroke: Variant[];
-        readonly strokeWidth: Variant[];
-        readonly tableLayout: Variant[];
-        readonly textAlign: Variant[];
-        readonly textColor: Variant[];
-        readonly textDecoration: Variant[];
-        readonly textOpacity: Variant[];
-        readonly textOverflow: Variant[];
-        readonly textTransform: Variant[];
-        readonly transform: Variant[];
-        readonly transformOrigin: Variant[];
-        readonly transitionDelay: Variant[];
-        readonly transitionDuration: Variant[];
-        readonly transitionProperty: Variant[];
-        readonly transitionTimingFunction: Variant[];
-        readonly translate: Variant[];
-        readonly userSelect: Variant[];
-        readonly verticalAlign: Variant[];
-        readonly visibility: Variant[];
-        readonly whitespace: Variant[];
-        readonly width: Variant[];
-        readonly wordBreak: Variant[];
-        readonly zIndex: Variant[];
-    }>;
-    corePlugins: [
-        'preflight',
-        'container',
-        'space',
-        'divideWidth',
-        'divideColor',
-        'divideStyle',
-        'divideOpacity',
-        'accessibility',
-        'appearance',
-        'backgroundAttachment',
-        'backgroundClip',
-        'backgroundColor',
-        'backgroundImage',
-        'gradientColorStops',
-        'backgroundOpacity',
-        'backgroundPosition',
-        'backgroundRepeat',
-        'backgroundSize',
-        'borderCollapse',
-        'borderColor',
-        'borderOpacity',
-        'borderRadius',
-        'borderStyle',
-        'borderWidth',
-        'boxSizing',
-        'cursor',
-        'display',
-        'flexDirection',
-        'flexWrap',
-        'placeItems',
-        'placeContent',
-        'placeSelf',
-        'alignItems',
-        'alignContent',
-        'alignSelf',
-        'justifyItems',
-        'justifyContent',
-        'justifySelf',
-        'flex',
-        'flexGrow',
-        'flexShrink',
-        'order',
-        'float',
-        'clear',
-        'fontFamily',
-        'fontWeight',
-        'height',
-        'fontSize',
-        'lineHeight',
-        'listStylePosition',
-        'listStyleType',
-        'margin',
-        'maxHeight',
-        'maxWidth',
-        'minHeight',
-        'minWidth',
-        'objectFit',
-        'objectPosition',
-        'opacity',
-        'outline',
-        'overflow',
-        'overscrollBehavior',
-        'padding',
-        'placeholderColor',
-        'placeholderOpacity',
-        'pointerEvents',
-        'position',
-        'inset',
-        'resize',
-        'boxShadow',
-        'ringWidth',
-        'ringOffsetColor',
-        'ringOffsetWidth',
-        'ringColor',
-        'ringOpacity',
-        'fill',
-        'stroke',
-        'strokeWidth',
-        'tableLayout',
-        'textAlign',
-        'textColor',
-        'textOpacity',
-        'textOverflow',
-        'fontStyle',
-        'textTransform',
-        'textDecoration',
-        'fontSmoothing',
-        'fontVariantNumeric',
-        'letterSpacing',
-        'userSelect',
-        'verticalAlign',
-        'visibility',
-        'whitespace',
-        'wordBreak',
-        'width',
-        'zIndex',
-        'gap',
-        'gridAutoFlow',
-        'gridTemplateColumns',
-        'gridAutoColumns',
-        'gridColumn',
-        'gridColumnStart',
-        'gridColumnEnd',
-        'gridTemplateRows',
-        'gridAutoRows',
-        'gridRow',
-        'gridRowStart',
-        'gridRowEnd',
-        'transform',
-        'transformOrigin',
-        'scale',
-        'rotate',
-        'translate',
-        'skew',
-        'transitionProperty',
-        'transitionTimingFunction',
-        'transitionDuration',
-        'transitionDelay',
-        'animation',
-    ];
-    plugins: any[];
-    purge: string[] | TailwindPurgeConfig;
-    presets: any[];
+    theme: TailwindTheme;
+    variants?: TailwindVariants;
+    corePlugins?: TailwindCorePlugin[];
+    plugins?: TailwindPlugin[];
+    purge?: string[] | TailwindPurgeConfig;
+    // Not documented yet.
+    content?: string[] | { files: string[]; extract: any; transform: any };
+    presets?: any[];
     darkMode: false | 'media' | 'class';
-    variantOrder: Variant[];
-    prefix: string;
-    important: boolean;
-    separator: string;
+    variantOrder?: TailwindVariant[];
+    prefix?: string;
+    important?: boolean;
+    separator?: string;
 }

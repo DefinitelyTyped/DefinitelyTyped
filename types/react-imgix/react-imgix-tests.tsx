@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Imgix, { Picture, Source, Background, buildURL, PublicConfigAPI } from 'react-imgix';
+import Imgix, { Picture, Source, Background, buildURL, PublicConfigAPI, ImgixProvider } from 'react-imgix';
 
 const ImgixTest = () => (
     <Imgix
         src="https://.../image.png"
         sizes="100vw"
+        domain="assets.imgix.net"
         width={100}
         height={200}
         imgixParams={{ ar: '16:9' }}
@@ -33,6 +34,29 @@ const BackgroundTest = () => (
     <Background src="https://.../image.png" imgixParams={{ w: 1920, h: 500 }} className="blog-title">
         <h2>Blog Title</h2>
     </Background>
+);
+
+const ProviderTest = () => (
+    <ImgixProvider domain="sdk-test.imgix.net">
+        <Imgix
+            src="https://.../image.png"
+            sizes="100vw"
+            domain="assets.imgix.net"
+            width={100}
+            height={200}
+            imgixParams={{ ar: '16:9' }}
+            attributeConfig={{
+                src: 'data-src',
+                srcSet: 'data-srcset',
+                sizes: 'data-sizes',
+            }}
+            className="lazyload"
+            htmlAttributes={{
+                src: '...',
+                'data-testid': 'testid',
+            }}
+        />
+    </ImgixProvider>
 );
 
 buildURL('http://yourdomain.imgix.net/image.png', { w: 450, h: 100 });

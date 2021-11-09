@@ -954,7 +954,9 @@ export type ApplicationRequestHandler<T> = IRouterHandler<T> &
     IRouterMatcher<T> &
     ((...handlers: RequestHandlerParams[]) => T);
 
-export interface Application extends EventEmitter, IRouter, Express.Application {
+export interface Application<
+    Locals extends Record<string, any> = Record<string, any>
+> extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
      * third argument.
@@ -1120,7 +1122,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
 
     map: any;
 
-    locals: Record<string, any>;
+    locals: Locals;
 
     /**
      * The app.routes object houses all of the routes defined mapped by the

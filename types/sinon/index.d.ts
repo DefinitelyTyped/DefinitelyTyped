@@ -1464,7 +1464,7 @@ declare namespace Sinon {
      *
      * @template TType Object type being stubbed.
      */
-    type SinonStubbedInstance<TType> = {
+    type SinonStubbedInstance<TType> = TType & {
         [P in keyof TType]: SinonStubbedMember<TType[P]>;
     };
 

@@ -10,17 +10,16 @@ export default class DomWrapperView<T extends HTMLElement> extends View {
     /**
      * Creates an instance of {@link module:mention/ui/domwrapperview~DomWrapperView} class.
      */
-    constructor(domElement: T);
     constructor(locale: Locale, domElement: T);
     /**
      * Disable template rendering on this view.
      */
-    readonly template: false;
+    get template(): false;
     /**
      * The DOM element for which wrapper was created.
      */
     readonly domElement: T;
-    element?: T;
-    isOn: boolean;
-    render(): void;
+    element?: T | null;
+    get isOn(): boolean;
+    protected set isOn(value: boolean);
 }

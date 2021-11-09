@@ -16,7 +16,7 @@ import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
 import FileUploader from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
-import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
 
 /*
@@ -116,7 +116,9 @@ type Headers = {
 
 const oUploadDialog = new Dialog(undefined);
 oUploadDialog.setTitle("Upload photo");
-(<ODataModel> Core.getModel(undefined)).refreshSecurityToken();
+const oDataV2Model = Core.getModel(undefined) as ODataModel;
+oDataV2Model.refreshSecurityToken();
+oDataV2Model.bindList("/", null, [], [], {createdEntitiesKey: "test"});
 // prepare the FileUploader control
 const oFileUploader = new FileUploader({
     headerParameters: [
@@ -146,5 +148,5 @@ oUploadDialog.addContent(oFileUploader);
 oUploadDialog.addContent(oTriggerButton);
 oUploadDialog.open();
 
-const odataV4ListBinding = new ODataListBinding();
+const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();

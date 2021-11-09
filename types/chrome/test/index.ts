@@ -813,6 +813,7 @@ async function testDeclarativeNetRequest() {
 function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({text: null});
     chrome.browserAction.setBadgeText({tabId: 123});
     chrome.browserAction.setBadgeText({text: "test", tabId: 123});
     chrome.browserAction.setBadgeText({}, () => {});
@@ -1174,4 +1175,13 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, {parentId: false}); // $ExpectError
     chrome.contextMenus.update(1, {type: false}); // $ExpectError
     chrome.contextMenus.update(1, {visible: 1}); // $ExpectError
+}
+
+// https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
+function testEnterpriseDeviceAttributes() {
+  chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
+  chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }

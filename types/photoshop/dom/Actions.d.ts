@@ -16,6 +16,10 @@ export declare function PSAction(id: number): Action;
  */
 export declare class ActionSet {
     /**
+     * The class name of the referenced ActionSet object
+     */
+    get typename(): string;
+    /**
      * 0-index of this action set in the actions palette
      */
     get index(): number;
@@ -55,12 +59,15 @@ export declare class ActionSet {
      */
     play(): Promise<void>;
 }
-export declare function validateAction(action: Action): void;
 /**
  * Represents an action in the Actions palette.
  * Actions are series of commands that can be recorded by user, and can be replayed at a later time
  */
 export declare class Action {
+    /**
+     * The class name of the referenced Action object
+     */
+    get typename(): string;
     /**
      * The internal ID of this action
      *

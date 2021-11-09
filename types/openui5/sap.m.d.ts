@@ -1,4 +1,4 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.96.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -750,6 +750,22 @@ declare module "sap/m/library" {
    */
   export enum GenericTileMode {
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Action Mode (Two lines for the header).
+     *
+     * Generic Tile renders buttons that are specified under 'actionButtons' aggregation
+     */
+    ActionMode = "ActionMode",
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Article Mode (Two lines for the header and one line for the subtitle).
+     *
+     * Enables Article Mode.
+     */
+    ArticleMode = "ArticleMode",
+    /**
      * Default mode (Two lines for the header and one line for the subtitle).
      */
     ContentMode = "ContentMode",
@@ -757,6 +773,15 @@ declare module "sap/m/library" {
      * Header mode (Four lines for the header and one line for the subtitle).
      */
     HeaderMode = "HeaderMode",
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Icon mode.
+     *
+     * GenericTile displays a combination of icon and header title. It is applicable only for the OneByOne FrameType
+     * and TwoByHalf FrameType.
+     */
+    IconMode = "IconMode",
     /**
      * @SINCE 1.44.0
      *
@@ -2336,7 +2361,7 @@ declare module "sap/m/library" {
      */
     Auto = "Auto",
     /**
-     * Explicitly sets the alignment to the start (left or right depending on LTR/RTL)
+     * Explicitly sets the alignment to the center
      */
     Center = "Center",
     /**
@@ -9634,11 +9659,13 @@ declare module "sap/m/ColorPalette" {
      * See:
      * 	{@link sap.m.ColorPalettePopover}
      *
-     * **Note:** The {@link sap.ui.unified.ColorPicker} is used internally only if the `ColorPicker`
+     * **Note:** The application developers should add dependency to `sap.ui.unified` library
+     * on application level to ensure that the library is loaded before the module dependencies will be required.
+     * The {@link sap.ui.unified.ColorPicker} is used internally only if the `ColorPicker`
      * is opened (not used for the initial rendering). If the `sap.ui.unified` library is not loaded
-     * before the `ColorPicker` is opened, it will be loaded upon opening. This could lead to a waiting
-     * time when the `ColorPicker` is opened for the first time. To prevent this, apps using the
-     * `ColorPalette` should also load the `sap.ui.unified` library.
+     * before the `ColorPicker` is opened, it will be loaded upon opening. This could lead to CSP compliance
+     * issues and adds an additional waiting time when the `ColorPicker` is opened for the first time.
+     * To prevent this, apps using the `ColorPalette` should also load the `sap.ui.unified` library in advance.
      */
     constructor(
       /**
@@ -9655,11 +9682,13 @@ declare module "sap/m/ColorPalette" {
      * See:
      * 	{@link sap.m.ColorPalettePopover}
      *
-     * **Note:** The {@link sap.ui.unified.ColorPicker} is used internally only if the `ColorPicker`
+     * **Note:** The application developers should add dependency to `sap.ui.unified` library
+     * on application level to ensure that the library is loaded before the module dependencies will be required.
+     * The {@link sap.ui.unified.ColorPicker} is used internally only if the `ColorPicker`
      * is opened (not used for the initial rendering). If the `sap.ui.unified` library is not loaded
-     * before the `ColorPicker` is opened, it will be loaded upon opening. This could lead to a waiting
-     * time when the `ColorPicker` is opened for the first time. To prevent this, apps using the
-     * `ColorPalette` should also load the `sap.ui.unified` library.
+     * before the `ColorPicker` is opened, it will be loaded upon opening. This could lead to CSP compliance
+     * issues and adds an additional waiting time when the `ColorPicker` is opened for the first time.
+     * To prevent this, apps using the `ColorPalette` should also load the `sap.ui.unified` library in advance.
      */
     constructor(
       /**
@@ -13581,11 +13610,13 @@ declare module "sap/m/DatePicker" {
    * The `DatePicker` lets the users select a localized date using touch, mouse, or keyboard input. It consists
    * of two parts: the date input field and the date picker.
    *
-   * **Note:** The {@link sap.ui.unified.Calendar} is used internally only if the `DatePicker` is opened (not
-   * used for the initial rendering). If the `sap.ui.unified` library is not loaded before the `DatePicker`
-   * is opened, it will be loaded upon opening. This could lead to a waiting time when the `DatePicker` is
-   * opened for the first time. To prevent this, apps using the `DatePicker` should also load the `sap.ui.unified`
-   * library.
+   * **Note:** The application developer should add dependency to `sap.ui.unified` library on application
+   * level to ensure that the library is loaded before the module dependencies will be required. The {@link
+   * sap.ui.unified.Calendar} is used internally only if the `DatePicker` is opened (not used for the initial
+   * rendering). If the `sap.ui.unified` library is not loaded before the `DatePicker` is opened, it will
+   * be loaded upon opening. This could lead to CSP compliance issues and adds an additional waiting time
+   * when the `DatePicker` is opened for the first time. To prevent this, apps using the `DatePicker` should
+   * also load the `sap.ui.unified` library in advance.
    *
    * Usage:
    *
@@ -14259,11 +14290,13 @@ declare module "sap/m/DateRangeSelection" {
    * **Note:** The control is not UTC aware and the selected date range starts from 00:00:00:000 of the first
    * date and ends in 23:59:59:999 on the second date.
    *
-   * The {@link sap.ui.unified.Calendar} is used internally only if the `DateRangeSelection` is opened (not
-   * used for the initial rendering). If the `sap.ui.unified` library is not loaded before the `DateRangeSelection`
-   * is opened, it will be loaded upon opening. This could lead to a waiting time when the `DateRangeSelection`
+   * The application developer should add dependency to `sap.ui.unified` library on application level to ensure
+   * that the library is loaded before the module dependencies will be required. The {@link sap.ui.unified.Calendar}
+   * is used internally only if the `DateRangeSelection` is opened (not used for the initial rendering). If
+   * the `sap.ui.unified` library is not loaded before the `DateRangeSelection` is opened, it will be loaded
+   * upon opening. This could lead to CSP compliance issues and adds an additional waiting time when the `DateRangeSelection`
    * is opened for the first time. To prevent this, apps using the `DateRangeSelection` should also load the
-   * `sap.ui.unified` library.
+   * `sap.ui.unified` library in advance.
    *
    * Usage:
    *
@@ -15508,11 +15541,13 @@ declare module "sap/m/DateTimePicker" {
    *
    * The `DateTimePicker` control consists of two parts: the input field and the date/time picker.
    *
-   * **Note:** The {@link sap.ui.unified.Calendar} is used internally only if the `DateTimePicker` is opened
-   * (not used for the initial rendering). If the `sap.ui.unified` library is not loaded before the `DateTimePicker`
-   * is opened, it will be loaded upon opening. This could lead to a waiting time when the `DateTimePicker`
-   * is opened for the first time. To prevent this, apps using the `DateTimePicker` should also load the `sap.ui.unified`
-   * library.
+   * **Note:** The application developer should add dependency to `sap.ui.unified` library on application
+   * level to ensure that the library is loaded before the module dependencies will be required. The {@link
+   * sap.ui.unified.Calendar} is used internally only if the `DateTimePicker` is opened (not used for the
+   * initial rendering). If the `sap.ui.unified` library is not loaded before the `DateTimePicker` is opened,
+   * it will be loaded upon opening. This could lead to CSP compliance issues and adds an additional waiting
+   * time when the `DateTimePicker` is opened for the first time. To prevent this, apps using the `DateTimePicker`
+   * should also load the `sap.ui.unified` library in advance.
    *
    * Usage:
    *
@@ -16415,7 +16450,7 @@ declare module "sap/m/Dialog" {
      * @SINCE 1.11.2
      * @deprecated (since 1.13.1) - Please use the new stretch property instead. This enables a stretched Dialog
      * even on tablet and desktop. If you want to achieve the same effect as `stretchOnPhone`, please set the
-     * stretch with jQuery.device.is.phone, then the Dialog is only stretched when it runs on a phone.
+     * stretch with `Device.system.phone`, then the Dialog is only stretched when it runs on a phone.
      *
      * Gets current value of property {@link #getStretchOnPhone stretchOnPhone}.
      *
@@ -16877,7 +16912,7 @@ declare module "sap/m/Dialog" {
      * @SINCE 1.11.2
      * @deprecated (since 1.13.1) - Please use the new stretch property instead. This enables a stretched Dialog
      * even on tablet and desktop. If you want to achieve the same effect as `stretchOnPhone`, please set the
-     * stretch with jQuery.device.is.phone, then the Dialog is only stretched when it runs on a phone.
+     * stretch with `Device.system.phone`, then the Dialog is only stretched when it runs on a phone.
      *
      * Sets a new value for property {@link #getStretchOnPhone stretchOnPhone}.
      *
@@ -17015,7 +17050,7 @@ declare module "sap/m/Dialog" {
      * @SINCE 1.11.2
      * @deprecated (since 1.13.1) - Please use the new stretch property instead. This enables a stretched Dialog
      * even on tablet and desktop. If you want to achieve the same effect as `stretchOnPhone`, please set the
-     * stretch with jQuery.device.is.phone, then the Dialog is only stretched when it runs on a phone.
+     * stretch with `Device.system.phone`, then the Dialog is only stretched when it runs on a phone.
      *
      * Determines whether the Dialog will be displayed on full screen on a phone.
      */
@@ -24530,6 +24565,8 @@ declare module "sap/m/GenericTag" {
 declare module "sap/m/GenericTile" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Button from "sap/m/Button";
+
   import TileContent from "sap/m/TileContent";
 
   import Event from "sap/ui/base/Event";
@@ -24546,10 +24583,11 @@ declare module "sap/m/GenericTile" {
     Size,
     TileSizeBehavior,
     LoadState,
+    ValueColor,
     WrappingType,
   } from "sap/m/library";
 
-  import { URI, CSSSize } from "sap/ui/core/library";
+  import { CSSColor, URI, CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -24617,6 +24655,17 @@ declare module "sap/m/GenericTile" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Adds some actionButton to the aggregation {@link #getActionButtons actionButtons}.
+     */
+    addActionButton(
+      /**
+       * The actionButton to add; if empty, nothing is inserted
+       */
+      oActionButton: Button
+    ): this;
+    /**
      * Adds some tileContent to the aggregation {@link #getTileContent tileContent}.
      */
     addTileContent(
@@ -24667,6 +24716,20 @@ declare module "sap/m/GenericTile" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Binds aggregation {@link #getActionButtons actionButtons} to model data.
+     *
+     * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
+     * of the possible properties of `oBindingInfo`.
+     */
+    bindActionButtons(
+      /**
+       * The binding information
+       */
+      oBindingInfo: AggregationBindingInfo
+    ): this;
+    /**
      * Binds aggregation {@link #getTileContent tileContent} to model data.
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
@@ -24678,6 +24741,12 @@ declare module "sap/m/GenericTile" {
        */
       oBindingInfo: AggregationBindingInfo
     ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Destroys all the actionButtons in the aggregation {@link #getActionButtons actionButtons}.
+     */
+    destroyActionButtons(): this;
     /**
      * @deprecated (since 1.36.0) - This aggregation is deprecated, use sap.m.ImageContent control to display
      * an icon instead.
@@ -24730,6 +24799,14 @@ declare module "sap/m/GenericTile" {
       }
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Gets content of aggregation {@link #getActionButtons actionButtons}.
+     *
+     * Action buttons added in ActionMode.
+     */
+    getActionButtons(): Button[];
+    /**
      * @SINCE 1.82
      *
      * Gets current value of property {@link #getAdditionalTooltip additionalTooltip}.
@@ -24771,6 +24848,15 @@ declare module "sap/m/GenericTile" {
      */
     getAriaRoleDescription(): string;
     /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Gets current value of property {@link #getBackgroundColor backgroundColor}.
+     *
+     * Background color of the GenericTile. Only applicable for IconMode.
+     */
+    getBackgroundColor(): CSSColor;
+    /**
      * Gets current value of property {@link #getBackgroundImage backgroundImage}.
      *
      * The URI of the background image.
@@ -24782,6 +24868,17 @@ declare module "sap/m/GenericTile" {
      * Provides an interface to the tile's layout information consistent in all modes and content densities.
      */
     getBoundingRects(): object[];
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Gets current value of property {@link #getEnableNavigationButton enableNavigationButton}.
+     *
+     * Renders the given link as a button, enabling the option of opening the link in new tab/window functionality.
+     * Works only in ArticleMode.
+     *
+     * Default value is `false`.
+     */
+    getEnableNavigationButton(): boolean;
     /**
      * Gets current value of property {@link #getFailedText failedText}.
      *
@@ -24834,6 +24931,14 @@ declare module "sap/m/GenericTile" {
      * Default value is `ContentMode`.
      */
     getMode(): GenericTileMode | keyof typeof GenericTileMode;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Gets current value of property {@link #getNavigationButtonText navigationButtonText}.
+     *
+     * Text for navigate action button. Default Value is "Read More". Works only in ArticleMode.
+     */
+    getNavigationButtonText(): string;
     /**
      * @SINCE 1.46.0
      *
@@ -24895,6 +25000,15 @@ declare module "sap/m/GenericTile" {
      */
     getTileContent(): TileContent[];
     /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Gets current value of property {@link #getTileIcon tileIcon}.
+     *
+     * Icon of the GenericTile. Only applicable for IconMode.
+     */
+    getTileIcon(): URI;
+    /**
      * @SINCE 1.76
      *
      * Gets current value of property {@link #getUrl url}.
@@ -24902,6 +25016,17 @@ declare module "sap/m/GenericTile" {
      * Renders the given link as root element and therefore enables the open in new tab / window functionality
      */
     getUrl(): URI;
+    /**
+     * @SINCE 1.95
+     * @EXPERIMENTAL
+     *
+     * Gets current value of property {@link #getValueColor valueColor}.
+     *
+     * The semantic color of the value.
+     *
+     * Default value is `"None"`.
+     */
+    getValueColor(): ValueColor | keyof typeof ValueColor;
     /**
      * @SINCE 1.72
      *
@@ -24921,6 +25046,18 @@ declare module "sap/m/GenericTile" {
      */
     getWrappingType(): WrappingType | keyof typeof WrappingType;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Checks for the provided `sap.m.Button` in the aggregation {@link #getActionButtons actionButtons}. and
+     * returns its index if found or -1 otherwise.
+     */
+    indexOfActionButton(
+      /**
+       * The actionButton whose index is looked for
+       */
+      oActionButton: Button
+    ): int;
+    /**
      * Checks for the provided `sap.m.TileContent` in the aggregation {@link #getTileContent tileContent}. and
      * returns its index if found or -1 otherwise.
      */
@@ -24930,6 +25067,23 @@ declare module "sap/m/GenericTile" {
        */
       oTileContent: TileContent
     ): int;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Inserts a actionButton into the aggregation {@link #getActionButtons actionButtons}.
+     */
+    insertActionButton(
+      /**
+       * The actionButton to insert; if empty, nothing is inserted
+       */
+      oActionButton: Button,
+      /**
+       * The `0`-based index the actionButton should be inserted at; for a negative value of `iIndex`, the actionButton
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the actionButton
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
     /**
      * Inserts a tileContent into the aggregation {@link #getTileContent tileContent}.
      */
@@ -24945,6 +25099,25 @@ declare module "sap/m/GenericTile" {
        */
       iIndex: int
     ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Removes a actionButton from the aggregation {@link #getActionButtons actionButtons}.
+     */
+    removeActionButton(
+      /**
+       * The actionButton to remove or its index or id
+       */
+      vActionButton: int | string | Button
+    ): Button;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Removes all the controls from the aggregation {@link #getActionButtons actionButtons}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     */
+    removeAllActionButtons(): Button[];
     /**
      * Removes all the controls from the aggregation {@link #getTileContent tileContent}.
      *
@@ -25037,6 +25210,22 @@ declare module "sap/m/GenericTile" {
       sAriaRoleDescription?: string
     ): this;
     /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Sets a new value for property {@link #getBackgroundColor backgroundColor}.
+     *
+     * Background color of the GenericTile. Only applicable for IconMode.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setBackgroundColor(
+      /**
+       * New value for property `backgroundColor`
+       */
+      sBackgroundColor: CSSColor
+    ): this;
+    /**
      * Sets a new value for property {@link #getBackgroundImage backgroundImage}.
      *
      * The URI of the background image.
@@ -25048,6 +25237,24 @@ declare module "sap/m/GenericTile" {
        * New value for property `backgroundImage`
        */
       sBackgroundImage?: URI
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Sets a new value for property {@link #getEnableNavigationButton enableNavigationButton}.
+     *
+     * Renders the given link as a button, enabling the option of opening the link in new tab/window functionality.
+     * Works only in ArticleMode.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setEnableNavigationButton(
+      /**
+       * New value for property `enableNavigationButton`
+       */
+      bEnableNavigationButton?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getFailedText failedText}.
@@ -25144,6 +25351,21 @@ declare module "sap/m/GenericTile" {
        * New value for property `mode`
        */
       sMode?: GenericTileMode | keyof typeof GenericTileMode
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Sets a new value for property {@link #getNavigationButtonText navigationButtonText}.
+     *
+     * Text for navigate action button. Default Value is "Read More". Works only in ArticleMode.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setNavigationButtonText(
+      /**
+       * New value for property `navigationButtonText`
+       */
+      sNavigationButtonText?: string
     ): this;
     /**
      * @SINCE 1.46
@@ -25253,6 +25475,22 @@ declare module "sap/m/GenericTile" {
       sSystemInfo?: string
     ): this;
     /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Sets a new value for property {@link #getTileIcon tileIcon}.
+     *
+     * Icon of the GenericTile. Only applicable for IconMode.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setTileIcon(
+      /**
+       * New value for property `tileIcon`
+       */
+      sTileIcon: URI
+    ): this;
+    /**
      * @SINCE 1.76
      *
      * Sets a new value for property {@link #getUrl url}.
@@ -25266,6 +25504,24 @@ declare module "sap/m/GenericTile" {
        * New value for property `url`
        */
       sUrl?: URI
+    ): this;
+    /**
+     * @SINCE 1.95
+     * @EXPERIMENTAL
+     *
+     * Sets a new value for property {@link #getValueColor valueColor}.
+     *
+     * The semantic color of the value.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"None"`.
+     */
+    setValueColor(
+      /**
+       * New value for property `valueColor`
+       */
+      sValueColor?: ValueColor | keyof typeof ValueColor
     ): this;
     /**
      * @SINCE 1.72
@@ -25311,6 +25567,12 @@ declare module "sap/m/GenericTile" {
        */
       value: boolean
     ): void;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Unbinds aggregation {@link #getActionButtons actionButtons} from model data.
+     */
+    unbindActionButtons(): this;
     /**
      * Unbinds aggregation {@link #getTileContent tileContent} from model data.
      */
@@ -25438,6 +25700,21 @@ declare module "sap/m/GenericTile" {
     url?: URI | PropertyBindingInfo;
 
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Renders the given link as a button, enabling the option of opening the link in new tab/window functionality.
+     * Works only in ArticleMode.
+     */
+    enableNavigationButton?: boolean | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Text for navigate action button. Default Value is "Read More". Works only in ArticleMode.
+     */
+    navigationButtonText?: string | PropertyBindingInfo;
+
+    /**
      * @SINCE 1.60
      *
      * Defines the type of text wrapping to be used (hyphenated or normal).
@@ -25461,6 +25738,30 @@ declare module "sap/m/GenericTile" {
     additionalTooltip?: string | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Icon of the GenericTile. Only applicable for IconMode.
+     */
+    tileIcon?: URI | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Background color of the GenericTile. Only applicable for IconMode.
+     */
+    backgroundColor?: CSSColor | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.95
+     * @EXPERIMENTAL
+     *
+     * The semantic color of the value.
+     */
+    valueColor?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
+
+    /**
      * The content of the tile.
      */
     tileContent?: TileContent[] | TileContent | AggregationBindingInfo;
@@ -25473,6 +25774,13 @@ declare module "sap/m/GenericTile" {
      * to display an icon or image use sap.m.ImageContent control instead.
      */
     icon?: Control;
+
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Action buttons added in ActionMode.
+     */
+    actionButtons?: Button[] | Button | AggregationBindingInfo;
 
     /**
      * The event is triggered when the user presses the tile.
@@ -26854,6 +27162,10 @@ declare module "sap/m/IconTabBar" {
          * The key of the selected item
          */
         key?: string;
+        /**
+         * The key of the previous selected item
+         */
+        previousKey?: string;
         /**
          * The selected item
          */
@@ -28249,6 +28561,10 @@ declare module "sap/m/IconTabHeader" {
          * The key of the selected item
          */
         key?: string;
+        /**
+         * The key of the previous selected item
+         */
+        previousKey?: string;
       }
     ): this;
     /**
@@ -38600,6 +38916,17 @@ declare module "sap/m/MaskInput" {
      */
     getRules(): MaskInputRule[];
     /**
+     * @SINCE 1.96
+     *
+     * Gets current value of property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether a clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * event.
+     *
+     * Default value is `false`.
+     */
+    getShowClearIcon(): boolean;
+    /**
      * Checks for the provided `sap.m.MaskInputRule` in the aggregation {@link #getRules rules}. and returns
      * its index if found or -1 otherwise.
      */
@@ -38674,6 +39001,24 @@ declare module "sap/m/MaskInput" {
        */
       sPlaceholderSymbol?: string
     ): this;
+    /**
+     * @SINCE 1.96
+     *
+     * Sets a new value for property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether a clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * event.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setShowClearIcon(
+      /**
+       * New value for property `showClearIcon`
+       */
+      bShowClearIcon?: boolean
+    ): this;
   }
 
   export interface $MaskInputSettings extends $InputBaseSettings {
@@ -38693,6 +39038,14 @@ declare module "sap/m/MaskInput" {
      * one.
      */
     mask?: string | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.96
+     *
+     * Specifies whether a clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * event.
+     */
+    showClearIcon?: boolean | PropertyBindingInfo;
 
     /**
      * A list of validation rules (one rule per mask character).
@@ -38853,6 +39206,11 @@ declare module "sap/m/Menu" {
   /**
    * The `sap.m.Menu` control represents a hierarchical menu. When opened on mobile devices it occupies the
    * whole screen.
+   *
+   * **Note:** The application developer should add dependency to `sap.ui.unified` library on application
+   * level to ensure that the library is loaded before the module dependencies will be required. If the `sap.ui.unified`
+   * library is not loaded in advance, this could lead to CSP compliance issues and adds an additional waiting
+   * time. To prevent this, ensure that the `sap.ui.unified` library is loaded in advance.
    */
   export default class Menu extends Control implements IContextMenu {
     __implements__sap_ui_core_IContextMenu: boolean;
@@ -45182,6 +45540,14 @@ declare module "sap/m/MultiComboBox" {
      */
     getSelectedKeys(): string[];
     /**
+     * Gets current value of property {@link #getShowSelectAll showSelectAll}.
+     *
+     * Determines if the select all checkbox is visible on top of suggestions.
+     *
+     * Default value is `false`.
+     */
+    getShowSelectAll(): boolean;
+    /**
      * Checks whether an item is selected.
      */
     isItemSelected(
@@ -45256,6 +45622,21 @@ declare module "sap/m/MultiComboBox" {
       aKeys: string[]
     ): this;
     /**
+     * Sets a new value for property {@link #getShowSelectAll showSelectAll}.
+     *
+     * Determines if the select all checkbox is visible on top of suggestions.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setShowSelectAll(
+      /**
+       * New value for property `showSelectAll`
+       */
+      bShowSelectAll?: boolean
+    ): this;
+    /**
      * Creates picker if doesn't exist yet and sync with Control items
      */
     syncPickerContent(
@@ -45272,6 +45653,11 @@ declare module "sap/m/MultiComboBox" {
      * keys exists the first item matching the key is used.
      */
     selectedKeys?: string[] | PropertyBindingInfo;
+
+    /**
+     * Determines if the select all checkbox is visible on top of suggestions.
+     */
+    showSelectAll?: boolean | PropertyBindingInfo;
 
     /**
      * Provides getter and setter for the selected items from the aggregation named items.
@@ -46555,12 +46941,6 @@ declare module "sap/m/NavContainer" {
      */
     getWidth(): CSSSize;
     /**
-     * @SINCE 1.91
-     *
-     * Hides the placeholder and removes the 'onAfterRendering' placeholder delegate.
-     */
-    hidePlaceholder(): void;
-    /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getPages pages}. and returns
      * its index if found or -1 otherwise.
      */
@@ -46756,23 +47136,6 @@ declare module "sap/m/NavContainer" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * @SINCE 1.91
-     *
-     * Shows the placeholder if NavContainer is rendered. Otherwise, registers the 'onAfterRendering' delegate
-     * which shows the placeholder.
-     */
-    showPlaceholder(
-      /**
-       * Object containing the placeholder instance
-       */
-      mSettings: {
-        /**
-         * The placeholder instance
-         */
-        placeholder: /* was: sap.ui.core.Placeholder */ any;
-      }
-    ): Promise<any>;
     /**
      * Navigates to the next page (with drill-down semantic) with the given (or default) animation. This creates
      * a new history item inside the NavContainer and allows going back.
@@ -63445,10 +63808,12 @@ declare module "sap/m/PlanningCalendar" {
    * and even a whole week/month. The available navigation allows the user to select a specific interval using
    * a picker, or move to the previous/next interval using arrows.
    *
-   * **Note:** The `PlanningCalendar` uses parts of the `sap.ui.unified` library. This library will be loaded
-   * after the `PlanningCalendar`, if it wasn't loaded first. This could lead to a waiting time when a `PlanningCalendar`
-   * is used for the first time. To prevent this, apps that use the `PlanningCalendar` should also load the
-   * `sap.ui.unified` library.
+   * **Note:** The application developer should add dependency to `sap.ui.unified` library on application
+   * level to ensure that the library is loaded before the module dependencies will be required. The `PlanningCalendar`
+   * uses parts of the `sap.ui.unified` library. This library will be loaded after the `PlanningCalendar`,
+   * if it wasn't loaded first. This could lead to CSP compliance issues and adds an additional waiting time
+   * when a `PlanningCalendar` is used for the first time. To prevent this, apps that use the `PlanningCalendar`
+   * should also load the `sap.ui.unified` library in advance.
    *
    * Usage:
    *
@@ -64091,8 +64456,8 @@ declare module "sap/m/PlanningCalendar" {
      *
      * Gets current value of property {@link #getAppointmentRoundWidth appointmentRoundWidth}.
      *
-     * Defines rounding of the width CalendarAppoinment **Note:** This property is applied, when
-     * the calendar interval type is day and the view shows more than 20 days
+     * Defines rounding of the width `CalendarAppoinment` **Note:** This property is applied, when the calendar
+     * interval type is day and the view shows more than 20 days
      *
      * Default value is `None`.
      */
@@ -64602,8 +64967,8 @@ declare module "sap/m/PlanningCalendar" {
      *
      * Sets a new value for property {@link #getAppointmentRoundWidth appointmentRoundWidth}.
      *
-     * Defines rounding of the width CalendarAppoinment **Note:** This property is applied, when
-     * the calendar interval type is day and the view shows more than 20 days
+     * Defines rounding of the width `CalendarAppoinment` **Note:** This property is applied, when the calendar
+     * interval type is day and the view shows more than 20 days
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -65074,8 +65439,8 @@ declare module "sap/m/PlanningCalendar" {
      * @SINCE 1.81.0
      * @EXPERIMENTAL (since 1.81.0)
      *
-     * Defines rounding of the width CalendarAppoinment **Note:** This property is applied, when
-     * the calendar interval type is day and the view shows more than 20 days
+     * Defines rounding of the width `CalendarAppoinment` **Note:** This property is applied, when the calendar
+     * interval type is day and the view shows more than 20 days
      */
     appointmentRoundWidth?:
       | (
@@ -75903,8 +76268,11 @@ declare module "sap/m/routing/TargetHandler" {
    * Used for closing dialogs and showing transitions in `NavContainers` when targets are displayed.
    *
    * **Note:** You should not create an own instance of this class. It is created when using `{@link sap.m.routing.Router}`
-   * or `{@link sap.m.routing.Targets}`. You may use the `{@link #setCloseDialogs}` function to specify if
-   * dialogs should be closed on displaying other views.
+   * or `{@link sap.m.routing.Targets}`.
+   *
+   * **Note:** You may use the `{@link #setCloseDialogs}` function to specify if dialogs should be closed
+   * on displaying other views. The dialogs are closed when a different target is displayed than the previously
+   * displayed one, otherwise the dialogs are kept open.
    */
   export default class TargetHandler extends BaseObject {
     /**
@@ -75912,8 +76280,8 @@ declare module "sap/m/routing/TargetHandler" {
      */
     constructor(
       /**
-       * Closes all open dialogs before navigating, if set to `true` (default). If set to `false`, it will just
-       * navigate without closing dialogs.
+       * Closes all open dialogs before navigating to a different target, if set to `true` (default). If set to
+       * `false`, it will just navigate without closing dialogs.
        */
       closeDialogs: boolean
     );
@@ -75949,6 +76317,9 @@ declare module "sap/m/routing/TargetHandler" {
     getCloseDialogs(): boolean;
     /**
      * Sets if a navigation should close dialogs.
+     *
+     * **Note:** The dialogs are closed when a different target is displayed than the previous one, otherwise
+     * the dialogs are kept open even when `bCloseDialogs` is `true`.
      */
     setCloseDialogs(
       /**
@@ -89663,10 +90034,12 @@ declare module "sap/m/SinglePlanningCalendar" {
    *
    * Overview:
    *
-   * **Note:** The `SinglePlanningCalendar` uses parts of the `sap.ui.unified` library. This library will
-   * be loaded after the `SinglePlanningCalendar`, if it wasn't previously loaded. This could lead to a waiting
+   * **Note:** The application developer should add dependency to `sap.ui.unified` library on application
+   * level to ensure that the library is loaded before the module dependencies will be required. The `SinglePlanningCalendar`
+   * uses parts of the `sap.ui.unified` library. This library will be loaded after the `SinglePlanningCalendar`,
+   * if it wasn't previously loaded. This could lead to CSP compliance issues and adds an additional waiting
    * time when a `SinglePlanningCalendar` is used for the first time. To prevent this, apps using the `SinglePlanningCalendar`
-   * must also load the `sap.ui.unified` library.
+   * must also load the `sap.ui.unified` library in advance.
    *
    * The `SinglePlanningCalendar` has the following structure:
    *
@@ -92740,9 +93113,9 @@ declare module "sap/m/SlideTile" {
 
   import { GenericTileScope, TileSizeBehavior } from "sap/m/library";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
   import { CSSSize } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
    * @SINCE 1.34
@@ -92927,6 +93300,15 @@ declare module "sap/m/SlideTile" {
      */
     getDisplayTime(): int;
     /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL
+     *
+     * Gets current value of property {@link #getHeight height}.
+     *
+     * Height of the control.
+     */
+    getHeight(): CSSSize;
+    /**
      * @SINCE 1.46.0
      *
      * Gets current value of property {@link #getScope scope}.
@@ -93023,6 +93405,22 @@ declare module "sap/m/SlideTile" {
        * New value for property `displayTime`
        */
       iDisplayTime?: int
+    ): this;
+    /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL
+     *
+     * Sets a new value for property {@link #getHeight height}.
+     *
+     * Height of the control.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setHeight(
+      /**
+       * New value for property `height`
+       */
+      sHeight: CSSSize
     ): this;
     /**
      * @SINCE 1.46.0
@@ -93131,6 +93529,14 @@ declare module "sap/m/SlideTile" {
      * Width of the control.
      */
     width?: CSSSize | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.96
+     * @EXPERIMENTAL
+     *
+     * Height of the control.
+     */
+    height?: CSSSize | PropertyBindingInfo;
 
     /**
      * The set of Generic Tiles to be shown in the control.
@@ -94728,22 +95134,6 @@ declare module "sap/m/SplitContainer" {
      */
     hideMaster(): this;
     /**
-     * @SINCE 1.91
-     *
-     * Hides the placeholder on the corresponding column for the provided aggregation name.
-     */
-    hidePlaceholder(
-      /**
-       * Object containing the aggregation name
-       */
-      mSettings: {
-        /**
-         * The aggregation name to decide on which column/container the placeholder should be hidden
-         */
-        aggregation: string;
-      }
-    ): void;
-    /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getDetailPages detailPages}.
      * and returns its index if found or -1 otherwise.
      */
@@ -95061,22 +95451,6 @@ declare module "sap/m/SplitContainer" {
      * Used to make the master page visible when in ShowHideMode and the device is in portrait mode.
      */
     showMaster(): this;
-    /**
-     * @SINCE 1.91
-     *
-     * Shows the placeholder on the corresponding column for the provided aggregation name.
-     */
-    showPlaceholder(
-      /**
-       * Object containing the aggregation name
-       */
-      mSettings: {
-        /**
-         * The aggregation name to decide on which column/container the placeholder should be shown
-         */
-        aggregation: string;
-      }
-    ): void;
     /**
      * @SINCE 1.10.0
      *
@@ -103747,6 +104121,8 @@ declare module "sap/m/TileContent" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import { Priority } from "sap/ui/core/library";
+
   /**
    * @SINCE 1.34.0
    *
@@ -103864,6 +104240,16 @@ declare module "sap/m/TileContent" {
      */
     getFrameType(): FrameType | keyof typeof FrameType;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Gets current value of property {@link #getPriority priority}.
+     *
+     * Adds a priority badge before the content. Works only in Generic Tile ActionMode.
+     *
+     * Default value is `None`.
+     */
+    getPriority(): Priority | keyof typeof Priority;
+    /**
      * @deprecated (since 1.38.0) - The TileContent control has now a fixed size, depending on the used media
      * (desktop, tablet or phone).
      *
@@ -103949,6 +104335,23 @@ declare module "sap/m/TileContent" {
        * New value for property `frameType`
        */
       sFrameType?: FrameType | keyof typeof FrameType
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Sets a new value for property {@link #getPriority priority}.
+     *
+     * Adds a priority badge before the content. Works only in Generic Tile ActionMode.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     */
+    setPriority(
+      /**
+       * New value for property `priority`
+       */
+      sPriority?: Priority | keyof typeof Priority
     ): this;
     /**
      * Setter for protected property to enable or disable content rendering. This function does not invalidate
@@ -104044,6 +104447,13 @@ declare module "sap/m/TileContent" {
      * Frame types: 1x1, 2x1, and auto.
      */
     frameType?: (FrameType | keyof typeof FrameType) | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Adds a priority badge before the content. Works only in Generic Tile ActionMode.
+     */
+    priority?: (Priority | keyof typeof Priority) | PropertyBindingInfo;
 
     /**
      * The switchable view that depends on the tile type.
@@ -118078,14 +118488,15 @@ declare module "sap/m/Wizard" {
    * 	 - Steps can be branching depending on choices the user made in their input - this is set by the `enableBranching`
    * 			property.
    * 	 - Steps can have different visual representations - numbers or icons. You can add labels for better
-   * 			readability   Content: The content occupies the main part of the page. It can hold any type of input
-   * 			controls. The content is kept in {@link sap.m.WizardStep wizard steps}. Next Step Button: The next step
-   * 			button is displayed below the content. It can be hidden by setting `showNextButton` to `false` and displayed,
-   * 			for example, only after the user has filled all mandatory fields. Usage: When to use:: When the user
-   * 			has to accomplish a long or unfamiliar task. When not to use:: When the user has to accomplish a routine
-   * 			task that is clear and familiar. When the task has only two steps or less. Responsive Behavior: On mobile
-   * 			devices the steps in the StepNavigator are grouped together and overlap. Tapping on them will show a
-   * 			popover to select the step to navigate to.
+   * 			readability   **Note:** Dynamic step insertion is not supported. Even if branching steps are used,
+   * 			the steps should be known in advance. Content: The content occupies the main part of the page. It can
+   * 			hold any type of input controls. The content is kept in {@link sap.m.WizardStep wizard steps}. Next Step
+   * 			Button: The next step button is displayed below the content. It can be hidden by setting `showNextButton`
+   * 			to `false` and displayed, for example, only after the user has filled all mandatory fields. Usage: When
+   * 			to use:: When the user has to accomplish a long or unfamiliar task. When not to use:: When the user has
+   * 			to accomplish a routine task that is clear and familiar. When the task has only two steps or less. Responsive
+   * 			Behavior: On mobile devices the steps in the StepNavigator are grouped together and overlap. Tapping
+   * 			on them will show a popover to select the step to navigate to.
    *
    * When using the sap.m.Wizard in SAP Quartz theme, the breakpoints and layout paddings could be determined
    * by the container's width. To enable this concept and add responsive paddings to the navigation area and
@@ -119769,6 +120180,18 @@ declare namespace sap {
     "sap/m/OverflowToolbarLayoutData": undefined;
 
     "sap/m/OverflowToolbarToggleButton": undefined;
+
+    "sap/m/p13n/BasePanel": undefined;
+
+    "sap/m/p13n/Container": undefined;
+
+    "sap/m/p13n/GroupPanel": undefined;
+
+    "sap/m/p13n/QueryPanel": undefined;
+
+    "sap/m/p13n/SelectionPanel": undefined;
+
+    "sap/m/p13n/SortPanel": undefined;
 
     "sap/m/P13nColumnsItem": undefined;
 

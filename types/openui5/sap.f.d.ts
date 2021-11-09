@@ -1,4 +1,4 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.96.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -424,6 +424,21 @@ declare module "sap/f/library" {
        * The Header is over the content.
        */
       Top = "Top",
+    }
+    /**
+     * @SINCE 1.96
+     *
+     * Different options for the alignment of the side indicators in the numeric header.
+     */
+    enum NumericHeaderSideIndicatorsAlignment {
+      /**
+       * Sets the alignment to the beginning (left or right depending on LTR/RTL).
+       */
+      Begin = "Begin",
+      /**
+       * Explicitly sets the alignment to the end (left or right depending on LTR/RTL).
+       */
+      End = "End",
     }
   }
 
@@ -1960,8 +1975,8 @@ declare module "sap/f/cards/NumericHeader" {
    * Displays general information in the header of the {@link sap.f.Card} and allows the configuration of
    * a numeric value visualization.
    *
-   * You can configure the title, subtitle, status text and icon, using the provided properties. To add more
-   * side number indicators, use the `sideIndicators` aggregation.
+   * You can configure the title, subtitle, and status text, using the provided properties. To add more side
+   * number indicators, use the `sideIndicators` aggregation.
    *
    * **Notes:**
    * 	 - You should always set a title.
@@ -2135,6 +2150,16 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getSideIndicators(): NumericSideIndicator[];
     /**
+     * Gets current value of property {@link #getSideIndicatorsAlignment sideIndicatorsAlignment}.
+     *
+     * The alignment of the side indicators.
+     *
+     * Default value is `"Begin"`.
+     */
+    getSideIndicatorsAlignment():
+      | cards.NumericHeaderSideIndicatorsAlignment
+      | keyof typeof cards.NumericHeaderSideIndicatorsAlignment;
+    /**
      * @EXPERIMENTAL (since 1.64)
      *
      * Gets current value of property {@link #getState state}.
@@ -2244,6 +2269,23 @@ declare module "sap/f/cards/NumericHeader" {
        * The text of the title
        */
       sValue: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSideIndicatorsAlignment sideIndicatorsAlignment}.
+     *
+     * The alignment of the side indicators.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"Begin"`.
+     */
+    setSideIndicatorsAlignment(
+      /**
+       * New value for property `sideIndicatorsAlignment`
+       */
+      sSideIndicatorsAlignment?:
+        | cards.NumericHeaderSideIndicatorsAlignment
+        | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
     ): this;
     /**
      * Sets the semantic color which represents the state of the main number indicator.
@@ -2359,6 +2401,16 @@ declare module "sap/f/cards/NumericHeader" {
      * Additional text which adds more details to what is shown in the numeric header.
      */
     details?: string | PropertyBindingInfo;
+
+    /**
+     * The alignment of the side indicators.
+     */
+    sideIndicatorsAlignment?:
+      | (
+          | cards.NumericHeaderSideIndicatorsAlignment
+          | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
+        )
+      | PropertyBindingInfo;
 
     /**
      * Additional side number indicators. For example "Deviation" and "Target". Not more than two side indicators
@@ -6445,22 +6497,6 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     getRestoreFocusOnBackNavigation(): boolean;
     /**
-     * @SINCE 1.91
-     *
-     * Hides the placeholder on the corresponding column for the provided aggregation name.
-     */
-    hidePlaceholder(
-      /**
-       * Object containing the aggregation name
-       */
-      mSettings: {
-        /**
-         * The aggregation name to decide on which column/container the placeholder should be hidden
-         */
-        aggregation: string;
-      }
-    ): void;
-    /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getBeginColumnPages beginColumnPages}.
      * and returns its index if found or -1 otherwise.
      */
@@ -6745,22 +6781,6 @@ declare module "sap/f/FlexibleColumnLayout" {
        */
       bRestoreFocusOnBackNavigation?: boolean
     ): this;
-    /**
-     * @SINCE 1.91
-     *
-     * Shows the placeholder on the corresponding column for the provided aggregation name.
-     */
-    showPlaceholder(
-      /**
-       * Object containing the aggregation name
-       */
-      mSettings: {
-        /**
-         * The aggregation name to decide on which column/container the placeholder should be shown
-         */
-        aggregation: string;
-      }
-    ): void;
     /**
      * Navigates to the given page inside the FlexibleColumnLayout. Columns are scanned for the page in the
      * following order: `Begin`, `Mid`, `End`.
@@ -10649,8 +10669,11 @@ declare module "sap/f/routing/TargetHandler" {
    * Used for closing dialogs and showing transitions in `NavContainers` when targets are displayed.
    *
    * **Note:** You should not create an own instance of this class. It is created when using `{@link sap.f.routing.Router}`
-   * or `{@link sap.f.routing.Targets}`. You may use the `{@link #setCloseDialogs}` function to specify if
-   * dialogs should be closed on displaying other views.
+   * or `{@link sap.f.routing.Targets}`.
+   *
+   * **Note:** You may use the `{@link #setCloseDialogs}` function to specify if dialogs should be closed
+   * on displaying other views. The dialogs are closed when a different target is displayed than the previously
+   * displayed one, otherwise the dialogs are kept open.
    */
   export default class TargetHandler extends BaseObject {
     /**
@@ -10658,10 +10681,10 @@ declare module "sap/f/routing/TargetHandler" {
      */
     constructor(
       /**
-       * Closes all open dialogs before navigating, if set to `true` (default). If set to `false`, it just navigates
-       * without closing dialogs.
+       * Closes all open dialogs before navigating to a different target, if set to `true` (default). If set to
+       * `false`, it will just navigate without closing dialogs.
        */
-      bCloseDialogs: boolean
+      closeDialogs: boolean
     );
 
     /**
@@ -10695,6 +10718,9 @@ declare module "sap/f/routing/TargetHandler" {
     getCloseDialogs(): boolean;
     /**
      * Sets if a navigation should close dialogs.
+     *
+     * **Note:** The dialogs are closed when a different target is displayed than the previous one, otherwise
+     * the dialogs are kept open even when `bCloseDialogs` is `true`.
      */
     setCloseDialogs(
       /**
