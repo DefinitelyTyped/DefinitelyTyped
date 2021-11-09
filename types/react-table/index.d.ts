@@ -676,6 +676,7 @@ export namespace useResizeColumns {
 
 export interface UseResizeColumnsOptions<D extends object> {
     disableResizing?: boolean | undefined;
+    autoResetResize?: boolean | undefined;
 }
 
 export interface UseResizeColumnsState<D extends object> {
