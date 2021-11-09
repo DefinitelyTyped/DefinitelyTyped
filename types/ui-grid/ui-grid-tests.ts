@@ -154,11 +154,11 @@ anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
-var row = selectedRowEntities[0];
+var row: IMyEntity = selectedRowEntities[0];
+var gridRow: uiGrid.IGridRow = selectedGridRows[0];
 
 gridApi.selection.clearSelectedRows();
 gridApi.selection.getSelectAllState();
-gridApi.selection.getSelectedCount();
 gridApi.selection.selectAllRows();
 gridApi.selection.selectAllVisibleRows();
 gridApi.selection.selectRow(row);
@@ -180,4 +180,4 @@ gridApi.expandable.expandAllRows();
 gridApi.expandable.collapseAllRows();
 gridApi.expandable.toggleAllRows();
 
-gridApi.treeBase.expandRow(row, true);
+gridApi.treeBase.expandRow(gridRow, true);
