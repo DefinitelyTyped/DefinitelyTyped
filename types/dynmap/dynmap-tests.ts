@@ -34,6 +34,4 @@ const tileUrl = window.config.url.tiles;
 const isChatEnabled = window.dynmap.options.allowwebchat;
 
 // $ExpectType Dynmap.ComponentConfiguration | undefined
-const chatboxComponentOptions = window.dynmap.options.components?.filter(function(c) {
-    return c.type === "chatbox";
-})[0];
+const chatboxComponent = window.dynmap.options.components?.filter(c => c.type === "chatbox")[0];
