@@ -4,7 +4,6 @@
 //                 Andrej Mihajlov <https://github.com/pronebird>
 //                 Kouame Komenan  <https://github.com/komenank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import { GeoPath, GeoProjection } from 'd3-geo';
 import { D3ZoomEvent } from 'd3-zoom';
