@@ -191,7 +191,7 @@ declare namespace runtime {
                       permissions: Permission | Permission[];
                   }>;
                   default?: {
-                    permissions: Permission | Permission[];
+                      permissions: Permission | Permission[];
                   } | undefined;
               }
             | {
@@ -306,8 +306,8 @@ declare namespace runtime {
             [key: string]:
                 | string
                 | {
-                    module: string;
-                };
+                      module: string;
+                  };
         } | undefined;
 
         /**
