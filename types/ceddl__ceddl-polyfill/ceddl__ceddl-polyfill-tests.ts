@@ -2,6 +2,7 @@ import { ceddl, ModelConfig } from '@ceddl/ceddl-polyfill';
 
 const myModel: ModelConfig = {
     key: 'product',
+    root: true,
     fields: {
         name: {
             type: ceddl.modelFactory.fields.StringField,
