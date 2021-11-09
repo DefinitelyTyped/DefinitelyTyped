@@ -1,4 +1,4 @@
-// Type definitions for ahoy.js 0.3
+// Type definitions for ahoy.js 0.4
 // Project: https://github.com/ankane/ahoy.js
 // Definitions by: Timothy Gu <https://github.com/TimothyGu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
