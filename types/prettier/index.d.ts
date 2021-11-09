@@ -72,13 +72,18 @@ export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
 export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
-export interface Options extends Partial<RequiredOptions> {
+/** 
+ * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js` or `prettier.config.cjs`.
+ */
+export interface Config extends Options {
     overrides?: Array<{
         files: string | string[];
         excludeFiles?: string | string[];
-        options?: Partial<RequiredOptions>;
+        options?: Options;
     }>;
 }
+
+export interface Options extends Partial<RequiredOptions> {}
 
 export interface RequiredOptions extends doc.printer.Options {
     /**
