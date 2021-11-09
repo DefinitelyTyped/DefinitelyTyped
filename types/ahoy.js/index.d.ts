@@ -132,7 +132,10 @@ declare namespace ahoy {
     /** Send a single Ahoy tracking event. */
     function track(name: string, properties?: EventProperties): boolean;
 
-    /** Track form control changes. */
+    /**
+     * Track form control changes.
+     * @deprecated trackChanges is deprecated and will be removed in 0.5.0
+     */
     function trackChanges(selector: string): void;
 
     /** Track link and button clicks. */
