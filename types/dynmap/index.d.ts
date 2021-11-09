@@ -333,6 +333,7 @@ declare class DynMap {
     missedupdates: number;
     nocompass: boolean;
     nogui: boolean;
+    options: Options;
     playerfield?: JQuery<HTMLLegendElement> | null;
     playerlist?: JQuery<HTMLUListElement> | null;
     players: Record<string | number | symbol, unknown | null | unknown[]>;
