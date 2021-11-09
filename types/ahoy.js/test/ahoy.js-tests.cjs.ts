@@ -1,5 +1,5 @@
 import ahoy = require('ahoy.js');
-import { trackAll } from 'ahoy.js';
+import { trackChanges, trackClicks, trackSubmits } from 'ahoy.js';
 
 // $ExpectType void
 ahoy.start();
@@ -15,4 +15,10 @@ ahoy.configure({
 });
 
 // $ExpectType void
-trackAll();
+trackSubmits('#selector');
+
+// $ExpectType void
+trackClicks('#selector');
+
+// $ExpectType void
+trackChanges('#selector');
