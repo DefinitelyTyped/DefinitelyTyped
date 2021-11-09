@@ -73,11 +73,11 @@ export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
 export interface Options extends Partial<RequiredOptions> {
-    overrides?: {
+    overrides?: Array<{
         files: string | string[];
         excludeFiles?: string | string[];
         options?: Partial<RequiredOptions>;
-    }[];
+    }>;
 }
 
 export interface RequiredOptions extends doc.printer.Options {
