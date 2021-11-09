@@ -133,13 +133,13 @@ declare namespace ahoy {
     function track(name: string, properties?: EventProperties): boolean;
 
     /** Track form control changes. */
-    export function trackChanges(selector: string): void;
+    function trackChanges(selector: string): void;
 
     /** Track link and button clicks. */
-    export function trackClicks(selector: string): void;
+    function trackClicks(selector: string): void;
 
     /** Track form submits. */
-    export function trackSubmits(selector: string): void;
+    function trackSubmits(selector: string): void;
 
     /** Send a view event for the current page. */
     function trackView(additionalProperties?: EventProperties): void;
