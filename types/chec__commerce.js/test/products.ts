@@ -124,10 +124,12 @@ const products: Products.ProductCollection = {
                                 formatted_with_symbol: '$0.00',
                                 formatted_with_code: '0.00 USD',
                             },
-                            assets: [],
+                            assets: [
+                                'ast_bO6J5ag49wEjpK',
+                            ],
                             meta: null,
-                            created: null,
-                            updated: null,
+                            created: 1594413988,
+                            updated: 1605921891,
                         },
                     ],
                 },
@@ -229,8 +231,8 @@ const variants: Products.VariantCollection = {
     ],
     meta: {
         pagination: {
-            total: 2,
-            count: 2,
+            total: 1,
+            count: 1,
             per_page: 100,
             current_page: 1,
             total_pages: 1,

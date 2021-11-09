@@ -297,7 +297,7 @@ declare module 'fs' {
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes that have been read so far.
          * @since v6.4.0
@@ -385,7 +385,7 @@ declare module 'fs' {
          * callback that will be executed once the `writeStream`is closed.
          * @since v0.9.4
          */
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes written so far. Does not include data that is still queued
          * for writing.
