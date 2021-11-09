@@ -11,6 +11,7 @@ columnDef.aggregationHideLabel = true;
 columnDef.aggregationHideLabel = false;
 columnDef.aggregationType = 1;
 columnDef.aggregationType = function () { return 1; };
+columnDef.allowFloatWidth = true;
 columnDef.cellClass = 'test';
 columnDef.cellClass = (grid, gridRow, gridCol, rowIndex, colIndex) => {
     //types of grid, gridRow, gridCol, rowIndex and colIndex are flowed in correctly
@@ -153,6 +154,20 @@ anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
+var row = selectedRowEntities[0];
+
+gridApi.selection.clearSelectedRows();
+gridApi.selection.getSelectAllState();
+gridApi.selection.getSelectedCount();
+gridApi.selection.selectAllRows();
+gridApi.selection.selectAllVisibleRows();
+gridApi.selection.selectRow(row);
+gridApi.selection.selectRowByVisibleIndex(5);
+gridApi.selection.setModifierKeysToMultiSelect(true);
+gridApi.selection.setMultiSelect(true);
+gridApi.selection.toggleRowSelection(row);
+gridApi.selection.unSelectRow(row);
+gridApi.selection.unSelectRowByVisibleIndex(5);
 
 gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
     if (row.isExpanded) {
@@ -164,3 +179,5 @@ gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
 gridApi.expandable.expandAllRows();
 gridApi.expandable.collapseAllRows();
 gridApi.expandable.toggleAllRows();
+
+gridApi.treeBase.expandRow(row, true);
