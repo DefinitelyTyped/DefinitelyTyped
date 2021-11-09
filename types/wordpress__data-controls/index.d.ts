@@ -59,7 +59,7 @@ export const controls: {
 };
 
 /**
- * Deprecated in favor of @wordpress/data dispatc method.
+ * Deprecated in favor of the @wordpress/data dispatch method.
  *
  * Dispatches a control action for triggering a registry dispatch.
  *
@@ -81,7 +81,7 @@ export const controls: {
 export function dispatch(storeKey: string, actionName: string, ...args: any[]): void;
 
 /**
- * Deprecated in favor of @wordpress/data select method.
+ * Deprecated in favor of the @wordpress/data select method.
  *
  * Dispatches a control action for triggering a registry select.
  *
