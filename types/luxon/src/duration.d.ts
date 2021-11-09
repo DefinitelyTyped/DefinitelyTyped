@@ -122,6 +122,14 @@ export class Duration {
     static fromObject(obj: DurationLikeObject, opts?: DurationOptions): Duration;
 
     /**
+     * Create a Duration from DurationLike.
+     *
+     * @param durationLike
+     * Either a Luxon Duration, a number of milliseconds, or the object argument to Duration.fromObject()
+     */
+    static fromDurationLike(durationLike: DurationLike): Duration;
+
+    /**
      * Create a Duration from an ISO 8601 duration string.
      * @see https://en.wikipedia.org/wiki/ISO_8601#Durations
      *
