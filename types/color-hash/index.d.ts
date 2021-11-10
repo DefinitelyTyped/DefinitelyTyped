@@ -12,8 +12,8 @@ interface HueObject {
 }
 
 type Hue = number | HueObject | ReadonlyArray<HueObject>;
-type Lightness = number | ColorValueArray;
-type Saturation = number | ColorValueArray;
+type Lightness = number | ReadonlyArray<number>;
+type Saturation = number | ReadonlyArray<number>;
 
 type HashFunction = (input: string) => number;
 
