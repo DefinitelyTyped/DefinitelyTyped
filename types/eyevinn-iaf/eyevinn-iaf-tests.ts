@@ -1,23 +1,22 @@
-import { IafUploadModule,  IafFileWatchModule} from './index';
+import { IafUploadModule, IafFileWatchModule } from 'eyevinn-iaf';
 import { Readable } from 'stream';
-import winston from 'winston';
-
+import { Logger } from 'winston';
 
 class FileUploader implements IafUploadModule {
-    logger: winston.Logger;
+    logger: Logger;
     playlistName: string;
-    progressDelegate: Function;
-    fileUploadedDelegate: Function;
+    progressDelegate: () => any;
+    fileUploadedDelegate: () => any;
 
-    onFileAdd(filePath: string, readStream: Readable, contentType?: string): void {};
+    onFileAdd(filePath: string, readStream: Readable, contentType?: string): void {}
 }
 
 class FileWatcher implements IafFileWatchModule {
     fileInput: string;
-    logger: winston.Logger;
-    onAdd(callback: (filePath: string, readStream: Readable, contentType?: string) => any): void {};
+    logger: Logger;
 
+    onAdd(callback: (filePath: string, readStream: Readable, contentType?: string) => any): void {}
 }
 
-const fileWatchModule = new FileWatcher;
-const fileUploaderModule = new FileUploader;
+const fileWatchModule = new FileWatcher();
+const fileUploaderModule = new FileUploader();
