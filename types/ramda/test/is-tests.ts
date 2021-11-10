@@ -34,7 +34,7 @@ import * as R from 'ramda';
 () => {
   // test classes that take parameters
   class Foo {
-    constructor(arg: string) {};
+    constructor(arg: string) {}
     bar: string;
   }
 
