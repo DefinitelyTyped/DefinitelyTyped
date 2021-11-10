@@ -5,6 +5,9 @@ const map = new StaticMaps({
     width: 100,
     height: 100,
 });
+
+map.zoom; // $ExpectType ZoomLevel
+
 new StaticMaps({
     width: 100,
     height: 100,

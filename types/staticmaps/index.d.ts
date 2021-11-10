@@ -16,6 +16,7 @@ declare class StaticMaps {
     addText: (options: StaticMaps.AddTextOptions) => void;
     render: (center?: ReadonlyArray<number>, zoom?: number) => Promise<void>;
     image: StaticMapsImage;
+    zoom: StaticMaps.ZoomLevel;
 }
 
 declare class StaticMapsImage {
