@@ -26,6 +26,9 @@ async function REDTests() {
     // $ExpectType EventEmitter
     RED.events;
 
+    // $ExpectType Hooks
+    RED.hooks;
+
     // RED.runtime is covered in @node-red/runtime
     // just check the link
     // $ExpectType RuntimeModule
