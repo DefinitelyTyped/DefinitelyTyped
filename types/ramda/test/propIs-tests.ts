@@ -31,6 +31,7 @@ import * as R from 'ramda';
 
 () => {
   // test classes that take parameters
+  // tslint:disable-next-line:no-unnecessary-class
   class Foo {
     constructor(arg: string) {}
   }
