@@ -30,7 +30,11 @@ import * as R from 'ramda';
 };
 
 () => {
-  class Foo {}
+  // test classes that take parameters
+  // tslint:disable-next-line:no-unnecessary-class
+  class Foo {
+    constructor(arg: string) {}
+  }
 
   const obj = {};
 
