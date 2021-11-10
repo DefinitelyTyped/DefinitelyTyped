@@ -1,6 +1,20 @@
-import { Object3D, Camera, Scene } from '../../../src/Three';
+import { EventDispatcher, Camera, Scene, Vector3, Raycaster } from '../../../src/Three';
 
-export class ArcballControls extends Object3D {
+export enum ArcballControlsMouseActionOperations {
+    PAN = 'PAN',
+    ROTATE = 'ROTATE',
+    ZOOM = 'ZOOM',
+    FOV = 'FOV',
+}
+
+export type ArcballControlsMouseActionMouse = 0 | 1 | 2 | 'WHEEL';
+
+export enum ArcballControlsMouseActionKeys {
+    SHIFT = 'SHIFT',
+    CTRL = 'CTRL',
+}
+
+export class ArcballControls extends EventDispatcher {
     camera: Camera | null;
     domElement: HTMLElement;
     scene?: Scene | null | undefined;
@@ -100,7 +114,47 @@ export class ArcballControls extends Object3D {
      */
     maxZoom: number;
 
+    /**
+     * @default Vector3(0,0,0)
+     */
+    target: Vector3;
+
+    /**
+     * @default 0.67
+     */
+    radiusFactor: number;
+
     constructor(camera: Camera, domElement: HTMLElement, scene?: Scene | null);
+
+    getRaycaster(): Raycaster;
+
+    activateGizmos(isActive: boolean): void;
+
+    copyState(): void;
+
+    pasteState(): void;
+
+    saveState(): void;
+
+    reset(): void;
+
+    setCamera(camera: Camera): void;
+
+    setGizmosVisible(value: boolean): void;
+
+    setTbRadius(value: number): void;
+
+    setMouseAction(
+        operation: ArcballControlsMouseActionOperations,
+        mouse: ArcballControlsMouseActionMouse,
+        key?: ArcballControlsMouseActionKeys,
+    ): boolean;
+
+    unsetMouseAction(mouse: ArcballControlsMouseActionMouse, key?: ArcballControlsMouseActionKeys): boolean;
+
+    setTarget(x: number, y: number, z: number): void;
+
+    update(): void;
 
     dispose(): void;
 }

@@ -1,4 +1,4 @@
-import Document from "../Document";
+import { Document } from "../Document";
 import { Photoshop } from "../Photoshop";
 import { DocumentCreateOptions } from "../objects/CreateOptions";
 /**
@@ -9,14 +9,17 @@ import { DocumentCreateOptions } from "../objects/CreateOptions";
  * ```javascript
  * // Iterate through all the documents
  * app.documents.forEach(h => console.log(h.title));
- *
  * ```
  */
-export default class Documents extends Array<Document> {
+export declare class Documents extends Array<Document> {
     /** @ignore */
     private proxy;
     /** @ignore */
     constructor();
+    /**
+     * Used to access the documents in the collection
+     */
+    [index: number]: Document;
     /** @ignore */
     handler(): {
         get: (obj: any, key: any) => any;

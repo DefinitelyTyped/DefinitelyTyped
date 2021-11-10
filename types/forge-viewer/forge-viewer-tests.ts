@@ -480,6 +480,7 @@ async function streamLineTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<vo
         }
     });
 
+    streamLine.advance({ x: 10.0, y: 10.0, z: 10.0 });
     builder.destroyStreamLine(streamLine);
 }
 

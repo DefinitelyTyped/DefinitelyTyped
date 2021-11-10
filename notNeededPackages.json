@@ -4547,6 +4547,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simple-icons": {
+            "libraryName": "simple-icons",
+            "asOfVersion": "5.21.0"
+        },
         "simplebar": {
             "libraryName": "simplebar",
             "asOfVersion": "5.3.3"
@@ -5074,6 +5078,10 @@
         "trim-newlines": {
             "libraryName": "trim-newlines",
             "asOfVersion": "3.0.0"
+        },
+        "trimblemaps__trimblemaps-js": {
+            "libraryName": "@trimblemaps/trimblemaps-js",
+            "asOfVersion": "3.2.0"
         },
         "ts3-nodejs-library": {
             "libraryName": "ts3-nodejs-library",

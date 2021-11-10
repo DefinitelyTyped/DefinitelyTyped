@@ -2,9 +2,9 @@ import ref = require('ref-napi');
 
 declare var StructType: {
     new (fields?: Record<string, string | ref.Type>, opt?: { packed?: boolean }): struct.StructType;
-    new (fields?: Array<[string, string | ref.Type]>, opt?: { packed?: boolean }): struct.StructType;
+    new (fields?: Array<[string | ref.Type, string]>, opt?: { packed?: boolean }): struct.StructType;
     (fields?: Record<string, string | ref.Type>, opt?: { packed?: boolean }): struct.StructType;
-    (fields?: Array<[string, string | ref.Type]>, opt?: { packed?: boolean }): struct.StructType;
+    (fields?: Array<[string | ref.Type, string]>, opt?: { packed?: boolean }): struct.StructType;
 };
 
 type RefModuleLike = Pick<typeof ref, "coerceType" | "get" | "set" | "alignof" | "sizeof" | "NULL">;

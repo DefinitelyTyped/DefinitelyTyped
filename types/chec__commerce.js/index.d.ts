@@ -3,6 +3,7 @@
 // Definitions by: Robbie Averill <https://github.com/robbieaverill>
 //                 Guy Marriott <https://github.com/ScopeyNZ>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
+//                 Kyle Visca <https://github.com/kvisca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Cart, RequestMethod } from './features/cart';

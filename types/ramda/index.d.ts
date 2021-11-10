@@ -868,8 +868,10 @@ export function invoker(arity: number, method: string): (...a: readonly any[]) =
  * See if an object (`val`) is an instance of the supplied constructor.
  * This function will check up the inheritance chain, if any.
  */
-export function is(ctor: any, val: any): boolean;
-export function is(ctor: any): (val: any) => boolean;
+export function is<C extends (...args: any[]) => any>(ctor: C, val: any): val is ReturnType<C>;
+export function is<C extends new (...args: any[]) => any>(ctor: C, val: any): val is InstanceType<C>;
+export function is<C extends (...args: any[]) => any>(ctor: C): (val: any) => val is ReturnType<C>;
+export function is<C extends new (...args: any[]) => any>(ctor: C): (val: any) => val is InstanceType<C>;
 
 /**
  * Reports whether the list has zero elements.
@@ -1608,11 +1610,17 @@ export function propEq<K extends string | number>(name: K): {
 /**
  * Returns true if the specified object property is of the given type; false otherwise.
  */
-export function propIs(type: any, name: string, obj: any): boolean;
-export function propIs(type: any, name: string): (obj: any) => boolean;
-export function propIs(type: any): {
-    (name: string, obj: any): boolean;
-    (name: string): (obj: any) => boolean;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+};
+export function propIs<C extends new (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
 
 /**
@@ -1637,9 +1645,15 @@ export function props<P extends string, T>(ps: readonly P[]): (obj: Record<P, T>
 /**
  * Returns true if the specified object property satisfies the given predicate; false otherwise.
  */
-export function propSatisfies<T, U>(pred: (val: T) => boolean, name: string, obj: U): boolean;
-export function propSatisfies<T, U>(pred: (val: T) => boolean, name: string): (obj: U) => boolean;
-export function propSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: string, b: U) => boolean>;
+export function propSatisfies<P, K extends keyof any>(pred: (val: any) => val is P, name: K, obj: any): obj is Record<K, P>;
+export function propSatisfies<P, K extends keyof any>(pred: (val: any) => val is P, name: K): (obj: any) => obj is Record<K, P>;
+export function propSatisfies<P>(pred: (val: any) => val is P): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, P>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, P>;
+};
+export function propSatisfies(pred: (val: any) => boolean, name: keyof any, obj: any): boolean;
+export function propSatisfies(pred: (val: any) => boolean, name: keyof any): (obj: any) => boolean;
+export function propSatisfies(pred: (val: any) => boolean): _.F.Curry<(a: keyof any, b: any) => boolean>;
 
 /**
  * Returns a list of numbers from `from` (inclusive) to `to`

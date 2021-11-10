@@ -9,6 +9,12 @@
 
 declare namespace SemanticRelease {
     /**
+     * A semver release type.
+     * See https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-types.js
+     */
+    type ReleaseType = "prerelease" | "prepatch" | "patch" | "preminor" | "minor" | "premajor" | "major";
+
+    /**
      * semantic-release options.
      *
      * Can be used to set any core option or plugin options.
@@ -363,7 +369,32 @@ declare namespace SemanticRelease {
         /**
          * The semver type of the release.
          */
-        type: "patch" | "minor" | "major";
+        type: ReleaseType;
+
+        /**
+         * The release channel of the release.
+         */
+        channel?: string | undefined;
+
+        /**
+         * The git hash of the release.
+         */
+        gitHead: string;
+
+        /**
+         * The version without v
+         */
+        version: string;
+
+        /**
+         * The version with v prefix
+         */
+        gitTag: string;
+
+        /**
+         * The release name
+         */
+        name?: string;
 
         /**
          * The release notes of the next release.
@@ -522,7 +553,7 @@ declare namespace SemanticRelease {
         /**
          * The semver type of the release.
          */
-        type: "patch" | "minor" | "major";
+        type: ReleaseType;
 
         /**
          * The version of the release.
