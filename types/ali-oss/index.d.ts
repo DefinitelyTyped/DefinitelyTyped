@@ -1140,7 +1140,12 @@ declare class OSS {
     /**
      * get postObject params.
      */
-    calculatePostSignature(policy: OSS.BucketPolicy | string): OSS.PostObjectParams;
+    calculatePostSignature(
+        /**
+         * policy config object or JSON string
+         */
+        policy: object | string
+    ): OSS.PostObjectParams;
 
     /************************************************ RTMP Operations *************************************************************/
     /**
