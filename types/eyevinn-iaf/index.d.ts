@@ -1,4 +1,4 @@
-// Type definitions for eyevinn-iaf 1.0
+// Type definitions for non-npm package eyevinn-iaf 1.0
 // Project: https://github.com/Eyevinn/ingest-application-framework
 // Definitions by: Eyevinn Technology <https://github.com/Eyevinn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
