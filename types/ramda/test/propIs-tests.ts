@@ -30,7 +30,10 @@ import * as R from 'ramda';
 };
 
 () => {
-  class Foo {}
+  // test classes that take parameters
+  class Foo {
+    constructor(arg: string) {};
+  }
 
   const obj = {};
 

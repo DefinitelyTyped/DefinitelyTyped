@@ -868,10 +868,10 @@ export function invoker(arity: number, method: string): (...a: readonly any[]) =
  * See if an object (`val`) is an instance of the supplied constructor.
  * This function will check up the inheritance chain, if any.
  */
-export function is<C extends () => any>(ctor: C, val: any): val is ReturnType<C>;
-export function is<C extends new () => any>(ctor: C, val: any): val is InstanceType<C>;
-export function is<C extends () => any>(ctor: C): (val: any) => val is ReturnType<C>;
-export function is<C extends new () => any>(ctor: C): (val: any) => val is InstanceType<C>;
+export function is<C extends (...args: any[]) => any>(ctor: C, val: any): val is ReturnType<C>;
+export function is<C extends new (...args: any[]) => any>(ctor: C, val: any): val is InstanceType<C>;
+export function is<C extends (...args: any[]) => any>(ctor: C): (val: any) => val is ReturnType<C>;
+export function is<C extends new (...args: any[]) => any>(ctor: C): (val: any) => val is InstanceType<C>;
 
 /**
  * Reports whether the list has zero elements.
@@ -1610,15 +1610,15 @@ export function propEq<K extends string | number>(name: K): {
 /**
  * Returns true if the specified object property is of the given type; false otherwise.
  */
-export function propIs<C extends () => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new () => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-export function propIs<C extends () => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-export function propIs<C extends new () => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-export function propIs<C extends () => any>(type: C): {
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
 };
-export function propIs<C extends new () => any>(type: C): {
+export function propIs<C extends new (...args: any[]) => any>(type: C): {
     <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
     <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
