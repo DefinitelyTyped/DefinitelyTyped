@@ -31,12 +31,9 @@ declare class sharedb extends EventEmitter {
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
     milestoneDb?: sharedb.MilestoneDB;
 
-    readonly projections: Readonly<{
-        [name: string]: {
-            readonly target: string;
-            readonly fields: Readonly<ProjectionFields>;
-        };
-    }>;
+    readonly projections: {
+        readonly [name: string]: ReadonlyProjection;
+    };
 
     constructor(options?: {
         db?: any,
@@ -261,13 +258,13 @@ declare namespace sharedb {
         interface QueryContext extends BaseContext {
             index: string;
             collection: string;
-            projection: Projection;
+            projection: ReadonlyProjection;
             fields: ProjectionFields;
             channel: string;
             query: any;
             options?: {[key: string]: any};
             db: DB | null;
-            snapshotProjection: Projection | null;
+            snapshotProjection: ReadonlyProjection | null;
         }
 
         interface ReadSnapshotsContext extends BaseContext {
@@ -292,9 +289,9 @@ declare namespace sharedb {
     }
 }
 
-interface Projection {
-    target: string;
-    fields: ProjectionFields;
+interface ReadonlyProjection {
+    readonly target: Readonly<string>;
+    readonly fields: Readonly<ProjectionFields>;
 }
 
 interface ProjectionFields {
@@ -303,7 +300,7 @@ interface ProjectionFields {
 
 interface SubmitRequest {
     index: string;
-    projection: Projection;
+    projection: ReadonlyProjection;
     collection: string;
     id: string;
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
