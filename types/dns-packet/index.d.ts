@@ -159,18 +159,55 @@ export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
 export type MxAnswer = BaseAnswer<"MX", MxData>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 
-export interface PacketOpt {
-    code: number;
-    type?: string | undefined;
+interface OptCodes {
+    "OPTION_0": 0;
+    "LLQ": 1;
+    "UL": 2;
+    "NSID": 3;
+    "OPTION_4": 4;
+    "DAU": 5;
+    "DHU": 6;
+    "N3U": 7;
+    "CLIENT_SUBNET": 8;
+    "EXPIRE": 9;
+    "COOKIE": 10;
+    "TCP_KEEPALIVE": 11;
+    "PADDING": 12;
+    "CHAIN": 13;
+    "KEY_TAG": 14;
+    "DEVICEID": 26946;
+    "OPTION_65535": 65535;
+}
+
+type OptCodeType = keyof OptCodes;
+type OptCode<K extends OptCodeType> = OptCodes[K];
+
+interface GenericOpt<T extends OptCodeType> {
+    code: OptCode<T>;
+    type?: T | undefined;
     data?: Buffer | undefined;
+}
+
+interface ClientSubnetOpt extends GenericOpt<"CLIENT_SUBNET"> {
     family?: number | undefined;
     sourcePrefixLength?: number | undefined;
     scopePrefixLength?: number | undefined;
-    ip?: string | undefined;
+    ip: string | undefined;
+}
+
+interface KeepAliveOpt extends GenericOpt<"TCP_KEEPALIVE"> {
     timeout?: number | undefined;
-    tags?: number[] | undefined;
+}
+
+interface PaddingOpt extends GenericOpt<"PADDING"> {
     length?: number | undefined;
 }
+
+interface TagOpt extends GenericOpt<"KEY_TAG"> {
+    tags: number[];
+}
+
+export type PacketOpt = ClientSubnetOpt | KeepAliveOpt | PaddingOpt | TagOpt;
 
 export interface OptAnswer extends GenericAnswer<"OPT"> {
     udpPayloadSize: number;
@@ -247,3 +284,5 @@ export function streamDecode(package: Buffer): Packet;
 export namespace streamDecode {
     let bytes: number;
 }
+
+export {};
