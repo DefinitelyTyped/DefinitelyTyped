@@ -189,3 +189,5 @@ const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unkno
 const filterMode: MicrosoftGraph.FilterMode = "include";
 
 const policyPlatformType: MicrosoftGraph.PolicyPlatformType = "androidForWork";
+
+const dataSubjectType: MicrosoftGraph.DataSubjectType = "teacher";
