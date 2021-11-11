@@ -48,7 +48,7 @@ export class FrisbySpec {
     inspectStatus(): FrisbySpec;
     patch(url: string, params?: {}): FrisbySpec;
     post(url: string, params?: {}): FrisbySpec;
-    promise(): Promise<nodeFetch.Response>;
+    promise(): Promise<FrisbyResponse>;
     put(url: string, params?: {}): FrisbySpec;
     setup(opts: {}, replace: boolean): FrisbySpec;
     then(onFulfilled: {} | ((...args: any[]) => void), onRejected?: (...args: any[]) => void): FrisbySpec;
@@ -56,6 +56,17 @@ export class FrisbySpec {
     use(fn: (...args: any[]) => void): FrisbySpec;
     static addExpectHandler(expectName: string, expectFn: (...args: any[]) => any): void;
     static removeExpectHandler(expectName: string): void;
+}
+// #endregion
+
+// #region Frisby FrisbyResponse
+declare class FrisbyResponse {
+    constructor(fetchResponse: nodeFetch.Response);
+    get status(): nodeFetch.Response["status"];
+    get body(): nodeFetch.Response["body"];
+    get headers(): nodeFetch.Response["headers"];
+    get json(): any;
+    get responseTime(): number;
 }
 // #endregion
 

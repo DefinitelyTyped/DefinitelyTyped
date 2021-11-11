@@ -13,3 +13,9 @@ frisby.get(URL + '/users/3.json')
 frisby.post(URL + '/users/3.json')
   .expect('status', 418)
   .done(() => {});
+
+frisby.get(URL + '/users/3.json')
+  .promise()
+  .then(response => {
+    response.json;
+  });
