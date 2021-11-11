@@ -27,7 +27,7 @@ export import Joi = require("joi");
 // - Update _FrisbySpec.then_ to allow _onRejected_ to be optional.
 // **************************************CHANGE LOG**************************************
 
-export class FrisbySpec {
+export class FrisbySpec<TResult = FrisbyResponse> { // TODO: type the argument of `then` with `TResult`
     constructor(...args: any[]);
     catch(onRejected?: (error: Error) => void): FrisbySpec;
     del(url: string, params?: {}): FrisbySpec;
