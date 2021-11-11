@@ -33,7 +33,7 @@ export interface DropdownProps<ItemType = string> extends
     onChange?(data: OnChangeData<ItemType>): void,
     selectedItem?: ItemType | null | undefined,
     size?: ListBoxProps["size"] | undefined,
-    titleText: NonNullable<React.ReactNode>,
+    titleText?: NonNullable<React.ReactNode>,
     type?: ListBoxProps["type"] | undefined,
     warn?: boolean | undefined,
     warnText?: React.ReactNode | undefined,
