@@ -35,8 +35,7 @@ export function getAllDepartments(): Department[];
 
 export function getDepartment(id: number): Department;
 
-// TODO
-export function getVisitorDefaultDepartment(): Department;
+export function getVisitorDefaultDepartment(): number | undefined;
 
 export function setVisitorDefaultDepartment(id: number, callback?: (err: Error) => void): void;
 
