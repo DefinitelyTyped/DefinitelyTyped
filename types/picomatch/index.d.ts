@@ -1,9 +1,9 @@
-// Type definitions for picomatch 2.2
+// Type definitions for picomatch 2.3
 // Project: https://github.com/micromatch/picomatch
 // Definitions by: Patrick <https://github.com/p-kuen>
 //                 Daniel Tschinder <https://github.com/danez>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
 
 import picomatch = require('./lib/picomatch');
 

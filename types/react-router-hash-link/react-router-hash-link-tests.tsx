@@ -61,3 +61,23 @@ const providedTimeout = {
 };
 
 <NavHashLink {...providedTimeout}/>;
+
+<NavHashLink
+  className="static"
+  style={isActive => ({ color: isActive ? 'green' : 'red' })}
+  to=""
+/>;
+
+<NavHashLink
+  className={isActive => (isActive ? 'active' : 'inactive')}
+  style={{ color: 'blue' }}
+  to=""
+/>;
+
+React.forwardRef<HTMLAnchorElement>((_, ref) =>
+  <HashLink ref={ref} to="/" />
+);
+
+React.forwardRef<HTMLAnchorElement>((_, ref) =>
+  <NavHashLink ref={ref} to="/" />
+);

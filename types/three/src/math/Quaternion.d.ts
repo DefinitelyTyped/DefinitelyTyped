@@ -172,4 +172,6 @@ export class Quaternion {
      * @deprecated Use {@link Quaternion#invert .invert()} instead.
      */
     inverse(): Quaternion;
+
+    random(): Quaternion;
 }

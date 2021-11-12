@@ -18,7 +18,6 @@ const CustomIcon = createIconSet(glyphMap, 'FontCustom', 'FontCustom.ttf');
 const CustomIconButton         = CustomIcon.Button;
 const CustomIconTabBarItem     = CustomIcon.TabBarItem;
 const CustomIconTabBarItemIOS  = CustomIcon.TabBarItemIOS;
-const CustomIconToolbarAndroid = CustomIcon.ToolbarAndroid;
 const CustomIcongetImageSource = CustomIcon.getImageSource;
 const CustomIcongetImageSourceSync = CustomIcon.getImageSourceSync;
 

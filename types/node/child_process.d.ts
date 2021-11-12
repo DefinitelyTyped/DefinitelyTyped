@@ -789,6 +789,7 @@ declare module 'child_process' {
     function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
     interface ExecOptions extends CommonOptions {
         shell?: string | undefined;
+        signal?: AbortSignal | undefined;
         maxBuffer?: number | undefined;
         killSignal?: NodeJS.Signals | number | undefined;
     }

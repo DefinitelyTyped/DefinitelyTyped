@@ -4,7 +4,7 @@ import {
     ReactElement,
     SyntheticEvent,
     ReactEventHandler,
-    StatelessComponent
+    FunctionComponent
 } from "react";
 import { Dispatch } from "redux";
 import { DataShape, FieldValue, FormErrors, FormWarnings, RegisteredFieldState, ComponentConstructor } from "../index";

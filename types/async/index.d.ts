@@ -302,7 +302,8 @@ export const allSeries: typeof every;
 export const allLimit: typeof everyLimit;
 
 export function concat<T, R, E = Error>(arr: IterableCollection<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback: AsyncResultArrayCallback<R, E>): void;
+export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>): Promise<R[]>;
 export const concatSeries: typeof concat;
 
 // Control Flow

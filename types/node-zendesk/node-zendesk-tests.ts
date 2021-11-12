@@ -99,6 +99,7 @@ client.tickets.create({ ticket: { comment: {
   uploads: [token]
 } } }, zendeskCallback);
 client.tickets.create({ ticket: { comment: {} } }).then(zendeskCallback);
+client.tickets.create({ ticket: { comment: {}, requester: { name: "" } } }).then(zendeskCallback);
 client.tickets.createMany({ tickets: [{ comment: {} }] }, zendeskCallback);
 client.tickets.createMany({ tickets: [{ comment: {} }] }).then(zendeskCallback);
 client.tickets.update(123, { ticket: {} }, zendeskCallback);

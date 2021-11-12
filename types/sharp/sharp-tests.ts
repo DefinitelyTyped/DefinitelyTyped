@@ -220,6 +220,15 @@ sharp(input)
         // when resolveWithObject is true
     });
 
+// Output to tif
+sharp(input)
+    .resize(100, 100)
+    .toFormat('tif')
+    .toFormat('tiff')
+    .toFormat(sharp.format.tif)
+    .toFormat(sharp.format.tiff)
+    .toBuffer();
+
 const stats = sharp.cache();
 
 sharp.cache({ items: 200 });
@@ -399,3 +408,6 @@ sharp(input)
 
         return newImg.toBuffer();
     });
+
+// Support for specifying a timeout
+sharp('someImage.png').timeout({ seconds: 30 }).resize(300, 300).toBuffer();

@@ -618,5 +618,5 @@ declare namespace __ReactMDL {
     }
     class Tooltip extends __MDLComponent<TooltipProps> { }
 
-    class MDLComponent extends React.Component<{ recursive?: boolean | undefined }> { }
+    class MDLComponent extends React.Component<{ children: React.ReactElement; recursive?: boolean | undefined }> { }
 }

@@ -16,6 +16,7 @@ type HammerOptionsWithRecognizers = Omit<HammerOptions, "recognizers"> & {
 
 declare namespace ReactHammer {
     interface ReactHammerProps {
+        children: React.ReactElement;
         direction?:
             | "DIRECTION_NONE"
             | "DIRECTION_LEFT"

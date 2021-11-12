@@ -955,7 +955,7 @@ declare namespace ReactReconciler {
             element: ReactNode,
             container: OpaqueRoot,
             parentComponent?: Component<any, any> | null,
-            callback?: () => void | null,
+            callback?: (() => void) | null,
         ): Lane;
 
         batchedEventUpdates<A, R>(fn: (a: A) => R, a: A): R;

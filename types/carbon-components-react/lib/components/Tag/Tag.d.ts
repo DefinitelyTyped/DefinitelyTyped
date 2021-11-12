@@ -12,7 +12,8 @@ export type TagTypeName =
     | "gray"
     | "cool-gray"
     | "warm-gray"
-    | "high-contrast";
+    | "high-contrast"
+    | "outline";
 
 export declare const types: TagTypeName[];
 

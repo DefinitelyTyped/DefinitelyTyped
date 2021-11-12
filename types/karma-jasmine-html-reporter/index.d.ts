@@ -1,8 +1,7 @@
-// Type definitions for karma-jasmine-html-reporter 1.5
+// Type definitions for karma-jasmine-html-reporter 1.7
 // Project: https://github.com/dfederm/karma-jasmine-html-reporter#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 
 import 'karma';
 
