@@ -299,6 +299,7 @@ declare namespace GoogleAppsScript {
      */
     interface Element {
       asBody(): Body;
+      asDate(): Date;
       asEquation(): Equation;
       asEquationFunction(): EquationFunction;
       asEquationFunctionArgumentSeparator(): EquationFunctionArgumentSeparator;
@@ -313,6 +314,8 @@ declare namespace GoogleAppsScript {
       asListItem(): ListItem;
       asPageBreak(): PageBreak;
       asParagraph(): Paragraph;
+      asPerson(): Person;
+      asRichLink(): RichLink;
       asTable(): Table;
       asTableCell(): TableCell;
       asTableOfContents(): TableOfContents;
@@ -340,7 +343,7 @@ declare namespace GoogleAppsScript {
      *       firstChild.asParagraph().setHeading(DocumentApp.ParagraphHeading.HEADING1);
      *     }
      */
-    enum ElementType { BODY_SECTION, COMMENT_SECTION, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
+    enum ElementType { BODY_SECTION, COMMENT_SECTION, DATE, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, PERSON, RICH_LINK, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
     /**
      * An element representing a mathematical expression. An Equation may contain EquationFunction, EquationSymbol, and Text elements. For more information on
      * document structure, see the guide to
@@ -1462,6 +1465,53 @@ declare namespace GoogleAppsScript {
      *     table.getCell(0, 2).setVerticalAlignment(DocumentApp.VerticalAlignment.BOTTOM);
      */
     enum VerticalAlignment { BOTTOM, CENTER, TOP }
+
+    interface Date extends Element {
+      copy(): Date;
+      getAttributes(): any;
+      getDisplayText(): string;
+      getLocale(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTimestamp(): Date;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Date;
+      removeFromParent(): Date;
+      setAttributes(attributes: any): Date;
+    }
+
+    interface Person extends Element {
+      copy(): Person;
+      getAttributes(): any;
+      getEmail(): string;
+      getName(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Person;
+      removeFromParent(): Person;
+      setAttributes(attributes: any): Person;
+    }
+
+    interface RichLink extends Element {
+      copy(): RichLink;
+      getAttributes(): any;
+      getMimeType(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTitle(): string;
+      getType(): ElementType;
+      getUrl(): string;
+      isAtDocumentEnd(): boolean;
+      merge(): RichLink;
+      removeFromParent(): RichLink;
+      setAttributes(attributes: any): RichLink;
+    }
   }
 }
 
