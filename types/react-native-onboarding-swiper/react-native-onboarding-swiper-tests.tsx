@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, StyleProp, TextStyle, View, ViewStyle } from 'react-native';
+import { Image, StyleProp, TextStyle, View, ViewStyle, TouchableOpacity } from 'react-native';
 import Onboarding, {
     DoneButtonProps,
     DotProps,
@@ -83,6 +83,7 @@ const Next: React.FC<NextButtonProps> = ({ isLight, ...props }) => (
 
 const App = () => {
     const onboardingRef = React.useRef<Onboarding>(null);
+    const next = () => onboardingRef.current?.goNext();
     return (
         <Onboarding
             ref={onboardingRef}
@@ -100,7 +101,11 @@ const App = () => {
             pages={[
                 {
                     backgroundColor: '#fff',
-                    image: <Image source={require('./images/circle.png')} />,
+                    image: (
+                        <TouchableOpacity onPress={next}>
+                            <Image source={require('./images/circle.png')} />
+                        </TouchableOpacity>
+                    ),
                     title: 'Onboarding',
                     subtitle: 'Done with React Native Onboarding Swiper',
                     titleStyles: { color: 'red' }, // overwrite default color
