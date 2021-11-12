@@ -48,7 +48,7 @@ export class FrisbySpec<TResult = FrisbyResponse> {
     inspectStatus(): FrisbySpec;
     patch(url: string, params?: {}): FrisbySpec;
     post(url: string, params?: {}): FrisbySpec;
-    promise(): Promise<FrisbyResponse>;
+    promise(): Promise<TResult>;
     put(url: string, params?: {}): FrisbySpec;
     setup(opts: {}, replace: boolean): FrisbySpec;
     then<T>(onFulfilled: FrisbySpec<T>): FrisbySpec<T>;

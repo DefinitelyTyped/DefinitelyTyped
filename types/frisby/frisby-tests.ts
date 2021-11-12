@@ -24,6 +24,15 @@ frisby.get(URL + '/users/3.json')
   .then(response => {
     return response.responseTime;
   })
+  .promise()
+  .then(responseTime => {
+    const time: number = responseTime;
+  });
+
+frisby.get(URL + '/users/3.json')
+  .then(response => {
+    return response.responseTime;
+  })
   .then(responseTime => {
     const time: number = responseTime;
   })
