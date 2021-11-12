@@ -220,4 +220,5 @@ export interface Props {
 
 export default class Onboarding extends Component<Props> {
     flatList?: FlatList;
+    goNext: () => void;
 }
