@@ -1,6 +1,7 @@
 // Type definitions for non-npm package eyevinn-iaf 1.0
 // Project: https://github.com/Eyevinn/ingest-application-framework
-// Definitions by: Eyevinn Technology <https://github.com/Eyevinn>
+// Definitions by: Jonas Birmé <https://github.com/birme>
+//                 Oscar Nord <https://github.com/oscnord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
