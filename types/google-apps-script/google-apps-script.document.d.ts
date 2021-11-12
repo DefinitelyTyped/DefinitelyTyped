@@ -166,6 +166,24 @@ declare namespace GoogleAppsScript {
       setTextAlignment(textAlignment: TextAlignment): ContainerElement;
     }
     /**
+     * An element representing a formatted date.
+     */
+    interface Date extends Element {
+      copy(): Date;
+      getAttributes(): any;
+      getDisplayText(): string;
+      getLocale(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTimestamp(): Date;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Date;
+      removeFromParent(): Date;
+      setAttributes(attributes: any): Date;
+    }
+    /**
      * A document, containing rich text and elements such as tables and lists.
      *
      * Documents may be opened or created using DocumentApp.
@@ -998,6 +1016,25 @@ declare namespace GoogleAppsScript {
      */
     enum ParagraphHeading { NORMAL, HEADING1, HEADING2, HEADING3, HEADING4, HEADING5, HEADING6, TITLE, SUBTITLE }
     /**
+     * An element representing a link to a person. A person link refers to an email address and might
+     * optionally have a name associated with the address. If the name is set, the name is what is
+     * displayed in the document body.
+     */
+    interface Person extends Element {
+      copy(): Person;
+      getAttributes(): any;
+      getEmail(): string;
+      getName(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Person;
+      removeFromParent(): Person;
+      setAttributes(attributes: any): Person;
+    }
+    /**
      * A reference to a location in the document, relative to a specific element. The user's cursor is
      * represented as a Position, among other uses. Scripts can only access the cursor of the
      * user who is running the script, and only if the script is bound to the document.
@@ -1129,6 +1166,24 @@ declare namespace GoogleAppsScript {
       getEndOffsetInclusive(): Integer;
       getStartOffset(): Integer;
       isPartial(): boolean;
+    }
+    /**
+     * An element representing a link to a Google resource, such as a Drive file or a YouTube video.
+     */
+    interface RichLink extends Element {
+      copy(): RichLink;
+      getAttributes(): any;
+      getMimeType(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTitle(): string;
+      getType(): ElementType;
+      getUrl(): string;
+      isAtDocumentEnd(): boolean;
+      merge(): RichLink;
+      removeFromParent(): RichLink;
+      setAttributes(attributes: any): RichLink;
     }
     /**
      * An element representing a table. A Table may only contain TableRow elements. For
@@ -1465,53 +1520,6 @@ declare namespace GoogleAppsScript {
      *     table.getCell(0, 2).setVerticalAlignment(DocumentApp.VerticalAlignment.BOTTOM);
      */
     enum VerticalAlignment { BOTTOM, CENTER, TOP }
-
-    interface Date extends Element {
-      copy(): Date;
-      getAttributes(): any;
-      getDisplayText(): string;
-      getLocale(): string;
-      getNextSibling(): Element;
-      getParent(): ContainerElement;
-      getPreviousSibling(): Element;
-      getTimestamp(): Date;
-      getType(): ElementType;
-      isAtDocumentEnd(): boolean;
-      merge(): Date;
-      removeFromParent(): Date;
-      setAttributes(attributes: any): Date;
-    }
-
-    interface Person extends Element {
-      copy(): Person;
-      getAttributes(): any;
-      getEmail(): string;
-      getName(): string;
-      getNextSibling(): Element;
-      getParent(): ContainerElement;
-      getPreviousSibling(): Element;
-      getType(): ElementType;
-      isAtDocumentEnd(): boolean;
-      merge(): Person;
-      removeFromParent(): Person;
-      setAttributes(attributes: any): Person;
-    }
-
-    interface RichLink extends Element {
-      copy(): RichLink;
-      getAttributes(): any;
-      getMimeType(): string;
-      getNextSibling(): Element;
-      getParent(): ContainerElement;
-      getPreviousSibling(): Element;
-      getTitle(): string;
-      getType(): ElementType;
-      getUrl(): string;
-      isAtDocumentEnd(): boolean;
-      merge(): RichLink;
-      removeFromParent(): RichLink;
-      setAttributes(attributes: any): RichLink;
-    }
   }
 }
 
