@@ -24,7 +24,7 @@ import { Action } from '@wordpress/data';
  * }
  * ```
  */
-export function apiFetch(options: APIFetchOptions): void;
+export function apiFetch(options: APIFetchOptions): unknown;
 
 /**
  * What you use to register the controls with your custom store.
