@@ -11,11 +11,22 @@ import { ApplePay, ApplePaySession, ApplePayStatusCodes, ApplePayPayload } from 
 import { Client, CreditCardInfo } from './modules/client';
 import { DataCollector } from './modules/data-collector';
 import { GooglePayment, GooglePaymentTokenizePayload } from './modules/google-payment';
-import { HostedFields, HostedFieldFieldOptions, HostedFieldsTokenizePayload, HostedFieldsStateObject } from './modules/hosted-fields';
+import {
+    HostedFields,
+    HostedFieldFieldOptions,
+    HostedFieldsTokenizePayload,
+    HostedFieldsEvent,
+    HostedFieldsStateObject,
+} from './modules/hosted-fields';
 import { PayPal, PayPalTokenizePayload } from './modules/paypal';
 import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions } from './modules/paypal-checkout';
 import { ThreeDSecure, ThreeDSecureVerifyPayload } from './modules/three-d-secure';
-import { UnionPay, UnionPayFetchCapabilitiesPayload, UnionPayEnrollPayload, UnionPayTokenizePayload } from './modules/unionpay';
+import {
+    UnionPay,
+    UnionPayFetchCapabilitiesPayload,
+    UnionPayEnrollPayload,
+    UnionPayTokenizePayload,
+} from './modules/unionpay';
 import { USBankAccount } from './modules/us-bank-account';
 import { VaultManager, FetchPaymentMethodsPayload } from './modules/vault-manager';
 import { Venmo, VenmoTokenizePayload } from './modules/venmo';
@@ -35,20 +46,39 @@ export const vaultManager: typeof VaultManager;
 export const venmo: Venmo;
 
 export {
-  VERSION, BraintreeError, callback,
-  AmericanExpress,
-  ApplePay, ApplePaySession, ApplePayStatusCodes, ApplePayPayload,
-  Client, CreditCardInfo,
-  DataCollector,
-  GooglePayment, GooglePaymentTokenizePayload,
-  HostedFields, HostedFieldFieldOptions, HostedFieldsTokenizePayload, HostedFieldsStateObject,
-  PayPal, PayPalTokenizePayload,
-  PayPalCheckout, PayPalCheckoutCreatePaymentOptions,
-  ThreeDSecure, ThreeDSecureVerifyPayload,
-  UnionPay, UnionPayFetchCapabilitiesPayload, UnionPayEnrollPayload, UnionPayTokenizePayload,
-  USBankAccount,
-  VaultManager, FetchPaymentMethodsPayload,
-  Venmo, VenmoTokenizePayload
+    VERSION,
+    BraintreeError,
+    callback,
+    AmericanExpress,
+    ApplePay,
+    ApplePaySession,
+    ApplePayStatusCodes,
+    ApplePayPayload,
+    Client,
+    CreditCardInfo,
+    DataCollector,
+    GooglePayment,
+    GooglePaymentTokenizePayload,
+    HostedFields,
+    HostedFieldFieldOptions,
+    HostedFieldsTokenizePayload,
+    HostedFieldsEvent,
+    HostedFieldsStateObject,
+    PayPal,
+    PayPalTokenizePayload,
+    PayPalCheckout,
+    PayPalCheckoutCreatePaymentOptions,
+    ThreeDSecure,
+    ThreeDSecureVerifyPayload,
+    UnionPay,
+    UnionPayFetchCapabilitiesPayload,
+    UnionPayEnrollPayload,
+    UnionPayTokenizePayload,
+    USBankAccount,
+    VaultManager,
+    FetchPaymentMethodsPayload,
+    Venmo,
+    VenmoTokenizePayload,
 };
 
 export as namespace braintree;
