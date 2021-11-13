@@ -40,7 +40,7 @@ export interface BenchResultsType extends ComputedResult {
 
 export interface BenchmarkProps {
     component: ComponentType<any>;
-    componentProps?: any;
+    componentProps?: Record<string, unknown>;
     /** Default is `false`. */
     includeLayout?: boolean;
     onComplete: (res: BenchResultsType) => void;
