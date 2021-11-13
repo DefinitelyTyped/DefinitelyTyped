@@ -16,8 +16,10 @@ import Expand from 'react-expand-animated';
     <div />
 </Expand>;
 
-// $ExpectError
-<Expand transitions={['not-a-css-prop']}>
+<Expand
+    // $ExpectError
+    transitions={['not-a-css-prop']}
+>
     <div />
 </Expand>;
 
@@ -37,6 +39,13 @@ import Expand from 'react-expand-animated';
         // $ExpectError
         close: { notACssProp: 100 },
     }}
+>
+    <div />
+</Expand>;
+
+<Expand
+    // $ExpectError
+    tag="notATag"
 >
     <div />
 </Expand>;

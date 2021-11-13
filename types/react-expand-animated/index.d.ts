@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
+import * as CSS from 'csstype';
 
 export interface ExpandProps {
     /**
@@ -24,7 +25,7 @@ export interface ExpandProps {
     /**
      * Css3 Animation's type
      */
-    easing?: string;
+    easing?: CSS.Property.TransitionTimingFunction;
 
     /**
      * Wrapper's className
@@ -34,7 +35,7 @@ export interface ExpandProps {
     /**
      * Wrapper's tag
      */
-    tag?: string;
+    tag?: React.ElementType;
 
     /**
      * Transition attributes
