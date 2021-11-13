@@ -123,7 +123,7 @@ export interface ThreeDSecure {
             version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
             client?: Client | undefined;
         },
-        callback: callback,
+        callback: callback<ThreeDSecure>,
     ): void;
 
     /**
@@ -176,7 +176,7 @@ export interface ThreeDSecure {
      * });
      */
     verifyCard(options: ThreeDSecureVerifyOptions): Promise<ThreeDSecureVerifyPayload>;
-    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback): void;
+    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback<ThreeDSecureVerifyPayload>): void;
 
     /**
      * Cancel the 3DS flow and return the verification payload if available.     * @example
@@ -211,7 +211,7 @@ export interface ThreeDSecure {
      * });
      */
     prepareLookup(options: { nonce: string; bin: string }): Promise<string>;
-    prepareLookup(options: { nonce: string; bin: string }, callback: callback): void;
+    prepareLookup(options: { nonce: string; bin: string }, callback: callback<string>): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}
