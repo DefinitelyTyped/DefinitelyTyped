@@ -80,7 +80,9 @@ const topLogger: Modifier<'topLogger'> = {
     minTime={new Date()}
     monthsShown={1}
     name=""
+    nextMonthAriaLabel=""
     nextMonthButtonLabel=""
+    nextYearAriaLabel=""
     nextYearButtonLabel=""
     onBlur={event => null}
     onCalendarClose={() => null}
@@ -123,7 +125,9 @@ const topLogger: Modifier<'topLogger'> = {
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
+    previousMonthAriaLabel=""
     previousMonthButtonLabel=""
+    previousYearAriaLabel=""
     previousYearButtonLabel=""
     readOnly
     ref={handleRef}
