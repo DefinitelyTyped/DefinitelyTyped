@@ -9,9 +9,12 @@ import { Plugin, OutputBundle } from 'rollup';
 declare namespace css {
     interface Options {
         /**
-         *  All CSS files will be parsed by default, but you can also specifically include/exclude files
+         *  All CSS files will be parsed by default, but you can also specifically include files
          */
         include?: ReadonlyArray<string | RegExp> | string | RegExp | null;
+        /**
+         *  CSS files to exclude from being parsed
+         */
         exclude?: ReadonlyArray<string | RegExp> | string | RegExp | null;
         /**
          * Callback that will be called ongenerate
