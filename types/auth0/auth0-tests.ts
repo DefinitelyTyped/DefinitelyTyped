@@ -1401,6 +1401,27 @@ management.organizations
     });
 
 /**
+ * Get Organization Invitations with pagination and totals using a callback
+ */
+management.organizations.getInvitations(
+    { id: 'organization_id', per_page: 2, page: 1, include_totals: true },
+    (err, pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
+    },
+);
+
+/**
+ * Get Organization Invitations with pagination and totals returning a Promise
+ */
+management.organizations
+    .getInvitations({ id: 'organization_id', per_page: 2, page: 1, include_totals: true })
+    .then((pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
+    });
+
+/**
  * Get Organization Invitations with properties using a callback
  */
 management.organizations.getInvitations(
