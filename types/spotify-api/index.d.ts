@@ -808,6 +808,10 @@ declare namespace SpotifyApi {
          * The tracks of the album.
          */
         tracks: PagingObject<TrackObjectSimplified>;
+        /**
+         * The number of tracks in the album.
+         */
+        total_tracks: number;
     }
 
     /**

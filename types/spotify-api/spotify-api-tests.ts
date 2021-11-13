@@ -340,6 +340,7 @@ const playingNowTrack : SpotifyApi.CurrentlyPlayingResponse = {
  */
 const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
   "album_type" : "album",
+  "total_tracks": 10,
   "artists" : [ {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/artist/2BTZIqw0ntH9MvilQ3ewNY"
@@ -731,6 +732,7 @@ const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
 const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
   "albums" : [ {
     "album_type" : "album",
+    "total_tracks": 10,
     "artists" : [ {
       "external_urls" : {
         "spotify" : "https://open.spotify.com/artist/53A0W3U0s8diEn9RhXQhVz"
@@ -1739,6 +1741,7 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
     "uri" : "spotify:album:41MnTivkwTO3UUJ8DrqEJJ"
   }, {
     "album_type" : "album",
+    "total_tracks": 10,
     "artists" : [ {
       "external_urls" : {
         "spotify" : "https://open.spotify.com/artist/53A0W3U0s8diEn9RhXQhVz"
@@ -2247,6 +2250,7 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
     "uri" : "spotify:album:6JWc4iAiJ9FjyK0B59ABb4"
   }, {
     "album_type" : "album",
+    "total_tracks": 10,
     "artists" : [ {
       "external_urls" : {
         "spotify" : "https://open.spotify.com/artist/53A0W3U0s8diEn9RhXQhVz"
@@ -5602,6 +5606,7 @@ const usersSavedAlbums : SpotifyApi.UsersSavedAlbumsResponse = {
     "added_at" : "2015-11-26T19:13:31Z",
     "album" : {
       "album_type" : "album",
+      "total_tracks": 10,
       "artists" : [ {
         "external_urls" : {
           "spotify" : "https://open.spotify.com/artist/58RMTlPJKbmpmVk1AmRK3h"
