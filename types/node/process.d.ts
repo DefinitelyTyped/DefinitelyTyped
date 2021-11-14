@@ -87,12 +87,13 @@ declare module 'process' {
                 | 'SIGBREAK'
                 | 'SIGLOST'
                 | 'SIGINFO';
+            type UncaughtExceptionOrigin = 'uncaughtException' | 'unhandledRejection';
             type MultipleResolveType = 'resolve' | 'reject';
             type BeforeExitListener = (code: number) => void;
             type DisconnectListener = () => void;
             type ExitListener = (code: number) => void;
             type RejectionHandledListener = (promise: Promise<unknown>) => void;
-            type UncaughtExceptionListener = (error: Error) => void;
+            type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
             type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: unknown, sendHandle: unknown) => void;
@@ -244,7 +245,9 @@ declare module 'process' {
                  * For example, to copy `process.stdin` to `process.stdout`:
                  *
                  * ```js
-                 * process.stdin.pipe(process.stdout);
+                 * import { stdin, stdout } from 'process';
+                 *
+                 * stdin.pipe(stdout);
                  * ```
                  *
                  * `process.stdout` differs from other Node.js streams in important ways. See `note on process I/O` for more information.
@@ -289,8 +292,10 @@ declare module 'process' {
                  * For example, assuming the following script for `process-args.js`:
                  *
                  * ```js
+                 * import { argv } from 'process';
+                 *
                  * // print process.argv
-                 * process.argv.forEach((val, index) => {
+                 * argv.forEach((val, index) => {
                  *   console.log(`${index}: ${val}`);
                  * });
                  * ```
@@ -379,10 +384,12 @@ declare module 'process' {
                  * the specified `directory` does not exist).
                  *
                  * ```js
-                 * console.log(`Starting directory: ${process.cwd()}`);
+                 * import { chdir, cwd } from 'process';
+                 *
+                 * console.log(`Starting directory: ${cwd()}`);
                  * try {
-                 *   process.chdir('/tmp');
-                 *   console.log(`New directory: ${process.cwd()}`);
+                 *   chdir('/tmp');
+                 *   console.log(`New directory: ${cwd()}`);
                  * } catch (err) {
                  *   console.error(`chdir: ${err}`);
                  * }
@@ -397,7 +404,9 @@ declare module 'process' {
                  * process.
                  *
                  * ```js
-                 * console.log(`Current directory: ${process.cwd()}`);
+                 * import { cwd } from 'process';
+                 *
+                 * console.log(`Current directory: ${cwd()}`);
                  * ```
                  * @since v0.1.8
                  */
@@ -406,6 +415,8 @@ declare module 'process' {
                  * The port used by the Node.js debugger when enabled.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * process.debugPort = 5858;
                  * ```
                  * @since v0.7.2
@@ -416,8 +427,10 @@ declare module 'process' {
                  * specific process warnings. These can be listened for by adding a handler to the `'warning'` event.
                  *
                  * ```js
+                 * import { emitWarning } from 'process';
+                 *
                  * // Emit a warning with a code and additional detail.
-                 * process.emitWarning('Something happened!', {
+                 * emitWarning('Something happened!', {
                  *   code: 'MY_WARNING',
                  *   detail: 'This is some additional information'
                  * });
@@ -429,6 +442,8 @@ declare module 'process' {
                  * In this example, an `Error` object is generated internally by`process.emitWarning()` and passed through to the `'warning'` handler.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * process.on('warning', (warning) => {
                  *   console.warn(warning.name);    // 'Warning'
                  *   console.warn(warning.message); // 'Something happened!'
@@ -479,8 +494,10 @@ declare module 'process' {
                  * While the following will:
                  *
                  * ```js
-                 * process.env.foo = 'bar';
-                 * console.log(process.env.foo);
+                 * import { env } from 'process';
+                 *
+                 * env.foo = 'bar';
+                 * console.log(env.foo);
                  * ```
                  *
                  * Assigning a property on `process.env` will implicitly convert the value
@@ -488,28 +505,34 @@ declare module 'process' {
                  * throw an error when the value is not a string, number, or boolean.
                  *
                  * ```js
-                 * process.env.test = null;
-                 * console.log(process.env.test);
+                 * import { env } from 'process';
+                 *
+                 * env.test = null;
+                 * console.log(env.test);
                  * // => 'null'
-                 * process.env.test = undefined;
-                 * console.log(process.env.test);
+                 * env.test = undefined;
+                 * console.log(env.test);
                  * // => 'undefined'
                  * ```
                  *
                  * Use `delete` to delete a property from `process.env`.
                  *
                  * ```js
-                 * process.env.TEST = 1;
-                 * delete process.env.TEST;
-                 * console.log(process.env.TEST);
+                 * import { env } from 'process';
+                 *
+                 * env.TEST = 1;
+                 * delete env.TEST;
+                 * console.log(env.TEST);
                  * // => undefined
                  * ```
                  *
                  * On Windows operating systems, environment variables are case-insensitive.
                  *
                  * ```js
-                 * process.env.TEST = 1;
-                 * console.log(process.env.test);
+                 * import { env } from 'process';
+                 *
+                 * env.TEST = 1;
+                 * console.log(env.test);
                  * // => 1
                  * ```
                  *
@@ -532,7 +555,9 @@ declare module 'process' {
                  * To exit with a 'failure' code:
                  *
                  * ```js
-                 * process.exit(1);
+                 * import { exit } from 'process';
+                 *
+                 * exit(1);
                  * ```
                  *
                  * The shell that executed Node.js should see the exit code as `1`.
@@ -549,10 +574,12 @@ declare module 'process' {
                  * truncated and lost:
                  *
                  * ```js
+                 * import { exit } from 'process';
+                 *
                  * // This is an example of what *not* to do:
                  * if (someConditionNotMet()) {
                  *   printUsageToStdout();
-                 *   process.exit(1);
+                 *   exit(1);
                  * }
                  * ```
                  *
@@ -564,6 +591,8 @@ declare module 'process' {
                  * scheduling any additional work for the event loop:
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * // How to properly set the exit code while letting
                  * // the process exit gracefully.
                  * if (someConditionNotMet()) {
@@ -579,7 +608,7 @@ declare module 'process' {
                  * In `Worker` threads, this function stops the current thread rather
                  * than the current process.
                  * @since v0.1.13
-                 * @param code The exit code.
+                 * @param [code=0] The exit code.
                  */
                 exit(code?: number): never;
                 /**
@@ -597,6 +626,8 @@ declare module 'process' {
                  * process. (See [`getgid(2)`](http://man7.org/linux/man-pages/man2/getgid.2.html).)
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
                  * }
@@ -608,12 +639,14 @@ declare module 'process' {
                  */
                 getgid(): number;
                 /**
-                 * The `process.setgid()` method sets the group identity of the process. (See[`setgid(2)`](http://man7.org/linux/man-pages/man2/setgid.2.html).) The `id` can be passed as either a
+                 * The `process.setgid()` method sets the group identity of the process. (See [`setgid(2)`](http://man7.org/linux/man-pages/man2/setgid.2.html).) The `id` can be passed as either a
                  * numeric ID or a group name
                  * string. If a group name is specified, this method blocks while resolving the
                  * associated numeric ID.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getgid &#x26;&#x26; process.setgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
                  *   try {
@@ -637,6 +670,8 @@ declare module 'process' {
                  * (See [`getuid(2)`](http://man7.org/linux/man-pages/man2/getuid.2.html).)
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
                  * }
@@ -648,12 +683,14 @@ declare module 'process' {
                  */
                 getuid(): number;
                 /**
-                 * The `process.setuid(id)` method sets the user identity of the process. (See[`setuid(2)`](http://man7.org/linux/man-pages/man2/setuid.2.html).) The `id` can be passed as either a
+                 * The `process.setuid(id)` method sets the user identity of the process. (See [`setuid(2)`](http://man7.org/linux/man-pages/man2/setuid.2.html).) The `id` can be passed as either a
                  * numeric ID or a username string.
                  * If a username is specified, the method blocks while resolving the associated
                  * numeric ID.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getuid &#x26;&#x26; process.setuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
                  *   try {
@@ -676,6 +713,8 @@ declare module 'process' {
                  * the process. (See [`geteuid(2)`](http://man7.org/linux/man-pages/man2/geteuid.2.html).)
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.geteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
                  * }
@@ -693,6 +732,8 @@ declare module 'process' {
                  * associated numeric ID.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.geteuid &#x26;&#x26; process.seteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
                  *   try {
@@ -716,6 +757,8 @@ declare module 'process' {
                  * of the Node.js process. (See [`getegid(2)`](http://man7.org/linux/man-pages/man2/getegid.2.html).)
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
                  * }
@@ -733,6 +776,8 @@ declare module 'process' {
                  * the associated a numeric ID.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getegid &#x26;&#x26; process.setegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
                  *   try {
@@ -757,6 +802,8 @@ declare module 'process' {
                  * Node.js ensures it always is.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getgroups) {
                  *   console.log(process.getgroups()); // [ 16, 21, 297 ]
                  * }
@@ -775,6 +822,8 @@ declare module 'process' {
                  * The `groups` array can contain numeric group IDs, group names, or both.
                  *
                  * ```js
+                 * import process from 'process';
+                 *
                  * if (process.getgroups &#x26;&#x26; process.setgroups) {
                  *   try {
                  *     process.setgroups([501]);
@@ -819,7 +868,9 @@ declare module 'process' {
                  * The `process.version` property contains the Node.js version string.
                  *
                  * ```js
-                 * console.log(`Version: ${process.version}`);
+                 * import { version } from 'process';
+                 *
+                 * console.log(`Version: ${version}`);
                  * // Version: v14.8.0
                  * ```
                  *
@@ -834,7 +885,9 @@ declare module 'process' {
                  * to load modules that were compiled against a different module ABI version.
                  *
                  * ```js
-                 * console.log(process.versions);
+                 * import { versions } from 'process';
+                 *
+                 * console.log(versions);
                  * ```
                  *
                  * Will generate an object similar to:
@@ -919,6 +972,8 @@ declare module 'process' {
                  * other than kill the target process.
                  *
                  * ```js
+                 * import process, { kill } from 'process';
+                 *
                  * process.on('SIGHUP', () => {
                  *   console.log('Got SIGHUP signal.');
                  * });
@@ -928,21 +983,23 @@ declare module 'process' {
                  *   process.exit(0);
                  * }, 100);
                  *
-                 * process.kill(process.pid, 'SIGHUP');
+                 * kill(process.pid, 'SIGHUP');
                  * ```
                  *
                  * When `SIGUSR1` is received by a Node.js process, Node.js will start the
                  * debugger. See `Signal Events`.
                  * @since v0.0.6
                  * @param pid A process ID
-                 * @param signal The signal to send, either as a string or number.
+                 * @param [signal='SIGTERM'] The signal to send, either as a string or number.
                  */
                 kill(pid: number, signal?: string | number): true;
                 /**
                  * The `process.pid` property returns the PID of the process.
                  *
                  * ```js
-                 * console.log(`This process is pid ${process.pid}`);
+                 * import { pid } from 'process';
+                 *
+                 * console.log(`This process is pid ${pid}`);
                  * ```
                  * @since v0.1.15
                  */
@@ -952,7 +1009,9 @@ declare module 'process' {
                  * current process.
                  *
                  * ```js
-                 * console.log(`The parent process is pid ${process.ppid}`);
+                 * import { ppid } from 'process';
+                 *
+                 * console.log(`The parent process is pid ${ppid}`);
                  * ```
                  * @since v9.2.0, v8.10.0, v6.13.0
                  */
@@ -980,7 +1039,9 @@ declare module 'process' {
                  * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'s390'`, `'s390x'`, `'x32'`, and `'x64'`.
                  *
                  * ```js
-                 * console.log(`This processor architecture is ${process.arch}`);
+                 * import { arch } from 'process';
+                 *
+                 * console.log(`This processor architecture is ${arch}`);
                  * ```
                  * @since v0.5.0
                  */
@@ -1000,11 +1061,13 @@ declare module 'process' {
                  * * `'win32'`
                  *
                  * ```js
-                 * console.log(`This platform is ${process.platform}`);
+                 * import { platform } from 'process';
+                 *
+                 * console.log(`This platform is ${platform}`);
                  * ```
                  *
                  * The value `'android'` may also be returned if the Node.js is built on the
-                 * Android operating system. However, Android support in Node.js[is experimental](https://github.com/nodejs/node/blob/HEAD/BUILDING.md#androidandroid-based-devices-eg-firefox-os).
+                 * Android operating system. However, Android support in Node.js [is experimental](https://github.com/nodejs/node/blob/HEAD/BUILDING.md#androidandroid-based-devices-eg-firefox-os).
                  * @since v0.1.16
                  */
                 readonly platform: Platform;
@@ -1032,14 +1095,16 @@ declare module 'process' {
                  * argument to the function, to get a diff reading.
                  *
                  * ```js
-                 * const startUsage = process.cpuUsage();
+                 * import { cpuUsage } from 'process';
+                 *
+                 * const startUsage = cpuUsage();
                  * // { user: 38579, system: 6986 }
                  *
                  * // spin the CPU for 500 milliseconds
                  * const now = Date.now();
                  * while (Date.now() - now < 500);
                  *
-                 * console.log(process.cpuUsage(startUsage));
+                 * console.log(cpuUsage(startUsage));
                  * // { user: 514883, system: 11226 }
                  * ```
                  * @since v6.1.0
@@ -1054,8 +1119,10 @@ declare module 'process' {
                  * See the [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#process-nexttick) guide for more background.
                  *
                  * ```js
+                 * import { nextTick } from 'process';
+                 *
                  * console.log('start');
-                 * process.nextTick(() => {
+                 * nextTick(() => {
                  *   console.log('nextTick callback');
                  * });
                  * console.log('scheduled');
@@ -1070,10 +1137,12 @@ declare module 'process' {
                  * I/O has occurred:
                  *
                  * ```js
+                 * import { nextTick } from 'process';
+                 *
                  * function MyThing(options) {
                  *   this.setupOptions(options);
                  *
-                 *   process.nextTick(() => {
+                 *   nextTick(() => {
                  *     this.startDoingStuff();
                  *   });
                  * }
@@ -1116,9 +1185,11 @@ declare module 'process' {
                  * The following approach is much better:
                  *
                  * ```js
+                 * import { nextTick } from 'process';
+                 *
                  * function definitelyAsync(arg, cb) {
                  *   if (arg) {
-                 *     process.nextTick(cb);
+                 *     nextTick(cb);
                  *     return;
                  *   }
                  *
@@ -1126,7 +1197,7 @@ declare module 'process' {
                  * }
                  * ```
                  * @since v0.1.26
-                 * @param ...args Additional arguments to pass when invoking the `callback`
+                 * @param args Additional arguments to pass when invoking the `callback`
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
@@ -1165,8 +1236,8 @@ declare module 'process' {
                  * `process.umask()` returns the Node.js process's file mode creation mask. Child
                  * processes inherit the mask from the parent process.
                  * @since v0.1.19
-                 * @deprecated Deprecated. Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a   *
-                 * potential security vulnerability. There is no safe, cross-platform alternative API.
+                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential   *
+                 * security vulnerability. There is no safe, cross-platform alternative API.
                  */
                 umask(): number;
                 /**
@@ -1246,7 +1317,9 @@ declare module 'process' {
                  * dashes:
                  *
                  * ```js
-                 * process.allowedNodeEnvironmentFlags.forEach((flag) => {
+                 * import { allowedNodeEnvironmentFlags } from 'process';
+                 *
+                 * allowedNodeEnvironmentFlags.forEach((flag) => {
                  *   // -r
                  *   // --inspect-brk
                  *   // --abort_on_uncaught_exception
@@ -1270,7 +1343,9 @@ declare module 'process' {
                 report?: ProcessReport | undefined;
                 /**
                  * ```js
-                 * console.log(process.resourceUsage());
+                 * import { resourceUsage } from 'process';
+                 *
+                 * console.log(resourceUsage());
                  * /*
                  *   Will output:
                  *   {

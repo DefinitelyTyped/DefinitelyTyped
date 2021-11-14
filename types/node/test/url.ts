@@ -1,3 +1,4 @@
+import { Blob } from 'node:buffer';
 import assert = require('node:assert');
 import { RequestOptions } from 'node:http';
 import * as url from 'node:url';
@@ -91,6 +92,10 @@ import * as url from 'node:url';
         assert.equal(me, searchParams);
     });
 
+    searchParams.forEach(function() {
+        this; // $ExpectType number
+    }, 1);
+
     assert.equal(searchParams.get('abc'), '123');
 
     searchParams.append('abc', 'xyz');
@@ -143,6 +148,11 @@ import * as url from 'node:url';
 }
 
 {
+    // $ExpectError
+    new url.URLSearchParams({ foobar: undefined });
+}
+
+{
     let path: string = url.fileURLToPath('file://test');
     path = url.fileURLToPath(new url.URL('file://test'));
 }
@@ -153,4 +163,7 @@ import * as url from 'node:url';
 
 {
     const opts: RequestOptions = url.urlToHttpOptions(new url.URL('test.com'));
+}
+{
+    const dataUrl: string = url.URL.createObjectURL(new Blob(['']));
 }

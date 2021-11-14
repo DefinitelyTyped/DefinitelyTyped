@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.96.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -425,6 +425,21 @@ declare module "sap/f/library" {
        */
       Top = "Top",
     }
+    /**
+     * @SINCE 1.96
+     *
+     * Different options for the alignment of the side indicators in the numeric header.
+     */
+    enum NumericHeaderSideIndicatorsAlignment {
+      /**
+       * Sets the alignment to the beginning (left or right depending on LTR/RTL).
+       */
+      Begin = "Begin",
+      /**
+       * Explicitly sets the alignment to the end (left or right depending on LTR/RTL).
+       */
+      End = "End",
+    }
   }
 
   export namespace dnd {
@@ -625,6 +640,31 @@ declare module "sap/f/AvatarGroup" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.AvatarGroup with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, AvatarGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.AvatarGroup.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -694,27 +734,6 @@ declare module "sap/f/AvatarGroup" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.AvatarGroup with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, AvatarGroup>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -758,10 +777,6 @@ declare module "sap/f/AvatarGroup" {
      * The `AvatarGroupItems` contained by the control.
      */
     getItems(): AvatarGroupItem[];
-    /**
-     * Returns a metadata object for class sap.f.AvatarGroup.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.f.AvatarGroupItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
@@ -857,7 +872,7 @@ declare module "sap/f/AvatarGroup" {
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -933,6 +948,10 @@ declare module "sap/f/AvatarGroupItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.AvatarGroupItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Returns the color of the avatar.
      */
     getAvatarColor(): string;
@@ -952,10 +971,6 @@ declare module "sap/f/AvatarGroupItem" {
      * Defines the displayed initials.
      */
     getInitials(): string;
-    /**
-     * Returns a metadata object for class sap.f.AvatarGroupItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSrc src}.
      *
@@ -1105,14 +1120,6 @@ declare module "sap/f/Card" {
     );
 
     /**
-     * Destroys the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
-     * Destroys the header in the aggregation {@link #getHeader header}.
-     */
-    destroyHeader(): this;
-    /**
      * Creates a new subclass of class sap.f.Card with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -1133,6 +1140,18 @@ declare module "sap/f/Card" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.f.Card.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
+     * Destroys the header in the aggregation {@link #getHeader header}.
+     */
+    destroyHeader(): this;
     /**
      * Implements sap.f.ICard interface.
      */
@@ -1173,10 +1192,6 @@ declare module "sap/f/Card" {
     getHeaderPosition():
       | cards.HeaderPosition
       | keyof typeof cards.HeaderPosition;
-    /**
-     * Returns a metadata object for class sap.f.Card.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets the aggregated {@link #getContent content}.
      */
@@ -1308,6 +1323,10 @@ declare module "sap/f/CardBase" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.CardBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Implements sap.f.ICard interface.
      */
     getCardContent(): Control;
@@ -1335,10 +1354,6 @@ declare module "sap/f/CardBase" {
      * Default value is `"auto"`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.f.CardBase.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -1437,13 +1452,6 @@ declare module "sap/f/cards/BaseHeader" {
     );
 
     /**
-     * @SINCE 1.86
-     * @EXPERIMENTAL (since 1.86)
-     *
-     * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
-     */
-    destroyToolbar(): this;
-    /**
      * Creates a new subclass of class sap.f.cards.BaseHeader with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -1465,6 +1473,17 @@ declare module "sap/f/cards/BaseHeader" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.cards.BaseHeader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.86
+     * @EXPERIMENTAL (since 1.86)
+     *
+     * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
+     */
+    destroyToolbar(): this;
+    /**
      * @EXPERIMENTAL (since 1.89)
      *
      * Gets current value of property {@link #getDataTimestamp dataTimestamp}.
@@ -1479,10 +1498,6 @@ declare module "sap/f/cards/BaseHeader" {
      * Default value is `empty string`.
      */
     getDataTimestamp(): string;
-    /**
-     * Returns a metadata object for class sap.f.cards.BaseHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.86
      * @EXPERIMENTAL (since 1.86)
@@ -1594,6 +1609,31 @@ declare module "sap/f/cards/Header" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.cards.Header with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Header>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.cards.Header.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -1650,27 +1690,6 @@ declare module "sap/f/cards/Header" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.cards.Header with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Header>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -1723,10 +1742,6 @@ declare module "sap/f/cards/Header" {
      * Default value is `empty string`.
      */
     getIconSrc(): URI;
-    /**
-     * Returns a metadata object for class sap.f.cards.Header.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getStatusText statusText}.
      *
@@ -1929,7 +1944,7 @@ declare module "sap/f/cards/Header" {
     /**
      * Fires when the user presses the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -1960,8 +1975,8 @@ declare module "sap/f/cards/NumericHeader" {
    * Displays general information in the header of the {@link sap.f.Card} and allows the configuration of
    * a numeric value visualization.
    *
-   * You can configure the title, subtitle, status text and icon, using the provided properties. To add more
-   * side number indicators, use the `sideIndicators` aggregation.
+   * You can configure the title, subtitle, and status text, using the provided properties. To add more side
+   * number indicators, use the `sideIndicators` aggregation.
    *
    * **Notes:**
    * 	 - You should always set a title.
@@ -2003,6 +2018,31 @@ declare module "sap/f/cards/NumericHeader" {
       mSettings?: $NumericHeaderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.f.cards.NumericHeader with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NumericHeader>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.cards.NumericHeader.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some sideIndicator to the aggregation {@link #getSideIndicators sideIndicators}.
      */
@@ -2073,27 +2113,6 @@ declare module "sap/f/cards/NumericHeader" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.cards.NumericHeader with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NumericHeader>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -2108,10 +2127,6 @@ declare module "sap/f/cards/NumericHeader" {
      * Additional text which adds more details to what is shown in the numeric header.
      */
     getDetails(): string;
-    /**
-     * Returns a metadata object for class sap.f.cards.NumericHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -2134,6 +2149,16 @@ declare module "sap/f/cards/NumericHeader" {
      * should be used.
      */
     getSideIndicators(): NumericSideIndicator[];
+    /**
+     * Gets current value of property {@link #getSideIndicatorsAlignment sideIndicatorsAlignment}.
+     *
+     * The alignment of the side indicators.
+     *
+     * Default value is `"Begin"`.
+     */
+    getSideIndicatorsAlignment():
+      | cards.NumericHeaderSideIndicatorsAlignment
+      | keyof typeof cards.NumericHeaderSideIndicatorsAlignment;
     /**
      * @EXPERIMENTAL (since 1.64)
      *
@@ -2244,6 +2269,23 @@ declare module "sap/f/cards/NumericHeader" {
        * The text of the title
        */
       sValue: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSideIndicatorsAlignment sideIndicatorsAlignment}.
+     *
+     * The alignment of the side indicators.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"Begin"`.
+     */
+    setSideIndicatorsAlignment(
+      /**
+       * New value for property `sideIndicatorsAlignment`
+       */
+      sSideIndicatorsAlignment?:
+        | cards.NumericHeaderSideIndicatorsAlignment
+        | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
     ): this;
     /**
      * Sets the semantic color which represents the state of the main number indicator.
@@ -2361,6 +2403,16 @@ declare module "sap/f/cards/NumericHeader" {
     details?: string | PropertyBindingInfo;
 
     /**
+     * The alignment of the side indicators.
+     */
+    sideIndicatorsAlignment?:
+      | (
+          | cards.NumericHeaderSideIndicatorsAlignment
+          | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
+        )
+      | PropertyBindingInfo;
+
+    /**
      * Additional side number indicators. For example "Deviation" and "Target". Not more than two side indicators
      * should be used.
      */
@@ -2372,7 +2424,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Fires when the user presses the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -2380,6 +2432,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { ValueColor } from "sap/m/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -2452,6 +2506,16 @@ declare module "sap/f/cards/NumericSideIndicator" {
      */
     getNumber(): string;
     /**
+     * @EXPERIMENTAL (since 1.95)
+     *
+     * Gets current value of property {@link #getState state}.
+     *
+     * The semantic color which represents the state of the side indicator.
+     *
+     * Default value is `"None"`.
+     */
+    getState(): ValueColor | keyof typeof ValueColor;
+    /**
      * Gets current value of property {@link #getTitle title}.
      *
      * The title of the indicator
@@ -2471,6 +2535,23 @@ declare module "sap/f/cards/NumericSideIndicator" {
        * The text of the title
        */
       sValue: string
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.95)
+     *
+     * Sets a new value for property {@link #getState state}.
+     *
+     * The semantic color which represents the state of the side indicator.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"None"`.
+     */
+    setState(
+      /**
+       * New value for property `state`
+       */
+      sState?: ValueColor | keyof typeof ValueColor
     ): this;
     /**
      * Sets the title.
@@ -2507,6 +2588,13 @@ declare module "sap/f/cards/NumericSideIndicator" {
      * Defines the unit of measurement (scaling prefix) for the numeric value
      */
     unit?: string | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.95)
+     *
+     * The semantic color which represents the state of the side indicator.
+     */
+    state?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
   }
 }
 
@@ -2594,6 +2682,10 @@ declare module "sap/f/dnd/GridDropInfo" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.dnd.GridDropInfo.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getDropIndicatorSize dropIndicatorSize}.
      *
      * A function which will define the desired drop indicator size. The drop indicator shows the user how the
@@ -2610,10 +2702,6 @@ declare module "sap/f/dnd/GridDropInfo" {
      * columns: }` or `null`.
      */
     getDropIndicatorSize(): Function;
-    /**
-     * Returns a metadata object for class sap.f.dnd.GridDropInfo.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getDropIndicatorSize dropIndicatorSize}.
      *
@@ -2661,6 +2749,8 @@ declare module "sap/f/dnd/GridDropInfo" {
 
 declare module "sap/f/DynamicPage" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { PageBackgroundDesign, IBar } from "sap/m/library";
 
@@ -2768,6 +2858,78 @@ declare module "sap/f/DynamicPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.DynamicPage with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DynamicPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.DynamicPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pinnedStateChange pinnedStateChange} event of
+     * this `sap.f.DynamicPage`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.DynamicPage` itself.
+     *
+     * The event is fired when the `headerPinned` property is changed via user interaction.
+     */
+    attachPinnedStateChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pinnedStateChange pinnedStateChange} event of
+     * this `sap.f.DynamicPage`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.DynamicPage` itself.
+     *
+     * The event is fired when the `headerPinned` property is changed via user interaction.
+     */
+    attachPinnedStateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys the content in the aggregation {@link #getContent content}.
      */
     destroyContent(): this;
@@ -2790,26 +2952,39 @@ declare module "sap/f/DynamicPage" {
      */
     destroyTitle(): this;
     /**
-     * Creates a new subclass of class sap.f.DynamicPage with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
+     * @SINCE 1.93
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     * Detaches event handler `fnFunction` from the {@link #event:pinnedStateChange pinnedStateChange} event
+     * of this `sap.f.DynamicPage`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
      */
-    static extend<T extends Record<string, unknown>>(
+    detachPinnedStateChange(
       /**
-       * Name of the class being created
+       * The function to be called, when the event occurs
        */
-      sClassName: string,
+      fnFunction: (p1: Event) => void,
       /**
-       * Object literal with information about the class
+       * Context object on which the given function had to be called
        */
-      oClassInfo?: sap.ClassInfo<T, DynamicPage>,
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
+     */
+    firePinnedStateChange(
       /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
+       * Parameters to pass along with the event
        */
-      FNMetaImpl?: Function
-    ): Function;
+      mParameters?: {
+        /**
+         * False or True values indicate the new pinned property value.
+         */
+        pinned?: boolean;
+      }
+    ): this;
     /**
      * @SINCE 1.68
      *
@@ -2900,6 +3075,27 @@ declare module "sap/f/DynamicPage" {
      */
     getHeaderExpanded(): boolean;
     /**
+     * @SINCE 1.93
+     *
+     * Gets current value of property {@link #getHeaderPinned headerPinned}.
+     *
+     * Determines whether the `DynamicPageHeader` is pinned.
+     *
+     * The property can be changed programmatically or in the occurrence of the following user interactions:
+     *
+     * 	 - Toggling the pin/unpin button of `DynamicPageHeader`
+     * 	 - Snapping the `DynamicPageHeader` by explicitly clicking on the `DynamicPageTitle`
+     *
+     * **Note: ** The property will only apply if the header is effectively pinnable, i.e. if the following
+     * conditions are met:
+     * 	 - `DynamicPageHeader` `pinnable` property is `true`
+     * 	 - `DynamicPageHeader` is expanded
+     * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
+     *
+     * Default value is `false`.
+     */
+    getHeaderPinned(): boolean;
+    /**
      * @SINCE 1.61
      *
      * Gets content of aggregation {@link #getLandmarkInfo landmarkInfo}.
@@ -2909,10 +3105,6 @@ declare module "sap/f/DynamicPage" {
      * If not set, no landmarks will be written.
      */
     getLandmarkInfo(): DynamicPageAccessibleLandmarkInfo;
-    /**
-     * Returns a metadata object for class sap.f.DynamicPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPreserveHeaderStateOnScroll preserveHeaderStateOnScroll}.
      *
@@ -3056,6 +3248,34 @@ declare module "sap/f/DynamicPage" {
       bHeaderExpanded?: boolean
     ): this;
     /**
+     * @SINCE 1.93
+     *
+     * Sets a new value for property {@link #getHeaderPinned headerPinned}.
+     *
+     * Determines whether the `DynamicPageHeader` is pinned.
+     *
+     * The property can be changed programmatically or in the occurrence of the following user interactions:
+     *
+     * 	 - Toggling the pin/unpin button of `DynamicPageHeader`
+     * 	 - Snapping the `DynamicPageHeader` by explicitly clicking on the `DynamicPageTitle`
+     *
+     * **Note: ** The property will only apply if the header is effectively pinnable, i.e. if the following
+     * conditions are met:
+     * 	 - `DynamicPageHeader` `pinnable` property is `true`
+     * 	 - `DynamicPageHeader` is expanded
+     * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setHeaderPinned(
+      /**
+       * New value for property `headerPinned`
+       */
+      bHeaderPinned?: boolean
+    ): this;
+    /**
      * @SINCE 1.61
      *
      * Sets the aggregated {@link #getLandmarkInfo landmarkInfo}.
@@ -3166,6 +3386,24 @@ declare module "sap/f/DynamicPage" {
     headerExpanded?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.93
+     *
+     * Determines whether the `DynamicPageHeader` is pinned.
+     *
+     * The property can be changed programmatically or in the occurrence of the following user interactions:
+     *
+     * 	 - Toggling the pin/unpin button of `DynamicPageHeader`
+     * 	 - Snapping the `DynamicPageHeader` by explicitly clicking on the `DynamicPageTitle`
+     *
+     * **Note: ** The property will only apply if the header is effectively pinnable, i.e. if the following
+     * conditions are met:
+     * 	 - `DynamicPageHeader` `pinnable` property is `true`
+     * 	 - `DynamicPageHeader` is expanded
+     * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
+     */
+    headerPinned?: boolean | PropertyBindingInfo;
+
+    /**
      * Determines whether the user can switch between the expanded/collapsed states of the `DynamicPageHeader`
      * by clicking on the `DynamicPageTitle` or by using the expand/collapse visual indicators, positioned at
      * the bottom of the `DynamicPageTitle` and the `DynamicPageHeader`. If set to `false`, the `DynamicPageTitle`
@@ -3268,6 +3506,13 @@ declare module "sap/f/DynamicPage" {
      * content have to implement the `sap.f.IDynamicPageStickyContent` interface.
      */
     stickySubheaderProvider?: IDynamicPageStickyContent | string;
+
+    /**
+     * @SINCE 1.93
+     *
+     * The event is fired when the `headerPinned` property is changed via user interaction.
+     */
+    pinnedStateChange?: (oEvent: Event) => void;
   }
 }
 
@@ -3343,6 +3588,10 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.DynamicPageAccessibleLandmarkInfo.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getContentLabel contentLabel}.
      *
      * Texts which describe the landmark of the content container of the corresponding `sap.f.DynamicPage` control.
@@ -3405,10 +3654,6 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
     getHeaderRole():
       | AccessibleLandmarkRole
       | keyof typeof AccessibleLandmarkRole;
-    /**
-     * Returns a metadata object for class sap.f.DynamicPageAccessibleLandmarkInfo.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRootLabel rootLabel}.
      *
@@ -3705,19 +3950,6 @@ declare module "sap/f/DynamicPageHeader" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.f.DynamicPageHeader with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -3739,6 +3971,23 @@ declare module "sap/f/DynamicPageHeader" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.DynamicPageHeader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * @SINCE 1.58
      *
      * Gets current value of property {@link #getBackgroundDesign backgroundDesign}.
@@ -3755,10 +4004,6 @@ declare module "sap/f/DynamicPageHeader" {
      * The content of the header.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.f.DynamicPageHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPinnable pinnable}.
      *
@@ -3955,6 +4200,31 @@ declare module "sap/f/DynamicPageTitle" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.DynamicPageTitle with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DynamicPageTitle>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.DynamicPageTitle.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some action to the aggregation {@link #getActions actions}.
      */
     addAction(
@@ -4137,27 +4407,6 @@ declare module "sap/f/DynamicPageTitle" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.DynamicPageTitle with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DynamicPageTitle>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.54
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
@@ -4282,10 +4531,6 @@ declare module "sap/f/DynamicPageTitle" {
      * 			state.
      */
     getHeading(): Control;
-    /**
-     * Returns a metadata object for class sap.f.DynamicPageTitle.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52
      *
@@ -4900,7 +5145,7 @@ declare module "sap/f/DynamicPageTitle" {
      * Also fired when the developer toggles the title state by programmatically changing the scroll position
      * of the scrollbar of `DynamicPage`.
      */
-    stateChange?: Function;
+    stateChange?: (oEvent: Event) => void;
   }
 }
 
@@ -4914,6 +5159,8 @@ declare module "sap/f/FlexibleColumnLayout" {
   import { LayoutType } from "sap/f/library";
 
   import { BackgroundDesign } from "sap/m/library";
+
+  import FlexibleColumnLayoutAccessibleLandmarkInfo from "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -5006,6 +5253,31 @@ declare module "sap/f/FlexibleColumnLayout" {
       mSettings?: $FlexibleColumnLayoutSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.f.FlexibleColumnLayout with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.FlexibleColumnLayout.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some beginColumnPage to the aggregation {@link #getBeginColumnPages beginColumnPages}.
      */
@@ -5570,6 +5842,12 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     destroyEndColumnPages(): this;
     /**
+     * @SINCE 1.95
+     *
+     * Destroys the landmarkInfo in the aggregation {@link #getLandmarkInfo landmarkInfo}.
+     */
+    destroyLandmarkInfo(): this;
+    /**
      * Destroys all the midColumnPages in the aggregation {@link #getMidColumnPages midColumnPages}.
      */
     destroyMidColumnPages(): this;
@@ -5701,27 +5979,6 @@ declare module "sap/f/FlexibleColumnLayout" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.FlexibleColumnLayout with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate} to attached listeners.
      */
@@ -6195,6 +6452,16 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     getInitialMidColumnPage(): ID;
     /**
+     * @SINCE 1.95
+     *
+     * Gets content of aggregation {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * Accessible landmark settings to be applied on the containers of the `sap.f.FlexibleColumnLayout` control.
+     *
+     * If not set, no landmarks will be written.
+     */
+    getLandmarkInfo(): FlexibleColumnLayoutAccessibleLandmarkInfo;
+    /**
      * Gets current value of property {@link #getLayout layout}.
      *
      * Determines the layout of the control - number of visible columns and their relative sizes.
@@ -6208,10 +6475,6 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Returns the maximum number of columns that can be displayed at once based on the control width
      */
     getMaxColumnsCount(): number;
-    /**
-     * Returns a metadata object for class sap.f.FlexibleColumnLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getMidColumnPages midColumnPages}.
      *
@@ -6233,22 +6496,6 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Default value is `false`.
      */
     getRestoreFocusOnBackNavigation(): boolean;
-    /**
-     * @SINCE 1.91
-     *
-     * Hides the placeholder on the corresponding column for the provided aggregation name.
-     */
-    hidePlaceholder(
-      /**
-       * Object containing the aggregation name
-       */
-      mSettings: {
-        /**
-         * The aggregation name to decide on which column/container the placeholder should be hidden
-         */
-        aggregation: string;
-      }
-    ): void;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getBeginColumnPages beginColumnPages}.
      * and returns its index if found or -1 otherwise.
@@ -6489,6 +6736,17 @@ declare module "sap/f/FlexibleColumnLayout" {
       oInitialMidColumnPage: ID | Control
     ): this;
     /**
+     * @SINCE 1.95
+     *
+     * Sets the aggregated {@link #getLandmarkInfo landmarkInfo}.
+     */
+    setLandmarkInfo(
+      /**
+       * The landmarkInfo to set
+       */
+      oLandmarkInfo: FlexibleColumnLayoutAccessibleLandmarkInfo
+    ): this;
+    /**
      * Sets a new value for property {@link #getLayout layout}.
      *
      * Determines the layout of the control - number of visible columns and their relative sizes.
@@ -6523,22 +6781,6 @@ declare module "sap/f/FlexibleColumnLayout" {
        */
       bRestoreFocusOnBackNavigation?: boolean
     ): this;
-    /**
-     * @SINCE 1.91
-     *
-     * Shows the placeholder on the corresponding column for the provided aggregation name.
-     */
-    showPlaceholder(
-      /**
-       * Object containing the aggregation name
-       */
-      mSettings: {
-        /**
-         * The aggregation name to decide on which column/container the placeholder should be shown
-         */
-        aggregation: string;
-      }
-    ): void;
     /**
      * Navigates to the given page inside the FlexibleColumnLayout. Columns are scanned for the page in the
      * following order: `Begin`, `Mid`, `End`.
@@ -6920,6 +7162,15 @@ declare module "sap/f/FlexibleColumnLayout" {
     endColumnPages?: Control[] | Control | AggregationBindingInfo;
 
     /**
+     * @SINCE 1.95
+     *
+     * Accessible landmark settings to be applied on the containers of the `sap.f.FlexibleColumnLayout` control.
+     *
+     * If not set, no landmarks will be written.
+     */
+    landmarkInfo?: FlexibleColumnLayoutAccessibleLandmarkInfo;
+
+    /**
      * Sets the initial `Begin` column page, which is displayed on application launch.
      */
     initialBeginColumnPage?: Control | string;
@@ -6946,56 +7197,232 @@ declare module "sap/f/FlexibleColumnLayout" {
      *  **Note: **The event is suppressed while the control has zero width and will be fired the first time
      * it gets a non-zero width
      */
-    stateChange?: Function;
+    stateChange?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Begin` column has been triggered. The transition (if
      * any) to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    beginColumnNavigate?: Function;
+    beginColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Begin` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterBeginColumnNavigate?: Function;
+    afterBeginColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Mid` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    midColumnNavigate?: Function;
+    midColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Mid` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterMidColumnNavigate?: Function;
+    afterMidColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `End` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    endColumnNavigate?: Function;
+    endColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `End` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterEndColumnNavigate?: Function;
+    afterEndColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.76
      *
      * Fired when resize of each column has completed.
      */
-    columnResize?: Function;
+    columnResize?: (oEvent: Event) => void;
+  }
+}
+
+declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.95
+   *
+   * Settings for accessible landmarks which can be applied to the container elements of a `sap.f.FlexibleColumnLayout`
+   * control. For example, these landmarks are used by assistive technologies (such as screen readers) to
+   * provide a meaningful columns overview.
+   */
+  export default class FlexibleColumnLayoutAccessibleLandmarkInfo extends UI5Element {
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
+    );
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo with name `sClassName`
+     * and enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayoutAccessibleLandmarkInfo>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFirstColumnLabel firstColumnLabel}.
+     *
+     * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    getFirstColumnLabel(): string;
+    /**
+     * Gets current value of property {@link #getLastColumnLabel lastColumnLabel}.
+     *
+     * Text that describes the landmark of the last column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    getLastColumnLabel(): string;
+    /**
+     * Gets current value of property {@link #getMiddleColumnLabel middleColumnLabel}.
+     *
+     * Text that describes the landmark of the middle column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    getMiddleColumnLabel(): string;
+    /**
+     * Sets a new value for property {@link #getFirstColumnLabel firstColumnLabel}.
+     *
+     * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setFirstColumnLabel(
+      /**
+       * New value for property `firstColumnLabel`
+       */
+      sFirstColumnLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getLastColumnLabel lastColumnLabel}.
+     *
+     * Text that describes the landmark of the last column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setLastColumnLabel(
+      /**
+       * New value for property `lastColumnLabel`
+       */
+      sLastColumnLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMiddleColumnLabel middleColumnLabel}.
+     *
+     * Text that describes the landmark of the middle column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setMiddleColumnLabel(
+      /**
+       * New value for property `middleColumnLabel`
+       */
+      sMiddleColumnLabel?: string
+    ): this;
+  }
+
+  export interface $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
+    extends $ElementSettings {
+    /**
+     * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    firstColumnLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of the middle column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    middleColumnLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of the last column of the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    lastColumnLabel?: string | PropertyBindingInfo;
   }
 }
 
@@ -7108,6 +7535,21 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
     );
 
     /**
+     * Returns an instance of the `sap.f.FlexibleColumnLayoutSemanticHelper` class for a given `sap.f.FlexibleColumnLayout`
+     * object.
+     */
+    static getInstanceFor(
+      /**
+       * The `sap.f.FlexibleColumnLayout` object to get a semantic helper instance for
+       */
+      oFlexibleColumnLayout: FlexibleColumnLayout,
+      /**
+       * An optional settings object to be used when creating the instance. **Note:** will be considered only
+       * for the first `getInstanceFor` call for the given `sap.f.FlexibleColumnLayout` object.
+       */
+      oSettings?: object
+    ): FlexibleColumnLayoutSemanticHelper;
+    /**
      * Returns an object, describing the current state of the control and the expected action buttons for each
      * column.
      *
@@ -7186,21 +7628,6 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      * 			be shown side by side
      */
     getDefaultLayouts(): object;
-    /**
-     * Returns an instance of the `sap.f.FlexibleColumnLayoutSemanticHelper` class for a given `sap.f.FlexibleColumnLayout`
-     * object.
-     */
-    static getInstanceFor(
-      /**
-       * The `sap.f.FlexibleColumnLayout` object to get a semantic helper instance for
-       */
-      oFlexibleColumnLayout: FlexibleColumnLayout,
-      /**
-       * An optional settings object to be used when creating the instance. **Note:** will be considered only
-       * for the first `getInstanceFor` call for the given `sap.f.FlexibleColumnLayout` object.
-       */
-      oSettings?: object
-    ): FlexibleColumnLayoutSemanticHelper;
     /**
      * Returns an object, describing the state that the control will have after navigating to a different view
      * level.
@@ -7384,6 +7811,31 @@ declare module "sap/f/GridContainer" {
       mSettings?: $GridContainerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.f.GridContainer with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GridContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.GridContainer.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -7594,27 +8046,6 @@ declare module "sap/f/GridContainer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.GridContainer with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GridContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      */
     fireBorderReached(
@@ -7799,10 +8230,6 @@ declare module "sap/f/GridContainer" {
      * The sap.f.GridContainerSettings applied for size "XS". Range: up to 374px.
      */
     getLayoutXS(): GridContainerSettings;
-    /**
-     * Returns a metadata object for class sap.f.GridContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @EXPERIMENTAL (since 1.81)
      *
@@ -8134,17 +8561,17 @@ declare module "sap/f/GridContainer" {
     /**
      * Fired when the currently active GridSettings change.
      */
-    layoutChange?: Function;
+    layoutChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the grid columns count is changed.
      */
-    columnsChange?: Function;
+    columnsChange?: (oEvent: Event) => void;
 
     /**
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
-    borderReached?: Function;
+    borderReached?: (oEvent: Event) => void;
   }
 }
 
@@ -8222,6 +8649,10 @@ declare module "sap/f/GridContainerItemLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.GridContainerItemLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumns columns}.
      *
      * Specifies the number of columns, which the item should take
@@ -8234,10 +8665,6 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * Default value is `1`.
      */
     getColumns(): int;
-    /**
-     * Returns a metadata object for class sap.f.GridContainerItemLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinRows minRows}.
      *
@@ -8406,6 +8833,10 @@ declare module "sap/f/GridContainerSettings" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.GridContainerSettings.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Gets current value of property {@link #getColumns columns}.
      *
      * How many columns to have on a row.
@@ -8440,10 +8871,6 @@ declare module "sap/f/GridContainerSettings" {
      * **Note:** Will not work in combination with `columnSize`.
      */
     getMaxColumnSize(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.f.GridContainerSettings.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Gets current value of property {@link #getMinColumnSize minColumnSize}.
      *
@@ -8720,11 +9147,32 @@ declare module "sap/f/GridList" {
        */
       mSettings?: $GridListSettings
     );
-    /**
-     * Implements IGridConfigurable interface.
-     */
-    getGridLayoutConfiguration: undefined;
 
+    /**
+     * Creates a new subclass of class sap.f.GridList with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GridList>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.GridList.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:borderReached borderReached} event of this `sap.f.GridList`.
      *
@@ -8786,27 +9234,6 @@ declare module "sap/f/GridList" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.GridList with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GridList>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      */
@@ -8872,9 +9299,9 @@ declare module "sap/f/GridList" {
      */
     getGridDomRefs(): HTMLElement[];
     /**
-     * Returns a metadata object for class sap.f.GridList.
+     * Implements IGridConfigurable interface.
      */
-    static getMetadata(): ElementMetadata;
+    getGridLayoutConfiguration(): GridLayoutBase;
     /**
      * Sets the aggregated {@link #getCustomLayout customLayout}.
      */
@@ -8895,7 +9322,7 @@ declare module "sap/f/GridList" {
     /**
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
-    borderReached?: Function;
+    borderReached?: (oEvent: Event) => void;
   }
 }
 
@@ -8952,6 +9379,31 @@ declare module "sap/f/GridListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.GridListItem with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GridListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.GridListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -8977,36 +9429,11 @@ declare module "sap/f/GridListItem" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.f.GridListItem with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GridListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content of this list item
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.f.GridListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -9139,23 +9566,6 @@ declare module "sap/f/IllustratedMessage" {
     );
 
     /**
-     * @SINCE 1.88
-     *
-     * Adds some additionalContent to the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    addAdditionalContent(
-      /**
-       * The additionalContent to add; if empty, nothing is inserted
-       */
-      oAdditionalContent: Button
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Destroys all the additionalContent in the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    destroyAdditionalContent(): this;
-    /**
      * Creates a new subclass of class sap.f.IllustratedMessage with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -9176,6 +9586,27 @@ declare module "sap/f/IllustratedMessage" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.f.IllustratedMessage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.88
+     *
+     * Adds some additionalContent to the aggregation {@link #getAdditionalContent additionalContent}.
+     */
+    addAdditionalContent(
+      /**
+       * The additionalContent to add; if empty, nothing is inserted
+       */
+      oAdditionalContent: Button
+    ): this;
+    /**
+     * @SINCE 1.88
+     *
+     * Destroys all the additionalContent in the aggregation {@link #getAdditionalContent additionalContent}.
+     */
+    destroyAdditionalContent(): this;
     /**
      * @SINCE 1.88
      *
@@ -9245,10 +9676,6 @@ declare module "sap/f/IllustratedMessage" {
      * Default value is `IllustratedMessageType.NoSearchResults`.
      */
     getIllustrationType(): string;
-    /**
-     * Returns a metadata object for class sap.f.IllustratedMessage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.88
      *
@@ -9533,6 +9960,10 @@ declare module "sap/f/Illustration" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.Illustration.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.88
      *
      * Gets current value of property {@link #getMedia media}.
@@ -9540,10 +9971,6 @@ declare module "sap/f/Illustration" {
      * Defines which media/breakpoint should be used when building the Symbol ID.
      */
     getMedia(): string;
-    /**
-     * Returns a metadata object for class sap.f.Illustration.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.88
      *
@@ -9753,6 +10180,31 @@ declare module "sap/f/ProductSwitch" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.ProductSwitch with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ProductSwitch>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.ProductSwitch.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -9822,27 +10274,6 @@ declare module "sap/f/ProductSwitch" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.ProductSwitch with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ProductSwitch>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -9862,10 +10293,6 @@ declare module "sap/f/ProductSwitch" {
      * `ProductSwitch` content.
      */
     getItems(): ProductSwitchItem[];
-    /**
-     * Returns a metadata object for class sap.f.ProductSwitch.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
      * or `null`.
@@ -9938,7 +10365,7 @@ declare module "sap/f/ProductSwitch" {
     /**
      * Fires when an unselected item is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -10171,8 +10598,10 @@ declare module "sap/f/routing/Router" {
    * The difference to the `{@link sap.ui.core.routing.Router}` are the `viewLevel`, `transition`, and `transitionParameters`
    * properties that you can specify in every Route or Target created by this router.
    *
-   * Additionally, the `layout` property can be specified in every Route, in which case it is applied to the
-   * root control.
+   * The difference to the `{@link sap.m.routing.Router}` is the additional `layout` property that can be
+   * specified in every Route, in which case it is applied to the root control. Also, the `sap.f.routing.Router`
+   * supports navigations that involve both change of `{@link sap.f.LayoutType}` and change of the current
+   * page within a single column of the `sap.f.FlexibleColumnLayout`.
    *
    * See `{@link sap.ui.core.routing.Router}` for the constructor arguments.
    */
@@ -10240,8 +10669,11 @@ declare module "sap/f/routing/TargetHandler" {
    * Used for closing dialogs and showing transitions in `NavContainers` when targets are displayed.
    *
    * **Note:** You should not create an own instance of this class. It is created when using `{@link sap.f.routing.Router}`
-   * or `{@link sap.f.routing.Targets}`. You may use the `{@link #setCloseDialogs}` function to specify if
-   * dialogs should be closed on displaying other views.
+   * or `{@link sap.f.routing.Targets}`.
+   *
+   * **Note:** You may use the `{@link #setCloseDialogs}` function to specify if dialogs should be closed
+   * on displaying other views. The dialogs are closed when a different target is displayed than the previously
+   * displayed one, otherwise the dialogs are kept open.
    */
   export default class TargetHandler extends BaseObject {
     /**
@@ -10249,10 +10681,10 @@ declare module "sap/f/routing/TargetHandler" {
      */
     constructor(
       /**
-       * Closes all open dialogs before navigating, if set to `true` (default). If set to `false`, it just navigates
-       * without closing dialogs.
+       * Closes all open dialogs before navigating to a different target, if set to `true` (default). If set to
+       * `false`, it will just navigate without closing dialogs.
        */
-      bCloseDialogs: boolean
+      closeDialogs: boolean
     );
 
     /**
@@ -10277,15 +10709,18 @@ declare module "sap/f/routing/TargetHandler" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Gets if a navigation should close dialogs.
-     */
-    getCloseDialogs(): boolean;
-    /**
      * Returns a metadata object for class sap.f.routing.TargetHandler.
      */
     static getMetadata(): Metadata;
     /**
+     * Gets if a navigation should close dialogs.
+     */
+    getCloseDialogs(): boolean;
+    /**
      * Sets if a navigation should close dialogs.
+     *
+     * **Note:** The dialogs are closed when a different target is displayed than the previous one, otherwise
+     * the dialogs are kept open even when `bCloseDialogs` is `true`.
      */
     setCloseDialogs(
       /**
@@ -10767,6 +11202,31 @@ declare module "sap/f/SearchManager" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.SearchManager with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SearchManager>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.SearchManager.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some suggestionItem to the aggregation {@link #getSuggestionItems suggestionItems}.
      */
     addSuggestionItem(
@@ -10968,27 +11428,6 @@ declare module "sap/f/SearchManager" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.SearchManager with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SearchManager>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      */
     fireLiveChange(
@@ -11059,10 +11498,6 @@ declare module "sap/f/SearchManager" {
      * Default value is `0`.
      */
     getMaxLength(): int;
-    /**
-     * Returns a metadata object for class sap.f.SearchManager.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -11250,21 +11685,21 @@ declare module "sap/f/SearchManager" {
     /**
      * Fired when the user triggers a search.
      */
-    search?: Function;
+    search?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the search field is changed by the user, for example at each key press.
      *
      * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the search field is initially focused or its value is changed by the user. This event means
      * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
      * new suggestions for it.
      */
-    suggest?: Function;
+    suggest?: (oEvent: Event) => void;
   }
 }
 
@@ -13020,6 +13455,31 @@ declare module "sap/f/semantic/SemanticPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.semantic.SemanticPage with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SemanticPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.semantic.SemanticPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some customShareAction to the aggregation {@link #getCustomShareActions customShareActions}.
      */
     addCustomShareAction(
@@ -13252,27 +13712,6 @@ declare module "sap/f/semantic/SemanticPage" {
      */
     destroyTitleSnappedOnMobile(): this;
     /**
-     * Creates a new subclass of class sap.f.semantic.SemanticPage with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SemanticPage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getAddAction addAction}.
      *
      * A semantic-specific button which is placed in the `TextActions` area of the `SemanticPage` title.
@@ -13332,6 +13771,8 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      * The `customShareActions` are placed in the `ShareMenu` area of the `SemanticPage` title, right after
      * the semantic actions.
+     *
+     * The text and icon of the button inside the `customShareActions` aggregation, can be customized.
      *
      * **Note:** If the `titleSnappedOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
@@ -13493,10 +13934,6 @@ declare module "sap/f/semantic/SemanticPage" {
      * first action.
      */
     getMessagesIndicator(): MessagesIndicator;
-    /**
-     * Returns a metadata object for class sap.f.semantic.SemanticPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getNegativeAction negativeAction}.
      *
@@ -15009,6 +15446,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * The `customShareActions` are placed in the `ShareMenu` area of the `SemanticPage` title, right after
      * the semantic actions.
      *
+     * The text and icon of the button inside the `customShareActions` aggregation, can be customized.
+     *
      * **Note:** If the `titleSnappedOnMobile` aggregation is set, its content overrides this aggregation when
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
@@ -15525,13 +15964,32 @@ declare module "sap/f/ShellBar" {
        */
       mSettings?: $ShellBarSettings
     );
-    /**
-     * @SINCE 1.65
-     *
-     * Gets the available Bar contexts.
-     */
-    getContext: undefined;
 
+    /**
+     * Creates a new subclass of class sap.f.ShellBar with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellBar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.ShellBar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.65
      *
@@ -16049,27 +16507,6 @@ declare module "sap/f/ShellBar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.f.ShellBar with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellBar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:avatarPressed avatarPressed} to attached listeners.
      */
     fireAvatarPressed(
@@ -16190,6 +16627,12 @@ declare module "sap/f/ShellBar" {
      */
     getAdditionalContent(): IShellBar[];
     /**
+     * @SINCE 1.65
+     *
+     * Gets the available Bar contexts.
+     */
+    getContext(): Object;
+    /**
      * Gets current value of property {@link #getHomeIcon homeIcon}.
      *
      * Defines the URI to the home icon, such as company or product logo.
@@ -16219,10 +16662,6 @@ declare module "sap/f/ShellBar" {
      * The menu attached to the main title.
      */
     getMenu(): Menu;
-    /**
-     * Returns a metadata object for class sap.f.ShellBar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.64
      *
@@ -16640,42 +17079,42 @@ declare module "sap/f/ShellBar" {
     /**
      * Fired when the `homeIcon` is pressed.
      */
-    homeIconPressed?: Function;
+    homeIconPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the alternative menu button is pressed.
      */
-    menuButtonPressed?: Function;
+    menuButtonPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the navigation/back button is pressed.
      */
-    navButtonPressed?: Function;
+    navButtonPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the SAP CoPilot icon is pressed.
      */
-    copilotPressed?: Function;
+    copilotPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the search button is pressed.
      */
-    searchButtonPressed?: Function;
+    searchButtonPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the notifications button is pressed.
      */
-    notificationsPressed?: Function;
+    notificationsPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the product switcher button is pressed.
      */
-    productSwitcherPressed?: Function;
+    productSwitcherPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the profile avatar is pressed.
      */
-    avatarPressed?: Function;
+    avatarPressed?: (oEvent: Event) => void;
   }
 }
 
@@ -16710,6 +17149,8 @@ declare namespace sap {
     "sap/f/DynamicPageTitle": undefined;
 
     "sap/f/FlexibleColumnLayout": undefined;
+
+    "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo": undefined;
 
     "sap/f/FlexibleColumnLayoutSemanticHelper": undefined;
 

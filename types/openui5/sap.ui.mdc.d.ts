@@ -1,8 +1,36 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.96.0
+
+declare module "sap/ui/mdc/library" {
+  /**
+   * Enumeration of the `multiSelectMode>/code> in ListBase`.
+   */
+  export enum MultiSelectMode {
+    /**
+     * Renders the `clearAll` icon.
+     */
+    ClearAll = "ClearAll",
+    /**
+     * Renders the `selectAll` checkbox (default behavior).
+     */
+    Default = "Default",
+  }
+}
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
+    "sap/ui/mdc/ActionToolbar": undefined;
+
+    "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
+
     "sap/ui/mdc/Chart": undefined;
+
+    "sap/ui/mdc/chart/DimensionItem": undefined;
+
+    "sap/ui/mdc/chart/Item": undefined;
+
+    "sap/ui/mdc/chart/MeasureItem": undefined;
+
+    "sap/ui/mdc/chart/SelectionDetailsActions": undefined;
 
     "sap/ui/mdc/chartNew/ChartSelectionDetailsNew": undefined;
 
@@ -22,6 +50,10 @@ declare namespace sap {
 
     "sap/ui/mdc/condition/RangeOperator": undefined;
 
+    "sap/ui/mdc/Control": undefined;
+
+    "sap/ui/mdc/Element": undefined;
+
     "sap/ui/mdc/enum/ActionToolbarActionAlignment": undefined;
 
     "sap/ui/mdc/enum/BaseType": undefined;
@@ -37,6 +69,8 @@ declare namespace sap {
     "sap/ui/mdc/enum/OutParameterMode": undefined;
 
     "sap/ui/mdc/enum/PersistenceMode": undefined;
+
+    "sap/ui/mdc/enum/SelectType": undefined;
 
     "sap/ui/mdc/Field": undefined;
 
@@ -62,6 +96,8 @@ declare namespace sap {
 
     "sap/ui/mdc/field/FieldHelpBaseDelegate": undefined;
 
+    "sap/ui/mdc/field/FieldInfoBase": undefined;
+
     "sap/ui/mdc/field/FieldInput": undefined;
 
     "sap/ui/mdc/field/FieldMultiInput": undefined;
@@ -83,6 +119,10 @@ declare namespace sap {
     "sap/ui/mdc/field/ListFieldHelp": undefined;
 
     "sap/ui/mdc/field/ListFieldHelpItem": undefined;
+
+    "sap/ui/mdc/field/MultiValueFieldDelegate": undefined;
+
+    "sap/ui/mdc/field/MultiValueFieldItem": undefined;
 
     "sap/ui/mdc/field/OutParameter": undefined;
 
@@ -109,6 +149,10 @@ declare namespace sap {
     "sap/ui/mdc/mixin/DelegateMixin": undefined;
 
     "sap/ui/mdc/mixin/FilterIntegrationMixin": undefined;
+
+    "sap/ui/mdc/mixin/PromiseMixin": undefined;
+
+    "sap/ui/mdc/MultiValueField": undefined;
 
     "sap/ui/mdc/odata/v4/FieldBaseDelegate": undefined;
 
@@ -140,6 +184,34 @@ declare namespace sap {
 
     "sap/ui/mdc/util/FilterUtil": undefined;
 
+    "sap/ui/mdc/util/PromiseCache": undefined;
+
     "sap/ui/mdc/util/TypeUtil": undefined;
+
+    "sap/ui/mdc/ValueHelp": undefined;
+
+    "sap/ui/mdc/valuehelp/base/Container": undefined;
+
+    "sap/ui/mdc/valuehelp/base/Content": undefined;
+
+    "sap/ui/mdc/valuehelp/base/DialogTab": undefined;
+
+    "sap/ui/mdc/valuehelp/base/FilterableListContent": undefined;
+
+    "sap/ui/mdc/valuehelp/base/ListContent": undefined;
+
+    "sap/ui/mdc/valuehelp/content/Bool": undefined;
+
+    "sap/ui/mdc/valuehelp/content/Conditions": undefined;
+
+    "sap/ui/mdc/valuehelp/content/FixedList": undefined;
+
+    "sap/ui/mdc/valuehelp/content/MTable": undefined;
+
+    "sap/ui/mdc/valuehelp/Dialog": undefined;
+
+    "sap/ui/mdc/valuehelp/Popover": undefined;
+
+    "sap/ui/mdc/ValueHelpDelegate": undefined;
   }
 }

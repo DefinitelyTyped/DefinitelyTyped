@@ -7,7 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from "react-native";
 import XDateLocaleConfig = require("xdate");
 
 export class LocaleConfig extends XDateLocaleConfig {
@@ -34,6 +34,7 @@ export interface CalendarThemeIdStyle {
 
 export interface CalendarTheme {
     arrowColor?: string | undefined;
+    disabledArrowColor?: string | undefined;
     backgroundColor?: string | undefined;
     calendarBackground?: string | undefined;
     dayTextColor?: string | undefined;
@@ -53,6 +54,7 @@ export interface CalendarTheme {
     textMonthFontWeight?: string | undefined;
     textMonthFontSize?: number | undefined;
     textSectionTitleColor?: string | undefined;
+    textSectionTitleDisabledColor?: string | undefined;
     todayTextColor?: string | undefined;
     indicatorColor?: string | undefined;
     textDayStyle?: TextStyle | undefined;
@@ -183,6 +185,40 @@ export interface DayComponentProps {
     onLongPress: (date: DateObject) => any;
     state: "" | "selected" | "disabled" | "today";
     theme: CalendarTheme;
+}
+
+export interface HeaderComponentProps {
+    theme?: CalendarTheme;
+    firstDay?: number;
+    showWeekNumbers?: boolean;
+    month: XDate;
+    addMonth: (count: number) => void;
+    /** Month format in the title. Formatting values: http://arshaw.com/xdate/#Formatting */
+    monthFormat?: string;
+    /**  Hide day names. Default = false */
+    hideDayNames?: boolean;
+    /** Hide month navigation arrows. Default = false */
+    hideArrows?: boolean;
+    /** Replace default arrows with custom ones (direction can be 'left' or 'right') */
+    renderArrow?: (direction: 'left' | 'right') => React.ReactNode;
+    /** Handler which gets executed when press arrow icon left. It receive a callback can go back month */
+    onPressArrowLeft?: (addMonth: () => void) => void;
+    /** Handler which gets executed when press arrow icon right. It receive a callback can go next month */
+    onPressArrowRight?: (addMonth: () => void) => void;
+    /** Disable left arrow. Default = false */
+    disableArrowLeft?: boolean;
+    /** Disable right arrow. Default = false */
+    disableArrowRight?: boolean;
+    /** Apply custom disable color to selected day indexes */
+    disabledDaysIndexes?: number[];
+    /** Replace default month and year title with custom one. the function receive a date as parameter. */
+    renderHeader?: (date: Date) => React.ReactNode;
+    /** Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web) */
+    webAriaLevel?: number;
+    testID: string | undefined;
+    style: ViewStyle | ViewStyle[] | undefined;
+    displayLoadingIndicator: boolean | undefined;
+    ref: React.RefCallback<any>;
 }
 
 export interface CalendarBaseProps {
@@ -316,10 +352,16 @@ export interface CalendarBaseProps {
      *  Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web)
      */
     webAriaLevel?: number | undefined;
-    /*
+
+    /**
      *  Replace default month and year title with custom one. the function receive a date as parameter.
      */
     renderHeader?: ((date: Date) => React.ReactNode) | undefined;
+
+    /**
+     * Allow rendering of a totally custom header
+     */
+    customHeader?: ((props: HeaderComponentProps) => React.ReactNode) | undefined;
 }
 
 export type CalendarProps = CalendarMarkingProps &
@@ -570,3 +612,112 @@ export interface TimelineProps {
 }
 
 export class Timeline extends React.PureComponent<TimelineProps> {}
+
+export type UpdateSource =
+    | 'calendarInit'
+    | 'todayPress'
+    | 'listDrag'
+    | 'dayPress'
+    | 'pageScroll'
+    | 'weekScroll'
+    | 'propUpdate';
+
+export interface CalendarProviderProps {
+    children?: React.ReactNode;
+    /**
+     * Initial date in 'yyyy-MM-dd' format. Default = Date()
+     */
+    date: Date | string | number;
+    /**
+     * Callback for date change event
+     */
+    onDateChanged?: (date: string, updateSource: UpdateSource) => void;
+    /**
+     * Callback for month change event
+     */
+    onMonthChange?: (date: DateObject, updateSource: UpdateSource) => void;
+    /**
+     * Whether to show the today button
+     */
+    showTodayButton?: boolean;
+    /**
+     * Today button's top position
+     */
+    todayBottomMargin?: number;
+    /**
+     * Today button's style
+     */
+    todayButtonStyle?: ViewStyle | ViewStyle[];
+    /**
+     * The opacity for the disabled today button (0-1)
+     */
+    disabledOpacity?: number;
+}
+
+export class CalendarProvider extends React.Component<CalendarProviderProps> {}
+
+export interface ProviderContextValue {
+    setDate: (date: string, updateSource: UpdateSource) => void;
+    date: string;
+    prevDate: string;
+    updateSource: UpdateSource;
+    setDisabled: (disabled: boolean) => void;
+}
+
+export const CalendarContext: React.Context<ProviderContextValue>;
+
+export interface WeekCalendarProps extends CalendarListBaseProps {
+    /**
+     * whether to have shadow/elevation for the calendar
+     */
+    allowShadow?: boolean;
+}
+
+export class WeekCalendar extends React.Component<CalendarMarkingProps & WeekCalendarProps> {}
+
+export type Positions = 'closed' | 'open';
+
+export interface ExpandableCalendarProps extends CalendarListBaseProps {
+    /**
+     * the initial position of the calendar ('open' or 'closed')
+     */
+    initialPosition?: Positions;
+    /**
+     * callback that fires when the calendar is opened or closed
+     */
+    onCalendarToggled?: (isOpen: boolean) => void;
+    /**
+     * an option to disable the pan gesture and disable the opening and closing of the calendar (initialPosition will persist)
+     */
+    disablePan?: boolean;
+    /**
+     * whether to hide the knob
+     */
+    hideKnob?: boolean;
+    /**
+     * source for the left arrow image
+     */
+    leftArrowImageSource?: ImageSourcePropType;
+    /**
+     * source for the right arrow image
+     */
+    rightArrowImageSource?: ImageSourcePropType;
+    /**
+     * whether to have shadow/elevation for the calendar
+     */
+    allowShadow?: boolean;
+    /**
+     * whether to disable the week scroll in closed position
+     */
+    disableWeekScroll?: boolean;
+    /**
+     * a threshold for opening the calendar with the pan gesture
+     */
+    openThreshold?: number;
+    /**
+     * a threshold for closing the calendar with the pan gesture
+     */
+    closeThreshold?: number;
+}
+
+export class ExpandableCalendar extends React.Component<CalendarMarkingProps & ExpandableCalendarProps> {}

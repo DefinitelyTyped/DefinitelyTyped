@@ -14,11 +14,12 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from 'node:stream/promises';
+    import * as streamConsumers from 'node:stream/consumers';
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -52,11 +53,28 @@ declare module 'stream' {
              */
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
             /**
+             * Returns whether the stream has been read from or cancelled.
+             * @since v16.8.0
+             */
+            static isDisturbed(stream: Readable | NodeJS.ReadableStream): boolean;
+            /**
+             * Returns whether the stream was destroyed or errored before emitting `'end'`.
+             * @since v16.8.0
+             * @experimental
+             */
+            readonly readableAborted: boolean;
+            /**
              * Is `true` if it is safe to call `readable.read()`, which means
              * the stream has not been destroyed or emitted `'error'` or `'end'`.
              * @since v11.4.0
              */
             readable: boolean;
+            /**
+             * Returns whether `'data'` has been emitted.
+             * @since v16.7.0
+             * @experimental
+             */
+            readonly readableDidRead: boolean;
             /**
              * Getter for the property `encoding` of a given `Readable` stream. The `encoding`property can be set using the `readable.setEncoding()` method.
              * @since v12.7.0
@@ -376,7 +394,7 @@ declare module 'stream' {
              * @since v0.9.4
              * @param stream An "old style" readable stream
              */
-            wrap(oldStream: NodeJS.ReadableStream): this;
+            wrap(stream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: BufferEncoding): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             /**
@@ -587,12 +605,12 @@ declare module 'stream' {
              * @since v0.9.4
              * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
              * JavaScript value other than `null`.
-             * @param encoding The encoding, if `chunk` is a string.
+             * @param [encoding='utf8'] The encoding, if `chunk` is a string.
              * @param callback Callback for when this chunk of data is flushed.
              * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
              */
-            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            write(chunk: any, encoding: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, callback?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding: BufferEncoding, callback?: (error: Error | null | undefined) => void): boolean;
             /**
              * The `writable.setDefaultEncoding()` method sets the default `encoding` for a `Writable` stream.
              * @since v0.11.15
@@ -789,7 +807,39 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            /**
+             * If `false` then the stream will automatically end the writable side when the
+             * readable side ends. Set initially by the `allowHalfOpen` constructor option,
+             * which defaults to `false`.
+             *
+             * This can be changed manually to change the half-open behavior of an existing`Duplex` stream instance, but must be changed before the `'end'` event is
+             * emitted.
+             * @since v0.9.4
+             */
+            allowHalfOpen: boolean;
             constructor(opts?: DuplexOptions);
+            /**
+             * A utility method for creating duplex streams.
+             *
+             * - `Stream` converts writable stream into writable `Duplex` and readable stream
+             *   to `Duplex`.
+             * - `Blob` converts into readable `Duplex`.
+             * - `string` converts into readable `Duplex`.
+             * - `ArrayBuffer` converts into readable `Duplex`.
+             * - `AsyncIterable` converts into a readable `Duplex`. Cannot yield `null`.
+             * - `AsyncGeneratorFunction` converts into a readable/writable transform
+             *   `Duplex`. Must take a source `AsyncIterable` as first parameter. Cannot yield
+             *   `null`.
+             * - `AsyncFunction` converts into a writable `Duplex`. Must return
+             *   either `null` or `undefined`
+             * - `Object ({ writable, readable })` converts `readable` and
+             *   `writable` into `Stream` and then combines them into `Duplex` where the
+             *   `Duplex` will write to the `writable` and read from the `readable`.
+             * - `Promise` converts into readable `Duplex`. Value `null` is ignored.
+             *
+             * @since v16.8.0
+             */
+            static from(src: Stream | Blob | ArrayBuffer | string | Iterable<any> | AsyncIterable<any> | AsyncGeneratorFunction | Promise<any> | Object): Duplex;
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
                 chunks: Array<{
@@ -1007,7 +1057,7 @@ declare module 'stream' {
          * ```
          *
          * The `pipeline` API provides a promise version, which can also
-         * receive an options argument as the last parameter with a`signal` `<AbortSignal>` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
+         * receive an options argument as the last parameter with a`signal` `AbortSignal` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
          * an`AbortError`.
          *
          * ```js
@@ -1033,16 +1083,14 @@ declare module 'stream' {
          *
          * async function run() {
          *   const ac = new AbortController();
-         *   const options = {
-         *     signal: ac.signal,
-         *   };
+         *   const signal = ac.signal;
          *
          *   setTimeout(() => ac.abort(), 1);
          *   await pipeline(
          *     fs.createReadStream('archive.tar'),
          *     zlib.createGzip(),
          *     fs.createWriteStream('archive.tar.gz'),
-         *     options,
+         *     { signal },
          *   );
          * }
          *
@@ -1058,11 +1106,33 @@ declare module 'stream' {
          * async function run() {
          *   await pipeline(
          *     fs.createReadStream('lowercase.txt'),
-         *     async function* (source) {
+         *     async function* (source, signal) {
          *       source.setEncoding('utf8');  // Work with strings rather than `Buffer`s.
          *       for await (const chunk of source) {
-         *         yield chunk.toUpperCase();
+         *         yield await processChunk(chunk, { signal });
          *       }
+         *     },
+         *     fs.createWriteStream('uppercase.txt')
+         *   );
+         *   console.log('Pipeline succeeded.');
+         * }
+         *
+         * run().catch(console.error);
+         * ```
+         *
+         * Remember to handle the `signal` argument passed into the async generator.
+         * Especially in the case where the async generator is the source for the
+         * pipeline (i.e. first argument) or the pipeline will never complete.
+         *
+         * ```js
+         * const { pipeline } = require('stream/promises');
+         * const fs = require('fs');
+         *
+         * async function run() {
+         *   await pipeline(
+         *     async function * (signal) {
+         *       await someLongRunningfn({ signal });
+         *       yield 'asd';
          *     },
          *     fs.createWriteStream('uppercase.txt')
          *   );
@@ -1169,6 +1239,7 @@ declare module 'stream' {
             unref(): void;
         }
         const promises: typeof streamPromises;
+        const consumers: typeof streamConsumers;
     }
     export = internal;
 }

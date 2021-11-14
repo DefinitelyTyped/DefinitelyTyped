@@ -3,7 +3,9 @@ import assert = require('node:assert');
 import { promisify } from 'node:util';
 
 {
-    const copied: crypto.Hash = crypto.createHash('md5').copy();
+    const copied: crypto.Hash = crypto.createHash('md5').copy().copy({
+        encoding: 'ascii',
+    });
 }
 
 {
@@ -70,6 +72,12 @@ import { promisify } from 'node:util';
     // update Hmac with base64 encoded string
     const message = Buffer.from('message').toString('base64');
     crypto.createHmac('sha256', 'key').update(message, 'base64').digest();
+}
+
+{
+    // update Hmac with base64url encoded string
+    const message = Buffer.from('message').toString('base64url');
+    crypto.createHmac('sha256', 'key').update(message, 'base64url').digest();
 }
 
 {
@@ -494,6 +502,38 @@ import { promisify } from 'node:util';
         },
     });
 
+    const rsaPssRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const rsaPssResNoPassphrase: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: {
         publicKey: string;
         privateKey: Buffer;
@@ -569,6 +609,24 @@ import { promisify } from 'node:util';
             publicKeyEncoding: {
                 format: 'der',
                 type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        'rsa-pss',
+        {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'spki',
             },
             privateKeyEncoding: {
                 cipher: 'some-cipher',
@@ -668,6 +726,23 @@ import { promisify } from 'node:util';
         },
     });
 
+    const rsaPssRes: Promise<{
+        publicKey: Buffer;
+        privateKey: string;
+    }> = generateKeyPairPromisified('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: Promise<{
         publicKey: string;
         privateKey: Buffer;
@@ -749,6 +824,7 @@ import { promisify } from 'node:util';
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);
     assert.equal(keyObject.type, 'secret');
+    crypto.createSecretKey('ascii', 'ascii');
 }
 
 {
@@ -1151,6 +1227,15 @@ import { promisify } from 'node:util';
                 if (keyObject.asymmetricKeyDetails.namedCurve) {
                     const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
                 }
+                if (keyObject.asymmetricKeyDetails.mgf1HashAlgorithm) {
+                    const mgf1HashAlgorithm: string = keyObject.asymmetricKeyDetails.mgf1HashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.hashAlgorithm) {
+                    const hashAlgorithm: string = keyObject.asymmetricKeyDetails.hashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.saltLength) {
+                    const saltLength: number = keyObject.asymmetricKeyDetails.saltLength;
+                }
             }
         }
     });
@@ -1191,22 +1276,10 @@ import { promisify } from 'node:util';
 }
 
 {
-    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
-        for (const keyObject of [publicKey, privateKey]) {
-            if (keyObject.asymmetricKeyDetails) {
-                if (keyObject.asymmetricKeyDetails.modulusLength) {
-                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
-                }
-                if (keyObject.asymmetricKeyDetails.publicExponent) {
-                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
-                }
-                if (keyObject.asymmetricKeyDetails.divisorLength) {
-                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
-                }
-                if (keyObject.asymmetricKeyDetails.namedCurve) {
-                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
-                }
-            }
-        }
-    });
+    // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
+    crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
+}
+
+{
+    crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
 }

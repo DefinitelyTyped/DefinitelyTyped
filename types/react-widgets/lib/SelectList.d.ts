@@ -52,7 +52,7 @@ declare namespace SelectList {
          * This component is used to render each item in the SelectList. The default component
          * renders the text of the selected item (specified by textfield)
          */
-        itemComponent?: React.ReactType | undefined;
+        itemComponent?: React.ElementType | undefined;
         /**
          * Determines how to group the SelectList dropdown list. Providing a string will group the
          * data array by that property. You can also provide a 'function' which should return the
@@ -63,7 +63,7 @@ declare namespace SelectList {
          * This component is used to render each option group, when groupBy is specified. By default
          * the groupBy value will be used.
          */
-        groupComponent?: React.ReactType | undefined;
+        groupComponent?: React.ElementType | undefined;
         /**
          * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
          */
@@ -94,7 +94,7 @@ declare namespace SelectList {
         /**
          * @default List
          */
-        listComponent?: React.ReactType | string | undefined;
+        listComponent?: React.ElementType | string | undefined;
         /**
          * An object of props that is passed directly to the underlying List component.
          */

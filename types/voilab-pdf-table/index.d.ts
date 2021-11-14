@@ -22,10 +22,10 @@ declare class VoilabPdfTable<T = VoilabPdfTableDefaultType> {
     onBodyAdded(cb: (table: this, data: T[]) => void): this;
 
     /** Add action before a row is added */
-    onRowAdd(cb: (table: this, row: T) => void): this;
+    onRowAdd(cb: (table: this, row: T, rowIdx: number) => void): this;
 
     /** Add action after a row is added */
-    onRowAdded(cb: (table: this, row: T) => void): this;
+    onRowAdded(cb: (table: this, row: T, rowIdx: number) => void): this;
 
     /** Add action before a header is added */
     onHeaderAdd(cb: (table: this, header: VoilabPdfTable.VoilabPdfTableHeader<T>) => void): this;
@@ -158,6 +158,8 @@ declare class VoilabPdfTable<T = VoilabPdfTableDefaultType> {
 
     /** Add table headers */
     addHeader(index?: number): this;
+
+    pdf: PDFKit.PDFDocument;
 }
 
 declare namespace VoilabPdfTable {
@@ -183,11 +185,12 @@ declare namespace VoilabPdfTable {
         borderOpacity?: number;
         width?: number;
         height?: number;
-        valign?: number;
+        valign?: 'top' | 'center' | 'bottom';
         align?: 'left' | 'center' | 'right';
         fill?: boolean;
         cache?: boolean;
         padding?: [number] | [number, number] | [number, number, number, number];
+        headerPadding?: [number] | [number, number] | [number, number, number, number];
     } & (
         | {
               header: string;

@@ -1,4 +1,4 @@
-// Type definitions for mParticle/web-sdk SDK 2.12
+// Type definitions for mParticle/web-sdk SDK 2.14
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
@@ -48,6 +48,11 @@ export interface SDKEventCustomFlags {
         | unknown[]
         | Record<string, unknown>;
 }
+
+export interface SDKEventOptions {
+    shouldUploadEvent: boolean;
+}
+
 export interface DataPlanConfig {
     planId: string;
     planVersion?: number | undefined;
@@ -83,6 +88,7 @@ interface LogEvent {
         eventType?: EventType,
         eventInfo?: SDKEventAttrs,
         customFlags?: SDKEventCustomFlags,
+        eventOptions?: SDKEventOptions,
     ): void;
 }
 
@@ -109,8 +115,10 @@ interface LogPageView {
         eventName?: string,
         attrs?: SDKEventAttrs,
         customFlags?: SDKEventCustomFlags,
+        eventOptions?: SDKEventOptions,
     ): void;
 }
+
 interface Ready {
     (callback: () => void): void;
 }
@@ -147,7 +155,7 @@ interface StopTrackingLocation {
 }
 
 interface LogBaseEvent {
-    (event: BaseEvent): void;
+    (event: BaseEvent, eventOptions?: SDKEventOptions): void;
 }
 interface Upload {
     (): void;
@@ -250,6 +258,7 @@ interface LogImpression {
         impression: Impression[] | Impression,
         attrs?: Record<string, unknown>,
         customFlags?: Record<string, unknown>,
+        eventOptions?: SDKEventOptions,
     ): void;
 }
 interface LogProductAction {
@@ -259,14 +268,16 @@ interface LogProductAction {
         attrs?: SDKEventAttrs,
         customFlags?: SDKEventCustomFlags,
         transactionAttributes?: TransactionAttributes,
+        eventOptions?: SDKEventOptions,
     ): void;
 }
 interface LogPromotion {
     (
         type: number,
-        promotion: Promotion,
+        promotion: Promotion[] | Promotion,
         attrs?: SDKEventAttrs,
         customFlags?: SDKEventCustomFlags,
+        eventOptions?: SDKEventOptions,
     ): void;
 }
 interface LogPurchase {
@@ -661,6 +672,7 @@ export interface UserAliasRequest {
     sourceMpid: string;
     startTime: number;
     endTime: number;
+    scope?: string;
 }
 
 export interface AliasUsersCallback {

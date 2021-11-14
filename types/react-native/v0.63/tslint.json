@@ -1,0 +1,21 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "ban-types": false,
+        "comment-format": false,
+        "interface-over-type-literal": false,
+        "jsdoc-format": false,
+        "max-line-length": false,
+        "no-declare-current-package": false,
+        "no-empty-interface": false,
+        "no-misused-new": false,
+        "no-self-import": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false,
+        "prefer-declare-function": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "use-default-type-parameter": false
+    }
+}

@@ -1,9 +1,10 @@
-import { OnfleetMetadata } from '../metadata';
+import { OnfleetMetadata, MatchMetadata } from '../metadata';
 
 declare class Admin {
   create(obj: Admin.CreateAdminProps): Promise<Admin.OnfleetAdmin>;
   deleteOne(id: string): Promise<void>;
   get(): Promise<Admin.OnfleetAdmin[]>;
+  matchMetadata: MatchMetadata<Admin.OnfleetAdmin['metadata']>;
   update(id: string, obj: Admin.UpdateAdminProps): Promise<Admin.OnfleetAdmin>;
 }
 

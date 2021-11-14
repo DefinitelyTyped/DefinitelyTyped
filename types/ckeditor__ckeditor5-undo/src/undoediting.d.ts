@@ -4,3 +4,9 @@ export default class UndoEditing extends Plugin {
     static readonly pluginName: "UndoEditing";
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        UndoEditing: UndoEditing;
+    }
+}

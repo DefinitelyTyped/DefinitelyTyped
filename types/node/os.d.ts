@@ -5,7 +5,7 @@
  * ```js
  * const os = require('os');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/os.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/os.js)
  */
 declare module 'os' {
     interface CpuInfo {
@@ -143,8 +143,8 @@ declare module 'os' {
     /**
      * Returns the operating system as a string.
      *
-     * On POSIX systems, the operating system release is determined by calling[`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `GetVersionExW()` is used.
-     * See[https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
+     * On POSIX systems, the operating system release is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `GetVersionExW()` is used. See
+     * [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
      * @since v0.3.3
      */
     function release(): string;
@@ -396,8 +396,8 @@ declare module 'os' {
     /**
      * Returns a string identifying the kernel version.
      *
-     * On POSIX systems, the operating system release is determined by calling[`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
-     * available, `GetVersionExW()` will be used. See[https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
+     * On POSIX systems, the operating system release is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
+     * available, `GetVersionExW()` will be used. See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
      * @since v13.11.0, v12.17.0
      */
     function version(): string;
@@ -430,7 +430,7 @@ declare module 'os' {
      * Returns the scheduling priority for the process specified by `pid`. If `pid` is
      * not provided or is `0`, the priority of the current process is returned.
      * @since v10.10.0
-     * @param pid The process ID to retrieve scheduling priority for.
+     * @param [pid=0] The process ID to retrieve scheduling priority for.
      */
     function getPriority(pid?: number): number;
     /**
@@ -444,14 +444,10 @@ declare module 'os' {
      * On Windows, setting priority to `PRIORITY_HIGHEST` requires elevated user
      * privileges. Otherwise the set priority will be silently reduced to`PRIORITY_HIGH`.
      * @since v10.10.0
-     * @param pid The process ID to set scheduling priority for.
+     * @param [pid=0] The process ID to set scheduling priority for.
      * @param priority The scheduling priority to assign to the process.
      */
     function setPriority(priority: number): void;
-    /**
-     * Sets the priority of the process specified process.
-     * @param priority Must be in range of -20 to 19
-     */
     function setPriority(pid: number, priority: number): void;
 }
 declare module 'node:os' {

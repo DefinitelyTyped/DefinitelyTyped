@@ -64,6 +64,10 @@
             "libraryName": "ajv-keywords",
             "asOfVersion": "3.5.0"
         },
+        "alex": {
+            "libraryName": "alex",
+            "asOfVersion": "10.0.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
@@ -388,6 +392,10 @@
             "libraryName": "browserslist",
             "asOfVersion": "4.15.0"
         },
+        "bson": {
+            "libraryName": "bson",
+            "asOfVersion": "4.2.0"
+        },
         "bugsnag": {
             "libraryName": "bugsnag-js",
             "asOfVersion": "3.1.0"
@@ -467,6 +475,10 @@
         "cbor": {
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
+        },
+        "cesium": {
+            "libraryName": "cesium",
+            "asOfVersion": "1.70.0"
         },
         "chai-http": {
             "libraryName": "chai-http",
@@ -712,6 +724,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "countries-and-timezones": {
+            "libraryName": "countries-and-timezones",
+            "asOfVersion": "3.2.2"
+        },
         "country-code-lookup": {
             "libraryName": "country-code-lookup",
             "asOfVersion": "0.0.19"
@@ -805,6 +821,10 @@
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
         },
+        "cypress-recurse": {
+            "libraryName": "cypress-recurse",
+            "asOfVersion": "1.9.0"
+        },
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
@@ -876,6 +896,10 @@
         "dependency-tree": {
             "libraryName": "dependency-tree",
             "asOfVersion": "8.1.0"
+        },
+        "deta": {
+            "libraryName": "deta",
+            "asOfVersion": "1.0.0"
         },
         "detect-browser": {
             "libraryName": "detect-browser",
@@ -977,6 +1001,10 @@
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
         },
+        "easy-table": {
+            "libraryName": "easy-table",
+            "asOfVersion": "1.2.0"
+        },
         "easy-x-headers": {
             "libraryName": "easy-x-headers",
             "asOfVersion": "1.0.0"
@@ -992,6 +1020,10 @@
         "ecmarkup": {
             "libraryName": "ecmarkup",
             "asOfVersion": "3.4.0"
+        },
+        "editly": {
+            "libraryName": "editly",
+            "asOfVersion": "0.11.3"
         },
         "eev": {
             "libraryName": "eev",
@@ -1012,6 +1044,10 @@
         "egjs__component": {
             "libraryName": "@egjs/component",
             "asOfVersion": "2.1.0"
+        },
+        "egm96-universal": {
+            "libraryName": "egm96-universal",
+            "asOfVersion": "1.1.0"
         },
         "elastic-apm-node": {
             "libraryName": "elastic-apm-node",
@@ -2013,6 +2049,10 @@
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
         },
+        "is-progressive": {
+            "libraryName": "is-progressive",
+            "asOfVersion": "4.0.0"
+        },
         "is-promise": {
             "libraryName": "is-promise",
             "asOfVersion": "2.2.0"
@@ -2340,10 +2380,6 @@
         "known": {
             "libraryName": "known",
             "asOfVersion": "3.0.0"
-        },
-        "koa-better-body": {
-            "libraryName": "koa-better-body",
-            "asOfVersion": "3.1.0"
         },
         "koa-jwt": {
             "libraryName": "koa-jwt",
@@ -2981,6 +3017,10 @@
             "libraryName": "node-downloader-helper",
             "asOfVersion": "1.0.16"
         },
+        "node-fetch": {
+            "libraryName": "node-fetch",
+            "asOfVersion": "3.0.0"
+        },
         "node-json-db": {
             "libraryName": "node-json-db",
             "asOfVersion": "0.9.2"
@@ -3357,6 +3397,11 @@
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
         },
+        "pdfjs-dist": {
+            "libraryName": "pdfjs-dist",
+            "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
+            "asOfVersion": "2.10.377"
+        },
         "peerjs": {
             "libraryName": "peerjs",
             "asOfVersion": "1.1.0"
@@ -3397,6 +3442,10 @@
         "pigpio": {
             "libraryName": "pigpio",
             "asOfVersion": "3.1.0"
+        },
+        "pino": {
+            "libraryName": "pino",
+            "asOfVersion": "7.0.0"
         },
         "pixi-spine": {
             "libraryName": "pixi-spine",
@@ -3457,6 +3506,14 @@
         "positive-zero": {
             "libraryName": "positive-zero",
             "asOfVersion": "3.0.0"
+        },
+        "postcss-custom-properties": {
+            "libraryName": "postcss-custom-properties",
+            "asOfVersion": "12.0.0"
+        },
+        "postcss-focus-within": {
+            "libraryName": "postcss-focus-within",
+            "asOfVersion": "5.0.1"
         },
         "postcss-load-config": {
             "libraryName": "postcss-load-config",
@@ -3665,6 +3722,10 @@
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
+        },
+        "rc-tree": {
+            "libraryName": "rc-tree",
+            "asOfVersion": "3.0.0"
         },
         "rdf-js": {
             "libraryName": "rdf-js",
@@ -4078,6 +4139,10 @@
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
         },
+        "react-select": {
+            "libraryName": "react-select",
+            "asOfVersion": "5.0.0"
+        },
         "react-share": {
             "libraryName": "react-share",
             "asOfVersion": "4.0.0"
@@ -4169,10 +4234,6 @@
         "reapop": {
             "libraryName": "reapop",
             "asOfVersion": "3.0.0"
-        },
-        "recharts": {
-            "libraryName": "recharts",
-            "asOfVersion": "2.0.0"
         },
         "recoil": {
             "libraryName": "recoil",
@@ -4490,6 +4551,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simple-icons": {
+            "libraryName": "simple-icons",
+            "asOfVersion": "5.21.0"
+        },
         "simplebar": {
             "libraryName": "simplebar",
             "asOfVersion": "5.3.3"
@@ -4532,6 +4597,10 @@
         },
         "skin-tone": {
             "libraryName": "skin-tone",
+            "asOfVersion": "2.0.0"
+        },
+        "skyway": {
+            "libraryName": "skyway-js",
             "asOfVersion": "2.0.0"
         },
         "slash": {
@@ -4605,6 +4674,10 @@
         "sololearn": {
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
+        },
+        "sonic-boom": {
+            "libraryName": "sonic-boom",
+            "asOfVersion": "2.1.0"
         },
         "soundex-code": {
             "libraryName": "soundex-code",
@@ -4806,6 +4879,10 @@
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
         },
+        "styled-jsx": {
+            "libraryName": "styled-jsx",
+            "asOfVersion": "3.4.4"
+        },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
             "asOfVersion": "2.1.0"
@@ -4910,6 +4987,10 @@
             "libraryName": "terser",
             "asOfVersion": "3.12.0"
         },
+        "terser-webpack-plugin": {
+            "libraryName": "terser-webpack-plugin",
+            "asOfVersion": "5.2.0"
+        },
         "tesseract.js": {
             "libraryName": "tesseract.js",
             "asOfVersion": "2.0.0"
@@ -5001,6 +5082,10 @@
         "trim-newlines": {
             "libraryName": "trim-newlines",
             "asOfVersion": "3.0.0"
+        },
+        "trimblemaps__trimblemaps-js": {
+            "libraryName": "@trimblemaps/trimblemaps-js",
+            "asOfVersion": "3.2.0"
         },
         "ts3-nodejs-library": {
             "libraryName": "ts3-nodejs-library",
@@ -5186,6 +5271,10 @@
             "libraryName": "vfile-message",
             "asOfVersion": "2.0.0"
         },
+        "victory": {
+            "libraryName": "victory",
+            "asOfVersion": "35.0.0"
+        },
         "viewerjs": {
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
@@ -5276,6 +5365,14 @@
         },
         "webpack-merge": {
             "libraryName": "webpack-merge",
+            "asOfVersion": "5.0.0"
+        },
+        "webpack-notifier": {
+            "libraryName": "webpack-notifier",
+            "asOfVersion": "1.14.0"
+        },
+        "webpack-subresource-integrity": {
+            "libraryName": "webpack-subresource-integrity",
             "asOfVersion": "5.0.0"
         },
         "whatwg-streams": {

@@ -16,6 +16,7 @@ export interface PayPalCheckoutCreatePaymentOptions {
     enableShippingAddress?: boolean | undefined;
     shippingAddressOverride?: paypal.Address | undefined;
     shippingAddressEditable?: boolean | undefined;
+    requestBillingAgreement?: boolean | undefined;
     billingAgreementDescription?: string | undefined;
     landingPageType?: string | undefined;
     lineItems?: paypal.LineItem[] | undefined;
@@ -98,6 +99,49 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
          */
         'data-partner-attribution-id'?: string | undefined;
     } | undefined;
+    /**
+     * Funding sources to disallow from showing in the checkout buttons.
+     * Do not use this query parameter to disable advanced credit and debit card payments.
+     * e.g. card, credit, bancontact
+     * The full list is available in the PayPal SDK docs.
+     */
+    'disable-funding'?: string;
+    /**
+     * Funding sources to allow in the checkout buttons.
+     * e.g. venmo, paylater
+     * The full list is available in the PayPal SDK docs.
+     */
+    'enable-funding'?: string;
+    /**
+     * The locale used to localize any components.
+     * PayPal recommends not setting this parameter, as the buyer's locale is automatically set by PayPal.
+     * e.g. en_US, fr_FR, de_DE
+     */
+    locale?: string;
+    /**
+     * Enable debug mode for ease of debugging. Do not enable for production traffic.
+     */
+    debug?: boolean;
+    /**
+     * Set to true if the transaction is completed on the PayPal review page or false if the amount
+     * captured changes after the buyer returns to your site. Not applicable for subscriptions.
+     * Important: If you're integrating with a PayPal API, make sure the commit value you pass
+     * in the API call matches the value you pass in the JavaScript call.
+     */
+    commit?: boolean;
+    /**
+     * The buyer country. Available in Sandbox for testing.
+     */
+    'buyer-country'?: string;
+    /**
+     * The date of integration. Used to ensure backwards compatibility.
+     * Format: YYYY-MM-DD
+     */
+    'integration-date'?: string;
+    /**
+     * The merchant for whom you are facilitating a transaction.
+     */
+    'merchant-id'?: string;
 }
 
 export interface PayPalCheckout {
@@ -125,7 +169,7 @@ export interface PayPalCheckout {
      *
      * @link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#loadPayPalSDK
      */
-    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<void>;
+    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<PayPalCheckout>;
     loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions, callback?: callback): void;
 
     /**

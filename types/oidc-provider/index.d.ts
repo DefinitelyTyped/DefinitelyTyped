@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.4
+// Type definitions for oidc-provider 7.8
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -503,6 +503,7 @@ declare class ClientCredentials extends BaseToken {
     readonly tokenType: string;
     'x5t#S256'?: string | undefined;
     jkt?: string | undefined;
+    resourceServer?: ResourceServer | undefined;
 
     isSenderConstrained(): boolean;
 }
@@ -538,6 +539,7 @@ declare class AccessToken extends BaseToken {
     });
     readonly kind: 'AccessToken';
     accountId: string;
+    resourceServer?: ResourceServer | undefined;
     aud: string | string[];
     claims?: ClaimsParameter | undefined;
     extra?: UnknownObject | undefined;
@@ -676,7 +678,7 @@ export interface ResourceServer {
         } | undefined;
     } | undefined;
     paseto?: {
-        version: 1 | 2;
+        version: 1 | 2 | 3 | 4;
         purpose: 'local' | 'public';
         key?: crypto.KeyObject | Buffer | undefined;
         kid?: string | undefined;
@@ -876,8 +878,9 @@ declare class JWTStructured {
 }
 
 declare class PASETOStructured {
-    footer?: UnknownObject | Buffer | string | undefined;
+    footer?: UnknownObject | undefined;
     payload: UnknownObject;
+    assertion?: string | Buffer | undefined;
 }
 
 export interface Configuration {
@@ -1032,7 +1035,6 @@ export interface Configuration {
 
         ciba?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
             deliveryModes: CIBADeliveryMode[];
             triggerAuthenticationDevice?: ((ctx: KoaContextWithOIDC, request: BackchannelAuthenticationRequest, account: Account, client: Client) => CanBePromise<void>) | undefined;
             validateBindingMessage?: ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>) | undefined;
@@ -1065,7 +1067,6 @@ export interface Configuration {
         pushedAuthorizationRequests?: {
             requirePushedAuthorizationRequests?: boolean | undefined;
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         rpInitiatedLogout?: {
@@ -1272,10 +1273,12 @@ export interface InteractionResults {
         ts?: number | undefined;
         amr?: string[] | undefined;
         acr?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     consent?: {
         grantId?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     [key: string]: unknown;
@@ -2071,6 +2074,9 @@ export namespace errors {
         constructor(description?: string, detail?: string);
     }
     class InvalidScope extends OIDCProviderError {
+        constructor(description: string, scope: string);
+    }
+    class InsufficientScope extends OIDCProviderError {
         constructor(description: string, scope: string);
     }
     class InvalidSoftwareStatement extends OIDCProviderError {

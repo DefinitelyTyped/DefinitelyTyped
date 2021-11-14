@@ -2,7 +2,7 @@ export = RequestBody;
 declare function RequestBody(request: Request): void;
 declare class RequestBody {
     constructor(request: Request);
-    request_: Request;
+    private request_;
     asJson(): any;
     asText(): string;
 }

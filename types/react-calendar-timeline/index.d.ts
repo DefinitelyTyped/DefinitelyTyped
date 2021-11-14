@@ -194,6 +194,7 @@ declare module 'react-calendar-timeline' {
         CustomItem extends TimelineItemBase<any> = TimelineItemBase<number>,
         CustomGroup extends TimelineGroupBase = TimelineGroupBase
     > {
+        children?: React.ReactNode;
         groups: CustomGroup[];
         items: CustomItem[];
         keys?: TimelineKeys | undefined;
@@ -287,6 +288,7 @@ declare module 'react-calendar-timeline' {
     export class CursorMarker extends React.Component<CursorMarkerProps> {}
 
     export interface TimelineHeadersProps {
+        children?: React.ReactNode;
         style?: React.CSSProperties | undefined;
         className?: string | undefined;
         calendarHeaderStyle?: React.CSSProperties | undefined;

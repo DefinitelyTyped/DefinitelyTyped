@@ -8,3 +8,9 @@ export default class InputCommand extends Command {
     destroy(): void;
     execute(options?: { text?: string; range?: Range; resultRange: Range }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        InputCommand: InputCommand;
+    }
+}

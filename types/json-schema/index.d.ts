@@ -141,7 +141,7 @@ export interface JSONSchema4 {
      *
      * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.7
      */
-    required?: false | string[] | undefined;
+    required?: boolean | string[] | undefined;
 
     /**
      * This attribute defines a schema for all properties that are not

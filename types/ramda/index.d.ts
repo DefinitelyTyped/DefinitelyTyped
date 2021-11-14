@@ -31,6 +31,7 @@
 //                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
 //                 Mikael Couzic <https://github.com/couzic>
+//                 Nikita Balikhin <https://github.com/NEWESTERS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -45,7 +46,7 @@ import {
     Evolvable,
     Evolve,
     Evolver,
-    Filter,
+    Find,
     Functor,
     KeyValuePair,
     Lens,
@@ -61,7 +62,7 @@ import {
     Reduced,
     SafePred,
     ValueOfRecord,
-    ValueOfUnion
+    ValueOfUnion,
 } from "./tools";
 
 export * from './tools';
@@ -203,10 +204,10 @@ export function ascend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
 /**
  * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
  */
-export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & U;
-export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & Omit<U, K>;
+export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & Omit<U, K>;
+export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
+export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
 /**
@@ -290,8 +291,8 @@ export function complement<As extends any[]>(pred: (...args: As) => boolean): (.
  * functions must be unary.
  */
 // generic rest parameters in TS 3.0 allows writing a single variant for any number of Vx
-// compose<V extends any[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
-// compose<V extends any[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
+// compose<V extends unknown[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
+// compose<V extends unknown[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
 // but requiring TS>=3.0 sounds like a breaking change, so just leaving a comment for the future
 // tslint:disable:max-line-length
 export function compose<T1>(fn0: () => T1): () => T1;
@@ -606,14 +607,20 @@ export function F(): boolean;
 /**
  * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
  */
-export const filter: Filter;
+export function filter<A, P extends A>(pred: (val: A) => val is P): {
+    <B extends A>(list: readonly B[]): P[];
+    <B extends A>(dict: Dictionary<B>): Dictionary<P>;
+};
+export function filter<T>(pred: (value: T) => boolean): <P extends T, C extends (readonly P[] | Dictionary<P>)>(collection: C) => C;
+export function filter<T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P[];
+export function filter<T, P extends T>(pred: (val: T) => val is P, dict: Dictionary<T>): Dictionary<P>;
+export function filter<T, C extends (readonly T[] | Dictionary<T>)>(pred: (value: T) => boolean, collection: C): C;
 
 /**
  * Returns the first element of the list which matches the predicate, or `undefined` if no
  * element matches.
  */
-export function find<T>(fn: (a: T) => boolean, list: readonly T[]): T | undefined;
-export function find<T>(fn: (a: T) => boolean): (list: readonly T[]) => T | undefined;
+export const find: Find;
 
 /**
  * Returns the index of the first element of the list which matches the predicate, or `-1`
@@ -626,8 +633,7 @@ export function findIndex<T>(fn: (a: T) => boolean): (list: readonly T[]) => num
  * Returns the last element of the list which matches the predicate, or `undefined` if no
  * element matches.
  */
-export function findLast<T>(fn: (a: T) => boolean, list: readonly T[]): T | undefined;
-export function findLast<T>(fn: (a: T) => boolean): (list: readonly T[]) => T | undefined;
+export const findLast: Find;
 
 /**
  * Returns the index of the last element of the list which matches the predicate, or
@@ -868,8 +874,10 @@ export function invoker(arity: number, method: string): (...a: readonly any[]) =
  * See if an object (`val`) is an instance of the supplied constructor.
  * This function will check up the inheritance chain, if any.
  */
-export function is(ctor: any, val: any): boolean;
-export function is(ctor: any): (val: any) => boolean;
+export function is<C extends (...args: any[]) => any>(ctor: C, val: any): val is ReturnType<C>;
+export function is<C extends new (...args: any[]) => any>(ctor: C, val: any): val is InstanceType<C>;
+export function is<C extends (...args: any[]) => any>(ctor: C): (val: any) => val is ReturnType<C>;
+export function is<C extends new (...args: any[]) => any>(ctor: C): (val: any) => val is InstanceType<C>;
 
 /**
  * Reports whether the list has zero elements.
@@ -1608,11 +1616,17 @@ export function propEq<K extends string | number>(name: K): {
 /**
  * Returns true if the specified object property is of the given type; false otherwise.
  */
-export function propIs(type: any, name: string, obj: any): boolean;
-export function propIs(type: any, name: string): (obj: any) => boolean;
-export function propIs(type: any): {
-    (name: string, obj: any): boolean;
-    (name: string): (obj: any) => boolean;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+export function propIs<C extends new (...args: any[]) => any, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
+export function propIs<C extends (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
+};
+export function propIs<C extends new (...args: any[]) => any>(type: C): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, InstanceType<C>>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
 };
 
 /**
@@ -1637,9 +1651,15 @@ export function props<P extends string, T>(ps: readonly P[]): (obj: Record<P, T>
 /**
  * Returns true if the specified object property satisfies the given predicate; false otherwise.
  */
-export function propSatisfies<T, U>(pred: (val: T) => boolean, name: string, obj: U): boolean;
-export function propSatisfies<T, U>(pred: (val: T) => boolean, name: string): (obj: U) => boolean;
-export function propSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: string, b: U) => boolean>;
+export function propSatisfies<P, K extends keyof any>(pred: (val: any) => val is P, name: K, obj: any): obj is Record<K, P>;
+export function propSatisfies<P, K extends keyof any>(pred: (val: any) => val is P, name: K): (obj: any) => obj is Record<K, P>;
+export function propSatisfies<P>(pred: (val: any) => val is P): {
+    <K extends keyof any>(name: K, obj: any): obj is Record<K, P>;
+    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, P>;
+};
+export function propSatisfies(pred: (val: any) => boolean, name: keyof any, obj: any): boolean;
+export function propSatisfies(pred: (val: any) => boolean, name: keyof any): (obj: any) => boolean;
+export function propSatisfies(pred: (val: any) => boolean): _.F.Curry<(a: keyof any, b: any) => boolean>;
 
 /**
  * Returns a list of numbers from `from` (inclusive) to `to`
@@ -1698,7 +1718,14 @@ export function reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => bo
  * Similar to `filter`, except that it keeps only values for which the given predicate
  * function returns falsy.
  */
-export const reject: Filter;
+export function reject<A, P extends A>(pred: (val: A) => val is P): {
+    <B extends A>(list: readonly B[]): Array<Exclude<B, P>>;
+    <B extends A>(dict: Dictionary<B>): Dictionary<Exclude<B, P>>;
+};
+export function reject<T>(pred: (value: T) => boolean): <P extends T, C extends (readonly P[] | Dictionary<P>)>(collection: C) => C;
+export function reject<A, B extends A, P extends A>(pred: (val: A) => val is P, list: readonly B[]): Array<Exclude<B, P>>;
+export function reject<A, B extends A, P extends A>(pred: (val: A) => val is P, dict: Dictionary<B>): Dictionary<Exclude<B, P>>;
+export function reject<T, C extends (readonly T[] | Dictionary<T>)>(pred: (value: T) => boolean, collection: C): C;
 
 /**
  * Removes the sub-list of `list` starting at index `start` and containing `count` elements.

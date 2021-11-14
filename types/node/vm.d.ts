@@ -1,7 +1,7 @@
 /**
  * The `vm` module enables compiling and running code within V8 Virtual
  * Machine contexts. **The `vm` module is not a security mechanism. Do**
- * **not use it to run untrusted code**.
+ * **not use it to run untrusted code.**
  *
  * JavaScript code can be compiled and run immediately or
  * compiled, saved, and run later.
@@ -32,7 +32,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/vm.js)
  */
 declare module 'vm' {
     interface Context extends NodeJS.Dict<any> {}
@@ -191,7 +191,7 @@ declare module 'vm' {
          * @param contextifiedObject A `contextified` object as returned by the `vm.createContext()` method.
          * @return the result of the very last statement executed in the script.
          */
-        runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+        runInContext(contextifiedObject: Context, options?: RunningScriptOptions): any;
         /**
          * First contextifies the given `contextObject`, runs the compiled code contained
          * by the `vm.Script` object within the created context, and returns the result.
@@ -218,7 +218,7 @@ declare module 'vm' {
          * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
          * @return the result of the very last statement executed in the script.
          */
-        runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
+        runInNewContext(contextObject?: Context, options?: RunningScriptOptions): any;
         /**
          * Runs the compiled code contained by the `vm.Script` within the context of the
          * current `global` object. Running code does not have access to local scope, but_does_ have access to the current `global` object.
@@ -267,13 +267,16 @@ declare module 'vm' {
          * @since v10.6.0
          */
         createCachedData(): Buffer;
+        /** @deprecated in favor of `script.createCachedData()` */
+        cachedDataProduced?: boolean | undefined;
         cachedDataRejected?: boolean | undefined;
+        cachedData?: Buffer | undefined;
     }
     /**
      * If given a `contextObject`, the `vm.createContext()` method will `prepare
      * that object` so that it can be used in calls to {@link runInContext} or `script.runInContext()`. Inside such scripts,
      * the `contextObject` will be the global object, retaining all of its existing
-     * properties but also having the built-in objects and functions any standard[global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global variables
+     * properties but also having the built-in objects and functions any standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global variables
      * will remain unchanged.
      *
      * ```js
@@ -340,7 +343,7 @@ declare module 'vm' {
      * @param contextifiedObject The `contextified` object that will be used as the `global` when the `code` is compiled and run.
      * @return the result of the very last statement executed in the script.
      */
-    function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
+    function runInContext(code: string, contextifiedObject: Context, options?: RunningScriptOptions | string): any;
     /**
      * The `vm.runInNewContext()` first contextifies the given `contextObject` (or
      * creates a new `contextObject` if passed as `undefined`), compiles the `code`,
@@ -369,7 +372,7 @@ declare module 'vm' {
      * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
      * @return the result of the very last statement executed in the script.
      */
-    function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
+    function runInNewContext(code: string, contextObject?: Context, options?: RunningScriptOptions | string): any;
     /**
      * `vm.runInThisContext()` compiles `code`, runs it within the context of the
      * current `global` and returns the result. Running code does not have access to
@@ -394,7 +397,7 @@ declare module 'vm' {
      * ```
      *
      * Because `vm.runInThisContext()` does not have access to the local scope,`localVar` is unchanged. In contrast,
-     * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)_does_ have access to the
+     * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) _does_ have access to the
      * local scope, so the value `localVar` is changed. In this way`vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
      *
      * ## Example: Running an HTTP server within a VM

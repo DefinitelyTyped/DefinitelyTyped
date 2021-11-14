@@ -2,14 +2,8 @@ export = StrictModeEvaluator;
 declare function StrictModeEvaluator(...args: any[]): void;
 declare class StrictModeEvaluator {
     constructor(...args: any[]);
-    protected_: ProtectedObject[];
-    preserved_: {
-        [x: string]: {
-            [x: string]: {
-                descriptor: PropertyDescriptor;
-            };
-        };
-    };
+    private protected_;
+    private preserved_;
     private enableLevel_;
     private pauseLevel_;
     enabled: boolean;

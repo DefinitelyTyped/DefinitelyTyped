@@ -1,4 +1,5 @@
-import Tagify, { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
+import Tagify = require('@yaireo/tagify');
+import { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
 
 export function tagTemplate(this: Tagify, tagData: TagData): string {
     return `
@@ -19,6 +20,7 @@ const settings: TagifyConstructorSettings = {
     duplicates: false,
     trim: false,
     enforceWhitelist: true,
+    userInput: true,
     autoComplete: {
         enabled: true,
         rightKey: true
@@ -202,6 +204,13 @@ const settings: TagifyConstructorSettings = {
     },
     maxTags: 10,
     editTags: { clicks: 1, keepInvalid: false },
+    texts: {
+        empty: 'Enter something',
+        exceed: 'Too much',
+        pattern: 'Wrong input',
+        duplicate: 'Try something new',
+        notAllowed: 'Error'
+    },
     templates: {
         wrapper: (input, settings) => {
             // Can use "as const" in later TS versions
@@ -410,6 +419,7 @@ const scopeEl: HTMLElement = tagify.DOM.scope;
 const spanEl: HTMLSpanElement = tagify.DOM.input;
 const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
+const invalidPatternMessage = tagify.TEXTS.pattern;
 
 if (tagify.suggestedListItems !== undefined) {
     const item: TagData = tagify.suggestedListItems[0];
@@ -894,12 +904,16 @@ tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 // $ExpectError
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
 tagify.setReadonly(false);
+tagify.setDisabled(false);
+tagify.setDisabled(true);
 
 tagify.dropdown.show();
 tagify.dropdown.show('foo');
 tagify.dropdown.selectAll();
 tagify.dropdown.hide();
 tagify.dropdown.hide(true);
+tagify.dropdown.toggle();
+tagify.dropdown.toggle(true);
 tagify.dropdown.refilter();
 tagify.dropdown.refilter('filter value');
 

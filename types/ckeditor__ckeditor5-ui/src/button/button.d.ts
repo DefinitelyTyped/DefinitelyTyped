@@ -1,17 +1,17 @@
 export interface Button {
-    class?: string | undefined;
-    icon?: string | undefined;
+    class?: string;
+    icon?: string;
     isEnabled: boolean;
     isOn: boolean;
     isToggleable: boolean;
     isVisible: boolean;
-    keystroke?: string | undefined;
+    keystroke?: string;
     label: string;
-    labelStyle?: string | undefined;
-    tabindex?: string | undefined;
-    tooltip?: boolean | string | ((label: string, keystroke: string) => string) | undefined;
-    tooltipPosition?: "s" | "n" | "e" | "w" | "sw" | "se" | undefined;
-    type?: "button" | "submit" | "reset" | "menu" | undefined;
-    withKeystroke?: boolean | undefined;
-    withText?: boolean | undefined;
+    labelStyle?: string;
+    tabindex?: string;
+    tooltip?: boolean | string | ((label: string, keystroke: string) => string);
+    tooltipPosition?: "s" | "n" | "e" | "w" | "sw" | "se";
+    type?: "button" | "submit" | "reset" | "menu";
+    withKeystroke?: boolean;
+    withText?: boolean;
 }

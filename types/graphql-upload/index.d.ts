@@ -9,7 +9,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { GraphQLScalarType } from "graphql";
 import { RequestHandler } from "express";
-import { Middleware } from "koa";
+import { DefaultContext, DefaultState, Middleware } from "koa";
 import { ReadStream } from "fs-capacitor";
 
 export interface UploadOptions {
@@ -34,9 +34,9 @@ export function graphqlUploadExpress(
   uploadOptions?: UploadOptions
 ): RequestHandler;
 
-export function graphqlUploadKoa <StateT = any, CustomT = {}>(
+export function graphqlUploadKoa <StateT = DefaultState, ContextT = DefaultContext>(
   uploadOptions?: UploadOptions
-): Middleware<StateT, CustomT>;
+): Middleware<StateT, ContextT>;
 
 export const GraphQLUpload: GraphQLScalarType;
 

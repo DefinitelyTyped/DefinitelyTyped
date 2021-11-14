@@ -65,6 +65,7 @@ declare namespace DockerModem {
         openStdin?: boolean | undefined;
         isStream?: boolean | undefined;
         statusCodes?: StatusCodes | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface StatusCodes {

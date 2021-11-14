@@ -2,44 +2,62 @@ import { Extrafield } from './extrafield';
 import { Address } from './address';
 
 export interface CheckoutCapture {
-    line_items: any;
-    discount_code?: string | undefined;
-    extra_fields?: Extrafield[] | undefined;
+    line_items?: any;
+    discount_code?: string;
+    extra_fields?: Extrafield[];
     customer: {
-        firstname?: string | undefined;
-        lastname?: string | undefined;
+        id?: string;
+        firstname?: string;
+        lastname?: string;
         email: string;
-        phone?: string | undefined;
+        phone?: string;
         meta?: any;
     };
-    shipping?: Partial<Address> | undefined;
+    shipping?: Partial<Address>;
     fulfillment?: {
         shipping_method: string;
-    } | undefined;
-    billing?: Partial<Address> | undefined;
+    };
+    billing?: Partial<Address>;
     payment: {
-        gateway: string;
+        gateway: 'braintree' | 'manual' | 'omise' | 'paypal' | 'razorpay' | 'stripe' | 'square' | 'test_gateway' | string;
         card?: {
-            number?: string | undefined;
-            token?: string | undefined;
-            nonce?: string | undefined;
-        } | undefined;
+            token?: string;
+            nonce?: string;
+        }   |   {
+            number: string
+            expiry_month: string
+            expiry_year: string
+            cvc: string
+            postal_zip_code: string
+        };
+        braintree?: {
+            nonce: string;
+        };
+        square?: {
+            token?: string;
+            verification_token?: string;
+        };
         stripe?: {
-            payment_method_id: string;
-            payment_intent_id: string;
-        } | undefined;
+            payment_method_id?: string;
+            payment_intent_id?: string;
+            customer_id?: string;
+            setup_future_usage?: 'on_session' | 'off_session';
+        };
         razorpay?: {
             payment_id: string;
-        } | undefined;
+        };
+        omise?: {
+            token: string;
+        };
         paypal?: {
-            action: string;
-            payment_id: string;
-            payer_id: string;
-        } | undefined;
+            action: 'capture' | 'authorize';
+            payment_id?: string;
+            payer_id?: string;
+        };
         manual?: {
             id: string;
-        } | undefined;
+        };
     };
-    pay_what_you_want?: string | undefined;
+    pay_what_you_want?: string;
     meta?: any;
 }

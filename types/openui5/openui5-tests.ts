@@ -9,13 +9,21 @@ import Text from "sap/m/Text";
 import Table from "sap/m/Table";
 import Toolbar from "sap/m/Toolbar";
 import Button from "sap/m/Button";
+import DatePicker from "sap/m/DatePicker";
 import Label from "sap/m/Label";
 import Column from "sap/m/Column";
 import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
 import FileUploader from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
-import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import Target from "sap/ui/core/routing/Target";
+
+/*
+ * REMARK: the type definition files are automatically generated and this generation is tested,
+ * so the importance of these tests here is very limited. Hence there is no focus on making them
+ * as complete or meaningful as possible.
+ */
 
 Core.attachInit(() => {
     new Text({
@@ -48,6 +56,10 @@ class Ctrl extends Controller {
         };
         const oModel = new JSONModel(oData);
         this.getView().setModel(oModel);
+
+        const dp = new DatePicker();
+        dp.setShowCurrentDateButton(true);
+        this.getView().addContent(dp);
     }
 }
 
@@ -72,6 +84,11 @@ export class BaseController extends Controller {
     getModel(name: string) {
         return this.getView().getModel(name);
     }
+    suspendDefaultTarget() {
+        const router = (<UIComponent> this.getOwnerComponent()).getRouter();
+        const target = router.getTarget("default") as Target;
+        target.suspend();
+    }
 }
 
 const oTable = new Table({
@@ -84,6 +101,9 @@ const oTable = new Table({
             }),
         ]
     }),
+    beforeOpenContextMenu: (oEvent: UI5Event) => {
+        const params = oEvent.getParameters();
+    }
 });
 
 const lbl = new Label(undefined);
@@ -96,7 +116,9 @@ type Headers = {
 
 const oUploadDialog = new Dialog(undefined);
 oUploadDialog.setTitle("Upload photo");
-(<ODataModel> Core.getModel(undefined)).refreshSecurityToken();
+const oDataV2Model = Core.getModel(undefined) as ODataModel;
+oDataV2Model.refreshSecurityToken();
+oDataV2Model.bindList("/", null, [], [], {createdEntitiesKey: "test"});
 // prepare the FileUploader control
 const oFileUploader = new FileUploader({
     headerParameters: [
@@ -126,5 +148,5 @@ oUploadDialog.addContent(oFileUploader);
 oUploadDialog.addContent(oTriggerButton);
 oUploadDialog.open();
 
-const odataV4ListBinding = new ODataListBinding();
+const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();

@@ -6,7 +6,7 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
@@ -127,8 +127,6 @@ declare module 'tls' {
         requestOCSP?: boolean | undefined;
     }
     /**
-     * * Extends: `<net.Socket>`
-     *
      * Performs transparent encryption of written data and all required TLS
      * negotiation.
      *
@@ -144,7 +142,9 @@ declare module 'tls' {
          */
         constructor(socket: net.Socket, options?: TLSSocketOptions);
         /**
-         * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
+         * Returns `true` if the peer certificate was signed by one of the CAs specified
+         * when creating the `tls.TLSSocket` instance, otherwise `false`.
+         * @since v0.11.4
          */
         authorized: boolean;
         /**
@@ -160,9 +160,10 @@ declare module 'tls' {
         encrypted: boolean;
         /**
          * String containing the selected ALPN protocol.
-         * When ALPN has no selected protocol, tlsSocket.alpnProtocol equals false.
+         * Before a handshake has completed, this value is always null.
+         * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
          */
-        alpnProtocol?: string | undefined;
+        alpnProtocol: string | false | null;
         /**
          * Returns an object representing the local certificate. The returned object has
          * some properties corresponding to the fields of the certificate.
@@ -188,7 +189,7 @@ declare module 'tls' {
          * }
          * ```
          *
-         * See[SSL\_CIPHER\_get\_name](https://www.openssl.org/docs/man1.1.1/man3/SSL_CIPHER_get_name.html)for more information.
+         * See [SSL\_CIPHER\_get\_name](https://www.openssl.org/docs/man1.1.1/man3/SSL_CIPHER_get_name.html) for more information.
          * @since v0.11.4
          */
         getCipher(): CipherNameAndProtocol;
@@ -273,7 +274,7 @@ declare module 'tls' {
          */
         getSession(): Buffer | undefined;
         /**
-         * See[SSL\_get\_shared\_sigalgs](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_shared_sigalgs.html)for more information.
+         * See [SSL\_get\_shared\_sigalgs](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_shared_sigalgs.html) for more information.
          * @since v12.11.0
          * @return List of signature algorithms shared between the server and the client in the order of decreasing preference.
          */
@@ -328,7 +329,7 @@ declare module 'tls' {
          * smaller fragments add extra TLS framing bytes and CPU overhead, which may
          * decrease overall server throughput.
          * @since v0.11.11
-         * @param size The maximum TLS fragment size. The maximum value is `16384`.
+         * @param [size=16384] The maximum TLS fragment size. The maximum value is `16384`.
          */
         setMaxSendFragment(size: number): boolean;
         /**
@@ -348,14 +349,14 @@ declare module 'tls' {
          */
         enableTrace(): void;
         /**
-         * Returns the peer certificate as an `<X509Certificate>` object.
+         * Returns the peer certificate as an `X509Certificate` object.
          *
          * If there is no peer certificate, or the socket has been destroyed,`undefined` will be returned.
          * @since v15.9.0
          */
         getPeerX509Certificate(): X509Certificate | undefined;
         /**
-         * Returns the local certificate as an `<X509Certificate>` object.
+         * Returns the local certificate as an `X509Certificate` object.
          *
          * If there is no local certificate, or the socket has been destroyed,`undefined` will be returned.
          * @since v15.9.0
@@ -452,7 +453,7 @@ declare module 'tls' {
          * SecureContext.) If SNICallback wasn't provided the default callback
          * with high-level API will be used (see below).
          */
-        SNICallback?: ((servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void) | undefined;
+        SNICallback?: ((servername: string, cb: (err: Error | null, ctx?: SecureContext) => void) => void) | undefined;
         /**
          * If true the server will reject any connection which is not
          * authorized with the list of supplied CAs. This option only has an
@@ -542,8 +543,6 @@ declare module 'tls' {
         pskCallback?(hint: string | null): PSKCallbackNegotation | null;
     }
     /**
-     * * Extends: `<net.Server>`
-     *
      * Accepts encrypted connections using TLS or SSL.
      * @since v0.3.2
      */
@@ -560,7 +559,7 @@ declare module 'tls' {
          * @param hostname A SNI host name or wildcard (e.g. `'*'`)
          * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
          */
-        addContext(hostName: string, credentials: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions): void;
         /**
          * Returns the session ticket keys.
          *
@@ -575,7 +574,7 @@ declare module 'tls' {
          * @since v11.0.0
          * @param options An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
          */
-        setSecureContext(details: SecureContextOptions): void;
+        setSecureContext(options: SecureContextOptions): void;
         /**
          * Sets the session ticket keys.
          *
@@ -811,8 +810,8 @@ declare module 'tls' {
     /**
      * Verifies the certificate `cert` is issued to `hostname`.
      *
-     * Returns [&lt;Error&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object, populating it with `reason`, `host`, and `cert` on
-     * failure. On success, returns [&lt;undefined&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Undefined_type).
+     * Returns [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object, populating it with `reason`, `host`, and `cert` on
+     * failure. On success, returns [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Undefined_type).
      *
      * This function can be overwritten by providing alternative function as part of
      * the `options.checkServerIdentity` option passed to `tls.connect()`. The
@@ -825,7 +824,7 @@ declare module 'tls' {
      * @param hostname The host name or IP address to verify the certificate against.
      * @param cert A `certificate object` representing the peer's certificate.
      */
-    function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
+    function checkServerIdentity(hostname: string, cert: PeerCertificate): Error | undefined;
     /**
      * Creates a new {@link Server}. The `secureConnectionListener`, if provided, is
      * automatically set as a listener for the `'secureConnection'` event.
@@ -949,7 +948,7 @@ declare module 'tls' {
      * @param requestCert `true` to specify whether a server should request a certificate from a connecting client. Only applies when `isServer` is `true`.
      * @param rejectUnauthorized If not `false` a server automatically reject clients with invalid certificates. Only applies when `isServer` is `true`.
      */
-    function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    function createSecurePair(context?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     /**
      * {@link createServer} sets the default value of the `honorCipherOrder` option
      * to `true`, other APIs that create secure contexts leave it unset.
@@ -963,7 +962,7 @@ declare module 'tls' {
      *
      * A key is _required_ for ciphers that use certificates. Either `key` or`pfx` can be used to provide it.
      *
-     * If the `ca` option is not given, then Node.js will default to using[Mozilla's publicly trusted list of
+     * If the `ca` option is not given, then Node.js will default to using [Mozilla's publicly trusted list of
      * CAs](https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt).
      * @since v0.11.13
      */

@@ -40,7 +40,7 @@ function transformer(printer: Printer, typeChecker: TypeChecker, rootDocs: DocRo
             if (!isNamedModuleDeclaration(node)) {
                 return node;
             }
-            let moduleName = node.name.text;
+            const moduleName = node.name.text;
 
             // skip non prefixed modules
             if (moduleName.startsWith('node:')) {
@@ -70,7 +70,6 @@ function transformer(printer: Printer, typeChecker: TypeChecker, rootDocs: DocRo
 const ignoreFiles = new Set([
     'index.d.ts', // infra
     'base.d.ts', // infra
-    'ts3.6/base.d.ts', // infra
     'globals.global.d.ts', // infra
     'assert/strict.d.ts', // re-export only
     'globals.d.ts', // virtual

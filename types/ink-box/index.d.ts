@@ -24,6 +24,7 @@ interface BoxProps {
         horizontal?: string | undefined;
         vertical?: string | undefined;
     } | undefined;
+    children?: React.ReactNode;
     dimBorder?: boolean | undefined;
     padding?: Spacing | undefined;
     margin?: Spacing | undefined;

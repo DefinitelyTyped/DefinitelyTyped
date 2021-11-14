@@ -44,6 +44,7 @@ declare namespace JsonQuery {
         context?: Context | undefined;
         parent?: Context | undefined;
         locals?: Locals | undefined;
+        filters?: Locals | undefined;
         globals?: boolean | undefined;
         force?: boolean | undefined;
         allowRegexp?: boolean | undefined;

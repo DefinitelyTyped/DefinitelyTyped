@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 2.3
+// Type definitions for Mapbox GL JS 2.4
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -317,13 +317,23 @@ declare namespace mapboxgl {
                 | ImageData
                 | ImageBitmap,
             options?: { pixelRatio?: number | undefined; sdf?: boolean | undefined },
-        ): this;
+        ): void;
+
+        updateImage(
+            name: string,
+            image:
+                | HTMLImageElement
+                | ArrayBufferView
+                | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
+                | ImageData
+                | ImageBitmap,
+        ): void;
 
         hasImage(name: string): boolean;
 
-        removeImage(name: string): this;
+        removeImage(name: string): void;
 
-        loadImage(url: string, callback: (error?: Error, result?: HTMLImageElement | ImageBitmap) => void): this;
+        loadImage(url: string, callback: (error?: Error, result?: HTMLImageElement | ImageBitmap) => void): void;
 
         listImages(): string[];
 
@@ -1091,6 +1101,7 @@ declare namespace mapboxgl {
             trackUserLocation?: boolean | undefined;
             showAccuracyCircle?: boolean | undefined;
             showUserLocation?: boolean | undefined;
+            showUserHeading?: boolean | undefined;
         });
         trigger(): boolean;
     }
@@ -2328,7 +2339,7 @@ declare namespace mapboxgl {
     }
 
     export interface LineLayout extends Layout {
-        'line-cap'?: 'butt' | 'round' | 'square' | undefined;
+        'line-cap'?: 'butt' | 'round' | 'square' | Expression | undefined;
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression | undefined;
         'line-miter-limit'?: number | Expression | undefined;
         'line-round-limit'?: number | Expression | undefined;

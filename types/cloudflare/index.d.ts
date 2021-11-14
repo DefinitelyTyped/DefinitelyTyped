@@ -108,7 +108,7 @@ declare namespace Cloudflare {
 
     interface EnterpriseZoneWorkersKV {
         browse(account_id: string, namespace_id: string): ResponseObjectPromise;
-        add(account_id: string, namespace_id: string, value: string): ResponseObjectPromise;
+        add(account_id: string, namespace_id: string, key_name: string, value: string): ResponseObjectPromise;
         read(account_id: string, namespace_id: string, key_name: string): ResponseObjectPromise;
         del(account_id: string, namespace_id: string, key_name: string): ResponseObjectPromise;
         addMulti(

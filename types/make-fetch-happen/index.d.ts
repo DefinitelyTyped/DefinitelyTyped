@@ -1,9 +1,9 @@
-// Type definitions for make-fetch-happen 8.0
-// Project: https://github.com/npm/make-fetch-happen#readme
+// Type definitions for make-fetch-happen 9.0
+// Project: https://github.com/npm/make-fetch-happen
 // Definitions by: Jesse Rosenberger <https://github.com/abernix>
 //                 Trevor Scheer <https://github.com/trevor-scheer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
+// TypeScript Version: 3.0
 /// <reference lib="dom" />
 import { ClientRequestArgs, AgentOptions } from 'http';
 import { CommonConnectionOptions, SecureContextOptions } from 'tls';
@@ -31,28 +31,11 @@ declare namespace fetch {
 
     interface MakeFetchHappenOptions {
         /**
-         * Either a `String` or a `Cache`. If the former, it will be assumed to
-         * be a `Path` to be used as the cache root for
-         * [`cacache`](https://npm.im/cacache).
+         * A string `Path` to be used as the cache root for [`cacache`](https://npm.im/cacache).
          *
-         * If an object is provided, it will be assumed to be a compliant
-         * [`Cache`
-         * instance](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
-         * Only `Cache.match()`, `Cache.put()`, and `Cache.delete()` are
-         * required. Options objects will not be passed in to `match()` or
-         * `delete()`.
-         *
-         * By implementing this API, you can customize the storage backend for
-         * make-fetch-happen itself -- for example, you could implement a cache
-         * that uses `redis` for caching, or simply keeps everything in memory.
-         * Most of the caching logic exists entirely on the make-fetch-happen
-         * side, so the only thing you need to worry about is reading, writing,
-         * and deleting, as well as making sure `fetch.Response` objects are
-         * what gets returned.
-         *
-         * Ref: https://github.com/npm/make-fetch-happen/#--optscachemanager
+         * Ref: https://github.com/npm/make-fetch-happen/#opts-cache-path
          */
-        cacheManager?: string | Cache | undefined;
+        cachePath?: string | undefined;
 
         cache?: RequestCache | undefined;
         proxy?: string | NodeURL | URL | undefined;

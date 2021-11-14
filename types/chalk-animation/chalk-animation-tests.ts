@@ -19,3 +19,9 @@ rainbow.replace('.');
 rainbow.render();
 // $ExpectType string
 rainbow.frame();
+
+rainbow.f; // $ExpectType number
+rainbow.text; // $ExpectType string[]
+rainbow.lines; // $ExpectType number
+rainbow.init; // $ExpectType boolean
+rainbow.stopped; // $ExpectType boolean

@@ -5,3 +5,9 @@ export default class TwoStepCaretMovement extends Plugin {
     init(): void;
     registerAttribute(attribute: string): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TwoStepCaretMovement: TwoStepCaretMovement;
+    }
+}

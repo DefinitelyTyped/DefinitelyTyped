@@ -10,8 +10,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
+import '@material-ui/core/styles/overrides';
 import * as React from 'react';
-import { ComponentNameToClassKey } from '@material-ui/core/styles/overrides';
 
 export type Display = boolean | 'true' | 'false' | 'excluded';
 export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
@@ -157,19 +157,21 @@ export interface MUIDataTableFilterOptions {
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js)
      */
-    display?: ((
-        filterList: MUIDataTableState['filterList'],
-        onChange: (val: string | string[], index: number, column: MUIDataTableColumn) => void,
-        index: number,
-        column: MUIDataTableColumn,
-        filterData: MUIDataTableState['filterData'],
-    ) => void) | undefined;
+    display?:
+        | ((
+              filterList: MUIDataTableState['filterList'],
+              onChange: (val: string | string[], index: number, column: MUIDataTableColumn) => void,
+              index: number,
+              column: MUIDataTableColumn,
+              filterData: MUIDataTableState['filterData'],
+          ) => void)
+        | undefined;
     /**
      * custom filter logic.
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js)
      */
-    logic?: ((prop: string, filterValue: any[]) => boolean) | undefined;
+    logic?: ((prop: string, filterValue: any[], row?: any[]) => boolean) | undefined;
     /**
      * A function to customize filter choices.
      * Use case: changing empty strings to "(empty)" in a dropdown.
@@ -194,11 +196,13 @@ export interface MUIDataTableCustomFilterListOptions {
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js)
      */
-    update?: ((
-        filterList: MUIDataTableState['filterList'],
-        filterPos: number,
-        index: number,
-    ) => MUIDataTableState['filterList']) | undefined;
+    update?:
+        | ((
+              filterList: MUIDataTableState['filterList'],
+              filterPos: number,
+              index: number,
+          ) => MUIDataTableState['filterList'])
+        | undefined;
 }
 
 export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
@@ -220,11 +224,9 @@ export interface MUIDataTableColumnOptions {
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/component/index.js)
      */
-    customBodyRender?: ((
-        value: any,
-        tableMeta: MUIDataTableMeta,
-        updateValue: (value: string) => void,
-    ) => string | React.ReactNode) | undefined;
+    customBodyRender?:
+        | ((value: any, tableMeta: MUIDataTableMeta, updateValue: (value: string) => void) => string | React.ReactNode)
+        | undefined;
     /**
      * Similar to and performing better than `customBodyRender`, however with the following caveats:
      * 1. The value returned from this function is not used for filtering, so the filter dialog will use the raw data from the data array.
@@ -247,11 +249,13 @@ export interface MUIDataTableColumnOptions {
     /** @deprecated use customFilterListOptions.render */
     customFilterListRender?: ((value: any) => string) | undefined;
     /** Function that returns a string or React component. Used as display for column header. */
-    customHeadRender?: ((
-        columnMeta: MUIDataTableCustomHeadRenderer,
-        handleToggleColumn: (columnIndex: number) => void,
-        sortOrder: MUISortOptions,
-    ) => string | React.ReactNode) | undefined;
+    customHeadRender?:
+        | ((
+              columnMeta: MUIDataTableCustomHeadRenderer,
+              handleToggleColumn: (columnIndex: number) => void,
+              sortOrder: MUISortOptions,
+          ) => string | React.ReactNode)
+        | undefined;
     /**
      * Determines if the column can be dragged.
      * The draggableColumns.enabled option must also be true.
@@ -336,7 +340,9 @@ export interface MUIDataTableColumnOptions {
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/column-sort/index.js)
      */
-    sortCompare?: ((order: MUISortOptions['direction']) => (obj1: { data: any }, obj2: { data: any }) => number) | undefined;
+    sortCompare?:
+        | ((order: MUISortOptions['direction']) => (obj1: { data: any }, obj2: { data: any }) => number)
+        | undefined;
     /**
      * Causes the first click on a column to sort by desc rather than asc.
      *
@@ -861,31 +867,33 @@ export interface MUIDataTableCheckboxProps {
 }
 
 export interface MUIDataTableProps {
-  columns: MUIDataTableColumnDef[];
-  components?: Partial<{
-    Checkbox: RenderCustomComponent<MUIDataTableCheckboxProps> | React.ReactNode;
-    ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
-    TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
-    TableViewCol: RenderCustomComponent<MUIDataTableViewCol> | React.ReactNode;
-    TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
-    TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
-    TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
-    TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
-    TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
-    TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
-    Tooltip: React.ReactNode;
-    icons: Partial<{
-      SearchIcon: React.ReactNode;
-      DownloadIcon: React.ReactNode;
-      PrintIcon: React.ReactNode;
-      ViewColumnIcon: React.ReactNode;
-      FilterIcon: React.ReactNode;
-    }>
-  }> | undefined;
-  data: Array<object | number[] | string[]>;
-  options?: MUIDataTableOptions | undefined;
-  title: string | React.ReactNode;
-  innerRef?: React.RefObject<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined> | undefined;
+    columns: MUIDataTableColumnDef[];
+    components?:
+        | Partial<{
+              Checkbox: RenderCustomComponent<MUIDataTableCheckboxProps> | React.ReactNode;
+              ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
+              TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
+              TableViewCol: RenderCustomComponent<MUIDataTableViewCol> | React.ReactNode;
+              TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
+              TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
+              TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
+              TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
+              TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
+              TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
+              Tooltip: React.ReactNode;
+              icons: Partial<{
+                  SearchIcon: React.ReactNode;
+                  DownloadIcon: React.ReactNode;
+                  PrintIcon: React.ReactNode;
+                  ViewColumnIcon: React.ReactNode;
+                  FilterIcon: React.ReactNode;
+              }>;
+          }>
+        | undefined;
+    data: Array<object | number[] | string[]>;
+    options?: MUIDataTableOptions | undefined;
+    title: string | React.ReactNode;
+    innerRef?: React.RefObject<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined> | undefined;
 }
 
 export interface MUIDataTableExpandButton {
@@ -904,12 +912,16 @@ export interface MUIDataTablePopover {
     action?: ((...args: any) => any) | undefined;
     anchorEl?: React.ReactNode | undefined;
     anchorOrigin?: any;
+    classes?: object;
+    content?: React.ReactNode;
     elevation?: number | undefined;
     onClose?: ((...args: any) => any) | undefined;
     onExited?: ((...args: any) => any) | undefined;
     option?: boolean | undefined;
     ref?: any;
+    refExit?: (...args: any) => any;
     transformOrigin?: any;
+    trigger?: React.ReactNode;
 }
 
 export interface MUIDataTableBody {
@@ -1144,21 +1156,9 @@ export default MUIDataTable;
 
 declare module '@material-ui/core/styles/overrides' {
     interface ComponentNameToClassKey {
-        MUIDataTable:
-            | 'root'
-            | 'caption'
-            | 'liveAnnounce'
-            | 'paper'
-            | 'responsiveScroll'
-            | 'tableRoot'
-            ;
+        MUIDataTable: 'root' | 'caption' | 'liveAnnounce' | 'paper' | 'responsiveScroll' | 'tableRoot';
 
-        MUIDataTableBody:
-            | 'root'
-            | 'emptyTitle'
-            | 'lastSimpleCell'
-            | 'lastStackedCell'
-            ;
+        MUIDataTableBody: 'root' | 'emptyTitle' | 'lastSimpleCell' | 'lastStackedCell';
 
         MUIDataTableBodyCell:
             | 'root'
@@ -1172,15 +1172,9 @@ declare module '@material-ui/core/styles/overrides' {
             | 'stackedCommonAlways'
             | 'stackedHeader'
             | 'stackedParent'
-            | 'stackedParentAlways'
-            ;
+            | 'stackedParentAlways';
 
-        MUIDataTableBodyRow:
-            | 'root'
-            | 'hoverCursor'
-            | 'responsiveSimple'
-            | 'responsiveStacked'
-            ;
+        MUIDataTableBodyRow: 'root' | 'hoverCursor' | 'responsiveSimple' | 'responsiveStacked';
 
         MUIDataTableFilter:
             | 'root'
@@ -1197,19 +1191,13 @@ declare module '@material-ui/core/styles/overrides' {
             | 'noMargin'
             | 'reset'
             | 'resetLink'
-            | 'title'
-            ;
+            | 'title';
 
         MUIDataTableFilterList: 'root' | 'chip';
 
         MUIDataTableFooter: 'root';
 
-        MUIDataTableHead:
-            | 'main'
-            | 'responsiveSimple'
-            | 'responsiveStacked'
-            | 'responsiveStackedAlways'
-            ;
+        MUIDataTableHead: 'main' | 'responsiveSimple' | 'responsiveStacked' | 'responsiveStackedAlways';
 
         MUIDataTableHeadCell:
             | 'root'
@@ -1224,19 +1212,11 @@ declare module '@material-ui/core/styles/overrides' {
             | 'sortActive'
             | 'sortLabelRoot'
             | 'toolButton'
-            | 'tooltip'
-            ;
+            | 'tooltip';
 
         MUIDataTableHeadRow: 'root';
 
-        MUIDataTableJumpToPage:
-            | 'root'
-            | 'caption'
-            | 'input'
-            | 'select'
-            | 'selectIcon'
-            | 'selectRoot'
-            ;
+        MUIDataTableJumpToPage: 'root' | 'caption' | 'input' | 'select' | 'selectIcon' | 'selectRoot';
 
         MUIDataTablePagination:
             | 'root'
@@ -1244,17 +1224,11 @@ declare module '@material-ui/core/styles/overrides' {
             | 'navContainer'
             | 'selectRoot'
             | 'tableCellContainer'
-            | 'toolbar'
-            ;
+            | 'toolbar';
 
         MUIDataTableResize: 'root' | 'resizer';
 
-        MUIDataTableSearch:
-            | 'clearIcon'
-            | 'main'
-            | 'searchIcon'
-            | 'searchText'
-            ;
+        MUIDataTableSearch: 'clearIcon' | 'main' | 'searchIcon' | 'searchText';
 
         MUIDataTableSelectCell:
             | 'root'
@@ -1267,8 +1241,7 @@ declare module '@material-ui/core/styles/overrides' {
             | 'fixedLeft'
             | 'headerCell'
             | 'hide'
-            | 'icon'
-            ;
+            | 'icon';
 
         MUIDataTableToolbar:
             | 'root'
@@ -1287,15 +1260,9 @@ declare module '@material-ui/core/styles/overrides' {
             | 'left'
             | 'searchIcon'
             | 'titleRoot'
-            | 'titleText'
-            ;
+            | 'titleText';
 
-        MUIDataTableToolbarSelect:
-            | 'root'
-            | 'deleteIcon'
-            | 'iconButton'
-            | 'title'
-            ;
+        MUIDataTableToolbarSelect: 'root' | 'deleteIcon' | 'iconButton' | 'title';
 
         MUIDataTableViewCol:
             | 'root'
@@ -1305,7 +1272,6 @@ declare module '@material-ui/core/styles/overrides' {
             | 'formControl'
             | 'formGroup'
             | 'label'
-            | 'title'
-            ;
+            | 'title';
     }
 }

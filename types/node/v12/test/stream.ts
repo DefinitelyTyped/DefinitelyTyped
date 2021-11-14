@@ -185,7 +185,7 @@ async function asyncStreamPipelineFinished() {
     await pipe(process.stdin, process.stdout);
 }
 
-// http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
+// https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
     const rs = createReadStream(Buffer.from('file.txt'));
     const r = createReadStream('file.txt');

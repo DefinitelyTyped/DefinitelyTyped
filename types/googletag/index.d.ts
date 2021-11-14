@@ -1,14 +1,14 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT) 1.0
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT) 1.1
 // Project: https://developers.google.com/publisher-tag
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
+// TypeScript Version: 3.0
 
 /**
  * This is the global namespace that the Google Publisher Tag uses for its API.
  */
 declare namespace googletag {
-    type GeneralSize = (SingleSize | MultiSize);
+    type GeneralSize = SingleSize | MultiSize;
     type MultiSize = SingleSize[];
     /**
      * Named sizes that a slot can have.
@@ -25,7 +25,7 @@ declare namespace googletag {
      * Array of two numbers representing [width, height].
      */
     type SingleSizeArray = [number, number];
-    type SizeMapping = GeneralSize[];
+    type SizeMapping = [SingleSizeArray, GeneralSize];
     type SizeMappingArray = SizeMapping[];
     /**
      * Flag indicating that GPT API is loaded and ready to be called.
@@ -42,7 +42,7 @@ declare namespace googletag {
      * The script then replaces cmd with a `googletag.CommandArray` object whose push method is defined to execute the function argument passed to it.
      * This mechanism allows GPT to reduce perceived latency by fetching the JavaScript asynchronously while allowing the browser to continue rendering the page.
      */
-    let cmd: Array<(() => void)> | CommandArray;
+    let cmd: CommandArray | Array<() => void>;
     /**
      * This is the namespace that GPT uses for `enum types`.
      */
@@ -51,10 +51,13 @@ declare namespace googletag {
          * Out of page formats supported by GPT.
          */
         enum OutOfPageFormat {
+            REWARDED = 4,
+            TOP_ANCHOR = 2,
+            BOTTOM_ANCHOR = 3,
             /**
              * Web interstitial creative format.
              */
-            INTERSTITIAL = 5
+            INTERSTITIAL = 5,
         }
     }
     /**
@@ -78,12 +81,12 @@ declare namespace googletag {
          * This event is fired when an impression becomes viewable, according to the [Active View criteria](https://support.google.com/admanager/answer/4524488).
          */
         // tslint:disable-next-line:no-empty-interface
-        interface ImpressionViewableEvent extends Event { }
+        interface ImpressionViewableEvent extends Event {}
         /**
          * This event is fired when the creative's iframe fires its load event. When rendering rich media ads in sync rendering mode, no iframe is used so no SlotOnloadEvent will be fired.
          */
         // tslint:disable-next-line:no-empty-interface
-        interface SlotOnloadEvent extends Event { }
+        interface SlotOnloadEvent extends Event {}
         /**
          * This event is fired when the creative code is injected into a slot.
          * This event will occur before the creative's resources are fetched, so the creative may not be visible yet.
@@ -128,12 +131,12 @@ declare namespace googletag {
          * This event is fired when an ad has been requested for a particular slot.
          */
         // tslint:disable-next-line:no-empty-interface
-        interface SlotRequestedEvent extends Event { }
+        interface SlotRequestedEvent extends Event {}
         /**
          * This event is fired when an ad response has been received for a particular slot.
          */
         // tslint:disable-next-line:no-empty-interface
-        interface SlotResponseReceived extends Event { }
+        interface SlotResponseReceived extends Event {}
         /**
          * This event is fired whenever the on-screen percentage of an ad slot's area changes. The event is throttled and will not fire more often than once every 200ms.
          */
@@ -169,7 +172,8 @@ declare namespace googletag {
      * @param opt_div ID of the div that will contain this ad unit or OutOfPageFormat.
      * @returns The newly created slot.
      */
-    function defineOutOfPageSlot(adUnitPath: string, opt_div?: string | enums.OutOfPageFormat): Slot;
+    function defineOutOfPageSlot(adUnitPath: string, opt_div: string | enums.OutOfPageFormat): Slot | null;
+    function defineOutOfPageSlot(adUnitPath: string): Slot;
     /**
      * Constructs an ad slot with a given ad unit path and size and associates it with the ID of a div element on the page that will contain the ad.
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and unit code.
@@ -178,7 +182,13 @@ declare namespace googletag {
      * @param opt_div ID of the div that will contain this ad unit.
      * @returns The newly created slot.
      */
-    function defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
+    function defineSlot(adUnitPath: string, size: GeneralSize, opt_div: string): Slot | null;
+    function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
+    /**
+     * Same as `googletag.defineSlot`
+     */
+    function defineUnit(adUnitPath: string, size: GeneralSize, opt_div: string): Slot | null;
+    function defineUnit(adUnitPath: string, size: GeneralSize): Slot;
     /**
      * Destroys the given slots, removing all related objects and references of those slots from GPT.
      * This API does not support passback slots and companion slots.
@@ -244,10 +254,10 @@ declare namespace googletag {
     interface CommandArray {
         /**
          * Executes the sequence of functions specified in the arguments in order.
-         * @param f A JavaScript function to be executed.
+         * @param fs The sequence of functions to be executed.
          * @returns The number of commands processed so far. This is compatible with Array.push's return value (the current length of the array).
          */
-        push(f: (() => void)): number;
+        push(...fs: Array<() => void>): number;
     }
     /**
      * Companion Ads service.
@@ -274,6 +284,17 @@ declare namespace googletag {
          * @param content The HTML content for the slot.
          */
         setContent(slot: Slot, content: string): void;
+    }
+    interface PassbackSlot {
+        display(): void;
+        get(key: string): string;
+        set(key: string, value: string): PassbackSlot;
+        setClickUrl(url: string): PassbackSlot;
+        setForceSafeFrame(forceSafeFrame: boolean): PassbackSlot;
+        setTagForChildDirectedTreatment(value: number): PassbackSlot;
+        setTagForUnderAgeOfConsent(value: number): PassbackSlot;
+        setTargeting(key: string, value: string | string[]): PassbackSlot;
+        updateTargetingFromMap(map: Record<string, string | string[]>): PassbackSlot;
     }
     /**
      * Configuration object for privacy settings.
@@ -316,6 +337,7 @@ declare namespace googletag {
          * @returns The service object on which the method was called.
          */
         clearCategoryExclusions(): PubAdsService;
+        clearTagForChildDirectedTreatment(): PubAdsService;
         /**
          * Clears custom targeting parameters for a specific key or for all keys.
          * @param opt_key Targeting parameter key. The key is optional; all targeting parameters will be cleared if it is unspecified.
@@ -331,6 +353,16 @@ declare namespace googletag {
          */
         collapseEmptyDivs(opt_collapseBeforeAdFetch?: boolean): boolean;
         /**
+         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
+         */
+        defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
+        /**
+         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
+         */
+        definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
+        /**
          * Disables requests for ads on page load, but allows ads to be requested with a `googletag.pubads().refresh()` call.
          * This should be set prior to enabling the service.
          * Async mode must be used; otherwise it will be impossible to request ads using refresh.
@@ -343,7 +375,12 @@ declare namespace googletag {
          * @param opt_div Either the ID of the div containing the slot or the div element itself.
          * @param opt_clickUrl The click URL to use on this slot.
          */
-        display(adUnitPath: string, size: GeneralSize, opt_div?: (string | Element), opt_clickUrl?: string): void;
+        display(adUnitPath: string, size: GeneralSize, opt_div?: string | Element, opt_clickUrl?: string): void;
+        /**
+         * Asynchronous rendering is enabled by default.
+         * GPT synchronous rendering is no longer supported, ads will be requested and rendered asynchronously.
+         */
+        enableAsyncRendering(): boolean;
         /**
          * Enables lazy loading in GPT as defined by the config object.
          * For more detailed examples, see the Lazy Loading example [here](https://developers.google.com/publisher-tag/samples/lazy-loading).**Notes:**
@@ -361,7 +398,11 @@ declare namespace googletag {
          * desktop.
          * For example, a mobileScaling of 2.0 will multiply all margins by 2 on mobile devices, increasing the minimum distance a slot can be before fetching and rendering.
          */
-        enableLazyLoad(opt_config?: { fetchMarginPercent?: number | undefined, renderMarginPercent?: number | undefined, mobileScaling?: number | undefined }): void;
+        enableLazyLoad(opt_config?: {
+            fetchMarginPercent?: number | undefined;
+            renderMarginPercent?: number | undefined;
+            mobileScaling?: number | undefined;
+        }): void;
         /**
          * Enables single request mode for fetching multiple ads at the same time.
          * This requires all pubads slots to be defined and added to the pubads service prior to enabling the service.
@@ -369,6 +410,10 @@ declare namespace googletag {
          * @returns Returns true if single request mode was enabled and false if it is impossible to enable single request mode because the method was called after the service was enabled.
          */
         enableSingleRequest(): boolean;
+        /**
+         * @deprecated GPT synchronous rendering is no longer supported, ads will be requested and rendered asynchronously.
+         */
+        enableSyncRendering(): boolean;
         /**
          * Signals to GPT that video ads will be present on the page.
          * This enables competitive exclusion constraints on display and video ads.
@@ -386,6 +431,14 @@ declare namespace googletag {
          * @returns Array of attribute keys set on this service. Ordering is undefined.
          */
         getAttributeKeys(): string[];
+        getCorrelator(): string;
+        getImaContent(): Record<'vid' | 'cmsid', string>;
+        getName(): string;
+        getSlotIdMap(): Record<string, Slot>;
+        getSlots(): Slot[];
+        getTagSessionCorrelator(): number;
+        getVersion(): string;
+        getVideoContent(): Record<'vid' | 'cmsid', string>;
         /**
          * Returns a specific custom service-level targeting parameter that has been set.
          * @param key The targeting key to look for.
@@ -402,6 +455,14 @@ declare namespace googletag {
          * @returns
          */
         isInitialLoadDisabled(): boolean;
+        /**
+         * Whether or not enable single request mode for fetching multiple ads at the same time.
+         */
+        isSRA(): boolean;
+        /**
+         * @deprecated Deprecated and ignored.
+         */
+        markAsAmp(): void;
         /**
          * Fetches and displays new ads for specific or all slots on the page.
          * Works only in asynchronous rendering mode.
@@ -469,6 +530,7 @@ declare namespace googletag {
          * @returns The service object on which the function was called.
          */
         setForceSafeFrame(forceSafeFrame: boolean): PubAdsService;
+        setImaContent(imaContentId: string, imaCmsId: string): void;
         /**
          * Passes location information from websites so you can geo-target line items to specific locations.
          * @param address Freeform address.
@@ -503,6 +565,8 @@ declare namespace googletag {
          * @returns The service object on which the method was called.
          */
         setSafeFrameConfig(config: SafeFrameConfig): PubAdsService;
+        setTagForChildDirectedTreatment(childDirectedTreatment: 0 | 1): PubAdsService;
+        setTagForUnderAgeOfConsent(underAgeOfConsent: 2 | 0 | 1): PubAdsService;
         /**
          * Sets custom targeting parameters for a given key that apply to all pubads service ad slots.
          * Calling this multiple times for the same key will overwrite old values.
@@ -527,6 +591,7 @@ declare namespace googletag {
          * Only applies to async mode.
          * Note: this has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
          * which automatically reflects the ads actually on the page and has no expiration time.
+         * @deprecated See the Google Ad Manager help page on "Creative selection for multiple ad slots" for more information: https://support.google.com/admanager/answer/183281.
          * @returns The service object on which the function was called.
          */
         updateCorrelator(): PubAdsService;
@@ -597,13 +662,54 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns The service object on which the method was called.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        addEventListener<T extends events.Event>(eventType: string, listener: (event: T) => void): Service;
+        addEventListener(
+            eventType: 'impressionViewable',
+            listener: (event: events.ImpressionViewableEvent) => void,
+        ): Service;
+        addEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): Service;
+        addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
+        addEventListener(eventType: 'slotRequested', listener: (event: events.SlotRequestedEvent) => void): Service;
+        addEventListener(
+            eventType: 'slotResponseReceived',
+            listener: (event: events.SlotResponseReceived) => void,
+        ): Service;
+        addEventListener(
+            eventType: 'slotVisibilityChanged',
+            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        ): Service;
         /**
          * Get the list of slots associated with this service.
          * @returns Slots in the order in which they were added to the service.
          */
         getSlots(): Slot[];
+        /**
+         * Removes a listener that was previously added by calling `addEventListener`.
+         * @param eventType A string representing the type of event generated by GPT. Event types are case sensitive.
+         * @param listener Function that takes a single event object argument.
+         * @returns True if removeEventListener was successful in removing the listener. False if it failed to remove the listener.
+         */
+        removeEventListener(
+            eventType: 'impressionViewable',
+            listener: (event: events.ImpressionViewableEvent) => void,
+        ): boolean;
+        removeEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): boolean;
+        removeEventListener(
+            eventType: 'slotRenderEnded',
+            listener: (event: events.SlotRenderEndedEvent) => void,
+        ): boolean;
+        removeEventListener(eventType: 'slotRequested', listener: (event: events.SlotRequestedEvent) => void): boolean;
+        removeEventListener(
+            eventType: 'slotResponseReceived',
+            listener: (event: events.SlotResponseReceived) => void,
+        ): boolean;
+        removeEventListener(
+            eventType: 'slotVisibilityChanged',
+            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        ): boolean;
+    }
+    interface Size {
+        getWidth(): number;
+        getHeight(): number;
     }
     /**
      * Builder for size mapping specification objects.
@@ -680,16 +786,37 @@ declare namespace googletag {
          * @returns The ad category exclusion labels for this slot.
          */
         getCategoryExclusions(): string[];
+        getClickUrl(): string;
+        getCollapseEmptyDiv(): boolean | null;
+        getContentUrl(): string;
+        getDivStartsCollapsed(): boolean | null;
+        getEscapedQemQueryId(): string;
+        /**
+         * @deprecated The getFirstLook method of googletag.Slot is deprecated. Please update your code to no longer call this method.
+         */
+        getFirstLook(): number;
+        getHtml(): string;
+        /**
+         * @deprecated getName on googletag.Slot is deprecated and will be removed. Use getAdUnitPath instead.
+         */
+        getName(): string;
+        /**
+         * Whether or not constructs an out-of-page ad slot with defineOutOfPageSlot.
+         */
+        getOutOfPage(): boolean;
         /**
          * Returns the ad response information. This is based on the last ad response for the slot. If this is called when the slot has no ad, null will be returned.
          * @returns
          */
         getResponseInformation(): ResponseInformation | null;
+        getServices(): Service[];
+        getSizes(): Size[] | ['fluid'];
         /**
          * Returns the id of the slot element provided when the slot was defined.
          * @returns Slot element id.
          */
         getSlotElementId(): string;
+        getSlotId(): SlotId;
         /**
          * Returns a specific custom targeting parameter set on this slot. Service-level targeting parameters are not included.
          * @param key The targeting key to look for.
@@ -701,6 +828,7 @@ declare namespace googletag {
          * @returns Array of targeting keys. Ordering is undefined.
          */
         getTargetingKeys(): string[];
+        getTargetingMap(): Record<string, string | string[]>;
         /**
          * Sets a value for an AdSense attribute on a particular ad slot.
          * This will override any values set at the service level for this key.
@@ -781,6 +909,12 @@ declare namespace googletag {
          * @param map Targeting parameter key:value map.
          * @returns The slot object on which the method was called.
          */
-        updateTargetingFromMap(map: { [key: string]: string | string[] }): Slot;
+        updateTargetingFromMap(map: Record<string, string | string[]>): Slot;
+    }
+    interface SlotId {
+        getAdUnitPath(): string;
+        getDomId(): string;
+        getId(): string;
+        getName(): string;
     }
 }

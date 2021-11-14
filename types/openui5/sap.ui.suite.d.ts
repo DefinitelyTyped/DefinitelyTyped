@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -75,6 +75,31 @@ declare module "sap/ui/suite/TaskCircle" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.suite.TaskCircle with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TaskCircle>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.suite.TaskCircle.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -149,27 +174,6 @@ declare module "sap/ui/suite/TaskCircle" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.suite.TaskCircle with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TaskCircle>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -208,10 +212,6 @@ declare module "sap/ui/suite/TaskCircle" {
      * Default value is `100`.
      */
     getMaxValue(): int;
-    /**
-     * Returns a metadata object for class sap.ui.suite.TaskCircle.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinValue minValue}.
      *
@@ -355,7 +355,7 @@ declare module "sap/ui/suite/TaskCircle" {
     /**
      * Event is fired when the user clicks the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -408,6 +408,31 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       mSettings?: $VerticalProgressIndicatorSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.suite.VerticalProgressIndicator with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, VerticalProgressIndicator>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.suite.VerticalProgressIndicator.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -485,27 +510,6 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.suite.VerticalProgressIndicator with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, VerticalProgressIndicator>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -528,10 +532,6 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
      * ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
-    /**
-     * Returns a metadata object for class sap.ui.suite.VerticalProgressIndicator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPercentage percentage}.
      *
@@ -593,7 +593,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
     /**
      * Event is fired when the user clicks the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 

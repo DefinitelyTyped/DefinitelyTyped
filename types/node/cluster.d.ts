@@ -7,9 +7,12 @@
  * server ports.
  *
  * ```js
- * const cluster = require('cluster');
- * const http = require('http');
- * const numCPUs = require('os').cpus().length;
+ * import cluster from 'cluster';
+ * import http from 'http';
+ * import { cpus } from 'os';
+ * import process from 'process';
+ *
+ * const numCPUs = cpus().length;
  *
  * if (cluster.isPrimary) {
  *   console.log(`Primary ${process.pid} is running`);
@@ -46,7 +49,7 @@
  * ```
  *
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/cluster.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/cluster.js)
  */
 declare module 'cluster' {
     import * as child from 'node:child_process';
@@ -116,7 +119,9 @@ declare module 'cluster' {
          * @since v0.7.0
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
          */
-        send(message: child.Serializable, sendHandle?: child.SendHandle, callback?: (error: Error | null) => void): boolean;
+        send(message: child.Serializable, callback?: (error: Error | null) => void): boolean;
+        send(message: child.Serializable, sendHandle: child.SendHandle, callback?: (error: Error | null) => void): boolean;
+        send(message: child.Serializable, sendHandle: child.SendHandle, options?: child.MessageOptions, callback?: (error: Error | null) => void): boolean;
         /**
          * This function will kill the worker. In the primary, it does this
          * by disconnecting the `worker.process`, and once disconnected, killing
@@ -135,7 +140,7 @@ declare module 'cluster' {
          * In a worker, `process.kill()` exists, but it is not this function;
          * it is `kill()`.
          * @since v0.9.12
-         * @param signal Name of the kill signal to send to the worker process.
+         * @param [signal='SIGTERM'] Name of the kill signal to send to the worker process.
          */
         kill(signal?: string): void;
         destroy(signal?: string): void;
@@ -213,9 +218,12 @@ declare module 'cluster' {
          * because of exiting or being signaled). Otherwise, it returns `false`.
          *
          * ```js
-         * const cluster = require('cluster');
-         * const http = require('http');
-         * const numCPUs = require('os').cpus().length;
+         * import cluster from 'cluster';
+         * import http from 'http';
+         * import { cpus } from 'os';
+         * import process from 'process';
+         *
+         * const numCPUs = cpus().length;
          *
          * if (cluster.isPrimary) {
          *   console.log(`Primary ${process.pid} is running`);
@@ -320,7 +328,7 @@ declare module 'cluster' {
     export interface Cluster extends EventEmitter {
         disconnect(callback?: () => void): void;
         fork(env?: any): Worker;
-        /** @deprecated since v16.0.0 - use setupPrimary. */
+        /** @deprecated since v16.0.0 - use isPrimary. */
         readonly isMaster: boolean;
         readonly isPrimary: boolean;
         readonly isWorker: boolean;

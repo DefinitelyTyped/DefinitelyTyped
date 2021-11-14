@@ -5,7 +5,7 @@
  * It can be accessed using:
  *
  * ```js
- * const diagnostics_channel = require('diagnostics_channel');
+ * import diagnostics_channel from 'diagnostics_channel';
  * ```
  *
  * It is intended that a module writer wanting to report diagnostics messages
@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/diagnostics_channel.js)
  */
 declare module 'diagnostics_channel' {
     /**
@@ -31,12 +31,13 @@ declare module 'diagnostics_channel' {
      * performance-sensitive code.
      *
      * ```js
-     * const diagnostics_channel = require('diagnostics_channel');
+     * import diagnostics_channel from 'diagnostics_channel';
      *
      * if (diagnostics_channel.hasSubscribers('my-channel')) {
      *   // There are subscribers, prepare and publish message
      * }
      * ```
+     * @since v15.1.0, v14.17.0
      * @param name The channel name
      * @return If there are active subscribers
      */
@@ -47,10 +48,11 @@ declare module 'diagnostics_channel' {
      * publish time as much as possible.
      *
      * ```js
-     * const diagnostics_channel = require('diagnostics_channel');
+     * import diagnostics_channel from 'diagnostics_channel';
      *
      * const channel = diagnostics_channel.channel('my-channel');
      * ```
+     * @since v15.1.0, v14.17.0
      * @param name The channel name
      * @return The named channel object
      */
@@ -63,10 +65,29 @@ declare module 'diagnostics_channel' {
      * lookups at publish time, enabling very fast publish speeds and allowing
      * for heavy use while incurring very minimal cost. Channels are created with {@link channel}, constructing a channel directly
      * with `new Channel(name)` is not supported.
+     * @since v15.1.0, v14.17.0
      */
     class Channel {
         readonly name: string;
-        readonly hashSubscribers: boolean;
+        /**
+         * Check if there are active subscribers to this channel. This is helpful if
+         * the message you want to send might be expensive to prepare.
+         *
+         * This API is optional but helpful when trying to publish messages from very
+         * performance-sensitive code.
+         *
+         * ```js
+         * import diagnostics_channel from 'diagnostics_channel';
+         *
+         * const channel = diagnostics_channel.channel('my-channel');
+         *
+         * if (channel.hasSubscribers) {
+         *   // There are subscribers, prepare and publish message
+         * }
+         * ```
+         * @since v15.1.0, v14.17.0
+         */
+        readonly hasSubscribers: boolean;
         private constructor(name: string);
         /**
          * Register a message handler to subscribe to this channel. This message handler
@@ -74,7 +95,7 @@ declare module 'diagnostics_channel' {
          * errors thrown in the message handler will trigger an `'uncaughtException'`.
          *
          * ```js
-         * const diagnostics_channel = require('diagnostics_channel');
+         * import diagnostics_channel from 'diagnostics_channel';
          *
          * const channel = diagnostics_channel.channel('my-channel');
          *
@@ -82,14 +103,15 @@ declare module 'diagnostics_channel' {
          *   // Received data
          * });
          * ```
+         * @since v15.1.0, v14.17.0
          * @param onMessage The handler to receive channel messages
          */
-        subscribe(listener: ChannelListener): void;
+        subscribe(onMessage: ChannelListener): void;
         /**
          * Remove a message handler previously registered to this channel with `channel.subscribe(onMessage)`.
          *
          * ```js
-         * const diagnostics_channel = require('diagnostics_channel');
+         * import diagnostics_channel from 'diagnostics_channel';
          *
          * const channel = diagnostics_channel.channel('my-channel');
          *
@@ -101,9 +123,10 @@ declare module 'diagnostics_channel' {
          *
          * channel.unsubscribe(onMessage);
          * ```
+         * @since v15.1.0, v14.17.0
          * @param onMessage The previous subscribed handler to remove
          */
-        unsubscribe(listener: ChannelListener): void;
+        unsubscribe(onMessage: ChannelListener): void;
     }
 }
 declare module 'node:diagnostics_channel' {

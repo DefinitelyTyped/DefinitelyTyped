@@ -59,9 +59,9 @@ export interface SkinVariation {
     has_img_apple: boolean;
     has_img_google: boolean;
     has_img_twitter: boolean;
-    has_img_emojione: boolean;
     has_img_facebook: boolean;
-    has_img_messenger: boolean;
+    has_img_emojione?: boolean;
+    has_img_messenger?: boolean;
     obsoleted_by?: string | undefined;
     obsoletes?: string | undefined;
 }

@@ -1,1 +1,0 @@
-src/exportwordcommand.d.ts

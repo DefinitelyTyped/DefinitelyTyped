@@ -13,4 +13,4 @@ export function addListToDropdown(dropdownView: DropdownView, items: Iterable<Li
 
 export function addToolbarToDropdown(dropdownView: DropdownView, buttons: Iterable<ButtonView>): void;
 
-export function createDropdown(locale: Locale, ButtonClass: DropdownButton): DropdownView;
+export function createDropdown(locale: Locale, ButtonClass?: DropdownButton): DropdownView;

@@ -1,10 +1,11 @@
 // Type definitions for non-npm package w3c-web-hid 1.0
 // Project: https://wicg.github.io/webhid
 // Definitions by: Kouhei Kiyama <https://github.com/kkiyama117>
+//                 Matt Reynolds <https://github.com/nondebug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#hiddevicefilter-dictionary */
 interface HIDDeviceFilter {
     vendorId?: number | undefined;
     productId?: number | undefined;
@@ -12,12 +13,12 @@ interface HIDDeviceFilter {
     usage?: number | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#hiddevicerequestoptions-dictionary */
 interface HIDDeviceRequestOptions {
     filters: HIDDeviceFilter[];
 }
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#hid-interface */
 declare class HID extends EventTarget {
     onconnect: ((this: this, ev: Event) => any) | null;
     ondisconnect: ((this: this, ev: Event) => any) | null;
@@ -49,33 +50,31 @@ declare class HID extends EventTarget {
     ): void;
 }
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#extensions-to-the-navigator-interface */
 interface Navigator {
     readonly hid: HID;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidconnectioneventinit-dictionary */
 interface HIDConnectionEventInit {
     device: HIDDevice;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidconnectionevent-interface */
 declare class HIDConnectionEvent extends Event {
     constructor(type: string, eventInitDict: HIDConnectionEventInit);
 
     readonly device: HIDDevice;
-    readonly reportId: number;
-    readonly data: DataView;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidinputreporteventinit-dictionary */
 interface HIDInputReportEventInit extends EventInit {
     device: HIDDevice;
     reportId: number;
     data: DataView;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidinputreportevent-interface */
 declare class HIDInputReportEvent extends Event {
     constructor(type: string, eventInitDict: HIDInputReportEventInit);
 
@@ -84,7 +83,7 @@ declare class HIDInputReportEvent extends Event {
     readonly data: DataView;
 }
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidunitsystem-enum */
 type HIDUnitSystem =
     | 'none'
     | 'si-linear'
@@ -94,7 +93,7 @@ type HIDUnitSystem =
     | 'vendor-defined'
     | 'reserved';
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidreportitem-dictionary */
 interface HIDReportItem {
     isAbsolute?: boolean | undefined;
     isArray?: boolean | undefined;
@@ -126,13 +125,13 @@ interface HIDReportItem {
     strings?: string[] | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidreportinfo-dictionary */
 interface HIDReportInfo {
     reportId?: number | undefined;
     items?: HIDReportItem[] | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidcollectioninfo-dictionary */
 interface HIDCollectionInfo {
     usagePage?: number | undefined;
     usage?: number | undefined;
@@ -143,14 +142,14 @@ interface HIDCollectionInfo {
     featureReports?: HIDReportInfo[] | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#device-usage */
+/*~ https://wicg.github.io/webhid/#hiddevice-interface */
 declare class HIDDevice extends EventTarget {
     oninputreport: ((this: this, ev: HIDInputReportEvent) => any) | null;
-    readonly opened?: boolean | undefined;
-    readonly vendorId?: number | undefined;
-    readonly productId?: number | undefined;
-    readonly productName?: string | undefined;
-    readonly collections?: HIDCollectionInfo[] | undefined;
+    readonly opened: boolean;
+    readonly vendorId: number;
+    readonly productId: number;
+    readonly productName: string;
+    readonly collections: HIDCollectionInfo[];
 
     open(): Promise<void>;
 

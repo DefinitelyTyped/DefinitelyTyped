@@ -617,7 +617,7 @@ export interface Axis {
         | 'median descending';
     categoryarray: any[];
     tickfont: Partial<Font>;
-    tickangle: number;
+    tickangle: "auto" | number;
     tickprefix: string;
     /**
      * If `all`, all tick labels are displayed with a prefix.
@@ -1260,6 +1260,8 @@ export interface PlotData {
     showscale: boolean;
     colorscale: ColorScale;
     zsmooth: 'fast' | 'best' | false;
+    zmin: number;
+    zmax: number;
     ygap: number;
     xgap: number;
     transpose: boolean;
@@ -1280,8 +1282,8 @@ export interface PlotData {
     customdata: Datum[] | Datum[][];
     selectedpoints: Datum[];
     domain: Partial<{
-        rows: number;
-        columns: number;
+        row: number;
+        column: number;
         x: number[];
         y: number[];
     }>;
@@ -1355,7 +1357,7 @@ export interface ColorBar {
     tickcolor: Color;
     showticklabels: boolean;
     tickfont: Font;
-    tickangle: number;
+    tickangle: "auto" | number;
     tickformat: string;
     tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;

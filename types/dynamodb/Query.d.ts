@@ -40,4 +40,5 @@ export interface Query<T> {
     gt: (...args: any[]) => Query<T>;
     beginsWith: (...args: any[]) => Query<T>;
     between: (...args: any[]) => Query<T>;
+    exists: (exists?: boolean) => Query<T>;
 }

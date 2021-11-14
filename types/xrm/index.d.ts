@@ -201,6 +201,12 @@ declare namespace Xrm {
          * Indicates whether the Skype protocol is used for the current organization.
          */
         useSkypeProtocol: boolean;
+
+        /**
+         * Returns the region of the current organization.
+         * @see {@link https://docs.microsoft.com/en-us/power-platform/admin/geo-to-geo-migrations External Link: Geo to geo migrations}
+         */
+        organizationGeo: string;
     }
 
     /**
@@ -647,6 +653,12 @@ declare namespace Xrm {
              * All remaining "on save" handlers will continue execution.
              */
             preventDefault(): void;
+
+            /**
+             * Cancels the save operation if the event handler has a script error,
+             * returns a rejected promise for an async event handler or the operation times out.
+             */
+            preventDefaultOnError(): void;
         }
 
         /**
@@ -2433,6 +2445,14 @@ declare namespace Xrm {
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue(value: T | null): void;
+
+            /**
+            * Sets a value for a column to determine whether it is valid or invalid with a message
+            * @param isValid Specify false to set the column value to invalid and true to set the value to valid.
+            * @param message The message to display.
+            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setisvalid External Link: setIsValid (Client API reference)}
+            */
+            setIsValid(isValid: boolean, message?: string): void;
         }
 
         /**
@@ -2470,6 +2490,13 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.NumberControl>;
+
+            /**
+            * Sets the number of digits allowed to the right of the decimal point.
+            * @param precision Number of digits allowed to the right of the decimal point.
+            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setPrecision External Link: setPrecision (Client API reference)}
+            */
+             setPrecision(precision: number): void;
         }
 
         /**
@@ -2552,7 +2579,7 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface OptionSetAttribute extends EnumAttribute<number> {
+        interface OptionSetAttribute<T extends number = number> extends EnumAttribute<T> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -3614,6 +3641,13 @@ declare namespace Xrm {
              * Navigates the user to this form.
              */
             navigate(): void;
+
+            /**
+             * Sets a value that indicates whether the form is visible.
+             * @param isVisible Specify true to show the form; false to hide the form.
+             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui-formselector/setvisible External Link: setVisible (Client API reference)}
+             */
+            setVisible(isVisible: boolean): void;
         }
 
         /**
@@ -4671,6 +4705,22 @@ declare namespace Xrm {
             viewType?: "savedquery" | "userquery" | undefined;
         }
 
+        interface CustomPage {
+            pageType: "custom";
+            /**
+             * The logic name o the custom page to open.
+             */
+            name: string;
+            /**
+             * The logical name of the table to be made available in the custom page via Param("entityName").
+             * */
+            entityName?: string | undefined;
+            /**
+             * ID of the table record to be made available in the custom page via Param("recordId").
+             * */
+            recordId?: string | undefined;
+        }
+
         interface PageInputHtmlWebResource {
             pageType: "webresource";
             /**
@@ -4733,7 +4783,7 @@ declare namespace Xrm {
          * @param pageInput Input about the page to navigate to. The object definition changes depending on the type of page to navigate to: entity list or HTML web resource.
          * @param navigationOptions Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          */
-        navigateTo(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+        navigateTo(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.CustomPage | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
 
         /**
          * Displays an alert dialog containing a message and a button.

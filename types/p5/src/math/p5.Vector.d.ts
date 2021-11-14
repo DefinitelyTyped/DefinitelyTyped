@@ -162,7 +162,7 @@ declare module '../../index' {
          *   between.
          *   @return the lerped value
          */
-        static lerp(v1: Vector, v2: Vector, amt: number): number;
+        static lerp(v1: Vector, v2: Vector, amt: number): Vector;
 
         /**
          *   Make a new 2D vector from an angle

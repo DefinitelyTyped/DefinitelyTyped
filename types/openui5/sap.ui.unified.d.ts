@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -378,6 +378,31 @@ declare module "sap/ui/unified/Calendar" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.Calendar with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Calendar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.Calendar.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.28.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -703,27 +728,6 @@ declare module "sap/ui/unified/Calendar" {
       oDate: Object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.Calendar with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Calendar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -776,11 +780,11 @@ declare module "sap/ui/unified/Calendar" {
       }
     ): boolean;
     /**
-     * Sets the focused date of the calendar.
+     * Displays and sets the focused date of the calendar.
      */
     focusDate(
       /**
-       * JavaScript date object for focused date.
+       * A JavaScript date object for focused date
        */
       oDate: Object
     ): this;
@@ -841,10 +845,6 @@ declare module "sap/ui/unified/Calendar" {
      * month of the `maxDate`.
      */
     getMaxDate(): object;
-    /**
-     * Returns a metadata object for class sap.ui.unified.Calendar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.38.0
      *
@@ -913,6 +913,17 @@ declare module "sap/ui/unified/Calendar" {
      * class.
      */
     getSelectedDates(): DateRange[];
+    /**
+     * @SINCE 1.95
+     *
+     * Gets current value of property {@link #getShowCurrentDateButton showCurrentDateButton}.
+     *
+     * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
+     * view, the calendar navigates to Day picker view.
+     *
+     * Default value is `false`.
+     */
+    getShowCurrentDateButton(): boolean;
     /**
      * @SINCE 1.48
      *
@@ -1258,6 +1269,15 @@ declare module "sap/ui/unified/Calendar" {
       sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
+     * Sets the visibility of the Current date button in the calendar.
+     */
+    setShowCurrentDateButton(
+      /**
+       * whether the Today button will be displayed
+       */
+      bShow: boolean
+    ): this;
+    /**
      * @SINCE 1.48
      *
      * Sets a new value for property {@link #getShowWeekNumbers showWeekNumbers}.
@@ -1419,6 +1439,14 @@ declare module "sap/ui/unified/Calendar" {
     showWeekNumbers?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.95
+     *
+     * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
+     * view, the calendar navigates to Day picker view.
+     */
+    showCurrentDateButton?: boolean | PropertyBindingInfo;
+
+    /**
      * Dates or date ranges for selected dates.
      *
      * To set a single date (instead of a range), set only the `startDate` property of the {@link sap.ui.unified.DateRange}
@@ -1470,12 +1498,12 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Date selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * Date selection was cancelled
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.34.0
@@ -1484,7 +1512,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Use `getStartDate` function to determine the current start date
      */
-    startDateChange?: Function;
+    startDateChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.56
@@ -1496,7 +1524,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
      */
-    weekNumberSelect?: Function;
+    weekNumberSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -1550,18 +1578,6 @@ declare module "sap/ui/unified/calendar/DatesRow" {
     );
 
     /**
-     * displays the a given date without setting the focus
-     *
-     * Property `date` date to be focused or displayed. It must be in the displayed date range beginning with
-     * `startDate` and `days` days So set this properties before setting the date.
-     */
-    displayDate(
-      /**
-       * JavaScript date object for focused date.
-       */
-      oDate: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.unified.calendar.DatesRow with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -1583,6 +1599,22 @@ declare module "sap/ui/unified/calendar/DatesRow" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.calendar.DatesRow.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * displays the a given date without setting the focus
+     *
+     * Property `date` date to be focused or displayed. It must be in the displayed date range beginning with
+     * `startDate` and `days` days So set this properties before setting the date.
+     */
+    displayDate(
+      /**
+       * JavaScript date object for focused date.
+       */
+      oDate: object
+    ): this;
+    /**
      * Gets current value of property {@link #getDays days}.
      *
      * number of days displayed
@@ -1590,10 +1622,6 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * Default value is `7`.
      */
     getDays(): int;
-    /**
-     * Returns a metadata object for class sap.ui.unified.calendar.DatesRow.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.34.0
      *
@@ -1639,17 +1667,6 @@ declare module "sap/ui/unified/calendar/DatesRow" {
        * New value for property `days`
        */
       iDays?: int
-    ): this;
-    /**
-     * Setter for property `firstDayOfWeek`.
-     *
-     * Property `firstDayOfWeek` is not supported in `sap.ui.unified.calendar.DatesRow` control.
-     */
-    setFirstDayOfWeek(
-      /**
-       * The first day of the week
-       */
-      iFirstDayOfWeek: int
     ): this;
     /**
      * @SINCE 1.34.0
@@ -1762,6 +1779,31 @@ declare module "sap/ui/unified/calendar/Header" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.calendar.Header with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Header>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.calendar.Header.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.32.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:pressButton0 pressButton0} event of this `sap.ui.unified.calendar.Header`.
@@ -1879,6 +1921,49 @@ declare module "sap/ui/unified/calendar/Header" {
      * Third button pressed (normally year)
      */
     attachPressButton2(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressCurrentDate pressCurrentDate} event of
+     * this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Current date button pressed
+     */
+    attachPressCurrentDate(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressCurrentDate pressCurrentDate} event of
+     * this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Current date button pressed
+     */
+    attachPressCurrentDate(
       /**
        * The function to be called when the event occurs
        */
@@ -2018,6 +2103,22 @@ declare module "sap/ui/unified/calendar/Header" {
       oListener?: object
     ): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:pressCurrentDate pressCurrentDate} event of
+     * this `sap.ui.unified.calendar.Header`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPressCurrentDate(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:pressNext pressNext} event of this `sap.ui.unified.calendar.Header`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -2049,27 +2150,6 @@ declare module "sap/ui/unified/calendar/Header" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.calendar.Header with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Header>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.32.0
      *
      * Fires event {@link #event:pressButton0 pressButton0} to attached listeners.
@@ -2093,6 +2173,15 @@ declare module "sap/ui/unified/calendar/Header" {
      * Fires event {@link #event:pressButton2 pressButton2} to attached listeners.
      */
     firePressButton2(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:pressCurrentDate pressCurrentDate} to attached listeners.
+     */
+    firePressCurrentDate(
       /**
        * Parameters to pass along with the event
        */
@@ -2177,10 +2266,6 @@ declare module "sap/ui/unified/calendar/Header" {
      */
     getEnabledPrevious(): boolean;
     /**
-     * Returns a metadata object for class sap.ui.unified.calendar.Header.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * @SINCE 1.32.0
      *
      * Gets current value of property {@link #getTextButton0 textButton0}.
@@ -2232,6 +2317,16 @@ declare module "sap/ui/unified/calendar/Header" {
      * Default value is `true`.
      */
     getVisibleButton2(): boolean;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Gets current value of property {@link #getVisibleCurrentDateButton visibleCurrentDateButton}.
+     *
+     * If set, the Current date button will be displayed.
+     *
+     * Default value is `false`.
+     */
+    getVisibleCurrentDateButton(): boolean;
     /**
      * @SINCE 1.34.0
      *
@@ -2442,6 +2537,23 @@ declare module "sap/ui/unified/calendar/Header" {
        */
       bVisibleButton2?: boolean
     ): this;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Sets a new value for property {@link #getVisibleCurrentDateButton visibleCurrentDateButton}.
+     *
+     * If set, the Current date button will be displayed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setVisibleCurrentDateButton(
+      /**
+       * New value for property `visibleCurrentDateButton`
+       */
+      bVisibleCurrentDateButton?: boolean
+    ): this;
   }
 
   export interface $HeaderSettings extends $ControlSettings {
@@ -2534,31 +2646,43 @@ declare module "sap/ui/unified/calendar/Header" {
     enabledNext?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.95.0
+     *
+     * If set, the Current date button will be displayed.
+     */
+    visibleCurrentDateButton?: boolean | PropertyBindingInfo;
+
+    /**
      * Previous button pressed
      */
-    pressPrevious?: Function;
+    pressPrevious?: (oEvent: Event) => void;
 
     /**
      * Next button pressed
      */
-    pressNext?: Function;
+    pressNext?: (oEvent: Event) => void;
+
+    /**
+     * Current date button pressed
+     */
+    pressCurrentDate?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.32.0
      *
      * First button pressed (normally day)
      */
-    pressButton0?: Function;
+    pressButton0?: (oEvent: Event) => void;
 
     /**
      * Second button pressed (normally month)
      */
-    pressButton1?: Function;
+    pressButton1?: (oEvent: Event) => void;
 
     /**
      * Third button pressed (normally year)
      */
-    pressButton2?: Function;
+    pressButton2?: (oEvent: Event) => void;
   }
 }
 
@@ -2623,6 +2747,31 @@ declare module "sap/ui/unified/calendar/Month" {
       mSettings?: $MonthSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.calendar.Month with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Month>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.calendar.Month.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -2882,27 +3031,6 @@ declare module "sap/ui/unified/calendar/Month" {
       oDate: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.calendar.Month with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Month>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:focus focus} to attached listeners.
      */
     fireFocus(
@@ -3003,10 +3131,6 @@ declare module "sap/ui/unified/calendar/Month" {
      * ID of the element which is the current target of the association {@link #getLegend legend}, or `null`.
      */
     getLegend(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.unified.calendar.Month.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.28.9
      *
@@ -3515,12 +3639,12 @@ declare module "sap/ui/unified/calendar/Month" {
     /**
      * Date selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * Date focus changed
      */
-    focus?: Function;
+    focus?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.60
@@ -3532,7 +3656,7 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
      */
-    weekNumberSelect?: Function;
+    weekNumberSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -3591,6 +3715,31 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       mSettings?: $MonthPickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.calendar.MonthPicker with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MonthPicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.calendar.MonthPicker.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.92
      *
@@ -3744,27 +3893,6 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.calendar.MonthPicker with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MonthPicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.38.0
      *
      * Fires event {@link #event:pageChange pageChange} to attached listeners.
@@ -3812,10 +3940,6 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * Default value is `false`.
      */
     getIntervalSelection(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.unified.calendar.MonthPicker.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMonth month}.
      *
@@ -4077,7 +4201,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     /**
      * Month selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.38.0
@@ -4085,7 +4209,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * If less than 12 months are displayed the `pageChange` event is fired if the displayed months are changed
      * by user navigation.
      */
-    pageChange?: Function;
+    pageChange?: (oEvent: Event) => void;
   }
 }
 
@@ -4156,6 +4280,31 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       mSettings?: $MonthsRowSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.calendar.MonthsRow with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MonthsRow>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.calendar.MonthsRow.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -4323,27 +4472,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       oDate: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.calendar.MonthsRow with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MonthsRow>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:focus focus} to attached listeners.
      */
     fireFocus(
@@ -4398,10 +4526,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * ID of the element which is the current target of the association {@link #getLegend legend}, or `null`.
      */
     getLegend(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.unified.calendar.MonthsRow.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMonths months}.
      *
@@ -4706,12 +4830,12 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     /**
      * Month selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * Month focus changed
      */
-    focus?: Function;
+    focus?: (oEvent: Event) => void;
   }
 }
 
@@ -4781,6 +4905,31 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       mSettings?: $TimesRowSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.calendar.TimesRow with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TimesRow>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.calendar.TimesRow.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -4948,27 +5097,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       oDate: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.calendar.TimesRow with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TimesRow>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:focus focus} to attached listeners.
      */
     fireFocus(
@@ -5045,10 +5173,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * ID of the element which is the current target of the association {@link #getLegend legend}, or `null`.
      */
     getLegend(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.unified.calendar.TimesRow.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -5380,12 +5504,12 @@ declare module "sap/ui/unified/calendar/TimesRow" {
     /**
      * Time selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * Time focus changed
      */
-    focus?: Function;
+    focus?: (oEvent: Event) => void;
   }
 }
 
@@ -5444,6 +5568,31 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       mSettings?: $YearPickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.calendar.YearPicker with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, YearPicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.calendar.YearPicker.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.74
      *
@@ -5584,27 +5733,6 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.calendar.YearPicker with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, YearPicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.38.0
      *
      * Fires event {@link #event:pageChange pageChange} to attached listeners.
@@ -5660,10 +5788,6 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * Default value is `false`.
      */
     getIntervalSelection(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.unified.calendar.YearPicker.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.34.0
      *
@@ -5900,14 +6024,14 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * Year selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.38.0
      *
      * The `pageChange` event is fired if the displayed years are changed by user navigation.
      */
-    pageChange?: Function;
+    pageChange?: (oEvent: Event) => void;
   }
 }
 
@@ -5917,11 +6041,16 @@ declare module "sap/ui/unified/CalendarAppointment" {
     $DateTypeRangeSettings,
   } from "sap/ui/unified/DateTypeRange";
 
+  import Control from "sap/ui/core/Control";
+
   import { CSSColor, URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
 
   /**
    * @SINCE 1.34.0
@@ -5985,6 +6114,29 @@ declare module "sap/ui/unified/CalendarAppointment" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.CalendarAppointment.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Adds some customContent to the aggregation {@link #getCustomContent customContent}.
+     */
+    addCustomContent(
+      /**
+       * The customContent to add; if empty, nothing is inserted
+       */
+      oCustomContent: Control
+    ): this;
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Destroys all the customContent in the aggregation {@link #getCustomContent customContent}.
+     */
+    destroyCustomContent(): this;
+    /**
      * @SINCE 1.46.0
      *
      * Gets current value of property {@link #getColor color}.
@@ -5993,6 +6145,24 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * with pound symbol, e.g.: #FF0000.
      */
     getColor(): CSSColor;
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Gets content of aggregation {@link #getCustomContent customContent}.
+     *
+     * Holds the content of the appointment.
+     *
+     * **Note **, If the `customContent` aggregation is added then:
+     *
+     *
+     * 	 - The `title`, `text`, `description`, and `icon` properties are ignored.
+     * 	 - The application developer has to ensure, that all the accessibility requirements are met, and that
+     * 			the height of the content conforms with the height provided by the appointment.
+     * 	 - Do not use interactive controls as content, as they may trigger unwanted selection of the appointment
+     * 			and may lead to unpredictable results.
+     */
+    getCustomContent(): Control[];
     /**
      * @SINCE 1.81.0
      *
@@ -6015,10 +6185,6 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * Can be used as identifier of the appointment
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.ui.unified.CalendarAppointment.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -6047,6 +6213,58 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * Title of the appointment.
      */
     getTitle(): string;
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getCustomContent customContent}.
+     * and returns its index if found or -1 otherwise.
+     */
+    indexOfCustomContent(
+      /**
+       * The customContent whose index is looked for
+       */
+      oCustomContent: Control
+    ): int;
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Inserts a customContent into the aggregation {@link #getCustomContent customContent}.
+     */
+    insertCustomContent(
+      /**
+       * The customContent to insert; if empty, nothing is inserted
+       */
+      oCustomContent: Control,
+      /**
+       * The `0`-based index the customContent should be inserted at; for a negative value of `iIndex`, the customContent
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the customContent
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Removes all the controls from the aggregation {@link #getCustomContent customContent}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     */
+    removeAllCustomContent(): Control[];
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Removes a customContent from the aggregation {@link #getCustomContent customContent}.
+     */
+    removeCustomContent(
+      /**
+       * The customContent to remove or its index or id
+       */
+      vCustomContent: int | string | Control
+    ): Control;
     /**
      * @SINCE 1.46.0
      *
@@ -6211,6 +6429,23 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * with pound symbol, e.g.: #FF0000.
      */
     color?: CSSColor | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.93.0
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Holds the content of the appointment.
+     *
+     * **Note **, If the `customContent` aggregation is added then:
+     *
+     *
+     * 	 - The `title`, `text`, `description`, and `icon` properties are ignored.
+     * 	 - The application developer has to ensure, that all the accessibility requirements are met, and that
+     * 			the height of the content conforms with the height provided by the appointment.
+     * 	 - Do not use interactive controls as content, as they may trigger unwanted selection of the appointment
+     * 			and may lead to unpredictable results.
+     */
+    customContent?: Control[] | Control | AggregationBindingInfo;
   }
 }
 
@@ -6263,10 +6498,6 @@ declare module "sap/ui/unified/CalendarDateInterval" {
     );
 
     /**
-     * If more than this number of days are displayed, start and end month are displayed on the button.
-     */
-    _getDaysLarge(): int;
-    /**
      * Creates a new subclass of class sap.ui.unified.CalendarDateInterval with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -6288,6 +6519,14 @@ declare module "sap/ui/unified/CalendarDateInterval" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.CalendarDateInterval.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * If more than this number of days are displayed, start and end month are displayed on the button.
+     */
+    _getDaysLarge(): int;
+    /**
      * Gets current value of property {@link #getDays days}.
      *
      * number of days displayed on phones the maximum rendered number of days is 8.
@@ -6295,10 +6534,6 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      * Default value is `7`.
      */
     getDays(): int;
-    /**
-     * Returns a metadata object for class sap.ui.unified.CalendarDateInterval.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.34.0
      *
@@ -6494,19 +6729,6 @@ declare module "sap/ui/unified/CalendarLegend" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: CalendarLegendItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.unified.CalendarLegend with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -6528,6 +6750,23 @@ declare module "sap/ui/unified/CalendarLegend" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.CalendarLegend.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: CalendarLegendItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
+    /**
      * Gets current value of property {@link #getColumnWidth columnWidth}.
      *
      * Defines the width of the created columns in which the items are arranged.
@@ -6541,10 +6780,6 @@ declare module "sap/ui/unified/CalendarLegend" {
      * Items to be displayed.
      */
     getItems(): CalendarLegendItem[];
-    /**
-     * Returns a metadata object for class sap.ui.unified.CalendarLegend.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.54
      *
@@ -6725,6 +6960,10 @@ declare module "sap/ui/unified/CalendarLegendItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.CalendarLegendItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.46.0
      *
      * Gets current value of property {@link #getColor color}.
@@ -6732,10 +6971,6 @@ declare module "sap/ui/unified/CalendarLegendItem" {
      * Overrides the color derived from the `type` property.
      */
     getColor(): CSSColor;
-    /**
-     * Returns a metadata object for class sap.ui.unified.CalendarLegendItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -6889,6 +7124,31 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       mSettings?: $CalendarMonthIntervalSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.CalendarMonthInterval with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CalendarMonthInterval>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.CalendarMonthInterval.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -7117,27 +7377,6 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       oDatetime: Object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.CalendarMonthInterval with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CalendarMonthInterval>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -7205,10 +7444,6 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      * month of the `maxDate`.
      */
     getMaxDate(): object;
-    /**
-     * Returns a metadata object for class sap.ui.unified.CalendarMonthInterval.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.38.0
      *
@@ -7598,19 +7833,19 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     /**
      * Month selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * Month selection was cancelled
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.34.0
      *
      * `startDate` was changed while navigation in `CalendarMonthInterval`
      */
-    startDateChange?: Function;
+    startDateChange?: (oEvent: Event) => void;
   }
 }
 
@@ -7677,6 +7912,31 @@ declare module "sap/ui/unified/CalendarRow" {
       mSettings?: $CalendarRowSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.CalendarRow with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CalendarRow>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.CalendarRow.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some appointment to the aggregation {@link #getAppointments appointments}.
      */
@@ -7951,27 +8211,6 @@ declare module "sap/ui/unified/CalendarRow" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.CalendarRow with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CalendarRow>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.38.0
      *
      * Fires event {@link #event:intervalSelect intervalSelect} to attached listeners.
@@ -8192,6 +8431,15 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     getIntervals(): int;
     /**
+     * Gets current value of property {@link #getIntervalSize intervalSize}.
+     *
+     * Number of interval type units merged. It's used when presenting Relative View in sap.m.PlanningCalendar.
+     * Note: If the value is more than 1, the NonWorkingDays type is not presented.
+     *
+     * Default value is `1`.
+     */
+    getIntervalSize(): int;
+    /**
      * Gets current value of property {@link #getIntervalType intervalType}.
      *
      * Type of the intervals of the row. The default is one hour.
@@ -8205,10 +8453,6 @@ declare module "sap/ui/unified/CalendarRow" {
      * ID of the element which is the current target of the association {@link #getLegend legend}, or `null`.
      */
     getLegend(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.unified.CalendarRow.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNonWorkingDays nonWorkingDays}.
      *
@@ -8548,6 +8792,22 @@ declare module "sap/ui/unified/CalendarRow" {
       iIntervals?: int
     ): this;
     /**
+     * Sets a new value for property {@link #getIntervalSize intervalSize}.
+     *
+     * Number of interval type units merged. It's used when presenting Relative View in sap.m.PlanningCalendar.
+     * Note: If the value is more than 1, the NonWorkingDays type is not presented.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `1`.
+     */
+    setIntervalSize(
+      /**
+       * New value for property `intervalSize`
+       */
+      iIntervalSize?: int
+    ): this;
+    /**
      * Sets a new value for property {@link #getIntervalType intervalType}.
      *
      * Type of the intervals of the row. The default is one hour.
@@ -8735,6 +8995,12 @@ declare module "sap/ui/unified/CalendarRow" {
     intervals?: int | PropertyBindingInfo;
 
     /**
+     * Number of interval type units merged. It's used when presenting Relative View in sap.m.PlanningCalendar.
+     * Note: If the value is more than 1, the NonWorkingDays type is not presented.
+     */
+    intervalSize?: int | PropertyBindingInfo;
+
+    /**
      * Type of the intervals of the row. The default is one hour.
      */
     intervalType?: CalendarIntervalType | PropertyBindingInfo;
@@ -8918,25 +9184,25 @@ declare module "sap/ui/unified/CalendarRow" {
     /**
      * Fired if an appointment was selected
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * `startDate` was changed while navigating in `CalendarRow`
      */
-    startDateChange?: Function;
+    startDateChange?: (oEvent: Event) => void;
 
     /**
      * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
      * the next control to be focused
      */
-    leaveRow?: Function;
+    leaveRow?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.38.0
      *
      * Fired if an interval was selected
      */
-    intervalSelect?: Function;
+    intervalSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -8999,6 +9265,31 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       mSettings?: $CalendarTimeIntervalSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.CalendarTimeInterval with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CalendarTimeInterval>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.CalendarTimeInterval.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -9227,27 +9518,6 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       oDate: object
     ): Calendar;
     /**
-     * Creates a new subclass of class sap.ui.unified.CalendarTimeInterval with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CalendarTimeInterval>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -9339,10 +9609,6 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      * month of the `maxDate`.
      */
     getMaxDate(): object;
-    /**
-     * Returns a metadata object for class sap.ui.unified.CalendarTimeInterval.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.38.0
      *
@@ -9758,19 +10024,19 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     /**
      * Time selection changed
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * Time selection was cancelled
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.34.0
      *
      * `startDate` was changed while navigation in `CalendarTimeInterval`
      */
-    startDateChange?: Function;
+    startDateChange?: (oEvent: Event) => void;
   }
 }
 
@@ -9828,6 +10094,31 @@ declare module "sap/ui/unified/ColorPicker" {
       mSettings?: $ColorPickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.ColorPicker with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColorPicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.ColorPicker.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.48.0
      *
@@ -9961,27 +10252,6 @@ declare module "sap/ui/unified/ColorPicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.ColorPicker with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColorPicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.48.0
      *
      * Fires event {@link #event:change change} to attached listeners.
@@ -10103,10 +10373,6 @@ declare module "sap/ui/unified/ColorPicker" {
       | ColorPickerDisplayMode
       | keyof typeof ColorPickerDisplayMode;
     /**
-     * Returns a metadata object for class sap.ui.unified.ColorPicker.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * @SINCE 1.48.0
      *
      * Gets current value of property {@link #getMode mode}.
@@ -10223,7 +10489,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.48.0
@@ -10232,7 +10498,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -10309,6 +10575,31 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       mSettings?: $ColorPickerPopoverSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.ColorPickerPopover with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColorPickerPopover>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.ColorPickerPopover.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.60.0
      *
@@ -10438,27 +10729,6 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.ColorPickerPopover with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColorPickerPopover>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.60.0
      *
      * Fires event {@link #event:change change} to attached listeners.
@@ -10580,10 +10850,6 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       | ColorPickerDisplayMode
       | keyof typeof ColorPickerDisplayMode;
     /**
-     * Returns a metadata object for class sap.ui.unified.ColorPickerPopover.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * @SINCE 1.60.0
      *
      * Gets current value of property {@link #getMode mode}.
@@ -10699,14 +10965,14 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      *
      * Fired when the submit button of the popover is clicked.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -10760,6 +11026,31 @@ declare module "sap/ui/unified/ContentSwitcher" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.ContentSwitcher with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ContentSwitcher>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.ContentSwitcher.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content1 to the aggregation {@link #getContent1 content1}.
      */
     addContent1(
@@ -10785,27 +11076,6 @@ declare module "sap/ui/unified/ContentSwitcher" {
      * Destroys all the content2 in the aggregation {@link #getContent2 content2}.
      */
     destroyContent2(): this;
-    /**
-     * Creates a new subclass of class sap.ui.unified.ContentSwitcher with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ContentSwitcher>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Gets current value of property {@link #getActiveContent activeContent}.
      *
@@ -10837,10 +11107,6 @@ declare module "sap/ui/unified/ContentSwitcher" {
      * The controls that should be shown in the second content
      */
     getContent2(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.unified.ContentSwitcher.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent1 content1}. and returns
      * its index if found or -1 otherwise.
@@ -11080,6 +11346,10 @@ declare module "sap/ui/unified/Currency" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.Currency.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
@@ -11117,10 +11387,6 @@ declare module "sap/ui/unified/Currency" {
      * Defines the space that is available for the precision of the various currencies.
      */
     getMaxPrecision(): int;
-    /**
-     * Returns a metadata object for class sap.ui.unified.Currency.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.54
      *
@@ -11309,16 +11575,16 @@ declare module "sap/ui/unified/DateRange" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.DateRange.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getEndDate endDate}.
      *
      * End date for a date range. If empty only a single date is presented by this DateRange element. This must
      * be a JavaScript date object.
      */
     getEndDate(): object;
-    /**
-     * Returns a metadata object for class sap.ui.unified.DateRange.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getStartDate startDate}.
      *
@@ -11441,6 +11707,10 @@ declare module "sap/ui/unified/DateTypeRange" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.DateTypeRange.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.76.0
      *
      * Gets current value of property {@link #getColor color}.
@@ -11449,10 +11719,6 @@ declare module "sap/ui/unified/DateTypeRange" {
      * background color defined in `Calendar` `specialDates` aggregation
      */
     getColor(): CSSColor;
-    /**
-     * Returns a metadata object for class sap.ui.unified.DateTypeRange.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.81.0
      *
@@ -11629,6 +11895,31 @@ declare module "sap/ui/unified/FileUploader" {
       mSettings?: $FileUploaderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.FileUploader with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FileUploader>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.FileUploader.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.24.0
      *
@@ -12351,27 +12642,6 @@ declare module "sap/ui/unified/FileUploader" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.FileUploader with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FileUploader>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -12755,10 +13025,6 @@ declare module "sap/ui/unified/FileUploader" {
      * This property is not supported by Internet Explorer 9.
      */
     getMaximumFileSize(): float;
-    /**
-     * Returns a metadata object for class sap.ui.unified.FileUploader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMimeType mimeType}.
      *
@@ -13772,7 +14038,7 @@ declare module "sap/ui/unified/FileUploader" {
      * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
      * Chrome browser when the Cancel button of the uploads window is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
@@ -13781,28 +14047,28 @@ declare module "sap/ui/unified/FileUploader" {
      * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
      * only the client side of the upload process and does not give any success status from the server.
      */
-    uploadComplete?: Function;
+    uploadComplete?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
      */
-    typeMissmatch?: Function;
+    typeMissmatch?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
      * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
      */
-    fileSizeExceed?: Function;
+    fileSizeExceed?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the size of the file is 0
      */
-    fileEmpty?: Function;
+    fileEmpty?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the file is allowed for upload on client side.
      */
-    fileAllowed?: Function;
+    fileAllowed?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.24.0
@@ -13815,7 +14081,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadProgress?: Function;
+    uploadProgress?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.24.0
@@ -13825,7 +14091,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadAborted?: Function;
+    uploadAborted?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.24.0
@@ -13833,14 +14099,14 @@ declare module "sap/ui/unified/FileUploader" {
      * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
      * property.
      */
-    filenameLengthExceed?: Function;
+    filenameLengthExceed?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.30.0
      *
      * Event is fired before an upload is started.
      */
-    uploadStart?: Function;
+    uploadStart?: (oEvent: Event) => void;
   }
 }
 
@@ -14143,6 +14409,31 @@ declare module "sap/ui/unified/Menu" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.Menu with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Menu>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.Menu.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.26.3
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -14231,27 +14522,6 @@ declare module "sap/ui/unified/Menu" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.Menu with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Menu>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      */
     fireItemSelect(
@@ -14306,10 +14576,6 @@ declare module "sap/ui/unified/Menu" {
      * Default value is `0`.
      */
     getMaxVisibleItems(): int;
-    /**
-     * Returns a metadata object for class sap.ui.unified.Menu.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.25.0
      *
@@ -14561,7 +14827,7 @@ declare module "sap/ui/unified/Menu" {
      * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
      * menu item. This event and the event of the menu items are redundant.
      */
-    itemSelect?: Function;
+    itemSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -14618,15 +14884,6 @@ declare module "sap/ui/unified/MenuItem" {
     );
 
     /**
-     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
-     */
-    addAriaLabelledBy(
-      /**
-       * The ariaLabelledBy to add; if empty, nothing is inserted
-       */
-      vAriaLabelledBy: ID | Control
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.unified.MenuItem with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -14648,6 +14905,19 @@ declare module "sap/ui/unified/MenuItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.MenuItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
      * ariaLabelledBy}.
      */
@@ -14661,10 +14931,6 @@ declare module "sap/ui/unified/MenuItem" {
      * Default value is `empty string`.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.unified.MenuItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -14789,6 +15055,31 @@ declare module "sap/ui/unified/MenuItemBase" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.MenuItemBase with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MenuItemBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.MenuItemBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.MenuItemBase`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -14853,27 +15144,6 @@ declare module "sap/ui/unified/MenuItemBase" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.MenuItemBase with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MenuItemBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:select select} to attached listeners.
      */
     fireSelect(
@@ -14896,10 +15166,6 @@ declare module "sap/ui/unified/MenuItemBase" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.unified.MenuItemBase.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getStartsSection startsSection}.
      *
@@ -15061,7 +15327,7 @@ declare module "sap/ui/unified/MenuItemBase" {
      * a submenu. In general, applications must not handle event in this case because the user selection opens
      * the sub menu.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -15119,13 +15385,6 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
     );
 
     /**
-     * @deprecated (since 1.21) - the aggregation `submenu` (inherited from parent class) is not supported for
-     * this type of menu item.
-     *
-     * The aggregation `submenu` (inherited from parent class) is not supported for this type of menu item.
-     */
-    destroySubmenu(): this;
-    /**
      * Creates a new subclass of class sap.ui.unified.MenuTextFieldItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -15147,6 +15406,17 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.unified.MenuTextFieldItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @deprecated (since 1.21) - the aggregation `submenu` (inherited from parent class) is not supported for
+     * this type of menu item.
+     *
+     * The aggregation `submenu` (inherited from parent class) is not supported for this type of menu item.
+     */
+    destroySubmenu(): this;
+    /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Defines the icon of the {@link sap.ui.core.IconPool sap.ui.core.IconPool} or an image which should be
@@ -15159,10 +15429,6 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
      * Defines the label of the text field of the item.
      */
     getLabel(): string;
-    /**
-     * Returns a metadata object for class sap.ui.unified.MenuTextFieldItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.21) - the aggregation `submenu` (inherited from parent class) is not supported for
      * this type of menu item.
@@ -15343,6 +15609,31 @@ declare module "sap/ui/unified/Shell" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.Shell with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.ShellLayout.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Shell>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.Shell.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some curtainContent to the aggregation {@link #getCurtainContent curtainContent}.
      */
     addCurtainContent(
@@ -15410,27 +15701,6 @@ declare module "sap/ui/unified/Shell" {
      */
     destroyUser(): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.Shell with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.ShellLayout.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Shell>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getCurtainContent curtainContent}.
      *
      * The content to appear in the curtain area.
@@ -15462,10 +15732,6 @@ declare module "sap/ui/unified/Shell" {
      * The application icon. If a custom header is set this property has no effect.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.unified.Shell.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getSearch search}.
      *
@@ -15879,6 +16145,31 @@ declare module "sap/ui/unified/ShellHeadItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.ShellHeadItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellHeadItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.ShellHeadItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     addAriaLabelledBy(
@@ -15944,27 +16235,6 @@ declare module "sap/ui/unified/ShellHeadItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.ShellHeadItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellHeadItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -15985,10 +16255,6 @@ declare module "sap/ui/unified/ShellHeadItem" {
      * must be set.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.unified.ShellHeadItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -16237,7 +16503,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
     /**
      * Event is fired when the user presses the item.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -16292,6 +16558,31 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       mSettings?: $ShellHeadUserItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.unified.ShellHeadUserItem with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellHeadUserItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.ShellHeadUserItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -16358,27 +16649,6 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.ShellHeadUserItem with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellHeadUserItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -16398,10 +16668,6 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
      * An image of the user, normally a URI to an image but also an icon from the sap.ui.core.IconPool is possible.
      */
     getImage(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.unified.ShellHeadUserItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.27.0
      *
@@ -16509,7 +16775,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
     /**
      * Event is fired when the user presses the button.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -16565,6 +16831,31 @@ declare module "sap/ui/unified/ShellLayout" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.ShellLayout with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.ShellLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -16595,27 +16886,6 @@ declare module "sap/ui/unified/ShellLayout" {
      */
     destroyPaneContent(): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.ShellLayout with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content to appear in the main canvas.
@@ -16644,10 +16914,6 @@ declare module "sap/ui/unified/ShellLayout" {
      * Default value is `true`.
      */
     getHeaderVisible(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.unified.ShellLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getPaneContent paneContent}.
      *
@@ -16885,6 +17151,31 @@ declare module "sap/ui/unified/ShellOverlay" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.ShellOverlay with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellOverlay>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.ShellOverlay.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     addAriaLabelledBy(
@@ -16971,27 +17262,6 @@ declare module "sap/ui/unified/ShellOverlay" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.ShellOverlay with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellOverlay>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:closed closed} to attached listeners.
      */
     fireClosed(
@@ -17011,10 +17281,6 @@ declare module "sap/ui/unified/ShellOverlay" {
      * The content to appear in the overlay.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.unified.ShellOverlay.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getSearch search}.
      *
@@ -17129,7 +17395,7 @@ declare module "sap/ui/unified/ShellOverlay" {
     /**
      * Fired when the overlay was closed.
      */
-    closed?: Function;
+    closed?: (oEvent: Event) => void;
   }
 }
 
@@ -17185,6 +17451,31 @@ declare module "sap/ui/unified/SplitContainer" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.unified.SplitContainer with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SplitContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.SplitContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -17211,36 +17502,11 @@ declare module "sap/ui/unified/SplitContainer" {
      */
     destroySecondaryContent(): this;
     /**
-     * Creates a new subclass of class sap.ui.unified.SplitContainer with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SplitContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content to appear in the main area.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.unified.SplitContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.22.0
      *

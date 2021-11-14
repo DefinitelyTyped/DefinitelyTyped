@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 4.1
+// Type definitions for react-datepicker 4.3
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -13,14 +13,16 @@
 //                 tu4mo <https://github.com/tu4mo>
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.8
 
 import * as React from 'react';
-import * as Popper from 'popper.js';
+import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
+import { Modifier, StrictModifierNames } from 'react-popper';
 
-export function registerLocale(localeName: string, localeData: {}): void;
+export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
 export function CalendarContainer(props: {
@@ -34,10 +36,11 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
-export interface ReactDatePickerProps {
+export interface ReactDatePickerProps<CustomModifierNames extends string = never> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
+    ariaInvalid?: string | undefined;
     ariaLabelClose?: string | undefined;
     ariaLabelledBy?: string | undefined;
     ariaRequired?: string | undefined;
@@ -49,6 +52,7 @@ export interface ReactDatePickerProps {
     children?: React.ReactNode | undefined;
     chooseDayAriaLabelPrefix?: string | undefined;
     className?: string | undefined;
+    clearButtonClassName?: string | undefined;
     clearButtonTitle?: string | undefined;
     closeOnScroll?: boolean | ((e: Event) => boolean) | undefined;
     customInput?: React.ReactNode | undefined;
@@ -88,13 +92,15 @@ export interface ReactDatePickerProps {
     minTime?: Date | undefined;
     monthsShown?: number | undefined;
     name?: string | undefined;
+    nextMonthAriaLabel?: string | undefined;
     nextMonthButtonLabel?: string | React.ReactNode | undefined;
+    nextYearAriaLabel?: string | undefined;
     nextYearButtonLabel?: string | undefined;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
     onChange(
-        date: Date | [Date, Date] | /* for selectsRange */ null,
+        date: Date | [Date | null, Date | null] | /* for selectsRange */ null,
         event: React.SyntheticEvent<any> | undefined,
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -119,11 +125,13 @@ export interface ReactDatePickerProps {
     placeholderText?: string | undefined;
     popperClassName?: string | undefined;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: Popper.Modifiers | undefined;
+    popperModifiers?: ReadonlyArray<Modifier<StrictModifierNames | CustomModifierNames>> | undefined;
     popperPlacement?: Popper.Placement | undefined;
     popperProps?: {} | undefined;
     preventOpenOnFocus?: boolean | undefined;
+    previousMonthAriaLabel?: string | undefined;
     previousMonthButtonLabel?: string | React.ReactNode | undefined;
+    previousYearAriaLabel?: string | undefined;
     previousYearButtonLabel?: string | undefined;
     readOnly?: boolean | undefined;
     renderCustomHeader?(params: {
@@ -162,6 +170,7 @@ export interface ReactDatePickerProps {
     showTimeSelect?: boolean | undefined;
     showTimeSelectOnly?: boolean | undefined;
     showTwoColumnMonthYearPicker?: boolean | undefined;
+    showFourColumnMonthYearPicker?: boolean | undefined;
     showWeekNumbers?: boolean | undefined;
     showYearDropdown?: boolean | undefined;
     showYearPicker?: boolean | undefined;
@@ -189,7 +198,9 @@ export interface ReactDatePickerProps {
     yearItemNumber?: number | undefined;
 }
 
-declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
+export class ReactDatePicker<CustomModifierNames extends string = never> extends React.Component<
+    ReactDatePickerProps<CustomModifierNames>
+> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;

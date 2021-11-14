@@ -42,10 +42,9 @@ export interface ArrayLike {
  * <needs description>
  * @param K
  */
-export interface AssocPartialOne<K extends keyof any> {
-    <T>(val: T): <U>(obj: U) => Record<K, T> & U;
-    <T, U>(val: T, obj: U): Record<K, T> & U;
-}
+export type AssocPartialOne<K extends keyof any> =
+    (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>)
+    & (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
 
 // ---------------------------------------------------------------------------------------
 // C
@@ -212,25 +211,12 @@ type EvolveValue<V, E> =
 /**
  * <needs description>
  */
-export interface Filter {
-    <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
-    <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: readonly T[]) => T[];
-    <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
-    <T>(fn: (value: T) => boolean, list: readonly T[]): T[];
-    <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+export interface Find {
+    <T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P | undefined;
+    <T>(pred: (val: T) => boolean, list: readonly T[]): T | undefined;
+    <T, P extends T>(pred: (val: T) => val is P): (list: readonly T[]) => P | undefined;
+    <T>(pred: (val: T) => boolean): (list: readonly T[]) => T | undefined;
 }
-
-/**
- * <needs description>
- * @param A
- */
-type FilterOnceApplied<A> =
-    <K extends A[] | Dictionary<A>>(source: K) =>
-        K extends Array<infer U>
-        ? U[]
-        : K extends Dictionary<infer U>
-          ? Dictionary<U>
-          : never;
 
 /**
  * <needs description>

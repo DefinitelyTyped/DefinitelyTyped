@@ -15,8 +15,7 @@
  * ```js
  * const inspector = require('inspector');
  * ```
- * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -1780,6 +1779,13 @@ declare module 'inspector' {
          */
         connect(): void;
         /**
+         * Connects a session to the main thread inspector back-end.
+         * An exception will be thrown if this API was not called on a Worker
+         * thread.
+         * @since 12.11.0
+         */
+        connectToMainThread(): void;
+        /**
          * Immediately close the session. All pending message callbacks will be called
          * with an error. `session.connect()` will need to be called to be able to send
          * messages again. Reconnected session will lose all inspector state, such as
@@ -1798,7 +1804,7 @@ declare module 'inspector' {
          * // Output: { type: 'number', value: 4, description: '4' }
          * ```
          *
-         * The latest version of the V8 inspector protocol is published on the[Chrome DevTools Protocol Viewer](https://chromedevtools.github.io/devtools-protocol/v8/).
+         * The latest version of the V8 inspector protocol is published on the [Chrome DevTools Protocol Viewer](https://chromedevtools.github.io/devtools-protocol/v8/).
          *
          * Node.js inspector supports all the Chrome DevTools Protocol domains declared
          * by V8\. Chrome DevTools Protocol domain provides an interface for interacting
@@ -2697,9 +2703,9 @@ declare module 'inspector' {
      * and flow control has been passed to the debugger client.
      *
      * See the `security warning` regarding the `host`parameter usage.
-     * @param port Port to listen on for inspector connections. Optional.
-     * @param host Host to listen on for inspector connections. Optional.
-     * @param wait Block until a client has connected. Optional.
+     * @param [port='what was specified on the CLI'] Port to listen on for inspector connections. Optional.
+     * @param [host='what was specified on the CLI'] Host to listen on for inspector connections. Optional.
+     * @param [wait=false] Block until a client has connected. Optional.
      */
     function open(port?: number, host?: string, wait?: boolean): void;
     /**

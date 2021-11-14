@@ -1,4 +1,4 @@
-// Type definitions for update-notifier 5.0
+// Type definitions for update-notifier 5.1
 // Project: https://github.com/yeoman/update-notifier
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 Noah Chen <https://github.com/nchen63>

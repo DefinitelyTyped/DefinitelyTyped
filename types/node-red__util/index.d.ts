@@ -1,4 +1,4 @@
-// Type definitions for @node-red/util 1.1
+// Type definitions for @node-red/util 1.2
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/util, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -312,6 +312,218 @@ declare namespace util {
         encodeObject(msg: { msg: any }, opts?: { maxLength?: number | undefined }): { format: string; msg: string };
     }
 
+    // Used `boolean` in PromiseLike instead of `false` because it caused problems with `async` functions
+    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // tslint:disable-line:void-return
+
+    interface Hooks {
+        /**
+         * A node has called `node.send()` with one or more messages.
+         *
+         * The hook is passed an array of `SendEvent` objects.
+         * The messages inside these objects are exactly what the node has passed to `node.send`
+         * - meaning there could be duplicate references to the same message object.
+         *
+         * This hook should complete synchronously in order to avoid unexpected behaviour.
+         *
+         * If it needs to do asynchronously work, it must clone and replace the message object in the event it receives.
+         * It must also set the `cloneMessage` property to `false` to ensure no subsequent cloning happens on the message.
+         *
+         * If the hook returns `false`, the messages will not proceed any further.
+         */
+        add(hookName: 'onSend', hookHandler: HandlerFunction<SendEvent[]>): void;
+
+        /**
+         * A message is about to be routed to its destination.
+         *
+         * The hook is passed a single `SendEvent`.
+         *
+         * This hook should complete synchronously in order to avoid unexpected behaviour.
+         *
+         * If it needs to do asynchronously work, it must clone and replace
+         * the message object in the event it receives.
+         * It must also set the `cloneMessage` property to `false` to ensure no subsequent cloning happens on the message.
+         *
+         * If the hook returns `false`, the message will not proceed any further.
+         */
+        add(hookName: 'preRoute', handlerFunction: HandlerFunction<SendEvent>): void;
+
+        /**
+         * A message is about to be delivered
+         *
+         * The hook is passed a single `SendEvent`.
+         * At this point, the local router has identified the node it is going to send to and set the `destination.node` property of the `SendEvent`.
+         *
+         * The message will have been cloned if needed.
+         *
+         * If the hook returns `false`, the messages will not proceed any further.
+         */
+        add(hookName: 'preDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * A message has been dispatched to its destination.
+         *
+         * The hook is passed a single `SendEvent`. The message is delivered asynchronously to the hooks execution.
+         */
+        add(hookName: 'postDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * A message is about to be received by a node.
+         *
+         * The hook is passed a `ReceiveEvent`.
+         *
+         * If the hook returns `false`, the messages will not proceed any further.
+         */
+        add(hookName: 'onReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void;
+
+        /**
+         * A message has been received by a node.
+         *
+         * The hook is passed `ReceiveEvent` when the message has been given to the node’s `input` handler.
+         */
+        add(hookName: 'postReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * A node has completed with a message or logged an error for it.
+         *
+         * The hook is passed a `CompleteEvent`.
+         */
+        add(hookName: 'onComplete', handlerFunction: HandlerFunction<CompleteEvent>): void;
+
+        /**
+         * Called before running `npm install` to install an npm module.
+         *
+         * The hook is passed an `InstallEvent` object that contains information about the module to be installed.
+         *
+         * The hook can modify the InstallEvent to change how npm is run.
+         * For example, the `args` array can be modified to change what arguments are passed to `npm`.
+         *
+         * If the hook returns `false`, the `npm install` will be skipped and the processing continue as if it had been run.
+         * This would allow some alternative mechanism to be used - as long as it results in the module being installed under the expected `node_modules` directory.
+         *
+         * If the hook throws an error, the install will be cleanly failed.
+         */
+        add(hookName: 'preInstall', handlerFunction: HandlerFunction<InstallEvent>): void;
+
+        /**
+         * Called after `npm install` finishes installing an npm module.
+         *
+         * Note if a `preInstall` hook returned `false`, `npm install` will not have been run, but this hook will still get invoked.
+         *
+         * This hook can be used to run any post-install activity needed.
+         *
+         * If the hook throws an error, the install will be cleanly failed.
+         *
+         * If the preceding `npm install` returned an error, this hook will not be invoked.
+         */
+        add(hookName: 'postInstall', handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * Called before running `npm remove` to uninstall an npm module.
+         *
+         * The hook is passed an `UninstallEvent` object that contains information about the module to be removed.
+         *
+         * The hook can modify the UninstallEvent to change how npm is run.
+         * For example, the args array can be modified to change what arguments are passed to npm.
+         *
+         * If the hook returns false, the npm remove will be skipped and the processing continue as if it had been run.
+         * This would allow some alternative mechanism to be used.
+         *
+         * If the hook throws an error, the uninstall will be cleanly failed.
+         */
+        add(hookName: 'preUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void;
+
+        /**
+         * Called after `npm remove` finishes removing an npm module.
+         *
+         * Note if a `preUninstall` hook returned `false`, `npm remove` will not have been run, but this hook will still get invoked.
+         *
+         * This hook can be used to run any post-uninstall activity needed.
+         *
+         * If the hook throws an error, it will be logged, but the uninstall will complete cleanly as we cannot rollback an `npm remove` after it has completed.
+         */
+        add(hookName: 'postUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * Register a new hook handler.
+         *
+         * @see https://nodered.org/docs/api/hooks/#methods-add
+         */
+        add(hookName: string, handlerFunction: HandlerFunction<any>): void;
+
+        /**
+         * Remove a hook handler.
+         *
+         * Only handlers that were registered with a labelled name (for example `onSend.my-hooks`) can be removed.
+         *
+         * To remove all hooks with a given label, `*.my-hooks` can be used.
+         */
+        remove(hookName: string): void;
+        has(hookName: string): boolean;
+    }
+
+    //#region Hook Event Objects
+
+    interface SendEvent {
+        msg: registry.NodeMessage;
+        source: {
+            /** node id */
+            id: string;
+            node: registry.Node;
+            /** index of port being sent on */
+            port: number;
+        };
+        destination: {
+            /** node id */
+            id: string;
+            node: undefined;
+        };
+        cloneMessage: boolean;
+    }
+
+    interface ReceiveEvent {
+        msg: registry.NodeMessage;
+        destination: {
+            /** node id */
+            id: string;
+            node: registry.Node;
+        };
+    }
+
+    interface CompleteEvent {
+        msg: registry.NodeMessage;
+        node: {
+            id: string;
+            node: registry.Node;
+        };
+        error?: Error;
+    }
+
+    interface InstallEvent {
+        /** npm module name */
+        module: string;
+        /** Version of the module that is being installed */
+        version: string;
+        /** Optional url to install from */
+        url?: string;
+        /** Directory to run the install in */
+        dir: string;
+        isExisting?: boolean;
+        isUpgrade?: boolean;
+        /** Array of args that will be passed to npm */
+        args: string[];
+    }
+
+    interface UninstallEvent {
+        /** npm module name */
+        module: string;
+        /** Directory to run the remove in */
+        dir: string;
+        /** Array of args that will be passed to npm */
+        args: string[];
+    }
+
+    //#endregion
+
     interface UtilModule {
         /**
          * Initialise the module with the runtime settings
@@ -333,5 +545,10 @@ declare namespace util {
          * General utilities
          */
         util: Util;
+
+        /**
+         * Runtime hooks engine
+         */
+        hooks: Hooks;
     }
 }

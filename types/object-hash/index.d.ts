@@ -1,4 +1,4 @@
-// Type definitions for object-hash 2.1
+// Type definitions for object-hash 2.2
 // Project: https://github.com/puleos/object-hash
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Artur Diniz <https://github.com/artdiniz>
@@ -45,15 +45,11 @@ declare namespace objectHash {
         write?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
     }
 
-    interface Options {
+    interface BaseOptions {
         /**
          * @default 'sha1'
          */
         algorithm?: 'sha1' | 'md5' | 'passthrough' | undefined;
-        /**
-         * @default 'hex'
-         */
-        encoding?: 'buffer' | 'hex' | 'binary' | 'base64' | undefined;
 
         excludeKeys?: ((key: string) => boolean) | undefined;
         /**
@@ -91,11 +87,25 @@ declare namespace objectHash {
          */
         unorderedSets?: boolean | undefined;
     }
+
+    interface NormalOption extends BaseOptions {
+        /**
+         * @default 'hex'
+         */
+        encoding?: 'hex' | 'binary' | 'base64' | undefined;
+    }
+
+    interface WithBufferOption extends BaseOptions {
+        encoding: 'buffer';
+    }
+
+    type Options = NormalOption | WithBufferOption;
 }
 
 /**
  * @see https://github.com/puleos/object-hash#hashvalue-options
  */
-declare function objectHash(object: {} | null, options?: objectHash.Options): string;
+declare function objectHash(object: {} | null, options?: objectHash.NormalOption): string;
+declare function objectHash(object: {} | null, options?: objectHash.WithBufferOption): Buffer;
 
 export = objectHash;

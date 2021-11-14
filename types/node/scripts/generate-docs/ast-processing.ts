@@ -52,6 +52,7 @@ interface BadProcessResult {
 interface GoodProcessResult {
     status: JSDocMatchResult.Ok;
     data: ProcessData;
+    postprocess?(res: string): string;
 }
 
 export interface DocAugmentationContext {
@@ -65,6 +66,8 @@ export interface DocAugmentationContext {
 type JSDocResult = GoodProcessResult | BadProcessResult;
 
 const ignoreFunctions = new Set(['pseudoRandomBytes', '___promisify__']);
+
+const allowedDefaultValueWords = new Set(['true', 'false']);
 
 class TagHelper {
     constructor(private readonly docContext: DocAugmentationContext) {
@@ -91,8 +94,23 @@ class TagHelper {
         );
     }
 
-    private createParamTag(name: string, description: string): JSDocParameterTag {
+    private createParamTag(name: string, description: string, defaultValue?: string): JSDocParameterTag {
         const { factory } = this.docContext.transformationContext;
+        if (defaultValue) {
+            const firstIndex = defaultValue.indexOf('`');
+            const secondIdx = firstIndex > -1 ? defaultValue.indexOf('`', firstIndex + 1) : -1;
+            if (secondIdx > 0) {
+                defaultValue = defaultValue.slice(0, secondIdx + 1);
+            }
+            defaultValue = defaultValue.replaceAll(/[`\[\]]/g, '');
+            if (defaultValue.length <= 32 && defaultValue !== 'undefined') {
+                // sometimes strings are not wrapped correctly.
+                if (!defaultValue.includes('.') && !/^[0-9']/.test(defaultValue) && !allowedDefaultValueWords.has(defaultValue)) {
+                    defaultValue = `'${defaultValue}'`;
+                }
+                name = `[${name}=${defaultValue}]`;
+            }
+        }
         return factory.createJSDocParameterTag(undefined,
             factory.createIdentifier(name),
             false,
@@ -144,14 +162,14 @@ class TagHelper {
         if (meta?.deprecated) {
             let str = `Since ${meta.deprecated.join()}`;
             if (stabilityText) {
-                str += ` - ${stabilityText.replace('Deprecated: ', '')}`;
+                str += ` - ${stabilityText.replace('Deprecated: ', '').replace('Deprecated. ', '')}`;
             }
             tags.push(this.createDeprecatedTag(str));
             return tags;
         }
         switch (stability) {
             case Stability.Deprecated:
-                tags.push(this.createDeprecatedTag((stabilityText ?? '').replace('Deprecated: ', '')));
+                tags.push(this.createDeprecatedTag((stabilityText ?? '').replace('Deprecated: ', '').replace('Deprecated. ', '')));
                 break;
             case Stability.Experimental:
                 tags.push(this.createExperimentalTag());
@@ -170,10 +188,9 @@ class TagHelper {
     extractParamTags(sigDoc: SignatureDocNode, moduleName: string): JSDocTag[] {
         const tags: JSDocTag[] = [];
         for (const param of sigDoc.params) {
-            if (!param.desc) {
-                continue;
+            if (param.desc || param.default) {
+                tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc ?? '', param.default));
             }
-            tags.push(this.createParamTag(param.name, param.desc));
         }
         if (sigDoc.return?.desc) {
             tags.push(this.createReturnTag(fixupLocalLinks(sigDoc.return.desc, moduleName)));
@@ -282,7 +299,7 @@ export class NodeProcessingContext {
         const propertyDoc = properties?.find(m => {
             // Sometimes property names are just `Type` which is really damn helpful, we can extract an alternative
             // from `textRaw` instead
-            if (m.name === 'Type' && m.textRaw) {
+            if ((m.name === 'Type' || m.name === 'return') && m.textRaw) {
                 const altMatch = m.textRaw.match(/^`(.*?)`/);
                 if (altMatch) {
                     return name === altMatch[1];
@@ -385,9 +402,9 @@ export class NodeProcessingContext {
         return {
             status: JSDocMatchResult.Ok,
             data: {
-                text: this.fixupDescriptionFormatting(classDoc.desc, moduleDocs.name),
+                text: this.fixupDescriptionFormatting(classDoc.desc, moduleDocs.name).replace(/\* Extends: `.*?`/, '').trim(),
                 tags,
-            }
+            },
         };
     }
 
@@ -425,13 +442,14 @@ export class NodeProcessingContext {
                 status: JSDocMatchResult.Ignore,
             };
         }
-        const classDoc = matchClassOrInterfaceDoc(this.context.moduleDocs, parent as (InterfaceDeclaration | ClassDeclaration));
+        const classDoc = matchClassOrInterfaceDoc(this.context.moduleDocs, parent);
         // We already warn about missing class docs, let's not be obnoxious
         if (!classDoc) {
             return {
                 status: JSDocMatchResult.Ignore,
             };
         }
+
         const methodDocList = isStatic ? classDoc.classMethods : classDoc.methods;
         const methodDoc = methodDocList?.find(({ name }) => name === methodName);
         if (!methodDoc) {
@@ -486,12 +504,11 @@ export class NodeProcessingContext {
             )
             .replaceAll('/**', '')
             .replaceAll('*/', '')
-            .replace(/`&lt;/g, '`<')
-            .replace(/&gt;`/g, '>`');
+            .replaceAll(/&lt;(.*?)&gt;/g, '$1');
             const newNode = removeCommentsRecursive(node, transformationContext, typeChecker);
             addSyntheticLeadingComment(newNode, SyntaxKind.MultiLineCommentTrivia, jsdoc, true);
         } else {
-            nodeWarning(node, `Could not match doc for symbol`)
+            nodeWarning(node, `Could not match doc for symbol`);
         }
     }
 }

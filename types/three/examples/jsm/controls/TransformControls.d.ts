@@ -1,4 +1,4 @@
-import { Object3D, Camera, MOUSE } from '../../../src/Three';
+import { Object3D, Camera, MOUSE, Raycaster } from '../../../src/Three';
 
 export class TransformControls extends Object3D {
     constructor(object: Camera, domElement?: HTMLElement);
@@ -10,11 +10,11 @@ export class TransformControls extends Object3D {
     camera: Camera;
     object: Object3D | undefined;
     enabled: boolean;
-    axis: string | null;
-    mode: string;
+    axis: 'X' | 'Y' | 'Z' | 'E' | 'XY' | 'YZ' | 'XZ' | 'XYZ' | 'XYZE' | null;
+    mode: 'translate' | 'rotate' | 'scale';
     translationSnap: number | null;
     rotationSnap: number | null;
-    space: string;
+    space: 'world' | 'local';
     size: number;
     dragging: boolean;
     showX: boolean;
@@ -29,12 +29,13 @@ export class TransformControls extends Object3D {
 
     attach(object: Object3D): this;
     detach(): this;
-    getMode(): string;
-    setMode(mode: string): void;
+    getMode(): 'translate' | 'rotate' | 'scale';
+    getRaycaster(): Raycaster;
+    setMode(mode: 'translate' | 'rotate' | 'scale'): void;
     setTranslationSnap(translationSnap: number | null): void;
     setRotationSnap(rotationSnap: number | null): void;
     setScaleSnap(scaleSnap: number | null): void;
     setSize(size: number): void;
-    setSpace(space: string): void;
+    setSpace(space: 'world' | 'local'): void;
     dispose(): void;
 }

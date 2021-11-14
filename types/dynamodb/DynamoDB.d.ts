@@ -1,6 +1,6 @@
 export interface Projection {
-    ProjectionType?: 'ALL' | 'KEYS_ONLY' | 'INCLUDE' | string | undefined;
-    NonKeyAttributes?: string[] | undefined;
+    ProjectionType?: 'ALL' | 'KEYS_ONLY' | 'INCLUDE' | string;
+    NonKeyAttributes?: string[];
 }
 
 import * as stream from 'stream';
@@ -45,11 +45,11 @@ export type DynamoDbSet = StringSet | NumberSet | BinarySet;
 export interface GetItemInput {
     TableName: string;
     Key: object;
-    AttributesToGet?: string[] | undefined;
-    ConsistentRead?: boolean | undefined;
-    ReturnConsumedCapacity?: string | undefined;
-    ProjectionExpression?: string | undefined;
-    ExpressionAttributeNames?: { [key: string]: string } | undefined;
+    AttributesToGet?: string[];
+    ConsistentRead?: boolean;
+    ReturnConsumedCapacity?: string;
+    ProjectionExpression?: string;
+    ExpressionAttributeNames?: { [key: string]: string };
 }
 
 export {};

@@ -118,8 +118,8 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // button-block-appender
 //
-<be.ButtonBlockerAppender rootClientId="foo" />;
-<be.ButtonBlockerAppender rootClientId="foo" className="bar" />;
+<be.ButtonBlockAppender rootClientId="foo" />;
+<be.ButtonBlockAppender rootClientId="foo" className="bar" />;
 
 //
 // color-palette/with-color-context
@@ -199,7 +199,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 // inner-blocks
 //
 <be.InnerBlocks />;
-<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockerAppender} />;
+<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
 

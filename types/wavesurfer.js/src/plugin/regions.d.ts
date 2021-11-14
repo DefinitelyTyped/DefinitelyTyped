@@ -24,7 +24,7 @@ export default class RegionsPlugin extends Observer implements WaveSurferPlugin 
     getCurrentRegion(): Region | null;
     getRegionSnapToGridValue(value: number, params: RegionParams): number;
 
-    readonly list: Region[];
+    readonly list: { [id: string]: Region };
     readonly maxRegions: number[];
     readonly params: RegionsPluginParams;
     readonly regionsMinLength: number;
@@ -62,12 +62,12 @@ export class Region extends Observer {
     getWidth(): number;
     onDrag(delta: number): void;
     onResize(delta: number, direction: "start" | "end"): void;
-    play(start: number): void;
-    playLoop(start: number): void;
+    play(start?: number): void;
+    playLoop(start?: number): void;
     remove(): void;
     render(): void;
     setLoop(loop: boolean): void;
-    update(params: RegionParams): void;
+    update(params: RegionParams, eventParams?: RegionUpdatedEventParams): void;
     updateHandlesResize(resize: boolean): void;
     updateRender(): void;
 
@@ -117,6 +117,11 @@ export interface RegionParams {
     handleStyle?: HandleStyle | undefined;
     preventContextMenu?: boolean | undefined;
     showTooltip?: boolean | undefined;
+}
+
+export interface RegionUpdatedEventParams {
+    direction: 'right' | 'left' | null;
+    action: 'drag' | 'resize';
 }
 
 export interface HandleStyle {

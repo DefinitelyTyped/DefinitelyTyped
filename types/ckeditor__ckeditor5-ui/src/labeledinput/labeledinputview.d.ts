@@ -1,17 +1,18 @@
-import View from "../view";
-import { Locale } from "@ckeditor/ckeditor5-utils";
+import { Locale } from '@ckeditor/ckeditor5-utils';
+import InputTextView from '../inputtext/inputtextview';
+import LabelView from '../label/labelview';
+import View from '../view';
 
 export default class LabeledInputView extends View {
+    constructor(locale: Locale, InputViewConstructor: typeof InputTextView);
+    label: string;
+    value: string;
+    isReadOnly: boolean;
     errorText: string | null;
     infoText: string | null;
-    inputView: InputTextView;
-    isReadOnly: boolean;
-    label: string;
     labelView: LabelView;
+    inputView: InputTextView;
     statusView: View;
-    value: string;
-
-    constructor(locale: Locale, InputView: View);
     focus(): void;
     select(): void;
 }

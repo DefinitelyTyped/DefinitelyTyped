@@ -142,6 +142,10 @@ declare module Meteor {
         options?: {
             wait?: boolean | undefined;
             onResultReceived?: ((error: global_Error | Meteor.Error | undefined, result?: Result) => void) | undefined;
+            /**
+             * (Client only) if true, don't send this method again on reload, simply call the callback an error with the error code 'invocation-failed'.
+             */
+            noRetry?: boolean | undefined;
             returnStubValue?: boolean | undefined;
             throwStubExceptions?: boolean | undefined;
         },
@@ -455,5 +459,6 @@ declare module Meteor {
     /** True if running in development environment. */
     var isDevelopment: boolean;
     var isTest: boolean;
+    var isAppTest: boolean;
     /** Global props **/
 }

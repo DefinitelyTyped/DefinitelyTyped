@@ -11,13 +11,61 @@ import { Parent as UnistParent, Literal as UnistLiteral, Node as UnistNode } fro
 export { UnistNode as Node };
 
 /**
+ * This map registers all node types that may be used as top-level content in the document.
+ *
+ * These types are accepted inside `root` nodes.
+ *
+ * This interface can be augmented to register custom node types.
+ *
+ * @example
+ * declare module 'hast' {
+ *   interface RootContentMap {
+ *     // Allow using raw nodes defined by `rehype-raw`.
+ *     raw: Raw;
+ *   }
+ * }
+ */
+export interface RootContentMap {
+    comment: Comment;
+    doctype: DocType;
+    element: Element;
+    text: Text;
+}
+
+/**
+ * This map registers all node types that may be used as content in an element.
+ *
+ * These types are accepted inside `element` nodes.
+ *
+ * This interface can be augmented to register custom node types.
+ *
+ * @example
+ * declare module 'hast' {
+ *   interface RootContentMap {
+ *     custom: Custom;
+ *   }
+ * }
+ */
+export interface ElementContentMap {
+    comment: Comment;
+    element: Element;
+    text: Text;
+}
+
+export type Content = RootContent | ElementContent;
+
+export type RootContent = RootContentMap[keyof RootContentMap];
+
+export type ElementContent = ElementContentMap[keyof ElementContentMap];
+
+/**
  * Node in hast containing other nodes.
  */
 export interface Parent extends UnistParent {
     /**
      * List representing the children of a node.
      */
-    children: Array<Element | DocType | Comment | Text>;
+    children: Content[];
 }
 
 /**
@@ -37,6 +85,11 @@ export interface Root extends Parent {
      * Represents this variant of a Node.
      */
     type: 'root';
+
+    /**
+     * List representing the children of a node.
+     */
+    children: RootContent[];
 }
 
 /**
@@ -66,7 +119,7 @@ export interface Element extends Parent {
     /**
      * List representing the children of a node.
      */
-    children: Array<Element | Comment | Text>;
+    children: ElementContent[];
 }
 
 /**
@@ -86,16 +139,6 @@ export interface DocType extends UnistNode {
     type: 'doctype';
 
     name: string;
-
-    /**
-     * Represents the document’s public identifier.
-     */
-    public?: string | undefined;
-
-    /**
-     * Represents the document’s system identifier.
-     */
-    system?: string | undefined;
 }
 
 /**

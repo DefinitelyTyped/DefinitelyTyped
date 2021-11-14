@@ -53,7 +53,7 @@
  * myConsole.warn(`Danger ${name}! Danger!`);
  * // Prints: Danger Will Robinson! Danger!, to err
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/console.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/console.js)
  */
 declare module 'console' {
     import console = require('node:console');
@@ -83,7 +83,7 @@ declare module 'node:console' {
              * ```
              * @since v0.1.101
              * @param value The value tested for being truthy.
-             * @param ...message All arguments besides `value` are used as error message.
+             * @param message All arguments besides `value` are used as error message.
              */
             assert(value: any, message?: string, ...optionalParams: any[]): void;
             /**
@@ -394,6 +394,11 @@ declare module 'node:console' {
                 ignoreErrors?: boolean | undefined;
                 colorMode?: boolean | 'auto' | undefined;
                 inspectOptions?: InspectOptions | undefined;
+                /**
+                 * Set group indentation
+                 * @default 2
+                 */
+                groupIndentation?: number | undefined;
             }
             interface ConsoleConstructor {
                 prototype: Console;

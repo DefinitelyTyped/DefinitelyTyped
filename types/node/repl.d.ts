@@ -6,7 +6,7 @@
  * ```js
  * const repl = require('repl');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/repl.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/repl.js)
  */
 declare module 'repl' {
     import { Interface, Completer, AsyncCompleter } from 'node:readline';
@@ -312,7 +312,7 @@ declare module 'repl' {
          * @param historyPath the path to the history file
          * @param callback called when history writes are ready or upon error
          */
-        setupHistory(path: string, cb: (err: Error | null, repl: this) => void): void;
+        setupHistory(path: string, callback: (err: Error | null, repl: this) => void): void;
         /**
          * events.EventEmitter
          * 1. close - inherited from `readline.Interface`

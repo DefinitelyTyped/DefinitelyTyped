@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -17,10 +17,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
    * @SINCE 1.46
    *
    * Allows to visualize source code of various types with syntax highlighting, line numbers in editable and
-   * read only mode. Use this controls in scenarios where the user should be able to inspect and edit source
-   * code. The control currently uses the third-party code editor Ace. NOTE: There is a known limitation where
-   * CodeEditor won't work within IconTabBar on Internet Explorer. There is a way to achieve the same functionality
-   * - an example of IconTabHeader and a CodeEditor can be found in the CodeEditor's samples.
+   * read only mode. Use this control in scenarios where the user should be able to inspect and edit source
+   * code. The control currently uses the third-party code editor Ace.
    */
   export default class CodeEditor extends Control {
     /**
@@ -54,6 +52,31 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       mSettings?: $CodeEditorSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.codeeditor.CodeEditor with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CodeEditor>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.codeeditor.CodeEditor.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52
      *
@@ -180,27 +203,6 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.codeeditor.CodeEditor with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CodeEditor>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -243,7 +245,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getColorTheme colorTheme}.
      *
-     * Sets the editors color theme Possible values are: default, hcb, hcb_bright, hcb_blue, theme-ambiance,
+     * Sets the editor color theme. Possible values are: default, hcb, hcb_bright, hcb_blue, theme-ambiance,
      * chaos, chrome, clouds, clouds_midnight, cobalt, crimson_editor, dawn, dreamweaver, eclipse, github, gob,
      * gruvbox, idle_fingers, iplastic, katzenmilch, kr_theme, kuroir, merbivore, merbivore_soft, mono_industrial,
      * monokai, pastel_on_dark, solarized_dark, solarized_light, sqlserver, terminal, textmate, tomorrow, tomorrow_night,
@@ -259,7 +261,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getEditable editable}.
      *
-     * Sets whether the code in the editor can be changed by the user
+     * Sets whether the code in the editor can be changed by the user.
      *
      * Default value is `true`.
      */
@@ -276,7 +278,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getLineNumbers lineNumbers}.
      *
-     * Sets whether line numbers should be shown
+     * Sets whether line numbers should be shown.
      *
      * Default value is `true`.
      */
@@ -296,13 +298,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     getMaxLines(): int;
     /**
-     * Returns a metadata object for class sap.ui.codeeditor.CodeEditor.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getSyntaxHints syntaxHints}.
      *
-     * Sets whether to show syntax hints the editor. This flag is only available if line numbers are shown.
+     * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
      *
      * Default value is `true`.
      */
@@ -310,7 +308,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getType type}.
      *
-     * The type of the code in the editor used for syntax highlighting Possible types are: abap, abc, actionscript,
+     * The type of the code in the editor used for syntax highlighting. Possible types are: abap, abc, actionscript,
      * ada, apache_conf, applescript, asciidoc, assembly_x86, autohotkey, batchfile, bro, c9search, c_cpp, cirru,
      * clojure, cobol, coffee, coldfusion, csharp, css, curly, d, dart, diff, django, dockerfile, dot, drools,
      * eiffel, ejs, elixir, elm, erlang, forth, fortran, ftl, gcode, gherkin, gitignore, glsl, gobstones, golang,
@@ -322,7 +320,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * rst, ruby, rust, sass, scad, scala, scheme, scss, sh, sjs, smarty, snippets, soy_template, space, sql,
      * sqlserver, stylus, svg, swift, swig, tcl, tex, text, textile, toml, tsx, twig, typescript, vala, vbscript,
      * velocity, verilog, vhdl, wollok, xml, xquery, yaml, terraform, slim, redshift, red, puppet, php_laravel_blade,
-     * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document,
+     * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document
      *
      * Default value is `"javascript"`.
      */
@@ -330,7 +328,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getValue value}.
      *
-     * The value displayed in the code editor
+     * The value displayed in the code editor.
      *
      * Default value is `empty string`.
      */
@@ -338,7 +336,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getValueSelection valueSelection}.
      *
-     * Sets whether the code is automatically selected if a value is set
+     * Sets whether the code is automatically selected if a value is set.
      *
      * Default value is `false`.
      */
@@ -346,7 +344,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getWidth width}.
      *
-     * The width of the code editor
+     * The width of the code editor.
      *
      * Default value is `"100%"`.
      */
@@ -369,7 +367,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
-     * Sets whether the code in the editor can be changed by the user
+     * Sets whether the code in the editor can be changed by the user.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -400,7 +398,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getLineNumbers lineNumbers}.
      *
-     * Sets whether line numbers should be shown
+     * Sets whether line numbers should be shown.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -436,7 +434,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getSyntaxHints syntaxHints}.
      *
-     * Sets whether to show syntax hints the editor. This flag is only available if line numbers are shown.
+     * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -451,7 +449,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getType type}.
      *
-     * The type of the code in the editor used for syntax highlighting Possible types are: abap, abc, actionscript,
+     * The type of the code in the editor used for syntax highlighting. Possible types are: abap, abc, actionscript,
      * ada, apache_conf, applescript, asciidoc, assembly_x86, autohotkey, batchfile, bro, c9search, c_cpp, cirru,
      * clojure, cobol, coffee, coldfusion, csharp, css, curly, d, dart, diff, django, dockerfile, dot, drools,
      * eiffel, ejs, elixir, elm, erlang, forth, fortran, ftl, gcode, gherkin, gitignore, glsl, gobstones, golang,
@@ -463,7 +461,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * rst, ruby, rust, sass, scad, scala, scheme, scss, sh, sjs, smarty, snippets, soy_template, space, sql,
      * sqlserver, stylus, svg, swift, swig, tcl, tex, text, textile, toml, tsx, twig, typescript, vala, vbscript,
      * velocity, verilog, vhdl, wollok, xml, xquery, yaml, terraform, slim, redshift, red, puppet, php_laravel_blade,
-     * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document,
+     * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -478,7 +476,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getValue value}.
      *
-     * The value displayed in the code editor
+     * The value displayed in the code editor.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -493,7 +491,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getValueSelection valueSelection}.
      *
-     * Sets whether the code is automatically selected if a value is set
+     * Sets whether the code is automatically selected if a value is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -508,7 +506,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getWidth width}.
      *
-     * The width of the code editor
+     * The width of the code editor.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -524,12 +522,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
 
   export interface $CodeEditorSettings extends $ControlSettings {
     /**
-     * The value displayed in the code editor
+     * The value displayed in the code editor.
      */
     value?: string | PropertyBindingInfo;
 
     /**
-     * The type of the code in the editor used for syntax highlighting Possible types are: abap, abc, actionscript,
+     * The type of the code in the editor used for syntax highlighting. Possible types are: abap, abc, actionscript,
      * ada, apache_conf, applescript, asciidoc, assembly_x86, autohotkey, batchfile, bro, c9search, c_cpp, cirru,
      * clojure, cobol, coffee, coldfusion, csharp, css, curly, d, dart, diff, django, dockerfile, dot, drools,
      * eiffel, ejs, elixir, elm, erlang, forth, fortran, ftl, gcode, gherkin, gitignore, glsl, gobstones, golang,
@@ -541,12 +539,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * rst, ruby, rust, sass, scad, scala, scheme, scss, sh, sjs, smarty, snippets, soy_template, space, sql,
      * sqlserver, stylus, svg, swift, swig, tcl, tex, text, textile, toml, tsx, twig, typescript, vala, vbscript,
      * velocity, verilog, vhdl, wollok, xml, xquery, yaml, terraform, slim, redshift, red, puppet, php_laravel_blade,
-     * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document,
+     * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document
      */
     type?: string | PropertyBindingInfo;
 
     /**
-     * The width of the code editor
+     * The width of the code editor.
      */
     width?: CSSSize | PropertyBindingInfo;
 
@@ -557,17 +555,17 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     height?: CSSSize | PropertyBindingInfo;
 
     /**
-     * Sets whether the code in the editor can be changed by the user
+     * Sets whether the code in the editor can be changed by the user.
      */
     editable?: boolean | PropertyBindingInfo;
 
     /**
-     * Sets whether line numbers should be shown
+     * Sets whether line numbers should be shown.
      */
     lineNumbers?: boolean | PropertyBindingInfo;
 
     /**
-     * Sets whether the code is automatically selected if a value is set
+     * Sets whether the code is automatically selected if a value is set.
      */
     valueSelection?: boolean | PropertyBindingInfo;
 
@@ -583,7 +581,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     maxLines?: int | PropertyBindingInfo;
 
     /**
-     * Sets the editors color theme Possible values are: default, hcb, hcb_bright, hcb_blue, theme-ambiance,
+     * Sets the editor color theme. Possible values are: default, hcb, hcb_bright, hcb_blue, theme-ambiance,
      * chaos, chrome, clouds, clouds_midnight, cobalt, crimson_editor, dawn, dreamweaver, eclipse, github, gob,
      * gruvbox, idle_fingers, iplastic, katzenmilch, kr_theme, kuroir, merbivore, merbivore_soft, mono_industrial,
      * monokai, pastel_on_dark, solarized_dark, solarized_light, sqlserver, terminal, textmate, tomorrow, tomorrow_night,
@@ -592,19 +590,19 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     colorTheme?: string | PropertyBindingInfo;
 
     /**
-     * Sets whether to show syntax hints the editor. This flag is only available if line numbers are shown.
+     * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
      */
     syntaxHints?: boolean | PropertyBindingInfo;
 
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 

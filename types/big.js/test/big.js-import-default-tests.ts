@@ -120,6 +120,17 @@ function powTests() {
     new Big(2).pow(1e+6); // Time taken (Node.js): 9 minutes 34 secs.
 }
 
+function precTests() {
+    const y = new Big(123.45);
+    y.prec(2); // '123.45'
+    y.prec(10); // '123.45'
+    y.prec(1, 0); // '123.4'
+    y.prec(1, 1); // '123.5'
+    y.prec(1, 2); // '123.4'
+    y.prec(1, 3); // '123.5'
+    y; // '123.45'
+}
+
 function roundTests() {
     const x = 123.45;
     Math.round(x); // 123

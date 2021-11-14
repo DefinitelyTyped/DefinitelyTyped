@@ -22,9 +22,9 @@ declare namespace NeteaseCaptcha {
         element: string | HTMLElement;
 
         /**
-         * Defaults to 'float' on desktop, and 'popup' on mobile
+         * Defaults to 'float' on desktop, and 'popup' on mobile. 'bind' is for invisible captcha
          */
-        mode?: 'float' | 'embed' | 'popup' | undefined;
+        mode?: 'float' | 'embed' | 'popup' | 'bind' | undefined;
 
         /**
          * Defaults to page protocol
@@ -61,6 +61,10 @@ declare namespace NeteaseCaptcha {
          * Available when the mode is set to 'popup' - opens the popup to accept verification
          */
         popUp?(): void;
+        /**
+         * Available when the mode is set to 'bind' - verify token manually
+         */
+        verify?(): void;
     }
 
     interface Data {

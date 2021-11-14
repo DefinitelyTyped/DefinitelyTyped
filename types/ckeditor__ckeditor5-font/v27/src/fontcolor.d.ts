@@ -12,3 +12,9 @@ export interface FontColorConfig {
     columns?: number;
     documentColors?: number;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        FontColor: FontColor;
+    }
+}

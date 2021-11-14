@@ -1,2 +1,0 @@
-src/headingcommand.d.ts
-src/utils.d.ts

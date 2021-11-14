@@ -66,6 +66,9 @@ declare module 'module' {
          * @since v13.7.0, v12.17.0
          */
         class SourceMap {
+            /**
+             * Getter for the payload used to construct the `SourceMap` instance.
+             */
             readonly payload: SourceMapPayload;
             constructor(payload: SourceMapPayload);
             /**

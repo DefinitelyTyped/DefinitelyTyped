@@ -393,12 +393,12 @@ interface Date {
     /**
      * Non-standard.
      */
-    format(template: string, locale?: string): string;
+    format?(template: string, locale?: string): string;
 
     /**
      * Non-standard.
      */
-    formatUTC(template: string, locale?: string): string;
+    formatUTC?(template: string, locale?: string): string;
 }
 
 // #############################################################################################

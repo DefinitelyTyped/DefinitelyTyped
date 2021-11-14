@@ -42,7 +42,7 @@
  * ```
  *
  * See the `Implementation considerations section` for more information.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/dns.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/dns.js)
  */
 declare module 'dns' {
     import * as dnsPromises from 'node:dns/promises';
@@ -244,7 +244,7 @@ declare module 'dns' {
      * On error, `err` is an `Error` object, where `err.code` is one of the `DNS error codes`.
      * @since v0.1.27
      * @param hostname Host name to resolve.
-     * @param rrtype Resource record type.
+     * @param [rrtype='A'] Resource record type.
      */
     export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: 'A', callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
@@ -502,7 +502,7 @@ declare module 'dns' {
      *
      * The {@link setServers} method affects only {@link resolve},`dns.resolve*()` and {@link reverse} (and specifically _not_ {@link lookup}).
      *
-     * This method works much like[resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
+     * This method works much like [resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
      * That is, if attempting to resolve with the first server provided results in a`NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
      * subsequent servers provided. Fallback DNS servers will only be used if the
      * earlier ones time out or result in some other error.
@@ -553,6 +553,10 @@ declare module 'dns' {
     export const CANCELLED: string;
     export interface ResolverOptions {
         timeout?: number | undefined;
+        /**
+         * @default 4
+         */
+        tries?: number;
     }
     /**
      * An independent resolver for DNS requests.
@@ -626,8 +630,8 @@ declare module 'dns' {
          * servers, and the v6 local address when making requests to IPv6 DNS servers.
          * The `rrtype` of resolution requests has no impact on the local address used.
          * @since v15.1.0
-         * @param ipv4 A string representation of an IPv4 address.
-         * @param ipv6 A string representation of an IPv6 address.
+         * @param [ipv4='0.0.0.0'] A string representation of an IPv4 address.
+         * @param [ipv6='::0'] A string representation of an IPv6 address.
          */
         setLocalAddress(ipv4?: string, ipv6?: string): void;
         setServers: typeof setServers;

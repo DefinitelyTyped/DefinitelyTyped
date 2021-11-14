@@ -2410,7 +2410,7 @@ declare namespace Matter {
         * @param {body[]} bodies
         * @return {object[]} Collisions
         */
-        static collides(body: Body, bodies: Array<Body>): Array<any>;
+        static collides(body: Body, bodies: Array<Body>): Array<ICollision>;
 
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
@@ -2421,7 +2421,7 @@ declare namespace Matter {
          * @param {number} [rayWidth]
          * @return {object[]} Collisions
          */
-        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<any>;
+        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<ICollision>;
 
         /**
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
@@ -2569,6 +2569,142 @@ declare namespace Matter {
          * default true
          */
         showSleeping?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body vertex numbers debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showVertexNumbers?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body velocity debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showVelocity?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the engine stats info overlay.
+         * From left to right, the values shown are:
+         * - body parts total
+         * - body total
+         * - constraints total
+         * - composites total
+         * - collision pairs total
+         * @type boolean
+         * @default false
+         */
+         showStats?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the collision resolver separations debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showSeparations?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body positions debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showPositions?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable performance charts.
+         * From left to right, the values shown are:
+         * - average render frequency (e.g. 60 fps)
+         * - exact engine delta time used for last update (e.g. 16.66ms)
+         * - average engine execution duration (e.g. 5.00ms)
+         * - average render execution duration (e.g. 0.40ms)
+         * - average effective play speed (e.g. '1.00x' is 'real-time')
+         * Each value is recorded over a fixed sample of past frames (60 frames).
+         * A chart shown below each value indicates the variance from the average over the sample. The more stable or fixed the value is the flatter the chart will appear.
+         * @type boolean
+         * @default false
+         */
+         showPerformance?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the mouse position debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showMousePosition?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body internal edges debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showInternalEdges?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body and part ids debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showIds?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the debug information overlay.
+         * This includes and has priority over the values of:
+         * - render.options.showStats
+         * - render.options.showPerformance
+         * @type boolean
+         * @default false
+         */
+         showDebug?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body convex hulls debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showConvexHulls?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body collisions debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showCollisions?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the collision broadphase debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showBroadphase?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body bounds debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showBounds?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body axes debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showAxes?: boolean | undefined;
+
+        /**
+         * A flag to enable or disable the body angle debug overlay.
+         * @type boolean
+         * @default false
+         */
+         showAngleIndicator?: boolean | undefined;
+
+        /**
+         * The pixel ratio to use when rendering.
+         * @type number
+         * @default 1
+         */
+         pixelRatio?: number | undefined;
     }
 
     interface IRenderLookAtObject {
@@ -2699,6 +2835,15 @@ declare namespace Matter {
         * @type {}
         */
         textures: any;
+
+        /**
+         * The mouse to render if render.options.showMousePosition is enabled.
+         *
+        * @property textures
+        * @type Mouse
+        * @default null
+        */
+        mouse: Mouse;
     }
 
 
@@ -4012,5 +4157,38 @@ declare namespace Matter {
          */
         static versionSatisfies(version: string, range: string): boolean;
 
+    }
+
+    export interface ICollision {
+        collided: boolean;
+        axisNumber: Number;
+        axisBody: Body;
+        bodyA: Body;
+        bodyB: Body;
+        parentA: Body;
+        parentB: Body;
+        depth: Number;
+        normal: Vector;
+        tangent: Vector;
+        penetration: Vector;
+        supports: Array<Vector>;
+        reused?: boolean | undefined;
+    }
+
+    /**
+    * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
+    *
+    * @class SAT
+    */
+    export class SAT {
+        /**
+         * Detect collision between two bodies using the Separating Axis Theorem.
+         * @method collides
+         * @param {Body} bodyA
+         * @param {Body} bodyB
+         * @param {Collision} previousCollision
+         * @return {Collision} collision
+         */
+        static collides(bodyA: Body, bodyB: Body, previousCollision?: ICollision): ICollision;
     }
 }

@@ -21,23 +21,14 @@ declare class ClassDefManager {
     vfs: any;
     classes: any;
     cache: {};
-    masterDetailFieldsToValidate_: Field[];
+    private masterDetailFieldsToValidate_;
     strictMode: boolean;
     protected runStartupScripts(): void;
     private formatCacheId_;
     private configStrictEvaluator_;
-    strictEvaluator_: StrictModeEvaluator;
+    private strictEvaluator_;
     private validateFields_;
-    getDef_(
-        classKey: number,
-        sourceType: {
-            MODEL: string;
-            VIEW: string;
-            CONFIG: string;
-            NON_STRICT_MODEL: string;
-        },
-        opt_ignoredFileKeys?: number[]
-    ): ModelDef | ConfigDef;
+    private getDef_;
     getModelDef(
         classKey: number,
         opt_options?:
@@ -91,12 +82,9 @@ declare namespace ClassDefManager {
     }
     function getParentClass(classKey: number | DBKey): number;
     function getClassVersion(classKey: number | DBKey): number;
-    const _instance: ClassDefManager;
     function getInstance(): ClassDefManager;
 }
 declare const classes: import('../database/Classes.js');
-import Field = require('./Field.js');
-import StrictModeEvaluator = require('./StrictModeEvaluator.js');
 import ModelDef = require('./ModelDef.js');
 import ConfigDef = require('./ConfigDef.js');
 import DBKey = require('../dbkey/DBKey.js');

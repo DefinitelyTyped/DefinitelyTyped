@@ -527,6 +527,7 @@ declare namespace Pubnub {
         requestMessageCountThreshold?: number | undefined;
         autoNetworkDetection?: boolean | undefined;
         listenToBrowserNetworkEvents?: boolean | undefined;
+        useRandomIVs?: boolean | undefined;
     }
 
     interface MessageEvent {

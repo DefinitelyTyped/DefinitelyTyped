@@ -79,7 +79,7 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement<any, any> | null)
-        | (new (props: P) => Component<P, any>);
+        | (new (props: P) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
@@ -837,6 +837,14 @@ declare namespace React {
     type ComponentPropsWithoutRef<T extends ElementType> =
         PropsWithoutRef<ComponentProps<T>>;
 
+    type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
+        ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
+    >
+        ? Method
+        : ComponentPropsWithRef<T> extends RefAttributes<infer Method>
+            ? Method
+            : never;
+
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
     type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
@@ -1183,9 +1191,9 @@ declare namespace React {
         isPrimary: boolean;
     }
 
-    interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget | null;
-        target: EventTarget & T;
+    interface FocusEvent<Target = Element, RelatedTarget = Element> extends SyntheticEvent<Target, NativeFocusEvent> {
+        relatedTarget: (EventTarget & RelatedTarget) | null;
+        target: EventTarget & Target;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -1200,7 +1208,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
+    interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
         charCode: number;
@@ -2157,6 +2165,31 @@ declare namespace React {
         dateTime?: string | undefined;
     }
 
+    type HTMLInputTypeAttribute =
+        | 'button'
+        | 'checkbox'
+        | 'color'
+        | 'date'
+        | 'datetime-local'
+        | 'email'
+        | 'file'
+        | 'hidden'
+        | 'image'
+        | 'month'
+        | 'number'
+        | 'password'
+        | 'radio'
+        | 'range'
+        | 'reset'
+        | 'search'
+        | 'submit'
+        | 'tel'
+        | 'text'
+        | 'time'
+        | 'url'
+        | 'week'
+        | (string & {});
+
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
         alt?: string | undefined;
@@ -2187,7 +2220,7 @@ declare namespace React {
         size?: number | undefined;
         src?: string | undefined;
         step?: number | string | undefined;
-        type?: string | undefined;
+        type?: HTMLInputTypeAttribute | undefined;
         value?: string | ReadonlyArray<string> | number | undefined;
         width?: number | string | undefined;
 
@@ -2219,6 +2252,7 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
+        imageSrcSet?: string | undefined;
         media?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
@@ -2253,6 +2287,7 @@ declare namespace React {
         content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
+        media?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2347,11 +2382,13 @@ declare namespace React {
     }
 
     interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
+        height?: number | string | undefined;
         media?: string | undefined;
         sizes?: string | undefined;
         src?: string | undefined;
         srcSet?: string | undefined;
         type?: string | undefined;
+        width?: number | string | undefined;
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2531,6 +2568,7 @@ declare namespace React {
         fontVariant?: number | string | undefined;
         fontWeight?: number | string | undefined;
         format?: number | string | undefined;
+        fr?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
         fy?: number | string | undefined;

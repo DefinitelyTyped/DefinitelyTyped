@@ -150,9 +150,10 @@ declare module 'tls' {
 
         /**
          * String containing the selected ALPN protocol.
-         * When ALPN has no selected protocol, tlsSocket.alpnProtocol equals false.
+         * Before a handshake has completed, this value is always null.
+         * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
          */
-        alpnProtocol?: string | undefined;
+        alpnProtocol: string | false | null;
 
         /**
          * Returns an object representing the local certificate. The returned

@@ -31,8 +31,12 @@ declare namespace SimplePeer {
         stream?: MediaStream | undefined;
         /** an array of MediaStreams returned from [`getUserMedia`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) */
         streams?: MediaStream[] | undefined;
-        /**  set to `false` to disable [trickle ICE](http://webrtchacks.com/trickle-ice/) and get a single 'signal' event (slower) */
+        /** set to `false` to disable [trickle ICE](http://webrtchacks.com/trickle-ice/) and get a single 'signal' event (slower) */
         trickle?: boolean | undefined;
+        /** similar to `trickle`, needs to be set to `false` to disable trickling, defaults to `false` */
+        allowHalfTrickle?: boolean | undefined;
+        /** if `trickle` is set to `false`, determines how long to wait before providing an offer or answer; default value is 5000 milliseconds  */
+        iceCompleteTimeout?: number | undefined;
         /** custom webrtc implementation, mainly useful in node to specify in the [wrtc](https://npmjs.com/package/wrtc) package. */
         wrtc?: {
             RTCPeerConnection: typeof RTCPeerConnection;
@@ -124,7 +128,7 @@ declare namespace SimplePeer {
          *
          * Note: If this method is called before the `peer.on('connect')` event has fired,
          * then an exception will be thrown. Use `peer.write(data)`
-         * (which is inherited from the node.js [duplex stream](http://nodejs.org/api/stream.html) interface)
+         * (which is inherited from the node.js [duplex stream](https://nodejs.org/api/stream.html) interface)
          * if you want this data to be buffered instead.
          */
         send(data: SimplePeerData): void;

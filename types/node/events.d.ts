@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/events.js)
  */
 declare module 'events' {
     interface EventEmitterOptions {
@@ -42,11 +42,11 @@ declare module 'events' {
         captureRejections?: boolean | undefined;
     }
     interface NodeEventTarget {
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
     }
     interface DOMEventTarget {
         addEventListener(
-            event: string,
+            eventName: string,
             listener: (...args: any[]) => void,
             opts?: {
                 once: boolean;
@@ -72,15 +72,194 @@ declare module 'events' {
      */
     class EventEmitter {
         constructor(options?: EventEmitterOptions);
-        static once(emitter: NodeEventTarget, event: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
-        static once(emitter: DOMEventTarget, event: string, options?: StaticEventEmitterOptions): Promise<any[]>;
-        static on(emitter: NodeJS.EventEmitter, event: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
-        /** @deprecated since v4.0.0 */
-        static listenerCount(emitter: NodeJS.EventEmitter, event: string | symbol): number;
         /**
-         * Returns a list listener for a specific emitter event name.
+         * Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
+         * event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
+         * The `Promise` will resolve with an array of all the arguments emitted to the
+         * given event.
+         *
+         * This method is intentionally generic and works with the web platform [EventTarget](https://dom.spec.whatwg.org/#interface-eventtarget) interface, which has no special`'error'` event
+         * semantics and does not listen to the `'error'` event.
+         *
+         * ```js
+         * const { once, EventEmitter } = require('events');
+         *
+         * async function run() {
+         *   const ee = new EventEmitter();
+         *
+         *   process.nextTick(() => {
+         *     ee.emit('myevent', 42);
+         *   });
+         *
+         *   const [value] = await once(ee, 'myevent');
+         *   console.log(value);
+         *
+         *   const err = new Error('kaboom');
+         *   process.nextTick(() => {
+         *     ee.emit('error', err);
+         *   });
+         *
+         *   try {
+         *     await once(ee, 'myevent');
+         *   } catch (err) {
+         *     console.log('error happened', err);
+         *   }
+         * }
+         *
+         * run();
+         * ```
+         *
+         * The special handling of the `'error'` event is only used when `events.once()`is used to wait for another event. If `events.once()` is used to wait for the
+         * '`error'` event itself, then it is treated as any other kind of event without
+         * special handling:
+         *
+         * ```js
+         * const { EventEmitter, once } = require('events');
+         *
+         * const ee = new EventEmitter();
+         *
+         * once(ee, 'error')
+         *   .then(([err]) => console.log('ok', err.message))
+         *   .catch((err) => console.log('error', err.message));
+         *
+         * ee.emit('error', new Error('boom'));
+         *
+         * // Prints: ok boom
+         * ```
+         *
+         * An `AbortSignal` can be used to cancel waiting for the event:
+         *
+         * ```js
+         * const { EventEmitter, once } = require('events');
+         *
+         * const ee = new EventEmitter();
+         * const ac = new AbortController();
+         *
+         * async function foo(emitter, event, signal) {
+         *   try {
+         *     await once(emitter, event, { signal });
+         *     console.log('event emitted!');
+         *   } catch (error) {
+         *     if (error.name === 'AbortError') {
+         *       console.error('Waiting for the event was canceled!');
+         *     } else {
+         *       console.error('There was an error', error.message);
+         *     }
+         *   }
+         * }
+         *
+         * foo(ee, 'foo', ac.signal);
+         * ac.abort(); // Abort waiting for the event
+         * ee.emit('foo'); // Prints: Waiting for the event was canceled!
+         * ```
+         * @since v11.13.0, v10.16.0
          */
-        static getEventListener(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
+        static once(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        /**
+         * ```js
+         * const { on, EventEmitter } = require('events');
+         *
+         * (async () => {
+         *   const ee = new EventEmitter();
+         *
+         *   // Emit later on
+         *   process.nextTick(() => {
+         *     ee.emit('foo', 'bar');
+         *     ee.emit('foo', 42);
+         *   });
+         *
+         *   for await (const event of on(ee, 'foo')) {
+         *     // The execution of this inner block is synchronous and it
+         *     // processes one event at a time (even with await). Do not use
+         *     // if concurrent execution is required.
+         *     console.log(event); // prints ['bar'] [42]
+         *   }
+         *   // Unreachable here
+         * })();
+         * ```
+         *
+         * Returns an `AsyncIterator` that iterates `eventName` events. It will throw
+         * if the `EventEmitter` emits `'error'`. It removes all listeners when
+         * exiting the loop. The `value` returned by each iteration is an array
+         * composed of the emitted event arguments.
+         *
+         * An `AbortSignal` can be used to cancel waiting on events:
+         *
+         * ```js
+         * const { on, EventEmitter } = require('events');
+         * const ac = new AbortController();
+         *
+         * (async () => {
+         *   const ee = new EventEmitter();
+         *
+         *   // Emit later on
+         *   process.nextTick(() => {
+         *     ee.emit('foo', 'bar');
+         *     ee.emit('foo', 42);
+         *   });
+         *
+         *   for await (const event of on(ee, 'foo', { signal: ac.signal })) {
+         *     // The execution of this inner block is synchronous and it
+         *     // processes one event at a time (even with await). Do not use
+         *     // if concurrent execution is required.
+         *     console.log(event); // prints ['bar'] [42]
+         *   }
+         *   // Unreachable here
+         * })();
+         *
+         * process.nextTick(() => ac.abort());
+         * ```
+         * @since v13.6.0, v12.16.0
+         * @param eventName The name of the event being listened for
+         * @return that iterates `eventName` events emitted by the `emitter`
+         */
+        static on(emitter: NodeJS.EventEmitter, eventName: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
+        /**
+         * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
+         *
+         * ```js
+         * const { EventEmitter, listenerCount } = require('events');
+         * const myEmitter = new EventEmitter();
+         * myEmitter.on('event', () => {});
+         * myEmitter.on('event', () => {});
+         * console.log(listenerCount(myEmitter, 'event'));
+         * // Prints: 2
+         * ```
+         * @since v0.9.12
+         * @deprecated Since v3.2.0 - Use `listenerCount` instead.
+         * @param emitter The emitter to query
+         * @param eventName The event name
+         */
+        static listenerCount(emitter: NodeJS.EventEmitter, eventName: string | symbol): number;
+        /**
+         * Returns a copy of the array of listeners for the event named `eventName`.
+         *
+         * For `EventEmitter`s this behaves exactly the same as calling `.listeners` on
+         * the emitter.
+         *
+         * For `EventTarget`s this is the only way to get the event listeners for the
+         * event target. This is useful for debugging and diagnostic purposes.
+         *
+         * ```js
+         * const { getEventListeners, EventEmitter } = require('events');
+         *
+         * {
+         *   const ee = new EventEmitter();
+         *   const listener = () => console.log('Events are fun');
+         *   ee.on('foo', listener);
+         *   getEventListeners(ee, 'foo'); // [listener]
+         * }
+         * {
+         *   const et = new EventTarget();
+         *   const listener = () => console.log('Events are fun');
+         *   et.addEventListener('foo', listener);
+         *   getEventListeners(et, 'foo'); // [listener]
+         * }
+         * ```
+         * @since v15.2.0
+         */
+        static getEventListeners(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
          * events. Listeners installed using this symbol are called before the regular
@@ -117,7 +296,7 @@ declare module 'events' {
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
                  */
-                addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Adds the `listener` function to the end of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
@@ -148,7 +327,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                on(event: string | symbol, listener: (...args: any[]) => void): this;
+                on(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName`. The
                  * next time `eventName` is triggered, this listener is removed and then invoked.
@@ -177,7 +356,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                once(event: string | symbol, listener: (...args: any[]) => void): this;
+                once(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Removes the specified `listener` from the listener array for the event named`eventName`.
                  *
@@ -257,12 +436,12 @@ declare module 'events' {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
                  */
-                off(event: string | symbol, listener: (...args: any[]) => void): this;
+                off(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Removes all listeners, or those of the specified `eventName`.
                  *
@@ -302,7 +481,7 @@ declare module 'events' {
                  * ```
                  * @since v0.1.26
                  */
-                listeners(event: string | symbol): Function[];
+                listeners(eventName: string | symbol): Function[];
                 /**
                  * Returns a copy of the array of listeners for the event named `eventName`,
                  * including any wrappers (such as those created by `.once()`).
@@ -332,7 +511,7 @@ declare module 'events' {
                  * ```
                  * @since v9.4.0
                  */
-                rawListeners(event: string | symbol): Function[];
+                rawListeners(eventName: string | symbol): Function[];
                 /**
                  * Synchronously calls each of the listeners registered for the event named`eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
@@ -373,13 +552,13 @@ declare module 'events' {
                  * ```
                  * @since v0.1.26
                  */
-                emit(event: string | symbol, ...args: any[]): boolean;
+                emit(eventName: string | symbol, ...args: any[]): boolean;
                 /**
                  * Returns the number of listeners listening to the event named `eventName`.
                  * @since v3.2.0
                  * @param eventName The name of the event being listened for
                  */
-                listenerCount(event: string | symbol): number;
+                listenerCount(eventName: string | symbol): number;
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
@@ -397,7 +576,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
@@ -413,7 +592,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Returns an array listing the events for which the emitter has registered
                  * listeners. The values in the array are strings or `Symbol`s.

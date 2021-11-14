@@ -6,3 +6,9 @@ export default class CodeEditing extends Plugin {
     static readonly requires: [typeof TwoStepCaretMovement];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CodeEditing: CodeEditing;
+    }
+}

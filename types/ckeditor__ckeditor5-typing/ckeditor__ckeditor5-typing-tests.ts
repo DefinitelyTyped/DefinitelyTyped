@@ -1,7 +1,7 @@
-import { Editor } from "@ckeditor/ckeditor5-core";
-import { Element, Model, Range } from "@ckeditor/ckeditor5-engine";
-import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
-import Position from "@ckeditor/ckeditor5-engine/src/model/position";
+import { Editor } from '@ckeditor/ckeditor5-core';
+import { Element, Model, Range } from '@ckeditor/ckeditor5-engine';
+import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
+import Position from '@ckeditor/ckeditor5-engine/src/model/position';
 import {
     Delete,
     getLastTextLine,
@@ -11,13 +11,15 @@ import {
     TextWatcher,
     TwoStepCaretMovement,
     Typing,
-} from "@ckeditor/ckeditor5-typing";
+} from '@ckeditor/ckeditor5-typing';
+import DeleteCommand from '@ckeditor/ckeditor5-typing/src/deletecommand';
+import InputCommand from '@ckeditor/ckeditor5-typing/src/inputcommand';
 import {
     TextTransformationConfig,
     TextTransformationDescription,
-} from "@ckeditor/ckeditor5-typing/src/texttransformation";
-import findAttributeRange from "@ckeditor/ckeditor5-typing/src/utils/findattributerange";
-import injectUnsafeKeystrokesHandling from "@ckeditor/ckeditor5-typing/src/utils/injectunsafekeystrokeshandling";
+} from '@ckeditor/ckeditor5-typing/src/texttransformation';
+import findAttributeRange from '@ckeditor/ckeditor5-typing/src/utils/findattributerange';
+import injectUnsafeKeystrokesHandling from '@ckeditor/ckeditor5-typing/src/utils/injectunsafekeystrokeshandling';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -33,19 +35,19 @@ input.isInput(new Batch());
 const del = new Delete(editor);
 del.init();
 
-const textWatcher = new TextWatcher(new Model(), foo => foo.startsWith("bar"));
-textWatcher.hasMatch === textWatcher.testCallback("foo");
+const textWatcher = new TextWatcher(new Model(), foo => foo.startsWith('bar'));
+textWatcher.hasMatch === textWatcher.testCallback('foo');
 
 const twoStep = new TwoStepCaretMovement(editor);
 twoStep.init();
-twoStep.registerAttribute("foo");
+twoStep.registerAttribute('foo');
 
 const textTranformation = new TextTransformation(editor);
 textTranformation.init();
 
 const description: TextTransformationDescription = {
     from: /foo/,
-    to: "foo",
+    to: 'foo',
 };
 
 const config: TextTransformationConfig = {
@@ -54,10 +56,40 @@ const config: TextTransformationConfig = {
     remove: [description],
 };
 
-inlineHighlight(editor, "foo", "bar", "zet");
+const position = new Position(Element.fromJSON({ name: 'div' }), [3]);
+const range = new Range(position);
 
-findAttributeRange(new Position(Element.fromJSON({ name: "div" }), [3]), "", "", new Model());
+inlineHighlight(editor, 'foo', 'bar', 'zet');
 
-getLastTextLine(new Range(new Position(Element.fromJSON({ name: "div" }), [4])), new Model());
+findAttributeRange(position, '', '', new Model());
+
+getLastTextLine(range, new Model());
 
 injectUnsafeKeystrokesHandling(editor);
+
+new InputCommand(editor, 5).execute();
+new InputCommand(editor, 5).execute({ resultRange: range });
+new InputCommand(editor, 5).execute({ text: '', range, resultRange: range });
+
+new DeleteCommand(editor, 'forward').execute({ unit: 'character' });
+new DeleteCommand(editor, 'forward').execute({ sequence: 4, unit: 'character' });
+// $ExpectType Delete
+editor.plugins.get('Delete');
+
+// $ExpectType Input
+editor.plugins.get('Input');
+
+// $ExpectType TextTransformation
+editor.plugins.get('TextTransformation');
+
+// $ExpectType TwoStepCaretMovement
+editor.plugins.get('TwoStepCaretMovement');
+
+// $ExpectType Typing
+editor.plugins.get('Typing');
+
+// $ExpectType InputCommand | undefined
+editor.commands.get('InputCommand');
+
+// $ExpectType DeleteCommand | undefined
+editor.commands.get('DeleteCommand');

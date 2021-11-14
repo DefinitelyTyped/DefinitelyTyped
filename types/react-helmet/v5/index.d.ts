@@ -37,6 +37,7 @@ export interface HelmetProps {
     async?: boolean | undefined;
     base?: any;
     bodyAttributes?: BodyProps | undefined;
+    children?: React.ReactNode;
     defaultTitle?: string | undefined;
     defer?: boolean | undefined;
     encodeSpecialCharacters?: boolean | undefined;
@@ -74,7 +75,7 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.Component<any>;
+    toComponent(): React.ReactElement;
 }
 
 export interface HelmetHTMLBodyDatum {

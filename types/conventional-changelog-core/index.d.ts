@@ -1,4 +1,4 @@
-// Type definitions for conventional-changelog-core 4.1
+// Type definitions for conventional-changelog-core 4.2
 // Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -194,6 +194,11 @@ declare namespace conventionalChangelogCore {
          * 1
          */
         releaseCount?: number | undefined;
+
+        /**
+         * If given, unstable tags (e.g. `x.x.x-alpha.1`, `x.x.x-rc.2`) will be skipped.
+         */
+        skipUnstable?: boolean | undefined;
 
         /**
          * A debug function. EG: `console.debug.bind(console)`.

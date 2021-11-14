@@ -71,7 +71,7 @@ declare namespace compression {
     interface CompressionOptions {
         /**
          * @default zlib.constants.Z_DEFAULT_CHUNK or 16384
-         * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning| Node.js documentation}
+         * @see {@link https://nodejs.org/api/zlib.html#zlib_memory_usage_tuning| Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#chunksize|chunkSize documentation}
          */
         chunkSize?: number | undefined;
@@ -121,7 +121,7 @@ declare namespace compression {
          * the range of `1` (minimum level) and `9` (maximum level).
          *
          * @default zlib.constants.DEFAULT_MEMLEVEL or 8
-         * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
+         * @see {@link https://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#memlevel|`memLevel` documentation}
          */
         memLevel?: number | undefined;
@@ -159,7 +159,7 @@ declare namespace compression {
 
         /**
          * @default zlib.constants.Z_DEFAULT_WINDOWBITS or 15.
-         * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
+         * @see {@link https://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          */
         windowBits?: number | undefined;
         /**

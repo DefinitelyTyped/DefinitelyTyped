@@ -137,12 +137,13 @@ export interface OptionalProps {
 
     // override default toolbar component
     // TODO: specify function type more clearly
-    customToolbar: React.Component<any> | React.StatelessComponent<any>;
+    customToolbar: React.Component<any> | React.FunctionComponent<any>;
 
     // How about touch events? They are in README but not in `propTypes`.
 }
 
 export interface RequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen
@@ -174,6 +175,7 @@ export interface UncontrolledExtraOptionalProps {
 }
 
 export interface UncontrolledRequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen

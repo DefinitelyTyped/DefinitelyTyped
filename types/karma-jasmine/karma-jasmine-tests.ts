@@ -18,6 +18,7 @@ const testOne = (config: karma.Config) => {
 const testTwo = (config: karma.Config) => {
     config.set({
         client: {
+            // $ExpectType { random: true; seed: number; oneFailurePerSpec: true; failFast: true; timeoutInterval: number; }
             jasmine: {
                 random: true,
                 seed: 4321,

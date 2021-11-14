@@ -11,7 +11,7 @@ import * as React from "react";
 
 type ComponentConstructor<TProps> =
     | React.ComponentClass<TProps>
-    | React.StatelessComponent<TProps>;
+    | React.FunctionComponent<TProps>;
 
 export interface CustomArrowProps {
     className?: string | undefined;
@@ -42,6 +42,7 @@ export interface Settings {
     beforeChange?(currentSlide: number, nextSlide: number): void;
     centerMode?: boolean | undefined;
     centerPadding?: string | undefined;
+    children?: React.ReactNode;
     className?: string | undefined;
     cssEase?: string | undefined;
     customPaging?(index: number): JSX.Element;

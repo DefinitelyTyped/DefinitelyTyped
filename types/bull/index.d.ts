@@ -18,6 +18,7 @@
 //                 Remko Klein <https://github.com/remko79>
 //                 Levi Bostian <https://github.com/levibostian>
 //                 Todd Dukart <https://github.com/tdukart>
+//                 Mix <https://github.com/mnixry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,9 +53,10 @@ declare namespace Bull {
 
   interface QueueOptions {
     /**
-     * Options passed directly to the `ioredis` constructor
+     * Options passed into the `ioredis` constructor's `options` parameter.
+     * `connectionName` is overwritten with `Queue.clientName()`. other properties are copied
      */
-    redis?: Redis.RedisOptions | string | undefined;
+    redis?: Redis.RedisOptions | undefined;
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
@@ -418,14 +420,14 @@ declare namespace Bull {
     /**
      * A boolean which, if true, removes the job when it successfully completes.
      * When a number, it specifies the amount of jobs to keep.
-     * Default behavior is to keep the job in the failed set.
+     * Default behavior is to keep the job in the completed set.
      */
     removeOnComplete?: boolean | number | undefined;
 
     /**
      * A boolean which, if true, removes the job when it fails after all attempts.
      * When a number, it specifies the amount of jobs to keep.
-     * Default behavior is to keep the job in the completed set.
+     * Default behavior is to keep the job in the failed set.
      */
     removeOnFail?: boolean | number | undefined;
 
@@ -709,6 +711,11 @@ declare namespace Bull {
      * Optional parameters for range and ordering are provided.
      */
     getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
+
+    /**
+     * Returns a promise that resolves to the next job in queue.
+     */
+    getNextJob(): Promise<Job<T> | undefined>;
 
     /**
      * Returns a object with the logs according to the start and end arguments. The returned count

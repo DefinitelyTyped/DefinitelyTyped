@@ -177,7 +177,9 @@ export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star}`;
 export type MimeFormat = MimeSubtype | `${MimeType}/${MimeSubtype}`;
 
 export interface ParserOptions {
-    format?: MimeFormat | undefined;
+    // string type is here to maintain backwards compatibility - consider removing when
+    // updating major version
+    format?: string | MimeFormat | undefined;
     factory?: RDF.DataFactory | undefined;
     baseIRI?: string | undefined;
     blankNodePrefix?: string | undefined;
@@ -200,7 +202,9 @@ export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform im
 }
 
 export interface WriterOptions {
-    format?: MimeFormat | undefined;
+    // string type is here to maintain backwards compatibility - consider removing when
+    // updating major version
+    format?: string | MimeFormat | undefined;
     prefixes?: Prefixes<RDF.NamedNode | string> | undefined;
     end?: boolean | undefined;
 }

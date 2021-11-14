@@ -15,6 +15,7 @@
 //                 Jason Xian <https://github.com/JasonXian>
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
+//                 Nicolas Rodriguez <https://github.com/nicolas377>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -127,7 +128,7 @@ declare namespace chrome.action {
         popup: string;
     }
 
-    export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
+    export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> { }
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
@@ -149,7 +150,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function disable(tabId: number): Promise<void>;
+    export function disable(tabId?: number): Promise<void>;
 
     /**
      * Since Chrome 88.
@@ -157,7 +158,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function disable(tabId: number, callback?: () => void): void;
+    export function disable(tabId?: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -165,7 +166,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function enable(tabId: number): Promise<void>;
+    export function enable(tabId?: number): Promise<void>;
 
     /**
      * Since Chrome 88.
@@ -173,7 +174,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function enable(tabId: number, callback?: () => void): void;
+    export function enable(tabId?: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -773,7 +774,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text?: string | undefined;
+        text?: string | null;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
     }
@@ -1490,7 +1491,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * The ID of the menu item that was clicked.
          */
-        menuItemId: any;
+        menuItemId: number | string;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1537,7 +1538,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * The parent ID, if any, for the item clicked.
          */
-        parentMenuItemId?: any;
+        parentMenuItemId?: number | string;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1598,7 +1599,7 @@ declare namespace chrome.contextMenus {
         targetUrlPatterns?: string[] | undefined;
         onclick?: Function | undefined;
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
-        parentId?: any;
+        parentId?: number | string;
         type?: string | undefined;
         /**
          * Optional.
@@ -2614,6 +2615,8 @@ declare namespace chrome.downloads {
         value: string;
     }
 
+    export type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";
+
     export interface DownloadOptions {
         /** Optional. Post body.  */
         body?: string | undefined;
@@ -2626,9 +2629,9 @@ declare namespace chrome.downloads {
         /** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
         headers?: HeaderNameValuePair[] | undefined;
         /** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
-        method?: string | undefined;
+        method?: "GET" | "POST" | undefined;
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: string | undefined;
+        conflictAction?: FilenameConflictAction | undefined;
     }
 
     export interface DownloadDelta {
@@ -2642,7 +2645,7 @@ declare namespace chrome.downloads {
          * Optional. The change in finalUrl, if any.
          * @since Since Chrome 54.
          */
-        finalUrl: StringDelta;
+        finalUrl?: StringDelta | undefined;
         /** Optional. The change in totalBytes, if any.  */
         totalBytes?: DoubleDelta | undefined;
         /** Optional. The change in filename, if any.  */
@@ -2683,11 +2686,17 @@ declare namespace chrome.downloads {
         previous?: string | undefined;
     }
 
+    export type DownloadInterruptReason = "FILE_FAILED" | "FILE_ACCESS_DENIED" | "FILE_NO_SPACE" | "FILE_NAME_TOO_LONG" | "FILE_TOO_LARGE" | "FILE_VIRUS_INFECTED" | "FILE_TRANSIENT_ERROR" | "FILE_BLOCKED" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_SHORT" | "FILE_HASH_MISMATCH" | "FILE_SAME_AS_SOURCE" | "NETWORK_FAILED" | "NETWORK_TIMEOUT" | "NETWORK_DISCONNECTED" | "NETWORK_SERVER_DOWN" | "NETWORK_INVALID_REQUEST" | "SERVER_FAILED" | "SERVER_NO_RANGE" | "SERVER_BAD_CONTENT" | "SERVER_UNAUTHORIZED" | "SERVER_CERT_PROBLEM" | "SERVER_FORBIDDEN" | "SERVER_UNREACHABLE" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "USER_CANCELED" | "USER_SHUTDOWN" | "CRASH";
+
+    export type DownloadState = "in_progress" | "interrupted" | "complete";
+
+    export type DangerType = "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted";
+
     export interface DownloadItem {
         /** Number of bytes received so far from the host, without considering file compression. */
         bytesReceived: number;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
-        danger: string;
+        danger: DangerType;
         /** The absolute URL that this download initiated from, before any redirects. */
         url: string;
         /**
@@ -2702,7 +2711,7 @@ declare namespace chrome.downloads {
         /** True if the download has stopped reading data from the host, but kept the connection open. */
         paused: boolean;
         /** Indicates whether the download is progressing, interrupted, or complete. */
-        state: string;
+        state: DownloadState;
         /** The file's MIME type. */
         mime: string;
         /** Number of bytes in the whole file post-decompression, or -1 if unknown. */
@@ -2710,7 +2719,7 @@ declare namespace chrome.downloads {
         /** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})}) */
         startTime: string;
         /** Optional. Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.  */
-        error?: string | undefined;
+        error?: DownloadInterruptReason | undefined;
         /** Optional. The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})  */
         endTime?: string | undefined;
         /** An identifier that is persistent across browser sessions. */
@@ -2734,7 +2743,7 @@ declare namespace chrome.downloads {
     export interface GetFileIconOptions {
         /** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size.
          */
-        size?: number | undefined;
+        size?: 16 | 32 | undefined;
     }
 
     export interface DownloadQuery {
@@ -2932,10 +2941,18 @@ declare namespace chrome.enterprise.platformKeys {
         id: string;
         /**
          * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed.
-         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 and ECDSA with namedCurve P-256 can be generated. Each key can be used for signing data at most once.
          * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
          */
         subtleCrypto: SubtleCrypto;
+        /**
+         * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed.
+         * Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+         * @since Chrome 97.
+         */
+        softwareBackedSubtleCrypto: SubtleCrypto;
     }
 
     /**
@@ -3065,6 +3082,14 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the Annotated Location of the device.
      */
     export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+    /**
+     * @since Chrome 82.
+     * @description
+     * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
+     * If the current user is not affiliated or no hostname has been set by the the enterprise policy, returns an empty string.
+     * @param callback Called with the hostname of the device.
+     */
+    export function getDeviceHostname(callback: (hostname: string) => void): void;
 }
 
 ////////////////////
@@ -3315,7 +3340,7 @@ declare namespace chrome.extension {
      * function(any response) {...};
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest(extensionId: string, request: any, responseCallback?: (response: any) => void): void;
+    export function sendRequest<Request = any, Response = any>(extensionId: string, request: Request, responseCallback?: (response: Response) => void): void;
     /**
      * Sends a single request to other listeners within the extension. Similar to runtime.connect, but only sends a single request with an optional response. The extension.onRequest event is fired in each page of the extension.
      * @deprecated Deprecated since Chrome 33. Please use runtime.sendMessage.
@@ -3323,7 +3348,7 @@ declare namespace chrome.extension {
      * function(any response) {...};
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest(request: any, responseCallback?: (response: any) => void): void;
+    export function sendRequest<Request = any, Response = any>(request: Request, responseCallback?: (response: Response) => void): void;
     /**
      * Returns an array of the JavaScript 'window' objects for each of the tabs running inside the current extension. If windowId is specified, returns only the 'window' objects of tabs attached to the specified window.
      * @deprecated Deprecated since Chrome 33. Please use extension.getViews {type: "tab"}.
@@ -6186,7 +6211,7 @@ declare namespace chrome.serial {
         /** Flag indicating whether the connection is blocked from firing onReceive events. */
         paused: boolean;
         /** See ConnectionOptions.persistent */
-        peristent: boolean;
+        persistent: boolean;
         /** See ConnectionOptions.name */
         name: string;
         /** See ConnectionOptions.bufferSize */
@@ -6211,7 +6236,7 @@ declare namespace chrome.serial {
     export interface ConnectionOptions {
         /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
          *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        peristent?: boolean | undefined;
+        persistent?: boolean | undefined;
         /** Optional. An application-defined string to associate with the connection. */
         name?: string | undefined;
         /** Optional. The size of the buffer used to receive data. The default value is 4096. */
@@ -6447,6 +6472,13 @@ declare namespace chrome.runtime {
     /** The ID of the extension/app. */
     export var id: string;
 
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformOs */
+    export type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformArch */
+    export type PlatformArch = 'arm' | 'arm64' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
+    export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
         message?: string | undefined;
@@ -6523,19 +6555,16 @@ declare namespace chrome.runtime {
     export interface PlatformInfo {
         /**
          * The operating system chrome is running on.
-         * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
          */
-        os: string;
+        os: PlatformOs;
         /**
          * The machine's processor architecture.
-         * One of: "arm", "x86-32", or "x86-64"
          */
-        arch: string;
+        arch: PlatformArch;
         /**
          * The native client architecture. This may be different from arch on some platforms.
-         * One of: "arm", "x86-32", or "x86-64"
          */
-        nacl_arch: string;
+        nacl_arch: PlatformNaclArch;
     }
 
     /**
@@ -6600,6 +6629,75 @@ declare namespace chrome.runtime {
         default_popup?: string | undefined;
     }
 
+    // Source: https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
+    export type ManifestPermissions =
+        | 'activeTab'
+        | 'alarms'
+        | 'background'
+        | 'bookmarks'
+        | 'browsingData'
+        | 'certificateProvider'
+        | 'clipboardRead'
+        | 'clipboardWrite'
+        | 'contentSettings'
+        | 'contextMenus'
+        | 'cookies'
+        | 'debugger'
+        | 'declarativeContent'
+        | 'declarativeNetRequest'
+        | 'declarativeNetRequestFeedback'
+        | 'declarativeWebRequest'
+        | 'desktopCapture'
+        | 'documentScan'
+        | 'downloads'
+        | 'enterprise.deviceAttributes'
+        | 'enterprise.hardwarePlatform'
+        | 'enterprise.networkingAttributes'
+        | 'enterprise.platformKeys'
+        | 'experimental'
+        | 'fileBrowserHandler'
+        | 'fileSystemProvider'
+        | 'fontSettings'
+        | 'gcm'
+        | 'geolocation'
+        | 'history'
+        | 'identity'
+        | 'idle'
+        | 'loginState'
+        | 'management'
+        | 'nativeMessaging'
+        | 'notifications'
+        | 'pageCapture'
+        | 'platformKeys'
+        | 'power'
+        | 'printerProvider'
+        | 'printing'
+        | 'printingMetrics'
+        | 'privacy'
+        | 'processes'
+        | 'proxy'
+        | 'scripting'
+        | 'search'
+        | 'sessions'
+        | 'signedInDevices'
+        | 'storage'
+        | 'system.cpu'
+        | 'system.display'
+        | 'system.memory'
+        | 'system.storage'
+        | 'tabCapture'
+        | 'tabGroups'
+        | 'tabs'
+        | 'topSites'
+        | 'tts'
+        | 'ttsEngine'
+        | 'unlimitedStorage'
+        | 'vpnProvider'
+        | 'wallpaper'
+        | 'webNavigation'
+        | 'webRequest'
+        | 'webRequestBlocking';
+
     export interface SearchProvider {
         name?: string | undefined;
         keyword?: string | undefined;
@@ -6618,7 +6716,7 @@ declare namespace chrome.runtime {
         is_default?: boolean | undefined;
     }
 
-    export interface Manifest {
+    export interface ManifestBase {
         // Required
         manifest_version: number;
         name: string;
@@ -6629,18 +6727,9 @@ declare namespace chrome.runtime {
         description?: string | undefined;
         icons?: ManifestIcons | undefined;
 
-        // Pick one (or none)
-        browser_action?: ManifestAction | undefined;
-        page_action?: ManifestAction | undefined;
-
         // Optional
         author?: any;
         automation?: any;
-        background?: {
-            scripts?: string[] | undefined;
-            page?: string | undefined;
-            persistent?: boolean | undefined;
-        } | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
@@ -6686,7 +6775,6 @@ declare namespace chrome.runtime {
             include_globs?: string[] | undefined;
             exclude_globs?: string[] | undefined;
         }[] | undefined;
-        content_security_policy?: string | undefined;
         converted_from_user_script?: boolean | undefined;
         copresence?: any;
         current_locale?: string | undefined;
@@ -6745,14 +6833,12 @@ declare namespace chrome.runtime {
         omnibox?: {
             keyword: string;
         } | undefined;
-        optional_permissions?: string[] | undefined;
         options_page?: string | undefined;
         options_ui?: {
             page?: string | undefined;
             chrome_style?: boolean | undefined;
             open_in_tab?: boolean | undefined;
         } | undefined;
-        permissions?: string[] | undefined;
         platforms?: {
             nacl_arch?: string | undefined;
             sub_package_path: string;
@@ -6794,9 +6880,54 @@ declare namespace chrome.runtime {
         } | undefined;
         update_url?: string | undefined;
         version_name?: string | undefined;
-        web_accessible_resources?: string[] | undefined;
         [key: string]: any;
     }
+
+    export interface ManifestV2 extends ManifestBase {
+        // Required
+        manifest_version: 2;
+
+        // Pick one (or none)
+        browser_action?: ManifestAction | undefined;
+        page_action?: ManifestAction | undefined;
+
+        // Optional
+        background?:
+            | {
+                  scripts?: string[] | undefined;
+                  page?: string | undefined;
+                  persistent?: boolean | undefined;
+              }
+            | undefined;
+        content_security_policy?: string | undefined;
+        optional_permissions?: string[] | undefined;
+        permissions?: string[] | undefined;
+        web_accessible_resources?: string[] | undefined;
+    }
+
+    export interface ManifestV3 extends ManifestBase {
+        // Required
+        manifest_version: 3;
+
+        // Optional
+        action?: ManifestAction | undefined;
+        background?:
+            | {
+                  service_worker: string;
+                  type?: 'module'; // If the service worker uses ES modules
+              }
+            | undefined;
+        content_security_policy?: {
+            extension_pages?: string;
+            sandbox?: string;
+        };
+        host_permissions?: string[] | undefined;
+        optional_permissions?: ManifestPermissions[] | undefined;
+        permissions?: ManifestPermissions[] | undefined;
+        web_accessible_resources?: { resources: string[]; matches: string[] }[] | undefined;
+    }
+
+    export type Manifest = ManifestV2 | ManifestV3
 
     /**
      * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
@@ -6865,17 +6996,17 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage<M = any, R = any>(message: M, responseCallback?: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(
-        message: any,
+    export function sendMessage<M = any, R = any>(
+        message: M,
         options: MessageOptions,
-        responseCallback?: (response: any) => void,
+        responseCallback?: (response: R) => void,
     ): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
@@ -6884,7 +7015,7 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback?: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
@@ -6892,11 +7023,11 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(
+    export function sendMessage<Message = any, Response = any>(
         extensionId: string,
-        message: any,
+        message: Message,
         options: MessageOptions,
-        responseCallback?: (response: any) => void,
+        responseCallback?: (response: Response) => void,
     ): void;
     /**
      * Send a single message to a native application.
@@ -7015,14 +7146,22 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
     }
 
-    export interface ScriptInjection {
-        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
-        files?: string[] | undefined;
-        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        function?: (() => void) | undefined;
+    export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
-    }
+    } & ({
+        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
+        files: string[];
+    } | ({
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        func: ((...args: Args) => void);
+    } & (Args extends [] ? {
+        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
+        args?: Args;
+    } : {
+        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
+        args: Args;
+    })))
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7030,7 +7169,7 @@ declare namespace chrome.scripting {
      * The details of the script which to inject.
      * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript(injection: ScriptInjection): Promise<InjectionResult[]>;
+    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>): Promise<InjectionResult[]>;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7039,7 +7178,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void): void;
+    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>, callback?: (results: InjectionResult[]) => void): void;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
@@ -8961,18 +9100,18 @@ declare namespace chrome.tabs {
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 20.
      */
-    export function sendMessage(tabId: number, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback?: (response: R) => void): void;
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 41.
      * @param responseCallback Optional.
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the specified tab, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(
+    export function sendMessage<M = any, R = any>(
         tabId: number,
-        message: any,
+        message: M,
         options: MessageSendOptions,
-        responseCallback?: (response: any) => void,
+        responseCallback?: (response: R) => void,
     ): void;
     /**
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The extension.onRequest event is fired in each content script running in the specified tab for the current extension.
@@ -8980,7 +9119,7 @@ declare namespace chrome.tabs {
      * @param responseCallback Optional.
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the specified tab, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest(tabId: number, request: any, responseCallback?: (response: any) => void): void;
+    export function sendRequest<Request = any, Response = any>(tabId: number, request: Request, responseCallback?: (response: Response) => void): void;
     /** Connects to the content script(s) in the specified tab. The runtime.onConnect event is fired in each content script running in the specified tab for the current extension. */
     export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
     /**
@@ -10004,6 +10143,13 @@ declare namespace chrome.webNavigation {
      */
     export function getFrame(details: GetFrameDetails, callback: (details: GetFrameResultDetails | null) => void): void;
     /**
+     * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
+     * @param details Information about the frame to retrieve information about.
+     * @return The getFrame method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getFrame(details: GetFrameDetails): Promise<GetFrameResultDetails | null>;
+
+    /**
      * Retrieves information about all frames of a given tab.
      * @param details Information about the tab to retrieve all frames from.
      * @param callback
@@ -10013,7 +10159,14 @@ declare namespace chrome.webNavigation {
         details: GetAllFrameDetails,
         callback: (details: GetAllFrameResultDetails[] | null) => void,
     ): void;
-
+    /**
+     * Retrieves information about all frames of a given tab.
+     * @param details Information about the tab to retrieve all frames from.
+     * @return The getAllFrames method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getAllFrames(
+        details: GetAllFrameDetails,
+    ): Promise<GetAllFrameResultDetails[] | null>;
     /** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
     export var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
     /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
@@ -10796,11 +10949,11 @@ declare namespace chrome.declarativeNetRequest {
         IMAGE = "image",
         FONT = "font",
         OBJECT = "object",
-        XML_HTTP_REQUEST = "xmlhttprequest",
+        XMLHTTPREQUEST = "xmlhttprequest",
         PING = "ping",
         CSP_REPORT = "csp_report",
         MEDIA = "media",
-        WEB_SOCKET = "websocket",
+        WEBSOCKET = "websocket",
         OTHER = "other"
     }
 

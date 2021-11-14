@@ -11,6 +11,7 @@
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Danilo Fuchs <https://github.com/danilofuchs>
+//                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
@@ -78,15 +79,13 @@ export type StyledComponentProps<
     O extends object,
     // The props that are made optional by .attrs
     A extends keyof any,
-    // The Component passed with "as" prop
-    AsC extends string | React.ComponentType<any> = C,
     // The Component passed with "forwardedAs" prop
     FAsC extends string | React.ComponentType<any> = C
 > =
     // Distribute O if O is a union type
     O extends object
         ? WithOptionalTheme<
-              MakeAttrsOptional<C, O, A> & MakeAttrsOptional<AsC, O, A> & MakeAttrsOptional<FAsC, O, A>,
+              MakeAttrsOptional<C, O, A> & MakeAttrsOptional<FAsC, O, A>,
               T
           > &
               WithChildrenIfReactComponentClass<C>
@@ -109,7 +108,7 @@ type StyledComponentPropsWithAs<
     A extends keyof any,
     AsC extends string | React.ComponentType<any> = C,
     FAsC extends string | React.ComponentType<any> = C
-> = StyledComponentProps<C, T, O, A, AsC, FAsC> & { as?: AsC | undefined; forwardedAs?: FAsC | undefined };
+> = StyledComponentProps<C, T, O, A, FAsC> & { as?: AsC | undefined; forwardedAs?: FAsC | undefined };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> = InterpolationValue | InterpolationFunction<P> | FlattenInterpolation<P>;
@@ -141,6 +140,8 @@ type ForwardRefExoticBase<P> = Pick<React.ForwardRefExoticComponent<P>, keyof Re
 // Config to be used with withConfig
 export interface StyledConfig<O extends object = {}> {
     // TODO: Add all types from the original StyledComponentWrapperProperties
+    componentId?: string;
+    displayName?: string;
     shouldForwardProp?: ((prop: keyof O, defaultValidatorFn: (prop: keyof O) => boolean) => boolean) | undefined;
 }
 
@@ -171,9 +172,9 @@ export interface StyledComponentBase<
     (props: StyledComponentProps<C, T, O, A> & { as?: never | undefined; forwardedAs?: never | undefined }): React.ReactElement<
         StyledComponentProps<C, T, O, A>
     >;
-    <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = C>(
-        props: StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>,
-    ): React.ReactElement<StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>>;
+    <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = AsC>(
+        props: StyledComponentPropsWithAs<AsC, T, O, A, AsC, FAsC>,
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, AsC, FAsC>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC,
@@ -315,15 +316,15 @@ export interface ThemedStyledComponentsModule<T extends object, U extends object
     css: ThemedCssFunction<T>;
 
     // unfortunately keyframes can't interpolate props from the theme
-    keyframes(strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]): Keyframes;
+    keyframes: (strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]) => Keyframes;
 
-    createGlobalStyle<P extends object = {}>(
+    createGlobalStyle: <P extends object = {}>(
         first: TemplateStringsArray | CSSObject | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): GlobalStyleComponent<P, T>;
+    ) => GlobalStyleComponent<P, T>;
 
-    withTheme: WithThemeFnInterface<T>;
-    ThemeProvider: ThemeProviderComponent<T, U>;
+    withTheme: BaseWithThemeFnInterface<T>;
+    ThemeProvider: BaseThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
     useTheme(): T;

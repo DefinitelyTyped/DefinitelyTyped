@@ -3,7 +3,7 @@
 // Definitions by: c4605 <https://github.com/bolasblack>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
 import { EventEmitter } from "events";
 import { Store as MemFsStore } from "mem-fs";

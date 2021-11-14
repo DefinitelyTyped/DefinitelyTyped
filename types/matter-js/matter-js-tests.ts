@@ -10,6 +10,7 @@ var Engine = Matter.Engine,
     Query = Matter.Query,
     Plugin = Matter.Plugin,
     Render = Matter.Render,
+    SAT = Matter.SAT,
     Mouse = Matter.Mouse,
     MouseConstraint = Matter.MouseConstraint;
 
@@ -59,7 +60,7 @@ var box4 = Bodies.rectangle(400, 200, 80, 80, {
     collisionFilter: {}, // Or none
 });
 
-//Composites
+// Composites
 var stack = Composites.stack(0, 100, 5, 1, 20, 0, function (x: number, y: number, column: number, row: number) {
     return Bodies.circle(x, y, 75, { restitution: 0.9 });
 });
@@ -68,7 +69,7 @@ const cradle = Composites.newtonsCradle(200, 50, 5, 20, 250);
 
 World.add(engine.world, [stack, cradle]);
 
-//Constraints
+// Constraints
 var constraint1 = Constraint.create({
     bodyA: box1,
     bodyB: box2,
@@ -78,17 +79,17 @@ var constraint1 = Constraint.create({
 
 World.addConstraint(engine.world, constraint1);
 
-//Query
+// Query
 var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 });
 
 collisions = Query.collides(box1, [box2, circle1]);
 
-//events
+// events
 Events.on(engine, 'beforeTick', (e: Matter.IEventTimestamped<Matter.Engine>) => {});
 
 Engine.run(engine);
 
-//Renderer
+// Renderer
 var render = Render.create({
     engine: engine,
     bounds: {
@@ -100,6 +101,12 @@ var render = Render.create({
             x: 500,
             y: 500,
         },
+    },
+    // Renderer options
+    options: {
+      showAxes: true,
+      showCollisions: true,
+      showConvexHulls: true,
     },
 });
 
@@ -115,6 +122,8 @@ const runner3 = Matter.Runner.create();
 // Mouse
 const mouse = Mouse.create(render.canvas);
 const mouseConstraint = MouseConstraint.create(engine, { mouse });
+
+render.mouse = mouse;
 
 Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
 
@@ -135,3 +144,9 @@ Composite.add(composite1, constraint1);
 Composite.add(composite1, mouseConstraint);
 // $ExpectType Composite
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
+
+// SAT
+// $ExpectType ICollision
+var collision = SAT.collides(box1, box2);
+// $ExpectType ICollision
+SAT.collides(box3, box4, collision);
