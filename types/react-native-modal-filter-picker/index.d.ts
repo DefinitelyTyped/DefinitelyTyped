@@ -1,4 +1,4 @@
-// Type definitions for react-native-modal-filter-picker 1.3
+// Type definitions for react-native-modal-filter-picker 2.1.0
 // Project: https://github.com/hiddentao/react-native-modal-filter-picker#readme
 // Definitions by: Chang Yanwei <https://github.com/ywchang>
 //                 Cheng Gibson <https://github.com/nossbigg>
