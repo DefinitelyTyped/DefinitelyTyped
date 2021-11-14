@@ -39,7 +39,7 @@ declare namespace concurrently {
         cwd?: string | undefined;
         /** the default input target when reading from `inputStream`. Default: `0`. */
         defaultInputTarget?: number | undefined;
-        /** Indices and names of commands whose output to be not logged */
+        /** Indices or names of commands whose output should not be logged */
         hide?: Array<string | number> | undefined;
         /** a Readable stream to read the input from, eg `process.stdin` */
         inputStream?: NodeJS.ReadableStream | undefined;
