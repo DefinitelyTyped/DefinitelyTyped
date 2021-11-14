@@ -38,7 +38,7 @@ const compOpts: twig.CompileOptions = {
     }
 };
 
-twig.extendFilter(str, (left: any, ...params: any[]) => {
+twig.extendFilter(str, (left: any, params: any[] | false) => {
     return str;
 });
 

@@ -54,7 +54,7 @@ export interface RenderOptions {
 }
 
 export function twig(params: Parameters): Template;
-export function extendFilter(name: string, definition: (left: any, ...params: any[]) => string): void;
+export function extendFilter(name: string, definition: (left: any, params: any[] | false) => string): void;
 export function extendFunction(name: string, definition: (...params: any[]) => string): void;
 export function extendTest(name: string, definition: (value: any) => boolean): void;
 export function extendTag(definition: any): void;
