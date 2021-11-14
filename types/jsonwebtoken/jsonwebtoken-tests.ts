@@ -182,6 +182,15 @@ if (typeof verified2 !== 'string') {
     verified2;
 }
 
+// This tests creates a token with iat as now, verifies with maxAge=now()+3600sec
+const tokenExpiresIn10h = jwt.sign({test: 1}, key, {expiresIn: '10h'});
+const payloadForTokenExpiresIn10h = jwt.verify(tokenExpiresIn10h, key, {maxAge: 3600});
+
+if (typeof payloadForTokenExpiresIn10h !== 'string') {
+    // $ExpectType JwtPayload
+    payloadForTokenExpiresIn10h;
+}
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
