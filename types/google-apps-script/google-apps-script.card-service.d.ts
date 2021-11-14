@@ -907,15 +907,15 @@ declare namespace GoogleAppsScript {
       /**
        * Sets the corner radius of the border, for example 8.
        */
-      setCornerRadius(radius: number) : BorderStyle;
+      setCornerRadius(radius: number): BorderStyle;
       /**
        * The color in #RGB format to be applied to the border.
        */
-      setStrokeColor(color: string) : BorderStyle;
+      setStrokeColor(color: string): BorderStyle;
       /**
        * Sets the type of the border.
        */
-      setType(type: BorderType) : BorderStyle;
+      setType(type: BorderType): BorderStyle;
     }
 
     /**

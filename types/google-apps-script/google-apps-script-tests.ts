@@ -479,23 +479,25 @@ const folderSecurityUpdateInfo = () => {
     }
 };
 
-type BorderStyleOptions = {
+interface BorderStyleOptions {
     color: string;
     radius: number;
-};
+}
 
-type ImageComponentOptions = BorderStyleOptions & {
+interface ImageComponentOptions extends BorderStyleOptions {
     alt: string;
     src: string;
-};
+}
 
-type GridItemOptions = ImageComponentOptions & {
+interface GridItemOptions extends ImageComponentOptions {
     id: string;
     title: string;
     subtitle: string;
-};
+}
 
-type GridOptions = BorderStyleOptions & {};
+interface GridOptions extends BorderStyleOptions {
+    items: GoogleAppsScript.Card_Service.GridItem[];
+}
 
 const makeBorderStyle = ({ color, radius }: BorderStyleOptions) => {
     // $ExpectType BorderStyle
@@ -508,7 +510,7 @@ const makeBorderStyle = ({ color, radius }: BorderStyleOptions) => {
     return style;
 };
 
-const makeImageCropStyle = (ratio:number) => {
+const makeImageCropStyle = (ratio: number) => {
     // $ExpectType ImageCropStyle
     const style = CardService.newImageCropStyle();
     style
@@ -544,7 +546,7 @@ const makeGridItem = ({ id, subtitle, title, ...options }: GridItemOptions) => {
     return item;
 };
 
-const makeGrid = (items: GoogleAppsScript.Card_Service.GridItem[], options: GridOptions) => {
+const makeGrid = ({ items, ...options}: GridOptions) => {
     // $ExpectType Grid
     const grid = CardService.newGrid();
     items.forEach(item => grid.addItem(item));
