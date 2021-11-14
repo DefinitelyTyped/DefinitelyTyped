@@ -405,10 +405,6 @@ declare namespace GoogleAppsScript {
       setOpenLink(openLink: OpenLink): ImageButton;
     }
     /**
-     * An enum that represents the crop styles applied to image components.
-     */
-    enum ImageCropType { SQUARE, CIRCLE, RECTANGLE_CUSTOM, RECTANGLE_4_3 }
-    /**
      * An enum that defines an image cropping style.
      */
     enum ImageStyle { SQUARE, CIRCLE }
