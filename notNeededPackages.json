@@ -2757,6 +2757,10 @@
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
         },
+        "matteodisabatino__gc_info": {
+            "libraryName": "@matteodisabatino/gc_info",
+            "asOfVersion": "1.1.0"
+        },
         "maxmind": {
             "libraryName": "maxmind",
             "asOfVersion": "2.0.5"
