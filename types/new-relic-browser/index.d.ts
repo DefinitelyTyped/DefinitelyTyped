@@ -1,4 +1,4 @@
-// Type definitions for non-npm package NewRelicBrowser 0.1211
+// Type definitions for non-npm package NewRelicBrowser 0.1212
 // Project: https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
 // Definitions by: Rene Hamburger <https://github.com/renehamburger>
 //                 Piotr Kubisa <https://github.com/piotrkubisa>
