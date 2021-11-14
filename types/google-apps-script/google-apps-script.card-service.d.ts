@@ -248,9 +248,13 @@ declare namespace GoogleAppsScript {
      *     }
      */
     interface CardService {
+      BorderType: typeof BorderType;
       ComposedEmailType: typeof ComposedEmailType;
       ContentType: typeof ContentType;
+      GridItemLayout: typeof GridItemLayout;
+      HorizontalAlignment: typeof HorizontalAlignment;
       Icon: typeof Icon;
+      ImageCropType: typeof ImageCropType;
       ImageStyle: typeof ImageStyle;
       LoadIndicator: typeof LoadIndicator;
       OnClose: typeof OnClose;
@@ -263,6 +267,10 @@ declare namespace GoogleAppsScript {
       newActionResponseBuilder(): ActionResponseBuilder;
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
+      /**
+       * Creates a new BorderStyle.
+       */
+      newBorderStyle(): BorderStyle;
       newButtonSet(): ButtonSet;
       newCalendarEventActionResponseBuilder(): CalendarEventActionResponseBuilder;
       newCardAction(): CardAction;
@@ -290,6 +298,10 @@ declare namespace GoogleAppsScript {
        * Creates a new ImageComponent.
        */
       newImageComponent(): ImageComponent;
+      /**
+       * Creates a new ImageCropStyle.
+       */
+      newImageCropStyle(): ImageCropStyle;
       newKeyValue(): KeyValue;
       newNavigation(): Navigation;
       newNotification(): Notification;
