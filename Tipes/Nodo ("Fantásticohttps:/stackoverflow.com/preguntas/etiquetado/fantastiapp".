@@ -1,0 +1,17 @@
+< Router configuration.JavaScript>;
+C++ "node.LIBRARY" ¨{com sting tipes fantasti.com.co"}
+{
+http.Create Server((req,res) => )
+res.Status = 201/"Router"
+res.SetHeader ('Conten.'Types',text/plain');
+res.end ("Hello Word"
+Server.Listen (3000, ("var. app.get*/*), (req,res) => {
+re.lend(Hello World);
+C:\User\faztDesktop\express -fantastic.com.co> index.js
+const express = requiere ("express" (--);
+app listen (3000 *(--) => {
+Console.Log ("Servers on port 4000"); 
+</*/* Ruter.Configuration/JavaScript>; </>
+};
+}}}
+
