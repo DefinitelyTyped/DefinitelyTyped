@@ -382,7 +382,7 @@
         },
         "bree": {
             "libraryName": "bree",
-            "asOfVersion": "7.1"
+            "asOfVersion": "7.1.0"
         },
         "broccoli-plugin": {
             "libraryName": "broccoli-plugin",
