@@ -13,7 +13,7 @@ interface WalkerOptions {
     filter: (filename: string) => boolean;
 }
 
-declare function walker(dirs: string[], opts?: WalkerOptions): NodeJS.ReadableStream;
+declare function walker(dirs: ReadonlyArray<string>, opts?: WalkerOptions): NodeJS.ReadableStream;
 
 declare namespace walker {
     interface Entry {
