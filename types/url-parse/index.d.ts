@@ -23,7 +23,7 @@ declare namespace URLParse {
         | 'slashes'
         | 'username';
 
-    type QueryParser<T = Record<string, string>> = (query: string) => T;
+    type QueryParser<T = Record<string, string | undefined>> = (query: string) => T;
 
     type StringifyQuery = (query: object) => string;
 }
@@ -49,16 +49,16 @@ interface URLParse<Query> {
 
 declare const URLParse: {
     new(address: string, parser?: false): URLParse<string>;
-    new(address: string, parser: true): URLParse<Record<string, string>>;
+    new(address: string, parser: true): URLParse<Record<string, string | undefined>>;
     new <T>(address: string, parser?: URLParse.QueryParser<T>): URLParse<T>;
     new(address: string, location?: string | object, parser?: false): URLParse<string>;
-    new(address: string, location: string | object | undefined, parser: true): URLParse<Record<string, string>>;
+    new(address: string, location: string | object | undefined, parser: true): URLParse<Record<string, string | undefined>>;
     new <T>(address: string, location: string | object | undefined, parser: URLParse.QueryParser<T>): URLParse<T>;
     (address: string, parser?: false): URLParse<string>;
-    (address: string, parser: true): URLParse<Record<string, string>>;
+    (address: string, parser: true): URLParse<Record<string, string | undefined>>;
     <T>(address: string, parser: URLParse.QueryParser<T>): URLParse<T>;
     (address: string, location?: string | object, parser?: false): URLParse<string>;
-    (address: string, location: string | object | undefined, parser: true): URLParse<Record<string, string>>;
+    (address: string, location: string | object | undefined, parser: true): URLParse<Record<string, string | undefined>>;
     <T>(address: string, location: string | object | undefined, parser: URLParse.QueryParser<T>): URLParse<T>;
 
     extractProtocol(url: string): {
