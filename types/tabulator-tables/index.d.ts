@@ -1,35 +1,34 @@
 // Type definitions for tabulator-tables 5.0
 // Project: http://tabulator.info
-// Definitions by: Josh Harris <https://github.com/jojoshua>
+// Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
 // tslint:disable:max-line-length
 // tslint:disable:jsdoc-format
-// tslint:disable:no-trailing-whitespace
 // tslint:disable:no-unnecessary-class
 
 declare namespace Tabulator {
     interface Options
         extends OptionsGeneral,
-            OptionsMenu,
-            OptionsHistory,
-            OptionsLocale,
-            OptionsDownload,
-            OptionsColumns,
-            OptionsRows,
-            OptionsData,
-            OptionsSorting,
-            OptionsFiltering,
-            OptionsRowGrouping,
-            OptionsPagination,
-            OptionsPersistentConfiguration,
-            OptionsClipboard,
-            OptionsDataTree,
-            OptionsCell,
-            OptionsCells,
-            OptionsDebug,
-            OptionsHTML {}
+        OptionsMenu,
+        OptionsHistory,
+        OptionsLocale,
+        OptionsDownload,
+        OptionsColumns,
+        OptionsRows,
+        OptionsData,
+        OptionsSorting,
+        OptionsFiltering,
+        OptionsRowGrouping,
+        OptionsPagination,
+        OptionsPersistentConfiguration,
+        OptionsClipboard,
+        OptionsDataTree,
+        OptionsCell,
+        OptionsCells,
+        OptionsDebug,
+        OptionsHTML { }
 
     interface OptionsDebug {
         invalidOptionWarning?: boolean;
@@ -39,8 +38,8 @@ declare namespace Tabulator {
     interface OptionsCells extends CellCallbacks {
         /** The validationFailed event is triggered when the value entered into a cell during an edit fails to pass validation. */
         validationFailed?:
-            | ((cell: CellComponent, value: any, validators: Validator[] | StandardValidatorType[]) => void)
-            | undefined;
+        | ((cell: CellComponent, value: any, validators: Validator[] | StandardValidatorType[]) => void)
+        | undefined;
     }
     interface OptionsDataTree {
         /** To enable data trees in your table, set the dataTree property to true in your table constructor: */
@@ -117,15 +116,15 @@ declare namespace Tabulator {
 
         /**When copying to clipboard you may want to apply a different group header from the one usualy used in the table. You can now do this using the groupHeaderClipboard table option, which takes the same inputs as the standard groupHeader property. */
         groupHeaderClipboard?:
-            | ((value: any, count: number, data: any, group: GroupComponent) => string)
-            | Array<(value: any, count: number, data: any) => string>
-            | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 
         /**When the getHtml function is called you may want to apply a different group header from the one usualy used in the table. You can now do this using the groupHeaderHtmlOutput table option, which takes the same inputs as the standard groupHeader property. */
         groupHeaderHtmlOutput?:
-            | ((value: any, count: number, data: any, group: GroupComponent) => string)
-            | Array<(value: any, count: number, data: any) => string>
-            | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
     }
 
     interface OptionsPersistentConfiguration {
@@ -172,7 +171,7 @@ declare namespace Tabulator {
     interface OptionsPagination {
         pagination?: boolean;
         paginationMode?: SortMode;
-        /** Set the number of rows in each page     */
+        /** Set the number of rows in each page */
         paginationSize?: number | undefined;
         /**  Setting this option to true will cause Tabulator to create a list of page size options, that are multiples of the current page size. In the example below, the list will have the values of 5, 10, 15 and 20.
 
@@ -180,12 +179,14 @@ declare namespace Tabulator {
         paginationSizeSelector?: true | number[] | any[] | undefined;
         /**  By default the pagination controls are added to the footer of the table. If you wish the controls to be created in another element pass a DOM node or a CSS selector for that element to the paginationElement option.*/
         paginationElement?: HTMLElement | string | undefined;
-        /** Lookup list to link expected data feilds from the server to their function    * default* {
-        "current_page":"current_page",
-        "last_page":"last_page",
-        "data":"data",
-        }* *
-     */
+        /** Lookup list to link expected data feilds from the server to their function
+         * default* {
+            "current_page":"current_page",
+            "last_page":"last_page",
+            "data":"data",
+            }
+        *
+        */
         dataReceiveParams?: Record<string, string> | undefined;
         /** Lookup list to link fields expected by the server to their function* default:* {
         "page":"page",
@@ -220,15 +221,15 @@ declare namespace Tabulator {
 
         /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option.     */
         groupHeader?:
-            | ((value: any, count: number, data: any, group: GroupComponent) => string)
-            | Array<(value: any, count: number, data: any) => string>
-            | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 
         /**When printing you may want to apply a different group header from the one usualy used in the table. You can now do this using the groupHeaderPrint table option, which takes the same inputs as the standard groupHeader property. */
         groupHeaderPrint?:
-            | ((value: any, count: number, data: any, group: GroupComponent) => string)
-            | Array<(value: any, count: number, data: any) => string>
-            | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 
         /** You can set the default open state of groups using the groupStartOpen property* * This can take one of three possible values:
 
@@ -239,9 +240,9 @@ declare namespace Tabulator {
         If you want to decide on a group by group basis which should start open or closed then you can pass a function to the groupStartOpen property. This should return true if the group should start open or false if the group should start closed.
      */
         groupStartOpen?:
-            | boolean
-            | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
-            | undefined;
+        | boolean
+        | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+        | undefined;
 
         /** By default Tabulator allows users to toggle a group open or closed by clicking on the arrow icon in the left of the group header. If you would prefer a different behaviour you can use the groupToggleElement option to choose a different option:* * The option can take one of three values:
       arrow - togggle group on arrow element click
@@ -290,10 +291,10 @@ declare namespace Tabulator {
     type FilterFunction = (field: string, type: FilterType, value: any, filterParams?: FilterParams) => void;
 
     interface OptionsFiltering {
-        /** Array of filters to be applied on load.     */
+        /** Array of filters to be applied on load. */
         initialFilter?: Filter[] | undefined;
 
-        /** array of initial values for header filters.     */
+        /** array of initial values for header filters. */
         initialHeaderFilter?: Array<Pick<Filter, 'field' | 'value'>> | undefined;
 
         /** The dataFiltering callback is triggered whenever a filter event occurs, before the filter happens. */
@@ -340,16 +341,16 @@ declare namespace Tabulator {
         ajaxConfig?: HttpMethod | AjaxConfig | undefined;
 
         /** When using a request method other than "GET" Tabulator will send any parameters with a content type of form data. You can change the content type with the ajaxContentType option. This will ensure parameters are sent in the format you expect, with the correct headers. * * The ajaxContentType option can take one of two values:
-      "form" - send parameters as form data (default option)
-      "json" - send parameters as JSON encoded string
-      If you want to use a custom content type then you can pass a content type formatter object into the ajaxContentType option. this object must have two properties, the headers property should contain all headers that should be sent with the request and the body property should contain a function that returns the body content of the request
-    */
+            "form" - send parameters as form data (default option)
+            "json" - send parameters as JSON encoded string
+            If you want to use a custom content type then you can pass a content type formatter object into the ajaxContentType option. this object must have two properties, the headers property should contain all headers that should be sent with the request and the body property should contain a function that returns the body content of the request
+        */
 
         ajaxContentType?: 'form' | 'json' | AjaxContentType | undefined;
 
         /** If you need more control over the url of the request that you can get from the ajaxURL and ajaxParams properties, the you can use the ajaxURLGenerator property to pass in a callback that will generate the URL for you.
 
-    The callback should return a string representing the URL to be requested. */
+        The callback should return a string representing the URL to be requested. */
         ajaxURLGenerator?: ((url: string, config: any, params: any) => string) | undefined;
 
         /** callback function to replace inbuilt ajax request functionality     */
@@ -413,8 +414,8 @@ declare namespace Tabulator {
 
     interface OptionsRows {
         /** Tabulator also allows you to define a row level formatter using the rowFormatter option. this lets you alter each row of the table based on the data it contains.
-
-    The function accepts one argument, the RowComponent for the row being formatted. */
+            The function accepts one argument, the RowComponent for the row being formatted.
+        */
         rowFormatter?: ((row: RowComponent) => any) | undefined;
 
         /**When printing you may want to apply a different formatter may want to apply a different formatter from the one usualy used to format the row. */
@@ -430,16 +431,17 @@ declare namespace Tabulator {
         addRowPos?: 'bottom' | 'top' | undefined;
 
         /** The selectable option can take one of a several values:
-
-      false - selectable rows are disabled
-      true - selectable rows are enabled, and you can select as many as you want
-      integer - any integer value, this sets the maximum number of rows that can be selected (when the maximum number of selected rows is exeded, the first selected row will be deselected to allow the next row to be selected).
-      "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable. */
+            false - selectable rows are disabled
+            true - selectable rows are enabled, and you can select as many as you want
+            integer - any integer value, this sets the maximum number of rows that can be selected (when the maximum number of selected rows is exeded, the first selected row will be deselected to allow the next row to be selected).
+            "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable.
+        */
         selectable?: boolean | number | 'highlight' | undefined;
 
         /** By default you can select a range of rows by holding down the shift key and click dragging over a number of rows to toggle the selected state state of all rows the cursor passes over.
 
-    If you would prefere to select a range of row by clicking on the first row then holding down shift and clicking on the end row then you can acheive this by setting the selectableRangeMode to click */
+            If you would prefere to select a range of row by clicking on the first row then holding down shift and clicking on the end row then you can acheive this by setting the selectableRangeMode to click
+        */
         selectableRangeMode?: 'click' | undefined;
 
         /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behaviour and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false. */
@@ -458,33 +460,33 @@ declare namespace Tabulator {
         movableRowsConnectedTables?: string | string[] | HTMLElement | HTMLElement[] | undefined;
 
         /** The movableRowsSender option should be set on the sending table, and sets the action that should be taken after the row has been successfuly dropped into the receiving table.
+            There are several inbuilt sender functions:
 
-      There are several inbuilt sender functions:
-
-      false - do nothing(default)
-      delete - deletes the row from the table
-      You can also pass a callback to the movableRowsSender option for custom sender functionality
-      */
+            false - do nothing(default)
+            delete - deletes the row from the table
+            You can also pass a callback to the movableRowsSender option for custom sender functionality
+        */
         movableRowsSender?:
-            | false
-            | 'delete'
-            | ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => any)
-            | undefined;
+        | false
+        | 'delete'
+        | ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => any)
+        | undefined;
 
-        /**  The movableRowsReceiver option should be set on the receiving tables, and sets the action that should be taken when the row is dropped into the table.
-      There are several inbuilt receiver functions:
+        /** The movableRowsReceiver option should be set on the receiving tables, and sets the action that should be taken when the row is dropped into the table.
+            There are several inbuilt receiver functions:
 
-      insert - inserts row next to the row it was dropped on, if not dropped on a row it is added to the table (default)
-      add - adds row to the table
-      update - updates the row it is dropped on with the sent rows data
-      replace - replaces the row it is dropped on with the sent row*/
+            insert - inserts row next to the row it was dropped on, if not dropped on a row it is added to the table (default)
+            add - adds row to the table
+            update - updates the row it is dropped on with the sent rows data
+            replace - replaces the row it is dropped on with the sent row
+        */
         movableRowsReceiver?:
-            | 'insert'
-            | 'add'
-            | 'update'
-            | 'replace'
-            | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any)
-            | undefined;
+        | 'insert'
+        | 'add'
+        | 'update'
+        | 'replace'
+        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any)
+        | undefined;
 
         movableRowsConnectedElements?: string | HTMLElement | undefined;
 
@@ -496,17 +498,17 @@ declare namespace Tabulator {
 
         /** * The default ScrollTo position can be set using the scrollToRowPosition option. It can take one of four possible values:
 
-        top - position row with its top edge at the top of the table (default)
-        center - position row with its top edge in the center of the table
-        bottom - position row with its bottom edge at the bottom of the table
-        nearest - position row on the edge of the table it is closest to
-     */
+            top - position row with its top edge at the top of the table (default)
+            center - position row with its top edge in the center of the table
+            bottom - position row with its bottom edge at the bottom of the table
+            nearest - position row on the edge of the table it is closest to
+        */
         scrollToRowPosition?: ScrollToRowPostition | undefined;
 
         /** The default option for triggering a ScrollTo on a visible element can be set using the scrollToRowIfVisible option. It can take a boolean value:
 
-      true - scroll to row, even if it is visible (default)
-      false - scroll to row, unless it is currently visible, then don't move */
+        true - scroll to row, even if it is visible (default)
+        false - scroll to row, unless it is currently visible, then don't move */
         scrollToRowIfVisible?: boolean | undefined;
 
         /** The dataTreeRowExpanded callback is triggered when a row with child rows is expanded to reveal the children. */
@@ -535,8 +537,8 @@ declare namespace Tabulator {
 
         /** The movableRowsReceivedFailed callback is triggered on a receiving table when a row receiver has returned false.*/
         movableRowsReceivedFailed?:
-            | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void)
-            | undefined;
+        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void)
+        | undefined;
 
         /** The movableRowsReceivingStop callback is triggered on a receiving table after a row has been dropped and any senders and receivers have been handled.*/
         movableRowsReceivingStop?: ((fromTable: Tabulator) => void) | undefined;
@@ -547,7 +549,7 @@ declare namespace Tabulator {
         rowDblClick?: RowEventCallback | undefined;
         /** The rowContext callback is triggered when a user right clicks on a row.
 
-    If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback. */
+        If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback. */
         rowContext?: RowEventCallback | undefined;
         /** The rowTap callback is triggered when a user taps on a row on a touch display. */
         rowTap?: RowEventCallback | undefined;
@@ -595,10 +597,10 @@ declare namespace Tabulator {
          */
         autoColumns?: boolean | undefined;
         autoColumnsDefinitions?:
-            | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
-            | ColumnDefinition[]
-            | Record<string, Partial<ColumnDefinition>>
-            | undefined;
+        | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
+        | ColumnDefinition[]
+        | Record<string, Partial<ColumnDefinition>>
+        | undefined;
 
         /** By default Tabulator will use the fitData layout mode, which will resize the tables columns to fit the data held in each column, unless you specify a width or minWidth in the column constructor. If the width of all columns exceeds the width of the containing element, a scroll bar will appear. */
         layout?: 'fitData' | 'fitColumns' | 'fitDataFill' | 'fitDataStretch' | 'fitDataTable' | undefined;
@@ -841,7 +843,7 @@ declare namespace Tabulator {
 
     type DownloadType = 'csv' | 'json' | 'xlsx' | 'pdf' | 'html';
 
-    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML {}
+    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML { }
 
     interface DownloadCSV {
         /** By default CSV files are created using a comma (,) delimiter. If you need to change this for any reason the you can pass the options object with a delimiter property to the download function which will then use this delimiter instead of the comma. */
@@ -927,9 +929,9 @@ declare namespace Tabulator {
         printFormatter?: ((tableHolderElement: any, tableElement: any) => any) | undefined;
 
         groupHeaderDownload?:
-            | ((value: any, count: number, data: any, group: GroupComponent) => string)
-            | Array<(value: any, count: number, data: any) => string>
-            | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
     }
 
     type StandardStringParam = string | HTMLElement | (() => string | HTMLElement);
@@ -1005,11 +1007,11 @@ declare namespace Tabulator {
         /** an integer to determine when the column should be hidden in responsive mode */
         responsive?: number | undefined;
         /** sets the on hover tooltip for each cell in this column * * The tooltip parameter can take three different types of value
-        boolean - a value of false disables the tooltip, a value of true sets the tooltip of the cell to its value
-        string - a string that will be displayed for all cells in the matching column/table.
-        function - a callback function that returns the string for the cell
-        * Note: setting a tooltip value on a column will override the global setting.
-    */
+            boolean - a value of false disables the tooltip, a value of true sets the tooltip of the cell to its value
+            string - a string that will be displayed for all cells in the matching column/table.
+            function - a callback function that returns the string for the cell
+            * Note: setting a tooltip value on a column will override the global setting.
+        */
         tooltip?: string | GlobalTooltipOption | undefined;
         /** sets css classes on header and cells in this column. (value should be a string containing space separated class names) */
         cssClass?: string | undefined;
@@ -1019,31 +1021,31 @@ declare namespace Tabulator {
         hideInHtml?: boolean | undefined;
 
         // Data Manipulation
-        /**  By default Tabulator will attempt to guess which sorter should be applied to a column based on the data contained in the first row. It can determine sorters for strings, numbers, alphanumeric sequences and booleans, anything else will be treated as a string.
+        /** By default Tabulator will attempt to guess which sorter should be applied to a column based on the data contained in the first row. It can determine sorters for strings, numbers, alphanumeric sequences and booleans, anything else will be treated as a string.
+            To specify a sorter to be used on a column use the sorter property in the columns definition object
 
-To specify a sorter to be used on a column use the sorter property in the columns definition object
-
-You can pass an optional additional property with sorter, sorterParams that should contain an object with additional information for configuring the sorter*/
+            You can pass an optional additional property with sorter, sorterParams that should contain an object with additional information for configuring the sorter
+        */
         sorter?:
-            | 'string'
-            | 'number'
-            | 'alphanum'
-            | 'boolean'
-            | 'exists'
-            | 'date'
-            | 'time'
-            | 'datetime'
-            | 'array'
-            | ((
-                  a: any,
-                  b: any,
-                  aRow: RowComponent,
-                  bRow: RowComponent,
-                  column: ColumnComponent,
-                  dir: SortDirection,
-                  sorterParams: {},
-              ) => number)
-            | undefined;
+        | 'string'
+        | 'number'
+        | 'alphanum'
+        | 'boolean'
+        | 'exists'
+        | 'date'
+        | 'time'
+        | 'datetime'
+        | 'array'
+        | ((
+            a: any,
+            b: any,
+            aRow: RowComponent,
+            bRow: RowComponent,
+            column: ColumnComponent,
+            dir: SortDirection,
+            sorterParams: {},
+        ) => number)
+        | undefined;
         /** If you want to dynamically generate the sorterParams at the time the sort is called you can pass a function into the property that should return the params object. */
         sorterParams?: ColumnDefinitionSorterParams | ColumnSorterParamLookupFunction | undefined;
         /**  set how you would like the data to be formatted*/
@@ -1056,9 +1058,10 @@ You can pass an optional additional property with sorter, sorterParams that shou
         editable?: boolean | ((cell: CellComponent) => boolean) | undefined;
         /** When a user clicks on an editable column the will be able to edit the value for that cell.
 
-    By default Tabulator will use an editor that matches the current formatter for that cell. if you wish to specify a specific editor, you can set them per column using the editor option in the column definition. Passing a value of true to this option will result in Tabulator applying the editor that best matches the columns formatter, if present.
+            By default Tabulator will use an editor that matches the current formatter for that cell. if you wish to specify a specific editor, you can set them per column using the editor option in the column definition. Passing a value of true to this option will result in Tabulator applying the editor that best matches the columns formatter, if present.
 
-    You can pass an optional additional parameter with the editor, editorParams that should contain an object with additional information for configuring the editor. */
+            You can pass an optional additional parameter with the editor, editorParams that should contain an object with additional information for configuring the editor.
+        */
         editor?: Editor | undefined;
         /** additional parameters you can pass to the editor   */
         editorParams?: EditorParams | undefined;
@@ -1185,9 +1188,9 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
     If you want to specify the type of filter used you can pass it to the headerFilterFunc option in the column definition object. This will take any of the standard filters outlined above or a custom function*/
         headerFilterFunc?:
-            | FilterType
-            | ((headerValue: any, rowValue: any, rowdata: any, filterparams: any) => boolean)
-            | undefined;
+        | FilterType
+        | ((headerValue: any, rowValue: any, rowdata: any, filterparams: any) => boolean)
+        | undefined;
         /**  additional parameters object passed to the headerFilterFunc function  */
         headerFilterFuncParams?: any;
 
@@ -1303,12 +1306,12 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type CustomAccessorParams =
         | {}
         | ((
-              value: any,
-              data: any,
-              type: 'data' | 'download' | 'clipboard',
-              column?: ColumnComponent,
-              row?: RowComponent,
-          ) => any);
+            value: any,
+            data: any,
+            type: 'data' | 'download' | 'clipboard',
+            column?: ColumnComponent,
+            row?: RowComponent,
+        ) => any);
     type ColumnCalc =
         | 'avg'
         | 'max'
@@ -1365,12 +1368,12 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | 'select'
         | 'autocomplete'
         | ((
-              cell: CellComponent,
-              onRendered: EmptyCallback,
-              success: ValueBooleanCallback,
-              cancel: ValueVoidCallback,
-              editorParams: {},
-          ) => HTMLElement | false);
+            cell: CellComponent,
+            onRendered: EmptyCallback,
+            success: ValueBooleanCallback,
+            cancel: ValueVoidCallback,
+            editorParams: {},
+        ) => HTMLElement | false);
 
     type EditorParams =
         | NumberParams
@@ -1846,98 +1849,99 @@ You can pass an optional additional property with sorter, sorterParams that shou
     }
 }
 
-type EventCallBackMethods =
-    | 'validationFailed'
-    | 'scrollHorizontal'
-    | 'scrollVertical'
-    | 'rowAdded'
-    | 'rowDeleted'
-    | 'rowMoved'
-    | 'rowUpdated'
-    | 'rowSelectionChanged'
-    | 'rowSelected'
-    | 'rowDeselected'
-    | 'rowResized'
-    | 'rowClick'
-    | 'rowDblClick'
-    | 'rowContext'
-    | 'rowTap'
-    | 'rowDblTap'
-    | 'rowTapHold'
-    | 'rowMouseEnter'
-    | 'rowMouseLeave'
-    | 'rowMouseOver'
-    | 'rowMouseOut'
-    | 'rowMouseMove'
-    | 'htmlImporting'
-    | 'htmlImported'
-    | 'ajaxError'
-    | 'clipboardCopied'
-    | 'clipboardPasted'
-    | 'clipboardPasteError'
-    | 'downloadComplete'
-    | 'dataTreeRowExpanded'
-    | 'dataTreeRowCollapsed'
-    | 'pageLoaded'
-    | 'headerClick'
-    | 'headerDblClick'
-    | 'headerContext'
-    | 'headerTap'
-    | 'headerDblTap'
-    | 'headerTapHold'
-    | 'groupClick'
-    | 'groupDblClick'
-    | 'groupContext'
-    | 'groupTap'
-    | 'groupDblTap'
-    | 'groupTapHold'
-    | 'tableBuilding'
-    | 'tableBuilt'
-    | 'dataLoading'
-    | 'dataLoaded'
-    | 'dataChanged'
-    | 'dataFiltering'
-    | 'dataFiltered'
-    | 'dataSorting'
-    | 'dataSorted'
-    | 'movableRowsSendingStart'
-    | 'movableRowsSent'
-    | 'movableRowsSentFailed'
-    | 'movableRowsSendingStop'
-    | 'movableRowsReceivingStart'
-    | 'movableRowsReceived'
-    | 'movableRowsReceivedFailed'
-    | 'movableRowsReceivingStop'
-    | 'movableRowsElementDrop'
-    | 'dataGrouping'
-    | 'dataGrouped'
-    | 'groupVisibilityChanged'
-    | 'localized'
-    | 'renderStarted'
-    | 'renderComplete'
-    | 'columnMoved'
-    | 'columnResized'
-    | 'columnTitleChanged'
-    | 'columnVisibilityChanged'
-    | 'historyUndo'
-    | 'historyRedo'
-    | 'cellEditing'
-    | 'cellEdited'
-    | 'cellEditCancelled'
-    | 'cellClick'
-    | 'cellDblClick'
-    | 'cellContext'
-    | 'cellTap'
-    | 'cellDblTap'
-    | 'cellTapHold'
-    | 'cellMouseEnter'
-    | 'cellMouseLeave'
-    | 'cellMouseOver'
-    | 'cellMouseOut'
-    | 'cellMouseMove'
-    | 'dataLoadError'
-    | 'dataProcessing'
-    | 'dataProcessed';
+interface EventCallBackMethods {
+    "validationFailed": (cell: Tabulator.CellComponent, value: any, validators: Tabulator.Validator[]) => void;
+    "scrollHorizontal": (left: number) => void;
+    "scrollVertical": (top: number) => void;
+    "rowAdded": (row: Tabulator.RowComponent) => void;
+    "rowDeleted": (row: Tabulator.RowComponent) => void;
+    "rowMoved": (row: Tabulator.RowComponent) => void;
+    "rowUpdated": (row: Tabulator.RowComponent) => void;
+    "rowSelectionChanged": () => void;
+    "rowSelected": (row: Tabulator.RowComponent) => void;
+    "rowDeselected": (row: Tabulator.RowComponent) => void;
+    "rowResized": (row: Tabulator.RowComponent) => void;
+    "rowClick": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowDblClick": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowContext": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowTap": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowDblTap": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowTapHold": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowMouseEnter": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowMouseLeave": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowMouseOver": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowMouseOut": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "rowMouseMove": (event: UIEvent, row: Tabulator.RowComponent) => void;
+    "htmlImporting": () => void;
+    "htmlImported": () => void;
+    "ajaxError": () => void;
+    "clipboardCopied": (clipboard: string) => void;
+    "clipboardPasted": (clipboard: string, rowData: any[], rows: Tabulator.RowComponent[]) => void;
+    "clipboardPasteError": (clipboard: string) => void;
+    "downloadComplete": () => void;
+    "dataTreeRowExpanded": (row: Tabulator.RowComponent, level: number) => void;
+    "dataTreeRowCollapsed": (row: Tabulator.RowComponent, level: number) => void;
+    "pageLoaded": (pageNo: number) => void;
+    "headerClick": (event: UIEvent, column: Tabulator.ColumnComponent) => void;
+    "headerDblClick": (event: UIEvent, column: Tabulator.ColumnComponent) => void;
+    "headerContext": (event: UIEvent, column: Tabulator.ColumnComponent) => void;
+    "headerTap": (event: UIEvent, column: Tabulator.ColumnComponent) => void;
+    "headerDblTap": (event: UIEvent, column: Tabulator.ColumnComponent) => void;
+    "headerTapHold": (event: UIEvent, column: Tabulator.ColumnComponent) => void;
+    "groupClick": (event: UIEvent, group: Tabulator.GroupComponent) => void;
+    "groupDblClick": (event: UIEvent, group: Tabulator.GroupComponent) => void;
+    "groupContext": (event: UIEvent, group: Tabulator.GroupComponent) => void;
+    "groupTap": (event: UIEvent, group: Tabulator.GroupComponent) => void;
+    "groupDblTap": (event: UIEvent, group: Tabulator.GroupComponent) => void;
+    "groupTapHold": (event: UIEvent, group: Tabulator.GroupComponent) => void;
+    "tableBuilding": () => void;
+    "tableBuilt": () => void;
+    "dataLoading": (data: any[]) => void;
+    "dataLoaded": (data: any[]) => void;
+    "dataChanged": (data: any[]) => void;
+    "dataFiltering": (filters: Tabulator.Filter[]) => void;
+    "dataFiltered": (filters: Tabulator.Filter[], rows: Tabulator.RowComponent[]) => void;
+    "dataSorting": (sorters: Tabulator.Sorter) => void;
+    "dataSorted": (sorters: Tabulator.Sorter, rows: Tabulator.RowComponent[]) => void;
+    "movableRowsSendingStart": (toTables: Tabulator[]) => void;
+    "movableRowsSent": (fromRow: Tabulator.RowComponent, toRow: Tabulator.RowComponent, toTable: Tabulator) => void;
+    "movableRowsSentFailed": (fromRow: Tabulator.RowComponent, toRow: Tabulator.RowComponent, toTable: Tabulator) => void;
+    "movableRowsSendingStop": (toTables: Tabulator[]) => void;
+    "movableRowsReceivingStart": (fromRow: Tabulator.RowComponent, fromTable: Tabulator) => void;
+    "movableRowsReceived": (fromRow: Tabulator.RowComponent, toRow: Tabulator.RowComponent, fromTable: Tabulator) => void;
+    "movableRowsReceivedFailed": (fromRow: Tabulator.RowComponent, toRow: Tabulator.RowComponent, fromTable: Tabulator) => void;
+    "movableRowsReceivingStop": (fromTable: Tabulator) => void;
+    "movableRowsElementDrop": (event: UIEvent, element: Element, row: Tabulator.RowComponent) => void;
+    "dataGrouping": () => void;
+    "dataGrouped": (groups: Tabulator.GroupComponent[]) => void;
+    "groupVisibilityChanged": (group: Tabulator.GroupComponent, visible: boolean) => void;
+    "localized": (locale: string, lang: any) => void;
+    "renderStarted": () => void;
+    "renderComplete": () => void;
+    "columnMoved": (column: Tabulator.ColumnComponent, columns: Tabulator.ColumnComponent[]) => void;
+    "columnResized": (column: Tabulator.ColumnComponent) => void;
+    "columnTitleChanged": (column: Tabulator.ColumnComponent) => void;
+    "columnVisibilityChanged": (column: Tabulator.ColumnComponent, visible: boolean) => void;
+    "historyUndo": (action: Tabulator.HistoryAction, component: any, data: any[]) => void;
+    "historyRedo": (action: Tabulator.HistoryAction, component: any, data: any[]) => void;
+    "cellEditing": (cell: Tabulator.CellComponent) => void;
+    "cellEdited": (cell: Tabulator.CellComponent) => void;
+    "cellEditCancelled": (cell: Tabulator.CellComponent) => void;
+    "cellClick": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellDblClick": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellContext": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellTap": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellDblTap": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellTapHold": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellMouseEnter": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellMouseLeave": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellMouseOver": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellMouseOut": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "cellMouseMove": (event: UIEvent, cell: Tabulator.CellComponent) => void;
+    "dataLoadError": (error: Error) => void;
+    "dataProcessing": () => void;
+    "dataProcessed": () => void;
+}
 
 // Tabulator.prototype.(?!registerModule|helpers|_)\w+
 declare class Tabulator {
@@ -2382,15 +2386,57 @@ declare class Tabulator {
     /**The clearHistory function can be used to clear out the current table interaction history. */
     clearHistory: () => void;
 
-    on: (event: EventCallBackMethods, callback?: () => any) => void;
-    off: (event: EventCallBackMethods, callback?: () => any) => void;
+    on: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
+    off: <K extends keyof EventCallBackMethods>(event: K, callback?: () => any) => void;
 }
 
-declare class Renderer {}
 declare class Module {
     static moduleName: string;
 
     constructor(table: Tabulator);
 }
 
-export { Tabulator, Renderer, Module };
+declare class AccessorModule { }
+declare class AjaxModule { }
+declare class ClipboardModule { }
+declare class ColumnCalcsModule { }
+declare class DataTreeModule { }
+declare class DownloadModule { }
+declare class EditModule { }
+declare class ExportModule { }
+declare class FilterModule { }
+declare class FormatModule { }
+declare class FrozenColumnsModule { }
+declare class FrozenRowsModule { }
+declare class GroupRowsModule { }
+declare class HistoryModule { }
+declare class HtmlTableImportModule { }
+declare class InteractionModule { }
+declare class KeybindingsModule { }
+declare class MenuModule { }
+declare class MoveColumnsModule { }
+declare class MoveRowsModule { }
+declare class MutatorModule { }
+declare class PageModule { }
+declare class PersistenceModule { }
+declare class PrintModule { }
+declare class PseudoRow { }
+declare class ReactiveDataModule { }
+declare class Renderer { }
+declare class ResizeColumnsModule { }
+declare class ResizeRowsModule { }
+declare class ResizeTableModule { }
+declare class ResponsiveLayoutModule { }
+declare class SelectRowModule { }
+declare class SortModule { }
+declare class TabulatorFull { }
+declare class ValidateModule { }
+
+export {
+    AccessorModule, AjaxModule, ClipboardModule, ColumnCalcsModule, DataTreeModule, DownloadModule, EditModule,
+    ExportModule, FilterModule, FormatModule, FrozenColumnsModule,
+    FrozenRowsModule, GroupRowsModule, HistoryModule, HtmlTableImportModule, InteractionModule,
+    KeybindingsModule, MenuModule, MoveColumnsModule, MoveRowsModule, MutatorModule, PageModule,
+    PersistenceModule, PrintModule, PseudoRow, ReactiveDataModule, Renderer, ResizeColumnsModule, ResizeRowsModule,
+    ResizeTableModule, ResponsiveLayoutModule, SelectRowModule, SortModule, Tabulator, TabulatorFull, ValidateModule
+};

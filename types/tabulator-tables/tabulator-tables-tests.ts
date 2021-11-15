@@ -1,4 +1,4 @@
-import { Tabulator, Renderer, Module } from 'tabulator-tables';
+import { Tabulator, Renderer, Module, TreeDataModule } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -323,7 +323,7 @@ let validators: Tabulator.Validator[] = [
     },
 ];
 
-colDef.headerFilterFunc = '!=';
+colDef.searchFunc = '!=';
 colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
 };
@@ -1029,4 +1029,4 @@ class CustomModule extends Module {
 }
 
 CustomModule.moduleName = 'custom';
-Tabulator.registerModule(CustomModule);
+Tabulator.registerModule([CustomModule, DataTreeModule]);
