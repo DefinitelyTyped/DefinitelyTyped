@@ -2191,6 +2191,7 @@ declare namespace webpack {
             constructor(options?: UglifyJsPlugin.Options);
         }
 
+        /** @deprecated use config.optimization.minimize instead */
         namespace UglifyJsPlugin {
             type CommentFilter = (astNode: any, comment: any) => boolean;
 
