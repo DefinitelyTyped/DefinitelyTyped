@@ -1,6 +1,7 @@
 // Type definitions for leaflet-fullscreen 1.0
 // Project: https://github.com/Leaflet/Leaflet.fullscreen
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+//                 Brian Jubelirer <https://github.com/bjubes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
