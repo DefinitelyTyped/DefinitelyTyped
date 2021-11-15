@@ -23,11 +23,11 @@ declare namespace ttf2woff2 {
     /**
      * Callback function handling the buffered content
      */
-    type FileTransformCallback = <TReturnType, TErrorType>(
-        err: TErrorType | null,
+    type FileTransformCallback = <TResult, TError>(
+        err: TError | null,
         buf: Buffer | undefined,
-        cb: (err: PluginError<TErrorType> | PluginError<Error> | null, buf: Buffer | undefined) => TReturnType,
-    ) => TReturnType;
+        cb: (err: PluginError<TError> | PluginError<Error> | null, buf: Buffer | undefined) => TResult,
+    ) => TResult;
 
     /**
      * File level transform function (for use by other plugins)
