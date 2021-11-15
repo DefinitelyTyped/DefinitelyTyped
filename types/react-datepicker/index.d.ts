@@ -10,7 +10,6 @@
 //                 Roman Nuritdinov <https://github.com/Ky6uk>
 //                 Avi Klaiman <https://github.com/aviklai>
 //                 Naoki Sekiguchi <https://github.com/seckie>
-//                 tu4mo <https://github.com/tu4mo>
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 //                 Pirasis Leelatanon <https://github.com/1pete>
