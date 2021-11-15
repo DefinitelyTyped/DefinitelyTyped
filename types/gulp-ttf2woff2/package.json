@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "definitely-typed": "file:../..",
         "plugin-error": "^1.0.1"
     }
 }
