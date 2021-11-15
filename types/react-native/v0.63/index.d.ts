@@ -1426,6 +1426,8 @@ export interface TextInputSelectionChangeEventData extends TargetedEvent {
  * @see TextInputProps.onKeyPress
  */
 export interface TextInputKeyPressEventData {
+    target: number;
+    eventCount: number;
     key: string;
 }
 
