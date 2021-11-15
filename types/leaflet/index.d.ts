@@ -1101,6 +1101,7 @@ export class Renderer extends Layer {
 export class SVG extends Renderer {}
 
 export namespace SVG {
+    function create<K extends keyof SVGElementTagNameMap>(name: K): SVGElementTagNameMap[K];
     function create(name: string): SVGElement;
 
     function pointsToPath(rings: PointExpression[], close: boolean): string;
