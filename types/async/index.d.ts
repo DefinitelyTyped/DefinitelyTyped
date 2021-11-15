@@ -9,6 +9,7 @@
 //                 Etienne Rossignon <https://github.com/erossignon>
 //                 Lifeng Zhu <https://github.com/Juliiii>
 //                 Tümay Çeber <https://github.com/brendtumi>
+//                 Andrew Pensinger <https://github.com/apnsngr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -316,14 +317,44 @@ export function parallel<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Di
 export function parallelLimit<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultArrayCallback<T, E>): void;
 export function parallelLimit<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultObjectCallback<T, E>): void;
 export function parallelLimit<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>, limit: number): Promise<R>;
-export function whilst<E = Error>(test: (cb: (err: any, truth: boolean) => boolean) => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-export function whilst<R, E = Error>(test: (cb: (err: any, truth: boolean) => boolean) => boolean, fn: AsyncVoidFunction<E>): Promise<R>;
-export function doWhilst<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
-export function doWhilst<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean): Promise<R>;
-export function until<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-export function until<R, E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>): Promise<R>;
-export function doUntil<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
-export function doUntil<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean): Promise<R>;
+
+export function whilst<T, E = Error>(
+    test: (cb: AsyncBooleanResultCallback) => void,
+    fn: AsyncFunctionEx<T, E>,
+    callback: AsyncFunctionEx<T, E>
+): void;
+export function whilst<T, R, E = Error>(
+    test: (cb: AsyncBooleanResultCallback) => void,
+    fn: AsyncFunctionEx<T, E>
+): Promise<R>;
+export function doWhilst<T, E = Error>(
+    fn: AsyncFunctionEx<T, E>,
+    test: (/* ...results: T[], */ cb: AsyncBooleanResultCallback) => void,
+    callback: AsyncFunctionEx<T, E>
+): void;
+export function doWhilst<T, R, E = Error>(
+    fn: AsyncFunctionEx<T, E>,
+    test: (/* ...results: T[], */ cb: AsyncBooleanResultCallback) => void
+): Promise<R>;
+export function until<T, E = Error>(
+    test: (cb: AsyncBooleanResultCallback) => void,
+    fn: AsyncFunctionEx<T, E>,
+    callback: AsyncFunctionEx<T, E>
+): void;
+export function until<T, R, E = Error>(
+    test: (cb: AsyncBooleanResultCallback) => void,
+    fn: AsyncFunctionEx<T, E>
+): Promise<R>;
+export function doUntil<T, E = Error>(
+    fn: AsyncFunctionEx<T, E>,
+    test: (/* ...results: T[], */ cb: AsyncBooleanResultCallback) => void,
+    callback: AsyncFunctionEx<T, E>
+): void;
+export function doUntil<T, R, E = Error>(
+    fn: AsyncFunctionEx<T, E>,
+    test: (/* ...results: T[], */ cb: AsyncBooleanResultCallback) => void
+): Promise<R>;
+
 export function during<E = Error>(test: (testCallback: AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function doDuring<E = Error>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
 export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
