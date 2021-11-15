@@ -2387,7 +2387,7 @@ declare class Tabulator {
     clearHistory: () => void;
 
     on: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
-    off: <K extends keyof EventCallBackMethods>(event: K, callback?: () => any) => void;
+    off: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
 }
 
 declare class Module {
@@ -2433,7 +2433,7 @@ declare class TabulatorFull { }
 declare class ValidateModule { }
 
 export {
-    AccessorModule, AjaxModule, ClipboardModule, ColumnCalcsModule, DataTreeModule, DownloadModule, EditModule,
+    Module, AccessorModule, AjaxModule, ClipboardModule, ColumnCalcsModule, DataTreeModule, DownloadModule, EditModule,
     ExportModule, FilterModule, FormatModule, FrozenColumnsModule,
     FrozenRowsModule, GroupRowsModule, HistoryModule, HtmlTableImportModule, InteractionModule,
     KeybindingsModule, MenuModule, MoveColumnsModule, MoveRowsModule, MutatorModule, PageModule,
