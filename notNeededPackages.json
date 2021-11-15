@@ -380,6 +380,10 @@
             "libraryName": "@braintree/sanitize-url",
             "asOfVersion": "4.1.0"
         },
+        "bree": {
+            "libraryName": "bree",
+            "asOfVersion": "7.1.0"
+        },
         "broccoli-plugin": {
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
