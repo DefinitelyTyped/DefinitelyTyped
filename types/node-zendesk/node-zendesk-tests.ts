@@ -19,6 +19,10 @@ client.jobstatuses.watch(123, 2, 3).then(zendeskCallback);
 client.macros.applyTicket(123, 123, zendeskCallback);
 client.macros.applyTicket(123, 123).then(zendeskCallback);
 
+/** Organizations Methods */
+client.organizations.list(zendeskCallback);
+client.organizations.list().then(zendeskCallback);
+
 /** Requests Methods */
 client.requests.list(zendeskCallback);
 client.requests.list().then(zendeskCallback);

@@ -35,7 +35,7 @@ export interface Client {
     oauthtokens: unknown;
     organizationfields: unknown;
     organizationmemberships: unknown;
-    organizations: unknown;
+    organizations: Organizations.Methods;
     policies: unknown;
     requests: Requests.Methods;
     satisfactionratings: unknown;
@@ -200,6 +200,12 @@ export namespace Macros {
  * @see {@link https://developer.zendesk.com/rest_api/docs/support/organizations|Zendesk Organizations}
  */
 export namespace Organizations {
+    interface Methods {
+        /** Listing Requests */
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        list(): Promise<ListPayload>;
+    }
+
     interface Model extends AuditableModel {
         readonly url?: string | undefined;
         external_id?: string | null | undefined;
@@ -212,6 +218,10 @@ export namespace Organizations {
         shared_comments?: boolean | undefined;
         tags?: ReadonlyArray<string> | undefined;
         organization_fields?: object | null | undefined;
+    }
+
+    interface ListPayload extends PaginablePayload {
+        readonly organizations: ReadonlyArray<Model>;
     }
 }
 
