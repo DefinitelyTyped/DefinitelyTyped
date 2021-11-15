@@ -36,6 +36,22 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
+export interface ReactDatePickerCustomHeaderProps {
+    monthDate: Date;
+    date: Date;
+    changeYear(year: number): void;
+    changeMonth(month: number): void;
+    customHeaderCount: number;
+    decreaseMonth(): void;
+    increaseMonth(): void;
+    prevMonthButtonDisabled: boolean;
+    nextMonthButtonDisabled: boolean;
+    decreaseYear(): void;
+    increaseYear(): void;
+    prevYearButtonDisabled: boolean;
+    nextYearButtonDisabled: boolean;
+}
+
 export interface ReactDatePickerProps<CustomModifierNames extends string = never> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
@@ -134,21 +150,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     previousYearAriaLabel?: string | undefined;
     previousYearButtonLabel?: string | undefined;
     readOnly?: boolean | undefined;
-    renderCustomHeader?(params: {
-        monthDate: Date;
-        date: Date;
-        changeYear(year: number): void;
-        changeMonth(month: number): void;
-        customHeaderCount: number;
-        decreaseMonth(): void;
-        increaseMonth(): void;
-        prevMonthButtonDisabled: boolean;
-        nextMonthButtonDisabled: boolean;
-        decreaseYear(): void;
-        increaseYear(): void;
-        prevYearButtonDisabled: boolean;
-        nextYearButtonDisabled: boolean;
-    }): React.ReactNode;
+    renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
     required?: boolean | undefined;
     scrollableMonthYearDropdown?: boolean | undefined;
