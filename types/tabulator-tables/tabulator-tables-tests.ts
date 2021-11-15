@@ -1,4 +1,4 @@
-import { Tabulator, Renderer, Module, TreeDataModule } from 'tabulator-tables';
+import { Tabulator, Renderer, Module, DataTreeModule } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
