@@ -1,4 +1,4 @@
-import { Attachments, Client, createClient, ZendeskCallback, ZendeskID } from "node-zendesk";
+import { Attachments, Client, createClient } from "node-zendesk";
 import * as path from "path";
 
 const client: Client = createClient({
