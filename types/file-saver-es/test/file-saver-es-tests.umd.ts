@@ -1,40 +1,38 @@
-import { FileSaverOptions } from "file-saver";
-
 /**
  * @summary Test for "saveAs" function.
  */
 function testSaveAs() {
-    const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+    const data: Blob = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
     const filename = 'hello world.txt';
-    const options: FileSaverOptions = {
-        autoBom: false
+    const options: saveAs.FileSaverOptions = {
+        autoBom: false,
     };
 
-    saveAs(data, filename, options);
+    saveAs.saveAs(data, filename, options);
 }
 
 /**
  * @summary Test for deprecated "saveAs" function.
  */
 function testDeprecatedSaveAs() {
-    const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+    const data: Blob = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
     const filename = 'hello world.txt';
     const disableAutoBOM = true;
 
-    saveAs(data, filename, disableAutoBOM);
+    saveAs.saveAs(data, filename, disableAutoBOM);
 }
 
 /**
  * @summary Test for "saveAs" function on the window object.
  */
 function testWindowSaveAs() {
-    const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+    const data: Blob = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
     const filename = 'hello world.txt';
-    const options: FileSaverOptions = {
-        autoBom: false
+    const options: saveAs.FileSaverOptions = {
+        autoBom: false,
     };
 
-    window.saveAs(data, filename, options);
+    window.saveAs.saveAs(data, filename, options);
 }
 
 /**
@@ -43,26 +41,26 @@ function testWindowSaveAs() {
 function testUrlSaveAs() {
     const url = 'https://example.com/test.txt';
     const filename = 'hello world.txt';
-    const options: FileSaverOptions = {
-        autoBom: false
+    const options: saveAs.FileSaverOptions = {
+        autoBom: false,
     };
 
-    window.saveAs(url, filename, options);
+    window.saveAs.saveAs(url, filename, options);
 }
 
 /**
  * @summary Test for "saveAs" function with the 3rd parameter omitted
  */
 function testOptionalOneParamSaveAs() {
-    const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+    const data: Blob = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
     const filename = 'hello world.txt';
-    saveAs(data, filename);
+    saveAs.saveAs(data, filename);
 }
 
 /**
  * @summary Test for "saveAs" function with the 2nd and 3rd parameters omitted
  */
 function testOptionalTwoParamsSaveAs() {
-    const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-    saveAs(data);
+    const data: Blob = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
+    saveAs.saveAs(data);
 }

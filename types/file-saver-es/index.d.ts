@@ -1,4 +1,4 @@
-// Type definitions for FileSaver.js 2.0
+// Type definitions for file-saver-es 2.0
 // Project: https://github.com/eligrey/FileSaver.js/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Daniel Roth <https://github.com/DaIgeb>
@@ -8,8 +8,6 @@
 //                 BendingBender <https://github.com/bendingbender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = FileSaver;
-
 export as namespace saveAs;
 
 /**
@@ -18,7 +16,7 @@ export as namespace saveAs;
  * @param filename - The optional name of the file to be downloaded. If omitted, the name used in the file data will be used. If none is provided "download" will be used.
  * @param options - Optional FileSaver.js config
  */
-declare function FileSaver(data: Blob | string, filename?: string, options?: FileSaver.FileSaverOptions): void;
+export function saveAs(data: Blob | string, filename?: string, options?: FileSaverOptions): void;
 
 /**
  * FileSaver.js implements the saveAs() FileSaver interface in browsers that do not natively support it.
@@ -28,16 +26,12 @@ declare function FileSaver(data: Blob | string, filename?: string, options?: Fil
  * @deprecated use `{ autoBom: false }` as the third argument
  */
 // tslint:disable-next-line:unified-signatures
-declare function FileSaver(data: Blob | string, filename?: string, disableAutoBOM?: boolean): void;
+export function saveAs(data: Blob | string, filename?: string, disableAutoBOM?: boolean): void;
 
-declare namespace FileSaver {
-    interface FileSaverOptions {
-        /**
-         * Automatically provide Unicode text encoding hints
-         * @default false
-         */
-        autoBom: boolean;
-    }
-
-    const saveAs: typeof FileSaver;
+export interface FileSaverOptions {
+    /**
+     * Automatically provide Unicode text encoding hints
+     * @default false
+     */
+    autoBom: boolean;
 }
