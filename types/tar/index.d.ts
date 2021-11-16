@@ -202,10 +202,13 @@ export const blockSize: number;
  * A writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
  */
 export interface Parse extends ParseStream {
-    new(opt?: { strict?: boolean, filter?: (path: string, entry: ReadEntry) => boolean, onentry?: (entry: ReadEntry) => void, onwarn?: (code: string, message: string, data: Buffer) => void }): this;
     on(event: 'end' | 'close', listener: () => void): this;
     on(event: 'entry', listener: (entry: ReadEntry) => void): this;
 }
+
+export const Parse: {
+    new(opt?: { strict?: boolean, filter?: (path: string, entry: ReadEntry) => boolean, onentry?: (entry: ReadEntry) => void, onwarn?: (code: string, message: string, data: Buffer) => void }): Parse;
+};
 
 //#endregion
 
