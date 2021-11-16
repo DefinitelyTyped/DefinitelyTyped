@@ -73,7 +73,7 @@ export type DayLayoutAlgorithm = 'overlap' | 'no-overlap';
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
     allDay?: boolean | undefined;
-    title?: string | undefined;
+    title?: ReactNode;
     start?: Date | undefined;
     end?: Date | undefined;
     resource?: any;
