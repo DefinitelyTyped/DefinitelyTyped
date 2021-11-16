@@ -54,7 +54,7 @@ export interface ASTField {
 }
 
 export interface LeftOnlyAST extends ASTField {
-    left: Node;
+    left: AST | Node;
     start?: Operator | undefined;
 }
 
