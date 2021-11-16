@@ -1,4 +1,4 @@
-import * as L from 'leaflet';
+import L = require('leaflet');
 
 const version = L.version;
 
