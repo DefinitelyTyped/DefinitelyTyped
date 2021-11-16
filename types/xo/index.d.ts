@@ -19,7 +19,7 @@ export const getErrorResults: typeof eslint.ESLint.getErrorResults;
  * or null if no formatter with the given name can be found.
  * see {@link https://github.com/eslint/eslint/blob/master/docs/developer-guide/nodejs-api.md#clienginegetformatter}
  */
-export const getFormatter: (format?: string) => (results: eslint.ESLint.LintResult[], data?: eslint.ESLint.LintResultData) => string;
+export function getFormatter(format?: string): (results: eslint.ESLint.LintResult[], data?: eslint.ESLint.LintResultData) => string;
 /**
  * Used to output fixes from report to disk.
  * It does by looking for files that have an output property in their results

@@ -153,8 +153,16 @@ export interface LintDefaultOptions {
 export type LintTextOptions = Exclude<Options, 'ignore' | 'cwd'> & LintDefaultOptions;
 
 export type LintFilesOptions = Exclude<Options, 'cwd' | 'filename'> & LintDefaultOptions;
+export interface LintReport {
+    results: eslint.ESLint.LintResult[];
+    errorCount: number;
+    warningCount: number;
+    fixableErrorCount: number;
+    fixableWarningCount: number;
+    usedDeprecatedRules: eslint.ESLint.DeprecatedRuleUse[];
+}
 
-export type LintCallback = (error: Error | null, results: eslint.CLIEngine.LintReport) => void;
+export type LintCallback = (error: Error | null, results: LintReport) => void;
 
 // exported from `standard-engine`
 
