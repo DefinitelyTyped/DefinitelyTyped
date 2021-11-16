@@ -189,6 +189,9 @@ declare namespace mapboxgl {
         deceleration?: number;
         maxSpeed?: number;
     };
+
+    type InteractiveOptions = { around?: 'center' };
+
     /**
      * Map
      */
@@ -792,7 +795,7 @@ declare namespace mapboxgl {
          * If `true`, the "scroll to zoom" interaction is enabled.
          * An `Object` value is passed as options to {@link ScrollZoomHandler#enable}.
          */
-        scrollZoom?: boolean | Object | undefined;
+        scrollZoom?: boolean | InteractiveOptions | undefined;
 
         /** stylesheet location */
         style?: mapboxgl.Style | string | undefined;
@@ -812,13 +815,13 @@ declare namespace mapboxgl {
          * If `true`, the "pinch to rotate and zoom" interaction is enabled.
          * An `Object` value is passed as options to {@link TouchZoomRotateHandler#enable}.
          */
-        touchZoomRotate?: boolean | Object | undefined;
+        touchZoomRotate?: boolean | InteractiveOptions | undefined;
 
         /**
          * If `true`, the "drag to pitch" interaction is enabled.
          * An `Object` value is passed as options to {@link TouchPitchHandler#enable}.
          */
-        touchPitch?: boolean | Object | undefined;
+        touchPitch?: boolean | InteractiveOptions | undefined;
 
         /** Initial zoom level */
         zoom?: number | undefined;
@@ -964,7 +967,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(options?: { around?: 'center' }): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -1067,7 +1070,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(options?: { around?: 'center' }): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -1079,7 +1082,7 @@ declare namespace mapboxgl {
     export class TouchPitchHandler {
         constructor(map: mapboxgl.Map);
 
-        enable(options?: { around?: 'center' }): void;
+        enable(options?: InteractiveOptions): void;
 
         isActive(): boolean;
 
