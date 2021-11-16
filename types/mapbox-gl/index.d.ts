@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 2.4
+// Type definitions for Mapbox GL JS 2.6
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -73,11 +73,7 @@ declare namespace mapboxgl {
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
-    type LngLatLike =
-        | [number, number]
-        | LngLat
-        | { lng: number; lat: number }
-        | { lon: number; lat: number };
+    type LngLatLike = [number, number] | LngLat | { lng: number; lat: number } | { lon: number; lat: number };
 
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
@@ -187,6 +183,12 @@ declare namespace mapboxgl {
         | 'bottom-left'
         | 'bottom-right';
 
+    type DragPanOptions = {
+        linearity?: number;
+        easing?: (t: number) => number;
+        deceleration?: number;
+        maxSpeed?: number;
+    };
     /**
      * Map
      */
@@ -292,7 +294,10 @@ declare namespace mapboxgl {
             } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
-        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined }): this;
+        setStyle(
+            style: mapboxgl.Style | string,
+            options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined },
+        ): this;
 
         getStyle(): mapboxgl.Style;
 
@@ -643,12 +648,22 @@ declare namespace mapboxgl {
         /** ID of the container element */
         container: string | HTMLElement;
 
+        /**
+         * If `true` , scroll zoom will require pressing the ctrl or ⌘ key while scrolling to zoom map,
+         * and touch pan will require using two fingers while panning to move the map.
+         * Touch pitch will require three fingers to activate if enabled.
+         */
+        cooperativeGestures?: boolean;
+
         /** String or strings to show in an AttributionControl.
          * Only applicable if options.attributionControl is `true`. */
         customAttribution?: string | string[] | undefined;
 
-        /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
-        dragPan?: boolean | undefined;
+        /**
+         * If `true`, the "drag to pan" interaction is enabled.
+         * An `Object` value is passed as options to {@link DragPanHandler#enable}.
+         */
+        dragPan?: boolean | DragPanOptions | undefined;
 
         /** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
         dragRotate?: boolean | undefined;
@@ -773,8 +788,11 @@ declare namespace mapboxgl {
          */
         renderWorldCopies?: boolean | undefined;
 
-        /** If true, enable the "scroll to zoom" interaction */
-        scrollZoom?: boolean | undefined;
+        /**
+         * If `true`, the "scroll to zoom" interaction is enabled.
+         * An `Object` value is passed as options to {@link ScrollZoomHandler#enable}.
+         */
+        scrollZoom?: boolean | Object | undefined;
 
         /** stylesheet location */
         style?: mapboxgl.Style | string | undefined;
@@ -790,11 +808,17 @@ declare namespace mapboxgl {
          */
         transformRequest?: TransformRequestFunction | undefined;
 
-        /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
-        touchZoomRotate?: boolean | undefined;
+        /**
+         * If `true`, the "pinch to rotate and zoom" interaction is enabled.
+         * An `Object` value is passed as options to {@link TouchZoomRotateHandler#enable}.
+         */
+        touchZoomRotate?: boolean | Object | undefined;
 
-        /** If true, the "drag to pitch" interaction is enabled */
-        touchPitch?: boolean | undefined;
+        /**
+         * If `true`, the "drag to pitch" interaction is enabled.
+         * An `Object` value is passed as options to {@link TouchPitchHandler#enable}.
+         */
+        touchPitch?: boolean | Object | undefined;
 
         /** Initial zoom level */
         zoom?: number | undefined;
@@ -818,7 +842,7 @@ declare namespace mapboxgl {
          * Allows for the usage of the map in automated tests without an accessToken with custom self-hosted test fixtures.
          *
          * @default null
-        */
+         */
         testMode?: boolean | undefined;
     }
 
@@ -940,7 +964,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: { around?: 'center' }): void;
 
         disable(): void;
 
@@ -959,7 +983,7 @@ declare namespace mapboxgl {
 
         isActive(): boolean;
 
-        enable(): void;
+        enable(options?: DragPanOptions): void;
 
         disable(): void;
     }
@@ -968,7 +992,10 @@ declare namespace mapboxgl {
      * DragRotateHandler
      */
     export class DragRotateHandler {
-        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined });
+        constructor(
+            map: mapboxgl.Map,
+            options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined },
+        );
 
         isEnabled(): boolean;
 
@@ -1040,7 +1067,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: { around?: 'center' }): void;
 
         disable(): void;
 
@@ -1052,7 +1079,7 @@ declare namespace mapboxgl {
     export class TouchPitchHandler {
         constructor(map: mapboxgl.Map);
 
-        enable(): void;
+        enable(options?: { around?: 'center' }): void;
 
         isActive(): boolean;
 
@@ -1082,7 +1109,11 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor(options?: { showCompass?: boolean | undefined; showZoom?: boolean | undefined; visualizePitch?: boolean | undefined });
+        constructor(options?: {
+            showCompass?: boolean | undefined;
+            showZoom?: boolean | undefined;
+            visualizePitch?: boolean | undefined;
+        });
     }
 
     export class PositionOptions {
@@ -2530,6 +2561,6 @@ declare namespace mapboxgl {
     }
 
     export type ElevationQueryOptions = {
-        exaggerated: boolean
+        exaggerated: boolean;
     };
 }
