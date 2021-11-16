@@ -14,6 +14,12 @@ const ImgixTest = () => (
             srcSet: 'data-srcset',
             sizes: 'data-sizes',
         }}
+        srcSetOptions={{
+            widths: [300, 500, 800, 1200],
+            minWidth: 100,
+            maxWidth: 2000,
+            widthTolerance: .2,
+        }}
         className="lazyload"
         htmlAttributes={{
             src: '...',
