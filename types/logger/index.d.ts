@@ -1,5 +1,5 @@
 // Type definitions for logger 0.0
-// Project: http://github.com/quirkey/node-logger
+// Project: https://github.com/quirkey/node-logger
 // Definitions by: Max Wan <https://github.com/maxwan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
