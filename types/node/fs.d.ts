@@ -2807,16 +2807,28 @@ declare module 'fs' {
      * * the file is renamed and then renamed a second time back to its original name
      * @since v0.1.31
      */
+    export interface WatchFileOptions {
+        bigint?: boolean | undefined;
+        persistent?: boolean | undefined;
+        interval?: number | undefined;
+    }
     export function watchFile(
         filename: PathLike,
         options:
-            | {
-                  bigint?: boolean | undefined;
-                  persistent?: boolean | undefined;
-                  interval?: number | undefined;
-              }
+            | (WatchFileOptions & {
+                  bigint?: false | undefined;
+              })
             | undefined,
         listener: (curr: Stats, prev: Stats) => void
+    ): StatWatcher;
+    export function watchFile(
+        filename: PathLike,
+        options:
+            | (WatchFileOptions & {
+                  bigint?: true;
+              })
+            | undefined,
+        listener: (curr: BigIntStats, prev: BigIntStats) => void
     ): StatWatcher;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
