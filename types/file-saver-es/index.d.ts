@@ -1,5 +1,5 @@
-// Type definitions for FileSaver.js 2.0
-// Project: https://github.com/eligrey/FileSaver.js/
+// Type definitions for file-saver-es 2.0
+// Project: https://github.com/wobkenh/FileSaver.js
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Chris Barr <https://github.com/chrismbarr>
@@ -7,8 +7,6 @@
 //                 JounQin <https://github.com/JounQin>
 //                 BendingBender <https://github.com/bendingbender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export = FileSaver;
 
 export as namespace saveAs;
 
@@ -18,7 +16,7 @@ export as namespace saveAs;
  * @param filename - The optional name of the file to be downloaded. If omitted, the name used in the file data will be used. If none is provided "download" will be used.
  * @param options - Optional FileSaver.js config
  */
-declare function FileSaver(data: Blob | string, filename?: string, options?: FileSaver.FileSaverOptions): void;
+export function saveAs(data: Blob | string, filename?: string, options?: FileSaverOptions): void;
 
 /**
  * FileSaver.js implements the saveAs() FileSaver interface in browsers that do not natively support it.
@@ -28,16 +26,22 @@ declare function FileSaver(data: Blob | string, filename?: string, options?: Fil
  * @deprecated use `{ autoBom: false }` as the third argument
  */
 // tslint:disable-next-line:unified-signatures
-declare function FileSaver(data: Blob | string, filename?: string, disableAutoBOM?: boolean): void;
+export function saveAs(data: Blob | string, filename?: string, disableAutoBOM?: boolean): void;
 
-declare namespace FileSaver {
-    interface FileSaverOptions {
-        /**
-         * Automatically provide Unicode text encoding hints
-         * @default false
-         */
-        autoBom: boolean;
+export interface FileSaverOptions {
+    /**
+     * Automatically provide Unicode text encoding hints
+     * @default false
+     */
+    autoBom: boolean;
+}
+
+declare global {
+    interface Window {
+        // This module doesn't expose a callable function directly via a CommonJS export so if only the declaration
+        // `export as namespace saveAs;` is used it would require users to use this module as `window.saveAs.saveAs(...)`.
+        // But the module actually still exposes the `saveAs` function directly on `Window` so the code below is needed
+        // to allow to ergonomically use this module as `window.saveAs(...)`.
+        saveAs: typeof saveAs;
     }
-
-    const saveAs: typeof FileSaver;
 }
