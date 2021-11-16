@@ -46,6 +46,10 @@ export type Operator = '<implicit>' | 'NOT' | 'OR' | 'AND' | 'AND NOT' | 'OR NOT
 
 export interface ASTField {
     field?: string;
+    fieldLocation?: null | {
+        end: TermLocation;
+        start: TermLocation;
+    };
     parenthesized?: boolean;
 }
 
