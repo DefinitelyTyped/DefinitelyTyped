@@ -267,8 +267,8 @@ export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad 
     [Symbol.iterator](): Iterator<OutQuad>;
 }
 export interface extractListOptions {
-    remove?:boolean,
-    ignoreErrors?: boolean
+    remove?: boolean;
+    ignoreErrors?: boolean;
 }
 
 export interface StoreOptions {
