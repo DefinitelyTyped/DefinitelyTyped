@@ -288,6 +288,10 @@ declare module "node-forge" {
                 privateKey: NativeBuffer;
             };
 
+            function privateKeyFromAsn1(obj: asn1.Asn1): { privateKeyBytes: NativeBuffer };
+
+            function publicKeyFromAsn1(obj: asn1.Asn1): NativeBuffer;
+
             function publicKeyFromPrivateKey(options: { privateKey: BinaryBuffer }): NativeBuffer;
 
             function sign(options: ToNativeBufferParameters & {
