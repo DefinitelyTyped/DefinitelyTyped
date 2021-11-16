@@ -32,6 +32,7 @@ function testWindowSaveAs() {
         autoBom: false,
     };
 
+    window.saveAs(data, filename, options);
     window.saveAs.saveAs(data, filename, options);
 }
 
@@ -45,6 +46,7 @@ function testUrlSaveAs() {
         autoBom: false,
     };
 
+    window.saveAs(url, filename, options);
     window.saveAs.saveAs(url, filename, options);
 }
 

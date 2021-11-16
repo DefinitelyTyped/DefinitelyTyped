@@ -35,3 +35,13 @@ export interface FileSaverOptions {
      */
     autoBom: boolean;
 }
+
+declare global {
+    interface Window {
+        // This module doesn't expose a callable function directly via a CommonJS export so if only the declaration
+        // `export as namespace saveAs;` is used it would require users to use this module as `window.saveAs.saveAs(...)`.
+        // But the module actually still exposes the `saveAs` function directly on `Window` so the code below is needed
+        // to allow to ergonomically use this module as `window.saveAs(...)`.
+        saveAs: typeof saveAs;
+    }
+}
