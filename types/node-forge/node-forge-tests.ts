@@ -493,6 +493,37 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    // combined private/public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.3
+    const ecBytes = Buffer.from(
+        'MHICAQEwBQYDK2VwBCIEINTuctv5E1hK1bbY8fdp+K06/nwoy/HU++CXqI9EdVhCoB8wHQYKKoZIhvcNAQkJFDEPDA1DdXJkbGUgQ2hhaXJzgSEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=',
+        'base64'
+    ).toString('binary');
+    const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
+    forge.pki.ed25519.privateKeyFromAsn1(ecAsn1);
+    forge.pki.ed25519.publicKeyFromAsn1(ecAsn1);
+}
+
+{
+    // public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.1
+    const ecBytes = Buffer.from(
+        '   MC4CAQAwBQYDK2VwBCIEINTuctv5E1hK1bbY8fdp+K06/nwoy/HU++CXqI9EdVhC',
+        'base64'
+    ).toString('binary');
+    const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
+    forge.pki.ed25519.privateKeyFromAsn1(ecAsn1);
+}
+
+{
+    // public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.1
+    const ecBytes = Buffer.from(
+        'MCowBQYDK2VwAyEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=',
+        'base64'
+    ).toString('binary');
+    const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
+    forge.pki.ed25519.publicKeyFromAsn1(ecAsn1);
+}
+
+{
     let byteBuffer: forge.util.ByteBuffer = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
         type: 'SubjectPublicKeyInfo',
         md: forge.md.sha256.create(),
