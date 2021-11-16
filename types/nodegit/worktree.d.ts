@@ -67,5 +67,5 @@ export class Worktree {
     /**
      * @returns - 0 when worktree is valid, error-code otherwise
      */
-    validate (): number;
+    validate(): number;
 }
