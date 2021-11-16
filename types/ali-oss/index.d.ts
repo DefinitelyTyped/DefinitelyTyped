@@ -958,7 +958,7 @@ declare class OSS {
     /**
      * Deletes the policy added for a bucket.
      */
-    deleteBuckyPolicy(
+    deleteBucketPolicy(
         name: string,
         options?: OSS.RequestOptions
     ): Promise<{
