@@ -61,13 +61,12 @@ export class FrisbySpec<TResult = FrisbyResponse> {
 // #endregion
 
 // #region Frisby FrisbyResponse
-declare class FrisbyResponse {
-    constructor(fetchResponse: nodeFetch.Response);
-    get status(): nodeFetch.Response["status"];
-    get body(): nodeFetch.Response["body"];
-    get headers(): nodeFetch.Response["headers"];
-    get json(): any;
-    get responseTime(): number;
+export interface FrisbyResponse {
+    readonly status: nodeFetch.Response["status"];
+    readonly body: nodeFetch.Response["body"];
+    readonly headers: nodeFetch.Response["headers"];
+    readonly json: any;
+    readonly responseTime: number;
 }
 // #endregion
 
