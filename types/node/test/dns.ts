@@ -13,6 +13,7 @@ import {
     Resolver,
     ALL,
     promises,
+    setDefaultResultOrder,
 } from 'node:dns';
 
 lookup("nodejs.org", (err, address, family) => {
@@ -135,3 +136,6 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
 
     resolver = new promises.Resolver({ timeout: 1500 });
 }
+
+setDefaultResultOrder('ipv4first');
+setDefaultResultOrder('verbatim');
