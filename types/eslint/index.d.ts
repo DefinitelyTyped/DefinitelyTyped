@@ -1,4 +1,4 @@
-// Type definitions for eslint 7.28
+// Type definitions for eslint 7.29
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -717,7 +717,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | undefined;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | "latest" |undefined;
         sourceType?: "script" | "module" | undefined;
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
@@ -816,6 +816,8 @@ export class ESLint {
     lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
 
     lintText(code: string, options?: { filePath?: string | undefined; warnIgnored?: boolean | undefined }): Promise<ESLint.LintResult[]>;
+
+    getRulesMetaForResults(results: ESLint.LintResult[]): ESLint.LintResultData['rulesMeta'];
 
     calculateConfigForFile(filePath: string): Promise<any>;
 
@@ -984,6 +986,10 @@ export class RuleTester {
             invalid?: RuleTester.InvalidTestCase[] | undefined;
         },
     ): void;
+
+    static only(
+        item: string | RuleTester.ValidTestCase | RuleTester.InvalidTestCase,
+    ): RuleTester.ValidTestCase | RuleTester.InvalidTestCase;
 }
 
 export namespace RuleTester {
@@ -991,6 +997,7 @@ export namespace RuleTester {
         code: string;
         options?: any;
         filename?: string | undefined;
+        only?: boolean;
         parserOptions?: Linter.ParserOptions | undefined;
         settings?: { [name: string]: any } | undefined;
         parser?: string | undefined;

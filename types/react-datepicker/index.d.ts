@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 4.1
+// Type definitions for react-datepicker 4.3
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -13,6 +13,7 @@
 //                 tu4mo <https://github.com/tu4mo>
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -33,6 +34,22 @@ export function CalendarContainer(props: {
 
 interface HighlightDates {
     [className: string]: Date[];
+}
+
+export interface ReactDatePickerCustomHeaderProps {
+    monthDate: Date;
+    date: Date;
+    changeYear(year: number): void;
+    changeMonth(month: number): void;
+    customHeaderCount: number;
+    decreaseMonth(): void;
+    increaseMonth(): void;
+    prevMonthButtonDisabled: boolean;
+    nextMonthButtonDisabled: boolean;
+    decreaseYear(): void;
+    increaseYear(): void;
+    prevYearButtonDisabled: boolean;
+    nextYearButtonDisabled: boolean;
 }
 
 export interface ReactDatePickerProps<CustomModifierNames extends string = never> {
@@ -91,7 +108,9 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     minTime?: Date | undefined;
     monthsShown?: number | undefined;
     name?: string | undefined;
+    nextMonthAriaLabel?: string | undefined;
     nextMonthButtonLabel?: string | React.ReactNode | undefined;
+    nextYearAriaLabel?: string | undefined;
     nextYearButtonLabel?: string | undefined;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
@@ -126,24 +145,12 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     popperPlacement?: Popper.Placement | undefined;
     popperProps?: {} | undefined;
     preventOpenOnFocus?: boolean | undefined;
+    previousMonthAriaLabel?: string | undefined;
     previousMonthButtonLabel?: string | React.ReactNode | undefined;
+    previousYearAriaLabel?: string | undefined;
     previousYearButtonLabel?: string | undefined;
     readOnly?: boolean | undefined;
-    renderCustomHeader?(params: {
-        monthDate: Date;
-        date: Date;
-        changeYear(year: number): void;
-        changeMonth(month: number): void;
-        customHeaderCount: number;
-        decreaseMonth(): void;
-        increaseMonth(): void;
-        prevMonthButtonDisabled: boolean;
-        nextMonthButtonDisabled: boolean;
-        decreaseYear(): void;
-        increaseYear(): void;
-        prevYearButtonDisabled: boolean;
-        nextYearButtonDisabled: boolean;
-    }): React.ReactNode;
+    renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
     required?: boolean | undefined;
     scrollableMonthYearDropdown?: boolean | undefined;

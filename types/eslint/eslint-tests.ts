@@ -492,6 +492,7 @@ linter.verify(SOURCE, {}, { preprocess: input => input.split(" ") });
 linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, "test.js");
 linter.verify(
     SOURCE,
@@ -692,6 +693,8 @@ resultsPromise.then(results => {
     formatterPromise.then(formatter => formatter.format(results));
     formatterPromise.then(formatter => formatter.format(results, data));
 
+    eslint.getRulesMetaForResults(results);
+
     ESLint.getErrorResults(results);
 
     ESLint.outputFixes(results);
@@ -845,6 +848,7 @@ ruleTester.run("my-rule", rule, {
         { code: "foo", settings: { foo: true } },
         { code: "foo", parser: "foo" },
         { code: "foo", globals: { foo: true } },
+        RuleTester.only("foo"),
     ],
 
     invalid: [
@@ -873,6 +877,7 @@ ruleTester.run("my-rule", rule, {
                 },
             ],
         },
+        { code: "foo", errors: 1, only: true },
     ],
 });
 

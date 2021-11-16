@@ -366,7 +366,7 @@ declare namespace SteamAPI {
         api: string;
         name: string;
         description: string;
-        achievend: boolean;
+        achieved: boolean;
         unlockTime: number;
 
         /**

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { LinearGradientProps, Stop } from 'react-native-svg';
-import { StackedAreaChart, StackedBarChart, XAxis, Grid, Decorators } from 'react-native-svg-charts';
+import { BarChart, StackedAreaChart, StackedBarChart, XAxis, Grid, Decorators } from 'react-native-svg-charts';
 import { curveNatural } from 'd3-shape';
 import { scaleTime } from 'd3-scale';
 
@@ -82,6 +82,17 @@ class Example extends React.Component<Props> {
           style={{ height: 100 }}
           keys={['totalMemoryConsumption', 'privateMemoryConsumption']}
           colors={['green', 'red']}
+          data={data}
+          horizontal={true}
+          contentInset={{ top: 10, bottom: 20 }}
+        />
+    )
+
+    renderBarChart = ({data, width}: Props) => (
+        <BarChart
+          animate={true}
+          animationDuration={250}
+          style={{ height: 100 }}
           data={data}
           horizontal={true}
           contentInset={{ top: 10, bottom: 20 }}

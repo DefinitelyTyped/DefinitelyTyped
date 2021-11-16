@@ -2042,7 +2042,16 @@ declare namespace chrome.declarativeContent {
         constructor(options: PageStateMatcherProperties);
     }
 
-    /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
+    /**
+     * Declarative event action that enables the extension's action while the corresponding conditions are met.
+     * Manifest v3.
+     */
+    export class ShowAction { }
+
+    /**
+     * Declarative event action that shows the extension's page action while the corresponding conditions are met.
+     * Manifest v2.
+     */
     export class ShowPageAction { }
 
     /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */

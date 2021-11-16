@@ -380,6 +380,10 @@
             "libraryName": "@braintree/sanitize-url",
             "asOfVersion": "4.1.0"
         },
+        "bree": {
+            "libraryName": "bree",
+            "asOfVersion": "7.1.0"
+        },
         "broccoli-plugin": {
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
@@ -2757,6 +2761,10 @@
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
         },
+        "matteodisabatino__gc_info": {
+            "libraryName": "@matteodisabatino/gc_info",
+            "asOfVersion": "1.1.0"
+        },
         "maxmind": {
             "libraryName": "maxmind",
             "asOfVersion": "2.0.5"
@@ -3442,6 +3450,10 @@
         "pigpio": {
             "libraryName": "pigpio",
             "asOfVersion": "3.1.0"
+        },
+        "pino": {
+            "libraryName": "pino",
+            "asOfVersion": "7.0.0"
         },
         "pixi-spine": {
             "libraryName": "pixi-spine",
