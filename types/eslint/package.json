@@ -5,7 +5,7 @@
             "types": "./index.d.ts"
         },
         "./use-at-your-own-risk": {
-            "types": "./unsupported.d.ts"
+            "types": "./use-at-your-own-risk.d.ts"
         },
         "./rules": {
             "types": "./rules/index.d.ts"
