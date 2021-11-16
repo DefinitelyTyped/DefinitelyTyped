@@ -341,7 +341,7 @@ declare module 'dns/promises' {
      * @since v14.18.0
      * @param order must be 'ipv4first' or 'verbatim'.
      */
-    function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): Promise<void>;
+    function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
     class Resolver {
         constructor(options?: ResolverOptions);
         cancel(): void;

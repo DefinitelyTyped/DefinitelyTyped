@@ -358,7 +358,7 @@ declare module 'dns' {
 
         function setServers(servers: ReadonlyArray<string>): void;
 
-        function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): Promise<void>;
+        function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
 
         class Resolver {
             constructor(options?: ResolverOptions);
