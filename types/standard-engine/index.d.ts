@@ -6,13 +6,22 @@
 import eslint = require('eslint');
 
 declare namespace standardEngine {
+    interface LintReport {
+        results: eslint.ESLint.LintResult[];
+        errorCount: number;
+        warningCount: number;
+        fixableErrorCount: number;
+        fixableWarningCount: number;
+        usedDeprecatedRules: eslint.ESLint.DeprecatedRuleUse[];
+    }
+
     class Linter {
         constructor(opts?: LinterOptions);
         /**
          * Lint the provided source text to enforce your defined style.
          * An opts object may be provided
          */
-        lintTextSync(text: string, opts?: LintTextOptions): eslint.CLIEngine.LintReport;
+        lintTextSync(text: string, opts?: LintTextOptions): LintReport;
         lintText(text: string, opts: LintTextOptions, callback: LintCallback): void;
         lintText(text: string, callback: LintCallback): void;
 
