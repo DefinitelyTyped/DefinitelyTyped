@@ -198,6 +198,12 @@ export const knownExtended: {
 export const headerSize: number;
 export const blockSize: number;
 
+export interface ParseOptions {
+    strict?: boolean;
+    filter?: (path: string, entry: ReadEntry) => boolean;
+    onentry?: (entry: ReadEntry) => void;
+    onwarn?: (code: string, message: string, data: Buffer) => void;
+}
 /**
  * A writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
  */
@@ -207,9 +213,8 @@ export interface Parse extends ParseStream {
 }
 
 export const Parse: {
-    new(opt?: { strict?: boolean, filter?: (path: string, entry: ReadEntry) => boolean, onentry?: (entry: ReadEntry) => void, onwarn?: (code: string, message: string, data: Buffer) => void }): Parse;
+    new(opt?: ParseOptions): Parse;
 };
-
 //#endregion
 
 //#region Global Methods
