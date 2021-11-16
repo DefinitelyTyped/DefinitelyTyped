@@ -1084,6 +1084,9 @@ export interface PagingOptions {
 }
 
 export interface CheckpointPagingOptions {
+    /**
+     * @default 50
+     */
     take?: number | undefined;
     from?: string | undefined;
 }
@@ -1371,20 +1374,44 @@ export class OrganizationsManager {
 
     getInvitations(
         params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals?: false;
+            },
     ): Promise<OrganizationInvitation[]>;
     getInvitations(
         params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals: true;
+            },
     ): Promise<OrganizationInvitationsPaged>;
     getInvitations(
         params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals?: false;
+            },
         cb: (err: Error, invitations: OrganizationInvitation[]) => void,
     ): void;
     getInvitations(
         params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals: true;
+            },
         cb: (err: Error, pagedInvitations: OrganizationInvitationsPaged) => void,
     ): void;
 

@@ -1372,6 +1372,14 @@ management.organizations.getInvitations(
     },
 );
 
+management.organizations.getInvitations(
+    //  checkpoint pagination tests
+    { id: 'organization_id', take: 2, from: '' },
+    (err, invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    },
+);
+
 /**
  * Get Organization Invitations returning a Promise
  */
