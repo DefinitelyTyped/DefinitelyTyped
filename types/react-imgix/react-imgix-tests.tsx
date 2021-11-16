@@ -18,7 +18,7 @@ const ImgixTest = () => (
             widths: [300, 500, 800, 1200],
             minWidth: 100,
             maxWidth: 2000,
-            widthTolerance: .2,
+            widthTolerance: 0.2,
         }}
         className="lazyload"
         htmlAttributes={{
