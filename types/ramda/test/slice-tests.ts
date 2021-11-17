@@ -10,7 +10,6 @@ import * as R from 'ramda';
   R.slice(2, 5, str); // => 'llo'
   R.slice(2, 5)(str); // => 'llo'
   R.slice(2)(5, str); // => 'llo'
-  console.log('str : ', str);
 };
 
 () => {
