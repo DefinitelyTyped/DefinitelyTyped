@@ -1,4 +1,4 @@
-// Type definitions for postcss-import 12.0
+// Type definitions for postcss-import 14.0
 // Project: https://github.com/postcss/postcss-import#readme
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,6 +29,14 @@ declare function atImport(options?: atImport.AtImportOptions): Transformer;
 declare namespace atImport {
     interface AtImportOptions {
         /**
+         * Only transform imports for which the test function returns `true`. Imports for which the test function returns `false` will be left as is. The function gets the path to import as an
+         * argument and should return a boolean.
+         *
+         * @default () => true
+         */
+        filter?: (path: string) => boolean;
+
+        /**
          * Define the root where to resolve path (eg: place where `node_modules` are). Should not be used that much.
          *
          * _Note: nested @import will additionally benefit of the relative dirname of imported files._
@@ -52,11 +60,13 @@ declare namespace atImport {
          * the path(s). If you do not return an absolute path, your path will be resolved to an absolute path using the default resolver. You can use
          * [resolve](https://github.com/substack/node-resolve) for this.
          */
-        resolve?: ((
-            id: string,
-            basedir: string,
-            importOptions: AtImportOptions,
-        ) => string | string[] | PromiseLike<string | string[]>) | undefined;
+        resolve?:
+            | ((
+                  id: string,
+                  basedir: string,
+                  importOptions: AtImportOptions,
+              ) => string | string[] | PromiseLike<string | string[]>)
+            | undefined;
 
         /**
          * You can overwrite the default loading way by setting this option. This function gets `(filename, importOptions)` arguments and returns content or promised content.
