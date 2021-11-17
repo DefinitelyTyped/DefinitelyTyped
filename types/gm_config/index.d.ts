@@ -4,6 +4,31 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 2.8
 
+/**
+ Copyright 2009+, GM_config Contributors (https://github.com/sizzlemctwizzle/GM_config)
+
+ GM_config Collaborators:
+     Mike Medley <medleymind@gmail.com>
+     Joe Simmons
+     Izzy Soft
+     Marti Martz
+
+ GM_config is distributed under the terms of the GNU Lesser General Public License.
+
+     GM_config is free software: you can redistribute it and/or modify
+     it under the terms of the GNU Lesser General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU Lesser General Public License for more details.
+
+     You should have received a copy of the GNU Lesser General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 type FieldValue = string | number | boolean;
 /** Valid types for Field `type` property */
 type FieldTypes =
