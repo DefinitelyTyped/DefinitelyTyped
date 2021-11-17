@@ -612,6 +612,12 @@ declare namespace Tagify {
         trim?: boolean | undefined;
 
         /**
+         * Assign a unique id to enable the feature to store and load persisted data via `localStorage`.
+         * @default undefined
+         */
+        id?: string | undefined;
+
+        /**
          * Should ONLY use tags allowed in whitelist.
          * In `mix` mode, setting it to `false` will not allow creating new tags.
          * @default false
@@ -707,9 +713,9 @@ declare namespace Tagify {
 
         /**
          * Takes a tag data as an argument and allows mutating it before a tag
-         * is created or edited.
+         * is created or edited and also before validation.
          *
-         * Should not return anything, only mutate.
+         * Should not return anything, only mutate the argument.
          */
         transformTag?:
         /**
@@ -1601,6 +1607,31 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Toggles "disabled" mode on/off.
      */
     setDisabled(disabled: boolean): void;
+
+    /**
+     * Get data for the specific instance by `key` parameter from `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     * @returns Data stored under `key` in `localStorage`.
+     * Returns `undefined` if {@link TagifyConstructorSettings.id} has not been set or no entry exists for `key` in `localStorage`.
+     */
+    getPersistedData(key: string): any;
+
+    /**
+     * Set data for the specific instance.
+     * Must supply a second parameter which will be the key to save the data in the `localStorage`
+     * (under the tagify namespace).
+     * In order to use this method, {@link TagifyConstructorSettings.id} must be set.
+     * @param data Data to store in `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    setPersistedData(data: any, key: string): void;
+
+    /**
+     * Clears data for the specific instance by `key` parameter.
+     * If the `key` parameter is omitted, clears all persisted data related to this instance (by its `id` which was set in the settings).
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    clearPersistedData(key?: string): void;
 
     /**
      * Removes a listener previously added via `on`.
