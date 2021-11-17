@@ -1237,6 +1237,10 @@
             "libraryName": "express-graphql",
             "asOfVersion": "0.9.0"
         },
+        "express-handlebars": {
+            "libraryName": "express-handlebars",
+            "asOfVersion": "6.0.0"
+        },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
             "asOfVersion": "2.1.0"

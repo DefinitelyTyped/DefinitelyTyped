@@ -27,7 +27,7 @@ export import Joi = require("joi");
 // - Update _FrisbySpec.then_ to allow _onRejected_ to be optional.
 // **************************************CHANGE LOG**************************************
 
-export class FrisbySpec {
+export class FrisbySpec<TResult = FrisbyResponse> {
     constructor(...args: any[]);
     catch(onRejected?: (error: Error) => void): FrisbySpec;
     del(url: string, params?: {}): FrisbySpec;
@@ -48,14 +48,25 @@ export class FrisbySpec {
     inspectStatus(): FrisbySpec;
     patch(url: string, params?: {}): FrisbySpec;
     post(url: string, params?: {}): FrisbySpec;
-    promise(): Promise<nodeFetch.Response>;
+    promise(): Promise<TResult>;
     put(url: string, params?: {}): FrisbySpec;
     setup(opts: {}, replace: boolean): FrisbySpec;
-    then(onFulfilled: {} | ((...args: any[]) => void), onRejected?: (...args: any[]) => void): FrisbySpec;
+    then<T>(onFulfilled: FrisbySpec<T>): FrisbySpec<T>;
+    then<T>(onFulfilled: (response: TResult) => T | Promise<T>, onRejected?: (...args: any[]) => void): [T] extends [FrisbySpec<infer U>] ? FrisbySpec<U> : FrisbySpec<T>;
     timeout(timeout: number): number;
     use(fn: (...args: any[]) => void): FrisbySpec;
     static addExpectHandler(expectName: string, expectFn: (...args: any[]) => any): void;
     static removeExpectHandler(expectName: string): void;
+}
+// #endregion
+
+// #region Frisby FrisbyResponse
+export interface FrisbyResponse {
+    readonly status: nodeFetch.Response["status"];
+    readonly body: nodeFetch.Response["body"];
+    readonly headers: nodeFetch.Response["headers"];
+    readonly json: any;
+    readonly responseTime: number;
 }
 // #endregion
 
