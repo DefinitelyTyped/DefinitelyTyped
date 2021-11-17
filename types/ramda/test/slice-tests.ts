@@ -10,4 +10,30 @@ import * as R from 'ramda';
   R.slice(2, 5, str); // => 'llo'
   R.slice(2, 5)(str); // => 'llo'
   R.slice(2)(5, str); // => 'llo'
+  console.log('str : ', str);
+};
+
+() => {
+  // make type inference work well
+  const str = 'Hello World';
+
+  // $ExpectType string
+  R.pipe(
+    R.slice(2, 5)
+  )(str);
+
+  // $ExpectType string[]
+  R.pipe(
+    (str: string[]) => R.slice(2, 5)(str)
+  )([str, str]);
+
+  // $ExpectType string
+  R.pipe(
+    R.slice(2)
+  )(5, str);
+
+  // $ExpectType string[]
+  R.pipe(
+    (b: number, str: string[]) => R.slice(2)(b, str)
+  )(5, [str, str]);
 };
