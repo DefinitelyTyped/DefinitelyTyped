@@ -3,7 +3,7 @@
     "exports": {
         ".": {
             "types": {
-                "module": "./index.d.mts",
+                "import": "./index.d.mts",
                 "default": "./index.d.ts"
             }
         }
