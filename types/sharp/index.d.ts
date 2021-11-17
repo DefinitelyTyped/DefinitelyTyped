@@ -938,7 +938,7 @@ declare namespace sharp {
         lossless?: boolean | undefined;
         /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
         speed?: number | undefined;
-        /** set to '4:4:4' to prevent chroma subsampling otherwise defaults to '4:2:0' chroma subsampling, requires libvips v8.11.0 (optional, default '4:2:0') */
+        /** set to '4:2:0' to use chroma subsampling, requires libvips v8.11.0 (optional, default '4:4:4') */
         chromaSubsampling?: string;
     }
 
