@@ -94,7 +94,7 @@ declare module 'process' {
             type ExitListener = (code: number) => void;
             type RejectionHandledListener = (promise: Promise<unknown>) => void;
             type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
-            type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<unknown>) => void;
+            type UnhandledRejectionListener = (reason: Error | {} | null | undefined, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: unknown, sendHandle: unknown) => void;
             type SignalsListener = (signal: Signals) => void;
