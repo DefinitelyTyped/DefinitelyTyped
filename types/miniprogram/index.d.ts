@@ -991,9 +991,11 @@ interface RequestArgs
     /**
      * Set the request HTTP header, default {'content-type': 'application/json'}.
      */
-    headers?: {
-        [key: string]: string;
-    } | undefined;
+    headers?:
+        | {
+              [key: string]: string;
+          }
+        | undefined;
     method?: 'GET' | 'POST' | undefined;
     data?: any;
     timeout?: number | undefined;
@@ -1233,17 +1235,17 @@ interface SignContractArgs
 }
 
 interface Badge {
-    index: number
-    type: string
-    text: string
+    index: number;
+    type: string;
+    text: string;
 }
 
 interface ShowActionSheetArgs extends AsyncCallback {
-    title?: string
-    items: string[]
-    cancelButtonText?: string
-    destructiveBtnIndex?: number
-    badges?: Badge[]
+    title?: string;
+    items: string[];
+    cancelButtonText?: string;
+    destructiveBtnIndex?: number;
+    badges?: Badge[];
 }
 
 interface MiniprogramApi {
@@ -1837,32 +1839,31 @@ interface MiniprogramApi {
 
     /**
      * Use this API to hide the home button in the top navigation bar, and the return-home option in the tab bar in the upper right corner.
-     * 
+     *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_navigationbar_hidebackhome)
      */
-    hideBackHome: () => void
+    hideBackHome: () => void;
 
     /**
      * Use this API to display the operation menu.
-     * 
+     *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_feedback_showactionsheet)
      */
-    showActionSheet: (args: ShowActionSheetArgs) => void
-
+    showActionSheet: (args: ShowActionSheetArgs) => void;
 
     /**
      * Use this API to listen to the insufficient memory alarm event.
-     * 
+     *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_memory-warning_onmemorywarning)
      */
-    onMemoryWarning: (arg: (arg: { level: number }) => void) => void
+    onMemoryWarning: (arg: (arg: { level: number }) => void) => void;
 
     /**
      * Use this API to unlisten to the insufficient memory alarm event. Ensure that the parameter (callback) is the same object as the one in onMemoryWarning.
-     * 
+     *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_memory-warning_offmemorywarning)
      */
-    offMemoryWarning: (arg?: (arg: { level: number }) => void) => void
+    offMemoryWarning: (arg?: (arg: { level: number }) => void) => void;
 }
 
 declare const my: MiniprogramApi;
@@ -1873,11 +1874,13 @@ interface LaunchQuery {
      */
     query: any;
     path: string;
-    referrerInfo?: {
-        appId: string;
-        sourceServiceId: string;
-        extraData: any;
-    } | undefined;
+    referrerInfo?:
+        | {
+              appId: string;
+              sourceServiceId: string;
+              extraData: any;
+          }
+        | undefined;
 }
 
 declare function App(obj: {
@@ -1946,23 +1949,27 @@ declare function Page(
         onPopMenuClick?: EmptyFn | undefined;
         onTabItemTap?: OnTabItemTap | undefined;
         onPageScroll?: ((opts: { scrollTop: number }) => void) | undefined;
-        events?: {
-            onBack?: EmptyFn | undefined;
-            onKeyboardHeight?: EmptyFn | undefined;
-            onOptionMenuClick?: EmptyFn | undefined;
-            onPopMenuClick?: EmptyFn | undefined;
-            onPullIntercept?: EmptyFn | undefined;
-            onPullDownRefresh?: OnPullDownRefresh | undefined;
-            onTitleClick?: EmptyFn | undefined;
-            onTabItemTap?: OnTabItemTap | undefined;
-            beforeTabItemTap?: EmptyFn | undefined;
-            onResize?: ((opts: {
-                size: {
-                    windowWidth: number;
-                    windowHeight: number;
-                };
-            }) => void) | undefined;
-        } | undefined;
+        events?:
+            | {
+                  onBack?: EmptyFn | undefined;
+                  onKeyboardHeight?: EmptyFn | undefined;
+                  onOptionMenuClick?: EmptyFn | undefined;
+                  onPopMenuClick?: EmptyFn | undefined;
+                  onPullIntercept?: EmptyFn | undefined;
+                  onPullDownRefresh?: OnPullDownRefresh | undefined;
+                  onTitleClick?: EmptyFn | undefined;
+                  onTabItemTap?: OnTabItemTap | undefined;
+                  beforeTabItemTap?: EmptyFn | undefined;
+                  onResize?:
+                      | ((opts: {
+                            size: {
+                                windowWidth: number;
+                                windowHeight: number;
+                            };
+                        }) => void)
+                      | undefined;
+              }
+            | undefined;
 
         [key: string]: any;
     } & ThisType<{
