@@ -559,6 +559,20 @@ function Argv$version() {
         .version(false);
 }
 
+function Argv$showVersion() {
+    const argv1 = yargs
+        .showVersion();
+
+    const argv2 = yargs
+        .showVersion('error');
+
+    const argv3 = yargs
+        .showVersion('log');
+
+    const argv4 = yargs
+        .showVersion(s => console.log(`Thar be a version! ${s}`));
+}
+
 function Argv$wrap() {
     const argv1 = yargs
         .wrap(null);
