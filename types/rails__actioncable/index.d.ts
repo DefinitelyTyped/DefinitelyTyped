@@ -182,27 +182,27 @@ export class Subscriptions<C = Consumer> {
 
     create<M>(channelName: string | ChannelNameWithParams, mixin?: Mixin & M): Subscription<C> & Mixin & M;
 
-    add<T extends Subscription>(subscription: T): T;
+    private add<T extends Subscription>(subscription: T): T;
 
-    remove<T extends Subscription>(subscription: T): T;
+    private remove<T extends Subscription>(subscription: T): T;
 
-    reject(identifier: string): Subscription[];
+    private reject(identifier: string): Subscription[];
 
-    forget<T extends Subscription>(subscription: T): T;
+    private forget<T extends Subscription>(subscription: T): T;
 
-    findAll(identifier: string): Subscription[];
+    private findAll(identifier: string): Subscription[];
 
-    reload(): Subscription[];
+    private reload(): Subscription[];
 
-    notifyAll(callbackName: string, ...args: any): Subscription[];
+    private notifyAll(callbackName: string, ...args: any): Subscription[];
 
-    notify(subscription: Subscription, callbackName: string, ...args: any): Subscription[];
+    private notify(subscription: Subscription, callbackName: string, ...args: any): Subscription[];
 
-    subscribe(subscription: Subscription): void;
+    private subscribe(subscription: Subscription): void;
 
-    confirmSubscription(identifier: string): void;
+    private confirmSubscription(identifier: string): void;
 
-    sendCommand(subscription: Subscription, command: any): boolean;
+    private sendCommand(subscription: Subscription, command: any): boolean;
 }
 
 /**

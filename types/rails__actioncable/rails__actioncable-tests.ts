@@ -168,14 +168,14 @@ const subscriptions = new Subscriptions(consumer); // $ExpectType Subscriptions<
 
 subscriptions.create('channel'); // $ExpectType Subscription<Consumer> & Mixin
 subscriptions.create({ channel: 'channel', room: 'room' }); // $ExpectType Subscription<Consumer> & Mixin
-subscriptions.add(subscription); // $ExpectType Subscription<Consumer>
-subscriptions.remove(subscription); // $ExpectType Subscription<Consumer>
-subscriptions.reject(subscription.identifier); // $ExpectType Subscription<Consumer>[]
-subscriptions.forget(subscription); // $ExpectType Subscription<Consumer>
-subscriptions.findAll(subscription.identifier); // $ExpectType Subscription<Consumer>[]
-subscriptions.reload(); // $ExpectType Subscription<Consumer>[]
-subscriptions.notifyAll('callbackName'); // $ExpectType Subscription<Consumer>[]
-subscriptions.notify(subscription, 'callbackName'); // $ExpectType Subscription<Consumer>[]
-subscriptions.subscribe(subscription); // $ExpectType void
-subscriptions.confirmSubscription(subscription.identifier); // $ExpectType void
-subscriptions.sendCommand(subscription, {}); // $ExpectType boolean
+subscriptions.add(subscription); // $ExpectError
+subscriptions.remove(subscription); // $ExpectError
+subscriptions.reject(subscription.identifier); // $ExpectError
+subscriptions.forget(subscription); // $ExpectError
+subscriptions.findAll(subscription.identifier); // $ExpectError
+subscriptions.reload(); // $ExpectError
+subscriptions.notifyAll('callbackName'); // $ExpectError
+subscriptions.notify(subscription, 'callbackName'); // $ExpectError
+subscriptions.subscribe(subscription); // $ExpectError
+subscriptions.confirmSubscription(subscription.identifier); // $ExpectError
+subscriptions.sendCommand(subscription, {}); // $ExpectError
