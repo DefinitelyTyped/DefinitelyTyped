@@ -11,7 +11,7 @@ export import nodeFetch = require('node-fetch'); // Import all definitions from 
 
 // #region Joi Methods
 // Reference file: https://github.com/hapijs/joi
-export import Joi = require("joi");
+export import Joi = require('joi');
 // #endregion
 
 // #region Frisby FrisbySpec Methods
@@ -52,7 +52,10 @@ export class FrisbySpec<TResult = FrisbyResponse> {
     put(url: string, params?: {}): FrisbySpec;
     setup(opts: {}, replace: boolean): FrisbySpec;
     then<T>(onFulfilled: FrisbySpec<T>): FrisbySpec<T>;
-    then<T>(onFulfilled: (response: TResult) => T | Promise<T>, onRejected?: (...args: any[]) => void): [T] extends [FrisbySpec<infer U>] ? FrisbySpec<U> : FrisbySpec<T>;
+    then<T>(
+        onFulfilled: (response: TResult) => T | Promise<T>,
+        onRejected?: (...args: any[]) => void,
+    ): [T] extends [FrisbySpec<infer U>] ? FrisbySpec<U> : FrisbySpec<T>;
     timeout(timeout: number): number;
     use(fn: (...args: any[]) => void): FrisbySpec;
     static addExpectHandler(expectName: string, expectFn: (...args: any[]) => any): void;
@@ -62,9 +65,9 @@ export class FrisbySpec<TResult = FrisbyResponse> {
 
 // #region Frisby FrisbyResponse
 export interface FrisbyResponse {
-    readonly status: nodeFetch.Response["status"];
-    readonly body: nodeFetch.Response["body"];
-    readonly headers: nodeFetch.Response["headers"];
+    readonly status: nodeFetch.Response['status'];
+    readonly body: nodeFetch.Response['body'];
+    readonly headers: nodeFetch.Response['headers'];
     readonly json: any;
     readonly responseTime: number;
 }
