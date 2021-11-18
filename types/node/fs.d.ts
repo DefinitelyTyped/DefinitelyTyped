@@ -266,7 +266,7 @@ declare module 'fs' {
      * Extends `EventEmitter`
      * A successful call to {@link watchFile} method will return a new fs.StatWatcher object.
      */
-    export class StatWatcher extends EventEmitter {
+    export interface StatWatcher extends EventEmitter {
         /**
          * @since v14.3.0, v12.20.0
          * When called, requests that the Node.js event loop not exit so long as the `fs.StatWatcher` is active.
@@ -2825,7 +2825,7 @@ declare module 'fs' {
         filename: PathLike,
         options:
             | (WatchFileOptions & {
-                  bigint?: true;
+                  bigint: true;
               })
             | undefined,
         listener: (curr: BigIntStats, prev: BigIntStats) => void
