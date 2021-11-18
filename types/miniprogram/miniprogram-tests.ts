@@ -3,10 +3,10 @@
 my.SDKVersion;
 
 App({
-    onLaunch() {},
-    onShow() {},
-    onHide() {},
-    onError() {},
+    onLaunch() { },
+    onShow() { },
+    onHide() { },
+    onError() { },
     globalData: 1,
 });
 
@@ -43,7 +43,7 @@ Page({
     },
     // Event handler object
     events: {
-        onBack() {},
+        onBack() { },
     },
     // Custom event handler
     viewTap() {
@@ -73,9 +73,9 @@ my.hideNavigationBarLoading();
 my.setNavigationBar({
     title: '',
     backgroundColor: '',
-    success() {},
-    fail() {},
-    complete() {},
+    success() { },
+    fail() { },
+    complete() { },
 });
 
 my.hideTabBar({
@@ -84,10 +84,12 @@ my.hideTabBar({
 
 my.switchTab({
     url: 'url',
+
 });
 
 my.navigateTo({
     url: 'url',
+
 });
 
 my.navigateBack({
@@ -112,11 +114,15 @@ my.prompt({
     message: '',
 });
 
-my.showLoading();
+my.showLoading({
+    content: ''
+});
 
 my.hideLoading();
 
-my.showToast();
+my.showToast({
+    'content': ''
+});
 
 my.hideToast();
 
@@ -167,7 +173,7 @@ ctx.clip();
 ctx.closePath();
 ctx.createCircularGradient(1, 2, 3);
 ctx.createLinearGradient(1, 2, 3, 4);
-ctx.draw(true, () => {});
+ctx.draw(true, () => { });
 ctx.drawImage('', 1, 2, 3, 4);
 ctx.fill();
 ctx.fillRect(1, 2, 3, 4);
@@ -445,7 +451,7 @@ my.getServerTime({
     },
 });
 
-my.onUserCaptureScreen(() => {});
+my.onUserCaptureScreen(() => { });
 
 my.offUserCaptureScreen();
 
@@ -575,3 +581,15 @@ my.signContract({
         });
     },
 });
+
+my.onMemoryWarning((arg) => { arg.level })
+
+my.offMemoryWarning()
+
+my.offMemoryWarning((arg) => { arg.level })
+
+my.hideBackHome()
+
+my.showActionSheet({
+    items: ['item 1', 'item 2']
+})
