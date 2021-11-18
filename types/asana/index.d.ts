@@ -1764,7 +1764,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            update(task: string | number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            update(task: string | number, data: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.Type>;
 
             /**
              * * A specific, existing task can be deleted by making a DELETE request on the
@@ -2068,7 +2068,7 @@ declare namespace asana {
              * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            updateTask(taskGid: string, data?: Tasks.UpdateParams, dispatchOptions?: any): Promise<void>;
+            updateTask(taskGid: string, data?: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.Type>;
         }
 
         interface SectionsStatic {
@@ -2980,7 +2980,6 @@ declare namespace asana {
         var CustomFields: CustomFieldsStatic;
 
         namespace Typeahead {
-            //
             interface TypeaheadParams {
                 resource_type: string;
                 query?: string | undefined;

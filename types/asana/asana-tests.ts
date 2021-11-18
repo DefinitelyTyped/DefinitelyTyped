@@ -112,6 +112,26 @@ client.projects.createInWorkspace('foobar', { name: 'test' }).then();
 client.projects.findById('foobar', {opt_fields: 'id,name'}).then();
 client.projects.findByWorkspace('foobar', {opt_fields: 'id,name'}).then();
 client.projects.update('foobar', { name: 'test' }).then();
+// minimal task update
+client.tasks.update('my_gid', {}).then((task) => console.log(task.name));
+// christmas tree update
+// https://developers.asana.com/docs/update-a-task
+client.tasks.update('task_gid', {
+    approval_status: 'approved',
+    assignee: 'their_gid',
+    assignee_section: 'section_or_my_tasks_column_gid',
+    completed: true,
+    custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
+    due_at: 'some_date_and_time',
+    due_on: 'some_date',
+    html_notes: '<b>some html</b>',
+    liked: true,
+    name: 'some task name',
+    notes: 'some description',
+    parent: 'some parent task gid',
+    start_on: 'some_date',
+    workspace: 'some_workspace_gid',
+}).then((task) => console.log(task.name));
 client.projects.delete('foobar').then();
 // https://github.com/Asana/node-asana/blob/master/test/resources/stories_spec.js
 client.stories.findById('foobar', {opt_fields: 'id,name'}).then();
@@ -166,42 +186,42 @@ client.tasks.findAll({section: 'foobar'}).then();
 client.projects.findAll({workspace: 'foobar'}).then();
 
 // minimal task update
-client.tasks.updateTask('my_gid', {});
+client.tasks.updateTask('my_gid', {}).then((task) => console.log(task.name));
 
 // christmas tree update
 // https://developers.asana.com/docs/update-a-task
 client.tasks.updateTask('task_gid', {
-    approval_status: 'approved',
-    assignee: 'their_gid',
-    assignee_section: 'section_or_my_tasks_column_gid',
-    completed: true,
-    custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
-    due_at: 'some_date_and_time',
-    due_on: 'some_date',
-    html_notes: '<b>some html</b>',
-    liked: true,
-    name: 'some task name',
-    notes: 'some description',
-    parent: 'some parent task gid',
-    start_on: 'some_date',
-    workspace: 'some_workspace_gid',
-});
+  approval_status: 'approved',
+  assignee: 'their_gid',
+  assignee_section: 'section_or_my_tasks_column_gid',
+  completed: true,
+  custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
+  due_at: 'some_date_and_time',
+  due_on: 'some_date',
+  html_notes: '<b>some html</b>',
+  liked: true,
+  name: 'some task name',
+  notes: 'some description',
+  parent: 'some parent task gid',
+  start_on: 'some_date',
+  workspace: 'some_workspace_gid',
+}).then((task) => console.log(task.name));
 
 client.tasks.getTask('task_gid');
 
 client.workspaces.getWorkspaces();
 
 client.customFields
-    .getCustomFieldsForWorkspace('workspace_gid')
-    .then((customFields: asana.resources.ResourceList<asana.resources.CustomFields.Type>) => {
-        const stream = customFields.stream();
-        stream.on('data', data => {
-            console.log(data);
-        });
-        stream.on('end', () => {});
-        stream.on('finish', () => {});
-        stream.on('error', () => {});
+  .getCustomFieldsForWorkspace('workspace_gid')
+  .then((customFields: asana.resources.ResourceList<asana.resources.CustomFields.Type>) => {
+    const stream = customFields.stream();
+    stream.on('data', data => {
+      console.log(data);
     });
+    stream.on('end', () => { });
+    stream.on('finish', () => { });
+    stream.on('error', () => { });
+  });
 
 // no type in params
 // $ExpectError
