@@ -1,4 +1,4 @@
-// Type definitions for eslint 7.29
+// Type definitions for eslint 8.2
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -9,7 +9,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="helpers.d.ts" />
-/// <reference path="lib/rules/index.d.ts" />
 
 import { JSONSchema4 } from "json-schema";
 import * as ESTree from "estree";
@@ -887,88 +886,6 @@ export namespace ESLint {
 
     // Docs reference the type by this name
     type EditInfo = Rule.Fix;
-}
-
-//#endregion
-
-//#region CLIEngine
-
-/** @deprecated Deprecated in favor of `ESLint` */
-export class CLIEngine {
-    static version: string;
-
-    constructor(options: CLIEngine.Options);
-
-    executeOnFiles(patterns: string[]): CLIEngine.LintReport;
-
-    resolveFileGlobPatterns(patterns: string[]): string[];
-
-    getConfigForFile(filePath: string): Linter.Config;
-
-    executeOnText(text: string, filename?: string): CLIEngine.LintReport;
-
-    addPlugin(name: string, pluginObject: any): void;
-
-    isPathIgnored(filePath: string): boolean;
-
-    getFormatter(format?: string): CLIEngine.Formatter;
-
-    getRules(): Map<string, Rule.RuleModule>;
-
-    static getErrorResults(results: CLIEngine.LintResult[]): CLIEngine.LintResult[];
-
-    static getFormatter(format?: string): CLIEngine.Formatter;
-
-    static outputFixes(report: CLIEngine.LintReport): void;
-}
-
-/** @deprecated Deprecated in favor of `ESLint` */
-export namespace CLIEngine {
-    class Options {
-        allowInlineConfig?: boolean | undefined;
-        baseConfig?: false | { [name: string]: any } | undefined;
-        cache?: boolean | undefined;
-        cacheFile?: string | undefined;
-        cacheLocation?: string | undefined;
-        cacheStrategy?: "content" | "metadata" | undefined;
-        configFile?: string | undefined;
-        cwd?: string | undefined;
-        envs?: string[] | undefined;
-        errorOnUnmatchedPattern?: boolean | undefined;
-        extensions?: string[] | undefined;
-        fix?: boolean | undefined;
-        globals?: string[] | undefined;
-        ignore?: boolean | undefined;
-        ignorePath?: string | undefined;
-        ignorePattern?: string | string[] | undefined;
-        useEslintrc?: boolean | undefined;
-        parser?: string | undefined;
-        parserOptions?: Linter.ParserOptions | undefined;
-        plugins?: string[] | undefined;
-        resolvePluginsRelativeTo?: string | undefined;
-        rules?: {
-            [name: string]: Linter.RuleLevel | Linter.RuleLevelAndOptions;
-        } | undefined;
-        rulePaths?: string[] | undefined;
-        reportUnusedDisableDirectives?: boolean | undefined;
-    }
-
-    type LintResult = ESLint.LintResult;
-
-    type LintResultData = ESLint.LintResultData;
-
-    interface LintReport {
-        results: LintResult[];
-        errorCount: number;
-        warningCount: number;
-        fixableErrorCount: number;
-        fixableWarningCount: number;
-        usedDeprecatedRules: DeprecatedRuleUse[];
-    }
-
-    type DeprecatedRuleUse = ESLint.DeprecatedRuleUse;
-
-    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion

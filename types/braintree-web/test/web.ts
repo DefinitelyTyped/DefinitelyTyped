@@ -1,4 +1,5 @@
 import * as braintree from 'braintree-web';
+import { HostedFieldsBinPayload } from 'braintree-web/modules/hosted-fields';
 
 const version: string = braintree.VERSION;
 
@@ -311,6 +312,13 @@ braintree.client.create(
 
                 hostedFieldsInstance.on('validityChange', onValidityChange);
                 hostedFieldsInstance.off('validityChange', onValidityChange);
+
+                function onBinAvailable(event: HostedFieldsBinPayload) {
+                    console.log(event.bin);
+                }
+
+                hostedFieldsInstance.on('binAvailable', onBinAvailable);
+                hostedFieldsInstance.off('binAvailable', onBinAvailable);
             },
         );
 

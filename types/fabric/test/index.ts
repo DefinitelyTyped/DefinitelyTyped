@@ -1065,3 +1065,16 @@ function sample16() {
   canvas.freeDrawingBrush.width = 2;
   canvas.isDrawingMode = true;
 }
+
+function sample17() {
+  const canvas = new fabric.Canvas('c');
+  canvas.toCanvasElement();
+  canvas.toCanvasElement(2);
+  canvas.toCanvasElement(2, { left: 10 });
+  canvas.toCanvasElement(2, {
+    left: 1,
+    top: 2,
+    width: 3,
+    height: 4,
+  });
+}
