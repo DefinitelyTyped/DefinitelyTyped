@@ -24,7 +24,6 @@ import { Server as HTTPSServer } from "https";
 import { Socket } from "net";
 import { Duplex, DuplexOptions } from "stream";
 import { SecureContextOptions } from "tls";
-import { URL } from "url";
 import { ZlibOptions } from "zlib";
 
 // WebSocket socket.
