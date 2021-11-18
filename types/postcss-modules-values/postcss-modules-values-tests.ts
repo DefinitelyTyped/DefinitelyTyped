@@ -1,4 +1,4 @@
 import values = require("postcss-modules-values");
-import { Transformer } from "postcss";
+import postcss from "postcss";
 
-const plugin: Transformer = values();
+postcss([values()]);
