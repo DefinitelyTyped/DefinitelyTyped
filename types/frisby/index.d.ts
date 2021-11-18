@@ -5,27 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-// #region Imports
-export import nodeFetch = require('node-fetch'); // Import all definitions from node-fetch.
-//#endregion
-
-// #region Joi Methods
-// Reference file: https://github.com/hapijs/joi
+export import nodeFetch = require('node-fetch');
 export import Joi = require('joi');
-// #endregion
-
-// #region Frisby FrisbySpec Methods
-// Reference file: https://github.com/vlucas/frisby/blob/master/src/frisby/spec.js
-
-// **************************************CHANGE LOG**************************************
-// C.E.W. This is an attempt to create some sort of changelog for these types.
-// If you make any changes, please try and note those changes in this section.
-// If this section gets too long we can always trim it.
-// ## 2018-03-05
-// ### Changed
-// - Update _Frisbyspec.get_, _Frisbyspec.post_, _Frisbyspec.put_, _Frisbyspec.del_, _Frisbyspec.patch_,  _Frisbyspec.fetch_ to allow _params_ to be optional.
-// - Update _FrisbySpec.then_ to allow _onRejected_ to be optional.
-// **************************************CHANGE LOG**************************************
 
 export class FrisbySpec<TResult = FrisbyResponse> {
     constructor(...args: any[]);
@@ -61,9 +42,7 @@ export class FrisbySpec<TResult = FrisbyResponse> {
     static addExpectHandler(expectName: string, expectFn: (...args: any[]) => any): void;
     static removeExpectHandler(expectName: string): void;
 }
-// #endregion
 
-// #region Frisby FrisbyResponse
 export interface FrisbyResponse {
     readonly status: nodeFetch.Response['status'];
     readonly body: nodeFetch.Response['body'];
@@ -71,10 +50,6 @@ export interface FrisbyResponse {
     readonly json: any;
     readonly responseTime: number;
 }
-// #endregion
-
-// #region General Frisby Methods
-// Reference file: https://github.com/vlucas/frisby/blob/master/src/frisby.js
 
 export const version: string;
 export function addExpectHandler(expectName: string, expectFn: (...args: any[]) => any): FrisbySpec;
@@ -93,4 +68,3 @@ export function removeExpectHandler(expectName: string, expectFn: (...args: any[
 export function setup(...args: any[]): FrisbySpec;
 export function timeout(...args: any[]): FrisbySpec;
 export function use(...args: any[]): FrisbySpec;
-// #endregion
