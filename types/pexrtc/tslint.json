@@ -1,7 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "npm-naming": false,
-        "no-unnecessary-qualifier": false
-    }
-}
+{"extends": "dtslint/dt.json"}

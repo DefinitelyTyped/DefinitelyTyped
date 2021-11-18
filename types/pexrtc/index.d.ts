@@ -7,6 +7,7 @@ declare const PexRTC: PexRTC.PexInstance;
 
 declare namespace PexRTC {
     interface PexInstance {
+        // tslint:disable-next-line:no-unnecessary-qualifier
         new (): PexRTC.PexInstance;
 
         /**
