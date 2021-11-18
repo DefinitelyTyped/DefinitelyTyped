@@ -331,6 +331,17 @@ declare module 'dns/promises' {
      * @param servers array of `RFC 5952` formatted addresses
      */
     function setServers(servers: ReadonlyArray<string>): void;
+    /**
+     * Set the default value of `verbatim` in {@link lookup}. The value could be:
+     * - `ipv4first`: sets default `verbatim` `false`.
+     * - `verbatim`: sets default `verbatim` `true`.
+     *
+     * The default is `ipv4first` and {@link setDefaultResultOrder} have higher priority than `--dns-result-order`.
+     * When using worker threads, {@link setDefaultResultOrder} from the main thread won't affect the default dns orders in workers.
+     * @since v14.18.0
+     * @param order must be 'ipv4first' or 'verbatim'.
+     */
+    function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
     class Resolver {
         constructor(options?: ResolverOptions);
         cancel(): void;
