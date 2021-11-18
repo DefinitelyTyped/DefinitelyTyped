@@ -444,6 +444,11 @@ export type Connection = NodeJS.EventEmitter & {
     connect(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
 
     /**
+     * Establishes a connection if not in a fatal state.
+     */
+    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
+
+    /**
      * ### Related Docs
      * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#executing-statements Executing Statements}
      */
