@@ -17,6 +17,7 @@ import {
     HostedFieldsTokenizePayload,
     HostedFieldsEvent,
     HostedFieldsStateObject,
+    HostedFieldsBinPayload,
 } from './modules/hosted-fields';
 import { PayPal, PayPalTokenizePayload } from './modules/paypal';
 import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions } from './modules/paypal-checkout';
@@ -61,6 +62,7 @@ export {
     GooglePaymentTokenizePayload,
     HostedFields,
     HostedFieldFieldOptions,
+    HostedFieldsBinPayload,
     HostedFieldsTokenizePayload,
     HostedFieldsEvent,
     HostedFieldsStateObject,
