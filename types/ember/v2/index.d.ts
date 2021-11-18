@@ -1630,12 +1630,7 @@ declare module 'ember' {
          * false, this will be applied automatically. Otherwise you can apply the mixin
          * at anytime by calling `Ember.NativeArray.apply(Array.prototype)`.
          */
-        interface NativeArray<T> extends GlobalArray<T>, MutableArray<T>, Observable, Copyable {
-            /**
-             * __Required.__ You must implement this method to apply this mixin.
-             */
-            length: number;
-        }
+        type NativeArray<T> = GlobalArray<T> &  MutableArray<T> & Observable & Copyable;
         const NativeArray: Mixin<NativeArray<any>>;
         /**
          * Ember.NoneLocation does not interact with the browser. It is useful for
