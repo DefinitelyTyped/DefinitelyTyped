@@ -12,7 +12,7 @@ const connection = snowflake.createConnection({
     username: '',
 });
 
-const connectCallback = (err, conn) => {
+const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowflake.Connection) => {
     if (err) {
         err.code; // $ExpectType ErrorCode | undefined
         err.sqlState; // $ExpectType string | undefined
