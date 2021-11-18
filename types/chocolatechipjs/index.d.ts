@@ -617,7 +617,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   /**
    * Same overload as is present in the base type
    */
-  find(predicate: (value: HTMLElement, index: number, obj: HTMLElement[]) => boolean, thisArg?: any): HTMLElement;
+  find(predicate: (value: HTMLElement, index: number, obj: this) => boolean, thisArg?: any): HTMLElement;
 
   /**
    * Get the descendants of each element in the current set of matched elements, filtered by a selector or element.

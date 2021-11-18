@@ -54,6 +54,12 @@ $.fn.extend({
     }
 });
 
+// ChocolateChipElementArray this type
+$('li').find((_value, _index, arr) => {
+    arr.each(() => {});
+    return true;
+});
+
 // ChocolateChipElementArray extensions:
 $('li').each((ctx, idx) => {
     console.log(ctx.nodeName);

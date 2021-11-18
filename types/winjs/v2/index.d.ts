@@ -6559,7 +6559,7 @@ declare namespace WinJS.Utilities {
          * @param thisArg The argument to bind to callbackFn.
          * @returns The QueryCollection.
         **/
-        forEach(callbackFn: (value: T, index: number, array: T[]) => void, thisArg?: any): QueryCollection<T>;
+        forEach(callbackFn: (value: T, index: number, array: this) => void, thisArg?: any): QueryCollection<T>;
 
         /**
          * Gets an item from the QueryCollection.

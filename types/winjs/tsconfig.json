@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "winjs-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
