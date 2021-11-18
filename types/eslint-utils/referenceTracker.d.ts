@@ -13,16 +13,16 @@ export interface ReferenceTrackerOptions {
     mode?: 'legacy' | 'strict';
 }
 
-export interface TraceMap {
-    [i: string]: TraceMapObject;
+export interface TraceMap<T = unknown> {
+    [i: string]: TraceMapObject<T>;
 }
 
-export interface TraceMapObject {
-    [i: string]: TraceMapObject;
-    [CALL]?: boolean;
-    [CONSTRUCT]?: boolean;
+export interface TraceMapObject<T> {
+    [i: string]: TraceMapObject<T>;
+    [CALL]?: T;
+    [CONSTRUCT]?: T;
     [ESM]?: boolean;
-    [READ]?: boolean;
+    [READ]?: T;
 }
 
 export const CALL: unique symbol;
@@ -30,8 +30,8 @@ export const CONSTRUCT: unique symbol;
 export const ESM: unique symbol;
 export const READ: unique symbol;
 
-export interface TrackedReferences {
-    entry: unknown;
+export interface TrackedReferences<T> {
+    info: T;
     node: Node;
     path: string[];
     type: symbol;
@@ -48,15 +48,15 @@ export class ReferenceTracker {
     /**
      * Iterate the references of CommonJS modules.
      */
-    iterateCjsReferences(traceMap: TraceMap): IterableIterator<TrackedReferences>;
+    iterateCjsReferences<T = unknown>(traceMap: TraceMap<T>): IterableIterator<TrackedReferences<T>>;
 
     /**
      * Iterate the references of ES modules.
      */
-    iterateEsmReferences(traceMap: TraceMap): IterableIterator<TrackedReferences>;
+    iterateEsmReferences<T = unknown>(traceMap: TraceMap<T>): IterableIterator<TrackedReferences<T>>;
 
     /**
      * Iterate the references of global variables.
      */
-    iterateGlobalReferences(traceMap: TraceMap): IterableIterator<TrackedReferences>;
+    iterateGlobalReferences<T = unknown>(traceMap: TraceMap<T>): IterableIterator<TrackedReferences<T>>;
 }
