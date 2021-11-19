@@ -1,4 +1,4 @@
-import { Provider, interactionPolicy, errors } from 'oidc-provider';
+import { Provider, interactionPolicy, errors, JWKS } from 'oidc-provider';
 
 errors.AccessDenied.name;
 
@@ -67,6 +67,23 @@ new Provider('https://op.example.com', {
         async findByUid(uid: string) {},
     }),
 });
+
+const theJWKS: JWKS = {
+    keys: [
+        {
+            kty: 'RSA',
+            d: 'foo',
+            n: 'foo',
+            e: 'AQAB',
+        },
+        {
+            kty: 'OKP',
+            x: 'foo',
+            d: 'foo',
+            crv: 'Ed25519',
+        },
+    ],
+};
 
 const provider = new Provider('https://op.example.com', {
     acrValues: ['urn:example:bronze'],
@@ -183,22 +200,7 @@ const provider = new Provider('https://op.example.com', {
         token.iat.toFixed();
         return false;
     },
-    jwks: {
-        keys: [
-            {
-                kty: 'RSA',
-                d: 'foo',
-                n: 'foo',
-                e: 'AQAB',
-            },
-            {
-                kty: 'OKP',
-                x: 'foo',
-                d: 'foo',
-                crv: 'Ed25519',
-            },
-        ],
-    },
+    jwks: theJWKS,
     responseTypes: ['code', 'code id_token', 'none'],
     pkce: {
         methods: ['plain', 'S256'],

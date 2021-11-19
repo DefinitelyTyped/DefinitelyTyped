@@ -1,6 +1,7 @@
 // Type definitions for oidc-provider 7.8
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as events from 'events';
@@ -52,6 +53,10 @@ export interface JWK {
     y?: string | undefined;
 }
 
+export interface JWKS {
+    keys: JWK[];
+}
+
 export interface AllClientMetadata {
     client_id?: string | undefined;
     redirect_uris?: string[] | undefined;
@@ -70,7 +75,7 @@ export interface AllClientMetadata {
     id_token_signed_response_alg?: SigningAlgorithmWithNone | undefined;
     initiate_login_uri?: string | undefined;
     jwks_uri?: string | undefined;
-    jwks?: { keys: JWK[] } | undefined;
+    jwks?: JWKS | undefined;
     logo_uri?: string | undefined;
     policy_uri?: string | undefined;
     post_logout_redirect_uris?: string[] | undefined;
@@ -607,7 +612,7 @@ declare class Client {
     readonly idTokenSignedResponseAlg?: string | undefined;
     readonly initiateLoginUri?: string | undefined;
     readonly jwksUri?: string | undefined;
-    readonly jwks?: { keys: JWK[] } | undefined;
+    readonly jwks?: JWKS | undefined;
     readonly logoUri?: string | undefined;
     readonly policyUri?: string | undefined;
     readonly postLogoutRedirectUris?: string[] | undefined;
@@ -1119,7 +1124,7 @@ export interface Configuration {
         code: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest,
     ) => CanBePromise<boolean>) | undefined;
 
-    jwks?: { keys: JWK[] } | undefined;
+    jwks?: JWKS | undefined;
 
     responseTypes?: ResponseType[] | undefined;
 
