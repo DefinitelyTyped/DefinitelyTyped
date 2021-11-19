@@ -380,6 +380,10 @@
             "libraryName": "@braintree/sanitize-url",
             "asOfVersion": "4.1.0"
         },
+        "bree": {
+            "libraryName": "bree",
+            "asOfVersion": "7.1.0"
+        },
         "broccoli-plugin": {
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
@@ -1232,6 +1236,10 @@
         "express-graphql": {
             "libraryName": "express-graphql",
             "asOfVersion": "0.9.0"
+        },
+        "express-handlebars": {
+            "libraryName": "express-handlebars",
+            "asOfVersion": "6.0.0"
         },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
@@ -2756,6 +2764,10 @@
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
+        },
+        "matteodisabatino__gc_info": {
+            "libraryName": "@matteodisabatino/gc_info",
+            "asOfVersion": "1.1.0"
         },
         "maxmind": {
             "libraryName": "maxmind",

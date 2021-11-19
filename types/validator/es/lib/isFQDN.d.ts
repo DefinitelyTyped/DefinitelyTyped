@@ -1,3 +1,3 @@
-import validator from '../../';
-export type IsFQDNOptions = validator.IsFQDNOptions;
-export default validator.isFQDN;
+import isFQDN, { IsFQDNOptions } from '../../lib/isFQDN';
+export default isFQDN;
+export { IsFQDNOptions };

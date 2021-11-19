@@ -9343,7 +9343,7 @@ export interface KeyboardEvent extends Partial<KeyboardEventIOS> {
 
 type KeyboardEventListener = (event: KeyboardEvent) => void;
 
-export interface KeyboardStatic extends NativeEventEmitter {
+export interface KeyboardStatic {
     /**
      * Dismisses the active keyboard and removes focus.
      */

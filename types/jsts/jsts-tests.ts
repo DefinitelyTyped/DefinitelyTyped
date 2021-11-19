@@ -256,3 +256,11 @@ bool = jsts.operation.relate.RelateOp.overlaps(g, g);
 bool = jsts.operation.relate.RelateOp.crosses(g, g);
 bool = jsts.operation.relate.RelateOp.contains(g, g);
 im0 = ro0.getIntersectionMatrix();
+
+var pr = new jsts.precision.GeometryPrecisionReducer(precisionModel);
+g = pr.reduce(g);
+g = jsts.precision.GeometryPrecisionReducer.reduce(g, precisionModel);
+g = jsts.precision.GeometryPrecisionReducer.reducePointwise(g, precisionModel);
+pr.setChangePrecisionModel(bool);
+pr.setPointwise(bool);
+pr.setRemoveCollapsedComponents(bool);

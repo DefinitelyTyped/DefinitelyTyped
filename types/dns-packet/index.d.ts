@@ -200,5 +200,19 @@ export const AUTHENTIC_DATA: number;
 export const CHECKING_DISABLED: number;
 
 export function encode(package: Packet, buf?: Buffer, offset?: number): Buffer;
+export namespace encode {
+    let bytes: number;
+}
 export function decode(buf: Buffer, offset?: number): Packet;
+export namespace decode {
+    let bytes: number;
+}
 export function encodingLength(packet: Packet): number;
+export function streamEncode(package: Packet): Buffer;
+export namespace streamEncode {
+    let bytes: number;
+}
+export function streamDecode(package: Buffer): Packet;
+export namespace streamDecode {
+    let bytes: number;
+}

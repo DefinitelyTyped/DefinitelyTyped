@@ -42,7 +42,7 @@
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
-    import { Socket, Server as NetServer, LookupFunction } from 'node:net';
+    import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -951,7 +951,7 @@ declare module 'http' {
          */
         destroy(error?: Error): void;
     }
-    interface AgentOptions {
+    interface AgentOptions extends Partial<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */

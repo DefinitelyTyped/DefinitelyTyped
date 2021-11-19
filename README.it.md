@@ -146,7 +146,7 @@ Se non lo fa, puoi farlo direttamente tu nel commento associato alla pull reques
 
 #### Creare un nuovo package
 
-Se sei l'autore della libreria ed il tuo package è scritto in TypeScript, [includi i file di dichiarazione generati automaticamente] (https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel tuo package invece di pubblicarli su Definitely Typed.
+Se sei l'autore della libreria ed il tuo package è scritto in TypeScript, [includi i file di dichiarazione generati automaticamente](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel tuo package invece di pubblicarli su Definitely Typed.
 
 Se stai aggiungendo i tipo per un package npm, crea una cartella con lo stesso nome.
 Se il package a cui stai aggiungendo i tipi non è su npm, assicurati che il nome che scegli non entri in conflitto con quello di un package npm.
