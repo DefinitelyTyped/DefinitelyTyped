@@ -19,6 +19,8 @@ export interface Response {
 export interface ConnectParams {
     plaintext?: boolean;
 
+    reflect?: boolean;
+
     timeout?: number;
 }
 
