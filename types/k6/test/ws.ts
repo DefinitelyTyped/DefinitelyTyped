@@ -19,6 +19,9 @@ response = connect(address, {
     headers: { 'User-Agent': 'ITS' },
     tags: { user: 'zbt' }
 }, executor);
+response = connect(address, {
+    compression: 'deflate'
+}, executor);
 connect(address, executor, 5); // $ExpectError
 connect(address, {}, executor, 5); // $ExpectError
 

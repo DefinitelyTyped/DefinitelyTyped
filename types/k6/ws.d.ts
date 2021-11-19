@@ -41,6 +41,12 @@ export interface Params {
     /** Request headers. */
     headers?: { [name: string]: string };
 
+    /**
+     * Compression algorithm. The only supported algorithm is `deflate`.
+     * If the option is left unset or empty, it defaults to no compression.
+     */
+    compression?: string;
+
     /** Response time metric tags. */
     tags?: { [name: string]: string };
 }
