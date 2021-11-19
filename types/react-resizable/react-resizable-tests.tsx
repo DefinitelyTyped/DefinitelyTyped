@@ -1,10 +1,7 @@
-import * as React from "react";
-import { Resizable, ResizableBox, ResizeCallbackData } from "react-resizable";
+import * as React from 'react';
+import { Resizable, ResizableBox, ResizeCallbackData } from 'react-resizable';
 
-const resizeCallback = (
-    event: React.SyntheticEvent,
-    data: ResizeCallbackData
-) => {
+const resizeCallback = (event: React.SyntheticEvent, data: ResizeCallbackData) => {
     console.log(data.size.height);
     console.log(data.node);
 };
@@ -16,7 +13,7 @@ class TestResizableComponent extends React.Component {
                 width={10}
                 height={20}
                 axis="y"
-                className={"foobar"}
+                className={'foobar'}
                 minConstraints={[20, 20]}
                 maxConstraints={[42, 42]}
                 handleSize={[5, 5]}
@@ -25,6 +22,7 @@ class TestResizableComponent extends React.Component {
                 onResizeStart={resizeCallback}
                 onResizeStop={resizeCallback}
                 onResize={resizeCallback}
+                transformScale={10}
             >
                 <div>{this.props.children} </div>
             </Resizable>

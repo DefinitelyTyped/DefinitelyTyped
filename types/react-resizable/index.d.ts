@@ -1,12 +1,14 @@
-// Type definitions for react-resizable 1.7
+// Type definitions for react-resizable 3.0
 // Project: https://github.com/STRML/react-resizable
 // Definitions by: Harry Brrundage <https://github.com/airhorns>
+//                 maxin <https://github.com/nnmax>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
+import { DraggableCore } from 'react-draggable';
 
-export type Axis = "both" | "x" | "y" | "none";
+export type Axis = 'both' | 'x' | 'y' | 'none';
 export type ResizeHandle = 's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne';
 
 export interface ResizableState {
@@ -34,7 +36,7 @@ export interface ResizeCallbackData {
 }
 
 export interface ResizableProps {
-    children?: React.ReactNode;
+    children: React.ReactNode;
     className?: string | undefined;
     width: number;
     height: number;
@@ -47,23 +49,20 @@ export interface ResizableProps {
     onResizeStop?: ((e: React.SyntheticEvent, data: ResizeCallbackData) => any) | undefined;
     onResizeStart?: ((e: React.SyntheticEvent, data: ResizeCallbackData) => any) | undefined;
     onResize?: ((e: React.SyntheticEvent, data: ResizeCallbackData) => any) | undefined;
-    draggableOpts?: any;
+    draggableOpts?: DraggableCore;
     resizeHandles?: ResizeHandle[] | undefined;
+    transformScale?: number;
 }
 
-export class Resizable extends React.Component<
-    ResizableProps,
-    ResizableState
-    > { }
+export class Resizable extends React.Component<ResizableProps, ResizableState> {}
 
 export interface ResizableBoxState {
     height: number;
     width: number;
+    propsWidth: number;
+    propsHeight: number;
 }
 
 export type ResizableBoxProps = ResizableProps;
 
-export class ResizableBox extends React.Component<
-    ResizableBoxProps,
-    ResizableBoxState
-    > { }
+export class ResizableBox extends React.Component<ResizableBoxProps, ResizableBoxState> {}
