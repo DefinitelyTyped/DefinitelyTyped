@@ -12,6 +12,6 @@ function testBuiltIn() {
 function testReadableStream() {
     const duplex: readableStream.Duplex = <any> {};
 
-    const readable: readableStream.Readable = duplexTo.readable(duplex);
-    const writable: readableStream.Writable = duplexTo.writable(duplex);
+    const readable: Readable = duplexTo.readable(duplex);
+    const writable: Writable = duplexTo.writable(duplex);
 }
