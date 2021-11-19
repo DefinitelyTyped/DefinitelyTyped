@@ -1,12 +1,14 @@
-// Type definitions for express-fileupload 1.1
+// Type definitions for express-fileupload 1.2.1
 // Project: https://github.com/richardgirges/express-fileupload#readme
 // Definitions by: Gintautas Miselis <https://github.com/Naktibalda>
 //                 Sefa Ilkimen <https://github.com/silkimen>
 //                 Tomas Vosicky <https://github.com/vosatom>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Mark Oude Elberink <https://github.com/markxoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');
+import busboy = require('busboy');
 
 declare global {
     namespace Express {
@@ -48,7 +50,7 @@ declare namespace fileUpload {
     /**
      * @see {@link https://github.com/richardgirges/express-fileupload#available-options}
      */
-    interface Options {
+    interface Options extends Partial<busboy.BusboyConfig> {
         /**
          * Automatically creates the directory path specified in `.mv(filePathName)`
          * @default false
