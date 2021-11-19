@@ -190,6 +190,14 @@ backend.use('readSnapshots', (context, callback) => {
     callback();
 });
 
+backend.use('sendPresence', (context, callback) => {
+    console.log(
+        context.presence.ch,
+        context.presence.id,
+    );
+    callback();
+});
+
 backend.on('submitRequestEnd', (error, request) => {
     console.log(request.op);
 });

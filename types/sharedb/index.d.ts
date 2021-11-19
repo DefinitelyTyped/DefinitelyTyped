@@ -223,6 +223,7 @@ declare namespace sharedb {
             readSnapshots: ReadSnapshotsContext;
             receive: ReceiveContext;
             reply: ReplyContext;
+            sendPresence: PresenceContext;
             submit: SubmitContext;
         }
 
@@ -253,6 +254,11 @@ declare namespace sharedb {
             collection: string;
             id: string;
             op: any;
+        }
+
+        interface PresenceContext extends BaseContext {
+            presence: PresenceMessage;
+            collection?: string;
         }
 
         interface QueryContext extends BaseContext {
@@ -324,6 +330,19 @@ interface GetOpsOptions {
     opsOptions?: {
         metadata?: boolean;
     };
+}
+
+interface PresenceMessage {
+    a: 'p';
+    ch: string; // channel
+    src: string; // client ID
+    id: string; // presence ID
+    p: any; // presence payload
+    pv: number; // presence version
+    c?: string; // document collection
+    d?: string; // document ID
+    v?: number; // document version
+    t?: string; // document OT type
 }
 
 type BasicCallback = (err?: Error) => void;
