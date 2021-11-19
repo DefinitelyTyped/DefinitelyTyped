@@ -974,7 +974,7 @@ interface GetLocationArgs
      * longitude and latitude location cache expiry time in seconds.
      * Default is 30s. Use of cache can speed up location process. Re-location is done upon cache expiry.
      */
-    catchTimeout?: number | undefined;
+    cacheTimeout?: number | undefined;
     /**
      * 0: default, get the longitude and latitude.
      */
