@@ -1614,7 +1614,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @returns Data stored under `key` in `localStorage`.
      * Returns `undefined` if {@link TagifyConstructorSettings.id} has not been set or no entry exists for `key` in `localStorage`.
      */
-    getPersistedData(key: string): any;
+    getPersistedData(key: string): unknown;
 
     /**
      * Set data for the specific instance.
@@ -1624,7 +1624,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @param data Data to store in `localStorage`.
      * @param key `localStorage` key (under the tagify namespace).
      */
-    setPersistedData(data: any, key: string): void;
+    setPersistedData(data: unknown, key: string): void;
 
     /**
      * Clears data for the specific instance by `key` parameter.
