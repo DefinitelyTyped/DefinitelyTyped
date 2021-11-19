@@ -364,8 +364,7 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
     /**
      * Lookup route with given `name`.
      */
-    route(name: string): Router.Layer;
-    route(name: string): boolean;
+    route(name: string): Router.Layer | boolean;
 
     /**
      * Generate URL for route. Takes either map of named `params` or series of
@@ -386,8 +385,7 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      * // => "/users/3?limit=1"
      *
      */
-    url(name: string, params?: any, options?: Router.UrlOptionsQuery): string;
-    url(name: string, params?: any, options?: Router.UrlOptionsQuery): Error;
+    url(name: string, params?: any, options?: Router.UrlOptionsQuery): Error | string;
 
     /**
      * Match given `path` and return corresponding routes.
