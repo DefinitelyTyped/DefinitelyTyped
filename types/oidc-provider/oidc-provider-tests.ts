@@ -68,7 +68,7 @@ new Provider('https://op.example.com', {
     }),
 });
 
-const theJWKS: JWKS = {
+const jwks: JWKS = {
     keys: [
         {
             kty: 'RSA',
@@ -84,6 +84,8 @@ const theJWKS: JWKS = {
         },
     ],
 };
+
+new Provider('https://op.example.com', { jwks });
 
 const provider = new Provider('https://op.example.com', {
     acrValues: ['urn:example:bronze'],
@@ -200,7 +202,22 @@ const provider = new Provider('https://op.example.com', {
         token.iat.toFixed();
         return false;
     },
-    jwks: theJWKS,
+    jwks: {
+        keys: [
+            {
+                kty: 'RSA',
+                d: 'foo',
+                n: 'foo',
+                e: 'AQAB',
+            },
+            {
+                kty: 'OKP',
+                x: 'foo',
+                d: 'foo',
+                crv: 'Ed25519',
+            },
+        ],
+    },
     responseTypes: ['code', 'code id_token', 'none'],
     pkce: {
         methods: ['plain', 'S256'],
