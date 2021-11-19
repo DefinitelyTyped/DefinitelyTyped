@@ -1,3 +1,5 @@
+import { CookieJar } from './http';
+
 /**
  * Open WebSocket connection.
  * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
@@ -49,6 +51,12 @@ export interface Params {
 
     /** Response time metric tags. */
     tags?: { [name: string]: string };
+
+    /**
+     * The cookie jar that will be used when making the initial HTTP request to establish the WebSocket connection.
+     * If empty, the default VU cookie jar will be used.
+     */
+    jar?: CookieJar;
 }
 
 /**

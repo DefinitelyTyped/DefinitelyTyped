@@ -1,3 +1,4 @@
+import { CookieJar } from 'k6/http';
 import { Response, Socket, WebSocketError, connect } from 'k6/ws';
 
 const address = 'http://example.com';
@@ -21,6 +22,9 @@ response = connect(address, {
 }, executor);
 response = connect(address, {
     compression: 'deflate'
+}, executor);
+response = connect(address, {
+    jar: new CookieJar()
 }, executor);
 connect(address, executor, 5); // $ExpectError
 connect(address, {}, executor, 5); // $ExpectError
