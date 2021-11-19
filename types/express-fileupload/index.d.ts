@@ -1,4 +1,4 @@
-// Type definitions for express-fileupload 1.2.1
+// Type definitions for express-fileupload 1.2
 // Project: https://github.com/richardgirges/express-fileupload#readme
 // Definitions by: Gintautas Miselis <https://github.com/Naktibalda>
 //                 Sefa Ilkimen <https://github.com/silkimen>
