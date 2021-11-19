@@ -840,8 +840,10 @@ braintree.threeDSecure.cancelVerifyCard(
         }
 
         verifyPayload.nonce; // The nonce returned from the 3ds lookup call
-        verifyPayload.liabilityShifted; // boolean
-        verifyPayload.liabilityShiftPossible; // boolean
+        verifyPayload.type; // The payment method type.
+        verifyPayload.liabilityShifted || verifyPayload.threeDSecureInfo.liabilityShifted; // boolean
+        verifyPayload.liabilityShiftPossible || verifyPayload.threeDSecureInfo.liabilityShiftPossible; // boolean
+        verifyPayload.binData.issuingBank; // The issuing bank.
     },
 );
 
