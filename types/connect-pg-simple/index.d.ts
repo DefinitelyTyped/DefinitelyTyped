@@ -1,6 +1,5 @@
-// Type definitions for connect-pg-simple 4.2
+// Type definitions for connect-pg-simple 7.0
 // Project: https://github.com/voxpelli/node-connect-pg-simple#readme
-// connect-pg-simple Version: 7.0.0
 // Definitions by: Pasi Eronen <https://github.com/pasieronen>, Samar Mohan <https://github.com/samarmohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
