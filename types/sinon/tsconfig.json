@@ -16,6 +16,9 @@
         ],
         "types": [],
         "paths": {
+            "@sinonjs/fake-timers": [
+                "sinonjs__fake-timers"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

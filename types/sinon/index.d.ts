@@ -1,4 +1,4 @@
-// Type definitions for Sinon 10.0
+// Type definitions for Sinon 12.0
 // Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Lukas Spieß <https://github.com/lumaxis>

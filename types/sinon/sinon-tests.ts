@@ -1,4 +1,5 @@
 import sinon = require("sinon");
+import { NodeClock } from "@sinonjs/fake-timers";
 
 function testSandbox() {
     const obj = {};
@@ -167,8 +168,8 @@ function testXHR() {
 }
 
 function testClock() {
-    let clock = sinon.clock.create(1000);
-    clock = sinon.clock.create(new Date());
+    let clock = sinon.clock.create(1000) as NodeClock;
+    clock = sinon.clock.create(new Date()) as NodeClock;
 
     let now = 0;
     now = clock.now;
@@ -181,8 +182,8 @@ function testClock() {
     clock.setImmediate(fn);
     clock.requestAnimationFrame(fn);
 
-    now = clock.setTimeout(fnWithArgs, 0, 1234, "abc");
-    now = clock.setInterval(fnWithArgs, 0, 1234, "abc");
+    clock.setTimeout(fnWithArgs, 0, 1234, "abc");
+    clock.setInterval(fnWithArgs, 0, 1234, "abc");
 
     clock.setImmediate(fnWithArgs, 1234, "abc"); // $ExpectType NodeTimer
 
@@ -215,7 +216,6 @@ function testClock() {
     clock.reset();
     clock.runMicrotasks();
     clock.runToFrame();
-    clock.uninstall();
     clock.setSystemTime(1000);
     clock.setSystemTime(new Date());
 }
