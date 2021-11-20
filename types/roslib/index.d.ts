@@ -1,7 +1,6 @@
 // Type definitions for roslib.js 1.1.0
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro>,
-//                 Cooper Benson <https://github.com/skycoop>,
 //                 David Gonzalez <https://github.com/dgorobopec>
 //                 Arvid Norlander <https://github.com/VorpalBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
