@@ -484,7 +484,7 @@ declare namespace GoogleAppsScript {
      * The implementation depends on the client platform capabilities. OnClose may cause OpenAs to be ignored; if the client platform cannot support both selected values together,
      * OnClose takes precedence.
      */
-    enum OnClose { NOTHING, RELOAD_ADD_ON }
+    enum OnClose { NOTHING, RELOAD }
     /**
      * An enum that specifies how to open a URL.
      *
