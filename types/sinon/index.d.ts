@@ -774,7 +774,9 @@ declare namespace Sinon {
         (obj: any): SinonMock;
     }
 
-    type SinonFakeTimers = FakeTimers.Clock & {
+    type SinonFakeNodeClock = FakeTimers.NodeClock;
+    type SinonFakeBrowserClock = FakeTimers.BrowserClock;
+    type SinonFakeTimers<Clock extends FakeTimers.FakeClock<any> = FakeTimers.Clock> = Clock & {
         /**
          * Restores the original clock
          * Identical to uninstall()

@@ -1,5 +1,4 @@
 import sinon = require("sinon");
-import { NodeClock } from "@sinonjs/fake-timers";
 
 function testSandbox() {
     const obj = {};
@@ -168,8 +167,8 @@ function testXHR() {
 }
 
 function testClock() {
-    let clock = sinon.clock.create(1000) as NodeClock;
-    clock = sinon.clock.create(new Date()) as NodeClock;
+    let clock = sinon.clock.create(1000) as sinon.SinonFakeNodeClock;
+    clock = sinon.clock.create(new Date()) as sinon.SinonFakeNodeClock;
 
     let now = 0;
     now = clock.now;
