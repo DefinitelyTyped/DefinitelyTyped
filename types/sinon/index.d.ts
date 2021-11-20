@@ -776,7 +776,7 @@ declare namespace Sinon {
 
     type SinonFakeNodeClock = FakeTimers.NodeClock;
     type SinonFakeBrowserClock = FakeTimers.BrowserClock;
-    type SinonFakeTimers<Clock extends FakeTimers.FakeClock<any> = FakeTimers.Clock> = Clock & {
+    type SinonFakeTimers = FakeTimers.Clock & {
         /**
          * Restores the original clock
          * Identical to uninstall()
