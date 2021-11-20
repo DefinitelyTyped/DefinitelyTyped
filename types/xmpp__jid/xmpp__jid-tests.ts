@@ -1,39 +1,52 @@
 import jid = require('@xmpp/jid');
 
-let addr: jid.JID;
-let str: string;
-let bool: boolean;
+// test type exports
+type JID = jid.JID;
 
-addr = jid('alice@wonderland.net/rabbithole');
-addr = jid('alice', 'wonderland.net', 'rabbithole');
+const addr = jid('alice@wonderland.net/rabbithole'); // $ExpectType JID
+jid('alice', 'wonderland.net'); // $ExpectType JID
+jid(null, 'wonderland.net'); // $ExpectType JID
+jid(undefined, 'wonderland.net'); // $ExpectType JID
+jid('alice', 'wonderland.net', 'rabbithole'); // $ExpectType JID
+jid('alice', 'wonderland.net', null); // $ExpectType JID
+jid('alice', 'wonderland.net', undefined); // $ExpectType JID
+
+jid.jid('alice@wonderland.net/rabbithole'); // $ExpectType JID
+jid.jid('alice', 'wonderland.net'); // $ExpectType JID
+jid.jid(null, 'wonderland.net'); // $ExpectType JID
+jid.jid(undefined, 'wonderland.net'); // $ExpectType JID
+jid.jid('alice', 'wonderland.net', 'rabbithole'); // $ExpectType JID
+jid.jid('alice', 'wonderland.net', null); // $ExpectType JID
+jid.jid('alice', 'wonderland.net', undefined); // $ExpectType JID
 
 addr.local = 'alice';
-str = addr.local;
-addr.setLocal('alice');
-addr.setLocal('alice', true);
-str = addr.getLocal();
+addr.local; // $ExpectType string
+addr.setLocal('alice'); // $ExpectType void
+addr.setLocal('alice', true); // $ExpectType void
+addr.getLocal(); // $ExpectType string
 
 addr.domain = 'wonderland.net';
-str = addr.domain;
-addr.setDomain('wonderland.net');
-str = addr.getDomain();
+addr.domain; // $ExpectType string
+addr.setDomain('wonderland.net'); // $ExpectType void
+addr.getDomain(); // $ExpectType string
 
 addr.resource = 'rabbithole';
-str = addr.resource;
-addr.setResource('rabbithole');
-str = addr.getResource();
+addr.resource; // $ExpectType string
+addr.setResource('rabbithole'); // $ExpectType void
+addr.getResource(); // $ExpectType string
 
-str = addr.toString();
-str = addr.toString(true);
-addr = addr.bare();
+addr.toString(); // $ExpectType string
+addr.toString(true); // $ExpectType string
+addr.bare(); // $ExpectType JID
 
-bool = addr.equals(addr);
+addr.equals(addr); // $ExpectType boolean
 
-bool = jid.equal(addr, addr);
+jid.equal(addr, addr); // $ExpectType boolean
 
-addr = jid.createJID('my', 'homies');
-bool = jid.equal(addr, addr);
-bool = jid.detectEscape('homies');
-str = jid.escapeLocal('homies');
-str = jid.unescapeLocal('homies');
-addr = jid.parse('homies');
+jid.equal(addr, addr); // $ExpectType boolean
+jid.detectEscape('homies'); // $ExpectType boolean
+jid.escapeLocal('homies'); // $ExpectType string
+jid.unescapeLocal('homies'); // $ExpectType string
+jid.parse('homies'); // $ExpectType JID
+
+class MyJID extends jid.JID {}
