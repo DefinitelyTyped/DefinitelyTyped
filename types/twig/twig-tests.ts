@@ -38,7 +38,11 @@ const compOpts: twig.CompileOptions = {
     }
 };
 
-twig.extendFilter(str, (left: any, ...params: any[]) => {
+twig.extendFilter('backwords', value => {
+    return value.split(' ').reverse().join(' ');
+});
+
+twig.extendFilter(str, (left: any, params: any[] | false) => {
     return str;
 });
 
