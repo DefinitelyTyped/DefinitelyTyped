@@ -10,13 +10,13 @@ import {
     TextTransformation,
     TextWatcher,
     TwoStepCaretMovement,
-    Typing,
+    Typing
 } from '@ckeditor/ckeditor5-typing';
 import DeleteCommand from '@ckeditor/ckeditor5-typing/src/deletecommand';
 import InputCommand from '@ckeditor/ckeditor5-typing/src/inputcommand';
 import {
     TextTransformationConfig,
-    TextTransformationDescription,
+    TextTransformationDescription
 } from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import findAttributeRange from '@ckeditor/ckeditor5-typing/src/utils/findattributerange';
 import injectUnsafeKeystrokesHandling from '@ckeditor/ckeditor5-typing/src/utils/injectunsafekeystrokeshandling';
@@ -52,8 +52,8 @@ const description: TextTransformationDescription = {
 
 const config: TextTransformationConfig = {
     extra: [description, description],
-    include: [description],
-    remove: [description],
+    include: [description, description, '', ''],
+    remove: ['', ''],
 };
 
 const position = new Position(Element.fromJSON({ name: 'div' }), [3]);
