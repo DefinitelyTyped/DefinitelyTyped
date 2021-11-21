@@ -1,4 +1,5 @@
-import WAAClock, { Event } from 'waaclock';
+import WAAClock = require('waaclock');
+import { Event } from 'waaclock';
 
 const ctx = new AudioContext();
 
