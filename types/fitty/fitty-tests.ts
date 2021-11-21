@@ -6,9 +6,9 @@ fitty('#my-element', {
 });
 
 const fitties = fitty('.fit');
-const myFittyElement = (fitties as fitty.FittyInstance[])[0].element;
-(fitties as fitty.FittyInstance[])[0].fit();
-(fitties as fitty.FittyInstance[])[0].unsubscribe();
+const myFittyElement = fitties[0].element;
+fitties[0].fit();
+fitties[0].unsubscribe();
 myFittyElement.addEventListener('fit' as keyof HTMLElementEventMap, e => console.log((e as fitty.FittyEvent).detail));
 const observeWindow = fitty.observeWindow;
 const observeWindowDelay = fitty.observeWindowDelay;

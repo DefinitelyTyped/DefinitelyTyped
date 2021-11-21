@@ -5,7 +5,8 @@
 
 export as namespace fitty;
 
-declare function fitty(el: HTMLElement | string, config?: fitty.FittyConfig): fitty.FittyInstance | fitty.FittyInstance[];
+declare function fitty(el: HTMLElement, config?: fitty.FittyConfig): fitty.FittyInstance;
+declare function fitty(selector: string, config?: fitty.FittyConfig): fitty.FittyInstance[];
 
 declare namespace fitty {
     let observeWindow: boolean;
