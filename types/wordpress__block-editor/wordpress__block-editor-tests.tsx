@@ -302,9 +302,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
             label: 'Background Color',
         },
     ]}
->
-    Hello World
-</be.PanelColorSettings>;
+/>;
 
 //
 // plain-text

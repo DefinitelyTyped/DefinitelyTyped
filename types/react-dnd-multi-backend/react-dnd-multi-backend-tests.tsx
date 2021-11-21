@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import MultiBackend, { createTransition, TouchTransition, Backends, Preview, PreviewGenerator } from 'react-dnd-multi-backend';
 import HTML5ToTouchEsm from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 import HTML5ToTouchCjs from 'react-dnd-multi-backend/dist/cjs/HTML5toTouch';
-import TouchBackend from 'react-dnd-touch-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 const context = {};
 
