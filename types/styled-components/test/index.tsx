@@ -1151,8 +1151,7 @@ const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperC
 
 const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
 const StyledWrapperFunction = styled(WrapperFunction)``;
-// React.FunctionComponent typings always add `children` to props, so this should accept children
-const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+const wrapperFunction = <StyledWrapperFunction />;
 
 const WrapperFunc = (props: WrapperProps) => <div />;
 const StyledWrapperFunc = styled(WrapperFunc)``;
