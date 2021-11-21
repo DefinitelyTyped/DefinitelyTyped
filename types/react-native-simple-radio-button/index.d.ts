@@ -15,6 +15,7 @@ export interface DefaultRadioFormProps {
 }
 
 export interface ReactNativeRadioFormProps extends DefaultRadioFormProps {
+    children?: React.ReactNode;
     radio_props?: Array<{label: string, value: string | number}> | undefined;
     initial?: number | undefined;
     buttonColor?: string | undefined;
@@ -25,6 +26,7 @@ export interface ReactNativeRadioFormProps extends DefaultRadioFormProps {
 }
 
 export interface RadioButtonProps {
+    children?: React.ReactNode;
     isSelected?: boolean | undefined;
     labelHorizontal?: boolean | undefined;
     buttonColor?: string | undefined;
