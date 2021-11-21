@@ -32,7 +32,8 @@ declare namespace WAAClock {
 
         /**
          * Cancels the event execution. This will work only if the event hasn't been scheduled yet
-         * (see [the docs](https://github.com/sebpiq/WAAClock#more-infos-about-scheduling) for more info). */
+         * (see [the docs](https://github.com/sebpiq/WAAClock#more-infos-about-scheduling) for more info).
+         */
         clear(): Event;
     }
 }
