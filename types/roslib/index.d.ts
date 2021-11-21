@@ -1,9 +1,10 @@
 // Type definitions for roslib.js 1.1.0
 // Project: http://wiki.ros.org/roslibjs
-// Definitions by: Stefan Profanter <https://github.com/Pro>,
-//                 Cooper Benson <https://github.com/skycoop>,
+// Definitions by: Stefan Profanter <https://github.com/Pro>
+//                 Cooper Benson <https://github.com/skycoop>
 //                 David Gonzalez <https://github.com/dgorobopec>
 //                 Arvid Norlander <https://github.com/VorpalBlade>
+//                 Aluma Gelbard <https://github.com/alumag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -12,6 +13,8 @@
  NOTE: This typescript definition is not yet complete. I should be extended if definitions are missing.
 
  ---------------------------------- */
+
+import { EventEmitter2 } from "eventemitter2";
 
 export = ROSLIB;
 export as namespace ROSLIB;
@@ -28,7 +31,7 @@ declare namespace ROSLIB {
         z?: number | null | undefined;
         w?: number | null | undefined;
     }
-    export class Ros {
+    export class Ros extends EventEmitter2 {
         /**
          * Manages connection to the server and all interactions with ROS.
          *
@@ -43,17 +46,25 @@ declare namespace ROSLIB {
          * @param options - possible keys include:
          *   * url (optional) - (can be specified later with `connect`) the WebSocket URL for rosbridge or the node server url to connect using socket.io (if socket.io exists in the page) <br>
          *   * groovyCompatibility - don't use interfaces that changed after the last groovy release or rosbridge_suite and related tools (defaults to true)
-         *   * transportLibrary (optional) - one of 'websocket' (default), 'socket.io' or RTCPeerConnection instance controlling how the connection is created in `connect`.
+         *   * transportLibrary (optional) - one of 'websocket', 'workersocket' (default), 'socket.io' or RTCPeerConnection instance controlling how the connection is created in `connect`.
          *   * transportOptions (optional) - the options to use use when creating a connection. Currently only used if `transportLibrary` is RTCPeerConnection.
          */
         constructor(options: {
             url?: string | undefined;
             groovyCompatibility?: boolean | undefined;
-            transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection | undefined;
+            transportLibrary?: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection | undefined;
             transportOptions?: RTCDataChannelInit | undefined;
         });
 
-        on(eventName: string, callback: (event: any) => void): void;
+        readonly isConnected: boolean;
+
+        readonly transportLibrary: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection;
+
+        readonly transportOptions: RTCDataChannelInit | {};
+
+        on(eventName: string, callback: (event: any) => void): this;
+
+        on(eventName: 'connection' | 'close' | 'error', callback: (event: Event) => void): this;
 
         /**
          * Connect to the specified WebSocket.
