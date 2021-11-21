@@ -95,19 +95,6 @@ declare module '.' {
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
 
     /**
-     * @param subscribe
-     * @param getSnapshot
-     *
-     * @see https://github.com/reactwg/react-18/discussions/86
-     */
-    // keep in sync with `useSyncExternalStore` from `use-sync-external-store`
-    export function unstable_useSyncExternalStore<Snapshot>(
-        subscribe: (onStoreChange: () => void) => () => void,
-        getSnapshot: () => Snapshot,
-        getServerSnapshot?: () => Snapshot,
-    ): Snapshot;
-
-    /**
      * @param effect Imperative function that can return a cleanup function
      * @param deps If present, effect will only activate if the values in the list change.
      *

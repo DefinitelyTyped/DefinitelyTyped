@@ -141,4 +141,17 @@ declare module '.' {
      * @see https://github.com/reactjs/rfcs/blob/master/text/0147-use-mutable-source.md
      */
     export function unstable_useMutableSource<T, TResult extends unknown>(MutableSource: MutableSource<T>, getSnapshot: (source: T) => TResult, subscribe: MutableSourceSubscribe<T>): TResult;
+
+    /**
+     * @param subscribe
+     * @param getSnapshot
+     *
+     * @see https://github.com/reactwg/react-18/discussions/86
+     */
+    // keep in sync with `useSyncExternalStore` from `use-sync-external-store`
+    export function useSyncExternalStore<Snapshot>(
+        subscribe: (onStoreChange: () => void) => () => void,
+        getSnapshot: () => Snapshot,
+        getServerSnapshot?: () => Snapshot,
+    ): Snapshot;
 }
