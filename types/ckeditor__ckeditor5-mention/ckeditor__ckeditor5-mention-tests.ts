@@ -23,7 +23,9 @@ const element = new DowncastWriter(new Document(new StylesProcessor())).createEm
 myEditor.plugins.get(Mention).toMentionAttribute(element, { foo: 'bar' }).foo === 'bar';
 
 // $ExpectError
-myEditor.plugins.get(Mention).toMentionAttribute(element).foo.startsWith;
+myEditor.plugins.get(Mention).toMentionAttribute(element).foo;
+// $ExpectType number
+myEditor.plugins.get(Mention).toMentionAttribute(element, { foo: 5 }).foo;
 
 new MentionUI(myEditor).isEnabled = true;
 
@@ -58,10 +60,12 @@ command.execute({
 const htmlEl = document.createElement('div');
 new DomWrapperView(new Locale(), htmlEl).domElement === htmlEl;
 new DomWrapperView(new Locale(), htmlEl).element! === htmlEl;
+// $ExpectError
+new DomWrapperView(htmlEl).element! === htmlEl;
 
-new MentionListItemView().children.first!.highlight();
+// $ExpectType ((ButtonView | DomWrapperView<HTMLElement>) & { id: string; }) | null
+new MentionListItemView().children.first;
 
-new MentionsView().selected.children.first!.highlight();
 new MentionsView().items.first!.highlight();
 
 // $ExpectType Mention
