@@ -6,7 +6,6 @@
 import { Options as CloneOptions } from 'git-clone';
 import { DownloadOptions } from 'download';
 
-
 declare namespace download {
     interface Options extends CloneOptions, DownloadOptions {
         /**
