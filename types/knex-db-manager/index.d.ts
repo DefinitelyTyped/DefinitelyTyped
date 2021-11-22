@@ -3,7 +3,8 @@
 // Definitions by: Dmitrii Solovev <https://github.com/dimonnwc3>
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Knex } from 'knex';
+
+import { Seeder, Config } from 'knex';
 
 export interface KnexDbManager {
     createDbOwnerIfNotExist(): Promise<void>;
@@ -17,7 +18,11 @@ export interface KnexDbManager {
     populateDb(glob?: string): Promise<void>;
     copyDb(fromDbName?: string, toDbName?: string): Promise<void>;
     truncateDb(ignoreTables?: string[]): Promise<void>;
-    knexInstance(): Knex;
+
+    // Warning: We actually just want the Knex interface, but it's not exported in the current version of `knex`
+    // Updating to a newer version of `knex` is also problematic since older version of Typescript throw errors
+    // The current solution extracts the Knex interface from the Seeder constructor
+    knexInstance(): ConstructorParameters<typeof Seeder>[0];
 }
 
 export interface DbManagerConfig {
@@ -28,7 +33,7 @@ export interface DbManagerConfig {
 }
 
 export interface DbManagerFactoryConfig {
-    knex: Knex.Config | string;
+    knex: Config | string;
     dbManager: DbManagerConfig;
 }
 
