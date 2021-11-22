@@ -220,7 +220,7 @@ function testComponents(player: videojs.Player) {
     myWindow.myFunction();
     myWindow.isDisposed(); // $ExpectType boolean
     myWindow.dispose(); // $ExpectType void
-	
+
 	const MyOtherWindow = videojs.extend(videojs.getComponent("ModalDialog"), {
         myFunction() {
             this.player().play();
