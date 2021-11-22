@@ -453,6 +453,22 @@ declare namespace videojs {
      */
     function use(type: string, middleware: (player: Player) => Middleware): void;
 
+	/**
+     * Used to subclass an existing class by emulating ES subclassing using the extends keyword.
+     */
+    function extend<
+        TSuper extends new (...args: any[]) => any,
+        TSubClassMethods extends Record<string | symbol, TSubClassMethod>,
+        TSubClassMethod extends (
+            this: InstanceType<TSuper>,
+            ...args: any[]
+        ) => any
+    >(
+        superClass: TSuper,
+        subClassMethods: TSubClassMethods
+    ): new (...args: ConstructorParameters<TSuper>) => InstanceType<TSuper> &
+			TSubClassMethods;
+
     /**
      * Current software version. Follows semver.
      *
