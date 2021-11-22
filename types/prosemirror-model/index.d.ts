@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.13
+// Type definitions for prosemirror-model 1.15
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -99,12 +99,22 @@ export class Fragment<S extends Schema = any> {
      * may return `false` to prevent traversal of a given node's children.
      */
     descendants(
-        f: (node: ProsemirrorNode<S>, pos: number, parent: ProsemirrorNode<S>) => boolean | null | undefined | void,
+        f: (
+            node: ProsemirrorNode<S>,
+            pos: number,
+            parent: ProsemirrorNode<S>,
+            index: number,
+        ) => boolean | null | undefined | void,
     ): void;
     /**
      * Extract the text between `from` and `to`. See the same method on {@link ProsemirrorNode.textBetween}
      */
-    textBetween(from: number, to: number, blockSeparator?: string | null, leafText?: string | null): string;
+    textBetween(
+        from: number,
+        to: number,
+        blockSeparator?: string | null,
+        leafText?: string | null | ((node: ProsemirrorNode) => string),
+    ): string;
     /**
      * Create a new fragment containing the combined content of this
      * fragment and the other.
@@ -543,7 +553,12 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * descend into a node when the callback returns `false`.
      */
     descendants(
-        f: (node: ProsemirrorNode<S>, pos: number, parent: ProsemirrorNode<S>) => boolean | null | undefined | void,
+        f: (
+            node: ProsemirrorNode<S>,
+            pos: number,
+            parent: ProsemirrorNode<S>,
+            index: number,
+        ) => boolean | null | undefined | void,
     ): void;
     /**
      * Concatenates all the text nodes found in this fragment and its
@@ -556,7 +571,12 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * block node is started. When `leafText` is given, it'll be
      * inserted for every non-text leaf node encountered.
      */
-    textBetween(from: number, to: number, blockSeparator?: string, leafText?: string): string;
+    textBetween(
+        from: number,
+        to: number,
+        blockSeparator?: string | null,
+        leafText?: string | null | ((node: ProsemirrorNode) => string),
+    ): string;
     /**
      * Returns this node's first child, or `null` if there are no
      * children.
@@ -1393,7 +1413,7 @@ export interface DOMOutputSpecArray {
     8?: DOMOutputSpec | 0 | undefined;
     9?: DOMOutputSpec | 0 | undefined;
 }
-export type DOMOutputSpec = string | Node | DOMOutputSpecArray | {dom: Node, contentDOM?: Node | undefined};
+export type DOMOutputSpec = string | Node | DOMOutputSpecArray | { dom: Node; contentDOM?: Node | undefined };
 /**
  * A DOM serializer knows how to convert ProseMirror nodes and
  * marks of various types to DOM nodes.

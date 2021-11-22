@@ -118,4 +118,18 @@ const fragmentTests = () => {
 
     // $ExpectType string
     const textBetweenSeparatorAndNullLeafArgs = prosemirrorFragment.textBetween(1, 2, 'separator', null);
+
+    const leafTextCallback = (n: model.Node) => {
+        return n.textContent;
+    };
+    // $ExpectType string
+    const textBetweenSeparatorAndLeafCallbackArgs = prosemirrorFragment.textBetween(
+        1,
+        2,
+        'separator',
+        leafTextCallback,
+    );
+
+    const descendantsCallback = (n: model.Node, pos: number, p: model.Node, index: number) => true;
+    prosemirrorFragment.descendants(descendantsCallback);
 };
