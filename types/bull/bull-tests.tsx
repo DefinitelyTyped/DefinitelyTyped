@@ -283,6 +283,13 @@ myQueue.obliterate({ force: true }).then(() => {
     console.log('queue obliterated');
 });
 
+myQueue.add({ foo: 'bar' }).then(job => {
+    job.getState().then(state => {
+        // state could equal 'stuck'
+        state === 'stuck';
+    });
+});
+
 // Close queues
 
 myQueue.close();

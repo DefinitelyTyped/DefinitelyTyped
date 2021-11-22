@@ -235,7 +235,7 @@ declare namespace Bull {
      * it atomic. If your queue does have a very large quantity of jobs, you may want to
      * avoid using this method.
      */
-    getState(): Promise<JobStatus>;
+    getState(): Promise<JobStatus | 'stuck'>;
 
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
