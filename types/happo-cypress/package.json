@@ -1,6 +1,9 @@
 {
     "private": true,
-    "dependencies": {
-        "cypress": "^6.4.0"
+    "devDependencies": {
+        "cypress": "^8"
+    },
+    "peerDependencies": {
+        "cypress": "^6.4.0 || ^7 || ^8 || ^9"
     }
 }
