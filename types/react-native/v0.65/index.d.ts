@@ -3318,7 +3318,7 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
     /**
      * Progress view top offset
      */
-     progressViewOffset?: number | undefined;
+    progressViewOffset?: number | undefined;
 }
 
 /**
