@@ -5333,6 +5333,73 @@ declare namespace Xrm {
              */
             type: number;
         }
+
+        /**
+         * Defines single side pane.
+         * @see {@link Xrm.App.sidePanes.createPane}
+         */
+        interface PaneOptions {
+            /**
+             * The title of the pane. Used in pane header and for tooltip.
+             */
+            title?: string;
+            /**
+             * The ID of the new pane. If the value is not passed, the ID value is auto-generated.
+             */
+            paneId?: string;
+            /**
+             * Whether the pane header will show a close button or not.
+             */
+            canClose?: boolean;
+            /**
+             * The path of the icon to show in the panel switcher control.
+             */
+            imageSrc?: string;
+            /**
+             * Hides the header pane, including the title and close button. Default value is false.
+             */
+            hideHeader?: boolean;
+            /**
+             * When set to false, the created pane is not selected and leaves the existing pane selected. It also does not expand the pane if collapsed.
+             */
+            isSelected?: boolean;
+            /**
+             * The width of the pane in pixels.
+             */
+            width?:	number;
+            /**
+             * Hides the pane and tab.
+             */
+            hidden?: boolean;
+            /**
+             * Prevents the pane from unmounting when it is hidden.
+             */
+            alwaysRender?: boolean;
+            /**
+             * Prevents the badge from getting cleared when the pane becomes selected.
+             */
+            keepBadgeOnSelect?:	boolean;
+        }
+
+        /**
+         * Defines methods single side pane.
+         */
+        interface PaneObject extends Omit<PaneOptions, "isSelected" | "hideHeader"> {
+            /**
+             * Closes the side pane and removes it from the side bar.
+             */
+            close(): void;
+
+            /**
+             * Specify whether the pane should be selected or expanded.
+             */
+            select(): void;
+
+            /**
+             * Opens a page within the selected pane. This is similar to the navigateTo method.
+             */
+            navigate(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.CustomPage | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+        }
     }
 
     /**
@@ -5345,14 +5412,47 @@ declare namespace Xrm {
          * @param notification The notification to add.
          * @returns On success, returns a promise object containing a GUID value to uniquely identify the notification as described earlier in the description of the successCallback parameter.
          */
-        addGlobalNotification(notification: App.Notifcation): Promise<string>;
+        addGlobalNotification(notification: App.Notifcation): Async.PromiseLike<string>;
 
         /**
          * Clears a notification in the app.
          * @param uniqueId The ID to use to clear a specific notification that was set using addGlobalNotification.
          * @returns On success, returns a promise object.
          */
-        clearGlobalNotification(uniqueId: string): Promise<string>;
+        clearGlobalNotification(uniqueId: string): Async.PromiseLike<string>;
+
+        /**
+         * Provides methods for managing side panes.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app-sidepanes External Link: sidePanes (Client API reference)}
+         */
+        sidePanes: {
+            /**
+             * @returns whether the selected pane is collapsed or expanded.
+             */
+            state: number;
+
+            /**
+             * Provides all the information to create side panes.
+             * @param paneOptions The ID to use to clear a specific notification that was set using addGlobalNotification.
+             */
+            createPane(paneOptions?: App.PaneOptions): Async.PromiseLike<App.PaneObject>;
+
+            /**
+             * @returns a collection containing all active panes.
+             */
+            getAllPanes(): App.PaneObject[];
+
+            /**
+             * @param panelId string
+             * @returns the side pane corresponding to the input ID. If the side pane does not exist, undefined is returned.
+             */
+            getPane(panelId: string): App.PaneObject | undefined;
+
+            /**
+             * @returns the currently selected pane.
+             */
+            getSelectedPane(): App.PaneObject;
+        };
     }
 
     /**

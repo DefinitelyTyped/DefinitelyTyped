@@ -345,6 +345,7 @@ async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEn
     }
 }
 
+// Demonstrate App
 Xrm.App.addGlobalNotification({
     type: 2,
     level: 2, // error
@@ -373,3 +374,19 @@ Xrm.App.addGlobalNotification({
         // handle error conditions
     }
 );
+Xrm.App.sidePanes.state = 1;
+Xrm.App.sidePanes.createPane({
+    title: "Reservation: Ammar Peterson",
+    imageSrc: "WebResources/sample_reservation_icon",
+    hideHeader: true,
+    canClose: true,
+    width: 600
+}).then(pane => {
+    pane.navigate({
+        pageType: "entitylist",
+        entityName: "sample_reservation",
+    });
+});
+Xrm.App.sidePanes.getAllPanes();
+Xrm.App.sidePanes.getPane("panelId");
+Xrm.App.sidePanes.getSelectedPane();
