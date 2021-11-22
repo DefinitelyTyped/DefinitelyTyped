@@ -344,3 +344,32 @@ async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEn
         }));
     }
 }
+
+Xrm.App.addGlobalNotification({
+    type: 2,
+    level: 2, // error
+    message: "Test error notification",
+    showCloseButton: true,
+    action: {
+        actionLabel: "Learn more",
+        eventHandler() {
+              Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
+              // perform other operations as required on clicking
+        }
+    }
+}).then(
+    function success(result) {
+        result; // $ExpectType string
+
+        console.log("Notification created with ID: " + result);
+
+        // Wait for 5 seconds and then clear the notification
+        window.setTimeout(() => {
+            Xrm.App.clearGlobalNotification(result);
+        }, 5000);
+    },
+    error => {
+        console.log(error.message);
+        // handle error conditions
+    }
+);

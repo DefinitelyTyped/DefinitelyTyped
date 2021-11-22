@@ -85,6 +85,12 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
          */
         Encoding: Encoding;
+
+        /**
+         * Provides app-related methods.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+         */
+        App: App;
     }
 
     /**
@@ -5279,6 +5285,74 @@ declare namespace Xrm {
          * If the number of records being retrieved is more than the value specified in the maxPageSize parameter, this attribute returns the URL to return next set of records.
          */
         nextLink: string;
+    }
+
+    /**
+     * Namespace to hold Xrm.App related types
+     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     */
+     namespace App {
+        /**
+         * Defines the action of notification
+         * @see {@link Xmr.App.Notification}
+         */
+        interface Action {
+            /**
+             * The label for the action in the message.
+             */
+            actionLabel?: string;
+            /**
+             * The function to execute when the action label is clicked.
+             */
+            eventHandler?: () => void;
+        }
+
+        /**
+         * Defines the notification object for Xrm.App.addGlobalNotification
+         * @see {@link Xmr.App.addGlobalNotification}
+         */
+        interface Notifcation {
+            /**
+             * @see {@link Xrm.App.Action}
+             */
+            action?: Action;
+            /**
+             * Defines the level of notification.
+             */
+            level: number;
+            /**
+             * The message to display in the notification.
+             */
+            message: string;
+            /**
+             * Indicates whether or not the user can close or dismiss the notification. If you don't specify this parameter, users can't close or dismiss the notification by default.
+             */
+            showCloseButton?: boolean;
+            /**
+             * Defines the type of notification. Currently, only a value of 2 is supported, which displays a message bar at the top of the app.
+             */
+            type: number;
+        }
+    }
+
+    /**
+     * Interface for Xrm.App API
+     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     */
+    interface App {
+        /**
+         * Displays an error, information, warning, or success notification for an app, and lets you specify actions to execute based on the notification.
+         * @param notification The notification to add.
+         * @returns On success, returns a promise object containing a GUID value to uniquely identify the notification as described earlier in the description of the successCallback parameter.
+         */
+        addGlobalNotification(notification: App.Notifcation): Promise<string>;
+
+        /**
+         * Clears a notification in the app.
+         * @param uniqueId The ID to use to clear a specific notification that was set using addGlobalNotification.
+         * @returns On success, returns a promise object.
+         */
+        clearGlobalNotification(uniqueId: string): Promise<string>;
     }
 
     /**
