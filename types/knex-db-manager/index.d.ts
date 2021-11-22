@@ -1,8 +1,9 @@
 // Type definitions for knex-db-manager 0.6
 // Project: https://github.com/Vincit/knex-db-manager#readme
 // Definitions by: Dmitrii Solovev <https://github.com/dimonnwc3>
+//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { QueryBuilder, Config as KnexConfig } from 'knex';
+import { Knex } from 'knex';
 
 export interface KnexDbManager {
     createDbOwnerIfNotExist(): Promise<void>;
@@ -16,7 +17,7 @@ export interface KnexDbManager {
     populateDb(glob?: string): Promise<void>;
     copyDb(fromDbName?: string, toDbName?: string): Promise<void>;
     truncateDb(ignoreTables?: string[]): Promise<void>;
-    knexInstance(): QueryBuilder;
+    knexInstance(): Knex;
 }
 
 export interface DbManagerConfig {
@@ -26,9 +27,9 @@ export interface DbManagerConfig {
     populatePathPattern?: string | undefined;
 }
 
-export interface DbanagerFactoryConfig {
-    knex: KnexConfig | string;
+export interface DbManagerFactoryConfig {
+    knex: Knex.Config | string;
     dbManager: DbManagerConfig;
 }
 
-export function databaseManagerFactory(config: DbanagerFactoryConfig): KnexDbManager;
+export function databaseManagerFactory(config: DbManagerFactoryConfig): KnexDbManager;
