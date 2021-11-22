@@ -32,7 +32,7 @@ declare namespace Snap {
     export function getElementByPoint(x:number,y:number):Snap.Element;
     export function is(o:any,type:string):boolean;
     export function load(url:string,callback:(f:Fragment)=>void,scope?:Object):void;
-    export function plugin(f:(snap: Snap, el: Snap.Element, paper: Snap.Paper, global, f: Fragment)=>void):void;
+    export function plugin(f:(Snap: Snap, Element: Snap.Element, Paper: Snap.Paper, global, Fragment: Fragment)=>void):void;
     export function select(query:string):Snap.Element;
     export function selectAll(query:string):any;
     export function set(...els:Snap.Element[]):Snap.Set;
