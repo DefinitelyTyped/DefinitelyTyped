@@ -4179,7 +4179,7 @@ export interface SectionBase<ItemT, SectionT = DefaultSectionT> {
 export type SectionListData<ItemT, SectionT = DefaultSectionT> = SectionBase<ItemT, SectionT> & SectionT;
 
 /**
- * @see https://reactnative.dev/docs/sectionlist.html#props
+ * @see https://reactnative.dev/docs/sectionlist#props
  */
 
 export interface SectionListRenderItemInfo<ItemT, SectionT = DefaultSectionT> extends ListRenderItemInfo<ItemT> {
@@ -4589,7 +4589,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
 }
 
 /**
- * @see https://reactnative.dev/docs/listview#props
+ * @see https://reactnative.dev/docs/0.63/listview#props
  */
 export interface ListViewProps extends ScrollViewProps {
     /**
@@ -4789,7 +4789,7 @@ interface MaskedViewIOSProps extends ViewProps {
 }
 
 /**
- * @see https://reactnative.dev/docs/maskedviewios
+ * @see https://reactnative.dev/docs/0.63/maskedviewios
  */
 declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethods> & typeof MaskedViewComponent;
@@ -5705,7 +5705,7 @@ export interface TabBarIOSItemProps extends ViewProps {
 export class TabBarIOSItem extends React.Component<TabBarIOSItemProps> {}
 
 /**
- * @see https://reactnative.dev/docs/tabbarios#props
+ * @see https://reactnative.dev/docs/0.63/tabbarios#props
  */
 export interface TabBarIOSProps extends ViewProps {
     /**
@@ -8637,20 +8637,20 @@ export namespace Animated {
          * animations.  This is useful because there is no way to
          * synchronously read the value because it might be driven natively.
          *
-         * See https://reactnative.dev/docs/animatedvalue.html#addlistener
+         * See https://reactnative.dev/docs/animatedvalue#addlistener
          */
         addListener(callback: (value: any) => any): string;
         /**
          * Unregister a listener. The `id` param shall match the identifier
          * previously returned by `addListener()`.
          *
-         * See https://reactnative.dev/docs/animatedvalue.html#removelistener
+         * See https://reactnative.dev/docs/animatedvalue#removelistener
          */
         removeListener(id: string): void;
         /**
          * Remove all registered listeners.
          *
-         * See https://reactnative.dev/docs/animatedvalue.html#removealllisteners
+         * See https://reactnative.dev/docs/animatedvalue#removealllisteners
          */
         removeAllListeners(): void;
 
