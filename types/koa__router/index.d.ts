@@ -157,6 +157,7 @@
 
 declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
     opts: Router.RouterOptions;
+    methods: string[];
     params: object;
     stack: Router.Layer[];
 
