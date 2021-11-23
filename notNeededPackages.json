@@ -925,6 +925,10 @@
             "libraryName": "detect-passive-events",
             "asOfVersion": "2.0.0"
         },
+        "detox": {
+            "libraryName": "detox",
+            "asOfVersion": "18.1.0"
+        },
         "devextreme": {
             "libraryName": "devextreme",
             "asOfVersion": "16.2.1"
