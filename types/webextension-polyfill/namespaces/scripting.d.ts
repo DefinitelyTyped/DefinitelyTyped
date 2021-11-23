@@ -2,82 +2,37 @@
  * Namespace: browser.scripting
  * Generated from Mozilla sources. Do not manually edit!
  *
- * Use the <code>browser.scripting</code> API to execute scripts or inject/remove css.
+ * Use the scripting API to execute script in different contexts.
+ * Permissions: "scripting"
  *
  * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 export namespace Scripting {
     /**
-     * Details of the script to insert.
-     */
-    interface InjectionTarget {
-        /**
-         * Whether the script should inject into all frames within the tab. Defaults to false.
-         * This must not be true if frameIds is specified.
-         * Optional.
-         */
-        allFrames?: boolean;
-
-        /**
-         * The IDs of specific frames to inject into.
-         * Optional.
-         */
-        frameIds?: number[];
-
-        /**
-         * The ID of the tab into which to inject.
-         */
-        tabId: number;
-    }
-
-    /**
-     * Contains the result of execution for each frame where the injection succeeded.
-     */
-    interface InjectionResult {
-        /**
-         * Whether the script should inject into all frames within the tab. Defaults to false.
-         * This must not be true if frameIds is specified.
-         * Optional.
-         */
-        allFrames?: boolean;
-
-        /**
-         * The frame associated with the injection.
-         */
-        frameId: number;
-
-        /**
-         * The result of the script execution.
-         * Optional.
-         */
-        result?: any;
-    }
-
-    /**
-     * Details of the script to insert.
+     * Details of a script injection
      */
     interface ScriptInjection {
         /**
-         * The arguments to curry into a provided function. This is only valid if the func parameter is specified.
+         * The arguments to curry into a provided function. This is only valid if the <code>func</code> parameter is specified.
          * These arguments must be JSON-serializable.
          * Optional.
          */
         args?: any[];
 
         /**
-         * The path of the JS or CSS files to inject, relative to the extension's root directory.
-         * NOTE: Currently a maximum of one file is supported. Exactly one of files and func must be specified.
+         * The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of <code>files</code>
+         * and <code>func</code> must be specified.
          * Optional.
          */
         files?: string[];
 
         /**
          * A JavaScript function to inject. This function will be serialized, and then deserialized for injection.
-         * This means that any bound parameters and execution context will be lost. Exactly one of files and func must be
-         * specified.
+         * This means that any bound parameters and execution context will be lost. Exactly one of <code>files</code> and <code>
+         * func</code> must be specified.
          *
          * @param ...args The arguments
          * @returns The return value
@@ -88,6 +43,52 @@ export namespace Scripting {
          * Details specifying the target into which to inject the script.
          */
         target: InjectionTarget;
+    }
+
+    /**
+     * Result of a script injection.
+     */
+    interface InjectionResult {
+        /**
+         * The frame ID associated with the injection.
+         */
+        frameId: number;
+
+        /**
+         * The result of the script execution.
+         * Optional.
+         */
+        result?: any;
+
+        /**
+         * Whether the script should inject into all frames within the tab. Defaults to false.
+         * This must not be true if frameIds is specified.
+         * Optional.
+         */
+        allFrames?: boolean;
+    }
+
+    /**
+     * Details of the script to insert.
+     */
+    interface InjectionTarget {
+        /**
+         * The IDs of specific frames to inject into.
+         * Optional.
+         */
+        frameIds?: number[];
+
+        /**
+         * The ID of the tab into which to inject.
+         */
+        tabId: number;
+
+        /**
+         * Whether the script should inject into all frames within the tab. Defaults to false.
+         * This must not be true if frameIds is specified.
+         * Optional.
+         */
+        allFrames?: boolean;
     }
 
     /**
@@ -132,13 +133,13 @@ export namespace Scripting {
 
     interface Static {
         /**
-         * Injects JavaScript code into a page. For details, see the $(topic:content_scripts)[programmatic injection]
-         * section of the content scripts doc.
+         * Injects a script into a target context. The script will be run at <code>document_idle</code>.
          *
-         * @param injection Details of the script to insert.
-         * @returns Called after all the JavaScript has been executed.
+         * @param injection The details of the script which to inject.
+         * @returns Invoked upon completion of the injection. The resulting array contains the result of execution for each frame
+         * where the injection succeeded.
          */
-        executeScript(injection: ScriptInjection): Promise<InjectionResult>;
+        executeScript(injection: ScriptInjection): Promise<InjectionResult[]>;
 
         /**
          * Injects CSS into a page. For details, see the $(topic:content_scripts)[programmatic injection]

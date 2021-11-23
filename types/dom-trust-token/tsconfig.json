@@ -2,13 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
-        "target": "ES2015",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,10 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/detox-jest-circus-setup-tests.ts",
-        "test/detox-global-tests.ts",
-        "test/detox-module-tests.ts",
-        "test/detox-jest-setup-tests.ts",
-        "test/detox-mocha-setup-tests.ts"
+        "dom-trust-token-tests.ts"
     ]
 }
