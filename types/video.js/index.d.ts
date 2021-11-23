@@ -456,7 +456,7 @@ declare namespace videojs {
     /**
      * Used to subclass an existing class by emulating ES subclassing using the extends keyword.
      * @param superClass super component to extend
-     * @param subClassMethods methods sub class will add to super
+     * @param [subClassMethods] methods sub class will add to super
      */
     function extend<
         TSuper extends new (...args: any[]) => any,
