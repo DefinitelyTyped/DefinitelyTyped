@@ -6,11 +6,12 @@ import * as R from 'ramda';
   const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
   const b: number[] = coerceArray(1); // => [1]
 
-  const addOneIfNotNil = R.unless(
-    R.isNil,
-    R.add(1)
+  // bodyTemperature :: (number) -> number | string
+  const bodyTemperature = R.unless<number, string>(
+    R.chain(R.equals, R.clamp(36.5, 37.5)),
+    t => `abnormal: ${t}`
   );
 
-  const nil: undefined = addOneIfNotNil(undefined);
-  const two: number = addOneIfNotNil(1);
+  const normal = bodyTemperature(37);   //=> 37
+  const abnormal = bodyTemperature(38); //=> 'abnormal: 38'
 };
