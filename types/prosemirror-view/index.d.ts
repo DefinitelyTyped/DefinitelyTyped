@@ -368,6 +368,11 @@ export class EditorView<S extends Schema = any> {
      */
     destroy(): void;
     /**
+     * This is true when the view has been destroyed (and thus should not 
+     * be used anymore).
+     */
+    isDestroyed: boolean;
+    /**
      * Dispatch a transaction. Will call
      * [`dispatchTransaction`](#view.DirectEditorProps.dispatchTransaction)
      * when given, and otherwise defaults to applying the transaction to
@@ -376,6 +381,7 @@ export class EditorView<S extends Schema = any> {
      * This method is bound to the view instance, so that it can be
      * easily passed around.
      */
+    i
     dispatch(tr: Transaction<S>): void;
 }
 /**
