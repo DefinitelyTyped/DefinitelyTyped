@@ -121,8 +121,8 @@ const Hacker = new Liftoff({
     v8flags: ['--harmony'], // or v8flags: require('v8flags')
 });
 
-Hacker.prepare({}, function (env) {
-    Hacker.execute(env, function (env) {
+Hacker.prepare({}, (env) => {
+    Hacker.execute(env, (env) => {
         // Do post-execute things
     });
 });
@@ -130,7 +130,7 @@ Hacker.prepare({}, function (env) {
 new Liftoff().on('preload:before', (name, module) => {
     // $ExpectType string
     name;
-    // $ExpectType ExtensionDescriptor
+    // $ExpectType any
     module;
 });
 new Liftoff().on('preload:failure', (name, err) => {

@@ -25,23 +25,19 @@ declare class Liftoff extends EventEmitter {
         event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    addListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
-    addListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
+    addListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     addListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     on(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    on(event: 'preload:failure', listener: (name: string, err: any) => void): this;
-    on(event: 'preload:before', listener: (name: string, err: any) => void): this;
+    on(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     on(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     once(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    once(event: 'preload:failure', listener: (name: string, err: any) => void): this;
-    once(event: 'preload:before', listener: (name: string, err: any) => void): this;
+    once(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     once(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     prependListener(
         event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    prependListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
-    prependListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
+    prependListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     prependListener(
         event: 'respawn',
         listener: (flags: string[], child: NodeJS.Process) => void
@@ -50,8 +46,7 @@ declare class Liftoff extends EventEmitter {
         event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    prependOnceListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
-    prependOnceListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
+    prependOnceListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     prependOnceListener(
         event: 'respawn',
         listener: (flags: string[], child: NodeJS.Process) => void
@@ -60,22 +55,18 @@ declare class Liftoff extends EventEmitter {
         event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    removeListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
-    removeListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
+    removeListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     removeListener(
         event: 'respawn',
         listener: (flags: string[], child: NodeJS.Process) => void
     ): this;
-    off(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    off(event: 'preload:failure', listener: (name: string, err: any) => void): this;
-    off(event: 'preload:before', listener: (name: string, err: any) => void): this;
+    off(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     off(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     removeAllListeners(event?: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): this;
     listeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
     rawListeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
     emit(event: 'preload:success', name: string, module: ExtensionDescriptor): boolean;
-    emit(event: 'preload:failure', name: string, err: any): boolean;
-    emit(event: 'preload:before', name: string, err: any): boolean;
+    emit(event: 'preload:failure' | 'preload:before', name: string, err: any): boolean;
     emit(event: 'respawn', flags: string[], child: NodeJS.Process): boolean;
     eventNames(): Array<'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'>;
     listenerCount(type: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): number;
