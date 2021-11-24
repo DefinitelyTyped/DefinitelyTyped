@@ -6,7 +6,6 @@ import * as R from 'ramda';
   const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
   const b: number[] = coerceArray(1); // => [1]
 
-  // bodyTemperature :: (number) -> number | string
   const bodyTemperature = R.unless<number, string>(
     R.chain(R.equals, R.clamp(36.5, 37.5)),
     t => `abnormal: ${t}`
