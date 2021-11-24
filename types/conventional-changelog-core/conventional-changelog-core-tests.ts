@@ -11,7 +11,6 @@ namespace Module {
     declare const parserOpts: conventionalChangelogCore.ParserOptions;
     declare const writerOpts: conventionalChangelogCore.WriterOptions;
     declare const execOpts: gitRawCommits.ExecOptions;
-    
     // $ExpectType Readable
     conventionalChangelogCore();
     // $ExpectType Readable
