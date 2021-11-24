@@ -784,6 +784,10 @@
             "libraryName": "csrf",
             "asOfVersion": "3.1.0"
         },
+        "css-minimizer-webpack-plugin": {
+            "libraryName": "css-minimizer-webpack-plugin",
+            "asOfVersion": "3.2.0"
+        },
         "csv-parse": {
             "libraryName": "csv-parse",
             "asOfVersion": "1.2.2"
