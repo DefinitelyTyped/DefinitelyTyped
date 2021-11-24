@@ -1,19 +1,11 @@
 import parseChangelog = require('changelog-parser');
 
-// Because the Changelog type is not exported, we need to inspect the
-// `parseChangelog` function to extract the type.
-//
-// The Changelog type is not exported because changelog-parser exports a default
-// export. The type declaration must therefore also export a default type, so it
-// is not possible for it to export additional types.
-type Changelog = Parameters<NonNullable<Parameters<typeof parseChangelog>[1]>>[1];
-
 const options = {
     filePath: 'path/to/CHANGELOG.md',
     removeMarkdown: false,
 };
 
-const fn = (obj: Changelog): void => {
+const fn = (obj: parseChangelog.Changelog): void => {
     // verify that the changelog has the documented properties
     const title: string = obj.title;
     const description: string = obj.description;
