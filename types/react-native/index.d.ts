@@ -2284,6 +2284,7 @@ export interface AccessibilityValue {
 export type AccessibilityRole =
     | 'none'
     | 'button'
+    | 'togglebutton'
     | 'link'
     | 'search'
     | 'image'
@@ -2306,8 +2307,10 @@ export type AccessibilityRole =
     | 'spinbutton'
     | 'switch'
     | 'tab'
+    | 'tabbar'
     | 'tablist'
     | 'timer'
+    | 'list'
     | 'toolbar';
 
 export interface AccessibilityPropsAndroid {
