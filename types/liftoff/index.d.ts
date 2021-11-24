@@ -1,6 +1,7 @@
-// Type definitions for liftoff 2.5
+// Type definitions for liftoff 4.0
 // Project: https://github.com/js-cli/js-liftoff#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
+// Definitions by: BendingBender <https://github.com/BendingBender>,
+//                 Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -17,65 +18,67 @@ declare class Liftoff extends EventEmitter {
      */
     constructor(options?: Liftoff.Options);
 
-    /**
-     * Launches your application with provided options, builds an environment,
-     * and invokes your callback, passing the calculated environment as the first argument.
-     */
-    launch(
-        opts: Liftoff.LaunchOptions,
-        callback: (this: this, env: Liftoff.LiftoffEnv) => void
-    ): void;
+    prepare(options: Liftoff.PrepareOptions, callback: (env: Liftoff.LiftoffEnv) => void): void;
+    execute(env: Liftoff.LiftoffEnv, callback: (env: Liftoff.LiftoffEnv) => void): void;
 
     addListener(
-        event: 'require',
+        event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    addListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
+    addListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
+    addListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
     addListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    on(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    on(event: 'requireFail', listener: (name: string, err: any) => void): this;
+    on(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
+    on(event: 'preload:failure', listener: (name: string, err: any) => void): this;
+    on(event: 'preload:before', listener: (name: string, err: any) => void): this;
     on(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    once(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    once(event: 'requireFail', listener: (name: string, err: any) => void): this;
+    once(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
+    once(event: 'preload:failure', listener: (name: string, err: any) => void): this;
+    once(event: 'preload:before', listener: (name: string, err: any) => void): this;
     once(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     prependListener(
-        event: 'require',
+        event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    prependListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
+    prependListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
+    prependListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
     prependListener(
         event: 'respawn',
         listener: (flags: string[], child: NodeJS.Process) => void
     ): this;
     prependOnceListener(
-        event: 'require',
+        event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    prependOnceListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
+    prependOnceListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
+    prependOnceListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
     prependOnceListener(
         event: 'respawn',
         listener: (flags: string[], child: NodeJS.Process) => void
     ): this;
     removeListener(
-        event: 'require',
+        event: 'preload:success',
         listener: (name: string, module: ExtensionDescriptor) => void
     ): this;
-    removeListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
+    removeListener(event: 'preload:failure', listener: (name: string, err: any) => void): this;
+    removeListener(event: 'preload:before', listener: (name: string, err: any) => void): this;
     removeListener(
         event: 'respawn',
         listener: (flags: string[], child: NodeJS.Process) => void
     ): this;
-    off(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    off(event: 'requireFail', listener: (name: string, err: any) => void): this;
+    off(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
+    off(event: 'preload:failure', listener: (name: string, err: any) => void): this;
+    off(event: 'preload:before', listener: (name: string, err: any) => void): this;
     off(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    removeAllListeners(event?: 'require' | 'requireFail' | 'respawn'): this;
-    listeners(event: 'require' | 'requireFail' | 'respawn'): Function[]; // tslint:disable-line:ban-types
-    rawListeners(event: 'require' | 'requireFail' | 'respawn'): Function[]; // tslint:disable-line:ban-types
-    emit(event: 'require', name: string, module: ExtensionDescriptor): boolean;
-    emit(event: 'requireFail', name: string, err: any): boolean;
+    removeAllListeners(event?: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): this;
+    listeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
+    rawListeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
+    emit(event: 'preload:success', name: string, module: ExtensionDescriptor): boolean;
+    emit(event: 'preload:failure', name: string, err: any): boolean;
+    emit(event: 'preload:before', name: string, err: any): boolean;
     emit(event: 'respawn', flags: string[], child: NodeJS.Process): boolean;
-    eventNames(): Array<'require' | 'requireFail' | 'respawn'>;
-    listenerCount(type: 'require' | 'requireFail' | 'respawn'): number;
+    eventNames(): Array<'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'>;
+    listenerCount(type: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): number;
 }
 
 declare namespace Liftoff {
@@ -132,7 +135,7 @@ declare namespace Liftoff {
         } | undefined;
     }
 
-    interface LaunchOptions {
+    interface PrepareOptions {
         /**
          * Change the current working directory for this launch. Relative paths are calculated against `process.cwd()`.
          * @default process.cwd()
@@ -152,7 +155,7 @@ declare namespace Liftoff {
          * working directory before invoking the launch callback.
          * @default null
          */
-        require?: string | any[] | undefined;
+        preload?: string | any[] | undefined;
 
         /**
          * Allows you to force node or V8 flags during the launch.
@@ -174,7 +177,7 @@ declare namespace Liftoff {
         /**
          * an array of modules that liftoff tried to pre-load
          */
-        require: string[];
+        preload: string[];
         /**
          * the config files searched for
          */

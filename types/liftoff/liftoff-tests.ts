@@ -108,67 +108,32 @@ new Liftoff({
     },
 });
 
-new Liftoff().launch(
-    {
-        cwd: '',
-        configPath: '',
-        require: '',
-        completion: '',
+const Hacker = new Liftoff({
+    name: 'hacker',
+    processTitle: 'hacker',
+    moduleName: 'hacker',
+    configName: 'hackerfile',
+    extensions: {
+        '.js': null,
+        '.json': null,
+        '.coffee': 'coffee-script/register',
     },
-    env => {
-        // $ExpectType LiftoffEnv
-        env;
+    v8flags: ['--harmony'], // or v8flags: require('v8flags')
+});
 
-        // $ExpectType string
-        env.cwd;
-        // $ExpectType string[]
-        env.require;
-        // $ExpectType string[]
-        env.configNameSearch;
-        // $ExpectType string | undefined
-        env.configPath;
-        // $ExpectType string | undefined
-        env.configBase;
-        // $ExpectType string | undefined
-        env.modulePath;
-        // $ExpectType { [key: string]: any; } | undefined
-        env.modulePackage;
-        // $ExpectType { [extensions: string]: { [path: string]: string | null; }; } | undefined
-        env.configFiles;
-    }
-);
-new Liftoff().launch({ cwd: '' }, () => {});
-new Liftoff().launch({ configPath: '' }, () => {});
-new Liftoff().launch({ require: '' }, () => {});
-new Liftoff().launch({ forcedFlags: ['--trace-deprecation'] }, () => {});
-new Liftoff().launch({ forcedFlags: '--trace-deprecation' }, () => {});
-new Liftoff().launch(
-    {
-        forcedFlags: env => {
-            // $ExpectType LiftoffEnv
-            env;
-            return ['--trace-deprecation'];
-        },
-    },
-    () => {}
-);
-new Liftoff().launch(
-    {
-        forcedFlags: env => {
-            return '--trace-deprecation';
-        },
-    },
-    () => {}
-);
-new Liftoff().launch({ completion: '' }, () => {});
+Hacker.prepare({}, function (env) {
+    Hacker.execute(env, function (env) {
+        // Do post-execute things
+    });
+});
 
-new Liftoff().on('require', (name, module) => {
+new Liftoff().on('preload:before', (name, module) => {
     // $ExpectType string
     name;
     // $ExpectType ExtensionDescriptor
     module;
 });
-new Liftoff().on('requireFail', (name, err) => {
+new Liftoff().on('preload:failure', (name, err) => {
     // $ExpectType string
     name;
     // $ExpectType any
