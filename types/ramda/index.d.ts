@@ -2107,8 +2107,8 @@ export function uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: readonly T
  * the function will return the result of calling the whenFalseFn function with the same argument. If the
  * predicate is satisfied, the argument is returned as is.
  */
-export function unless<T, U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U, obj: T): U;
-export function unless<T, U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U): (obj: T) => U;
+export function unless<T, U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U, a: T): T | U;
+export function unless<T, U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U): (a: T) => T | U;
 
 /**
  * Returns a new list by pulling every item at the first level of nesting out, and putting
@@ -2167,8 +2167,8 @@ export function view<S, A>(lens: Lens<S, A>, obj: S): A;
  * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
  * the argument is returned as is.
  */
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): T | U;
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => T | U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, a: T): T | U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (a: T) => T | U;
 
 /**
  * Takes a spec object and a test object and returns true if the test satisfies the spec.
