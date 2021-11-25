@@ -381,7 +381,6 @@ export class EditorView<S extends Schema = any> {
      * This method is bound to the view instance, so that it can be
      * easily passed around.
      */
-    i
     dispatch(tr: Transaction<S>): void;
 }
 /**
