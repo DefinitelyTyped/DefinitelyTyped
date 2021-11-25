@@ -32,6 +32,7 @@
 //                 Jorge Santana <https://github.com/LORDBABUINO>
 //                 Mikael Couzic <https://github.com/couzic>
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
+//                 Wang Zengdi <https://github.com/adispring>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -71,7 +72,7 @@ export * from './tools';
  * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
  * position, and it returns a function waiting for its first argument.
  */
-export const __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
+export const __: Placeholder;
 
 /**
  * Adds two numbers. Equivalent to a + b but curried.
@@ -105,7 +106,7 @@ export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
  */
-export function allPass(preds: readonly Pred[]): Pred;
+export function allPass<F = Pred>(preds: readonly F[]): F;
 
 /**
  * Returns a function that always returns the given value.
@@ -135,17 +136,14 @@ export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
  */
-export function anyPass<T>(preds: Array<SafePred<T>>): SafePred<T>;
+ export function anyPass<F = Pred>(preds: readonly F[]): F;
 
 /**
  * ap applies a list of functions to a list of values.
  */
 export function ap<T, U>(fns: Array<((a: T) => U)>, vs: readonly T[]): U[];
 export function ap<T, U>(fns: Array<((a: T) => U)>): (vs: readonly T[]) => U[];
-export function ap<X0, X1, R>(
-    fn: (x1: X1, x0: X0) => R,
-    fn1: (x1: X1) => X0
-): (x1: X1) => R;
+export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
 
 /**
  * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
@@ -174,8 +172,8 @@ export function append<T>(el: T): <T>(list: readonly T[]) => T[];
  * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
  * a variadic function. fn should be a bound function if context is significant.
  */
-export function apply<T, U, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResult, args: readonly U[]): TResult;
-export function apply<T, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResult): <U>(args: readonly U[]) => TResult;
+export function apply<F extends (...args: readonly any[]) => any>(fn: F, args: Parameters<F>): ReturnType<F>;
+export function apply<F extends (...args: readonly any[]) => any>(fn: F): (args: Parameters<F>) => ReturnType<F>;
 
 /**
  * Given a spec object recursively mapping properties to functions, creates a function producing an object
