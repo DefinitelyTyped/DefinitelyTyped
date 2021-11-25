@@ -7,6 +7,8 @@ sass.renderSync({
     quietDeps: true,
     logger: {
         warn: (message, options) => {
+            // $ExpectType boolean
+            options.deprecation
             if (options.span) {
                 const log = `${options.span.url}:${options.span.start.line}:${options.span.start.column}`;
             } else {
@@ -14,6 +16,8 @@ sass.renderSync({
             }
         },
         debug: (message, options) => {
+            // $ExpectType boolean
+            options.deprecation
             if (options.span) {
                 const log = `${options.span.url}:${options.span.start.line}:${options.span.start.column}`;
             } else {
