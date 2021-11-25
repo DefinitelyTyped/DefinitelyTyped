@@ -127,16 +127,32 @@ Hacker.prepare({}, (env) => {
     });
 });
 
-new Liftoff().on('preload:before', (name, module) => {
+new Liftoff().on('preload:before', (name) => {
     // $ExpectType string
     name;
-    // $ExpectType any
+});
+new Liftoff().on('preload:success', (name, module) => {
+    // $ExpectType string
+    name;
+    // $ExpectType unknown
     module;
 });
 new Liftoff().on('preload:failure', (name, err) => {
     // $ExpectType string
     name;
-    // $ExpectType any
+    // $ExpectType Error
+    err;
+});
+new Liftoff().on('loader:success', (name, module) => {
+    // $ExpectType string
+    name;
+    // $ExpectType unknown
+    module;
+});
+new Liftoff().on('loader:failure', (name, err) => {
+    // $ExpectType string
+    name;
+    // $ExpectType Error
     err;
 });
 new Liftoff().on('respawn', (flags, child) => {
