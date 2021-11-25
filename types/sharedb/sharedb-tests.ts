@@ -43,6 +43,9 @@ const backend = new ShareDB({
     milestoneDb: new MyMilestoneDB(),
     suppressPublish: false,
     maxSubmitRetries: 3,
+    errorHandler: (error, context) => {
+        console.log(error, context.agent.custom);
+    },
 });
 console.log(backend.db);
 backend.on('error', (error) => console.error(error));
@@ -188,6 +191,13 @@ backend.use('readSnapshots', (context, callback) => {
         context.snapshotType,
     );
     callback();
+});
+
+backend.use('receivePresence', (context, callback) => {
+    console.log(
+        context.presence.ch,
+        context.presence.id,
+    );
 });
 
 backend.use('sendPresence', (context, callback) => {
