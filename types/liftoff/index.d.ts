@@ -6,7 +6,6 @@
 
 /// <reference types="node" />
 
-import { Extensions, Extension, ExtensionDescriptor } from 'interpret';
 import { PathSpec } from 'fined';
 import { EventEmitter } from 'events';
 
@@ -26,17 +25,20 @@ declare class Liftoff extends EventEmitter {
         event: 'preload:success',
         listener: (name: string, module: unknown) => void
     ): this;
-    addListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
+    addListener(event: 'preload:failure', listener: (name: string, err: Error) => void): this;
+    addListener(event: 'preload:before', listener: (name: string) => void): this;
     addListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    on(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    on(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
+    on(event: 'preload:success', listener: (name: string, module: unknown) => void): this;
+    on(event: 'preload:failure', listener: (name: string, err: Error) => void): this;
+    on(event: 'preload:before', listener: (name: string) => void): this;
     on(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    once(event: 'preload:success', listener: (name: string, module: ExtensionDescriptor) => void): this;
-    once(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
+    once(event: 'preload:success', listener: (name: string, module: unknown) => void): this;
+    once(event: 'preload:failure', listener: (name: string, err: Error) => void): this;
+    once(event: 'preload:before', listener: (name: string) => void): this;
     once(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     prependListener(
         event: 'preload:success',
-        listener: (name: string, module: ExtensionDescriptor) => void
+        listener: (name: string, module: unknown) => void
     ): this;
     prependListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     prependListener(
@@ -45,7 +47,7 @@ declare class Liftoff extends EventEmitter {
     ): this;
     prependOnceListener(
         event: 'preload:success',
-        listener: (name: string, module: ExtensionDescriptor) => void
+        listener: (name: string, module: unknown) => void
     ): this;
     prependOnceListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     prependOnceListener(
@@ -54,19 +56,20 @@ declare class Liftoff extends EventEmitter {
     ): this;
     removeListener(
         event: 'preload:success',
-        listener: (name: string, module: ExtensionDescriptor) => void
+        listener: (name: string, module: unknown) => void
     ): this;
     removeListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     removeListener(
         event: 'respawn',
         listener: (flags: string[], child: NodeJS.Process) => void
     ): this;
+    off(event: 'preload:success', listener: (name: string, module: unknown) => void): this;
     off(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     off(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     removeAllListeners(event?: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): this;
     listeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
     rawListeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
-    emit(event: 'preload:success', name: string, module: ExtensionDescriptor): boolean;
+    emit(event: 'preload:success', name: string, module: unknown): boolean;
     emit(event: 'preload:failure' | 'preload:before', name: string, err: any): boolean;
     emit(event: 'respawn', flags: string[], child: NodeJS.Process): boolean;
     eventNames(): Array<'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'>;
@@ -96,7 +99,7 @@ declare namespace Liftoff {
          * the module name should be specified as the value for the key.
          * @default {".js":null,".json":null}
          */
-        extensions?: Extensions | undefined;
+        extensions?: PathSpec['extensions'] | undefined;
         /**
          * Any flag specified here will be applied to node, not your program.
          * Useful for supporting invocations like myapp --harmony command,
@@ -148,15 +151,6 @@ declare namespace Liftoff {
          * @default null
          */
         preload?: string | any[] | undefined;
-
-        /**
-         * Allows you to force node or V8 flags during the launch.
-         * This is useful if you need to make sure certain flags will always be enabled
-         * or if you need to enable flags that don't show up in `opts.v8flags`
-         * (as these flags aren't validated against opts.v8flags).
-         * @default null
-         */
-        forcedFlags?: string | string[] | ((env: LiftoffEnv) => string | string[]) | undefined;
 
         completion?: string | undefined;
     }
