@@ -34,7 +34,7 @@ export interface Client extends Resource {
      *  @param apps - Name or array of names of the applications to be started.
      *  @param [subscribeAll] - Subscribe to all Asterisk events (true/false).
      */
-    start(apps: string | string[], subscribeAll?: boolean): Promise<any[]>;
+    start(apps: string | string[], subscribeAll?: boolean): Promise<void>;
 
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
