@@ -38,6 +38,8 @@ const res3_1: view.EditorProps['attributes'] = () => {};
 const res3_2: view.EditorProps['attributes'] = () => null;
 const res3_3: view.EditorProps['attributes'] = () => undefined;
 
+new view.EditorView({} as any, {} as any).isDestroyed; // $ExpectType boolean
+
 // Test binding of 'this'
 const res4_plugin = new state.Plugin<string, typeof schema.schema>({
     props: {
