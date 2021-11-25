@@ -17,6 +17,7 @@ const req = {
 const params = {
     headers: { 'x-my-header': 'k6test' },
     tags: { k6test: 'yes' },
+    timeout: 30,
 };
 const response = client.invoke('main.RouteGuide/GetFeature', req, params);
 response.error;
