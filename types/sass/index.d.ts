@@ -156,7 +156,7 @@ export interface Options {
 export interface LoggerOptions {
     deprecation: boolean;
     span?: SourceSpan;
-    stack?: string
+    stack?: string;
 }
 
 export interface Logger {
