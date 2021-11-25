@@ -7,7 +7,7 @@
 export interface Response {
     status: number;
 
-    message: string;
+    message: object;
 
     headers: object;
 
@@ -29,7 +29,7 @@ export interface Params {
 
     tags?: object;
 
-    timeout?: string;
+    timeout?: number;
 }
 
 /**
