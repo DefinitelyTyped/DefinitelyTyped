@@ -19,11 +19,12 @@ declare class Liftoff extends EventEmitter {
     constructor(options?: Liftoff.Options);
 
     prepare(options: Liftoff.PrepareOptions, callback: (env: Liftoff.LiftoffEnv) => void): void;
-    execute(env: Liftoff.LiftoffEnv, callback: (env: Liftoff.LiftoffEnv) => void): void;
+    execute(env: Liftoff.LiftoffEnv, callback: (this: Liftoff, env: Liftoff.LiftoffEnv, argv: string[]) => void): void;
+    execute(env: Liftoff.LiftoffEnv, forcedFlags: string | string[], callback: (this: Liftoff, env: Liftoff.LiftoffEnv, argv: string[]) => void): void;
 
     addListener(
         event: 'preload:success',
-        listener: (name: string, module: ExtensionDescriptor) => void
+        listener: (name: string, module: unknown) => void
     ): this;
     addListener(event: 'preload:failure' | 'preload:before', listener: (name: string, err: any) => void): this;
     addListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
