@@ -56,6 +56,7 @@ import {
     ObjectHavingSome,
     ObjPred,
     Ord,
+    Ordering,
     Path,
     Placeholder,
     Pred,
@@ -197,8 +198,8 @@ export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
 /**
  * Makes an ascending comparator function out of a function that returns a value that can be compared with < and >.
  */
-export function ascend<T>(fn: (obj: T) => any, a: T, b: T): number;
-export function ascend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
@@ -461,8 +462,8 @@ export function defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 /**
  * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
  */
-export function descend<T>(fn: (obj: T) => any, a: T, b: T): number;
-export function descend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
