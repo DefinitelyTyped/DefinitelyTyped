@@ -301,11 +301,11 @@ export type Ord = number | string | boolean | Date;
 /**
  * Represents two value's order
  */
-export enum Ordering {
-  LT = -1,
-  EQ = 0,
-  GT = 1,
-}
+export type LT = -1;
+export type EQ = 0;
+export type GT = 1;
+
+export type Ordering = LT | EQ | GT;
 
 /**
  * An object with at least one of its properties beeing of type `Key`.
