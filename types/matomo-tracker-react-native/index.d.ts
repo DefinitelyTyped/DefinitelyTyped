@@ -72,7 +72,7 @@ export interface MatomoProviderProps {
 
 export function MatomoProvider(props: MatomoProviderProps): JSX.Element;
 
-export const MatomoContext: React.Context<{}>
+export const MatomoContext: React.Context<{}>;
 export interface InstanceProps {
   urlBase: string;
   siteId: number;
