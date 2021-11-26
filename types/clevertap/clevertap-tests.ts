@@ -1,6 +1,6 @@
 import * as CleverTap from 'clevertap';
 
-const clevertap = CleverTap.init('accountId', 'accountPasscode', CleverTap.CLEVERTAP_REGIONS.EUROPE);
+const clevertap = CleverTap.init('accountId', 'accountPasscode', CleverTap.REGIONS.EUROPE);
 
 const data: CleverTap.UploadData[] = [
     {

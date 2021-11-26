@@ -145,10 +145,24 @@ interface clevertap {
     TARGET_ACTIONS: ['create', 'estimate', 'list', 'result', 'stop'];
 }
 
-export enum CLEVERTAP_REGIONS {
+declare enum REGIONS {
     EUROPE = 'eu1',
     INDIA = 'in1',
     SINGAPORE = 'sg1',
     US = 'us1',
 }
-export function init(accountId: string, accountPasscode: string, region?: CLEVERTAP_REGIONS): clevertap;
+declare function init(accountId: string, accountPasscode: string, region?: REGIONS): clevertap;
+
+export {
+    REGIONS,
+    init,
+    clevertap,
+    UploadData,
+    UploadOptions,
+    Query,
+    QueryOptions,
+    ProfileOptions,
+    TargetCreatePayload,
+    TargetOptions,
+    Callback,
+};
