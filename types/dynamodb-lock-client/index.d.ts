@@ -19,6 +19,7 @@ interface GenericConfig {
     partitionKey: string;
     sortKey?: string | undefined;
     owner?: string | undefined;
+    retryCount?: number | undefined
 }
 
 export interface FailClosedConfig extends GenericConfig {
