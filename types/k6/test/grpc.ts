@@ -26,6 +26,13 @@ response.message;
 response.status;
 response.trailers;
 
+const params_with_string_timeout = {
+    headers: { 'x-my-header': 'k6test' },
+    tags: { k6test: 'yes' },
+    timeout: '30',
+};
+client.invoke('main.RouteGuide/UpdateFeature', req, params_with_string_timeout);
+
 grpc.StatusOK;
 grpc.StatusCanceled;
 grpc.StatusUnknown;
