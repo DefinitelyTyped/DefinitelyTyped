@@ -11,6 +11,7 @@
 // TypeScript Version: 2.3
 
 import OrderedMap = require('orderedmap');
+import { EditorView } from 'prosemirror-view';
 
 /**
  * Instances of this class represent a match state of a node
@@ -1242,6 +1243,11 @@ export interface NodeSpec {
      */
     toDebugString?: ((node: ProsemirrorNode) => string) | null | undefined;
     /**
+     * @note Require `prosemirror-dropcursor` module.
+     * This property controls the showing of a drop cursor inside the node.
+     */
+    disableDropCursor?: boolean | ((view: EditorView, pos: number) => boolean);
+    /**
      * Allow specifying arbitrary fields on a NodeSpec.
      */
     [key: string]: any;
@@ -1393,7 +1399,7 @@ export interface DOMOutputSpecArray {
     8?: DOMOutputSpec | 0 | undefined;
     9?: DOMOutputSpec | 0 | undefined;
 }
-export type DOMOutputSpec = string | Node | DOMOutputSpecArray | {dom: Node, contentDOM?: Node | undefined};
+export type DOMOutputSpec = string | Node | DOMOutputSpecArray | { dom: Node; contentDOM?: Node | undefined };
 /**
  * A DOM serializer knows how to convert ProseMirror nodes and
  * marks of various types to DOM nodes.
