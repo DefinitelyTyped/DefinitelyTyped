@@ -29,7 +29,7 @@ export interface Params {
 
     tags?: object;
 
-    timeout?: number;
+    timeout?: string | number;
 }
 
 /**
