@@ -107,7 +107,7 @@ export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
  */
-export function allPass<F = Pred>(preds: readonly F[]): F;
+export function allPass<F extends Pred>(preds: readonly F[]): F;
 
 /**
  * Returns a function that always returns the given value.
@@ -137,7 +137,7 @@ export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
  */
- export function anyPass<F = Pred>(preds: readonly F[]): F;
+ export function anyPass<F extends Pred>(preds: readonly F[]): F;
 
 /**
  * ap applies a list of functions to a list of values.
@@ -238,15 +238,15 @@ export function bind<F extends (...args: readonly any[]) => any, T>(fn: F): (thi
  * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
  * that the second function will not be invoked if the first returns a false-y value.
  */
-export function both(pred1: Pred, pred2: Pred): Pred;
-export function both(pred1: Pred): (pred2: Pred) => Pred;
+export function both<T extends Pred>(pred1: T, pred2: T): T;
+export function both<T extends Pred>(pred1: T): (pred2: T) => T;
 
 /**
  * Returns the result of calling its first argument with the remaining arguments. This is occasionally useful
  * as a converging function for R.converge: the left branch can produce a function while the right branch
  * produces a value to be passed to that function as an argument.
  */
-export function call(fn: (...args: readonly any[]) => (...args: readonly any[]) => any, ...args: readonly any[]): any;
+export function call<T extends (...args: readonly any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
 
 /**
  * `chain` maps a function over a list and concatenates the results.
@@ -552,8 +552,8 @@ export function dropWhile<T>(fn: (a: T) => boolean): (list: readonly T[]) => T[]
  * function if it is truth-y and the result of the second function otherwise. Note that this is
  * short-circuited, meaning that the second function will not be invoked if the first returns a truth-y value.
  */
-export function either(pred1: Pred, pred2: Pred): Pred;
-export function either(pred1: Pred): (pred2: Pred) => Pred;
+export function either<T extends Pred>(pred1: T, pred2: T): T;
+export function either<T extends Pred>(pred1: T): (pred2: T) => T;
 
 /**
  * Returns the empty value of its argument's type. Ramda defines the empty value of Array ([]), Object ({}),
