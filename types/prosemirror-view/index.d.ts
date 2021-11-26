@@ -587,7 +587,7 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
               [name: string]: (
                   node: ProsemirrorNode<S>,
                   view: EditorView<S>,
-                  getPos: (() => number) | boolean,
+                  getPos: () => number,
                   decorations: Decoration[],
               ) => NodeView<S>;
           }
