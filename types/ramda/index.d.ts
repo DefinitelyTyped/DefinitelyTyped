@@ -32,6 +32,7 @@
 //                 Jorge Santana <https://github.com/LORDBABUINO>
 //                 Mikael Couzic <https://github.com/couzic>
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
+//                 Wang Zengdi <https://github.com/adispring>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -55,6 +56,7 @@ import {
     ObjectHavingSome,
     ObjPred,
     Ord,
+    Ordering,
     Path,
     Placeholder,
     Pred,
@@ -71,7 +73,7 @@ export * from './tools';
  * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
  * position, and it returns a function waiting for its first argument.
  */
-export const __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
+export const __: Placeholder;
 
 /**
  * Adds two numbers. Equivalent to a + b but curried.
@@ -105,7 +107,7 @@ export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
  */
-export function allPass(preds: readonly Pred[]): Pred;
+export function allPass<F extends Pred>(preds: readonly F[]): F;
 
 /**
  * Returns a function that always returns the given value.
@@ -135,17 +137,14 @@ export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 /**
  * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
  */
-export function anyPass<T>(preds: Array<SafePred<T>>): SafePred<T>;
+ export function anyPass<F extends Pred>(preds: readonly F[]): F;
 
 /**
  * ap applies a list of functions to a list of values.
  */
 export function ap<T, U>(fns: Array<((a: T) => U)>, vs: readonly T[]): U[];
 export function ap<T, U>(fns: Array<((a: T) => U)>): (vs: readonly T[]) => U[];
-export function ap<X0, X1, R>(
-    fn: (x1: X1, x0: X0) => R,
-    fn1: (x1: X1) => X0
-): (x1: X1) => R;
+export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
 
 /**
  * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
@@ -174,8 +173,8 @@ export function append<T>(el: T): <T>(list: readonly T[]) => T[];
  * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
  * a variadic function. fn should be a bound function if context is significant.
  */
-export function apply<T, U, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResult, args: readonly U[]): TResult;
-export function apply<T, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResult): <U>(args: readonly U[]) => TResult;
+export function apply<F extends (...args: readonly any[]) => any>(fn: F, args: Parameters<F>): ReturnType<F>;
+export function apply<F extends (...args: readonly any[]) => any>(fn: F): (args: Parameters<F>) => ReturnType<F>;
 
 /**
  * Given a spec object recursively mapping properties to functions, creates a function producing an object
@@ -199,8 +198,8 @@ export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
 /**
  * Makes an ascending comparator function out of a function that returns a value that can be compared with < and >.
  */
-export function ascend<T>(fn: (obj: T) => any, a: T, b: T): number;
-export function ascend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
@@ -239,15 +238,15 @@ export function bind<F extends (...args: readonly any[]) => any, T>(fn: F): (thi
  * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
  * that the second function will not be invoked if the first returns a false-y value.
  */
-export function both(pred1: Pred, pred2: Pred): Pred;
-export function both(pred1: Pred): (pred2: Pred) => Pred;
+export function both<T extends Pred>(pred1: T, pred2: T): T;
+export function both<T extends Pred>(pred1: T): (pred2: T) => T;
 
 /**
  * Returns the result of calling its first argument with the remaining arguments. This is occasionally useful
  * as a converging function for R.converge: the left branch can produce a function while the right branch
  * produces a value to be passed to that function as an argument.
  */
-export function call(fn: (...args: readonly any[]) => (...args: readonly any[]) => any, ...args: readonly any[]): any;
+export function call<T extends (...args: readonly any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
 
 /**
  * `chain` maps a function over a list and concatenates the results.
@@ -463,8 +462,8 @@ export function defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 /**
  * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
  */
-export function descend<T>(fn: (obj: T) => any, a: T, b: T): number;
-export function descend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /**
  * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
@@ -553,8 +552,8 @@ export function dropWhile<T>(fn: (a: T) => boolean): (list: readonly T[]) => T[]
  * function if it is truth-y and the result of the second function otherwise. Note that this is
  * short-circuited, meaning that the second function will not be invoked if the first returns a truth-y value.
  */
-export function either(pred1: Pred, pred2: Pred): Pred;
-export function either(pred1: Pred): (pred2: Pred) => Pred;
+export function either<T extends Pred>(pred1: T, pred2: T): T;
+export function either<T extends Pred>(pred1: T): (pred2: T) => T;
 
 /**
  * Returns the empty value of its argument's type. Ramda defines the empty value of Array ([]), Object ({}),

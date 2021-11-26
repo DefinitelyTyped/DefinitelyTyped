@@ -299,6 +299,15 @@ export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string 
 export type Ord = number | string | boolean | Date;
 
 /**
+ * Represents two value's order
+ */
+export type LT = -1;
+export type EQ = 0;
+export type GT = 1;
+
+export type Ordering = LT | EQ | GT;
+
+/**
  * An object with at least one of its properties beeing of type `Key`.
  *
  * @example
