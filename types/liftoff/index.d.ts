@@ -21,62 +21,38 @@ declare class Liftoff extends EventEmitter {
     execute(env: Liftoff.LiftoffEnv, callback: (this: Liftoff, env: Liftoff.LiftoffEnv, argv: string[]) => void): void;
     execute(env: Liftoff.LiftoffEnv, forcedFlags: string | string[], callback: (this: Liftoff, env: Liftoff.LiftoffEnv, argv: string[]) => void): void;
 
-    addListener(
-        event: 'loader:success' | 'preload:success',
-        listener: (name: string, module: unknown) => void
-    ): this;
-    addListener(event: 'loader:failure' | 'preload:failure', listener: (name: string, err: Error) => void): this;
-    addListener(event: 'preload:before', listener: (name: string) => void): this;
-    addListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    on(event: 'loader:success' | 'preload:success', listener: (name: string, module: unknown) => void): this;
-    on(event: 'loader:failure' | 'preload:failure', listener: (name: string, err: Error) => void): this;
-    on(event: 'preload:before', listener: (name: string) => void): this;
-    on(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    once(event: 'loader:success' | 'preload:success', listener: (name: string, module: unknown) => void): this;
-    once(event: 'loader:failure' | 'preload:failure', listener: (name: string, err: Error) => void): this;
-    once(event: 'preload:before', listener: (name: string) => void): this;
-    once(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    prependListener(
-        event: 'loader:success' | 'preload:success',
-        listener: (name: string, module: unknown) => void
-    ): this;
-    prependListener(event: 'loader:failure' | 'preload:failure' | 'preload:before', listener: (name: string, err: Error) => void): this;
-    prependListener(
-        event: 'respawn',
-        listener: (flags: string[], child: NodeJS.Process) => void
-    ): this;
-    prependOnceListener(
-        event: 'loader:success' | 'preload:success',
-        listener: (name: string, module: unknown) => void
-    ): this;
-    prependOnceListener(event: 'loader:failure' | 'preload:failure' | 'preload:before', listener: (name: string, err: Error) => void): this;
-    prependOnceListener(
-        event: 'respawn',
-        listener: (flags: string[], child: NodeJS.Process) => void
-    ): this;
-    removeListener(
-        event: 'loader:success' | 'preload:success',
-        listener: (name: string, module: unknown) => void
-    ): this;
-    removeListener(event: 'loader:failure' | 'preload:failure' | 'preload:before', listener: (name: string, err: Error) => void): this;
-    removeListener(
-        event: 'respawn',
-        listener: (flags: string[], child: NodeJS.Process) => void
-    ): this;
-    off(event: 'loader:success' | 'preload:success', listener: (name: string, module: unknown) => void): this;
-    off(event: 'loader:failure' | 'preload:failure' | 'preload:before', listener: (name: string, err: Error) => void): this;
-    off(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    removeAllListeners(event?: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): this;
-    listeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
-    rawListeners(event: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): Function[]; // tslint:disable-line:ban-types
-    emit(event: 'preload:success', name: string, module: unknown): boolean;
-    emit(event: 'preload:failure' | 'preload:before', name: string, err: Error): boolean;
-    emit(event: 'respawn', flags: string[], child: NodeJS.Process): boolean;
-    eventNames(): Array<'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'>;
-    listenerCount(type: 'preload:success' | 'preload:failure' | 'preload:before' | 'respawn'): number;
+    addListener<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
+    addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    on<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+    once<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this;
+    prependListener<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
+    prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    prependOnceListener<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
+    prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    removeListener<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
+    removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    off<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
+    off(event: string | symbol, listener: (...args: any[]) => void): this;
+    listeners<TEvent extends keyof Liftoff.Events>(event: TEvent): Array<Liftoff.Events[TEvent]>;
+    listeners(event: string | symbol): Array<(...args: any[]) => void>;
+    rawListeners<TEvent extends keyof Liftoff.Events>(event: TEvent): Array<Liftoff.Events[TEvent]>;
+    rawListeners(event: string | symbol): Array<(...args: any[]) => void>;
+    emit<TEvent extends keyof Liftoff.Events>(event: TEvent, ...args: Parameters<Liftoff.Events[TEvent]>): boolean;
+    emit(event: string | symbol, ...args: any[]): boolean;
 }
 
 declare namespace Liftoff {
+    interface Events {
+        'loader:success': (name: string, module: unknown) => void;
+        'preload:success': (name: string, module: unknown) => void;
+        'loader:failure': (name: string, err: Error) => void;
+        'preload:failure': (name: string, err: Error) => void;
+        'preload:before': (name: string) => void;
+        respawn: (flags: string[], child: NodeJS.Process) => void;
+    }
+
     interface Options {
         /**
          * Sugar for setting processTitle, moduleName, configName automatically.
@@ -183,10 +159,15 @@ declare namespace Liftoff {
         /**
          * the contents of the local module's package.json (if found)
          */
-        modulePackage: { [key: string]: any } | undefined;
+        modulePackage: { [key: string]: any };
         /**
          * an object of filepaths for each found config file (filepath values will be null if not found)
          */
-        configFiles: { [extensions: string]: { [path: string]: string | null } } | undefined;
+        configFiles: { [extensions: string]: { [path: string]: string | null } };
+        /**
+         * The paths and contents of the found config files.
+         */
+        config: { [key: string]: any };
+        completion: boolean | undefined;
     }
 }
