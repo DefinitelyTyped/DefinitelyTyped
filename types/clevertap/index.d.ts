@@ -1,5 +1,5 @@
 // Type definitions for clevertap 1.2
-// Project: https://github.com/CleverTap/clevertap-node (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/CleverTap/clevertap-node
 // Definitions by: Royson <https://github.com/droyson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -137,12 +137,12 @@ interface clevertap {
         options?: TargetOptions,
         callback?: Callback,
     ): Promise<any>;
-    TARGET_CREATE: 'create';
-    TARGET_ESTIMATE: 'estimate';
-    TARGET_LIST: 'list';
-    TARGET_RESULT: 'result';
-    TARGET_STOP: 'stop';
-    TARGET_ACTIONS: ['create', 'estimate', 'list', 'result', 'stop'];
+    readonly TARGET_CREATE: 'create';
+    readonly TARGET_ESTIMATE: 'estimate';
+    readonly TARGET_LIST: 'list';
+    readonly TARGET_RESULT: 'result';
+    readonly TARGET_STOP: 'stop';
+    readonly TARGET_ACTIONS: ['create', 'estimate', 'list', 'result', 'stop'];
 }
 
 declare enum REGIONS {
@@ -151,6 +151,10 @@ declare enum REGIONS {
     SINGAPORE = 'sg1',
     US = 'us1',
 }
+
+/**
+ * @default region=REGIONS.EUROPE
+ */
 declare function init(accountId: string, accountPasscode: string, region?: REGIONS): clevertap;
 
 export {

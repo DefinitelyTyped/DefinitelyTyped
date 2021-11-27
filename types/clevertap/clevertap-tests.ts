@@ -25,14 +25,10 @@ const data: CleverTap.UploadData[] = [
 ];
 
 // upload an array of event/profile records callback style
-clevertap.upload(data, { debug: 1, batchSize: 50 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.upload(data, { debug: 1, batchSize: 50 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.upload(data, { debug: 1, batchSize: 50 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.upload(data, { debug: 1, batchSize: 50 }).then((res: any) => {});
 
 // query for events
 const query1 = {
@@ -43,14 +39,10 @@ const query1 = {
 };
 
 // callback style
-clevertap.events(query1, { debug: 1, batchSize: 500 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.events(query1, { debug: 1, batchSize: 500 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.events(query1, { debug: 1, batchSize: 500 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.events(query1, { debug: 1, batchSize: 500 }).then((res: any) => {});
 
 // query for user profiles
 const query2 = {
@@ -60,14 +52,10 @@ const query2 = {
 };
 
 // callback style
-clevertap.profiles(query2, { debug: 1, batchSize: 200 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.profiles(query2, { debug: 1, batchSize: 200 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.profiles(query2, { debug: 1, batchSize: 200 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.profiles(query2, { debug: 1, batchSize: 200 }).then((res: any) => {});
 
 // send a push notification
 const createPayload = {
@@ -102,14 +90,10 @@ const createPayload = {
 };
 
 // callback style
-clevertap.targets(clevertap.TARGET_CREATE, createPayload, { debug: 1 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_CREATE, createPayload, { debug: 1 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.targets(clevertap.TARGET_CREATE, createPayload, { debug: 1 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_CREATE, createPayload, { debug: 1 }).then((res: any) => {});
 
 // Estimate a target compaigns
 const estimatePayload = {
@@ -145,47 +129,31 @@ const estimatePayload = {
     devices: ['android', 'ios'],
 };
 // callback style
-clevertap.targets(clevertap.TARGET_ESTIMATE, estimatePayload, { debug: 1 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_ESTIMATE, estimatePayload, { debug: 1 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.targets(clevertap.TARGET_ESTIMATE, estimatePayload, { debug: 1 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_ESTIMATE, estimatePayload, { debug: 1 }).then((res: any) => {});
 
 // List all target compaigns in a date range
 const listPayload = { from: 20210101, to: 20210701 };
 // callback style
-clevertap.targets(clevertap.TARGET_LIST, listPayload, { debug: 1 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_LIST, listPayload, { debug: 1 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.targets(clevertap.TARGET_LIST, listPayload, { debug: 1 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_LIST, listPayload, { debug: 1 }).then((res: any) => {});
 
 // Stop a specific target compaign
 const stopPayload = { id: 1629904249 };
 // callback style
-clevertap.targets(clevertap.TARGET_STOP, stopPayload, { debug: 1 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_STOP, stopPayload, { debug: 1 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.targets(clevertap.TARGET_STOP, stopPayload, { debug: 1 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_STOP, stopPayload, { debug: 1 }).then((res: any) => {});
 
 // Resule out  a target compaign
 const resultPayload = { id: 1629904249 };
 // callback style
-clevertap.targets(clevertap.TARGET_RESULT, resultPayload, { debug: 1 }, (res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_RESULT, resultPayload, { debug: 1 }, (res: any) => {});
 
 // or if you prefer Promises
-clevertap.targets(clevertap.TARGET_RESULT, resultPayload, { debug: 1 }).then((res: any) => {
-    // console.log(res);
-});
+clevertap.targets(clevertap.TARGET_RESULT, resultPayload, { debug: 1 }).then((res: any) => {});
