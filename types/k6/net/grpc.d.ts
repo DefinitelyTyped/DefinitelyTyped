@@ -21,7 +21,7 @@ export interface ConnectParams {
 
     reflect?: boolean;
 
-    timeout?: number;
+    timeout?: string | number;
 }
 
 export interface Params {
