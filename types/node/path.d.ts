@@ -123,7 +123,7 @@ declare module 'path' {
              *
              * @param p the path to evaluate.
              */
-            extname(p: string): string;
+            extname(p: string): '' | `.${string}`;
             /**
              * The platform-specific file separator. '\\' or '/'.
              */
