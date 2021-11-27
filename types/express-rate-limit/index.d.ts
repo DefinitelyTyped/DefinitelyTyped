@@ -43,12 +43,6 @@ declare namespace rateLimit {
         resetAll(): void;
     }
 
-    interface Message {
-        status: number;
-        message: string;
-        [key: string]: any;
-    }
-
     type MaxValueFn = (req: express.Request, res: express.Response) => number | Promise<number>;
 
     interface Options {
@@ -93,7 +87,7 @@ declare namespace rateLimit {
          * Error message sent to user when `max` is exceeded. May be a `string`, JSON object, or any other value
          * that Express's `req.send()` supports. Defaults to `'Too many requests, please try again later.'`.
          */
-        message?: string | Buffer | Message | undefined;
+        message?: any;
 
         /**
          * Function that is called the first time `max` is exceeded. The `req.rateLimit` object has `limit`, `current`,
