@@ -123,6 +123,13 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
     now: number;
 
     /**
+     * Mimics performance.now().
+     */
+    performance: {
+        now: () => number;
+    };
+
+    /**
      * Don't know what this prop is for, but it was included in the clocks that `createClock` or
      * `install` return (it is never used in the code, for now).
      */
@@ -260,14 +267,7 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
 /**
  * Fake clock for a browser environment.
  */
-export type BrowserClock = FakeClock<number> & {
-    /**
-     * Mimics performance.now().
-     */
-    performance: {
-        now: () => number;
-    };
-};
+export type BrowserClock = FakeClock<number> & {};
 
 /**
  * Fake clock for a Node environment.
