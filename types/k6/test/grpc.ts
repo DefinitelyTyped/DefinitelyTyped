@@ -5,6 +5,8 @@ const client = new grpc.Client();
 client.connect('hola');
 client.connect('localhost:8080', { plaintext: true });
 client.connect('localhost:8080', { plaintext: true, reflect: true });
+client.connect('localhost:8080', { timeout: 30 });
+client.connect('localhost:8080', { timeout: '30' });
 
 client.close();
 
