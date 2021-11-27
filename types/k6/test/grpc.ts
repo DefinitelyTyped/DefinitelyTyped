@@ -22,7 +22,7 @@ const params = {
 const response = client.invoke('main.RouteGuide/GetFeature', req, params);
 response.error;
 response.headers;
-response.message;
+response.message; // $ExpectType object
 response.status;
 response.trailers;
 
