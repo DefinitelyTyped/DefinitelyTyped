@@ -7,9 +7,20 @@
 
 import { Readable } from 'stream';
 
+
+// would require allow empty interface exclusion
+interface Streamify extends Readable {}
+interface StreamifyConstructor {
+  new (str: string, options?: {}): Streamify;
+  (str: string, options?: {}): Streamify;
+}
+
+
 /**
  * Converts a string into a Node readable stream.
  */
+declare const Streamify: StreamifyConstructor;
+
 declare function streamifyString(str: string, options?: any): Readable;
 
 export = streamifyString;
