@@ -38,6 +38,7 @@
         "test/binary-tests.ts",
         "test/bind-tests.ts",
         "test/both-tests.ts",
+        "test/call-tests.ts",
         "test/chain-tests.ts",
         "test/clamp-tests.ts",
         "test/clone-tests.ts",
