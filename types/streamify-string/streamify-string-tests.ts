@@ -1,4 +1,4 @@
-import streamifyString from 'streamify-string';
+import streamifyString = require('streamify-string');
 import { Readable } from 'stream';
 
 const stream: Readable = streamifyString('data');
