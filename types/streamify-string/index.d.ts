@@ -9,8 +9,8 @@ import { Readable } from 'stream';
 
 interface Streamify extends Readable {}
 interface StreamifyConstructor {
-  new (str: string, options?: {}): Streamify;
-  (str: string, options?: {}): Streamify;
+  new (str: string, options?: any): Streamify;
+  (str: string, options?: any): Streamify;
 }
 
 /**
