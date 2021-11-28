@@ -1,4 +1,4 @@
-import crocks from 'crocks';
+import crocks = require('crocks');
 
 import Async from 'crocks/Async';
 import asyncToPromise from 'crocks/Async/asyncToPromise';
