@@ -57,6 +57,12 @@ export interface CharList extends String {
 }
 
 /**
+ * R.cond's [predicate, transform] pair.
+ */
+
+export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R];
+
+/**
  * <needs description>
  * @param V0
  * @param R
@@ -338,7 +344,7 @@ export type Placeholder = A.x & {'@@functional/placeholder': true};
 /**
  * <needs description>
  */
-export type Pred = (...a: readonly any[]) => boolean;
+export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
 
 /**
  * <needs description>
@@ -426,12 +432,6 @@ export interface Reduced<A> {
 
 // ---------------------------------------------------------------------------------------
 // S
-
-/**
- * <needs description>
- * @param A
- */
-export type SafePred<A> = (...a: readonly A[]) => boolean;
 
 // ---------------------------------------------------------------------------------------
 // V

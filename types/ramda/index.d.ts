@@ -42,6 +42,7 @@ import {
     Arity1Fn,
     Arity2Fn,
     AssocPartialOne,
+    CondPair,
     ComposeWithFns,
     Dictionary,
     Evolvable,
@@ -62,7 +63,6 @@ import {
     Pred,
     PipeWithFns,
     Reduced,
-    SafePred,
     ValueOfRecord,
     ValueOfUnion,
 } from "./tools";
@@ -112,7 +112,7 @@ export function allPass<F extends Pred>(preds: readonly F[]): F;
 /**
  * Returns a function that always returns the given value.
  */
-export function always<T>(val: T): () => T;
+export function always<T>(val: T): (...args: unknown[]) => T;
 
 /**
  * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
@@ -368,8 +368,7 @@ export function concat(s1: string): (s2: string) => string;
  * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates
  * matches, fn returns undefined.
  */
-export function cond(fns: Array<[Pred, (...a: readonly any[]) => any]>): (...a: readonly any[]) => any;
-export function cond<A, B>(fns: Array<[SafePred<A>, (...a: readonly A[]) => B]>): (...a: readonly A[]) => B;
+export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args: T) => R;
 
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
