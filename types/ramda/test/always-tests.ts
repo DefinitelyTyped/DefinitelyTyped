@@ -1,8 +1,14 @@
 import * as R from 'ramda';
 
 () => {
-  // $ExpectType () => string
-  const t = R.always('Tee');
+  // $ExpectType (...args: unknown[]) => string
+  const alwaysTea = R.always('Tea');
   // $ExpectType string
-  const x: string = t(); // => 'Tee'
+  alwaysTea(); // => 'Tea'
+
+  // $ExpectType string
+  alwaysTea('Coffee'); // => 'Tea'
+
+  // $ExpectType string
+  alwaysTea(1, 2, 3); // => 'Tea'
 };

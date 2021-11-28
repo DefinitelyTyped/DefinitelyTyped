@@ -177,3 +177,22 @@ function shout(x: number): string {
     R.andThen(loadAlternative),
   );
 };
+
+() => {
+  // Expected at least 1 arguments, but got 0
+  // $ExpectError
+  R.pipe();
+
+  // $ExpectType (x: number, y: number) => number
+  const f9 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+  );
+};

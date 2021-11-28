@@ -46,7 +46,16 @@ export type AssocPartialOne<K extends keyof any> =
     (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>)
     & (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
 
-// ---------------------------------------------------------------------------------------
+/**
+ * Array of functions to compose/pipe with.
+ */
+
+export type AtLeastOneFunctionsFlow<TArgs extends any[], TResult> =
+    [(...args: TArgs) => any, ...Array<(args: any) => any>, (...args: any[]) => TResult] | [(...args: TArgs) => TResult];
+export type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
+    [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any] | [(...args: TArgs) => TResult];
+
+    // ---------------------------------------------------------------------------------------
 // C
 
 /**
@@ -57,76 +66,10 @@ export interface CharList extends String {
 }
 
 /**
- * <needs description>
- * @param V0
- * @param R
+ * R.cond's [predicate, transform] pair.
  */
-export type ComposeWithFns<V0, R> = [
-    (x0: V0) => R
-] | [
-    (x: any) => R,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-];
+
+export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R];
 
 // ---------------------------------------------------------------------------------------
 // D
@@ -338,7 +281,7 @@ export type Placeholder = A.x & {'@@functional/placeholder': true};
 /**
  * <needs description>
  */
-export type Pred = (...a: readonly any[]) => boolean;
+export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
 
 /**
  * <needs description>
@@ -426,12 +369,6 @@ export interface Reduced<A> {
 
 // ---------------------------------------------------------------------------------------
 // S
-
-/**
- * <needs description>
- * @param A
- */
-export type SafePred<A> = (...a: readonly A[]) => boolean;
 
 // ---------------------------------------------------------------------------------------
 // V
