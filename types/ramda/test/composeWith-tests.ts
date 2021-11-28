@@ -29,7 +29,7 @@ import * as R from 'ramda';
   const split = (input: string): string[] => input.split('');
 
   // $ExpectType (num: number) => string[]
-  const composed: (num: number) => string[] = R.composeWith(R.chain, [
+  R.composeWith(R.chain, [
     split,
     toString,
     onlyOverNine,
@@ -37,7 +37,7 @@ import * as R from 'ramda';
   ]);
 
   // $ExpectType (num: number) => string[]
-  const composed2: (num: number) => string[] = R.composeWith(R.chain)([
+  R.composeWith(R.chain)([
     split,
     toString,
     onlyOverNine,
@@ -52,4 +52,8 @@ import * as R from 'ramda';
   const incAgeIfNotNil = composeWhileNotNil([({ age }: { age: number }) => age]);
 
   incAgeIfNotNil({age: 1}); // => 2
+
+  // Should pipe at least on function.
+  // $ExpectError
+  composeWhileNotNil([]);
 };

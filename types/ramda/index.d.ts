@@ -342,7 +342,6 @@ export function composeP<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => Promise<T6>
 
 /**
  * Performs right-to-left function composition using transforming function.
- * With the current typings, all functions must be unary.
  */
 // tslint:disable:max-line-length
 export function composeWith<TArgs extends any[], TResult>(transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any, fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>): (...args: TArgs) => TResult;
@@ -1500,12 +1499,13 @@ export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(fn0: (x0: V0) => P
 export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(fn0: (x0: V0) => Promise<T1>, fn1: (x: T1) => Promise<T2>, fn2: (x: T2) => Promise<T3>, fn3: (x: T3) => Promise<T4>, fn4: (x: T4) => Promise<T5>, fn5: (x: T5) => Promise<T6>, fn6: (x: T6) => Promise<T7>, fn7: (x: T7) => Promise<T8>, fn8: (x: T8) => Promise<T9>, fn9: (x: T9) => Promise<T10>): (x0: V0) => Promise<T10>;
 // tslint:enable:max-line-length
 
-/*
-    * Performs left-to-right function composition using transforming function.
-    * With the current typings, all functions must be unary.
-    */
-export function pipeWith<V0, T>(composer: (f: (value: any) => any, res: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
-export function pipeWith(composer: (f: (value: any) => any, res: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
+/**
+ * Performs left-to-right function composition using transforming function.
+ */
+// tslint:disable:max-line-length
+export function pipeWith<TArgs extends any[], TResult>(transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any, fns: AtLeastOneFunctionsFlow<TArgs, TResult>): (...args: TArgs) => TResult;
+export function pipeWith(transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any): <TArgs extends any[], TResult>(fns: AtLeastOneFunctionsFlow<TArgs, TResult>) => (...args: TArgs) => TResult;
+// tslint:enable:max-line-length
 
 /**
  * Returns a new list by plucking the same named property off all objects in the list supplied.

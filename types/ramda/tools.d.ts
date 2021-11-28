@@ -51,9 +51,9 @@ export type AssocPartialOne<K extends keyof any> =
  */
 
 export type AtLeastOneFunctionsFlow<TArgs extends any[], TResult> =
-    [(...args: TArgs) => any, ...Array<(...args: any[]) => any>, (...args: any[]) => TResult] | [(...args: TArgs) => TResult];
+    [(...args: TArgs) => any, ...Array<(args: any) => any>, (...args: any[]) => TResult] | [(...args: TArgs) => TResult];
 export type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
-    [(...args: any[]) => TResult, ...Array<(...args: any[]) => any>, (...args: TArgs) => any] | [(...args: TArgs) => TResult];
+    [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any] | [(...args: TArgs) => TResult];
 
     // ---------------------------------------------------------------------------------------
 // C
