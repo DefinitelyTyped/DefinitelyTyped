@@ -46,7 +46,16 @@ export type AssocPartialOne<K extends keyof any> =
     (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>)
     & (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
 
-// ---------------------------------------------------------------------------------------
+/**
+ * Array of functions to compose/pipe with.
+ */
+
+export type AtLeastOneFunctionsFlow<TArgs extends any[], TResult> =
+    [(...args: TArgs) => any, ...Array<(...args: any[]) => any>, (...args: any[]) => TResult] | [(...args: TArgs) => TResult];
+export type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
+    [(...args: any[]) => TResult, ...Array<(...args: any[]) => any>, (...args: TArgs) => any] | [(...args: TArgs) => TResult];
+
+    // ---------------------------------------------------------------------------------------
 // C
 
 /**
@@ -61,78 +70,6 @@ export interface CharList extends String {
  */
 
 export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R];
-
-/**
- * <needs description>
- * @param V0
- * @param R
- */
-export type ComposeWithFns<V0, R> = [
-    (x0: V0) => R
-] | [
-    (x: any) => R,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-];
 
 // ---------------------------------------------------------------------------------------
 // D

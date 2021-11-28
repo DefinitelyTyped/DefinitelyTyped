@@ -43,7 +43,6 @@ import {
     Arity2Fn,
     AssocPartialOne,
     CondPair,
-    ComposeWithFns,
     Dictionary,
     Evolvable,
     Evolve,
@@ -65,6 +64,8 @@ import {
     Reduced,
     ValueOfRecord,
     ValueOfUnion,
+    AtLeastOneFunctionsFlow,
+    AtLeastOneFunctionsFlowFromRightToLeft,
 } from "./tools";
 
 export * from './tools';
@@ -289,22 +290,22 @@ export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Or
  * - applying g to zero or more arguments will give false if applying the same arguments to f gives
  *   a logical true value.
  */
-export function complement<As extends any[]>(pred: (...args: As) => unknown): (...args: As) => boolean;
+export function complement<TArgs extends any[]>(pred: (...args: TArgs) => unknown): (...args: TArgs) => boolean;
 
 /**
  * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
  * functions must be unary.
  */
 // tslint:disable:max-line-length
-export function compose<A extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R7;
-export function compose<A extends any[], R1, R2, R3, R4, R5, R6>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R6;
-export function compose<A extends any[], R1, R2, R3, R4, R5>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R5;
-export function compose<A extends any[], R1, R2, R3, R4>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R4;
-export function compose<A extends any[], R1, R2, R3>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R3;
-export function compose<A extends any[], R1, R2>(f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R2;
-export function compose<A extends any[], R1>(f1: (...args: A) => R1): (...args: A) => R1;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R7;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R6;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R5;
+export function compose<TArgs extends any[], R1, R2, R3, R4>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R4;
+export function compose<TArgs extends any[], R1, R2, R3>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R3;
+export function compose<TArgs extends any[], R1, R2>(f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R2;
+export function compose<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
 // Expected at least 1 arguments
-export function compose<A extends any[], R>(...func: [(...args: any[]) => R, ...Array<(...args: any[]) => any>, (...args: A) => any]): (...args: A) => R;
+export function compose<TArgs extends any[], R>(...func: [(...args: any[]) => R, ...Array<(...args: any[]) => any>, (...args: TArgs) => any]): (...args: TArgs) => R;
 // tslint:enable:max-line-length
 
 /**
@@ -343,8 +344,10 @@ export function composeP<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => Promise<T6>
  * Performs right-to-left function composition using transforming function.
  * With the current typings, all functions must be unary.
  */
-export function composeWith<V0, T>(composer: (...args: any[]) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
-export function composeWith(composer: (...args: any[]) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
+// tslint:disable:max-line-length
+export function composeWith<TArgs extends any[], TResult>(transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any, fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>): (...args: TArgs) => TResult;
+export function composeWith(transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any): <TArgs extends any[], TResult>(fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>) => (...args: TArgs) => TResult;
+// tslint:enable:max-line-length
 
 /**
  * Returns the result of concatenating the given lists or strings.
