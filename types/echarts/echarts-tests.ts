@@ -30,6 +30,13 @@ const testAxisLabelColor = (options: echarts.EChartOption.XAxis) => {
     };
 };
 
+const testAxisLabelShowLable = (options: echarts.EChartOption.XAxis) => {
+    options.axisLabel = {
+        showMaxLabel: null,
+        showMinLabel: null
+    };
+};
+
 // id, type, and name are defined for every series type
 const map = option.series!.map(s => [s.id, s.name, s.type]);
 

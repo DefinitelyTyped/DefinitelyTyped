@@ -1590,8 +1590,8 @@ declare namespace echarts {
                     rotate?: number | undefined;
                     margin?: number | undefined;
                     formatter?: string | Function | undefined;
-                    showMinLabel?: boolean | undefined;
-                    showMaxLabel?: boolean | undefined;
+                    showMinLabel?: boolean | null | undefined;
+                    showMaxLabel?: boolean | null | undefined;
                 }
 
                 /**
