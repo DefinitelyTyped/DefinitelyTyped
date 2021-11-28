@@ -2,6 +2,7 @@
 // Project: https://github.com/lukeed/polka
 // Definitions by: Piotr Kuczynski <https://github.com/pkuczynski>
 //                 James Messinger <https://github.com/JamesMessinger>
+//                 Brian Takita <https://github.com/btakita>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
@@ -61,7 +62,7 @@ declare namespace polka {
     /**
      * An instance of the Polka router.
      */
-    interface Polka extends Trouter<RequestHandler> {
+    class Polka extends Trouter<RequestHandler> {
         /**
          * Parses the `req.url` property of the given request.
          */
