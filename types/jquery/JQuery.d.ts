@@ -1780,7 +1780,7 @@ $( "div" ).children( ".selected" ).css( "color", "blue" );
 </html>
 ```
      */
-    children(selector?: JQuery.Selector): this;
+    children(selector?: JQuery.Selector): JQuery;
     /**
      * Remove from the queue all items that have not yet been run.
      * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
