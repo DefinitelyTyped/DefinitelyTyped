@@ -7,7 +7,6 @@
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
-//                  Jongsu Liam Kim <https://github.com/appleparan>
 //                  Fredrik Sandström <https://github.com/Veckodag>
 //                  Jan Zak <https://github.com/zakjan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
