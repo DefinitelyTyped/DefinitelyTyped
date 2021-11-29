@@ -267,7 +267,7 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
 /**
  * Fake clock for a browser environment.
  */
-export type BrowserClock = FakeClock<number> & {};
+export type BrowserClock = FakeClock<number>;
 
 /**
  * Fake clock for a Node environment.
