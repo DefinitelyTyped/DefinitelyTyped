@@ -19,9 +19,6 @@ slug("string", {}); // $ExpectType string
 
 slug("string", "replacement"); // $ExpectType string
 
-// eslint-disable-next-line no-trailing-spaces
-slug("string something something ", { trim: false }); // $ExpectType string 
-
 slug.defaults.mode = "pretty";
 slug.defaults.modes["rfc3986"] = {
     replacement: "-", // replace spaces with replacement
