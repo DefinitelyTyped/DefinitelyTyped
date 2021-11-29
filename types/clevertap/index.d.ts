@@ -114,7 +114,7 @@ interface TargetOptions {
     debug?: number;
 }
 
-interface clevertap {
+interface CleverTap {
     upload(data: UploadData[], options?: UploadOptions, callback?: Callback): Promise<any>;
     profile(options: ProfileOptions, callback?: Callback): Promise<any>;
     profiles(query: Query, options?: QueryOptions, callback?: Callback): Promise<any>;
@@ -155,12 +155,11 @@ declare enum REGIONS {
 /**
  * @default region=REGIONS.EUROPE
  */
-declare function init(accountId: string, accountPasscode: string, region?: REGIONS): clevertap;
+declare function init(accountId: string, accountPasscode: string, region?: REGIONS): CleverTap;
 
 export {
     REGIONS,
     init,
-    clevertap,
     UploadData,
     UploadOptions,
     Query,
