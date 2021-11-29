@@ -580,9 +580,9 @@ export function equals<T>(a: T): (b: T) => boolean;
 export function evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(transformations: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
-/*
-* A function that always returns false. Any passed in parameters are ignored.
-*/
+/**
+ * A function that always returns false. Any passed in parameters are ignored.
+ */
 export function F(...args: unknown[]): false;
 
 /**
@@ -733,8 +733,9 @@ export function identity<T>(a: T): T;
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
  */
-export function ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
-export function ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+// tslint:disable:max-line-length
+export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
+// tslint:enable:max-line-length
 
 /**
  * Increments its argument.
