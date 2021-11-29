@@ -313,7 +313,42 @@ interface CoinsFetchData {
     };
     public_interest_stats: { alexa_rank: number; bing_matches: null };
     last_updated: string;
-    tickers: [];
+    tickers: CoinsFetchDataTicker[];
+}
+
+type TrustScore = 'green' | 'yellow' | 'red';
+
+interface CoinsFetchDataTicker {
+    base: string,
+    target: string,
+    market: {
+        name: string,
+        identifier: string,
+        has_trading_incentive: boolean
+    },
+    last: number,
+    volume: number,
+    converted_last: {
+        btc: number;
+        eth: number;
+        usd: number;
+    },
+    converted_volume: {
+        btc: number;
+        eth: number;
+        usd: number;
+    },
+    trust_score: TrustScore,
+    bid_ask_spread_percentage: number,
+    timestamp: Date,
+    last_traded_at: Date,
+    last_fetch_at: Date,
+    is_anomaly: boolean,
+    is_stale: boolean,
+    trade_url: string | null,
+    token_info_url: string | null,
+    coin_id: string,
+    target_coin_id: string
 }
 
 /**
