@@ -19,6 +19,8 @@ slug("string", {}); // $ExpectType string
 
 slug("string", "replacement"); // $ExpectType string
 
+slug("string something something ", { trim: false }); // $ExpectType string 
+
 slug.defaults.mode = "pretty";
 slug.defaults.modes["rfc3986"] = {
     replacement: "-", // replace spaces with replacement
