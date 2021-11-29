@@ -301,7 +301,15 @@ export interface PolarLayout {
     uirevision: string | number;
 }
 
+export interface PlotlyDataLayoutConfig {
+    data: Data[];
+    layout?: Partial<Layout>;
+    config?: Partial<Config>;
+}
+
 export type Root = string | HTMLElement;
+
+export type RootOrData = string | HTMLElement | PlotlyDataLayoutConfig;
 
 export function newPlot(
     root: Root,
@@ -348,8 +356,8 @@ export function prependTraces(
     update: Data | Data[],
     indices: number | number[],
 ): Promise<PlotlyHTMLElement>;
-export function toImage(root: Root, opts: ToImgopts): Promise<string>;
-export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
+export function toImage(root: RootOrData, opts: ToImgopts): Promise<string>;
+export function downloadImage(root: RootOrData, opts: DownloadImgopts): Promise<string>;
 export function react(
     root: Root,
     data: Data[],
