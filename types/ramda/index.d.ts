@@ -60,7 +60,6 @@ import {
     Path,
     Placeholder,
     Pred,
-    PipeWithFns,
     Reduced,
     ValueOfRecord,
     ValueOfUnion,
@@ -435,7 +434,7 @@ export function curryN<N extends number>(length: N): <F extends (...args: any) =
 export function dec(n: number): number;
 
 /**
- * Returns the second argument if it is not null or undefined. If it is null or undefined, the
+ * Returns the second argument if it is not null or undefined or NaN. If it is null or undefined or NaN, the
  * first (default) argument is returned.
  */
 export function defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
@@ -545,12 +544,12 @@ export function either<T extends Pred>(pred1: T): (pred2: T) => T;
 export function empty<T>(x: T): T;
 
 /**
- * Checks if a list ends with the provided values
+ * Checks if a string ends with the provided substring, or a list ends with the provided sublist.
  */
-export function endsWith(a: string, list: string): boolean;
-export function endsWith(a: string): (list: string) => boolean;
-export function endsWith<T>(a: T | readonly T[], list: readonly T[]): boolean;
-export function endsWith<T>(a: T | readonly T[]): (list: readonly T[]) => boolean;
+export function endsWith(substr: string, str: string): boolean;
+export function endsWith(substr: string): (str: string) => boolean;
+export function endsWith<T>(subList: readonly T[], list: readonly T[]): boolean;
+export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * Takes a function and two values in its domain and returns true if the values map to the same value in the
@@ -584,7 +583,7 @@ export function evolve<E extends Evolver>(transformations: E): <V extends Evolva
 /*
 * A function that always returns false. Any passed in parameters are ignored.
 */
-export function F(): boolean;
+export function F(...args: unknown[]): false;
 
 /**
  * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
@@ -1783,12 +1782,12 @@ export function splitWhen<T, U>(pred: (val: T) => boolean, list: readonly U[]): 
 export function splitWhen<T>(pred: (val: T) => boolean): <U>(list: readonly U[]) => U[][];
 
 /**
- * Checks if a list starts with the provided values
+ * Checks if a string starts with the provided substring, or a list starts with the provided sublist.
  */
-export function startsWith(a: string, list: string): boolean;
-export function startsWith(a: string): (list: string) => boolean;
-export function startsWith<T>(a: T | readonly T[], list: readonly T[]): boolean;
-export function startsWith<T>(a: T | readonly T[]): (list: readonly T[]) => boolean;
+export function startsWith(substr: string, str: string): boolean;
+export function startsWith(substr: string): (str: string) => boolean;
+export function startsWith<T>(subList: readonly T[], list: readonly T[]): boolean;
+export function startsWith<T>(subList: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1819,7 +1818,7 @@ export function symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): _.F.C
 /**
  * A function that always returns true. Any passed in parameters are ignored.
  */
-export function T(): boolean;
+export function T(...args: unknown[]): true;
 
 /**
  * Returns all but the first element of a list or string.
