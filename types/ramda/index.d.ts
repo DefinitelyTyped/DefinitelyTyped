@@ -38,9 +38,6 @@
 
 import * as _ from "ts-toolbelt";
 import {
-    Arity0Fn,
-    Arity1Fn,
-    Arity2Fn,
     AssocPartialOne,
     CondPair,
     Dictionary,
@@ -916,7 +913,7 @@ export function lastIndexOf<T>(target: T, list: readonly T[]): number;
 /**
  * Returns the number of elements in the array by returning list.length.
  */
-export function length<T>(list: readonly T[]): number;
+export function length<T extends ArrayLike<unknown>>(list: T): number;
 
 /**
  * Returns a lens for the given getter and setter functions. The getter
