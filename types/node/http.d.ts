@@ -113,7 +113,7 @@ declare module 'http' {
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
     interface ClientRequestArgs {
-        abort?: AbortSignal | undefined;
+        signal?: AbortSignal | undefined;
         protocol?: string | null | undefined;
         host?: string | null | undefined;
         hostname?: string | null | undefined;
