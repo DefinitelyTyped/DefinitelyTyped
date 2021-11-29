@@ -38,9 +38,6 @@
 
 import * as _ from "ts-toolbelt";
 import {
-    Arity0Fn,
-    Arity1Fn,
-    Arity2Fn,
     AssocPartialOne,
     CondPair,
     Dictionary,
@@ -60,7 +57,6 @@ import {
     Path,
     Placeholder,
     Pred,
-    PipeWithFns,
     Reduced,
     ValueOfRecord,
     ValueOfUnion,
@@ -404,7 +400,7 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  * function is applied to those same arguments. The results of each branching function
  * are passed as arguments to the converging function to produce the return value.
  */
-export function converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
+export function converge<TArgs extends readonly any[], TResult>(after: ((...args: readonly any[]) => TResult), fns: Array<((...args: TArgs) => any)>): (...args: TArgs) => TResult;
 
 /**
  * Counts the elements of a list according to how many match each value
@@ -435,7 +431,7 @@ export function curryN<N extends number>(length: N): <F extends (...args: any) =
 export function dec(n: number): number;
 
 /**
- * Returns the second argument if it is not null or undefined. If it is null or undefined, the
+ * Returns the second argument if it is not null, undefined or NaN. If it is null, undefined or NaN, the
  * first (default) argument is returned.
  */
 export function defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
@@ -545,12 +541,12 @@ export function either<T extends Pred>(pred1: T): (pred2: T) => T;
 export function empty<T>(x: T): T;
 
 /**
- * Checks if a list ends with the provided values
+ * Checks if a string ends with the provided substring, or a list ends with the provided sublist.
  */
-export function endsWith(a: string, list: string): boolean;
-export function endsWith(a: string): (list: string) => boolean;
-export function endsWith<T>(a: T | readonly T[], list: readonly T[]): boolean;
-export function endsWith<T>(a: T | readonly T[]): (list: readonly T[]) => boolean;
+export function endsWith(substr: string, str: string): boolean;
+export function endsWith(substr: string): (str: string) => boolean;
+export function endsWith<T>(subList: readonly T[], list: readonly T[]): boolean;
+export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * Takes a function and two values in its domain and returns true if the values map to the same value in the
@@ -581,10 +577,10 @@ export function equals<T>(a: T): (b: T) => boolean;
 export function evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(transformations: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
-/*
-* A function that always returns false. Any passed in parameters are ignored.
-*/
-export function F(): boolean;
+/**
+ * A function that always returns false. Any passed in parameters are ignored.
+ */
+export function F(...args: unknown[]): false;
 
 /**
  * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
@@ -734,8 +730,9 @@ export function identity<T>(a: T): T;
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
  */
-export function ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
-export function ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+// tslint:disable:max-line-length
+export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
+// tslint:enable:max-line-length
 
 /**
  * Increments its argument.
@@ -916,7 +913,7 @@ export function lastIndexOf<T>(target: T, list: readonly T[]): number;
 /**
  * Returns the number of elements in the array by returning list.length.
  */
-export function length<T>(list: readonly T[]): number;
+export function length<T extends ArrayLike<unknown>>(list: T): number;
 
 /**
  * Returns a lens for the given getter and setter functions. The getter
@@ -1783,12 +1780,12 @@ export function splitWhen<T, U>(pred: (val: T) => boolean, list: readonly U[]): 
 export function splitWhen<T>(pred: (val: T) => boolean): <U>(list: readonly U[]) => U[][];
 
 /**
- * Checks if a list starts with the provided values
+ * Checks if a string starts with the provided substring, or a list starts with the provided sublist.
  */
-export function startsWith(a: string, list: string): boolean;
-export function startsWith(a: string): (list: string) => boolean;
-export function startsWith<T>(a: T | readonly T[], list: readonly T[]): boolean;
-export function startsWith<T>(a: T | readonly T[]): (list: readonly T[]) => boolean;
+export function startsWith(substr: string, str: string): boolean;
+export function startsWith(substr: string): (str: string) => boolean;
+export function startsWith<T>(subList: readonly T[], list: readonly T[]): boolean;
+export function startsWith<T>(subList: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1819,7 +1816,7 @@ export function symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): _.F.C
 /**
  * A function that always returns true. Any passed in parameters are ignored.
  */
-export function T(): boolean;
+export function T(...args: unknown[]): true;
 
 /**
  * Returns all but the first element of a list or string.
