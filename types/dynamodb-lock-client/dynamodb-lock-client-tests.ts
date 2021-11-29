@@ -1,4 +1,4 @@
-import  { DynamoDB } from 'aws-sdk'
+import { DynamoDB } from 'aws-sdk';
 import * as DynamoDBLockClient from 'dynamodb-lock-client';
 
 const dynamodb = new DynamoDB.DocumentClient({
@@ -10,7 +10,7 @@ const failClosedClient = new DynamoDBLockClient.FailClosed({
     lockTable: "my-lock-table-name",
     partitionKey: "mylocks",
     acquirePeriodMs: 1e4,
-    retryCount:1
+    retryCount: 1
 });
 
 failClosedClient.acquireLock("my-fail-closed-lock", (error, lock) => {
@@ -35,7 +35,7 @@ const failOpenClient = new DynamoDBLockClient.FailOpen({
     partitionKey: "mylocks",
     heartbeatPeriodMs: 3e3,
     leaseDurationMs: 1e4,
-    retryCount:1
+    retryCount: 1
 });
 
 failOpenClient.acquireLock("my-fail-open-lock", (error, lock) => {

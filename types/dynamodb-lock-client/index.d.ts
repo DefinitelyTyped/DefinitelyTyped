@@ -1,4 +1,4 @@
-// Type definitions for dynamodb-lock-client 0.7.3
+// Type definitions for dynamodb-lock-client 0.7
 // Project: https://github.com/tristanls/dynamodb-lock-client#readme
 // Definitions by: RyoshiKayo <https://github.com/RyoshiKayo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,7 @@ interface GenericConfig {
     partitionKey: string;
     sortKey?: string | undefined;
     owner?: string | undefined;
-    retryCount?: number | undefined
+    retryCount?: number | undefined;
 }
 
 export interface FailClosedConfig extends GenericConfig {
