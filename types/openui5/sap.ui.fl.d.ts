@@ -1,4 +1,4 @@
-// For Library Version: 1.96.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1589,7 +1589,12 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
     /**
      * Checks if key user has also the admin role to enable the translation button
      */
-    isKeyUserTranslationEnabled(): Promise<boolean>;
+    isKeyUserTranslationEnabled(
+      /**
+       * Current layer
+       */
+      sLayer: /* was: sap.ui.fl.Layer */ any
+    ): Promise<boolean>;
     /**
      * Checks if the data storing implementation for a given layer is capable of handling versioning.
      */
@@ -1703,8 +1708,6 @@ declare namespace sap {
     "sap/ui/fl/changeHandler/BaseAddViaDelegate": undefined;
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
-
-    "sap/ui/fl/ControlPersonalizationAPI": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory": undefined;
 
