@@ -1,5 +1,5 @@
 // Type definitions for cose-js 0.8
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/erdtman/COSE-JS
 // Definitions by: Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
