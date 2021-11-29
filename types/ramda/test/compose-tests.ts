@@ -48,9 +48,16 @@ import * as R from 'ramda';
 };
 
 () => {
-  const fullName = R.compose(
+  interface Person {
+    last: string;
+    age: number;
+    first: string;
+  }
+
+  // $ExpectType (args_0: Person) => string
+  const fullName = R.compose<[Person], string[], string>(
     R.join(' '),
-    R.props(['first', 'last']),
+    ({ first, last }) => [first, last]
   );
   fullName({ last: 'Bullet-Tooth', age: 33, first: 'Tony' }); // => 'Tony Bullet-Tooth'
 };
@@ -105,4 +112,23 @@ import * as R from 'ramda';
     fn,
   );
   const x: number = gn('Hello', 4, 'world');
+};
+
+() => {
+  // Expected at least 1 arguments, but got 0
+  // $ExpectError
+  R.compose();
+
+  // $ExpectType (x: number, y: number) => number
+  const f9 = R.compose(
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.negate,
+    Math.pow,
+  );
 };

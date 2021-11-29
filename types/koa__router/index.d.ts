@@ -83,7 +83,7 @@
     }
 
     interface LayerOptions {
-        name: string;
+        name: string | null;
         sensitive?: boolean | undefined;
         strict?: boolean | undefined;
         end?: boolean | undefined;
@@ -114,7 +114,7 @@
 
     class Layer {
         opts: LayerOptions;
-        name: string;
+        name: string | null;
         methods: string[];
         paramNames: ParamName[];
         stack: Middleware[];
@@ -156,6 +156,8 @@
 }
 
 declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
+    opts: Router.RouterOptions;
+    methods: string[];
     params: object;
     stack: Router.Layer[];
 

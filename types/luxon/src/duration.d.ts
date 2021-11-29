@@ -19,7 +19,19 @@ export interface DurationObjectUnits {
     milliseconds?: number | undefined;
 }
 
-export type DurationUnit = keyof DurationObjectUnits;
+export interface DurationLikeObject extends DurationObjectUnits {
+    year?: number | undefined;
+    quarter?: number | undefined;
+    month?: number | undefined;
+    week?: number | undefined;
+    day?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    millisecond?: number | undefined;
+}
+
+export type DurationUnit = keyof DurationLikeObject;
 export type DurationUnits = DurationUnit | DurationUnit[];
 
 export type ToISOFormat = 'basic' | 'extended';
@@ -52,12 +64,12 @@ export interface ToISOTimeDurationOptions {
  *
  * @deprecated Use DurationLike instead.
  */
-export type DurationInput = Duration | number | DurationObjectUnits;
+export type DurationInput = Duration | number | DurationLikeObject;
 
 /**
  * Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
  */
-export type DurationLike = Duration | DurationObjectUnits | number;
+export type DurationLike = Duration | DurationLikeObject | number;
 
 /**
  * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour".
@@ -107,7 +119,15 @@ export class Duration {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      */
-    static fromObject(obj: DurationObjectUnits, opts?: DurationOptions): Duration;
+    static fromObject(obj: DurationLikeObject, opts?: DurationOptions): Duration;
+
+    /**
+     * Create a Duration from DurationLike.
+     *
+     * @param durationLike
+     * Either a Luxon Duration, a number of milliseconds, or the object argument to Duration.fromObject()
+     */
+    static fromDurationLike(durationLike: DurationLike): Duration;
 
     /**
      * Create a Duration from an ISO 8601 duration string.
@@ -149,7 +169,7 @@ export class Duration {
      * @example
      * Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
      */
-    static fromISOTime(text: string, opts: DurationOptions): Duration;
+    static fromISOTime(text: string, opts?: DurationOptions): Duration;
 
     /**
      * Create an invalid Duration.
@@ -318,7 +338,7 @@ export class Duration {
      * @example
      * dur.set({ hours: 8, minutes: 30 })
      */
-    set(values: DurationObjectUnits): Duration;
+    set(values: DurationLikeObject): Duration;
 
     /**
      * "Set" the locale and/or numberingSystem.  Returns a newly-constructed Duration.

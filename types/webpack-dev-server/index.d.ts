@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 4.3
+// Type definitions for webpack-dev-server 4.5
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
@@ -158,6 +158,9 @@ declare namespace WebpackDevServer {
         username?: string | undefined;
     }
 
+    type ServerType = 'http' | 'https' | 'spdy';
+    type WebSocketType = 'sockjs' | 'ws';
+
     interface Configuration {
         /**
          * This option allows you to whitelist services that are allowed to
@@ -193,11 +196,15 @@ declare namespace WebpackDevServer {
          * Serve over HTTP/2 using spdy. This option is ignored for Node 10.0.0
          * and above, as spdy is broken for those versions. The dev server will
          * migrate over to Node's built-in HTTP/2 once Express supports it.
+         *
+         * @deprecated Use the 'server' option.
          */
         http2?: boolean | undefined;
         /**
          * By default dev-server will be served over HTTP. It can optionally be
          * served over HTTP/2 with HTTPS.
+         *
+         * @deprecated Use the 'server' option.
          */
         https?: boolean | https.ServerOptions | undefined;
         /* The Unix socket to listen to (instead of a host). */
@@ -270,7 +277,16 @@ declare namespace WebpackDevServer {
          * This option allows us either to choose the current web-socket server
          * or to provide custom web-socket server implementation.
          */
-        webSocketServer?: boolean | 'sockjs' | 'ws' | string | (() => void) | Record<string, any>;
+        webSocketServer?:
+            | string
+            | boolean
+            | WebSocketType
+            | { type?: string | boolean | WebSocketType; options?: Record<string, any> };
+
+        /**
+         * Allows to set server and options (by default 'http').
+         */
+        server?: string | ServerType | { type?: ServerType; options?: https.ServerOptions };
     }
 }
 

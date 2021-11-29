@@ -1,4 +1,4 @@
-// Type definitions for gestalt 38.0
+// Type definitions for gestalt 40.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -535,6 +535,11 @@ export interface DropdownItemProps {
     badgeText?: string | undefined;
 
     /**
+     * When supplied, will add a data-test-id prop to the dom element.
+     */
+    dataTestId?: string | undefined;
+
+    /**
      * Either the selected item info or an array of selected items,
      * used to determine when the "selected" icon appears on an item
      */
@@ -551,6 +556,11 @@ export interface DropdownLinkProps {
      * When supplied, will display a Badge next to the item's label.
      */
     badgeText?: string | undefined;
+    children?: React.ReactNode;
+    /**
+     * When supplied, will add a data-test-id prop to the dom element.
+     */
+     dataTestId?: string | undefined;
     /**
      * When true, adds an arrow icon to the end of the item to signal this item takes users to an external source
      * and opens the link in a new tab.
@@ -737,6 +747,7 @@ export type Icons =
     | 'heart-outline'
     | 'heart-broken'
     | 'history'
+    | 'idea-pin'
     | 'impressum'
     | 'info-circle'
     | 'key'
@@ -792,7 +803,6 @@ export type Icons =
     | 'speech-ellipsis'
     | 'star'
     | 'star-half'
-    | 'story-pin'
     | 'switch-account'
     | 'tag'
     | 'terms'
@@ -1068,6 +1078,91 @@ export interface ModuleExpandableProps {
     }>;
     expandedIndex?: number | null | undefined;
     onExpandedChange?: ((expandedIndex: number | null) => void) | undefined;
+}
+
+/**
+ * NumberField Props Interface
+ * https://gestalt.netlify.app/numberfield
+ */
+export interface NumberFieldProps {
+    /**
+     * A unique identifier for the input
+     */
+    id: string;
+    /**
+     * Callback triggered when the value of the input changes, whether by keyboard entry or the input's arrows.
+     */
+    onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: number | undefined }) => void;
+    /**
+     * Indicate if autocomplete should be available to the input.
+     */
+    autoComplete?: 'on' | 'off' | undefined;
+    /**
+     * Indicate if the input is disabled
+     * @default false
+     */
+    disabled?: boolean | undefined;
+    /**
+     * For most cases, pass a string with a helpful error message (be sure to localize!).
+     * In certain instances it can be useful to make some text clickable; to suppor this you may instead pass a React.Node to wrap text in Link or TapArea.
+     */
+    errorMessage?: React.ReactNode | undefined;
+    /**
+     * More information about how to complete the form field
+     */
+    helperText?: string | undefined;
+    /**
+     * The label for the input. Be sure to localize the text.
+     */
+    label?: string | undefined;
+    /**
+     * The upper bound of valid input, inclusive.
+     */
+    max?: number | undefined;
+    /**
+     * The lower bound of valid input, inclusive.
+     */
+    min?: number | undefined;
+    /**
+     * An unique name for the input
+     */
+    name?: string | undefined;
+    /**
+     * Callback triggered when the user blurs the input.
+     */
+    onBlur?:
+        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | undefined;
+    /**
+     * Callback triggered when the user focuses the input.
+     */
+    onFocus?:
+        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | undefined;
+    /**
+     * Callback triggered when the user presses any key while the input is focused.
+     */
+    onKeyDown?:
+        | ((args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | undefined;
+    /**
+     * Placeholder text shown when the user has not yes input a value.
+     */
+    placeholder?: string | undefined;
+    /**
+     * md: 40px, lg: 48px
+     *
+     * @default "md"
+     */
+    size?: 'md' | 'lg' | undefined;
+    /**
+     * Indicates the amount the value will increase or decrease when using the input's arrows.
+     */
+    step?: number | undefined;
+    /**
+     * The current value of the input.
+     */
+    value?: number | undefined;
 }
 
 /**
@@ -1604,48 +1699,6 @@ export interface TooltipProps {
 }
 
 /**
- * Typeahead Props Interface
- * https://gestalt.netlify.app/Typeahead
- */
-export interface TypeaheadProps {
-    id: string;
-    noResultText: string;
-    options: ReadonlyArray<{
-        label: string;
-        value: string;
-    }>;
-    label?: string | undefined;
-    onBlur?:
-        | ((args: {
-              event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
-              value: string;
-          }) => void)
-        | undefined;
-    onChange?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
-    onFocus?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void) | undefined;
-    onSelect?:
-        | ((args: {
-              event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
-              item:
-                  | {
-                        label: string;
-                        value: string;
-                    }
-                  | null
-                  | undefined;
-          }) => void)
-        | undefined;
-    placeholder?: string | undefined;
-    size?: 'md' | 'lg' | undefined;
-    /**
-     * List of tags to display in the component
-     */
-    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
-    value?: string | undefined;
-    zIndex?: Indexable | undefined;
-}
-
-/**
  * Upsell Props Interface
  * https://gestalt.netlify.app/Upsell
  */
@@ -1805,6 +1858,7 @@ export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 export class Module extends React.Component<ModuleProps, any> {
     static Expandable: React.FC<ModuleExpandableProps>;
 }
+export const NumberField: ReactForwardRef<HTMLInputElement, NumberFieldProps>;
 export class OnLinkNavigationProvider extends React.Component<OnLinkNavigationProviderProps, any> {}
 export class PageHeader extends React.Component<PageHeaderProps, any> {}
 export class Pog extends React.Component<PogProps, any> {}
@@ -1839,7 +1893,6 @@ export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
 export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
-export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
 export class Upsell extends React.Component<UpsellProps, any> {
     static Form: React.FC<UpsellFormProps>;
 }

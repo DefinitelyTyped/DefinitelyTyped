@@ -1,6 +1,13 @@
 import * as express from 'express-serve-static-core';
 
-const app: express.Application = {} as any;
+const app: express.Application<{
+    aKey: 'aValue'
+}> = {} as any;
+
+// App.locals can be extended
+app.locals.aKey; // $ExpectType "aValue"
+app.locals.bKey; // $ExpectError
+
 app.listen(3000);
 app.listen(3000, () => {
     // no-op error callback

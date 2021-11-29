@@ -1,4 +1,4 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -99,8 +99,28 @@ declare module "sap/ui/webc/fiori/library" {
     TwoColumnsStartExpanded = "TwoColumnsStartExpanded",
   }
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @SINCE 1.97.0
+   * @EXPERIMENTAL (since 1.97.0)
+   *
+   * Interface for components that may be slotted inside `ui5-view-settings-dialog` as filter items
+   */
+  export interface IFilterItem {
+    __implements__sap_ui_webc_fiori_IFilterItem: boolean;
+  }
+
+  /**
+   * @SINCE 1.97.0
+   * @EXPERIMENTAL (since 1.97.0)
+   *
+   * Interface for components that may be slotted inside `ui5-filter-item` as values
+   */
+  export interface IFilterItemOption {
+    __implements__sap_ui_webc_fiori_IFilterItemOption: boolean;
+  }
+
+  /**
+   * @SINCE 1.95.0
+   * @EXPERIMENTAL (since 1.95.0)
    *
    * Different illustration types of Illustrated Message.
    */
@@ -141,6 +161,78 @@ declare module "sap/ui/webc/fiori/library" {
      * "NoTasks" illustration type.
      */
     NoTasks = "NoTasks",
+    /**
+     * "TntCodePlaceholder" illustration type.
+     */
+    TntCodePlaceholder = "TntCodePlaceholder",
+    /**
+     * "TntCompany" illustration type.
+     */
+    TntCompany = "TntCompany",
+    /**
+     * "TntExternalLink" illustration type.
+     */
+    TntExternalLink = "TntExternalLink",
+    /**
+     * "TntFaceID" illustration type.
+     */
+    TntFaceID = "TntFaceID",
+    /**
+     * "TntFingerprint" illustration type.
+     */
+    TntFingerprint = "TntFingerprint",
+    /**
+     * "TntLock" illustration type.
+     */
+    TntLock = "TntLock",
+    /**
+     * "TntMission" illustration type.
+     */
+    TntMission = "TntMission",
+    /**
+     * "TntNoApplications" illustration type.
+     */
+    TntNoApplications = "TntNoApplications",
+    /**
+     * "TntNoFlows" illustration type.
+     */
+    TntNoFlows = "TntNoFlows",
+    /**
+     * "TntNoUsers" illustration type.
+     */
+    TntNoUsers = "TntNoUsers",
+    /**
+     * "TntRadar" illustration type.
+     */
+    TntRadar = "TntRadar",
+    /**
+     * "TntServices" illustration type.
+     */
+    TntServices = "TntServices",
+    /**
+     * "TntSessionExpired" illustration type.
+     */
+    TntSessionExpired = "TntSessionExpired",
+    /**
+     * "TntSessionExpiring" illustration type.
+     */
+    TntSessionExpiring = "TntSessionExpiring",
+    /**
+     * "TntSuccess" illustration type.
+     */
+    TntSuccess = "TntSuccess",
+    /**
+     * "TntSuccessfulAuth" illustration type.
+     */
+    TntSuccessfulAuth = "TntSuccessfulAuth",
+    /**
+     * "TntUnlock" illustration type.
+     */
+    TntUnlock = "TntUnlock",
+    /**
+     * "TntUnsuccessfulAuth" illustration type.
+     */
+    TntUnsuccessfulAuth = "TntUnsuccessfulAuth",
     /**
      * "UnableToLoad" illustration type.
      */
@@ -208,6 +300,16 @@ declare module "sap/ui/webc/fiori/library" {
    */
   export interface ISideNavigationSubItem {
     __implements__sap_ui_webc_fiori_ISideNavigationSubItem: boolean;
+  }
+
+  /**
+   * @SINCE 1.97.0
+   * @EXPERIMENTAL (since 1.97.0)
+   *
+   * Interface for components that may be slotted inside `ui5-view-settings-dialog` as sort items
+   */
+  export interface ISortItem {
+    __implements__sap_ui_webc_fiori_ISortItem: boolean;
   }
 
   /**
@@ -686,8 +788,8 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @SINCE 1.95.0
+   * @EXPERIMENTAL (since 1.95.0)
    *
    * Overview:
    *
@@ -931,6 +1033,325 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
   }
 }
 
+declare module "sap/ui/webc/fiori/FilterItem" {
+  import {
+    default as WebComponent,
+    $WebComponentSettings,
+  } from "sap/ui/webc/common/WebComponent";
+
+  import { IFilterItem, IFilterItemOption } from "sap/ui/webc/fiori/library";
+
+  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.97.0
+   * @EXPERIMENTAL (since 1.97.0)
+   *
+   * Overview:
+   *
+   * Usage:
+   */
+  export default class FilterItem extends WebComponent implements IFilterItem {
+    __implements__sap_ui_webc_fiori_IFilterItem: boolean;
+    /**
+     * Constructor for a new `FilterItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $FilterItemSettings
+    );
+    /**
+     * Constructor for a new `FilterItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $FilterItemSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.webc.fiori.FilterItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FilterItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.FilterItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some value to the aggregation {@link #getValues values}.
+     */
+    addValue(
+      /**
+       * The value to add; if empty, nothing is inserted
+       */
+      oValue: IFilterItemOption
+    ): this;
+    /**
+     * Destroys all the values in the aggregation {@link #getValues values}.
+     */
+    destroyValues(): this;
+    /**
+     * Gets current value of property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * Default value is `empty string`.
+     */
+    getText(): string;
+    /**
+     * Gets content of aggregation {@link #getValues values}.
+     *
+     * Defines the `values` list.
+     */
+    getValues(): IFilterItemOption[];
+    /**
+     * Checks for the provided `sap.ui.webc.fiori.IFilterItemOption` in the aggregation {@link #getValues values}.
+     * and returns its index if found or -1 otherwise.
+     */
+    indexOfValue(
+      /**
+       * The value whose index is looked for
+       */
+      oValue: IFilterItemOption
+    ): int;
+    /**
+     * Inserts a value into the aggregation {@link #getValues values}.
+     */
+    insertValue(
+      /**
+       * The value to insert; if empty, nothing is inserted
+       */
+      oValue: IFilterItemOption,
+      /**
+       * The `0`-based index the value should be inserted at; for a negative value of `iIndex`, the value is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the value is inserted at
+       * the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls from the aggregation {@link #getValues values}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     */
+    removeAllValues(): IFilterItemOption[];
+    /**
+     * Removes a value from the aggregation {@link #getValues values}.
+     */
+    removeValue(
+      /**
+       * The value to remove or its index or id
+       */
+      vValue: int | string | IFilterItemOption
+    ): IFilterItemOption;
+    /**
+     * Sets a new value for property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     */
+    setText(
+      /**
+       * New value for property `text`
+       */
+      sText?: string
+    ): this;
+  }
+
+  export interface $FilterItemSettings extends $WebComponentSettings {
+    /**
+     * Defines the text of the component.
+     */
+    text?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the `values` list.
+     */
+    values?: IFilterItemOption[] | IFilterItemOption | AggregationBindingInfo;
+  }
+}
+
+declare module "sap/ui/webc/fiori/FilterItemOption" {
+  import {
+    default as WebComponent,
+    $WebComponentSettings,
+  } from "sap/ui/webc/common/WebComponent";
+
+  import { IFilterItemOption } from "sap/ui/webc/fiori/library";
+
+  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.97.0
+   * @EXPERIMENTAL (since 1.97.0)
+   *
+   * Overview:
+   *
+   * Usage:
+   */
+  export default class FilterItemOption
+    extends WebComponent
+    implements IFilterItemOption {
+    __implements__sap_ui_webc_fiori_IFilterItemOption: boolean;
+    /**
+     * Constructor for a new `FilterItemOption`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $FilterItemOptionSettings
+    );
+    /**
+     * Constructor for a new `FilterItemOption`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $FilterItemOptionSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.webc.fiori.FilterItemOption with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FilterItemOption>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.FilterItemOption.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Gets current value of property {@link #getSelected selected}.
+     *
+     * Defines whether the option is selected
+     *
+     * Default value is `false`.
+     */
+    getSelected(): boolean;
+    /**
+     * Gets current value of property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * Default value is `empty string`.
+     */
+    getText(): string;
+    /**
+     * Sets a new value for property {@link #getSelected selected}.
+     *
+     * Defines whether the option is selected
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setSelected(
+      /**
+       * New value for property `selected`
+       */
+      bSelected?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     */
+    setText(
+      /**
+       * New value for property `text`
+       */
+      sText?: string
+    ): this;
+  }
+
+  export interface $FilterItemOptionSettings extends $WebComponentSettings {
+    /**
+     * Defines whether the option is selected
+     */
+    selected?: boolean | PropertyBindingInfo;
+
+    /**
+     * Defines the text of the component.
+     */
+    text?: string | PropertyBindingInfo;
+  }
+}
+
 declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
   import {
     default as WebComponent,
@@ -1149,7 +1570,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
     /**
      * Gets current value of property {@link #getAccessibilityTexts accessibilityTexts}.
      *
-     * On object of strings that defines several additional accessibility texts for even further customization.
+     * An object of strings that defines several additional accessibility texts for even further customization.
      *
      * It supports the following fields: - `startColumnAccessibleName`: the accessibility name for the `startColumn`
      * region - `midColumnAccessibleName`: the accessibility name for the `midColumn` region - `endColumnAccessibleName`:
@@ -1252,7 +1673,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
     /**
      * Sets a new value for property {@link #getAccessibilityTexts accessibilityTexts}.
      *
-     * On object of strings that defines several additional accessibility texts for even further customization.
+     * An object of strings that defines several additional accessibility texts for even further customization.
      *
      * It supports the following fields: - `startColumnAccessibleName`: the accessibility name for the `startColumn`
      * region - `midColumnAccessibleName`: the accessibility name for the `midColumn` region - `endColumnAccessibleName`:
@@ -1377,7 +1798,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
 
   export interface $FlexibleColumnLayoutSettings extends $WebComponentSettings {
     /**
-     * On object of strings that defines several additional accessibility texts for even further customization.
+     * An object of strings that defines several additional accessibility texts for even further customization.
      *
      * It supports the following fields: - `startColumnAccessibleName`: the accessibility name for the `startColumn`
      * region - `midColumnAccessibleName`: the accessibility name for the `midColumn` region - `endColumnAccessibleName`:
@@ -1470,8 +1891,8 @@ declare module "sap/ui/webc/fiori/IllustratedMessage" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @SINCE 1.95.0
+   * @EXPERIMENTAL (since 1.95.0)
    *
    * Overview: An IllustratedMessage is a recommended combination of a solution-oriented message, an engaging
    * illustration, and conversational tone to better communicate an empty or a success state than just show
@@ -6457,6 +6878,145 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
   }
 }
 
+declare module "sap/ui/webc/fiori/SortItem" {
+  import {
+    default as WebComponent,
+    $WebComponentSettings,
+  } from "sap/ui/webc/common/WebComponent";
+
+  import { ISortItem } from "sap/ui/webc/fiori/library";
+
+  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.97.0
+   * @EXPERIMENTAL (since 1.97.0)
+   *
+   * Overview:
+   *
+   * Usage:
+   */
+  export default class SortItem extends WebComponent implements ISortItem {
+    __implements__sap_ui_webc_fiori_ISortItem: boolean;
+    /**
+     * Constructor for a new `SortItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SortItemSettings
+    );
+    /**
+     * Constructor for a new `SortItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SortItemSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.webc.fiori.SortItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SortItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.SortItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Gets current value of property {@link #getSelected selected}.
+     *
+     * Defines if the component is selected.
+     *
+     * Default value is `false`.
+     */
+    getSelected(): boolean;
+    /**
+     * Gets current value of property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * Default value is `empty string`.
+     */
+    getText(): string;
+    /**
+     * Sets a new value for property {@link #getSelected selected}.
+     *
+     * Defines if the component is selected.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setSelected(
+      /**
+       * New value for property `selected`
+       */
+      bSelected?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     */
+    setText(
+      /**
+       * New value for property `text`
+       */
+      sText?: string
+    ): this;
+  }
+
+  export interface $SortItemSettings extends $WebComponentSettings {
+    /**
+     * Defines if the component is selected.
+     */
+    selected?: boolean | PropertyBindingInfo;
+
+    /**
+     * Defines the text of the component.
+     */
+    text?: string | PropertyBindingInfo;
+  }
+}
+
 declare module "sap/ui/webc/fiori/Timeline" {
   import {
     default as WebComponent,
@@ -7441,9 +8001,20 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       }
     ): this;
     /**
+     * Gets current value of property {@link #getAccessibleName accessibleName}.
+     *
+     * Sets the accessible aria name of the component.
+     *
+     * Default value is `empty string`.
+     */
+    getAccessibleName(): string;
+    /**
      * Gets content of aggregation {@link #getHeader header}.
      *
      * Defines the `sap.ui.webc.fiori.UploadCollection` header.
+     *
+     *  **Note:** If `header` slot is provided, the labelling of the `UploadCollection` is a responsibility
+     * of the application developer. `accessibleName` should be used.
      */
     getHeader(): Control[];
     /**
@@ -7590,6 +8161,21 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       vItem: int | string | IUploadCollectionItem
     ): IUploadCollectionItem;
     /**
+     * Sets a new value for property {@link #getAccessibleName accessibleName}.
+     *
+     * Sets the accessible aria name of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     */
+    setAccessibleName(
+      /**
+       * New value for property `accessibleName`
+       */
+      sAccessibleName?: string
+    ): this;
+    /**
      * Sets a new value for property {@link #getHeight height}.
      *
      * Defines the height of the control
@@ -7691,6 +8277,11 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
 
   export interface $UploadCollectionSettings extends $WebComponentSettings {
     /**
+     * Sets the accessible aria name of the component.
+     */
+    accessibleName?: string | PropertyBindingInfo;
+
+    /**
      * Defines the height of the control
      */
     height?: CSSSize | PropertyBindingInfo;
@@ -7734,6 +8325,9 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
 
     /**
      * Defines the `sap.ui.webc.fiori.UploadCollection` header.
+     *
+     *  **Note:** If `header` slot is provided, the labelling of the `UploadCollection` is a responsibility
+     * of the application developer. `accessibleName` should be used.
      */
     header?: Control[] | Control | AggregationBindingInfo;
 
@@ -8510,7 +9104,7 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { IListItem } from "sap/ui/webc/main/library";
+  import { IFilterItem, ISortItem } from "sap/ui/webc/fiori/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -8522,12 +9116,13 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @SINCE 1.95.0
+   * @EXPERIMENTAL (since 1.95.0)
    *
    * Overview: The `sap.ui.webc.fiori.ViewSettingsDialog` component helps the user to sort data within a list
-   * or a table. It consists of several lists like `Sort order` which is built-in and `Sort By` which must
-   * be provided by the developer. The selected options can be used to create sorters for the table.
+   * or a table. It consists of several lists like `Sort order` which is built-in and `Sort By` and `Filter
+   * By` lists, for which you must be provide items(`sap.ui.webc.fiori.SortItem` & `sap.ui.webc.fiori.FilterItem`
+   * respectively) These options can be used to create sorters for a table.
    *
    * The `sap.ui.webc.fiori.ViewSettingsDialog` interrupts the current application processing as it is the
    * only focused UI element and the main screen is dimmed/blocked. The `sap.ui.webc.fiori.ViewSettingsDialog`
@@ -8596,13 +9191,22 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
      */
     static getMetadata(): WebComponentMetadata;
     /**
+     * Adds some filterItem to the aggregation {@link #getFilterItems filterItems}.
+     */
+    addFilterItem(
+      /**
+       * The filterItem to add; if empty, nothing is inserted
+       */
+      oFilterItem: IFilterItem
+    ): this;
+    /**
      * Adds some sortItem to the aggregation {@link #getSortItems sortItems}.
      */
     addSortItem(
       /**
        * The sortItem to add; if empty, nothing is inserted
        */
-      oSortItem: IListItem
+      oSortItem: ISortItem
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.webc.fiori.ViewSettingsDialog`.
@@ -8690,6 +9294,10 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
        */
       oListener?: object
     ): this;
+    /**
+     * Destroys all the filterItems in the aggregation {@link #getFilterItems filterItems}.
+     */
+    destroyFilterItems(): this;
     /**
      * Destroys all the sortItems in the aggregation {@link #getSortItems sortItems}.
      */
@@ -8737,7 +9345,7 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
          */
         sortOrder?: string;
         /**
-         * The current sort by selected.
+         * The currently selected `sap.ui.webc.fiori.SortItem` text attribute.
          */
         sortBy?: string;
       }
@@ -8755,11 +9363,15 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
          */
         sortOrder?: string;
         /**
-         * The current sort by selected.
+         * The currently selected `sap.ui.webc.fiori.SortItem` text attribute.
          */
         sortBy?: string;
       }
     ): this;
+    /**
+     * Gets content of aggregation {@link #getFilterItems filterItems}.
+     */
+    getFilterItems(): IFilterItem[];
     /**
      * Gets current value of property {@link #getSortDescending sortDescending}.
      *
@@ -8770,20 +9382,43 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
     getSortDescending(): boolean;
     /**
      * Gets content of aggregation {@link #getSortItems sortItems}.
-     *
-     * Defines the `sortItems` list.
      */
-    getSortItems(): IListItem[];
+    getSortItems(): ISortItem[];
     /**
-     * Checks for the provided `sap.ui.webc.main.IListItem` in the aggregation {@link #getSortItems sortItems}.
+     * Checks for the provided `sap.ui.webc.fiori.IFilterItem` in the aggregation {@link #getFilterItems filterItems}.
+     * and returns its index if found or -1 otherwise.
+     */
+    indexOfFilterItem(
+      /**
+       * The filterItem whose index is looked for
+       */
+      oFilterItem: IFilterItem
+    ): int;
+    /**
+     * Checks for the provided `sap.ui.webc.fiori.ISortItem` in the aggregation {@link #getSortItems sortItems}.
      * and returns its index if found or -1 otherwise.
      */
     indexOfSortItem(
       /**
        * The sortItem whose index is looked for
        */
-      oSortItem: IListItem
+      oSortItem: ISortItem
     ): int;
+    /**
+     * Inserts a filterItem into the aggregation {@link #getFilterItems filterItems}.
+     */
+    insertFilterItem(
+      /**
+       * The filterItem to insert; if empty, nothing is inserted
+       */
+      oFilterItem: IFilterItem,
+      /**
+       * The `0`-based index the filterItem should be inserted at; for a negative value of `iIndex`, the filterItem
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the filterItem
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
     /**
      * Inserts a sortItem into the aggregation {@link #getSortItems sortItems}.
      */
@@ -8791,7 +9426,7 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
       /**
        * The sortItem to insert; if empty, nothing is inserted
        */
-      oSortItem: IListItem,
+      oSortItem: ISortItem,
       /**
        * The `0`-based index the sortItem should be inserted at; for a negative value of `iIndex`, the sortItem
        * is inserted at position 0; for a value greater than the current size of the aggregation, the sortItem
@@ -8800,11 +9435,26 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls from the aggregation {@link #getFilterItems filterItems}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     */
+    removeAllFilterItems(): IFilterItem[];
+    /**
      * Removes all the controls from the aggregation {@link #getSortItems sortItems}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
      */
-    removeAllSortItems(): IListItem[];
+    removeAllSortItems(): ISortItem[];
+    /**
+     * Removes a filterItem from the aggregation {@link #getFilterItems filterItems}.
+     */
+    removeFilterItem(
+      /**
+       * The filterItem to remove or its index or id
+       */
+      vFilterItem: int | string | IFilterItem
+    ): IFilterItem;
     /**
      * Removes a sortItem from the aggregation {@link #getSortItems sortItems}.
      */
@@ -8812,8 +9462,8 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
       /**
        * The sortItem to remove or its index or id
        */
-      vSortItem: int | string | IListItem
-    ): IListItem;
+      vSortItem: int | string | ISortItem
+    ): ISortItem;
     /**
      * Sets a new value for property {@link #getSortDescending sortDescending}.
      *
@@ -8841,10 +9491,9 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
      */
     sortDescending?: boolean | PropertyBindingInfo;
 
-    /**
-     * Defines the `sortItems` list.
-     */
-    sortItems?: IListItem[] | IListItem | AggregationBindingInfo;
+    filterItems?: IFilterItem[] | IFilterItem | AggregationBindingInfo;
+
+    sortItems?: ISortItem[] | ISortItem | AggregationBindingInfo;
 
     /**
      * Fired when cancel button is activated.
@@ -8883,16 +9532,16 @@ declare module "sap/ui/webc/fiori/Wizard" {
    *
    * Overview:
    *
-   * The `sap.ui.webc.fiori.Wizard` helps users complete a complex task by dividing it into sections and guiding
-   * the user through it. It has two main areas - a navigation area at the top showing the step sequence and
-   * a content area below it.
+   * The `sap.ui.webc.fiori.Wizard` helps users to complete a complex task by dividing it into sections and
+   * guiding them through it. It has two main areas - a navigation area at the top showing the step sequence
+   * and a content area below it.
    *
    * Structure: Navigation area: The top most area of the `sap.ui.webc.fiori.Wizard` is occupied by the navigation
    * area. It shows the sequence of steps, where the recommended number of steps is between 3 and 8 steps.
    *
    * 	 -  Steps can have different visual representations - numbers or icons.  Steps might have labels
    * 			for better readability - titleText and subTitleText.
-   * 	 -  Steps are defined by using the `sap.ui.webc.fiori.WizardStep` as slotted element within the `sap.ui.webc.fiori.Wizard`
+   * 	 -  Steps are defined by using the `sap.ui.webc.fiori.WizardStep` as slotted element within the `sap.ui.webc.fiori.Wizard`.
    *
    *
    * **Note:** If no selected step is defined, the first step will be auto selected.
@@ -8919,7 +9568,7 @@ declare module "sap/ui/webc/fiori/Wizard" {
    *
    * Moving to next step: The `sap.ui.webc.fiori.WizardStep` provides the necessary API and it's up to the
    * user of the component to use it to move to the next step. You have to set its `selected` property (and
-   * remove the `disabled` one if set) to `true`. And, the `sap.ui.webc.fiori.Wizard` will automatically scroll
+   * remove the `disabled` one if set) to `true`. The `sap.ui.webc.fiori.Wizard` will automatically scroll
    * to the content of the newly selected step.
    *
    *
@@ -8928,13 +9577,14 @@ declare module "sap/ui/webc/fiori/Wizard" {
    * or any other type of element to trigger step change, inside the `sap.ui.webc.fiori.WizardStep`, and show/hide
    * it when certain fields are filled or user defined criteria is met.
    *
-   * Usage: When to use:: When the user has to accomplish a long set of tasks.
+   * Usage: When to use:: When the user has to accomplish a long or unfamiliar task.
    *
    * When not to use:: When the task has less than 3 steps.
    *
    * Responsive Behavior: On small widths the step's titleText, subtitleText and separators in the navigation
-   * area will start truncate and shrink and from particular point they will hide to free as much space as
-   * possible.
+   * area shrink and from particular point the steps are grouped together and overlap. Tapping on them will
+   * show a popover to select the step to navigate to. On mobile device, the grouped steps are presented within
+   * a dialog.
    */
   export default class Wizard extends WebComponent {
     /**
@@ -9073,15 +9723,15 @@ declare module "sap/ui/webc/fiori/Wizard" {
        */
       mParameters?: {
         /**
-         * the new step
+         * The new step.
          */
         step?: HTMLElement;
         /**
-         * the previous step
+         * The previous step.
          */
         previousStep?: HTMLElement;
         /**
-         * the step change occurs due to user's click or 'Enter'/'Space' key press on step within the navigation
+         * The step change occurs due to user's click or 'Enter'/'Space' key press on step within the navigation.
          */
         changeWithClick?: boolean;
       }
@@ -9228,13 +9878,13 @@ declare module "sap/ui/webc/fiori/WizardStep" {
    * Overview:
    *
    * A component that represents a logical step as part of the `sap.ui.webc.fiori.Wizard`. It is meant to
-   * aggregate arbitrary HTML elements that forms the content of a single step.
+   * aggregate arbitrary HTML elements that form the content of a single step.
    *
    * Structure:
-   * 	 - Each wizard step has arbitrary content
-   * 	 - Each wizard step might have texts - defined by the `titleText` and `subtitleText` properties
-   * 	 - Each wizard step might have an icon - defined by the `icon` property
-   * 	 - Each wizard step might display a number in place of the `icon`, when it's missing
+   * 	 - Each wizard step has arbitrary content.
+   * 	 - Each wizard step might have texts - defined by the `titleText` and `subtitleText` properties.
+   * 	 - Each wizard step might have an icon - defined by the `icon` property.
+   * 	 - Each wizard step might display a number in place of the `icon`, when it's missing.
    *
    * Usage: The `sap.ui.webc.fiori.WizardStep` component should be used only as slot of the `sap.ui.webc.fiori.Wizard`
    * component and should not be used standalone.
@@ -9367,7 +10017,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * **Note:** the icon is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
+     * **Note:** The icon is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
      *
      *
      *
@@ -9397,7 +10047,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      * **Note:** the text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
-     *  **Note:** the text will hide on small sizes (about 559 px).
      *
      * Default value is `empty string`.
      */
@@ -9409,8 +10058,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * **Note:** the text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
-     *  **Note:** the text will hide on small sizes (about 559 px).
+     * **Note:** The text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
      *
      * Default value is `empty string`.
      */
@@ -9534,7 +10182,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * **Note:** the icon is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
+     * **Note:** The icon is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
      *
      *
      *
@@ -9578,7 +10226,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      * **Note:** the text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
-     *  **Note:** the text will hide on small sizes (about 559 px).
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9597,8 +10244,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * **Note:** the text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
-     *  **Note:** the text will hide on small sizes (about 559 px).
+     * **Note:** The text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9650,7 +10296,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * **Note:** the icon is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
+     * **Note:** The icon is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
      *
      *
      *
@@ -9674,7 +10320,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      * **Note:** the text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
-     *  **Note:** the text will hide on small sizes (about 559 px).
      */
     subtitleText?: string | PropertyBindingInfo;
 
@@ -9683,8 +10328,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * **Note:** the text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
-     *  **Note:** the text will hide on small sizes (about 559 px).
+     * **Note:** The text is displayed in the `sap.ui.webc.fiori.Wizard` navigation header.
      */
     titleText?: string | PropertyBindingInfo;
 
@@ -9700,6 +10344,10 @@ declare namespace sap {
     "sap/ui/webc/fiori/Bar": undefined;
 
     "sap/ui/webc/fiori/BarcodeScannerDialog": undefined;
+
+    "sap/ui/webc/fiori/FilterItem": undefined;
+
+    "sap/ui/webc/fiori/FilterItemOption": undefined;
 
     "sap/ui/webc/fiori/FlexibleColumnLayout": undefined;
 
@@ -9728,6 +10376,8 @@ declare namespace sap {
     "sap/ui/webc/fiori/SideNavigationItem": undefined;
 
     "sap/ui/webc/fiori/SideNavigationSubItem": undefined;
+
+    "sap/ui/webc/fiori/SortItem": undefined;
 
     "sap/ui/webc/fiori/Timeline": undefined;
 

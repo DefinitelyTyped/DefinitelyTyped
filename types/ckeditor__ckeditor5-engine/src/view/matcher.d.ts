@@ -49,7 +49,7 @@ export type MatcherPattern =
           classes?:
               | Array<{
                     key: string | RegExp;
-                    value: boolean | string | RegExp;
+                    value: boolean;
                 }>
               | boolean
               | string

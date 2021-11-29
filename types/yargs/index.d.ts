@@ -560,6 +560,12 @@ declare namespace yargs {
          */
         showHelpOnFail(enable: boolean, message?: string): Argv<T>;
 
+        /**
+         * Print the version data using the console function consoleLevel or the specified function.
+         * @param [level='error']
+         */
+        showVersion(level?: 'error' | 'log' | ((message: string) => void)): Argv<T>;
+
         /** Specifies either a single option key (string), or an array of options. If any of the options is present, yargs validation is skipped. */
         skipValidation(key: string | ReadonlyArray<string>): Argv<T>;
 

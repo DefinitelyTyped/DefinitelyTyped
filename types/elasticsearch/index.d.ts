@@ -638,7 +638,7 @@ export interface SearchShardsParams extends GenericParams {
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     index: NameList;
-    type: NameList;
+    type?: NameList;
 }
 
 export interface SearchShardsResponse {

@@ -1,3 +1,3 @@
-import validator from '../../';
-export type IsURLOptions = validator.IsURLOptions;
-export default validator.isURL;
+import isURL, { IsURLOptions } from '../../lib/isURL';
+export default isURL;
+export { IsURLOptions };

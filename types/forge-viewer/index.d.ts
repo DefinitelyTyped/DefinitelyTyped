@@ -895,6 +895,20 @@ declare namespace Autodesk {
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
             getWorldPoint(x: number, y: number): THREE.Vector3;
+            /**
+             * Get the current world up direction.
+             *
+             * @returns the current world up direction (normalized)
+             */
+            getWorldUpVector(): THREE.Vector3;
+            /**
+             * Change the current world up direction.
+             *
+             * @param up - the new world up direction
+             * @param reorient - if true, make sure the camera up is oriented towards the world up direction.
+             * @param force - if true, will set the new direction regardless of navigation lock
+             */
+            setWorldUpVector(up: THREE.Vector3, reorient: boolean, force: boolean): void;
             screenToViewport(x: number, y: number): THREE.Vector3;
             toOrthographic(): void;
             toPerspective(): void;

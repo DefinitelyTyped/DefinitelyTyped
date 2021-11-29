@@ -221,11 +221,15 @@ declare namespace Logger {
 
     function resolveLevel(value: LogLevel): number;
 
+    interface WriteFn {
+        write: (object: Object) => void;
+    }
+
     interface Stream {
         type?: string | undefined;
         level?: LogLevel | undefined;
         path?: string | undefined;
-        stream?: NodeJS.WritableStream | Stream | undefined;
+        stream?: NodeJS.WritableStream | WriteFn | undefined;
         closeOnExit?: boolean | undefined;
         period?: string | undefined;
         count?: number | undefined;

@@ -250,6 +250,8 @@ declare module 'dns' {
     function setServers(servers: ReadonlyArray<string>): void;
     function getServers(): string[];
 
+    function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
+
     // Error codes
     const NODATA: string;
     const FORMERR: string;
@@ -355,6 +357,8 @@ declare module 'dns' {
         function reverse(ip: string): Promise<string[]>;
 
         function setServers(servers: ReadonlyArray<string>): void;
+
+        function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
 
         class Resolver {
             constructor(options?: ResolverOptions);

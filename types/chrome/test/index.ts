@@ -813,6 +813,7 @@ async function testDeclarativeNetRequest() {
 function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({text: null});
     chrome.browserAction.setBadgeText({tabId: 123});
     chrome.browserAction.setBadgeText({text: "test", tabId: 123});
     chrome.browserAction.setBadgeText({}, () => {});

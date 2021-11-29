@@ -33,9 +33,7 @@ const x = scaleTime()
         // of additional, unsupported versions?
         new Date(
           Number(d.releaseDate) +
-            ((d.endDate as unknown as number) -
-              (d.releaseDate as unknown as number)) /
-              4
+            ((d.endDate as never) - (d.releaseDate as never)) / 4
         )
     )!,
     max(supported, (d) => d.endDate)!,
@@ -50,9 +48,15 @@ const y = scaleBand()
 const dom = new JSDOM();
 const svg = select(dom.window.document.body)
   .append("svg")
+  .attr("id", "gh-dark-mode-only")
   // @ts-expect-error
   .attr("viewBox", [0, 0, width, height])
   .attr("font-family", "sans-serif");
+svg.append("style").text(`
+  #gh-dark-mode-only:target {
+    color: #ffffff;
+  }
+`);
 const axes = svg
   .append("g")
   .attr("stroke-dasharray", 2)
@@ -76,10 +80,10 @@ svg
   .attr("y", (d) => y(d.version)!)
   .attr("width", (d) => x(d.endDate) - x(d.releaseDate))
   .attr("height", y.bandwidth())
-  .attr("fill", (d, i) => (i % 2 === 0 ? "#3178C6" : "#235A97"));
+  .attr("fill", (d, i) => (i % 2 === 0 ? "#3178c6" : "#235a97"));
 const texts = svg
   .append("g")
-  .attr("fill", "#FFFFFF")
+  .attr("fill", "#ffffff")
   .attr("text-anchor", "middle")
   .attr("transform", `translate(0,${y.bandwidth() / 2})`);
 texts
@@ -96,7 +100,7 @@ texts
         "-"
       )}.html`
   )
-  .attr("fill", "#FFFFFF")
+  .attr("fill", "#ffffff")
   .append("text")
   .attr("x", (d) => x(d.releaseDate) + (x(d.endDate) - x(d.releaseDate)) / 2)
   .attr("y", (d) => y(d.version)!)

@@ -774,7 +774,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text?: string | undefined;
+        text?: string | null;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
     }
@@ -2042,7 +2042,16 @@ declare namespace chrome.declarativeContent {
         constructor(options: PageStateMatcherProperties);
     }
 
-    /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
+    /**
+     * Declarative event action that enables the extension's action while the corresponding conditions are met.
+     * Manifest v3.
+     */
+    export class ShowAction { }
+
+    /**
+     * Declarative event action that shows the extension's page action while the corresponding conditions are met.
+     * Manifest v2.
+     */
     export class ShowPageAction { }
 
     /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
