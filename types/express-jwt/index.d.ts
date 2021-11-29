@@ -20,7 +20,8 @@ declare namespace jwt {
         | 'invalid_token'
         | 'credentials_bad_scheme'
         | 'credentials_bad_format'
-        | 'credentials_required';
+        | 'credentials_required'
+        | 'missing_secret';
 
     interface SecretCallbackLong {
         (req: express.Request, header: any, payload: any, done: (err: any, secret?: secretType) => void): void;
