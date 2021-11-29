@@ -159,6 +159,14 @@ export class Selection<S extends Schema = any> {
      */
     constructor($anchor: ResolvedPos<S>, $head: ResolvedPos<S>, ranges?: Array<SelectionRange<S>>);
     /**
+     * The `jsonID` can be used to mark the type of selection.
+     * There are three types of build-id selection, all extends `Selection` :
+     *  - `TextSelection` ==> `text`
+     *  - `NodeSelection` ==> `node`
+     *  - `AllSelection`  ==> `all`
+     */
+    jsonID: 'text' | 'node' | 'all';
+    /**
      * The ranges covered by the selection.
      */
     ranges: Array<SelectionRange<S>>;
