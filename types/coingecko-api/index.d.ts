@@ -1,6 +1,7 @@
-// Type definitions for coingecko-api 1.0
+// Type definitions for coingecko-api 1.0.10
 // Project: https://github.com/miscavage/CoinGecko-API#readme
-// Definitions by: Jan Klimo <https://github.com/janklimo>, Artem Ilinykh <https://github.com/singlesly>
+// Definitions by: Jan Klimo <https://github.com/janklimo>
+//                 Artem Ilinykh <https://github.com/singlesly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Locale =
