@@ -431,7 +431,7 @@ export function curryN<N extends number>(length: N): <F extends (...args: any) =
 export function dec(n: number): number;
 
 /**
- * Returns the second argument if it is not null or undefined or NaN. If it is null or undefined or NaN, the
+ * Returns the second argument if it is not null, undefined or NaN. If it is null, undefined or NaN, the
  * first (default) argument is returned.
  */
 export function defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
