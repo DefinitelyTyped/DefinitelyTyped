@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "ackee-tracker-tests.ts"
+        "ackee-tracker-tests.ts",
+        "ackee-tracker-tests.config.json"
     ]
 }
