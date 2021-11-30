@@ -638,7 +638,7 @@ function testWindows() {
         var windowIdResult: number = windowId;
     }, { windowTypes: ['normal'] });
     chrome.windows.onBoundsChanged.addListener(function (window) {
-        var windowResult : chrome.windows.Window = window;
+        var windowResult: chrome.windows.Window = window;
     }, { windowTypes: ['normal'] });
     chrome.windows.onFocusChanged.addListener(function (windowId) {
         var windowIdResult: number = windowId;
