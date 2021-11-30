@@ -449,7 +449,7 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
 export function converge<
     TArgs extends any[],
     TResult,
-    R1, R2, R3, R4, R5, R6, R7, 
+    R1, R2, R3, R4, R5, R6, R7,
     RestFunctions extends Array<(...args: TArgs) => any>
 >(
     converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult),
