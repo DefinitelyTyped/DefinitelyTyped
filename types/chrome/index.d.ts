@@ -10742,8 +10742,13 @@ declare namespace chrome.windows {
         extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> { }
 
     export interface WindowReferenceEvent
-        extends chrome.events.Event<callback: (window: Window) => void, filters?: WindowEventFilter> { }
-
+        extends chrome.events.Event<(window: Window) => void> {
+            addListener(
+                callback: (window: Window) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
+    
     /**
      * Specifies what type of browser window to create.
      * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
