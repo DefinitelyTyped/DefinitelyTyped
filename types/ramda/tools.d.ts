@@ -283,78 +283,6 @@ export type Placeholder = A.x & {'@@functional/placeholder': true};
  */
 export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
 
-/**
- * <needs description>
- * @param V0
- * @param R
- */
-export type PipeWithFns<V0, R> = [
-    (x0: V0) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-];
-
 // ---------------------------------------------------------------------------------------
 // R
 
@@ -366,6 +294,9 @@ export interface Reduced<A> {
     '@@transducer/value': A;
     '@@transducer/reduced': true;
 }
+
+type Fn = (...args: any) => any;
+export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [ReturnType<H>, ...ReturnTypesOfFns<R>] : [] : [] : [];
 
 // ---------------------------------------------------------------------------------------
 // S
@@ -399,5 +330,11 @@ export type ReturnTypeOfLastInTuple<TFunctions extends AnyFunction[]> = ReturnTy
 
 export type ParametersOfFirstInTuple<TFunctions extends AnyFunction[]> = Parameters<TFunctions[0]>;
 export type ReturnTypeOfFirstInTuple<TFunctions extends AnyFunction[]> = ReturnType<TFunctions[0]>;
+
+/**
+ * define an n-length tuple type
+ */
+export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
 
 export {};

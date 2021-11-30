@@ -7,7 +7,6 @@ qr_svg.pipe(fs.createWriteStream('i_love_qr.svg'));
 const svg_string = qr.imageSync('I love QR!', { type: 'svg' });
 
 // customize
-
 function coord2offset(x: number, y: number, size: number) {
     return (size + 1) * y + x + 1;
 }

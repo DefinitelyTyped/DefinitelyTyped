@@ -1,4 +1,4 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -580,7 +580,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * into account.
      *
      * Please also take notice of the fact, that "addSelectionInterval" does not change any other selection.
-     * To override the current selection, please use "setSelctionInterval" or for a single entry use "setSelectedIndex".
+     * To override the current selection, please use "setSelectionInterval" or for a single entry use "setSelectedIndex".
      */
     addSelectionInterval(
       /**
@@ -7738,7 +7738,7 @@ declare module "sap/ui/table/TreeTable" {
      * to the selection. Invisible nodes (collapsed child nodes) will not be regarded.
      *
      * Please also take notice of the fact, that "addSelectionInterval" does not change any other selection.
-     * To override the current selection, please use "setSelctionInterval" or for a single entry use "setSelectedIndex".
+     * To override the current selection, please use "setSelectionInterval" or for a single entry use "setSelectedIndex".
      */
     addSelectionInterval(
       /**

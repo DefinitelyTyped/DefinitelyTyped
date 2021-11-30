@@ -7,7 +7,7 @@
 export interface Response {
     status: number;
 
-    message: string;
+    message: object;
 
     headers: object;
 
@@ -21,7 +21,7 @@ export interface ConnectParams {
 
     reflect?: boolean;
 
-    timeout?: number;
+    timeout?: string | number;
 }
 
 export interface Params {
@@ -29,7 +29,7 @@ export interface Params {
 
     tags?: object;
 
-    timeout?: string;
+    timeout?: string | number;
 }
 
 /**

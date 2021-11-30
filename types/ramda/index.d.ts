@@ -38,9 +38,8 @@
 
 import * as _ from "ts-toolbelt";
 import {
-    Arity0Fn,
-    Arity1Fn,
-    Arity2Fn,
+    AtLeastOneFunctionsFlow,
+    AtLeastOneFunctionsFlowFromRightToLeft,
     AssocPartialOne,
     CondPair,
     Dictionary,
@@ -60,10 +59,11 @@ import {
     Path,
     Placeholder,
     Pred,
-    PipeWithFns,
     Reduced,
+    ReturnTypesOfFns,
     ValueOfRecord,
     ValueOfUnion,
+    Tuple,
     AtLeastOneFunctionsFlow,
     AtLeastOneFunctionsFlowFromRightToLeft,
     AnyFunction,
@@ -156,18 +156,8 @@ export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => 
  * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
  * an empty list is returned.
  */
-export function aperture<T>(n: 1, list: readonly T[]): Array<[T]>;
-export function aperture<T>(n: 2, list: readonly T[]): Array<[T, T]>;
-export function aperture<T>(n: 3, list: readonly T[]): Array<[T, T, T]>;
-export function aperture<T>(n: 4, list: readonly T[]): Array<[T, T, T, T]>;
-export function aperture<T>(n: 5, list: readonly T[]): Array<[T, T, T, T, T]>;
-export function aperture<T>(n: 6, list: readonly T[]): Array<[T, T, T, T, T, T]>;
-export function aperture<T>(n: 7, list: readonly T[]): Array<[T, T, T, T, T, T, T]>;
-export function aperture<T>(n: 8, list: readonly T[]): Array<[T, T, T, T, T, T, T, T]>;
-export function aperture<T>(n: 9, list: readonly T[]): Array<[T, T, T, T, T, T, T, T, T]>;
-export function aperture<T>(n: 10, list: readonly T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
-export function aperture<T>(n: number, list: readonly T[]): T[][];
-export function aperture(n: number): <T>(list: readonly T[]) => T[][];
+export function aperture<N extends number, T>(n: N, list: readonly T[]): Array<Tuple<T, N>> | [];
+export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => Array<Tuple<T, N>> | [];
 
 /**
  * Returns a new list containing the contents of the given list, followed by the given element.
@@ -301,13 +291,11 @@ export function complement<TArgs extends any[]>(pred: (...args: TArgs) => unknow
  * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
  * functions must be unary.
  */
-// tslint:disable:max-line-length
 export function compose<
   TFunctions extends AnyFunction[],
   TParameters extends ParametersOfLastInTuple<TFunctions>,
   TReturn extends ReturnTypeOfFirstInTuple<TFunctions>
 >(...fns: TFunctions): (...args: TParameters) => TReturn;
-// tslint:enable:max-line-length
 
 /**
  * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
@@ -405,7 +393,115 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  * function is applied to those same arguments. The results of each branching function
  * are passed as arguments to the converging function to produce the return value.
  */
-export function converge(after: ((...a: readonly any[]) => any), fns: Array<((...a: readonly any[]) => any)>): (...a: readonly any[]) => any;
+// tslint:disable:max-line-length
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5, R6, R7,
+    RestFunctions extends Array<(...args: TArgs) => any>
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5),
+        ((...args: TArgs) => R6),
+        ((...args: TArgs) => R7),
+        ...RestFunctions
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5, R6, R7
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5),
+        ((...args: TArgs) => R6),
+        ((...args: TArgs) => R7)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5, R6
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5),
+        ((...args: TArgs) => R6)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5] & { length: 5 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4] & { length: 4 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3
+>(
+    converging: ((...args: readonly [R1, R2, R3] & { length: 3 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2
+>(
+    converging: ((...args: readonly [R1, R2] & { length: 2 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1
+>(
+    converging: ((...args: readonly [R1] & { length: 1 }) => TResult),
+    branches: [((...args: TArgs) => R1)]
+): (...args: TArgs) => TResult;
+// tslint:enable:max-line-length
 
 /**
  * Counts the elements of a list according to how many match each value
@@ -436,7 +532,7 @@ export function curryN<N extends number>(length: N): <F extends (...args: any) =
 export function dec(n: number): number;
 
 /**
- * Returns the second argument if it is not null or undefined. If it is null or undefined, the
+ * Returns the second argument if it is not null, undefined or NaN. If it is null, undefined or NaN, the
  * first (default) argument is returned.
  */
 export function defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
@@ -546,12 +642,12 @@ export function either<T extends Pred>(pred1: T): (pred2: T) => T;
 export function empty<T>(x: T): T;
 
 /**
- * Checks if a list ends with the provided values
+ * Checks if a string ends with the provided substring, or a list ends with the provided sublist.
  */
-export function endsWith(a: string, list: string): boolean;
-export function endsWith(a: string): (list: string) => boolean;
-export function endsWith<T>(a: T | readonly T[], list: readonly T[]): boolean;
-export function endsWith<T>(a: T | readonly T[]): (list: readonly T[]) => boolean;
+export function endsWith(substr: string, str: string): boolean;
+export function endsWith(substr: string): (str: string) => boolean;
+export function endsWith<T>(subList: readonly T[], list: readonly T[]): boolean;
+export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * Takes a function and two values in its domain and returns true if the values map to the same value in the
@@ -582,10 +678,10 @@ export function equals<T>(a: T): (b: T) => boolean;
 export function evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(transformations: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
-/*
-* A function that always returns false. Any passed in parameters are ignored.
-*/
-export function F(): boolean;
+/**
+ * A function that always returns false. Any passed in parameters are ignored.
+ */
+export function F(...args: unknown[]): false;
 
 /**
  * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
@@ -735,8 +831,9 @@ export function identity<T>(a: T): T;
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
  */
-export function ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
-export function ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+// tslint:disable:max-line-length
+export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
+// tslint:enable:max-line-length
 
 /**
  * Increments its argument.
@@ -771,6 +868,8 @@ export function indexBy<T, K extends string | number | undefined = string>(fn: (
  * (by strict equality),
  * or -1 if the item is not included in the array.
  */
+export function indexOf(target: string, list: readonly string[] | string): number;
+export function indexOf(target: string): (list: readonly string[] | string) => number;
 export function indexOf<T>(target: T, list: readonly T[]): number;
 export function indexOf<T>(target: T): (list: readonly T[]) => number;
 
@@ -882,6 +981,7 @@ export function join(x: string): (xs: readonly any[]) => string;
 /**
  * Applies a list of functions to a list of values.
  */
+export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
 export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
 export function juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
 export function juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
@@ -912,12 +1012,15 @@ export function last<T extends any>(list: readonly T[]): T | undefined;
  * Returns the position of the last occurrence of an item (by strict equality) in
  * an array, or -1 if the item is not included in the array.
  */
+export function lastIndexOf(target: string, list: readonly string[] | string): number;
+export function lastIndexOf(target: string): (list: readonly string[] | string) => number;
 export function lastIndexOf<T>(target: T, list: readonly T[]): number;
+export function lastIndexOf<T>(target: T): (list: readonly T[]) => number;
 
 /**
  * Returns the number of elements in the array by returning list.length.
  */
-export function length<T>(list: readonly T[]): number;
+export function length<T extends ArrayLike<unknown>>(list: T): number;
 
 /**
  * Returns a lens for the given getter and setter functions. The getter
@@ -988,13 +1091,16 @@ export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>
  * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
  * the FantasyLand Apply spec.
  */
-export function lift(fn: ((...a: readonly any[]) => any), ...args: readonly any[]): any;
+export function lift<F extends (...args: readonly any[]) => any>(fn: F): (...args: any[]) => any;
 
 /**
  * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
  * objects that satisfy the FantasyLand Apply spec.
  */
-export function liftN(n: number, fn: ((...a: readonly any[]) => any), ...args: readonly any[]): any;
+export function liftN<N extends number, F extends (...args: readonly any[]) => any>(
+  n: N,
+  fn: F
+  ): (...args: any[]) => any;
 
 /**
  * Returns true if the first parameter is less than the second.
@@ -1448,13 +1554,11 @@ export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
  * passing the return value of each function invocation to the next function invocation,
  * beginning with whatever arguments were passed to the initial invocation.
  */
-// tslint:disable:max-line-length
 export function pipe<
  TFunctions extends AnyFunction[],
  TParameters extends ParametersOfFirstInTuple<TFunctions>,
  TReturn extends ReturnTypeOfLastInTuple<TFunctions>
 >(...fns: TFunctions): (...args: TParameters) => TReturn;
-// tslint:enable:max-line-length
 
 /**
  * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
@@ -1780,12 +1884,12 @@ export function splitWhen<T, U>(pred: (val: T) => boolean, list: readonly U[]): 
 export function splitWhen<T>(pred: (val: T) => boolean): <U>(list: readonly U[]) => U[][];
 
 /**
- * Checks if a list starts with the provided values
+ * Checks if a string starts with the provided substring, or a list starts with the provided sublist.
  */
-export function startsWith(a: string, list: string): boolean;
-export function startsWith(a: string): (list: string) => boolean;
-export function startsWith<T>(a: T | readonly T[], list: readonly T[]): boolean;
-export function startsWith<T>(a: T | readonly T[]): (list: readonly T[]) => boolean;
+export function startsWith(substr: string, str: string): boolean;
+export function startsWith(substr: string): (str: string) => boolean;
+export function startsWith<T>(subList: readonly T[], list: readonly T[]): boolean;
+export function startsWith<T>(subList: readonly T[]): (list: readonly T[]) => boolean;
 
 /**
  * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1816,7 +1920,7 @@ export function symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): _.F.C
 /**
  * A function that always returns true. Any passed in parameters are ignored.
  */
-export function T(): boolean;
+export function T(...args: unknown[]): true;
 
 /**
  * Returns all but the first element of a list or string.
@@ -1973,7 +2077,7 @@ export function tryCatch<F extends (...args: readonly any[]) => any>(tryer: F): 
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
  * all as 'Object'.
  */
-export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol';
+export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol' | 'Error';
 
 /**
  * Takes a function fn, which takes a single array argument, and returns a function which:

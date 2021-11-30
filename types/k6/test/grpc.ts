@@ -5,6 +5,8 @@ const client = new grpc.Client();
 client.connect('hola');
 client.connect('localhost:8080', { plaintext: true });
 client.connect('localhost:8080', { plaintext: true, reflect: true });
+client.connect('localhost:8080', { timeout: 30 });
+client.connect('localhost:8080', { timeout: '30' });
 
 client.close();
 
@@ -17,13 +19,21 @@ const req = {
 const params = {
     headers: { 'x-my-header': 'k6test' },
     tags: { k6test: 'yes' },
+    timeout: 30,
 };
 const response = client.invoke('main.RouteGuide/GetFeature', req, params);
 response.error;
 response.headers;
-response.message;
+response.message; // $ExpectType object
 response.status;
 response.trailers;
+
+const params_with_string_timeout = {
+    headers: { 'x-my-header': 'k6test' },
+    tags: { k6test: 'yes' },
+    timeout: '30',
+};
+client.invoke('main.RouteGuide/UpdateFeature', req, params_with_string_timeout);
 
 grpc.StatusOK;
 grpc.StatusCanceled;
