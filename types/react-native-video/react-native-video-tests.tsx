@@ -21,6 +21,7 @@ import Video, { FilterType } from 'react-native-video';
             data.naturalSize.orientation,
             data.audioTracks,
             data.textTracks,
+            data.videoTracks
         );
     }}
     onPlaybackRateChange={({playbackRate}) => console.log(playbackRate)}

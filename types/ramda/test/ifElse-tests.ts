@@ -1,16 +1,27 @@
 import * as R from 'ramda';
 
 () => {
+  interface ObjWithCount {
+    count?: number;
+  }
+
+  // $ExpectType (obj: unknown) => { count: number; } | (Record<"count", number> & Omit<unknown, "count">)
   const incCount = R.ifElse(
     R.has('count'),
-    R.over(R.lensProp('count'), R.inc),
+    (obj: Required<ObjWithCount>) => ({ ...obj, count: obj.count + 1 }),
     R.assoc('count', 1),
   );
   incCount({}); // => { count: 1 }
+
   incCount({ count: 1 }); // => { count: 2 }
-  R.ifElse(
-    R.identical,
-    R.add as (a: number, b: number) => number,
+
+  // $ExpectType (...args: unknown[]) => string | number
+  const addWhenEquals = R.ifElse(
+    (a: any, b: any) => a === b,
+    (a: number, b: number) => a + b,
     R.always(''),
-  )(2, 2); // https://goo.gl/CVUSs9
+  );
+
+  addWhenEquals(1, 2); // => ''
+  addWhenEquals(1, 1); // => 2
 };

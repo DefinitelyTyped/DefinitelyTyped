@@ -129,18 +129,26 @@ export class StackedAreaChart<T> extends React.PureComponent<StackedAreaChartPro
     static extractDataPoints<T>(data: T[], keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
 }
 
+// Bar Chart
+
+export interface BarChartProps<T> extends ChartProps<T> {
+    spacingInner?: number | undefined;
+    spacingOuter?: number | undefined;
+    horizontal?: boolean | undefined;
+}
+
+export class BarChart<T> extends React.PureComponent<BarChartProps<T>> {
+}
+
 // Stacked Bar Chart
 
-export interface StackedBarChartProps<T> extends ChartProps<T> {
+export interface StackedBarChartProps<T> extends BarChartProps<T> {
     keys: ReadonlyArray<keyof T>;
     colors: string[];
     offset?: OffsetFunction | undefined;
     order?: OrderFunction | undefined;
     strokeColor?: string | undefined;
-    horizontal?: boolean | undefined;
     renderGradient?: ((props: { id: string }) => React.Component<LinearGradientProps | RadialGradientProps>) | undefined;
-    spacingInner?: number | undefined;
-    spacingOuter?: number | undefined;
     showGrid?: boolean | undefined;
     extras?: any[] | undefined;
     extra?: (() => {}) | undefined;
@@ -148,16 +156,6 @@ export interface StackedBarChartProps<T> extends ChartProps<T> {
 
 export class StackedBarChart<T> extends React.PureComponent<StackedBarChartProps<T>> {
     static extractDataPoints<T>(data: T, keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
-}
-
-// Bar Chart
-
-export interface BarChartProps<T> extends ChartProps<T> {
-    spacingInner?: number | undefined;
-    spacingOuter?: number | undefined;
-}
-
-export class BarChart<T> extends React.PureComponent<BarChartProps<T>> {
 }
 
 // Axis

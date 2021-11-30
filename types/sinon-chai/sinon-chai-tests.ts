@@ -7,6 +7,8 @@ chai.use(sinonChai);
 var expect = chai.expect;
 declare var spy: Sinon.SinonSpy;
 declare var anotherSpy: Sinon.SinonSpy;
+declare var spyCall: Sinon.SinonSpyCall;
+declare var anotherSpyCall: Sinon.SinonSpyCall;
 declare var context: {};
 declare var match: RegExp;
 
@@ -40,4 +42,6 @@ function test() {
     expect(spy).to.have.always.thrown(new Error());
     expect(spy).to.have.always.thrown(Error);
     expect(spy).to.have.always.thrown('an error');
+    expect(spyCall).to.have.been.calledBefore(anotherSpyCall);
+    expect(spyCall).to.have.been.calledAfter(anotherSpyCall);
 }

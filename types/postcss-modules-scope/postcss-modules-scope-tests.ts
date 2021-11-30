@@ -1,9 +1,9 @@
 import scope = require("postcss-modules-scope");
-import { Transformer } from "postcss";
+import postcss from "postcss";
 
-const ap1: Transformer = scope();
+postcss([scope()]);
 
-const ap2: Transformer = scope({
+postcss([scope({
     generateScopedName(exportedName, path, css) {
         if (css.substring(0, 7) === "@ignore") {
             return exportedName;
@@ -12,4 +12,4 @@ const ap2: Transformer = scope({
         const sanitisedPath = path.replace(/\.[^\.\/\\]+$/, "").replace(/[\W_]+/g, "_").replace(/^_|_$/g, "");
 return `_${sanitisedPath}__${exportedName}`;
     }
-});
+})]);

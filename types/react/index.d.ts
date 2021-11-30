@@ -839,7 +839,7 @@ declare namespace React {
                 ? JSX.IntrinsicElements[T]
                 : {};
     type ComponentPropsWithRef<T extends ElementType> =
-        T extends ComponentClass<infer P>
+        T extends (new (props: infer P) => Component<any, any>)
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
     type ComponentPropsWithoutRef<T extends ElementType> =

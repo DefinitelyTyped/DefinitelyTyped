@@ -32,7 +32,7 @@ declare global {
     // js/dynmaputils.js
     function loadjs(url: string, completed: () => void): void;
     function loadcss(url: string, completed: () => void): void;
-    function splitArgs(s: string): Record<string, string>;
+    function splitArgs(s: string): Record<string, string | undefined>;
     function swtch(
         value: string | number | symbol,
         options: Record<string | number | symbol, unknown | null | unknown[]>,
@@ -58,7 +58,7 @@ declare global {
     var dynmapversion: `${string}-${string}`;
 
     // js/markers.js
-    var dynmapmarkersets: Record<string, MarkerSet> | undefined;
+    var dynmapmarkersets: Record<string, MarkerSet | undefined> | undefined;
 
     // standalone/config.js
     var config: StandaloneConfiguration;
@@ -160,8 +160,8 @@ export interface TileInformation {
 declare class DynmapTileLayer extends L.TileLayer {
     constructor(options: L.TileLayerOptions);
     projection?: L.Projection;
-    _namedTiles: Record<string, HTMLImageElement>;
-    _cachedTileUrls: Record<string, string>;
+    _namedTiles: Record<string, HTMLImageElement | undefined>;
+    _cachedTileUrls: Record<string, string | undefined>;
     _loadQueue: HTMLImageElement[];
     _loadingTiles: HTMLImageElement[];
     options: L.TileLayerOptions & {
@@ -279,7 +279,7 @@ export interface ComponentRecord {
 export interface GlobalMap extends L.Map {
     _container: HTMLDivElement;
     _controlContainer: HTMLElement;
-    _controlCorners: Record<string, HTMLElement>;
+    _controlCorners: Record<string, HTMLElement | undefined>;
     _handlers: L.Handler[];
     _initialTopLeftPoint: L.Point;
     _layers: Record<string, L.Layer>;
@@ -287,7 +287,7 @@ export interface GlobalMap extends L.Map {
     _layersMinZoom: number;
     _loaded: boolean;
     _mapPane: HTMLElement;
-    _panes: Record<string, HTMLElement>;
+    _panes: Record<string, HTMLElement | undefined>;
     _size: L.Point;
     _sizeChanged: boolean;
     _tileLayersNum: number;
@@ -295,12 +295,12 @@ export interface GlobalMap extends L.Map {
     _tilePane: HTMLElement;
     _zoom: number;
     _zoomAnimated: boolean;
-    _zoomBoundLayers: Record<string, L.Layer>;
+    _zoomBoundLayers: Record<string, L.Layer | undefined>;
     boxZoom: L.Handler;
     doubleClickZoom: L.Handler;
     dragging: L.Handler;
     keyboard: L.Handler & {
-        _panKeys: Record<number, [number, number]>;
+        _panKeys: Record<number, [number, number] | undefined>;
         _zoomKeys: Record<number, 1 | -1>;
     };
     options: L.MapOptions;
@@ -333,6 +333,7 @@ declare class DynMap {
     missedupdates: number;
     nocompass: boolean;
     nogui: boolean;
+    options: Options;
     playerfield?: JQuery<HTMLLegendElement> | null;
     playerlist?: JQuery<HTMLUListElement> | null;
     players: Record<string | number | symbol, unknown | null | unknown[]>;
@@ -375,11 +376,12 @@ declare class DynMap {
 }
 
 export interface ComponentConfiguration {
-    [index: string]: boolean | number | string;
+    [index: string]: boolean | number | string | undefined;
     type: string;
 }
 
 export interface WorldConfiguration {
+    append_to_world?: string;
     center: Location;
     extrazoomout: number;
     maps: WorldMapConfiguration[];
@@ -411,7 +413,7 @@ export interface WorldMapConfiguration {
     bigmap: boolean;
     boostzoom: number;
     compassview: CompassDirection;
-    icon?: L.CustomIcon | null;
+    icon?: string | L.CustomIcon | null;
     'image-format': ImageFormat;
     inclination: number;
     lighting: string;
@@ -431,7 +433,7 @@ export interface WorldMapConfiguration {
 }
 
 export interface WorldMapOptions {
-    append_to_world?: boolean;
+    append_to_world?: string;
     title?: string;
     icon?: string;
     dynmap?: WorldMap;
@@ -471,6 +473,7 @@ export interface Configuration extends StandaloneConfiguration {
     position?: L.ControlPosition;
     scrollback?: boolean;
     showlabel?: boolean;
+    showlayercontrol?: SidebarState;
     showmessage?: boolean;
     showplayerfacesinmenu?: boolean;
     sidebaropened?: SidebarState;
@@ -493,6 +496,8 @@ export interface Options extends Configuration {
     defaultmap?: string;
     defaultworld?: string;
     defaultzoom?: number;
+    followmap?: string;
+    followzoom?: string;
     'msg-maptypes'?: string;
     sidebaropened?: SidebarState;
     showDynmapLayerControl?: SidebarState;
@@ -554,12 +559,12 @@ export interface MarkerLine {
     our_layer: L.Layer;
     timestamp: number;
     weight: number;
-    x: number;
-    y: number;
-    z: number;
+    x: number[];
+    y: number[];
+    z: number[];
 }
 
-interface MarkerCircle {
+export interface MarkerCircle {
     color: HexColor;
     desc?: string;
     fillcolor: HexColor;
@@ -575,12 +580,12 @@ interface MarkerCircle {
     x: number;
     xr: number;
     y: number;
-    yr: number;
     z: number;
+    zr: number;
 }
 
 export interface MarkerLayerGroup extends L.LayerGroup {
-    _layers: Record<number, L.Layer>;
+    _layers: Record<number, L.Layer | undefined>;
 }
 
 export interface Marker {
@@ -590,7 +595,7 @@ export interface Marker {
     label: string;
     markup: boolean;
     maxzoom: number;
-    mixzoom: number;
+    minzoom: number;
     our_layer: L.Layer;
     timestamp: number;
     x: number;
@@ -600,10 +605,10 @@ export interface Marker {
 
 export interface MarkerSet {
     areas: {
-        [aname: string]: MarkerArea;
+        [aname: string]: MarkerArea | undefined;
     };
     circles: {
-        [cname: string]: MarkerCircle;
+        [cname: string]: MarkerCircle | undefined;
     };
     hide: boolean;
     id: string;
@@ -614,9 +619,9 @@ export interface MarkerSet {
     minzoom: number;
     showlabels: boolean;
     timestamp: number;
-    markers: Record<string, Marker>;
+    markers: Record<string, Marker | undefined>;
     lines: {
-        [lname: string]: MarkerLine;
+        [lname: string]: MarkerLine | undefined;
     };
 }
 

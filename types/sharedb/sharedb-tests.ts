@@ -58,6 +58,20 @@ console.log(backend.pubsub);
 console.log(backend.extraDbs);
 
 backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
+const readonlyProjection = backend.projections['notes_minimal'];
+console.log(readonlyProjection.target, readonlyProjection.fields);
+// backend.projections is used by sharedb internally, so they shouldn't be messed with.
+// Test that marking as readonly in API prevents external modification.
+// $ExpectError
+delete backend.projections;
+// $ExpectError
+delete backend.projections.notes_minimal;
+// $ExpectError
+backend.projections['notes_minimal'].target = 'notes2';
+// $ExpectError
+backend.projections['notes_minimal'].fields = {};
+// $ExpectError
+backend.projections['notes_minimal'].fields['title'] = true;
 
 // Exercise middleware (backend.use)
 type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
@@ -176,6 +190,14 @@ backend.use('readSnapshots', (context, callback) => {
     callback();
 });
 
+backend.use('sendPresence', (context, callback) => {
+    console.log(
+        context.presence.ch,
+        context.presence.id,
+    );
+    callback();
+});
+
 backend.on('submitRequestEnd', (error, request) => {
     console.log(request.op);
 });
@@ -185,6 +207,10 @@ const agent = connection.agent;
 const netRequest = {};  // Passed through to 'connect' middleware, not used by sharedb itself
 const connectionWithReq = backend.connect(null, netRequest);
 const reboundConnection = backend.connect(backend.connect(), netRequest);
+
+const connectionHasPending: boolean = connection.hasPending();
+connection.whenNothingPending(() => console.log('whenNothingPending resolved'));
+connection.send({ a: 'nonExistentAction', some: 'data' });
 
 const doc = connection.get('examples', 'counter');
 

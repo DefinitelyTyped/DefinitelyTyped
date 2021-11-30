@@ -34,10 +34,10 @@ function ModuleTest(): void {
 
     Module.print = text => alert('stdout: ' + text);
 
-    let int_sqrt = Module.cwrap('int_sqrt', 'number', ['number']);
-    int_sqrt = Module.cwrap('int_sqrt', null, ['number']);
-    int_sqrt(12);
-    int_sqrt(28);
+    const int_sqrt_number = Module.cwrap('int_sqrt', 'number', ['number']);
+    const int_sqrt_null = Module.cwrap('int_sqrt', null, ['number']);
+    const num: number = int_sqrt_number(12);
+    const empty: null = int_sqrt_null(28);
 
     const myTypedArray = new Uint8Array(10);
     const buf = Module._malloc(myTypedArray.length * myTypedArray.BYTES_PER_ELEMENT);

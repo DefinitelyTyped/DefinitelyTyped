@@ -1,4 +1,3 @@
-import { ParserOptions, Parser } from './Parser';
-import { Element } from './Element';
+import parse from '../src/parse';
 
-export function parse(data: string, options?: ParserOptions | Parser): Element;
+export = parse;

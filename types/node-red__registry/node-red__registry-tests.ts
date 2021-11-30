@@ -162,6 +162,8 @@ function registryTests() {
             // just check the link
             // $ExpectType Util
             RED.util;
+            // $ExpectType Hooks
+            RED.hooks;
 
             // $ExpectType Express
             RED.httpNode;

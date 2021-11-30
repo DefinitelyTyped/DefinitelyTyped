@@ -1,4 +1,4 @@
-// Type definitions for swagger-ui-react 3.35
+// Type definitions for swagger-ui-react 4.1
 // Project: https://github.com/swagger-api/swagger-ui#readme
 // Definitions by: viki.green <https://github.com/VictoriaGreen93>
 //                 Mendes <https://github.com/fernando-msj>
@@ -19,6 +19,8 @@ type PluginGenerator = (system: System) => object;
 
 type Plugin = object | PluginGenerator;
 
+type Preset = () => unknown;
+
 export interface SwaggerUIProps {
     spec?: object | string | undefined;
     url?: string | undefined;
@@ -33,6 +35,11 @@ export interface SwaggerUIProps {
     supportedSubmitMethods?: string[] | undefined;
     deepLinking?: boolean | undefined;
     showMutatedRequest?: boolean | undefined;
+    showExtensions?: boolean | undefined;
+    presets?: Preset[] | undefined;
+    filter?: string | boolean | undefined;
+    requestSnippetsEnabled?: boolean | undefined;
+    requestSnippets?: object | undefined;
     displayOperationId?: boolean | undefined;
     tryItOutEnabled?: boolean | undefined;
 }

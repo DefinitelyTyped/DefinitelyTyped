@@ -1,4 +1,4 @@
-// Type definitions for html-minifier-terser 6.0
+// Type definitions for html-minifier-terser 6.1
 // Project: https://github.com/terser/html-minifier-terser#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -112,6 +112,11 @@ export interface Options {
      * @default false
      */
     minifyURLs?: boolean | string | object | ((text: string) => string) | undefined;
+    /**
+     * Never add a newline before a tag that closes an element
+     * @default false
+     */
+    noNewlinesBeforeTagClose?: boolean | undefined;
     /**
      * Always collapse to 1 line break (never remove it entirely) when whitespace between tags include a line break.
      * Must be used in conjunction with `collapseWhitespace=true`

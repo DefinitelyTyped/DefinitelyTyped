@@ -6,4 +6,4 @@ QueryAnalyzer.getHtmlExecutionPlan('query', { disableHeader: true }); // $Expect
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(52, 53); // $ExpectType boolean
+testMajorVersions(53, 54); // $ExpectType boolean

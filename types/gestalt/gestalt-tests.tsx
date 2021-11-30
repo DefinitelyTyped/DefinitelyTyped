@@ -35,6 +35,7 @@ import {
     Masonry,
     Modal,
     Module,
+    NumberField,
     OnLinkNavigationProvider,
     PageHeader,
     Pog,
@@ -61,7 +62,6 @@ import {
     TextField,
     Toast,
     Tooltip,
-    Typeahead,
     Upsell,
     useFocusVisible,
     useReducedMotion,
@@ -226,6 +226,7 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={index => {}}
 ></Module.Expandable>;
+<NumberField id="number" onChange={({ value }) => value} step={1}/>;
 <OnLinkNavigationProvider
     onNavigation={() => {
         return undefined;
@@ -353,13 +354,6 @@ const CheckUseReducedMotion = () => {
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
-<Typeahead
-    label="Typeahead Example 1"
-    id="Typeahead-example"
-    noResultText="No Results"
-    options={[{ value: 'Hello', label: 'World' }]}
-    placeholder="Select a Label"
-/>;
 <Upsell
     message="Hello world"
     imageData={{
