@@ -7356,6 +7356,10 @@ declare namespace zingchart {
         'wrap-text'?: boolean;
         wrapText?: boolean;
       };
+      /**
+       * To convert Unix timestamps into dates. Use this attribute with the all attribute. 'date'
+       */
+      type?: string;
     };
   }
   interface scaleY {
@@ -8849,6 +8853,19 @@ declare namespace zingchart {
       wrapText?: boolean;
     };
     transform?: {
+      /**
+       * To format your date values. Use this attribute with the `type` value (set to `true`). Token Description `%A` Displays the ante or
+       * post meridiem time in upper case letters: AM or PM. `%a` Displays the ante or post meridiem time in lower case letters: am or pm.
+       * `%D` Displays the day of the week in abbreviated form: Sun, Mon, Tue, Wed, Thu, Fri. `%d` Displays the day's date without a leadin
+       * g 0 if the date is single digit. `%dd` Displays the day's date with a leading 0 if the date is single digit. `%G` Displays the hou
+       * r in 24-hour format without a leading 0. `%g` Displays the hour in 12-hour format without a leading 0. `%H` Displays the hour in 2
+       * 4-hour format with a leading 0 if the hour is single digit. `%h` Displays the hour in 12-hour format with a leading 0 if the hour
+       * is single digit. `%i` Displays the minutes. `%M` Displays the month in abbreviated form: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, S
+       * ep, Oct, Nov and Dec. `%m` Displays the month numerically without a leading 0 if the date is single digit. `%mm` Display the month
+       *  numerically with a leading 0 if the month is single digit. `%q` Displays the milliseconds. `%s` Displays the seconds. `%Y` Displa
+       * ys the year in 4-digit format. `%y` Displays the year in 2-digit format.
+       */
+      all?: string;
       /**
        * The text of the scale label, can use tokens for day, hour, minute, year etc to add in such information, ONLY if "type"="date" has
        * been specified in this transform object. If values for both "text" and "all" have been specified, the value in "text" will be used

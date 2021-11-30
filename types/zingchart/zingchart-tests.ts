@@ -51,6 +51,11 @@ zingchart.render({
         alpha: 0.5,
         text: 'testing',
     }],
+    scaleX: {
+        transform: {
+            type: 'date',
+        },
+    },
     zoom: {},
     zoomSnap: true,
 });
