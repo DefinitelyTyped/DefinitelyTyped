@@ -110,8 +110,8 @@ interface Instance {
     generateKeystoreFilename(address: string): string;
     exportToFile(store: KeyStore.Type, keystore?: string): string;
     exportToFile(store: KeyStore.Type, keystore: string | undefined, callback: Callback<string>): void;
-    importFromFile(address: string, datadir: string): KeyStore.Type;
-    importFromFile(address: string, datadir: string, callback: Callback<KeyStore.Type>): void;
+    importFromFile(address: string, datadir?: string): KeyStore.Type;
+    importFromFile(address: string, datadir: string | undefined, callback: Callback<KeyStore.Type>): void;
 }
 
 declare var instance: Instance;
