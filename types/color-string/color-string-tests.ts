@@ -21,12 +21,20 @@ color = colorString.get.hwb('hwb(60, 3%, 60%, 0.6)');
 
 color = colorString.get.rgb('invalid color string');
 
-function testNullableInput(input: string | null) {
-    color = colorString.get.rgb(input);
-}
+colorString.get.rgb(null); // $ExpectType null
+colorString.get.rgb('#FFF'); // $ExpectType Color
+colorString.get.rgb(null as string | null); // $ExpectType Color | null
+colorString.get.rgb(); // $ExpectError
 
-// $ExpectError
-color = colorString.get.rgb();
+colorString.get.hwb(null); // $ExpectType null
+colorString.get.hwb('hwb(60, 3%, 60%)'); // $ExpectType Color
+colorString.get.hwb(null as string | null); // $ExpectType Color | null
+colorString.get.hwb(); // $ExpectError
+
+colorString.get.hsl(null); // $ExpectType null
+colorString.get.hsl('hsl(360, 100%, 50%)'); // $ExpectType Color
+colorString.get.hsl(null as string | null); // $ExpectType Color | null
+colorString.get.hsl(); // $ExpectError
 
 let stringifiedColor: string;
 stringifiedColor = colorString.to.hex([255, 255, 255]);
