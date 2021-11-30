@@ -940,7 +940,10 @@ export function last<T extends any>(list: readonly T[]): T | undefined;
  * Returns the position of the last occurrence of an item (by strict equality) in
  * an array, or -1 if the item is not included in the array.
  */
+export function lastIndexOf(target: string, list: readonly string[] | string): number;
+export function lastIndexOf(target: string): (list: readonly string[] | string) => number;
 export function lastIndexOf<T>(target: T, list: readonly T[]): number;
+export function lastIndexOf<T>(target: T): (list: readonly T[]) => number;
 
 /**
  * Returns the number of elements in the array by returning list.length.
