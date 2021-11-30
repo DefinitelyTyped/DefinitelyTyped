@@ -37,6 +37,18 @@ declare namespace zingchart {
     history?: history;
     refresh?: refresh;
   }
+
+  interface theme {
+    palette?: {
+      area?: string[][];
+      gauge?: string[][];
+      line?: string[][];
+      pie?: string[][];
+      vbar?: string[][];
+    };
+    graph?: graphset;
+  }
+
   interface backgroundMarker {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -17288,6 +17300,15 @@ declare namespace zingchart {
      * To specify the behavior ID of the context menu item that is being accessed. "3D" | "LogScale" | "LinScale" | ...
      */
     id?: string;
+    /**
+     * Sets the label of the custom menu item.
+     */
+     text?: string;
+     /**
+      * Executes specified custom function for the custom menu item.
+      */
+     'custom-function'?: string;
+     customFunction?: string;
   }
   interface gui {
     /**
@@ -17296,15 +17317,6 @@ declare namespace zingchart {
     behaviors?: behavior[];
     'context-menu'?: contextMenuGui;
     contextMenu?: contextMenuGui;
-    /**
-     * Sets the label of the custom menu item.
-     */
-    text?: string;
-    /**
-     * Executes specified custom function for the custom menu item.
-     */
-    'custom-function'?: string;
-    customFunction?: string;
   }
   interface history {
     /**
