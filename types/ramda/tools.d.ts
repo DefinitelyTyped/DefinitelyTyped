@@ -320,7 +320,6 @@ export type ValueOfRecord<R> =
  */
 export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 
-
 /**
  * define an n-length tuple type
  */
