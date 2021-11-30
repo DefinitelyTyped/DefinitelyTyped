@@ -5658,7 +5658,7 @@ declare namespace zingchart {
     /**
      * Sets the value of each step along an axis.
      */
-     step?: number;
+     step?: number | string;
     /**
      * When you set the 'thousands-separator': attribute, the punctuation which is used will be placed to separate digits which go into 1,000s, 10,000s, etc. When placed in the 'plot': { } object,
      * this will only effect values which are pulled directly from the series data. Objects such as 'scale-y': { }, 'scale-x': { }, etc..., will need to be set separately.
@@ -7605,7 +7605,7 @@ declare namespace zingchart {
     /**
      * Sets the value of each step along an axis.
      */
-    step?: number;
+    step?: number | string;
     /**
      * Sets the characters used to separate thousands in larger numbers. '.' | ',' | ...
      */
