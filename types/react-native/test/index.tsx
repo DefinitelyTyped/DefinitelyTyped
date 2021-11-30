@@ -667,6 +667,10 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                     )}
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 />
             </React.Fragment>
         );
