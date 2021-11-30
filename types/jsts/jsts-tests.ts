@@ -256,3 +256,28 @@ bool = jsts.operation.relate.RelateOp.overlaps(g, g);
 bool = jsts.operation.relate.RelateOp.crosses(g, g);
 bool = jsts.operation.relate.RelateOp.contains(g, g);
 im0 = ro0.getIntersectionMatrix();
+
+var pr = new jsts.precision.GeometryPrecisionReducer(precisionModel);
+g = pr.reduce(g);
+g = jsts.precision.GeometryPrecisionReducer.reduce(g, precisionModel);
+g = jsts.precision.GeometryPrecisionReducer.reducePointwise(g, precisionModel);
+pr.setChangePrecisionModel(bool);
+pr.setPointwise(bool);
+pr.setRemoveCollapsedComponents(bool);
+
+var gl: jsts.operation.distance.GeometryLocation = new jsts.operation.distance.GeometryLocation(g, n, c);
+gl = new jsts.operation.distance.GeometryLocation(g, c);
+g = gl.getGeometryComponent();
+n = gl.getSegmentIndex();
+c = gl.getCoordinate();
+bool = gl.isInsideArea();
+str = gl.toString();
+
+var dop: jsts.operation.distance.DistanceOp = new jsts.operation.distance.DistanceOp(g, g);
+dop = new jsts.operation.distance.DistanceOp(g, g, n);
+n = dop.distance();
+[c, c] = dop.nearestPoints();
+[gl, gl] = dop.nearestLocations();
+n = jsts.operation.distance.DistanceOp.distance(g, g);
+bool = jsts.operation.distance.DistanceOp.isWithinDistance(g, g, n);
+[c, c] = jsts.operation.distance.DistanceOp.nearestPoints(g, g);

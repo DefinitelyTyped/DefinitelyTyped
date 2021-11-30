@@ -114,6 +114,7 @@ class MyViewer extends React.Component {
       <UncontrolledReactSVGPanZoom
         width={200} height={400}
       >
+        <svg />
       </UncontrolledReactSVGPanZoom>
     );
   }

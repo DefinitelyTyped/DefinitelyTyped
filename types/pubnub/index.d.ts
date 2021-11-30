@@ -132,6 +132,18 @@ declare class Pubnub {
 
     grant(params: Pubnub.GrantParameters): Promise<void>;
 
+    grantToken(params: Pubnub.GrantTokenParameters, callback: Callback<string>): void;
+
+    grantToken(params: Pubnub.GrantTokenParameters): Promise<string>;
+
+    setToken(params: string): void;
+
+    parseToken(params: string): Pubnub.ParsedGrantToken;
+
+    revokeToken(params: string, callback: Callback<Pubnub.RevokeTokenResponse>): void;
+
+    revokeToken(params: string): Promise<Pubnub.RevokeTokenResponse>;
+
     // files
 
     listFiles(params: Pubnub.ListFilesParameters, callback: Callback<Pubnub.ListFilesResponse>): void;
@@ -1069,6 +1081,59 @@ declare namespace Pubnub {
         get?: boolean | undefined;
         join?: boolean | undefined;
         update?: boolean | undefined;
+    }
+
+    // grantToken
+
+    interface GrantTokenParameters {
+        ttl: number;
+        authorized_uuid?: string | undefined;
+        resources?: {
+            channels?: {
+                [key: string]: GrantTokenPermissions;
+            } | undefined;
+            groups?: {
+                [key: string]: GrantTokenPermissions;
+            } | undefined;
+            uuids?: {
+                [key: string]: GrantTokenPermissions;
+            } | undefined;
+        };
+        patterns?: {
+            channels?: {
+                [key: string]: GrantTokenPermissions;
+            } | undefined;
+            groups?: {
+                [key: string]: GrantTokenPermissions;
+            } | undefined;
+            uuids?: {
+                [key: string]: GrantTokenPermissions;
+            } | undefined;
+        };
+        meta?: {
+            [key: string]: any;
+        } | undefined;
+    }
+
+    interface ParsedGrantToken extends GrantTokenParameters {
+        version: number;
+        timestamp: number;
+        signature: any;
+    }
+
+    interface GrantTokenPermissions {
+        read?: boolean;
+        write?: boolean;
+        manage?: boolean;
+        delete?: boolean;
+        get?: boolean;
+        join?: boolean;
+        update?: boolean;
+    }
+
+    interface RevokeTokenResponse {
+        status: number;
+        data: object;
     }
 
     // Objects v1

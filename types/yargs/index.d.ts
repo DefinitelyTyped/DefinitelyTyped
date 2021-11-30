@@ -560,6 +560,12 @@ declare namespace yargs {
          */
         showHelpOnFail(enable: boolean, message?: string): Argv<T>;
 
+        /**
+         * Print the version data using the console function consoleLevel or the specified function.
+         * @param [level='error']
+         */
+        showVersion(level?: 'error' | 'log' | ((message: string) => void)): Argv<T>;
+
         /** Specifies either a single option key (string), or an array of options. If any of the options is present, yargs validation is skipped. */
         skipValidation(key: string | ReadonlyArray<string>): Argv<T>;
 
@@ -854,7 +860,7 @@ declare namespace yargs {
         /** string used as the description for the command in help text, use `false` for a hidden command */
         describe?: string | false | undefined;
         /** a function which will be passed the parsed argv. */
-        handler: (args: Arguments<U>) => void;
+        handler: (args: Arguments<U>) => void | Promise<void>;
     }
 
     type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T> | Promise<Arguments<T>>, output: string) => void;

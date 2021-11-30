@@ -1,4 +1,5 @@
 import { KeyEventData } from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
+import areConnectedThroughProperties from '@ckeditor/ckeditor5-utils/src/areconnectedthroughproperties';
 import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
 import Collection from '@ckeditor/ckeditor5-utils/src/collection';
 import compareArrays from '@ckeditor/ckeditor5-utils/src/comparearrays';
@@ -18,14 +19,14 @@ import isNode from '@ckeditor/ckeditor5-utils/src/dom/isnode';
 import isRange from '@ckeditor/ckeditor5-utils/src/dom/isrange';
 import isText from '@ckeditor/ckeditor5-utils/src/dom/istext';
 import isWindow from '@ckeditor/ckeditor5-utils/src/dom/iswindow';
-import { getOptimalPosition, Options, Position } from '@ckeditor/ckeditor5-utils/src/dom/position';
+import { getOptimalPosition, Options } from '@ckeditor/ckeditor5-utils/src/dom/position';
 import Rect from '@ckeditor/ckeditor5-utils/src/dom/rect';
 import remove from '@ckeditor/ckeditor5-utils/src/dom/remove';
 import { scrollAncestorsToShowTarget, scrollViewportToShowTarget } from '@ckeditor/ckeditor5-utils/src/dom/scroll';
 import setDataInElement from '@ckeditor/ckeditor5-utils/src/dom/setdatainelement';
 import toUnit from '@ckeditor/ckeditor5-utils/src/dom/tounit';
 import ElementReplacer from '@ckeditor/ckeditor5-utils/src/elementreplacer';
-import EmitterMixin, { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EmitterMixin, { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
 import env from '@ckeditor/ckeditor5-utils/src/env';
 import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 import fastDiff from '@ckeditor/ckeditor5-utils/src/fastdiff';
@@ -40,7 +41,7 @@ import mix from '@ckeditor/ckeditor5-utils/src/mix';
 import nth from '@ckeditor/ckeditor5-utils/src/nth';
 import objectToMap from '@ckeditor/ckeditor5-utils/src/objecttomap';
 import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import priorities from '@ckeditor/ckeditor5-utils/src/priorities';
+import priorities, { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import spy from '@ckeditor/ckeditor5-utils/src/spy';
 import toArray from '@ckeditor/ckeditor5-utils/src/toarray';
 import toMap from '@ckeditor/ckeditor5-utils/src/tomap';
@@ -51,16 +52,13 @@ import {
     isHighSurrogateHalf,
     isInsideCombinedSymbol,
     isInsideSurrogatePair,
-    isLowSurrogateHalf,
+    isLowSurrogateHalf
 } from '@ckeditor/ckeditor5-utils/src/unicode';
 import version from '@ckeditor/ckeditor5-utils/src/version';
 
 declare const document: Document;
 declare let emitter: Emitter;
 declare let htmlElement: HTMLElement;
-declare let map: Map<string, number>;
-declare let num: number;
-declare let bool: boolean;
 declare let rect: Rect;
 declare let str: string;
 
@@ -85,30 +83,38 @@ getCommonAncestor(htmlElement, htmlElement);
 
 str = getDataFromElement(htmlElement);
 
-// $ExpectType HTMLElement | null
+// $ExpectType null
 getPositionedAncestor();
-// $ExpectType HTMLElement | null
+// $ExpectType Element | null
 getPositionedAncestor(htmlElement);
 
-num = indexOf(htmlElement);
+// $ExpectType number
+indexOf(htmlElement);
 
 insertAt(htmlElement, 2, htmlElement);
 
-bool = isNode(htmlElement);
-bool = isNode(new Date());
+// $ExpectType boolean
+isNode(htmlElement);
+// $ExpectType boolean
+isNode(new Date());
 
-bool = isRange(new Range());
-bool = isRange(new Date());
+// $ExpectType boolean
+isRange(new Range());
+// $ExpectType boolean
+isRange(new Date());
 
-bool = isText(new Text('foo'));
-bool = isText(new Date());
+// $ExpectType boolean
+isText(new Text('foo'));
+// $ExpectType boolean
+isText(new Date());
 
-bool = isWindow(window);
-bool = isWindow(new Date());
+// $ExpectType boolean
+isWindow(window);
+// $ExpectType boolean
+isWindow(new Date());
 
-let position: Position;
-
-position = getOptimalPosition({
+// $ExpectType Position
+getOptimalPosition({
     element: htmlElement,
     target: () => htmlElement,
     positions: [
@@ -120,7 +126,8 @@ position = getOptimalPosition({
     ],
 });
 
-position = getOptimalPosition({
+// $ExpectType Position
+getOptimalPosition({
     element: htmlElement,
     target: htmlElement,
     positions: [
@@ -147,14 +154,19 @@ rect = new Rect(rect);
 rect = new Rect(document.body.getClientRects().item(0)!);
 
 rect = rect.clone();
-bool = rect.contains(rect);
+// $ExpectType boolean
+rect.contains(rect);
 rect = rect.excludeScrollbarsAndBorders();
-num = rect.getArea();
-rect = rect.getIntersection(rect);
-num = rect.getIntersectionArea(rect);
+// $ExpectType number
+rect.getArea();
+// $ExpectType Rect | null
+rect.getIntersection(rect);
+// $ExpectType number
+rect.getIntersectionArea(rect);
 // $ExpectType Rect | null
 rect.getVisible();
-bool = rect.isEqual(rect);
+// $ExpectType boolean
+rect.isEqual(rect);
 rect = rect.moveBy(1, 1);
 rect = rect.moveTo(1, 1);
 
@@ -174,82 +186,70 @@ str = toUnit('rem')(10);
 
 // utils/ckeditorerror ========================================================
 
-const regularError = new Error('foo');
-let ckeditorError: CKEditorError<'foo'>;
-let ckeditorErrorWithData: CKEditorError<'foo', { bar: number }>;
-
 const data = { bar: 1 };
-ckeditorError = new CKEditorError('foo');
-ckeditorErrorWithData = new CKEditorError('foo', data);
-
-ckeditorError.is(ckeditorError);
-ckeditorError.is(regularError);
+// $ExpectType "CKEditorError"
+new CKEditorError('foo', {}).name;
+// $ExpectType {}
+new CKEditorError('foo', {}).context;
+// $ExpectType undefined
+new CKEditorError('foo', {}).data;
+// $ExpectType { bar: number; }
+new CKEditorError('foo', data).context;
+// $ExpectType { bar: number; }
+new CKEditorError('foo', data, data).data;
+// $ExpectType boolean
+new CKEditorError('foo', {}).is('foo');
 
 // utils/collection ===========================================================
-
-interface Foo {
-    foo: number;
-}
 
 interface Props {
     id: string;
 }
 
-interface PropsStr {
-    id: string;
-    name: string;
-}
-
-declare let foo: Foo;
-let items: PropsStr[];
-let itemOrNull: Props | null;
-let itemOrUndef: Props | undefined;
-
-const item1 = { id: 'id1' };
-const item2 = { id: 'id2' };
-const itemStr1 = { id: 'foo', name: 'yy' };
-const itemStr2 = { id: 'foo', name: 'xx' };
-
-const coll = new Collection<Props>();
-const collStr = new Collection<PropsStr>({ idProperty: 'name' });
-
-coll.add(item1);
-coll.add(item2);
-collStr.add(itemStr1);
-collStr.add(itemStr2);
-
-coll.add(item1, 0);
-coll.add(item1).add(item2);
-
-coll.clear();
-
-items = collStr.filter(item => item.name === 'yy');
-items = collStr.filter((_, idx) => idx > 0);
-items = collStr.filter(function(this: Foo, _, idx) {
-    return this.foo > 0 && idx === 0;
-}, foo);
-
-itemOrUndef = collStr.find(item => item.name === 'yy');
-itemOrUndef = collStr.find((_, idx) => idx === 3);
-itemOrUndef = collStr.find(function(this: Foo, _, idx) {
-    return this.foo > 0 && idx === 0;
-}, foo);
-
-itemOrNull = coll.get(0);
-itemOrNull = coll.get('id1');
-
-num = coll.getIndex('id1');
-num = coll.getIndex(item1);
-
-coll.remove(0);
-coll.remove('id1');
-coll.remove(item1);
-
-const strings: string[] = collStr.map(item => item.name);
-const nums: number[] = collStr.map((_, idx) => idx);
-const bools: boolean[] = collStr.map(function(this: Foo, _, idx) {
-    return this.foo === idx;
-}, foo);
+// $ExpectType (Props & { id: string; }) | null
+new Collection<Props>().first;
+// $ExpectType (Record<string, any> & { name: string; }) | null
+new Collection({ idProperty: 'name' }).first;
+// $ExpectType Collection<Props, "id">
+new Collection<Props>().add({ id: 'id' });
+// $ExpectError
+new Collection<Props>().add({ id: '', name: '' });
+// $ExpectType ({ name: string; } & { id: string; }) | null
+new Collection([{ name: '' }]).first;
+// $ExpectType ({ name: string; } & { uuid: string; }) | null
+new Collection([{ name: '' }], { idProperty: 'uuid' }).first;
+// $ExpectType Collection<{ name: string; }, "id">
+new Collection([{ name: '' }]).add({ name: 'foo' });
+// $ExpectError
+new Collection([{ name: '' }]).add({ surname: 'foo' });
+// $ExpectType void
+new Collection().clear();
+// $ExpectType ({ name: string; } & { id: string; })[]
+new Collection([{ name: '' }]).filter(item => item.name === '' && item.id === '');
+// $ExpectType ({ name: string; } & { id: string; }) | undefined
+new Collection([{ name: '' }]).find(item => item.name === '' && item.id === '');
+// $ExpectType ({ name: string; } & { id: string; }) | null
+new Collection([{ name: '' }]).get(0);
+// $ExpectType ({ name: string; } & { id: string; }) | null
+new Collection([{ name: '' }]).get('');
+// $ExpectType number
+new Collection().getIndex('id1');
+// $ExpectType number
+new Collection().getIndex({});
+// $ExpectError
+new Collection([{ name: '' }]).getIndex({});
+// $ExpectType { name: string; } & { id: string; }
+new Collection([{ name: '' }]).remove(0);
+// $ExpectType { name: string; } & { id: string; }
+new Collection([{ name: '' }]).remove('id1');
+// $ExpectType { name: string; } & { id: string; }
+new Collection([{ name: '' }]).remove({ name: '' });
+// $ExpectError
+new Collection([{ name: '' }]).remove({ surname: '' });
+// $ExpectType string[]
+new Collection([{ name: '' }]).map(item => item.name);
+// $ExpectType number[]
+new Collection([{ name: '' }]).map((_, idx) => idx);
 
 // collection#bindTo
 
@@ -257,32 +257,21 @@ interface LabelObj {
     label: string;
 }
 
-interface LabelValueObj {
-    label: { value: string };
-}
-
 interface HiddenObj {
     hidden: boolean;
 }
 
 class FactoryClass {
-    factoryLabel: string;
-    constructor(data: LabelObj) {
-        this.factoryLabel = data.label;
+    label: string;
+    constructor(data: { label: string }) {
+        this.label = data.label;
     }
 }
 
-const source1 = new Collection<LabelObj>({ idProperty: 'label' });
-const target1 = new Collection<FactoryClass>();
+const source = new Collection({ idProperty: 'label' });
+const target = new Collection([{ label: '' }]);
 
-target1.bindTo(source1).as(FactoryClass);
-
-source1.add({ label: 'foo' });
-source1.add({ label: 'bar' });
-
-source1.remove(0);
-console.log(target1.length);
-console.log(target1.get(0)!.factoryLabel);
+target.bindTo(source).as(FactoryClass);
 
 class FooClass {
     fooLabel: string;
@@ -298,7 +287,7 @@ class BarClass {
     }
 }
 
-const source2 = new Collection<LabelObj>({ idProperty: 'label' });
+const source2 = new Collection([{ name: '' }], { idProperty: 'label' });
 const target2 = new Collection<FooClass | BarClass>();
 
 target2.bindTo(source2).using(item => {
@@ -309,38 +298,22 @@ target2.bindTo(source2).using(item => {
     }
 });
 
-source2.add({ label: 'foo' });
-source2.add({ label: 'bar' });
+const source3 = new Collection({ idProperty: 'label' });
+const target3 = new Collection([{ value: '' }]);
 
-console.log(target2.length);
-console.log(target2.get(0)! instanceof FooClass);
-console.log(target2.get(1)! instanceof BarClass);
-
-const source3 = new Collection<LabelValueObj>({ idProperty: 'label' });
-const target3 = new Collection<LabelValueObj['label']>();
-
-target3.bindTo(source2).using('label');
-
-source3.add({ label: { value: 'foo' } });
-source3.add({ label: { value: 'bar' } });
-
-console.log(target3.length);
-console.log(target3.get(0)!.value);
-console.log(target3.get(1)!.value);
+target3.bindTo(source3).using('label');
+// $ExpectError
+source3.bindTo(target3).using('label');
 
 const source4 = new Collection<HiddenObj>();
-const target4 = new Collection<HiddenObj | null>();
 
-target4.bindTo(source4).using(item => {
+target3.bindTo(source4).using(item => {
     if (item.hidden) {
         return null;
     }
 
     return item;
 });
-
-source4.add({ hidden: true });
-source4.add({ hidden: false });
 
 // utils/comparearrays ========================================================
 
@@ -353,43 +326,57 @@ compareArrays(['abc', 0] as const, ['abc', 0, 3] as const);
 
 // utils/config ===============================================================
 
-let strOrUndef: string | undefined;
-let config: Config;
-const defaultConfig = {
-    foo: 1,
-    bar: 2,
-};
+declare module '@ckeditor/ckeditor5-core/src/editor/editorconfig' {
+    interface EditorConfig {
+        foo: number;
+    }
+}
 
-config = new Config();
-config = new Config({ foo: 10 });
-config = new Config({}, defaultConfig);
-config = new Config({ foo: 10 }, defaultConfig);
+// $ExpectType Config<Partial<EditorConfig>>
+new Config();
+// $ExpectType Config<{ foo: number; }>
+new Config({ foo: 10 });
+// $ExpectType Config<{ foo?: undefined; } | { foo: number; }>
+new Config({}, { foo: 10 });
+// $ExpectType Config<{ foo: number; }>
+new Config({ foo: 10 }, { foo: 10 });
+// $ExpectType Config<{ bar: number; }>
+new Config({ bar: 10 });
+// $ExpectType Config<{ bar?: undefined; } | { bar: number; }>
+new Config({}, { bar: 10 });
+// $ExpectType number | undefined
+new Config({}, { bar: 10 }).get("bar");
 
-config.define({
+new Config().define({
     resize: {
         minHeight: 400,
         hidden: true,
     },
 });
 
-config.define('resize', { minHeight: 400, hidden: true });
-config.define('language', 'en');
-config.define('resize.minHeight', 400);
+new Config().define('resize', { minHeight: 400, hidden: true });
+new Config().define('language', 'en');
+new Config().define('resize.minHeight', 400);
 
-str = config.get('language');
-num = config.get('resize.minHeight');
-
-config.define('language', undefined);
-strOrUndef = config.get('language');
+// $ExpectType string | LanguageConfig | undefined
+new Config().get('language');
+// $ExpectType any
+new Config().get('resize.minHeight');
+new Config().define('language', undefined);
 
 // utils/count ================================================================
 
-num = count([1, 2, 3, 4, 5]);
+// $ExpectType number
+count([1, 2, 3, 4, 5]);
+// $ExpectType number
+count([]);
 
 // utils/diff =================================================================
 
-let changes = diff('aba', 'acca');
-changes = diff(Array.from('aba'), Array.from('acca'));
+// $ExpectType Change[]
+diff('aba', 'acca');
+// $ExpectType Change[]
+diff(Array.from('aba'), Array.from('acca'));
 
 // utils/difftochanges ========================================================
 
@@ -410,7 +397,6 @@ const replacer = new ElementReplacer();
 
 replacer.replace(htmlElement, htmlElement);
 replacer.replace(htmlElement);
-
 replacer.restore();
 
 // utils/emittermixin
@@ -437,14 +423,14 @@ emitter.off('foo');
 emitter.off('foo', () => {});
 
 emitter.on('foo', () => {});
-emitter.on('foo', (info, data) => {
+emitter.on('foo', (info, _data) => {
     info.stop();
 });
 emitter.on('foo', () => {}, { priority: 10 });
 emitter.on('foo', () => {}, { priority: 'normal' });
 
 emitter.once('foo', () => {});
-emitter.once('foo', (info, data) => {
+emitter.once('foo', (info, _data) => {
     info.stop();
 });
 emitter.once('foo', () => {}, { priority: 10 });
@@ -461,22 +447,30 @@ emitter.stopListening(emitter, 'foo', () => {});
 
 // utils/env ==================================================================
 
-bool = env.isBlink;
-bool = env.isMac;
+// $ExpectType boolean
+env.isBlink;
+// $ExpectType boolean
+env.isMac;
 
 // utils/eventinfo ============================================================
 
 const event = new EventInfo(EmitterMixin, 'test');
-const emit: Emitter = event.source;
-str = event.name;
+// $ExpectType Emitter
+event.source;
+// $ExpectType "test"
+event.name;
 
 event.path[0];
 
+// $ExpectType void
 event.stop();
+// $ExpectType void
 event.off();
 
-bool = event.stop.called;
-bool = event.off.called;
+// $ExpectType boolean
+event.stop.called;
+// $ExpectType boolean
+event.off.called;
 
 // utils/fastdiff =============================================================
 
@@ -514,29 +508,39 @@ first(new Map([['foo', 4]]));
 
 const focusTracker = new FocusTracker();
 htmlElement = focusTracker.focusedElement;
-bool = focusTracker.isFocused;
+// $ExpectType boolean
+focusTracker.isFocused;
 focusTracker.add(htmlElement);
 focusTracker.remove(htmlElement);
 
 // utils/isiterable ===========================================================
 
-bool = isIterable(str);
-bool = isIterable([1, 2, 3]);
+// $ExpectType boolean
+isIterable('');
+// $ExpectType boolean
+isIterable(5);
+// $ExpectType boolean
+isIterable([1, 2, 3]);
 
 // utils/keyboard =============================================================
 
-num = keyCodes.a;
-num = keyCodes['a'];
+// $ExpectType 65
+keyCodes.a;
+// $ExpectType 65
+keyCodes['a'];
 
-num = getCode('0');
-num = getCode({ keyCode: 48 });
-num = getCode({ keyCode: 48, altKey: true, ctrlKey: true, shiftKey: true });
-
-str = getEnvKeystrokeText('alt+A');
-
-num = parseKeystroke('Ctrl+A');
-num = parseKeystroke(['ctrl', 'a']);
-num = parseKeystroke(['shift', 33]);
+// $ExpectType number
+getCode('0');
+// $ExpectType number
+getCode({ keyCode: 48, altKey: true, ctrlKey: true, shiftKey: true, metaKey: true });
+// $ExpectType string
+getEnvKeystrokeText('alt+A');
+// $ExpectType number
+parseKeystroke('Ctrl+A');
+// $ExpectType number
+parseKeystroke(['ctrl', 'a']);
+// $ExpectType number
+parseKeystroke(['shift', 33]);
 
 // utils/keystrokehandler =====================================================
 
@@ -552,7 +556,8 @@ keystrokes.set(['Ctrl', 33], mySpy, { priority: 10 });
 const emitterMixxin = Object.create(EmitterMixin) as Emitter;
 keystrokes.listenTo(emitterMixxin);
 
-bool = keystrokes.press(keystroke);
+// $ExpectType boolean
+keystrokes.press(keystroke);
 
 keystrokes.destroy();
 
@@ -581,7 +586,8 @@ new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', false);
 
 // utils/mapsequal ============================================================
 
-mapsEqual(map, map);
+// $ExpectType boolean
+mapsEqual(new Map([['foo', 1]]), new Map([['bar', true]]));
 
 // utils/mix ==================================================================
 
@@ -613,7 +619,8 @@ mix(Editor, SomeMixinNum);
 
 const editor = new Editor();
 str = editor.a();
-num = editor.b();
+// $ExpectType number
+editor.b();
 
 // utils/nth ==================================================================
 
@@ -633,52 +640,97 @@ nth(2, [5] as const);
 
 // utils/objecttomap ==========================================================
 
-const objMap: Map<string, number> = objectToMap({ foo: 1, bar: 2 });
-num = objMap.get('foo')!;
+// $ExpectError Map<"foo" | "bar", number>
+objectToMap({ foo: 1, bar: 2 });
+// $ExpectType number | undefined
+objectToMap({ foo: 1, bar: 2 }).get('foo');
 
 // utils/observablemixin ======================================================
 
 class Car implements Observable {
+    set(option: Record<string, unknown>): void;
+    set(name: string, value: unknown): void;
+    set(_name: any, _value?: any): void {
+        throw new Error('Method not implemented.');
+    }
+    bind(..._bindProperties: string[]): BindChain {
+        throw new Error('Method not implemented.');
+    }
+    unbind(..._unbindProperties: string[]): void {
+        throw new Error('Method not implemented.');
+    }
+    decorate(_methodName: string): void {
+        throw new Error('Method not implemented.');
+    }
+    on<K extends string>(
+        _event: K,
+        _callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        _options?: { priority?: number | PriorityString | undefined },
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    once<K extends string>(
+        _event: K,
+        _callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        _options?: { priority?: number | PriorityString | undefined },
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    off<K extends string>(_event: K, _callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void {
+        throw new Error('Method not implemented.');
+    }
+    listenTo<P extends string, E extends Emitter>(
+        _emitter: E,
+        _event: P,
+        _callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+        _options?: { priority?: number | PriorityString | undefined },
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    stopListening<E extends Emitter, P extends string>(
+        _emitter?: E,
+        _event?: P,
+        _callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    fire(_eventOrInfo: string | EventInfo, ..._args: any[]): unknown {
+        throw new Error('Method not implemented.');
+    }
+    delegate(..._events: string[]): EmitterMixinDelegateChain {
+        throw new Error('Method not implemented.');
+    }
+    stopDelegating(_event?: string, _emitter?: Emitter): void {
+        throw new Error('Method not implemented.');
+    }
     color: string;
     used: boolean;
-    set(option: Record<string, string>): void;
-    set(name: string, value: unknown): void;
-    set(name: any, value?: any): void {
-        throw new Error('Method not implemented.');
-    }
-    bind(...bindProperties: string[]): BindChain {
-        throw new Error('Method not implemented.');
-    }
-    unbind(...unbindProperties: string[]): void {
-        throw new Error('Method not implemented.');
-    }
-    decorate(methodName: string): void {
-        throw new Error('Method not implemented.');
-    }
+    accelerate(): void {}
 }
+
 const bettle = new Car();
 const ranger = new Car();
 
 bettle.bind('color', 'year').to(ranger);
 bettle.bind('color').to(ranger, 'color');
-// $ExpectError
+// @ts-expect-error
 bettle.bind('color').to(ranger, 'foo');
-// $ExpectError
+// @ts-expect-error
 bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used');
 bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used', (color: string, used: boolean) => {
     console.log(color, used);
 });
 bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: Array<string | boolean>) => args.join('/'));
-// $ExpectError
+// @ts-expect-error
 bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: number[]) => args.join('/'));
 
 bettle.bind('color').toMany([ranger, ranger], 'color', (color1: string, color2: string) => {
     console.log(color1, color2);
 });
-// $ExpectError
+// @ts-expect-error
 bettle.bind('color').toMany([ranger, ranger], 'year', () => {});
-
-bettle.decorate('method');
+bettle.decorate('color');
+bettle.decorate('accelerate');
 
 bettle.set('color', 'red');
 bettle.set('seats', undefined);
@@ -691,9 +743,10 @@ bettle.unbind('color');
 bettle.unbind('color', 'year');
 
 // utils/priorities ===========================================================
-
-num = priorities.get(2);
-num = priorities.get('normal');
+// $ExpectType number
+priorities.get(2);
+// $ExpectType number
+priorities.get('normal');
 
 // utils/spy
 
@@ -704,12 +757,20 @@ fn1.called;
 
 // utils/tomap
 
-map = toMap({ foo: 1, bar: 2 });
-map = toMap([
+// $ExpectType Map<"foo" | "bar", number>
+toMap({ foo: 1, bar: 2 });
+// $ExpectType Map<"foo" | "bar", number>
+toMap([
     ['foo', 1],
     ['bar', 2],
 ]);
-map = toMap(map);
+// $ExpectType Map<string, number>
+toMap(
+    new Map([
+        ['foo', 1],
+        ['bar', 2],
+    ]),
+);
 
 // utils/translation-service ==================================================
 
@@ -745,11 +806,16 @@ str = uid();
 
 // utils/unicode ==============================================================
 
-bool = isCombiningMark('a');
-bool = isHighSurrogateHalf('a');
-bool = isInsideCombinedSymbol(str, 2);
-bool = isInsideSurrogatePair(str, 2);
-bool = isLowSurrogateHalf(String.fromCharCode(57166));
+// $ExpectType boolean
+isCombiningMark('a');
+// $ExpectType boolean
+isHighSurrogateHalf('a');
+// $ExpectType boolean
+isInsideCombinedSymbol(str, 2);
+// $ExpectType boolean
+isInsideSurrogatePair(str, 2);
+// $ExpectType boolean
+isLowSurrogateHalf(String.fromCharCode(57166));
 
 // src/dom/position ===========================================================
 
@@ -790,6 +856,7 @@ options = {
     target: document.body.getClientRects().item(0)!,
     positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
 };
+console.log(options);
 
 // utils/toArray ==============================================================
 // $ExpectType number[]
@@ -807,3 +874,9 @@ toArray(5 as const);
 window.CKEDITOR_VERSION;
 // $ExpectType "28.0.0"
 version;
+
+// utils/areconnectedthroughproperties
+// $ExpectType boolean
+areConnectedThroughProperties([], []);
+// $ExpectType boolean
+areConnectedThroughProperties({}, {});

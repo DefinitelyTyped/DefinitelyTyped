@@ -19,7 +19,7 @@ var options: GridsterOptions = {
 
 var gridster: Gridster = $('.gridster ul').gridster(options).data('gridster');
 gridster.add_widget('<li class="new">The HTML of the widget...</li>', 2, 1);
-gridster.remove_widget($('gridster li').eq(3).get(0));
+gridster.remove_widget($('gridster li').eq(3).get(0)!);
 var json = gridster.serialize<SerializeData>();
 
 var coords: GridsterCoords = gridster.get_highest_occupied_cell();

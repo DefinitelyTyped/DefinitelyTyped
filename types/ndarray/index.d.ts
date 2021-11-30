@@ -34,7 +34,21 @@ declare namespace ndarray {
         T: NdArray<D>;
     }
 
-    type Data<T = any> = T[] | TypedArray;
+    interface GenericArray<T> {
+        get(idx: number): T;
+        set(idx: number, value: T): void;
+        length: number;
+    }
+
+    type MaybeBigInt64Array = InstanceType<typeof globalThis extends { BigInt64Array: infer T } ? T : never>;
+    type MaybeBigUint64Array = InstanceType<typeof globalThis extends { BigUint64Array: infer T } ? T : never>;
+
+    type Data<T = any> = T extends number
+        ? GenericArray<T> | T[] | TypedArray
+        : T extends bigint
+        ? GenericArray<T> | T[] | MaybeBigInt64Array | MaybeBigUint64Array
+        : GenericArray<T> | T[];
+
     type TypedArray =
         | Int8Array
         | Int16Array
@@ -46,7 +60,7 @@ declare namespace ndarray {
         | Float32Array
         | Float64Array;
 
-    type Value<D extends Data> = D extends Array<infer T> ? T : number;
+    type Value<D extends Data> = D extends GenericArray<infer T> | Record<number, infer T> ? T : never;
 
     type DataType<D extends Data = Data> = D extends Int8Array
         ? 'int8'
@@ -66,6 +80,12 @@ declare namespace ndarray {
         ? 'float32'
         : D extends Float64Array
         ? 'float64'
+        : D extends MaybeBigInt64Array
+        ? 'bigint64'
+        : D extends MaybeBigUint64Array
+        ? 'biguint64'
+        : D extends GenericArray<unknown>
+        ? 'generic'
         : 'array';
 }
 

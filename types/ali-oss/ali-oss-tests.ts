@@ -13,7 +13,7 @@ const clusterOptions: OSS.ClusterOptions = {
     clusters: [],
 };
 
-const clusterClient = new OSS.Cluster(clusterOptions);
+const clusterClient = new OSS.ClusterClient(clusterOptions);
 
 clusterClient.deleteMulti(["cluster"], { quiet: true });
 

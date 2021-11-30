@@ -75,7 +75,7 @@ export interface MediaQueryFeatures extends MediaQueryMatchers {
 export interface MediaQueryAllQueryable extends MediaQueryFeatures, MediaQueryTypes {}
 
 export interface MediaQueryProps extends MediaQueryAllQueryable {
-    component?: string | React.SFC<any> | React.ClassType<any, any, any> | React.ComponentClass<any> | undefined;
+    component?: React.ElementType | undefined;
     query?: string | undefined;
     style?: React.CSSProperties | undefined;
     className?: string | undefined;

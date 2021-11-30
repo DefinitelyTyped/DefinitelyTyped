@@ -96,6 +96,8 @@ async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, resu
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
+async.concatLimit(['dir1', 'dir2', 'dir3'], 2, fs.readdir, (err, files) => { });
+async.concatLimit<string, string>(['dir1', 'dir2', 'dir3'], 2, fs.readdir); // $ExpectType Promise<string[]>
 
 // Control Flow //
 
@@ -150,19 +152,16 @@ async.parallelLimit({
     (err, results) => { }
 );
 
-function whileFn(callback: any) {
+function whileFn(callback: (err: any, ...rest: any[]) => void) {
     setTimeout(() => callback(null, ++count), 1000);
 }
-
-function whileTest() { return count < 5; }
-function whilstTest(callback: (error: any, truth: boolean) => boolean) { return callback(null, count < 5); }
-function doWhileTest(count: number) { return count < 5; }
+function whileTest(callback: (err: any, truth: boolean) => void) { callback(null, count < 5); }
 
 let count = 0;
-async.whilst(whilstTest, whileFn, err => { });
+async.whilst(whileTest, whileFn, err => { });
 async.until(whileTest, whileFn, err => { });
-async.doWhilst(whileFn, doWhileTest, err => { });
-async.doUntil(whileFn, doWhileTest, err => { });
+async.doWhilst(whileFn, whileTest, err => { });
+async.doUntil(whileFn, whileTest, err => { });
 
 async.during(testCallback => { testCallback(new Error(), false); }, callback => { callback(); }, error => { console.log(error); });
 async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });

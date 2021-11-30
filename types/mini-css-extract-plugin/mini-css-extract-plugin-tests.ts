@@ -118,6 +118,9 @@ configuration = {
         new MiniCssExtractPlugin({
             experimentalUseImportModule: false,
         }),
+        new MiniCssExtractPlugin({
+            experimentalUseImportModule: undefined,
+        }),
     ],
 };
 

@@ -1,10 +1,13 @@
-// Type definitions for concurrently 6.2
-// Project: https://github.com/kimmobrunfeldt/concurrently#readme
+// Type definitions for concurrently 6.4
+// Project: https://github.com/open-cli-tools/concurrently#readme
 // Definitions by: Michael B. <https://github.com/Blasz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference types="node" />
+
+import { Color as ChalkColor } from 'chalk';
 
 declare function concurrently(
     commands: Array<concurrently.CommandObj | string>,
@@ -17,7 +20,7 @@ declare namespace concurrently {
         cwd?: Options['cwd'] | undefined;
         env?: NodeJS.ProcessEnv | undefined;
         name?: string | undefined;
-        prefixColor?: string | undefined;
+        prefixColor?: typeof ChalkColor | undefined;
     }
     interface ExitInfos {
         command: CommandObj;
@@ -36,6 +39,8 @@ declare namespace concurrently {
         cwd?: string | undefined;
         /** the default input target when reading from `inputStream`. Default: `0`. */
         defaultInputTarget?: number | undefined;
+        /** Indices or names of commands whose output should not be logged */
+        hide?: Array<string | number> | undefined;
         /** a Readable stream to read the input from, eg `process.stdin` */
         inputStream?: NodeJS.ReadableStream | undefined;
         /** an array of exiting conditions that will cause a process to kill others. Can contain any of success or failure. */
@@ -51,6 +56,11 @@ declare namespace concurrently {
          * the prefix type to use when logging processes output.
          */
         prefix?: 'index' | 'pid' | 'time' | 'command' | 'name' | 'none' | string | undefined;
+        /**
+         * list of chalk colors to use on prefixes.
+         * If there are more commands than colors, the last color will be repeated.
+         */
+        prefixColors?: Array<typeof ChalkColor> | undefined;
         /** how many characters to show when prefixing with `command`. Default: `10` */
         prefixLength?: number | undefined;
         /** whether raw mode should be used, meaning strictly process output will be logged, without any prefixes, colouring or extra stuff. */

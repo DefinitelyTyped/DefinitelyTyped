@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 52.0
+// Type definitions for @nginstack/engine 54.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -240,7 +240,6 @@
 /// <reference path="lib/i18n/NumberFormat.d.ts" />
 /// <reference path="lib/i18n/ResourceString.d.ts" />
 /// <reference path="lib/i18n/symbols/pt-BR.d.ts" />
-/// <reference path="lib/ido/BackupEventReader.d.ts" />
 /// <reference path="lib/ido/IdoDB.d.ts" />
 /// <reference path="lib/ido/IdoDBManager.d.ts" />
 /// <reference path="lib/image/getMainImageUrl.d.ts" />

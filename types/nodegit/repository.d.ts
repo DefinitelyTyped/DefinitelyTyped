@@ -25,14 +25,14 @@ import { Treebuilder } from './tree-builder';
 import { Error } from './error';
 
 export interface RepositoryInitOptions {
-    description: string;
-    flags: number;
-    initialHead: string;
-    mode: number;
-    originUrl: string;
-    templatePath: string;
-    version: number;
-    workdirPath: string;
+    description?: string;
+    flags?: number;
+    initialHead?: string;
+    mode?: number;
+    originUrl?: string;
+    templatePath?: string;
+    version?: number;
+    workdirPath?: string;
 }
 
 export class Repository {
@@ -170,6 +170,10 @@ export class Repository {
      * Gets the default signature for the default user and now timestamp
      */
     defaultSignature(): Signature;
+    /**
+     * Lists out the names of remotes in the given repository.
+     */
+     getRemoteNames(): Promise<string[]>;
     /**
      * Lists out the remotes in the given repository.
      */

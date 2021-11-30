@@ -64,6 +64,10 @@
             "libraryName": "ajv-keywords",
             "asOfVersion": "3.5.0"
         },
+        "alex": {
+            "libraryName": "alex",
+            "asOfVersion": "10.0.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
@@ -376,6 +380,10 @@
             "libraryName": "@braintree/sanitize-url",
             "asOfVersion": "4.1.0"
         },
+        "bree": {
+            "libraryName": "bree",
+            "asOfVersion": "7.1.0"
+        },
         "broccoli-plugin": {
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
@@ -471,6 +479,10 @@
         "cbor": {
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
+        },
+        "cesium": {
+            "libraryName": "cesium",
+            "asOfVersion": "1.70.0"
         },
         "chai-http": {
             "libraryName": "chai-http",
@@ -772,6 +784,10 @@
             "libraryName": "csrf",
             "asOfVersion": "3.1.0"
         },
+        "css-minimizer-webpack-plugin": {
+            "libraryName": "css-minimizer-webpack-plugin",
+            "asOfVersion": "3.2.0"
+        },
         "csv-parse": {
             "libraryName": "csv-parse",
             "asOfVersion": "1.2.2"
@@ -812,6 +828,10 @@
         "cypress-axe": {
             "libraryName": "cypress-axe",
             "asOfVersion": "0.11.0"
+        },
+        "cypress-recurse": {
+            "libraryName": "cypress-recurse",
+            "asOfVersion": "1.9.0"
         },
         "dargs": {
             "libraryName": "dargs",
@@ -909,6 +929,10 @@
             "libraryName": "detect-passive-events",
             "asOfVersion": "2.0.0"
         },
+        "detox": {
+            "libraryName": "detox",
+            "asOfVersion": "18.1.0"
+        },
         "devextreme": {
             "libraryName": "devextreme",
             "asOfVersion": "16.2.1"
@@ -989,6 +1013,10 @@
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
         },
+        "easy-table": {
+            "libraryName": "easy-table",
+            "asOfVersion": "1.2.0"
+        },
         "easy-x-headers": {
             "libraryName": "easy-x-headers",
             "asOfVersion": "1.0.0"
@@ -1004,6 +1032,10 @@
         "ecmarkup": {
             "libraryName": "ecmarkup",
             "asOfVersion": "3.4.0"
+        },
+        "editly": {
+            "libraryName": "editly",
+            "asOfVersion": "0.11.3"
         },
         "eev": {
             "libraryName": "eev",
@@ -1212,6 +1244,10 @@
         "express-graphql": {
             "libraryName": "express-graphql",
             "asOfVersion": "0.9.0"
+        },
+        "express-handlebars": {
+            "libraryName": "express-handlebars",
+            "asOfVersion": "6.0.0"
         },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
@@ -2029,6 +2065,10 @@
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
         },
+        "is-progressive": {
+            "libraryName": "is-progressive",
+            "asOfVersion": "4.0.0"
+        },
         "is-promise": {
             "libraryName": "is-promise",
             "asOfVersion": "2.2.0"
@@ -2356,10 +2396,6 @@
         "known": {
             "libraryName": "known",
             "asOfVersion": "3.0.0"
-        },
-        "koa-better-body": {
-            "libraryName": "koa-better-body",
-            "asOfVersion": "3.1.0"
         },
         "koa-jwt": {
             "libraryName": "koa-jwt",
@@ -2736,6 +2772,10 @@
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
+        },
+        "matteodisabatino__gc_info": {
+            "libraryName": "@matteodisabatino/gc_info",
+            "asOfVersion": "1.1.0"
         },
         "maxmind": {
             "libraryName": "maxmind",
@@ -3377,6 +3417,11 @@
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
         },
+        "pdfjs-dist": {
+            "libraryName": "pdfjs-dist",
+            "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
+            "asOfVersion": "2.10.377"
+        },
         "peerjs": {
             "libraryName": "peerjs",
             "asOfVersion": "1.1.0"
@@ -3417,6 +3462,10 @@
         "pigpio": {
             "libraryName": "pigpio",
             "asOfVersion": "3.1.0"
+        },
+        "pino": {
+            "libraryName": "pino",
+            "asOfVersion": "7.0.0"
         },
         "pixi-spine": {
             "libraryName": "pixi-spine",
@@ -3693,6 +3742,10 @@
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
+        },
+        "rc-tree": {
+            "libraryName": "rc-tree",
+            "asOfVersion": "3.0.0"
         },
         "rdf-js": {
             "libraryName": "rdf-js",
@@ -4518,6 +4571,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simple-icons": {
+            "libraryName": "simple-icons",
+            "asOfVersion": "5.21.0"
+        },
         "simplebar": {
             "libraryName": "simplebar",
             "asOfVersion": "5.3.3"
@@ -4560,6 +4617,10 @@
         },
         "skin-tone": {
             "libraryName": "skin-tone",
+            "asOfVersion": "2.0.0"
+        },
+        "skyway": {
+            "libraryName": "skyway-js",
             "asOfVersion": "2.0.0"
         },
         "slash": {
@@ -5042,6 +5103,10 @@
             "libraryName": "trim-newlines",
             "asOfVersion": "3.0.0"
         },
+        "trimblemaps__trimblemaps-js": {
+            "libraryName": "@trimblemaps/trimblemaps-js",
+            "asOfVersion": "3.2.0"
+        },
         "ts3-nodejs-library": {
             "libraryName": "ts3-nodejs-library",
             "asOfVersion": "2.0.0"
@@ -5226,6 +5291,10 @@
             "libraryName": "vfile-message",
             "asOfVersion": "2.0.0"
         },
+        "victory": {
+            "libraryName": "victory",
+            "asOfVersion": "35.0.0"
+        },
         "viewerjs": {
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
@@ -5317,6 +5386,10 @@
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
+        },
+        "webpack-notifier": {
+            "libraryName": "webpack-notifier",
+            "asOfVersion": "1.14.0"
         },
         "webpack-subresource-integrity": {
             "libraryName": "webpack-subresource-integrity",

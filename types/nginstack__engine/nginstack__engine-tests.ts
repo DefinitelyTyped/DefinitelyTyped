@@ -91,4 +91,4 @@ database.logout(); // $ExpectType void
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(51, 52); // $ExpectType boolean
+testMajorVersions(53, 54); // $ExpectType boolean

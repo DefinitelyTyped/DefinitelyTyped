@@ -83,7 +83,7 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement<any, any> | null)
-        | (new (props: P) => Component<P, any>);
+        | (new (props: P) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
@@ -232,8 +232,11 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement | ReactText;
 
-    interface ReactNodeArray extends Array<ReactNode> {}
-    type ReactFragment = {} | ReactNodeArray;
+    /**
+     * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
+     */
+    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    type ReactFragment = {} | Iterable<ReactNode>;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
@@ -392,9 +395,12 @@ declare namespace React {
     interface SuspenseProps {
         children?: ReactNode | undefined;
 
+        // TODO(react18): `fallback?: ReactNode;`
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
     }
+
+    // TODO(react18): Updated JSDoc to reflect that Suspense works on the server.
     /**
      * This feature is not yet available for server-side rendering.
      * Suspense support will be added in a later release.
@@ -833,7 +839,7 @@ declare namespace React {
                 ? JSX.IntrinsicElements[T]
                 : {};
     type ComponentPropsWithRef<T extends ElementType> =
-        T extends ComponentClass<infer P>
+        T extends (new (props: infer P) => Component<any, any>)
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
     type ComponentPropsWithoutRef<T extends ElementType> =
@@ -1193,9 +1199,9 @@ declare namespace React {
         isPrimary: boolean;
     }
 
-    interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget | null;
-        target: EventTarget & T;
+    interface FocusEvent<Target = Element, RelatedTarget = Element> extends SyntheticEvent<Target, NativeFocusEvent> {
+        relatedTarget: (EventTarget & RelatedTarget) | null;
+        target: EventTarget & Target;
     }
 
     interface FormEvent<T = Element> extends SyntheticEvent<T> {
@@ -1209,7 +1215,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
+    interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
         charCode: number;
@@ -2255,6 +2261,7 @@ declare namespace React {
         hrefLang?: string | undefined;
         integrity?: string | undefined;
         media?: string | undefined;
+        imageSrcSet?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
@@ -2570,6 +2577,7 @@ declare namespace React {
         fontVariant?: number | string | undefined;
         fontWeight?: number | string | undefined;
         format?: number | string | undefined;
+        fr?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
         fy?: number | string | undefined;

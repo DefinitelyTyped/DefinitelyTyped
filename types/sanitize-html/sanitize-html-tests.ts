@@ -41,6 +41,8 @@ const options: IOptions = {
   allowProtocolRelative: false,
   disallowedTagsMode: 'escape',
   enforceHtmlBoundary: true,
+  allowedScriptDomains: ['test.com'],
+  allowedScriptHostnames: ['test.com'],
 };
 
 sanitize.defaults.allowedAttributes; // $ExpectType Record<string, AllowedAttribute[]>

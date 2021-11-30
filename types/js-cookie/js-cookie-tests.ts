@@ -1,4 +1,4 @@
-import Cookies = require("js-cookie");
+import Cookies = require('js-cookie');
 
 // $ExpectType string | undefined
 Cookies.set('name', 'value');
@@ -25,36 +25,33 @@ Cookies.remove('name', { path: '' });
 const Cookies2 = Cookies.noConflict!();
 Cookies2; // $ExpectType CookiesStatic<object>
 
+// $ExpectType CookieAttributes
+Cookies.attributes;
+
 Cookies.set('name', { foo: 'bar' });
-
-// $ExpectType any
-Cookies.getJSON('name');
-
-// $ExpectType { [key: string]: any; }
-Cookies.getJSON();
 
 document.cookie = 'escaped=%u5317';
 document.cookie = 'default=%E5%8C%97';
-const cookies = Cookies.withConverter((value, name) =>
-    name === 'escaped' ? decodeURIComponent(value) : value);
+const cookies = Cookies.withConverter({
+    read: (value, name) => (name === 'escaped' ? decodeURIComponent(value) : value),
+});
 
 cookies.get('escaped');
 
-Cookies.defaults.path = '';
-delete Cookies.defaults.path;
+Cookies.withAttributes({ expires: 7, path: '', domain: '', secure: true });
 
 const PHPCookies = Cookies.withConverter<object>({
     write(value) {
         value; // $ExpectType string | object
-        return encodeURIComponent(value as string)
-            .replace(/%(23|24|26|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+        return encodeURIComponent(value as string).replace(
+            /%(23|24|26|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,
+            decodeURIComponent,
+        );
     },
     read(value) {
         value; // $ExpectType string
-        return value
-            .replace(/\+/g, ' ')
-            .replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
-    }
+        return value.replace(/\+/g, ' ').replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
+    },
 });
 
 const BlankConverterCookies = Cookies.withConverter({
@@ -63,8 +60,27 @@ const BlankConverterCookies = Cookies.withConverter({
             return value.replace('hoge', 'fuga');
         }
         return value;
-    }
+    },
 });
 
 document.cookie = 'hoge=hogehoge';
 BlankConverterCookies.get('hoge');
+
+let api = Cookies.withAttributes({
+    path: '/',
+    secure: true,
+});
+api = Cookies.withConverter({
+    read: (value, name) => unescape(value),
+});
+api.set('key', 'value');
+
+const customReadConverter = (value: string, name: string) => {
+    if (name === 'special') {
+        return value;
+    }
+    return Cookies.converter.read(value, name);
+};
+api = Cookies.withConverter({
+    read: customReadConverter,
+});

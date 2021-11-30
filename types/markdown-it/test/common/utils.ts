@@ -1,8 +1,7 @@
-import utils = require('markdown-it/lib/common/utils');
-
 import entities = require('markdown-it/lib/common/entities');
 import htmlBlocks = require('markdown-it/lib/common/html_blocks');
 import htmlRE = require('markdown-it/lib/common/html_re');
+import utils = require('markdown-it/lib/common/utils');
 import StateBlock = require('markdown-it/lib/rules_block/state_block');
 import StateInline = require('markdown-it/lib/rules_inline/state_inline');
 

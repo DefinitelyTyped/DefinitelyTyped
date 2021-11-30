@@ -2,6 +2,7 @@
 
 import React = require('react');
 
+const { useSyncExternalStore } = React;
 // We need these Window interfaces to compile
 interface Window {
     location: {
@@ -98,21 +99,67 @@ function suspenseTest() {
 }
 
 function Dialog() {
-    const nameId = React.unstable_useOpaqueIdentifier();
+    const id = React.useId();
+    const nameId = `${id}-name`;
+    const descriptionId = `${id}-description`;
 
     return (
-        <div role="dialog" aria-labelledby={nameId}>
-            <h2 id={nameId}></h2>
+        <div role="dialog" aria-labelledby={nameId} aria-describedby={descriptionId}>
+            <h2 id={nameId}>Name</h2>
+            <p id={descriptionId}>Description</p>
         </div>
     );
 }
 
-function InvalidOpaqueIdentifierUsage() {
-    const id = React.unstable_useOpaqueIdentifier();
-    // undesired, would warn in React should not type-check
-    const stringified1: string = id.toString();
-    // undesired, would warn in React should not type-check
-    const stringified2: string = id + '';
+function SuspenseTest() {
+    // TODO(react18): Should not error.
+    // `fallback` is optional in React 18
+    // $ExpectError
+    <React.Suspense></React.Suspense>;
+    // TODO(react18): Should not error.
+    // `fallback` is optional in React 18.
+    // $ExpectError
+    <React.Suspense fallback={undefined}></React.Suspense>;
+    // Workaround.
+    // TODO(react18): Remove.
+    <React.Suspense fallback={undefined!}></React.Suspense>;
+}
 
-    return null;
+// keep in sync with `use-sync-external-store-tests.ts`
+interface Store<State> {
+    getState(): State;
+    getServerState(): State;
+    subscribe(onStoreChange: () => void): () => void;
+}
+
+declare const numberStore: Store<number>;
+function useVersion(): number {
+    return useSyncExternalStore(numberStore.subscribe, numberStore.getState);
+}
+
+function useStoreWrong() {
+    useSyncExternalStore(
+        // no unsubscribe returned
+        // $ExpectError
+        () => {
+            return null;
+        },
+        () => 1,
+    );
+
+    // `string` is not assignable to `number`
+    // $ExpectError
+    const version: number = useSyncExternalStore(
+        () => () => {},
+        () => '1',
+    );
+}
+
+declare const objectStore: Store<{ version: { major: number; minor: number }; users: string[] }>;
+function useUsers(): string[] {
+    return useSyncExternalStore(
+        objectStore.subscribe,
+        () => objectStore.getState().users,
+        () => objectStore.getServerState().users,
+    );
 }

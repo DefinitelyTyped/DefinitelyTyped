@@ -35,6 +35,7 @@ import {
     Masonry,
     Modal,
     Module,
+    NumberField,
     OnLinkNavigationProvider,
     PageHeader,
     Pog,
@@ -49,6 +50,7 @@ import {
     Sheet,
     Spinner,
     Stack,
+    Status,
     Sticky,
     Switch,
     Table,
@@ -60,7 +62,6 @@ import {
     TextField,
     Toast,
     Tooltip,
-    Typeahead,
     Upsell,
     useFocusVisible,
     useReducedMotion,
@@ -168,13 +169,7 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
-<Collage
-    columns={1}
-    height={1}
-    renderImage={({ height, index, width }) =>
-        () => {}}
-    width={1}
-/>;
+<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
 <ColorSchemeProvider colorScheme="dark" id="docsExample" />;
 <Column span={1} />;
 <Container />;
@@ -231,6 +226,7 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={index => {}}
 ></Module.Expandable>;
+<NumberField id="number" onChange={({ value }) => value} step={1}/>;
 <OnLinkNavigationProvider
     onNavigation={() => {
         return undefined;
@@ -256,19 +252,20 @@ const CheckUseReducedMotion = () => {
 >
     {({ onDismissStart }) => <Heading>Content {onDismissStart}</Heading>}
 </Sheet>;
+<Spinner show={true} accessibilityLabel="Example spinner" />;
 <Stack alignItems="center" gap={2}>
     <div />
     <div />
     <div />
 </Stack>;
-<Spinner show={true} accessibilityLabel="Example spinner" />;
+<Status type="problem" />;
 <Sticky top={0}>
     <div>Hello World</div>
 </Sticky>;
 <Switch id="id" onChange={() => {}} />;
-<Table maxHeight={1} />;
-<Table maxHeight="75vh" />;
-<Table>
+<Table accessibilityLabel="max height test" maxHeight={1} />;
+<Table accessibilityLabel="max height test 2" maxHeight="75vh" />;
+<Table accessibilityLabel="complex table">
     <Table.Header>
         <Table.Row>
             <Table.SortableHeaderCell onSortChange={() => {}} sortOrder={'asc'} status={'active'}>
@@ -357,13 +354,6 @@ const CheckUseReducedMotion = () => {
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
-<Typeahead
-    label="Typeahead Example 1"
-    id="Typeahead-example"
-    noResultText="No Results"
-    options={[{ value: 'Hello', label: 'World' }]}
-    placeholder="Select a Label"
-/>;
 <Upsell
     message="Hello world"
     imageData={{
@@ -401,4 +391,9 @@ const CheckUseReducedMotion = () => {
 new FixedZIndex(1);
 new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);
 
-<Datapoint title="Test Value" value="100" trend={{ accesibilityLabel: "Trending up", value: 50 }} trendSentiment="good" />;
+<Datapoint
+    title="Test Value"
+    value="100"
+    trend={{ accesibilityLabel: 'Trending up', value: 50 }}
+    trendSentiment="good"
+/>;

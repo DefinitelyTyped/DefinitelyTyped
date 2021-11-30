@@ -1,13 +1,13 @@
-import Document from "./document";
-import Element from "./element";
-import View from "./view";
-import Node from "./node";
+import Document from './document';
+import Element from './element';
+import View from './view';
+import Node from './node';
 
 export default class UIElement extends Element {
     render(domDocument: Document): HTMLElement;
     toDomElement(domDocument: Document): HTMLElement;
 
-    protected constructor(
+    constructor(
         document: Document,
         name: string,
         attributes?: Record<string, string> | [string, string],

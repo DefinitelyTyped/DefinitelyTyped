@@ -1,4 +1,3 @@
-type BaseEvalError = EvalError;
-type BaseEvalErrorConstructor = EvalErrorConstructor;
+declare const BaseEvalError: EvalErrorConstructor;
 
-export { BaseEvalError, BaseEvalErrorConstructor };
+export default BaseEvalError;

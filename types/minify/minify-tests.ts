@@ -1,5 +1,4 @@
-import minify = require('minify');
-import { Options } from 'minify';
+import minify, { Options } from 'minify';
 
 const options: Options = {
     html: {
