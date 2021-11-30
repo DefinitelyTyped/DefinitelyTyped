@@ -327,4 +327,22 @@ export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
 
+/**
+ * map Tuple of ordinary type to Tuple of array type
+ * [string, number] -> [string[], number[]]
+ */
+export type ToTupleOfArray<Tuple extends any[]> =
+    Tuple extends []
+    ? []
+    : Tuple extends [infer X, ...infer Xs]
+        ? [Array<X>, ...ToTupleOfArray<Xs>]
+        : never
+
+export type ToTupleOfFunction<R, Tuple extends any[]> =
+    Tuple extends []
+    ? []
+    : Tuple extends [infer X, ...infer Xs]
+        ? [(arg: R) => X, ...ToTupleOfArray<Xs>]
+        : never
+    
 export {};
