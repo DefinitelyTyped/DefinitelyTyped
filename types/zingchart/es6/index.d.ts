@@ -5581,6 +5581,12 @@ declare namespace zingchart {
     'max-value'?: number;
     maxValue?: number;
     /**
+     * Sets the minimum value for the y axis. 'min-value': is one of the multiple ways you can set y axis values. Commonly used with time
+     *  series data. Also see 'max-value': and 'step': 'auto' | 4 | '6px' | ...
+     */
+    'min-value'?: number;
+    minValue?: number;
+    /**
      * Sets the number of minor tick marks displayed between the major tick marks. Note that this attribute is required to style the mino
      * r tick marks and/or guides. 5 | 10 | ...
      */
@@ -5649,6 +5655,10 @@ declare namespace zingchart {
      */
     'show-labels'?: any;
     showLabels?: any;
+    /**
+     * Sets the value of each step along an axis.
+     */
+     step?: number;
     /**
      * When you set the 'thousands-separator': attribute, the punctuation which is used will be placed to separate digits which go into 1,000s, 10,000s, etc. When placed in the 'plot': { } object,
      * this will only effect values which are pulled directly from the series data. Objects such as 'scale-y': { }, 'scale-x': { }, etc..., will need to be set separately.
@@ -7592,6 +7602,10 @@ declare namespace zingchart {
      */
     'size-factor'?: string;
     sizeFactor?: string;
+    /**
+     * Sets the value of each step along an axis.
+     */
+    step?: number;
     /**
      * Sets the characters used to separate thousands in larger numbers. '.' | ',' | ...
      */
