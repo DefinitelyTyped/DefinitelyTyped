@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as ltx from 'ltx';
 import * as ltx2 from 'ltx/src/ltx';
 import parsers from 'ltx/src/parsers';

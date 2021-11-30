@@ -18962,6 +18962,8 @@ declare namespace zingchart {
        */
       'alpha-area'?: number;
       alphaArea?: number;
+
+
       /**
        * Sets the background color of the object. Colors can be entered by name (e.g., "purple", "blue"), hexadecimal notation (e.g., "#666
        * 699", #33ccff"), or RGB notation (e.g., "rgb(255,0,0)", "rgb(0,0,255)"). "none" | "transparent" | "purple" | "#33ccff" | "rgb(100,

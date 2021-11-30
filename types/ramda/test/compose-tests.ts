@@ -13,6 +13,12 @@ import * as R from 'ramda';
     limit10,
     double,
   );
+
+  const wrongCompose = R.compose(
+    double,
+    // $ExpectError
+    limit10,
+  );
   const res: boolean = R.compose(
     limit10,
     double,
@@ -120,7 +126,11 @@ import * as R from 'ramda';
   R.compose();
 
   // $ExpectType (x: number, y: number) => number
-  const f9 = R.compose(
+  const f13 = R.compose(
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
     R.inc,
     R.inc,
     R.inc,
