@@ -1,4 +1,4 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -8454,6 +8454,18 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     getLegend(): ID;
     /**
+     * @SINCE 1.97
+     *
+     * Gets current value of property {@link #getMultipleAppointmentsSelection multipleAppointmentsSelection}.
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     *
+     * Default value is `false`.
+     */
+    getMultipleAppointmentsSelection(): boolean;
+    /**
      * Gets current value of property {@link #getNonWorkingDays nonWorkingDays}.
      *
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
@@ -8835,6 +8847,25 @@ declare module "sap/ui/unified/CalendarRow" {
       oLegend: ID | CalendarLegend
     ): this;
     /**
+     * @SINCE 1.97
+     *
+     * Sets a new value for property {@link #getMultipleAppointmentsSelection multipleAppointmentsSelection}.
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setMultipleAppointmentsSelection(
+      /**
+       * New value for property `multipleAppointmentsSelection`
+       */
+      bMultipleAppointmentsSelection?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getNonWorkingDays nonWorkingDays}.
      *
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
@@ -9138,6 +9169,15 @@ declare module "sap/ui/unified/CalendarRow" {
           | keyof typeof CalendarAppointmentRoundWidth
         )
       | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.97
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     */
+    multipleAppointmentsSelection?: boolean | PropertyBindingInfo;
 
     /**
      * Appointments to be displayed in the row. Appointments outside the visible time frame are not rendered.

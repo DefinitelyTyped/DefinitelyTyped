@@ -270,6 +270,7 @@ declare namespace __ReactMDL {
 
 
     interface BadgeProps extends __MDLClassProps {
+        children?: string | React.ReactElement;
         text: string | number;
         className?: string | undefined;
         noBackground?: boolean | undefined;

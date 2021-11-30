@@ -410,6 +410,7 @@ export function converge<TArgs extends any[], TResult, R1, R2, R3, R4>(convergin
 export function converge<TArgs extends any[], TResult, R1, R2, R3>(converging: ((...args: readonly [R1, R2, R3]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3)]): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2>(converging: ((...args: readonly [R1, R2]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2)]): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1>(converging: ((...args: readonly [R1]) => TResult), branches: [((...args: TArgs) => R1)]): (...args: TArgs) => TResult;
+// tslint:enable:max-line-length
 
 /**
  * Counts the elements of a list according to how many match each value
@@ -1981,7 +1982,7 @@ export function tryCatch<F extends (...args: readonly any[]) => any>(tryer: F): 
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
  * all as 'Object'.
  */
-export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol';
+export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol' | 'Error';
 
 /**
  * Takes a function fn, which takes a single array argument, and returns a function which:
