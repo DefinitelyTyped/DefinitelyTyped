@@ -777,6 +777,8 @@ export function indexBy<T, K extends string | number | undefined = string>(fn: (
  * (by strict equality),
  * or -1 if the item is not included in the array.
  */
+export function indexOf(target: string, list: readonly string[] | string): number;
+export function indexOf(target: string): (list: readonly string[] | string) => number;
 export function indexOf<T>(target: T, list: readonly T[]): number;
 export function indexOf<T>(target: T): (list: readonly T[]) => number;
 
@@ -888,6 +890,7 @@ export function join(x: string): (xs: readonly any[]) => string;
 /**
  * Applies a list of functions to a list of values.
  */
+export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
 export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
 export function juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
 export function juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
