@@ -56,8 +56,13 @@ declare namespace cors {
 
         /**
          * `Access-Control-Allow-Credentials`
+         *
+         * @remarks
+         * If a function is provided, it will be called for each request with
+         * the koa context object. It may return a boolean or a promise that
+         * will resolve with a boolean.
          */
-        credentials?: boolean | undefined;
+        credentials?: ((ctx: Koa.Context) => boolean) | ((ctx: Koa.Context) => PromiseLike<boolean>) | boolean | undefined;
 
         /**
          * Add set headers to `err.header` if an error is thrown
