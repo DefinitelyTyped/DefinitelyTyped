@@ -15,9 +15,9 @@ export interface ColorDescriptor {
 export function get(colorString: string): ColorDescriptor | null;
 
 export namespace get {
-    function hsl(colorString: string | null): Color | null;
-    function hwb(colorString: string | null): Color | null;
-    function rgb(colorString: string | null): Color | null;
+    function hsl<TColorStr extends string | null>(colorString: TColorStr): TColorStr extends string ? Color : null;
+    function hwb<TColorStr extends string | null>(colorString: TColorStr): TColorStr extends string ? Color : null;
+    function rgb<TColorStr extends string | null>(colorString: TColorStr): TColorStr extends string ? Color : null;
 }
 
 export namespace to {
