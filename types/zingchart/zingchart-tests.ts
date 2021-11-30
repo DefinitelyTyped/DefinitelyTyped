@@ -47,6 +47,10 @@ zingchart.render({
             shared: true,
         }
     }],
+    labels: [{
+        alpha: 0.5,
+        text: 'testing',
+    }],
     zoom: {},
     zoomSnap: true,
 });
