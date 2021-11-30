@@ -4526,9 +4526,9 @@ $( "*", document.body ).click(function( event ) {
 </html>
 ```
      */
-    get(index: number): TElement;
+    get(index: number): TElement | undefined;
     /**
-     * Retrieve the elements matched by the jQuery object.
+     * Retrieve the elements matched by the jQuery object. If the value of index is out of bounds — less than the negative number of elements or equal to or greater than the number of elements — it returns undefined.
      * @see \`{@link https://api.jquery.com/get/ }\`
      * @since 1.0
      * @example ​ ````Select all divs in the document and return the DOM Elements as an Array; then use the built-in reverse() method to reverse that array.

@@ -1,11 +1,9 @@
-import { BaseSyntaxError, BaseSyntaxErrorConstructor } from './base/SyntaxError';
+import BaseSyntaxError from './base/SyntaxError';
 
-interface SyntaxError extends BaseSyntaxError {
+declare class SyntaxError extends BaseSyntaxError {
+    constructor(reason?: string, options?: { cause?: unknown });
+
     cause: unknown;
 }
 
-interface SyntaxErrorConstructor extends BaseSyntaxErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): SyntaxError;
-}
-
-export default SyntaxErrorConstructor;
+export default SyntaxError;

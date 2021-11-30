@@ -106,6 +106,9 @@ provider.request(
 // Test provider's 'getServerlessDeploymentBucketName'
 provider.getServerlessDeploymentBucketName().then(bucketName => {});
 
+// $ExpectType Credentials
+provider.getCredentials();
+
 // Test ApiGateway validator
 getHttp(
     {
@@ -549,6 +552,22 @@ const awsServerless: Aws.Serverless = {
                         enabled: true
                     }
                 }, {
+                    activemq: {
+                        arn: 'testarn',
+                        basicAuthArn: 'testBasicAuthArn',
+                        queue: 'testQueue',
+                        batchSize: 1,
+                        enabled: true
+                    }
+                }, {
+                    rabbitmq: {
+                        arn: 'testarn',
+                        basicAuthArn: 'testBasicAuthArn',
+                        queue: 'testQueue',
+                        batchSize: 1,
+                        enabled: true
+                    }
+                }, {
                     stream: {
                         arn: 'testarn',
                         batchSize: 1,
@@ -730,6 +749,7 @@ const bunchOfConfigs: Aws.Serverless[] = [
         service: 'users',
         configValidationMode: 'off',
         unresolvedVariablesNotificationMode: 'error',
+        deprecationNotificationMode: 'error',
         provider: { name: 'aws' },
         functions: {}
     },

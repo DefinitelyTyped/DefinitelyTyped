@@ -2,19 +2,20 @@ import ROSLIB = require('roslib');
 
 var ros = new ROSLIB.Ros({
     url: 'ws://localhost:9090',
-});
+})
+    .on('connection', function () {
+        console.log('Connected to websocket server.');
+    })
+    .on('error', function (error: Error) {
+        console.log('Error connecting to websocket server: ', error);
+    })
+    .on('close', function () {
+        console.log('Connection to websocket server closed.');
+    });
 
-ros.on('connection', function () {
-    console.log('Connected to websocket server.');
-});
+console.log(`ros.isConnected: ${ros.isConnected}`);
 
-ros.on('error', function (error) {
-    console.log('Error connecting to websocket server: ', error);
-});
-
-ros.on('close', function () {
-    console.log('Connection to websocket server closed.');
-});
+console.log(`ros.transportLibrary: ${ros.transportLibrary.constructor.name ?? ros.transportLibrary}`);
 
 // Publishing a Topic
 // ------------------

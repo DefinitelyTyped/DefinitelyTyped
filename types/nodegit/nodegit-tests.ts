@@ -8,6 +8,12 @@ Git.Repository.init('path', 0).then(repository => {
     // Use repository
 });
 
+Git.Repository.initExt('path', {
+    flags: 0,
+}).then(repository => {
+    // Use repository
+});
+
 const repo = new Git.Repository();
 const id = new Git.Oid();
 const ref = new Git.Reference();
@@ -92,6 +98,10 @@ repo.getHeadCommit().then(async commit => {
     }
 });
 
+repo.getRemoteNames().then((remoteNames) => {
+    const names: string[] = remoteNames;
+});
+
 Git.version; // $ExpectType string
 Git.Promise; // $ExpectType PromiseConstructor
 
@@ -137,4 +147,14 @@ revwalk.fastWalk(100).then(oids => {
 Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then((remote) => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>
+});
+
+Git.Worktree.list(repo).then(list => {
+    const mainWorkTreeName = list[0];
+    mainWorkTreeName; // $ExpectType string
+});
+
+Git.Worktree.openFromRepository(repo).then(worktree => {
+    worktree.name(); // $ExpectType string
+    worktree.path(); // $ExpectType string
 });

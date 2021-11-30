@@ -21,6 +21,11 @@ color = colorString.get.hwb('hwb(60, 3%, 60%, 0.6)');
 
 color = colorString.get.rgb('invalid color string');
 
+let nothing: null;
+nothing = colorString.get.rgb(null);
+nothing = colorString.get.hsl(null);
+nothing = colorString.get.hwb(null);
+
 let stringifiedColor: string;
 stringifiedColor = colorString.to.hex([255, 255, 255]);
 stringifiedColor = colorString.to.hex([0, 0, 255, 0.4]);

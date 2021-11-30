@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { PureComponent, ReactType } from "react";
+import { ElementType, PureComponent } from "react";
 import { Options as CompilerOptions, AST } from "idyll-compiler";
 
 export interface IdyllDocumentProps {
@@ -44,7 +44,7 @@ export interface IdyllDocumentProps {
     /**
      * The React component rendered when an error occurs
      */
-    errorComponent?: ReactType<{
+    errorComponent?: ElementType<{
         className?: string | undefined;
         children: Error["message"] | null;
     }> | undefined;

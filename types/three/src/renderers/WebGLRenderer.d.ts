@@ -6,12 +6,13 @@ import { WebGLShadowMap } from './webgl/WebGLShadowMap';
 import { WebGLCapabilities } from './webgl/WebGLCapabilities';
 import { WebGLProperties } from './webgl/WebGLProperties';
 import { WebGLProgram } from './webgl/WebGLProgram';
-import { RenderTarget, WebGLRenderLists } from './webgl/WebGLRenderLists';
+import { WebGLRenderLists } from './webgl/WebGLRenderLists';
 import { WebGLState } from './webgl/WebGLState';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
 import { Color } from './../math/Color';
 import { WebGLRenderTarget } from './WebGLRenderTarget';
+import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
 import { Material } from './../materials/Material';
 import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
@@ -221,6 +222,7 @@ export class WebGLRenderer implements Renderer {
     getContext(): WebGLRenderingContext;
     getContextAttributes(): any;
     forceContextLoss(): void;
+    forceContextRestore(): void;
 
     /**
      * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
@@ -322,8 +324,6 @@ export class WebGLRenderer implements Renderer {
     resetGLState(): void;
     dispose(): void;
 
-    renderBufferImmediate(object: Object3D, program: WebGLProgram): void;
-
     renderBufferDirect(
         camera: Camera,
         scene: Scene,
@@ -375,12 +375,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Returns the current render target. If no render target is set, null is returned.
      */
-    getRenderTarget(): RenderTarget | null;
+    getRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
-    getCurrentRenderTarget(): RenderTarget | null;
+    getCurrentRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * Sets the active render target.
@@ -389,10 +389,14 @@ export class WebGLRenderer implements Renderer {
      * @param activeCubeFace Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of {@link WebGLCubeRenderTarget}.
      * @param activeMipmapLevel Specifies the active mipmap level.
      */
-    setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
+    setRenderTarget(
+        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets | null,
+        activeCubeFace?: number,
+        activeMipmapLevel?: number,
+    ): void;
 
     readRenderTargetPixels(
-        renderTarget: RenderTarget,
+        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets,
         x: number,
         y: number,
         width: number,

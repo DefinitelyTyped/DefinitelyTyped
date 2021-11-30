@@ -3,6 +3,7 @@
 // Definitions by: Brie Bunge <https://github.com/brieb>
 //                 Brian Jacobel <https://github.com/bjacobel>
 //                 Will Nguyen <https://github.com/willtn>
+//                 Bartosz Szewczyk <https://github.com/sztobar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 

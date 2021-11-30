@@ -6,12 +6,40 @@ export interface ThreeDSecureAccountDetails {
     lastTwo: string;
 }
 
-export interface ThreeDSecureVerifyPayload {
-    nonce: string;
-    details: ThreeDSecureAccountDetails;
-    description: string;
+export interface ThreeDSecureBinData {
+    commercial: string;
+    countryOfIssuance: string;
+    debit: string;
+    durbinRegulated: string;
+    healthcare: string;
+    issuingBank: string;
+    payroll: string;
+    prepaid: string;
+    productId: string;
+}
+
+export interface ThreeDSecureInfo {
     liabilityShiftPossible: boolean;
     liabilityShifted: boolean;
+    cavv: string;
+    xid: string;
+    dsTransactionId: string;
+    threeDSecureVersion: string;
+    eciFlag: string;
+    threeDSecureAuthenticationId: string;
+}
+
+export interface ThreeDSecureVerifyPayload {
+    nonce: string;
+    type: string;
+    details: ThreeDSecureAccountDetails;
+    description: string;
+    binData: ThreeDSecureBinData;
+    /** @deprecated Use threeDSecureInfo.liabilityShiftPossible */
+    liabilityShiftPossible: boolean;
+    /** @deprecated Use threeDSecureInfo.liabilityShifted */
+    liabilityShifted: boolean;
+    threeDSecureInfo: ThreeDSecureInfo;
 }
 
 export interface ThreeDSecureBillingAddress {
@@ -123,7 +151,7 @@ export interface ThreeDSecure {
             version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
             client?: Client | undefined;
         },
-        callback: callback,
+        callback: callback<ThreeDSecure>,
     ): void;
 
     /**
@@ -176,7 +204,7 @@ export interface ThreeDSecure {
      * });
      */
     verifyCard(options: ThreeDSecureVerifyOptions): Promise<ThreeDSecureVerifyPayload>;
-    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback): void;
+    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback<ThreeDSecureVerifyPayload>): void;
 
     /**
      * Cancel the 3DS flow and return the verification payload if available.     * @example
@@ -211,7 +239,7 @@ export interface ThreeDSecure {
      * });
      */
     prepareLookup(options: { nonce: string; bin: string }): Promise<string>;
-    prepareLookup(options: { nonce: string; bin: string }, callback: callback): void;
+    prepareLookup(options: { nonce: string; bin: string }, callback: callback<string>): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}

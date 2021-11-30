@@ -25,6 +25,7 @@ const enUs: Lang = "en-US";
 const koKr: Lang = "ko-KR";
 
 const parsed1: AcceptLanguageParser.Language[] = AcceptLanguageParser.parse('');
+const parsed: AcceptLanguageParser.Language[] = AcceptLanguageParser.parse();
 const pick1: string | null = AcceptLanguageParser.pick([''], '');
 const pick2: string | null = AcceptLanguageParser.pick([''], [l1, l2, l3]);
 const pick3: string | null = AcceptLanguageParser.pick([''], '', {});

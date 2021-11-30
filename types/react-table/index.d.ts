@@ -237,7 +237,6 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
 
 export interface UseTableColumnOptions<D extends object> {
     id?: IdType<D> | undefined;
-    originalId?: IdType<D> | undefined;
     Header?: Renderer<HeaderProps<D>> | undefined;
     Footer?: Renderer<FooterProps<D>> | undefined;
     width?: number | string | undefined;
@@ -502,6 +501,14 @@ export namespace useFlexLayout {
 }
 //#endregion
 
+//#region useGridLayout
+export function useGridLayout<D extends object = {}>(hooks: Hooks<D>): void;
+
+export namespace useGridLayout {
+    const pluginName = 'useGridLayout';
+}
+//#endregion
+
 //#region useGlobalFilter
 export function useGlobalFilter<D extends object = {}>(hooks: Hooks<D>): void;
 
@@ -669,6 +676,7 @@ export namespace useResizeColumns {
 
 export interface UseResizeColumnsOptions<D extends object> {
     disableResizing?: boolean | undefined;
+    autoResetResize?: boolean | undefined;
 }
 
 export interface UseResizeColumnsState<D extends object> {

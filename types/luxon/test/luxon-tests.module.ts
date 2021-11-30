@@ -17,10 +17,10 @@ import {
 VERSION; // $ExpectType string
 
 /* DateTime */
-DateTime.DATETIME_MED; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; hour: "numeric"; minute: "numeric"; }
-DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; weekday: "short"; hour: "numeric"; minute: "numeric"; }
-DateTime.DATE_MED; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; }
-DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; weekday: "short"; }
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
 DateTime.local({ zone: 'Atlantic/Azores' }); // $ExpectType DateTime
 DateTime.local(2021, 8, 28, { zone: 'Atlantic/Azores' }); // $ExpectType DateTime
@@ -194,14 +194,20 @@ const { input, result, zone } = DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d
 
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 }); // $ExpectType Duration
+Duration.fromObject({ hour: 2, minute: 7 }); // $ExpectType Duration
 Duration.fromObject({ locale: 'ru' }); // $ExpectError
 Duration.fromObject({ conversionAccuracy: 'casual' }); // $ExpectError
 Duration.fromObject({}, { conversionAccuracy: 'casual' }); // $ExpectType Duration
+Duration.fromDurationLike({ hours: 1 }); // $ExpectType Duration
+Duration.fromDurationLike(1000); // $ExpectType Duration
+Duration.fromDurationLike(dur); // $ExpectType Duration
+Duration.fromDurationLike(''); // $ExpectError
 dt.plus(dur); // $ExpectType DateTime
 dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number
 dur.minutes; // $ExpectType number
 dur.seconds; // $ExpectType number
+dur.set({ hour: 2, minutes: 15 }); // $ExpectType Duration
 
 dur.as('seconds'); // $ExpectType number
 dur.toObject();
@@ -370,6 +376,7 @@ d1.hasSame(d2, 'minute'); // $ExpectType boolean
 d1.hasSame(d2, 'year'); // $ExpectType boolean
 
 dur.toObject().days; // $ExpectType number | undefined
+dur.toObject().day; // $ExpectError
 dur.as('minutes'); // $ExpectType number
 dur.shiftTo('minutes').toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
@@ -392,6 +399,7 @@ dur.shiftTo('weeks', 'hours').toObject().weeks; // $ExpectType number | undefine
 DateTime.local().plus(dur.shiftTo('milliseconds')).year; // $ExpectType number
 
 Duration.fromISO('PY23', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
+Duration.fromISOTime('21:37.000'); // $ExpectType Duration
 Duration.fromISOTime('21:37.000', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
 
 end.diff(start, 'hours', { conversionAccuracy: 'longterm' }); // $ExpectType Duration

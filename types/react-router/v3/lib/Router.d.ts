@@ -1,4 +1,4 @@
-import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from "react";
+import { Component, ComponentClass, ClassAttributes, ReactNode, FunctionComponent } from "react";
 import {
     Action,
     History,
@@ -13,13 +13,14 @@ import {
     Search
 } from "history";
 import { PlainRoute } from "react-router";
+import React = require("react");
 
 export interface Params {
     [key: string]: string;
 }
 
 export type RoutePattern = string;
-export type RouteComponent = ComponentClass<any> | StatelessComponent<any>;
+export type RouteComponent = ComponentClass<any> | FunctionComponent<any>;
 export interface RouteComponents {
     [name: string]: RouteComponent;
 }
@@ -76,6 +77,7 @@ export interface RouteComponentProps<P, R, ComponentProps = any, Q = any> {
 }
 
 export interface RouterProps extends ClassAttributes<any> {
+    children?: React.ReactNode;
     routes?: RouteConfig | undefined;
     history?: History | undefined;
     createElement?(component: RouteComponent, props: any): any;

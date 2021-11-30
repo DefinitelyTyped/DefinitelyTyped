@@ -260,6 +260,29 @@ declare module 'fs' {
          */
         readSync(): Dirent | null;
     }
+    /**
+     * Class: fs.StatWatcher
+     * @since v14.3.0, v12.20.0
+     * Extends `EventEmitter`
+     * A successful call to {@link watchFile} method will return a new fs.StatWatcher object.
+     */
+    export interface StatWatcher extends EventEmitter {
+        /**
+         * @since v14.3.0, v12.20.0
+         * When called, requests that the Node.js event loop not exit so long as the `fs.StatWatcher` is active.
+         * Calling `watcher.ref()` multiple times will have no effect.
+         * By default, all `fs.StatWatcher`` objects are "ref'ed", making it normally unnecessary to call `watcher.ref()`
+         * unless `watcher.unref()` had been called previously.
+         */
+        ref(): this;
+        /**
+         * @since v14.3.0, v12.20.0
+         * When called, the active `fs.StatWatcher`` object will not require the Node.js event loop to remain active.
+         * If there is no other activity keeping the event loop running, the process may exit before the `fs.StatWatcher`` object's callback is invoked.
+         * `Calling watcher.unref()` multiple times will have no effect.
+         */
+        unref(): this;
+    }
     export interface FSWatcher extends EventEmitter {
         /**
          * Stop watching for changes on the given `fs.FSWatcher`. Once stopped, the `fs.FSWatcher` object is no longer usable.
@@ -297,7 +320,7 @@ declare module 'fs' {
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes that have been read so far.
          * @since v6.4.0
@@ -306,7 +329,7 @@ declare module 'fs' {
         /**
          * The path to the file the stream is reading from as specified in the first
          * argument to `fs.createReadStream()`. If `path` is passed as a string, then`readStream.path` will be a string. If `path` is passed as a `Buffer`, then`readStream.path` will be a
-         * `Buffer`.
+         * `Buffer`. If `fd` is specified, then`readStream.path` will be `undefined`.
          * @since v0.1.93
          */
         path: string | Buffer;
@@ -385,7 +408,7 @@ declare module 'fs' {
          * callback that will be executed once the `writeStream`is closed.
          * @since v0.9.4
          */
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes written so far. Does not include data that is still queued
          * for writing.
@@ -768,6 +791,7 @@ declare module 'fs' {
      * @deprecated Since v0.4.7
      */
     export function lchmod(path: PathLike, mode: Mode, callback: NoParamCallback): void;
+    /** @deprecated */
     export namespace lchmod {
         /**
          * Asynchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
@@ -2762,7 +2786,7 @@ declare module 'fs' {
      * the numeric values in these objects are specified as `BigInt`s.
      *
      * To be notified when the file was modified, not just accessed, it is necessary
-     * to compare `curr.mtime` and `prev.mtime`.
+     * to compare `curr.mtimeMs` and `prev.mtimeMs`.
      *
      * When an `fs.watchFile` operation results in an `ENOENT` error, it
      * will invoke the listener once, with all the fields zeroed (or, for dates, the
@@ -2783,21 +2807,34 @@ declare module 'fs' {
      * * the file is renamed and then renamed a second time back to its original name
      * @since v0.1.31
      */
+    export interface WatchFileOptions {
+        bigint?: boolean | undefined;
+        persistent?: boolean | undefined;
+        interval?: number | undefined;
+    }
     export function watchFile(
         filename: PathLike,
         options:
-            | {
-                  persistent?: boolean | undefined;
-                  interval?: number | undefined;
-              }
+            | (WatchFileOptions & {
+                  bigint?: false | undefined;
+              })
             | undefined,
         listener: (curr: Stats, prev: Stats) => void
-    ): void;
+    ): StatWatcher;
+    export function watchFile(
+        filename: PathLike,
+        options:
+            | (WatchFileOptions & {
+                  bigint: true;
+              })
+            | undefined,
+        listener: (curr: BigIntStats, prev: BigIntStats) => void
+    ): StatWatcher;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      */
-    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): void;
+    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): StatWatcher;
     /**
      * Stop watching for changes on `filename`. If `listener` is specified, only that
      * particular listener is removed. Otherwise, _all_ listeners are removed,
@@ -3000,6 +3037,7 @@ declare module 'fs' {
      * @deprecated Since v1.0.0 - Use {@link stat} or {@link access} instead.
      */
     export function exists(path: PathLike, callback: (exists: boolean) => void): void;
+    /** @deprecated */
     export namespace exists {
         /**
          * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -3360,7 +3398,7 @@ declare module 'fs' {
         end?: number | undefined;
     }
     /**
-     * Unlike the 16 kb default `highWaterMark` for a readable stream, the stream
+     * Unlike the 16 kb default `highWaterMark` for a `stream.Readable`, the stream
      * returned by this method has a default `highWaterMark` of 64 kb.
      *
      * `options` can include `start` and `end` values to read a range of bytes from
@@ -3380,7 +3418,7 @@ declare module 'fs' {
      * closing naturally.
      *
      * By default, the stream will emit a `'close'` event after it has been
-     * destroyed, like most `Readable` streams.  Set the `emitClose` option to`false` to change this behavior.
+     * destroyed.  Set the `emitClose` option to `false` to change this behavior.
      *
      * By providing the `fs` option, it is possible to override the corresponding `fs`implementations for `open`, `read`, and `close`. When providing the `fs` option,
      * an override for `read` is required. If no `fd` is provided, an override for`open` is also required. If `autoClose` is `true`, an override for `close` is
@@ -3422,7 +3460,6 @@ declare module 'fs' {
      *
      * If `options` is a string, then it specifies the encoding.
      * @since v0.1.31
-     * @return See `Readable Stream`.
      */
     export function createReadStream(path: PathLike, options?: BufferEncoding | ReadStreamOptions): ReadStream;
     /**
@@ -3438,7 +3475,7 @@ declare module 'fs' {
      * file descriptor leak.
      *
      * By default, the stream will emit a `'close'` event after it has been
-     * destroyed, like most `Writable` streams.  Set the `emitClose` option to`false` to change this behavior.
+     * destroyed.  Set the `emitClose` option to `false` to change this behavior.
      *
      * By providing the `fs` option it is possible to override the corresponding `fs`implementations for `open`, `write`, `writev` and `close`. Overriding `write()`without `writev()` can reduce
      * performance as some optimizations (`_writev()`)
@@ -3451,7 +3488,6 @@ declare module 'fs' {
      *
      * If `options` is a string, then it specifies the encoding.
      * @since v0.1.31
-     * @return See `Writable Stream`.
      */
     export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
     /**
@@ -3649,7 +3685,7 @@ declare module 'fs' {
      * directory and subsequent read operations.
      * @since v12.12.0
      */
-    export function opendirSync(path: string, options?: OpenDirOptions): Dir;
+    export function opendirSync(path: PathLike, options?: OpenDirOptions): Dir;
     /**
      * Asynchronously open a directory. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for
      * more details.
@@ -3661,10 +3697,10 @@ declare module 'fs' {
      * directory and subsequent read operations.
      * @since v12.12.0
      */
-    export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
-    export function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
     export namespace opendir {
-        function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+        function __promisify__(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     }
     export interface BigIntStats extends StatsBase<bigint> {
         atimeNs: bigint;

@@ -16,13 +16,10 @@ export interface HashLinkProps extends LinkProps {
   timeout?: number | undefined;
 }
 
-export interface NavHashLinkProps extends Omit<NavLinkProps, 'className' | 'style'>, HashLinkProps {
-  className?: string;
-  style?: React.CSSProperties;
-}
+export interface NavHashLinkProps extends NavLinkProps, Omit<HashLinkProps, 'className' | 'style'> { }
 
-export class HashLink extends React.Component<HashLinkProps, any> { }
+export const HashLink: React.ForwardRefExoticComponent<HashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
 
-export class NavHashLink extends React.Component<NavHashLinkProps, any> { }
+export const NavHashLink: React.ForwardRefExoticComponent<NavHashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
 
 export function genericHashLink<P>(Component: React.FunctionComponent<P>): React.FunctionComponent<P>;

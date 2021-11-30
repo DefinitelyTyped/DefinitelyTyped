@@ -273,6 +273,7 @@ declare namespace THREE {
         constructor(min?: Vector3, max?: Vector3);
 
         applyMatrix4(matrix: Matrix4): Box3;
+        // deprecated
         center(): Vector3;
         clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         clone(): Box3;
@@ -280,14 +281,19 @@ declare namespace THREE {
         containsPoint(point: Vector3): boolean;
         copy(box: Box3): Box3;
         distanceToPoint(point: Vector3): number;
+        // deprecated
         empty(): boolean;
         equals(box: Box3): boolean;
         expandByPoint(point: Vector3): Box3;
         expandByScalar(scalar: number): Box3;
         expandByVector(vector: Vector3): Box3;
         getBoundingSphere(optionalTarget?: Sphere): Sphere;
+        getCenter(optionalTarget: Vector3): Vector3;
         getParameter(point: Vector3): Vector3;
+        getSize(target: Vector3): Vector3;
         intersect(box: Box3): Box3;
+        intersectsBox(box: Box3): true;
+        isEmpty(): boolean;
         isIntersectionBox(box: Box3): boolean;
         makeEmpty(): Box3;
         set(min: Vector3, max: Vector3): Box3;
@@ -1094,6 +1100,7 @@ declare namespace THREE {
         getInverse(m: Matrix4, throwOnInvertible?: boolean): Matrix4;
         getMaxScaleOnAxis(): number;
         identity(): Matrix4;
+        invert(): Matrix4;
         lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4;
         makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
         makeRotationAxis(axis: Vector3, angle: number): Matrix4;

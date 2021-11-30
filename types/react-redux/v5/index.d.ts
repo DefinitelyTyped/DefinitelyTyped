@@ -22,7 +22,7 @@ import * as React from 'react';
 import * as Redux from 'redux';
 
 type ComponentClass<P> = React.ComponentClass<P>;
-type StatelessComponent<P> = React.StatelessComponent<P>;
+type FunctionComponent<P> = React.FunctionComponent<P>;
 type Component<P> = React.ComponentType<P>;
 type ReactNode = React.ReactNode;
 type Store<S> = Redux.Store<S>;

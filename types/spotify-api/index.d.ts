@@ -864,6 +864,10 @@ declare namespace SpotifyApi {
          */
         restrictions?: RestrictionsObject | undefined;
         type: "album";
+        /**
+         * The number of tracks in the album.
+         */
+        total_tracks: number;
     }
 
     /**

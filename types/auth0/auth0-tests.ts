@@ -975,20 +975,20 @@ async function signupTest(): Promise<void> {
     signupResult.email_verified; // $ExpectType boolean
 }
 
-const decoded = idToken.decode('{YOUR_API_V2_TOKEN}');
+const decoded = idToken.decode('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
 decoded._raw; // $ExpectType string
 decoded.header; // $ExpectType any
 decoded.payload; // $ExpectType any
 decoded.signature; // $ExpectType string
 
-async () => {
+() => {
     const defaultOptions = {
         issuer: 'issuer',
         audience: ['clientId', 'clientIdAlt'],
         nonce: 'a1b2c3d4e5',
     };
-    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType string
-    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType string
+    idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
+    idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType DecodedToken
 };
 
 // Token manager
@@ -1056,6 +1056,22 @@ management.organizations.getAll({ page: 0, per_page: 5 }, (err, organizations: a
  */
 management.organizations.getAll({ page: 0, per_page: 5 }).then((organizations: auth0.Organization[]) => {
     console.log({ organizations });
+});
+
+/**
+ * Get All Organizations with pagination and totals using a callback
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }, (err, pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
+});
+
+/**
+ * Get All Organizations with pagination and totals returning a Promise
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }).then((pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
 });
 
 /**
@@ -1266,10 +1282,26 @@ management.organizations.getMembers({ id: 'organization_id' }, (err, members: au
 });
 
 /**
+ * Get a paged result of an Organization's Members using a callback
+ */
+management.organizations.getMembers({ id: 'organization_id', include_totals: true }, (err, pagedMembers) => {
+    // $ExpectType OrganizationMembersPaged
+    pagedMembers;
+});
+
+/**
  * Get an Organization's Members returning a Promise
  */
 management.organizations.getMembers({ id: 'organization_id' }).then((members: auth0.OrganizationMember[]) => {
     console.log({ members });
+});
+
+/**
+ * Get a paged result of an Organization's members returning a promise.
+ */
+management.organizations.getMembers({id: 'organization_id', include_totals: true }).then((pagedMembers) => {
+    // $ExpectType OrganizationMembersPaged
+    pagedMembers;
 });
 
 /**
@@ -1340,6 +1372,14 @@ management.organizations.getInvitations(
     },
 );
 
+management.organizations.getInvitations(
+    //  checkpoint pagination tests
+    { id: 'organization_id', take: 2, from: '' },
+    (err, invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    },
+);
+
 /**
  * Get Organization Invitations returning a Promise
  */
@@ -1366,6 +1406,27 @@ management.organizations
     .getInvitations({ id: 'organization_id', per_page: 2, page: 1 })
     .then((invitations: auth0.OrganizationInvitation[]) => {
         console.log(invitations);
+    });
+
+/**
+ * Get Organization Invitations with pagination and totals using a callback
+ */
+management.organizations.getInvitations(
+    { id: 'organization_id', per_page: 2, page: 1, include_totals: true },
+    (err, pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
+    },
+);
+
+/**
+ * Get Organization Invitations with pagination and totals returning a Promise
+ */
+management.organizations
+    .getInvitations({ id: 'organization_id', per_page: 2, page: 1, include_totals: true })
+    .then((pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
     });
 
 /**
@@ -1452,14 +1513,21 @@ management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_
 });
 
 /**
- * Get Organization Member Roles returning a Promise
+ * Get a paged result of an Organization Member Roles using a callback
  */
-management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id' }).then((roles: auth0.Role[]) => {
-    console.log(roles);
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }, (err, pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+    console.log(pagedRoles);
 });
 
 /**
- * Get Organization Member Roles with pagination using a callback
+ * Get a paged result of an Organization Member Roles returning a Promise
+ */
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }).then((pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+    console.log(pagedRoles);
+});
+
+/**
+ * Get a paged result of an Organization Member Roles with pagination using a callback
  */
 management.organizations.getMemberRoles(
     { id: 'organization_id', user_id: 'user_id', page: 0, per_page: 2 },

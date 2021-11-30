@@ -1,11 +1,9 @@
-import { BaseError, BaseErrorConstructor } from './base/Error';
+import BaseError from './base/Error';
 
-interface Error extends BaseError {
+declare class Error extends BaseError {
+    constructor(reason?: string, options?: { cause?: unknown });
+
     cause: unknown;
 }
 
-interface ErrorConstructor extends BaseErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): Error;
-}
-
-export default ErrorConstructor;
+export default Error;

@@ -2,6 +2,7 @@
   "private": true,
   "dependencies": {
     "chokidar": "^3.5.1",
-    "http-proxy-middleware": "^2.0.0"
+    "http-proxy-middleware": "^2.0.0",
+    "webpack": "*"
   }
 }

@@ -1,4 +1,4 @@
-// For Library Version: 1.94.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -914,6 +914,17 @@ declare module "sap/ui/unified/Calendar" {
      */
     getSelectedDates(): DateRange[];
     /**
+     * @SINCE 1.95
+     *
+     * Gets current value of property {@link #getShowCurrentDateButton showCurrentDateButton}.
+     *
+     * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
+     * view, the calendar navigates to Day picker view.
+     *
+     * Default value is `false`.
+     */
+    getShowCurrentDateButton(): boolean;
+    /**
      * @SINCE 1.48
      *
      * Gets current value of property {@link #getShowWeekNumbers showWeekNumbers}.
@@ -1258,6 +1269,15 @@ declare module "sap/ui/unified/Calendar" {
       sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
+     * Sets the visibility of the Current date button in the calendar.
+     */
+    setShowCurrentDateButton(
+      /**
+       * whether the Today button will be displayed
+       */
+      bShow: boolean
+    ): this;
+    /**
      * @SINCE 1.48
      *
      * Sets a new value for property {@link #getShowWeekNumbers showWeekNumbers}.
@@ -1417,6 +1437,14 @@ declare module "sap/ui/unified/Calendar" {
      * property.
      */
     showWeekNumbers?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.95
+     *
+     * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
+     * view, the calendar navigates to Day picker view.
+     */
+    showCurrentDateButton?: boolean | PropertyBindingInfo;
 
     /**
      * Dates or date ranges for selected dates.
@@ -1903,6 +1931,49 @@ declare module "sap/ui/unified/calendar/Header" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressCurrentDate pressCurrentDate} event of
+     * this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Current date button pressed
+     */
+    attachPressCurrentDate(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressCurrentDate pressCurrentDate} event of
+     * this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Current date button pressed
+     */
+    attachPressCurrentDate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:pressNext pressNext} event of this `sap.ui.unified.calendar.Header`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -2032,6 +2103,22 @@ declare module "sap/ui/unified/calendar/Header" {
       oListener?: object
     ): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:pressCurrentDate pressCurrentDate} event of
+     * this `sap.ui.unified.calendar.Header`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPressCurrentDate(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:pressNext pressNext} event of this `sap.ui.unified.calendar.Header`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -2086,6 +2173,15 @@ declare module "sap/ui/unified/calendar/Header" {
      * Fires event {@link #event:pressButton2 pressButton2} to attached listeners.
      */
     firePressButton2(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:pressCurrentDate pressCurrentDate} to attached listeners.
+     */
+    firePressCurrentDate(
       /**
        * Parameters to pass along with the event
        */
@@ -2221,6 +2317,16 @@ declare module "sap/ui/unified/calendar/Header" {
      * Default value is `true`.
      */
     getVisibleButton2(): boolean;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Gets current value of property {@link #getVisibleCurrentDateButton visibleCurrentDateButton}.
+     *
+     * If set, the Current date button will be displayed.
+     *
+     * Default value is `false`.
+     */
+    getVisibleCurrentDateButton(): boolean;
     /**
      * @SINCE 1.34.0
      *
@@ -2431,6 +2537,23 @@ declare module "sap/ui/unified/calendar/Header" {
        */
       bVisibleButton2?: boolean
     ): this;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Sets a new value for property {@link #getVisibleCurrentDateButton visibleCurrentDateButton}.
+     *
+     * If set, the Current date button will be displayed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setVisibleCurrentDateButton(
+      /**
+       * New value for property `visibleCurrentDateButton`
+       */
+      bVisibleCurrentDateButton?: boolean
+    ): this;
   }
 
   export interface $HeaderSettings extends $ControlSettings {
@@ -2523,6 +2646,13 @@ declare module "sap/ui/unified/calendar/Header" {
     enabledNext?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.95.0
+     *
+     * If set, the Current date button will be displayed.
+     */
+    visibleCurrentDateButton?: boolean | PropertyBindingInfo;
+
+    /**
      * Previous button pressed
      */
     pressPrevious?: (oEvent: Event) => void;
@@ -2531,6 +2661,11 @@ declare module "sap/ui/unified/calendar/Header" {
      * Next button pressed
      */
     pressNext?: (oEvent: Event) => void;
+
+    /**
+     * Current date button pressed
+     */
+    pressCurrentDate?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.32.0
@@ -8319,6 +8454,18 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     getLegend(): ID;
     /**
+     * @SINCE 1.97
+     *
+     * Gets current value of property {@link #getMultipleAppointmentsSelection multipleAppointmentsSelection}.
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     *
+     * Default value is `false`.
+     */
+    getMultipleAppointmentsSelection(): boolean;
+    /**
      * Gets current value of property {@link #getNonWorkingDays nonWorkingDays}.
      *
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
@@ -8700,6 +8847,25 @@ declare module "sap/ui/unified/CalendarRow" {
       oLegend: ID | CalendarLegend
     ): this;
     /**
+     * @SINCE 1.97
+     *
+     * Sets a new value for property {@link #getMultipleAppointmentsSelection multipleAppointmentsSelection}.
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setMultipleAppointmentsSelection(
+      /**
+       * New value for property `multipleAppointmentsSelection`
+       */
+      bMultipleAppointmentsSelection?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getNonWorkingDays nonWorkingDays}.
      *
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
@@ -9003,6 +9169,15 @@ declare module "sap/ui/unified/CalendarRow" {
           | keyof typeof CalendarAppointmentRoundWidth
         )
       | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.97
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     */
+    multipleAppointmentsSelection?: boolean | PropertyBindingInfo;
 
     /**
      * Appointments to be displayed in the row. Appointments outside the visible time frame are not rendered.

@@ -1,10 +1,25 @@
-// For Library Version: 1.94.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
 
   import { ButtonType } from "sap/m/library";
 
+  /**
+   * @SINCE 1.96
+   *
+   * Defines the layout type of the List card attributes.
+   */
+  export enum AttributesLayoutType {
+    /**
+     * One column.
+     */
+    OneColumn = "OneColumn",
+    /**
+     * Two columns.
+     */
+    TwoColumns = "TwoColumns",
+  }
   /**
    * @EXPERIMENTAL (since 1.64)
    *
@@ -1325,6 +1340,55 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cardConfigurationChange cardConfigurationChange}
+     * event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when some card configuration settings are changed as a result of user interaction. For example
+     * - filter value is changed.
+     */
+    attachCardConfigurationChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cardConfigurationChange cardConfigurationChange}
+     * event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when some card configuration settings are changed as a result of user interaction. For example
+     * - filter value is changed.
+     */
+    attachCardConfigurationChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * @EXPERIMENTAL (since 1.91)
      *
      * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
@@ -1370,6 +1434,32 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * This functions is called when a CSRF token has expired.
+     */
+    csrfTokenExpired(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object
+    ): void;
+    /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * This functions is called when a CSRF token is fetched.
+     */
+    csrfTokenFetched(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object,
+      /**
+       * A promise which resolves the CSRF token to its value.
+       */
+      pCSRFTokenValuePromise: Promise<any>
+    ): void;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -1377,6 +1467,24 @@ declare module "sap/ui/integration/Host" {
      * The passed function and listener object must match the ones used for event registration.
      */
     detachAction(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:cardConfigurationChange cardConfigurationChange}
+     * event of this `sap.ui.integration.Host`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachCardConfigurationChange(
       /**
        * The function to be called, when the event occurs
        */
@@ -1439,6 +1547,35 @@ declare module "sap/ui/integration/Host" {
       }
     ): boolean;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fires event {@link #event:cardConfigurationChange cardConfigurationChange} to attached listeners.
+     */
+    fireCardConfigurationChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The card the changes are fired from.
+         */
+        card?: Control;
+        /**
+         * Changed configuration settings.
+         *
+         * Example:
+         * ```javascript
+         *
+         *  {
+         *  	"/sap.card/configuration/filters/shipper/value": "key3",
+         *  	"/sap.card/configuration/filters/item/value": "key2"
+         *  }
+         * ```
+         */
+        changes?: object;
+      }
+    ): this;
+    /**
      * @EXPERIMENTAL (since 1.91)
      *
      * Fires event {@link #event:message message} to attached listeners.
@@ -1492,6 +1629,17 @@ declare module "sap/ui/integration/Host" {
        * The path to a context
        */
       sPath: string
+    ): Promise<any>;
+    /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * Resolves the CSRF token and returns a Promise with its value.
+     */
+    getCsrfToken(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object
     ): Promise<any>;
     /**
      * Resolves the destination and returns its URL.
@@ -1588,6 +1736,14 @@ declare module "sap/ui/integration/Host" {
      * Fired when an action is triggered.
      */
     action?: (oEvent: Event) => void;
+
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fired when some card configuration settings are changed as a result of user interaction. For example
+     * - filter value is changed.
+     */
+    cardConfigurationChange?: (oEvent: Event) => void;
 
     /**
      * @EXPERIMENTAL (since 1.91)
@@ -1787,6 +1943,55 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:configurationChange configurationChange} event
+     * of this `sap.ui.integration.widgets.Card`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
+     *
+     * Fired when some configuration settings are changed as a result of user interaction. For example - filter
+     * value is changed.
+     */
+    attachConfigurationChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:configurationChange configurationChange} event
+     * of this `sap.ui.integration.widgets.Card`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
+     *
+     * Fired when some configuration settings are changed as a result of user interaction. For example - filter
+     * value is changed.
+     */
+    attachConfigurationChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:manifestApplied manifestApplied} event of this
      * `sap.ui.integration.widgets.Card`.
      *
@@ -1905,6 +2110,24 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:configurationChange configurationChange} event
+     * of this `sap.ui.integration.widgets.Card`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachConfigurationChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:manifestApplied manifestApplied} event of
      * this `sap.ui.integration.widgets.Card`.
      *
@@ -1969,6 +2192,31 @@ declare module "sap/ui/integration/widgets/Card" {
         type?: CardActionType | keyof typeof CardActionType;
       }
     ): boolean;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fires event {@link #event:configurationChange configurationChange} to attached listeners.
+     */
+    fireConfigurationChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * Changed configuration settings.
+         *
+         * Example:
+         * ```javascript
+         *
+         *  {
+         *  	"/sap.card/configuration/filters/shipper/value": "key3",
+         *  	"/sap.card/configuration/filters/item/value": "key2",
+         *  }
+         * ```
+         */
+        changes?: object;
+      }
+    ): this;
     /**
      * Fires event {@link #event:manifestApplied manifestApplied} to attached listeners.
      */
@@ -2187,6 +2435,12 @@ declare module "sap/ui/integration/widgets/Card" {
      * Refreshes the card by re-applying the manifest settings and triggering all data requests.
      */
     refresh(): void;
+    /**
+     * @SINCE 1.95
+     *
+     * Refreshes the card data by triggering all data requests.
+     */
+    refreshData(): void;
     /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
@@ -2548,6 +2802,12 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     refresh(): void;
     /**
+     * @SINCE 1.95
+     *
+     * Refreshes the card data by triggering all data requests.
+     */
+    refreshData(): void;
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
      *
@@ -2756,6 +3016,14 @@ declare module "sap/ui/integration/widgets/Card" {
     action?: (oEvent: Event) => void;
 
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fired when some configuration settings are changed as a result of user interaction. For example - filter
+     * value is changed.
+     */
+    configurationChange?: (oEvent: Event) => void;
+
+    /**
      * @EXPERIMENTAL (since 1.72)
      *
      * Fired when the manifest is loaded.
@@ -2933,7 +3201,11 @@ declare namespace sap {
 
     "sap/ui/integration/library": undefined;
 
+    "sap/ui/integration/ManifestResolver": undefined;
+
     "sap/ui/integration/services/Service": undefined;
+
+    "sap/ui/integration/util/CsrfTokenHandler": undefined;
 
     "sap/ui/integration/util/DataProvider": undefined;
 

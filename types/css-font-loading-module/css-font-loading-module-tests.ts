@@ -27,3 +27,6 @@ contexts.forEach(context => {
     };
     context.fonts.dispatchEvent(e);
 });
+
+const ffs: FontFaceSet = document.fonts;
+ffs.addEventListener('loading', (e) => e.fontfaces);

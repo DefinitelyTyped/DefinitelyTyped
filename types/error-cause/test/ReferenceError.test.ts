@@ -1,16 +1,14 @@
 import ReferenceError from 'error-cause/ReferenceError';
 
-declare const Ø: any;
-
 // $ExpectType ReferenceError
-new (Ø as ReferenceError)();
+new ReferenceError();
 // $ExpectType ReferenceError
-new (Ø as ReferenceError)('reason');
+new ReferenceError('reason');
 // $ExpectType ReferenceError
-new (Ø as ReferenceError)('reason', {});
+new ReferenceError('reason', {});
 // $ExpectType ReferenceError
-new (Ø as ReferenceError)('reason', { cause: null });
+new ReferenceError('reason', { cause: null });
 // $ExpectType ReferenceError
-new (Ø as ReferenceError)('reason', { cause: 'stupidity' });
+new ReferenceError('reason', { cause: 'stupidity' });
 // $ExpectType ReferenceError
-new (Ø as ReferenceError)('reason', { cause: Ø as Error });
+new ReferenceError('reason', { cause: new ReferenceError() });

@@ -20,7 +20,7 @@ declare namespace langs {
         all: () => Language[];
         has: (type: Type, val: string) => boolean;
         codes: (type: Type) => string[];
-        names: (local: boolean) => string[];
+        names: (local?: boolean) => string[];
         where: (type: Type, val: string) => Language | undefined;
     }
 }

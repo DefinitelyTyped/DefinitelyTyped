@@ -2,6 +2,7 @@
 // Project: https://github.com/qix-/color-string#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Dan Marshall <https://github.com/danmarshall>
+//                 Eric NICOLAS (ccjmne) <https://github.com/ccjmne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type Color = [number, number, number, number];
@@ -15,8 +16,11 @@ export function get(colorString: string): ColorDescriptor | null;
 
 export namespace get {
     function hsl(colorString: string): Color | null;
+    function hsl(empty: null | undefined): null;
     function hwb(colorString: string): Color | null;
+    function hwb(empty: null | undefined): null;
     function rgb(colorString: string): Color | null;
+    function rgb(empty: null | undefined): null;
 }
 
 export namespace to {

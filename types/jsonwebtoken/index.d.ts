@@ -84,11 +84,7 @@ export interface VerifyOptions {
      */
     nonce?: string | undefined;
     subject?: string | undefined;
-    /**
-     * @deprecated
-     * Max age of token
-     */
-    maxAge?: string | undefined;
+    maxAge?: string | number | undefined;
 }
 
 export interface DecodeOptions {

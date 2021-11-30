@@ -236,6 +236,7 @@ declare module 'readline' {
          * @since v0.1.98
          */
         write(data: string | Buffer, key?: Key): void;
+        write(data: undefined | null | string | Buffer, key: Key): void;
         /**
          * Returns the real position of the cursor in relation to the input
          * prompt + string. Long input (wrapping) strings, as well as multiple

@@ -6,6 +6,7 @@ import {
     momentLocalizer,
     globalizeLocalizer,
     dateFnsLocalizer,
+    luxonLocalizer,
     move,
     Views,
     components,
@@ -34,6 +35,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 declare const globalize: any;
 declare const moment: any;
 declare const dateFnsConfig: any;
+declare const luxonConfig: any;
 
 declare const allViews: View[];
 
@@ -131,6 +133,27 @@ class CalendarResource {
     const localizer = dateFnsLocalizer(dateFnsConfig);
 
     ReactDOM.render(<HandleDragStart localizer={localizer} />, document.body);
+}
+
+// luxon Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+        />
+    );
+
+    const localizer = luxonLocalizer(luxonConfig);
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
 
 // Drag and Drop Example Test
