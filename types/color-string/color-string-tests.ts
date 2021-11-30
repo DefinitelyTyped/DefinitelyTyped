@@ -21,10 +21,12 @@ color = colorString.get.hwb('hwb(60, 3%, 60%, 0.6)');
 
 color = colorString.get.rgb('invalid color string');
 
-let nothing: null;
-nothing = colorString.get.rgb(null);
-nothing = colorString.get.hsl(null);
-nothing = colorString.get.hwb(null);
+function testNullableInput(input: string | null) {
+    color = colorString.get.rgb(input);
+}
+
+// $ExpectError
+color = colorString.get.rgb();
 
 let stringifiedColor: string;
 stringifiedColor = colorString.to.hex([255, 255, 255]);

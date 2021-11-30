@@ -15,12 +15,9 @@ export interface ColorDescriptor {
 export function get(colorString: string): ColorDescriptor | null;
 
 export namespace get {
-    function hsl(colorString: string): Color | null;
-    function hsl(empty: null | undefined): null;
-    function hwb(colorString: string): Color | null;
-    function hwb(empty: null | undefined): null;
-    function rgb(colorString: string): Color | null;
-    function rgb(empty: null | undefined): null;
+    function hsl(colorString: string | null): Color | null;
+    function hwb(colorString: string | null): Color | null;
+    function rgb(colorString: string | null): Color | null;
 }
 
 export namespace to {
