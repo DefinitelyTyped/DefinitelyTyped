@@ -10753,7 +10753,7 @@ declare namespace chrome.windows {
                 filters?: WindowEventFilter,
             ): void;
     }
- 
+
     /**
      * Specifies what type of browser window to create.
      * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
