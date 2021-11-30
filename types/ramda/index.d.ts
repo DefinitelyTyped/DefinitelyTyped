@@ -284,11 +284,20 @@ export function complement<TArgs extends any[]>(pred: (...args: TArgs) => unknow
  * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
  * functions must be unary.
  */
-// tslint:disable:max-line-length
 export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
-  ...func: [
-    fnLast: (a: any) => TResult,
-    ...func: Array<(a: any) => any>,
+    ...func: [
+        fnLast: (a: any) => TResult,
+        ...func: Array<(a: any) => any>,
+        f7: (a: R6) => R7,
+        f6: (a: R5) => R6,
+        f5: (a: R4) => R5,
+        f4: (a: R3) => R4,
+        f3: (a: R2) => R3,
+        f2: (a: R1) => R2,
+        f1: (...args: TArgs) => R1
+    ]
+): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
     f7: (a: R6) => R7,
     f6: (a: R5) => R6,
     f5: (a: R4) => R5,
@@ -296,24 +305,49 @@ export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult
     f3: (a: R2) => R3,
     f2: (a: R1) => R2,
     f1: (...args: TArgs) => R1
-  ]): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-  ): (...args: TArgs) => R7;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R7;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R6;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R5;
-export function compose<TArgs extends any[], R1, R2, R3, R4>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R4;
-export function compose<TArgs extends any[], R1, R2, R3>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R3;
-export function compose<TArgs extends any[], R1, R2>(f2: (a: R1) => R2, f1: (...args: TArgs) => R1): (...args: TArgs) => R2;
-export function compose<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
-// tslint:enable:max-line-length
+): (...args: TArgs) => R7;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
+    f7: (a: R6) => R7,
+    f6: (a: R5) => R6,
+    f5: (a: R4) => R5,
+    f4: (a: R3) => R4,
+    f3: (a: R2) => R3,
+    f2: (a: R1) => R2,
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R7;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
+    f6: (a: R5) => R6,
+    f5: (a: R4) => R5,
+    f4: (a: R3) => R4,
+    f3: (a: R2) => R3,
+    f2: (a: R1) => R2,
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R6;
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(
+    f5: (a: R4) => R5,
+    f4: (a: R3) => R4,
+    f3: (a: R2) => R3,
+    f2: (a: R1) => R2,
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R5;
+export function compose<TArgs extends any[], R1, R2, R3, R4>(
+    f4: (a: R3) => R4,
+    f3: (a: R2) => R3,
+    f2: (a: R1) => R2,
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R4;
+export function compose<TArgs extends any[], R1, R2, R3>(
+    f3: (a: R2) => R3,
+    f2: (a: R1) => R2,
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R3;
+export function compose<TArgs extends any[], R1, R2>(
+    f2: (a: R1) => R2,
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R2;
+export function compose<TArgs extends any[], R1>(
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 
 /**
  * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
@@ -412,14 +446,113 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  * are passed as arguments to the converging function to produce the return value.
  */
 // tslint:disable:max-line-length
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7, RestFunctions extends Array<(...args: TArgs) => any>>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6), ((...args: TArgs) => R7), ...RestFunctions]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6), ((...args: TArgs) => R7)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5>(converging: ((...args: readonly [R1, R2, R3, R4, R5] & { length: 5 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4>(converging: ((...args: readonly [R1, R2, R3, R4] & { length: 4 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3>(converging: ((...args: readonly [R1, R2, R3] & { length: 3 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2>(converging: ((...args: readonly [R1, R2] & { length: 2 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1>(converging: ((...args: readonly [R1] & { length: 1 }) => TResult), branches: [((...args: TArgs) => R1)]): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5, R6, R7, 
+    RestFunctions extends Array<(...args: TArgs) => any>
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5),
+        ((...args: TArgs) => R6),
+        ((...args: TArgs) => R7),
+        ...RestFunctions
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5, R6, R7
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5),
+        ((...args: TArgs) => R6),
+        ((...args: TArgs) => R7)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5, R6
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5),
+        ((...args: TArgs) => R6)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4, R5
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4, R5] & { length: 5 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4),
+        ((...args: TArgs) => R5)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3, R4
+>(
+    converging: ((...args: readonly [R1, R2, R3, R4] & { length: 4 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3),
+        ((...args: TArgs) => R4)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2, R3
+>(
+    converging: ((...args: readonly [R1, R2, R3] & { length: 3 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2),
+        ((...args: TArgs) => R3)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1, R2
+>(
+    converging: ((...args: readonly [R1, R2] & { length: 2 }) => TResult),
+    branches: [
+        ((...args: TArgs) => R1),
+        ((...args: TArgs) => R2)
+    ]
+): (...args: TArgs) => TResult;
+export function converge<
+    TArgs extends any[],
+    TResult,
+    R1
+>(
+    converging: ((...args: readonly [R1] & { length: 1 }) => TResult),
+    branches: [((...args: TArgs) => R1)]
+): (...args: TArgs) => TResult;
 // tslint:enable:max-line-length
 
 /**
@@ -1474,14 +1607,61 @@ export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
  * beginning with whatever arguments were passed to the initial invocation.
  */
 // tslint:disable:max-line-length
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(...funcs: [f1: (...args: TArgs) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<(a: any) => any>, fnLast: (a: any) => TResult]): (...args: TArgs) => TResult;  // fallback overload if number of piped functions greater than 7
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(f1: (...args: TArgs) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (...args: TArgs) => R7;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6>(f1: (...args: TArgs) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (...args: TArgs) => R6;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5>(f1: (...args: TArgs) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (...args: TArgs) => R5;
-export function pipe<TArgs extends any[], R1, R2, R3, R4>(f1: (...args: TArgs) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (...args: TArgs) => R4;
-export function pipe<TArgs extends any[], R1, R2, R3>(f1: (...args: TArgs) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (...args: TArgs) => R3;
-export function pipe<TArgs extends any[], R1, R2>(f1: (...args: TArgs) => R1, f2: (a: R1) => R2): (...args: TArgs) => R2;
-export function pipe<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+    ...funcs: [
+        f1: (...args: TArgs) => R1,
+        f2: (a: R1) => R2,
+        f3: (a: R2) => R3,
+        f4: (a: R3) => R4,
+        f5: (a: R4) => R5,
+        f6: (a: R5) => R6,
+        f7: (a: R6) => R7,
+        ...func: Array<(a: any) => any>,
+        fnLast: (a: any) => TResult
+    ]
+): (...args: TArgs) => TResult;  // fallback overload if number of piped functions greater than 7
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
+    f1: (...args: TArgs) => R1,
+    f2: (a: R1) => R2,
+    f3: (a: R2) => R3,
+    f4: (a: R3) => R4,
+    f5: (a: R4) => R5,
+    f6: (a: R5) => R6,
+    f7: (a: R6) => R7
+): (...args: TArgs) => R7;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
+    f1: (...args: TArgs) => R1,
+    f2: (a: R1) => R2,
+    f3: (a: R2) => R3,
+    f4: (a: R3) => R4,
+    f5: (a: R4) => R5,
+    f6: (a: R5) => R6
+): (...args: TArgs) => R6;
+export function pipe<TArgs extends any[], R1, R2, R3, R4, R5>(
+    f1: (...args: TArgs) => R1,
+    f2: (a: R1) => R2,
+    f3: (a: R2) => R3,
+    f4: (a: R3) => R4,
+    f5: (a: R4) => R5
+): (...args: TArgs) => R5;
+export function pipe<TArgs extends any[], R1, R2, R3, R4>(
+    f1: (...args: TArgs) => R1,
+    f2: (a: R1) => R2,
+    f3: (a: R2) => R3,
+    f4: (a: R3) => R4
+): (...args: TArgs) => R4;
+export function pipe<TArgs extends any[], R1, R2, R3>(
+    f1: (...args: TArgs) => R1,
+    f2: (a: R1) => R2,
+    f3: (a: R2) => R3
+): (...args: TArgs) => R3;
+export function pipe<TArgs extends any[], R1, R2>(
+    f1: (...args: TArgs) => R1,
+    f2: (a: R1) => R2
+): (...args: TArgs) => R2;
+export function pipe<TArgs extends any[], R1>(
+    f1: (...args: TArgs) => R1
+): (...args: TArgs) => R1;
 // tslint:enable:max-line-length
 
 /**
