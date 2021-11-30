@@ -73,6 +73,7 @@ import * as R from 'ramda';
   // $ExpectType (a: number, b: number) => number
   const fn10 = R.converge(add10, [multiply, add, subtract, multiply, add, subtract, multiply, add, subtract, multiply]);
 
+  // TODO This should throw error, because the number of branches is not the same as converge arity
   const fnWrongNumberOfBranches = R.converge(add10, [multiply, add, subtract, multiply, add, subtract, multiply, add, subtract, multiply, add, subtract]);
 
   // $ExpectType number
