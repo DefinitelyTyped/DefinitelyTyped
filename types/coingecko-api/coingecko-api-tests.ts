@@ -16,6 +16,10 @@ const client = new CoinGecko();
     });
     const { data, success, code, message } = resp;
 
+    /**
+     * coin
+     */
+
     await client.coins.all({ order: 'gecko_asc', page: 2 });
 
     await client.coins.fetchHistory('bitcoin', {
@@ -26,6 +30,14 @@ const client = new CoinGecko();
     await client.coins.fetch('bitcoin', {
         tickers: false,
     });
+
+    /**
+     * exchange
+     */
+
+    await client.exchanges.all();
+
+    await client.exchanges.fetch('ripio');
 
     /**
      * simple
