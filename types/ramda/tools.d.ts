@@ -295,6 +295,9 @@ export interface Reduced<A> {
     '@@transducer/reduced': true;
 }
 
+type Fn = (...args: any) => any;
+export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [ReturnType<H>, ...ReturnTypesOfFns<R>] : [] : [] : [];
+
 // ---------------------------------------------------------------------------------------
 // S
 
