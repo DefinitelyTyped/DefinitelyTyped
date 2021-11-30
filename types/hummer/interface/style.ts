@@ -2,13 +2,13 @@ export interface HummerCommonStyle {
     position?: 'relative' | 'absolute' | 'fixed'; // position: 'relative' | 'absolute' | 'fixed'
     flexDirection?: 'column' | 'row'; // flexDirection:'column' | 'row'
     flexWrap?: 'nowrap' | 'wrap' | 'wrap-reverse'; // flexWrap: 'nowrap' | 'wrap' | 'wrap-reverse'
-    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly'; // justifyContent: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly'
-    alignItems?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'; // alignItems: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
-    alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch'; // alignContent: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch'
+    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+    alignItems?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+    alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
     flexGrow?: number; // flexGrow: 1
     flexShrink?: number; // flexShrink: 1
     flexBasis?: number | string; // flexBasis: 500 | 'auto'
-    alignSelf?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'; // alignSelf: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
+    alignSelf?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
     width?: number | string; // width: 10 | '10px'
     height?: number | string; // height: 10 | '10px'
     minWidth?: number | string; // minWidth: 10 | '10px'

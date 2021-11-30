@@ -1,4 +1,4 @@
-interface ViewPager<T = unknown> extends HummerComponent {
+interface ViewPager<T = any> extends HummerComponent {
     style: import('../interface/style').viewPagerStyle;
     data: T[];
     /**
@@ -20,5 +20,5 @@ interface ViewPager<T = unknown> extends HummerComponent {
 }
 declare const ViewPager: {
     prototype: ViewPager;
-    new <T>(): ViewPager<T>;
+    new (): ViewPager;
 };
