@@ -44,7 +44,7 @@ import * as R from 'ramda';
   // $ExpectError
   const fnWrong = R.converge(concat, [add, subtract]);
 
-  // TODO This should throw error, because the number of branches is not the same as converge arity
+  // $ExpectError
   const fnWrongV2 = R.converge(multiply, [add, subtract, add]);
 
   // $ExpectError

@@ -38,6 +38,8 @@
 
 import * as _ from "ts-toolbelt";
 import {
+    AtLeastOneFunctionsFlow,
+    AtLeastOneFunctionsFlowFromRightToLeft,
     AssocPartialOne,
     CondPair,
     Dictionary,
@@ -61,8 +63,7 @@ import {
     ReturnTypesOfFns,
     ValueOfRecord,
     ValueOfUnion,
-    AtLeastOneFunctionsFlow,
-    AtLeastOneFunctionsFlowFromRightToLeft,
+    Tuple,
 } from "./tools";
 
 export * from './tools';
@@ -148,18 +149,8 @@ export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => 
  * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
  * an empty list is returned.
  */
-export function aperture<T>(n: 1, list: readonly T[]): Array<[T]>;
-export function aperture<T>(n: 2, list: readonly T[]): Array<[T, T]>;
-export function aperture<T>(n: 3, list: readonly T[]): Array<[T, T, T]>;
-export function aperture<T>(n: 4, list: readonly T[]): Array<[T, T, T, T]>;
-export function aperture<T>(n: 5, list: readonly T[]): Array<[T, T, T, T, T]>;
-export function aperture<T>(n: 6, list: readonly T[]): Array<[T, T, T, T, T, T]>;
-export function aperture<T>(n: 7, list: readonly T[]): Array<[T, T, T, T, T, T, T]>;
-export function aperture<T>(n: 8, list: readonly T[]): Array<[T, T, T, T, T, T, T, T]>;
-export function aperture<T>(n: 9, list: readonly T[]): Array<[T, T, T, T, T, T, T, T, T]>;
-export function aperture<T>(n: 10, list: readonly T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
-export function aperture<T>(n: number, list: readonly T[]): T[][];
-export function aperture(n: number): <T>(list: readonly T[]) => T[][];
+export function aperture<N extends number, T>(n: N, list: readonly T[]): Array<Tuple<T, N>> | [];
+export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => Array<Tuple<T, N>> | [];
 
 /**
  * Returns a new list containing the contents of the given list, followed by the given element.
@@ -422,13 +413,13 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  */
 // tslint:disable:max-line-length
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7, RestFunctions extends Array<(...args: TArgs) => any>>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6), ((...args: TArgs) => R7), ...RestFunctions]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6), ((...args: TArgs) => R7)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5>(converging: ((...args: readonly [R1, R2, R3, R4, R5]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4>(converging: ((...args: readonly [R1, R2, R3, R4]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3>(converging: ((...args: readonly [R1, R2, R3]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2>(converging: ((...args: readonly [R1, R2]) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2)]): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1>(converging: ((...args: readonly [R1]) => TResult), branches: [((...args: TArgs) => R1)]): (...args: TArgs) => TResult;
+export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6), ((...args: TArgs) => R7)]): (...args: TArgs) => TResult;
+export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6>(converging: ((...args: readonly [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5), ((...args: TArgs) => R6)]): (...args: TArgs) => TResult;
+export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5>(converging: ((...args: readonly [R1, R2, R3, R4, R5] & { length: 5 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4), ((...args: TArgs) => R5)]): (...args: TArgs) => TResult;
+export function converge<TArgs extends any[], TResult, R1, R2, R3, R4>(converging: ((...args: readonly [R1, R2, R3, R4] & { length: 4 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3), ((...args: TArgs) => R4)]): (...args: TArgs) => TResult;
+export function converge<TArgs extends any[], TResult, R1, R2, R3>(converging: ((...args: readonly [R1, R2, R3] & { length: 3 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2), ((...args: TArgs) => R3)]): (...args: TArgs) => TResult;
+export function converge<TArgs extends any[], TResult, R1, R2>(converging: ((...args: readonly [R1, R2] & { length: 2 }) => TResult), branches: [((...args: TArgs) => R1), ((...args: TArgs) => R2)]): (...args: TArgs) => TResult;
+export function converge<TArgs extends any[], TResult, R1>(converging: ((...args: readonly [R1] & { length: 1 }) => TResult), branches: [((...args: TArgs) => R1)]): (...args: TArgs) => TResult;
 // tslint:enable:max-line-length
 
 /**
@@ -1019,13 +1010,16 @@ export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>
  * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
  * the FantasyLand Apply spec.
  */
-export function lift(fn: ((...a: readonly any[]) => any), ...args: readonly any[]): any;
+export function lift<F extends (...args: readonly any[]) => any>(fn: F): (...args: any[]) => any;
 
 /**
  * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
  * objects that satisfy the FantasyLand Apply spec.
  */
-export function liftN(n: number, fn: ((...a: readonly any[]) => any), ...args: readonly any[]): any;
+export function liftN<N extends number, F extends (...args: readonly any[]) => any>(
+  n: N,
+  fn: F
+  ): (...args: any[]) => any;
 
 /**
  * Returns true if the first parameter is less than the second.
