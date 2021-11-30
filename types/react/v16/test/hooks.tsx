@@ -168,6 +168,14 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType MutableRefObject<number | undefined>
     React.useRef<number | undefined>(1);
 
+    // useRef error cases
+    // $ExpectError
+    React.useRef<number>('not a number');
+    // $ExpectError
+    React.useRef<string>(true);
+    // $ExpectError
+    React.useRef<boolean>(10);
+
     // should be contextually typed
     const a: React.MutableRefObject<number | undefined> = React.useRef(undefined);
     const b: React.MutableRefObject<number | undefined> = React.useRef();
