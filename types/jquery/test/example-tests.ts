@@ -843,11 +843,6 @@ function examples() {
         $('div').children('.selected').css('color', 'blue');
     }
 
-    function children_3() {
-        $('div').children(); // $ExpectType JQuery<HTMLElement>
-        $<HTMLDivElement>('div').children(); // $ExpectType JQuery<HTMLElement>
-    }
-
     function class_0() {
         $('.myClass').css('border', '3px solid red');
     }

@@ -1780,6 +1780,8 @@ $( "div" ).children( ".selected" ).css( "color", "blue" );
 </html>
 ```
      */
+    children<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    children<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
     children(selector?: JQuery.Selector): JQuery;
     /**
      * Remove from the queue all items that have not yet been run.
