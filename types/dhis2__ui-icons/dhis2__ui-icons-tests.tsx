@@ -1,6 +1,6 @@
+import { IconAdd16 } from '@dhis2/ui-icons';
 import * as React from "react";
-import { Add16 } from "@dhis2/ui-icons";
 
-const Test = () => {
-    return <Add16 />;
-};
+const emptyIcon = <IconAdd16 />;
+const iconWithColor = <IconAdd16 color={'white'} />;
+const iconWithInvalidProp = <IconAdd16 resize={true} />; // $ExpectError
