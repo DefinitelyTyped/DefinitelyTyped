@@ -38,7 +38,7 @@ declare namespace MapboxGeocoder {
         /**
          * A [mapbox-gl](https://github.com/mapbox/mapbox-gl-js) instance to use when creating [Markers](https://docs.mapbox.com/mapbox-gl-js/api/#marker). Required if `options.marker` is `true`.
          */
-        mapboxgl?: mapboxgl.Map | undefined;
+        mapboxgl?: typeof mapboxgl | undefined;
         /**
          * On geocoded result what zoom level should the map animate to when a bbox isn't found in the response. If a bbox is found the map will fit to the bbox. (optional, default 16)
          */
