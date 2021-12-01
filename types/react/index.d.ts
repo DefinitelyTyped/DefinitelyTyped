@@ -2486,7 +2486,7 @@ declare namespace React {
     interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
-        className?: string | undefined;
+        className?: string;
         color?: string | undefined;
         height?: number | string | undefined;
         id?: string | undefined;
