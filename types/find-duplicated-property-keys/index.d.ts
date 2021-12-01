@@ -24,6 +24,7 @@ declare namespace findDuplicatedPropertyKeys {
         /**
          * The number of property keys having the same key and parent object
          */
+
         occurrence: number;
 
         /**
