@@ -55,7 +55,7 @@ declare namespace sanitize {
   interface IOptions {
     allowedAttributes?: Record<string, AllowedAttribute[]> | false | undefined;
     allowedStyles?: { [index: string]: { [index: string]: RegExp[] } } | undefined;
-    allowedClasses?: { [index: string]: string[] | boolean } | undefined;
+    allowedClasses?: { [index: string]: (string | RegExp)[] | boolean } | undefined;
     allowedIframeDomains?: string[] | undefined;
     allowedIframeHostnames?: string[] | undefined;
     allowIframeRelativeUrls?: boolean | undefined;
