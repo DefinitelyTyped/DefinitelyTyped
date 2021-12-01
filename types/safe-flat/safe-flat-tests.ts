@@ -15,9 +15,9 @@ const testObject = {
 };
 
 const testFlattenedObject = {
-    '0': true,
-    'lol': null,
-    'phew': 0,
+    0: true,
+    lol: null,
+    phew: 0,
     'yeah.0': 'ok',
     'yeah.2': 'yep',
     'yeah.3.something': 'something',
