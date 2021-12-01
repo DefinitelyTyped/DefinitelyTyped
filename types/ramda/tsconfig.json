@@ -125,6 +125,8 @@
         "test/lensIndex-tests.ts",
         "test/lensPath-tests.ts",
         "test/lensProp-tests.ts",
+        "test/lift-tests.ts",
+        "test/liftN-tests.ts",
         "test/lt-tests.ts",
         "test/lte-tests.ts",
         "test/map-tests.ts",

@@ -321,10 +321,38 @@ export type ValueOfRecord<R> =
 export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 
 /**
+ * Take first N types of an Tuple
+ */
+
+export type Take<N extends number, Tuple extends any[], ReturnTuple extends any[] = []> = ReturnTuple['length'] extends N
+    ? ReturnTuple
+    : Tuple extends [infer X, ...infer Xs]
+        ? Take<N, Xs, [...ReturnTuple, X]>
+        : never;
+
+/**
  * define an n-length tuple type
  */
 
-export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
+ export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+
+/**
+ * map Tuple of ordinary type to Tuple of array type
+ * [string, number] -> [string[], number[]]
+ */
+export type ToTupleOfArray<Tuple extends any[]> =
+    Tuple extends []
+    ? []
+    : Tuple extends [infer X, ...infer Xs]
+        ? [X[], ...ToTupleOfArray<Xs>]
+        : never;
+
+export type ToTupleOfFunction<R, Tuple extends any[]> =
+    Tuple extends []
+    ? []
+    : Tuple extends [infer X, ...infer Xs]
+        ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
+        : never;
 
 export {};
