@@ -22,7 +22,7 @@ interface ListStreamConstructor extends ListStreamMethod {
 
 declare let ListStream: ListStreamConstructor;
 
-interface ListStream extends Duplex {
+interface ListStream extends Omit<Duplex, 'end'> {
     append(chunk: any): void;
     duplicate(): ListStream;
     end(): void;
