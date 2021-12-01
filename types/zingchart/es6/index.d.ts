@@ -2656,6 +2656,38 @@ declare namespace zingchart {
     'border-color'?: string;
     borderColor?: string;
     /**
+     * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+     * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+     * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+     * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+     */
+     'border-radius'?: any;
+     borderRadius?: any;
+     /**
+      * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+      * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-bottom-left'?: any;
+     borderRadiusBottomLeft?: any;
+     /**
+      * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+      * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-bottom-right'?: any;
+     borderRadiusBottomRight?: any;
+     /**
+      * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+      * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-top-left'?: any;
+     borderRadiusTopLeft?: any;
+     /**
+      * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+      * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-top-right'?: any;
+     borderRadiusTopRight?: any;
+    /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. See also line-color for c
      * losed shapes. Requires Legend. Used only inside individual series rather than Plot. See the shape to the left of the text in the u
      * pper right box. 4 | "6px" | ...

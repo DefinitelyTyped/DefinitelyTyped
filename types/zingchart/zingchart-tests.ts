@@ -57,6 +57,9 @@ zingchart.render({
             type: 'date',
         },
     },
+    series: [{
+        borderRadius: 3,
+    }],
     zoom: {},
     zoomSnap: true,
 });
