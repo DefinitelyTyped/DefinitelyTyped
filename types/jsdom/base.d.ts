@@ -189,7 +189,9 @@ declare module "jsdom" {
 
         /* ECMAScript Globals */
         globalThis: DOMWindow;
+        // @ts-ignore
         readonly ["Infinity"]: number;
+        // @ts-ignore
         readonly ["NaN"]: number;
         readonly undefined: undefined;
 
