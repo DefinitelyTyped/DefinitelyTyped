@@ -1,4 +1,4 @@
-// Type definitions for safe-flat 2.0.2
+// Type definitions for safe-flat 2.0
 // Project: https://github.com/jessie-codes/safe-flat
 // Definitions by: GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

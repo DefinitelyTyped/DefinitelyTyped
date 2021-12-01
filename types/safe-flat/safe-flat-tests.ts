@@ -24,5 +24,5 @@ const testFlattenedObject = {
     'zzz.ok.watch': 'nay-nay',
 };
 
-safeFlat.flatten(testObject);
-safeFlat.unflatten(testFlattenedObject);
+safeFlat.flatten(testObject); // $ExpectType Record<string, unknown>
+safeFlat.unflatten(testFlattenedObject); // $ExpectType Record<string | number, unknown>
