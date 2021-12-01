@@ -584,12 +584,18 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
      */
     nodeViews?:
         | {
-              [name: string]: (
+              [name: string]: ((
                   node: ProsemirrorNode<S>,
                   view: EditorView<S>,
-                  getPos: (() => number) | boolean,
+                  /** get the node's current position */
+                  getPos: () => number,
                   decorations: Decoration[],
-              ) => NodeView<S>;
+              ) => NodeView<S>) | ((
+                  mark: Mark<S>,
+                  view: EditorView<S>,
+                  /** indicates whether the mark's content is inline */
+                  inline: boolean,
+              ) => Pick<NodeView<S>, 'dom' | 'contentDOM'>);
           }
         | null
         | undefined;

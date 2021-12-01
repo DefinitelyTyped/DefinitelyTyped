@@ -262,6 +262,7 @@ declare namespace Consul {
                 tags?: string[] | undefined;
                 address?: string | undefined;
                 port?: number | undefined;
+                meta?: Record<string, string> | undefined;
                 check?: RegisterCheck | undefined;
                 checks?: RegisterCheck[] | undefined;
             }

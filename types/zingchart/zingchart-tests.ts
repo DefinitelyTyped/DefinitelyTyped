@@ -52,10 +52,17 @@ zingchart.render({
         text: 'testing',
     }],
     scaleX: {
+        step: '3hour',
         transform: {
             type: 'date',
         },
     },
+    series: [{
+        borderRadius: 3,
+        legendMarker: {
+            lineStyle: 'dotted',
+        },
+    }],
     zoom: {},
     zoomSnap: true,
 });

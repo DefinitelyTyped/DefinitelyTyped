@@ -2656,6 +2656,38 @@ declare namespace zingchart {
     'border-color'?: string;
     borderColor?: string;
     /**
+     * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+     * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+     * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+     * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+     */
+     'border-radius'?: any;
+     borderRadius?: any;
+     /**
+      * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+      * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-bottom-left'?: any;
+     borderRadiusBottomLeft?: any;
+     /**
+      * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+      * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-bottom-right'?: any;
+     borderRadiusBottomRight?: any;
+     /**
+      * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+      * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-top-left'?: any;
+     borderRadiusTopLeft?: any;
+     /**
+      * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+      * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-top-right'?: any;
+     borderRadiusTopRight?: any;
+    /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. See also line-color for c
      * losed shapes. Requires Legend. Used only inside individual series rather than Plot. See the shape to the left of the text in the u
      * pper right box. 4 | "6px" | ...
@@ -2704,6 +2736,11 @@ declare namespace zingchart {
      */
     'gradient-stops'?: string;
     gradientStops?: string;
+    /**
+     * Sets the line style of the object. 'solid' | 'dotted' | 'dashed' | 'dashdot'
+     */
+     'line-style'?: string;
+     lineStyle?: string;
     /**
      * Sets an X offset to apply when positioning the object/shape. Requires Legend. Used only inside individual series rather than Plot.
      *  See the shape to the left of the text in the upper right box. 4 | "6px" | ...
@@ -5658,7 +5695,7 @@ declare namespace zingchart {
     /**
      * Sets the value of each step along an axis.
      */
-     step?: number;
+     step?: number | string;
     /**
      * When you set the 'thousands-separator': attribute, the punctuation which is used will be placed to separate digits which go into 1,000s, 10,000s, etc. When placed in the 'plot': { } object,
      * this will only effect values which are pulled directly from the series data. Objects such as 'scale-y': { }, 'scale-x': { }, etc..., will need to be set separately.
@@ -7605,7 +7642,7 @@ declare namespace zingchart {
     /**
      * Sets the value of each step along an axis.
      */
-    step?: number;
+    step?: number | string;
     /**
      * Sets the characters used to separate thousands in larger numbers. '.' | ',' | ...
      */
