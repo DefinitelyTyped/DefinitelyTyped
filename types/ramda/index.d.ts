@@ -63,6 +63,7 @@ import {
     ReturnTypesOfFns,
     ValueOfRecord,
     ValueOfUnion,
+    Take,
     ToTupleOfArray,
     ToTupleOfFunction,
     Tuple,
@@ -1147,17 +1148,17 @@ export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>
  */
 export function lift<F extends (...args: readonly any[]) => any>(fn: F): {
     (...args: ToTupleOfArray<Parameters<F>>): Array<ReturnType<F>>;
-    <R>(...args: ToTupleOfFunction<R, Parameters<F>>): ReturnType<F>;
-}
+    <R>(...args: ToTupleOfFunction<R, Parameters<F>>): ((arg: R) => ReturnType<F>);
+};
 
 /**
  * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
  * objects that satisfy the FantasyLand Apply spec.
  */
-export function liftN<N extends number, F extends (...args: readonly any[]) => any>(n: N, fn: F ): {
-    (...args: ToTupleOfArray<Parameters<F>>): Array<ReturnType<F>>;
-    <R>(...args: ToTupleOfFunction<R, Parameters<F>>): ReturnType<F>;
-}
+export function liftN<N extends number, F extends (...args: readonly any[]) => any>(n: N, fn: F): {
+    (...args: Take<N, ToTupleOfArray<Parameters<F>>>): Array<ReturnType<F>>;
+    <R>(...args: Take<N, ToTupleOfFunction<R, Parameters<F>>>): ((arg: R) => ReturnType<F>);
+};
 
 /**
  * Returns true if the first parameter is less than the second.
