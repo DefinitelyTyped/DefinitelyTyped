@@ -1,1 +1,0 @@
-ackee-tracker-tests.config.json

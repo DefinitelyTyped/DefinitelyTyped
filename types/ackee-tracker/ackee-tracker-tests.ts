@@ -1,5 +1,4 @@
 import * as ackeeTracker from 'ackee-tracker';
-import * as config from './ackee-tracker-tests.config.json';
 
 ackeeTracker.attributes();
 ackeeTracker.attributes(true);
@@ -32,11 +31,17 @@ const instance2 = ackeeTracker.create('https://example.com', {
 instance2.record('hd11f820-68a1-11e6-8047-79c0c2d9bce0', ackeeTracker.attributes(true));
 
 
-const instance3 = ackeeTracker.create(config.ackee.url, {
-        ignoreLocalhost: config.ackee.ignoreLocalhost,
-        detailed: config.ackee.detailed,
-        ignoreOwnVisits: config.ackee.ignoreOwnVisits
+const options: ackeeTracker.TrackingOptions = {
+    ignoreLocalhost: true,
+    detailed: true,
+    ignoreOwnVisits: true
+}
+
+const instance3 = ackeeTracker.create('https://example.com', {
+        ignoreLocalhost: options.ignoreLocalhost,
+        detailed: options.detailed,
+        ignoreOwnVisits: options.ignoreOwnVisits
     },
 );
 
-instance3.record(config.ackee.domainId, ackeeTracker.attributes(config.ackee.detailed));
+instance3.record('https://example.com', ackeeTracker.attributes(options.detailed));
