@@ -1,5 +1,5 @@
 import { IconAdd16 } from '@dhis2/ui-icons';
-import * as React from "react";
+import * as React from 'react';
 
 const icon = <IconAdd16 />;
 const iconWithColor = <IconAdd16 color={'white'} />;
