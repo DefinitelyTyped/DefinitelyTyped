@@ -52,6 +52,7 @@ zingchart.render({
         text: 'testing',
     }],
     scaleX: {
+        step: '3hour',
         transform: {
             type: 'date',
         },
