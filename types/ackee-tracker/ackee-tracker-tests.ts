@@ -34,7 +34,7 @@ const options: ackeeTracker.TrackingOptions = {
     ignoreLocalhost: true,
     detailed: true,
     ignoreOwnVisits: true
-}
+};
 
 const instance3 = ackeeTracker.create('https://example.com', {
         ignoreLocalhost: options.ignoreLocalhost,
