@@ -4903,6 +4903,10 @@
             "libraryName": "styled-jsx",
             "asOfVersion": "3.4.4"
         },
+        "stylelint": {
+            "libraryName": "stylelint",
+            "asOfVersion": "14.0.0"
+        },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
             "asOfVersion": "2.1.0"
