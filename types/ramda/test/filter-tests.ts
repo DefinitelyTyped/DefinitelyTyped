@@ -62,6 +62,7 @@ import { Dictionary } from 'ramda/tools';
   let stringArray: string[];
 
   numberArray = R.filter(R.is(Number), unknownArray);
+  // $ExpectError
   numberArray = filterNumbers(unknownArray);
   // $ExpectError
   stringArray = R.filter(R.is(Number), unknownArray);
@@ -73,6 +74,7 @@ import { Dictionary } from 'ramda/tools';
   let stringDictionary: Dictionary<string>;
 
   numberDictionary = R.filter(R.is(Number), unknownDictionary);
+  // $ExpectError
   numberDictionary = filterNumbers(unknownDictionary);
   // $ExpectError
   stringDictionary = R.filter(R.is(Number), unknownDictionary);

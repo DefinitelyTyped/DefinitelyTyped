@@ -18,28 +18,6 @@ import { A, O, T } from "ts-toolbelt";
 
 /**
  * <needs description>
- */
-export type Arity0Fn = () => any;
-
-/**
- * <needs description>
- */
-export type Arity1Fn = (a: any) => any;
-
-/**
- * <needs description>
- */
-export type Arity2Fn = (a: any, b: any) => any;
-
-/**
- * <needs description>
- */
-export interface ArrayLike {
-    nodeType: number;
-}
-
-/**
- * <needs description>
  * @param K
  */
 export type AssocPartialOne<K extends keyof any> =

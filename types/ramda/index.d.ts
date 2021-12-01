@@ -741,10 +741,7 @@ export function F(...args: unknown[]): false;
 /**
  * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
  */
-export function filter<A, P extends A>(pred: (val: A) => val is P): {
-    <B extends A>(list: readonly B[]): P[];
-    <B extends A>(dict: Dictionary<B>): Dictionary<P>;
-};
+// https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html#use-union-types
 export function filter<T>(pred: (value: T) => boolean): <P extends T, C extends (readonly P[] | Dictionary<P>)>(collection: C) => C;
 export function filter<T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P[];
 export function filter<T, P extends T>(pred: (val: T) => val is P, dict: Dictionary<T>): Dictionary<P>;
