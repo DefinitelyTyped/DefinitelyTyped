@@ -52,7 +52,7 @@ declare namespace BittorrentProtocol {
 
         setTimeout(ms: number, unref?: boolean): void;
 
-        destroy(): void;
+        destroy(): this;
 
         use(ext: ExtensionConstructor): void;
 
