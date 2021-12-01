@@ -14,8 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
