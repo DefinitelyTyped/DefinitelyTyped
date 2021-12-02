@@ -16,7 +16,7 @@ export interface DateTimePickerProps {
     className?: string | string[];
     clearAriaLabel?: string;
     clearIcon?: JSX.Element | null;
-    clockClassName?: string | Array<string>;
+    clockClassName?: string | string[];
     closeWidgets?: boolean;
     dayAriaLabel?: string;
     dayPlaceholder?: string;
@@ -30,8 +30,8 @@ export interface DateTimePickerProps {
     isClockOpen?: boolean;
     locale?: string;
     maxDate?: Date;
-    maxDetail?: "hour" | "minute" | "second";
-    minDetail?: "month" | "year" | "decade" | "century";
+    maxDetail?: 'hour' | 'minute' | 'second';
+    minDetail?: 'month' | 'year' | 'decade' | 'century';
     minuteAriaLabel?: string;
     minutePlaceholder?: string;
     monthAriaLabel?: string;
@@ -44,12 +44,12 @@ export interface DateTimePickerProps {
     onClockClose?: () => void;
     onClockOpen?: () => void;
     openWidgetsOnFocus?: boolean;
-    returnValue?: "start" | "end" | "range";
+    returnValue?: 'start' | 'end' | 'range';
     required?: boolean;
     secondAriaLabel?: string;
     secondPlaceholder?: string;
     showLeadingZeros?: boolean;
     value?: Date | [Date, Date];
-    yearAriaLabel?: string
+    yearAriaLabel?: string;
     yearPlaceholder?: string;
 }
