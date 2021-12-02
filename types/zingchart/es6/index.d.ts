@@ -2737,6 +2737,11 @@ declare namespace zingchart {
     'gradient-stops'?: string;
     gradientStops?: string;
     /**
+     * Sets the line style of the object. 'solid' | 'dotted' | 'dashed' | 'dashdot'
+     */
+     'line-style'?: string;
+     lineStyle?: string;
+    /**
      * Sets an X offset to apply when positioning the object/shape. Requires Legend. Used only inside individual series rather than Plot.
      *  See the shape to the left of the text in the upper right box. 4 | "6px" | ...
      */

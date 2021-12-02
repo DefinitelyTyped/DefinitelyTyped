@@ -59,6 +59,9 @@ zingchart.render({
     },
     series: [{
         borderRadius: 3,
+        legendMarker: {
+            lineStyle: 'dotted',
+        },
     }],
     zoom: {},
     zoomSnap: true,

@@ -21,12 +21,12 @@ async function test() {
     await init();
     const fileName = await create('blacklist_the_beatles');
     console.log('Created:', fileName);
-    const { db } = await database.connect();
+    const { db, client } = await database.connect();
     const mongoConnectionSettings = await config.read();
     config.set(mongoConnectionSettings);
-    const migrated = await up(db);
+    const migrated = await up(db, client);
     migrated.forEach(fileName => console.log('Migrated:', fileName));
-    const migratedDown = await down(db);
+    const migratedDown = await down(db, client);
     migratedDown.forEach(fileName => console.log('Migrated Down:', fileName));
     const migrationStatus = await status(db);
     migrationStatus.forEach(({ fileName, appliedAt }) => console.log(fileName, ':', appliedAt));
