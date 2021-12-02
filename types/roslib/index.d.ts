@@ -412,7 +412,7 @@ declare namespace ROSLIB {
          *     * provided and other listeners are registered the topic won't
          *     * unsubscribe, just stop emitting to the passed listener
          */
-        unsubscribe(callback?: (callback: (message: TMessage) => void) => void): void;
+        unsubscribe(callback?: (message: TMessage) => void): void;
 
         /**
          * Registers as a publisher for the topic.
