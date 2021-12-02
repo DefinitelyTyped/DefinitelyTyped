@@ -701,7 +701,12 @@ function testTtsVoice() {
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
-    details; // $ExpectType chrome.runtime.InstalledDetails
+    details; // $ExpectType InstalledDetails
+    details.reason; // $ExpectType OnInstalledReason
+    details.previousVersion; // $ExpectType string
+    details.id; // $ExpectType string
+
+    details.reason = 'invalid-reason'; // $ExpectError
 })
 
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
