@@ -1,4 +1,4 @@
-// Type definitions for html-pdf v2.2.0
+// Type definitions for html-pdf v3.0.1
 // Project: https://github.com/marcbachmann/node-html-pdf
 // Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -57,6 +57,13 @@ declare module 'html-pdf' {
     // Script options
     phantomPath?: string | undefined;
     phantomArgs?: string[] | undefined;
+
+    // Prevent local file:// access by passing '--local-url-access=false' to phantomjs
+    // For security reasons you should keep the default value if you render
+    // arbitrary html/js.
+    // The default is `false`
+    localUrlAccess?: boolean | undefined;
+
     script?: string | undefined;
     timeout?: number | undefined;
 
