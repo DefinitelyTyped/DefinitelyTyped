@@ -49,9 +49,9 @@ const dom = new JSDOM();
 const svg = select(dom.window.document.body)
   .append("svg")
   .attr("id", "gh-dark-mode-only")
-  // @ts-expect-error
   .attr("viewBox", [0, 0, width, height])
   .attr("font-family", "sans-serif");
+// White axes in dark mode.
 svg.append("style").text(`
   #gh-dark-mode-only:target {
     color: #ffffff;
