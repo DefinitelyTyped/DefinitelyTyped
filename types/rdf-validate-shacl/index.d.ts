@@ -1,4 +1,4 @@
-// Type definitions for rdf-validate-shacl 0.2
+// Type definitions for rdf-validate-shacl 0.4
 // Project: https://github.com/zazuko/rdf-validate-shacl#readme
 // Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
