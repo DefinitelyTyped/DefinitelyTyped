@@ -33,7 +33,7 @@ const client = new CoinGecko();
 
     await client.exchanges.all();
 
-    await client.exchanges.fetch('ripio');
+    await client.exchanges.fetch('mercado_bitcoin');
 
     /**
      * simple
