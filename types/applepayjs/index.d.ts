@@ -457,9 +457,9 @@ declare namespace ApplePayJS {
         paymentPass: ApplePayPaymentPass;
 
         /**
-         * The billing contact associated with the card.
+         * Information fields that are used for billing and shipping contacts.
          */
-        billingContact?: ApplePayPaymentContact | undefined;
+        billingContact: ApplePayPaymentContact;
     }
 
     /**
