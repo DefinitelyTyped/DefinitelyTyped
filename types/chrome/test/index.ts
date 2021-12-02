@@ -700,6 +700,10 @@ function testTtsVoice() {
     );
 }
 
+chrome.runtime.onInstalled.addListener((details) => {
+    details; // $ExpectType chrome.runtime.InstalledDetails
+})
+
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
     console.log('request: ', request);
