@@ -54,6 +54,7 @@ export interface GraphLevelNodeConfiguration<N extends GraphNode> {
     mouseCursor: string;
     viewGenerator: (node: N) => any;
     labelProperty: NodeLabelProperty<N>;
+    labelPosition: 'left' | 'right' | 'top' | 'bottom' | 'center';
 }
 
 export interface GraphNode extends Partial<NodeLevelNodeConfiguration> {

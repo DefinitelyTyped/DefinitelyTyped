@@ -2656,6 +2656,38 @@ declare namespace zingchart {
     'border-color'?: string;
     borderColor?: string;
     /**
+     * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+     * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+     * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+     * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+     */
+     'border-radius'?: any;
+     borderRadius?: any;
+     /**
+      * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+      * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-bottom-left'?: any;
+     borderRadiusBottomLeft?: any;
+     /**
+      * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+      * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-bottom-right'?: any;
+     borderRadiusBottomRight?: any;
+     /**
+      * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+      * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-top-left'?: any;
+     borderRadiusTopLeft?: any;
+     /**
+      * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+      * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+      */
+     'border-radius-top-right'?: any;
+     borderRadiusTopRight?: any;
+    /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. See also line-color for c
      * losed shapes. Requires Legend. Used only inside individual series rather than Plot. See the shape to the left of the text in the u
      * pper right box. 4 | "6px" | ...
@@ -2704,6 +2736,11 @@ declare namespace zingchart {
      */
     'gradient-stops'?: string;
     gradientStops?: string;
+    /**
+     * Sets the line style of the object. 'solid' | 'dotted' | 'dashed' | 'dashdot'
+     */
+     'line-style'?: string;
+     lineStyle?: string;
     /**
      * Sets an X offset to apply when positioning the object/shape. Requires Legend. Used only inside individual series rather than Plot.
      *  See the shape to the left of the text in the upper right box. 4 | "6px" | ...
@@ -5581,6 +5618,12 @@ declare namespace zingchart {
     'max-value'?: number;
     maxValue?: number;
     /**
+     * Sets the minimum value for the y axis. 'min-value': is one of the multiple ways you can set y axis values. Commonly used with time
+     *  series data. Also see 'max-value': and 'step': 'auto' | 4 | '6px' | ...
+     */
+    'min-value'?: number;
+    minValue?: number;
+    /**
      * Sets the number of minor tick marks displayed between the major tick marks. Note that this attribute is required to style the mino
      * r tick marks and/or guides. 5 | 10 | ...
      */
@@ -5649,6 +5692,10 @@ declare namespace zingchart {
      */
     'show-labels'?: any;
     showLabels?: any;
+    /**
+     * Sets the value of each step along an axis.
+     */
+     step?: number | string;
     /**
      * When you set the 'thousands-separator': attribute, the punctuation which is used will be placed to separate digits which go into 1,000s, 10,000s, etc. When placed in the 'plot': { } object,
      * this will only effect values which are pulled directly from the series data. Objects such as 'scale-y': { }, 'scale-x': { }, etc..., will need to be set separately.
@@ -7356,6 +7403,10 @@ declare namespace zingchart {
         'wrap-text'?: boolean;
         wrapText?: boolean;
       };
+      /**
+       * To convert Unix timestamps into dates. Use this attribute with the all attribute. 'date'
+       */
+      type?: string;
     };
   }
   interface scaleY {
@@ -7588,6 +7639,10 @@ declare namespace zingchart {
      */
     'size-factor'?: string;
     sizeFactor?: string;
+    /**
+     * Sets the value of each step along an axis.
+     */
+    step?: number | string;
     /**
      * Sets the characters used to separate thousands in larger numbers. '.' | ',' | ...
      */
@@ -8849,6 +8904,19 @@ declare namespace zingchart {
       wrapText?: boolean;
     };
     transform?: {
+      /**
+       * To format your date values. Use this attribute with the `type` value (set to `true`). Token Description `%A` Displays the ante or
+       * post meridiem time in upper case letters: AM or PM. `%a` Displays the ante or post meridiem time in lower case letters: am or pm.
+       * `%D` Displays the day of the week in abbreviated form: Sun, Mon, Tue, Wed, Thu, Fri. `%d` Displays the day's date without a leadin
+       * g 0 if the date is single digit. `%dd` Displays the day's date with a leading 0 if the date is single digit. `%G` Displays the hou
+       * r in 24-hour format without a leading 0. `%g` Displays the hour in 12-hour format without a leading 0. `%H` Displays the hour in 2
+       * 4-hour format with a leading 0 if the hour is single digit. `%h` Displays the hour in 12-hour format with a leading 0 if the hour
+       * is single digit. `%i` Displays the minutes. `%M` Displays the month in abbreviated form: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, S
+       * ep, Oct, Nov and Dec. `%m` Displays the month numerically without a leading 0 if the date is single digit. `%mm` Display the month
+       *  numerically with a leading 0 if the month is single digit. `%q` Displays the milliseconds. `%s` Displays the seconds. `%Y` Displa
+       * ys the year in 4-digit format. `%y` Displays the year in 2-digit format.
+       */
+      all?: string;
       /**
        * The text of the scale label, can use tokens for day, hour, minute, year etc to add in such information, ONLY if "type"="date" has
        * been specified in this transform object. If values for both "text" and "all" have been specified, the value in "text" will be used

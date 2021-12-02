@@ -16,6 +16,7 @@
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
+//                 Ido Salomon <https://github.com/idosal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -10739,10 +10740,20 @@ declare namespace chrome.windows {
     }
 
     export interface WindowIdEvent
-        extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(windowId: number) => void> {
+            addListener(
+                callback: (windowId: number) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     export interface WindowReferenceEvent
-        extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(window: Window) => void> {
+            addListener(
+                callback: (window: Window) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     /**
      * Specifies what type of browser window to create.
