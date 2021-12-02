@@ -41,7 +41,7 @@ export class Logger {
     error: (error: Error, context: SendContext) => void;
     eventFormatter: EventFormatter;
     requestOptions: RequestOptions;
-    readonly serializedEventQueue: any[];
+    readonly serializedContextQueue: any[];
 
     constructor(config: Config);
 
