@@ -123,7 +123,7 @@ new Umzug({
 
 });
 
-const mongodb = new MongoDB.Db('database', new MongoDB.Server('host', 21017));
+const mongodb = new MongoDB.Db(new MongoDB.MongoClient('host', { localPort: 21017 }), 'database');
 
 new Umzug({
     // The storage.
