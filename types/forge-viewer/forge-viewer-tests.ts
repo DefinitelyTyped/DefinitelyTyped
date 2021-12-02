@@ -37,6 +37,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     modelStructurePanelTests(viewer);
     preferencesTests(viewer);
     showHideTests(viewer);
+    worldUpTests(viewer);
     await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
@@ -495,6 +496,13 @@ async function visualClustersTests(viewer: Autodesk.Viewing.GuiViewer3D): Promis
 
     await ext.setLayoutActive(true);
     ext.reset();
+}
+
+function worldUpTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const expectedUp = new THREE.Vector3(0, 0, 1);
+
+    viewer.navigation.setWorldUpVector(expectedUp, true, true);
+    const actualUp = viewer.navigation.getWorldUpVector();
 }
 
 function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {

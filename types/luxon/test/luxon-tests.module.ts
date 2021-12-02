@@ -198,6 +198,10 @@ Duration.fromObject({ hour: 2, minute: 7 }); // $ExpectType Duration
 Duration.fromObject({ locale: 'ru' }); // $ExpectError
 Duration.fromObject({ conversionAccuracy: 'casual' }); // $ExpectError
 Duration.fromObject({}, { conversionAccuracy: 'casual' }); // $ExpectType Duration
+Duration.fromDurationLike({ hours: 1 }); // $ExpectType Duration
+Duration.fromDurationLike(1000); // $ExpectType Duration
+Duration.fromDurationLike(dur); // $ExpectType Duration
+Duration.fromDurationLike(''); // $ExpectError
 dt.plus(dur); // $ExpectType DateTime
 dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number

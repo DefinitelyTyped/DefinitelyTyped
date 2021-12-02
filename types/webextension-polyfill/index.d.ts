@@ -47,6 +47,7 @@ import { Pkcs11 as ImportedPkcs11 } from "./namespaces/pkcs11";
 import { Privacy as ImportedPrivacy } from "./namespaces/privacy";
 import { Proxy as ImportedProxy } from "./namespaces/proxy";
 import { Runtime as ImportedRuntime } from "./namespaces/runtime";
+import { Scripting as ImportedScripting } from "./namespaces/scripting";
 import { Search as ImportedSearch } from "./namespaces/search";
 import { Sessions as ImportedSessions } from "./namespaces/sessions";
 import { SidebarAction as ImportedSidebarAction } from "./namespaces/sidebarAction";
@@ -60,7 +61,6 @@ import { UserScripts as ImportedUserScripts } from "./namespaces/userScripts";
 import { WebNavigation as ImportedWebNavigation } from "./namespaces/webNavigation";
 import { WebRequest as ImportedWebRequest } from "./namespaces/webRequest";
 import { Windows as ImportedWindows } from "./namespaces/windows";
-import { Scripting as ImportedScripting } from "./namespaces/scripting";
 
 declare namespace Browser {
     const activityLog: ActivityLog.Static;
@@ -104,6 +104,7 @@ declare namespace Browser {
     const privacy: Privacy.Static;
     const proxy: Proxy.Static;
     const runtime: Runtime.Static;
+    const scripting: Scripting.Static;
     const search: Search.Static;
     const sessions: Sessions.Static;
     const sidebarAction: SidebarAction.Static;
@@ -117,7 +118,6 @@ declare namespace Browser {
     const webNavigation: WebNavigation.Static;
     const webRequest: WebRequest.Static;
     const windows: Windows.Static;
-    const scripting: Scripting.Static;
 
     interface Browser {
         activityLog: ActivityLog.Static;
@@ -161,6 +161,7 @@ declare namespace Browser {
         privacy: Privacy.Static;
         proxy: Proxy.Static;
         runtime: Runtime.Static;
+        scripting: Scripting.Static;
         search: Search.Static;
         sessions: Sessions.Static;
         sidebarAction: SidebarAction.Static;
@@ -174,7 +175,6 @@ declare namespace Browser {
         webNavigation: WebNavigation.Static;
         webRequest: WebRequest.Static;
         windows: Windows.Static;
-        scripting: Scripting.Static;
     }
 
     /* tslint:disable:strict-export-declare-modifiers */
@@ -219,6 +219,7 @@ declare namespace Browser {
     export import Privacy = ImportedPrivacy;
     export import Proxy = ImportedProxy;
     export import Runtime = ImportedRuntime;
+    export import Scripting = ImportedScripting;
     export import Search = ImportedSearch;
     export import Sessions = ImportedSessions;
     export import SidebarAction = ImportedSidebarAction;
@@ -232,7 +233,6 @@ declare namespace Browser {
     export import WebNavigation = ImportedWebNavigation;
     export import WebRequest = ImportedWebRequest;
     export import Windows = ImportedWindows;
-    export import Scripting = ImportedScripting;
     /* tslint:enable:strict-export-declare-modifiers */
 }
 

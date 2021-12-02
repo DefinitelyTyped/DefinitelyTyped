@@ -32,6 +32,7 @@ minify('<p title="blah" id="moo">foo</p>');
         minifyCSS: true,
         minifyJS: true,
         minifyURLs: true,
+        noNewlinesBeforeTagClose: true,
         preserveLineBreaks: true,
         preventAttributesEscaping: true,
         processConditionalComments: true,

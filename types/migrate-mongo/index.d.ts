@@ -11,7 +11,7 @@ export function create(description: string): Promise<string>;
 export namespace database {
     function connect(): Promise<{
         client: mongo.MongoClient;
-        db: mongo.Db & { close: mongo.MongoClient['close'] },
+        db: mongo.Db & { close: mongo.MongoClient['close'] };
     }>;
 }
 export namespace config {
@@ -44,8 +44,8 @@ export namespace config {
     interface Config {
         mongodb: {
             url: Parameters<typeof mongo.MongoClient['connect']>[0];
-            databaseName: mongo.Db['databaseName'];
-            options: mongo.MongoClientOptions;
+            databaseName?: mongo.Db['databaseName'];
+            options?: mongo.MongoClientOptions;
         };
         /**
          * The migrations dir, can be an relative or absolute path.
@@ -68,7 +68,7 @@ export namespace config {
  * ```
  * If an an error occurred, the promise will reject and won't continue with the rest of the pending migrations.
  */
-export function up(db: mongo.Db): Promise<string[]>;
+export function up(db: mongo.Db, client: mongo.MongoClient): Promise<string[]>;
 /**
  * Revert (only) the last applied migration.
  * @example
@@ -78,7 +78,7 @@ export function up(db: mongo.Db): Promise<string[]>;
  * migratedDown.forEach(fileName => console.log('Migrated Down:', fileName));
  * ```
  */
-export function down(db: mongo.Db): Promise<string[]>;
+export function down(db: mongo.Db, client: mongo.MongoClient): Promise<string[]>;
 export function status(db: mongo.Db): Promise<MigrationStatus[]>;
 
 export interface MigrationStatus {

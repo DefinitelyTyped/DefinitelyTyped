@@ -1,4 +1,4 @@
-import { encode, decode, encodingLength, Packet, Answer, Question } from "dns-packet";
+import { encode, decode, encodingLength, streamEncode, streamDecode, Packet, Answer, Question, RECURSION_DESIRED } from "dns-packet";
 
 const answer: Answer = {
     type: "A",
@@ -109,3 +109,20 @@ const records: Answer[] = [
     },
 ];
 encode({ answers: records });
+
+// https://github.com/mafintosh/dns-packet/blob/5aebb85c3221292e994d01b68cadf067e78efabf/examples/tcp.js
+function getRandomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+let buf = streamEncode({
+  type: 'query',
+  id: getRandomInt(1, 65534),
+  flags: RECURSION_DESIRED,
+  questions: [{
+    type: 'A',
+    name: 'google.com'
+  }]
+});
+streamDecode(buf);
+buf = buf.slice(2 + streamDecode.bytes);

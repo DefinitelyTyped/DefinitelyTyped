@@ -47,11 +47,27 @@ function rifiTest() {
     });
 }
 
+const fileContentCache = new Map<string, string>();
+const depsDataCache = new Map<string, moduleDeps.PersistentCacheItem>();
+
 function browserifyTest(opts: moduleDeps.Options) {
     const packOpts: moduleDeps.Options = {
         basedir: opts.basedir || "./",
         externalRequireName: opts["externalRequireName"] || "require",
         hasExports: opts["hasExports"] || false,
+        persistentCache: (file, id, pkg, fallback, cb) => {
+            const cachedDeps = depsDataCache.get(file);
+            if (cachedDeps) {
+                cb(null, cachedDeps);
+                return;
+            }
+            const fileData = fileContentCache.get(file);
+            if (fileData) {
+                fallback(fileData, cb);
+            } else {
+                fallback(null, cb);
+            }
+        },
         prelude: opts["prelude"] || undefined,
         preludePath: opts["preludePath"] || undefined,
         raw: opts["raw"] || false,

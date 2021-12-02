@@ -1,4 +1,4 @@
-// Type definitions for Marked 3.0
+// Type definitions for Marked 4.0
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -12,9 +12,6 @@
 //                 Anatolii Titov <https://github.com/Toliak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace marked;
-
-export = marked;
 /**
  * Compiles markdown to HTML synchronously.
  *
@@ -22,7 +19,7 @@ export = marked;
  * @param options Optional hash of options
  * @return String of compiled HTML
  */
-declare function marked(src: string, options?: marked.MarkedOptions): string;
+export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
  * Compiles markdown to HTML asynchronously.
@@ -30,7 +27,7 @@ declare function marked(src: string, options?: marked.MarkedOptions): string;
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  */
-declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
+export function marked(src: string, callback: (error: any, parseResult: string) => void): void;
 
 /**
  * Compiles markdown to HTML asynchronously.
@@ -39,13 +36,20 @@ declare function marked(src: string, callback: (error: any | undefined, parseRes
  * @param options Hash of options
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  */
-declare function marked(
+export function marked(
     src: string,
     options: marked.MarkedOptions,
-    callback: (error: any | undefined, parseResult: string) => void,
+    callback: (error: any, parseResult: string) => void,
 ): void;
 
-declare namespace marked {
+export class Lexer extends marked.Lexer {}
+export class Parser extends marked.Parser {}
+export class Tokenizer<T = never> extends marked.Tokenizer<T> {}
+export class Renderer<T = never> extends marked.Renderer<T> {}
+export class TextRenderer extends marked.TextRenderer {}
+export class Slugger extends marked.Slugger {}
+
+export namespace marked {
     const defaults: MarkedOptions;
 
     /**
@@ -61,7 +65,7 @@ declare namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: (error: any | undefined, parseResult: string) => void): string;
+    function parse(src: string, callback: (error: any, parseResult: string) => void): string;
 
     /**
      * Compiles markdown to HTML.
@@ -74,7 +78,7 @@ declare namespace marked {
     function parse(
         src: string,
         options?: MarkedOptions,
-        callback?: (error: any | undefined, parseResult: string) => void,
+        callback?: (error: any, parseResult: string) => void,
     ): string;
 
     /**
@@ -513,7 +517,7 @@ declare namespace marked {
         highlight?(
             code: string,
             lang: string,
-            callback?: (error: any | undefined, code?: string) => void,
+            callback?: (error: any, code?: string) => void,
         ): string | void;
 
         /**

@@ -69,6 +69,8 @@ export class Identify {
     append(key: string, value: number | string | any[] | object): Identify;
     /** Prepend a value or values to a user property */
     prepend(key: string, value: boolean | number | string | any[] | object): Identify;
+    /** Preinsert a value or values to a user property */
+    preInsert(key: string, value: number | string | any[] | object): Identify;
     /** Sets the value of a given user property */
     set(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property only once */

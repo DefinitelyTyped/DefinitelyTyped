@@ -343,7 +343,7 @@ declare namespace jwplayer {
         | 'remove';
 
     interface JWPlayer {
-        addButton(icon: string, label: string, handler: () => void, id: string): JWPlayer;
+        addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];

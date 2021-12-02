@@ -1,4 +1,4 @@
-// Type definitions for @node-red/registry 1.1
+// Type definitions for @node-red/registry 1.2
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -131,6 +131,7 @@ declare namespace registry {
         log: NodeApiLog;
         settings: TSets;
         events: EventEmitter;
+        hooks: util.Hooks;
         util: util.Util;
         version(): Promise<string>;
         require(id: string): any;

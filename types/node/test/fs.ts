@@ -195,6 +195,20 @@ async function testPromisify() {
 }
 
 {
+    fs.watchFile('/tmp/foo-', (current, previous) => {
+        console.log(current, previous);
+    });
+
+    fs.watchFile('/tmp/foo-', {
+        persistent: true,
+        bigint: true,
+        interval: 1000,
+    }, (current, previous) => {
+        console.log(current, previous);
+    });
+}
+
+{
     fs.access('/path/to/folder', (err) => { });
 
     fs.access(Buffer.from(''), (err) => { });
@@ -455,6 +469,14 @@ async () => {
     await writeFileAsync('test',  async function *() { yield 'yeet'; }());
     await writeFileAsync('test', process.stdin);
 };
+
+{
+    fs.createReadStream('path').close();
+    fs.createReadStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+
+    fs.createWriteStream('path').close();
+    fs.createWriteStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+}
 
 {
     fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);

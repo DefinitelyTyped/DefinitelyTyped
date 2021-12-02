@@ -5033,15 +5033,15 @@ declare namespace Xrm {
             /**
              * Image file types to select.
              */
-            accept: PickFileTypes;
+            accept?: PickFileTypes;
             /**
              * Indicates whether to allow selecting multiple files.
              */
-            allowMultipleFiles: boolean;
+            allowMultipleFiles?: boolean;
             /**
              * Maximum size of the files(s) to be selected.
              */
-            maximumAllowedFileSize: number;
+            maximumAllowedFileSize?: number;
         }
     }
 
