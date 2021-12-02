@@ -7,6 +7,10 @@ function sample1() {
 
   canvas.on('object:moving', (e: fabric.IEvent) => {
     e.target.opacity = 0.5;
+    e.currentTarget.sendBackwards();
+    e.currentSubTargets.forEach((subTarget) => {
+      subTarget.bringToFront();
+    });
   });
   canvas.on('object:modified', (e: fabric.IEvent) => {
     e.target.opacity = 1;
