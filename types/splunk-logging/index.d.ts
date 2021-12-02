@@ -1,6 +1,7 @@
-// Type definitions for splunk-logging 0.9
+// Type definitions for splunk-logging 0.11
 // Project: http://dev.splunk.com
 // Definitions by: Alex Brick <https://github.com/bricka>
+//                 Borui Gu <https://github.com/BoruiGu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
