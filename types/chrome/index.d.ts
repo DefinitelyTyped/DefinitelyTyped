@@ -16,6 +16,7 @@
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
+//                 Ido Salomon <https://github.com/idosal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
