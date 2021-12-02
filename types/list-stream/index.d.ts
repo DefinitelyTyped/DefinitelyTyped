@@ -25,7 +25,7 @@ declare let ListStream: ListStreamConstructor;
 interface ListStream extends Duplex {
     append(chunk: any): void;
     duplicate(): ListStream;
-    end(): any;
+    end(): this;
     get(index: number): any;
     length: number;
 }
