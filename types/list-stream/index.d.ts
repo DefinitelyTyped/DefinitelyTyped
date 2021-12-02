@@ -22,10 +22,10 @@ interface ListStreamConstructor extends ListStreamMethod {
 
 declare let ListStream: ListStreamConstructor;
 
-interface ListStream extends Omit<Duplex, 'end'> {
+interface ListStream extends Duplex {
     append(chunk: any): void;
     duplicate(): ListStream;
-    end(): void;
+    end(): any;
     get(index: number): any;
     length: number;
 }

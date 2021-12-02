@@ -38,7 +38,7 @@ export import SFTP_OPEN_MODE = SFTPStream.OPEN_MODE;
 
 export { utils };
 
-export interface Channel extends Omit<stream.Duplex, 'destroy'> {
+export interface Channel extends stream.Duplex {
     /** If `true` only sends `EOF` when `end()` is called. */
     allowHalfOpen: boolean;
     /** Standard input for the Channel. */
@@ -71,10 +71,10 @@ export interface Channel extends Omit<stream.Duplex, 'destroy'> {
     /**
      * Shuts down the channel on this side.
      */
-    destroy(): void;
+    destroy(): any;
 }
 
-export interface ClientChannel extends Omit<Channel, 'on'> {
+export interface ClientChannel extends Channel {
     /** Standard error for the Channel. */
     stderr: stream.Readable;
     /** Indicates whether this is a server or client channel. */
@@ -116,7 +116,7 @@ export interface ClientChannel extends Omit<Channel, 'on'> {
     on(event: string | symbol, listener: Function): this;
 }
 
-export interface ServerChannel extends Omit<Channel, 'on'> {
+export interface ServerChannel extends Channel {
     /** Standard error for the Channel. */
     stderr: stream.Writable;
     /** Indicates whether this is a server or client channel. */

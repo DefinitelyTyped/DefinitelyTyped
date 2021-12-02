@@ -11,15 +11,15 @@ declare namespace charm {
     type CharmColor = CharmColorName | CharmColorHex;
     type CharmAnyStream = NodeJS.WritableStream|NodeJS.ReadableStream|NodeJS.Process;
 
-    interface CharmInstance extends Omit<NodeJS.WritableStream, 'end'> {
+    interface CharmInstance extends NodeJS.WritableStream {
         /** Reset the entire screen, like the /usr/bin/reset command. */
         reset(): void;
 
         /** Emit an "end" event downstream. */
-        destroy(): void;
+        destroy(): any;
 
         /** Emit an "end" event downstream. */
-        end(): void;
+        end(): any;
 
         /**
          * Pass along `msg` to the output stream.
