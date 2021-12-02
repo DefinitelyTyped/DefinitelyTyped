@@ -6489,7 +6489,12 @@ declare namespace chrome.runtime {
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
     export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
-    export type OnInstalledReason = 'chrome_update' | 'install' | 'shared_module_update' | 'update';
+    export enum OnInstalledReason {
+        INSTALL = 'install',
+        UPDATE = 'update',
+        CHROME_UPDATE = 'chrome_update',
+        SHARED_MODULE_UPDATE = 'shared_module_update'
+    }
 
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
