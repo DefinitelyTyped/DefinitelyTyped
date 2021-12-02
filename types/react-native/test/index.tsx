@@ -672,6 +672,48 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                     ListHeaderComponent={null}
                     ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => (
+                        <View>
+                            <Text>{section.title}</Text>
+                        </View>
+                    )}
+                    renderItem={(info: SectionListRenderItemInfo<string>) => (
+                        <View>
+                            <Text>{`${info.section.title} - ${info.item}`}</Text>
+                        </View>
+                    )}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={null}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={null}
+                />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => (
+                        <View>
+                            <Text>{section.title}</Text>
+                        </View>
+                    )}
+                    renderItem={(info: SectionListRenderItemInfo<string>) => (
+                        <View>
+                            <Text>{`${info.section.title} - ${info.item}`}</Text>
+                        </View>
+                    )}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={undefined}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={undefined}
+                />
             </React.Fragment>
         );
     }

@@ -4213,7 +4213,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     /**
      * Styling for internal View for ListFooterComponent
      */
-    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined;
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined | null;
 
     /**
      * Rendered at the very beginning of the list.
@@ -4223,7 +4223,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     /**
      * Styling for internal View for ListHeaderComponent
      */
-    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined;
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined | null;
 
     /**
      * Rendered in between each section.
