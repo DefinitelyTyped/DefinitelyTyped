@@ -12,7 +12,7 @@ export interface ComposedModalProps extends Omit<ReactDivAttr, ExcludedAttribute
     open?: boolean | undefined,
     preventCloseOnClickOutside?: boolean | undefined,
     selectedPrimaryFocus?: string | undefined,
-    selectorsFloatingMenus?: string | undefined,
+    selectorsFloatingMenus?: readonly string[] | undefined,
     size?: "xs" | "sm" | "md" | "lg" | undefined;
 }
 
