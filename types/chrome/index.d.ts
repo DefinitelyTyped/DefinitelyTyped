@@ -7163,7 +7163,7 @@ declare namespace chrome.scripting {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
-        world: ExecutionWorld;
+        world?: ExecutionWorld;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
