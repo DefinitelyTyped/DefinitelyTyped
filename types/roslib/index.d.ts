@@ -359,7 +359,7 @@ declare namespace ROSLIB {
         constructor(values?: any);
     }
 
-    export class Topic<TMessage = Message> {
+    export class Topic<TMessage = Message> extends EventEmitter2 {
         /**
          * Publish and/or subscribe to a topic in ROS.
          *
