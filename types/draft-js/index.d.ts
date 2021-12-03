@@ -1171,6 +1171,9 @@ import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
 import DraftInsertionType = Draft.Model.Constants.DraftInsertionType;
 import DraftStyleMap = Draft.Component.Base.DraftStyleMap;
 
+import DraftModel = Draft.Model;
+import DraftComponent = Draft.Component;
+
 export {
     Editor,
     EditorProps,
@@ -1219,4 +1222,6 @@ export {
     DraftHandleValue,
     DraftInsertionType,
     DraftStyleMap,
+    DraftModel,
+    DraftComponent
 };
