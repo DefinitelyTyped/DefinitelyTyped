@@ -4211,9 +4211,19 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined | null;
 
     /**
      * Rendered in between each section.
