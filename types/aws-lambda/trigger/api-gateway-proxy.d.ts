@@ -138,6 +138,18 @@ export interface APIGatewayProxyEventV2 {
                 scopes: string[];
             };
         } | undefined;
+        authentication?: {
+            clientCert: {
+                clientCertPem: string;
+                issuerDN: string;
+                serialNumber: string;
+                subjectDN: string;
+                validity: {
+                    notBefore: string;
+                    notAfter: string;
+                };
+            };
+        };
         domainName: string;
         domainPrefix: string;
         http: {
