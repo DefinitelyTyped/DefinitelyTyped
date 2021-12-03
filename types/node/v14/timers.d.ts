@@ -14,3 +14,6 @@ declare module 'timers' {
     }
     function clearImmediate(immediateId: NodeJS.Immediate): void;
 }
+declare module 'node:timers' {
+    export * from 'timers';
+}
