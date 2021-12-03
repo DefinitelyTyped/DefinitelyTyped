@@ -1,4 +1,4 @@
-// Type definitions for danish-ssn 2.1.1
+// Type definitions for danish-ssn 2.1
 // Project: https://github.com/mathiasvr/danish-ssn/
 // Definitions by: Yuriy Guzenko <https://github.com/yuriyg86>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
