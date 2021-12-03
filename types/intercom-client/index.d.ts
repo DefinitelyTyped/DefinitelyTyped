@@ -210,6 +210,7 @@ export class Events {
     listBy(params: EventListParam): Promise<ApiResponse<CompanyList>>;
     listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
 
+    bulk(operations: Array<BulkOperation>): Promise<ApiResponse<any>>;
     bulk(operations: Array<BulkOperation>, cb: callback<ApiResponse<any>>): void
 }
 
