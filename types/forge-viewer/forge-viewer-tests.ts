@@ -112,6 +112,8 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     const up = new THREE.Vector3(0, 0, 1);
 
     viewer.navigation.setCameraUpVector(up);
+
+    viewer.toolController.recordHomeView();
 }
 
 async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void> {
