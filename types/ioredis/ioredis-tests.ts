@@ -302,6 +302,15 @@ const listData = ['foo', 'bar', 'baz'];
 listData.forEach(value => {
     redis.rpushBuffer('bufferlist', Buffer.from(value));
 });
+
+redis.lindexBuffer('bufferlist', 0, (err, result) => {
+    if (result.toString() !== listData[0]) {
+        console.log(result.toString());
+    }
+});
+
+redis.lindexBuffer('bufferlist', 0).then(console.log);
+
 redis.lpopBuffer('bufferlist', (err, result) => {
     if (result.toString() !== listData[0]) {
         console.log(result.toString());
