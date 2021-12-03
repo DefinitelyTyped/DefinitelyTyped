@@ -795,7 +795,11 @@ export namespace useSortBy {
     const pluginName = 'useSortBy';
 }
 
-export interface TableSortByToggleProps {}
+export interface TableSortByToggleProps {
+    title: string;
+    style: CSSProperties;
+    onClick: (e: MouseEvent) => void;
+}
 
 export type UseSortByOptions<D extends object> = Partial<{
     manualSortBy: boolean;
