@@ -3,6 +3,5 @@
     "private": true,
     "dependencies": {
         "aws-sdk": "^2.711.0",
-        "jest": "^27.4.3"
     }
 }
