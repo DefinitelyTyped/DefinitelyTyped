@@ -567,6 +567,8 @@ export namespace Rule {
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
         deprecated?: boolean | undefined;
         type?: "problem" | "suggestion" | "layout" | undefined;
+        /** specifies whether rules can return suggestions (defaults to false if omitted) */
+        hasSuggestions?: boolean | undefined;
     }
 
     interface RuleContext {
