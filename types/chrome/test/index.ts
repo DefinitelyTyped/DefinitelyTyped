@@ -706,7 +706,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     details.previousVersion; // $ExpectType string | undefined
     details.id; // $ExpectType string | undefined
 
-    details.reason = 'invalid-reason'; // $ExpectError
+    details.reason = 'not-real-reason'; // $ExpectError
 })
 
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
