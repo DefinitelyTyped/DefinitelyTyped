@@ -29,7 +29,6 @@
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/utils": "latest",
         "@octokit/rest": "^16.0.0",
-        "@types/node": "^16.11.9",
         "d3-array": "^3.0.2",
         "d3-axis": "^3.0.0",
         "d3-scale": "^4.0.0",
