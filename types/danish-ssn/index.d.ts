@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace cpr {
-    export function isValid(ssn: string): boolean;
-    export function validate(ssn: string): string;
-    export function validForDate(date: Date): string[];
+    function isValid(ssn: string): boolean;
+    function validate(ssn: string): string;
+    function validForDate(date: Date): string[];
 
     interface DanishSsnStatus {
         cpr: string;
