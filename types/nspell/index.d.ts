@@ -9,7 +9,7 @@
 /**
  * Returned by NSpell.spell with the following properties:
  * @param correct - Whether word is correctly spelled
- * @param - forbidden - Whether word is actually correct, but forbidden from showing up as such (often by the users wish)
+ * @param forbidden - Whether word is actually correct, but forbidden from showing up as such (often by the users wish)
  * @param warn - Whether word is correct, but should trigger a warning (rarely used in dictionaries)
  */
 interface SpellCheck {
