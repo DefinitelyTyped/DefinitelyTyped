@@ -142,7 +142,7 @@ declare module '../../index' {
             stop1: number,
             start2: number,
             stop2: number,
-            withinBounds?: boolean
+            withinBounds?: boolean,
         ): number;
 
         /**
@@ -219,9 +219,10 @@ declare module '../../index' {
          *   For example, round(133.8) returns the value 134.
          *   Maps to Math.round().
          *   @param n number to round
+         *   @param decimals number of decimal places to round to, default is 0
          *   @return rounded number
          */
-        round(n: number): number;
+        round(n: number, decimals?: number): number;
 
         /**
          *   Squares a number (multiplies a number by itself).
