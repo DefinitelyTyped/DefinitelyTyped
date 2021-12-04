@@ -1,0 +1,21 @@
+import codePointAt = require('voca/code_point_at');
+import first = require('voca/first');
+import graphemeAt = require('voca/grapheme_at');
+import charAt = require('voca/char_at');
+import last = require('voca/last');
+import prune = require('voca/prune');
+import slice = require('voca/slice');
+import substr = require('voca/substr');
+import substring = require('voca/substring');
+import truncate = require('voca/truncate');
+
+codePointAt();
+first();
+graphemeAt();
+charAt();
+last();
+prune();
+slice();
+substr();
+substring();
+truncate();

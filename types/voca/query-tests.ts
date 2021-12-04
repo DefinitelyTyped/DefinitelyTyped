@@ -1,0 +1,27 @@
+import ends_with = require('voca/ends_with');
+import includes = require('voca/includes');
+import is_alpha = require('voca/is_alpha');
+import is_alpha_digit = require('voca/is_alpha_digit');
+import is_blank = require('voca/is_blank');
+import is_digit = require('voca/is_digit');
+import is_empty = require('voca/is_empty');
+import is_lower_case = require('voca/is_lower_case');
+import is_numeric = require('voca/is_numeric');
+import is_string = require('voca/is_string');
+import is_upper_case = require('voca/is_upper_case');
+import matches = require('voca/matches');
+import starts_with = require('voca/starts_with');
+
+ends_with();
+includes();
+is_alpha_digit();
+is_alpha();
+is_blank();
+is_digit();
+is_empty();
+is_lower_case();
+is_numeric();
+is_string();
+is_upper_case();
+matches();
+starts_with();
