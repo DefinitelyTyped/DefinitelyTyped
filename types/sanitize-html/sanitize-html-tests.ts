@@ -10,6 +10,7 @@ const options: IOptions = {
   allowedClasses: {
     a: ['className'],
     p: false,
+    span: [/regex/],
   },
   allowedStyles: {
     '*': {
@@ -54,6 +55,8 @@ sanitize.defaults.allowProtocolRelative; // $ExpectType boolean
 sanitize.defaults.disallowedTagsMode; // $ExpectType DisallowedTagsModes
 sanitize.defaults.enforceHtmlBoundary; // $ExpectType boolean
 sanitize.defaults.selfClosing; // $ExpectType string[]
+
+sanitize.options.allowedClasses; // $ExpectType { [index: string]: boolean | (string | RegExp)[]; } | undefined
 
 const unsafe = '<div><script>alert("hello");</script></div>';
 
