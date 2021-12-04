@@ -299,7 +299,7 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 };
 
-function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) { }
 
 function handler(e: GestureResponderEvent) {
     eventHandler(e);
@@ -311,6 +311,19 @@ class CustomView extends React.Component {
     render() {
         return <Text style={[StyleSheet.absoluteFill, { ...StyleSheet.absoluteFillObject }]}>Custom View</Text>;
     }
+}
+
+function FlexStyleTest() {
+    return <>
+        <View
+            // should be okay
+            style={{ height: '100%', width: 250, left: -20 }}
+        />
+        <View
+            // $ExpectError
+            style={{ height: '100px', width: '200em', left: 'asdf' }}
+        />
+    </>
 }
 
 class Welcome extends React.Component<ElementProps<View> & { color: string }> {
@@ -354,6 +367,7 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
                     Cmd+D or shake for dev menu
                 </Text>
                 <CustomView ref="customView" />
+                <FlexStyleTest />
             </View>
         );
     }
@@ -522,31 +536,31 @@ const AppStateExample = () => {
     const appStateIsAvailable = AppState.isAvailable;
 
     React.useEffect(() => {
-      const subscription = AppState.addEventListener("change", nextAppState => {
-        if (
-          appState.current.match(/inactive|background/) &&
-          nextAppState === "active"
-        ) {
-          console.log("App has come to the foreground!");
-        }
+        const subscription = AppState.addEventListener("change", nextAppState => {
+            if (
+                appState.current.match(/inactive|background/) &&
+                nextAppState === "active"
+            ) {
+                console.log("App has come to the foreground!");
+            }
 
-        appState.current = nextAppState;
-        setAppStateVisible(appState.current);
-        console.log("AppState", appState.current);
-      });
+            appState.current = nextAppState;
+            setAppStateVisible(appState.current);
+            console.log("AppState", appState.current);
+        });
 
-      return () => {
-        subscription.remove();
-      };
+        return () => {
+            subscription.remove();
+        };
     }, []);
 
     return (
-      <View style={styles.container}>
-        <Text>Current state is: {appStateVisible}</Text>
-        <Text>Available: {appStateIsAvailable}</Text>
-      </View>
+        <View style={styles.container}>
+            <Text>Current state is: {appStateVisible}</Text>
+            <Text>Available: {appStateIsAvailable}</Text>
+        </View>
     );
-  };
+};
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -1416,16 +1430,16 @@ const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.lo
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
-  const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+    const e: SwitchChangeEvent = event;
+    return new Promise(() => e.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
 const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
-  const v: boolean = value;
-  return new Promise(() => v)
+    const v: boolean = value;
+    return new Promise(() => v)
 }} />;
 
 const NativeIDTest = () => (
