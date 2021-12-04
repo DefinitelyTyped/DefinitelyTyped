@@ -85,6 +85,12 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
          */
         Encoding: Encoding;
+
+        /**
+         * Provides app-related methods.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+         */
+        App: App;
     }
 
     /**
@@ -5279,6 +5285,174 @@ declare namespace Xrm {
          * If the number of records being retrieved is more than the value specified in the maxPageSize parameter, this attribute returns the URL to return next set of records.
          */
         nextLink: string;
+    }
+
+    /**
+     * Namespace to hold Xrm.App related types
+     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     */
+     namespace App {
+        /**
+         * Defines the action of notification
+         * @see {@link Xmr.App.Notification}
+         */
+        interface Action {
+            /**
+             * The label for the action in the message.
+             */
+            actionLabel?: string;
+            /**
+             * The function to execute when the action label is clicked.
+             */
+            eventHandler?: () => void;
+        }
+
+        /**
+         * Defines the notification object for Xrm.App.addGlobalNotification
+         * @see {@link Xmr.App.addGlobalNotification}
+         */
+        interface Notifcation {
+            /**
+             * @see {@link Xrm.App.Action}
+             */
+            action?: Action;
+            /**
+             * Defines the level of notification.
+             */
+            level: number;
+            /**
+             * The message to display in the notification.
+             */
+            message: string;
+            /**
+             * Indicates whether or not the user can close or dismiss the notification. If you don't specify this parameter, users can't close or dismiss the notification by default.
+             */
+            showCloseButton?: boolean;
+            /**
+             * Defines the type of notification. Currently, only a value of 2 is supported, which displays a message bar at the top of the app.
+             */
+            type: number;
+        }
+
+        /**
+         * Defines single side pane.
+         * @see {@link Xrm.App.sidePanes.createPane}
+         */
+        interface PaneOptions {
+            /**
+             * The title of the pane. Used in pane header and for tooltip.
+             */
+            title?: string;
+            /**
+             * The ID of the new pane. If the value is not passed, the ID value is auto-generated.
+             */
+            paneId?: string;
+            /**
+             * Whether the pane header will show a close button or not.
+             */
+            canClose?: boolean;
+            /**
+             * The path of the icon to show in the panel switcher control.
+             */
+            imageSrc?: string;
+            /**
+             * Hides the header pane, including the title and close button. Default value is false.
+             */
+            hideHeader?: boolean;
+            /**
+             * When set to false, the created pane is not selected and leaves the existing pane selected. It also does not expand the pane if collapsed.
+             */
+            isSelected?: boolean;
+            /**
+             * The width of the pane in pixels.
+             */
+            width?:	number;
+            /**
+             * Hides the pane and tab.
+             */
+            hidden?: boolean;
+            /**
+             * Prevents the pane from unmounting when it is hidden.
+             */
+            alwaysRender?: boolean;
+            /**
+             * Prevents the badge from getting cleared when the pane becomes selected.
+             */
+            keepBadgeOnSelect?:	boolean;
+        }
+
+        /**
+         * Defines methods single side pane.
+         */
+        interface PaneObject extends Omit<PaneOptions, "isSelected" | "hideHeader"> {
+            /**
+             * Closes the side pane and removes it from the side bar.
+             */
+            close(): void;
+
+            /**
+             * Specify whether the pane should be selected or expanded.
+             */
+            select(): void;
+
+            /**
+             * Opens a page within the selected pane. This is similar to the navigateTo method.
+             */
+            navigate(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.CustomPage | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+        }
+    }
+
+    /**
+     * Interface for Xrm.App API
+     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     */
+    interface App {
+        /**
+         * Displays an error, information, warning, or success notification for an app, and lets you specify actions to execute based on the notification.
+         * @param notification The notification to add.
+         * @returns On success, returns a promise object containing a GUID value to uniquely identify the notification as described earlier in the description of the successCallback parameter.
+         */
+        addGlobalNotification(notification: App.Notifcation): Async.PromiseLike<string>;
+
+        /**
+         * Clears a notification in the app.
+         * @param uniqueId The ID to use to clear a specific notification that was set using addGlobalNotification.
+         * @returns On success, returns a promise object.
+         */
+        clearGlobalNotification(uniqueId: string): Async.PromiseLike<string>;
+
+        /**
+         * Provides methods for managing side panes.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app-sidepanes External Link: sidePanes (Client API reference)}
+         */
+        sidePanes: {
+            /**
+             * @returns whether the selected pane is collapsed or expanded.
+             */
+            state: number;
+
+            /**
+             * Provides all the information to create side panes.
+             * @param paneOptions The ID to use to clear a specific notification that was set using addGlobalNotification.
+             */
+            createPane(paneOptions?: App.PaneOptions): Async.PromiseLike<App.PaneObject>;
+
+            /**
+             * @returns a collection containing all active panes.
+             */
+            getAllPanes(): App.PaneObject[];
+
+            /**
+             * @param panelId string
+             * @returns the side pane corresponding to the input ID. If the side pane does not exist, undefined is returned.
+             */
+            getPane(panelId: string): App.PaneObject | undefined;
+
+            /**
+             * @returns the currently selected pane.
+             */
+            getSelectedPane(): App.PaneObject;
+        };
     }
 
     /**
