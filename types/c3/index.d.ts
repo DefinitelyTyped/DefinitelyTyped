@@ -1635,6 +1635,8 @@ export interface ChartAPI {
         hide(): void;
     };
 
+    element: HTMLElement;
+
     internal: ChartInternal;
 }
 
