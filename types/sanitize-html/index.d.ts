@@ -55,7 +55,7 @@ declare namespace sanitize {
   interface IOptions {
     allowedAttributes?: Record<string, AllowedAttribute[]> | false | undefined;
     allowedStyles?: { [index: string]: { [index: string]: RegExp[] } } | undefined;
-    allowedClasses?: { [index: string]: (string | RegExp)[] | boolean } | undefined;
+    allowedClasses?: { [index: string]: boolean | Array<string | RegExp> } | undefined;
     allowedIframeDomains?: string[] | undefined;
     allowedIframeHostnames?: string[] | undefined;
     allowIframeRelativeUrls?: boolean | undefined;
@@ -85,6 +85,7 @@ declare namespace sanitize {
   }
 
   const defaults: IDefaults;
+  const options: IOptions;
 
   function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
 }
