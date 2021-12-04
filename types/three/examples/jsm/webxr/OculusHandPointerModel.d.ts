@@ -53,11 +53,11 @@ export class OculusHandPointerModel extends Object3D {
 
     public isAttached(): boolean;
 
-    public intersectObject(object: Object3D): Intersection[] | void;
+    public intersectObject(object: Object3D, recursive?: boolean): Intersection[] | void;
 
-    public intersectObjects(objects: Object3D[]): Intersection[] | void;
+    public intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[] | void;
 
-    public checkIntersections(objects: Object3D[]): void;
+    public checkIntersections(objects: Object3D[], recursive?: boolean): void;
 
     public setCursor(distance: number): void;
 }
