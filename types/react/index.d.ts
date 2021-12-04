@@ -2221,6 +2221,7 @@ declare namespace React {
         minLength?: number | undefined;
         multiple?: boolean | undefined;
         name?: string | undefined;
+        orient?: string | undefined;
         pattern?: string | undefined;
         placeholder?: string | undefined;
         readOnly?: boolean | undefined;
