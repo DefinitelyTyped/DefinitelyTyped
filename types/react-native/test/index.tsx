@@ -299,7 +299,7 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 };
 
-function eventHandler<T extends React.BaseSyntheticEvent>(e: T) { }
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
 
 function handler(e: GestureResponderEvent) {
     eventHandler(e);
@@ -314,16 +314,17 @@ class CustomView extends React.Component {
 }
 
 function FlexStyleTest() {
-    return <>
-        <View
-            // should be okay
-            style={{ height: '100%', width: 250, left: -20 }}
-        />
-        <View
-            // $ExpectError
-            style={{ height: '100px', width: '200em', left: 'asdf' }}
-        />
-    </>
+    return (
+        <>
+            <View
+                // should be okay
+                style={{ height: '100%', width: 250, left: -20 }}
+            />
+            <View
+                style={{ height: '100px', width: '200em', left: 'asdf' }} // $ExpectError
+            />
+        </>
+    );
 }
 
 class Welcome extends React.Component<ElementProps<View> & { color: string }> {
@@ -536,17 +537,14 @@ const AppStateExample = () => {
     const appStateIsAvailable = AppState.isAvailable;
 
     React.useEffect(() => {
-        const subscription = AppState.addEventListener("change", nextAppState => {
-            if (
-                appState.current.match(/inactive|background/) &&
-                nextAppState === "active"
-            ) {
-                console.log("App has come to the foreground!");
+        const subscription = AppState.addEventListener('change', nextAppState => {
+            if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+                console.log('App has come to the foreground!');
             }
 
             appState.current = nextAppState;
             setAppStateVisible(appState.current);
-            console.log("AppState", appState.current);
+            console.log('AppState', appState.current);
         });
 
         return () => {
@@ -1335,7 +1333,7 @@ AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
 );
 AccessibilityInfo.getRecommendedTimeoutMillis(5000).then(timeoutMiles =>
-    console.log(`AccessibilityInfo.getRecommendedTimeoutMillis => ${timeoutMiles}`)
+    console.log(`AccessibilityInfo.getRecommendedTimeoutMillis => ${timeoutMiles}`),
 );
 
 AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
@@ -1356,9 +1354,9 @@ AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
 AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
     console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
 );
-const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
-AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
-).remove();
+const screenReaderChangedListener = (isEnabled: boolean): void =>
+    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
+AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener).remove();
 AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
@@ -1429,18 +1427,26 @@ const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
-const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
-    const e: SwitchChangeEvent = event;
-    return new Promise(() => e.value);
-}} />;
+const SwitchOnChangePromiseTest = () => (
+    <Switch
+        onChange={event => {
+            const e: SwitchChangeEvent = event;
+            return new Promise(() => e.value);
+        }}
+    />
+);
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
-const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
-    const v: boolean = value;
-    return new Promise(() => v)
-}} />;
+const SwitchOnValueChangePromiseTest = () => (
+    <Switch
+        onValueChange={value => {
+            const v: boolean = value;
+            return new Promise(() => v);
+        }}
+    />
+);
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
