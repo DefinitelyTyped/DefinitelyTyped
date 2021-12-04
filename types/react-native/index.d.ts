@@ -679,6 +679,11 @@ export interface LayoutAnimationStatic {
 }
 
 type FlexAlignType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
+/**
+ * Allows only 1,2,... or '1%','2%', ...
+ * This is helpful for react-native + react-native-web codebases as units like 'px', 'ch', 'em' aren't allowed in react-native, but are allowed on web.
+ */
+type NumericOrPercent = number | `${number}%`;
 
 /**
  * Flex Prop Types
@@ -698,7 +703,7 @@ export interface FlexStyle {
     borderStartWidth?: number | string | undefined;
     borderTopWidth?: number | undefined;
     borderWidth?: number | undefined;
-    bottom?: number | string | undefined;
+    bottom?: NumericOrPercent | undefined;
     display?: 'none' | 'flex' | undefined;
     end?: number | string | undefined;
     flex?: number | undefined;
@@ -707,37 +712,37 @@ export interface FlexStyle {
     flexGrow?: number | undefined;
     flexShrink?: number | undefined;
     flexWrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | undefined;
-    height?: number | string | undefined;
+    height?: NumericOrPercent | undefined;
     justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly' | undefined;
-    left?: number | string | undefined;
-    margin?: number | string | undefined;
-    marginBottom?: number | string | undefined;
-    marginEnd?: number | string | undefined;
-    marginHorizontal?: number | string | undefined;
-    marginLeft?: number | string | undefined;
-    marginRight?: number | string | undefined;
-    marginStart?: number | string | undefined;
-    marginTop?: number | string | undefined;
-    marginVertical?: number | string | undefined;
-    maxHeight?: number | string | undefined;
-    maxWidth?: number | string | undefined;
-    minHeight?: number | string | undefined;
-    minWidth?: number | string | undefined;
+    left?: NumericOrPercent | undefined;
+    margin?: NumericOrPercent | undefined;
+    marginBottom?: NumericOrPercent | undefined;
+    marginEnd?: NumericOrPercent | undefined;
+    marginHorizontal?: NumericOrPercent | undefined;
+    marginLeft?: NumericOrPercent | undefined;
+    marginRight?: NumericOrPercent | undefined;
+    marginStart?: NumericOrPercent | undefined;
+    marginTop?: NumericOrPercent | undefined;
+    marginVertical?: NumericOrPercent | undefined;
+    maxHeight?: NumericOrPercent | undefined;
+    maxWidth?: NumericOrPercent | undefined;
+    minHeight?: NumericOrPercent | undefined;
+    minWidth?: NumericOrPercent | undefined;
     overflow?: 'visible' | 'hidden' | 'scroll' | undefined;
-    padding?: number | string | undefined;
-    paddingBottom?: number | string | undefined;
-    paddingEnd?: number | string | undefined;
-    paddingHorizontal?: number | string | undefined;
-    paddingLeft?: number | string | undefined;
-    paddingRight?: number | string | undefined;
-    paddingStart?: number | string | undefined;
-    paddingTop?: number | string | undefined;
-    paddingVertical?: number | string | undefined;
+    padding?: NumericOrPercent | undefined;
+    paddingBottom?: NumericOrPercent | undefined;
+    paddingEnd?: NumericOrPercent | undefined;
+    paddingHorizontal?: NumericOrPercent | undefined;
+    paddingLeft?: NumericOrPercent | undefined;
+    paddingRight?: NumericOrPercent | undefined;
+    paddingStart?: NumericOrPercent | undefined;
+    paddingTop?: NumericOrPercent | undefined;
+    paddingVertical?: NumericOrPercent | undefined;
     position?: 'absolute' | 'relative' | undefined;
-    right?: number | string | undefined;
-    start?: number | string | undefined;
-    top?: number | string | undefined;
-    width?: number | string | undefined;
+    right?: NumericOrPercent | undefined;
+    start?: NumericOrPercent | undefined;
+    top?: NumericOrPercent | undefined;
+    width?: NumericOrPercent | undefined;
     zIndex?: number | undefined;
 
     /**
