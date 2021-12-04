@@ -11,6 +11,7 @@
 //                 Dariusz Syncerek <https://github.com/dsyncerek>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Alex Rantos <https://github.com/alex-rantos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ParserOptions } from "htmlparser2";
