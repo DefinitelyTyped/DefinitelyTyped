@@ -1,4 +1,4 @@
-// Type definitions for @node-red/runtime 1.1
+// Type definitions for @node-red/runtime 1.2
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/runtime, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ import { ServerOptions, Server as HttpsServer } from 'https';
 import { Strategy } from 'passport';
 
 import { EditorAPIModule } from '@node-red/editor-api';
-import { Util, Log, I18n } from '@node-red/util';
+import { Util, Log, I18n, Hooks } from '@node-red/util';
 
 declare const runtime: runtime.RuntimeModule;
 
@@ -606,6 +606,7 @@ declare namespace runtime {
          */
         getNodeCredentials: (opts: { type: string; id: string; req?: object | undefined }) => Promise<object>;
     }
+
     interface LibraryModule {
         /**
          * Gets an entry from the library.
@@ -636,6 +637,7 @@ declare namespace runtime {
             req?: object | undefined;
         }) => Promise<void>;
     }
+
     interface NodesModule {
         /**
          * Gets the info of an individual node set
@@ -1267,6 +1269,7 @@ declare namespace runtime {
         settings: SettingsModule;
         projects: ProjectsModule;
         context: ContextModule;
+        hooks: Hooks;
 
         /**
          * Returns whether the runtime is started

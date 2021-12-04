@@ -1090,7 +1090,7 @@ interface BeforeOptions extends LimitOptions {
 }
 
 interface AfterOptions extends LimitOptions {
-    after?: number | undefined;
+    after?: string | undefined;
 }
 
 interface LocaleOptions extends CountryOptions {

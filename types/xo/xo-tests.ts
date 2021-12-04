@@ -43,7 +43,7 @@ if (options.semicolon === false && !options.prettier) {
     }
     if (options.prettier && options.plugins) {
         options.plugins = options.plugins.concat("prettier");
-        if (options.baseConfig) {
+        if (options.baseConfig && options.baseConfig.extends) {
             options.baseConfig.extends = options.baseConfig.extends.concat("prettier");
             options.baseConfig.extends = options.baseConfig.extends.concat("prettier/unicorn");
         }

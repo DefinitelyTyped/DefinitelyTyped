@@ -260,3 +260,6 @@ declare module 'cluster' {
 
     function eventNames(): string[];
 }
+declare module 'node:cluster' {
+    export * from 'cluster';
+}

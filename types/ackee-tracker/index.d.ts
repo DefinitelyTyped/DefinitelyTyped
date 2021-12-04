@@ -67,5 +67,6 @@ export function create(server: string, options?: TrackingOptions): AckeeInstance
 
 export function attributes(detailed?: false): DefaultData;
 export function attributes(detailed: true): DefaultData & DetailedData;
+export function attributes(detailed?: boolean): DefaultData | (DefaultData & DetailedData);
 
 export function detect(): void;

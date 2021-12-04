@@ -212,8 +212,10 @@ indy.closeWalletSearch(10);
 indy.createPoolLedgerConfig('not_a_real_pool', {
     genesis_txn: '/not/a/real/file.txn',
 });
+indy.deletePoolLedgerConfig('not_a_real_pool');
 indy.setProtocolVersion(1);
 indy.openPoolLedger('name', { timeout: 1000 });
+indy.closePoolLedger(10);
 indy.proverCreateMasterSecret(10, 'masterSecretName');
 indy.proverCreateCredentialReq(10, 'proverDid', credOffer, credDef, 'master_secret');
 indy.issuerCreateCredentialOffer(10, 'credDefId');
@@ -246,6 +248,7 @@ indy.proverStoreCredential(
 );
 indy.proverGetCredential(10, 'outCredId');
 indy.generateNonce();
+indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});
 indy.proverFetchCredentialsForProofReq(10, 'attr1_referent', 100);
@@ -254,7 +257,7 @@ indy.verifierVerifyProof(
     proofReq,
     {
         proof: 'proof',
-        identifiers: [{ schema_id: 'shcema_id'}],
+        identifiers: [{ schema_id: 'shcema_id' }],
         requested_proof: {
             requested_predicates: {},
             revealed_attr_groups: {},
@@ -290,12 +293,12 @@ indy.createRevocationState(
             prevAccum: 'prevAccum',
             accum: 'accum',
             issued: [],
-            revoked: []
+            revoked: [],
         },
-        ver: 'ver'
+        ver: 'ver',
     },
     new Date().getDate(),
-    'credRevId'
+    'credRevId',
 );
 
 // TODO

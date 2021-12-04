@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component, ReactChildren, ReactNode } from 'react';
-import { TextStyle, ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle, StyleProp } from 'react-native';
 
 // cell.js
 
@@ -13,9 +13,9 @@ export interface CellProps {
   width?: number | undefined;
   height?: number | undefined;
   flex?: number | undefined;
-  style?: ViewStyle | undefined;
-  textStyle?: TextStyle | undefined;
-  borderStyle?: ViewStyle | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
+  textStyle?: StyleProp<TextStyle> | undefined;
+  borderStyle?: StyleProp<ViewStyle> | undefined;
 }
 
 export class Cell extends Component<CellProps> {}
@@ -24,21 +24,21 @@ export class Cell extends Component<CellProps> {}
 
 export interface ColProps {
   data?: any[] | undefined;
-  style?: ViewStyle | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
   width?: number | undefined;
   heightArr?: number[] | undefined;
-  textStyle?: TextStyle | undefined;
+  textStyle?: StyleProp<TextStyle> | undefined;
 }
 
 export class Col extends Component<ColProps> {}
 
 export interface ColsProps {
   data?: any[] | undefined;
-  style?: ViewStyle | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
   widthArr?: number[] | undefined;
   heightArr?: number[] | undefined;
   flexArr?: number[] | undefined;
-  textStyle?: TextStyle | undefined;
+  textStyle?: StyleProp<TextStyle> | undefined;
 }
 
 export class Cols extends Component<ColsProps> {}
@@ -47,22 +47,22 @@ export class Cols extends Component<ColsProps> {}
 
 export interface RowProps {
   data?: any[] | undefined;
-  style?: ViewStyle | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
   widthArr?: number[] | undefined;
   height?: number | undefined;
   flexArr?: number[] | undefined;
-  textStyle?: TextStyle | undefined;
+  textStyle?: StyleProp<TextStyle> | undefined;
 }
 
 export class Row extends Component<RowProps> {}
 
 export interface RowsProps {
   data?: any[][] | undefined;
-  style?: ViewStyle | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
   widthArr?: number[] | undefined;
   heightArr?: number[] | undefined;
   flexArr?: number[] | undefined;
-  textStyle?: TextStyle | undefined;
+  textStyle?: StyleProp<TextStyle> | undefined;
 }
 
 export class Rows extends Component<RowsProps> {}
@@ -71,8 +71,8 @@ export class Rows extends Component<RowsProps> {}
 
 export interface TableProps {
   children?: ReactNode;
-  style?: ViewStyle | undefined;
-  borderStyle?: ViewStyle | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
+  borderStyle?: StyleProp<ViewStyle> | undefined;
 }
 
 export class Table extends Component<TableProps> {
@@ -81,8 +81,8 @@ export class Table extends Component<TableProps> {
 
 export interface TableWrapperProps {
   children?: ReactNode;
-  style?: ViewStyle | undefined;
-  borderStyle?: ViewStyle | undefined;
+  style?: StyleProp<ViewStyle> | undefined;
+  borderStyle?: StyleProp<ViewStyle> | undefined;
 }
 
 export class TableWrapper extends Component<TableWrapperProps> {

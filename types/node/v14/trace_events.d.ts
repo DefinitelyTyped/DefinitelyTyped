@@ -59,3 +59,6 @@ declare module 'trace_events' {
      */
     function getEnabledCategories(): string | undefined;
 }
+declare module 'node:trace_events' {
+    export * from 'trace_events';
+}

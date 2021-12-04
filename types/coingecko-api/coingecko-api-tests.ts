@@ -20,8 +20,20 @@ const client = new CoinGecko();
 
     await client.coins.fetchHistory('bitcoin', {
         date: '30-10-2021',
-        localization: true
+        localization: true,
     });
+
+    await client.coins.fetch('bitcoin', {
+        tickers: false,
+    });
+
+    /**
+     * exchanges
+     */
+
+    await client.exchanges.all();
+
+    await client.exchanges.fetch('mercado_bitcoin');
 
     /**
      * simple

@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import assert = require('assert');
-import * as util from 'util';
-import * as url from 'url';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import * as util from 'node:util';
+import * as url from 'node:url';
 
 {
     fs.writeFile("thebible.txt",
@@ -419,6 +419,14 @@ async function testPromisify() {
     fs.createReadStream('./index.d.ts', { encoding: 'utf8' });
     // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
     // fs.createReadStream('./index.d.ts', { encoding: 'invalid encoding' }); // $ExpectError
+}
+
+{
+    fs.createReadStream('path').close();
+    fs.createReadStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+
+    fs.createWriteStream('path').close();
+    fs.createWriteStream('path').close((err?: NodeJS.ErrnoException | null) => {});
 }
 
 {

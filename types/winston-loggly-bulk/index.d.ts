@@ -21,7 +21,7 @@ export interface LogglyOptions extends TransportStream.TransportStreamOptions {
     bufferOptions?: BufferOptions | undefined;
     isBulk?: boolean | undefined;
     json?: boolean | undefined;
-    networkErrorOnConsole?: boolean | undefined;
+    networkErrorsOnConsole?: boolean | undefined;
     proxy?: null | string | Url | undefined;
     stripColors?: boolean | undefined;
     subdomain: string;

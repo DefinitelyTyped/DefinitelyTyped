@@ -412,6 +412,7 @@ export type StylisPlugin = (
 ) => string | void;
 
 export interface StyleSheetManagerProps {
+    children?: React.ReactNode;
     disableCSSOMInjection?: boolean | undefined;
     disableVendorPrefixes?: boolean | undefined;
     stylisPlugins?: StylisPlugin[] | undefined;

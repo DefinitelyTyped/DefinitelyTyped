@@ -390,6 +390,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             // Do not reset hidden columns when columns change. Allows
             // for creating columns during render.
             autoResetHiddenColumns: false,
+            autoResetResize: false
         },
         useGroupBy,
         useFilters,

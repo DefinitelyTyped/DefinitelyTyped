@@ -629,6 +629,22 @@ function testDeclarativeContent() {
     };
 }
 
+// https://developer.chrome.com/docs/extensions/reference/windows
+function testWindows() {
+    chrome.windows.onCreated.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onRemoved.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onBoundsChanged.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onFocusChanged.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
+}
+
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
     function getCallback(loadedData: { [key: string]: any }) {

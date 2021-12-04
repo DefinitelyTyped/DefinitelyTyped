@@ -1,5 +1,3 @@
-src/dataprocessor/basichtmlwriter.d.ts
-src/dataprocessor/htmlwriter.d.ts
 src/dataprocessor/xmldataprocessor.d.ts
 src/model/history.d.ts
 src/model/operation/attributeoperation.d.ts

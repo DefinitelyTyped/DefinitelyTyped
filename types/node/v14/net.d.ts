@@ -291,3 +291,6 @@ declare module 'net' {
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
 }
+declare module 'node:net' {
+    export * from 'net';
+}

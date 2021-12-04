@@ -3,6 +3,7 @@
 // Definitions by: Adam Vigneaux <https://github.com/AdamVig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 2.7
+/// <reference types="node"/>
 
 import { LogDescriptor } from "pino";
 

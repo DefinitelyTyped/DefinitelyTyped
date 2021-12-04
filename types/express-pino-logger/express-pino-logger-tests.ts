@@ -1,5 +1,6 @@
 import express = require('express');
 import pino = require('pino');
+import { Options as PinoHttpOptions } from 'pino-http';
 import expressPinoLogger = require('express-pino-logger');
 
 const server = express();
@@ -23,7 +24,7 @@ server.use(middleware);
 
 // pino options and destination
 
-const pinoOpts: pino.LoggerOptions = {};
+const pinoOpts: PinoHttpOptions = {};
 const pinoDest: pino.DestinationStream = pino.destination('/log/path');
 middleware = expressPinoLogger(pinoOpts, pinoDest);
 server.use(middleware);

@@ -3,14 +3,91 @@
 // Definitions by: Jan Klimo <https://github.com/janklimo>, Artem Ilinykh <https://github.com/singlesly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Locale = "ar"|"de"|"en"|"es"|"fr"|"hu"|"id"|"it"|"ja"|"ko"|"nl"|"pl"|"pt"|"ro"|"ru"|"sv"|"th"|"tr"|"vi"|"zh"|'zh-tw';
+type Locale =
+    | 'ar'
+    | 'de'
+    | 'en'
+    | 'es'
+    | 'fr'
+    | 'hu'
+    | 'id'
+    | 'it'
+    | 'ja'
+    | 'ko'
+    | 'nl'
+    | 'pl'
+    | 'pt'
+    | 'ro'
+    | 'ru'
+    | 'sv'
+    | 'th'
+    | 'tr'
+    | 'vi'
+    | 'zh'
+    | 'zh-tw';
 
 type Localization = Record<Locale, string>;
 
-type Currency = "aed"|"ars"|"aud"|"bch"|"bdt"|"bhd"|"bmd"|"bnb"|"brl"|"btc"|"cad"|"chf"|"clp"|"cny"|"czk"|"dkk"|"eos"|"eth"
-    |"eur"|"gbp"|"hkd"|"huf"|"idr"|"ils"|"inr"|"jpy"|"krw"|"kwd"|"lkr"|"ltc"|"mmk"|"mxn"|"myr"|"ngn"|"nok"|"nzd"|"php"
-    |"pkr"|"pln"|"rub"|"sar"|"sek"|"sgd"|"thb"|"try"|"twd"|"uah"|"usd"|"vef"|"vnd"|"xag"|"xau"|"xdr"|"xlm"|"xrp"|"zar"
-    |"bits"|"link"|"sats";
+type Currency =
+    | 'aed'
+    | 'ars'
+    | 'aud'
+    | 'bch'
+    | 'bdt'
+    | 'bhd'
+    | 'bmd'
+    | 'bnb'
+    | 'brl'
+    | 'btc'
+    | 'cad'
+    | 'chf'
+    | 'clp'
+    | 'cny'
+    | 'czk'
+    | 'dkk'
+    | 'eos'
+    | 'eth'
+    | 'eur'
+    | 'gbp'
+    | 'hkd'
+    | 'huf'
+    | 'idr'
+    | 'ils'
+    | 'inr'
+    | 'jpy'
+    | 'krw'
+    | 'kwd'
+    | 'lkr'
+    | 'ltc'
+    | 'mmk'
+    | 'mxn'
+    | 'myr'
+    | 'ngn'
+    | 'nok'
+    | 'nzd'
+    | 'php'
+    | 'pkr'
+    | 'pln'
+    | 'rub'
+    | 'sar'
+    | 'sek'
+    | 'sgd'
+    | 'thb'
+    | 'try'
+    | 'twd'
+    | 'uah'
+    | 'usd'
+    | 'vef'
+    | 'vnd'
+    | 'xag'
+    | 'xau'
+    | 'xdr'
+    | 'xlm'
+    | 'xrp'
+    | 'zar'
+    | 'bits'
+    | 'link'
+    | 'sats';
 
 type Order =
     | 'gecko_asc'
@@ -126,7 +203,7 @@ interface CoinsFetchHistoryData {
         total_volume: Record<Currency & string, number>;
     };
     community_data: {
-        facebook_likes: null|number;
+        facebook_likes: null | number;
         twitter_followers: number;
         reddit_average_posts_48h: number;
         reddit_average_comments_48h: number;
@@ -141,10 +218,149 @@ interface CoinsFetchHistoryData {
         closed_issues: number;
         pull_requests_merged: number;
         pull_request_contributors: number;
-        code_additions_deletions_4_weeks: { additions: number, deletions: number };
+        code_additions_deletions_4_weeks: { additions: number; deletions: number };
         commit_count_4_weeks: number;
     };
-    public_interest_stats: { alexa_rank: number, bing_matches: null };
+    public_interest_stats: { alexa_rank: number; bing_matches: null };
+}
+
+interface CoinsFetchParams {
+    /**
+     * Set to false to exclude localized languages in response
+     * [default: true]
+     */
+    localization?: boolean;
+
+    /**
+     * Set to false to exclude tickers data in response
+     * [default: true]
+     */
+    tickers?: boolean;
+
+    /**
+     * Set to false to exclude market_data in response
+     * [default: true]
+     */
+    market_data?: boolean;
+
+    /**
+     * Set to false to exclude community_data in response
+     * [default: true]
+     */
+    community_data?: boolean;
+
+    /**
+     * Set to false to exclude developer_data in response
+     * [default: true]
+     */
+    developer_data?: boolean;
+
+    /**
+     * Set to true to incluse sparkline 7 days in response
+     * [default: false]
+     */
+    sparkline?: boolean;
+}
+
+interface CoinsFetchData {
+    id: string;
+    symbol: string;
+    name: string;
+    block_time_in_minutes: number;
+    hashing_algorithm: string;
+    categories: string[];
+    localization: object;
+    description: object;
+    links: object;
+    image: {
+        thumb: string;
+        small: string;
+    };
+    country_origin: string;
+    genesis_date: string;
+    sentiment_votes_up_percentage: number;
+    sentiment_votes_down_percentage: number;
+    market_cap_rank: number;
+    coingecko_rank: number;
+    coingecko_score: number;
+    developer_score: number;
+    community_score: number;
+    liquidity_score: number;
+    public_interest_score: number;
+    market_data: {
+        current_price: Record<Currency & string, number>;
+        market_cap: Record<Currency & string, number>;
+        total_volume: Record<Currency & string, number>;
+    };
+    community_data: {
+        facebook_likes: null | number;
+        twitter_followers: number;
+        reddit_average_posts_48h: number;
+        reddit_average_comments_48h: number;
+        reddit_subscribers: number;
+        reddit_accounts_active_48h: string;
+    };
+    developer_data: {
+        forks: number;
+        stars: number;
+        subscribers: number;
+        total_issues: number;
+        closed_issues: number;
+        pull_requests_merged: number;
+        pull_request_contributors: number;
+        code_additions_deletions_4_weeks: { additions: number; deletions: number };
+        commit_count_4_weeks: number;
+    };
+    public_interest_stats: { alexa_rank: number; bing_matches: null };
+    last_updated: string;
+    tickers: [];
+}
+
+/**
+ * Exchanges
+ */
+interface ExchangesAllParams {
+    /**
+     * Total results per page
+     * [default: 100]
+     */
+    // tslint:disable-next-line no-redundant-undefined
+    per_page?: number | undefined;
+    /**
+     * Page through results
+     */
+    // tslint:disable-next-line no-redundant-undefined
+    page?: number | undefined;
+}
+
+interface Exchange {
+    id: string;
+    name: string;
+    year_established: number;
+    country: string;
+    description: string;
+    url: string;
+    image: string;
+    has_trading_incentive: boolean;
+    trust_score: number;
+    trust_score_rank: number;
+    trade_volume_24h_btc: number;
+    trade_volume_24h_btc_normalized: number;
+}
+
+interface ExchangesFetchData extends Exchange {
+    facebook_url: string;
+    reddit_url: string;
+    telegram_url: string;
+    slack_url: string;
+    other_url_1: string;
+    other_url_2: string;
+    twitter_handle: string;
+    centralized: boolean;
+    public_notice: string;
+    alert_notice: string;
+    tickers: [];
+    status_updates: [];
 }
 
 /**
@@ -206,10 +422,17 @@ declare class CoinGecko {
 
         /**
          * Get historical data (name, price, market, stats) at a given date for a coin
-         * @param coinId - (Required) The coin id (can be obtained from coins.list()) eg. bitcoin
+         * @param coinId - (Required) The coin id (can be obtained from coins.all()) eg. bitcoin
          * @param params - Parameters to pass through to the request
          */
         fetchHistory(coinId: string, params: CoinsFetchHistoryParams): Promise<Response<CoinsFetchHistoryData>>;
+
+        /**
+         * Get current data (name, price, market, … including exchange tickers) for a coin.
+         * @param coinId - (Required) The coin id (can be obtained from coins.all()) eg. bitcoin
+         * @param params - Parameters to pass through to the request
+         */
+        fetch(coinId: string, params: CoinsFetchParams): Promise<Response<CoinsFetchData>>;
     };
 
     simple: {
@@ -218,6 +441,20 @@ declare class CoinGecko {
          * @param params - Parameters to pass through to the request
          */
         price(params: SimplePriceParams): Promise<Response>;
+    };
+
+    exchanges: {
+        /**
+         * List all exchanges
+         * @param params - Parameters to pass through to the request
+         */
+        all(params?: ExchangesAllParams): Promise<Response<Exchange[]>>;
+
+        /**
+         * Get exchange volume in BTC and tickers
+         * @param exchangeId - (Required) The exchange id (can be obtained from exchanges.all()) eg. ripio
+         */
+        fetch(exchangeId: string): Promise<Response<ExchangesFetchData>>;
     };
 }
 

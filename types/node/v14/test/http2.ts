@@ -31,13 +31,13 @@ import {
     createServer,
     constants,
     ServerOptions,
-} from 'http2';
-import EventEmitter = require('events');
-import { Stats } from 'fs';
-import { Socket, Server } from 'net';
-import { TLSSocket } from 'tls';
-import { Duplex, Readable } from 'stream';
-import { URL } from 'url';
+} from 'node:http2';
+import EventEmitter = require('node:events');
+import { Stats } from 'node:fs';
+import { Socket, Server } from 'node:net';
+import { TLSSocket } from 'node:tls';
+import { Duplex, Readable } from 'node:stream';
+import { URL } from 'node:url';
 
 // Headers & Settings
 {

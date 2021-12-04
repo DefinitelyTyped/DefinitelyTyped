@@ -81,3 +81,23 @@ concurrently(
         prefixColors: ['red'],
     },
 );
+
+concurrently(
+    [
+        'echo foo',
+        {
+            command: 'echo bar',
+            env: {
+                a: 'bar',
+                b: undefined,
+            },
+            name: 'bar',
+            prefixColor: 'yellow',
+        },
+        { command: 'nodemon', name: 'server' },
+        { command: 'watch', name: 'watch', cwd: path.resolve(__dirname, 'scripts/watchers') },
+    ],
+    {
+        hide: ['server', 3],
+    },
+);

@@ -22,8 +22,8 @@ import {
     brotliCompress,
     brotliDecompressSync,
     brotliDecompress,
-} from 'zlib';
-import { promisify } from 'util';
+} from 'node:zlib';
+import { promisify } from 'node:util';
 
 const compressMe = new Buffer("some data");
 const compressMeString = "compress me!";

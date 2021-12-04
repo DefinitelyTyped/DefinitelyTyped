@@ -14,7 +14,7 @@ type commonPropsType2 = CommonReactLinesEllipsisProps['trimRight'];
 type commonPropsType3 = CommonReactLinesEllipsisProps['basedOn'];
 // $ExpectType number | undefined
 type commonPropsType4 = CommonReactLinesEllipsisProps['winWidth'];
-// $ExpectType (({ clamped, text }: { clamped: boolean; text: string; }) => string) | undefined
+// $ExpectType (({ clamped, text }: { clamped: boolean; text: string; }) => void) | undefined
 type commonPropsType5 = CommonReactLinesEllipsisProps['onReflow'];
 // $ExpectType string | undefined
 type commonPropsType6 = CommonReactLinesEllipsisProps['component'];

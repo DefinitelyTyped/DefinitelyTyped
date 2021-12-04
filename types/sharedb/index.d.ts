@@ -1,4 +1,4 @@
-// Type definitions for sharedb 1.0
+// Type definitions for sharedb 2.2
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
@@ -30,6 +30,11 @@ declare class sharedb extends EventEmitter {
     pubsub: sharedb.PubSub;
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
     milestoneDb?: sharedb.MilestoneDB;
+    errorHandler: ErrorHandler;
+
+    readonly projections: {
+        readonly [name: string]: ReadonlyProjection;
+    };
 
     constructor(options?: {
         db?: any,
@@ -38,6 +43,8 @@ declare class sharedb extends EventEmitter {
         milestoneDb?: sharedb.MilestoneDB,
         suppressPublish?: boolean,
         maxSubmitRetries?: number,
+        doNotForwardSendPresenceErrorsToClient?: boolean,
+        errorHandler?: ErrorHandler;
 
         presence?: boolean,
         /**
@@ -218,7 +225,9 @@ declare namespace sharedb {
             query: QueryContext;
             readSnapshots: ReadSnapshotsContext;
             receive: ReceiveContext;
+            receivePresence: PresenceContext;
             reply: ReplyContext;
+            sendPresence: PresenceContext;
             submit: SubmitContext;
         }
 
@@ -251,16 +260,21 @@ declare namespace sharedb {
             op: any;
         }
 
+        interface PresenceContext extends BaseContext {
+            presence: PresenceMessage;
+            collection?: string;
+        }
+
         interface QueryContext extends BaseContext {
             index: string;
             collection: string;
-            projection: Projection;
+            projection: ReadonlyProjection;
             fields: ProjectionFields;
             channel: string;
             query: any;
             options?: {[key: string]: any};
             db: DB | null;
-            snapshotProjection: Projection | null;
+            snapshotProjection: ReadonlyProjection | null;
         }
 
         interface ReadSnapshotsContext extends BaseContext {
@@ -285,9 +299,9 @@ declare namespace sharedb {
     }
 }
 
-interface Projection {
-    target: string;
-    fields: ProjectionFields;
+interface ReadonlyProjection {
+    readonly target: Readonly<string>;
+    readonly fields: Readonly<ProjectionFields>;
 }
 
 interface ProjectionFields {
@@ -296,7 +310,7 @@ interface ProjectionFields {
 
 interface SubmitRequest {
     index: string;
-    projection: Projection;
+    projection: ReadonlyProjection;
     collection: string;
     id: string;
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
@@ -322,4 +336,22 @@ interface GetOpsOptions {
     };
 }
 
+interface PresenceMessage {
+    a: 'p';
+    ch: string; // channel
+    src: string; // client ID
+    id: string; // presence ID
+    p: any; // presence payload
+    pv: number; // presence version
+    c?: string; // document collection
+    d?: string; // document ID
+    v?: number; // document version
+    t?: string; // document OT type
+}
+
 type BasicCallback = (err?: Error) => void;
+
+type ErrorHandler = (error: Error, context: ErrorHandlerContext) => void;
+interface ErrorHandlerContext {
+    agent?: Agent;
+}
