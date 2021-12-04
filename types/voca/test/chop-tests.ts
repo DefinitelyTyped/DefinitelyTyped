@@ -9,13 +9,29 @@ import substr = require('voca/substr');
 import substring = require('voca/substring');
 import truncate = require('voca/truncate');
 
-codePointAt();
-first();
-graphemeAt();
-charAt();
-last();
-prune();
-slice();
-substr();
-substring();
-truncate();
+charAt('helicopter', 0);
+
+codePointAt('rain', 1);
+
+first('helicopter');
+first('vehicle', 2);
+
+graphemeAt('\uD835\uDC00\uD835\uDC01', 0);
+
+last('helicopter');
+last('vehicle', 2);
+
+prune('Once upon a time', 7);
+prune('Good day, Little Red Riding Hood', 16, ' (more)');
+
+slice('miami', 1);
+slice('florida', 1, 4);
+
+substr('infinite loop', 9);
+substr('dreams', 2, 2);
+
+substring('beach', 1);
+substring('ocean', 1, 3);
+
+truncate('Once upon a time', 7);
+truncate('Good day, Little Red Riding Hood', 14, ' (...)');

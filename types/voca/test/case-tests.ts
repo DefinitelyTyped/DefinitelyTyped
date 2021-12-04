@@ -9,11 +9,23 @@ import titleCase = require('voca/title_case');
 import upperCase = require('voca/upper_case');
 
 camelCase();
+camelCase('bird flight');
+
 capitalize();
-decapitalize();
-kebabCase();
-lowerCase();
-snakeCase();
-swapCase();
-titleCase();
-upperCase();
+capitalize('apple');
+capitalize('aPPle', true);
+
+decapitalize('Sun');
+
+kebabCase('goodbye blue sky');
+
+lowerCase('Green');
+
+snakeCase('learning to fly');
+
+swapCase('learning to fly');
+
+titleCase('learning to fly');
+titleCase('another brick in the wall', ['in', 'the']);
+
+upperCase('school');

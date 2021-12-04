@@ -1,27 +1,63 @@
-import ends_with = require('voca/ends_with');
+import endsWith = require('voca/ends_with');
 import includes = require('voca/includes');
-import is_alpha = require('voca/is_alpha');
-import is_alpha_digit = require('voca/is_alpha_digit');
-import is_blank = require('voca/is_blank');
-import is_digit = require('voca/is_digit');
-import is_empty = require('voca/is_empty');
-import is_lower_case = require('voca/is_lower_case');
-import is_numeric = require('voca/is_numeric');
-import is_string = require('voca/is_string');
-import is_upper_case = require('voca/is_upper_case');
+import isAlpha = require('voca/is_alpha');
+import isAlphaDigit = require('voca/is_alpha_digit');
+import isBlank = require('voca/is_blank');
+import isDigit = require('voca/is_digit');
+import isEmpty = require('voca/is_empty');
+import isLowerCase = require('voca/is_lower_case');
+import isNumeric = require('voca/is_numeric');
+import isString = require('voca/is_string');
+import isUpperCase = require('voca/is_upper_case');
 import matches = require('voca/matches');
-import starts_with = require('voca/starts_with');
+import startsWith = require('voca/starts_with');
 
-ends_with();
+endsWith();
+endsWith('red alert');
+endsWith('red alert', 'alert');
+endsWith('Murphy', 'ph', 5);
+
 includes();
-is_alpha_digit();
-is_alpha();
-is_blank();
-is_digit();
-is_empty();
-is_lower_case();
-is_numeric();
-is_string();
-is_upper_case();
+includes('starship');
+includes('starship', 'star');
+includes('galaxy', 'g', 1);
+
+isAlpha();
+isAlpha('bart');
+
+isAlphaDigit();
+isAlphaDigit('year2020');
+
+isBlank();
+isBlank('');
+
+isDigit();
+isDigit('35');
+
+isEmpty();
+isEmpty('');
+
+isLowerCase();
+isLowerCase('motorcycle');
+
+isNumeric();
+isNumeric('350');
+
+isString();
+isString('vacation');
+isString(560);
+
+isUpperCase();
+isUpperCase('ACDC');
+
 matches();
-starts_with();
+matches('pluto');
+matches('pluto', /plu.{2}/);
+matches('sun', 'S', 'i');
+matches('apollo 11', '\\d{3}');
+
+startsWith();
+startsWith('say hello to my little friend');
+startsWith('say hello to my little friend', 'say hello');
+startsWith('tony', 'on', 1);
+startsWith('the world is yours', 'world');
