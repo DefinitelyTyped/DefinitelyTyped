@@ -176,7 +176,7 @@ const EditableCell = ({
 function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter, parent } }: FilterProps<Data>) {
     const count = preFilteredRows.length;
 
-    const foo = parent;  // $ExpectType ColumnInstance<Data> | undefined
+    const foo = parent; // $ExpectType ColumnInstance<Data> | undefined
 
     return (
         <input
@@ -430,25 +430,43 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                 <thead>
                     {headerGroups.map((headerGroup: HeaderGroup<Data>) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>
-                                    <div>
-                                        {column.canGroupBy ? (
-                                            // If the column can be grouped, let's add a toggle
-                                            <span {...column.getGroupByToggleProps()}>
-                                                {column.isGrouped ? '🛑 ' : '👊 '}
+                            {headerGroup.headers.map(column => {
+                                // $ExpectType TableHeaderProps
+                                const headerProps = column.getHeaderProps();
+                                const {
+                                    key: headerKey,
+                                    className: headerClassName,
+                                    style: headerStyle,
+                                    role: headerRole,
+                                } = headerProps;
+                                // $ExpectType TableGroupByToggleProps
+                                const groupByToggleProps = column.getGroupByToggleProps();
+                                const {
+                                    title: groupTitle,
+                                    style: groupStyle,
+                                    onClick: groupOnClick,
+                                } = groupByToggleProps;
+                                // $ExpectType TableSortByToggleProps
+                                const sortByProps = column.getSortByToggleProps();
+                                const { title: sortTitle, style: sortStyle, onClick: sortOnClick } = sortByProps;
+                                return (
+                                    <th {...headerProps}>
+                                        <div>
+                                            {column.canGroupBy ? (
+                                                // If the column can be grouped, let's add a toggle
+                                                <span {...groupByToggleProps}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
+                                            ) : null}
+                                            <span {...sortByProps}>
+                                                {column.render('Header')}
+                                                {/* Add a sort direction indicator */}
+                                                {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                                             </span>
-                                        ) : null}
-                                        <span {...column.getSortByToggleProps()}>
-                                            {column.render('Header')}
-                                            {/* Add a sort direction indicator */}
-                                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                                        </span>
-                                    </div>
-                                    {/* Render the columns filter UI */}
-                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
-                                </th>
-                            ))}
+                                        </div>
+                                        {/* Render the columns filter UI */}
+                                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                    </th>
+                                );
+                            })}
                         </tr>
                     ))}
                 </thead>

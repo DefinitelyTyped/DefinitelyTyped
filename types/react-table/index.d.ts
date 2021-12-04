@@ -554,7 +554,11 @@ export namespace useGroupBy {
     const pluginName = 'useGroupBy';
 }
 
-export interface TableGroupByToggleProps {}
+export interface TableGroupByToggleProps {
+    title: string;
+    style: CSSProperties;
+    onClick: (e: MouseEvent) => void;
+}
 
 export type UseGroupByOptions<D extends object> = Partial<{
     manualGroupBy: boolean;
@@ -795,7 +799,11 @@ export namespace useSortBy {
     const pluginName = 'useSortBy';
 }
 
-export interface TableSortByToggleProps {}
+export interface TableSortByToggleProps {
+    title?: string | undefined;
+    style: CSSProperties;
+    onClick: (e: MouseEvent) => void;
+}
 
 export type UseSortByOptions<D extends object> = Partial<{
     manualSortBy: boolean;
