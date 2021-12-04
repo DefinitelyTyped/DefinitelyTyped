@@ -1,4 +1,4 @@
-import clevertap from 'clevertap-web-sdk';
+import clevertap = require('clevertap-web-sdk');
 
 clevertap.privacy.push({ optOut: false }); // Set the flag to true, if the user of the device opts out of sharing their data
 clevertap.privacy.push({ useIP: false }); // Set the flag to true, if the user agrees to share their IP data
