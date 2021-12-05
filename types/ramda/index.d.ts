@@ -300,7 +300,7 @@ export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult
         f1: (...args: TArgs) => R1
     ]
 ): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
     f7: (a: R6) => R7,
     f6: (a: R5) => R6,
     f5: (a: R4) => R5,
@@ -2081,8 +2081,8 @@ export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[]
  * Runs the given function with the supplied object, then returns the object.
  * Acts as a transducer if a transformer is given as second parameter.
  */
-export function tap<T>(fn: (a: T) => any, value: T): T;
-export function tap<T>(fn: (a: T) => any): (value: T) => T;
+export function tap<T>(fn: (a: T) => void, value: T): T;
+export function tap<T>(fn: (a: T) => void): (value: T) => T;
 
 /**
  * Determines whether a given string matches a given regular expression.
@@ -2137,7 +2137,7 @@ export function toPairsIn<S>(obj: Record<string | number, S>): Array<[string, S]
  * return value. This means user-defined constructor functions can provide a suitable
  * toString method.
  */
-export function toString<T>(val: T): string;
+export function toString(val: unknown): string;
 
 /**
  * The upper case version of a string.
