@@ -15,15 +15,11 @@ export = jwt;
 declare function jwt(options: jwt.Options): jwt.RequestHandler;
 declare namespace jwt {
     type secretType = string | Buffer;
-    /**
-     * The express-jwt library specifies the following ErrorCode values by default:
-     * - `"revoked_token"`
-     * - `"invalid_token"`
-     * - `"credentials_bad_scheme"`
-     * - `"credentials_bad_format"`
-     * - `"credentials_required"`
-     */
-    type ErrorCode = string;
+    type LiteralUnion<T extends U, U = string> = T | (U & Record<never, never>);
+
+    type ErrorCode = LiteralUnion<
+        'revoked_token' | 'invalid_token' | 'credentials_bad_scheme' | 'credentials_bad_format' | 'credentials_required'
+    >;
 
     interface SecretCallbackLong {
         (req: express.Request, header: any, payload: any, done: (err: any, secret?: secretType) => void): void;
