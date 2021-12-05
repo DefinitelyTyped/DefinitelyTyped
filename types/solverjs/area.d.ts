@@ -1,76 +1,73 @@
 /**
  * Docs: https://github.com/suryapratapsinghsuryavanshi/solverjs/blob/main/src/units/area/area.js
  */
-declare namespace SolverJS {
-    interface Static {
-        /**
-         * square kilometer to all
-         */
-        sqKmToSqMe(sqkm: number): number;
-        sqKmToSqYd(sqkm: number): number;
-        sqKmToSqFt(sqkm: number): number;
-        sqKmToSqIn(sqkm: number): number;
-        sqKmToHect(sqkm: number): number;
-        sqKmToAcre(sqkm: number): number;
 
-        /**
-         * square meter to all
-         */
-        sqMeToSqKm(sqme: number): number;
-        sqMeToSqYd(sqme: number): number;
-        sqMeToSqFt(sqme: number): number;
-        sqMeToSqIn(sqme: number): number;
-        sqMeToHect(sqme: number): number;
-        sqMeToAcre(sqme: number): number;
+/**
+ * square kilometer to all
+ */
+export function sqKmToSqMe(sqkm: number): number;
+export function sqKmToSqYd(sqkm: number): number;
+export function sqKmToSqFt(sqkm: number): number;
+export function sqKmToSqIn(sqkm: number): number;
+export function sqKmToHect(sqkm: number): number;
+export function sqKmToAcre(sqkm: number): number;
 
-        /**
-         * square yard to all
-         */
-        sqYdToSqKm(sqyd: number): number;
-        sqYdToSqMe(sqyd: number): number;
-        sqYdToSqFt(sqyd: number): number;
-        sqYdToSqIn(sqyd: number): number;
-        sqYdToHect(sqyd: number): number;
-        sqYdToAcre(sqyd: number): number;
+/**
+ * square meter to all
+ */
+export function sqMeToSqKm(sqme: number): number;
+export function sqMeToSqYd(sqme: number): number;
+export function sqMeToSqFt(sqme: number): number;
+export function sqMeToSqIn(sqme: number): number;
+export function sqMeToHect(sqme: number): number;
+export function sqMeToAcre(sqme: number): number;
 
-        /**
-         * square foot to all
-         */
-        sqFtToSqKm(sqft: number): number;
-        sqFtToSqMe(sqft: number): number;
-        sqFtToSqYd(sqft: number): number;
-        sqFtToSqIn(sqft: number): number;
-        sqFtToHect(sqft: number): number;
-        sqFtToAcre(sqft: number): number;
+/**
+ * square yard to all
+ */
+export function sqYdToSqKm(sqyd: number): number;
+export function sqYdToSqMe(sqyd: number): number;
+export function sqYdToSqFt(sqyd: number): number;
+export function sqYdToSqIn(sqyd: number): number;
+export function sqYdToHect(sqyd: number): number;
+export function sqYdToAcre(sqyd: number): number;
 
-        /**
-         * square inch to all
-         */
-        sqInToSqKm(sqin: number): number;
-        sqInToSqMe(sqin: number): number;
-        sqInToSqYd(sqin: number): number;
-        sqInToSqFt(sqin: number): number;
-        sqInToHect(sqin: number): number;
-        sqInToAcre(sqin: number): number;
+/**
+ * square foot to all
+ */
+export function sqFtToSqKm(sqft: number): number;
+export function sqFtToSqMe(sqft: number): number;
+export function sqFtToSqYd(sqft: number): number;
+export function sqFtToSqIn(sqft: number): number;
+export function sqFtToHect(sqft: number): number;
+export function sqFtToAcre(sqft: number): number;
 
-        /**
-         * hectare to all
-         */
-        hectToSqKm(hect: number): number;
-        hectToSqMe(hect: number): number;
-        hectToSqYd(hect: number): number;
-        hectToSqFt(hect: number): number;
-        hectToSqIn(hect: number): number;
-        hectToAcre(hect: number): number;
+/**
+ * square inch to all
+ */
+export function sqInToSqKm(sqin: number): number;
+export function sqInToSqMe(sqin: number): number;
+export function sqInToSqYd(sqin: number): number;
+export function sqInToSqFt(sqin: number): number;
+export function sqInToHect(sqin: number): number;
+export function sqInToAcre(sqin: number): number;
 
-        /**
-         * acre to all
-         */
-        acreToSqKm(acre: number): number;
-        acreToSqMe(acre: number): number;
-        acreToSqYd(acre: number): number;
-        acreToSqFt(acre: number): number;
-        acreToSqIn(acre: number): number;
-        acreToHect(acre: number): number;
-    }
-}
+/**
+ * hectare to all
+ */
+export function hectToSqKm(hect: number): number;
+export function hectToSqMe(hect: number): number;
+export function hectToSqYd(hect: number): number;
+export function hectToSqFt(hect: number): number;
+export function hectToSqIn(hect: number): number;
+export function hectToAcre(hect: number): number;
+
+/**
+ * acre to all
+ */
+export function acreToSqKm(acre: number): number;
+export function acreToSqMe(acre: number): number;
+export function acreToSqYd(acre: number): number;
+export function acreToSqFt(acre: number): number;
+export function acreToSqIn(acre: number): number;
+export function acreToHect(acre: number): number;
