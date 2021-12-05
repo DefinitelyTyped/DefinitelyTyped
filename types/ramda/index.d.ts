@@ -300,7 +300,7 @@ export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult
         f1: (...args: TArgs) => R1
     ]
 ): (...args: TArgs) => TResult; // fallback overload if number of composed functions greater than 7
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
     f7: (a: R6) => R7,
     f6: (a: R5) => R6,
     f5: (a: R4) => R5,
