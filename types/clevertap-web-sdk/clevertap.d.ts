@@ -91,7 +91,7 @@ interface Session {
     getPageCount(): number | undefined;
 }
 
-declare const clevertap: {
+interface CleverTap {
     init(accountId: string, region?: Region, targetDomain?: string): void;
     privacy: Privacy;
     event: EventHandler;
@@ -108,4 +108,6 @@ declare const clevertap: {
     spa: boolean;
     enablePersonalization: boolean;
     raiseNotificationClicked: () => void;
-};
+}
+
+declare const clevertap: CleverTap;
