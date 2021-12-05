@@ -491,6 +491,13 @@ declare namespace Xrm {
          * @returns A path string with the organization name. Format: "/"+ OrgName + sPath
          */
         prependOrgName(sPath: string): string;
+        
+        /**
+         * Gets the current value of a settings row.
+         * @param settingName Name of the setting youd like to receive the value from.
+         * @returns The current value of the setting.
+         */
+         getCurrentAppSetting(settingName: string): string | number | boolean;
     }
 
     /**
