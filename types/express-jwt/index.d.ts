@@ -15,6 +15,14 @@ export = jwt;
 declare function jwt(options: jwt.Options): jwt.RequestHandler;
 declare namespace jwt {
     type secretType = string | Buffer;
+    /**
+     * The express-jwt library specifies the following ErrorCode values by default:
+     * - `"revoked_token"`
+     * - `"invalid_token"`
+     * - `"credentials_bad_scheme"`
+     * - `"credentials_bad_format"`
+     * - `"credentials_required"`
+     */
     type ErrorCode = string;
 
     interface SecretCallbackLong {
