@@ -110,7 +110,7 @@ declare module 'http' {
         'www-authenticate'?: string | undefined;
     }
     // outgoing headers allows numbers (as they are converted internally to strings)
-    type OutgoingHttpHeader = number | string | string[];
+    type OutgoingHttpHeader = number | string | (number|string)[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
     interface ClientRequestArgs {
         abort?: AbortSignal | undefined;
@@ -372,7 +372,7 @@ declare module 'http' {
          * @since v0.4.0
          * @param name Name of header
          */
-        getHeader(name: string): number | string | string[] | undefined;
+        getHeader(name: string): number | string | (number|string)[] | undefined;
         /**
          * Returns a shallow copy of the current outgoing headers. Since a shallow
          * copy is used, array values may be mutated without additional calls to
