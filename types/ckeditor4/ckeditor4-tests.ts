@@ -546,6 +546,8 @@ function test_editable() {
     editable.insertHtml('data');
     editable.insertHtml('data', 'mode');
     editable.insertHtml('data', 'mode', range);
+    editable.insertHtmlIntoRange('data', range);
+    editable.insertHtmlIntoRange('data', range, 'mode');
     editable.insertText(new CKEDITOR.dom.text('text'));
 
     const inline: boolean = editable.isInline();

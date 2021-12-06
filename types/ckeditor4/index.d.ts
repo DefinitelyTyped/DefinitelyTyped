@@ -1073,6 +1073,7 @@ declare namespace CKEDITOR {
         changeAttr(attr: string, val: string): void;
         detach(): void;
         insertElement(element: dom.element, range?: dom.range): void;
+        insertHtmlIntoRange(data: string, range: CKEDITOR.dom.range, mode?: string): void;
         insertHtml(data: string, mode?: string, range?: dom.range): void;
         insertText(text: dom.text): void;
         isInline(): boolean;
