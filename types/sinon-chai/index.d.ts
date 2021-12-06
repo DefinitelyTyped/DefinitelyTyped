@@ -43,11 +43,11 @@ declare global {
             /**
              * Returns true if the spy was called before anotherSpy.
              */
-            calledBefore(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall|Sinon.SinonStub|Sinon.SinonStubCall): Assertion;
+            calledBefore(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall|Sinon.SinonStub): Assertion;
             /**
              * Returns true if the spy was called after anotherSpy.
              */
-            calledAfter(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall|Sinon.SinonStub|Sinon.SinonStubCall): Assertion;
+            calledAfter(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall|Sinon.SinonStub): Assertion;
             /**
              * Returns true if spy was called before anotherSpy, and no spy calls occurred
              * between spy and anotherSpy.
