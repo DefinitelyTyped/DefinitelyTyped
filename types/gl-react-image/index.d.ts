@@ -7,7 +7,7 @@ import * as React from 'react';
 
 export interface GLImageProps {
     center?: [number, number];
-    resizeMode: 'cover' | 'free' | 'contain' | 'stretch';
+    resizeMode?: 'cover' | 'free' | 'contain' | 'stretch';
     source: any;
     zoom?: number;
 }
