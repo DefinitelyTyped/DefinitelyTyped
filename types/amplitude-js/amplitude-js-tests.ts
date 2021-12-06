@@ -218,3 +218,15 @@ const defaults: amplitude.Config = {
     unsentIdentifyKey: 'amplitude_unsent_identify',
     uploadBatchSize: 100,
 };
+
+// cookieStorage use example
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/57387
+var deviceId = amplitude.getInstance().cookieStorage.get('deviceId');
+if (deviceId) {
+    amplitude.getInstance().setDeviceId(deviceId);
+} else {
+    amplitude.getInstance().cookieStorage.set('deviceId', amplitude.getInstance().options.deviceId);
+}
+
+var domain = amplitude.getInstance().cookieStorage.options().domain;
+amplitude.getInstance().cookieStorage.options({ domain });
