@@ -10,7 +10,6 @@
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
-//                 Danilo Fuchs <https://github.com/danilofuchs>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
