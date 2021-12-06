@@ -939,6 +939,8 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] }); // $ExpectError

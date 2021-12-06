@@ -7133,7 +7133,10 @@ declare namespace chrome.runtime {
 declare namespace chrome.scripting {
 
     /* The CSS style origin for a style change. */
-    export type StyleOrigin = "AUTHOR" | "USER";
+    export type StyleOrigin = 'AUTHOR' | 'USER';
+
+    /* The JavaScript world for a script to execute within. */
+    export type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
     export interface InjectionResult {
         /* The frame associated with the injection. */
@@ -7165,6 +7168,8 @@ declare namespace chrome.scripting {
     export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
+        /* The JavaScript world for a script to execute within. */
+        world?: ExecutionWorld;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
