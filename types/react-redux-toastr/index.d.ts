@@ -54,6 +54,8 @@ interface ConfirmToastrOptions {
     disableCancel?: boolean | undefined;
     onCancel?: (() => void) | undefined;
     onOk?: (() => void) | undefined;
+    cancelText?: string;
+    okText?: string;
 }
 
 interface ConfirmToastrCustomOptions {
