@@ -1,19 +1,19 @@
-// Type definitions for ethereum-blockies 0.1.1
+// Type definitions for ethereum-blockies 0.1
 // Project: https://github.com/ethereum/blockies (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
 // Definitions by: Jack Works <https://github.com/Jack-Works>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface BlockieOptions {
     /** seed used to generate icon data, default: random */
-    seed?: string | undefined;
+    seed?: string;
     /** to manually specify the icon color, default: random */
-    color?: string | undefined;
+    color?: string;
     /** choose a different background color, default: random */
-    bgcolor?: string | undefined;
+    bgcolor?: string;
     /** width/height of the icon in blocks, default: 8 */
-    size?: number | undefined;
+    size?: number;
     /** width/height of each block in pixels, default: 4 */
-    scale?: number | undefined;
+    scale?: number;
     /**
      * each pixel has a 13% chance of being of a third color, default: random.
      *
@@ -21,7 +21,7 @@ export interface BlockieOptions {
      *
      * These "spots" create structures that look like eyes, mouths and noses.
      */
-    spotcolor?: number | undefined;
+    spotcolor?: number;
 }
 
-export function create(options?: BlockieOptions | undefined): HTMLCanvasElement;
+export function create(options?: BlockieOptions): HTMLCanvasElement;
