@@ -3,7 +3,8 @@
 // Definitions by: Royson <https://github.com/droyson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./clevertap.d.ts" />
+import CleverTap from './clevertap';
 
+declare const clevertap: CleverTap;
 export = clevertap;
 export as namespace clevertap;

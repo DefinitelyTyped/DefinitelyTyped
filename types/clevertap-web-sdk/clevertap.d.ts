@@ -91,7 +91,7 @@ interface Session {
     getPageCount(): number | undefined;
 }
 
-interface CleverTap {
+declare class CleverTap {
     init(accountId: string, region?: Region, targetDomain?: string): void;
     privacy: Privacy;
     event: EventHandler;
@@ -110,4 +110,4 @@ interface CleverTap {
     raiseNotificationClicked: () => void;
 }
 
-declare const clevertap: CleverTap;
+export default CleverTap;
