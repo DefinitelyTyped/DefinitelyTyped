@@ -9,3 +9,4 @@ const map = L.map('map', {
 // $ExpectType boolean
 map.isFullscreen();
 map.toggleFullscreen();
+map.toggleFullscreen({ pseudoFullscreen: true });

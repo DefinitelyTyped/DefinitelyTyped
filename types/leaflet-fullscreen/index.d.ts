@@ -9,10 +9,19 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
     interface MapOptions {
-        fullscreenControl?: true | {pseudoFullscreen: boolean} | undefined;
+        fullscreenControl?: true | FullscreenControlOptions | undefined;
     }
+
+    interface FullscreenControlOptions extends ControlOptions {
+        pseudoFullscreen?: boolean;
+        title?: {
+            'false': string,
+            'true': string
+        };
+    }
+
     interface Map {
         isFullscreen: () => boolean;
-        toggleFullscreen: () => void;
+        toggleFullscreen: (options?: FullscreenControlOptions) => void;
     }
 }
