@@ -460,9 +460,11 @@ export interface BabelFile {
 export interface PluginPass {
     file: BabelFile;
     key: string;
-    opts: PluginOptions;
+    opts: object;
     cwd: string;
     filename: string | undefined;
+    get(key: unknown): any;
+    set(key: unknown, value: unknown): void;
     [key: string]: unknown;
 }
 
