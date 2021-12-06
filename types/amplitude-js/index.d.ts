@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 8.0
+// Type definitions for Amplitude SDK 8.5
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -9,6 +9,7 @@ export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
+export type Transport = 'http' | 'beacon';
 
 export interface Config {
     apiEndpoint?: string | undefined;
@@ -60,6 +61,7 @@ export interface Config {
     unsentIdentifyKey?: string | undefined;
     uploadBatchSize?: number | undefined;
     useNativeDeviceInfo?: boolean | undefined;
+    transport?: Transport | undefined;
 }
 
 export class Identify {
@@ -116,6 +118,8 @@ export class AmplitudeClient {
     setOptOut(enable: boolean): void;
 
     setGroup(groupType: string, groupName: string | string[]): void;
+
+    setTransport(transport: Transport): void;
 
     logEvent(event: string, data?: any, callback?: Callback): LogReturn;
     logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;
