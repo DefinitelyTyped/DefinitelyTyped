@@ -8,6 +8,15 @@
 
 export as namespace CarbonReact;
 
+//
+// A note about 'next' components: This types package does not guarantee coverage of next components for
+// carbon v11 mainly due to the complexity of carbon determining which component to use based on React context
+// at runtime. Sometimes next props interfaces will conflict with the 'classic' variant. Additionally, next
+// components may have dependencies on other next components. Because the component variant is determined
+// at runtime, the components would need to be casted to the 'next' variant but for certain components
+// like Button that have multiple overloads this becomes tricky.
+//
+
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";
 export * from "./lib/components/AccordionItem";
