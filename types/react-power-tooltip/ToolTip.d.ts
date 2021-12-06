@@ -34,4 +34,5 @@ export interface TooltipProps {
     show: boolean;
     static?: boolean | undefined;
     flat?: boolean | undefined;
+    textBoxWidth? string | undefined;
 }
