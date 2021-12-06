@@ -3,6 +3,7 @@ import * as http from "http";
 import * as https from "https";
 import * as url from "url";
 import * as wslib from "ws";
+import {WebSocketServer} from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
@@ -301,4 +302,16 @@ function f() {
     ws.protocol = "a-value";
     // $ExpectError
     ws.protocol = true;
+}
+
+{
+    const webSocketServer = new WebSocketServer();
+    const server = new http.Server();
+    server.on('upgrade', (request, socket, head) => {
+        if (request.url === '/path') {
+            webSocketServer.handleUpgrade(request, socket, head, (ws) => {
+                webSocketServer.emit('connection', ws, request);
+            });
+        }
+    });
 }
