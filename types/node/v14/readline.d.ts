@@ -169,3 +169,6 @@ declare module 'readline' {
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
+declare module 'node:readline' {
+    export * from 'readline';
+}

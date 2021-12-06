@@ -364,7 +364,7 @@ declare namespace jest {
          * expect(button).toHaveStyle('background-color: green')
          * expect(button).toHaveStyle({
          *   background-color: 'green',
-         *   display: none
+         *   display: 'none'
          * })
          * @see
          * [testing-library/jest-dom#tohavestyle](https://github.com/testing-library/jest-dom#tohavestyle)

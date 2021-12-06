@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import assert = require('assert');
-import * as util from 'util';
-import * as url from 'url';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import * as util from 'node:util';
+import * as url from 'node:url';
 
 {
     fs.writeFile("thebible.txt",

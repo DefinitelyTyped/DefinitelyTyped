@@ -16,6 +16,7 @@
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
+//                 Ido Salomon <https://github.com/idosal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -774,7 +775,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text?: string | null;
+        text?: string | null | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
     }
@@ -6487,6 +6488,13 @@ declare namespace chrome.runtime {
     export type PlatformArch = 'arm' | 'arm64' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
     export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
+    export enum OnInstalledReason {
+        INSTALL = 'install',
+        UPDATE = 'update',
+        CHROME_UPDATE = 'chrome_update',
+        SHARED_MODULE_UPDATE = 'shared_module_update'
+    }
 
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
@@ -6501,9 +6509,8 @@ declare namespace chrome.runtime {
     export interface InstalledDetails {
         /**
          * The reason that this event is being dispatched.
-         * One of: "install", "update", "chrome_update", or "shared_module_update"
          */
-        reason: string;
+        reason: OnInstalledReason;
         /**
          * Optional.
          * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
@@ -7126,7 +7133,10 @@ declare namespace chrome.runtime {
 declare namespace chrome.scripting {
 
     /* The CSS style origin for a style change. */
-    export type StyleOrigin = "AUTHOR" | "USER";
+    export type StyleOrigin = 'AUTHOR' | 'USER';
+
+    /* The JavaScript world for a script to execute within. */
+    export type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
     export interface InjectionResult {
         /* The frame associated with the injection. */
@@ -7158,6 +7168,8 @@ declare namespace chrome.scripting {
     export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
+        /* The JavaScript world for a script to execute within. */
+        world?: ExecutionWorld;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
@@ -10739,10 +10751,20 @@ declare namespace chrome.windows {
     }
 
     export interface WindowIdEvent
-        extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(windowId: number) => void> {
+            addListener(
+                callback: (windowId: number) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     export interface WindowReferenceEvent
-        extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(window: Window) => void> {
+            addListener(
+                callback: (window: Window) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     /**
      * Specifies what type of browser window to create.

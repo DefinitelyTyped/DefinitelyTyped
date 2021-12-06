@@ -211,3 +211,6 @@ declare module 'util' {
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
     }
 }
+declare module 'node:util' {
+    export * from 'util';
+}

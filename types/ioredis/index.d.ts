@@ -353,6 +353,9 @@ declare namespace IORedis {
         lindex(key: KeyType, index: number, callback: Callback<string>): void;
         lindex(key: KeyType, index: number): Promise<string>;
 
+        lindexBuffer(key: KeyType, index: number, callback: Callback<Buffer>): void;
+        lindexBuffer(key: KeyType, index: number): Promise<Buffer>;
+
         lset(key: KeyType, index: number, value: ValueType, callback: Callback<Ok>): void;
         lset(key: KeyType, index: number, value: ValueType): Promise<Ok>;
 

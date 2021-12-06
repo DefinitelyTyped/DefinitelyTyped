@@ -344,3 +344,49 @@ async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEn
         }));
     }
 }
+
+// Demonstrate App
+Xrm.App.addGlobalNotification({
+    type: 2,
+    level: 2, // error
+    message: "Test error notification",
+    showCloseButton: true,
+    action: {
+        actionLabel: "Learn more",
+        eventHandler() {
+              Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
+              // perform other operations as required on clicking
+        }
+    }
+}).then(
+    function success(result) {
+        result; // $ExpectType string
+
+        console.log("Notification created with ID: " + result);
+
+        // Wait for 5 seconds and then clear the notification
+        window.setTimeout(() => {
+            Xrm.App.clearGlobalNotification(result);
+        }, 5000);
+    },
+    error => {
+        console.log(error.message);
+        // handle error conditions
+    }
+);
+Xrm.App.sidePanes.state = 1;
+Xrm.App.sidePanes.createPane({
+    title: "Reservation: Ammar Peterson",
+    imageSrc: "WebResources/sample_reservation_icon",
+    hideHeader: true,
+    canClose: true,
+    width: 600
+}).then(pane => {
+    pane.navigate({
+        pageType: "entitylist",
+        entityName: "sample_reservation",
+    });
+});
+Xrm.App.sidePanes.getAllPanes();
+Xrm.App.sidePanes.getPane("panelId");
+Xrm.App.sidePanes.getSelectedPane();

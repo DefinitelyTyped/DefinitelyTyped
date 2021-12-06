@@ -1,10 +1,10 @@
-import * as http from "http";
-import * as https from 'https';
-import * as net from 'net';
-import * as stream from 'stream';
-import * as tls from 'tls';
-import * as url from 'url';
-import * as dns from 'dns';
+import * as http from 'node:http';
+import * as https from 'node:https';
+import * as net from 'node:net';
+import * as stream from 'node:stream';
+import * as tls from 'node:tls';
+import * as url from 'node:url';
+import * as dns from 'node:dns';
 
 // https tests
 {

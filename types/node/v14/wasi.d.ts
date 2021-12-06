@@ -84,3 +84,6 @@ declare module 'wasi' {
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
     }
 }
+declare module 'node:wasi' {
+    export * from 'wasi';
+}

@@ -28,6 +28,14 @@ const client = new CoinGecko();
     });
 
     /**
+     * exchanges
+     */
+
+    await client.exchanges.all();
+
+    await client.exchanges.fetch('mercado_bitcoin');
+
+    /**
      * simple
      */
     await client.simple.price({ ids: ['pickle-finance', 'ethereum'], vs_currencies: 'usd', include_market_cap: true });
