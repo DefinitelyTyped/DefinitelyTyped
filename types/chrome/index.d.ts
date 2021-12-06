@@ -6488,6 +6488,13 @@ declare namespace chrome.runtime {
     export type PlatformArch = 'arm' | 'arm64' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
     export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
+    export enum OnInstalledReason {
+        INSTALL = 'install',
+        UPDATE = 'update',
+        CHROME_UPDATE = 'chrome_update',
+        SHARED_MODULE_UPDATE = 'shared_module_update'
+    }
 
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
@@ -6502,9 +6509,8 @@ declare namespace chrome.runtime {
     export interface InstalledDetails {
         /**
          * The reason that this event is being dispatched.
-         * One of: "install", "update", "chrome_update", or "shared_module_update"
          */
-        reason: string;
+        reason: OnInstalledReason;
         /**
          * Optional.
          * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
