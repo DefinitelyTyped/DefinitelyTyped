@@ -1,5 +1,6 @@
-import { Handler } from "../handler";
+import { Handler } from '../handler';
 
+// tslint:disable-next-line:void-return
 export type SQSHandler = Handler<SQSEvent, SQSBatchResponse | void>;
 
 // SQS
