@@ -3,8 +3,6 @@
 // Definitions by: Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-
 export default function DateTimePicker(props: DateTimePickerProps): JSX.Element;
 
 export interface DateTimePickerProps {
@@ -31,6 +29,7 @@ export interface DateTimePickerProps {
     locale?: string;
     maxDate?: Date;
     maxDetail?: 'hour' | 'minute' | 'second';
+    minDate?: Date;
     minDetail?: 'month' | 'year' | 'decade' | 'century';
     minuteAriaLabel?: string;
     minutePlaceholder?: string;
