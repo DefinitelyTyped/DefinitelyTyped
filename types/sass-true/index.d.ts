@@ -6,26 +6,29 @@ import type { Options } from 'sass';
 
 export interface TrueOptions {
     sass?: typeof import('sass');
-    describe: (description: string) => void;
-    it: (description: string) => void;
+    describe: (description: string, fn: () => void) => void;
+    it: (description: string, fn: () => void) => void;
+    contextLines?: number;
 }
 
 export interface Assertion {
     description: string;
-    output: string;
-    assertionType: string;
-    expected: string;
+    output?: string;
+    assertionType?: string;
+    expected?: string;
     details?: string;
-    passed: boolean;
+    passed?: boolean;
 }
 
 export interface Test {
+    test: string;
     assertions: Assertion[];
 }
 
 export interface Module {
     module: string;
     tests: Test[];
+    modules?: Module[];
 }
 
 export function runSass(sassOptions: Options, trueOptions: TrueOptions): void;
