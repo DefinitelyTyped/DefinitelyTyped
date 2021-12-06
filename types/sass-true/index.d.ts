@@ -16,20 +16,16 @@ export interface Assertion {
     assertionType: string;
     expected: string;
     details?: string;
-}
-
-export interface Module {
-    module: string;
-    tests: Test[];
+    passed: boolean;
 }
 
 export interface Test {
     assertions: Assertion[];
 }
 
-export interface Assertion {
-    description: string;
-    passed: boolean;
+export interface Module {
+    module: string;
+    tests: Test[];
 }
 
 export function runSass(sassOptions: Options, trueOptions: TrueOptions): void;
