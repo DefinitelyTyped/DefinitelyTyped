@@ -19,7 +19,6 @@ cf.dnsRecords.add("123", {
 });
 
 cf.dnsRecords.add("123", {
-    // $ExpectError
     type: "MX",
     name: "irrelevant",
     content: "irrelevant",
@@ -32,6 +31,7 @@ cf.dnsRecords.add("123", {
     name: "irrelevant",
     content: "irrelevant",
     ttl: 1,
+    // $ExpectError
     priority: 12
 });
 
