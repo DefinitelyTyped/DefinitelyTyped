@@ -3,7 +3,6 @@ import * as http from "http";
 import * as https from "https";
 import * as url from "url";
 import * as wslib from "ws";
-import {WebSocketServer} from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
@@ -305,7 +304,7 @@ function f() {
 }
 
 {
-    const webSocketServer = new WebSocketServer();
+    const webSocketServer = new WebSocket.WebSocketServer();
     const server = new http.Server();
     server.on('upgrade', (request, socket, head) => {
         if (request.url === '/path') {
