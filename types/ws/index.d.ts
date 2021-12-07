@@ -73,10 +73,15 @@ declare class WebSocket extends EventEmitter {
     close(code?: number, data?: string | Buffer): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
-    send(data: any, cb?: (err?: Error) => void): void;
+    send(data: string | Buffer | ArrayBuffer | any[], cb?: (err?: Error) => void): void;
     send(
-        data: any,
-        options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined },
+        data: string | Buffer | ArrayBuffer | any[],
+        options: {
+            mask?: boolean | undefined;
+            binary?: boolean | undefined;
+            compress?: boolean | undefined;
+            fin?: boolean | undefined;
+        },
         cb?: (err?: Error) => void,
     ): void;
     terminate(): void;
