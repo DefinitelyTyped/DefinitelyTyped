@@ -1,19 +1,19 @@
-import WebSocket = require("ws");
-import * as http from "http";
-import * as https from "https";
-import * as url from "url";
-import * as wslib from "ws";
+import WebSocket = require('ws');
+import * as http from 'http';
+import * as https from 'https';
+import * as url from 'url';
+import * as wslib from 'ws';
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
-    ws.on("open", () => ws.send("something"));
-    ws.on("message", data => {});
+    const ws = new WebSocket('ws://www.host.com/path');
+    ws.on('open', () => ws.send('something'));
+    ws.on('message', data => {});
 }
 
 {
-    const addr = new url.URL("ws://www.host.com/path");
+    const addr = new url.URL('ws://www.host.com/path');
     const ws = new WebSocket(addr);
-    ws.on("open", () => {
+    ws.on('open', () => {
         const array = new Float32Array(5);
         for (let i = 0; i < array.length; ++i) array[i] = i / 2;
         ws.send(array, { binary: true, mask: true });
@@ -21,7 +21,7 @@ import * as wslib from "ws";
 }
 
 {
-    const ws: wslib.WebSocket = new wslib.WebSocket("ws://www.host.com/path");
+    const ws: wslib.WebSocket = new wslib.WebSocket('ws://www.host.com/path');
 }
 
 {
@@ -30,17 +30,17 @@ import * as wslib from "ws";
 
 {
     const wss = new WebSocket.Server({ port: 8081 });
-    wss.on("connection", (ws, req) => {
-        ws.on("message", message => console.log("received: %s", message));
-        ws.send("something");
-        ws.send("something", (error?: Error) => {});
-        ws.send("something", {}, (error?: Error) => {});
+    wss.on('connection', (ws, req) => {
+        ws.on('message', message => console.log('received: %s', message));
+        ws.send('something');
+        ws.send('something', (error?: Error) => {});
+        ws.send('something', {}, (error?: Error) => {});
     });
-    wss.once("connection", (ws, req) => {
-        ws.send("something");
+    wss.once('connection', (ws, req) => {
+        ws.send('something');
     });
-    wss.off("connection", (ws, req) => {
-        ws.send("something");
+    wss.off('connection', (ws, req) => {
+        ws.send('something');
     });
 }
 
@@ -53,15 +53,15 @@ import * as wslib from "ws";
 }
 
 {
-    const wsc = new WebSocket("ws://echo.websocket.org/");
+    const wsc = new WebSocket('ws://echo.websocket.org/');
 
-    wsc.on("open", () => wsc.send(Date.now().toString(), { mask: true }));
-    wsc.on("close", () => console.log("disconnected"));
-    wsc.on("error", error => {
+    wsc.on('open', () => wsc.send(Date.now().toString(), { mask: true }));
+    wsc.on('close', () => console.log('disconnected'));
+    wsc.on('error', error => {
         console.log(`unexpected response: ${error}`);
     });
 
-    wsc.on("message", (data) => {
+    wsc.on('message', data => {
         console.log(`Roundtrip time: ${Date.now() - parseInt(data.toString(), 10)} ms`);
         setTimeout(() => {
             wsc.send(Date.now().toString(), { mask: true });
@@ -88,7 +88,7 @@ import * as wslib from "ws";
         perMessageDeflate: true,
     });
 
-    wsv.on("connection", function connection(ws) {
+    wsv.on('connection', function connection(ws) {
         console.log(ws.protocol);
     });
 }
@@ -96,7 +96,7 @@ import * as wslib from "ws";
 {
     const wss = new WebSocket.Server();
 
-    wss.addListener("connection", (client, request) => {
+    wss.addListener('connection', (client, request) => {
         request.socket.remoteAddress;
 
         // $ExpectError
@@ -127,7 +127,7 @@ import * as wslib from "ws";
                 level: 0,
                 memLevel: 0,
                 strategy: 0,
-                dictionary: new Buffer("test"),
+                dictionary: new Buffer('test'),
                 info: false,
             },
             zlibInflateOptions: {
@@ -135,21 +135,21 @@ import * as wslib from "ws";
             },
         },
         verifyClient: (info: any, cb: any) => {
-            cb(true, 123, "message", { Upgrade: "websocket" });
+            cb(true, 123, 'message', { Upgrade: 'websocket' });
         },
     });
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path", {
+    const ws = new WebSocket('ws://www.host.com/path', {
         timeout: 5000,
         maxPayload: 10 * 1024 * 1024,
     });
-    ws.on("open", () => ws.send("something assume to be really long"));
+    ws.on('open', () => ws.send('something assume to be really long'));
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
     ws.onopen = (event: WebSocket.Event) => {
         console.log(event.target, event.type);
     };
@@ -165,7 +165,7 @@ import * as wslib from "ws";
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
 
     const duplex = WebSocket.createWebSocketStream(ws, {
         allowHalfOpen: true,
@@ -176,7 +176,7 @@ import * as wslib from "ws";
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
 
     const duplex = WebSocket.createWebSocketStream(ws);
 
@@ -185,15 +185,15 @@ import * as wslib from "ws";
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
     // $ExpectError
-    ws.addEventListener("other", () => {});
+    ws.addEventListener('other', () => {});
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
     ws.addEventListener(
-        "message",
+        'message',
         (event: WebSocket.MessageEvent) => {
             console.log(event.data, event.target, event.type);
         },
@@ -202,17 +202,17 @@ import * as wslib from "ws";
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
     const eventHandler: Parameters<typeof ws.once>[1] = () => {};
-    const event = "";
+    const event = '';
     const errorHandler = (err: Error) => {
         ws.off(event, eventHandler);
     };
-    ws.once("error", errorHandler);
+    ws.once('error', errorHandler);
 }
 
 function f() {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
 
     // $ExpectError
     const a: 5 = ws.readyState;
@@ -247,7 +247,7 @@ function f() {
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
 
     // $ExpectError
     ws.CONNECTING = 123;
@@ -263,22 +263,22 @@ function f() {
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
 
-    ws.binaryType = "arraybuffer";
-    ws.binaryType = "fragments";
-    ws.binaryType = "nodebuffer";
+    ws.binaryType = 'arraybuffer';
+    ws.binaryType = 'fragments';
+    ws.binaryType = 'nodebuffer';
 
     // $ExpectError
-    ws.binaryType = "";
+    ws.binaryType = '';
     // $ExpectError
     ws.binaryType = true;
     // $ExpectError
-    ws.binaryType = "invalid-value";
+    ws.binaryType = 'invalid-value';
 }
 
 {
-    const ws = new WebSocket("ws://www.host.com/path");
+    const ws = new WebSocket('ws://www.host.com/path');
 
     // $ExpectType number
     ws.bufferedAmount;
@@ -293,12 +293,12 @@ function f() {
     ws.bufferedAmount = true;
 
     // $ExpectError
-    ws.extensions = "a-value";
+    ws.extensions = 'a-value';
     // $ExpectError
     ws.extensions = true;
 
     // $ExpectError
-    ws.protocol = "a-value";
+    ws.protocol = 'a-value';
     // $ExpectError
     ws.protocol = true;
 }
@@ -308,7 +308,7 @@ function f() {
     const server = new http.Server();
     server.on('upgrade', (request, socket, head) => {
         if (request.url === '/path') {
-            webSocketServer.handleUpgrade(request, socket, head, (ws) => {
+            webSocketServer.handleUpgrade(request, socket, head, ws => {
                 webSocketServer.emit('connection', ws, request);
             });
         }
