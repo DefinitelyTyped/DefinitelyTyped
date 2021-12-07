@@ -95,7 +95,10 @@ export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): Table
 /**
  * Number filter configuration options
  */
-export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<{ number: number | '', comparator: Comparator }, T> & {
+export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<
+    { number: number | ''; comparator: Comparator },
+    T
+> & {
     options?: number[] | undefined;
     comparators?: Comparator[] | undefined;
     /**
@@ -117,10 +120,12 @@ export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilt
  */
 export interface DateFilterProps<T extends object = any> extends TableColumnFilterProps<Date, T> {
     withoutEmptyComparatorOption?: boolean | undefined;
-    defaultValue?: {
-        date: Date;
-        comparator: Comparator;
-    } | undefined;
+    defaultValue?:
+        | {
+              date: Date;
+              comparator: Comparator;
+          }
+        | undefined;
     comparators?: Comparator[] | undefined;
     comparatorClassName?: string | undefined;
     dateClassName?: string | undefined;

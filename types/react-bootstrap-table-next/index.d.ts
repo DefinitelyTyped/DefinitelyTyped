@@ -77,11 +77,11 @@ export type ColumnSortCaret<T extends object = any, E = any> = (
 export type HeaderSortingClasses<T extends object = any, E = any> =
     | string
     | ((
-        column: ColumnDescription<T, E>,
-        sortOrder: 'asc' | 'desc',
-        isLastSorting: boolean,
-        colIndex: number,
-    ) => string);
+          column: ColumnDescription<T, E>,
+          sortOrder: 'asc' | 'desc',
+          isLastSorting: boolean,
+          colIndex: number,
+      ) => string);
 
 export interface TableChangeState<T> {
     page: number;
@@ -134,8 +134,9 @@ export interface ColumnDescription<T extends object = any, E = any> {
     classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string) | undefined;
     headerClasses?: string | ((column: ColumnDescription<T, E>, colIndex: number) => string) | undefined;
     style?:
-    | React.CSSProperties
-    | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties) | undefined;
+        | React.CSSProperties
+        | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties)
+        | undefined;
     sort?: boolean | undefined;
     sortValue?: ColumnSortValue<T> | undefined;
     sortFunc?: ColumnSortFunc<T> | undefined;
@@ -152,22 +153,32 @@ export interface ColumnDescription<T extends object = any, E = any> {
     headerAlign?: CellAlignment | undefined;
     headerFormatter?: HeaderFormatter<T> | undefined;
     headerSortingClasses?: HeaderSortingClasses<T, E> | undefined;
-    formatExtraData?: {
-        tooltipFormatter?: ((row: T) => JSX.Element) | undefined;
-    } & E | undefined;
+    formatExtraData?:
+        | ({
+              tooltipFormatter?: ((row: T) => JSX.Element) | undefined;
+          } & E)
+        | undefined;
     width?: number | undefined;
     footer?:
-    | boolean
-    | number
-    | string
-    | ((columnData: any, column: ColumnDescription<T, E>, columnIndex: number) => string) | undefined;
+        | boolean
+        | number
+        | string
+        | ((columnData: any, column: ColumnDescription<T, E>, columnIndex: number) => string)
+        | undefined;
     footerFormatter?: ((column: ColumnDescription<T, E>, columnIndex: number) => void) | undefined;
     footerClasses?: string | ((column: ColumnDescription<T, E>, columnIndex: number) => string) | undefined;
     footerStyle?: React.CSSProperties | undefined;
     footerTitle?: boolean | undefined;
     footerEvents?: { onClick: (e: any, column: ColumnDescription<T, E>, columnIndex: number) => void } | undefined;
     footerAlign?: CellAlignment | ((column: ColumnDescription<T, E>, colIndex: number) => CellAlignment) | undefined;
-    validator?: ((newValue: any, row: T, column: ColumnDescription<T, E>, done: (result?: ValidationResult) => any) => boolean | ValidationResult) | undefined;
+    validator?:
+        | ((
+              newValue: any,
+              row: T,
+              column: ColumnDescription<T, E>,
+              done: (result?: ValidationResult) => any,
+          ) => boolean | ValidationResult)
+        | undefined;
 
     /**
      * CSV Column options only used with the toolkit provider
@@ -408,23 +419,28 @@ export interface SelectRowProps<T> {
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string | undefined;
     bgColor?: ((row: T, rowIndex: number) => string) | string | undefined;
     hideSelectColumn?: boolean | undefined;
-    selectionRenderer?: ((options: {
-        checked: boolean;
-        disabled: boolean;
-        mode: string;
-        rowIndex: number;
-        rowKey: string;
-    }) => JSX.Element) | undefined;
-    selectionHeaderRenderer?: ((options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element) | undefined;
+    selectionRenderer?:
+        | ((options: {
+              checked: boolean;
+              disabled: boolean;
+              mode: string;
+              rowIndex: number;
+              rowKey: string;
+          }) => JSX.Element)
+        | undefined;
+    selectionHeaderRenderer?:
+        | ((options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element)
+        | undefined;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties | undefined;
     selectColumnStyle?:
-    | ((props: {
-        checked: boolean;
-        disabled: boolean;
-        rowIndex: number;
-        rowKey: string;
-    }) => CSSProperties | undefined)
-    | CSSProperties | undefined;
+        | ((props: {
+              checked: boolean;
+              disabled: boolean;
+              rowIndex: number;
+              rowKey: string;
+          }) => CSSProperties | undefined)
+        | CSSProperties
+        | undefined;
     selectColumnPosition?: 'left' | 'right' | undefined;
 }
 
@@ -434,30 +450,42 @@ export interface BootstrapTableRef<T extends object = any> {
             data: T[];
         };
     };
-    selectionContext?: {
-        selected?: any[] | undefined;
-    } | undefined;
-    rowExpandContext?: {
-        state: {
-            expanded?: any[] | undefined;
-        };
-    } | undefined;
-    paginationContext?: {
-        currPage: number;
-        currSizePerPage: number;
-    } | undefined;
-    sortContext?: {
-        state: {
-            sortColumn: ColumnDescription<T>;
-            sortOrder: SortOrder;
-        };
-    } | undefined;
-    filterContext?: {
-        currFilters: any;
-    } | undefined;
-    cellEditContext?: {
-        startEditing: (rowIndex: number, columnIndex: number) => void;
-    } | undefined;
+    selectionContext?:
+        | {
+              selected?: any[] | undefined;
+          }
+        | undefined;
+    rowExpandContext?:
+        | {
+              state: {
+                  expanded?: any[] | undefined;
+              };
+          }
+        | undefined;
+    paginationContext?:
+        | {
+              currPage: number;
+              currSizePerPage: number;
+          }
+        | undefined;
+    sortContext?:
+        | {
+              state: {
+                  sortColumn: ColumnDescription<T>;
+                  sortOrder: SortOrder;
+              };
+          }
+        | undefined;
+    filterContext?:
+        | {
+              currFilters: any;
+          }
+        | undefined;
+    cellEditContext?:
+        | {
+              startEditing: (rowIndex: number, columnIndex: number) => void;
+          }
+        | undefined;
 }
 
 export interface BootstrapTableProps<T extends object = any, K = number> {
@@ -472,8 +500,9 @@ export interface BootstrapTableProps<T extends object = any, K = number> {
     columns: ColumnDescription[];
     bootstrap4?: boolean | undefined;
     remote?:
-    | boolean
-    | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }> | undefined;
+        | boolean
+        | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>
+        | undefined;
     noDataIndication?: (() => JSX.Element | string) | JSX.Element | string | undefined;
     striped?: boolean | undefined;
     bordered?: boolean | undefined;
@@ -503,12 +532,14 @@ export interface BootstrapTableProps<T extends object = any, K = number> {
     filterPosition?: FilterPosition | undefined;
     footerClasses?: string | undefined;
     defaultSorted?: [{ dataField: any; order: SortOrder }] | undefined;
-    sort?: {
-        dataField?: any;
-        order: SortOrder;
-        sortFunc?: any;
-        sortCaret?: any;
-    } | undefined;
+    sort?:
+        | {
+              dataField?: any;
+              order: SortOrder;
+              sortFunc?: any;
+              sortCaret?: any;
+          }
+        | undefined;
     defaultSortDirection?: SortOrder | undefined;
     overlay?: any;
     onTableChange?: TableChangeHandler<T> | undefined;
@@ -522,7 +553,7 @@ export interface BootstrapTableProps<T extends object = any, K = number> {
     search?: SearchProps<T> | boolean | undefined;
 }
 
-declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> { }
+declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> {}
 export default BootstrapTable;
 
 /**
