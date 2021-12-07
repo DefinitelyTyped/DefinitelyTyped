@@ -58,7 +58,7 @@ declare enum FilterComparator {
  */
 export type SortOrder = 'asc' | 'desc';
 
-export type ColumnSortValue<R, C = any> = (cell: C, row: R) => number | string | boolean | React.ReactText;
+export type ColumnSortValue<R, C = any> = (cell: C, row: R) => boolean | React.ReactText;
 
 export type ColumnSortFunc<T, E extends keyof T = any> = (
     a: T[E],
@@ -77,11 +77,11 @@ export type ColumnSortCaret<T extends object = any, E = any> = (
 export type HeaderSortingClasses<T extends object = any, E = any> =
     | string
     | ((
-          column: ColumnDescription<T, E>,
-          sortOrder: 'asc' | 'desc',
-          isLastSorting: boolean,
-          colIndex: number,
-      ) => string);
+        column: ColumnDescription<T, E>,
+        sortOrder: 'asc' | 'desc',
+        isLastSorting: boolean,
+        colIndex: number,
+    ) => string);
 
 export interface TableChangeState<T> {
     page: number;
@@ -104,14 +104,14 @@ export type HeaderFormatter<T extends object = any> = (
         sortElement: JSX.Element;
         filterElement: JSX.Element;
     },
-) => JSX.Element | string | number | React.ReactText;
+) => React.ReactNode;
 
 export type ColumnFormatter<R, E = any, C = any> = (
     cell: C,
     row: R,
     rowIndex: number,
-    formatExtraData: E,
-) => JSX.Element | string | boolean | React.ReactText;
+    formatExtraData?: E,
+) => React.ReactNode;
 
 export interface ValidationResult {
     async?: boolean | undefined;
@@ -134,8 +134,8 @@ export interface ColumnDescription<T extends object = any, E = any> {
     classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string) | undefined;
     headerClasses?: string | ((column: ColumnDescription<T, E>, colIndex: number) => string) | undefined;
     style?:
-        | React.CSSProperties
-        | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties) | undefined;
+    | React.CSSProperties
+    | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties) | undefined;
     sort?: boolean | undefined;
     sortValue?: ColumnSortValue<T> | undefined;
     sortFunc?: ColumnSortFunc<T> | undefined;
@@ -157,10 +157,10 @@ export interface ColumnDescription<T extends object = any, E = any> {
     } & E | undefined;
     width?: number | undefined;
     footer?:
-        | boolean
-        | number
-        | string
-        | ((columnData: any, column: ColumnDescription<T, E>, columnIndex: number) => string) | undefined;
+    | boolean
+    | number
+    | string
+    | ((columnData: any, column: ColumnDescription<T, E>, columnIndex: number) => string) | undefined;
     footerFormatter?: ((column: ColumnDescription<T, E>, columnIndex: number) => void) | undefined;
     footerClasses?: string | ((column: ColumnDescription<T, E>, columnIndex: number) => string) | undefined;
     footerStyle?: React.CSSProperties | undefined;
@@ -378,15 +378,15 @@ export interface SizePerPageRendererOptions {
     /**
      * dropdown options
      */
-    options: Array<{ text: string; value: number }>;
+    options: Array<{ text: string; page: number }>;
     /**
      * current size per page
      */
-    currentSizePerPage: number;
+    currSizePerPage: string;
     /**
      * call it when you need to change size per page
      */
-    onSizePerPageChange: (page: number, sizePerPage: number) => void;
+    onSizePerPageChange: (page: number) => void;
 }
 
 export interface SelectRowProps<T> {
@@ -418,13 +418,13 @@ export interface SelectRowProps<T> {
     selectionHeaderRenderer?: ((options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element) | undefined;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties | undefined;
     selectColumnStyle?:
-        | ((props: {
-              checked: boolean;
-              disabled: boolean;
-              rowIndex: number;
-              rowKey: string;
-          }) => CSSProperties | undefined)
-        | CSSProperties | undefined;
+    | ((props: {
+        checked: boolean;
+        disabled: boolean;
+        rowIndex: number;
+        rowKey: string;
+    }) => CSSProperties | undefined)
+    | CSSProperties | undefined;
     selectColumnPosition?: 'left' | 'right' | undefined;
 }
 
@@ -472,8 +472,8 @@ export interface BootstrapTableProps<T extends object = any, K = number> {
     columns: ColumnDescription[];
     bootstrap4?: boolean | undefined;
     remote?:
-        | boolean
-        | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }> | undefined;
+    | boolean
+    | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }> | undefined;
     noDataIndication?: (() => JSX.Element | string) | JSX.Element | string | undefined;
     striped?: boolean | undefined;
     bordered?: boolean | undefined;
@@ -522,7 +522,7 @@ export interface BootstrapTableProps<T extends object = any, K = number> {
     search?: SearchProps<T> | boolean | undefined;
 }
 
-declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> {}
+declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> { }
 export default BootstrapTable;
 
 /**
@@ -536,6 +536,8 @@ export interface SearchProps<T> {
     defaultSearch?: string | undefined;
     /* custom search method, return true if matched and false if not */
     onColumnMatch?: ((searchProps: { searchText: string; value: any; column: any; row: T }) => boolean) | undefined;
+    onClear?: () => void;
+    onSearch?: (searchText: string) => void;
 }
 
 export interface ExpandColumnRendererProps {
@@ -563,7 +565,7 @@ export interface ExpandRowProps<T, K = number> {
     className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string) | undefined;
 }
 
-export type TableColumnFilterProps<FT = any, T extends object = any> = Partial<{
+export type TableColumnFilterProps<FV = any, T extends object = any> = Partial<{
     id: string;
     /**
      *  custom the input placeholder
@@ -589,10 +591,10 @@ export type TableColumnFilterProps<FT = any, T extends object = any> = Partial<{
     /*
      * export filter function to allow users to access filter method externally.
      */
-    getFilter: (filter: FT) => void;
+    getFilter: (filter: (value: FV) => void | T[]) => void;
 
     /**
      * Register a listener which will be called when column filter being triggered. If you return an array value, react-bootstrap-table2 will adopt this value as the final filtered result.
      */
-    onFilter: (filterValue: FT) => void | T[];
+    onFilter: (filterValue: FV) => void | T[];
 }>;

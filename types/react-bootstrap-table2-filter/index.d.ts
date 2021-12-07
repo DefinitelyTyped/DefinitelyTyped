@@ -30,7 +30,7 @@ export enum Comparator {
     LE = '<=',
 }
 
-export type TextFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> &
+export type TextFilterProps<T extends object = any> = TableColumnFilterProps<string, T> &
     Partial<{
         /**
          *  default is false, and true will only work when comparator is LIKE
@@ -77,7 +77,7 @@ export interface MultiSelectFilterOptions {
 /**
  * Multi Select filter options
  */
-export type MultiSelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
+export type MultiSelectFilterProps<T extends object = any> = TableColumnFilterProps<string[], T> & {
     options: MultiSelectFilterOptions | (() => MultiSelectFilterOptions);
     comparator?: Comparator | undefined;
     /**
@@ -95,7 +95,7 @@ export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): Table
 /**
  * Number filter configuration options
  */
-export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> & {
+export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<{ number: number | '', comparator: Comparator }, T> & {
     options?: number[] | undefined;
     comparators?: Comparator[] | undefined;
     /**
@@ -115,7 +115,7 @@ export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilt
 /**
  * Date filter options
  */
-export interface DateFilter<T extends object = any> extends TableColumnFilterProps<TableColumnFilterProps, T> {
+export interface DateFilterProps<T extends object = any> extends TableColumnFilterProps<Date, T> {
     withoutEmptyComparatorOption?: boolean | undefined;
     defaultValue?: {
         date: Date;
@@ -128,7 +128,7 @@ export interface DateFilter<T extends object = any> extends TableColumnFilterPro
     dateStyle?: CSSProperties | undefined;
 }
 
-export function dateFilter(props: DateFilter): TableColumnFilterProps;
+export function dateFilter(props: DateFilterProps): TableColumnFilterProps;
 
 /**
  * Custom filter
