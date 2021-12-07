@@ -76,7 +76,8 @@ declare namespace google.maps {
      * A circle on the Earth&#39;s surface; also known as a &quot;spherical
      * cap&quot;.
      */
-    constructor(opts?: google.maps.CircleOptions|null);
+    constructor(opts?: google.maps.CircleLiteral|null|
+                google.maps.CircleOptions);
     /**
      * Gets the <code>LatLngBounds</code> of this Circle.
      */
@@ -3476,6 +3477,10 @@ declare namespace google.maps {
      * unpredictable effects.
      */
     setTilt(tilt: number): void;
+    /**
+     * Sets the zoom of the map.
+     * @param zoom Larger zoom values correspond to a higher resolution.
+     */
     setZoom(zoom: number): void;
   }
 }
@@ -3503,13 +3508,14 @@ declare namespace google.maps {
      * map&#39;s container element.
      */
     fromLatLngToContainerPixel(latLng: google.maps.LatLng|
-                               null): google.maps.Point|null;
+                               google.maps.LatLngLiteral): google.maps.Point
+        |null;
     /**
      * Computes the pixel coordinates of the given geographical location in the
      * DOM element that holds the draggable map.
      */
-    fromLatLngToDivPixel(latLng: google.maps.LatLng|null): google.maps.Point
-        |null;
+    fromLatLngToDivPixel(latLng: google.maps.LatLng|null|
+                         google.maps.LatLngLiteral): google.maps.Point|null;
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * The visible region of the map. Returns <code>null</code> if the map has
@@ -3690,8 +3696,8 @@ declare namespace google.maps {
     /**
      * The maximum zoom level which will be displayed on the map. If omitted, or
      * set to <code>null</code>, the maximum zoom from the current map type is
-     * used instead. Valid values: Integers between zero, and up to the
-     * supported <a
+     * used instead. Valid zoom values are numbers from zero up to the supported
+     * <a
      * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
      * zoom level</a>.
      */
@@ -3699,8 +3705,8 @@ declare namespace google.maps {
     /**
      * The minimum zoom level which will be displayed on the map. If omitted, or
      * set to <code>null</code>, the minimum zoom from the current map type is
-     * used instead. Valid values: Integers between zero, and up to the
-     * supported <a
+     * used instead. Valid zoom values are numbers from zero up to the supported
+     * <a
      * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
      * zoom level</a>.
      */
@@ -3803,10 +3809,10 @@ declare namespace google.maps {
      */
     tilt?: number|null;
     /**
-     * The initial Map zoom level. Valid values: Integers between zero, and up
-     * to the supported <a
+     * The initial Map zoom level. Valid zoom values are numbers from zero up to
+     * the supported <a
      * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
-     * zoom level</a>.
+     * zoom level</a>. Larger zoom values correspond to a higher resolution.
      */
     zoom?: number|null;
     /**
@@ -4069,7 +4075,7 @@ declare namespace google.maps {
     /**
      * Get the currently running animation.
      */
-    getAnimation(): google.maps.Animation|null;
+    getAnimation(): google.maps.Animation|null|undefined;
     /**
      * Get the clickable status of the {@link google.maps.Marker}.
      */
@@ -4077,7 +4083,7 @@ declare namespace google.maps {
     /**
      * Get the mouse cursor type shown on hover.
      */
-    getCursor(): string;
+    getCursor(): string|null|undefined;
     /**
      * Get the draggable status of the {@link google.maps.Marker}.
      */
@@ -4086,12 +4092,12 @@ declare namespace google.maps {
      * Get the icon of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.icon}.
      */
-    getIcon(): string|google.maps.Icon|null|google.maps.Symbol;
+    getIcon(): string|google.maps.Icon|null|google.maps.Symbol|undefined;
     /**
      * Get the label of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.label}.
      */
-    getLabel(): google.maps.MarkerLabel|null;
+    getLabel(): google.maps.MarkerLabel|null|undefined;
     /**
      * Get the map or panaroama the {@link google.maps.Marker} is rendered on.
      */
@@ -4099,7 +4105,7 @@ declare namespace google.maps {
     /**
      * Get the opacity of the {@link google.maps.Marker}.
      */
-    getOpacity(): number;
+    getOpacity(): number|null|undefined;
     /**
      * Get the position of the {@link google.maps.Marker}.
      */
@@ -4109,12 +4115,12 @@ declare namespace google.maps {
      * See {@link google.maps.MarkerOptions.shape} and {@link
      * google.maps.MarkerShape}.
      */
-    getShape(): google.maps.MarkerShape|null;
+    getShape(): google.maps.MarkerShape|null|undefined;
     /**
      * Get the title of the {@link google.maps.Marker} tooltip. See {@link
      * google.maps.MarkerOptions.title}.
      */
-    getTitle(): string;
+    getTitle(): string|null|undefined;
     /**
      * Get the visibility of the {@link google.maps.Marker}.
      */
@@ -4123,7 +4129,7 @@ declare namespace google.maps {
      * Get the zIndex of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.zIndex}.
      */
-    getZIndex(): number;
+    getZIndex(): number|null|undefined;
     /**
      * Start an animation. Any ongoing animation will be cancelled. Currently
      * supported animations are: {@link google.maps.Animation.BOUNCE}, {@link
@@ -4131,7 +4137,7 @@ declare namespace google.maps {
      * animation to stop.
      * @param animation The animation to play.
      */
-    setAnimation(animation: google.maps.Animation|null): void;
+    setAnimation(animation?: google.maps.Animation|null): void;
     /**
      * Set if the {@link google.maps.Marker} is clickable.
      * @param flag If <code>true</code>, the Marker can be clicked.
@@ -4141,7 +4147,7 @@ declare namespace google.maps {
      * Set the mouse cursor type shown on hover.
      * @param cursor Mouse cursor type.
      */
-    setCursor(cursor: string): void;
+    setCursor(cursor?: string|null): void;
     /**
      * Set if the {@link google.maps.Marker} is draggable.
      * @param flag If <code>true</code>, the Marker can be dragged.
@@ -4151,14 +4157,14 @@ declare namespace google.maps {
      * Set the icon for the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.icon}.
      */
-    setIcon(icon: string|google.maps.Icon|null|google.maps.Symbol): void;
+    setIcon(icon?: string|google.maps.Icon|null|google.maps.Symbol): void;
     /**
      * Set the label for the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.label}.
      * @param label The label can either be a character string or a {@link
      *     google.maps.MarkerLabel} object.
      */
-    setLabel(label: string|google.maps.MarkerLabel|null): void;
+    setLabel(label?: string|google.maps.MarkerLabel|null): void;
     /**
      * Renders the {@link google.maps.Marker} on the specified map or panorama.
      * If map is set to <code>null</code>, the marker will be removed.
@@ -4168,7 +4174,7 @@ declare namespace google.maps {
      * Set the opacity of the {@link google.maps.Marker}.
      * @param opacity A number between 0.0, transparent, and 1.0, opaque.
      */
-    setOpacity(opacity: number): void;
+    setOpacity(opacity?: number|null): void;
     /**
      * Set the options for the {@link google.maps.Marker}.
      */
@@ -4177,19 +4183,19 @@ declare namespace google.maps {
      * Set the postition for the {@link google.maps.Marker}.
      * @param latlng The new position.
      */
-    setPosition(latlng: google.maps.LatLng|null|google.maps.LatLngLiteral|
-                undefined): void;
+    setPosition(latlng?: google.maps.LatLng|null|
+                google.maps.LatLngLiteral): void;
     /**
      * Set the shape of the {@link google.maps.Marker} used for interaction.
      * See {@link google.maps.MarkerOptions.shape} and {@link
      * google.maps.MarkerShape}.
      */
-    setShape(shape: google.maps.MarkerShape|null): void;
+    setShape(shape?: google.maps.MarkerShape|null): void;
     /**
      * Set the title of the {@link google.maps.Marker} tooltip. See {@link
      * google.maps.MarkerOptions.title}.
      */
-    setTitle(title: string): void;
+    setTitle(title?: string|null): void;
     /**
      * Set if the {@link google.maps.Marker} is visible.
      * @param visible If <code>true</code>, the Marker is visible
@@ -4199,7 +4205,7 @@ declare namespace google.maps {
      * Set the zIndex of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.zIndex}.
      */
-    setZIndex(zIndex: number): void;
+    setZIndex(zIndex?: number|null): void;
     /**
      * The maximum default z-index that the API will assign to a marker. You may
      * set a higher z-index to bring a marker to the front.
@@ -5007,8 +5013,9 @@ declare namespace google.maps {
      * return <code>null</code> if the projection cannot calculate the
      * <code>Point</code>.
      */
-    fromLatLngToPoint(latLng: google.maps.LatLng, point?: google.maps.Point):
-        google.maps.Point|null;
+    fromLatLngToPoint(
+        latLng: google.maps.LatLng|google.maps.LatLngLiteral,
+        point?: google.maps.Point): google.maps.Point|null;
     /**
      * This interface specifies a function which implements translation from
      * world coordinates on a map projection to <code>LatLng</code> values. The
