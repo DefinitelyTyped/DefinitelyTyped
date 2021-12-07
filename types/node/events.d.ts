@@ -154,8 +154,8 @@ declare module 'events' {
          * ```
          * @since v11.13.0, v10.16.0
          */
-        static once(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
-        static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once<T extends any[]=any[]>(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<T>;
+        static once<T extends any[]=any[]>(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<T>;
         /**
          * ```js
          * const { on, EventEmitter } = require('events');
