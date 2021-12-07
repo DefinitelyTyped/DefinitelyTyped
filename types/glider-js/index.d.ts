@@ -233,7 +233,7 @@ declare class Glider<T extends HTMLElement = HTMLDivElement> {
      * modified.
      * @param rebuildPaging boolean
      */
-    refresh(rebuildPaging: boolean): void;
+    refresh(rebuildPaging?: boolean): void;
 
     /**
      * Remove an item from the list
@@ -277,8 +277,18 @@ declare class Glider<T extends HTMLElement = HTMLDivElement> {
     resize(): void;
 }
 
+declare function Glider<T extends HTMLElement = HTMLDivElement>(element: T): Glider<T>;
+
 declare global {
-    interface Element {
+    interface HTMLElement {
+        addEventListener<K extends keyof Glider.GliderEventMap>(
+            type: K,
+            listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+    }
+
+    interface HTMLDivElement {
         addEventListener<K extends keyof Glider.GliderEventMap>(
             type: K,
             listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
