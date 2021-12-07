@@ -768,10 +768,11 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
 
     /**
      * @description
-     * loads the header row (first row) of the sheet
+     * loads the header row (first by default) of the sheet
      * - usually do not need to call this directly
+     * - Attention: rows indexed from 1
      */
-    loadHeaderRow(headerRowIndex: number): Promise<void>;
+    loadHeaderRow(headerRowIndex?: number): Promise<void>;
 
     /**
      * @description
