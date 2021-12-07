@@ -32,7 +32,7 @@ new Glider(new HTMLDivElement(), {
     },
 });
 
-// $ExpectType Static<HTMLDivElement>
+// $ExpectType Glider<HTMLDivElement>
 const glider = new Glider(new HTMLDivElement(), options);
 
 // $ExpectType void
@@ -64,6 +64,14 @@ glider.ele;
 
 // $ExpectType Options
 glider.opt;
+
+// $ExpectType Arrow
+glider.arrows.next;
+
+// $ExpectType Arrow
+glider.arrows.prev;
+
+glider.arrows.prev._func;
 
 document.querySelector('.glider')?.addEventListener('glider-add', event => {
     // $ExpectType GliderEvent<{ scroll: () => void; }>
