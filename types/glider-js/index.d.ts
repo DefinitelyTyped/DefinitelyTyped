@@ -213,7 +213,7 @@ declare class Glider<T extends HTMLElement = HTMLDivElement> {
 
     private _opt: Glider.Options;
 
-    constructor(ref: T, options: Glider.Options);
+    constructor(ref: T, options?: Glider.Options);
 
     /**
      * Add an item to the list
