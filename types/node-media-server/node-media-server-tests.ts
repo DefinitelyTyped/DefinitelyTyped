@@ -1,8 +1,8 @@
-import NodeMediaServer from 'node-media-server';
+import NodeMediaServer = require('node-media-server');
 
 const nms = new NodeMediaServer({});
 
-// $ExpectType any
+// $ExpectType void
 nms.run();
 
 // $ExpectError
@@ -11,11 +11,11 @@ nms.on();
 // $ExpectError
 nms.on('test');
 
-// $ExpectType any
+// $ExpectType void
 nms.on('test', () => {});
 
-// $ExpectType any
+// $ExpectType Map<string, unknown>
 nms.getSession('1');
 
-// $ExpectType any
+// $ExpectType void
 nms.stop();

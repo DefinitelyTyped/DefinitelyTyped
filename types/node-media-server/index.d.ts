@@ -92,12 +92,11 @@ interface FissionTaskModel {
 }
 
 declare class NodeMediaServer {
-    config: Config;
     constructor(config: Config);
-    run(): any;
-    on(eventName: string, listener: () => any): any;
-    stop(): any;
-    getSession(id: string): any;
+    run(): void;
+    on(eventName: string, listener: (id: string, StreamPath: string, args: object) => void): void;
+    stop(): void;
+    getSession(id: string): Map<string, unknown>;
 }
 
 export = NodeMediaServer;
