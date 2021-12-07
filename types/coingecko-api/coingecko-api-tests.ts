@@ -38,5 +38,5 @@ const client = new CoinGecko();
     /**
      * simple
      */
-    await client.simple.price({ ids: ['pickle-finance', 'ethereum'], vs_currencies: 'usd', include_market_cap: true });
+    await client.simple.price({ ids: ['pickle-finance', 'ethereum'], vs_currencies: 'usd', include_market_cap: true , include_24hr_change: true});
 })();
