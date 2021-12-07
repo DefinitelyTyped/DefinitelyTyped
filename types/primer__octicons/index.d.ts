@@ -1,4 +1,4 @@
-// Type definitions for @primer/octicons 16.0
+// Type definitions for @primer/octicons 16.1
 // Project: https://github.com/primer/octicons
 // Definitions by: Oscar Lee-Vermeren <https://github.com/xiBread>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,12 +30,11 @@ declare namespace octicons {
         toSVG(options?: SVGOptions): string;
     }
 
-    interface IconHeights {
-        readonly 16: IconHeight<16>;
-        readonly 24?: IconHeight<24>;
-    }
+    type IconSize = 12 | 16 | 24;
 
-    interface IconHeight<N extends 16 | 24> {
+    type IconHeights = { readonly [K in IconSize]?: IconHeight<K> };
+
+    interface IconHeight<N extends IconSize> {
         /**
          * Returns the icon's true width, based on the SVG view box width.
          *
@@ -92,6 +91,7 @@ declare namespace octicons {
 
     type IconName =
         | 'alert'
+        | 'alert-fill'
         | 'archive'
         | 'arrow-both'
         | 'arrow-down'
@@ -231,6 +231,7 @@ declare namespace octicons {
         | 'multi-select'
         | 'mute'
         | 'no-entry'
+        | 'no-entry-fill'
         | 'north-star'
         | 'note'
         | 'number'
