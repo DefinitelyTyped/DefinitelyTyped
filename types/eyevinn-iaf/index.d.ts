@@ -13,8 +13,8 @@ export interface IafUploadModule {
     logger: Logger;
     playlistName: string;
     onFileAdd(filePath: string, readStream: Readable, contentType?: string): any;
-    progressDelegate: () => any;
-    fileUploadedDelegate: () => any;
+    progressDelegate: (result: any) => any;
+    fileUploadedDelegate: (result: any) => any;
 }
 export interface IafFileWatchModule {
     fileInput: string;

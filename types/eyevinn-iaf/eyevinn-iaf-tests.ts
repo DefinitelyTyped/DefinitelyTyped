@@ -5,8 +5,8 @@ import { Logger } from 'winston';
 class FileUploader implements IafUploadModule {
     logger: Logger;
     playlistName: string;
-    progressDelegate: () => any;
-    fileUploadedDelegate: () => any;
+    progressDelegate: (result: any) => any;
+    fileUploadedDelegate: (result: any) => any;
 
     onFileAdd(filePath: string, readStream: Readable, contentType?: string): void {}
 }
