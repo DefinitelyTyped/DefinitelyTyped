@@ -1,5 +1,5 @@
 // Type definitions for ethereum-blockies 0.1
-// Project: https://github.com/ethereum/blockies (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/ethereum/blockies
 // Definitions by: Jack Works <https://github.com/Jack-Works>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
