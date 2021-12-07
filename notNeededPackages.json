@@ -4263,6 +4263,10 @@
             "libraryName": "redent",
             "asOfVersion": "3.0.0"
         },
+        "redis": {
+            "libraryName": "redis",
+            "asOfVersion": "4.0.0"
+        },
         "redom": {
             "libraryName": "redom",
             "asOfVersion": "3.23.0"
