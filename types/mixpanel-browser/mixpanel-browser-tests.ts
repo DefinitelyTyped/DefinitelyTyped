@@ -314,7 +314,7 @@ mixpanel.get_group('test', 'id').set(
         }
     },
 );
-mixpanel.get_group('test', 'id').setOnce('prop', 'value', response => {
+mixpanel.get_group('test', 'id').set_once('prop', 'value', response => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {

@@ -133,7 +133,7 @@ export interface Group {
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-    setOnce<Prop extends string | Dict>(
+    set_once<Prop extends string | Dict>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
