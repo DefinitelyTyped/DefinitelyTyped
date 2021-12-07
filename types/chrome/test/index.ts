@@ -303,6 +303,36 @@ function proxySettings() {
     chrome.proxy.settings.clear({ scope: 'regular' });
 }
 
+function testNotificationCreation() {
+	chrome.notifications.create("id", {}); // $ExpectError
+	chrome.notifications.create("id", {
+		message: "",
+		type: "",
+		title: "",
+	}); // $ExpectError
+	chrome.notifications.create("id", {
+		iconUrl: "",
+		type: "",
+		title: "",
+	}); // $ExpectError
+	chrome.notifications.create("id", {
+		iconUrl: "",
+		message: "",
+		title: "",
+	}); // $ExpectError
+	chrome.notifications.create("id", {
+		iconUrl: "",
+		message: "",
+		type: "",
+	}); // $ExpectError
+	chrome.notifications.create("id", {
+		iconUrl: "",
+		message: "",
+		type: "",
+		title: "",
+	});
+}
+
 // https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
 function contentSettings() {
     var incognito;
