@@ -381,6 +381,11 @@ interface SimplePriceParams {
     // tslint:disable-next-line no-redundant-undefined
     include_24hr_vol?: boolean | undefined;
     /**
+     * To include 24hr_change of price.
+     */
+    // tslint:disable-next-line no-redundant-undefined
+    include_24hr_change?: boolean | undefined;
+    /**
      * To include last_updated_at of price.
      */
     // tslint:disable-next-line no-redundant-undefined
