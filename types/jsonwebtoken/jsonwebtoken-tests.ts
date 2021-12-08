@@ -174,7 +174,7 @@ cert = fs.readFileSync("public.pem"); // get public key
 const verified = jwt.verify(token, cert);
 
 if (typeof verified !== 'string') {
-    // $ExpectType JwtPayload
+    // $ExpectType any
     verified;
 }
 
