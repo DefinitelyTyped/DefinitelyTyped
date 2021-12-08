@@ -213,6 +213,8 @@
     listWidget.presentMedium();
     // $ExpectType Promise<void>
     listWidget.presentLarge();
+    // $ExpectType Promise<void>
+    listWidget.presentExtraLarge();
 
     Script.setWidget(listWidget);
 

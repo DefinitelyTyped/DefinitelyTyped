@@ -3297,6 +3297,18 @@ declare class ListWidget {
      * @see https://docs.scriptable.app/listwidget/#-presentlarge
      */
     presentLarge(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its extra large size.
+     *
+     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     *
+     * Please be aware that extra large widgets are only available on iPads running iOS 15 and newer.
+     * @see https://docs.scriptable.app/listwidget/#-presentextralarge
+     */
+    presentExtraLarge(): Promise<void>;
 }
 
 /**
