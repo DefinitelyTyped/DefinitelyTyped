@@ -179,12 +179,36 @@ export class Mapping implements Mappable {
  */
 export class AddMarkStep<S extends Schema = any> extends Step<S> {
     constructor(from: number, to: number, mark: Mark<S>);
+    /**
+     * The start of the marked range.
+     */    
+    from: number;
+    /**
+     * The end of the marked range.
+     */    
+    to: number;
+    /**
+     * The mark to add.
+     */    
+    mark: Mark;
 }
 /**
  * Remove a mark from all inline content between two positions.
  */
 export class RemoveMarkStep<S extends Schema = any> extends Step<S> {
     constructor(from: number, to: number, mark: Mark<S>);
+    /**
+     * The start of the unmarked range.
+     */    
+    from: number;
+    /**
+     * The end of the unmarked range.
+     */    
+    to: number;
+    /**
+     * The mark to remove.
+     */    
+    mark: Mark;
 }
 /**
  * Abstraction to build up and track an array of
@@ -359,6 +383,18 @@ export class ReplaceStep<S extends Schema = any> extends Step<S> {
      * overwriting something they weren't supposed to).
      */
     constructor(from: number, to: number, slice: Slice<S>, structure?: boolean);
+    /**
+     * The start position of the replaced range.
+     */
+    from: number;
+    /**
+     * The end position of the replaced range.
+     */
+    to: number;
+    /**
+     * The slice to insert.
+     */
+    slice: Slice;
 }
 /**
  * Replace a part of the document with a slice of content, but
@@ -381,6 +417,30 @@ export class ReplaceAroundStep<S extends Schema = any> extends Step<S> {
         insert: number,
         structure?: boolean,
     );
+    /**
+     * The start position of the replaced range.
+     */    
+    from: number;
+    /**
+     * The end position of the replaced range.
+     */    
+    to: number;
+    /**
+     * The start of preserved range.
+     */    
+    gapFrom: number;
+    /**
+     * The end of preserved range.
+     */    
+    gapTo: number;
+    /**
+     * The slice to insert.
+     */    
+    slice: Slice;
+    /**
+     * The position in the slice where the preserved range should be inserted.
+     */    
+    insert: number;   
 }
 /**
  * ‘Fit’ a slice into a given position in the document, producing a
