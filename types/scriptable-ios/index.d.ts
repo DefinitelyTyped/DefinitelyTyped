@@ -476,42 +476,42 @@ declare class CalendarEvent {
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#today
      */
-    static today(calendars?: Calendar[]): Promise<CalendarEvent[]>;
+    static today(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
 
     /**
      * _Events occurring tomorrow._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#tomorrow
      */
-    static tomorrow(calendars?: Calendar[]): Promise<CalendarEvent[]>;
+    static tomorrow(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occurred yesterday._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#yesterday
      */
-    static yesterday(calendars?: Calendar[]): Promise<CalendarEvent[]>;
+    static yesterday(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occur this week._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#thisweek
      */
-    static thisWeek(calendars?: Calendar[]): Promise<CalendarEvent[]>;
+    static thisWeek(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occur next week._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#nextweek
      */
-    static nextWeek(calendars?: Calendar[]): Promise<CalendarEvent[]>;
+    static nextWeek(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occurred last week._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#lastweek
      */
-    static lastWeek(calendars?: Calendar[]): Promise<CalendarEvent[]>;
+    static lastWeek(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occurs between two dates._
@@ -520,7 +520,7 @@ declare class CalendarEvent {
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#between
      */
-    static between(startDate: Date, endDate: Date, calendars?: Calendar[]): Promise<CalendarEvent[]>;
+    static between(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
 
     /**
      * _Adds a recurrence rule._
@@ -1221,7 +1221,7 @@ declare class Contact {
      * @param containers - Containers to fetch contacts from.
      * @see https://docs.scriptable.app/contact/#all
      */
-    static all(containers: ContactsContainer[]): Promise<Contact[]>;
+    static all(containers: ReadonlyArray<ContactsContainer>): Promise<Contact[]>;
 
     /**
      * _Fetches contacts in groups._
@@ -1230,7 +1230,7 @@ declare class Contact {
      * @param groups - Groups to fetch contacts from.
      * @see https://docs.scriptable.app/contact/#ingroups
      */
-    static inGroups(groups: ContactsGroup[]): Promise<Contact[]>;
+    static inGroups(groups: ReadonlyArray<ContactsGroup>): Promise<Contact[]>;
 
     /**
      * _Queues a contact to be added._
@@ -1355,7 +1355,7 @@ declare class ContactsGroup {
      * @param containers - Container to fetch contacts groups from.
      * @see https://docs.scriptable.app/contactsgroup/#all
      */
-    static all(containers: ContactsContainer[]): Promise<ContactsGroup[]>;
+    static all(containers: ReadonlyArray<ContactsContainer>): Promise<ContactsGroup[]>;
 
     /**
      * _Queues a contacts group to be added._
@@ -1996,7 +1996,7 @@ declare var DocumentPicker: {
      * @param types - Types of files to select. Specified using UTIs. Defaults to all files.
      * @see https://docs.scriptable.app/documentpicker/#open
      */
-    open(types?: string[]): Promise<string[]>;
+    open(types?: ReadonlyArray<string>): Promise<string[]>;
 
     /**
      * _Opens a file of any file type._
@@ -3826,7 +3826,7 @@ declare class Notification {
      * remove delivered notifications, see `Notification.removeDelivered()`.
      * @see https://docs.scriptable.app/notification/#removepending
      */
-    static removePending(identifiers: string[]): Promise<void>;
+    static removePending(identifiers: ReadonlyArray<string>): Promise<void>;
 
     /**
      * _Removes delivered notifications._
@@ -3835,7 +3835,7 @@ declare class Notification {
      * `Notification.removePending()`.
      * @see https://docs.scriptable.app/notification/#removedelivered
      */
-    static removeDelivered(identifiers: string[]): Promise<void>;
+    static removeDelivered(identifiers: ReadonlyArray<string>): Promise<void>;
 
     /**
      * _Resets the current notification._
@@ -4045,7 +4045,7 @@ declare class Path {
      * @param points - Points to add lines between.
      * @see https://docs.scriptable.app/path/#-addlines
      */
-    addLines(points: Point[]): void;
+    addLines(points: ReadonlyArray<Point>): void;
 
     /**
      * _Adds a set of rectangles._
@@ -4054,7 +4054,7 @@ declare class Path {
      * @param rects - Rectangles to add.
      * @see https://docs.scriptable.app/path/#-addrects
      */
-    addRects(rects: Rect[]): void;
+    addRects(rects: ReadonlyArray<Rect>): void;
 
     /**
      * _Closes a sub path._
@@ -4454,7 +4454,7 @@ declare namespace RecurrenceRule {
      * @param setPositions - Filters which recurrences to include in the rule's frequency.
      * @see https://docs.scriptable.app/recurrencerule/#complexweekly
      */
-    function complexWeekly(interval: number, daysOfTheWeek: number[], setPositions: number[]): RecurrenceRule;
+    function complexWeekly(interval: number, daysOfTheWeek: ReadonlyArray<number>, setPositions: ReadonlyArray<number>): RecurrenceRule;
 
     /**
      * _Constructs a complex weekly recurrence rule with an end date._
@@ -4472,8 +4472,8 @@ declare namespace RecurrenceRule {
      */
     function complexWeeklyEndDate(
         interval: number,
-        daysOfTheWeek: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
         endDate: Date,
     ): RecurrenceRule;
 
@@ -4493,8 +4493,8 @@ declare namespace RecurrenceRule {
      */
     function complexWeeklyOccurrenceCount(
         interval: number,
-        daysOfTheWeek: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
         occurrenceCount: number,
     ): RecurrenceRule;
 
@@ -4514,9 +4514,9 @@ declare namespace RecurrenceRule {
      */
     function complexMonthly(
         interval: number,
-        daysOfTheWeek: number[],
-        daysOfTheMonth: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        daysOfTheMonth: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
     ): RecurrenceRule;
 
     /**
@@ -4536,9 +4536,9 @@ declare namespace RecurrenceRule {
      */
     function complexMonthlyEndDate(
         interval: number,
-        daysOfTheWeek: number[],
-        daysOfTheMonth: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        daysOfTheMonth: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
         endDate: Date,
     ): RecurrenceRule;
 
@@ -4559,9 +4559,9 @@ declare namespace RecurrenceRule {
      */
     function complexMonthlyOccurrenceCount(
         interval: number,
-        daysOfTheWeek: number[],
-        daysOfTheMonth: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        daysOfTheMonth: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
         occurrenceCount: number,
     ): RecurrenceRule;
 
@@ -4583,11 +4583,11 @@ declare namespace RecurrenceRule {
      */
     function complexYearly(
         interval: number,
-        daysOfTheWeek: number[],
-        monthsOfTheYear: number[],
-        weeksOfTheYear: number[],
-        daysOfTheYear: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        monthsOfTheYear: ReadonlyArray<number>,
+        weeksOfTheYear: ReadonlyArray<number>,
+        daysOfTheYear: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
     ): RecurrenceRule;
 
     /**
@@ -4609,11 +4609,11 @@ declare namespace RecurrenceRule {
      */
     function complexYearlyEndDate(
         interval: number,
-        daysOfTheWeek: number[],
-        monthsOfTheYear: number[],
-        weeksOfTheYear: number[],
-        daysOfTheYear: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        monthsOfTheYear: ReadonlyArray<number>,
+        weeksOfTheYear: ReadonlyArray<number>,
+        daysOfTheYear: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
         endDate: Date,
     ): RecurrenceRule;
 
@@ -4636,11 +4636,11 @@ declare namespace RecurrenceRule {
      */
     function complexYearlyOccurrenceCount(
         interval: number,
-        daysOfTheWeek: number[],
-        monthsOfTheYear: number[],
-        weeksOfTheYear: number[],
-        daysOfTheYear: number[],
-        setPositions: number[],
+        daysOfTheWeek: ReadonlyArray<number>,
+        monthsOfTheYear: ReadonlyArray<number>,
+        weeksOfTheYear: ReadonlyArray<number>,
+        daysOfTheYear: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
         occurrenceCount: number,
     ): RecurrenceRule;
 }
@@ -4793,7 +4793,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#scheduled
      */
-    static scheduled(calendars?: Calendar[]): Promise<Reminder[]>;
+    static scheduled(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders._
@@ -4802,7 +4802,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#all
      */
-    static all(calendars?: Calendar[]): Promise<Reminder[]>;
+    static all(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all completed reminders._
@@ -4811,7 +4811,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allcompleted
      */
-    static allCompleted(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allCompleted(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all incomplete reminders._
@@ -4820,133 +4820,133 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allincomplete
      */
-    static allIncomplete(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allIncomplete(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due today._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduetoday
      */
-    static allDueToday(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allDueToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due today._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduetoday
      */
-    static completedDueToday(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedDueToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due today._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduetoday
      */
-    static incompleteDueToday(calendars?: Calendar[]): Promise<Reminder[]>;
+    static incompleteDueToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due tomorrow._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduetomorrow
      */
-    static allDueTomorrow(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allDueTomorrow(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due tomorrow._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduetomorrow
      */
-    static completedDueTomorrow(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedDueTomorrow(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due tomorrow._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduetomorrow
      */
-    static incompleteDueTomorrow(calendars?: Calendar[]): Promise<Reminder[]>;
+    static incompleteDueTomorrow(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due yesterday._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#alldueyesterday
      */
-    static allDueYesterday(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allDueYesterday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due yesterday._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completeddueyesterday
      */
-    static completedDueYesterday(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedDueYesterday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due yesterday._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompletedueyesterday
      */
-    static incompleteDueYesterday(calendars?: Calendar[]): Promise<Reminder[]>;
+    static incompleteDueYesterday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due this week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduethisweek
      */
-    static allDueThisWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allDueThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due this week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduethisweek
      */
-    static completedDueThisWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedDueThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due this week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduethisweek
      */
-    static incompleteDueThisWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static incompleteDueThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due next week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduenextweek
      */
-    static allDueNextWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allDueNextWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due next week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduenextweek
      */
-    static completedDueNextWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedDueNextWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due next week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduenextweek
      */
-    static incompleteDueNextWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static incompleteDueNextWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due last week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduelastweek
      */
-    static allDueLastWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static allDueLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due last week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduelastweek
      */
-    static completedDueLastWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedDueLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due last week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduelastweek
      */
-    static incompleteDueLastWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static incompleteDueLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches reminders completed today._
@@ -4955,7 +4955,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedtoday
      */
-    static completedToday(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches reminders completed this week._
@@ -4964,7 +4964,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedthisweek
      */
-    static completedThisWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches reminders completed last week._
@@ -4973,7 +4973,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedlastweek
      */
-    static completedLastWeek(calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches due reminders._
@@ -4982,7 +4982,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduebetween
      */
-    static allDueBetween(startDate: Date, endDate: Date, calendars?: Calendar[]): Promise<Reminder[]>;
+    static allDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders._
@@ -4991,7 +4991,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduebetween
      */
-    static completedDueBetween(startDate: Date, endDate: Date, calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders._
@@ -5000,7 +5000,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduebetween
      */
-    static incompleteDueBetween(startDate: Date, endDate: Date, calendars?: Calendar[]): Promise<Reminder[]>;
+    static incompleteDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders._
@@ -5009,7 +5009,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedbetween
      */
-    static completedBetween(startDate: Date, endDate: Date, calendars?: Calendar[]): Promise<Reminder[]>;
+    static completedBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
 
     /**
      * _Adds a recurrence rule._
