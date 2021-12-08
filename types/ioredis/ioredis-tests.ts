@@ -87,6 +87,11 @@ redis.rpush('lposlist', 'foo', 'bar', 'baz');
 redis.lpos('lposlist', 'foo').then(console.log);
 redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
 
+redis.lmove('source', 'destination', 'LEFT', 'RIGHT').then(console.log);
+redis.lmove('source', 'destination', 'RIGHT', 'LEFT', cb);
+redis.blmove('source', 'destination', 'LEFT', 'RIGHT', 0).then(console.log);
+redis.blmove('source', 'destination', 'RIGHT', 'LEFT', 0, cb);
+
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
 redis.hdel('foo', 'bar', cbNumber);
