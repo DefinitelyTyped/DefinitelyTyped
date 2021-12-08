@@ -4,7 +4,7 @@
 //                 FuJuntao <https://github.com/FuJuntao>
 //                 FifiTheBulldog <https://github.com/FifiTheBulldog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+// Minimum TypeScript Version: 4.2
 
 /**
  * _Presents an alert._
@@ -3312,7 +3312,7 @@ declare class ListWidget {
 }
 
 declare namespace Location {
-    interface Location {
+    interface CurrentLocation {
         verticalAccuracy: number;
         horizontalAccuracy: number;
         altitude: number;
@@ -3367,7 +3367,7 @@ declare var Location: {
      * vertical accuracy measured in meters.
      * @see https://docs.scriptable.app/location/#current
      */
-    current(): Promise<Location.Location>;
+    current(): Promise<Location.CurrentLocation>;
 
     /**
      * _Uses best accuracy. This is default._
@@ -3410,7 +3410,7 @@ declare var Location: {
      * @param locale - Optional. Preferred locale to fetch information in. Uses the default locale of the device if null.
      * @see https://docs.scriptable.app/location/#reversegeocode
      */
-    reverseGeocode(latitude: number, longitude: number, locale?: string): Location.GeocodeSummary[];
+    reverseGeocode(latitude: number, longitude: number, locale?: string): Promise<Location.GeocodeSummary[]>;
 };
 
 /**
@@ -5397,7 +5397,7 @@ declare var Script: {
 };
 
 declare namespace ShareSheet {
-    interface Result {
+    interface ShareSheetResult {
         /**
          * If the share was completed by the user. This might still be `true`
          * when the user has actually canceled the action.
@@ -5420,7 +5420,7 @@ declare var ShareSheet: {
      * @param activityItems - Items to perform activity on.
      * @see https://docs.scriptable.app/sharesheet/#present
      */
-    present(activityItems: ReadonlyArray<any>): Promise<ShareSheet.Result>;
+    present(activityItems: ReadonlyArray<any>): Promise<ShareSheet.ShareSheetResult>;
 };
 
 /**

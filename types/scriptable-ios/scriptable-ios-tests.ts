@@ -44,7 +44,7 @@
 
     const cb2 = new CallbackURL("shortcuts://x-callback-url/");
     cb2.addParameter("foo", "bar");
-    // $ExpectType Promise<{ result: string | number | boolean | null }>
+    // $ExpectType Promise<{ result: string | number | boolean | null; }>
     cb2.open();
 }
 
@@ -518,12 +518,12 @@
 }
 
 {
-    // $ExpectType Promise<Location.Location>
+    // $ExpectType Promise<CurrentLocation>
     Location.current();
-    // $ExpectType Promise<Location.GeocodeSummary[]>
-    Location.reverseGeocode(0, 0)
-    // $ExpectType Promise<Location.GeocodeSummary[]>
-    Location.reverseGeocode(0, 0, "en")
+    // $ExpectType Promise<GeocodeSummary[]>
+    Location.reverseGeocode(0, 0);
+    // $ExpectType Promise<GeocodeSummary[]>
+    Location.reverseGeocode(0, 0, "en");
 }
 
 {
@@ -570,14 +570,14 @@
 }
 
 {
-    // ExpectError
+    // $ExpectError
     ShareSheet.present("foobar");
-    // ExpectError
+    // $ExpectError
     ShareSheet.present(42);
-    // $ExpectType Promise<ShareSheet.Result>
+    // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([]);
-    // $ExpectType Promise<ShareSheet.Result>
+    // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present(["test"]);
-    // $ExpectType Promise<ShareSheet.Result>
+    // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([42]);
 }
