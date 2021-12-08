@@ -12,6 +12,7 @@
 //                 Ivan Sieder <https://github.com/ivansieder>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Nandor Kraszlan <https://github.com/nandi95>
+//                 Indian Ocean Roleplay <https://github.com/oceanroleplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -130,9 +131,9 @@ export interface JwtPayload {
     jti?: string | undefined;
 }
 
-export interface Jwt {
+export interface Jwt<T = JwtPayload> {
     header: JwtHeader;
-    payload: JwtPayload;
+    payload: T;
     signature: string;
 }
 
@@ -198,8 +199,24 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt | string;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): JwtPayload | string;
+export function verify<T>(
+    token: string,
+    secretOrPublicKey: Secret,
+    options: VerifyOptions & { complete: true }
+): T extends string
+    ? string
+    : T extends object
+    ? Jwt<T & JwtPayload>
+    : string | Jwt<T & JwtPayload>;
+export function verify<T>(
+    token: string,
+    secretOrPublicKey: Secret,
+    options?: VerifyOptions
+): T extends string
+    ? string
+    : T extends object
+    ? T & JwtPayload
+    : string | (T & JwtPayload);
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -210,22 +227,40 @@ export function verify(token: string, secretOrPublicKey: Secret, options?: Verif
  * [options] - Options for the verification
  * callback - Callback to get the decoded token on
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
-    callback?: VerifyCallback,
+export function verify<T>(
+  token: string,
+  secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+  callback?: VerifyCallback<
+    T extends string
+      ? string
+      : T extends object
+      ? T & JwtPayload
+      : string | (T & JwtPayload)
+  >
 ): void;
-export function verify(
-    token: string,
-    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
-    options?: VerifyOptions & { complete: true },
-    callback?: VerifyCallback<Jwt>,
+export function verify<T>(
+  token: string,
+  secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+  options?: VerifyOptions & { complete: true },
+  callback?: VerifyCallback<
+    T extends string
+      ? string
+      : T extends object
+      ? Jwt<T & JwtPayload>
+      : string | Jwt<T & JwtPayload>
+  >
 ): void;
-export function verify(
-    token: string,
-    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
-    options?: VerifyOptions,
-    callback?: VerifyCallback,
+export function verify<T>(
+  token: string,
+  secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+  options?: VerifyOptions,
+  callback?: VerifyCallback<
+    T extends string
+      ? string
+      : T extends object
+      ? T & JwtPayload
+      : string | (T & JwtPayload)
+  >
 ): void;
 
 /**
@@ -234,6 +269,23 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(token: string, options: DecodeOptions & { complete: true }): null | Jwt;
-export function decode(token: string, options: DecodeOptions & { json: true }): null | JwtPayload;
-export function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
+export function decode<T>(
+  token: string,
+  options: DecodeOptions & { complete: true }
+): T extends string
+  ? null | string
+  : T extends object
+  ? null | Jwt<T & JwtPayload>
+  : null | string | Jwt<T & JwtPayload>;
+export function decode<T = { [key: string]: any }>(
+  token: string,
+  options: DecodeOptions & { json: true }
+): T extends object ? null | (T & JwtPayload) : null | JwtPayload;
+export function decode<T>(
+  token: string,
+  options?: DecodeOptions
+): T extends string
+  ? null | string
+  : T extends object
+  ? null | (T & JwtPayload)
+  : null | string | (T & JwtPayload);
