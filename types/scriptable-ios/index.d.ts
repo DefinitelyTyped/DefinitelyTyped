@@ -806,10 +806,10 @@ declare var config: {
     /**
      * The size of the widget the script is running in.
      *
-     * Possible values are: `small`, `medium`, `large` and `null`. The value is `null` when the script is not running in a widget.
+     * Possible values are: `small`, `medium`, `large`, `extraLarge` and `null`. The value is `null` when the script is not running in a widget.
      * @see https://docs.scriptable.app/config/#widgetfamily
      */
-    widgetFamily: string;
+    widgetFamily: "small" | "medium" | "large" | "extraLarge" | null;
 };
 
 /**

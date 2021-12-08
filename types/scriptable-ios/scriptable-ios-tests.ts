@@ -60,6 +60,23 @@
 }
 
 {
+    // $ExpectType boolean
+    config.runsFromHomeScreen;
+    // $ExpectType boolean
+    config.runsInActionExtension;
+    // $ExpectType boolean
+    config.runsInApp;
+    // $ExpectType boolean
+    config.runsInNotification;
+    // $ExpectType boolean
+    config.runsInWidget;
+    // $ExpectType boolean
+    config.runsWithSiri;
+    // $ExpectType "small" | "medium" | "large" | "extraLarge" | null
+    config.widgetFamily;
+}
+
+{
     // $ExpectType Promise<string[]>
     DocumentPicker.open(['public.plain-text']);
     // $ExpectType Promise<string>
