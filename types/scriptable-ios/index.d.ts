@@ -3311,6 +3311,50 @@ declare class ListWidget {
     presentExtraLarge(): Promise<void>;
 }
 
+declare namespace Location {
+    interface Location {
+        verticalAccuracy: number;
+        horizontalAccuracy: number;
+        altitude: number;
+        latitude: number;
+        longitude: number;
+    }
+
+    interface GeocodePostalAddress {
+        country: string;
+        postalCode: string;
+        subAdministrativeArea: string;
+        subLocality: string;
+        state: string;
+        street: string;
+        city: string;
+        isoCountryCode: string;
+    }
+    interface GeocodeLocation {
+        altitude: number;
+        longitude: number;
+        latitude: number;
+    }
+    interface GeocodeSummary {
+        subAdministrativeArea: string | null;
+        postalAddress: GeocodePostalAddress;
+        isoCountryCode: string | null;
+        timeZone: string;
+        location: GeocodeLocation;
+        country: string | null;
+        subThoroughfare: string | null;
+        thoroughfare: string | null;
+        name: string;
+        locality: string | null;
+        areasOfInterest: string[] | null;
+        ocean: string | null;
+        subLocality: string | null;
+        postalCode: string | null;
+        administrativeArea: string | null;
+        inlandWater: string | null;
+    }
+}
+
 /**
  * _Fetches your location._
  * @see https://docs.scriptable.app/location
@@ -3323,7 +3367,7 @@ declare var Location: {
      * vertical accuracy measured in meters.
      * @see https://docs.scriptable.app/location/#current
      */
-    current(): Promise<any>;
+    current(): Promise<Location.Location>;
 
     /**
      * _Uses best accuracy. This is default._
@@ -3366,7 +3410,7 @@ declare var Location: {
      * @param locale - Optional. Preferred locale to fetch information in. Uses the default locale of the device if null.
      * @see https://docs.scriptable.app/location/#reversegeocode
      */
-    reverseGeocode(latitude: number, longitude: number, locale?: string): Array<{ [key: string]: any }>;
+    reverseGeocode(latitude: number, longitude: number, locale?: string): Location.GeocodeSummary[];
 };
 
 /**

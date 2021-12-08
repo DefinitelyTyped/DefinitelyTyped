@@ -518,6 +518,15 @@
 }
 
 {
+    // $ExpectType Promise<Location.Location>
+    Location.current();
+    // $ExpectType Promise<Location.GeocodeSummary[]>
+    Location.reverseGeocode(0, 0)
+    // $ExpectType Promise<Location.GeocodeSummary[]>
+    Location.reverseGeocode(0, 0, "en")
+}
+
+{
     const url = 'http://httpbin.org/POST';
     const req = new Request(url);
     req.url === url;
