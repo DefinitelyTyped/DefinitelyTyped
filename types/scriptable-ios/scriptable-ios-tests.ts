@@ -568,3 +568,16 @@
     // $ExpectType void
     sf.applyBlackWeight();
 }
+
+{
+    // ExpectError
+    ShareSheet.present("foobar");
+    // ExpectError
+    ShareSheet.present(42);
+    // $ExpectType Promise<ShareSheet.Result>
+    ShareSheet.present([]);
+    // $ExpectType Promise<ShareSheet.Result>
+    ShareSheet.present(["test"]);
+    // $ExpectType Promise<ShareSheet.Result>
+    ShareSheet.present([42]);
+}

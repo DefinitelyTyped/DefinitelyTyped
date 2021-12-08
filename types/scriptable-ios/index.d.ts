@@ -5396,6 +5396,18 @@ declare var Script: {
     setWidget(widget: any): void;
 };
 
+declare namespace ShareSheet {
+    interface Result {
+        /**
+         * If the share was completed by the user. This might still be `true`
+         * when the user has actually canceled the action.
+         */
+        completed: boolean;
+        /** The app or extension it was shared to */
+        activity_type: string;
+    }
+}
+
 /**
  * _Offers standard activities to perform on items._
  * @see https://docs.scriptable.app/sharesheet
@@ -5408,7 +5420,7 @@ declare var ShareSheet: {
      * @param activityItems - Items to perform activity on.
      * @see https://docs.scriptable.app/sharesheet/#present
      */
-    present(activityItems: any[]): Promise<any>;
+    present(activityItems: ReadonlyArray<any>): Promise<ShareSheet.Result>;
 };
 
 /**
