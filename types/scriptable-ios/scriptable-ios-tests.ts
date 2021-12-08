@@ -37,6 +37,18 @@
 }
 
 {
+    const cb = new CallbackURL("my-app://");
+    cb.addParameter("foo", "bar");
+    // $ExpectType Promise<Record<string, string | number | boolean | null>>
+    cb.open();
+
+    const cb2 = new CallbackURL("shortcuts://x-callback-url/");
+    cb2.addParameter("foo", "bar");
+    // $ExpectType Promise<{ result: string | number | boolean | null }>
+    cb2.open();
+}
+
+{
     const c = new Color('ffffff', 1);
     c.red = 42;
     c.green = 42;

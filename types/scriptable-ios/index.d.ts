@@ -2,7 +2,9 @@
 // Project: https://scriptable.app/
 // Definitions by: schl3ck <https://github.com/schl3ck>
 //                 FuJuntao <https://github.com/FuJuntao>
+//                 FifiTheBulldog <https://github.com/FifiTheBulldog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 /**
  * _Presents an alert._
@@ -564,7 +566,7 @@ declare class CalendarEvent {
  * Constructs an object that opens x-callback-url requests and waits for a response from the target app.
  * @see https://docs.scriptable.app/callbackurl/#-new-callbackurl
  */
-declare class CallbackURL {
+declare class CallbackURL<T extends string = string> {
     /**
      * _Open x-callback-url requests._
      *
@@ -572,7 +574,7 @@ declare class CallbackURL {
      * @param baseURL - Base URL of the request. This is usally something like my-app://x-callback-url/action
      * @see https://docs.scriptable.app/callbackurl/#-new-callbackurl
      */
-    constructor(baseURL: string);
+    constructor(baseURL: T);
 
     /**
      * _Construct CallbackURL._
@@ -593,7 +595,11 @@ declare class CallbackURL {
      * not invoke the callback.
      * @see https://docs.scriptable.app/callbackurl/#-open
      */
-    open(): Promise<any>;
+    open(): Promise<
+        T extends `shortcuts://x-callback-url/${string}`
+            ? { result: string | number | boolean | null }
+            : Record<string, string | number | boolean | null>
+    >;
 
     /**
      * _Creates the callback URL._
