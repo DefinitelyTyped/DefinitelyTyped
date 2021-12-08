@@ -196,4 +196,3 @@ export interface Options {
 }
 
 export default NodeClam;
-
