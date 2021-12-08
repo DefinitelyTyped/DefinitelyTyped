@@ -88,6 +88,10 @@ jwt.verify(token, secret, (err, decoded) => {
     console.log(result.foo); // bar
 });
 
+// verify without a callback
+const decoded = jwt.verify(token, secret);
+console.log(decoded.foo);
+
 // verify a token asymmetric
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (err, decoded) => {
