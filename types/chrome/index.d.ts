@@ -5402,6 +5402,8 @@ declare namespace chrome.networking.config {
  * @since Chrome 28.
  */
 declare namespace chrome.notifications {
+    export type TemplateType = "basic" | "image" | "list" | "progress";
+
     export interface ButtonOptions {
         title: string;
         iconUrl?: string | undefined;
@@ -5470,7 +5472,7 @@ declare namespace chrome.notifications {
         /** Main notification content. Required for notifications.create method. */
         message: string;
         /** Which type of notification to display. Required for notifications.create method. */
-        type: string;
+        type: TemplateType;
         /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
         title: string;
     } : {
@@ -5483,7 +5485,7 @@ declare namespace chrome.notifications {
         /** Optional. Main notification content. Required for notifications.create method. */
         message?: string | undefined;
         /** Optional. Which type of notification to display. Required for notifications.create method. */
-        type?: string | undefined;
+        type?: TemplateType | undefined;
         /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
         title?: string | undefined;
     })
