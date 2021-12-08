@@ -129,8 +129,8 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * This method is like _.difference except that it accepts iteratee which is invoked for each element 
-         * of array and values to generate the criterion by which they're compared. The order and references 
+         * This method is like _.difference except that it accepts iteratee which is invoked for each element
+         * of array and values to generate the criterion by which they're compared. The order and references
          * of result values are determined by the first array. The iteratee is invoked with one argument: (value).
          *
          * @param array The array to inspect.
@@ -186,8 +186,8 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * This method is like _.difference except that it accepts comparator which is invoked to compare elements 
-         * of array to values. The order and references of result values are determined by the first array. The 
+         * This method is like _.difference except that it accepts comparator which is invoked to compare elements
+         * of array to values. The order and references of result values are determined by the first array. The
          * comparator is invoked with two arguments: (arrVal, othVal).
          *
          * @category Array
