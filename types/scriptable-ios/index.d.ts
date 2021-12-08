@@ -2604,7 +2604,7 @@ declare class FileManager {
     /**
      * _Lists content of directory._
      *
-     * Lists all the contents in the specified directory. The returned array contains file paths to all files in the directory.
+     * Lists all the contents in the specified directory. The returned array contains filenames of all files and directories in the specified directory.
      * @param directoryPath - Path to directory.
      * @see https://docs.scriptable.app/filemanager/#-listcontents
      */
@@ -2720,7 +2720,7 @@ declare class FileManager {
     /**
      * _Reads all file bookmarks created in settings._
      *
-     * File bookmarks are used to bookmark a file or a folder and read or written to it later. File bookmarks are created from Scriptables settings.
+     * File bookmarks are used to bookmark a file or a folder to read from it or write to it later. File bookmarks are created from Scriptables settings.
      *
      * This function returns all file bookmarks as an array of objects that take the following form.
      *
@@ -6156,7 +6156,7 @@ declare class WidgetDate {
      * _URL to open._
      *
      * The URL will be opened when the text is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
-     * property on the widget.
+     * property in the widget configurator.
      * @see https://docs.scriptable.app/widgetdate/#url
      */
     url: string;
@@ -6625,7 +6625,7 @@ declare class WidgetText {
      * _URL to open._
      *
      * The URL will be opened when the text is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
-     * property on the widget.
+     * property in the widget configurator.
      * @see https://docs.scriptable.app/widgettext/#url
      */
     url: string;
