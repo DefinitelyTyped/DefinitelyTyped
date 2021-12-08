@@ -191,7 +191,7 @@ cert = fs.readFileSync("public.pem"); // get public key
 const verified3 = jwt.verify(token, cert, {maxAge: 3600});
 
 if (typeof verified3 !== 'string') {
-    // $ExpectType JwtPayload
+    // $ExpectType any
     verified3;
 }
 
