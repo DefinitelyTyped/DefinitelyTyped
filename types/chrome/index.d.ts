@@ -5402,6 +5402,8 @@ declare namespace chrome.networking.config {
  * @since Chrome 28.
  */
 declare namespace chrome.notifications {
+    export type TemplateType = "basic" | "image" | "list" | "progress";
+
     export interface ButtonOptions {
         title: string;
         iconUrl?: string | undefined;
@@ -5414,19 +5416,7 @@ declare namespace chrome.notifications {
         message: string;
     }
 
-    export interface NotificationOptions {
-        /** Optional. Which type of notification to display. Required for notifications.create method. */
-        type?: string | undefined;
-        /**
-         * Optional.
-         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
-         */
-        iconUrl?: string | undefined;
-        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-        title?: string | undefined;
-        /** Optional. Main notification content. Required for notifications.create method. */
-        message?: string | undefined;
+    export type NotificationOptions<T extends boolean = false> = {
         /**
          * Optional.
          * Alternate notification content with a lower-weight font.
@@ -5473,7 +5463,32 @@ declare namespace chrome.notifications {
          * @since Chrome 70
          */
         silent?: boolean | undefined;
-    }
+    } & (T extends true ? {
+        /**
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl: string;
+        /** Main notification content. Required for notifications.create method. */
+        message: string;
+        /** Which type of notification to display. Required for notifications.create method. */
+        type: TemplateType;
+        /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title: string;
+    } : {
+        /**
+         * Optional.
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl?: string | undefined;
+        /** Optional. Main notification content. Required for notifications.create method. */
+        message?: string | undefined;
+        /** Optional. Which type of notification to display. Required for notifications.create method. */
+        type?: TemplateType | undefined;
+        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title?: string | undefined;
+    })
 
     export interface NotificationClosedEvent
         extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
@@ -5516,7 +5531,7 @@ declare namespace chrome.notifications {
      */
     export function create(
         notificationId: string,
-        options: NotificationOptions,
+        options: NotificationOptions<true>,
         callback?: (notificationId: string) => void,
     ): void;
     /**
@@ -5529,7 +5544,7 @@ declare namespace chrome.notifications {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string notificationId) {...};
      */
-    export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    export function create(options: NotificationOptions<true>, callback?: (notificationId: string) => void): void;
     /**
      * Updates an existing notification.
      * @param notificationId The id of the notification to be updated. This is returned by notifications.create method.
