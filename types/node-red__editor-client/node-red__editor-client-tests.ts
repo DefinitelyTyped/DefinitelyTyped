@@ -4,6 +4,7 @@ import editorClient = require('@node-red/editor-client');
 
 function redTests(RED: editorClient.RED) {
     interface MyNodeProperties extends editorClient.NodeProperties {
+        x: string;
         key: string;
     }
     interface MyNodeCredentials {
@@ -15,6 +16,10 @@ function redTests(RED: editorClient.RED) {
     }
 
     function nodeInstanceTests(nodeInstance: editorClient.NodeInstance<MyNodeInstanceProperties>) {
+        // $ExpectType string
+        nodeInstance.id;
+        // $ExpectType number
+        nodeInstance.x;
         // $ExpectType string
         nodeInstance.instanceProp;
         // $ExpectError
@@ -211,6 +216,18 @@ function redTests(RED: editorClient.RED) {
                   return 'label';
               },
     };
+
+    const defWithReserved: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
+        category: 'category',
+        defaults: {
+            // $ExpectError
+            x: {},
+            key: {
+                value: '',
+            }
+        }
+    };
+
     RED.nodes.registerType('my-node', myNodeDef);
     RED.nodes.registerType<MyNodeProperties, MyNodeCredentials>('my-node', {
         category: 'category',
