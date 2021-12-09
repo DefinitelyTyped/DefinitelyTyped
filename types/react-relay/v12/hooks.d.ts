@@ -23,7 +23,7 @@ export {
   MatchPointer,
 } from './relay-hooks/MatchContainer';
 export { ProfilerContextType } from './relay-hooks/ProfilerContext';
-export { LoadMoreFn } from './relay-hooks/useLoadMoreFunction';
+export { Direction, LoadMoreFn } from './relay-hooks/useLoadMoreFunction';
 export { UseMutationConfig } from './relay-hooks/useMutation';
 export { UseQueryLoaderLoadQueryOptions } from './relay-hooks/useQueryLoader';
 export {
@@ -34,7 +34,6 @@ export {
 export {
   DataID,
   DeclarativeMutationConfig,
-  Direction,
   Disposable,
   // RelayRuntime has two environment exports: one interface, one concrete.
   IEnvironment as Environment,
@@ -54,6 +53,7 @@ export {
 //  * The public interface for Relay Hooks.
 //  */
 
+export { graphql } from 'relay-runtime';
 
 export { ConnectionHandler } from 'relay-runtime';
 
@@ -61,13 +61,11 @@ export { applyOptimisticMutation } from 'relay-runtime';
 export { commitLocalUpdate } from 'relay-runtime';
 export { commitMutation } from 'relay-runtime';
 
-export { graphql } from 'relay-runtime';
-
 export { readInlineData } from 'relay-runtime';
 export { requestSubscription } from 'relay-runtime';
 
-export { EntryPointContainer } from './relay-hooks/EntryPointContainer.react';
 export { RelayEnvironmentProvider } from './relay-hooks/RelayEnvironmentProvider.react';
+export { EntryPointContainer } from './relay-hooks/EntryPointContainer.react';
 
 export { fetchQuery } from 'relay-runtime';
 

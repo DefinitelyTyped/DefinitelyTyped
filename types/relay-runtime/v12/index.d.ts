@@ -1,4 +1,4 @@
-// Type definitions for relay-runtime 13.0
+// Type definitions for relay-runtime 12.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Stephen Pittman <https://github.com/Stephen2>
@@ -194,7 +194,6 @@ export { RelayProfiler } from './lib/util/RelayProfiler';
 export { default as getRelayHandleKey } from './lib/util/getRelayHandleKey';
 export { default as getRequestIdentifier } from './lib/util/getRequestIdentifier';
 export { default as getFragmentIdentifier } from './lib/util/getFragmentIdentifier';
-export type { Direction } from './lib/util/getPaginationVariables';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
