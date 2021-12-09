@@ -1,4 +1,4 @@
-// Type definitions for dinero.js 1.8
+// Type definitions for dinero.js 1.9
 // Project: https://sarahdayan.github.io/dinero.js
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 David Acosta <https://github.com/juandaco>
@@ -25,9 +25,9 @@ declare namespace DineroFactory {
     function maximum(objects: ReadonlyArray<Dinero>): Dinero;
 
     interface Options {
-        amount?: number;
-        currency?: Currency;
-        precision?: number;
+        amount?: number | undefined;
+        currency?: Currency | undefined;
+        precision?: number | undefined;
     }
 
     interface Dinero {
@@ -41,7 +41,7 @@ declare namespace DineroFactory {
         subtract(subtrahend: Dinero): Dinero;
         multiply(multiplier: number, roundingMode?: RoundingMode): Dinero;
         divide(divisor: number, roundingMode?: RoundingMode): Dinero;
-        percentage(percentage: number): Dinero;
+        percentage(percentage: number, roundingMode?: RoundingMode): Dinero;
         allocate(ratios: ReadonlyArray<number>): Dinero[];
         convert(currency: string, options?: ExchangeRatesApiOptions): Promise<Dinero>;
         equalsTo(comparator: Dinero): boolean;
@@ -77,9 +77,9 @@ declare namespace DineroFactory {
 
     interface ExchangeRatesApiOptions {
         endpoint: string | Promise<{[key: string]: any}>;
-        propertyPath?: string;
-        headers?: { [header: string]: string };
-        roundingMode?: RoundingMode;
+        propertyPath?: string | undefined;
+        headers?: { [header: string]: string } | undefined;
+        roundingMode?: RoundingMode | undefined;
     }
 
     interface DineroObject {

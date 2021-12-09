@@ -2242,11 +2242,11 @@ export var Browser: IBrowser;
 
 interface ProxyConfig {
   proxyType: string;
-  proxyAutoconfigUrl?: string;
-  ftpProxy?: string;
-  httpProxy?: string;
-  sslProxy?: string;
-  noProxy?: string;
+  proxyAutoconfigUrl?: string | undefined;
+  ftpProxy?: string | undefined;
+  httpProxy?: string | undefined;
+  sslProxy?: string | undefined;
+  noProxy?: string | undefined;
 }
 
 /**
@@ -3289,10 +3289,10 @@ export class Navigation {
 interface IWebDriverOptionsCookie {
   name: string;
   value: string;
-  path?: string;
-  domain?: string;
-  secure?: boolean;
-  expiry?: number;
+  path?: string | undefined;
+  domain?: string | undefined;
+  secure?: boolean | undefined;
+  expiry?: number | undefined;
 }
 
 /**

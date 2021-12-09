@@ -53,7 +53,7 @@ export default class Application extends Engine {
      * @param fullName type:name (e.g., 'model:user')
      * @param factory (e.g., App.Person)
      */
-    register(fullName: string, factory: any, options?: { singleton?: boolean; instantiate?: boolean }): void;
+    register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
     /**
      * This removes all helpers that have been registered, and resets and functions
      * that were overridden by the helpers.

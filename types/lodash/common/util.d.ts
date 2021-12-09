@@ -424,7 +424,7 @@ declare module "../index" {
         /**
          * @see _.iteratee
          */
-        iteratee(func: string | object): (...args: any[]) => any;
+        iteratee(func: symbol | number | string | object): (...args: any[]) => any;
     }
     interface Function<T extends (...args: any) => any> {
         /**
@@ -602,7 +602,7 @@ declare module "../index" {
         /**
          * @see _.chain
          */
-        chain?: boolean;
+        chain?: boolean | undefined;
     }
     interface LoDashStatic {
         /**

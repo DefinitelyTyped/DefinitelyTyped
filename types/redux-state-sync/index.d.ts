@@ -16,12 +16,12 @@ export interface Stamp {
 export type StampedAction = Stamp & AnyAction;
 
 export interface Config {
-    channel?: string;
-    predicate?: (action: AnyAction) => boolean | null;
-    blacklist?: string[];
-    whitelist?: string[];
-    broadcastChannelOption?: BroadcastChannelOptions;
-    prepareState?: (state: any) => any;
+    channel?: string | undefined;
+    predicate?: ((action: AnyAction) => boolean | null) | undefined;
+    blacklist?: string[] | undefined;
+    whitelist?: string[] | undefined;
+    broadcastChannelOption?: BroadcastChannelOptions | undefined;
+    prepareState?: ((state: any) => any) | undefined;
 }
 
 export interface MessageListenerConfig {

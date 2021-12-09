@@ -7,9 +7,9 @@ import {
     Scene,
     WebGLRenderer,
     Camera,
-    TextureEncoding,
     Mesh,
     Material,
+    ColorRepresentation,
 } from '../../../src/Three';
 import { Pass, FullScreenQuad } from '../postprocessing/Pass';
 import { Reflector } from '../objects/ReflectorForSSRPass';
@@ -18,13 +18,11 @@ export interface SSRPassParams {
     renderer: WebGLRenderer;
     scene: Scene;
     camera: Camera;
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     selects: Mesh[] | null;
-    encoding: TextureEncoding;
-    isPerspectiveCamera?: boolean;
-    isBouncing?: boolean;
-    morphTargets?: boolean;
+    isPerspectiveCamera?: boolean | undefined;
+    isBouncing?: boolean | undefined;
     groundReflector: Reflector | null;
 }
 
@@ -40,7 +38,6 @@ export class SSRPass extends Pass {
     output: number;
     maxDistance: number;
     thickness: number;
-    encoding: TextureEncoding;
     tempColor: Color;
 
     get selects(): Mesh[] | null;
@@ -105,23 +102,23 @@ export class SSRPass extends Pass {
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderOverride: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderMetalness: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 }

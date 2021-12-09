@@ -20,22 +20,22 @@ declare namespace GIF {
         | 'Atkinson-serpentine';
 
     interface Options {
-        repeat?: number;
-        quality?: number;
-        workers?: number;
-        workerScript?: string;
-        background?: string;
-        width?: number | null;
-        height?: number | null;
-        transparent?: string | null;
-        dither?: DitherMethod | boolean;
-        debug?: boolean;
+        repeat?: number | undefined;
+        quality?: number | undefined;
+        workers?: number | undefined;
+        workerScript?: string | undefined;
+        background?: string | undefined;
+        width?: number | null | undefined;
+        height?: number | null | undefined;
+        transparent?: string | null | undefined;
+        dither?: DitherMethod | boolean | undefined;
+        debug?: boolean | undefined;
     }
 
     interface AddFrameOptions {
-        delay?: number;
-        copy?: boolean;
-        dispose?: number;
+        delay?: number | undefined;
+        copy?: boolean | undefined;
+        dispose?: number | undefined;
     }
 }
 

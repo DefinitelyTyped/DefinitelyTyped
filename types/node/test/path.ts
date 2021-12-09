@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import * as win32Path from 'path/win32';
 import * as posixPath from 'path/posix';
 

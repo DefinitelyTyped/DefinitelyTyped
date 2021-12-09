@@ -19,8 +19,8 @@ export interface CharsFormatters {
 
 export interface MaskedInputProps extends React.InputHTMLAttributes<any> {
   mask: string;
-  formatCharacters?: CharsFormatters;
-  placeholderChar?: string;
+  formatCharacters?: CharsFormatters | undefined;
+  placeholderChar?: string | undefined;
 }
 
 declare class MaskedInput extends React.Component<MaskedInputProps> {}

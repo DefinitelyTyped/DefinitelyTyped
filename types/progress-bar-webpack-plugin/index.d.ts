@@ -15,25 +15,25 @@ declare namespace ProgressBarPlugin {
          * the format of the progress bar
          * @default ':bar'
          */
-        format?: string;
+        format?: string | undefined;
         /**
          * optional function to call when the progress bar completes
          */
-        callback?: () => void;
+        callback?: (() => void) | undefined;
         /**
          * option to show summary of time taken
          * @default true
          */
-        summary?: boolean;
+        summary?: boolean | undefined;
         /**
          * custom summary message if summary option is false
          */
-        summaryContent?: boolean;
+        summaryContent?: boolean | undefined;
         /**
          * function to display a custom summary
          * (passed build time)
          */
-        customSummary?: (summary: string) => void;
+        customSummary?: ((summary: string) => void) | undefined;
     }
 }
 

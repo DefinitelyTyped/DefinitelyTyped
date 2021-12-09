@@ -5,9 +5,9 @@ import { Encoders } from 'rsocket-core';
 
 export interface ClientOptions {
     url: string;
-    wsCreator?: (url: string) => WebSocket;
-    debug?: boolean;
-    lengthPrefixedFrames?: boolean;
+    wsCreator?: ((url: string) => WebSocket) | undefined;
+    debug?: boolean | undefined;
+    lengthPrefixedFrames?: boolean | undefined;
 }
 
 /**

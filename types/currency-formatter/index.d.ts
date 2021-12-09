@@ -40,17 +40,17 @@ export interface Currency {
 }
 
 export interface FormatOptions {
-    code?: string;
-    locale?: string;
-    symbol?: string;
-    decimal?: string;
-    thousand?: string;
-    precision?: number;
+    code?: string | undefined;
+    locale?: string | undefined;
+    symbol?: string | undefined;
+    decimal?: string | undefined;
+    thousand?: string | undefined;
+    precision?: number | undefined;
     format?:
         | string
         | {
               pos: string;
               neg: string;
               zero: string;
-          };
+          } | undefined;
 }

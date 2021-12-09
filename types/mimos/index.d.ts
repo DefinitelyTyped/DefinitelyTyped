@@ -22,7 +22,7 @@ export interface MimosOptions {
 
 export interface MimosOptionsValue extends MimeEntry {
     /** specify the type value of result objects, defaults to key. See the example below for more clarification. */
-    type?: string;
+    type?: string | undefined;
     /** method with signature function(mime) when this mime type is found in the database, this function will run. This allows you make customizations to mime based on developer criteria. */
-    predicate?: (mime: MimosOptionsValue) => MimosOptionsValue;
+    predicate?: ((mime: MimosOptionsValue) => MimosOptionsValue) | undefined;
 }

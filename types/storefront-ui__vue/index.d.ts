@@ -72,10 +72,10 @@ export interface Breadcrumb {
 }
 
 export interface Source {
-    mobile?: { url: string };
-    desktop?: { url: string };
-    big?: { url: string };
-    zoom?: { url: string };
+    mobile?: { url: string } | undefined;
+    desktop?: { url: string } | undefined;
+    big?: { url: string } | undefined;
+    zoom?: { url: string } | undefined;
 }
 
 export interface Image extends Source {

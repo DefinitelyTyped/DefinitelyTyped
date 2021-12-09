@@ -7,9 +7,9 @@ import { RequestHandler } from 'express';
 
 declare namespace CamouflageRewrite {
     interface Options {
-        mediaTypes?: string[];
-        rewriteContent?: boolean;
-        rewriteHeaders?: boolean;
+        mediaTypes?: string[] | undefined;
+        rewriteContent?: boolean | undefined;
+        rewriteHeaders?: boolean | undefined;
         url: string;
     }
 }

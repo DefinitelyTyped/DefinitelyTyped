@@ -10,10 +10,10 @@ export type Metadata = {
     name: string;
     version: string;
     jetVersion: string;
-    properties?: object;
-    methods?: object;
-    events?: object;
-    slots?: object;
+    properties?: object | undefined;
+    methods?: object | undefined;
+    events?: object | undefined;
+    slots?: object | undefined;
 };
 // tslint:disable-next-line interface-over-type-literal
 export type PropertyChangedContext = {
@@ -25,7 +25,7 @@ export type PropertyChangedContext = {
         path: string;
         value: any;
         previousValue: any;
-    };
+    } | undefined;
 };
 // tslint:disable-next-line interface-over-type-literal
 export type ViewModel = {

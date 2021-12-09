@@ -17,17 +17,17 @@ export interface Options {
      * Roll the die without sound.
      * @default false
      */
-    noSound?: boolean;
+    noSound?: boolean | undefined;
     /**
      * Time in milliseconds to delay before removing animations
      * @default 3000
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * Values to show on die face.
      * When provided, it overrides library genrated values.
      */
-    values?: number[];
+    values?: number[] | undefined;
   }
 
 /**

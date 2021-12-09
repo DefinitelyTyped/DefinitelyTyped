@@ -11,23 +11,23 @@ declare namespace JQueryEditableSelect {
         /**
          * Filter (or not) items in list while typing.
          */
-        filter?: boolean;
+        filter?: boolean | undefined;
         /**
          * Easing used for showing and hiding the dropdown list.
          */
-        effects?: 'default' | 'slide' | 'fade';
+        effects?: 'default' | 'slide' | 'fade' | undefined;
         /**
          * Duration of the easings (in milliseconds).
          */
-        duration?: number | 'fast' | 'slow';
+        duration?: number | 'fast' | 'slow' | undefined;
         /**
          * Where to append the dropdown list in the DOM.
          */
-        appendTo?: string | JQuery;
+        appendTo?: string | JQuery | undefined;
         /**
          * How dropdown list is triggered.
          */
-        trigger?: 'focus'| 'manual';
+        trigger?: 'focus'| 'manual' | undefined;
     }
 }
 

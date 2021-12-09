@@ -27,59 +27,59 @@ declare module "needle" {
         type NeedleOptions = RequestOptions & ResponseOptions & RedirectOptions & https.RequestOptions;
 
         interface RequestOptions {
-            open_timeout?: number;
-            read_timeout?: number;
+            open_timeout?: number | undefined;
+            read_timeout?: number | undefined;
             /**
              * Alias for open_timeout
              */
-            timeout?: number;
+            timeout?: number | undefined;
 
-            follow_max?: number;
+            follow_max?: number | undefined;
             /**
              * Alias for follow_max
              */
-            follow?: number;
+            follow?: number | undefined;
 
-            multipart?: boolean;
-            agent?: http.Agent | boolean;
-            proxy?: string;
-            headers?: {};
-            auth?: "auto" | "digest" | "basic";
-            json?: boolean;
+            multipart?: boolean | undefined;
+            agent?: http.Agent | boolean | undefined;
+            proxy?: string | undefined;
+            headers?: {} | undefined;
+            auth?: "auto" | "digest" | "basic" | undefined;
+            json?: boolean | undefined;
 
             // These properties are overwritten by those in the 'headers' field
-            cookies?: Cookies;
-            compressed?: boolean;
+            cookies?: Cookies | undefined;
+            compressed?: boolean | undefined;
             // Overwritten if present in the URI
-            username?: string;
-            password?: string;
-            accept?: string;
-            connection?: string;
-            user_agent?: string;
+            username?: string | undefined;
+            password?: string | undefined;
+            accept?: string | undefined;
+            connection?: string | undefined;
+            user_agent?: string | undefined;
         }
 
         interface ResponseOptions {
-            decode_response?: boolean;
+            decode_response?: boolean | undefined;
             /**
              * Alias for decode_response
              */
-            decode?: boolean;
-            parse_response?: boolean;
+            decode?: boolean | undefined;
+            parse_response?: boolean | undefined;
             /**
              * Alias for parse_response
              */
-            parse?: boolean;
+            parse?: boolean | undefined;
 
-            parse_cookies?: boolean;
-            output?: string;
+            parse_cookies?: boolean | undefined;
+            output?: string | undefined;
         }
 
         interface RedirectOptions {
-            follow_set_cookie?: boolean;
-            follow_set_referer?: boolean;
-            follow_keep_method?: boolean;
-            follow_if_same_host?: boolean;
-            follow_if_same_protocol?: boolean;
+            follow_set_cookie?: boolean | undefined;
+            follow_set_referer?: boolean | undefined;
+            follow_keep_method?: boolean | undefined;
+            follow_if_same_host?: boolean | undefined;
+            follow_if_same_protocol?: boolean | undefined;
         }
 
         interface KeyValue {

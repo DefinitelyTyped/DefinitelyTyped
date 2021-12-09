@@ -74,7 +74,7 @@ export interface Marker {
      *  Sets the range of the marker.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
-    setRange(range: RangeCompatible, params?: { reversed?: boolean; exclusive?: boolean }): boolean;
+    setRange(range: RangeCompatible, params?: { reversed?: boolean | undefined; exclusive?: boolean | undefined }): boolean;
 
     /**
      *  Sets the head position of the marker.
@@ -118,22 +118,22 @@ export interface Marker {
 
 export interface CopyMarkerOptions {
     /** Whether or not the marker should be tailed. */
-    tailed?: boolean;
+    tailed?: boolean | undefined;
 
     /** Creates the marker in a reversed orientation. */
-    reversed?: boolean;
+    reversed?: boolean | undefined;
 
     /** Determines the rules by which changes to the buffer invalidate the marker. */
-    invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
+    invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
 
     /**
      *  Indicates whether insertions at the start or end of the marked range should
      *  be interpreted as happening outside the marker.
      */
-    exclusive?: boolean;
+    exclusive?: boolean | undefined;
 
     /** Custom properties to be associated with the marker. */
-    properties?: object;
+    properties?: object | undefined;
 }
 
 export interface MarkerChangedEvent {

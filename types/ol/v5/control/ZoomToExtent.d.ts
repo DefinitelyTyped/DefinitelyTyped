@@ -5,11 +5,11 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    target?: HTMLElement | string;
-    label?: string | HTMLElement;
-    tipLabel?: string;
-    extent?: Extent;
+    className?: string | undefined;
+    target?: HTMLElement | string | undefined;
+    label?: string | HTMLElement | undefined;
+    tipLabel?: string | undefined;
+    extent?: Extent | undefined;
 }
 export default class ZoomToExtent extends Control {
     constructor(opt_options?: Options);

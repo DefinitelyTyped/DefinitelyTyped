@@ -12,11 +12,11 @@ export interface Subscription {
  * .subscribe(). Each callback function is invoked when that event occurs.
  */
 export interface Observer<T> {
-    readonly start?: (subscription: Subscription) => void;
-    readonly next?: (value: T) => void;
-    readonly error?: (error: Error) => void;
-    readonly complete?: () => void;
-    readonly unsubscribe?: (subscription: Subscription) => void;
+    readonly start?: ((subscription: Subscription) => void) | undefined;
+    readonly next?: ((value: T) => void) | undefined;
+    readonly error?: ((error: Error) => void) | undefined;
+    readonly complete?: (() => void) | undefined;
+    readonly unsubscribe?: ((subscription: Subscription) => void) | undefined;
 }
 
 /**

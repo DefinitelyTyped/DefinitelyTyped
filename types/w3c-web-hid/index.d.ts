@@ -1,23 +1,24 @@
 // Type definitions for non-npm package w3c-web-hid 1.0
 // Project: https://wicg.github.io/webhid
 // Definitions by: Kouhei Kiyama <https://github.com/kkiyama117>
+//                 Matt Reynolds <https://github.com/nondebug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#hiddevicefilter-dictionary */
 interface HIDDeviceFilter {
-    vendorId?: number;
-    productId?: number;
-    usagePage?: number;
-    usage?: number;
+    vendorId?: number | undefined;
+    productId?: number | undefined;
+    usagePage?: number | undefined;
+    usage?: number | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#hiddevicerequestoptions-dictionary */
 interface HIDDeviceRequestOptions {
     filters: HIDDeviceFilter[];
 }
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#hid-interface */
 declare class HID extends EventTarget {
     onconnect: ((this: this, ev: Event) => any) | null;
     ondisconnect: ((this: this, ev: Event) => any) | null;
@@ -49,33 +50,31 @@ declare class HID extends EventTarget {
     ): void;
 }
 
-/*~ https://wicg.github.io/webhid/#enumeration */
+/*~ https://wicg.github.io/webhid/#extensions-to-the-navigator-interface */
 interface Navigator {
     readonly hid: HID;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidconnectioneventinit-dictionary */
 interface HIDConnectionEventInit {
     device: HIDDevice;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidconnectionevent-interface */
 declare class HIDConnectionEvent extends Event {
     constructor(type: string, eventInitDict: HIDConnectionEventInit);
 
     readonly device: HIDDevice;
-    readonly reportId: number;
-    readonly data: DataView;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidinputreporteventinit-dictionary */
 interface HIDInputReportEventInit extends EventInit {
     device: HIDDevice;
     reportId: number;
     data: DataView;
 }
 
-/*~ https://wicg.github.io/webhid/#events */
+/*~ https://wicg.github.io/webhid/#hidinputreportevent-interface */
 declare class HIDInputReportEvent extends Event {
     constructor(type: string, eventInitDict: HIDInputReportEventInit);
 
@@ -84,7 +83,7 @@ declare class HIDInputReportEvent extends Event {
     readonly data: DataView;
 }
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidunitsystem-enum */
 type HIDUnitSystem =
     | 'none'
     | 'si-linear'
@@ -94,63 +93,63 @@ type HIDUnitSystem =
     | 'vendor-defined'
     | 'reserved';
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidreportitem-dictionary */
 interface HIDReportItem {
-    isAbsolute?: boolean;
-    isArray?: boolean;
-    isBufferedBytes?: boolean;
-    isConstant?: boolean;
-    isLinear?: boolean;
-    isRange?: boolean;
-    isVolatile?: boolean;
-    hasNull?: boolean;
-    hasPreferredState?: boolean;
-    wrap?: boolean;
-    usages?: number[];
-    usageMinimum?: number;
-    usageMaximum?: number;
-    reportSize?: number;
-    reportCount?: number;
-    unitExponent?: number;
-    unitSystem?: HIDUnitSystem;
-    unitFactorLengthExponent?: number;
-    unitFactorMassExponent?: number;
-    unitFactorTimeExponent?: number;
-    unitFactorTemperatureExponent?: number;
-    unitFactorCurrentExponent?: number;
-    unitFactorLuminousIntensityExponent?: number;
-    logicalMinimum?: number;
-    logicalMaximum?: number;
-    physicalMinimum?: number;
-    physicalMaximum?: number;
-    strings?: string[];
+    isAbsolute?: boolean | undefined;
+    isArray?: boolean | undefined;
+    isBufferedBytes?: boolean | undefined;
+    isConstant?: boolean | undefined;
+    isLinear?: boolean | undefined;
+    isRange?: boolean | undefined;
+    isVolatile?: boolean | undefined;
+    hasNull?: boolean | undefined;
+    hasPreferredState?: boolean | undefined;
+    wrap?: boolean | undefined;
+    usages?: number[] | undefined;
+    usageMinimum?: number | undefined;
+    usageMaximum?: number | undefined;
+    reportSize?: number | undefined;
+    reportCount?: number | undefined;
+    unitExponent?: number | undefined;
+    unitSystem?: HIDUnitSystem | undefined;
+    unitFactorLengthExponent?: number | undefined;
+    unitFactorMassExponent?: number | undefined;
+    unitFactorTimeExponent?: number | undefined;
+    unitFactorTemperatureExponent?: number | undefined;
+    unitFactorCurrentExponent?: number | undefined;
+    unitFactorLuminousIntensityExponent?: number | undefined;
+    logicalMinimum?: number | undefined;
+    logicalMaximum?: number | undefined;
+    physicalMinimum?: number | undefined;
+    physicalMaximum?: number | undefined;
+    strings?: string[] | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidreportinfo-dictionary */
 interface HIDReportInfo {
-    reportId?: number;
-    items?: HIDReportItem[];
+    reportId?: number | undefined;
+    items?: HIDReportItem[] | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#report-descriptor */
+/*~ https://wicg.github.io/webhid/#hidcollectioninfo-dictionary */
 interface HIDCollectionInfo {
-    usagePage?: number;
-    usage?: number;
-    type?: number;
-    children?: HIDCollectionInfo[];
-    inputReports?: HIDReportInfo[];
-    outputReports?: HIDReportInfo[];
-    featureReports?: HIDReportInfo[];
+    usagePage?: number | undefined;
+    usage?: number | undefined;
+    type?: number | undefined;
+    children?: HIDCollectionInfo[] | undefined;
+    inputReports?: HIDReportInfo[] | undefined;
+    outputReports?: HIDReportInfo[] | undefined;
+    featureReports?: HIDReportInfo[] | undefined;
 }
 
-/*~ https://wicg.github.io/webhid/#device-usage */
+/*~ https://wicg.github.io/webhid/#hiddevice-interface */
 declare class HIDDevice extends EventTarget {
     oninputreport: ((this: this, ev: HIDInputReportEvent) => any) | null;
-    readonly opened?: boolean;
-    readonly vendorId?: number;
-    readonly productId?: number;
-    readonly productName?: string;
-    readonly collections?: HIDCollectionInfo[];
+    readonly opened: boolean;
+    readonly vendorId: number;
+    readonly productId: number;
+    readonly productName: string;
+    readonly collections: HIDCollectionInfo[];
 
     open(): Promise<void>;
 

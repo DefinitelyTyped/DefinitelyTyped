@@ -9,173 +9,173 @@ import { EventEmitter } from 'events';
 
 export interface HandbrakeOptions {
     // General
-    'help'?: boolean;
-    'h'?: boolean; // Alias for 'help'
-    'version'?: boolean;
-    'verbose'?: boolean;
-    'v'?: boolean; // Alias for 'verbose'
-    'preset'?: string;
-    'Z'?: string; // Alias for 'preset'
-    'preset-list'?: boolean;
-    'z'?: boolean; // Alias for 'preset-list'
-    'preset-import-file'?: string;
-    'no-dvdnav'?: boolean;
-    'no-opencl'?: boolean;
+    'help'?: boolean | undefined;
+    'h'?: boolean | undefined; // Alias for 'help'
+    'version'?: boolean | undefined;
+    'verbose'?: boolean | undefined;
+    'v'?: boolean | undefined; // Alias for 'verbose'
+    'preset'?: string | undefined;
+    'Z'?: string | undefined; // Alias for 'preset'
+    'preset-list'?: boolean | undefined;
+    'z'?: boolean | undefined; // Alias for 'preset-list'
+    'preset-import-file'?: string | undefined;
+    'no-dvdnav'?: boolean | undefined;
+    'no-opencl'?: boolean | undefined;
 
     // Source
-    'input'?: string;
-    'i'?: string; // Alias for 'input'
-    'title'?: number;
-    't'?: number; // Alias for 'title'
-    'min-duration'?: number;
-    'scan'?: boolean;
-    'main-feature'?: boolean;
-    'chapters'?: string;
-    'c'?: string; // Alias for 'chapters'
-    'angle'?: number;
-    'previews'?: string;
-    'start-at-preview'?: string;
-    'start-at'?: string;
-    'stop-at'?: string;
+    'input'?: string | undefined;
+    'i'?: string | undefined; // Alias for 'input'
+    'title'?: number | undefined;
+    't'?: number | undefined; // Alias for 'title'
+    'min-duration'?: number | undefined;
+    'scan'?: boolean | undefined;
+    'main-feature'?: boolean | undefined;
+    'chapters'?: string | undefined;
+    'c'?: string | undefined; // Alias for 'chapters'
+    'angle'?: number | undefined;
+    'previews'?: string | undefined;
+    'start-at-preview'?: string | undefined;
+    'start-at'?: string | undefined;
+    'stop-at'?: string | undefined;
 
     // Destination
-    'output'?: string;
-    'o'?: string; // Alias for 'output'
-    'format'?: string;
-    'f'?: string; // Alias for 'format'
-    'markers'?: boolean;
-    'm'?: boolean; // Alias for 'markers'
-    'no-markers'?: boolean;
-    'optimize'?: boolean;
-    'O'?: boolean; // Alias for 'optimize'
-    'ipod-atom'?: boolean;
-    'I'?: boolean; // Alias for 'ipod-atom'
-    'no-ipod-atom'?: boolean;
-    'use-opencl'?: boolean;
-    'P'?: boolean; // Alias for 'use-opencl'
+    'output'?: string | undefined;
+    'o'?: string | undefined; // Alias for 'output'
+    'format'?: string | undefined;
+    'f'?: string | undefined; // Alias for 'format'
+    'markers'?: boolean | undefined;
+    'm'?: boolean | undefined; // Alias for 'markers'
+    'no-markers'?: boolean | undefined;
+    'optimize'?: boolean | undefined;
+    'O'?: boolean | undefined; // Alias for 'optimize'
+    'ipod-atom'?: boolean | undefined;
+    'I'?: boolean | undefined; // Alias for 'ipod-atom'
+    'no-ipod-atom'?: boolean | undefined;
+    'use-opencl'?: boolean | undefined;
+    'P'?: boolean | undefined; // Alias for 'use-opencl'
 
     // Video
-    'encoder'?: string;
-    'e'?: string; // Alias for 'encoder'
-    'encoder-preset'?: string;
-    'encoder-preset-list'?: string;
-    'encoder-tune'?: string;
-    'encoder-tune-list'?: string;
-    'encopts'?: string;
-    'x'?: string; // Alias for 'encopts'
-    'encoder-profile'?: string;
-    'encoder-profile-list'?: string;
-    'encoder-level'?: string;
-    'encoder-level-list'?: string;
-    'quality'?: number;
-    'q'?: number; // Alias for 'quality'
-    'vb'?: number;
-    'b'?: number; // Alias for 'vb'
-    'two-pass'?: boolean;
-    'no-two-pass'?: boolean;
-    'turbo'?: boolean;
-    'T'?: boolean; // Alias for 'turbo'
-    'no-turbo'?: boolean;
-    'rate'?: number;
-    'r'?: number; // Alias for 'rate'
-    'vfr'?: boolean;
-    'cfr'?: boolean;
-    'pfr'?: boolean;
+    'encoder'?: string | undefined;
+    'e'?: string | undefined; // Alias for 'encoder'
+    'encoder-preset'?: string | undefined;
+    'encoder-preset-list'?: string | undefined;
+    'encoder-tune'?: string | undefined;
+    'encoder-tune-list'?: string | undefined;
+    'encopts'?: string | undefined;
+    'x'?: string | undefined; // Alias for 'encopts'
+    'encoder-profile'?: string | undefined;
+    'encoder-profile-list'?: string | undefined;
+    'encoder-level'?: string | undefined;
+    'encoder-level-list'?: string | undefined;
+    'quality'?: number | undefined;
+    'q'?: number | undefined; // Alias for 'quality'
+    'vb'?: number | undefined;
+    'b'?: number | undefined; // Alias for 'vb'
+    'two-pass'?: boolean | undefined;
+    'no-two-pass'?: boolean | undefined;
+    'turbo'?: boolean | undefined;
+    'T'?: boolean | undefined; // Alias for 'turbo'
+    'no-turbo'?: boolean | undefined;
+    'rate'?: number | undefined;
+    'r'?: number | undefined; // Alias for 'rate'
+    'vfr'?: boolean | undefined;
+    'cfr'?: boolean | undefined;
+    'pfr'?: boolean | undefined;
 
     // Audio
-    'audio-lang-list'?: string;
-    'all-audio'?: boolean;
-    'first-audio'?: boolean;
-    'audio'?: string;
-    'a'?: string; // Alias for 'audio'
-    'aencoder'?: string;
-    'E'?: string; // Alias for 'aencoder'
-    'audio-copy-mask'?: string;
-    'audio-fallback'?: string;
-    'ab'?: string;
-    'B'?: string; // Alias for 'ab'
-    'aq'?: string;
-    'Q'?: string; // Alias for 'aq'
-    'ac'?: string;
-    'C'?: string; // Alias for 'ac'
-    'mixdown'?: string;
-    'normalize-mix'?: string;
-    'arate'?: string;
-    'R'?: string; // Alias for 'arate'
-    'drc'?: number;
-    'D'?: number; // Alias for 'drc'
-    'gain'?: number;
-    'adither'?: string;
-    'aname'?: string;
-    'A'?: string; // Alias for 'aname'
+    'audio-lang-list'?: string | undefined;
+    'all-audio'?: boolean | undefined;
+    'first-audio'?: boolean | undefined;
+    'audio'?: string | undefined;
+    'a'?: string | undefined; // Alias for 'audio'
+    'aencoder'?: string | undefined;
+    'E'?: string | undefined; // Alias for 'aencoder'
+    'audio-copy-mask'?: string | undefined;
+    'audio-fallback'?: string | undefined;
+    'ab'?: string | undefined;
+    'B'?: string | undefined; // Alias for 'ab'
+    'aq'?: string | undefined;
+    'Q'?: string | undefined; // Alias for 'aq'
+    'ac'?: string | undefined;
+    'C'?: string | undefined; // Alias for 'ac'
+    'mixdown'?: string | undefined;
+    'normalize-mix'?: string | undefined;
+    'arate'?: string | undefined;
+    'R'?: string | undefined; // Alias for 'arate'
+    'drc'?: number | undefined;
+    'D'?: number | undefined; // Alias for 'drc'
+    'gain'?: number | undefined;
+    'adither'?: string | undefined;
+    'aname'?: string | undefined;
+    'A'?: string | undefined; // Alias for 'aname'
 
     // Picture
-    'width'?: number;
-    'w'?: number; // Alias for 'width'
-    'height'?: number;
-    'l'?: number; // Alias for 'height'
-    'crop'?: string;
-    'loose-crop'?: boolean;
-    'no-loose-crop'?: boolean;
-    'maxHeight'?: number;
-    'Y'?: number; // Alias for 'maxHeight'
-    'maxWidth'?: number;
-    'X'?: number; // Alias for 'maxWidth'
-    'non-anamorphic'?: boolean;
-    'auto-anamorphic'?: boolean;
-    'loose-anamorphic'?: boolean;
-    'custom-anamorphic'?: boolean;
-    'display-width'?: number;
-    'keep-display-aspect'?: boolean;
-    'pixel-aspect'?: string;
-    'itu-par'?: boolean;
-    'modulus'?: number;
-    'color-matrix'?: string;
-    'M'?: string; // Alias for 'color-matrix'
+    'width'?: number | undefined;
+    'w'?: number | undefined; // Alias for 'width'
+    'height'?: number | undefined;
+    'l'?: number | undefined; // Alias for 'height'
+    'crop'?: string | undefined;
+    'loose-crop'?: boolean | undefined;
+    'no-loose-crop'?: boolean | undefined;
+    'maxHeight'?: number | undefined;
+    'Y'?: number | undefined; // Alias for 'maxHeight'
+    'maxWidth'?: number | undefined;
+    'X'?: number | undefined; // Alias for 'maxWidth'
+    'non-anamorphic'?: boolean | undefined;
+    'auto-anamorphic'?: boolean | undefined;
+    'loose-anamorphic'?: boolean | undefined;
+    'custom-anamorphic'?: boolean | undefined;
+    'display-width'?: number | undefined;
+    'keep-display-aspect'?: boolean | undefined;
+    'pixel-aspect'?: string | undefined;
+    'itu-par'?: boolean | undefined;
+    'modulus'?: number | undefined;
+    'color-matrix'?: string | undefined;
+    'M'?: string | undefined; // Alias for 'color-matrix'
 
     // Filters
-    'comb-detect'?: string;
-    'no-comb-detect'?: boolean;
-    'deinterlace'?: string;
-    'd'?: string; // Alias for 'deinterlace'
-    'no-deinterlace'?: boolean;
-    'decomb'?: string;
-    'no-decomb'?: boolean;
-    'detelecine'?: string;
-    'no-detelecine'?: boolean;
-    'hqdn3d'?: string;
-    'no-hqdn3d'?: boolean;
-    'denoise'?: string;
-    'nlmeans'?: string;
-    'no-nlmeans'?: boolean;
-    'nlmeans-tune'?: string;
-    'deblock'?: string;
-    'no-deblock'?: boolean;
-    'rotate'?: string;
-    'pad'?: string;
-    'grayscale'?: boolean;
-    'g'?: boolean; // Alias for 'grayscale'
-    'no-grayscale'?: boolean;
+    'comb-detect'?: string | undefined;
+    'no-comb-detect'?: boolean | undefined;
+    'deinterlace'?: string | undefined;
+    'd'?: string | undefined; // Alias for 'deinterlace'
+    'no-deinterlace'?: boolean | undefined;
+    'decomb'?: string | undefined;
+    'no-decomb'?: boolean | undefined;
+    'detelecine'?: string | undefined;
+    'no-detelecine'?: boolean | undefined;
+    'hqdn3d'?: string | undefined;
+    'no-hqdn3d'?: boolean | undefined;
+    'denoise'?: string | undefined;
+    'nlmeans'?: string | undefined;
+    'no-nlmeans'?: boolean | undefined;
+    'nlmeans-tune'?: string | undefined;
+    'deblock'?: string | undefined;
+    'no-deblock'?: boolean | undefined;
+    'rotate'?: string | undefined;
+    'pad'?: string | undefined;
+    'grayscale'?: boolean | undefined;
+    'g'?: boolean | undefined; // Alias for 'grayscale'
+    'no-grayscale'?: boolean | undefined;
 
     // Subtitle
-    'subtitle-lang-list'?: string;
-    'all-subtitles'?: boolean;
-    'first-subtitles'?: boolean;
-    'subtitle'?: string;
-    's'?: string; // Alias for 'subtitle'
-    'subtitle-forced'?: number;
-    'F'?: number; // Alias for 'subtitle-forced'
-    'subtitle-burned'?: number;
-    'subtitle-default'?: number;
-    'native-language'?: string;
-    'N'?: string; // Alias for 'native-language'
-    'native-dub'?: boolean;
-    'srt-file'?: string;
-    'srt-codeset'?: string;
-    'srt-offset'?: string;
-    'srt-lang'?: string;
-    'srt-default'?: number;
-    'srt-burn'?: number;
+    'subtitle-lang-list'?: string | undefined;
+    'all-subtitles'?: boolean | undefined;
+    'first-subtitles'?: boolean | undefined;
+    'subtitle'?: string | undefined;
+    's'?: string | undefined; // Alias for 'subtitle'
+    'subtitle-forced'?: number | undefined;
+    'F'?: number | undefined; // Alias for 'subtitle-forced'
+    'subtitle-burned'?: number | undefined;
+    'subtitle-default'?: number | undefined;
+    'native-language'?: string | undefined;
+    'N'?: string | undefined; // Alias for 'native-language'
+    'native-dub'?: boolean | undefined;
+    'srt-file'?: string | undefined;
+    'srt-codeset'?: string | undefined;
+    'srt-offset'?: string | undefined;
+    'srt-lang'?: string | undefined;
+    'srt-default'?: number | undefined;
+    'srt-burn'?: number | undefined;
 
     [key: string]: unknown;
 }

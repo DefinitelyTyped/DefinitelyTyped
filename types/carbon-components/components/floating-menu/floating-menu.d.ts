@@ -41,10 +41,10 @@ export function getFloatingPosition({
     offset?: Partial<{
         left: number;
         top: number;
-    }>;
-    direction?: string;
-    scrollX?: number;
-    scrollY?: number;
+    }> | undefined;
+    direction?: string | undefined;
+    scrollX?: number | undefined;
+    scrollY?: number | undefined;
 }): any;
 declare const FloatingMenu_base: any;
 declare class FloatingMenu extends FloatingMenu_base {

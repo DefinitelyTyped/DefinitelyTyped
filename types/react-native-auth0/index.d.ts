@@ -1,10 +1,12 @@
-// Type definitions for react-native-auth0 2.5
+// Type definitions for react-native-auth0 2.10
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Leo Farias <https://github.com/leoafarias>
 //                 Will Dady <https://github.com/willdady>
 //                 Bogdan Vitoc <https://github.com/bogidon>
+//                 Yam Mesicka <https://github.com/yammesicka>
+//                 Mathias Djärv <https://github.com/mdjarv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -20,10 +22,10 @@ export interface AuthorizeUrlParams {
 
 export interface CreateUserParams<T> {
     email: string;
-    username?: string;
+    username?: string | undefined;
     password: string;
     connection: string;
-    metadata?: T;
+    metadata?: T | undefined;
 }
 
 export interface CreateUserResponse {
@@ -37,7 +39,7 @@ export interface ExchangeResponse {
     expiresIn: number;
     idToken: string;
     refreshToken: string;
-    scope?: string;
+    scope?: string | undefined;
     tokenType: string;
 }
 
@@ -49,16 +51,16 @@ export interface ExchangeParams {
 
 export interface LogoutParams {
     federated: boolean;
-    clientId?: string;
-    returnTo?: string;
+    clientId?: string | undefined;
+    returnTo?: string | undefined;
 }
 
 export interface PasswordRealmParams {
     username: string;
     password: string;
     realm: string;
-    audience?: string;
-    scope?: string;
+    audience?: string | undefined;
+    scope?: string | undefined;
 }
 
 export interface PasswordRealmResponse {
@@ -67,21 +69,21 @@ export interface PasswordRealmResponse {
     idToken: string;
     scope: string;
     tokenType: 'Bearer';
-    refreshToken?: string;
+    refreshToken?: string | undefined;
 }
 
 export interface RefreshTokenResponse {
     accessToken: string;
     expiresIn: number;
     idToken: string;
-    refreshToken?: string;
-    scope?: string;
+    refreshToken?: string | undefined;
+    scope?: string | undefined;
     tokenType: string;
 }
 
 export interface RefreshTokenParams {
     refreshToken: string;
-    scope?: string;
+    scope?: string | undefined;
 }
 
 export interface RevokeParams {
@@ -103,26 +105,28 @@ export interface AuthParams {
 
 export interface PasswordlessWithEmailParams {
     email: string;
-    send?: 'link' | 'code';
-    authParams?: AuthParams;
+    send?: 'link' | 'code' | undefined;
+    authParams?: AuthParams | undefined;
 }
 
 export interface PasswordlessWithSMSParams {
     phoneNumber: string;
+    send?: 'link' | 'code';
+    authParams?: AuthParams;
 }
 
 export interface LoginWithEmailParams {
     email: string;
     code: string;
-    audience?: string;
-    scope?: string;
+    audience?: string | undefined;
+    scope?: string | undefined;
 }
 
 export interface LoginWithSMSParams {
     phoneNumber: string;
     code: string;
-    audience?: string;
-    scope?: string;
+    audience?: string | undefined;
+    scope?: string | undefined;
 }
 
 export type UserInfo<CustomClaims = {}> = {
@@ -163,15 +167,15 @@ export interface Auth0User<T> {
     email: string;
     emailVerified: boolean;
     identities: any[];
-    last_ip?: string;
-    last_login?: string;
+    last_ip?: string | undefined;
+    last_login?: string | undefined;
     logins_count: number;
     name: string;
     nickname: string;
-    picture?: string;
+    picture?: string | undefined;
     updated_at: string;
     userId: string;
-    userMetadata?: T;
+    userMetadata?: T | undefined;
 }
 
 export interface GetUserParams {
@@ -196,28 +200,34 @@ export const users: Users;
  * Web Auth
  */
 export interface AuthorizeParams {
-    state?: string;
-    nonce?: string;
-    audience?: string;
-    scope?: string;
-    connection?: string;
+    state?: string; // Random string to prevent CSRF attacks and used to discard unexepcted results. By default its a cryptographically secure random.
+    nonce?: string; // Random string to prevent replay attacks of id_tokens.
+    audience?: string; // Identifier of Resource Server (RS) to be included as audience (aud claim) of the issued access token
+    scope?: string; // Scopes requested for the issued tokens. e.g. `openid profile`
+    connection?: string; // The name of the identity provider to use, e.g. "google-oauth2" or "facebook". When not set, it will display Auth0's Universal Login Page.
     language?: string;
     prompt?: string;
-    max_age?: number;
+    max_age?: number; // The allowable elapsed time in seconds since the last time the user was authenticated (optional).
+    organization?: string; // The ID of the organization to join
+    invitationUrl?: string; // The invitation URL to join an organization. Takes precedence over the "organization" parameter.
 }
 
 export interface AuthorizeOptions {
-    ephemeralSession?: boolean;
+    ephemeralSession?: boolean; //  Disable Single-Sign-On (SSO). It only affects iOS with versions 13 and above. Defaults to `false`.
+    customScheme?: string; //  Custom scheme to build the callback URL with.
+    leeway?: number; // The amount of leeway, in seconds, to accommodate potential clock skew when validating an ID token's claims. Defaults to 60 seconds if not specified.
+    skipLegacyListener?: string; // Whether to register the event listener necessary for the SDK to work on iOS <11 or not. Defaults to `false`.
 }
 
 export interface ClearSessionParams {
     federated: boolean;
+    customScheme?: string;
 }
 
 export interface Credentials {
     accessToken: string;
     idToken: string;
-    refreshToken?: string;
+    refreshToken?: string | undefined;
     expiresIn: number;
     scope: string;
     tokenType: string;

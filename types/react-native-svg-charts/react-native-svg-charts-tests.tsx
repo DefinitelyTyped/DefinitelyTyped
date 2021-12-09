@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { Defs, LinearGradient, Stop } from 'react-native-svg';
-import { StackedAreaChart, StackedBarChart, XAxis, Grid, Decorators } from 'react-native-svg-charts';
+import { LinearGradientProps, Stop } from 'react-native-svg';
+import { BarChart, StackedAreaChart, StackedBarChart, XAxis, Grid, Decorators } from 'react-native-svg-charts';
 import { curveNatural } from 'd3-shape';
 import { scaleTime } from 'd3-scale';
+
+// Inlined https://github.com/react-native-svg/react-native-svg/pull/1652
+declare const Defs: React.ComponentClass<{ children?: React.ReactNode }>;
+declare const LinearGradient: React.ComponentClass<React.PropsWithChildren<LinearGradientProps>>;
 
 interface Data {
     time: number;
@@ -78,6 +82,17 @@ class Example extends React.Component<Props> {
           style={{ height: 100 }}
           keys={['totalMemoryConsumption', 'privateMemoryConsumption']}
           colors={['green', 'red']}
+          data={data}
+          horizontal={true}
+          contentInset={{ top: 10, bottom: 20 }}
+        />
+    )
+
+    renderBarChart = ({data, width}: Props) => (
+        <BarChart
+          animate={true}
+          animationDuration={250}
+          style={{ height: 100 }}
           data={data}
           horizontal={true}
           contentInset={{ top: 10, bottom: 20 }}

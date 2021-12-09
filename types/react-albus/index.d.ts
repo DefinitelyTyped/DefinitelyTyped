@@ -33,22 +33,23 @@ export function withWizard<P>(
 ): React.ComponentType<P>;
 
 export interface WizardProps {
-    onNext?: (wizard: WizardContext) => void;
-    render?: (wizard: WizardContext) => React.ReactNode;
-    history?: History;
-    basename?: string;
+    onNext?: ((wizard: WizardContext) => void) | undefined;
+    render?: ((wizard: WizardContext) => React.ReactNode) | undefined;
+    history?: History | undefined;
+    basename?: string | undefined;
 }
 
 export const Wizard: React.ComponentType<WizardProps>;
 
 export type WizardContextRenderProps =
-    | { render?: (wizard: WizardContext) => React.ReactNode }
-    | { children: (wizard: WizardContext) => React.ReactNode };
+    | { render?: ((wizard: WizardContext) => React.ReactNode) | undefined }
+    | { children: ((wizard: WizardContext) => React.ReactNode) | React.ReactNode };
 
 export const WithWizard: React.ComponentType<WizardContextRenderProps>;
 
 export interface StepsProps {
-    step?: StepObject;
+    children: NonNullable<React.ReactNode>;
+    step?: StepObject | undefined;
 }
 
 export const Steps: React.ComponentType<StepsProps>;

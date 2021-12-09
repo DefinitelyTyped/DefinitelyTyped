@@ -8,7 +8,13 @@ export default class FontColor extends Plugin {
 }
 
 export interface FontColorConfig {
-    colors?: Array<string | { hasBorder?: boolean; color: string; label: string }>;
-    columns?: number;
-    documentColors?: number;
+    colors?: Array<string | { hasBorder?: boolean | undefined; color: string; label: string }> | undefined;
+    columns?: number | undefined;
+    documentColors?: number | undefined;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        FontColor: FontColor;
+    }
 }

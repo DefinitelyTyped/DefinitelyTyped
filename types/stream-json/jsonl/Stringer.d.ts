@@ -8,7 +8,7 @@ declare class JsonlStringer extends Transform {
 
 declare namespace JsonlStringer {
     interface JsonlStringerOptions extends TransformOptions {
-        replacer?: (this: any, key: string, value: any) => any;
+        replacer?: ((this: any, key: string, value: any) => any) | undefined;
     }
 
     function make(options?: JsonlStringerOptions): JsonlStringer;

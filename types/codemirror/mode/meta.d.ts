@@ -2,12 +2,12 @@ import '../';
 
 export interface ModeInfo {
     name: string;
-    mime?: string;
-    mimes?: string[];
+    mime?: string | undefined;
+    mimes?: string[] | undefined;
     mode: string;
-    file?: RegExp;
-    ext?: string[];
-    alias?: string[];
+    file?: RegExp | undefined;
+    ext?: string[] | undefined;
+    alias?: string[] | undefined;
 }
 
 declare module '../' {

@@ -10,7 +10,7 @@ import MicrophonePlugin from "./plugin/microphone";
 import MinimapPlugin from "./plugin/minimap";
 import PlayheadPlugin from "./plugin/playhead";
 import RegionsPlugin from "./plugin/regions";
-import SpectogramPlugin from "./plugin/spectogram";
+import SpectrogramPlugin from "./plugin/spectrogram";
 import TimelinePlugin from "./plugin/timeline";
 import Observer from "./util/observer";
 
@@ -44,8 +44,8 @@ export default class WaveSurfer extends Observer {
     playhead: PlayheadPlugin;
     /** Only available in WaveSurfer instances with RegionsPlugin. */
     regions: RegionsPlugin;
-    /** Only available in WaveSurfer instances with SpectogramPlugin. */
-    spectogram: SpectogramPlugin;
+    /** Only available in WaveSurfer instances with SpectrogramPlugin. */
+    spectrogram: SpectrogramPlugin;
     /** Only available in WaveSurfer instances with TimelinePlugin. */
     timeline: TimelinePlugin;
 

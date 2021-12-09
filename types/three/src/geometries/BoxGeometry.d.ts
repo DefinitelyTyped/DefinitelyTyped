@@ -31,6 +31,8 @@ export class BoxGeometry extends BufferGeometry {
         heightSegments: number;
         depthSegments: number;
     };
+
+    static fromJSON(data: any): BoxGeometry;
 }
 
 export { BoxGeometry as BoxBufferGeometry };

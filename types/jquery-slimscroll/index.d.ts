@@ -9,27 +9,27 @@ interface IJQuerySlimScrollOptions {
     /**
      * width in pixels of the visible scroll area
      */
-    width? :string;
+    width? :string | undefined;
     /**
      * height in pixels of the visible scroll area
      */
-    height? :string;
+    height? :string | undefined;
     /**
      * width in pixels of the scrollbar and rail
      */
-    size? :string;
+    size? :string | undefined;
     /**
      * scrollbar color, accepts any hex/color value
      */
-    color?:string;
+    color?:string | undefined;
     /**
      * scrollbar position - left/right
      */
-    position?:string;
+    position?:string | undefined;
     /**
      * distance in pixels between the side edge and the scrollbar
      */
-    distance?:string;
+    distance?:string | undefined;
     /**
      * default scroll position on load - top / bottom / $('selector')
      */
@@ -37,75 +37,75 @@ interface IJQuerySlimScrollOptions {
     /**
      * sets scrollbar opacity
      */
-    opacity? :number;
+    opacity? :number | undefined;
     /**
      * enables always-on mode for the scrollbar
      */
-    alwaysVisible?: boolean;
+    alwaysVisible?: boolean | undefined;
     /**
      * check if we should hide the scrollbar when user is hovering over
      */
-    disableFadeOut?: boolean;
+    disableFadeOut?: boolean | undefined;
     /**
      * sets visibility of the rail
      */
-    railVisible?: boolean;
+    railVisible?: boolean | undefined;
     /**
      * sets rail color
      */
-    railColor?: string;
+    railColor?: string | undefined;
     /**
      * sets rail opacity
      */
-    railOpacity?:number;
+    railOpacity?:number | undefined;
     /**
      * whether  we should use jQuery UI Draggable to enable bar dragging
      */
-    railDraggable?: boolean;
+    railDraggable?: boolean | undefined;
     /**
      * default CSS class of the slimscroll rail
      */
-    railClass?: string;
+    railClass?: string | undefined;
     /**
      * default CSS class of the slimscroll bar
      */
-    barClass?: string;
+    barClass?: string | undefined;
     /**
      * default CSS class of the slimscroll wrapper
      */
-    wrapperClass?: string;
+    wrapperClass?: string | undefined;
     /**
      * check if mousewheel should scroll the window if we reach top/bottom
      */
-    allowPageScroll?: boolean;
+    allowPageScroll?: boolean | undefined;
     /**
      * scroll amount applied to each mouse wheel step
      */
-    wheelStep?: number;
+    wheelStep?: number | undefined;
     /**
      * scroll amount applied when user is using gestures
      */
-    touchScrollStep?: number;
+    touchScrollStep?: number | undefined;
     /**
      * sets border radius
      */
-    borderRadius?: string;
+    borderRadius?: string | undefined;
     /**
      * sets border radius of the rail
      */
-    railBorderRadius?: string;
+    railBorderRadius?: string | undefined;
     /**
      * jumps to the specified scroll value
      */
-    scrollTo?: string;
+    scrollTo?: string | undefined;
     /**
      * increases/decreases current scroll value by specified amount
      */
-    scrollBy?: string;
+    scrollBy?: string | undefined;
     /**
      * release resources held by the plugin
      */
-    destroy?:boolean;
+    destroy?:boolean | undefined;
 }
 
 interface JQuery {

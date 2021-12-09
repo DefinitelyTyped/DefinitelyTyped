@@ -42,8 +42,8 @@ declare namespace getFolderSize {
     function strict(path: string, options?: Options): Promise<number>;
 
     interface Options {
-        ignore?: RegExp;
-        fs?: FSLike;
+        ignore?: RegExp | undefined;
+        fs?: FSLike | undefined;
     }
 
     interface FolderSizeInfo {

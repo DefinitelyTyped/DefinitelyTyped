@@ -33,7 +33,7 @@ declare namespace mapboxgl {
      */
     let maxParallelImageRequests: number;
 
-    export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
+    export function supported(options?: { failIfMajorPerformanceCaveat?: boolean | undefined }): boolean;
 
     /**
      * Clears browser storage used by this library. Using this method flushes the Mapbox tile cache that is managed by this library.
@@ -271,7 +271,7 @@ declare namespace mapboxgl {
          */
         queryRenderedFeatures(
             pointOrBox?: PointLike | [PointLike, PointLike],
-            options?: { layers?: string[]; filter?: any[] } & FilterOptions,
+            options?: { layers?: string[] | undefined; filter?: any[] | undefined } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
         /**
@@ -287,12 +287,12 @@ declare namespace mapboxgl {
         querySourceFeatures(
             sourceID: string,
             parameters?: {
-                sourceLayer?: string;
-                filter?: any[];
+                sourceLayer?: string | undefined;
+                filter?: any[] | undefined;
             } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
-        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean; localIdeographFontFamily?: string }): this;
+        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined }): this;
 
         getStyle(): mapboxgl.Style;
 
@@ -316,7 +316,7 @@ declare namespace mapboxgl {
                 | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
                 | ImageData
                 | ImageBitmap,
-            options?: { pixelRatio?: number; sdf?: boolean },
+            options?: { pixelRatio?: number | undefined; sdf?: boolean | undefined },
         ): this;
 
         hasImage(name: string): boolean;
@@ -518,24 +518,24 @@ declare namespace mapboxgl {
          * If true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
          * This is false by default as a performance optimization.
          */
-        antialias?: boolean;
+        antialias?: boolean | undefined;
 
         /** If true, an attribution control will be added to the map. */
-        attributionControl?: boolean;
+        attributionControl?: boolean | undefined;
 
-        bearing?: number;
+        bearing?: number | undefined;
 
         /** Snap to north threshold in degrees. */
-        bearingSnap?: number;
+        bearingSnap?: number | undefined;
 
         /** The initial bounds of the map. If bounds is specified, it overrides center and zoom constructor options. */
-        bounds?: LngLatBoundsLike;
+        bounds?: LngLatBoundsLike | undefined;
 
         /** If true, enable the "box zoom" interaction (see BoxZoomHandler) */
-        boxZoom?: boolean;
+        boxZoom?: boolean | undefined;
 
         /** initial map center */
-        center?: LngLatLike;
+        center?: LngLatLike | undefined;
 
         /**
          * The max number of pixels a user can shift the mouse pointer during a click for it to be
@@ -543,7 +543,7 @@ declare namespace mapboxgl {
          *
          * @default 3
          */
-        clickTolerance?: number;
+        clickTolerance?: number | undefined;
 
         /**
          * If `true`, Resource Timing API information will be collected for requests made by GeoJSON
@@ -553,7 +553,7 @@ declare namespace mapboxgl {
          *
          * @default false
          */
-        collectResourceTiming?: boolean;
+        collectResourceTiming?: boolean | undefined;
 
         /**
          * If `true`, symbols from multiple sources can collide with each other during collision
@@ -561,23 +561,23 @@ declare namespace mapboxgl {
          *
          * @default true
          */
-        crossSourceCollisions?: boolean;
+        crossSourceCollisions?: boolean | undefined;
 
         /** ID of the container element */
         container: string | HTMLElement;
 
         /** String or strings to show in an AttributionControl.
          * Only applicable if options.attributionControl is `true`. */
-        customAttribution?: string | string[];
+        customAttribution?: string | string[] | undefined;
 
         /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
-        dragPan?: boolean;
+        dragPan?: boolean | undefined;
 
         /** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
-        dragRotate?: boolean;
+        dragRotate?: boolean | undefined;
 
         /** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
-        doubleClickZoom?: boolean;
+        doubleClickZoom?: boolean | undefined;
 
         /** If `true`, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL.
          * For example, `http://path/to/my/page.html#2.59/39.26/53.07/-24.1/60`.
@@ -585,7 +585,7 @@ declare namespace mapboxgl {
          * e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar, where foo
          * is a custom parameter and bar is an arbitrary hash distinct from the map hash.
          * */
-        hash?: boolean | string;
+        hash?: boolean | string | undefined;
 
         /**
          * Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds.
@@ -594,19 +594,19 @@ declare namespace mapboxgl {
          *
          * @default 300
          */
-        fadeDuration?: number;
+        fadeDuration?: number | undefined;
 
         /** If true, map creation will fail if the implementation determines that the performance of the created WebGL context would be dramatically lower than expected. */
-        failIfMajorPerformanceCaveat?: boolean;
+        failIfMajorPerformanceCaveat?: boolean | undefined;
 
         /** A fitBounds options object to use only when setting the bounds option. */
-        fitBoundsOptions?: FitBoundsOptions;
+        fitBoundsOptions?: FitBoundsOptions | undefined;
 
         /** If false, no mouse, touch, or keyboard listeners are attached to the map, so it will not respond to input */
-        interactive?: boolean;
+        interactive?: boolean | undefined;
 
         /** If true, enable keyboard shortcuts (see KeyboardHandler). */
-        keyboard?: boolean;
+        keyboard?: boolean | undefined;
 
         /** A patch to apply to the default localization table for UI strings, e.g. control tooltips.
          * The `locale` object maps namespaced UI string IDs to translated strings in the target language;
@@ -614,7 +614,7 @@ declare namespace mapboxgl {
          * The object may specify all UI strings (thereby adding support for a new translation) or
          * only a subset of strings (thereby patching the default translation table).
          */
-        locale?: { [key: string]: string };
+        locale?: { [key: string]: string } | undefined;
 
         /**
          * If specified, defines a CSS font-family for locally overriding generation of glyphs in the
@@ -624,32 +624,32 @@ declare namespace mapboxgl {
          *
          * @default null
          */
-        localIdeographFontFamily?: string;
+        localIdeographFontFamily?: string | undefined;
 
         /**
          * A string representing the position of the Mapbox wordmark on the map.
          *
          * @default "bottom-left"
          */
-        logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+        logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | undefined;
 
         /** If set, the map is constrained to the given bounds. */
-        maxBounds?: LngLatBoundsLike;
+        maxBounds?: LngLatBoundsLike | undefined;
 
         /** Maximum pitch of the map. */
-        maxPitch?: number;
+        maxPitch?: number | undefined;
 
         /** Maximum zoom of the map. */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
 
         /** Minimum pitch of the map. */
-        minPitch?: number;
+        minPitch?: number | undefined;
 
         /** Minimum zoom of the map. */
-        minZoom?: number;
+        minZoom?: number | undefined;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
-        preserveDrawingBuffer?: boolean;
+        preserveDrawingBuffer?: boolean | undefined;
 
         /**
          * The initial pitch (tilt) of the map, measured in degrees away from the plane of the
@@ -657,14 +657,14 @@ declare namespace mapboxgl {
          *
          * @default 0
          */
-        pitch?: number;
+        pitch?: number | undefined;
 
         /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
          *
          * @default true
          */
-        pitchWithRotate?: boolean;
+        pitchWithRotate?: boolean | undefined;
 
         /**
          * If `false`, the map won't attempt to re-request tiles once they expire per their HTTP
@@ -672,23 +672,23 @@ declare namespace mapboxgl {
          *
          * @default true
          */
-        refreshExpiredTiles?: boolean;
+        refreshExpiredTiles?: boolean | undefined;
 
         /**
          * If `true`, multiple copies of the world will be rendered, when zoomed out.
          *
          * @default true
          */
-        renderWorldCopies?: boolean;
+        renderWorldCopies?: boolean | undefined;
 
         /** If true, enable the "scroll to zoom" interaction */
-        scrollZoom?: boolean;
+        scrollZoom?: boolean | undefined;
 
         /** stylesheet location */
-        style?: mapboxgl.Style | string;
+        style?: mapboxgl.Style | string | undefined;
 
         /** If  true, the map will automatically resize when the browser window resizes */
-        trackResize?: boolean;
+        trackResize?: boolean | undefined;
 
         /**
          * A callback run before the Map makes a request for an external URL. The callback can be
@@ -696,16 +696,16 @@ declare namespace mapboxgl {
          *
          * @default null
          */
-        transformRequest?: TransformRequestFunction;
+        transformRequest?: TransformRequestFunction | undefined;
 
         /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
-        touchZoomRotate?: boolean;
+        touchZoomRotate?: boolean | undefined;
 
         /** If true, the "drag to pitch" interaction is enabled */
-        touchPitch?: boolean;
+        touchPitch?: boolean | undefined;
 
         /** Initial zoom level */
-        zoom?: number;
+        zoom?: number | undefined;
 
         /**
          * The maximum number of tiles stored in the tile cache for a given source. If omitted, the
@@ -713,14 +713,14 @@ declare namespace mapboxgl {
          *
          * @default null
          */
-        maxTileCacheSize?: number;
+        maxTileCacheSize?: number | undefined;
 
         /**
          * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
          *
          * @default null
          */
-        accessToken?: string;
+        accessToken?: string | undefined;
     }
 
     export type ResourceType =
@@ -742,16 +742,16 @@ declare namespace mapboxgl {
         /**
          * Use `'include'` to send cookies with cross-origin requests.
          */
-        credentials?: 'same-origin' | 'include';
+        credentials?: 'same-origin' | 'include' | undefined;
 
         /**
          * The headers to be sent with the request.
          */
-        headers?: { [header: string]: any };
+        headers?: { [header: string]: any } | undefined;
 
-        method?: 'GET' | 'POST' | 'PUT';
+        method?: 'GET' | 'POST' | 'PUT' | undefined;
 
-        collectResourceTiming?: boolean;
+        collectResourceTiming?: boolean | undefined;
     }
 
     export type TransformRequestFunction = (url: string, resourceType: ResourceType) => RequestParameters;
@@ -764,9 +764,9 @@ declare namespace mapboxgl {
     }
 
     export interface FeatureIdentifier {
-        id?: string | number;
+        id?: string | number | undefined;
         source: string;
-        sourceLayer?: string;
+        sourceLayer?: string | undefined;
     }
 
     /**
@@ -820,7 +820,7 @@ declare namespace mapboxgl {
      * DragRotateHandler
      */
     export class DragRotateHandler {
-        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number; pitchWithRotate?: boolean });
+        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined });
 
         isEnabled(): boolean;
 
@@ -918,7 +918,7 @@ declare namespace mapboxgl {
 
         onRemove(map: Map): void;
 
-        getDefaultPosition?: () => string;
+        getDefaultPosition?: (() => string) | undefined;
     }
 
     /**
@@ -927,20 +927,20 @@ declare namespace mapboxgl {
     export class Control extends Evented implements IControl {
         onAdd(map: Map): HTMLElement;
         onRemove(map: Map): void;
-        getDefaultPosition?: () => string;
+        getDefaultPosition?: (() => string) | undefined;
     }
 
     /**
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor(options?: { showCompass?: boolean; showZoom?: boolean; visualizePitch?: boolean });
+        constructor(options?: { showCompass?: boolean | undefined; showZoom?: boolean | undefined; visualizePitch?: boolean | undefined });
     }
 
     export class PositionOptions {
-        enableHighAccuracy?: boolean;
-        timeout?: number;
-        maximumAge?: number;
+        enableHighAccuracy?: boolean | undefined;
+        timeout?: number | undefined;
+        maximumAge?: number | undefined;
     }
 
     /**
@@ -948,11 +948,11 @@ declare namespace mapboxgl {
      */
     export class GeolocateControl extends Control {
         constructor(options?: {
-            positionOptions?: PositionOptions;
-            fitBoundsOptions?: FitBoundsOptions;
-            trackUserLocation?: boolean;
-            showAccuracyCircle?: boolean;
-            showUserLocation?: boolean;
+            positionOptions?: PositionOptions | undefined;
+            fitBoundsOptions?: FitBoundsOptions | undefined;
+            trackUserLocation?: boolean | undefined;
+            showAccuracyCircle?: boolean | undefined;
+            showUserLocation?: boolean | undefined;
         });
         trigger(): boolean;
     }
@@ -961,14 +961,14 @@ declare namespace mapboxgl {
      * Attribution
      */
     export class AttributionControl extends Control {
-        constructor(options?: { compact?: boolean; customAttribution?: string | string[] });
+        constructor(options?: { compact?: boolean | undefined; customAttribution?: string | string[] | undefined });
     }
 
     /**
      * Scale
      */
     export class ScaleControl extends Control {
-        constructor(options?: { maxWidth?: number; unit?: string });
+        constructor(options?: { maxWidth?: number | undefined; unit?: string | undefined });
 
         setUnit(unit: 'imperial' | 'metric' | 'nautical'): void;
     }
@@ -985,7 +985,7 @@ declare namespace mapboxgl {
          * A compatible DOM element which should be made full screen.
          * By default, the map container element will be made full screen.
          */
-        container?: HTMLElement | null;
+        container?: HTMLElement | null | undefined;
     }
 
     /**
@@ -1073,59 +1073,59 @@ declare namespace mapboxgl {
     }
 
     export interface PopupOptions {
-        closeButton?: boolean;
+        closeButton?: boolean | undefined;
 
-        closeOnClick?: boolean;
+        closeOnClick?: boolean | undefined;
 
         /**
          * @param {boolean} [options.closeOnMove=false] If `true`, the popup will closed when the map moves.
          */
-        closeOnMove?: boolean;
+        closeOnMove?: boolean | undefined;
 
         /**
          * @param {boolean} [options.focusAfterOpen=true] If `true`, the popup will try to focus the
          *   first focusable element inside the popup.
          */
-        focusAfterOpen?: boolean | null;
+        focusAfterOpen?: boolean | null | undefined;
 
-        anchor?: Anchor;
+        anchor?: Anchor | undefined;
 
-        offset?: Offset | null;
+        offset?: Offset | null | undefined;
 
-        className?: string;
+        className?: string | undefined;
 
-        maxWidth?: string;
+        maxWidth?: string | undefined;
     }
 
     export interface Style {
-        bearing?: number;
-        center?: number[];
-        glyphs?: string;
-        layers?: AnyLayer[];
+        bearing?: number | undefined;
+        center?: number[] | undefined;
+        glyphs?: string | undefined;
+        layers?: AnyLayer[] | undefined;
         metadata?: any;
-        name?: string;
-        pitch?: number;
-        light?: Light;
-        sources?: Sources;
-        sprite?: string;
-        transition?: Transition;
+        name?: string | undefined;
+        pitch?: number | undefined;
+        light?: Light | undefined;
+        sources?: Sources | undefined;
+        sprite?: string | undefined;
+        transition?: Transition | undefined;
         version: number;
-        zoom?: number;
+        zoom?: number | undefined;
     }
 
     export interface Transition {
-        delay?: number;
-        duration?: number;
+        delay?: number | undefined;
+        duration?: number | undefined;
     }
 
     export interface Light {
-        anchor?: 'map' | 'viewport';
-        position?: number[];
-        'position-transition'?: Transition;
-        color?: string;
-        'color-transition'?: Transition;
-        intensity?: number;
-        'intensity-transition'?: Transition;
+        anchor?: 'map' | 'viewport' | undefined;
+        position?: number[] | undefined;
+        'position-transition'?: Transition | undefined;
+        color?: string | undefined;
+        'color-transition'?: Transition | undefined;
+        intensity?: number | undefined;
+        'intensity-transition'?: Transition | undefined;
     }
 
     export interface Sources {
@@ -1205,34 +1205,34 @@ declare namespace mapboxgl {
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
+        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string | undefined;
 
-        maxzoom?: number;
+        maxzoom?: number | undefined;
 
-        attribution?: string;
+        attribution?: string | undefined;
 
-        buffer?: number;
+        buffer?: number | undefined;
 
-        tolerance?: number;
+        tolerance?: number | undefined;
 
-        cluster?: number | boolean;
+        cluster?: number | boolean | undefined;
 
-        clusterRadius?: number;
+        clusterRadius?: number | undefined;
 
-        clusterMaxZoom?: number;
+        clusterMaxZoom?: number | undefined;
 
         /**
          * Minimum number of points necessary to form a cluster if clustering is enabled. Defaults to `2`.
          */
-        clusterMinPoints?: number;
+        clusterMinPoints?: number | undefined;
 
-        clusterProperties?: object;
+        clusterProperties?: object | undefined;
 
-        lineMetrics?: boolean;
+        lineMetrics?: boolean | undefined;
 
-        generateId?: boolean;
+        generateId?: boolean | undefined;
 
-        promoteId?: PromoteIdSpecification;
+        promoteId?: PromoteIdSpecification | undefined;
 
         filter?: any;
     }
@@ -1255,9 +1255,9 @@ declare namespace mapboxgl {
     }
 
     export interface VideoSourceOptions {
-        urls?: string[];
+        urls?: string[] | undefined;
 
-        coordinates?: number[][];
+        coordinates?: number[][] | undefined;
     }
 
     /**
@@ -1278,9 +1278,9 @@ declare namespace mapboxgl {
     }
 
     export interface ImageSourceOptions {
-        url?: string;
+        url?: string | undefined;
 
-        coordinates?: number[][];
+        coordinates?: number[][] | undefined;
     }
 
     /**
@@ -1309,45 +1309,45 @@ declare namespace mapboxgl {
     export interface CanvasSourceOptions {
         coordinates: number[][];
 
-        animate?: boolean;
+        animate?: boolean | undefined;
 
         canvas: string | HTMLCanvasElement;
     }
 
     interface VectorSource extends Source {
         type: 'vector';
-        url?: string;
-        tiles?: string[];
-        bounds?: number[];
-        scheme?: 'xyz' | 'tms';
-        minzoom?: number;
-        maxzoom?: number;
-        attribution?: string;
-        promoteId?: PromoteIdSpecification;
+        url?: string | undefined;
+        tiles?: string[] | undefined;
+        bounds?: number[] | undefined;
+        scheme?: 'xyz' | 'tms' | undefined;
+        minzoom?: number | undefined;
+        maxzoom?: number | undefined;
+        attribution?: string | undefined;
+        promoteId?: PromoteIdSpecification | undefined;
     }
 
     interface RasterSource extends Source {
         type: 'raster';
-        url?: string;
-        tiles?: string[];
-        bounds?: number[];
-        minzoom?: number;
-        maxzoom?: number;
-        tileSize?: number;
-        scheme?: 'xyz' | 'tms';
-        attribution?: string;
+        url?: string | undefined;
+        tiles?: string[] | undefined;
+        bounds?: number[] | undefined;
+        minzoom?: number | undefined;
+        maxzoom?: number | undefined;
+        tileSize?: number | undefined;
+        scheme?: 'xyz' | 'tms' | undefined;
+        attribution?: string | undefined;
     }
 
     interface RasterDemSource extends Source {
         type: 'raster-dem';
-        url?: string;
-        tiles?: string[];
-        bounds?: number[];
-        minzoom?: number;
-        maxzoom?: number;
-        tileSize?: number;
-        attribution?: string;
-        encoding?: 'terrarium' | 'mapbox';
+        url?: string | undefined;
+        tiles?: string[] | undefined;
+        bounds?: number[] | undefined;
+        minzoom?: number | undefined;
+        maxzoom?: number | undefined;
+        tileSize?: number | undefined;
+        attribution?: string | undefined;
+        encoding?: 'terrarium' | 'mapbox' | undefined;
     }
 
     /**
@@ -1501,7 +1501,7 @@ declare namespace mapboxgl {
          *
          * @default 0
          */
-        z?: number;
+        z?: number | undefined;
 
         constructor(x: number, y: number, z?: number);
 
@@ -1568,52 +1568,52 @@ declare namespace mapboxgl {
 
     export interface MarkerOptions {
         /** DOM element to use as a marker. The default is a light blue, droplet-shaped SVG marker */
-        element?: HTMLElement;
+        element?: HTMLElement | undefined;
 
         /** The offset in pixels as a PointLike object to apply relative to the element's center. Negatives indicate left and up. */
-        offset?: PointLike;
+        offset?: PointLike | undefined;
 
         /** A string indicating the part of the Marker that should be positioned closest to the coordinate set via Marker.setLngLat.
          * Options are `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'top-left'`, `'top-right'`, `'bottom-left'`, and `'bottom-right'`.
          * The default value os `'center'`
          */
-        anchor?: Anchor;
+        anchor?: Anchor | undefined;
 
         /** The color to use for the default marker if options.element is not provided. The default is light blue (#3FB1CE). */
-        color?: string;
+        color?: string | undefined;
 
         /** A boolean indicating whether or not a marker is able to be dragged to a new position on the map. The default value is false */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
 
         /**
          * The max number of pixels a user can shift the mouse pointer during a click on the marker for it to be considered a valid click
          * (as opposed to a marker drag). The default (0) is to inherit map's clickTolerance.
          */
-        clickTolerance?: number | null;
+        clickTolerance?: number | null | undefined;
 
         /** The rotation angle of the marker in degrees, relative to its `rotationAlignment` setting. A positive value will rotate the marker clockwise.
          * The default value is 0.
          */
-        rotation?: number;
+        rotation?: number | undefined;
 
         /** `map` aligns the `Marker`'s rotation relative to the map, maintaining a bearing as the map rotates.
          * `viewport` aligns the `Marker`'s rotation relative to the viewport, agnostic to map rotations.
          * `auto` is equivalent to `viewport`.
          * The default value is `auto`
          */
-        rotationAlignment?: Alignment;
+        rotationAlignment?: Alignment | undefined;
 
         /** `map` aligns the `Marker` to the plane of the map.
          * `viewport` aligns the `Marker` to the plane of the viewport.
          * `auto` automatically matches the value of `rotationAlignment`.
          * The default value is `auto`.
          */
-        pitchAlignment?: Alignment;
+        pitchAlignment?: Alignment | undefined;
 
         /** The scale to use for the default marker if options.element is not provided.
          * The default scale (1) corresponds to a height of `41px` and a width of `27px`.
          */
-        scale?: number;
+        scale?: number | undefined;
     }
 
     /**
@@ -1634,7 +1634,7 @@ declare namespace mapboxgl {
      * StyleOptions
      */
     export interface StyleOptions {
-        transition?: boolean;
+        transition?: boolean | undefined;
     }
 
     export type MapboxGeoJSONFeature = GeoJSON.Feature<GeoJSON.Geometry> & {
@@ -1672,7 +1672,7 @@ declare namespace mapboxgl {
         defaultPrevented: boolean;
     }
 
-    export type MapLayerMouseEvent = MapMouseEvent & { features?: MapboxGeoJSONFeature[] };
+    export type MapLayerMouseEvent = MapMouseEvent & { features?: MapboxGeoJSONFeature[] | undefined };
 
     export class MapTouchEvent extends MapboxEvent<TouchEvent> {
         type: 'touchstart' | 'touchend' | 'touchcancel';
@@ -1686,7 +1686,7 @@ declare namespace mapboxgl {
         defaultPrevented: boolean;
     }
 
-    export type MapLayerTouchEvent = MapTouchEvent & { features?: MapboxGeoJSONFeature[] };
+    export type MapLayerTouchEvent = MapTouchEvent & { features?: MapboxGeoJSONFeature[] | undefined };
 
     export class MapWheelEvent extends MapboxEvent<WheelEvent> {
         type: 'wheel';
@@ -1749,7 +1749,7 @@ declare namespace mapboxgl {
          * Disabling validation is a performance optimization that should only be used
          * if you have previously validated the values you will be passing to this function.
          */
-        validate?: boolean | null;
+        validate?: boolean | null | undefined;
     }
 
     /**
@@ -1757,21 +1757,21 @@ declare namespace mapboxgl {
      */
     export interface AnimationOptions {
         /** Number in milliseconds */
-        duration?: number;
+        duration?: number | undefined;
         /**
          * A function taking a time in the range 0..1 and returning a number where 0 is the initial
          * state and 1 is the final state.
          */
-        easing?: (time: number) => number;
+        easing?: ((time: number) => number) | undefined;
         /** point, origin of movement relative to map center */
-        offset?: PointLike;
+        offset?: PointLike | undefined;
         /** When set to false, no animation happens */
-        animate?: boolean;
+        animate?: boolean | undefined;
 
         /** If `true`, then the animation is considered essential and will not be affected by `prefers-reduced-motion`.
          * Otherwise, the transition will happen instantly if the user has enabled the `reduced motion` accesibility feature in their operating system.
          */
-        essential?: boolean;
+        essential?: boolean | undefined;
     }
 
     /**
@@ -1779,21 +1779,21 @@ declare namespace mapboxgl {
      */
     export interface CameraOptions {
         /** Map center */
-        center?: LngLatLike;
+        center?: LngLatLike | undefined;
         /** Map zoom level */
-        zoom?: number;
+        zoom?: number | undefined;
         /** Map rotation bearing in degrees counter-clockwise from north */
-        bearing?: number;
+        bearing?: number | undefined;
         /** Map angle in degrees at which the camera is looking at the ground */
-        pitch?: number;
+        pitch?: number | undefined;
         /** If zooming, the zoom center (defaults to map center) */
-        around?: LngLatLike;
+        around?: LngLatLike | undefined;
     }
 
     export interface CameraForBoundsOptions extends CameraOptions {
-        padding?: number | PaddingOptions;
-        offset?: PointLike;
-        maxZoom?: number;
+        padding?: number | PaddingOptions | undefined;
+        offset?: PointLike | undefined;
+        maxZoom?: number | undefined;
     }
 
     // The Mapbox docs say that if the result is defined, it will have zoom, center and bearing set.
@@ -1807,26 +1807,26 @@ declare namespace mapboxgl {
      * FlyToOptions
      */
     export interface FlyToOptions extends AnimationOptions, CameraOptions {
-        curve?: number;
-        minZoom?: number;
-        speed?: number;
-        screenSpeed?: number;
-        maxDuration?: number;
+        curve?: number | undefined;
+        minZoom?: number | undefined;
+        speed?: number | undefined;
+        screenSpeed?: number | undefined;
+        maxDuration?: number | undefined;
     }
 
     /**
      * EaseToOptions
      */
     export interface EaseToOptions extends AnimationOptions, CameraOptions {
-        delayEndEvents?: number;
+        delayEndEvents?: number | undefined;
     }
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
-        linear?: boolean;
-        padding?: number | mapboxgl.PaddingOptions;
-        offset?: mapboxgl.PointLike;
-        maxZoom?: number;
-        maxDuration?: number;
+        linear?: boolean | undefined;
+        padding?: number | mapboxgl.PaddingOptions | undefined;
+        offset?: mapboxgl.PointLike | undefined;
+        maxZoom?: number | undefined;
+        maxDuration?: number | undefined;
     }
 
     /**
@@ -1937,74 +1937,74 @@ declare namespace mapboxgl {
         type: string;
 
         metadata?: any;
-        ref?: string;
+        ref?: string | undefined;
 
-        source?: string | AnySourceData;
+        source?: string | AnySourceData | undefined;
 
-        'source-layer'?: string;
+        'source-layer'?: string | undefined;
 
-        minzoom?: number;
-        maxzoom?: number;
+        minzoom?: number | undefined;
+        maxzoom?: number | undefined;
 
-        interactive?: boolean;
+        interactive?: boolean | undefined;
 
-        filter?: any[];
-        layout?: Layout;
-        paint?: object;
+        filter?: any[] | undefined;
+        layout?: Layout | undefined;
+        paint?: object | undefined;
     }
 
     interface BackgroundLayer extends Layer {
         type: 'background';
-        layout?: BackgroundLayout;
-        paint?: BackgroundPaint;
+        layout?: BackgroundLayout | undefined;
+        paint?: BackgroundPaint | undefined;
     }
 
     interface CircleLayer extends Layer {
         type: 'circle';
-        layout?: CircleLayout;
-        paint?: CirclePaint;
+        layout?: CircleLayout | undefined;
+        paint?: CirclePaint | undefined;
     }
 
     interface FillExtrusionLayer extends Layer {
         type: 'fill-extrusion';
-        layout?: FillExtrusionLayout;
-        paint?: FillExtrusionPaint;
+        layout?: FillExtrusionLayout | undefined;
+        paint?: FillExtrusionPaint | undefined;
     }
 
     interface FillLayer extends Layer {
         type: 'fill';
-        layout?: FillLayout;
-        paint?: FillPaint;
+        layout?: FillLayout | undefined;
+        paint?: FillPaint | undefined;
     }
 
     interface HeatmapLayer extends Layer {
         type: 'heatmap';
-        layout?: HeatmapLayout;
-        paint?: HeatmapPaint;
+        layout?: HeatmapLayout | undefined;
+        paint?: HeatmapPaint | undefined;
     }
 
     interface HillshadeLayer extends Layer {
         type: 'hillshade';
-        layout?: HillshadeLayout;
-        paint?: HillshadePaint;
+        layout?: HillshadeLayout | undefined;
+        paint?: HillshadePaint | undefined;
     }
 
     interface LineLayer extends Layer {
         type: 'line';
-        layout?: LineLayout;
-        paint?: LinePaint;
+        layout?: LineLayout | undefined;
+        paint?: LinePaint | undefined;
     }
 
     interface RasterLayer extends Layer {
         type: 'raster';
-        layout?: RasterLayout;
-        paint?: RasterPaint;
+        layout?: RasterLayout | undefined;
+        paint?: RasterPaint | undefined;
     }
 
     interface SymbolLayer extends Layer {
         type: 'symbol';
-        layout?: SymbolLayout;
-        paint?: SymbolPaint;
+        layout?: SymbolLayout | undefined;
+        paint?: SymbolPaint | undefined;
     }
 
     export type AnyLayer =
@@ -2028,7 +2028,7 @@ declare namespace mapboxgl {
         type: 'custom';
 
         /* Either "2d" or "3d". Defaults to  "2d". */
-        renderingMode?: '2d' | '3d';
+        renderingMode?: '2d' | '3d' | undefined;
 
         /**
          * Optional method called when the layer has been removed from the Map with Map#removeLayer.
@@ -2091,243 +2091,243 @@ declare namespace mapboxgl {
     }
 
     export interface StyleFunction {
-        stops?: any[][];
-        property?: string;
-        base?: number;
-        type?: 'identity' | 'exponential' | 'interval' | 'categorical';
+        stops?: any[][] | undefined;
+        property?: string | undefined;
+        base?: number | undefined;
+        type?: 'identity' | 'exponential' | 'interval' | 'categorical' | undefined;
         default?: any;
-        colorSpace?: 'rgb' | 'lab' | 'hcl';
+        colorSpace?: 'rgb' | 'lab' | 'hcl' | undefined;
     }
 
     type Visibility = 'visible' | 'none';
 
     export interface Layout {
-        visibility?: Visibility;
+        visibility?: Visibility | undefined;
     }
 
     export interface BackgroundLayout extends Layout {}
 
     export interface BackgroundPaint {
-        'background-color'?: string | Expression;
-        'background-color-transition'?: Transition;
-        'background-pattern'?: string;
-        'background-pattern-transition'?: Transition;
-        'background-opacity'?: number | Expression;
-        'background-opacity-transition'?: Transition;
+        'background-color'?: string | Expression | undefined;
+        'background-color-transition'?: Transition | undefined;
+        'background-pattern'?: string | undefined;
+        'background-pattern-transition'?: Transition | undefined;
+        'background-opacity'?: number | Expression | undefined;
+        'background-opacity-transition'?: Transition | undefined;
     }
 
     export interface FillLayout extends Layout {
-        'fill-sort-key'?: number | Expression;
+        'fill-sort-key'?: number | Expression | undefined;
     }
 
     export interface FillPaint {
-        'fill-antialias'?: boolean | Expression;
-        'fill-opacity'?: number | StyleFunction | Expression;
-        'fill-opacity-transition'?: Transition;
-        'fill-color'?: string | StyleFunction | Expression;
-        'fill-color-transition'?: Transition;
-        'fill-outline-color'?: string | StyleFunction | Expression;
-        'fill-outline-color-transition'?: Transition;
-        'fill-translate'?: number[];
-        'fill-translate-transition'?: Transition;
-        'fill-translate-anchor'?: 'map' | 'viewport';
-        'fill-pattern'?: string | Expression;
-        'fill-pattern-transition'?: Transition;
+        'fill-antialias'?: boolean | Expression | undefined;
+        'fill-opacity'?: number | StyleFunction | Expression | undefined;
+        'fill-opacity-transition'?: Transition | undefined;
+        'fill-color'?: string | StyleFunction | Expression | undefined;
+        'fill-color-transition'?: Transition | undefined;
+        'fill-outline-color'?: string | StyleFunction | Expression | undefined;
+        'fill-outline-color-transition'?: Transition | undefined;
+        'fill-translate'?: number[] | undefined;
+        'fill-translate-transition'?: Transition | undefined;
+        'fill-translate-anchor'?: 'map' | 'viewport' | undefined;
+        'fill-pattern'?: string | Expression | undefined;
+        'fill-pattern-transition'?: Transition | undefined;
     }
 
     export interface FillExtrusionLayout extends Layout {}
 
     export interface FillExtrusionPaint {
-        'fill-extrusion-opacity'?: number | Expression;
-        'fill-extrusion-opacity-transition'?: Transition;
-        'fill-extrusion-color'?: string | StyleFunction | Expression;
-        'fill-extrusion-color-transition'?: Transition;
-        'fill-extrusion-translate'?: number[] | Expression;
-        'fill-extrusion-translate-transition'?: Transition;
-        'fill-extrusion-translate-anchor'?: 'map' | 'viewport';
-        'fill-extrusion-pattern'?: string | Expression;
-        'fill-extrusion-pattern-transition'?: Transition;
-        'fill-extrusion-height'?: number | StyleFunction | Expression;
-        'fill-extrusion-height-transition'?: Transition;
-        'fill-extrusion-base'?: number | StyleFunction | Expression;
-        'fill-extrusion-base-transition'?: Transition;
-        'fill-extrusion-vertical-gradient'?: boolean;
+        'fill-extrusion-opacity'?: number | Expression | undefined;
+        'fill-extrusion-opacity-transition'?: Transition | undefined;
+        'fill-extrusion-color'?: string | StyleFunction | Expression | undefined;
+        'fill-extrusion-color-transition'?: Transition | undefined;
+        'fill-extrusion-translate'?: number[] | Expression | undefined;
+        'fill-extrusion-translate-transition'?: Transition | undefined;
+        'fill-extrusion-translate-anchor'?: 'map' | 'viewport' | undefined;
+        'fill-extrusion-pattern'?: string | Expression | undefined;
+        'fill-extrusion-pattern-transition'?: Transition | undefined;
+        'fill-extrusion-height'?: number | StyleFunction | Expression | undefined;
+        'fill-extrusion-height-transition'?: Transition | undefined;
+        'fill-extrusion-base'?: number | StyleFunction | Expression | undefined;
+        'fill-extrusion-base-transition'?: Transition | undefined;
+        'fill-extrusion-vertical-gradient'?: boolean | undefined;
     }
 
     export interface LineLayout extends Layout {
-        'line-cap'?: 'butt' | 'round' | 'square';
-        'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
-        'line-miter-limit'?: number | Expression;
-        'line-round-limit'?: number | Expression;
-        'line-sort-key'?: number | Expression;
+        'line-cap'?: 'butt' | 'round' | 'square' | undefined;
+        'line-join'?: 'bevel' | 'round' | 'miter' | Expression | undefined;
+        'line-miter-limit'?: number | Expression | undefined;
+        'line-round-limit'?: number | Expression | undefined;
+        'line-sort-key'?: number | Expression | undefined;
     }
 
     export interface LinePaint {
-        'line-opacity'?: number | StyleFunction | Expression;
-        'line-opacity-transition'?: Transition;
-        'line-color'?: string | StyleFunction | Expression;
-        'line-color-transition'?: Transition;
-        'line-translate'?: number[] | Expression;
-        'line-translate-transition'?: Transition;
-        'line-translate-anchor'?: 'map' | 'viewport';
-        'line-width'?: number | StyleFunction | Expression;
-        'line-width-transition'?: Transition;
-        'line-gap-width'?: number | StyleFunction | Expression;
-        'line-gap-width-transition'?: Transition;
-        'line-offset'?: number | StyleFunction | Expression;
-        'line-offset-transition'?: Transition;
-        'line-blur'?: number | StyleFunction | Expression;
-        'line-blur-transition'?: Transition;
-        'line-dasharray'?: number[] | Expression;
-        'line-dasharray-transition'?: Transition;
-        'line-pattern'?: string | Expression;
-        'line-pattern-transition'?: Transition;
-        'line-gradient'?: Expression;
+        'line-opacity'?: number | StyleFunction | Expression | undefined;
+        'line-opacity-transition'?: Transition | undefined;
+        'line-color'?: string | StyleFunction | Expression | undefined;
+        'line-color-transition'?: Transition | undefined;
+        'line-translate'?: number[] | Expression | undefined;
+        'line-translate-transition'?: Transition | undefined;
+        'line-translate-anchor'?: 'map' | 'viewport' | undefined;
+        'line-width'?: number | StyleFunction | Expression | undefined;
+        'line-width-transition'?: Transition | undefined;
+        'line-gap-width'?: number | StyleFunction | Expression | undefined;
+        'line-gap-width-transition'?: Transition | undefined;
+        'line-offset'?: number | StyleFunction | Expression | undefined;
+        'line-offset-transition'?: Transition | undefined;
+        'line-blur'?: number | StyleFunction | Expression | undefined;
+        'line-blur-transition'?: Transition | undefined;
+        'line-dasharray'?: number[] | Expression | undefined;
+        'line-dasharray-transition'?: Transition | undefined;
+        'line-pattern'?: string | Expression | undefined;
+        'line-pattern-transition'?: Transition | undefined;
+        'line-gradient'?: Expression | undefined;
     }
 
     export interface SymbolLayout extends Layout {
-        'symbol-placement'?: 'point' | 'line' | 'line-center';
-        'symbol-spacing'?: number | Expression;
-        'symbol-avoid-edges'?: boolean;
-        'symbol-z-order'?: 'viewport-y' | 'source';
-        'icon-allow-overlap'?: boolean | StyleFunction | Expression;
-        'icon-ignore-placement'?: boolean | Expression;
-        'icon-optional'?: boolean;
-        'icon-rotation-alignment'?: 'map' | 'viewport' | 'auto';
-        'icon-size'?: number | StyleFunction | Expression;
-        'icon-text-fit'?: 'none' | 'both' | 'width' | 'height';
-        'icon-text-fit-padding'?: number[] | Expression;
-        'icon-image'?: string | StyleFunction | Expression;
-        'icon-rotate'?: number | StyleFunction | Expression;
-        'icon-padding'?: number | Expression;
-        'icon-keep-upright'?: boolean;
-        'icon-offset'?: number[] | StyleFunction | Expression;
-        'icon-anchor'?: Anchor | StyleFunction | Expression;
-        'icon-pitch-alignment'?: 'map' | 'viewport' | 'auto';
-        'text-pitch-alignment'?: 'map' | 'viewport' | 'auto';
-        'text-rotation-alignment'?: 'map' | 'viewport' | 'auto';
-        'text-field'?: string | StyleFunction | Expression;
-        'text-font'?: string | string[] | Expression;
-        'text-size'?: number | StyleFunction | Expression;
-        'text-max-width'?: number | StyleFunction | Expression;
-        'text-line-height'?: number | Expression;
-        'text-letter-spacing'?: number | Expression;
-        'text-justify'?: 'auto' | 'left' | 'center' | 'right' | Expression;
-        'text-anchor'?: Anchor | StyleFunction | Expression;
-        'text-max-angle'?: number | Expression;
-        'text-rotate'?: number | StyleFunction | Expression;
-        'text-padding'?: number | Expression;
-        'text-keep-upright'?: boolean;
-        'text-transform'?: 'none' | 'uppercase' | 'lowercase' | StyleFunction | Expression;
-        'text-offset'?: number[] | Expression;
-        'text-allow-overlap'?: boolean;
-        'text-ignore-placement'?: boolean;
-        'text-optional'?: boolean;
-        'text-radial-offset'?: number | Expression;
-        'text-variable-anchor'?: Anchor[];
-        'text-writing-mode'?: ('horizontal' | 'vertical')[];
-        'symbol-sort-key'?: number | Expression;
+        'symbol-placement'?: 'point' | 'line' | 'line-center' | undefined;
+        'symbol-spacing'?: number | Expression | undefined;
+        'symbol-avoid-edges'?: boolean | undefined;
+        'symbol-z-order'?: 'viewport-y' | 'source' | undefined;
+        'icon-allow-overlap'?: boolean | StyleFunction | Expression | undefined;
+        'icon-ignore-placement'?: boolean | Expression | undefined;
+        'icon-optional'?: boolean | undefined;
+        'icon-rotation-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
+        'icon-size'?: number | StyleFunction | Expression | undefined;
+        'icon-text-fit'?: 'none' | 'both' | 'width' | 'height' | undefined;
+        'icon-text-fit-padding'?: number[] | Expression | undefined;
+        'icon-image'?: string | StyleFunction | Expression | undefined;
+        'icon-rotate'?: number | StyleFunction | Expression | undefined;
+        'icon-padding'?: number | Expression | undefined;
+        'icon-keep-upright'?: boolean | undefined;
+        'icon-offset'?: number[] | StyleFunction | Expression | undefined;
+        'icon-anchor'?: Anchor | StyleFunction | Expression | undefined;
+        'icon-pitch-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
+        'text-pitch-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
+        'text-rotation-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
+        'text-field'?: string | StyleFunction | Expression | undefined;
+        'text-font'?: string | string[] | Expression | undefined;
+        'text-size'?: number | StyleFunction | Expression | undefined;
+        'text-max-width'?: number | StyleFunction | Expression | undefined;
+        'text-line-height'?: number | Expression | undefined;
+        'text-letter-spacing'?: number | Expression | undefined;
+        'text-justify'?: 'auto' | 'left' | 'center' | 'right' | Expression | undefined;
+        'text-anchor'?: Anchor | StyleFunction | Expression | undefined;
+        'text-max-angle'?: number | Expression | undefined;
+        'text-rotate'?: number | StyleFunction | Expression | undefined;
+        'text-padding'?: number | Expression | undefined;
+        'text-keep-upright'?: boolean | undefined;
+        'text-transform'?: 'none' | 'uppercase' | 'lowercase' | StyleFunction | Expression | undefined;
+        'text-offset'?: number[] | Expression | undefined;
+        'text-allow-overlap'?: boolean | undefined;
+        'text-ignore-placement'?: boolean | undefined;
+        'text-optional'?: boolean | undefined;
+        'text-radial-offset'?: number | Expression | undefined;
+        'text-variable-anchor'?: Anchor[] | undefined;
+        'text-writing-mode'?: ('horizontal' | 'vertical')[] | undefined;
+        'symbol-sort-key'?: number | Expression | undefined;
     }
 
     export interface SymbolPaint {
-        'icon-opacity'?: number | StyleFunction | Expression;
-        'icon-opacity-transition'?: Transition;
-        'icon-color'?: string | StyleFunction | Expression;
-        'icon-color-transition'?: Transition;
-        'icon-halo-color'?: string | StyleFunction | Expression;
-        'icon-halo-color-transition'?: Transition;
-        'icon-halo-width'?: number | StyleFunction | Expression;
-        'icon-halo-width-transition'?: Transition;
-        'icon-halo-blur'?: number | StyleFunction | Expression;
-        'icon-halo-blur-transition'?: Transition;
-        'icon-translate'?: number[] | Expression;
-        'icon-translate-transition'?: Transition;
-        'icon-translate-anchor'?: 'map' | 'viewport';
-        'text-opacity'?: number | StyleFunction | Expression;
-        'text-opacity-transition'?: Transition;
-        'text-color'?: string | StyleFunction | Expression;
-        'text-color-transition'?: Transition;
-        'text-halo-color'?: string | StyleFunction | Expression;
-        'text-halo-color-transition'?: Transition;
-        'text-halo-width'?: number | StyleFunction | Expression;
-        'text-halo-width-transition'?: Transition;
-        'text-halo-blur'?: number | StyleFunction | Expression;
-        'text-halo-blur-transition'?: Transition;
-        'text-translate'?: number[] | Expression;
-        'text-translate-transition'?: Transition;
-        'text-translate-anchor'?: 'map' | 'viewport';
+        'icon-opacity'?: number | StyleFunction | Expression | undefined;
+        'icon-opacity-transition'?: Transition | undefined;
+        'icon-color'?: string | StyleFunction | Expression | undefined;
+        'icon-color-transition'?: Transition | undefined;
+        'icon-halo-color'?: string | StyleFunction | Expression | undefined;
+        'icon-halo-color-transition'?: Transition | undefined;
+        'icon-halo-width'?: number | StyleFunction | Expression | undefined;
+        'icon-halo-width-transition'?: Transition | undefined;
+        'icon-halo-blur'?: number | StyleFunction | Expression | undefined;
+        'icon-halo-blur-transition'?: Transition | undefined;
+        'icon-translate'?: number[] | Expression | undefined;
+        'icon-translate-transition'?: Transition | undefined;
+        'icon-translate-anchor'?: 'map' | 'viewport' | undefined;
+        'text-opacity'?: number | StyleFunction | Expression | undefined;
+        'text-opacity-transition'?: Transition | undefined;
+        'text-color'?: string | StyleFunction | Expression | undefined;
+        'text-color-transition'?: Transition | undefined;
+        'text-halo-color'?: string | StyleFunction | Expression | undefined;
+        'text-halo-color-transition'?: Transition | undefined;
+        'text-halo-width'?: number | StyleFunction | Expression | undefined;
+        'text-halo-width-transition'?: Transition | undefined;
+        'text-halo-blur'?: number | StyleFunction | Expression | undefined;
+        'text-halo-blur-transition'?: Transition | undefined;
+        'text-translate'?: number[] | Expression | undefined;
+        'text-translate-transition'?: Transition | undefined;
+        'text-translate-anchor'?: 'map' | 'viewport' | undefined;
     }
 
     export interface RasterLayout extends Layout {}
 
     export interface RasterPaint {
-        'raster-opacity'?: number | Expression;
-        'raster-opacity-transition'?: Transition;
-        'raster-hue-rotate'?: number | Expression;
-        'raster-hue-rotate-transition'?: Transition;
-        'raster-brightness-min'?: number | Expression;
-        'raster-brightness-min-transition'?: Transition;
-        'raster-brightness-max'?: number | Expression;
-        'raster-brightness-max-transition'?: Transition;
-        'raster-saturation'?: number | Expression;
-        'raster-saturation-transition'?: Transition;
-        'raster-contrast'?: number | Expression;
-        'raster-contrast-transition'?: Transition;
-        'raster-fade-duration'?: number | Expression;
-        'raster-resampling'?: 'linear' | 'nearest';
+        'raster-opacity'?: number | Expression | undefined;
+        'raster-opacity-transition'?: Transition | undefined;
+        'raster-hue-rotate'?: number | Expression | undefined;
+        'raster-hue-rotate-transition'?: Transition | undefined;
+        'raster-brightness-min'?: number | Expression | undefined;
+        'raster-brightness-min-transition'?: Transition | undefined;
+        'raster-brightness-max'?: number | Expression | undefined;
+        'raster-brightness-max-transition'?: Transition | undefined;
+        'raster-saturation'?: number | Expression | undefined;
+        'raster-saturation-transition'?: Transition | undefined;
+        'raster-contrast'?: number | Expression | undefined;
+        'raster-contrast-transition'?: Transition | undefined;
+        'raster-fade-duration'?: number | Expression | undefined;
+        'raster-resampling'?: 'linear' | 'nearest' | undefined;
     }
 
     export interface CircleLayout extends Layout {
-        'circle-sort-key'?: number | Expression;
+        'circle-sort-key'?: number | Expression | undefined;
     }
 
     export interface CirclePaint {
-        'circle-radius'?: number | StyleFunction | Expression;
-        'circle-radius-transition'?: Transition;
-        'circle-color'?: string | StyleFunction | Expression;
-        'circle-color-transition'?: Transition;
-        'circle-blur'?: number | StyleFunction | Expression;
-        'circle-blur-transition'?: Transition;
-        'circle-opacity'?: number | StyleFunction | Expression;
-        'circle-opacity-transition'?: Transition;
-        'circle-translate'?: number[] | Expression;
-        'circle-translate-transition'?: Transition;
-        'circle-translate-anchor'?: 'map' | 'viewport';
-        'circle-pitch-scale'?: 'map' | 'viewport';
-        'circle-pitch-alignment'?: 'map' | 'viewport';
-        'circle-stroke-width'?: number | StyleFunction | Expression;
-        'circle-stroke-width-transition'?: Transition;
-        'circle-stroke-color'?: string | StyleFunction | Expression;
-        'circle-stroke-color-transition'?: Transition;
-        'circle-stroke-opacity'?: number | StyleFunction | Expression;
-        'circle-stroke-opacity-transition'?: Transition;
+        'circle-radius'?: number | StyleFunction | Expression | undefined;
+        'circle-radius-transition'?: Transition | undefined;
+        'circle-color'?: string | StyleFunction | Expression | undefined;
+        'circle-color-transition'?: Transition | undefined;
+        'circle-blur'?: number | StyleFunction | Expression | undefined;
+        'circle-blur-transition'?: Transition | undefined;
+        'circle-opacity'?: number | StyleFunction | Expression | undefined;
+        'circle-opacity-transition'?: Transition | undefined;
+        'circle-translate'?: number[] | Expression | undefined;
+        'circle-translate-transition'?: Transition | undefined;
+        'circle-translate-anchor'?: 'map' | 'viewport' | undefined;
+        'circle-pitch-scale'?: 'map' | 'viewport' | undefined;
+        'circle-pitch-alignment'?: 'map' | 'viewport' | undefined;
+        'circle-stroke-width'?: number | StyleFunction | Expression | undefined;
+        'circle-stroke-width-transition'?: Transition | undefined;
+        'circle-stroke-color'?: string | StyleFunction | Expression | undefined;
+        'circle-stroke-color-transition'?: Transition | undefined;
+        'circle-stroke-opacity'?: number | StyleFunction | Expression | undefined;
+        'circle-stroke-opacity-transition'?: Transition | undefined;
     }
 
     export interface HeatmapLayout extends Layout {}
 
     export interface HeatmapPaint {
-        'heatmap-radius'?: number | StyleFunction | Expression;
-        'heatmap-radius-transition'?: Transition;
-        'heatmap-weight'?: number | StyleFunction | Expression;
-        'heatmap-intensity'?: number | StyleFunction | Expression;
-        'heatmap-intensity-transition'?: Transition;
-        'heatmap-color'?: string | StyleFunction | Expression;
-        'heatmap-opacity'?: number | StyleFunction | Expression;
-        'heatmap-opacity-transition'?: Transition;
+        'heatmap-radius'?: number | StyleFunction | Expression | undefined;
+        'heatmap-radius-transition'?: Transition | undefined;
+        'heatmap-weight'?: number | StyleFunction | Expression | undefined;
+        'heatmap-intensity'?: number | StyleFunction | Expression | undefined;
+        'heatmap-intensity-transition'?: Transition | undefined;
+        'heatmap-color'?: string | StyleFunction | Expression | undefined;
+        'heatmap-opacity'?: number | StyleFunction | Expression | undefined;
+        'heatmap-opacity-transition'?: Transition | undefined;
     }
 
     export interface HillshadeLayout extends Layout {}
 
     export interface HillshadePaint {
-        'hillshade-illumination-direction'?: number | Expression;
-        'hillshade-illumination-anchor'?: 'map' | 'viewport';
-        'hillshade-exaggeration'?: number | Expression;
-        'hillshade-exaggeration-transition'?: Transition;
-        'hillshade-shadow-color'?: string | Expression;
-        'hillshade-shadow-color-transition'?: Transition;
-        'hillshade-highlight-color'?: string | Expression;
-        'hillshade-highlight-color-transition'?: Transition;
-        'hillshade-accent-color'?: string | Expression;
-        'hillshade-accent-color-transition'?: Transition;
+        'hillshade-illumination-direction'?: number | Expression | undefined;
+        'hillshade-illumination-anchor'?: 'map' | 'viewport' | undefined;
+        'hillshade-exaggeration'?: number | Expression | undefined;
+        'hillshade-exaggeration-transition'?: Transition | undefined;
+        'hillshade-shadow-color'?: string | Expression | undefined;
+        'hillshade-shadow-color-transition'?: Transition | undefined;
+        'hillshade-highlight-color'?: string | Expression | undefined;
+        'hillshade-highlight-color-transition'?: Transition | undefined;
+        'hillshade-accent-color'?: string | Expression | undefined;
+        'hillshade-accent-color-transition'?: Transition | undefined;
     }
 }

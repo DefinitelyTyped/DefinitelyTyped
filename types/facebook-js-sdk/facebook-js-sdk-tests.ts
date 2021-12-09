@@ -1,3 +1,6 @@
+window.fbAsyncInit = function() {
+};
+
 FB.init({
     version: 'v8.0',
 });

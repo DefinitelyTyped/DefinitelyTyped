@@ -12,27 +12,27 @@ interface Options {
     /**
      * @default false
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /**
      * @default false
      */
-    storeAsString?: boolean;
+    storeAsString?: boolean | undefined;
     /**
      * @default false
      */
-    alwaysParseAsBig?: boolean;
+    alwaysParseAsBig?: boolean | undefined;
     /**
      * @default false
      */
-    useNativeBigInt?: boolean;
+    useNativeBigInt?: boolean | undefined;
     /**
      * @default 'error'
      */
-    protoAction?: 'error' | 'ignore' | 'preserve';
+    protoAction?: 'error' | 'ignore' | 'preserve' | undefined;
     /**
      * @default 'error'
      */
-    constructorAction?: 'error' | 'ignore' | 'preserve';
+    constructorAction?: 'error' | 'ignore' | 'preserve' | undefined;
 }
 
 type JSONBigExport = typeof JSONBig & { parse: typeof parse; stringify: typeof stringify };

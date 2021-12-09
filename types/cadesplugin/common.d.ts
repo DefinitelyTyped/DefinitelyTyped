@@ -5,14 +5,20 @@ declare namespace CADES_Common {
     // Extracts the type if wrapped by a Promise
     type Unpacked<T> = T extends Promise<infer U> ? U :
         T extends CAPICOM.Certificate ? CAPICOM.CertificateAsync :
-            T extends CAPICOM.Certificates ? CAPICOM.CertificatesAsync :
-                T extends CAdESCOM.CPSigner ? CAdESCOM.CPSignerAsync :
-                    T extends CAdESCOM.CPHashedData ? CAdESCOM.CPHashedDataAsync :
-                        T extends CAdESCOM.Version ? CAdESCOM.VersionAsync :
-                            T extends CAPICOM.OID ? CAPICOM.OIDAsync :
-                                T extends CAPICOM.EncodedData ? CAPICOM.EncodedDataAsync :
-                                    T extends CAPICOM.PublicKey ? CAPICOM.PublicKeyAsync :
-                                        T;
+        T extends CAPICOM.Certificates ? CAPICOM.CertificatesAsync :
+        T extends CAdESCOM.CPSigner ? CAdESCOM.CPSignerAsync :
+        T extends CAdESCOM.CPHashedData ? CAdESCOM.CPHashedDataAsync :
+        T extends CAdESCOM.Version ? CAdESCOM.VersionAsync :
+        T extends CAPICOM.OID ? CAPICOM.OIDAsync :
+        T extends CAPICOM.EncodedData ? CAPICOM.EncodedDataAsync :
+        T extends CAPICOM.PublicKey ? CAPICOM.PublicKeyAsync :
+        T extends CAPICOM.PrivateKey ? CAPICOM.PrivateKeyAsync :
+        T extends CAPICOM.ExtendedKeyUsage ? CAPICOM.ExtendedKeyUsageAsync :
+        T extends CAPICOM.EKUs ? CAPICOM.EKUsAsync :
+        T extends CAPICOM.EKU ? CAPICOM.EKUAsync :
+        T extends CAdESCOM.CPAttribute ? CAdESCOM.CPAttributeAsync :
+        T extends CAdESCOM.CPAuthenticatedAttributes2 ? CAdESCOM.CPAuthenticatedAttributes2Async :
+        T;
 
     type PromisifiedFunction<T extends Function> = // tslint:disable-line ban-types
         T extends (...args: infer A) => infer U ? (...args: { [K in keyof A]: Unpacked<A[K]> }) => Promise<Unpacked<U>> :

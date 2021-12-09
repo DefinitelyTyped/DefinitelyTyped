@@ -41,11 +41,11 @@ declare namespace Kakao {
             url: string; // Kakao REST API urls
             data?: {
                 [key: string]: any;
-            };
-            files?: FileList | File[] | Blob[];
-            success?: RequestSuccessCallback;
-            fail?: RequestFailCallback;
-            always?: RequestAlwaysCallback;
+            } | undefined;
+            files?: FileList | File[] | Blob[] | undefined;
+            success?: RequestSuccessCallback | undefined;
+            fail?: RequestFailCallback | undefined;
+            always?: RequestAlwaysCallback | undefined;
         }): Promise<ApiResponse>;
     }
 
@@ -57,7 +57,7 @@ declare namespace Kakao {
             status: 'connected' | 'not_connected';
             user?: {
                 [key: string]: any;
-            };
+            } | undefined;
         }
 
         interface AuthSuccessObject {
@@ -79,25 +79,25 @@ declare namespace Kakao {
          * but authorize function has not other return, so return type set void
          */
         function authorize(settings: {
-            redirectUri?: string;
-            state?: string;
-            scope?: string; // additional agreement key ex) account_email,gender
-            throughTalk?: boolean; // default true,
-            prompts?: string;
+            redirectUri?: string | undefined;
+            state?: string | undefined;
+            scope?: string | undefined; // additional agreement key ex) account_email,gender
+            throughTalk?: boolean | undefined; // default true,
+            prompts?: string | undefined;
         }): void;
 
         function cleanup(): void;
 
         function createLoginButton(settings: {
             container: string | HTMLElement;
-            lang?: AuthLanguage; // default 'kr'
-            size?: AuthButtonSize; // default 'medium'
-            success?: (authObj: AuthSuccessObject) => void;
-            fail?: (errorObj: AuthError) => void;
-            always?: (param: AuthSuccessObject | AuthError) => void;
-            scope?: string; // additional agreement key ex) account_email,gender
-            persistAccessToken?: boolean; // default true
-            throughTalk?: boolean; // default true
+            lang?: AuthLanguage | undefined; // default 'kr'
+            size?: AuthButtonSize | undefined; // default 'medium'
+            success?: ((authObj: AuthSuccessObject) => void) | undefined;
+            fail?: ((errorObj: AuthError) => void) | undefined;
+            always?: ((param: AuthSuccessObject | AuthError) => void) | undefined;
+            scope?: string | undefined; // additional agreement key ex) account_email,gender
+            persistAccessToken?: boolean | undefined; // default true
+            throughTalk?: boolean | undefined; // default true
         }): void;
 
         function getAccessToken(): string;
@@ -111,20 +111,20 @@ declare namespace Kakao {
         function getStatusInfo(callback: (object: AuthStatusObject) => void): void;
 
         function login(settings: {
-            success?: (authObj: AuthSuccessObject) => void;
-            fail?: (errorObj: AuthError) => void;
-            always?: (param: AuthSuccessObject | AuthError) => void;
-            scope?: string; // additional agreement key ex) account_email,gender
-            persistAccessToken?: boolean; // default true
-            throughTalk?: boolean; // default true
+            success?: ((authObj: AuthSuccessObject) => void) | undefined;
+            fail?: ((errorObj: AuthError) => void) | undefined;
+            always?: ((param: AuthSuccessObject | AuthError) => void) | undefined;
+            scope?: string | undefined; // additional agreement key ex) account_email,gender
+            persistAccessToken?: boolean | undefined; // default true
+            throughTalk?: boolean | undefined; // default true
         }): void;
 
         function loginForm(settings: {
-            success?: (authObj: AuthSuccessObject) => void;
-            fail?: (errorObj: AuthError) => void;
-            always?: (param: AuthSuccessObject | AuthError) => void;
-            scope?: string; // additional agreement key ex) account_email,gender
-            persistAccessToken?: boolean; // default true
+            success?: ((authObj: AuthSuccessObject) => void) | undefined;
+            fail?: ((errorObj: AuthError) => void) | undefined;
+            always?: ((param: AuthSuccessObject | AuthError) => void) | undefined;
+            scope?: string | undefined; // additional agreement key ex) account_email,gender
+            persistAccessToken?: boolean | undefined; // default true
         }): void;
 
         /**
@@ -157,18 +157,18 @@ declare namespace Kakao {
         function createAddChannelButton(settings: {
             container: string | HTMLElement;
             channelPublicId: string;
-            size?: ButtonSize; // default 'small'
-            supportMultipleDensities?: boolean; // default false
+            size?: ButtonSize | undefined; // default 'small'
+            supportMultipleDensities?: boolean | undefined; // default false
         }): void;
 
         function createChatButton(settings: {
             container: string | HTMLElement;
             channelPublicId: string;
-            title?: string; // default 'consult'
-            size?: ButtonSize; // default 'small'
-            color?: Color; // default 'yellow'
-            shape?: Shape; // default 'pc'
-            supportMultipleDensities?: boolean; // default false
+            title?: string | undefined; // default 'consult'
+            size?: ButtonSize | undefined; // default 'small'
+            color?: Color | undefined; // default 'yellow'
+            shape?: Shape | undefined; // default 'pc'
+            supportMultipleDensities?: boolean | undefined; // default false
         }): void;
     }
 
@@ -182,32 +182,32 @@ declare namespace Kakao {
 
         interface CommerceObject {
             regularPrice: number;
-            productName?: string;
-            discountPrice?: number;
-            discountRate?: number;
-            fixedDiscountPrice?: number;
+            productName?: string | undefined;
+            discountPrice?: number | undefined;
+            discountRate?: number | undefined;
+            fixedDiscountPrice?: number | undefined;
         }
 
         interface ContentObject {
             title: string;
             imageUrl: string;
             link: LinkObject;
-            imageWidth?: number;
-            imageHeight?: number;
-            description?: string;
+            imageWidth?: number | undefined;
+            imageHeight?: number | undefined;
+            description?: string | undefined;
         }
 
         interface BaseObject<ObjectType extends string> {
             objectType: ObjectType;
-            buttonTitle?: string;
-            buttons?: ButtonObject[];
-            installTalk?: boolean; // default false
-            callback?: LinkCallback;
+            buttonTitle?: string | undefined;
+            buttons?: ButtonObject[] | undefined;
+            installTalk?: boolean | undefined; // default false
+            callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
                       [key: string]: any;
                   }
-                | string; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
+                | string | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
         }
 
         interface DefaultCommerceSettings extends BaseObject<'commerce'> {
@@ -217,7 +217,7 @@ declare namespace Kakao {
 
         interface DefaultFeedSettings extends BaseObject<'feed'> {
             content: ContentObject;
-            social?: SocialObject;
+            social?: SocialObject | undefined;
         }
 
         interface DefaultListSettings extends BaseObject<'list'> {
@@ -229,8 +229,8 @@ declare namespace Kakao {
         interface DefaultLocationSettings extends BaseObject<'location'> {
             content: ContentObject;
             address: string;
-            addressTitle?: string;
-            social?: SocialObject;
+            addressTitle?: string | undefined;
+            social?: SocialObject | undefined;
         }
 
         interface DefaultTextSettings extends BaseObject<'text'> {
@@ -249,18 +249,18 @@ declare namespace Kakao {
         }
 
         interface LinkObject {
-            webUrl?: string;
-            mobileWebUrl?: string;
-            androidExecParams?: string;
-            iosExecParams?: string;
+            webUrl?: string | undefined;
+            mobileWebUrl?: string | undefined;
+            androidExecParams?: string | undefined;
+            iosExecParams?: string | undefined;
         }
 
         interface SocialObject {
-            likeCount?: number;
-            commentCount?: number;
-            sharedCount?: number;
-            viewCount?: number;
-            subscriberCount?: number;
+            likeCount?: number | undefined;
+            commentCount?: number | undefined;
+            sharedCount?: number | undefined;
+            viewCount?: number | undefined;
+            subscriberCount?: number | undefined;
         }
 
         type DefaultSettings =
@@ -277,14 +277,14 @@ declare namespace Kakao {
             templateId: number;
             templateArgs?: {
                 [key: string]: any;
-            };
-            installTalk?: boolean; // default false
-            callback?: LinkCallback;
+            } | undefined;
+            installTalk?: boolean | undefined; // default false
+            callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
                       [key: string]: any;
                   }
-                | string; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
+                | string | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
         }): void;
 
         function createDefaultButton(
@@ -296,17 +296,17 @@ declare namespace Kakao {
         function createScrapButton(settings: {
             container: string | HTMLElement;
             requestUrl: string;
-            templateId?: number;
+            templateId?: number | undefined;
             templateArgs?: {
                 [key: string]: any;
-            };
-            installTalk?: boolean; // default false
-            callback?: LinkCallback;
+            } | undefined;
+            installTalk?: boolean | undefined; // default false
+            callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
                       [key: string]: any;
                   }
-                | string;
+                | string | undefined;
         }): void;
 
         function deleteImage(settings: { imageUrl: string }): Promise<unknown>;
@@ -318,30 +318,30 @@ declare namespace Kakao {
             templateArgs: {
                 [key: string]: any;
             };
-            installTalk?: boolean; // default false
-            callback?: LinkCallback;
+            installTalk?: boolean | undefined; // default false
+            callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
                       [key: string]: any;
                   }
-                | string;
+                | string | undefined;
         }): void;
 
         function sendDefault(settings: DefaultSettings): void;
 
         function sendScrap(settings: {
             requestUrl: string;
-            templateId?: number;
+            templateId?: number | undefined;
             templateArgs?: {
                 [key: string]: any;
-            };
-            installTalk?: boolean; // default false
-            callback?: LinkCallback;
+            } | undefined;
+            installTalk?: boolean | undefined; // default false
+            callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
                       [key: string]: any;
                   }
-                | string;
+                | string | undefined;
         }): void;
 
         function uploadImage(settings: { file: FileList }): Promise<ImageInfos>;
@@ -358,7 +358,7 @@ declare namespace Kakao {
             name: string;
             x: number;
             y: number;
-            coordType?: string; // default 'katec', union type 'wgs84' | 'katec'
+            coordType?: string | undefined; // default 'katec', union type 'wgs84' | 'katec'
         }): void;
 
         // Reference: https://developers.kakao.com/sdk/reference/js/release/Kakao.Navi.html#.start
@@ -366,15 +366,15 @@ declare namespace Kakao {
             name: string;
             x: number;
             y: number;
-            coordType?: string; // default 'katec', union type 'wgs84' | 'katec';
-            vehicleType?: number; // default 1,
-            rpOptio?: number; // default 100
-            routeInfo?: boolean; // default false
-            sX?: number;
-            sY?: number;
-            sAngle?: number;
-            returnUri?: string;
-            viaPoints?: ViaPoint[];
+            coordType?: string | undefined; // default 'katec', union type 'wgs84' | 'katec';
+            vehicleType?: number | undefined; // default 1,
+            rpOptio?: number | undefined; // default 100
+            routeInfo?: boolean | undefined; // default false
+            sX?: number | undefined;
+            sY?: number | undefined;
+            sAngle?: number | undefined;
+            returnUri?: string | undefined;
+            viaPoints?: ViaPoint[] | undefined;
         }): void;
     }
 
@@ -384,31 +384,31 @@ declare namespace Kakao {
         function createFollowButton(settings: {
             container: string | HTMLElement;
             id: string;
-            showFollowerCount?: boolean; // default true;
-            type?: string; // default 'horizontal'
+            showFollowerCount?: boolean | undefined; // default true;
+            type?: string | undefined; // default 'horizontal'
         }): void;
 
         function createShareButton(settings: {
             container: string | HTMLElement;
-            url?: string;
-            text?: string; // default ''
+            url?: string | undefined;
+            text?: string | undefined; // default ''
         }): void;
 
         function open(settings: {
-            install?: boolean;
-            url?: string;
-            text?: string;
+            install?: boolean | undefined;
+            url?: string | undefined;
+            text?: string | undefined;
             urlInfo?: {
                 title: string;
-                desc?: string;
-                name?: string;
-                images?: string[];
-            };
+                desc?: string | undefined;
+                name?: string | undefined;
+                images?: string[] | undefined;
+            } | undefined;
         }): void;
 
         function share(settings: {
-            url?: string;
-            text?: string; // default ''
+            url?: string | undefined;
+            text?: string | undefined; // default ''
         }): void;
     }
 }

@@ -2,10 +2,11 @@ import { Extrafield } from './extrafield';
 import { Address } from './address';
 
 export interface CheckoutCapture {
-    line_items: any;
+    line_items?: any;
     discount_code?: string;
     extra_fields?: Extrafield[];
     customer: {
+        id?: string;
         firstname?: string;
         lastname?: string;
         email: string;
@@ -18,23 +19,40 @@ export interface CheckoutCapture {
     };
     billing?: Partial<Address>;
     payment: {
-        gateway: string;
+        gateway: 'braintree' | 'manual' | 'omise' | 'paypal' | 'razorpay' | 'stripe' | 'square' | 'test_gateway' | string;
         card?: {
-            number?: string;
             token?: string;
             nonce?: string;
+        }   |   {
+            number: string
+            expiry_month: string
+            expiry_year: string
+            cvc: string
+            postal_zip_code: string
+        };
+        braintree?: {
+            nonce: string;
+        };
+        square?: {
+            token?: string;
+            verification_token?: string;
         };
         stripe?: {
-            payment_method_id: string;
-            payment_intent_id: string;
+            payment_method_id?: string;
+            payment_intent_id?: string;
+            customer_id?: string;
+            setup_future_usage?: 'on_session' | 'off_session';
         };
         razorpay?: {
             payment_id: string;
         };
+        omise?: {
+            token: string;
+        };
         paypal?: {
-            action: string;
-            payment_id: string;
-            payer_id: string;
+            action: 'capture' | 'authorize';
+            payment_id?: string;
+            payer_id?: string;
         };
         manual?: {
             id: string;

@@ -3,7 +3,7 @@ declare module 'events' {
         /**
          * Enables automatic capturing of promise rejection.
          */
-        captureRejections?: boolean;
+        captureRejections?: boolean | undefined;
     }
 
     interface NodeEventTarget {
@@ -75,4 +75,8 @@ declare module 'events' {
     }
 
     export = EventEmitter;
+}
+declare module 'node:events' {
+    import events = require('events');
+    export = events;
 }

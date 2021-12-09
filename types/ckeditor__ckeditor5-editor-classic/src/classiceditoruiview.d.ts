@@ -7,5 +7,5 @@ export default class ClassicEditorUIView extends BoxedEditorUIView {
     readonly stickyPanel: StickyPanelView;
     readonly toolbar: ToolbarView;
 
-    constructor(locale: Locale, editingView: View, options?: { shouldToolbarGroupWhenFull?: boolean });
+    constructor(locale: Locale, editingView: View, options?: { shouldToolbarGroupWhenFull?: boolean | undefined });
 }

@@ -11,9 +11,8 @@ const msgHash = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const signature = key.sign(msgHash);
 
 // Export DER encoded signature in Array
-const derSign = signature.toDER();
-
-const decodedSignature = new elliptic.ec.Signature(derSign);
+const derSign = signature.toDER(); // $ExpectType number[]
+const derSignHex = signature.toDER('hex'); // $ExpectType string
 
 // Verify signature
 console.log(key.verify(msgHash, derSign));

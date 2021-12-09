@@ -45,9 +45,9 @@ declare namespace jBinary {
      * @see https://github.com/jDataView/jBinary/wiki/Typesets
      */
     type TypeSet = DataTypeSet & {
-        "jBinary.all"?: string;
-        "jBinary.littleEndian"?: boolean;
-        "jBinary.mimeType"?: string;
+        "jBinary.all"?: string | undefined;
+        "jBinary.littleEndian"?: boolean | undefined;
+        "jBinary.mimeType"?: string | undefined;
     };
 
     /**
@@ -58,10 +58,10 @@ declare namespace jBinary {
     type CustomTypeConfig = {
         read: (this: any, context: any) => unknown;
         write: (this: any, data: any, context: any) => void;
-        setParams?: (this: any, ...params: any[]) => void;
-        resolve?: (this: any, getType: (...params: any[]) => any) => void;
-        params?: string[];
-        typeParams?: string[];
+        setParams?: ((this: any, ...params: any[]) => void) | undefined;
+        resolve?: ((this: any, getType: (...params: any[]) => any) => void) | undefined;
+        params?: string[] | undefined;
+        typeParams?: string[] | undefined;
     };
 }
 

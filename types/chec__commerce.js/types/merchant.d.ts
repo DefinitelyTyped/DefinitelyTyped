@@ -4,22 +4,21 @@ export type MerchantStatus = 'active' | 'inactive';
 
 export interface Merchant {
     id: number;
-    business_name: string;
-    business_description: string;
+    name: string;
+    description: string;
     status: MerchantStatus;
     country: string;
     currency: Currency;
     support_email: string;
-    timezone: string | null;
-    logo?: string;
-    logo_shape?: string;
+    logo?: string | undefined;
+    logo_shape?: string | undefined;
     cover: string | null;
     intercom: boolean;
     has: {
         logo: boolean;
         cover: boolean;
         analytics: boolean;
-        business_description: boolean;
+        description: boolean;
     };
     analytics: {
         google: {

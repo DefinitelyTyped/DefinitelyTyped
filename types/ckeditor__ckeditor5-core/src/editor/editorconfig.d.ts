@@ -17,6 +17,7 @@ import { IndentBlockConfig } from '@ckeditor/ckeditor5-indent/src/indentblock';
 import { TextPartLanguageOption } from '@ckeditor/ckeditor5-language/src/textpartlanguage';
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
 import { MediaEmbedConfig } from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
+import { MentionConfig } from '@ckeditor/ckeditor5-mention/src/mention';
 import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
 import { RealTimeCollaborationConfig } from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting';
 import { RestrictedEditingModeConfig } from '@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode';
@@ -30,53 +31,57 @@ import Plugin, { PluginInterface } from '../plugin';
 
 // TODO: import {CommentsConfig} from "@ckeditor/ckeditor5-comments/src/comments";
 type CommentsConfig = any;
-// TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
-type MentionConfig = any;
 // TODO: import {SidebarConfig} from "@ckeditor/ckeditor5-comments/src/annotations/sidebar";
 type SidebarConfig = any;
 
 export interface EditorConfig {
-    alignment?: AlignmentConfig;
-    autosave?: AutosaveConfig;
-    balloonToolbar?: string[] | { items: string[]; shouldNotGroupWhenFull?: boolean };
-    blockToolbar?: string[] | { items: string[]; shouldNotGroupWhenFull?: boolean };
-    ckfinder?: CKFinderConfig;
-    cloudServices?: CloudServicesConfig;
-    codeBlock?: CodeBlockConfig;
-    collaboration?: RealTimeCollaborationConfig;
-    comments?: CommentsConfig;
-    exportPdf?: ExportPdfConfig;
-    exportWord?: ExportWordConfig;
-    extraPlugins?: Array<typeof Plugin>;
-    fontBackgroundColor?: FontBackgroundColorConfig;
-    fontColor?: FontColorConfig;
-    fontFamily?: FontFamilyConfig;
-    fontSize?: FontSizeConfig;
-    heading?: HeadingConfig;
-    highlight?: HighlightConfig;
-    image?: ImageConfig;
-    indentBlock?: IndentBlockConfig;
-    initialData?: string;
-    language?: string | LanguageConfig;
-    licenseKey?: string;
-    link?: LinkConfig;
-    mediaEmbed?: MediaEmbedConfig;
-    mention?: MentionConfig;
-    pagination?: PaginationConfig;
-    placeholder?: string;
-    plugins?: Array<string | PluginInterface>;
-    removePlugins?: Array<string | typeof Plugin | typeof ContextPlugin>;
-    restrictedEditing?: RestrictedEditingModeConfig;
-    sidebar?: SidebarConfig;
-    simpleUpload?: SimpleUploadConfig;
-    table?: TableConfig;
-    title?: TitleConfig;
+    alignment?: AlignmentConfig | undefined;
+    autosave?: AutosaveConfig | undefined;
+    balloonToolbar?: string[] | { items: string[]; shouldNotGroupWhenFull?: boolean | undefined } | undefined;
+    blockToolbar?: string[] | { items: string[]; shouldNotGroupWhenFull?: boolean | undefined } | undefined;
+    ckfinder?: CKFinderConfig | undefined;
+    cloudServices?: CloudServicesConfig | undefined;
+    codeBlock?: CodeBlockConfig | undefined;
+    collaboration?: RealTimeCollaborationConfig | undefined;
+    comments?: CommentsConfig | undefined;
+    exportPdf?: ExportPdfConfig | undefined;
+    exportWord?: ExportWordConfig | undefined;
+    extraPlugins?: Array<typeof Plugin> | undefined;
+    fontBackgroundColor?: FontBackgroundColorConfig | undefined;
+    fontColor?: FontColorConfig | undefined;
+    fontFamily?: FontFamilyConfig | undefined;
+    fontSize?: FontSizeConfig | undefined;
+    heading?: HeadingConfig | undefined;
+    highlight?: HighlightConfig | undefined;
+    image?: ImageConfig | undefined;
+    indentBlock?: IndentBlockConfig | undefined;
+    initialData?: string | undefined;
+    language?: string | LanguageConfig | undefined;
+    licenseKey?: string | undefined;
+    link?: LinkConfig | undefined;
+    mediaEmbed?: MediaEmbedConfig | undefined;
+    mention?: MentionConfig | undefined;
+    pagination?: PaginationConfig | undefined;
+    placeholder?: string | undefined;
+    plugins?: Array<string | PluginInterface> | undefined;
+    removePlugins?: Array<string | typeof Plugin | typeof ContextPlugin> | undefined;
+    restrictedEditing?: RestrictedEditingModeConfig | undefined;
+    sidebar?: SidebarConfig | undefined;
+    simpleUpload?: SimpleUploadConfig | undefined;
+    table?: TableConfig | undefined;
+    title?: TitleConfig | undefined;
     toolbar?:
         | string[]
-        | { items?: string[]; viewportTopOffset?: number; shouldNotGroupWhenFull?: boolean; removeItems?: string[] };
-    trackChanges?: TrackChangesConfig;
-    typing?: TypingConfig;
-    wordCount?: WordCountConfig;
+        | {
+              items?: string[] | undefined;
+              viewportTopOffset?: number | undefined;
+              shouldNotGroupWhenFull?: boolean | undefined;
+              removeItems?: string[] | undefined;
+          }
+        | undefined;
+    trackChanges?: TrackChangesConfig | undefined;
+    typing?: TypingConfig | undefined;
+    wordCount?: WordCountConfig | undefined;
 }
 
 export interface LanguageConfig {

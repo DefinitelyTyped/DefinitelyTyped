@@ -17,7 +17,7 @@ if (client.currentUser === null) {
 
 
 //define an interface that map to server side Table data
-interface TodoItem { id?: number; text?: string; complete?: boolean; }
+interface TodoItem { id?: number | undefined; text?: string | undefined; complete?: boolean | undefined; }
 var data: TodoItem[];
 var tableTodoItems = client.getTable('todoitem');
 

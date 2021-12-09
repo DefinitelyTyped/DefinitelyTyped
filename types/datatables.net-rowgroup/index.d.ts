@@ -12,7 +12,7 @@ declare namespace DataTables {
         /**
          * RowGroup extension options
          */
-        rowGroup?: boolean | RowGroupSettings;
+        rowGroup?: boolean | RowGroupSettings | undefined;
     }
 
     interface StaticFunctions {
@@ -58,41 +58,41 @@ declare namespace DataTables {
         /**
          * Set the class name to be used for the grouping rows
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Text to show for rows which have null, undefined or empty string group data
          */
-        emptyDataGroup?: string;
+        emptyDataGroup?: string | undefined;
 
         /**
          * Set the data point to use as the grouping data source
          */
-        dataSrc?: number|string|string[];
+        dataSrc?: number|string|string[] | undefined;
 
         /**
          * Provides the ability to disable row grouping at initialisation
          */
-        enable?: boolean;
+        enable?: boolean | undefined;
 
         /**
          * Set the class name to be used for the grouping start rows
          */
-        startClassName?: string;
+        startClassName?: string | undefined;
 
         /**
          * Set the class name to be used for the grouping end rows
          */
-        endClassName?: string;
+        endClassName?: string | undefined;
 
         /**
          * Provide a function that can be used to control the data shown in the end grouping row
          */
-        endRender?: (rows: Api, group: string) => string|HTMLElement|JQuery;
+        endRender?: ((rows: Api, group: string) => string|HTMLElement|JQuery) | undefined;
 
         /**
          * Provide a function that can be used to control the data shown in the start grouping row
          */
-        startRender?: (rows: Api, group: string, level: number) => string|HTMLElement|JQuery;
+        startRender?: ((rows: Api, group: string, level: number) => string|HTMLElement|JQuery) | undefined;
     }
 }

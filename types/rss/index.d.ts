@@ -15,11 +15,11 @@ declare namespace NodeRSS {
         /**
          * A short description of the feed.
          */
-        description?: string;
+        description?: string | undefined;
         /**
          * Feed generator.
          */
-        generator?: string;
+        generator?: string | undefined;
         /**
          * URL to the rss feed.
          */
@@ -31,55 +31,55 @@ declare namespace NodeRSS {
         /**
          * Small image for feed readers to use.
          */
-        image_url?: string;
+        image_url?: string | undefined;
         /**
          * URL to documentation on this feed.
          */
-        docs?: string;
+        docs?: string | undefined;
         /**
          * Who manages content in this feed.
          */
-        managingEditor?: string;
+        managingEditor?: string | undefined;
         /**
          * Who manages feed availability and technical support.
          */
-        webMaster?: string;
+        webMaster?: string | undefined;
         /**
          * Copyright information for this feed.
          */
-        copyright?: string;
+        copyright?: string | undefined;
         /**
          * The language of the content of this feed.
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * One or more categories this feed belongs to.
          */
-        categories?: string[];
+        categories?: string[] | undefined;
         /**
          * The publication date for content in the feed.
          * Accepts Date object or string with any format
          * JS Date can parse.
          */
-        pubDate?: Date | string;
+        pubDate?: Date | string | undefined;
         /**
          * Number of minutes feed can be cached before refreshing
          * from source.
          */
-        ttl?: number;
+        ttl?: number | undefined;
         /**
          * Where is the PubSubHub hub located.
          */
-        hub?: string;
+        hub?: string | undefined;
         /**
          * Put additional namespaces in element
          * (without 'xmlns:' prefix).
          */
-        custom_namespaces?: Object;
+        custom_namespaces?: Object | undefined;
         /**
          * Put additional elements in the feed (node-xml syntax).
          */
-        custom_elements?: any[];
+        custom_elements?: any[] | undefined;
     }
 
     interface EnclosureObject {
@@ -90,17 +90,17 @@ declare namespace NodeRSS {
         /**
          * Path to binary file (or URL).
          */
-        file?: string;
+        file?: string | undefined;
         /**
          * Size of the file.
          */
-        size?: number;
+        size?: number | undefined;
         /**
          * If not provided, the MIME Type will be guessed based
          * on the extension of the file or URL, passing type to
          * the enclosure will override the guessed type.
          */
-        type?: string;
+        type?: string | undefined;
     }
 
     interface ItemOptions {
@@ -124,18 +124,18 @@ declare namespace NodeRSS {
          * urls must be unique.
          * Defaults to url.
          */
-        guid?: string;
+        guid?: string | undefined;
         /**
          * If provided, each array item will be added as a category
          * element.
          */
-        categories?: string[];
+        categories?: string[] | undefined;
         /**
          * If included it is the name of the item's creator. If not
          * provided the item author will be the same as the feed author.
          * This is typical except on multi-author blogs.
          */
-        author?: string;
+        author?: string | undefined;
         /**
          * The date and time of when the item was created. Feed
          * readers use this to determine the sort order. Some readers
@@ -148,19 +148,19 @@ declare namespace NodeRSS {
         /**
          * The latitude coordinate of the item for GeoRSS.
          */
-        lat?: number;
+        lat?: number | undefined;
         /**
          * The longitude coordinate of the item for GeoRSS.
          */
-        long?: number;
+        long?: number | undefined;
         /**
          * Put additional elements in the item (node-xml syntax).
          */
-        custom_elements?: any[];
+        custom_elements?: any[] | undefined;
         /**
          * An enclosure object.
          */
-        enclosure?: EnclosureObject;
+        enclosure?: EnclosureObject | undefined;
     }
 
     interface XmlOptions {
@@ -170,7 +170,7 @@ declare namespace NodeRSS {
          * for two-space tabs. If you set it to true it will use
          * four spaces.
          */
-        indent?: boolean | string;
+        indent?: boolean | string | undefined;
     }
 
     interface RSS {

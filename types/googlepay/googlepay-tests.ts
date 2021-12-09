@@ -100,13 +100,27 @@ function addGooglePayButton() {
     const buttonOptions: google.payments.api.ButtonOptions = {
         onClick: onGooglePaymentButtonClick,
         buttonColor: 'black',
+        allowedPaymentMethods: [{
+            type: 'CARD',
+            parameters: {
+                allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                allowedCardNetworks,
+            },
+        }]
     };
 
     // $ExpectError
     buttonOptions.buttonType = 'xyz';
-    buttonOptions.buttonType = 'plain';
-    buttonOptions.buttonType = 'donate';
+    buttonOptions.buttonType = 'book';
     buttonOptions.buttonType = 'buy';
+    buttonOptions.buttonType = 'checkout';
+    buttonOptions.buttonType = 'donate';
+    buttonOptions.buttonType = 'order';
+    buttonOptions.buttonType = 'pay';
+    buttonOptions.buttonType = 'plain';
+    buttonOptions.buttonType = 'subscribe';
+    buttonOptions.buttonType = 'long';
+    buttonOptions.buttonType = 'short';
 
     buttonOptions.buttonSizeMode = undefined;
     buttonOptions.buttonSizeMode = 'fill';

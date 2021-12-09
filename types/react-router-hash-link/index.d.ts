@@ -10,16 +10,16 @@ import * as React from 'react';
 import { LinkProps, NavLinkProps } from 'react-router-dom';
 
 export interface HashLinkProps extends LinkProps {
-  elementId?: string;
-  smooth?: boolean;
-  scroll?: (element: HTMLElement) => void;
-  timeout?: number;
+  elementId?: string | undefined;
+  smooth?: boolean | undefined;
+  scroll?: ((element: HTMLElement) => void) | undefined;
+  timeout?: number | undefined;
 }
 
-export interface NavHashLinkProps extends NavLinkProps, HashLinkProps { }
+export interface NavHashLinkProps extends NavLinkProps, Omit<HashLinkProps, 'className' | 'style'> { }
 
-export class HashLink extends React.Component<HashLinkProps, any> { }
+export const HashLink: React.ForwardRefExoticComponent<HashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
 
-export class NavHashLink extends React.Component<NavHashLinkProps, any> { }
+export const NavHashLink: React.ForwardRefExoticComponent<NavHashLinkProps & React.RefAttributes<HTMLAnchorElement>>;
 
 export function genericHashLink<P>(Component: React.FunctionComponent<P>): React.FunctionComponent<P>;

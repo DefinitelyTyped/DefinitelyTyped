@@ -37,9 +37,9 @@ export type IDLTypeDescription = GenericTypeDescription | SingleTypeDescription 
 
 export interface ParseOptions {
     /** Boolean indicating whether the result should include EOF node or not. */
-    concrete?: boolean;
+    concrete?: boolean | undefined;
     /** The source name, typically a filename. Errors and validation objects can indicate their origin if you pass a value. */
-    sourceName?: string;
+    sourceName?: string | undefined;
 }
 
 export class WebIDLParseError extends Error {
@@ -48,7 +48,7 @@ export class WebIDLParseError extends Error {
         bareMessage: string;
         context: string;
         line: number;
-        sourceName?: string;
+        sourceName?: string | undefined;
         input: string;
         tokens: Token[];
     });

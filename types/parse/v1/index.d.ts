@@ -22,22 +22,22 @@ declare namespace Parse {
     let VERSION: string;
 
     interface SuccessOption {
-        success?: Function;
+        success?: Function | undefined;
     }
 
     interface ErrorOption {
-        error?: Function;
+        error?: Function | undefined;
     }
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
 
     interface SignUpOptions {
-        useMasterKey?: boolean;
-        installationId?: string;
+        useMasterKey?: boolean | undefined;
+        installationId?: string | undefined;
     }
 
     interface SessionTokenOption {
-        sessionToken?: string;
+        sessionToken?: string | undefined;
     }
 
     interface WaitOption {
@@ -45,14 +45,14 @@ declare namespace Parse {
          * Set to true to wait for the server to confirm success
          * before triggering an event.
          */
-        wait?: boolean;
+        wait?: boolean | undefined;
     }
 
     interface UseMasterKeyOption {
         /**
          * In Cloud Code and Node only, causes the Master Key to be used for this request.
          */
-        useMasterKey?: boolean;
+        useMasterKey?: boolean | undefined;
     }
 
     interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
@@ -61,7 +61,7 @@ declare namespace Parse {
         /**
          * Set to true to avoid firing the event.
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     /**
@@ -469,16 +469,16 @@ declare namespace Parse {
 
     namespace Collection {
         interface Options {
-            model?: Object;
-            query?: Query<Object>;
-            comparator?: string;
+            model?: Object | undefined;
+            query?: Query<Object> | undefined;
+            comparator?: string | undefined;
         }
 
         interface AddOptions extends SilentOption {
             /**
              * The index at which to add the models.
              */
-            at?: number;
+            at?: number | undefined;
         }
 
         interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, ScopeOptions {}
@@ -651,22 +651,22 @@ declare namespace Parse {
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
-            group?: { objectId?: string; [key: string]: any };
-            match?: { [key: string]: any };
-            project?: { [key: string]: any };
-            limit?: number;
-            skip?: number;
+            group?: { objectId?: string | undefined; [key: string]: any } | undefined;
+            match?: { [key: string]: any } | undefined;
+            project?: { [key: string]: any } | undefined;
+            limit?: number | undefined;
+            skip?: number | undefined;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-            sort?: { [key: string]: 1 | -1 };
+            sort?: { [key: string]: 1 | -1 } | undefined;
             // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
-            sample?: { size: number };
+            sample?: { size: number } | undefined;
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
         interface FullTextOptions {
-            language?: string;
-            caseSensitive?: boolean;
-            diacriticSensitive?: boolean;
+            language?: string | undefined;
+            caseSensitive?: boolean | undefined;
+            diacriticSensitive?: boolean | undefined;
         }
     }
 
@@ -740,7 +740,7 @@ declare namespace Parse {
         }
 
         interface NavigateOptions {
-            trigger?: boolean;
+            trigger?: boolean | undefined;
         }
     }
 
@@ -820,10 +820,10 @@ declare namespace Parse {
             model?: any;
             collection?: any;
             el?: any;
-            id?: string;
-            className?: string;
-            tagName?: string;
-            attributes?: Attribute[];
+            id?: string | undefined;
+            className?: string | undefined;
+            tagName?: string | undefined;
+            attributes?: Attribute[] | undefined;
         }
 
         interface Attribute {
@@ -857,21 +857,21 @@ declare namespace Parse {
      */
     namespace Cloud {
         interface CookieOptions {
-            domain?: string;
-            expires?: Date;
-            httpOnly?: boolean;
-            maxAge?: number;
-            path?: string;
-            secure?: boolean;
+            domain?: string | undefined;
+            expires?: Date | undefined;
+            httpOnly?: boolean | undefined;
+            maxAge?: number | undefined;
+            path?: string | undefined;
+            secure?: boolean | undefined;
         }
 
         interface HttpResponse {
-            buffer?: Buffer;
+            buffer?: Buffer | undefined;
             cookies?: any;
             data?: any;
             headers?: any;
-            status?: number;
-            text?: string;
+            status?: number | undefined;
+            text?: string | undefined;
         }
 
         interface JobRequest {
@@ -879,16 +879,16 @@ declare namespace Parse {
         }
 
         interface JobStatus {
-            error?: (response: any) => void;
-            message?: (response: any) => void;
-            success?: (response: any) => void;
+            error?: ((response: any) => void) | undefined;
+            message?: ((response: any) => void) | undefined;
+            success?: ((response: any) => void) | undefined;
         }
 
         interface FunctionRequest {
-            installationId?: String;
-            master?: boolean;
+            installationId?: String | undefined;
+            master?: boolean | undefined;
             params?: any;
-            user?: User;
+            user?: User | undefined;
         }
 
         interface FunctionResponse {
@@ -898,21 +898,21 @@ declare namespace Parse {
         }
 
         interface Cookie {
-            name?: string;
-            options?: CookieOptions;
-            value?: string;
+            name?: string | undefined;
+            options?: CookieOptions | undefined;
+            value?: string | undefined;
         }
 
         interface TriggerRequest {
-            installationId?: String;
-            master?: boolean;
-            user?: User;
+            installationId?: String | undefined;
+            master?: boolean | undefined;
+            user?: User | undefined;
             ip: string;
             headers: any;
             triggerName: string;
             log: any;
             object: Object;
-            original?: Parse.Object;
+            original?: Parse.Object | undefined;
         }
 
         interface AfterSaveRequest extends TriggerRequest {}
@@ -937,7 +937,7 @@ declare namespace Parse {
             query: Query;
             count: boolean;
             isGet: boolean;
-            readPreference?: ReadPreferenceOption;
+            readPreference?: ReadPreferenceOption | undefined;
         }
 
         interface AfterFindRequest extends TriggerRequest {
@@ -978,21 +978,21 @@ declare namespace Parse {
              * You can also set this to a Buffer object to send raw bytes.
              * If you use a Buffer, you should also set the Content-Type header explicitly to describe what these bytes represent.
              */
-            body?: string | Buffer | Object;
+            body?: string | Buffer | Object | undefined;
             /**
              * Defaults to 'false'.
              */
-            followRedirects?: boolean;
+            followRedirects?: boolean | undefined;
             /**
              * The headers for the request.
              */
             headers?: {
                 [headerName: string]: string | number | boolean;
-            };
+            } | undefined;
             /**
              *The method of the request (i.e GET, POST, etc).
              */
-            method?: string;
+            method?: string | undefined;
             /**
              * The query portion of the url.
              */
@@ -1002,8 +1002,8 @@ declare namespace Parse {
              */
             url: string;
 
-            success?: (response: any) => void;
-            error?: (response: any) => void;
+            success?: ((response: any) => void) | undefined;
+            error?: ((response: any) => void) | undefined;
         }
     }
 
@@ -1121,21 +1121,21 @@ declare namespace Parse {
         function send<T>(data: PushData, options?: SendOptions): Promise<T>;
 
         interface PushData {
-            channels?: string[];
-            push_time?: Date;
-            expiration_time?: Date;
-            expiration_interval?: number;
-            where?: Query<Installation>;
+            channels?: string[] | undefined;
+            push_time?: Date | undefined;
+            expiration_time?: Date | undefined;
+            expiration_interval?: number | undefined;
+            where?: Query<Installation> | undefined;
             data?: any;
-            alert?: string;
-            badge?: string;
-            sound?: string;
-            title?: string;
+            alert?: string | undefined;
+            badge?: string | undefined;
+            sound?: string | undefined;
+            title?: string | undefined;
         }
 
         interface SendOptions extends UseMasterKeyOption {
-            success?: () => void;
-            error?: (error: Error) => void;
+            success?: (() => void) | undefined;
+            error?: ((error: Error) => void) | undefined;
         }
     }
 

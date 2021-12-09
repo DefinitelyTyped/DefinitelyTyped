@@ -1,16 +1,25 @@
+import Element from "./element";
 import Position from "./position";
-import { Item } from "./item";
 import Range from "./range";
+import TextProxy from "./textproxy";
 
 export type TreeWalkerValueType = "elementStart" | "elementEnd" | "text";
 
-export interface TreeWalkerValue {
-    item: Item;
-    length: number | undefined;
-    nextPosition: Position;
-    previousPosition: Position;
-    type: TreeWalkerValueType;
-}
+export type TreeWalkerValue =
+    | {
+          item: TextProxy;
+          length: number;
+          nextPosition: Position;
+          previousPosition: Position;
+          type: "text";
+      }
+    | {
+          item: Element;
+          length: number;
+          nextPosition: Position;
+          previousPosition: Position;
+          type: "elementStart" | "elementEnd";
+      };
 
 export type TreeWalkerDirection = "forward" | "backward";
 
@@ -23,12 +32,12 @@ export default class TreeWalker implements Iterable<TreeWalkerValue> {
     readonly singleCharacters: boolean;
 
     constructor(options?: {
-        boundaries?: Range;
+        boundaries?: Range | undefined;
         startPosition: Position;
-        direction?: TreeWalkerDirection;
-        singleCharacters?: boolean;
-        shallow?: boolean;
-        ignoreElementEnd?: boolean;
+        direction?: TreeWalkerDirection | undefined;
+        singleCharacters?: boolean | undefined;
+        shallow?: boolean | undefined;
+        ignoreElementEnd?: boolean | undefined;
     });
     [Symbol.iterator](): Iterator<TreeWalkerValue>;
     next(): TreeWalkerValue;

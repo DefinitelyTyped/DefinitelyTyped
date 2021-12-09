@@ -9,19 +9,19 @@ export interface PageConstructor {
 }
 
 export interface PageConfig {
-    navigationBarBackgroundColor?: string;
-    navigationBarTextStyle?: string;
-    navigationBarTitleText?: string;
-    backgroundColor?: string;
-    backgroundTextStyle?: string;
-    enablePullDownRefresh?: boolean;
-    disableScroll?: boolean;
-    onReachBottomDistance?: number;
+    navigationBarBackgroundColor?: string | undefined;
+    navigationBarTextStyle?: string | undefined;
+    navigationBarTitleText?: string | undefined;
+    backgroundColor?: string | undefined;
+    backgroundTextStyle?: string | undefined;
+    enablePullDownRefresh?: boolean | undefined;
+    disableScroll?: boolean | undefined;
+    onReachBottomDistance?: number | undefined;
 }
 
 export default class page extends component {
-    config?: PageConfig;
-    $preloadData?: { [key: string]: any };
+    config?: PageConfig | undefined;
+    $preloadData?: { [key: string]: any } | undefined;
     $init(wxpage: any, $parent: any): any;
     $route(
         type: "redirectTo" | "navigateTo",

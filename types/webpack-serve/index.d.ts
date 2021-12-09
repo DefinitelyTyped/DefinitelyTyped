@@ -17,7 +17,7 @@ import * as net from 'net';
 
 declare module 'webpack' {
     interface Configuration {
-        serve?: WebpackServe.Options;
+        serve?: WebpackServe.Options | undefined;
     }
 }
 
@@ -37,56 +37,56 @@ declare namespace WebpackServe {
 
     interface Options {
         /** Addon to webpack-serve that allows access to the Koa server instance */
-        add?: (app: InitializedKoa, middleware: Middleware, options: Options) => void;
+        add?: ((app: InitializedKoa, middleware: Middleware, options: Options) => void) | undefined;
 
         /** Custom instance of a webpack compiler */
-        compiler?: webpack.Compiler;
+        compiler?: webpack.Compiler | undefined;
 
         /** Webpack configuration for creating a new webpack compiler instance */
-        config?: webpack.Configuration;
+        config?: webpack.Configuration | undefined;
 
         /** A path or array of paths where content will be served from */
-        content?: string | string[];
+        content?: string | string[] | undefined;
 
         /** Copy the server URL to the clipboard when the server is started */
-        clipboard?: boolean;
+        clipboard?: boolean | undefined;
 
         /** Options for webpack-dev-middleware */
-        devMiddleware?: webpackDevMiddleware.Options;
+        devMiddleware?: webpackDevMiddleware.Options | undefined;
 
         /** The host the server will listen on */
-        host?: string;
+        host?: string | undefined;
 
         /** Options for webpack-hot-client */
-        hotClient?: webpackHotClient.Options | boolean;
+        hotClient?: webpackHotClient.Options | boolean | undefined;
 
         /** Enable HTTP2 support */
-        http2?: boolean;
+        http2?: boolean | undefined;
 
         /** Configuration object for the server to use HTTPS */
-        https?: https.ServerOptions;
+        https?: https.ServerOptions | undefined;
 
         /** Level of information for webpack-serve to output */
-        logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent';
+        logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent' | undefined;
 
         /** Prepend timestamp to each log line */
-        logTime?: boolean;
+        logTime?: boolean | undefined;
 
         /** Object of subscribers to webpack-serve bus events */
-        on?: OnOptions;
+        on?: OnOptions | undefined;
 
         /** Open the browser when started */
-        open?: OpenOptions | boolean;
+        open?: OpenOptions | boolean | undefined;
 
         /** Port that the server listens on */
-        port?: number;
+        port?: number | undefined;
     }
 
     interface OpenOptions {
         /** Name of the browser to open */
-        app?: string;
+        app?: string | undefined;
         /** Path on the server to open */
-        path?: string;
+        path?: string | undefined;
     }
 
     type OnOptions = { [K in keyof EventMap]?: (args: EventMap[K]) => void };

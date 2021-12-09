@@ -2,8 +2,8 @@ import { ComponentType } from 'react';
 
 declare namespace ButtonBlockAppender {
     interface Props {
-        children?: never;
-        className?: string;
+        children?: never | undefined;
+        className?: string | undefined;
         /**
          * The `clientId` of the Block from who's root new Blocks should be inserted. This prop is
          * required by the block `Inserter` component. Typically this is the `clientID` of the Block

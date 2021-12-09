@@ -10,7 +10,7 @@ declare namespace remarkAbbr {
     type Abbr = Plugin<[Options?]>;
 
     interface Options {
-        expandFirst?: boolean;
+        expandFirst?: boolean | undefined;
     }
 }
 

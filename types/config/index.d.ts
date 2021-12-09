@@ -46,9 +46,8 @@ declare namespace c {
         toObject(config?: any): any;
 
         /**
-         * This allows module developers to attach their configurations onto
-         * the 6 years agoInitial 0.4 checkin default configuration object so
-         * they can be configured by the consumers of the module.
+         * This allows module developers to attach their configurations onto the default configuration object
+         * so they can be configured by the consumers of the module.
          */
         setModuleDefaults(moduleName:string, defaults:any): any;
     }
@@ -61,7 +60,7 @@ declare namespace c {
 
     interface IConfigSource {
         name: string;
-        original?: string;
+        original?: string | undefined;
         parsed: any;
     }
 }

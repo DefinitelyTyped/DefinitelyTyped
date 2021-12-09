@@ -8,9 +8,9 @@
 /// <reference types="jquery" />
 
 interface RangeHighlight {
-    class?: string;
-    start?: number;
-    end?: number;
+    class?: string | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
 }
 
 type SliderEventType =  'slide' |
@@ -25,57 +25,57 @@ interface SliderOptions {
      * Default: ''
      * set the id of the slider element when it's created
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * Default: 0
      * minimum possible value
      */
-    min?: number;
+    min?: number | undefined;
     /**
      * Default: 10
      * maximum possible value
      */
-    max?: number;
+    max?: number | undefined;
     /**
      * Default: 1
      * increment step
      */
-    step?: number;
+    step?: number | undefined;
     /**
      * Default: number of digits after the decimal of step value
      * The number of digits shown after the decimal. Defaults to the number of digits after the decimal of step value.
      */
-    precision?: number;
+    precision?: number | undefined;
     /**
      * Default: 'horizontal'
      * set the orientation. Accepts 'vertical' or 'horizontal'
      */
-    orientation?: string;
+    orientation?: string | undefined;
     /**
      * Default: 5
      * initial value. Use array to have a range slider.
      */
-    value?: number | number[];
+    value?: number | number[] | undefined;
     /**
      * Default: false
      * make range slider. Optional if initial value is an array. If initial value is scalar, max will be used for second value.
      */
-    range?: boolean;
+    range?: boolean | undefined;
     /**
      * Default: 'before'
      * selection placement. Accepts: 'before', 'after' or 'none'. In case of a range slider, the selection will be placed between the handles
      */
-    selection?: string;
+    selection?: string | undefined;
     /**
      * Default: 'show'
      * whether to show the tooltip on drag, hide the tooltip, or always show the tooltip. Accepts: 'show', 'hide', or 'always'
      */
-    tooltip?: string;
+    tooltip?: string | undefined;
     /**
      * Default: false
      * if false show one tootip if true show two tooltips one for each handler
      */
-    tooltip_split?: boolean;
+    tooltip_split?: boolean | undefined;
     /**
      * Default: null
      * Position of tooltip, relative to slider. Accepts 'top'/'bottom' for
@@ -83,26 +83,26 @@ interface SliderOptions {
      * Default positions are 'top' for horizontal and 'right' for vertical
      * slider.
      */
-    tooltip_position?: 'top' | 'bottom' | 'left' | 'right';
+    tooltip_position?: 'top' | 'bottom' | 'left' | 'right' | undefined;
     /**
      * Default: 'round'
      * handle shape. Accepts: 'round', 'square', 'triangle' or 'custom'
      */
-    handle?: string;
+    handle?: string | undefined;
     /**
      * Default: false
      * whether or not the slider should be reversed
      */
-    reversed?: boolean;
+    reversed?: boolean | undefined;
     /**
      * Default: 'auto'
      */
-    rtl?: boolean | 'auto';
+    rtl?: boolean | 'auto' | undefined;
     /**
      * Default: true
      * whether or not the slider is initially enabled
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Default: returns the plain value
      * formatter callback. Return the value wanted to be displayed in the tooltip
@@ -115,60 +115,60 @@ interface SliderOptions {
      * arrow right the righter slider value for a horizontal slider - no matter if the slider was reversed or not.
      * By default the arrow keys are oriented by arrow up/right to the higher slider value, arrow down/left to the lower slider value.
      */
-    natural_arrow_keys?: boolean;
+    natural_arrow_keys?: boolean | undefined;
     /**
      * Default: [ ]
      * Used to define the values of ticks. Tick marks are indicators to denote special values in the range. This option overwrites min and max options.
      */
-    ticks?: number[];
+    ticks?: number[] | undefined;
     /**
      * Default: [ ]
      * Defines the positions of the tick values in percentages. The first value should alwasy be 0, the last value should always be 100 percent.
      */
-    ticks_positions?: number[];
+    ticks_positions?: number[] | undefined;
     /**
      * Default: [ ]
      * Defines the labels below the tick marks. Accepts HTML input.
      */
-    ticks_labels?: string[];
+    ticks_labels?: string[] | undefined;
     /**
      * Default: 0
      * Used to define the snap bounds of a tick. Snaps to the tick if value is within these bounds.
      */
-    ticks_snap_bounds?: number;
+    ticks_snap_bounds?: number | undefined;
     /**
      * Default: false
      * Used to allow for a user to hover over a given tick to see it's value.
      * Useful if custom formatter passed in
      */
-    ticks_tooltip?: boolean;
+    ticks_tooltip?: boolean | undefined;
     /**
      * Default: 'linear'
      * Set to 'logarithmic' to use a logarithmic scale.
      */
-    scale?: 'linear' | 'logarithmic';
+    scale?: 'linear' | 'logarithmic' | undefined;
     /**
      * Default: false
      * Focus the appropriate slider handle after a value change.
      */
-    focus?: boolean;
+    focus?: boolean | undefined;
     /**
      * Default: null
      * ARIA labels for the slider handle's, Use array for multiple values in a
      * range slider.
      */
-    labelledby?: string | string[];
+    labelledby?: string | string[] | undefined;
     /**
      * Default: []
      * Defines a range array that you want to highlight, for example:
      * [{'start':val1, 'end': val2, 'class': 'optionalAdditionalClassName'}].
      */
-    rangeHighlights?: RangeHighlight[];
+    rangeHighlights?: RangeHighlight[] | undefined;
     /**
      * Default: false
      * Lock the selection to the values defined in the ticks array.
      */
-    lock_to_ticks?: boolean;
+    lock_to_ticks?: boolean | undefined;
 }
 
 declare global {
@@ -198,7 +198,7 @@ interface SliderEvent extends JQuery.Event {
 }
 
 interface RefreshOptions {
-    useCurrentValue?: boolean;
+    useCurrentValue?: boolean | undefined;
 }
 
 /**

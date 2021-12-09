@@ -39,13 +39,13 @@ export interface GutterOptions {
      * A Number that determines stacking order between gutters.
      * Lower priority items are forced closer to the edges of the window. (default: -100)
      */
-    priority?: number;
+    priority?: number | undefined;
 
     /**
      * Boolean specifying whether the gutter is visible initially after being created.
      * (default: true)
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 
     /**
      * String specifying the type of gutter to create.
@@ -53,30 +53,30 @@ export interface GutterOptions {
      * Gutter::decorateMarker.
      * 'line-number' gutters.
      */
-    type?: 'decorated' | 'line-number';
+    type?: 'decorated' | 'line-number' | undefined;
 
     /** String added to the CSS classnames of the gutter's root DOM element. */
-    class?: string;
+    class?: string | undefined;
 
     /**
      * Function called by a 'line-number' gutter to generate the label for each
      * line number element. Should return a String that will be used to label the
      * corresponding line.
      */
-    labelFn?: (lineData: LineDataExtended) => string;
+    labelFn?: ((lineData: LineDataExtended) => string) | undefined;
 
     /**
      * Function to be called when a mousedown event is received by a line-number
      * element within this type: 'line-number' Gutter. If unspecified, the default
      * behavior is to select the clicked buffer row.
      */
-    onMouseDown?: (lineData: LineData) => void;
+    onMouseDown?: ((lineData: LineData) => void) | undefined;
 
     /**
      * Function to be called when a mousemove event occurs on a line-number
      * element within within this type: 'line-number' Gutter.
      */
-    onMouseMove?: (lineData: LineData) => void;
+    onMouseMove?: ((lineData: LineData) => void) | undefined;
 }
 
 export interface LineData {

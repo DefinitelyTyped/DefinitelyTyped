@@ -347,7 +347,9 @@ const customTooltipsPieChart = new Chart(ctx, {
         tooltips: {
             enabled: false,
             custom: (tooltipModel) => {
-                // do whatever
+                const firstColor = tooltipModel.labelColors[0];
+                console.log(firstColor.borderColor);
+                console.log(firstColor.backgroundColor);
             },
         },
     },

@@ -31,7 +31,7 @@ declare namespace GoogleAppsScript {
         }
       }
       interface ContactGroupsCollection {
-        Members?: Collection.ContactGroups.MembersCollection;
+        Members?: Collection.ContactGroups.MembersCollection | undefined;
         // Get a list of contact groups owned by the authenticated user by specifying
         // a list of contact group resource names.
         batchGet(): Schema.BatchGetContactGroupsResponse;
@@ -63,7 +63,7 @@ declare namespace GoogleAppsScript {
         update(resource: Schema.UpdateContactGroupRequest, resourceName: string): Schema.ContactGroup;
       }
       interface PeopleCollection {
-        Connections?: Collection.People.ConnectionsCollection;
+        Connections?: Collection.People.ConnectionsCollection | undefined;
         // Create a new contact and return the person resource for that contact.
         createContact(resource: Schema.Person): Schema.Person;
         // Create a new contact and return the person resource for that contact.
@@ -120,315 +120,315 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Address {
-        city?: string;
-        country?: string;
-        countryCode?: string;
-        extendedAddress?: string;
-        formattedType?: string;
-        formattedValue?: string;
-        metadata?: People.Schema.FieldMetadata;
-        poBox?: string;
-        postalCode?: string;
-        region?: string;
-        streetAddress?: string;
-        type?: string;
+        city?: string | undefined;
+        country?: string | undefined;
+        countryCode?: string | undefined;
+        extendedAddress?: string | undefined;
+        formattedType?: string | undefined;
+        formattedValue?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        poBox?: string | undefined;
+        postalCode?: string | undefined;
+        region?: string | undefined;
+        streetAddress?: string | undefined;
+        type?: string | undefined;
       }
       interface AgeRangeType {
-        ageRange?: string;
-        metadata?: People.Schema.FieldMetadata;
+        ageRange?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
       }
       interface BatchGetContactGroupsResponse {
-        responses?: People.Schema.ContactGroupResponse[];
+        responses?: People.Schema.ContactGroupResponse[] | undefined;
       }
       interface Biography {
-        contentType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        contentType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface Birthday {
-        date?: People.Schema.Date;
-        metadata?: People.Schema.FieldMetadata;
-        text?: string;
+        date?: People.Schema.Date | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        text?: string | undefined;
       }
       interface BraggingRights {
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface ContactGroup {
-        etag?: string;
-        formattedName?: string;
-        groupType?: string;
-        memberCount?: number;
-        memberResourceNames?: string[];
-        metadata?: People.Schema.ContactGroupMetadata;
-        name?: string;
-        resourceName?: string;
+        etag?: string | undefined;
+        formattedName?: string | undefined;
+        groupType?: string | undefined;
+        memberCount?: number | undefined;
+        memberResourceNames?: string[] | undefined;
+        metadata?: People.Schema.ContactGroupMetadata | undefined;
+        name?: string | undefined;
+        resourceName?: string | undefined;
       }
       interface ContactGroupMembership {
-        contactGroupId?: string;
+        contactGroupId?: string | undefined;
       }
       interface ContactGroupMetadata {
-        deleted?: boolean;
-        updateTime?: string;
+        deleted?: boolean | undefined;
+        updateTime?: string | undefined;
       }
       interface ContactGroupResponse {
-        contactGroup?: People.Schema.ContactGroup;
-        requestedResourceName?: string;
-        status?: People.Schema.Status;
+        contactGroup?: People.Schema.ContactGroup | undefined;
+        requestedResourceName?: string | undefined;
+        status?: People.Schema.Status | undefined;
       }
       interface CoverPhoto {
-        default?: boolean;
-        metadata?: People.Schema.FieldMetadata;
-        url?: string;
+        default?: boolean | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        url?: string | undefined;
       }
       interface CreateContactGroupRequest {
-        contactGroup?: People.Schema.ContactGroup;
+        contactGroup?: People.Schema.ContactGroup | undefined;
       }
       interface Date {
-        day?: number;
-        month?: number;
-        year?: number;
+        day?: number | undefined;
+        month?: number | undefined;
+        year?: number | undefined;
       }
       interface DomainMembership {
-        inViewerDomain?: boolean;
+        inViewerDomain?: boolean | undefined;
       }
       interface EmailAddress {
-        displayName?: string;
-        formattedType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        type?: string;
-        value?: string;
+        displayName?: string | undefined;
+        formattedType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface Event {
-        date?: People.Schema.Date;
-        formattedType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        type?: string;
+        date?: People.Schema.Date | undefined;
+        formattedType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        type?: string | undefined;
       }
       interface FieldMetadata {
-        primary?: boolean;
-        source?: People.Schema.Source;
-        verified?: boolean;
+        primary?: boolean | undefined;
+        source?: People.Schema.Source | undefined;
+        verified?: boolean | undefined;
       }
       interface Gender {
-        formattedValue?: string;
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        formattedValue?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface GetPeopleResponse {
-        responses?: People.Schema.PersonResponse[];
+        responses?: People.Schema.PersonResponse[] | undefined;
       }
       interface ImClient {
-        formattedProtocol?: string;
-        formattedType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        protocol?: string;
-        type?: string;
-        username?: string;
+        formattedProtocol?: string | undefined;
+        formattedType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        protocol?: string | undefined;
+        type?: string | undefined;
+        username?: string | undefined;
       }
       interface Interest {
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface ListConnectionsResponse {
-        connections?: People.Schema.Person[];
-        nextPageToken?: string;
-        nextSyncToken?: string;
-        totalItems?: number;
-        totalPeople?: number;
+        connections?: People.Schema.Person[] | undefined;
+        nextPageToken?: string | undefined;
+        nextSyncToken?: string | undefined;
+        totalItems?: number | undefined;
+        totalPeople?: number | undefined;
       }
       interface ListContactGroupsResponse {
-        contactGroups?: People.Schema.ContactGroup[];
-        nextPageToken?: string;
-        nextSyncToken?: string;
-        totalItems?: number;
+        contactGroups?: People.Schema.ContactGroup[] | undefined;
+        nextPageToken?: string | undefined;
+        nextSyncToken?: string | undefined;
+        totalItems?: number | undefined;
       }
       interface Locale {
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface Membership {
-        contactGroupMembership?: People.Schema.ContactGroupMembership;
-        domainMembership?: People.Schema.DomainMembership;
-        metadata?: People.Schema.FieldMetadata;
+        contactGroupMembership?: People.Schema.ContactGroupMembership | undefined;
+        domainMembership?: People.Schema.DomainMembership | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
       }
       interface ModifyContactGroupMembersRequest {
-        resourceNamesToAdd?: string[];
-        resourceNamesToRemove?: string[];
+        resourceNamesToAdd?: string[] | undefined;
+        resourceNamesToRemove?: string[] | undefined;
       }
       interface ModifyContactGroupMembersResponse {
-        notFoundResourceNames?: string[];
+        notFoundResourceNames?: string[] | undefined;
       }
       interface Name {
-        displayName?: string;
-        displayNameLastFirst?: string;
-        familyName?: string;
-        givenName?: string;
-        honorificPrefix?: string;
-        honorificSuffix?: string;
-        metadata?: People.Schema.FieldMetadata;
-        middleName?: string;
-        phoneticFamilyName?: string;
-        phoneticFullName?: string;
-        phoneticGivenName?: string;
-        phoneticHonorificPrefix?: string;
-        phoneticHonorificSuffix?: string;
-        phoneticMiddleName?: string;
+        displayName?: string | undefined;
+        displayNameLastFirst?: string | undefined;
+        familyName?: string | undefined;
+        givenName?: string | undefined;
+        honorificPrefix?: string | undefined;
+        honorificSuffix?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        middleName?: string | undefined;
+        phoneticFamilyName?: string | undefined;
+        phoneticFullName?: string | undefined;
+        phoneticGivenName?: string | undefined;
+        phoneticHonorificPrefix?: string | undefined;
+        phoneticHonorificSuffix?: string | undefined;
+        phoneticMiddleName?: string | undefined;
       }
       interface Nickname {
-        metadata?: People.Schema.FieldMetadata;
-        type?: string;
-        value?: string;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface Occupation {
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface Organization {
-        current?: boolean;
-        department?: string;
-        domain?: string;
-        endDate?: People.Schema.Date;
-        formattedType?: string;
-        jobDescription?: string;
-        location?: string;
-        metadata?: People.Schema.FieldMetadata;
-        name?: string;
-        phoneticName?: string;
-        startDate?: People.Schema.Date;
-        symbol?: string;
-        title?: string;
-        type?: string;
+        current?: boolean | undefined;
+        department?: string | undefined;
+        domain?: string | undefined;
+        endDate?: People.Schema.Date | undefined;
+        formattedType?: string | undefined;
+        jobDescription?: string | undefined;
+        location?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        name?: string | undefined;
+        phoneticName?: string | undefined;
+        startDate?: People.Schema.Date | undefined;
+        symbol?: string | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
       }
       interface Person {
-        addresses?: People.Schema.Address[];
-        ageRange?: string;
-        ageRanges?: People.Schema.AgeRangeType[];
-        biographies?: People.Schema.Biography[];
-        birthdays?: People.Schema.Birthday[];
-        braggingRights?: People.Schema.BraggingRights[];
-        coverPhotos?: People.Schema.CoverPhoto[];
-        emailAddresses?: People.Schema.EmailAddress[];
-        etag?: string;
-        events?: People.Schema.Event[];
-        genders?: People.Schema.Gender[];
-        imClients?: People.Schema.ImClient[];
-        interests?: People.Schema.Interest[];
-        locales?: People.Schema.Locale[];
-        memberships?: People.Schema.Membership[];
-        metadata?: People.Schema.PersonMetadata;
-        names?: People.Schema.Name[];
-        nicknames?: People.Schema.Nickname[];
-        occupations?: People.Schema.Occupation[];
-        organizations?: People.Schema.Organization[];
-        phoneNumbers?: People.Schema.PhoneNumber[];
-        photos?: People.Schema.Photo[];
-        relations?: People.Schema.Relation[];
-        relationshipInterests?: People.Schema.RelationshipInterest[];
-        relationshipStatuses?: People.Schema.RelationshipStatus[];
-        residences?: People.Schema.Residence[];
-        resourceName?: string;
-        sipAddresses?: People.Schema.SipAddress[];
-        skills?: People.Schema.Skill[];
-        taglines?: People.Schema.Tagline[];
-        urls?: People.Schema.Url[];
-        userDefined?: People.Schema.UserDefined[];
+        addresses?: People.Schema.Address[] | undefined;
+        ageRange?: string | undefined;
+        ageRanges?: People.Schema.AgeRangeType[] | undefined;
+        biographies?: People.Schema.Biography[] | undefined;
+        birthdays?: People.Schema.Birthday[] | undefined;
+        braggingRights?: People.Schema.BraggingRights[] | undefined;
+        coverPhotos?: People.Schema.CoverPhoto[] | undefined;
+        emailAddresses?: People.Schema.EmailAddress[] | undefined;
+        etag?: string | undefined;
+        events?: People.Schema.Event[] | undefined;
+        genders?: People.Schema.Gender[] | undefined;
+        imClients?: People.Schema.ImClient[] | undefined;
+        interests?: People.Schema.Interest[] | undefined;
+        locales?: People.Schema.Locale[] | undefined;
+        memberships?: People.Schema.Membership[] | undefined;
+        metadata?: People.Schema.PersonMetadata | undefined;
+        names?: People.Schema.Name[] | undefined;
+        nicknames?: People.Schema.Nickname[] | undefined;
+        occupations?: People.Schema.Occupation[] | undefined;
+        organizations?: People.Schema.Organization[] | undefined;
+        phoneNumbers?: People.Schema.PhoneNumber[] | undefined;
+        photos?: People.Schema.Photo[] | undefined;
+        relations?: People.Schema.Relation[] | undefined;
+        relationshipInterests?: People.Schema.RelationshipInterest[] | undefined;
+        relationshipStatuses?: People.Schema.RelationshipStatus[] | undefined;
+        residences?: People.Schema.Residence[] | undefined;
+        resourceName?: string | undefined;
+        sipAddresses?: People.Schema.SipAddress[] | undefined;
+        skills?: People.Schema.Skill[] | undefined;
+        taglines?: People.Schema.Tagline[] | undefined;
+        urls?: People.Schema.Url[] | undefined;
+        userDefined?: People.Schema.UserDefined[] | undefined;
       }
       interface PersonMetadata {
-        deleted?: boolean;
-        linkedPeopleResourceNames?: string[];
-        objectType?: string;
-        previousResourceNames?: string[];
-        sources?: People.Schema.Source[];
+        deleted?: boolean | undefined;
+        linkedPeopleResourceNames?: string[] | undefined;
+        objectType?: string | undefined;
+        previousResourceNames?: string[] | undefined;
+        sources?: People.Schema.Source[] | undefined;
       }
       interface PersonResponse {
-        httpStatusCode?: number;
-        person?: People.Schema.Person;
-        requestedResourceName?: string;
-        status?: People.Schema.Status;
+        httpStatusCode?: number | undefined;
+        person?: People.Schema.Person | undefined;
+        requestedResourceName?: string | undefined;
+        status?: People.Schema.Status | undefined;
       }
       interface PhoneNumber {
-        canonicalForm?: string;
-        formattedType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        type?: string;
-        value?: string;
+        canonicalForm?: string | undefined;
+        formattedType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface Photo {
-        default?: boolean;
-        metadata?: People.Schema.FieldMetadata;
-        url?: string;
+        default?: boolean | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        url?: string | undefined;
       }
       interface ProfileMetadata {
-        objectType?: string;
-        userTypes?: string[];
+        objectType?: string | undefined;
+        userTypes?: string[] | undefined;
       }
       interface Relation {
-        formattedType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        person?: string;
-        type?: string;
+        formattedType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        person?: string | undefined;
+        type?: string | undefined;
       }
       interface RelationshipInterest {
-        formattedValue?: string;
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        formattedValue?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface RelationshipStatus {
-        formattedValue?: string;
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        formattedValue?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface Residence {
-        current?: boolean;
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        current?: boolean | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface SipAddress {
-        formattedType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        type?: string;
-        value?: string;
+        formattedType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface Skill {
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface Source {
-        etag?: string;
-        id?: string;
-        profileMetadata?: People.Schema.ProfileMetadata;
-        type?: string;
-        updateTime?: string;
+        etag?: string | undefined;
+        id?: string | undefined;
+        profileMetadata?: People.Schema.ProfileMetadata | undefined;
+        type?: string | undefined;
+        updateTime?: string | undefined;
       }
       interface Status {
-        code?: number;
-        details?: object[];
-        message?: string;
+        code?: number | undefined;
+        details?: object[] | undefined;
+        message?: string | undefined;
       }
       interface Tagline {
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
       interface UpdateContactGroupRequest {
-        contactGroup?: People.Schema.ContactGroup;
+        contactGroup?: People.Schema.ContactGroup | undefined;
       }
       interface Url {
-        formattedType?: string;
-        metadata?: People.Schema.FieldMetadata;
-        type?: string;
-        value?: string;
+        formattedType?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface UserDefined {
-        key?: string;
-        metadata?: People.Schema.FieldMetadata;
-        value?: string;
+        key?: string | undefined;
+        metadata?: People.Schema.FieldMetadata | undefined;
+        value?: string | undefined;
       }
     }
   }
   interface People {
-    ContactGroups?: People.Collection.ContactGroupsCollection;
-    People?: People.Collection.PeopleCollection;
+    ContactGroups?: People.Collection.ContactGroupsCollection | undefined;
+    People?: People.Collection.PeopleCollection | undefined;
     // Create a new instance of Address
     newAddress(): People.Schema.Address;
     // Create a new instance of AgeRangeType

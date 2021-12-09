@@ -25,7 +25,7 @@ export interface RelativeTimeReturns {
 
 // prettyPrint
 export function prettyPrint(
-    arg: string | Date | number,
+    arg?: string | Date | number,
     options?: PrettyPrintOptions
 ): string;
 
@@ -44,4 +44,4 @@ export function relativeTime(
 export function monthName(arg: string | Date | number): string;
 
 // toUTC
-export function toUTC(arg: string | Date | number): Date;
+export function toUTC(arg?: string | Date | number): Date;

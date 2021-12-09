@@ -21,16 +21,16 @@ export default class Table extends Plugin {
 }
 
 export interface TableConfig {
-    contentToolbar?: string[];
+    contentToolbar?: string[] | undefined;
     tableCellProperties?: {
-        borderColors?: TableColorConfig[];
+        borderColors?: TableColorConfig[] | undefined;
         backgroundColors: TableColorConfig[];
-    };
+    } | undefined;
     tableProperties?: {
-        borderColors?: TableColorConfig[];
+        borderColors?: TableColorConfig[] | undefined;
         backgroundColors: TableColorConfig[];
-    };
-    tableToolbar: string[];
+    } | undefined;
+    tableToolbar?: string[] | undefined;
 }
 
 export type TableColorConfig =
@@ -38,5 +38,11 @@ export type TableColorConfig =
     | {
           color: string;
           label: string;
-          hasBorder?: boolean;
+          hasBorder?: boolean | undefined;
       };
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Table: Table;
+    }
+}

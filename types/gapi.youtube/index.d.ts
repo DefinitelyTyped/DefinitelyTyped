@@ -21,7 +21,7 @@ declare namespace gapi.client.youtube {
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeActivityResource>;
 
         /**
@@ -35,35 +35,35 @@ declare namespace gapi.client.youtube {
             /**
              * The channelId parameter specifies a unique YouTube channel ID. The API will then return a list of that channel's activities.
              */
-            channelId?: string;
+            channelId?: string | undefined;
             /**
              * Set this parameter's value to true to retrieve the activity feed that displays on the YouTube home page for the currently authenticated user.
              */
-            home?: boolean;
+            home?: boolean | undefined;
             /**
              * The maxResults parameter specifies the maximum number of items that should be returned in the result set.
              */
-            maxResults?: number;
+            maxResults?: number | undefined;
             /**
              * Set this parameter's value to true to retrieve a feed of the authenticated user's activities.
              */
-            mine?: boolean;
+            mine?: boolean | undefined;
             /**
              * The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
              */
-            pageToken?: string;
+            pageToken?: string | undefined;
             /**
              * The publishedAfter parameter specifies the earliest date and time that an activity could have occurred for that activity to be included in the API response. If the parameter value specifies a day, but not a time, then any activities that occurred that day will be included in the result set. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
              */
-            publishedAfter?: string;
+            publishedAfter?: string | undefined;
             /**
              * The publishedBefore parameter specifies the date and time before which an activity must have occurred for that activity to be included in the API response. If the parameter value specifies a day, but not a time, then any activities that occurred that day will be excluded from the result set. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
              */
-            publishedBefore?: string;
+            publishedBefore?: string | undefined;
             /**
              * The regionCode parameter instructs the API to return results for the specified country. The parameter value is an ISO 3166-1 alpha-2 country code.
              */
-            regionCode?: string;
+            regionCode?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePaginationInfo<GoogleApiYouTubeActivityResource>>;
 
     }
@@ -98,39 +98,39 @@ declare namespace gapi.client.youtube {
             /**
              * The categoryId parameter specifies a YouTube guide category, thereby requesting YouTube channels associated with that category.
              */
-            categoryId?: string;
+            categoryId?: string | undefined;
             /**
              * The forUsername parameter specifies a YouTube username, thereby requesting the channel associated with that username.
              */
-            forUsername?: string;
+            forUsername?: string | undefined;
             /**
              * The id parameter specifies a comma-separated list of the YouTube channel ID(s) for the resource(s) that are being retrieved. In a channel resource, the id property specifies the channel's YouTube channel ID.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * Set this parameter's value to true to instruct the API to only return channels managed by the content owner that the onBehalfOfContentOwner parameter specifies. The user must be authenticated as a CMS account linked to the specified content owner and onBehalfOfContentOwner must be provided.
              */
-            managedByMe?: boolean;
+            managedByMe?: boolean | undefined;
             /**
              * The maxResults parameter specifies the maximum number of items that should be returned in the result set.
              */
-            maxResults?: number;
+            maxResults?: number | undefined;
             /**
              * Set this parameter's value to true to instruct the API to only return channels owned by the authenticated user.
              */
-            mine?: boolean;
+            mine?: boolean | undefined;
             /**
              * Set this parameter's value to true to retrieve a list of channels that subscribed to the authenticated user's channel.
              */
-            mySubscribers?: boolean;
+            mySubscribers?: boolean | undefined;
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
             /**
              * The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
              */
-            pageToken?: string;
+            pageToken?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePaginationInfo<GoogleApiYouTubeChannelResource>>;
 
         /**
@@ -144,11 +144,11 @@ declare namespace gapi.client.youtube {
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeChannelResource>;
 
     }
@@ -166,15 +166,15 @@ declare namespace gapi.client.youtube {
             /**
              * The hl parameter specifies the language that will be used for text values in the API response.
              */
-            hl?: string;
+            hl?: string | undefined;
             /**
              * The id parameter specifies a comma-separated list of the YouTube channel category ID(s) for the resource(s) that are being retrieved. In a guideCategory resource, the id property specifies the YouTube channel category ID.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * The regionCode parameter instructs the API to return the list of guide categories available in the specified country. The parameter value is an ISO 3166-1 alpha-2 country code.
              */
-            regionCode?: string;
+            regionCode?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePageInfo<GoogleApiYouTubeGuideCategoryResource>>;
 
     }
@@ -202,7 +202,7 @@ declare namespace gapi.client.youtube {
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePlaylistItemResource>;
 
         /**
@@ -216,23 +216,23 @@ declare namespace gapi.client.youtube {
             /**
              * The id parameter specifies a comma-separated list of one or more unique playlist item IDs.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * The maxResults parameter specifies the maximum number of items that should be returned in the result set.
              */
-            maxResults?: number;
+            maxResults?: number | undefined;
             /**
              * The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
              */
-            pageToken?: string;
+            pageToken?: string | undefined;
             /**
              * The playlistId parameter specifies the unique ID of the playlist for which you want to retrieve playlist items. Note that even though this is an optional parameter, every request to retrieve playlist items must specify a value for either the id parameter or the playlistId parameter.
              */
-            playlistId?: string;
+            playlistId?: string | undefined;
             /**
              * The videoId parameter specifies that the request should return only the playlist items that contain the specified video.
              */
-            videoId?: string;
+            videoId?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource>>;
 
         /**
@@ -246,7 +246,7 @@ declare namespace gapi.client.youtube {
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePlaylistItemResource>;
     }
 
@@ -274,7 +274,7 @@ declare namespace gapi.client.youtube {
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePlaylistResource>;
 
         /**
@@ -288,19 +288,19 @@ declare namespace gapi.client.youtube {
             /**
              * This value indicates that the API should only return the specified channel's playlists.
              */
-            channelId?: string;
+            channelId?: string | undefined;
             /**
              * The id parameter specifies a comma-separated list of the YouTube playlist ID(s) for the resource(s) that are being retrieved. In a playlist resource, the id property specifies the playlist's YouTube playlist ID.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * The maxResults parameter specifies the maximum number of items that should be returned in the result set.
              */
-            maxResults?: number;
+            maxResults?: number | undefined;
             /**
              * Set this parameter's value to true to instruct the API to only return playlists owned by the authenticated user.
              */
-            mine?: boolean;
+            mine?: boolean | undefined;
             /**
              * The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
              */
@@ -318,7 +318,7 @@ declare namespace gapi.client.youtube {
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePlaylistResource>;
 
     }
@@ -336,103 +336,103 @@ declare namespace gapi.client.youtube {
             /**
              * The channelId parameter indicates that the API response should only contain resources created by the channel
              */
-            channelId?: string;
+            channelId?: string | undefined;
             /**
              * The channelType parameter lets you restrict a search to a particular type of channel.
              */
-            channelType?: string;
+            channelType?: string | undefined;
             /**
              * The forContentOwner parameter restricts the search to only retrieve resources owned by the content owner specified by the onBehalfOfContentOwner parameter. The user must be authenticated as a CMS account linked to the specified content owner and onBehalfOfContentOwner must be provided.
              */
-            forContentOwner?: boolean;
+            forContentOwner?: boolean | undefined;
             /**
              * The forMine parameter restricts the search to only retrieve videos owned by the authenticated user.
              */
-            forMine?: boolean;
+            forMine?: boolean | undefined;
             /**
              * The maxResults parameter specifies the maximum number of items that should be returned in the result set.
              */
-            maxResults?: number;
+            maxResults?: number | undefined;
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
             /**
              * The order parameter specifies the method that will be used to order resources in the API response.
              */
-            order?: string;
+            order?: string | undefined;
             /**
              * The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
              */
-            pageToken?: string;
+            pageToken?: string | undefined;
             /**
              * The publishedAfter parameter indicates that the API response should only contain resources created after the specified time. The value is an RFC 3339 formatted date-time value (1970-01-01T00:00:00Z).
              */
-            publishedAfter?: string;
+            publishedAfter?: string | undefined;
             /**
              * The publishedBefore parameter indicates that the API response should only contain resources created before the specified time. The value is an RFC 3339 formatted date-time value (1970-01-01T00:00:00Z).
              */
-            publishedBefore?: string;
+            publishedBefore?: string | undefined;
             /**
              * The q parameter specifies the query term to search for.
              */
-            q?: string;
+            q?: string | undefined;
             /**
              * The regionCode parameter instructs the API to return search results for the specified country. The parameter value is an ISO 3166-1 alpha-2 country code.
              */
-            regionCode?: string;
+            regionCode?: string | undefined;
             /**
              * The relatedToVideoId parameter retrieves a list of videos that are related to the video that the parameter value identifies. The parameter value must be set to a YouTube video ID and, if you are using this parameter, the type parameter must be set to video.
              */
-            relatedToVideoId?: string;
+            relatedToVideoId?: string | undefined;
             /**
              * The safeSearch parameter indicates whether the search results should include restricted content as well as standard content.
              */
-            safeSearch?: string;
+            safeSearch?: string | undefined;
             /**
              * The topicId parameter indicates that the API response should only contain resources associated with the specified topic. The value identifies a Freebase topic ID.
              */
-            topicId?: string;
+            topicId?: string | undefined;
             /**
              * The type parameter restricts a search query to only retrieve a particular type of resource.
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * The videoCaption parameter indicates whether the API should filter video search results based on whether they have captions.
              */
-            videoCaption?: string;
+            videoCaption?: string | undefined;
             /**
              * The videoCategoryId parameter filters video search results based on their category.
              */
-            videoCategoryId?: string;
+            videoCategoryId?: string | undefined;
             /**
              * The videoDefinition parameter lets you restrict a search to only include either high definition (HD) or standard definition (SD) videos. HD videos are available for playback in at least 720p, though higher resolutions, like 1080p, might also be available.
              */
-            videoDefinition?: string;
+            videoDefinition?: string | undefined;
             /**
              * The videoDimension parameter lets you restrict a search to only retrieve 2D or 3D videos.
              */
-            videoDimension?: string;
+            videoDimension?: string | undefined;
             /**
              * The videoDuration parameter filters video search results based on their duration.
              */
-            videoDuration?: string;
+            videoDuration?: string | undefined;
             /**
              * The videoEmbeddable parameter lets you to restrict a search to only videos that can be embedded into a webpage.
              */
-            videoEmbeddable?: string;
+            videoEmbeddable?: string | undefined;
             /**
              * The videoLicense parameter filters search results to only include videos with a particular license. YouTube lets video uploaders choose to attach either the Creative Commons license or the standard YouTube license to each of their videos.
              */
-            videoLicense?: string;
+            videoLicense?: string | undefined;
             /**
              * The videoSyndicated parameter lets you to restrict a search to only videos that can be played outside youtube.com.
              */
-            videoSyndicated?: string;
+            videoSyndicated?: string | undefined;
             /**
              * The videoType parameter lets you restrict a search to a particular type of videos.
              */
-            videoType?: string;
+            videoType?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePaginationInfo<GoogleApiYouTubeSearchResource>>;
 
     }
@@ -474,35 +474,35 @@ declare namespace gapi.client.youtube {
             /**
              * The channelId parameter specifies a YouTube channel ID. The API will only return that channel's subscriptions.
              */
-            channelId?: string;
+            channelId?: string | undefined;
             /**
              * The forChannelId parameter specifies a comma-separated list of channel IDs. The API response will then only contain subscriptions matching those channels.
              */
-            forChannelId?: string;
+            forChannelId?: string | undefined;
             /**
              * The id parameter specifies a comma-separated list of the YouTube subscription ID(s) for the resource(s) that are being retrieved. In a subscription resource, the id property specifies the YouTube subscription ID.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * The maxResults parameter specifies the maximum number of items that should be returned in the result set.
              */
-            maxResults?: number;
+            maxResults?: number | undefined;
             /**
              * Set this parameter's value to true to retrieve a feed of the authenticated user's subscriptions.
              */
-            mine?: boolean;
+            mine?: boolean | undefined;
             /**
              * Set this parameter's value to true to retrieve a feed of the subscribers of the authenticated user.
              */
-            mySubscripbers?: boolean;
+            mySubscripbers?: boolean | undefined;
             /**
              * The order parameter specifies the method that will be used to sort resources in the API response.
              */
-            order?: string;
+            order?: string | undefined;
             /**
              * The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
              */
-            pageToken?: string;
+            pageToken?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePaginationInfo<GoogleApiYouTubeSubscriptionResource>>;
     }
 
@@ -533,15 +533,15 @@ declare namespace gapi.client.youtube {
             /**
              * The hl parameter specifies the language that should be used for text values in the API response.
              */
-            hl?: string;
+            hl?: string | undefined;
             /**
              * The id parameter specifies a comma-separated list of video category IDs for the resources that you are retrieving.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * The regionCode parameter instructs the API to return the list of video categories available in the specified country. The parameter value is an ISO 3166-1 alpha-2 country code.
              */
-            regionCode?: string;
+            regionCode?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePageInfo<GoogleApiYouTubeVideoCategoryResource>>;
 
     }
@@ -560,7 +560,7 @@ declare namespace gapi.client.youtube {
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeVideoResource>;
 
         /**
@@ -574,7 +574,7 @@ declare namespace gapi.client.youtube {
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeVideoGetRatingResponse>;
 
         /**
@@ -588,23 +588,23 @@ declare namespace gapi.client.youtube {
             /**
              * The autoLevels parameter specifies whether the video should be auto-leveled by YouTube.
              */
-            autoLevels?: boolean;
+            autoLevels?: boolean | undefined;
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
             /**
              * This parameter can only be used in a properly authorized request. Note: This parameter is intended exclusively for YouTube content partners. The onBehalfOfContentOwnerChannel parameter indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the channel specified in the parameter value. This parameter must be used in conjunction with the onBehalfOfContentOwner parameter, and the user must be authenticated using a CMS account that is linked to the content owner that the onBehalfOfContentOwner parameter specifies. In addition, the channel that the onBehalfOfContentOwnerChannel parameter value specifies must be linked to the content owner that the onBehalfOfContentOwner parameter specifies. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and perform actions on behalf of the channel specified in the parameter value, without having to provide authentication credentials for each separate channel.
              */
-            onBehalfOfContentOwnerChannel?: string;
+            onBehalfOfContentOwnerChannel?: string | undefined;
             /**
              * The stabilize parameter specifies whether the video should be stabilized by YouTube.
              */
-            stabilize?: boolean;
+            stabilize?: boolean | undefined;
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeVideoResource>;
 
         /**
@@ -664,7 +664,7 @@ declare namespace gapi.client.youtube {
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
         }): HttpRequest<any>;
 
         /**
@@ -678,11 +678,11 @@ declare namespace gapi.client.youtube {
             /**
              * The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
              */
-            onBehalfOfContentOwner?: string;
+            onBehalfOfContentOwner?: string | undefined;
             /**
              * HTTP Request Body
              */
-            RequestBody?: string;
+            RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeVideoResource>;
 
     }
@@ -1816,11 +1816,11 @@ interface GoogleApiYouTubeThumbnailResource {
     /**
      * A standard resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
      */
-    standard?: GoogleApiYouTubeThumbnailItemResource;
+    standard?: GoogleApiYouTubeThumbnailItemResource | undefined;
     /**
      * A very high resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
      */
-    maxres?: GoogleApiYouTubeThumbnailItemResource;
+    maxres?: GoogleApiYouTubeThumbnailItemResource | undefined;
 }
 
 interface GoogleApiYouTubeThumbnailItemResource {

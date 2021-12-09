@@ -8,7 +8,7 @@ import { IOptions } from 'glob';
 import { EntryFunc, Plugin } from 'webpack';
 
 interface PluginOptions {
-    basename_as_entry_name?: boolean;
+    basename_as_entry_name?: boolean | undefined;
 }
 
 declare class WebpackWatchedGlobEntries extends Plugin {

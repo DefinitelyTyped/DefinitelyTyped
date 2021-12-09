@@ -10,8 +10,8 @@ requestMic();
 
 function requestMic() {
     try {
-        navigator.getUserMedia = navigator.getUserMedia;
-        navigator.getUserMedia({ audio: true }, startUserMedia, handleMicConnectError);
+        navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia;
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(startUserMedia, handleMicConnectError);
     } catch (e) {
         handleUserMediaError();
     }
@@ -43,5 +43,7 @@ function startUserMedia(stream: MediaStream) {
         }
     };
 
-    vad(audioContext, stream, options);
+    const voiceActivityDetection = vad(audioContext, stream, options);
+
+    voiceActivityDetection.destroy();
 }

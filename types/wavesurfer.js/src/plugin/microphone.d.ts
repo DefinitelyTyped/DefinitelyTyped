@@ -59,13 +59,13 @@ export interface Browser {
 
 export interface MicrophonePluginParams extends PluginParams {
     /** Constraints describing the media types requested. */
-    constraints?: MediaStreamConstraints;
+    constraints?: MediaStreamConstraints | undefined;
     /** The buffer size in units of sample-frames (default: 4096). */
-    bufferSize?: BufferSize;
+    bufferSize?: BufferSize | undefined;
     /** Integer specifying the number of channels for this node's input (default: 1). Values of up to 32 are supported. */
-    numberOfInputChannels?: number;
+    numberOfInputChannels?: number | undefined;
     /** Integer specifying the number of channels for this node's output. */
-    numberOfOutputChannels?: number;
+    numberOfOutputChannels?: number | undefined;
 }
 
 export type BufferSize = 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384;

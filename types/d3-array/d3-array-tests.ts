@@ -354,6 +354,21 @@ numOrUndefined = d3Array.deviation(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.deviation(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.deviation(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// rank() ------------------------------------------------------------------
+
+float64Array = d3Array.rank(numbersArray);
+float64Array = d3Array.rank(numericArray);
+float64Array = d3Array.rank(numbersOrUndefinedArray);
+
+float64Array = d3Array.rank(typedArray);
+float64Array = d3Array.rank(readonlyNumbersArray);
+float64Array = d3Array.rank(readonlyNumericArray);
+float64Array = d3Array.rank(readonlyNumbersOrUndefinedArray);
+
+float64Array = d3Array.rank(mixedObjectArray, accessorMixedObjectToNum);
+float64Array = d3Array.rank(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+float64Array = d3Array.rank(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // variance() ------------------------------------------------------------------
 
 numOrUndefined = d3Array.variance(numbersArray);
@@ -824,7 +839,7 @@ const keysComparator: string[] = d3Array.groupSort(barley, (a, b) => d3Array.asc
 let count: number;
 
 count = d3Array.count([1, 2, NaN]); // 2
-count = d3Array.count<{ n: string, age?: number; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
+count = d3Array.count<{ n: string, age?: number | undefined; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
 
 // cross() ---------------------------------------------------------------------
 

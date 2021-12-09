@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.96.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -404,6 +404,8 @@ declare module "sap/ui/layout/library" {
        */
       ResponsiveGridLayout = "ResponsiveGridLayout",
       /**
+       * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout ColumnLayout}
+       *
        * Uses the `ResponsiveLayout` layout to render the `SimpleForm` control
        */
       ResponsiveLayout = "ResponsiveLayout",
@@ -558,19 +560,6 @@ declare module "sap/ui/layout/BlockLayout" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: BlockLayoutRow
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.BlockLayout with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -591,6 +580,23 @@ declare module "sap/ui/layout/BlockLayout" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.BlockLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: BlockLayoutRow
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
     /**
      * @SINCE 1.42
      *
@@ -617,10 +623,6 @@ declare module "sap/ui/layout/BlockLayout" {
      * Default value is `false`.
      */
     getKeepFontSize(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.layout.BlockLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.layout.BlockLayoutRow` in the aggregation {@link #getContent content}.
      * and returns its index if found or -1 otherwise.
@@ -777,25 +779,6 @@ declare module "sap/ui/layout/BlockLayoutCell" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
-     * @SINCE 1.56
-     *
-     * Destroys the titleLink in the aggregation {@link #getTitleLink titleLink}.
-     */
-    destroyTitleLink(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.BlockLayoutCell with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -816,6 +799,29 @@ declare module "sap/ui/layout/BlockLayoutCell" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.BlockLayoutCell.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
+     * @SINCE 1.56
+     *
+     * Destroys the titleLink in the aggregation {@link #getTitleLink titleLink}.
+     */
+    destroyTitleLink(): this;
     /**
      * @SINCE 1.48
      *
@@ -846,10 +852,6 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      * The content to be included inside the cell
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.BlockLayoutCell.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -1185,6 +1187,10 @@ declare module "sap/ui/layout/BlockLayoutCellData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.BlockLayoutCellData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getLSize lSize}.
      *
      * Sets the width of the cell for L size of the BlockLayout.
@@ -1192,10 +1198,6 @@ declare module "sap/ui/layout/BlockLayoutCellData" {
      * Default value is `1`.
      */
     getLSize(): int;
-    /**
-     * Returns a metadata object for class sap.ui.layout.BlockLayoutCellData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMSize mSize}.
      *
@@ -1364,6 +1366,31 @@ declare module "sap/ui/layout/BlockLayoutRow" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.BlockLayoutRow with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, BlockLayoutRow>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.BlockLayoutRow.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.42
      *
      * Adds some accentCell into the association {@link #getAccentCells accentCells}.
@@ -1388,27 +1415,6 @@ declare module "sap/ui/layout/BlockLayoutRow" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.ui.layout.BlockLayoutRow with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, BlockLayoutRow>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.42
      *
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAccentCells
@@ -1421,10 +1427,6 @@ declare module "sap/ui/layout/BlockLayoutRow" {
      * The content cells to be included in the row.
      */
     getContent(): BlockLayoutCell[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.BlockLayoutRow.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.42
      *
@@ -1686,23 +1688,6 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: Control
-    ): this;
-    /**
-     * Destroys the customLayout in the aggregation {@link #getCustomLayout customLayout}.
-     */
-    destroyCustomLayout(): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.cssgrid.CSSGrid with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -1723,6 +1708,27 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.CSSGrid.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: Control
+    ): this;
+    /**
+     * Destroys the customLayout in the aggregation {@link #getCustomLayout customLayout}.
+     */
+    destroyCustomLayout(): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
     /**
      * Gets content of aggregation {@link #getCustomLayout customLayout}.
      *
@@ -1818,10 +1824,6 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      * The items contained by the control.
      */
     getItems(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.CSSGrid.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -2169,6 +2171,10 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.GridBasicLayout.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Gets current value of property {@link #getGridAutoColumns gridAutoColumns}.
      *
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
@@ -2242,10 +2248,6 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
      * Default value is `empty string`.
      */
     getGridTemplateRows(): cssgrid.CSSGridTrack;
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.GridBasicLayout.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Sets a new value for property {@link #getGridAutoColumns gridAutoColumns}.
      *
@@ -2483,10 +2485,6 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
     );
 
     /**
-     * Returns a gridTemplateColumns value based on boxWidth and boxMinWidth properties
-     */
-    _getTemplateColumns(): string;
-    /**
      * Creates a new subclass of class sap.ui.layout.cssgrid.GridBoxLayout with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -2507,6 +2505,14 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.GridBoxLayout.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Returns a gridTemplateColumns value based on boxWidth and boxMinWidth properties
+     */
+    _getTemplateColumns(): string;
     /**
      * Gets current value of property {@link #getBoxesPerRowConfig boxesPerRowConfig}.
      *
@@ -2533,11 +2539,7 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
      * Default value is `empty string`.
      */
     getBoxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.GridBoxLayout.
-     */
-    static getMetadata(): ManagedObjectMetadata;
-    /**/
+
     isResponsive(): boolean;
     /**
      * Sets a new value for property {@link #getBoxesPerRowConfig boxesPerRowConfig}.
@@ -2680,6 +2682,10 @@ declare module "sap/ui/layout/cssgrid/GridItemLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.GridItemLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getGridColumn gridColumn}.
      *
      * Sets the value for the CSS display:grid item property grid-column {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column
@@ -2733,10 +2739,6 @@ declare module "sap/ui/layout/cssgrid/GridItemLayoutData" {
      * Default value is `empty string`.
      */
     getGridRowStart(): cssgrid.CSSGridLine;
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.GridItemLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getGridColumn gridColumn}.
      *
@@ -2886,6 +2888,8 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
+  import { cssgrid } from "sap/ui/layout/library";
+
   /**
    * @SINCE 1.60
    *
@@ -2926,6 +2930,31 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.cssgrid.GridLayoutBase with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GridLayoutBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.GridLayoutBase.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Removes all display:grid styles from the provided HTML element
      */
     _removeGridLayout(
@@ -2957,37 +2986,30 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
       aElements: Control[] | HTMLElement[]
     ): void;
     /**
-     * Creates a new subclass of class sap.ui.layout.cssgrid.GridLayoutBase with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GridLayoutBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Should return sap.ui.layout.cssgrid.GridSettings - The active GridSettings Must be implemented by child
      * classes
      */
     getActiveGridSettings(): void;
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.GridLayoutBase.
-     */
-    static getMetadata(): ManagedObjectMetadata;
-    /**/
+
     isResponsive(): boolean;
+    /**
+     * Hook function for the Grid's onAfterRendering
+     */
+    onGridAfterRendering(
+      /**
+       * The grid
+       */
+      oGrid: cssgrid.IGridConfigurable
+    ): void;
+    /**
+     * Hook function for the Grid's resize. Will be called if the grid layout is responsive.
+     */
+    onGridResize(
+      /**
+       * The event passed by the resize handler
+       */
+      oEvent: jQuery.Event
+    ): void;
   }
 
   export interface $GridLayoutBaseSettings extends $ManagedObjectSettings {}
@@ -3001,7 +3023,6 @@ declare module "sap/ui/layout/cssgrid/GridLayoutDelegate" {
    * layout when necessary. Calls sap.ui.layout.cssgrid.GridLayoutBase hook functions.
    */
   export default class GridLayoutDelegate extends BaseObject {
-    /**/
     constructor();
   }
 }
@@ -3011,6 +3032,8 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
     default as GridLayoutBase,
     $GridLayoutBaseSettings,
   } from "sap/ui/layout/cssgrid/GridLayoutBase";
+
+  import Event from "sap/ui/base/Event";
 
   import GridSettings from "sap/ui/layout/cssgrid/GridSettings";
 
@@ -3057,6 +3080,31 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.cssgrid.GridResponsiveLayout with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.cssgrid.GridLayoutBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GridResponsiveLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.GridResponsiveLayout.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.GridResponsiveLayout`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -3073,7 +3121,26 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.GridResponsiveLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.cssgrid.GridResponsiveLayout` itself.
+     *
+     * Fired when the currently active GridSettings changes
+     */
+    attachLayoutChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
        * itself
@@ -3109,33 +3176,12 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.layout.cssgrid.GridResponsiveLayout with name `sClassName` and
-     * enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.cssgrid.GridLayoutBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GridResponsiveLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      */
@@ -3189,10 +3235,6 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
      * The sap.ui.layout.cssgrid.GridSettings applied for size "XL"
      */
     getLayoutXL(): GridSettings;
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.GridResponsiveLayout.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Sets a new value for property {@link #getContainerQuery containerQuery}.
      *
@@ -3254,25 +3296,6 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
        */
       oLayoutXL: GridSettings
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.GridResponsiveLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.cssgrid.GridResponsiveLayout` itself.
-     *
-     * Fired when the currently active GridSettings changes
-     */
-    attachLayoutChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $GridResponsiveLayoutSettings
@@ -3311,7 +3334,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
     /**
      * Fired when the currently active GridSettings changes
      */
-    layoutChange?: Function;
+    layoutChange?: (oEvent: Event) => void;
   }
 }
 
@@ -3387,6 +3410,10 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.GridSettings.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Gets current value of property {@link #getGridAutoColumns gridAutoColumns}.
      *
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
@@ -3460,10 +3487,6 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
      * Default value is `empty string`.
      */
     getGridTemplateRows(): cssgrid.CSSGridTrack;
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.GridSettings.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Sets a new value for property {@link #getGridAutoColumns gridAutoColumns}.
      *
@@ -3723,6 +3746,10 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.ResponsiveColumnItemLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumns columns}.
      *
      * Specifies the number of columns, which the item should take.
@@ -3730,10 +3757,6 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
      * Default value is `1`.
      */
     getColumns(): int;
-    /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.ResponsiveColumnItemLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRows rows}.
      *
@@ -3794,6 +3817,8 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
     $GridLayoutBaseSettings,
   } from "sap/ui/layout/cssgrid/GridLayoutBase";
 
+  import Event from "sap/ui/base/Event";
+
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
   /**
@@ -3838,45 +3863,6 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout` itself.
-     *
-     * Fired when the currently active layout changes
-     */
-    attachLayoutChange(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachLayoutChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.cssgrid.ResponsiveColumnLayout with name `sClassName` and
      * enriches it with the information contained in `oClassInfo`.
      *
@@ -3898,6 +3884,68 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.cssgrid.ResponsiveColumnLayout.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout` itself.
+     *
+     * Fired when the currently active layout changes
+     */
+    attachLayoutChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout` itself.
+     *
+     * Fired when the currently active layout changes
+     */
+    attachLayoutChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachLayoutChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      */
     fireLayoutChange(
@@ -3912,32 +3960,9 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       }
     ): this;
     /**
-     * Returns a metadata object for class sap.ui.layout.cssgrid.ResponsiveColumnLayout.
-     */
-    static getMetadata(): ManagedObjectMetadata;
-    /**
      * Returns if the Grid Layout is responsive.
      */
     isResponsive(): boolean;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout` itself.
-     *
-     * Fired when the currently active layout changes
-     */
-    attachLayoutChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ResponsiveColumnLayoutSettings
@@ -3945,12 +3970,14 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
     /**
      * Fired when the currently active layout changes
      */
-    layoutChange?: Function;
+    layoutChange?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/ui/layout/DynamicSideContent" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4064,6 +4091,31 @@ declare module "sap/ui/layout/DynamicSideContent" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.DynamicSideContent with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DynamicSideContent>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.DynamicSideContent.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds a control to the main content area. Only the main content part in the aggregation is re-rendered.
      */
     addMainContent(
@@ -4101,7 +4153,28 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.32
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:breakpointChanged breakpointChanged} event of
+     * this `sap.ui.layout.DynamicSideContent`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.DynamicSideContent` itself.
+     *
+     * Fires when the current breakpoint has been changed.
+     */
+    attachBreakpointChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
        */
@@ -4127,33 +4200,12 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.layout.DynamicSideContent with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DynamicSideContent>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.32
      *
@@ -4177,10 +4229,12 @@ declare module "sap/ui/layout/DynamicSideContent" {
      */
     getContainerQuery(): boolean;
     /**
-     * Returns the breakpoint for the current state of the control. If the control is not rendered yet this
-     * method will return `undefined`, as current break point calculation is based on the parent container width.
+     * Returns the breakpoint for the current state of the control.
+     *
+     * If the control is not rendered yet, this method will return `undefined`, as current break point calculation
+     * is based on the parent container width.
      */
-    getCurrentBreakpoint(): String;
+    getCurrentBreakpoint(): string;
     /**
      * Gets current value of property {@link #getEqualSplit equalSplit}.
      *
@@ -4197,10 +4251,6 @@ declare module "sap/ui/layout/DynamicSideContent" {
      * Main content controls.
      */
     getMainContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.DynamicSideContent.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.78
      *
@@ -4463,27 +4513,6 @@ declare module "sap/ui/layout/DynamicSideContent" {
      * and side content areas. Only works if the current breakpoint is "S".
      */
     toggle(): this;
-    /**
-     * @SINCE 1.32
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:breakpointChanged breakpointChanged} event of
-     * this `sap.ui.layout.DynamicSideContent`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.DynamicSideContent` itself.
-     *
-     * Fires when the current breakpoint has been changed.
-     */
-    attachBreakpointChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DynamicSideContentSettings extends $ControlSettings {
@@ -4551,7 +4580,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      *
      * Fires when the current breakpoint has been changed.
      */
-    breakpointChanged?: Function;
+    breakpointChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -4623,23 +4652,6 @@ declare module "sap/ui/layout/FixFlex" {
     );
 
     /**
-     * Adds some fixContent to the aggregation {@link #getFixContent fixContent}.
-     */
-    addFixContent(
-      /**
-       * The fixContent to add; if empty, nothing is inserted
-       */
-      oFixContent: Control
-    ): this;
-    /**
-     * Destroys all the fixContent in the aggregation {@link #getFixContent fixContent}.
-     */
-    destroyFixContent(): this;
-    /**
-     * Destroys the flexContent in the aggregation {@link #getFlexContent flexContent}.
-     */
-    destroyFlexContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.FixFlex with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -4660,6 +4672,27 @@ declare module "sap/ui/layout/FixFlex" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.FixFlex.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some fixContent to the aggregation {@link #getFixContent fixContent}.
+     */
+    addFixContent(
+      /**
+       * The fixContent to add; if empty, nothing is inserted
+       */
+      oFixContent: Control
+    ): this;
+    /**
+     * Destroys all the fixContent in the aggregation {@link #getFixContent fixContent}.
+     */
+    destroyFixContent(): this;
+    /**
+     * Destroys the flexContent in the aggregation {@link #getFlexContent flexContent}.
+     */
+    destroyFlexContent(): this;
     /**
      * Gets content of aggregation {@link #getFixContent fixContent}.
      *
@@ -4691,10 +4724,6 @@ declare module "sap/ui/layout/FixFlex" {
      * Control in the stretching part of the layout.
      */
     getFlexContent(): Control;
-    /**
-     * Returns a metadata object for class sap.ui.layout.FixFlex.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.29
      *
@@ -4953,6 +4982,10 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.form.ColumnContainerData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumnsL columnsL}.
      *
      * Number of columns the `FormContainer` element uses if the `Form` control has large size.
@@ -4980,10 +5013,6 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
      * Default value is `2`.
      */
     getColumnsXL(): form.ColumnsXL;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.ColumnContainerData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getColumnsL columnsL}.
      *
@@ -5131,6 +5160,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.form.ColumnElementData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getCellsLarge cellsLarge}.
      *
      * Number of cells used by a field if the `FormElement` element is large. The label is then beside the fields
@@ -5152,10 +5185,6 @@ declare module "sap/ui/layout/form/ColumnElementData" {
      * Default value is `12`.
      */
     getCellsSmall(): form.ColumnCells;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.ColumnElementData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getCellsLarge cellsLarge}.
      *
@@ -5315,6 +5344,10 @@ declare module "sap/ui/layout/form/ColumnLayout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.form.ColumnLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumnsL columnsL}.
      *
      * Number of columns for large size.
@@ -5359,10 +5392,6 @@ declare module "sap/ui/layout/form/ColumnLayout" {
      * Default value is `4`.
      */
     getLabelCellsLarge(): form.ColumnCells;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.ColumnLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getColumnsL columnsL}.
      *
@@ -5553,6 +5582,31 @@ declare module "sap/ui/layout/form/Form" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.form.Form with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Form>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.form.Form.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.28.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -5590,27 +5644,6 @@ declare module "sap/ui/layout/form/Form" {
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
      */
     destroyToolbar(): this;
-    /**
-     * Creates a new subclass of class sap.ui.layout.form.Form with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Form>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.28.0
      *
@@ -5653,10 +5686,6 @@ declare module "sap/ui/layout/form/Form" {
      * the best way possible.
      */
     getLayout(): FormLayout;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.Form.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getTitle title}.
      *
@@ -5944,6 +5973,31 @@ declare module "sap/ui/layout/form/FormContainer" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.form.FormContainer with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FormContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.form.FormContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.74.0
      *
      * Sets the editable state of the `FormContainer`.
@@ -5993,27 +6047,6 @@ declare module "sap/ui/layout/form/FormContainer" {
      */
     destroyToolbar(): this;
     /**
-     * Creates a new subclass of class sap.ui.layout.form.FormContainer with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FormContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.36.0
      *
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
@@ -6046,10 +6079,6 @@ declare module "sap/ui/layout/form/FormContainer" {
      * The `FormElements` contain the content (labels and fields) of the `FormContainers`.
      */
     getFormElements(): FormElement[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.FormContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getTitle title}.
      *
@@ -6333,6 +6362,31 @@ declare module "sap/ui/layout/form/FormElement" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.form.FormElement with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FormElement>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.form.FormElement.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.74.0
      *
      * Sets the editable state of the `FormElement`.
@@ -6365,27 +6419,6 @@ declare module "sap/ui/layout/form/FormElement" {
      */
     destroyLabel(): this;
     /**
-     * Creates a new subclass of class sap.ui.layout.form.FormElement with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FormElement>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getFields fields}.
      *
      * Form controls that belong together to be displayed in one row of a `Form`.
@@ -6409,10 +6442,6 @@ declare module "sap/ui/layout/form/FormElement" {
      * needs the information of the label to render the `Form`.
      */
     getLabelControl(): Label;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.FormElement.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -6594,6 +6623,10 @@ declare module "sap/ui/layout/form/FormLayout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.form.FormLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.36.0
      *
      * Gets current value of property {@link #getBackgroundDesign backgroundDesign}.
@@ -6605,10 +6638,6 @@ declare module "sap/ui/layout/form/FormLayout" {
      * Default value is `Translucent`.
      */
     getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.FormLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.36.0
      *
@@ -6713,6 +6742,10 @@ declare module "sap/ui/layout/form/GridContainerData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.form.GridContainerData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getHalfGrid halfGrid}.
      *
      * If set, the container takes half the width of the `Form` (8 cells), if not it takes the full width (16
@@ -6722,10 +6755,6 @@ declare module "sap/ui/layout/form/GridContainerData" {
      * Default value is `false`.
      */
     getHalfGrid(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.GridContainerData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getHalfGrid halfGrid}.
      *
@@ -6826,6 +6855,10 @@ declare module "sap/ui/layout/form/GridElementData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.form.GridElementData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getHCells hCells}.
      *
      * Number of cells in horizontal direction.
@@ -6841,10 +6874,6 @@ declare module "sap/ui/layout/form/GridElementData" {
      * Default value is `'auto'`.
      */
     getHCells(): form.GridElementCells;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.GridElementData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVCells vCells}.
      *
@@ -7133,6 +7162,10 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.form.ResponsiveGridLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.34.0
      *
      * Gets current value of property {@link #getAdjustLabelSpan adjustLabelSpan}.
@@ -7307,10 +7340,6 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      * Default value is `-1`.
      */
     getLabelSpanXL(): int;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.ResponsiveGridLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.34.0
      *
@@ -7782,6 +7811,7 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
 
   /**
    * @SINCE 1.16.0
+   * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
    *
    * The `ResponsiveLayout` renders a `Form` with a responsive layout. Internally the `ResponsiveFlowLayout`
    * is used. The responsiveness of this layout tries to best use the available space. This means that the
@@ -7928,19 +7958,6 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
     );
 
     /**
-     * Adds some fieldLabel to the aggregation {@link #getFieldLabels fieldLabels}.
-     */
-    addFieldLabel(
-      /**
-       * The fieldLabel to add; if empty, nothing is inserted
-       */
-      oFieldLabel: Label
-    ): this;
-    /**
-     * Destroys all the fieldLabels in the aggregation {@link #getFieldLabels fieldLabels}.
-     */
-    destroyFieldLabels(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.form.SemanticFormElement with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -7961,6 +7978,23 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.form.SemanticFormElement.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some fieldLabel to the aggregation {@link #getFieldLabels fieldLabels}.
+     */
+    addFieldLabel(
+      /**
+       * The fieldLabel to add; if empty, nothing is inserted
+       */
+      oFieldLabel: Label
+    ): this;
+    /**
+     * Destroys all the fieldLabels in the aggregation {@link #getFieldLabels fieldLabels}.
+     */
+    destroyFieldLabels(): this;
     /**
      * Gets current value of property {@link #getDelimiter delimiter}.
      *
@@ -7984,10 +8018,6 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
      * The order of the labels and the fields must be the same.
      */
     getFieldLabels(): Label[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.SemanticFormElement.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Label` in the aggregation {@link #getFieldLabels fieldLabels}. and
      * returns its index if found or -1 otherwise.
@@ -8135,6 +8165,31 @@ declare module "sap/ui/layout/form/SimpleForm" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.form.SimpleForm with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SimpleForm>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.form.SimpleForm.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.32.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -8170,27 +8225,6 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
      */
     destroyToolbar(): this;
-    /**
-     * Creates a new subclass of class sap.ui.layout.form.SimpleForm with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SimpleForm>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.34.0
      *
@@ -8315,17 +8349,18 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * 	 - Add controls as input fields, text fields or other as needed.
      * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
-     * 			a `ResponsiveLayout` is used as a layout, the form content is weighted using weight 3 for the labels
-     * 			and weight 5 for the fields part. By default the label column is 192 pixels wide. If your input controls
-     * 			should influence their width, you can add `sap.ui.layout.ResponsiveFlowLayoutData` to them via `setLayoutData`
-     * 			method. Ensure that the sum of the weights in the `ResponsiveFlowLayoutData` is not more than 5, as this
-     * 			is the total width of the input control part of each form row.  Example for a row where the `Input`
-     * 			weight 4 and the second `Input` weight 1 (using `ResponsiveLayout`):
+     * 			a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
+     * 			cells for the field part, for large size. If there is only little space, the labels are above the fields
+     * 			and each field uses 12 cells. If your input controls should influence their width, you can add `sap.ui.layout.ColumnElementData`
+     * 			to them via `setLayoutData` method. Ensure that the sum of the weights in the `ColumnElementData` is
+     * 			not more than 12, as this is the total width of the input control part of each form row.  Example
+     * 			for a row where the `Input` uses 6 cells and the second `Input` uses 2 cells (using `ColumnElementData`):
+     *
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
-     * new sap.m.Input({value:"Weight 4", layoutData: new sap.ui.layout.ResponsiveFlowLayoutData({weight:4})}),
-     * new sap.m.Input({value:"Weight 1", layoutData: new sap.ui.layout.ResponsiveFlowLayoutData({weight:1})}),
+     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
+     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
      * ```
      *
      *
@@ -8499,6 +8534,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
      * layout.
      *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used. For compatibility reasons
+     * the default could not be changed.
+     *
      * Default value is `ResponsiveLayout`.
      */
     getLayout(): form.SimpleFormLayout | keyof typeof form.SimpleFormLayout;
@@ -8514,10 +8552,6 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Default value is `2`.
      */
     getMaxContainerCols(): int;
-    /**
-     * Returns a metadata object for class sap.ui.layout.form.SimpleForm.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
@@ -9012,6 +9046,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
      * layout.
      *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used. For compatibility reasons
+     * the default could not be changed.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `ResponsiveLayout`.
@@ -9185,6 +9222,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
      * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used. For compatibility reasons
+     * the default could not be changed.
      */
     layout?:
       | (form.SimpleFormLayout | keyof typeof form.SimpleFormLayout)
@@ -9380,17 +9420,18 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * 	 - Add controls as input fields, text fields or other as needed.
      * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
-     * 			a `ResponsiveLayout` is used as a layout, the form content is weighted using weight 3 for the labels
-     * 			and weight 5 for the fields part. By default the label column is 192 pixels wide. If your input controls
-     * 			should influence their width, you can add `sap.ui.layout.ResponsiveFlowLayoutData` to them via `setLayoutData`
-     * 			method. Ensure that the sum of the weights in the `ResponsiveFlowLayoutData` is not more than 5, as this
-     * 			is the total width of the input control part of each form row.  Example for a row where the `Input`
-     * 			weight 4 and the second `Input` weight 1 (using `ResponsiveLayout`):
+     * 			a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
+     * 			cells for the field part, for large size. If there is only little space, the labels are above the fields
+     * 			and each field uses 12 cells. If your input controls should influence their width, you can add `sap.ui.layout.ColumnElementData`
+     * 			to them via `setLayoutData` method. Ensure that the sum of the weights in the `ColumnElementData` is
+     * 			not more than 12, as this is the total width of the input control part of each form row.  Example
+     * 			for a row where the `Input` uses 6 cells and the second `Input` uses 2 cells (using `ColumnElementData`):
+     *
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
-     * new sap.m.Input({value:"Weight 4", layoutData: new sap.ui.layout.ResponsiveFlowLayoutData({weight:4})}),
-     * new sap.m.Input({value:"Weight 1", layoutData: new sap.ui.layout.ResponsiveFlowLayoutData({weight:1})}),
+     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
+     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
      * ```
      *
      *
@@ -9519,6 +9560,31 @@ declare module "sap/ui/layout/Grid" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.Grid with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Grid>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.Grid.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.48.7
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -9542,27 +9608,6 @@ declare module "sap/ui/layout/Grid" {
      * Destroys all the content in the aggregation {@link #getContent content}.
      */
     destroyContent(): this;
-    /**
-     * Creates a new subclass of class sap.ui.layout.Grid with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Grid>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Returns the `Grid` accessibility information.
      * See:
@@ -9625,10 +9670,6 @@ declare module "sap/ui/layout/Grid" {
      * Default value is `1`.
      */
     getHSpacing(): float;
-    /**
-     * Returns a metadata object for class sap.ui.layout.Grid.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPosition position}.
      *
@@ -9973,6 +10014,10 @@ declare module "sap/ui/layout/GridData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.GridData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getIndent indent}.
      *
      * A string type that represents the indent values of the `Grid` for large, medium and small screens.
@@ -10083,10 +10128,6 @@ declare module "sap/ui/layout/GridData" {
      * Default value is `false`.
      */
     getLinebreakXL(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.layout.GridData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMoveBackwards moveBackwards}.
      *
@@ -10938,19 +10979,6 @@ declare module "sap/ui/layout/HorizontalLayout" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.HorizontalLayout with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -10972,6 +11000,23 @@ declare module "sap/ui/layout/HorizontalLayout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.HorizontalLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
@@ -10991,10 +11036,6 @@ declare module "sap/ui/layout/HorizontalLayout" {
      * The controls inside this layout
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.HorizontalLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -11070,6 +11111,10 @@ declare module "sap/ui/layout/HorizontalLayout" {
 declare module "sap/ui/layout/PaneContainer" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
+  import LayoutData from "sap/ui/core/LayoutData";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { Orientation } from "sap/ui/core/library";
@@ -11079,8 +11124,6 @@ declare module "sap/ui/layout/PaneContainer" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
-
-  import LayoutData from "sap/ui/core/LayoutData";
 
   /**
    * @SINCE 1.38
@@ -11122,19 +11165,6 @@ declare module "sap/ui/layout/PaneContainer" {
     );
 
     /**
-     * Adds some pane to the aggregation {@link #getPanes panes}.
-     */
-    addPane(
-      /**
-       * The pane to add; if empty, nothing is inserted
-       */
-      oPane: UI5Element
-    ): this;
-    /**
-     * Destroys all the panes in the aggregation {@link #getPanes panes}.
-     */
-    destroyPanes(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.PaneContainer with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -11159,6 +11189,97 @@ declare module "sap/ui/layout/PaneContainer" {
      * Returns a metadata object for class sap.ui.layout.PaneContainer.
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Adds some pane to the aggregation {@link #getPanes panes}.
+     */
+    addPane(
+      /**
+       * The pane to add; if empty, nothing is inserted
+       */
+      oPane: UI5Element
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.PaneContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.PaneContainer` itself.
+     *
+     * Fired when contents are resized.
+     */
+    attachResize(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.PaneContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.PaneContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.PaneContainer` itself.
+     *
+     * Fired when contents are resized.
+     */
+    attachResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.PaneContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Destroys all the panes in the aggregation {@link #getPanes panes}.
+     */
+    destroyPanes(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:resize resize} event of this `sap.ui.layout.PaneContainer`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachResize(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:resize resize} to attached listeners.
+     */
+    fireResize(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * An array of values representing the old (pixel)sizes of the split panes, which are inside the pane container.
+         */
+        oldSizes?: float[];
+        /**
+         * An array of values representing the new (pixel)sizes of the split panes, which are inside the pane container.
+         */
+        newSizes?: float[];
+      }
+    ): this;
+    /**
+     * Getter for property layoutData.
+     */
+    getLayoutData(): LayoutData;
     /**
      * Gets current value of property {@link #getOrientation orientation}.
      *
@@ -11233,6 +11354,11 @@ declare module "sap/ui/layout/PaneContainer" {
      * The panes to be split. The control will show n-1 splitter bars between n controls in this aggregation.
      */
     panes?: UI5Element[] | UI5Element | AggregationBindingInfo;
+
+    /**
+     * Fired when contents are resized.
+     */
+    resize?: (oEvent: Event) => void;
   }
 }
 
@@ -11287,6 +11413,31 @@ declare module "sap/ui/layout/ResponsiveFlowLayout" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.ResponsiveFlowLayout with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ResponsiveFlowLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.ResponsiveFlowLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.48.7
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -11312,27 +11463,6 @@ declare module "sap/ui/layout/ResponsiveFlowLayout" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.ui.layout.ResponsiveFlowLayout with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ResponsiveFlowLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.48.7
      *
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
@@ -11346,10 +11476,6 @@ declare module "sap/ui/layout/ResponsiveFlowLayout" {
      * or otherwise, the default values are used.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.layout.ResponsiveFlowLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getResponsive responsive}.
      *
@@ -11525,6 +11651,10 @@ declare module "sap/ui/layout/ResponsiveFlowLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.ResponsiveFlowLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getLinebreak linebreak}.
      *
      * If this property is set, the control in which the LayoutData is added, will always cause a line break
@@ -11550,10 +11680,6 @@ declare module "sap/ui/layout/ResponsiveFlowLayoutData" {
      * Default value is `true`.
      */
     getMargin(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.layout.ResponsiveFlowLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
@@ -11765,10 +11891,6 @@ declare module "sap/ui/layout/ResponsiveSplitter" {
     );
 
     /**
-     * Destroys the rootPaneContainer in the aggregation {@link #getRootPaneContainer rootPaneContainer}.
-     */
-    destroyRootPaneContainer(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.ResponsiveSplitter with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -11790,6 +11912,14 @@ declare module "sap/ui/layout/ResponsiveSplitter" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.ResponsiveSplitter.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the rootPaneContainer in the aggregation {@link #getRootPaneContainer rootPaneContainer}.
+     */
+    destroyRootPaneContainer(): this;
+    /**
      * ID of the element which is the current target of the association {@link #getDefaultPane defaultPane},
      * or `null`.
      */
@@ -11802,10 +11932,6 @@ declare module "sap/ui/layout/ResponsiveSplitter" {
      * Default value is `'100%'`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.layout.ResponsiveSplitter.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getRootPaneContainer rootPaneContainer}.
      *
@@ -11949,10 +12075,6 @@ declare module "sap/ui/layout/SplitPane" {
     );
 
     /**
-     * Destroys the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.SplitPane with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -11974,6 +12096,14 @@ declare module "sap/ui/layout/SplitPane" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.SplitPane.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Content of the SplitPane
@@ -11987,10 +12117,6 @@ declare module "sap/ui/layout/SplitPane" {
      * Default value is `true`.
      */
     getDemandPane(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.layout.SplitPane.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRequiredParentWidth requiredParentWidth}.
      *
@@ -12073,6 +12199,8 @@ declare module "sap/ui/layout/SplitPane" {
 declare module "sap/ui/layout/Splitter" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import { CSSSize, Orientation } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -12143,6 +12271,31 @@ declare module "sap/ui/layout/Splitter" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.layout.Splitter with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Splitter>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.layout.Splitter.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some contentArea to the aggregation {@link #getContentAreas contentAreas}.
      */
     addContentArea(
@@ -12168,7 +12321,25 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.Splitter`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.Splitter` itself.
+     *
+     * Event is fired when contents are resized.
+     */
+    attachResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
        */
@@ -12187,7 +12358,7 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12252,27 +12423,6 @@ declare module "sap/ui/layout/Splitter" {
      */
     enableLiveResize(): void;
     /**
-     * Creates a new subclass of class sap.ui.layout.Splitter with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Splitter>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:resize resize} to attached listeners.
      */
     fireResize(
@@ -12302,7 +12452,7 @@ declare module "sap/ui/layout/Splitter" {
      *
      * Returns the current actual content sizes as pixel value - these values can change with every resize.
      */
-    getCalculatedSizes(): Number[];
+    getCalculatedSizes(): number[];
     /**
      * Gets content of aggregation {@link #getContentAreas contentAreas}.
      *
@@ -12317,10 +12467,6 @@ declare module "sap/ui/layout/Splitter" {
      * Default value is `'100%'`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.layout.Splitter.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOrientation orientation}.
      *
@@ -12437,24 +12583,6 @@ declare module "sap/ui/layout/Splitter" {
        */
       forceDirectly?: boolean
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.Splitter`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.Splitter` itself.
-     *
-     * Event is fired when contents are resized.
-     */
-    attachResize(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SplitterSettings extends $ControlSettings {
@@ -12483,7 +12611,7 @@ declare module "sap/ui/layout/Splitter" {
     /**
      * Event is fired when contents are resized.
      */
-    resize?: Function;
+    resize?: (oEvent: Event) => void;
   }
 }
 
@@ -12583,7 +12711,10 @@ declare module "sap/ui/layout/SplitterLayoutData" {
     /**
      * Gets current value of property {@link #getSize size}.
      *
-     * Sets the size of the splitter content.
+     * The size of the splitter content. This property is updated when the area is resized by the user.
+     *
+     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
+     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
      *
      * Default value is `'auto'`.
      */
@@ -12621,7 +12752,10 @@ declare module "sap/ui/layout/SplitterLayoutData" {
     /**
      * Sets a new value for property {@link #getSize size}.
      *
-     * Sets the size of the splitter content.
+     * The size of the splitter content. This property is updated when the area is resized by the user.
+     *
+     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
+     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -12642,7 +12776,10 @@ declare module "sap/ui/layout/SplitterLayoutData" {
     resizable?: boolean | PropertyBindingInfo;
 
     /**
-     * Sets the size of the splitter content.
+     * The size of the splitter content. This property is updated when the area is resized by the user.
+     *
+     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
+     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
      */
     size?: CSSSize | PropertyBindingInfo;
 
@@ -12703,19 +12840,6 @@ declare module "sap/ui/layout/VerticalLayout" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.layout.VerticalLayout with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -12737,6 +12861,23 @@ declare module "sap/ui/layout/VerticalLayout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.layout.VerticalLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
@@ -12755,10 +12896,6 @@ declare module "sap/ui/layout/VerticalLayout" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.layout.VerticalLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *

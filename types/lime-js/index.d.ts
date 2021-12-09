@@ -12,15 +12,15 @@ export = Lime;
 declare namespace Lime {
 
     interface Envelope {
-        id?: string;
-        from?: string;
-        to?: string;
-        pp?: string;
+        id?: string | undefined;
+        from?: string | undefined;
+        to?: string | undefined;
+        pp?: string | undefined;
         metadata?: any;
     }
     interface Reason {
         code: number;
-        description?: string;
+        description?: string | undefined;
     }
 
     interface Message extends Envelope {
@@ -30,7 +30,7 @@ declare namespace Lime {
 
     interface Notification extends Envelope {
         event: string;
-        reason?: Reason;
+        reason?: Reason | undefined;
     }
     class NotificationEvent {
         static accepted: string;
@@ -42,12 +42,12 @@ declare namespace Lime {
     }
 
     interface Command extends Envelope {
-        uri?: string;
-        type?: string;
+        uri?: string | undefined;
+        type?: string | undefined;
         resource?: any;
         method: string;
-        status?: string;
-        reason?: Reason;
+        status?: string | undefined;
+        reason?: Reason | undefined;
     }
     class CommandMethod {
         static get: string;
@@ -63,13 +63,13 @@ declare namespace Lime {
 
     interface Session extends Envelope {
         state: string;
-        encryptionOptions?: string[];
-        encryption?: string;
-        compressionOptions?: string[];
-        compression?: string;
-        scheme?: string;
+        encryptionOptions?: string[] | undefined;
+        encryption?: string | undefined;
+        compressionOptions?: string[] | undefined;
+        compression?: string | undefined;
+        scheme?: string | undefined;
         authentication?: any;
-        reason?: Reason;
+        reason?: Reason | undefined;
     }
     class SessionState {
         static new: string;

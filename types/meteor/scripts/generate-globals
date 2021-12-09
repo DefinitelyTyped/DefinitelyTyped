@@ -55,7 +55,13 @@ mkdirp.sync("globals");
 fs.writeFileSync("globals/README.md", readmeText, "UTF-8");
 mkdirp.sync("test/globals");
 fs.writeFileSync("test/globals/README.md", readmeText, "UTF-8");
-for (let outFile of configObject.files) {
+
+const files = configObject.files;
+
+const indexFile = fs.readFileSync('index.d.ts', 'UTF-8');
+files.push(...Array.from(indexFile.matchAll(/\/\/ <reference path="\.\/(.*)" \/>/g), m => m[1]));
+
+for (let outFile of files) {
     let m = /^(test\/)?globals\/(.*)$/.exec(outFile);
     if (m) {
         let inFile = (m[1] || "") + m[2];
@@ -69,7 +75,7 @@ for (let outFile of configObject.files) {
                 let m2;
                 // Capture any line with a comment
                 if ((m2 = /^    (\/\/.*)$/.exec(l)) != null) return m2[1];
-                
+
                 if ((m2 = /^    ([^} ].*)$/.exec(l)) != null) return "declare " + m2[1];
                 if ((m2 = /^    (.*)$/.exec(l)) != null) return m2[1];
                 if (l == "") return l;

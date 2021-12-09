@@ -93,7 +93,7 @@ export interface DisplayMarker {
     /** Modifies the screen range of this marker. */
     setScreenRange(
         screenRange: RangeCompatible,
-        options?: { reversed?: boolean; clipDirection?: 'backward' | 'forward' | 'closest' },
+        options?: { reversed?: boolean | undefined; clipDirection?: 'backward' | 'forward' | 'closest' | undefined },
     ): void;
 
     /**

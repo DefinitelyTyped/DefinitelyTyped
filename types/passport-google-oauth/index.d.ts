@@ -19,10 +19,10 @@ interface IOAuthStrategyOption {
     consumerKey: string;
     consumerSecret: string;
     callbackURL: string;
-    requestTokenURL?: string;
-    accessTokenURL?: string;
-    userAuthorizationURL?: string;
-    sessionKey?: string;
+    requestTokenURL?: string | undefined;
+    accessTokenURL?: string | undefined;
+    userAuthorizationURL?: string | undefined;
+    sessionKey?: string | undefined;
 }
 
 interface VerifyOptions {
@@ -51,18 +51,18 @@ interface IOAuth2StrategyOption {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
-    authorizationURL?: string;
-    tokenURL?: string;
-    userProfileURL?: string;
-    accessType?: string;
-    approval_prompt?: string;
-    prompt?: string;
-    loginHint?: string;
-    userID?: string;
-    hostedDomain?: string;
-    display?: string;
-    requestVisibleActions?: string;
-    openIDRealm?: string;
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    userProfileURL?: string | undefined;
+    accessType?: string | undefined;
+    approval_prompt?: string | undefined;
+    prompt?: string | undefined;
+    loginHint?: string | undefined;
+    userID?: string | undefined;
+    hostedDomain?: string | undefined;
+    display?: string | undefined;
+    requestVisibleActions?: string | undefined;
+    openIDRealm?: string | undefined;
 }
 
 interface IOAuth2StrategyOptionWithRequest extends IOAuth2StrategyOption {

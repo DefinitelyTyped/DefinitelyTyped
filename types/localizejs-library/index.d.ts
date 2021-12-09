@@ -11,6 +11,13 @@ declare namespace LocalizeJS.Context {
         key: string;
 
         /**
+         * Defaults to false.
+         * If true and you have machine translations enabled, any new phrases found in your website will be automatically
+         * moved to the Published bin, and a machine translation will be generated.
+         */
+        autoApprove: boolean;
+
+        /**
          * Language to translate your website to.
          */
         targetLanguage: string;
@@ -26,14 +33,14 @@ declare namespace LocalizeJS.Context {
         fetchTranslations: boolean;
 
         /**
-         * Defaults to true. If true, unrecognized phrases will be added to your Localize account. Disable this in development.
-         */
-        saveNewPhrases: boolean;
-
-        /**
          * Defaults to true. If true, "alt" attributes will be translated.
          */
         translateAlt: boolean;
+
+        /**
+         * Defaults to true. If true, aria-label attributes within HTML elements will be found by Localize and brought into the dashboard, allowing you to translate them.
+         */
+        translateAriaLabels: boolean;
 
         /**
          * Defaults to false. Set to true to prefetch all active languages, or pass a language code or an array of codes to.
@@ -44,6 +51,21 @@ declare namespace LocalizeJS.Context {
          * Array of class names for which Localize will ignore.
          */
         blockedClasses: string[];
+
+        /**
+         * Array of CSS ID selectors.
+         */
+        blockedIds: string[];
+
+        /**
+         * Defaults to false. When true, the default Localize widget is disabled.
+         */
+        disableWidget: boolean;
+
+        /**
+         * Defaults to false. If true, the image URLs used in your website will appear in your phrases bin to allow for image replacement based on language.
+         */
+        localizeImages: boolean;
 
         /**
          * Array of class names for which Localize will translate. If you use this option, Localize will only translate content
@@ -85,6 +107,11 @@ declare namespace LocalizeJS.Context {
         translateMetaTags: boolean;
 
         /**
+         * Defaults to true. If true, unrecognized phrases will be added to your Localize account. Disable this in development.
+         */
+        saveNewPhrases: boolean;
+
+        /**
          * Defaults to false. If true, Localize will detect phrases only when the page is not translated.
          * Please contact support@localizejs.com prior to updating this option.
          */
@@ -114,6 +141,12 @@ declare namespace LocalizeJS.Context {
          * Defaults to false. If true, the Localize library will pick up numbers as phrases.
          */
         translateNumbers: boolean;
+
+        /**
+         * Defaults to true. If true, text contained within SVGs will be found by Localize and brought into the dashboard,
+         * allowing you to translate the text. (SVG files are not supported)
+         */
+        translateSVGElement: boolean;
     }
 
     interface RateData {
@@ -134,24 +167,40 @@ declare var Localize: {
      * Translates the page into the given language.
      * @param language Required. Language codes can be found on your Languages page.
      */
-    setLanguage(language: string): void
+    setLanguage(language: string): void;
 
     /**
      * Returns the current language of the page. If a language hasn't been set, source is returned.
      */
-    getLanguage(): string
+    getLanguage(): string;
+
+    /**
+     * Returns the language code for the source language of the current project.
+     */
+    getSourceLanguage(): string;
 
     /**
      * Returns the visitor's list of preferred languages, based on the browser's "accept-language" header.
      * @param callback Required.
      */
-    detectLanguage(callback: (error: any, languages: string[]) => void): void
+    detectLanguage(callback: (error: any, languages: string[]) => void): void;
 
     /**
      * Returns all available languages for the project.
      * @param callback Required.
      */
-    getAvailableLanguages(callback: (error: any, languages: string[]) => void): void
+    getAvailableLanguages(callback: (error: any, languages: string[]) => void): void;
+
+    /**
+     * Calling this function will hide the widget if it's currently visible.
+     * You can use this function to hide the widget on certain pages.
+     */
+    hideWidget(): void;
+
+    /**
+     * Calling this function will show the widget if it's currently hidden.
+     */
+    showWidget(): void;
 
     /**
      * Translates text or text within html.
@@ -169,56 +218,60 @@ declare var Localize: {
      * @param variables Optional. Object of variables that will be replaced in the input, if it's a string
      * @param callback Optional. Callback will trigger once translations have been fetched from Localize.
      */
-    translate(input: string | HTMLElement, variables?: any, callback?: (translation: string | HTMLElement) => void): void
+    translate(
+        input: string | HTMLElement,
+        variables?: any,
+        callback?: (translation: string | HTMLElement) => void,
+    ): void;
 
     /**
      * Translates all text on the page
      */
-    translatePage(): void
+    translatePage(): void;
 
     /**
      * Untranslates all text on the page
      */
-    untranslatePage(): void
+    untranslatePage(): void;
 
     /**
      * Untranslates a specified element on the page. Use Localize.untranslatePage() if untranslating the whole page.
      * @param element Required. A DOM node to untranslate
      */
-    untranslate(element: string): void
-
-    /**
-     * Bootstrapping translations enables your app to translate without fetching translations remotely from Localizejs.com
-     * @param translations Required. Generate properly formatted translations on your Languages page
-     */
-    bootstrap(translations: any): void
+    untranslate(element: string): void;
 
     /**
      * Speed up language switching by prefetching
      * @param languages Required. Accepts a string or an array or languages (ex. 'zh-CN')
      */
-    prefetch(languages: string|string[]): void
+    prefetch(languages: string | string[]): void;
 
     /**
      * Saves the phrase, if unrecognized, to your Localize project. Useful for ensuring rarely printed text
      * (ie. an obscure error message) is translated. Returns the phrase it was passed.
      * @param phrase Required. A string or an array of strings
      */
-    phrase(phrase: string|string[]): string|string[]
+    phrase(phrase: string | string[]): string | string[];
 
     /**
      * Attach an event handler to Localize events.
      * @param eventName Required. Name of event to bind to. Can optionally be namespaced: "setLanguage.ns"
      * @param fn Required. Event handler.
      */
-    on(eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary", fn: (event: Event) => void): void
+    on(
+        eventName: 'initialize' | 'setLanguage' | 'pluralize' | 'translate' | 'untranslatePage' | 'updatedDictionary',
+        fn: (event: Event) => void,
+    ): void;
 
     /**
      * Remove an event handler.
      * @param eventName Required. Name of event to unbind to. Can optionally be namespaced: "setLanguage.ns"
      * @param fn Optional. The function to unbind from the event.
      */
-    off(eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary", fn?: (event: Event) => void): void
+    off(
+        eventName: 'initialize' | 'setLanguage' | 'pluralize' | 'translate' | 'untranslatePage' | 'updatedDictionary',
+        fn?: (event: Event) => void,
+    ): void;
 
     /**
      * Returns exchange rate for provided currencies.
@@ -227,5 +280,9 @@ declare var Localize: {
      * @param toCurrency Required. The new currency, to be converted to.
      * @param callback Required. Receives err and rateData arguments.
      */
-    getExchangeRate(fromCurrency: string, toCurrency: string, callback: (error: any, rateData: LocalizeJS.Context.RateData) => void): void
+    getExchangeRate(
+        fromCurrency: string,
+        toCurrency: string,
+        callback: (error: any, rateData: LocalizeJS.Context.RateData) => void,
+    ): void;
 };

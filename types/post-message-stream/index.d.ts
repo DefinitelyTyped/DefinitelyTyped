@@ -16,7 +16,7 @@ declare class PostMessageStream extends Duplex {
   constructor(props: {
     name: string;
     target: string;
-    targetWindow?: Window;
+    targetWindow?: Window | undefined;
   });
 
   _write(

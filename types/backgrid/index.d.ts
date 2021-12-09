@@ -14,10 +14,10 @@ declare namespace Backgrid {
     interface GridOptions {
         columns: Column[];
         collection: Backbone.Collection<Backbone.Model>;
-        header?: Header;
-        body?: Body;
-        row?: Row;
-        footer?: Footer;
+        header?: Header | undefined;
+        body?: Body | undefined;
+        row?: Row | undefined;
+        footer?: Footer | undefined;
     }
 
     class Header extends Backbone.View<Backbone.Model> {

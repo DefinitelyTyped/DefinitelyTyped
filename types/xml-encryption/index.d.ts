@@ -19,21 +19,21 @@ export type EncryptionAlgorithm =
 
 export interface EncryptOptions extends EncryptKeyOptions {
     encryptionAlgorithm: EncryptionAlgorithm;
-    warnInsecureAlgorithm?: boolean;
-    input_encoding?: Utf8AsciiBinaryEncoding;
+    warnInsecureAlgorithm?: boolean | undefined;
+    input_encoding?: Utf8AsciiBinaryEncoding | undefined;
 }
 
 export interface EncryptKeyOptions {
     rsa_pub: string | Buffer;
     pem: string | Buffer;
     keyEncryptionAlgorithm: KeyEncryptionAlgorithm;
-    disallowEncryptionWithInsecureAlgorithm?: boolean;
+    disallowEncryptionWithInsecureAlgorithm?: boolean | undefined;
 }
 
 export interface DecryptOptions {
     key: string | Buffer;
-    disallowDecryptionWithInsecureAlgorithm?: boolean;
-    warnInsecureAlgorithm?: boolean;
+    disallowDecryptionWithInsecureAlgorithm?: boolean | undefined;
+    warnInsecureAlgorithm?: boolean | undefined;
 }
 
 export function decrypt(

@@ -169,7 +169,7 @@ declare module 'angular' {
              * @param options.password - The user's password. This is not sent in plain text over the wire.
              * @param options.profile - The user's profile, typically including the name field.
              */
-            createUser(options: {username?: string; email?: string; password: string; profile?: Object}): angular.IPromise<void>;
+            createUser(options: {username?: string | undefined; email?: string | undefined; password: string; profile?: Object | undefined}): angular.IPromise<void>;
 
             /**
              * Change the current user's password. Must be logged in.
@@ -252,7 +252,7 @@ declare module 'angular' {
              *
              * @return The promise solved successfully when the picture is taken with the data as a parameter or rejected with an error as a parameter in case of error.
              */
-            getPicture(options?: {width?: number; height?: number; quality?: number}): angular.IPromise<any>;
+            getPicture(options?: {width?: number | undefined; height?: number | undefined; quality?: number | undefined}): angular.IPromise<any>;
 
             // <- $meteorCamera END
 

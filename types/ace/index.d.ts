@@ -14,10 +14,10 @@ declare namespace AceAjax {
     }
 
     export interface EditorCommand {
-        name?: string;
-        bindKey?: string | { mac?: string, win?: string };
+        name?: string | undefined;
+        bindKey?: string | { mac?: string | undefined, win?: string | undefined } | undefined;
         exec: (editor: Editor, args?: any) => void;
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
     }
 
     interface CommandMap {
@@ -52,7 +52,7 @@ declare namespace AceAjax {
         addCommands(commands: EditorCommand[]): void;
         removeCommand(command: EditorCommand | string, keepCommand?: boolean): void;
         removeCommands(command: EditorCommand[]): void;
-        bindKey(key: string | { mac?: string, win?: string },
+        bindKey(key: string | { mac?: string | undefined, win?: string | undefined },
           command: CommandLike,
           position?: number): void;
         bindKeys(keys: {[s: string]: Function}): void;
@@ -64,8 +64,8 @@ declare namespace AceAjax {
     }
 
     export interface Annotation {
-        row?: number;
-        column?: number;
+        row?: number | undefined;
+        column?: number | undefined;
         text: string;
         type: string;
     }
@@ -73,8 +73,8 @@ declare namespace AceAjax {
     export interface TokenInfo {
         type: string;
         value: string;
-        index?: number;
-        start?: number;
+        index?: number | undefined;
+        start?: number | undefined;
     }
 
     export interface Position {
@@ -3088,18 +3088,18 @@ declare namespace AceAjax {
          * Provides tooltip information about a completion result.
          * @param item The completion result
          */
-        getDocTooltip?: (item: Completion) => void;
+        getDocTooltip?: ((item: Completion) => void) | undefined;
       }
       
       export interface Completion {
         value: string;
         meta: string;
-        type?: string;
-        caption?: string;
+        type?: string | undefined;
+        caption?: string | undefined;
         snippet?: any;
-        score?: number;
-        exactMatch?: number;
-        docHTML?: string;
+        score?: number | undefined;
+        exactMatch?: number | undefined;
+        docHTML?: string | undefined;
       }
       
       export type CompletionCallback = (error: Error | null, results: Completion[]) => void;

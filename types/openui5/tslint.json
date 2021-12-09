@@ -1,24 +1,19 @@
 {
-    "extends": "dtslint/dt.json",
+	"extends": "@definitelytyped/dtslint/dt.json",
 	"rules": {
 		"npm-naming": false,
-		"adjacent-overload-signatures": false,
-		"array-type": false,
+
+		"strict-export-declare-modifiers": false,
+		"no-unnecessary-generics": false,
+		"no-unnecessary-class": false,
 		"ban-types": false,
+		"no-empty-interface": false,
+		"unified-signatures": false,
+
 		"interface-name": false,
-		"interface-over-type-literal": false,
-		"jsdoc-format": false,
 		"max-line-length": false,
 		"no-any-union": false,
-		"no-empty-interface": false,
-		"no-redundant-undefined": false,
-		"no-unnecessary-class": false,
-		"no-unnecessary-generics": false,
-		"no-unnecessary-qualifier": false,
-		"strict-export-declare-modifiers": false,
-		"unified-signatures": false,
-		"no-mergeable-namespace": false,
-		"no-irregular-whitespace": false,
-		"no-single-declare-module": false
+		"no-single-declare-module": false,
+		"interface-over-type-literal": false
 	}
 }

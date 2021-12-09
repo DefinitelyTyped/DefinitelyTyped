@@ -343,8 +343,8 @@ export class DynamicHeightList extends PureComponent<any> {
 
         return (
             <CellMeasurer cache={this._cache} columnIndex={0} key={key} rowIndex={index} parent={parent}>
-                {({ measure }) => (
-                    <div className={classNames} style={style}>
+                {({ measure, registerChild }) => (
+                    <div ref={registerChild} className={classNames} style={style}>
                         <img
                             onLoad={measure}
                             src={source}
@@ -1013,7 +1013,7 @@ export class GridExample2 extends PureComponent<any, any> {
     _columnHeights: any;
     _width = 0;
     _height = 0;
-    _scrollTop?: number;
+    _scrollTop?: number | undefined;
     _cellPositioner: Positioner;
     _masonry: Masonry;
 
@@ -1114,7 +1114,7 @@ export class GridExample2 extends PureComponent<any, any> {
         this._masonry.recomputeCellPositions();
     }
 
-    _renderAutoSizer({ height, scrollTop }: { height: number; scrollTop?: number }) {
+    _renderAutoSizer({ height, scrollTop }: { height: number; scrollTop?: number | undefined }) {
         this._height = height;
         this._scrollTop = scrollTop;
 

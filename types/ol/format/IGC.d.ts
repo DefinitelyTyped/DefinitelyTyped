@@ -4,7 +4,7 @@ import { ReadOptions, WriteOptions } from './Feature';
 import TextFeature from './TextFeature';
 
 export interface Options {
-    altitudeMode?: IGCZ | string;
+    altitudeMode?: IGCZ | string | undefined;
 }
 /**
  * IGC altitude/z. One of 'barometric', 'gps', 'none'.

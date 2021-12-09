@@ -10,7 +10,7 @@ declare namespace Less {
     // https://github.com/less/less.js/blob/master/lib/less/import-manager.js#L10
     interface RootFileInfo {
         /** whether to adjust URL's to be relative */
-        rewriteUrls?: boolean;
+        rewriteUrls?: boolean | undefined;
         /** full resolved filename of current file */
         filename: string;
         relativeUrls: boolean;
@@ -36,7 +36,7 @@ declare namespace Less {
 
     interface Plugin {
         install: (less: LessStatic, pluginManager: PluginManager) => void;
-        minVersion?: [number, number, number];
+        minVersion?: [number, number, number] | undefined;
     }
 
     interface PreProcessor {
@@ -128,11 +128,11 @@ declare namespace Less {
     }
 
     interface LoadFileOptions {
-        paths?: string[];
-        prefixes?: string[];
-        ext?: string;
+        paths?: string[] | undefined;
+        prefixes?: string[] | undefined;
+        ext?: string | undefined;
         rawBuffer?: any;
-        syncImport?: boolean;
+        syncImport?: boolean | undefined;
     }
 
     interface Environment {
@@ -158,11 +158,11 @@ declare namespace Less {
     }
 
     interface SourceMapOption {
-        sourceMapURL?: string;
-        sourceMapBasepath?: string;
-        sourceMapRootpath?: string;
-        outputSourceFiles?: boolean;
-        sourceMapFileInline?: boolean;
+        sourceMapURL?: string | undefined;
+        sourceMapBasepath?: string | undefined;
+        sourceMapRootpath?: string | undefined;
+        outputSourceFiles?: boolean | undefined;
+        sourceMapFileInline?: boolean | undefined;
     }
 
     interface StaticOptions {
@@ -183,48 +183,48 @@ declare namespace Less {
      * @interface Options
      */
     interface Options {
-        sourceMap?: SourceMapOption;
+        sourceMap?: SourceMapOption | undefined;
         /** Filename of the main file to be passed to less.render() */
-        filename?: string;
+        filename?: string | undefined;
         /** The locations for less looking for files in @import rules */
-        paths?: string[];
+        paths?: string[] | undefined;
         /** True, if run the less parser and just reports errors without any output. */
-        lint?: boolean;
+        lint?: boolean | undefined;
         /** Pre-load global Less.js plugins */
-        plugins?: Plugin[];
+        plugins?: Plugin[] | undefined;
         /** @deprecated If true, compress using less built-in compression. */
-        compress?: boolean;
-        strictImports?: boolean;
+        compress?: boolean | undefined;
+        strictImports?: boolean | undefined;
         /** If true, allow imports from insecure https hosts. */
-        insecure?: boolean;
-        depends?: boolean;
-        maxLineLen?: number;
+        insecure?: boolean | undefined;
+        depends?: boolean | undefined;
+        maxLineLen?: number | undefined;
         /** @deprecated If false, No color in compiling. */
-        color?: boolean;
+        color?: boolean | undefined;
         /** @deprecated False by default. */
-        ieCompat?: boolean;
+        ieCompat?: boolean | undefined;
         /** @deprecated If true, enable evaluation of JavaScript inline in `.less` files. */
-        javascriptEnabled?: boolean;
+        javascriptEnabled?: boolean | undefined;
         /** Whether output file information and line numbers in compiled CSS code. */
-        dumpLineNumbers?: "comment" | string;
+        dumpLineNumbers?: "comment" | string | undefined;
         /** Add a path to every generated import and url in output css files. */
-        rootpath?: string;
+        rootpath?: string | undefined;
         /** Math mode options for avoiding symbol conficts on math expressions. */
-        math?: 'always' | 'strict' | 'parens-division' | 'parens' | 'strict-legacy' | number;
+        math?: 'always' | 'strict' | 'parens-division' | 'parens' | 'strict-legacy' | number | undefined;
         /** If true, stops any warnings from being shown. */
-        silent?: boolean;
+        silent?: boolean | undefined;
         /** Without this option, Less attempts to guess at the output unit when it does maths. */
-        strictUnits?: boolean;
+        strictUnits?: boolean | undefined;
         /** Defines a variable that can be referenced by the file. */
         globalVars?: {
           [key: string] : string,
-        };
+        } | undefined;
         /** Puts Var declaration at the end of base file. */
         modifyVars?: {
           [key: string] : string,
-        };
+        } | undefined;
         /** Read files synchronously in Node.js */
-        syncImport?: boolean;
+        syncImport?: boolean | undefined;
     }
 
     interface RenderError {
@@ -254,7 +254,7 @@ declare namespace Less {
 interface LessStatic {
     options: Less.StaticOptions;
 
-    importManager?: Less.ImportManager;
+    importManager?: Less.ImportManager | undefined;
     sheets: HTMLLinkElement[];
 
     modifyVars(vars: { [name: string]: string }): Promise<Less.RefreshOutput>;

@@ -17,6 +17,7 @@ declare function cacheControl(options?: {
     staleWhileRevalidate?: number;
     maxAge?: number;
     sMaxAge?: number;
+    proxyRevalidate?: boolean;
 }): Koa.Middleware;
 
 declare namespace cacheControl {}

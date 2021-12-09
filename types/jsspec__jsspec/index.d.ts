@@ -105,20 +105,20 @@ declare namespace JSSpec {
         /**
          * fail the test after _timeout_ milliseconds
          */
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface ContextOptions {
         /**
          * fail the test after _timeout_ milliseconds
          */
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * Run the contained Examples/Contexts in random order?
          * - Run in random order if `true`
          * - Run in definition order if `false`
          */
-        random?: boolean;
+        random?: boolean | undefined;
     }
 
     interface Context {

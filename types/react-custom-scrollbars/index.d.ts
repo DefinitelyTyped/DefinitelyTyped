@@ -21,34 +21,34 @@ export interface positionValues {
 }
 
 export interface ScrollbarProps extends React.HTMLProps<Scrollbars> {
-    onScroll?: React.UIEventHandler<any>;
-    onScrollFrame?: (values: positionValues) => void;
-    onScrollStart?: () => void;
-    onScrollStop?: () => void;
-    onUpdate?: (values: positionValues) => void;
+    onScroll?: React.UIEventHandler<any> | undefined;
+    onScrollFrame?: ((values: positionValues) => void) | undefined;
+    onScrollStart?: (() => void) | undefined;
+    onScrollStop?: (() => void) | undefined;
+    onUpdate?: ((values: positionValues) => void) | undefined;
 
-    renderView?: React.StatelessComponent<any>;
-    renderTrackHorizontal?: React.StatelessComponent<any>;
-    renderTrackVertical?: React.StatelessComponent<any>;
-    renderThumbHorizontal?: React.StatelessComponent<any>;
-    renderThumbVertical?: React.StatelessComponent<any>;
+    renderView?: React.FunctionComponent<any> | undefined;
+    renderTrackHorizontal?: React.FunctionComponent<any> | undefined;
+    renderTrackVertical?: React.FunctionComponent<any> | undefined;
+    renderThumbHorizontal?: React.FunctionComponent<any> | undefined;
+    renderThumbVertical?: React.FunctionComponent<any> | undefined;
 
-    tagName?: string;
-    hideTracksWhenNotNeeded?: boolean;
+    tagName?: string | undefined;
+    hideTracksWhenNotNeeded?: boolean | undefined;
 
-    autoHide?: boolean;
-    autoHideTimeout?: number;
-    autoHideDuration?: number;
+    autoHide?: boolean | undefined;
+    autoHideTimeout?: number | undefined;
+    autoHideDuration?: number | undefined;
 
-    thumbSize?: number;
-    thumbMinSize?: number;
-    universal?: boolean;
+    thumbSize?: number | undefined;
+    thumbMinSize?: number | undefined;
+    universal?: boolean | undefined;
 
-    autoHeight?: boolean;
-    autoHeightMin?: number | string;
-    autoHeightMax?: number | string;
+    autoHeight?: boolean | undefined;
+    autoHeightMin?: number | string | undefined;
+    autoHeightMax?: number | string | undefined;
 
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 }
 
 export class Scrollbars extends React.Component<ScrollbarProps> {

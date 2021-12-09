@@ -1,7 +1,7 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
-  import UI5Element from "sap/ui/core/Element";
+  import Control from "sap/ui/core/Control";
 
   import UIComponent from "sap/ui/core/UIComponent";
 
@@ -19,9 +19,9 @@ declare module "sap/ui/rta/api/startAdaptation" {
      */
     mOptions: {
       /**
-       * Control instance from where UI adaptation should be started
+       * Control instance to get the AppComponent. This then is used to start UI adaptation.
        */
-      rootControl: UI5Element | UIComponent;
+      rootControl: Control | UIComponent;
       /**
        * Map with flex-related settings
        */
@@ -57,7 +57,7 @@ declare module "sap/ui/rta/api/startAdaptation" {
 }
 
 declare module "sap/ui/rta/api/startKeyUserAdaptation" {
-  import UI5Element from "sap/ui/core/Element";
+  import Control from "sap/ui/core/Control";
 
   import UIComponent from "sap/ui/core/UIComponent";
 
@@ -74,9 +74,9 @@ declare module "sap/ui/rta/api/startKeyUserAdaptation" {
      */
     mPropertyBag: {
       /**
-       * Control instance from where key user adaptation should be started
+       * Control instance to get the AppComponent. This then is used to start UI adaptation.
        */
-      rootControl: UI5Element | UIComponent;
+      rootControl: Control | UIComponent;
     }
   ): Promise<any>;
 }
@@ -112,11 +112,5 @@ declare namespace sap {
     "sap/ui/rta/service/Property": undefined;
 
     "sap/ui/rta/service/Selection": undefined;
-
-    "sap/ui/rta/util/changeVisualization/ChangeIndicator": undefined;
-
-    "sap/ui/rta/util/changeVisualization/ChangeIndicatorRegistry": undefined;
-
-    "sap/ui/rta/util/changeVisualization/ChangeVisualization": undefined;
   }
 }

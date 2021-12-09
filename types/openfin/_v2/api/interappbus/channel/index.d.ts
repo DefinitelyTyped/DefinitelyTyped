@@ -6,7 +6,7 @@ import Transport, { Message, Payload } from '../../../transport/transport';
 import { ChannelEvents } from '../../events/channel';
 import { ProviderIdentity } from '../../../shapes/Identity';
 export interface ConnectOptions {
-    wait?: boolean;
+    wait?: boolean | undefined;
     payload?: any;
 }
 export interface ChannelPayload {

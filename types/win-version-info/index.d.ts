@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface VersionInfo {
-    FileVersion?: string;
-    LegalCopyright?: string;
-    CompanyName?: string;
-    FileDescription?: string;
-    ProductVersion?: string;
-    InternalName?: string;
-    LegalTrademarks?: string;
-    OriginalFilename?: string;
-    ProductName?: string;
-    BuildID?: string;
+    FileVersion?: string | undefined;
+    LegalCopyright?: string | undefined;
+    CompanyName?: string | undefined;
+    FileDescription?: string | undefined;
+    ProductVersion?: string | undefined;
+    InternalName?: string | undefined;
+    LegalTrademarks?: string | undefined;
+    OriginalFilename?: string | undefined;
+    ProductName?: string | undefined;
+    BuildID?: string | undefined;
 }
 
 declare function winVersionInfo(file: string): VersionInfo;

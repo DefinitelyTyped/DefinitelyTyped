@@ -4,25 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare interface DefaultSettings {
-    PORT?: number;
-    IP?: string;
-    HOSTNAME?: string;
-    APP_NAME?: string;
-    MONGODB_DB_URL?: string;
-    MONGODB_DB_HOST?: string;
-    MONGODB_DB_PORT?: number;
-    MONGODB_DB_USERNAME?: string;
-    MONGODB_DB_PASSWORD?: string;
-    POSTGRESQL_DB_URL?: string;
-    POSTGRESQL_DB_HOST?: string;
-    POSTGRESQL_DB_PORT?: number;
-    POSTGRESQL_DB_USERNAME?: string;
-    POSTGRESQL_DB_PASSWORD?: string;
-    MYSQL_DB_URL?: string;
-    MYSQL_DB_HOST?: string;
-    MYSQL_DB_PORT?: number;
-    MYSQL_DB_USERNAME?: string;
-    MYSQL_DB_PASSWORD?: string;
+    PORT?: number | undefined;
+    IP?: string | undefined;
+    HOSTNAME?: string | undefined;
+    APP_NAME?: string | undefined;
+    MONGODB_DB_URL?: string | undefined;
+    MONGODB_DB_HOST?: string | undefined;
+    MONGODB_DB_PORT?: number | undefined;
+    MONGODB_DB_USERNAME?: string | undefined;
+    MONGODB_DB_PASSWORD?: string | undefined;
+    POSTGRESQL_DB_URL?: string | undefined;
+    POSTGRESQL_DB_HOST?: string | undefined;
+    POSTGRESQL_DB_PORT?: number | undefined;
+    POSTGRESQL_DB_USERNAME?: string | undefined;
+    POSTGRESQL_DB_PASSWORD?: string | undefined;
+    MYSQL_DB_URL?: string | undefined;
+    MYSQL_DB_HOST?: string | undefined;
+    MYSQL_DB_PORT?: number | undefined;
+    MYSQL_DB_USERNAME?: string | undefined;
+    MYSQL_DB_PASSWORD?: string | undefined;
 }
 
 declare type MaybeNum = number | void;

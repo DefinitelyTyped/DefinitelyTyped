@@ -2,10 +2,10 @@ import * as React from "react";
 import { RenderIconProps, SideNavSharedProps, SideNavSizingProps, ForwardRefReturn } from "../../../typings/shared";
 
 export interface SideNavMenuProps extends RenderIconProps, SideNavSharedProps, SideNavSizingProps {
-    children?: React.ReactNode,
-    className?: string,
-    defaultExpanded?: boolean
-    isActive?: boolean,
+    children?: React.ReactNode | undefined,
+    className?: string | undefined,
+    defaultExpanded?: boolean | undefined
+    isActive?: boolean | undefined,
     title: string,
 }
 

@@ -8,14 +8,14 @@
 import http = require('http');
 
 export interface ServerOptions {
-    sockjs_url?: string;
-    prefix?: string;
-    response_limit?: number;
-    websocket?: boolean;
+    sockjs_url?: string | undefined;
+    prefix?: string | undefined;
+    response_limit?: number | undefined;
+    websocket?: boolean | undefined;
     jsessionid?: any;
     log?(severity: string, message: string): void;
-    heartbeat_delay?: number;
-    disconnect_delay?: number;
+    heartbeat_delay?: number | undefined;
+    disconnect_delay?: number | undefined;
 }
 
 export function createServer(options?: ServerOptions): Server;

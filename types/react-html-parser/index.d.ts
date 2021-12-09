@@ -13,8 +13,8 @@ export interface Transform {
 }
 
 export interface Options {
-    decodeEntities?: boolean;
-    transform?: Transform;
+    decodeEntities?: boolean | undefined;
+    transform?: Transform | undefined;
     preprocessNodes?(nodes: DomElement[]): any;
 }
 

@@ -12,16 +12,16 @@ interface HueObject {
 }
 
 type Hue = number | HueObject | ReadonlyArray<HueObject>;
-type Lightness = number | ColorValueArray;
-type Saturation = number | ColorValueArray;
+type Lightness = number | number[];
+type Saturation = number | number[];
 
 type HashFunction = (input: string) => number;
 
 interface ColorHashOptions {
-    lightness?: Lightness;
-    saturation?: Saturation;
-    hue?: Hue;
-    hash?: HashFunction;
+    lightness?: Lightness | undefined;
+    saturation?: Saturation | undefined;
+    hue?: Hue | undefined;
+    hash?: HashFunction | undefined;
 }
 
 declare class ColorHash {

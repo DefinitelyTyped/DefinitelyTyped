@@ -10,8 +10,8 @@ declare function firstline(filePath: string, opts?: firstline.Options): Promise<
 declare namespace firstline {
     interface Options {
         /** @default 'utf8' */
-        encoding?: BufferEncoding;
+        encoding?: BufferEncoding | undefined;
         /** @default '\n' */
-        lineEnding?: string;
+        lineEnding?: string | undefined;
     }
 }

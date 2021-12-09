@@ -3,8 +3,8 @@ import { applyMiddleware, Middleware } from "redux";
 
 interface State {
     foo: string;
-    bar?: string;
-    baz?: string;
+    bar?: string | undefined;
+    baz?: string | undefined;
 }
 
 const initialState: State = { foo: "bar" };

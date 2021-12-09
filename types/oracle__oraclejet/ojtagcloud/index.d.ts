@@ -14,9 +14,9 @@ export interface ojTagCloud<K, D> extends dvtBaseComponent<ojTagCloudSettablePro
     selection: K[];
     selectionMode: 'single' | 'multiple' | 'none';
     styleDefaults: {
-        animationDuration?: number;
-        hoverBehaviorDelay?: number;
-        svgStyle?: object;
+        animationDuration?: number | undefined;
+        hoverBehaviorDelay?: number | undefined;
+        svgStyle?: object | undefined;
     };
     tooltip: {
         renderer: ((context: ojTagCloud.TooltipContext<K>) => ({
@@ -27,23 +27,23 @@ export interface ojTagCloud<K, D> extends dvtBaseComponent<ojTagCloudSettablePro
     };
     touchResponse: 'touchStart' | 'auto';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     onAnimationOnDataChangeChanged: ((event: JetElementCustomEvent<ojTagCloud<K, D>["animationOnDataChange"]>) => any) | null;
     onAnimationOnDisplayChanged: ((event: JetElementCustomEvent<ojTagCloud<K, D>["animationOnDisplay"]>) => any) | null;
@@ -99,9 +99,9 @@ export interface ojTagCloudSettableProperties<K, D> extends dvtBaseComponentSett
     selection: K[];
     selectionMode: 'single' | 'multiple' | 'none';
     styleDefaults: {
-        animationDuration?: number;
-        hoverBehaviorDelay?: number;
-        svgStyle?: object;
+        animationDuration?: number | undefined;
+        hoverBehaviorDelay?: number | undefined;
+        svgStyle?: object | undefined;
     };
     tooltip: {
         renderer: ((context: ojTagCloud.TooltipContext<K>) => ({
@@ -112,23 +112,23 @@ export interface ojTagCloudSettableProperties<K, D> extends dvtBaseComponentSett
     };
     touchResponse: 'touchStart' | 'auto';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface ojTagCloudSettablePropertiesLenient<K, D> extends Partial<ojTagCloudSettableProperties<K, D>> {
@@ -160,7 +160,7 @@ export namespace ojTagCloud {
 }
 export interface ojTagCloudItem extends JetElement<ojTagCloudItemSettableProperties> {
     categories: string[];
-    color?: string;
+    color?: string | undefined;
     label: string;
     shortDesc: string;
     svgClassName: string;
@@ -195,7 +195,7 @@ export interface ojTagCloudItemEventMap extends HTMLElementEventMap {
 }
 export interface ojTagCloudItemSettableProperties extends JetSettableProperties {
     categories: string[];
-    color?: string;
+    color?: string | undefined;
     label: string;
     shortDesc: string;
     svgClassName: string;

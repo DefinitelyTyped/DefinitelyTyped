@@ -33,13 +33,13 @@ declare namespace haversine {
 
     interface Options {
         /** Unit of measurement applied to result. Default: "km". */
-        unit?: 'km' | 'mile' | 'meter' | 'nmi';
+        unit?: 'km' | 'mile' | 'meter' | 'nmi' | undefined;
         /**
          * If passed, will result in library returning boolean value of whether or not the start and end points are within that supplied threshold.
          */
-        threshold?: number | null;
+        threshold?: number | null | undefined;
         /** Format of coordinate arguments. */
-        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | '{lat,lng}' | 'geojson';
+        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | '{lat,lng}' | 'geojson' | undefined;
     }
 
     // The input & output types of haversine() both depend on the Options object.

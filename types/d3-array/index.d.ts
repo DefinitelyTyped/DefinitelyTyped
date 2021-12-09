@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -57,18 +57,18 @@ export function min<T, U extends Numeric>(
 /**
  * Return the index of the minimum value in the array using natural order.
  */
-export function minIndex<T>(iterable: Iterable<T>): number;
+export function minIndex(iterable: Iterable<unknown>): number;
 /**
  * Return the index of the minimum value in the array using natural order and a projection function to map values.
  */
-export function minIndex<TDatum, U>(
+export function minIndex<TDatum>(
     iterable: Iterable<TDatum>,
-    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null
+    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => unknown
 ): number;
 /**
  * Return the index of the minimum value in the array using natural order.
  */
-export function minIndex<T>(iterable: Iterable<T>): number;
+export function minIndex(iterable: Iterable<unknown>): number;
 
 /**
  * Return the maximum value in the array of strings using natural order.
@@ -96,13 +96,13 @@ export function max<T, U extends Numeric>(
 /**
  * Return the index of the maximum value in the array using natural order.
  */
-export function maxIndex<T>(iterable: Iterable<T>): number;
+export function maxIndex(iterable: Iterable<unknown>): number;
 /**
  * Return the index of the maximum value in the array using natural order and a projection function to map values.
  */
-export function maxIndex<TDatum, U>(
+export function maxIndex<TDatum>(
     iterable: Iterable<TDatum>,
-    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null
+    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => unknown
 ): number;
 
 /**
@@ -148,7 +148,7 @@ export function mode<T>(iterable: Iterable<T>, accessor: (datum: T, index: numbe
 /**
  * Compute the sum of an array of numbers.
  */
-export function sum<T extends Numeric>(iterable: Iterable<T | undefined | null>): number;
+export function sum(iterable: Iterable<Numeric | undefined | null>): number;
 /**
  * Compute the sum of an array, using the given accessor to convert values to numbers.
  */
@@ -160,7 +160,7 @@ export function sum<T>(
 /**
  * Return the mean of an array of numbers
  */
-export function mean<T extends Numeric>(iterable: Iterable<T | undefined | null>): number | undefined;
+export function mean(iterable: Iterable<Numeric | undefined | null>): number | undefined;
 /**
  * Return the mean of an array of numbers
  */
@@ -172,7 +172,7 @@ export function mean<T>(
 /**
  * Return the median of an array of numbers
  */
-export function median<T extends Numeric>(iterable: Iterable<T | undefined | null>): number | undefined;
+export function median(iterable: Iterable<Numeric | undefined | null>): number | undefined;
 /**
  * Return the median of an array of numbers
  */
@@ -204,7 +204,7 @@ export function cumsum<T>(
  *
  * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the quantile.
  */
-export function quantile<T extends Numeric>(iterable: Iterable<T | undefined | null>, p: number): number | undefined;
+export function quantile(iterable: Iterable<Numeric | undefined | null>, p: number): number | undefined;
 /**
  * Returns the p-quantile of the given iterable of numbers, where p is a number in the range [0, 1].
  *
@@ -220,8 +220,8 @@ export function quantile<T>(
  * Similar to quantile, but expects the input to be a sorted array of values.
  * In contrast with quantile, the accessor is only called on the elements needed to compute the quantile.
  */
-export function quantileSorted<T extends Numeric>(
-    array: Array<T | undefined | null>,
+export function quantileSorted(
+    array: Array<Numeric | undefined | null>,
     p: number
 ): number | undefined;
 /**
@@ -235,12 +235,30 @@ export function quantileSorted<T>(
 ): number | undefined;
 
 /**
+ * Returns an array with the rank of each value in the iterable, i.e. the index of the value when the iterable is sorted.
+ * Nullish values are sorted to the end and ranked NaN.
+ * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the ranks.
+ * Ties (equivalent values) all get the same rank, defined as the first time the value is found.
+ */
+export function rank(iterable: Iterable<Numeric | undefined | null>): Float64Array;
+/**
+ * Returns an array with the rank of each value in the iterable, i.e. the index of the value when the iterable is sorted.
+ * Nullish values are sorted to the end and ranked NaN.
+ * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the ranks.
+ * Ties (equivalent values) all get the same rank, defined as the first time the value is found.
+ */
+export function rank<T>(
+    iterable: Iterable<T>,
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+): Float64Array;
+
+/**
  * Returns an unbiased estimator of the population variance of the given iterable of numbers using Welford’s algorithm.
  * If the iterable has fewer than two numbers, returns undefined.
  * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the variance.
  * This method ignores undefined and NaN values; this is useful for ignoring missing data.
  */
-export function variance<T extends Numeric>(iterable: Iterable<T | undefined | null>): number | undefined;
+export function variance(iterable: Iterable<Numeric | undefined | null>): number | undefined;
 /**
  * Returns an unbiased estimator of the population variance of the given iterable of numbers using Welford’s algorithm.
  * If the iterable has fewer than two numbers, returns undefined.
@@ -255,7 +273,7 @@ export function variance<T>(
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array of numbers.
  */
-export function deviation<T extends Numeric>(iterable: Iterable<T | undefined | null>): number | undefined;
+export function deviation(iterable: Iterable<Numeric | undefined | null>): number | undefined;
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
  * using the given accessor to convert values to numbers.
@@ -269,7 +287,7 @@ export function deviation<T>(
  * Returns a full precision summation of the given values.
  * Although slower, d3.fsum can replace d3.sum wherever greater precision is needed. Uses d3.Adder.
  */
-export function fsum<T extends Numeric>(values: Iterable<T | undefined | null>): number;
+export function fsum(values: Iterable<Numeric | undefined | null>): number;
 /**
  * Returns a full precision summation of the given values.
  * Although slower, d3.fsum can replace d3.sum wherever greater precision is needed. Uses d3.Adder.
@@ -316,22 +334,19 @@ export class Adder {
 // --------------------------------------------------------------------------------------
 
 /**
- * Returns the least element of the specified iterable.
- */
-export function least<T>(iterable: Iterable<T>): T | undefined;
-/**
  * Returns the least element of the specified iterable according to the specified comparator.
+ * If comparator is not specified, it defaults to ascending.
  */
-export function least<T>(iterable: Iterable<T>, comparator: (a: T, b: T) => number): T | undefined;
+export function least<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => number): T | undefined;
 /**
  * Returns the least element of the specified iterable according to the specified accessor.
  */
-export function least<T, U>(iterable: Iterable<T>, accessor: (a: T) => U): T | undefined;
+export function least<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): T | undefined;
 
 /**
  * Returns the index of the least element of the specified iterable according to the specified comparator.
  */
-export function leastIndex<T>(iterable: Iterable<T>): number | undefined;
+export function leastIndex(iterable: Iterable<unknown>): number | undefined;
 /**
  * Returns the index of the least element of the specified iterable according to the specified comparator.
  */
@@ -339,33 +354,28 @@ export function leastIndex<T>(iterable: Iterable<T>, comparator: (a: T, b: T) =>
 /**
  * Returns the index of the least element of the specified iterable according to the specified accessor.
  */
-export function leastIndex<T, U>(iterable: Iterable<T>, accessor: (a: T) => U): number | undefined;
+// tslint:disable-next-line:unified-signatures
+export function leastIndex<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): number | undefined;
 
 /**
  * Returns the greatest element of the specified iterable according to the specified comparator or accessor.
  * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns undefined.
  * If comparator is not specified, it defaults to ascending.
  */
-export function greatest<T>(iterable: Iterable<T>): T | undefined;
+export function greatest<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => number): T | undefined;
 /**
  * Returns the greatest element of the specified iterable according to the specified comparator or accessor.
  * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns undefined.
  * If comparator is not specified, it defaults to ascending.
  */
-export function greatest<T>(iterable: Iterable<T>, comparator: (a: T, b: T) => number): T | undefined;
-/**
- * Returns the greatest element of the specified iterable according to the specified comparator or accessor.
- * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns undefined.
- * If comparator is not specified, it defaults to ascending.
- */
-export function greatest<T, U>(iterable: Iterable<T>, accessor: (a: T) => U): T | undefined;
+export function greatest<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): T | undefined;
 
 /**
  * Returns the index of the greatest element of the specified iterable according to the specified comparator or accessor.
  * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns -1.
  * If comparator is not specified, it defaults to ascending.
  */
-export function greatestIndex<T>(iterable: Iterable<T>): number | undefined;
+export function greatestIndex(iterable: Iterable<unknown>): number | undefined;
 /**
  * Returns the index of the greatest element of the specified iterable according to the specified comparator or accessor.
  * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns -1.
@@ -377,7 +387,8 @@ export function greatestIndex<T>(iterable: Iterable<T>, comparator: (a: T, b: T)
  * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns -1.
  * If comparator is not specified, it defaults to ascending.
  */
-export function greatestIndex<T, U>(iterable: Iterable<T>, accessor: (a: T) => U): number | undefined;
+// tslint:disable-next-line:unified-signatures
+export function greatestIndex<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): number | undefined;
 
 export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
 export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
@@ -400,32 +411,9 @@ export interface Bisector<T, U> {
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
+// tslint:disable-next-line:unified-signatures
 export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
 
-/**
- * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
- *
- * @param array The array to partially sort (in place).
- * @param k The middle index for partial sorting.
- */
-export function quickselect<T>(array: ArrayLike<T>, k: number): T[];
-/**
- * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
- *
- * @param array The array to partially sort (in place).
- * @param k The middle index for partial sorting.
- * @param left The left index of the range to sort.
- */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left: number): T[];
-/**
- * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
- *
- * @param array The array to partially sort (in place).
- * @param k The middle index for partial sorting.
- * @param left The left index of the range to sort.
- * @param right The right index.
- */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, right: number): T[];
 /**
  * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
  *
@@ -435,7 +423,7 @@ export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, rig
  * @param right The right index.
  * @param compare The compare function.
  */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, right: number, compare: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
+export function quickselect<T>(array: ArrayLike<T>, k: number, left?: number, right?: number, compare?: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
@@ -773,9 +761,10 @@ export function groupSort<TObject, TKey>(
 /**
  * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified accessor, and then returns an array of keys in sorted order.
  */
-export function groupSort<TObject, TReduce, TKey>(
+export function groupSort<TObject, TKey>(
     iterable: Iterable<TObject>,
-    accessor: (value: TObject[]) => TReduce,
+    // tslint:disable-next-line:unified-signatures
+    accessor: (value: TObject[]) => unknown,
     key: (value: TObject) => TKey
 ): TKey[];
 
@@ -784,7 +773,7 @@ export function groupSort<TObject, TReduce, TKey>(
  *
  * @param iterable Input array.
  */
-export function count<TObject>(iterable: Iterable<TObject>): number;
+export function count(iterable: Iterable<unknown>): number;
 /**
  * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
  *
@@ -932,6 +921,7 @@ export function range(stop: number): number[];
 /**
  * Generates a numeric sequence starting from the given start and stop values. 'step' defaults to 1. The output range does not include 'stop'.
  */
+// tslint:disable-next-line:unified-signatures
 export function range(start: number, stop: number, step?: number): number[];
 
 /**
@@ -1029,21 +1019,21 @@ export function sort<T>(iterable: Iterable<T>, ...accessors: Array<(a: T) => unk
 // --------------------------------------------------------------------------------------
 
 /**
- * Returns a new Set containing every value in iterable that is not in any of the others iterables.
+ * Returns a new InternSet containing every value in iterable that is not in any of the others iterables.
  */
-export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): Set<T>;
+export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): InternSet<T>;
 
 /**
- * Returns a new Set containing every (distinct) value that appears in any of the given iterables.
- * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ * Returns a new InternSet containing every (distinct) value that appears in any of the given iterables.
+ * The order of values in the returned set is based on their first occurrence in the given iterables.
  */
-export function union<T>(...iterables: Array<Iterable<T>>): Set<T>;
+export function union<T>(...iterables: Array<Iterable<T>>): InternSet<T>;
 
 /**
- * Returns a new Set containing every (distinct) value that appears in all of the given iterables.
- * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ * Returns a new InternSet containing every (distinct) value that appears in all of the given iterables.
+ * The order of values in the returned set is based on their first occurrence in the given iterables.
  */
-export function intersection<T>(...iterables: Array<Iterable<T>>): Set<T>;
+export function intersection<T>(...iterables: Array<Iterable<T>>): InternSet<T>;
 
 /**
  * Returns true if a is a superset of b: if every value in the given iterable b is also in the given iterable a.
@@ -1096,8 +1086,7 @@ export interface HistogramCommon<Datum, Value extends number | Date | undefined>
 
 export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> extends HistogramCommon<Datum, Date> {
     domain(): (values: ArrayLike<Value>) => [Date, Date];
-    domain(domain: [Date, Date]): this;
-    domain(domainAccessor: (values: ArrayLike<Value>) => [Date, Date]): this;
+    domain(domain: [Date, Date] | ((values: ArrayLike<Value>) => [Date, Date])): this;
 
     thresholds(): ThresholdDateArrayGenerator<Value>;
     /**
@@ -1106,28 +1095,18 @@ export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> e
      * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
      * and the last bin.x1 is always equal to the maximum domain value.
      *
-     * @param thresholds Array of threshold values used for binning. The elements must
+     * @param thresholds Either an array of threshold values used for binning. The elements must
      * be of the same type as the materialized values of the histogram.
-     */
-    thresholds(thresholds: ArrayLike<Value>): this;
-    /**
-     * Set a threshold accessor function, which returns the array of values to be used as
-     * thresholds in determining the bins.
-     *
-     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
-     * and the last bin.x1 is always equal to the maximum domain value.
-     *
-     * @param thresholds A function which accepts as arguments the array of materialized values, and
+     * Or a function which accepts as arguments the array of materialized values, and
      * optionally the domain minimum and maximum. The function calculates and returns the array of values to be used as
      * thresholds in determining the bins.
      */
-    thresholds(thresholds: ThresholdDateArrayGenerator<Value>): this;
+    thresholds(thresholds: ArrayLike<Value> | ThresholdDateArrayGenerator<Value>): this;
 }
 
 export interface HistogramGeneratorNumber<Datum, Value extends number | undefined> extends HistogramCommon<Datum, Value> {
     domain(): (values: Iterable<Value>) => [number, number] | [undefined, undefined];
-    domain(domain: [number, number]): this;
-    domain(domainAccessor: (values: Iterable<Value>) => [number, number] | [undefined, undefined]): this;
+    domain(domain: [number, number] | ((values: Iterable<Value>) => [number, number] | [undefined, undefined])): this;
 
     thresholds(): ThresholdCountGenerator<Value> | ThresholdNumberArrayGenerator<Value>;
     /**
@@ -1137,44 +1116,25 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
      * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
      * and the last bin.x1 is always equal to the maximum domain value.
      *
-     * @param count The desired number of uniform bins.
+     * @param count Either the desired number of uniform bins or a function which accepts as arguments the array of
+     * materialized values, and optionally the domain minimum and maximum. The function calculates and returns the
+     * suggested number of bins.
      */
-    thresholds(count: number): this;
-    /**
-     * Set a threshold accessor function, which returns the desired number of bins.
-     * Divides the domain uniformly into approximately count bins. IMPORTANT: This threshold
-     * setting approach only works, when the materialized values are numbers!
-     *
-     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
-     * and the last bin.x1 is always equal to the maximum domain value.
-     *
-     * @param count A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calculates and returns the suggested
-     * number of bins.
-     */
-    thresholds(count: ThresholdCountGenerator<Value>): this;
+    thresholds(count: number | ThresholdCountGenerator<Value>): this;
     /**
      * Set the array of values to be used as thresholds in determining the bins.
      *
      * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
      * and the last bin.x1 is always equal to the maximum domain value.
      *
-     * @param thresholds Array of threshold values used for binning. The elements must
+     * @param thresholds Either an array of threshold values used for binning. The elements must
      * be of the same type as the materialized values of the histogram.
-     */
-    thresholds(thresholds: ArrayLike<Value>): this;
-    /**
-     * Set a threshold accessor function, which returns the array of values to be used as
-     * thresholds in determining the bins.
-     *
-     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
-     * and the last bin.x1 is always equal to the maximum domain value.
-     *
-     * @param thresholds A function which accepts as arguments the array of materialized values, and
+     * Or a function which accepts as arguments the array of materialized values, and
      * optionally the domain minimum and maximum. The function calculates and returns the array of values to be used as
      * thresholds in determining the bins.
      */
-    thresholds(thresholds: ThresholdNumberArrayGenerator<Value>): this;
+    // tslint:disable-next-line:unified-signatures
+    thresholds(thresholds: ArrayLike<Value> | ThresholdNumberArrayGenerator<Value>): this;
 }
 
 /**
@@ -1185,15 +1145,19 @@ export function histogram(): HistogramGeneratorNumber<number, number>;
 /**
  * @deprecated Use bin instead.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function histogram<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
 
 /**
  * @deprecated Use bin instead.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 export function bin(): HistogramGeneratorNumber<number, number>;
+// tslint:disable-next-line:no-unnecessary-generics
 export function bin<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
+// tslint:disable-next-line:no-unnecessary-generics
 export function bin<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 // --------------------------------------------------------------------------------------

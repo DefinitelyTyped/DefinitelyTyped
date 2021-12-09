@@ -35,7 +35,7 @@ declare namespace bounds {
          * Events will be emitted whenever a watched element enters/exits the root element.
          * @default window
          */
-        root?: Element | null;
+        root?: Element | null | undefined;
 
         /**
          * Accepts a mapping, where values are stated in pixels.
@@ -43,7 +43,7 @@ declare namespace bounds {
          * This affects detection, NOT style on the root element.
          * @default { top: 0, right: 0, bottom: 0, left: 0 }
          */
-        margins?: Margins;
+        margins?: Margins | undefined;
 
         /**
          * Accepts a number between 0.0 and 1.0.
@@ -52,7 +52,7 @@ declare namespace bounds {
          * A threshold of 1.0 means that every pixel of a watched element must be inside the boundary before a callback is made.
          * @default 0.0
          */
-        threshold?: number;
+        threshold?: number | undefined;
 
         /**
          * The provided callback will be executed whenever any watched element enters or exits the boundary,
@@ -60,7 +60,7 @@ declare namespace bounds {
          * This is a useful option if you'd like some action to take place no matter what element enters/exits your boundary.
          * @default () => {}
          */
-        onEmit?: (actions: Action[]) => void;
+        onEmit?: ((actions: Action[]) => void) | undefined;
     }
 
     class Boundary {

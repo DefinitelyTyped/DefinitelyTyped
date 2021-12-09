@@ -34,7 +34,7 @@ export type LocationRange = PEG.LocationRange;
 
 export interface ExpectedItem {
     type: string;
-    value?: string;
+    value?: string | undefined;
     description: string;
 }
 
@@ -43,7 +43,7 @@ export interface PegjsError extends Error {
     message: string;
     location: LocationRange;
     found?: any;
-    expected?: ExpectedItem[];
+    expected?: ExpectedItem[] | undefined;
     stack?: any;
 }
 
@@ -51,7 +51,7 @@ export type GrammarError = PegjsError;
 export var GrammarError: any;
 
 export interface ParserOptions {
-    startRule?: string;
+    startRule?: string | undefined;
     tracer?: any;
     [key: string]: any;
 }
@@ -64,20 +64,20 @@ export interface Parser {
 
 export interface BuildOptionsBase {
     /** rules the parser will be allowed to start parsing from (default: the first rule in the grammar) */
-    allowedStartRules?: string[];
+    allowedStartRules?: string[] | undefined;
     /** if `true`, makes the parser cache results, avoiding exponential parsing time in pathological cases but making the parser slower (default: `false`) */
-    cache?: boolean;
+    cache?: boolean | undefined;
     /** selects between optimizing the generated parser for parsing speed (`"speed"`) or code size (`"size"`) (default: `"speed"`) */
-    optimize?: "speed" | "size";
+    optimize?: "speed" | "size" | undefined;
     /** plugins to use */
-    plugins?: any[];
+    plugins?: any[] | undefined;
     /** makes the parser trace its progress (default: `false`) */
-    trace?: boolean
+    trace?: boolean | undefined
 }
 
 export interface ParserBuildOptions extends BuildOptionsBase {
     /** if set to `"parser"`, the method will return generated parser object; if set to `"source"`, it will return parser source code as a string (default: `"parser"`) */
-    output?: "parser"
+    output?: "parser" | undefined
 }
 
 export interface OutputFormatAmdCommonjs extends BuildOptionsBase {
@@ -113,7 +113,7 @@ export interface OutputFormatBare extends BuildOptionsBase {
     /** if set to `"parser"`, the method will return generated parser object; if set to `"source"`, it will return parser source code as a string (default: `"parser"`) */
     output: "source";
     /** format of the genreated parser (`"amd"`, `"bare"`, `"commonjs"`, `"globals"`, or `"umd"`); valid only when `output` is set to `"source"` (default: `"bare"`) */
-    format?: "bare"
+    format?: "bare" | undefined
 }
 
 /** Returns a generated parser object. It will throw an exception if the grammar is invalid. The exception will contain `message` property with more details about the error. */

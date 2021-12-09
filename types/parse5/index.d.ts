@@ -5,7 +5,8 @@
 //                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Location {
+export {};
+interface EndLocationBase {
     /**
      * One-based column index of the last character
      */
@@ -20,7 +21,9 @@ export interface Location {
      * One-based line index of the last character
      */
     endLine: number;
+}
 
+export interface Location extends EndLocationBase {
     /**
      * One-based column index of the first character
      */
@@ -37,6 +40,8 @@ export interface Location {
     startLine: number;
 }
 
+export interface EndLocation extends EndLocationBase, Partial<ElementLocationBase> {}
+
 export interface AttributesLocation {
     [attributeName: string]: Location;
 }
@@ -45,15 +50,17 @@ export interface StartTagLocation extends Location {
     /**
      * Start tag attributes' location info
      */
-    attrs: AttributesLocation;
+    attrs?: AttributesLocation;
 }
 
-export interface ElementLocation extends StartTagLocation {
+export interface ElementLocation extends ElementLocationBase, StartTagLocation {
     /**
      * Element's start tag location info.
      */
     startTag: StartTagLocation;
+}
 
+interface ElementLocationBase {
     /**
      * Element's end tag location info.
      */
@@ -62,12 +69,12 @@ export interface ElementLocation extends StartTagLocation {
 
 export interface ParserOptions<T extends TreeAdapter = TreeAdapter> {
     /**
-     * The [scripting flag](https://html.spec.whatwg.org/multipage/parsing.html#scripting-flag). If set
-     * to `true`, `noscript` element content will be parsed as text.
+     * The [scripting flag](https://html.spec.whatwg.org/multipage/parsing.html#scripting-flag).
+     * If set to `true`, `<noscript>` element content will be parsed as text.
      *
-     *  **Default:** `true`
+     *  @default true
      */
-    scriptingEnabled?: boolean;
+    scriptingEnabled?: boolean | undefined;
 
     /**
      * Enables source code location information. When enabled, each node (except the root node)
@@ -77,31 +84,31 @@ export interface ParserOptions<T extends TreeAdapter = TreeAdapter> {
      * [tree correction](https://html.spec.whatwg.org/multipage/syntax.html#an-introduction-to-error-handling-and-strange-cases-in-the-parser)),
      * its `sourceCodeLocation` property will be `undefined`.
      *
-     * **Default:** `false`
+     * @default false
      */
-    sourceCodeLocationInfo?: boolean;
+    sourceCodeLocationInfo?: boolean | undefined;
 
     /**
      * Specifies the resulting tree format.
      *
-     * **Default:** `treeAdapters.default`
+     * @default require("./lib/tree-adapters/default")
      */
-    treeAdapter?: T;
+    treeAdapter?: T | undefined;
 }
 
 export interface SerializerOptions<T extends TreeAdapter = TreeAdapter> {
     /***
      * Specifies input tree format.
      *
-     * **Default:** `treeAdapters.default`
+     * @default require("./lib/tree-adapters/default")
      */
-    treeAdapter?: T;
+    treeAdapter?: T | undefined;
 }
 
 /**
  * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
  */
-export type DocumentMode = "no-quirks" | "quirks" | "limited-quirks";
+export type DocumentMode = 'no-quirks' | 'quirks' | 'limited-quirks';
 
 // Default tree adapter
 
@@ -122,12 +129,12 @@ export interface Attribute {
     /**
      * The namespace of the attribute.
      */
-    namespace?: string;
+    namespace?: string | undefined;
 
     /**
      * The namespace-related prefix of the attribute.
      */
-    prefix?: string;
+    prefix?: string | undefined;
 }
 
 /**
@@ -137,7 +144,7 @@ export interface DocumentType {
     /**
      * The name of the node.
      */
-    nodeName: "#documentType";
+    nodeName: '#documentType';
 
     /**
      * Document type name.
@@ -162,7 +169,7 @@ export interface Document {
     /**
      * The name of the node.
      */
-    nodeName: "#document";
+    nodeName: '#document';
 
     /**
      * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
@@ -182,7 +189,7 @@ export interface DocumentFragment {
     /**
      * The name of the node.
      */
-    nodeName: "#document-fragment";
+    nodeName: '#document-fragment';
 
     /**
      * Child nodes.
@@ -217,7 +224,7 @@ export interface Element {
     /**
      * Element source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
-    sourceCodeLocation?: ElementLocation;
+    sourceCodeLocation?: ElementLocation | undefined;
 
     /**
      * Child nodes.
@@ -237,7 +244,7 @@ export interface CommentNode {
     /**
      * The name of the node.
      */
-    nodeName: "#comment";
+    nodeName: '#comment';
 
     /**
      * Comment text.
@@ -247,7 +254,7 @@ export interface CommentNode {
     /**
      * Comment source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
-    sourceCodeLocation?: Location;
+    sourceCodeLocation?: Location | undefined;
 
     /**
      * Parent node.
@@ -262,7 +269,7 @@ export interface TextNode {
     /**
      * The name of the node.
      */
-    nodeName: "#text";
+    nodeName: '#text';
 
     /**
      * Text content.
@@ -272,7 +279,7 @@ export interface TextNode {
     /**
      * Text node source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
-    sourceCodeLocation?: Location;
+    sourceCodeLocation?: Location | undefined;
 
     /**
      * Parent node.
@@ -308,61 +315,6 @@ export interface TreeAdapterTypeMap {
     textNode: unknown;
 }
 
-export interface TreeAdapter {
-    adoptAttributes(recipient: unknown, attrs: unknown[]): void;
-    appendChild(parentNode: unknown, newNode: unknown): void;
-    createCommentNode(data: string): unknown;
-    createDocument(): unknown;
-    createDocumentFragment(): unknown;
-    createElement(
-        tagName: string,
-        namespaceURI: string,
-        attrs: unknown[]
-    ): unknown;
-    detachNode(node: unknown): void;
-    getAttrList(element: unknown): unknown[];
-    getChildNodes(node: unknown): unknown[];
-    getCommentNodeContent(commentNode: unknown): string;
-    getDocumentMode(document: unknown): unknown;
-    getDocumentTypeNodeName(doctypeNode: unknown): string;
-    getDocumentTypeNodePublicId(doctypeNode: unknown): string;
-    getDocumentTypeNodeSystemId(doctypeNode: unknown): string;
-    getFirstChild(node: unknown): unknown;
-    getNamespaceURI(element: unknown): string;
-    getNodeSourceCodeLocation(node: unknown): Location | StartTagLocation | ElementLocation;
-    getParentNode(node: unknown): unknown;
-    getTagName(element: unknown): string;
-    getTextNodeContent(textNode: unknown): string;
-    getTemplateContent(templateElement: unknown): unknown;
-    insertBefore(
-        parentNode: unknown,
-        newNode: unknown,
-        referenceNode: unknown
-    ): void;
-    insertText(parentNode: unknown, text: string): void;
-    insertTextBefore(
-        parentNode: unknown,
-        text: string,
-        referenceNode: unknown
-    ): void;
-    isCommentNode(node: unknown): boolean;
-    isDocumentTypeNode(node: unknown): boolean;
-    isElementNode(node: unknown): boolean;
-    isTextNode(node: unknown): boolean;
-    setDocumentMode(document: unknown, mode: DocumentMode): void;
-    setDocumentType(
-        document: unknown,
-        name: string,
-        publicId: string,
-        systemId: string
-    ): void;
-    setNodeSourceCodeLocation(node: unknown, location: Location | StartTagLocation | ElementLocation): void;
-    setTemplateContent(
-        templateElement: unknown,
-        contentElement: unknown
-    ): void;
-}
-
 /**
  * Tree adapter is a set of utility functions that provides minimal required abstraction layer beetween parser and a specific AST format.
  * Note that `TreeAdapter` is not designed to be a general purpose AST manipulation library. You can build such library
@@ -370,14 +322,14 @@ export interface TreeAdapter {
  *
  * @see [default implementation](https://github.com/inikulin/parse5/blob/master/packages/parse5/lib/tree-adapters/default.js)
  */
-export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdapter {
+export interface TreeAdapter {
     /**
      * Copies attributes to the given element. Only attributes that are not yet present in the element are copied.
      *
      * @param recipient - Element to copy attributes into.
      * @param attrs - Attributes to copy.
      */
-    adoptAttributes(recipient: T['element'], attrs: Array<T['attribute']>): void;
+    adoptAttributes(recipient: unknown, attrs: unknown[]): void;
 
     /**
      * Appends a child node to the given parent node.
@@ -385,24 +337,24 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param parentNode - Parent node.
      * @param newNode -  Child node.
      */
-    appendChild(parentNode: T['parentNode'], newNode: T['node']): void;
+    appendChild(parentNode: unknown, newNode: unknown): void;
 
     /**
      * Creates a comment node.
      *
      * @param data - Comment text.
      */
-    createCommentNode(data: string): T['commentNode'];
+    createCommentNode(data: string): unknown;
 
     /**
      * Creates a document node.
      */
-    createDocument(): T['document'];
+    createDocument(): unknown;
 
     /**
      * Creates a document fragment node.
      */
-    createDocumentFragment(): T['documentFragment'];
+    createDocumentFragment(): unknown;
 
     /**
      * Creates an element node.
@@ -411,117 +363,112 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param namespaceURI - Namespace of the element.
      * @param attrs - Attribute name-value pair array. Foreign attributes may contain `namespace` and `prefix` fields as well.
      */
-    createElement(
-        tagName: string,
-        namespaceURI: string,
-        attrs: Array<T['attribute']>
-    ): T['element'];
+    createElement(tagName: string, namespaceURI: string, attrs: unknown[]): unknown;
 
     /**
      * Removes a node from its parent.
      *
      * @param node - Node to remove.
      */
-    detachNode(node: T['node']): void;
-
+    detachNode(node: unknown): void;
     /**
      * Returns the given element's attributes in an array, in the form of name-value pairs.
      * Foreign attributes may contain `namespace` and `prefix` fields as well.
      *
      * @param element - Element.
      */
-    getAttrList(element: T['element']): Array<T['attribute']>;
+    getAttrList(element: unknown): unknown[];
 
     /**
      * Returns the given node's children in an array.
      *
      * @param node - Node.
      */
-    getChildNodes(node: T['parentNode']): Array<T['childNode']>;
+    getChildNodes(node: unknown): unknown[];
 
     /**
      * Returns the given comment node's content.
      *
      * @param commentNode - Comment node.
      */
-    getCommentNodeContent(commentNode: T['commentNode']): string;
+    getCommentNodeContent(commentNode: unknown): string;
 
     /**
      * Returns [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
      *
      * @param document - Document node.
      */
-    getDocumentMode(document: T['document']): DocumentMode;
+    getDocumentMode(document: unknown): unknown;
 
     /**
      * Returns the given document type node's name.
      *
      * @param doctypeNode - Document type node.
      */
-    getDocumentTypeNodeName(doctypeNode: T['documentType']): string;
+    getDocumentTypeNodeName(doctypeNode: unknown): string;
 
     /**
      * Returns the given document type node's public identifier.
      *
      * @param doctypeNode - Document type node.
      */
-    getDocumentTypeNodePublicId(doctypeNode: T['documentType']): string;
+    getDocumentTypeNodePublicId(doctypeNode: unknown): string;
 
     /**
      * Returns the given document type node's system identifier.
      *
      * @param doctypeNode - Document type node.
      */
-    getDocumentTypeNodeSystemId(doctypeNode: T['documentType']): string;
+    getDocumentTypeNodeSystemId(doctypeNode: unknown): string;
 
     /**
      * Returns the first child of the given node.
      *
      * @param node - Node.
      */
-    getFirstChild(node: T['parentNode']): T['childNode']|undefined;
+    getFirstChild(node: unknown): unknown;
 
     /**
      * Returns the given element's namespace.
      *
      * @param element - Element.
      */
-    getNamespaceURI(element: T['element']): string;
+    getNamespaceURI(element: unknown): string;
 
     /**
      * Returns the given node's source code location information.
      *
      * @param node - Node.
      */
-    getNodeSourceCodeLocation(node: T['node']): Location | StartTagLocation | ElementLocation;
+    getNodeSourceCodeLocation(node: unknown): Location | ElementLocation | null;
 
     /**
      * Returns the given node's parent.
      *
      * @param node - Node.
      */
-    getParentNode(node: T['childNode']): T['parentNode'];
+    getParentNode(node: unknown): unknown;
 
     /**
      * Returns the given element's tag name.
      *
      * @param element - Element.
      */
-    getTagName(element: T['element']): string;
+    getTagName(element: unknown): string;
 
     /**
      * Returns the given text node's content.
      *
      * @param textNode - Text node.
      */
-    getTextNodeContent(textNode: T['textNode']): string;
+    getTextNodeContent(textNode: unknown): string;
 
     /**
      * Returns the `<template>` element content element.
      *
      * @param templateElement - `<template>` element.
      */
-    getTemplateContent(templateElement: T['element']): T['documentFragment'];
+    getTemplateContent(templateElement: unknown): unknown;
 
     /**
      * Inserts a child node to the given parent node before the given reference node.
@@ -530,11 +477,7 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param newNode -  Child node.
      * @param referenceNode -  Reference node.
      */
-    insertBefore(
-        parentNode: T['parentNode'],
-        newNode: T['node'],
-        referenceNode: T['node']
-    ): void;
+    insertBefore(parentNode: unknown, newNode: unknown, referenceNode: unknown): void;
 
     /**
      * Inserts text into a node. If the last child of the node is a text node, the provided text will be appended to the
@@ -543,7 +486,7 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param parentNode - Node to insert text into.
      * @param text - Text to insert.
      */
-    insertText(parentNode: T['parentNode'], text: string): void;
+    insertText(parentNode: unknown, text: string): void;
 
     /**
      * Inserts text into a sibling node that goes before the reference node. If this sibling node is the text node,
@@ -554,39 +497,35 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param text - Text to insert.
      * @param referenceNode - Node to insert text before.
      */
-    insertTextBefore(
-        parentNode: T['parentNode'],
-        text: string,
-        referenceNode: T['node']
-    ): void;
+    insertTextBefore(parentNode: unknown, text: string, referenceNode: unknown): void;
 
     /**
      * Determines if the given node is a comment node.
      *
      * @param node - Node.
      */
-    isCommentNode(node: T['node']): node is T['commentNode'];
+    isCommentNode(node: unknown): boolean;
 
     /**
      * Determines if the given node is a document type node.
      *
      * @param node - Node.
      */
-    isDocumentTypeNode(node: T['node']): node is T['documentType'];
+    isDocumentTypeNode(node: unknown): boolean;
 
     /**
      * Determines if the given node is an element.
      *
      * @param node - Node.
      */
-    isElementNode(node: T['node']): node is T['element'];
+    isElementNode(node: unknown): boolean;
 
     /**
      * Determines if the given node is a text node.
      *
      * @param node - Node.
      */
-    isTextNode(node: T['node']): node is T['textNode'];
+    isTextNode(node: unknown): boolean;
 
     /**
      * Sets the [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
@@ -594,7 +533,7 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param document - Document node.
      * @param mode - Document mode.
      */
-    setDocumentMode(document: T['document'], mode: DocumentMode): void;
+    setDocumentMode(document: unknown, mode: DocumentMode): void;
 
     /**
      * Sets the document type. If the `document` already contains a document type node, the `name`, `publicId` and `systemId`
@@ -606,19 +545,15 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param publicId - Document type public identifier.
      * @param systemId - Document type system identifier.
      */
-    setDocumentType(
-        document: T['document'],
-        name: string,
-        publicId: string,
-        systemId: string
-    ): void;
+    setDocumentType(document: unknown, name: string, publicId: string, systemId: string): void;
 
     /**
      * Attaches source code location information to the node.
      *
      * @param node - Node.
+     * @param location - The node location.
      */
-    setNodeSourceCodeLocation(node: T['node'], location: Location | StartTagLocation | ElementLocation): void;
+    setNodeSourceCodeLocation(node: unknown, location: Location | ElementLocation | null): void;
 
     /**
      * Sets the `<template>` element content element.
@@ -626,10 +561,58 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
      * @param templateElement - `<template>` element.
      * @param contentElement -  Content element.
      */
-    setTemplateContent(
-        templateElement: T['element'],
-        contentElement: T['documentFragment']
-    ): void;
+    setTemplateContent(templateElement: unknown, contentElement: unknown): void;
+
+    /**
+     * Updates source code location information of the node.
+     *
+     * @param node - Node.
+     * @param location - The updated node end location.
+     */
+    updateNodeSourceCodeLocation(node: unknown, location: EndLocation): void;
+}
+
+/**
+ * Tree adapter is a set of utility functions that provides minimal required abstraction layer beetween parser and a specific AST format.
+ * Note that `TreeAdapter` is not designed to be a general purpose AST manipulation library. You can build such library
+ * on top of existing `TreeAdapter` or use one of the existing libraries from npm.
+ *
+ * @see [default implementation](https://github.com/inikulin/parse5/blob/master/packages/parse5/lib/tree-adapters/default.js)
+ */
+export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdapter {
+    adoptAttributes(recipient: T['element'], attrs: Array<T['attribute']>): void;
+    appendChild(parentNode: T['parentNode'], newNode: T['node']): void;
+    createCommentNode(data: string): T['commentNode'];
+    createDocument(): T['document'];
+    createDocumentFragment(): T['documentFragment'];
+    createElement(tagName: string, namespaceURI: string, attrs: Array<T['attribute']>): T['element'];
+    detachNode(node: T['node']): void;
+    getAttrList(element: T['element']): Array<T['attribute']>;
+    getChildNodes(node: T['parentNode']): Array<T['childNode']>;
+    getCommentNodeContent(commentNode: T['commentNode']): string;
+    getDocumentMode(document: T['document']): DocumentMode;
+    getDocumentTypeNodeName(doctypeNode: T['documentType']): string;
+    getDocumentTypeNodePublicId(doctypeNode: T['documentType']): string;
+    getDocumentTypeNodeSystemId(doctypeNode: T['documentType']): string;
+    getFirstChild(node: T['parentNode']): T['childNode'] | undefined;
+    getNamespaceURI(element: T['element']): string;
+    getNodeSourceCodeLocation(node: T['node']): Location | ElementLocation | null;
+    getParentNode(node: T['childNode']): T['parentNode'];
+    getTagName(element: T['element']): string;
+    getTextNodeContent(textNode: T['textNode']): string;
+    getTemplateContent(templateElement: T['element']): T['documentFragment'];
+    insertBefore(parentNode: T['parentNode'], newNode: T['node'], referenceNode: T['node']): void;
+    insertText(parentNode: T['parentNode'], text: string): void;
+    insertTextBefore(parentNode: T['parentNode'], text: string, referenceNode: T['node']): void;
+    isCommentNode(node: T['node']): node is T['commentNode'];
+    isDocumentTypeNode(node: T['node']): node is T['documentType'];
+    isElementNode(node: T['node']): node is T['element'];
+    isTextNode(node: T['node']): node is T['textNode'];
+    setDocumentMode(document: T['document'], mode: DocumentMode): void;
+    setDocumentType(document: T['document'], name: string, publicId: string, systemId: string): void;
+    setNodeSourceCodeLocation(node: T['node'], location: Location | ElementLocation | null): void;
+    setTemplateContent(templateElement: T['element'], contentElement: T['documentFragment']): void;
+    updateNodeSourceCodeLocation(node: T['node'], location: EndLocation): void;
 }
 
 /**
@@ -650,7 +633,8 @@ export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdap
  */
 export function parse<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
     html: string,
-    options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['document'] : Document;
+    options?: ParserOptions<T>,
+): T extends TypedTreeAdapter<infer TMap> ? TMap['document'] : Document;
 
 /**
  * Parses an HTML fragment.
@@ -676,12 +660,13 @@ export function parse<T extends TreeAdapter = typeof import('./lib/tree-adapters
  */
 export function parseFragment<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
     html: string,
-    options?: ParserOptions<T>
+    options?: ParserOptions<T>,
 ): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
 export function parseFragment<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
     fragmentContext: Element,
     html: string,
-    options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
+    options?: ParserOptions<T>,
+): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
 
 /**
  * Serializes an AST node to an HTML string.
@@ -707,4 +692,5 @@ export function parseFragment<T extends TreeAdapter = typeof import('./lib/tree-
  */
 export function serialize<T extends TreeAdapter = typeof import('./lib/tree-adapters/default')>(
     node: T extends TypedTreeAdapter<infer TMap> ? TMap['node'] : Node,
-    options?: SerializerOptions<T>): string;
+    options?: SerializerOptions<T>,
+): string;

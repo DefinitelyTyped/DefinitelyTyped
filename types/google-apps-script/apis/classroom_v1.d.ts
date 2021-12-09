@@ -153,7 +153,7 @@ declare namespace GoogleAppsScript {
                     remove(courseId: string, id: string): void;
                 }
                 interface CourseWorkCollection {
-                    StudentSubmissions?: Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection;
+                    StudentSubmissions?: Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection | undefined;
                     // Creates course work. The resulting course work (and corresponding student submissions) are associated with the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to make the request. Classroom API requests to modify course work and student submissions must be made with an OAuth client ID from the associated Developer Console project. This method returns the following error codes:
                     // *`PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create course work in the requested course, share a Drive attachment, or for access errors.
                     // *`INVALID_ARGUMENT` if the request is malformed.
@@ -424,13 +424,13 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface CoursesCollection {
-                Aliases?: Classroom.Collection.Courses.AliasesCollection;
-                Announcements?: Classroom.Collection.Courses.AnnouncementsCollection;
-                CourseWork?: Classroom.Collection.Courses.CourseWorkCollection;
-                CourseWorkMaterials?: Classroom.Collection.Courses.CourseWorkMaterialsCollection;
-                Students?: Classroom.Collection.Courses.StudentsCollection;
-                Teachers?: Classroom.Collection.Courses.TeachersCollection;
-                Topics?: Classroom.Collection.Courses.TopicsCollection;
+                Aliases?: Classroom.Collection.Courses.AliasesCollection | undefined;
+                Announcements?: Classroom.Collection.Courses.AnnouncementsCollection | undefined;
+                CourseWork?: Classroom.Collection.Courses.CourseWorkCollection | undefined;
+                CourseWorkMaterials?: Classroom.Collection.Courses.CourseWorkMaterialsCollection | undefined;
+                Students?: Classroom.Collection.Courses.StudentsCollection | undefined;
+                Teachers?: Classroom.Collection.Courses.TeachersCollection | undefined;
+                Topics?: Classroom.Collection.Courses.TopicsCollection | undefined;
                 // Creates a course. The user specified in `ownerId` is the owner of the created course and added as a teacher. This method returns the following error codes:
                 // *`PERMISSION_DENIED` if the requesting user is not permitted to create courses or for access errors.
                 // *`NOT_FOUND` if the primary teacher is not a valid user.
@@ -510,8 +510,8 @@ declare namespace GoogleAppsScript {
                 remove(registrationId: string): void;
             }
             interface UserProfilesCollection {
-                GuardianInvitations?: Classroom.Collection.UserProfiles.GuardianInvitationsCollection;
-                Guardians?: Classroom.Collection.UserProfiles.GuardiansCollection;
+                GuardianInvitations?: Classroom.Collection.UserProfiles.GuardianInvitationsCollection | undefined;
+                Guardians?: Classroom.Collection.UserProfiles.GuardiansCollection | undefined;
                 // Returns a user profile. This method returns the following error codes:
                 // *`PERMISSION_DENIED` if the requesting user is not permitted to access this user profile, if no profile exists with the requested ID, or for access errors.
                 get(userId: string): Classroom.Schema.UserProfile;
@@ -519,342 +519,342 @@ declare namespace GoogleAppsScript {
         }
         namespace Schema {
             interface Announcement {
-                alternateLink?: string;
-                assigneeMode?: string;
-                courseId?: string;
-                creationTime?: string;
-                creatorUserId?: string;
-                id?: string;
-                individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions;
-                materials?: Classroom.Schema.Material[];
-                scheduledTime?: string;
-                state?: string;
-                text?: string;
-                updateTime?: string;
+                alternateLink?: string | undefined;
+                assigneeMode?: string | undefined;
+                courseId?: string | undefined;
+                creationTime?: string | undefined;
+                creatorUserId?: string | undefined;
+                id?: string | undefined;
+                individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions | undefined;
+                materials?: Classroom.Schema.Material[] | undefined;
+                scheduledTime?: string | undefined;
+                state?: string | undefined;
+                text?: string | undefined;
+                updateTime?: string | undefined;
             }
             interface Assignment {
-                studentWorkFolder?: Classroom.Schema.DriveFolder;
+                studentWorkFolder?: Classroom.Schema.DriveFolder | undefined;
             }
             interface AssignmentSubmission {
-                attachments?: Classroom.Schema.Attachment[];
+                attachments?: Classroom.Schema.Attachment[] | undefined;
             }
             interface Attachment {
-                driveFile?: Classroom.Schema.DriveFile;
-                form?: Classroom.Schema.Form;
-                link?: Classroom.Schema.Link;
-                youTubeVideo?: Classroom.Schema.YouTubeVideo;
+                driveFile?: Classroom.Schema.DriveFile | undefined;
+                form?: Classroom.Schema.Form | undefined;
+                link?: Classroom.Schema.Link | undefined;
+                youTubeVideo?: Classroom.Schema.YouTubeVideo | undefined;
             }
             interface CloudPubsubTopic {
-                topicName?: string;
+                topicName?: string | undefined;
             }
             interface Course {
-                alternateLink?: string;
-                calendarId?: string;
-                courseGroupEmail?: string;
-                courseMaterialSets?: Classroom.Schema.CourseMaterialSet[];
-                courseState?: string;
-                creationTime?: string;
-                description?: string;
-                descriptionHeading?: string;
-                enrollmentCode?: string;
-                guardiansEnabled?: boolean;
-                id?: string;
-                name?: string;
-                ownerId?: string;
-                room?: string;
-                section?: string;
-                teacherFolder?: Classroom.Schema.DriveFolder;
-                teacherGroupEmail?: string;
-                updateTime?: string;
+                alternateLink?: string | undefined;
+                calendarId?: string | undefined;
+                courseGroupEmail?: string | undefined;
+                courseMaterialSets?: Classroom.Schema.CourseMaterialSet[] | undefined;
+                courseState?: string | undefined;
+                creationTime?: string | undefined;
+                description?: string | undefined;
+                descriptionHeading?: string | undefined;
+                enrollmentCode?: string | undefined;
+                guardiansEnabled?: boolean | undefined;
+                id?: string | undefined;
+                name?: string | undefined;
+                ownerId?: string | undefined;
+                room?: string | undefined;
+                section?: string | undefined;
+                teacherFolder?: Classroom.Schema.DriveFolder | undefined;
+                teacherGroupEmail?: string | undefined;
+                updateTime?: string | undefined;
             }
             interface CourseAlias {
-                alias?: string;
+                alias?: string | undefined;
             }
             interface CourseMaterial {
-                driveFile?: Classroom.Schema.DriveFile;
-                form?: Classroom.Schema.Form;
-                link?: Classroom.Schema.Link;
-                youTubeVideo?: Classroom.Schema.YouTubeVideo;
+                driveFile?: Classroom.Schema.DriveFile | undefined;
+                form?: Classroom.Schema.Form | undefined;
+                link?: Classroom.Schema.Link | undefined;
+                youTubeVideo?: Classroom.Schema.YouTubeVideo | undefined;
             }
             interface CourseMaterialSet {
-                materials?: Classroom.Schema.CourseMaterial[];
-                title?: string;
+                materials?: Classroom.Schema.CourseMaterial[] | undefined;
+                title?: string | undefined;
             }
             interface CourseRosterChangesInfo {
-                courseId?: string;
+                courseId?: string | undefined;
             }
             interface CourseWork {
-                alternateLink?: string;
-                assigneeMode?: string;
-                assignment?: Classroom.Schema.Assignment;
-                associatedWithDeveloper?: boolean;
-                courseId?: string;
-                creationTime?: string;
-                creatorUserId?: string;
-                description?: string;
-                dueDate?: Classroom.Schema.Date;
-                dueTime?: Classroom.Schema.TimeOfDay;
-                id?: string;
-                individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions;
-                materials?: Classroom.Schema.Material[];
-                maxPoints?: number;
-                multipleChoiceQuestion?: Classroom.Schema.MultipleChoiceQuestion;
-                scheduledTime?: string;
-                state?: string;
-                submissionModificationMode?: string;
-                title?: string;
-                topicId?: string;
-                updateTime?: string;
-                workType?: string;
+                alternateLink?: string | undefined;
+                assigneeMode?: string | undefined;
+                assignment?: Classroom.Schema.Assignment | undefined;
+                associatedWithDeveloper?: boolean | undefined;
+                courseId?: string | undefined;
+                creationTime?: string | undefined;
+                creatorUserId?: string | undefined;
+                description?: string | undefined;
+                dueDate?: Classroom.Schema.Date | undefined;
+                dueTime?: Classroom.Schema.TimeOfDay | undefined;
+                id?: string | undefined;
+                individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions | undefined;
+                materials?: Classroom.Schema.Material[] | undefined;
+                maxPoints?: number | undefined;
+                multipleChoiceQuestion?: Classroom.Schema.MultipleChoiceQuestion | undefined;
+                scheduledTime?: string | undefined;
+                state?: string | undefined;
+                submissionModificationMode?: string | undefined;
+                title?: string | undefined;
+                topicId?: string | undefined;
+                updateTime?: string | undefined;
+                workType?: string | undefined;
             }
             interface CourseWorkChangesInfo {
-                courseId?: string;
+                courseId?: string | undefined;
             }
             interface CourseWorkMaterial {
-                alternateLink?: string;
-                assigneeMode?: string;
-                courseId?: string;
-                creationTime?: string;
-                creatorUserId?: string;
-                description?: string;
-                id?: string;
-                individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions;
-                materials?: Classroom.Schema.Material[];
-                scheduledTime?: string;
-                state?: string;
-                title?: string;
-                topicId?: string;
-                updateTime?: string;
+                alternateLink?: string | undefined;
+                assigneeMode?: string | undefined;
+                courseId?: string | undefined;
+                creationTime?: string | undefined;
+                creatorUserId?: string | undefined;
+                description?: string | undefined;
+                id?: string | undefined;
+                individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions | undefined;
+                materials?: Classroom.Schema.Material[] | undefined;
+                scheduledTime?: string | undefined;
+                state?: string | undefined;
+                title?: string | undefined;
+                topicId?: string | undefined;
+                updateTime?: string | undefined;
             }
             interface Date {
-                day?: number;
-                month?: number;
-                year?: number;
+                day?: number | undefined;
+                month?: number | undefined;
+                year?: number | undefined;
             }
             interface DriveFile {
-                alternateLink?: string;
-                id?: string;
-                thumbnailUrl?: string;
-                title?: string;
+                alternateLink?: string | undefined;
+                id?: string | undefined;
+                thumbnailUrl?: string | undefined;
+                title?: string | undefined;
             }
             interface DriveFolder {
-                alternateLink?: string;
-                id?: string;
-                title?: string;
+                alternateLink?: string | undefined;
+                id?: string | undefined;
+                title?: string | undefined;
             }
             interface Feed {
-                courseRosterChangesInfo?: Classroom.Schema.CourseRosterChangesInfo;
-                courseWorkChangesInfo?: Classroom.Schema.CourseWorkChangesInfo;
-                feedType?: string;
+                courseRosterChangesInfo?: Classroom.Schema.CourseRosterChangesInfo | undefined;
+                courseWorkChangesInfo?: Classroom.Schema.CourseWorkChangesInfo | undefined;
+                feedType?: string | undefined;
             }
             interface Form {
-                formUrl?: string;
-                responseUrl?: string;
-                thumbnailUrl?: string;
-                title?: string;
+                formUrl?: string | undefined;
+                responseUrl?: string | undefined;
+                thumbnailUrl?: string | undefined;
+                title?: string | undefined;
             }
             interface GlobalPermission {
-                permission?: string;
+                permission?: string | undefined;
             }
             interface GradeHistory {
-                actorUserId?: string;
-                gradeChangeType?: string;
-                gradeTimestamp?: string;
-                maxPoints?: number;
-                pointsEarned?: number;
+                actorUserId?: string | undefined;
+                gradeChangeType?: string | undefined;
+                gradeTimestamp?: string | undefined;
+                maxPoints?: number | undefined;
+                pointsEarned?: number | undefined;
             }
             interface Guardian {
-                guardianId?: string;
-                guardianProfile?: Classroom.Schema.UserProfile;
-                invitedEmailAddress?: string;
-                studentId?: string;
+                guardianId?: string | undefined;
+                guardianProfile?: Classroom.Schema.UserProfile | undefined;
+                invitedEmailAddress?: string | undefined;
+                studentId?: string | undefined;
             }
             interface GuardianInvitation {
-                creationTime?: string;
-                invitationId?: string;
-                invitedEmailAddress?: string;
-                state?: string;
-                studentId?: string;
+                creationTime?: string | undefined;
+                invitationId?: string | undefined;
+                invitedEmailAddress?: string | undefined;
+                state?: string | undefined;
+                studentId?: string | undefined;
             }
             interface IndividualStudentsOptions {
-                studentIds?: string[];
+                studentIds?: string[] | undefined;
             }
             interface Invitation {
-                courseId?: string;
-                id?: string;
-                role?: string;
-                userId?: string;
+                courseId?: string | undefined;
+                id?: string | undefined;
+                role?: string | undefined;
+                userId?: string | undefined;
             }
             interface Link {
-                thumbnailUrl?: string;
-                title?: string;
-                url?: string;
+                thumbnailUrl?: string | undefined;
+                title?: string | undefined;
+                url?: string | undefined;
             }
             interface ListAnnouncementsResponse {
-                announcements?: Classroom.Schema.Announcement[];
-                nextPageToken?: string;
+                announcements?: Classroom.Schema.Announcement[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListCourseAliasesResponse {
-                aliases?: Classroom.Schema.CourseAlias[];
-                nextPageToken?: string;
+                aliases?: Classroom.Schema.CourseAlias[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListCourseWorkMaterialResponse {
-                courseWorkMaterial?: Classroom.Schema.CourseWorkMaterial[];
-                nextPageToken?: string;
+                courseWorkMaterial?: Classroom.Schema.CourseWorkMaterial[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListCourseWorkResponse {
-                courseWork?: Classroom.Schema.CourseWork[];
-                nextPageToken?: string;
+                courseWork?: Classroom.Schema.CourseWork[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListCoursesResponse {
-                courses?: Classroom.Schema.Course[];
-                nextPageToken?: string;
+                courses?: Classroom.Schema.Course[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListGuardianInvitationsResponse {
-                guardianInvitations?: Classroom.Schema.GuardianInvitation[];
-                nextPageToken?: string;
+                guardianInvitations?: Classroom.Schema.GuardianInvitation[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListGuardiansResponse {
-                guardians?: Classroom.Schema.Guardian[];
-                nextPageToken?: string;
+                guardians?: Classroom.Schema.Guardian[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListInvitationsResponse {
-                invitations?: Classroom.Schema.Invitation[];
-                nextPageToken?: string;
+                invitations?: Classroom.Schema.Invitation[] | undefined;
+                nextPageToken?: string | undefined;
             }
             interface ListStudentSubmissionsResponse {
-                nextPageToken?: string;
-                studentSubmissions?: Classroom.Schema.StudentSubmission[];
+                nextPageToken?: string | undefined;
+                studentSubmissions?: Classroom.Schema.StudentSubmission[] | undefined;
             }
             interface ListStudentsResponse {
-                nextPageToken?: string;
-                students?: Classroom.Schema.Student[];
+                nextPageToken?: string | undefined;
+                students?: Classroom.Schema.Student[] | undefined;
             }
             interface ListTeachersResponse {
-                nextPageToken?: string;
-                teachers?: Classroom.Schema.Teacher[];
+                nextPageToken?: string | undefined;
+                teachers?: Classroom.Schema.Teacher[] | undefined;
             }
             interface ListTopicResponse {
-                nextPageToken?: string;
-                topic?: Classroom.Schema.Topic[];
+                nextPageToken?: string | undefined;
+                topic?: Classroom.Schema.Topic[] | undefined;
             }
             interface Material {
-                driveFile?: Classroom.Schema.SharedDriveFile;
-                form?: Classroom.Schema.Form;
-                link?: Classroom.Schema.Link;
-                youtubeVideo?: Classroom.Schema.YouTubeVideo;
+                driveFile?: Classroom.Schema.SharedDriveFile | undefined;
+                form?: Classroom.Schema.Form | undefined;
+                link?: Classroom.Schema.Link | undefined;
+                youtubeVideo?: Classroom.Schema.YouTubeVideo | undefined;
             }
             interface ModifyAnnouncementAssigneesRequest {
-                assigneeMode?: string;
-                modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions;
+                assigneeMode?: string | undefined;
+                modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions | undefined;
             }
             interface ModifyAttachmentsRequest {
-                addAttachments?: Classroom.Schema.Attachment[];
+                addAttachments?: Classroom.Schema.Attachment[] | undefined;
             }
             interface ModifyCourseWorkAssigneesRequest {
-                assigneeMode?: string;
-                modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions;
+                assigneeMode?: string | undefined;
+                modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions | undefined;
             }
             interface ModifyIndividualStudentsOptions {
-                addStudentIds?: string[];
-                removeStudentIds?: string[];
+                addStudentIds?: string[] | undefined;
+                removeStudentIds?: string[] | undefined;
             }
             interface MultipleChoiceQuestion {
-                choices?: string[];
+                choices?: string[] | undefined;
             }
             interface MultipleChoiceSubmission {
-                answer?: string;
+                answer?: string | undefined;
             }
             interface Name {
-                familyName?: string;
-                fullName?: string;
-                givenName?: string;
+                familyName?: string | undefined;
+                fullName?: string | undefined;
+                givenName?: string | undefined;
             }
             interface Registration {
-                cloudPubsubTopic?: Classroom.Schema.CloudPubsubTopic;
-                expiryTime?: string;
-                feed?: Classroom.Schema.Feed;
-                registrationId?: string;
+                cloudPubsubTopic?: Classroom.Schema.CloudPubsubTopic | undefined;
+                expiryTime?: string | undefined;
+                feed?: Classroom.Schema.Feed | undefined;
+                registrationId?: string | undefined;
             }
             interface SharedDriveFile {
-                driveFile?: Classroom.Schema.DriveFile;
-                shareMode?: string;
+                driveFile?: Classroom.Schema.DriveFile | undefined;
+                shareMode?: string | undefined;
             }
             interface ShortAnswerSubmission {
-                answer?: string;
+                answer?: string | undefined;
             }
             interface StateHistory {
-                actorUserId?: string;
-                state?: string;
-                stateTimestamp?: string;
+                actorUserId?: string | undefined;
+                state?: string | undefined;
+                stateTimestamp?: string | undefined;
             }
             interface Student {
-                courseId?: string;
-                profile?: Classroom.Schema.UserProfile;
-                studentWorkFolder?: Classroom.Schema.DriveFolder;
-                userId?: string;
+                courseId?: string | undefined;
+                profile?: Classroom.Schema.UserProfile | undefined;
+                studentWorkFolder?: Classroom.Schema.DriveFolder | undefined;
+                userId?: string | undefined;
             }
             interface StudentSubmission {
-                alternateLink?: string;
-                assignedGrade?: number;
-                assignmentSubmission?: Classroom.Schema.AssignmentSubmission;
-                associatedWithDeveloper?: boolean;
-                courseId?: string;
-                courseWorkId?: string;
-                courseWorkType?: string;
-                creationTime?: string;
-                draftGrade?: number;
-                id?: string;
-                late?: boolean;
-                multipleChoiceSubmission?: Classroom.Schema.MultipleChoiceSubmission;
-                shortAnswerSubmission?: Classroom.Schema.ShortAnswerSubmission;
-                state?: string;
-                submissionHistory?: Classroom.Schema.SubmissionHistory[];
-                updateTime?: string;
-                userId?: string;
+                alternateLink?: string | undefined;
+                assignedGrade?: number | undefined;
+                assignmentSubmission?: Classroom.Schema.AssignmentSubmission | undefined;
+                associatedWithDeveloper?: boolean | undefined;
+                courseId?: string | undefined;
+                courseWorkId?: string | undefined;
+                courseWorkType?: string | undefined;
+                creationTime?: string | undefined;
+                draftGrade?: number | undefined;
+                id?: string | undefined;
+                late?: boolean | undefined;
+                multipleChoiceSubmission?: Classroom.Schema.MultipleChoiceSubmission | undefined;
+                shortAnswerSubmission?: Classroom.Schema.ShortAnswerSubmission | undefined;
+                state?: string | undefined;
+                submissionHistory?: Classroom.Schema.SubmissionHistory[] | undefined;
+                updateTime?: string | undefined;
+                userId?: string | undefined;
             }
             interface SubmissionHistory {
-                gradeHistory?: Classroom.Schema.GradeHistory;
-                stateHistory?: Classroom.Schema.StateHistory;
+                gradeHistory?: Classroom.Schema.GradeHistory | undefined;
+                stateHistory?: Classroom.Schema.StateHistory | undefined;
             }
             interface Teacher {
-                courseId?: string;
-                profile?: Classroom.Schema.UserProfile;
-                userId?: string;
+                courseId?: string | undefined;
+                profile?: Classroom.Schema.UserProfile | undefined;
+                userId?: string | undefined;
             }
             interface TimeOfDay {
-                hours?: number;
-                minutes?: number;
-                nanos?: number;
-                seconds?: number;
+                hours?: number | undefined;
+                minutes?: number | undefined;
+                nanos?: number | undefined;
+                seconds?: number | undefined;
             }
             interface Topic {
-                courseId?: string;
-                name?: string;
-                topicId?: string;
-                updateTime?: string;
+                courseId?: string | undefined;
+                name?: string | undefined;
+                topicId?: string | undefined;
+                updateTime?: string | undefined;
             }
             interface UserProfile {
-                emailAddress?: string;
-                id?: string;
-                name?: Classroom.Schema.Name;
-                permissions?: Classroom.Schema.GlobalPermission[];
-                photoUrl?: string;
-                verifiedTeacher?: boolean;
+                emailAddress?: string | undefined;
+                id?: string | undefined;
+                name?: Classroom.Schema.Name | undefined;
+                permissions?: Classroom.Schema.GlobalPermission[] | undefined;
+                photoUrl?: string | undefined;
+                verifiedTeacher?: boolean | undefined;
             }
             interface YouTubeVideo {
-                alternateLink?: string;
-                id?: string;
-                thumbnailUrl?: string;
-                title?: string;
+                alternateLink?: string | undefined;
+                id?: string | undefined;
+                thumbnailUrl?: string | undefined;
+                title?: string | undefined;
             }
         }
     }
     interface Classroom {
-        Courses?: Classroom.Collection.CoursesCollection;
-        Invitations?: Classroom.Collection.InvitationsCollection;
-        Registrations?: Classroom.Collection.RegistrationsCollection;
-        UserProfiles?: Classroom.Collection.UserProfilesCollection;
+        Courses?: Classroom.Collection.CoursesCollection | undefined;
+        Invitations?: Classroom.Collection.InvitationsCollection | undefined;
+        Registrations?: Classroom.Collection.RegistrationsCollection | undefined;
+        UserProfiles?: Classroom.Collection.UserProfilesCollection | undefined;
         // Create a new instance of Announcement
         newAnnouncement(): Classroom.Schema.Announcement;
         // Create a new instance of Assignment

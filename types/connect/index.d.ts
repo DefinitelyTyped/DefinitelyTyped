@@ -18,7 +18,7 @@ declare namespace createServer {
     export type ServerHandle = HandleFunction | http.Server;
 
     export class IncomingMessage extends http.IncomingMessage {
-        originalUrl?: http.IncomingMessage["url"];
+        originalUrl?: http.IncomingMessage["url"] | undefined;
     }
 
     type NextFunction = (err?: any) => void;

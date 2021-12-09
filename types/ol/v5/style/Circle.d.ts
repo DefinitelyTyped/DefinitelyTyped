@@ -4,10 +4,10 @@ import RegularShape from './RegularShape';
 import Stroke from './Stroke';
 
 export interface Options {
-    fill?: Fill;
+    fill?: Fill | undefined;
     radius: number;
-    stroke?: Stroke;
-    atlasManager?: AtlasManager;
+    stroke?: Stroke | undefined;
+    atlasManager?: AtlasManager | undefined;
 }
 export default class CircleStyle extends RegularShape {
     constructor(opt_options?: Options);

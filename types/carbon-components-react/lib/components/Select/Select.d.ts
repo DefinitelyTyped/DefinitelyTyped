@@ -5,22 +5,22 @@ type ExcludedAttributes = "aria-invalid" | "id" | "ref" | "size";
 
 export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, ExcludedAttributes> {
     defaultValue?: any,
-    helperText?: React.ReactNode,
-    hideLabel?: boolean,
+    helperText?: React.ReactNode | undefined,
+    hideLabel?: boolean | undefined,
     /**
      * @deprecated
      */
-    iconDescription?: string,
+    iconDescription?: string | undefined,
     id: string,
-    inline?: boolean,
-    invalid?: boolean,
-    invalidText?: React.ReactNode,
-    labelText?: React.ReactNode,
-    light?: boolean,
-    noLabel?: boolean,
-    size?: "sm" | "md" | "lg" | "xl",
-    warn?: boolean;
-    warnText?: React.ReactNode;
+    inline?: boolean | undefined,
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
+    labelText?: React.ReactNode | undefined,
+    light?: boolean | undefined,
+    noLabel?: boolean | undefined,
+    size?: "sm" | "md" | "lg" | "xl" | undefined,
+    warn?: boolean | undefined;
+    warnText?: React.ReactNode | undefined;
 }
 
 declare const Select: ForwardRefReturn<HTMLSelectElement, SelectProps>;

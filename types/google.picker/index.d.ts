@@ -98,8 +98,8 @@ declare namespace google {
         export interface ResponseObject {
             [Response.ACTION]: Action;
             [Response.DOCUMENTS]: DocumentObject[];
-            [Response.PARENTS]?: ParentDocumentObject[];
-            [Response.VIEW]: [ViewId, undefined, { query?: string; parent?: string }];
+            [Response.PARENTS]?: ParentDocumentObject[] | undefined;
+            [Response.VIEW]: [ViewId, undefined, { query?: string | undefined; parent?: string | undefined }];
         }
 
         export interface DocumentObject {
@@ -188,6 +188,10 @@ declare namespace google {
 
             // Set the MIME types which will be included in the view. Use commas to separate MIME types if more than one is required.
             setMimeTypes(mimeTypes: string): DocsView;
+
+            // Allows the user to select folders from Shared team Drives.
+            /** @deprecated - use setEnableDrives instead */
+            setEnableTeamDrives(enabled: boolean): DocsView;
         }
 
         /**
@@ -235,6 +239,10 @@ declare namespace google {
 
             // Whether Shared Drive items should be included in results.
             SUPPORT_DRIVES = "sdr",
+
+            // Whether Shared team Drive items should be included in results.
+            /** @deprecated - use google.picker.Feature.SUPPORT_DRIVES instead */
+            SUPPORT_TEAM_DRIVES = 'std'
         }
 
         /**

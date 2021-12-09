@@ -9,16 +9,23 @@ declare namespace Sfdc {
     namespace canvas {
         // see https://developer.salesforce.com/docs/atlas.en-us.platform_connect.meta/platform_connect/client_object.htm
         interface Client {
-            readonly oauthToken?: string | null;
-            readonly instanceId?: string | null;
-            readonly instanceUrl?: string | null;
-            readonly targetOrigin?: string | null;
-            readonly refreshToken?: string | null;
+            readonly oauthToken?: string | null | undefined;
+            readonly instanceId?: string | null | undefined;
+            readonly instanceUrl?: string | null | undefined;
+            readonly targetOrigin?: string | null | undefined;
+            readonly refreshToken?: string | null | undefined;
         }
 
         interface Response<T> {
+            readonly seq: number;
+            readonly parentVersion: string;
+            readonly clientVersion: string;
+            readonly payload: T;
             readonly status: number;
-            readonly payload?: T;
+            readonly statusText: string;
+            readonly responseHeaders: string;
+            readonly type: string;
+            readonly targetModule: string;
         }
 
         enum ApplicationOptions {
@@ -127,7 +134,7 @@ declare namespace Sfdc {
         interface Environment {
             readonly parameters: Record<string, unknown>;
             readonly dimensions: EnvironmentDimensions;
-            readonly record?: EnvironmentRecord;
+            readonly record?: EnvironmentRecord | undefined;
             readonly displayLocation: EnvironmentDisplayLocation;
             readonly locationUrl: string;
             readonly subLocation: EnvironmentDisplaySubLocation | null;
@@ -164,10 +171,10 @@ declare namespace Sfdc {
 
         // see https://developer.salesforce.com/docs/atlas.en-us.platform_connect.meta/platform_connect/context_object.htm
         interface Context {
-            readonly application?: Application;
-            readonly user?: User;
+            readonly application?: Application | undefined;
+            readonly user?: User | undefined;
             readonly environment: Environment;
-            readonly organization?: Organization;
+            readonly organization?: Organization | undefined;
             readonly links: Links;
         }
 
@@ -295,11 +302,11 @@ declare namespace Sfdc {
             interface AjaxSettings {
                 readonly client: Client;
                 readonly success: (data: Response<unknown>) => void;
-                readonly method?: string;
-                readonly async?: boolean;
-                readonly contentType?: string;
-                readonly headers?: Record<string, string>;
-                readonly data?: string | null;
+                readonly method?: string | undefined;
+                readonly async?: boolean | undefined;
+                readonly contentType?: string | undefined;
+                readonly headers?: Record<string, string> | undefined;
+                readonly data?: string | null | undefined;
             }
 
             interface Version {
@@ -355,7 +362,7 @@ declare namespace Sfdc {
                 readonly payload: unknown;
             }
 
-            function ctx(callback: (msg: Response<Context>) => void, client: Client): void;
+            function ctx(callback: (msg: Response<Context | string>) => void, client: Client): void;
 
             function ajax(url: string, settings: AjaxSettings): void;
 
@@ -377,7 +384,7 @@ declare namespace Sfdc {
 
             function signedrequest(req?: SignedRequest): SignedRequest;
 
-            function refreshSignedRequest(cb: (data: Response<string>) => void): void;
+            function refreshSignedRequest(cb: (data: Response<{ response: string }>) => void): void;
 
             function repost(refresh?: boolean): void;
         }
@@ -405,14 +412,15 @@ declare namespace Sfdc {
                 readonly response_type: string;
                 readonly client_id: string;
                 readonly redirect_uri: string;
-                readonly state?: string;
-                readonly display?: string;
+                readonly state?: string | undefined;
+                readonly display?: string | undefined;
+                readonly scope?: string | undefined;
             }
 
             interface LoginContext {
                 readonly uri: string;
                 readonly params: LoginParams;
-                readonly callback?: string;
+                readonly callback?: string | undefined;
             }
 
             function init(): void;

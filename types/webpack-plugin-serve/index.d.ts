@@ -24,40 +24,40 @@ export interface Builtins {
 }
 
 export interface StaticObject {
-    glob?: string | string[];
-    options?: GlobbyOptions;
+    glob?: string | string[] | undefined;
+    options?: GlobbyOptions | undefined;
 }
 
 export interface WebpackPluginServeOptions {
     client?: {
-        address?: string;
-        protocol?: 'ws' | 'wss';
-        retry?: boolean;
-        silent?: boolean;
-    };
-    compress?: boolean;
-    historyFallback?: boolean | HistoryApiFallbackOptions;
-    hmr?: boolean | 'refresh-on-failure';
-    host?: string | Promise<string>;
-    http2?: boolean | Http2ServerOptions | Http2SecureServerOptions;
-    https?: HttpsServerOptions;
-    liveReload?: boolean;
+        address?: string | undefined;
+        protocol?: 'ws' | 'wss' | undefined;
+        retry?: boolean | undefined;
+        silent?: boolean | undefined;
+    } | undefined;
+    compress?: boolean | undefined;
+    historyFallback?: boolean | HistoryApiFallbackOptions | undefined;
+    hmr?: boolean | 'refresh-on-failure' | undefined;
+    host?: string | Promise<string> | undefined;
+    http2?: boolean | Http2ServerOptions | Http2SecureServerOptions | undefined;
+    https?: HttpsServerOptions | undefined;
+    liveReload?: boolean | undefined;
     log?: {
         level: 'trace' | 'debug' | 'info' | 'warn' | 'error';
-        timestamp?: boolean;
-    };
-    middleware?: (app: Koa, builtins: Builtins) => void;
+        timestamp?: boolean | undefined;
+    } | undefined;
+    middleware?: ((app: Koa, builtins: Builtins) => void) | undefined;
     open?:
         | boolean
         | {
-              wait?: boolean;
-              app?: string | ReadonlyArray<string>;
-          };
-    port?: number | Promise<number>;
-    progress?: boolean | 'minimal';
-    static?: string | string[] | StaticObject;
-    status?: boolean;
-    waitForBuild?: boolean;
+              wait?: boolean | undefined;
+              app?: string | ReadonlyArray<string> | undefined;
+          } | undefined;
+    port?: number | Promise<number> | undefined;
+    progress?: boolean | 'minimal' | undefined;
+    static?: string | string[] | StaticObject | undefined;
+    status?: boolean | undefined;
+    waitForBuild?: boolean | undefined;
 }
 
 export class WebpackPluginServe<Compiler> {

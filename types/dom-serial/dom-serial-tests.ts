@@ -19,10 +19,16 @@ async function connect() {
         parity: 'none',
         bufferSize: 128,
     });
+
+    port.onconnect = () => {};
+    port.ondisconnect = () => {};
+
     const info = port.getInfo();
     const vendor = info.vendor;
     port.writable.getWriter();
     port.readable.getReader();
+
+    await port.close();
 }
 
 navigator.serial.requestPort().then(port => {

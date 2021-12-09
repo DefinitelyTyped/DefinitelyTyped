@@ -3,20 +3,20 @@ import { Notifications } from './Notifications';
 import { Value } from './Value';
 
 export interface Container_Arguments {
-    duration?: string | number;
-    unchanged?: boolean;
-    completeCallback?: () => void;
+    duration?: string | number | undefined;
+    unchanged?: boolean | undefined;
+    completeCallback?: (() => void) | undefined;
 }
 
 export interface Container_Params {
     title: string;
-    description?: string;
-    priority?: number;
-    type?: string;
-    content?: string | null;
-    active?: boolean;
-    instanceNumber?: number | null;
-    params?: Container_Params;
+    description?: string | undefined;
+    priority?: number | undefined;
+    type?: string | undefined;
+    content?: string | null | undefined;
+    active?: boolean | undefined;
+    instanceNumber?: number | null | undefined;
+    params?: Container_Params | undefined;
 }
 
 export interface Container_Deferred {
@@ -24,16 +24,16 @@ export interface Container_Deferred {
 }
 
 export abstract class Container extends Class {
-    static instanceCounter?: number;
+    static instanceCounter?: number | undefined;
     defaultActiveArguments: Container_Arguments;
     defaultExpandedArguments: Container_Arguments;
     containerType: string;
     defaults: Container_Params;
-    notifications?: Notifications;
-    templateSelector?: string;
-    container?: JQuery;
-    headContainer?: JQuery;
-    contentContainer?: string;
+    notifications?: Notifications | undefined;
+    templateSelector?: string | undefined;
+    container?: JQuery | undefined;
+    headContainer?: JQuery | undefined;
+    contentContainer?: string | undefined;
     deferred: Container_Deferred;
     priority: Value<number>;
     active: Value<boolean>;

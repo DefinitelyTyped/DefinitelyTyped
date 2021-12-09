@@ -442,7 +442,7 @@ pmCollection.QueryParam.unparseSingle(qpDef, true); // $ExpectType string
 const reqDef: pmCollection.RequestDefinition = {
   url: 'string',
 };
-reqDef.url; // $ExpectType string | Url
+reqDef.url; // $ExpectType string | UrlDefinition
 reqDef.method; // $ExpectType string | undefined
 reqDef.header; // $ExpectType HeaderDefinition[] | undefined
 reqDef.body; // $ExpectType RequestBodyDefinition | undefined

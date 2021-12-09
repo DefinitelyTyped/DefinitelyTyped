@@ -9,8 +9,8 @@ export interface VerifyAuthChallengeResponseTriggerEvent extends BaseTriggerEven
       userAttributes: StringMap;
       privateChallengeParameters: StringMap;
       challengeAnswer: string;
-      clientMetadata?: StringMap;
-      userNotFound?: boolean;
+      clientMetadata?: StringMap | undefined;
+      userNotFound?: boolean | undefined;
   };
   response: {
       answerCorrect: boolean;

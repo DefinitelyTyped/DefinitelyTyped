@@ -73,3 +73,6 @@ declare module 'punycode' {
      */
     const version: string;
 }
+declare module 'node:punycode' {
+    export * from 'punycode';
+}

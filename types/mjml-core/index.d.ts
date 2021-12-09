@@ -22,13 +22,13 @@ export interface MJMLParsingOptions {
      *
      * default: @see https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js
      */
-    fonts?: { [key: string]: string };
+    fonts?: { [key: string]: string } | undefined;
 
     /**
      * Option to keep comments in the HTML output
      * default: true
      */
-    keepComments?: boolean;
+    keepComments?: boolean | undefined;
 
     /**
      * @deprecated use js-beautify directly after processing the MJML
@@ -36,7 +36,7 @@ export interface MJMLParsingOptions {
      * Option to beautify the HTML output
      * default: false
      */
-    beautify?: boolean;
+    beautify?: boolean | undefined;
 
     /**
      * @deprecated use html-minifier directly after processing the MJML
@@ -45,7 +45,7 @@ export interface MJMLParsingOptions {
      *
      * default: false
      */
-    minify?: boolean;
+    minify?: boolean | undefined;
     /**
      * @deprecated @see minify
      *
@@ -54,7 +54,7 @@ export interface MJMLParsingOptions {
      *
      * default: @see htmlMinify usage in mjml-core/src/index.js
      */
-    minifyOptions?: MJMLMinifyOptions;
+    minifyOptions?: MJMLMinifyOptions | undefined;
 
     /**
      * How to validate your MJML
@@ -65,30 +65,30 @@ export interface MJMLParsingOptions {
      *
      * default: soft
      */
-    validationLevel?: 'strict' | 'soft' | 'skip';
+    validationLevel?: 'strict' | 'soft' | 'skip' | undefined;
 
     /**
      * Full path of the specified file to use when resolving paths from mj-include components
      * default: '.'
      */
-    filePath?: string;
+    filePath?: string | undefined;
     /**
      * The path or directory of the .mjmlconfig file
      * default: process.cwd()
      */
-    mjmlConfigPath?: string;
+    mjmlConfigPath?: string | undefined;
 
     /**
      * Use the config attribute defined in the .mjmlconfig file.
      * The config passed into mjml2html overrides the .mjmlconfig.
      * default: false
      */
-    useMjmlConfigOptions?: boolean;
+    useMjmlConfigOptions?: boolean | undefined;
 
     /**
      * optional setting when inlining css, see mjml-cli documentation for more info
      */
-    juicePreserveTags?: { [index: string]: { start: string; end: string } };
+    juicePreserveTags?: { [index: string]: { start: string; end: string } } | undefined;
     juiceOptions?: any;
 
     /**
@@ -96,9 +96,9 @@ export interface MJMLParsingOptions {
      * a function returning html skeleton
      * default: see mjml-core/src/helpers/skeleton.js
      */
-    skeleton?: string | (() => string);
+    skeleton?: string | (() => string) | undefined;
 
-    actualPath?: string;
+    actualPath?: string | undefined;
     /**
      * undocumented
      * ignore mj-include elements
@@ -108,13 +108,13 @@ export interface MJMLParsingOptions {
     /**
      * see mjml-parser-xml
      */
-    preprocessors?: Array<((xml: string) => string)>;
+    preprocessors?: Array<((xml: string) => string)> | undefined;
 }
 
 export interface MJMLMinifyOptions {
-    collapseWhitespace?: boolean;
-    minifyCSS?: boolean;
-    removeEmptyAttributes?: boolean;
+    collapseWhitespace?: boolean | undefined;
+    minifyCSS?: boolean | undefined;
+    removeEmptyAttributes?: boolean | undefined;
 }
 
 export interface MJMLParseResults {
@@ -187,10 +187,10 @@ export abstract class BodyComponent extends Component {
     renderChildren(
         children?: [],
         options?: {
-            props?: Component['props'];
-            renderer?: (component: Component) => any;
-            attributes?: Record<string, string>;
-            rawXML?: boolean;
+            props?: Component['props'] | undefined;
+            renderer?: ((component: Component) => any) | undefined;
+            attributes?: Record<string, string> | undefined;
+            rawXML?: boolean | undefined;
         },
     ): string;
 }

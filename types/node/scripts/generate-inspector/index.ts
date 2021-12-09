@@ -2,9 +2,9 @@
 // [tag] corresponds to a tag name in the node-core repository.
 // By default, uses the current Node version.
 
-import { execSync } from "child_process";
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import * as https from "https";
+import { execSync } from "node:child_process";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import * as https from "node:https";
 
 import * as schema from "./devtools-protocol-schema";
 import { generateSubstituteArgs } from "./generate-substitute-args";

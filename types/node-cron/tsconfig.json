@@ -7,9 +7,7 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "noImplicitThis": true,
-        "noUnusedLocals": true,
         "strictFunctionTypes": true,
-        "noUnusedParameters": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

@@ -1,11 +1,10 @@
-// Type definitions for chai 4.2
+// Type definitions for chai 4.3
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>,
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>,
 //                 Shaun Luttin <https://github.com/shaunluttin>,
 //                 Gintautas Miselis <https://github.com/Naktibalda>,
 //                 Satana Charuwichitratana <https://github.com/micksatana>,
@@ -314,6 +313,7 @@ declare namespace Chai {
     }
 
     interface Deep extends KeyFilter {
+        be: Assertion;
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -324,6 +324,7 @@ declare namespace Chai {
         property: Property;
         ordered: Ordered;
         nested: Nested;
+        oneOf: OneOf;
         own: Own;
     }
 
@@ -507,7 +508,7 @@ declare namespace Chai {
         notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply equal (==) to expected.
+         * Asserts that actual is deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -517,7 +518,7 @@ declare namespace Chai {
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is not deeply equal (==) to expected.
+         * Asserts that actual is not deeply equal to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -527,7 +528,7 @@ declare namespace Chai {
         notDeepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply strict equal (===) to expected.
+         * Alias to deepEqual
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -1195,7 +1196,7 @@ declare namespace Chai {
          * @param length   Potential expected length of object.
          * @param message   Message to display on error.
          */
-        lengthOf<T extends { readonly length?: number }>(object: T, length: number, message?: string): void;
+        lengthOf<T extends { readonly length?: number | undefined }>(object: T, length: number, message?: string): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1480,6 +1481,17 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         includeMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in any order.
+         * Uses a strict equality check (===). Duplicates are ignored.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential not contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeMembers<T>(superset: T[], subset: T[], message?: string): void;
 
         /**
          * Asserts that subset is included in superset using deep equality checking.

@@ -1,4 +1,5 @@
-import Tagify, { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
+import Tagify = require('@yaireo/tagify');
+import { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
 
 export function tagTemplate(this: Tagify, tagData: TagData): string {
     return `
@@ -18,7 +19,9 @@ const settings: TagifyConstructorSettings = {
     mixTagsAllowedAfter: /,|\.|\:|\s/,
     duplicates: false,
     trim: false,
+    id: 'uniqueId',
     enforceWhitelist: true,
+    userInput: true,
     autoComplete: {
         enabled: true,
         rightKey: true
@@ -95,7 +98,7 @@ const settings: TagifyConstructorSettings = {
             event.detail.tag;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
-            // $ExpectType boolean
+            // $ExpectType string | boolean
             event.detail.message;
         },
         keydown: event => {
@@ -202,6 +205,13 @@ const settings: TagifyConstructorSettings = {
     },
     maxTags: 10,
     editTags: { clicks: 1, keepInvalid: false },
+    texts: {
+        empty: 'Enter something',
+        exceed: 'Too much',
+        pattern: 'Wrong input',
+        duplicate: 'Try something new',
+        notAllowed: 'Error'
+    },
     templates: {
         wrapper: (input, settings) => {
             // Can use "as const" in later TS versions
@@ -410,6 +420,7 @@ const scopeEl: HTMLElement = tagify.DOM.scope;
 const spanEl: HTMLSpanElement = tagify.DOM.input;
 const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
+const invalidPatternMessage = tagify.TEXTS.pattern;
 
 if (tagify.suggestedListItems !== undefined) {
     const item: TagData = tagify.suggestedListItems[0];
@@ -451,7 +462,7 @@ tagify.on('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.on('add', (event) => {
@@ -624,7 +635,7 @@ tagify.off('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.off('add', (event) => {
@@ -894,12 +905,16 @@ tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 // $ExpectError
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
 tagify.setReadonly(false);
+tagify.setDisabled(false);
+tagify.setDisabled(true);
 
 tagify.dropdown.show();
 tagify.dropdown.show('foo');
 tagify.dropdown.selectAll();
 tagify.dropdown.hide();
 tagify.dropdown.hide(true);
+tagify.dropdown.toggle();
+tagify.dropdown.toggle(true);
 tagify.dropdown.refilter();
 tagify.dropdown.refilter('filter value');
 
@@ -911,4 +926,10 @@ tagify.getCleanValue();
 tagify.update();
 tagify.update({});
 tagify.update({ withoutChangeEvent: true });
+
+tagify.setPersistedData(['good', 'tags'], 'whitelist');
+tagify.getPersistedData('whitelist');
+tagify.clearPersistedData('whitelist');
+tagify.clearPersistedData();
+
 tagify.destroy();

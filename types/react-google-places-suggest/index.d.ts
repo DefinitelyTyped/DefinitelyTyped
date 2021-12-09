@@ -19,16 +19,16 @@ declare namespace ReactGooglePlacesSuggest {
 
     interface Props {
         autocompletionRequest: google.maps.places.AutocompletionRequest;
-        children?: ReactNode;
-        customRender?: (prediction?: Prediction) => JSX.Element | string;
-        customContainerRender?: (
+        children?: ReactNode | undefined;
+        customRender?: ((prediction?: Prediction) => JSX.Element | string) | undefined;
+        customContainerRender?: ((
             predictions: ReadonlyArray<Prediction>
-        ) => JSX.Element | string;
+        ) => JSX.Element | string) | undefined;
         googleMaps: typeof google.maps;
-        onSelectSuggest?: (
+        onSelectSuggest?: ((
             geocodedPrediction: GeocodedPrediction,
             originalPrediction: Prediction
-        ) => any;
-        textNoResults?: string | null;
+        ) => any) | undefined;
+        textNoResults?: string | null | undefined;
     }
 }

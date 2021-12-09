@@ -114,7 +114,7 @@ declare class Board extends EventEmitter {
         decel?: number,
         callback?: (bool?: boolean) => void): void;
     // TODO untested --- TWW
-    serialConfig(options: { portId: Board.SERIAL_PORT_ID, baud: number, rxPin?: number, txPin?: number }): void;
+    serialConfig(options: { portId: Board.SERIAL_PORT_ID, baud: number, rxPin?: number | undefined, txPin?: number | undefined }): void;
     // TODO untested --- TWW
     serialWrite(portId: Board.SERIAL_PORT_ID, inBytes: number[]): void;
     // TODO untested --- TWW
@@ -155,12 +155,12 @@ declare class Board extends EventEmitter {
 declare namespace Board {
     // https://github.com/firmata/firmata.js/blob/master/lib/firmata.js#L429-L451
     interface Options {
-        skipCapabilities?: boolean;
-        reportVersionTimeout?: number;
-        samplingInterval?: number;
-        serialport?: SerialPort.Options;
-        pins?: Pins[];
-        analogPins?: number[];
+        skipCapabilities?: boolean | undefined;
+        reportVersionTimeout?: number | undefined;
+        samplingInterval?: number | undefined;
+        serialport?: SerialPort.Options | undefined;
+        pins?: Pins[] | undefined;
+        analogPins?: number[] | undefined;
     }
 
     interface PinModes {

@@ -17,19 +17,19 @@ export interface AmqpConnectionManagerOptions {
     /**
      * Interval to send heartbeats to broker. Defaults to 5 seconds.
      */
-    heartbeatIntervalInSeconds?: number;
+    heartbeatIntervalInSeconds?: number | undefined;
 
     /**
      * The time to wait before trying to reconnect. If not specified, defaults to heartbeatIntervalInSeconds
      */
-    reconnectTimeInSeconds?: number;
+    reconnectTimeInSeconds?: number | undefined;
 
     /**
      * is a function which returns one or more servers to connect to. This should return either a single URL or an array of URLs.
      * This is handy when you're using a service discovery mechanism such as Consul or etcd. Instead of taking a callback, this can also
      * return a Promise. Note that if this is supplied, then urls is ignored.
      */
-    findServers?: ((callback: (urls: string | string[]) => void) => void) | (() => Promise<string | string[]>);
+    findServers?: ((callback: (urls: string | string[]) => void) => void) | (() => Promise<string | string[]>) | undefined;
 
     /**
      * TLS options
@@ -38,18 +38,18 @@ export interface AmqpConnectionManagerOptions {
      * which in turn passes them through to tls.connect (https://nodejs.org/api/tls.html#tls_tls_connect_options_callback)
      */
     connectionOptions?: ConnectionOptions & {
-        noDelay?: boolean;
-        timeout?: number;
-        keepAlive?: boolean;
-        keepAliveDelay?: number;
+        noDelay?: boolean | undefined;
+        timeout?: number | undefined;
+        keepAlive?: boolean | undefined;
+        keepAliveDelay?: number | undefined;
         clientProperties?: any;
         credentials?: {
             mechanism: string;
             username: string;
             password: string;
             response: () => Buffer;
-        };
-    };
+        } | undefined;
+    } | undefined;
 }
 
 /**
@@ -66,17 +66,17 @@ export interface CreateChannelOpts {
     /**
      * Name for this channel. Used for debugging.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * A function to call whenever we reconnect to the broker (and therefore create a new underlying channel.)
      * This function should either accept a callback, or return a Promise. See addSetup below
      */
-    setup?: SetupFunc;
+    setup?: SetupFunc | undefined;
     /**
      * if true, then ChannelWrapper assumes all messages passed to publish() and sendToQueue() are plain JSON objects.
      * These will be encoded automatically before being sent.
      */
-    json?: boolean;
+    json?: boolean | undefined;
 }
 
 export interface AmqpConnectionManager extends EventEmitter {

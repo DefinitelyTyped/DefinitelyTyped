@@ -70,7 +70,7 @@ declare module 'tls' {
         /**
          * The name property is available only when type is 'ECDH'.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * The size of parameter of an ephemeral key exchange.
          */
@@ -85,7 +85,7 @@ declare module 'tls' {
         /**
          * Optional passphrase.
          */
-        passphrase?: string;
+        passphrase?: string | undefined;
     }
 
     interface PxfObject {
@@ -96,7 +96,7 @@ declare module 'tls' {
         /**
          * Optional passphrase.
          */
-        passphrase?: string;
+        passphrase?: string | undefined;
     }
 
     interface TLSSocketOptions extends SecureContextOptions, CommonConnectionOptions {
@@ -104,22 +104,22 @@ declare module 'tls' {
          * If true the TLS socket will be instantiated in server-mode.
          * Defaults to false.
          */
-        isServer?: boolean;
+        isServer?: boolean | undefined;
         /**
          * An optional net.Server instance.
          */
-        server?: net.Server;
+        server?: net.Server | undefined;
 
         /**
          * An optional Buffer instance containing a TLS session.
          */
-        session?: Buffer;
+        session?: Buffer | undefined;
         /**
          * If true, specifies that the OCSP status request extension will be
          * added to the client hello and an 'OCSPResponse' event will be
          * emitted on the socket before establishing a secure communication
          */
-        requestOCSP?: boolean;
+        requestOCSP?: boolean | undefined;
     }
 
     class TLSSocket extends net.Socket {
@@ -145,9 +145,10 @@ declare module 'tls' {
 
         /**
          * String containing the selected ALPN protocol.
-         * When ALPN has no selected protocol, tlsSocket.alpnProtocol equals false.
+         * Before a handshake has completed, this value is always null.
+         * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
          */
-        alpnProtocol?: string;
+        alpnProtocol: string | false | null;
 
         /**
          * Returns an object representing the local certificate. The returned
@@ -259,7 +260,7 @@ declare module 'tls' {
          * is successfully completed.
          * @return `undefined` when socket is destroy, `false` if negotiaion can't be initiated.
          */
-        renegotiate(options: { rejectUnauthorized?: boolean, requestCert?: boolean }, callback: (err: Error | null) => void): undefined | boolean;
+        renegotiate(options: { rejectUnauthorized?: boolean | undefined, requestCert?: boolean | undefined }, callback: (err: Error | null) => void): undefined | boolean;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -331,25 +332,25 @@ declare module 'tls' {
         /**
          * An optional TLS context object from tls.createSecureContext()
          */
-        secureContext?: SecureContext;
+        secureContext?: SecureContext | undefined;
 
         /**
          * When enabled, TLS packet trace information is written to `stderr`. This can be
          * used to debug TLS connection problems.
          * @default false
          */
-        enableTrace?: boolean;
+        enableTrace?: boolean | undefined;
         /**
          * If true the server will request a certificate from clients that
          * connect and attempt to verify that certificate. Defaults to
          * false.
          */
-        requestCert?: boolean;
+        requestCert?: boolean | undefined;
         /**
          * An array of strings or a Buffer naming possible ALPN protocols.
          * (Protocols should be ordered by their priority.)
          */
-        ALPNProtocols?: string[] | Uint8Array[] | Uint8Array;
+        ALPNProtocols?: string[] | Uint8Array[] | Uint8Array | undefined;
         /**
          * SNICallback(servername, cb) <Function> A function that will be
          * called if the client supports SNI TLS extension. Two arguments
@@ -359,14 +360,14 @@ declare module 'tls' {
          * SecureContext.) If SNICallback wasn't provided the default callback
          * with high-level API will be used (see below).
          */
-        SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
+        SNICallback?: ((servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void) | undefined;
         /**
          * If true the server will reject any connection which is not
          * authorized with the list of supplied CAs. This option only has an
          * effect if requestCert is true.
          * @default true
          */
-        rejectUnauthorized?: boolean;
+        rejectUnauthorized?: boolean | undefined;
     }
 
     interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
@@ -376,30 +377,30 @@ declare module 'tls' {
          * the tls.Server object whenever a handshake times out. Default:
          * 120000 (120 seconds).
          */
-        handshakeTimeout?: number;
+        handshakeTimeout?: number | undefined;
         /**
          * The number of seconds after which a TLS session created by the
          * server will no longer be resumable. See Session Resumption for more
          * information. Default: 300.
          */
-        sessionTimeout?: number;
+        sessionTimeout?: number | undefined;
         /**
          * 48-bytes of cryptographically strong pseudo-random data.
          */
-        ticketKeys?: Buffer;
+        ticketKeys?: Buffer | undefined;
     }
 
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
-        host?: string;
-        port?: number;
-        path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
-        socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
-        checkServerIdentity?: typeof checkServerIdentity;
-        servername?: string; // SNI TLS Extension
-        session?: Buffer;
-        minDHSize?: number;
-        lookup?: net.LookupFunction;
-        timeout?: number;
+        host?: string | undefined;
+        port?: number | undefined;
+        path?: string | undefined; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
+        socket?: net.Socket | undefined; // Establish secure connection on a given socket rather than creating a new socket
+        checkServerIdentity?: typeof checkServerIdentity | undefined;
+        servername?: string | undefined; // SNI TLS Extension
+        session?: Buffer | undefined;
+        minDHSize?: number | undefined;
+        lookup?: net.LookupFunction | undefined;
+        timeout?: number | undefined;
     }
 
     class Server extends net.Server {
@@ -498,7 +499,7 @@ declare module 'tls' {
          * the well-known CAs curated by Mozilla. Mozilla's CAs are completely
          * replaced when CAs are explicitly specified using this option.
          */
-        ca?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer> | undefined;
         /**
          *  Cert chains in PEM format. One cert chain should be provided per
          *  private key. Each cert chain should consist of the PEM formatted
@@ -510,29 +511,29 @@ declare module 'tls' {
          *  intermediate certificates are not provided, the peer will not be
          *  able to validate the certificate, and the handshake will fail.
          */
-        cert?: string | Buffer | Array<string | Buffer>;
+        cert?: string | Buffer | Array<string | Buffer> | undefined;
         /**
          *  Colon-separated list of supported signature algorithms. The list
          *  can contain digest algorithms (SHA256, MD5 etc.), public key
          *  algorithms (RSA-PSS, ECDSA etc.), combination of both (e.g
          *  'RSA+SHA384') or TLS v1.3 scheme names (e.g. rsa_pss_pss_sha512).
          */
-        sigalgs?: string;
+        sigalgs?: string | undefined;
         /**
          * Cipher suite specification, replacing the default. For more
          * information, see modifying the default cipher suite. Permitted
          * ciphers can be obtained via tls.getCiphers(). Cipher names must be
          * uppercased in order for OpenSSL to accept them.
          */
-        ciphers?: string;
+        ciphers?: string | undefined;
         /**
          * Name of an OpenSSL engine which can provide the client certificate.
          */
-        clientCertEngine?: string;
+        clientCertEngine?: string | undefined;
         /**
          * PEM formatted CRLs (Certificate Revocation Lists).
          */
-        crl?: string | Buffer | Array<string | Buffer>;
+        crl?: string | Buffer | Array<string | Buffer> | undefined;
         /**
          * Diffie Hellman parameters, required for Perfect Forward Secrecy. Use
          * openssl dhparam to create the parameters. The key length must be
@@ -541,7 +542,7 @@ declare module 'tls' {
          * stronger security. If omitted or invalid, the parameters are
          * silently discarded and DHE ciphers will not be available.
          */
-        dhparam?: string | Buffer;
+        dhparam?: string | Buffer | undefined;
         /**
          * A string describing a named curve or a colon separated list of curve
          * NIDs or names, for example P-521:P-384:P-256, to use for ECDH key
@@ -551,13 +552,13 @@ declare module 'tls' {
          * name and description of each available elliptic curve. Default:
          * tls.DEFAULT_ECDH_CURVE.
          */
-        ecdhCurve?: string;
+        ecdhCurve?: string | undefined;
         /**
          * Attempt to use the server's cipher suite preferences instead of the
          * client's. When true, causes SSL_OP_CIPHER_SERVER_PREFERENCE to be
          * set in secureOptions
          */
-        honorCipherOrder?: boolean;
+        honorCipherOrder?: boolean | undefined;
         /**
          * Private keys in PEM format. PEM allows the option of private keys
          * being encrypted. Encrypted keys will be decrypted with
@@ -568,18 +569,18 @@ declare module 'tls' {
          * object.passphrase is optional. Encrypted keys will be decrypted with
          * object.passphrase if provided, or options.passphrase if it is not.
          */
-        key?: string | Buffer | Array<Buffer | KeyObject>;
+        key?: string | Buffer | Array<Buffer | KeyObject> | undefined;
         /**
          * Name of an OpenSSL engine to get private key from. Should be used
          * together with privateKeyIdentifier.
          */
-        privateKeyEngine?: string;
+        privateKeyEngine?: string | undefined;
         /**
          * Identifier of a private key managed by an OpenSSL engine. Should be
          * used together with privateKeyEngine. Should not be set together with
          * key, because both options define a private key in different ways.
          */
-        privateKeyIdentifier?: string;
+        privateKeyIdentifier?: string | undefined;
         /**
          * Optionally set the maximum TLS version to allow. One
          * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
@@ -588,7 +589,7 @@ declare module 'tls' {
          * `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using `--tls-max-v1.3` sets the default to
          * `'TLSv1.3'`. If multiple of the options are provided, the highest maximum is used.
          */
-        maxVersion?: SecureVersion;
+        maxVersion?: SecureVersion | undefined;
         /**
          * Optionally set the minimum TLS version to allow. One
          * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
@@ -599,11 +600,11 @@ declare module 'tls' {
          * `'TLSv1.1'`. Using `--tls-min-v1.3` sets the default to
          * 'TLSv1.3'. If multiple of the options are provided, the lowest minimum is used.
          */
-        minVersion?: SecureVersion;
+        minVersion?: SecureVersion | undefined;
         /**
          * Shared passphrase used for a single private key and/or a PFX.
          */
-        passphrase?: string;
+        passphrase?: string | undefined;
         /**
          * PFX or PKCS12 encoded private key and certificate chain. pfx is an
          * alternative to providing key and cert individually. PFX is usually
@@ -614,13 +615,13 @@ declare module 'tls' {
          * object.passphrase is optional. Encrypted PFX will be decrypted with
          * object.passphrase if provided, or options.passphrase if it is not.
          */
-        pfx?: string | Buffer | Array<string | Buffer | PxfObject>;
+        pfx?: string | Buffer | Array<string | Buffer | PxfObject> | undefined;
         /**
          * Optionally affect the OpenSSL protocol behavior, which is not
          * usually necessary. This should be used carefully if at all! Value is
          * a numeric bitmask of the SSL_OP_* options from OpenSSL Options
          */
-        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureOptions?: number | undefined; // Value is a numeric bitmask of the `SSL_OP_*` options
         /**
          * Legacy mechanism to select the TLS protocol version to use, it does
          * not support independent control of the minimum and maximum version,
@@ -632,23 +633,23 @@ declare module 'tls' {
          * TLS versions less than 1.2, but it may be required for
          * interoperability. Default: none, see minVersion.
          */
-        secureProtocol?: string;
+        secureProtocol?: string | undefined;
         /**
          * Opaque identifier used by servers to ensure session state is not
          * shared between applications. Unused by clients.
          */
-        sessionIdContext?: string;
+        sessionIdContext?: string | undefined;
         /**
          * 48-bytes of cryptographically strong pseudo-random data.
          * See Session Resumption for more information.
          */
-        ticketKeys?: Buffer;
+        ticketKeys?: Buffer | undefined;
         /**
          * The number of seconds after which a TLS session created by the
          * server will no longer be resumable. See Session Resumption for more
          * information. Default: 300.
          */
-        sessionTimeout?: number;
+        sessionTimeout?: number | undefined;
     }
 
     interface SecureContext {

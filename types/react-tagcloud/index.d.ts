@@ -7,21 +7,23 @@
 ///<reference types="react"/>
 
 declare namespace ReactTagCloud {
-    interface TagCloudProps extends React.Props<void> {
+    interface TagCloudProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<void> | undefined;
         tags: any[];
         maxSize: number;
         minSize: number;
-        shuffle?: boolean;
-        colorOptions?: object;
-        renderer?: Function;
-        className?: string;
-        onClick?: Function;
-        disableRandomColor?: boolean;
+        shuffle?: boolean | undefined;
+        colorOptions?: object | undefined;
+        renderer?: Function | undefined;
+        className?: string | undefined;
+        onClick?: Function | undefined;
+        disableRandomColor?: boolean | undefined;
     }
     interface TagCloudClass extends React.ComponentClass<TagCloudProps> { }
 
     interface DefaultRendererFactoryOptions {
-        tagRenderer?: Function;
+        tagRenderer?: Function | undefined;
         colorOptions?: any;
         props?: any;
     }

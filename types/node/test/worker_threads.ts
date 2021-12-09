@@ -1,9 +1,9 @@
-import * as workerThreads from 'worker_threads';
-import assert = require('assert');
-import { createContext } from 'vm';
-import { Readable } from 'stream';
-import * as fs from 'fs';
-import { EventLoopUtilization } from 'perf_hooks';
+import * as workerThreads from 'node:worker_threads';
+import assert = require('node:assert');
+import { createContext } from 'node:vm';
+import { Readable } from 'node:stream';
+import * as fs from 'node:fs';
+import { EventLoopUtilization } from 'node:perf_hooks';
 
 {
     if (workerThreads.isMainThread) {

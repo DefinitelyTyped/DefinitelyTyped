@@ -13,10 +13,10 @@ declare class CustomTemplatedPathPlugin extends Plugin {
             (
                 path: string,
                 data: {
-                    basename?: string;
-                    chunk?: compilation.Chunk;
-                    filename?: string;
-                    hash?: string;
+                    basename?: string | undefined;
+                    chunk?: compilation.Chunk | undefined;
+                    filename?: string | undefined;
+                    hash?: string | undefined;
                     query?: any;
                 }
             ) => string

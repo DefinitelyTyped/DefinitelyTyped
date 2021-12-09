@@ -20,7 +20,7 @@ declare namespace postcssLess {
     interface ImportAtRule extends postcss.AtRule {
         import: true;
         filename: string;
-        options?: string;
+        options?: string | undefined;
     }
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/nodes/variable.js
@@ -32,7 +32,7 @@ declare namespace postcssLess {
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L147-L151
     interface MixinAtRule extends postcss.AtRule {
         mixin: true;
-        important?: true;
+        important?: true | undefined;
     }
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L57

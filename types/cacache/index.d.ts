@@ -45,7 +45,7 @@ export namespace get {
          *
          * `algorithms` has no effect if this option is present.
          */
-        integrity?: string;
+        integrity?: string | undefined;
 
         /**
          * Default: `null`
@@ -63,14 +63,14 @@ export namespace get {
          * `memoize: false` to the reader functions, but their default will be
          * to read from memory.
          */
-        memoize?: null | boolean;
+        memoize?: null | boolean | undefined;
 
         /**
          * If provided, the data stream will be verified to check that enough
          * data was passed through. If there's more or less data than expected,
          * insertion will fail with an `EBADSIZE` error.
          */
-        size?: number;
+        size?: number | undefined;
     }
 
     namespace copy {
@@ -146,7 +146,7 @@ export namespace put {
          * Currently only supports one algorithm at a time (i.e., an array
          * length of exactly `1`). Has no effect if `opts.integrity` is present.
          */
-        algorithms?: string[];
+        algorithms?: string[] | undefined;
 
         /**
          * If present, the pre-calculated digest for the inserted content. If
@@ -155,7 +155,7 @@ export namespace put {
          *
          * `algorithms` has no effect if this option is present.
          */
-        integrity?: string;
+        integrity?: string | undefined;
 
         /** Arbitrary metadata to be attached to the inserted key. */
         metadata?: any;
@@ -176,21 +176,21 @@ export namespace put {
          * `memoize: false` to the reader functions, but their default will be
          * to read from memory.
          */
-        memoize?: null | boolean;
+        memoize?: null | boolean | undefined;
 
         /**
          * If provided, the data stream will be verified to check that enough
          * data was passed through. If there's more or less data than expected,
          * insertion will fail with an `EBADSIZE` error.
          */
-        size?: number;
+        size?: number | undefined;
 
         /**
          * Default: `null`
          *
          * Prefix to append on the temporary directory name inside the cache's tmp dir.
          */
-        tmpPrefix?: null | string;
+        tmpPrefix?: null | string | undefined;
     }
 
     /**
@@ -235,14 +235,14 @@ export namespace tmp {
          *
          * Number of concurrently read files in the filesystem while doing clean up.
          */
-        concurrency?: number;
+        concurrency?: number | undefined;
 
         /**
          * Receives a formatted entry. Return `false` to remove it.
          *
          * Note: might be called more than once on the same entry.
          */
-        filter?: string | false;
+        filter?: string | false | undefined;
 
         /**
          * Custom logger function:
@@ -251,14 +251,14 @@ export namespace tmp {
          *   log.silly('verify', 'verifying cache at', cache)
          * ```
          */
-        log?: Record<string, (...args: any[]) => any>;
+        log?: Record<string, (...args: any[]) => any> | undefined;
 
         /**
          * Default: `null`
          *
          * Prefix to append on the temporary directory name inside the cache's tmp dir.
          */
-        tmpPrefix?: null | string;
+        tmpPrefix?: null | string | undefined;
     }
 
     /**
@@ -302,14 +302,14 @@ export namespace verify {
          *
          * Number of concurrently read files in the filesystem while doing clean up.
          */
-        concurrency?: number;
+        concurrency?: number | undefined;
 
         /**
          * Receives a formatted entry. Return `false` to remove it.
          *
          * Note: might be called more than once on the same entry.
          */
-        filter?: string | false;
+        filter?: string | false | undefined;
 
         /**
          * Custom logger function:
@@ -318,7 +318,7 @@ export namespace verify {
          *   log.silly('verify', 'verifying cache at', cache)
          * ```
          */
-        log?: Record<string, (...args: any[]) => any>;
+        log?: Record<string, (...args: any[]) => any> | undefined;
     }
 
     /**

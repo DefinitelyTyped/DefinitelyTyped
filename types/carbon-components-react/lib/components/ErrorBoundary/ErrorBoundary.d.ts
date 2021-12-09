@@ -1,8 +1,8 @@
 import * as React from "react";
 
 export interface ErrorBoundaryProps {
-    children?: React.ReactNode,
-    fallback?: React.ReactNode,
+    children?: React.ReactNode | undefined,
+    fallback?: React.ReactNode | undefined,
 }
 
 declare class ErrorBoundary extends React.Component<ErrorBoundaryProps> { }

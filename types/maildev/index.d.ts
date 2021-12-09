@@ -13,72 +13,72 @@ interface MailDevOptions {
     /**
      * IP Address to bind SMTP service to', '0.0.0.0'
      */
-    ip?: string;
+    ip?: string | undefined;
 
     /**
      * SMTP host for outgoing emails
      */
-    outgoingHost?: string;
+    outgoingHost?: string | undefined;
 
     /**
      * SMTP password for outgoing emails
      */
-    outgoingPass?: string;
+    outgoingPass?: string | undefined;
 
     /**
      * SMTP port for outgoing emails.
      */
-    outgoingPort?: number;
+    outgoingPort?: number | undefined;
 
     /**
      * SMTP user for outgoing emails
      */
-    outgoingUser?: string;
+    outgoingUser?: string | undefined;
 
     /**
      * Use SMTP SSL for outgoing emails
      */
-    outgoingSecure?: boolean;
+    outgoingSecure?: boolean | undefined;
 
     /**
      * SMTP port to catch emails.
      */
-    smtp?: number;
+    smtp?: number | undefined;
 
     /**
      * Port to use for web UI
      */
-    web?: number;
+    web?: number | undefined;
 
     /**
      * IP Address to bind HTTP service to
      */
-    webIp?: string;
+    webIp?: string | undefined;
 
     /**
      * Do not start web UI
      */
-    disableWeb?: boolean;
+    disableWeb?: boolean | undefined;
 
     /**
      * Do not output console.log messages
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
 
     /**
      * HTTP user for GUI
      */
-    webUser?: string;
+    webUser?: string | undefined;
 
     /**
      * HTTP password for GUI
      */
-    webPass?: string;
+    webPass?: string | undefined;
 
     /**
      * Open the Web GUI after startup
      */
-    open?: boolean;
+    open?: boolean | undefined;
 }
 
 /**
@@ -88,12 +88,12 @@ interface Mail {
     /**
      * Identifier.
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * Client.
      */
-    envelope?: Object;
+    envelope?: Object | undefined;
 }
 
 declare module "maildev" {

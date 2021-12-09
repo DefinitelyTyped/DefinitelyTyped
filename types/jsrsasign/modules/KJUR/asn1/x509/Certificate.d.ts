@@ -23,7 +23,7 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
      * //     signature            BIT STRING  }
      */
     class Certificate extends ASN1Object {
-        constructor(params?: { prvkeyobj?: RSAKey | crypto.ECDSA | crypto.DSA; tbscertobj?: TBSCertificate });
+        constructor(params?: { prvkeyobj?: RSAKey | crypto.ECDSA | crypto.DSA | undefined; tbscertobj?: TBSCertificate | undefined });
 
         /**
          * sign TBSCertificate and set signature value internally

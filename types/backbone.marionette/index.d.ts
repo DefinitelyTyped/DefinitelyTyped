@@ -32,7 +32,7 @@ export interface RadioMixinOptions {
      * Defines the Radio channel that will be used for the requests and/or
      * events.
      */
-    channelName?: string;
+    channelName?: string | undefined;
 
     /**
      * Defines an events hash with the events to be listened and its respective
@@ -71,42 +71,42 @@ export interface ViewMixinOptions {
     /**
      * Behavior objects to assign to this View.
      */
-    behaviors?: Marionette.Behavior[];
+    behaviors?: Marionette.Behavior[] | undefined;
 
     /**
      * Customize the event prefix for events that are forwarded through the
      * collection view.
      */
-    childViewEventPrefix?: string | false;
+    childViewEventPrefix?: string | false | undefined;
 
     /**
      * Use the childViewEvents attribute to map child events to methods on the
      * parent view.
      */
-    childViewEvents?: Marionette.EventsHash;
+    childViewEvents?: Marionette.EventsHash | undefined;
 
     /**
      * A childViewTriggers hash or method permits proxying of child view events
      * without manually setting bindings. The values of the hash should be a
      * string of the event to trigger on the parent.
      */
-    childViewTriggers?: Marionette.EventsHash;
+    childViewTriggers?: Marionette.EventsHash | undefined;
 
     /**
      * Bind to events that occur on attached collections.
      */
-    collectionEvents?: Marionette.EventsHash;
+    collectionEvents?: Marionette.EventsHash | undefined;
 
     /**
      * Bind to events that occur on attached models.
      */
-    modelEvents?: Marionette.EventsHash;
+    modelEvents?: Marionette.EventsHash | undefined;
 
     /**
      * The view triggers attribute binds DOM events to Marionette View events
      * that can be responded to at the view or parent level.
      */
-    triggers?: Marionette.EventsHash;
+    triggers?: Marionette.EventsHash | undefined;
 
     /**
      * Name parts of your template to be used
@@ -630,19 +630,19 @@ export interface RegionConstructionOptions {
     /**
      * Prevents error on missing element. (undocumented)
      */
-    allowMissingEl?: boolean;
+    allowMissingEl?: boolean | undefined;
 
     /**
      * Element to use as context when finding el via jQuery. Defaults to the
      * the document. (undocumented)
      */
-    parentEl?: string;
+    parentEl?: string | undefined;
 
     /**
      * Overwrite the parent el of the region with the rendered contents of
      * the inner View.
      */
-    replaceElement?: string;
+    replaceElement?: string | undefined;
 }
 
 export interface RegionViewOptions {
@@ -651,7 +651,7 @@ export interface RegionViewOptions {
      * default it will automatically destroy the previous view. You can
      * prevent this behavior by setting this option to true.
      */
-    preventDestroy?: boolean;
+    preventDestroy?: boolean | undefined;
 }
 
 /**
@@ -849,7 +849,7 @@ export interface ViewOptions<TModel extends Backbone.Model> extends Backbone.Vie
      * The events attribute binds DOM events to actions to perform on the
      * view. It takes DOM event key and a mapping to the handler.
      */
-    events?: EventsHash;
+    events?: EventsHash | undefined;
 
     /**
      * If you've created a custom region class, you can use it to define
@@ -1292,18 +1292,18 @@ export interface CollectionViewOptions<
     /**
      * Specify a child view to use.
      */
-    childView?: ((model: TModel) => typeof Backbone.View) | typeof Backbone.View;
+    childView?: ((model: TModel) => typeof Backbone.View) | typeof Backbone.View | undefined;
 
     /**
      * Define options to pass to the childView constructor.
      */
-    childViewOptions?: (() => ViewOptions<TModel>) | ViewOptions<TModel>;
+    childViewOptions?: (() => ViewOptions<TModel>) | ViewOptions<TModel> | undefined;
 
     /**
      * The events attribute binds DOM events to actions to perform on the
      * view. It takes DOM event key and a mapping to the handler.
      */
-    events?: EventsHash;
+    events?: EventsHash | undefined;
 
     /**
      * Prevent some of the underlying collection's models from being
@@ -1314,35 +1314,35 @@ export interface CollectionViewOptions<
     /**
      * Prevent some of the underlying children from being attached to the DOM.
      */
-    viewFilter?: ((view?: typeof Backbone.View, index?: number, children?: Backbone.View[]) => boolean) | Backbone.ObjectHash | string;
+    viewFilter?: ((view?: typeof Backbone.View, index?: number, children?: Backbone.View[]) => boolean) | Backbone.ObjectHash | string | undefined;
 
     /**
      * Specify a view to use if the collection has no children.
      */
-    emptyView?: (() => typeof Backbone.View) | typeof Backbone.View;
+    emptyView?: (() => typeof Backbone.View) | typeof Backbone.View | undefined;
 
     /**
      * Define options to pass to the emptyView constructor.
      */
-    emptyViewOptions?: (() => ViewOptions<TModel>) | ViewOptions<TModel>;
+    emptyViewOptions?: (() => ViewOptions<TModel>) | ViewOptions<TModel> | undefined;
 
     /**
      * If true when you sort your collection there will be no re-rendering,
      * only the DOM nodes will be reordered.
      */
-    reorderOnSort?: boolean;
+    reorderOnSort?: boolean | undefined;
 
     /**
      * If false the collection view will not maintain a sorted collection's
      * order in the DOM.
      */
-    sort?: boolean;
+    sort?: boolean | undefined;
 
     /**
      * Render your collection view's children with a different sort order
      * than the underlying Backbone collection.
      */
-    viewComparator?: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number); // Mirrors Backbone.Collection.comparator
+    viewComparator?: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number) | undefined; // Mirrors Backbone.Collection.comparator
 }
 
 /**
@@ -1580,13 +1580,13 @@ export interface AppRouterOptions {
      * Define the app routes and the method names on the controller that
      * will be called when accessing the routes.
      */
-    appRoutes?: AppRoutes;
+    appRoutes?: AppRoutes | undefined;
 
     /**
      * Define the app routes and the method names on the router that will be
      * called when accessing the routes.
      */
-    routes?: AppRoutes;
+    routes?: AppRoutes | undefined;
 
     /**
      * An object that contains the methods specified in appRoutes.

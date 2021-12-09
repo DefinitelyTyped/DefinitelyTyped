@@ -102,40 +102,40 @@ export interface SwiperOptions {
      *
      * @default true
      */
-    init?: boolean;
+    init?: boolean | undefined;
 
     /**
      * Index number of initial slide.
      *
      * @default 0
      */
-    initialSlide?: number;
+    initialSlide?: number | undefined;
 
     /**
      * Could be 'horizontal' or 'vertical' (for vertical slider).
      *
      * @default 'horizontal'
      */
-    direction?: 'horizontal' | 'vertical';
+    direction?: 'horizontal' | 'vertical' | undefined;
 
     /**
      * Duration of transition between slides (in ms)
      *
      * @default 300
      */
-    speed?: number;
+    speed?: number | undefined;
 
     /**
      * Enabled this option and plugin will set width/height on swiper wrapper equal to total size of all slides.
      * Mostly should be used as compatibility fallback option for browser that don't support flexbox layout well
      */
-    setWrapperSize?: boolean;
+    setWrapperSize?: boolean | undefined;
 
     /**
      * Enabled this option and swiper will be operated as usual except it will not move, real translate values on wrapper will not be set.
      * Useful when you may need to create custom slide transition
      */
-    virtualTranslate?: boolean;
+    virtualTranslate?: boolean | undefined;
 
     /**
      * Swiper width (in px). Parameter allows to force Swiper width.
@@ -143,7 +143,7 @@ export interface SwiperOptions {
      *
      * @note Setting this parameter will make Swiper not responsive
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * Swiper height (in px). Parameter allows to force Swiper height.
@@ -151,14 +151,14 @@ export interface SwiperOptions {
      *
      * @note Setting this parameter will make Swiper not responsive
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * Set to true and slider wrapper will adopt its height to the height of the currently active slide
      *
      * @default false
      */
-    autoHeight?: boolean;
+    autoHeight?: boolean | undefined;
 
     /**
      * Set to true to round values of slides width and height to prevent blurry texts on usual
@@ -166,7 +166,7 @@ export interface SwiperOptions {
      *
      * @default false
      */
-    roundLengths?: boolean;
+    roundLengths?: boolean | undefined;
 
     /**
      * Set to true on  Swiper for correct touch events interception. Use only on
@@ -174,7 +174,7 @@ export interface SwiperOptions {
      *
      * @default false
      */
-    nested?: boolean;
+    nested?: boolean | undefined;
 
     /**
      * If enabled (by default) and navigation elements' parameters passed as a string (like ".pagination")
@@ -183,14 +183,14 @@ export interface SwiperOptions {
      *
      * @default true
      */
-    uniqueNavElements?: boolean;
+    uniqueNavElements?: boolean | undefined;
 
     /**
      * Tranisition effect. Could be "slide", "fade", "cube", "coverflow" or "flip"
      *
      * @default 'slide'
      */
-    effect?: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip';
+    effect?: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | undefined;
 
     /**
      * Fire [Transition/SlideChange][Start/End] events on swiper initialization.
@@ -198,7 +198,7 @@ export interface SwiperOptions {
      *
      * @default true
      */
-    runCallbacksOnInit?: boolean;
+    runCallbacksOnInit?: boolean | undefined;
 
     /**
      * When enabled Swiper will be disabled and hide navigation buttons on
@@ -206,70 +206,70 @@ export interface SwiperOptions {
      *
      * @default false
      */
-    watchOverflow?: boolean;
+    watchOverflow?: boolean | undefined;
 
     /**
      * Register event handlers.
      */
-    on?: { [key in SwiperEvent]?: () => void };
+    on?: { [key in SwiperEvent]?: () => void } | undefined;
 
     // Slides grid
 
     /**
      * Distance between slides in px.
      */
-    spaceBetween?: number;
+    spaceBetween?: number | undefined;
 
     /**
      * Number of slides per view (slides visible at the same time on slider's container).
      * If you use it with "auto" value and along with loop: true then you need to specify loopedSlides parameter with amount of slides to loop (duplicate)
      * slidesPerView: 'auto' is currently not compatible with multirow mode, when slidesPerColumn > 1
      */
-    slidesPerView?: number | 'auto';
+    slidesPerView?: number | 'auto' | undefined;
 
     /**
      * Number of slides per column, for multirow layout
      * slidesPerColumn > 1 is currently not compatible with loop mode (loop: true)
      */
-    slidesPerColumn?: number;
+    slidesPerColumn?: number | undefined;
 
     /**
      * Could be 'column' or 'row'. Defines how slides should fill rows, by column or by row
      */
-    slidesPerColumnFill?: 'row' | 'column';
+    slidesPerColumnFill?: 'row' | 'column' | undefined;
 
     /**
      * Set numbers of slides to define and enable group sliding. Useful to use with slidesPerView > 1
      */
-    slidesPerGroup?: number;
+    slidesPerGroup?: number | undefined;
 
     /**
      * If true, then active slide will be centered, not always on the left side.
      */
-    centeredSlides?: boolean;
+    centeredSlides?: boolean | undefined;
 
     /**
      * Add (in px) additional slide offset in the beginning of the container (before all slides)
      */
-    slidesOffsetBefore?: number;
+    slidesOffsetBefore?: number | undefined;
 
     /**
      * Add (in px) additional slide offset in the end of the container (after all slides)
      */
-    slidesOffsetAfter?: number;
+    slidesOffsetAfter?: number | undefined;
 
     /**
      * Normalize slide index.
      */
-    normalizeSlideIndex?: boolean;
+    normalizeSlideIndex?: boolean | undefined;
 
     /**
      * When enabled it center slides if the amount of slides less than `slidesPerView`. Not intended to be used loop mode and slidesPerColumn
      */
-    centerInsufficientSlides?: boolean;
+    centerInsufficientSlides?: boolean | undefined;
 
     // Grab Cursor
-    grabCursor?: boolean;
+    grabCursor?: boolean | undefined;
 
     // Touches
 
@@ -277,186 +277,186 @@ export interface SwiperOptions {
      * Target element to listen touch events on. Can be 'container' (to listen for touch events on swiper-container) or 'wrapper'
      * (to listen for touch events on swiper-wrapper)
      */
-    touchEventsTarget?: 'container' | 'wrapper';
+    touchEventsTarget?: 'container' | 'wrapper' | undefined;
 
     /**
      * Touch ratio
      */
-    touchRatio?: number;
+    touchRatio?: number | undefined;
 
     /**
      * Allowable angle (in degrees) to trigger touch move
      */
-    touchAngle?: number;
+    touchAngle?: number | undefined;
 
     /**
      * If true, Swiper will accept mouse events like touch events (click and drag to change slides)
      */
-    simulateTouch?: boolean;
+    simulateTouch?: boolean | undefined;
 
     /**
      * Set to false if you want to disable short swipes
      */
-    shortSwipes?: boolean;
+    shortSwipes?: boolean | undefined;
 
     /**
      * Set to false if you want to disable long swipes
      */
-    longSwipes?: boolean;
+    longSwipes?: boolean | undefined;
 
     /**
      * Ratio to trigger swipe to next/previous slide during long swipes
      */
-    longSwipesRatio?: number;
+    longSwipesRatio?: number | undefined;
 
     /**
      * Minimal duration (in ms) to trigger swipe to next/previous slide during long swipes
      */
-    longSwipesMs?: number;
+    longSwipesMs?: number | undefined;
 
     /**
      * If disabled, then slider will be animated only when you release it, it will not move while you hold your finger on it
      */
-    followFinger?: boolean;
+    followFinger?: boolean | undefined;
 
     /**
      * If false, then the only way to switch the slide is use of external API functions like slidePrev or slideNext
      */
-    allowTouchMove?: boolean;
+    allowTouchMove?: boolean | undefined;
 
     /**
      * Threshold value in px. If "touch distance" will be lower than this value then swiper will not move
      */
-    threshold?: number;
+    threshold?: number | undefined;
 
     /**
      * If disabled, `touchstart` (`mousedown`) event won't be prevented
      */
-    touchStartPreventDefault?: boolean;
+    touchStartPreventDefault?: boolean | undefined;
 
     /**
      * Force to always prevent default for `touchstart` (`mousedown`) event
      */
-    touchStartForcePreventDefault?: boolean;
+    touchStartForcePreventDefault?: boolean | undefined;
 
     /**
      * If enabled, then propagation of "touchmove" will be stopped
      */
-    touchMoveStopPropagation?: boolean;
+    touchMoveStopPropagation?: boolean | undefined;
 
     /**
      * Enable to release Swiper events for swipe-to-go-back work in iOS UIWebView
      */
-    iOSEdgeSwipeDetection?: boolean;
+    iOSEdgeSwipeDetection?: boolean | undefined;
 
     /**
      * Area (in px) from left edge of the screen to release touch events for swipe-to-go-back in iOS UIWebView
      */
-    iOSEdgeSwipeThreshold?: number;
+    iOSEdgeSwipeThreshold?: number | undefined;
 
     /**
      * Enable to release touch events on slider edge position (beginning, end) to allow for further page scrolling
      */
-    touchReleaseOnEdges?: boolean;
+    touchReleaseOnEdges?: boolean | undefined;
 
     /**
      * Passive event listeners will be used by default where possible to improve scrolling performance on mobile devices.
      * But if you need to use `e.preventDefault` and you have conflict with it, then you should disable this parameter
      */
-    passiveListeners?: boolean;
+    passiveListeners?: boolean | undefined;
 
     // Touch Resistance
 
     /**
      * Set to false if you want to disable resistant bounds
      */
-    resistance?: boolean;
+    resistance?: boolean | undefined;
 
     /**
      * This option allows you to control resistance ratio
      */
-    resistanceRatio?: number;
+    resistanceRatio?: number | undefined;
 
     // Swiping / No swiping
-    preventInteractionOnTransition?: boolean;
-    allowSlidePrev?: boolean;
-    allowSlideNext?: boolean;
-    noSwiping?: boolean;
-    noSwipingClass?: string;
-    noSwipingSelector?: string;
-    swipeHandler?: SelectableElement;
+    preventInteractionOnTransition?: boolean | undefined;
+    allowSlidePrev?: boolean | undefined;
+    allowSlideNext?: boolean | undefined;
+    noSwiping?: boolean | undefined;
+    noSwipingClass?: string | undefined;
+    noSwipingSelector?: string | undefined;
+    swipeHandler?: SelectableElement | undefined;
 
     // Clicks
-    preventClicks?: boolean;
-    preventClicksPropagation?: boolean;
-    slideToClickedSlide?: boolean;
+    preventClicks?: boolean | undefined;
+    preventClicksPropagation?: boolean | undefined;
+    slideToClickedSlide?: boolean | undefined;
 
     // Freemode
-    freeMode?: boolean;
-    freeModeMomentum?: boolean;
-    freeModeMomentumRatio?: number;
-    freeModeMomentumVelocityRatio?: number;
-    freeModeMomentumBounce?: boolean;
-    freeModeMomentumBounceRatio?: number;
-    freeModeMinimumVelocity?: number;
-    freeModeSticky?: boolean;
+    freeMode?: boolean | undefined;
+    freeModeMomentum?: boolean | undefined;
+    freeModeMomentumRatio?: number | undefined;
+    freeModeMomentumVelocityRatio?: number | undefined;
+    freeModeMomentumBounce?: boolean | undefined;
+    freeModeMomentumBounceRatio?: number | undefined;
+    freeModeMinimumVelocity?: number | undefined;
+    freeModeSticky?: boolean | undefined;
 
     // Progress
-    watchSlidesProgress?: boolean;
-    watchSlidesVisibility?: boolean;
+    watchSlidesProgress?: boolean | undefined;
+    watchSlidesVisibility?: boolean | undefined;
 
     // Images
-    preloadImages?: boolean;
-    updateOnImagesReady?: boolean;
+    preloadImages?: boolean | undefined;
+    updateOnImagesReady?: boolean | undefined;
 
     // Loop
-    loop?: boolean;
-    loopAdditionalSlides?: number;
-    loopedSlides?: number;
-    loopFillGroupWithBlank?: boolean;
+    loop?: boolean | undefined;
+    loopAdditionalSlides?: number | undefined;
+    loopedSlides?: number | undefined;
+    loopFillGroupWithBlank?: boolean | undefined;
 
     // Breakpoints
     breakpoints?: {
         [index: number]: SwiperOptions;
-    };
-    breakpointsInverse?: boolean;
+    } | undefined;
+    breakpointsInverse?: boolean | undefined;
 
     // Observer
-    observer?: boolean;
-    observeParents?: boolean;
+    observer?: boolean | undefined;
+    observeParents?: boolean | undefined;
 
     // Namespace
-    containerModifierClass?: string;
-    slideClass?: string;
-    slideActiveClass?: string;
-    slideDuplicateActiveClass?: string;
-    slideVisibleClass?: string;
-    slideDuplicateClass?: string;
-    slideNextClass?: string;
-    slideDuplicateNextClass?: string;
-    slidePrevClass?: string;
-    slideDuplicatePrevClass?: string;
-    wrapperClass?: string;
+    containerModifierClass?: string | undefined;
+    slideClass?: string | undefined;
+    slideActiveClass?: string | undefined;
+    slideDuplicateActiveClass?: string | undefined;
+    slideVisibleClass?: string | undefined;
+    slideDuplicateClass?: string | undefined;
+    slideNextClass?: string | undefined;
+    slideDuplicateNextClass?: string | undefined;
+    slidePrevClass?: string | undefined;
+    slideDuplicatePrevClass?: string | undefined;
+    wrapperClass?: string | undefined;
 
     // Components
-    navigation?: NavigationOptions;
-    pagination?: PaginationOptions;
-    scrollbar?: ScrollbarOptions;
-    autoplay?: AutoplayOptions | boolean;
-    parallax?: boolean;
-    lazy?: LazyOptions | boolean;
-    fadeEffect?: FadeEffectOptions;
-    coverflowEffect?: CoverflowEffectOptions;
-    flipEffect?: FlipEffectOptions;
-    cubeEffect?: CubeEffectOptions;
-    thumbs?: ThumbsOptions;
-    zoom?: ZoomOptions | boolean;
-    keyboard?: KeyboardOptions | boolean;
-    mousewheel?: MousewheelOptions | boolean;
-    virtual?: VirtualOptions | boolean;
-    hashNavigation?: HashNavigationOptions | boolean;
-    history?: HistoryNavigationOptions | boolean;
-    a11y?: A11yOptions | boolean;
+    navigation?: NavigationOptions | undefined;
+    pagination?: PaginationOptions | undefined;
+    scrollbar?: ScrollbarOptions | undefined;
+    autoplay?: AutoplayOptions | boolean | undefined;
+    parallax?: boolean | undefined;
+    lazy?: LazyOptions | boolean | undefined;
+    fadeEffect?: FadeEffectOptions | undefined;
+    coverflowEffect?: CoverflowEffectOptions | undefined;
+    flipEffect?: FlipEffectOptions | undefined;
+    cubeEffect?: CubeEffectOptions | undefined;
+    thumbs?: ThumbsOptions | undefined;
+    zoom?: ZoomOptions | boolean | undefined;
+    keyboard?: KeyboardOptions | boolean | undefined;
+    mousewheel?: MousewheelOptions | boolean | undefined;
+    virtual?: VirtualOptions | boolean | undefined;
+    hashNavigation?: HashNavigationOptions | boolean | undefined;
+    history?: HistoryNavigationOptions | boolean | undefined;
+    a11y?: A11yOptions | boolean | undefined;
 }
 
 export interface EventsOptions {
@@ -491,142 +491,142 @@ export interface EventsOptions {
      *   }
      * });
      */
-    init?: () => any;
+    init?: (() => any) | undefined;
 
     /**
      * Triggered right beforey Swiper destoryed
      */
-    beforeDestroy?: () => any;
+    beforeDestroy?: (() => any) | undefined;
 
     /**
      * Triggered when currently active slide is changed
      */
-    slideChange?: () => any;
+    slideChange?: (() => any) | undefined;
 
     /**
      * Triggered in the beginning of animation to other slide (next or previous).
      */
-    slideChangeTransitionStart?: () => any;
+    slideChangeTransitionStart?: (() => any) | undefined;
 
     /**
      * Triggered after animation to other slide (next or previous).
      */
-    slideChangeTransitionEnd?: () => any;
+    slideChangeTransitionEnd?: (() => any) | undefined;
 
     /**
      * Same as "slideChangeTransitionStart" but for "forward" direction only
      */
-    slideNextTransitionStart?: () => any;
+    slideNextTransitionStart?: (() => any) | undefined;
 
     /**
      * Same as "slideChangeTransitionEnd" but for "forward" direction only
      */
-    slideNextTransitionEnd?: () => any;
+    slideNextTransitionEnd?: (() => any) | undefined;
 
     /**
      * Same as "slideChangeTransitionStart" but for "backward" direction only
      */
-    slidePrevTransitionStart?: () => any;
+    slidePrevTransitionStart?: (() => any) | undefined;
 
     /**
      * Same as "slideChangeTransitionEnd" but for "backward" direction only
      */
-    slidePrevTransitionEnd?: () => any;
+    slidePrevTransitionEnd?: (() => any) | undefined;
 
     /**
      * Triggered in the beginning of transition.
      */
-    transitionStart?: () => any;
+    transitionStart?: (() => any) | undefined;
 
     /**
      * Triggered after transition.
      */
-    transitionEnd?: () => any;
+    transitionEnd?: (() => any) | undefined;
 
     /**
      * Triggered when user touch Swiper. Receives 'touchstart' event as an arguments.
      */
-    touchStart?: (event: any) => any;
+    touchStart?: ((event: any) => any) | undefined;
 
     /**
      * Triggered when user touch and move finger over Swiper. Receives 'touchmove' event as an arguments.
      */
-    touchMove?: (event: any) => any;
+    touchMove?: ((event: any) => any) | undefined;
 
     /**
      * Fired when user touch and move finger over
      * Swiper in direction opposite to direction parameter.
      * Receives 'touchmove' event as an arguments.
      */
-    touchMoveOpposite?: (event: any) => any;
+    touchMoveOpposite?: ((event: any) => any) | undefined;
 
     /**
      * Triggered when user touch and move finger over Swiper and move it.
      * Receives 'touchmove' event as an arguments.
      */
-    sliderMove?: (event: any) => any;
+    sliderMove?: ((event: any) => any) | undefined;
 
     /**
      * Triggered when user release Swiper. Receives 'touchend' event as an arguments.
      */
-    touchEnd?: (event: any) => any;
+    touchEnd?: ((event: any) => any) | undefined;
 
     /**
      * Triggered when user click/tap on Swiper after 300ms delay. Receives 'touchend' event as an arguments.
      */
-    click?: (event: any) => any;
+    click?: ((event: any) => any) | undefined;
 
     /**
      * Triggered when user click/tap on Swiper. Receives 'touchend' event as an arguments.
      */
-    tap?: (event: any) => any;
+    tap?: ((event: any) => any) | undefined;
 
     /**
      * Triggered when user double tap on Swiper's container. Receives 'touchend' event as an arguments
      */
-    doubleTap?: (event: any) => any;
+    doubleTap?: ((event: any) => any) | undefined;
 
     /**
      * Triggered right after all inner images are loaded. updateOnImagesReady should be also enabled
      */
-    imagesReady?: () => any;
+    imagesReady?: (() => any) | undefined;
 
     /**
      * Triggered when Swiper progress is changed, as an arguments it receives
      * progress that is always from 0 to 1
      */
-    progress?: (progress: any) => any;
+    progress?: ((progress: any) => any) | undefined;
 
     /**
      * Triggered when Swiper reach its beginning (initial position)
      */
-    reachBeginning?: () => any;
+    reachBeginning?: (() => any) | undefined;
 
     /**
      * Triggered when Swiper reach last slide
      */
-    reachEnd?: () => any;
+    reachEnd?: (() => any) | undefined;
 
     /**
      * Triggered when Swiper goes from beginning or end position
      */
-    fromEdge?: () => any;
+    fromEdge?: (() => any) | undefined;
 
     /**
      * Triggered when swiper's wrapper change its position. Receives current translate value as an arguments
      */
-    setTranslate?: (translate: any) => any;
+    setTranslate?: ((translate: any) => any) | undefined;
 
     /**
      * Triggered everytime when swiper starts animation.
      * Receives current transition duration (in ms) as an arguments,
      */
-    setTransition?: (transition: any) => any;
+    setTransition?: ((transition: any) => any) | undefined;
 
     /**
      * Triggered on window resize right before swiper's onresize manipulation
      */
-    resize?: () => any;
+    resize?: (() => any) | undefined;
 }
 
 export interface NavigationOptions {
@@ -636,7 +636,7 @@ export interface NavigationOptions {
      *
      * @default null
      */
-    nextEl?: SelectableElement;
+    nextEl?: SelectableElement | undefined;
 
     /**
      * String with CSS selector or HTML element of the element that will work
@@ -644,28 +644,28 @@ export interface NavigationOptions {
      *
      * @default null
      */
-    prevEl?: SelectableElement;
+    prevEl?: SelectableElement | undefined;
 
     /**
      * buttons visibility after click on Slider's container
      *
      * @default false Toggle navigation
      */
-    hideOnClick?: boolean;
+    hideOnClick?: boolean | undefined;
 
     /**
      * CSS class name added to navigation button when it becomes disabled
      *
      * @default 'swiper-button-disabled'
      */
-    disabledClass?: string;
+    disabledClass?: string | undefined;
 
     /**
      * CSS class name added to navigation button when it becomes hidden
      *
      * @default 'swiper-button-hidden'
      */
-    hiddenClass?: string;
+    hiddenClass?: string | undefined;
 }
 
 export interface PaginationOptions {
@@ -677,66 +677,66 @@ export interface PaginationOptions {
     /**
      * String with type of pagination. Can be "bullets", "fraction", "progressbar" or "custom"
      */
-    type?: 'bullets' | 'fraction' | 'progressbar' | 'custom';
+    type?: 'bullets' | 'fraction' | 'progressbar' | 'custom' | undefined;
 
     /**
      * Defines which HTML tag will be use to represent single pagination bullet. Only for bullets pagination type.
      */
-    bulletElement?: string;
+    bulletElement?: string | undefined;
 
     /**
      * Good to enable if you use bullets pagination with a lot of slides. So it will keep only few bullets visible at the same time.
      */
-    dynamicBullets?: boolean;
+    dynamicBullets?: boolean | undefined;
 
     /**
      * The number of main bullets visible when dynamicBullets enabled.
      */
-    dynamicMainBullets?: number;
+    dynamicMainBullets?: number | undefined;
 
     /**
      * Toggle (hide/true) pagination container visibility after click on Slider's container
      */
-    hideOnClick?: boolean;
+    hideOnClick?: boolean | undefined;
 
     /**
      * If true then clicking on pagination button will cause transition to appropriate slide. Only for bullets pagination type
      */
-    clickable?: boolean;
+    clickable?: boolean | undefined;
 
     /**
      * Makes pagination progressbar opposite to Swiper's `direction` parameter, means vertical progressbar for horizontal swiper
      * direction and horizontal progressbar for vertical swiper direction
      */
-    progressbarOpposite?: boolean;
+    progressbarOpposite?: boolean | undefined;
 
     /**
      * format fraction pagination current number. Function receives current number,
      * and you need to return formatted value
      */
-    formatFractionCurrent?: (number: number) => number;
+    formatFractionCurrent?: ((number: number) => number) | undefined;
 
     /**
      * format fraction pagination total number. Function receives total number, and you
      * need to return formatted value
      */
-    formatFractionTotal?: (number: number) => number;
+    formatFractionTotal?: ((number: number) => number) | undefined;
 
     /**
      * This parameter allows totally customize pagination bullets, you need to pass here a function that accepts index number of
      * pagination bullet and required element class name (className). Only for bullets pagination type
      */
-    renderBullet?: (index: number, className: string) => void;
+    renderBullet?: ((index: number, className: string) => void) | undefined;
 
     /**
      * This parameter allows to customize "fraction" pagination html. Only for fraction pagination type
      */
-    renderFraction?: (currentClass: string, totalClass: string) => void;
+    renderFraction?: ((currentClass: string, totalClass: string) => void) | undefined;
 
     /**
      * This parameter allows to customize "progress" pagination. Only for progress pagination type
      */
-    renderProgressbar?: (progressbarFillClass: string) => void;
+    renderProgressbar?: ((progressbarFillClass: string) => void) | undefined;
 
     /**
      * This parameter is required for custom pagination type where you have to specify
@@ -750,47 +750,47 @@ export interface PaginationOptions {
      *   }
      * });
      */
-    renderCustom?: (swiper: Swiper, current: number, total: number) => void;
+    renderCustom?: ((swiper: Swiper, current: number, total: number) => void) | undefined;
 
     /**
      * CSS class name of single pagination bullet
      */
-    bulletClass?: string;
+    bulletClass?: string | undefined;
 
     /**
      * CSS class name of currently active pagination bullet
      */
-    bulletActiveClass?: string;
+    bulletActiveClass?: string | undefined;
 
     /**
      * The beginning of the modifier CSS class name that will be added to pagination depending on parameters
      */
-    modifierClass?: string;
+    modifierClass?: string | undefined;
 
     /**
      * CSS class name of the element with currently active index in "fraction" pagination
      */
-    currentClass?: string;
+    currentClass?: string | undefined;
 
     /**
      * CSS class name of the element with total number of "snaps" in "fraction" pagination
      */
-    totalClass?: string;
+    totalClass?: string | undefined;
 
     /**
      * CSS class name of pagination when it becomes inactive
      */
-    hiddenClass?: string;
+    hiddenClass?: string | undefined;
 
     /**
      * CSS class name of pagination progressbar fill element
      */
-    progressbarFillClass?: string;
+    progressbarFillClass?: string | undefined;
 
     /**
      * CSS class name set to pagination when it is clickable
      */
-    clickableClass?: string;
+    clickableClass?: string | undefined;
 }
 
 /**
@@ -815,42 +815,42 @@ export interface ScrollbarOptions {
      *
      * @default true
      */
-    hide?: boolean;
+    hide?: boolean | undefined;
 
     /**
      * Set to true to enable make scrollbar draggable that allows you to control slider position
      *
      * @default true
      */
-    draggable?: boolean;
+    draggable?: boolean | undefined;
 
     /**
      * Set to true to snap slider position to slides when you release scrollbar
      *
      * @default false
      */
-    snapOnRelease?: boolean;
+    snapOnRelease?: boolean | undefined;
 
     /**
      * Size of scrollbar draggable element in px
      *
      * @default 'auto'
      */
-    dragSize?: 'auto' | number;
+    dragSize?: 'auto' | number | undefined;
 
     /**
      * Scrollbar element additional CSS class when it is disabled
      *
      * @default 'swiper-scrollbar-lock'
      */
-    lockClass?: string;
+    lockClass?: string | undefined;
 
     /**
      *     Scrollbar draggable element CSS class
      *
      * @default 'swiper-scrollbar-drag'
      */
-    dragClass?: string;
+    dragClass?: string | undefined;
 }
 
 /**
@@ -876,14 +876,14 @@ export interface AutoplayOptions {
      *
      * @default 3000
      */
-    delay?: number;
+    delay?: number | undefined;
 
     /**
      * Enable this parameter and autoplay will be stopped when it reaches last slide (has no effect in loop mode)
      *
      * @default false
      */
-    stopOnLastSlide?: boolean;
+    stopOnLastSlide?: boolean | undefined;
 
     /**
      * Set to false and autoplay will not be disabled after
@@ -892,14 +892,14 @@ export interface AutoplayOptions {
      *
      * @default true
      */
-    disableOnInteraction?: boolean;
+    disableOnInteraction?: boolean | undefined;
 
     /**
      * Enables autoplay in reverse direction
      *
      * @default false
      */
-    reverseDirection?: boolean;
+    reverseDirection?: boolean | undefined;
 
     /**
      * When enabled autoplay will wait for wrapper transition to continue.
@@ -908,17 +908,17 @@ export interface AutoplayOptions {
      *
      * @default true
      */
-    waitForTransition?: boolean;
+    waitForTransition?: boolean | undefined;
 }
 
 export interface LazyOptions {
-    loadPrevNext?: boolean;
-    loadPrevNextAmount?: number;
-    loadOnTransitionStart?: boolean;
-    elementClass?: string;
-    loadingClass?: string;
-    loadedClass?: string;
-    preloaderClass?: string;
+    loadPrevNext?: boolean | undefined;
+    loadPrevNextAmount?: number | undefined;
+    loadOnTransitionStart?: boolean | undefined;
+    elementClass?: string | undefined;
+    loadingClass?: string | undefined;
+    loadedClass?: string | undefined;
+    preloaderClass?: string | undefined;
 }
 
 /*
@@ -926,63 +926,63 @@ export interface LazyOptions {
  */
 
 export interface FadeEffectOptions {
-    crossFade?: boolean;
+    crossFade?: boolean | undefined;
 }
 
 export interface CoverflowEffectOptions {
-    slideShadows?: boolean;
-    rotate?: number;
-    stretch?: number;
-    depth?: number;
-    modifier?: number;
+    slideShadows?: boolean | undefined;
+    rotate?: number | undefined;
+    stretch?: number | undefined;
+    depth?: number | undefined;
+    modifier?: number | undefined;
 }
 
 export interface FlipEffectOptions {
-    slideShadows?: boolean;
-    limitRotation?: boolean;
+    slideShadows?: boolean | undefined;
+    limitRotation?: boolean | undefined;
 }
 
 export interface CubeEffectOptions {
-    slideShadows?: boolean;
-    shadow?: boolean;
-    shadowOffset?: number;
-    shadowScale?: number;
+    slideShadows?: boolean | undefined;
+    shadow?: boolean | undefined;
+    shadowOffset?: number | undefined;
+    shadowScale?: number | undefined;
 }
 
 export interface ThumbsOptions {
-    swiper?: Swiper;
-    slideThumbActiveClass?: string;
-    thumbsContainerClass?: string;
+    swiper?: Swiper | undefined;
+    slideThumbActiveClass?: string | undefined;
+    thumbsContainerClass?: string | undefined;
 }
 
 export interface ZoomOptions {
-    maxRatio?: number;
-    minRatio?: number;
-    toggle?: boolean;
-    containerClass?: string;
-    zoomedSlideClass?: string;
+    maxRatio?: number | undefined;
+    minRatio?: number | undefined;
+    toggle?: boolean | undefined;
+    containerClass?: string | undefined;
+    zoomedSlideClass?: string | undefined;
 }
 
 export interface KeyboardOptions {
-    enabled?: boolean;
-    onlyInViewport?: boolean;
+    enabled?: boolean | undefined;
+    onlyInViewport?: boolean | undefined;
 }
 
 export interface MousewheelOptions {
-    forceToAxis?: boolean;
-    releaseOnEdges?: boolean;
-    invert?: boolean;
-    sensitivity?: number;
-    eventsTarged?: SelectableElement;
+    forceToAxis?: boolean | undefined;
+    releaseOnEdges?: boolean | undefined;
+    invert?: boolean | undefined;
+    sensitivity?: number | undefined;
+    eventsTarged?: SelectableElement | undefined;
 }
 
 export interface VirtualOptions {
-    slides?: any[];
-    cache?: boolean;
-    addSlidesBefore?: number;
-    addSlidesAfter?: number;
-    renderSlide?: (slide: any, index: any) => any;
-    renderExternal?: (data: any) => any;
+    slides?: any[] | undefined;
+    cache?: boolean | undefined;
+    addSlidesBefore?: number | undefined;
+    addSlidesAfter?: number | undefined;
+    renderSlide?: ((slide: any, index: any) => any) | undefined;
+    renderExternal?: ((data: any) => any) | undefined;
 }
 
 export interface HashNavigationOptions {
@@ -992,7 +992,7 @@ export interface HashNavigationOptions {
      *
      * @default false
      */
-    watchState?: boolean;
+    watchState?: boolean | undefined;
 
     /**
      * Works in addition to hashnav to replace current url state with the
@@ -1000,7 +1000,7 @@ export interface HashNavigationOptions {
      *
      * @default     false
      */
-    replaceState?: boolean;
+    replaceState?: boolean | undefined;
 }
 
 export interface HistoryNavigationOptions {
@@ -1010,14 +1010,14 @@ export interface HistoryNavigationOptions {
      *
      * @default false
      */
-    replaceState?: boolean;
+    replaceState?: boolean | undefined;
 
     /**
      * Url key for slides
      *
      * @default 'slides'
      */
-    key?: string;
+    key?: string | undefined;
 }
 
 /**
@@ -1035,14 +1035,14 @@ export interface ControllerOptions {
      * Pass here another Swiper instance or array with Swiper instances that should be controlled
      * by this Swiper
      */
-    control?: Swiper;
+    control?: Swiper | undefined;
 
     /**
      * Set to true and controlling will be in inverse direction
      *
      * @default false
      */
-    inverse?: boolean;
+    inverse?: boolean | undefined;
 
     /**
      * Can be 'slide' or 'container'. Defines a way how to control another slider: slide by slide
@@ -1051,7 +1051,7 @@ export interface ControllerOptions {
      *
      * @default 'slide'
      */
-    by?: 'slide' | 'container';
+    by?: 'slide' | 'container' | undefined;
 }
 
 export interface A11yOptions {
@@ -1060,49 +1060,49 @@ export interface A11yOptions {
      *
      * @default true
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 
     /**
      * Message for screen readers for previous button
      *
      * @default 'Previous slide'
      */
-    prevSlideMessage?: string;
+    prevSlideMessage?: string | undefined;
 
     /**
      * Message for screen readers for next button
      *
      * @default 'Next slide'
      */
-    nextSlideMessage?: string;
+    nextSlideMessage?: string | undefined;
 
     /**
      * Message for screen readers for previous button when swiper is on first slide
      *
      * @default 'This is the first slide'
      */
-    firstSlideMessage?: string;
+    firstSlideMessage?: string | undefined;
 
     /**
      * Message for screen readers for previous button when swiper is on last slide
      *
      * @default 'This is the last slide'
      */
-    lastSlideMessage?: string;
+    lastSlideMessage?: string | undefined;
 
     /**
      * Message for screen readers for single pagination bullet
      *
      * @default 'Go to slide {{index}}'
      */
-    paginationBulletMessage?: string;
+    paginationBulletMessage?: string | undefined;
 
     /**
      * CSS class name of a11 notification
      *
      * @default 'swiper-notification'
      */
-    notificationClass?: string;
+    notificationClass?: string | undefined;
 }
 
 import {
@@ -1513,95 +1513,95 @@ export default class Swiper {
     /**
      * Swiper Navigation module.
      */
-    navigation?: Navigation;
+    navigation?: Navigation | undefined;
 
     /**
      * Swiper Pagination module.
      */
-    pagination?: Pagination;
+    pagination?: Pagination | undefined;
 
     /**
      * Swiper Scrollbar module.
      */
-    scrollbar?: Scrollbar;
+    scrollbar?: Scrollbar | undefined;
 
     /**
      * Swiper Autoplay module.
      */
-    autoplay?: Autoplay;
+    autoplay?: Autoplay | undefined;
 
     /**
      * Swiper Parallax module.
      */
-    parallax?: Parallax;
+    parallax?: Parallax | undefined;
 
     /**
      * Swiper Lazy module.
      */
-    lazy?: Lazy;
+    lazy?: Lazy | undefined;
 
     /**
      * Swiper FadeEffect module.
      */
-    fadeEffect?: EffectFade;
+    fadeEffect?: EffectFade | undefined;
 
     /**
      * Swiper CoverflowEffect module.
      */
-    coverflowEffect?: EffectCoverflow;
+    coverflowEffect?: EffectCoverflow | undefined;
 
     /**
      * Swiper FlipEffect module.
      */
-    flipEffect?: EffectFlip;
+    flipEffect?: EffectFlip | undefined;
 
     /**
      * Swiper CubeEffect module.
      */
-    cubeEffect?: EffectCube;
+    cubeEffect?: EffectCube | undefined;
 
     /**
      * Swiper Thumbs module.
      */
-    thumbs?: object;
+    thumbs?: object | undefined;
 
     /**
      * Swiper Zoom module.
      */
-    zoom?: Zoom;
+    zoom?: Zoom | undefined;
 
     /**
      * Swiper Keyboard module.
      */
-    keyboard?: Keyboard;
+    keyboard?: Keyboard | undefined;
 
     /**
      * Swiper Mousewheel module.
      */
-    mousewheel?: Mousewheel;
+    mousewheel?: Mousewheel | undefined;
 
     /**
      * Swiper Virtual module.
      */
-    virtual?: Virtual;
+    virtual?: Virtual | undefined;
 
     /**
      * Swiper HashNavigation module.
      */
-    hashNavigation?: HashNavigation;
+    hashNavigation?: HashNavigation | undefined;
 
     /**
      * Swiper History module.
      */
-    history?: History;
+    history?: History | undefined;
 
     /**
      * Swiper Controller module.
      */
-    controller?: Controller;
+    controller?: Controller | undefined;
 
     /**
      * Swiper A11y module.
      */
-    a11y?: A11y;
+    a11y?: A11y | undefined;
 }

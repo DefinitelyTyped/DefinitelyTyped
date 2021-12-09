@@ -9,6 +9,18 @@ export class Connection {
     // ShareDB, but it is handy for server-side only user code that may cache
     // state on the agent and read it in middleware
     agent: Agent | null;
+
+    collections: Record<string, Record<string, Doc>>;
+    queries: Record<string, Query>;
+
+    seq: number;
+    id: string | null; // Equals agent.src on the server
+    nextQueryId: number;
+    nextSnapshotRequestId: number;
+
+    state: string;
+    debug: boolean;
+
     close(): void;
     get(collectionName: string, documentID: string): Doc;
     createFetchQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
@@ -17,6 +29,30 @@ export class Connection {
     fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
     getPresence(channel: string): Presence;
     getDocPresence(collection: string, id: string): Presence;
+
+    /**
+     * Returns whether anything in this client is either:
+     * - In-flight, waiting on a response from the server
+     * - Pending (locally queued)
+     */
+    hasPending(): boolean;
+
+    /**
+     * Invokes the callback once nothing on this client is in-flight or pending.
+     *
+     * @see hasPending
+     */
+    whenNothingPending(callback: () => void): void;
+
+    /**
+     * Manually send a JSON-serializable message to the server.
+     *
+     * WARNING - This is mostly for internal use within sharedb.
+     *
+     * Prefer to use methods like `Doc#submitOp`, `Doc#subscribe`, `Connection#createFetchQuery`,
+     * etc., which will manage the necessary message exchanges.
+     */
+    send(message: Record<string, unknown>): void;
 }
 export type Doc<T = any> = ShareDB.Doc<T>;
 export type Snapshot<T = any> = ShareDB.Snapshot<T>;

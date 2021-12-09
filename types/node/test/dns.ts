@@ -13,7 +13,8 @@ import {
     Resolver,
     ALL,
     promises,
-} from 'dns';
+    setDefaultResultOrder,
+} from 'node:dns';
 
 lookup("nodejs.org", (err, address, family) => {
     const _err: NodeJS.ErrnoException | null = err;
@@ -122,7 +123,7 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
     });
     resolver.cancel();
 
-    resolver = new Resolver({ timeout: -1});
+    resolver = new Resolver({ timeout: -1, tries: 3 });
 }
 
 {
@@ -135,3 +136,12 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
 
     resolver = new promises.Resolver({ timeout: 1500 });
 }
+
+setDefaultResultOrder('ipv4first');
+setDefaultResultOrder('verbatim');
+// $ExpectError
+setDefaultResultOrder('wrong');
+promises.setDefaultResultOrder('ipv4first');
+promises.setDefaultResultOrder('verbatim');
+// $ExpectError
+promises.setDefaultResultOrder('wrong');

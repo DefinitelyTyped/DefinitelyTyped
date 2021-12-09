@@ -1,10 +1,15 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'stream';
-import { promisify } from 'util';
-import { createReadStream, createWriteStream } from 'fs';
-import { createGzip, constants } from 'zlib';
-import assert = require('assert');
-import { Http2ServerResponse } from 'http2';
-import { pipeline as pipelinePromise } from 'stream/promises';
+import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'node:stream';
+import { promisify } from 'node:util';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip, constants } from 'node:zlib';
+import assert = require('node:assert');
+import { Http2ServerResponse } from 'node:http2';
+import { text, json, buffer } from 'node:stream/consumers';
+import { pipeline as pipelinePromise } from 'node:stream/promises';
+import { stdout } from 'node:process';
+import { ReadableStream, WritableStream, TransformStream } from 'node:stream/web';
+import { setInterval as every } from 'node:timers/promises';
+import { MessageChannel } from 'node:worker_threads';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -296,6 +301,9 @@ function streamPipelineAsyncTransform() {
             yield null;
         },
         err => console.error(err));
+
+    // Accepts buffer as source
+    pipeline(Buffer.from('test'), stdout);
 }
 
 async function streamPipelineAsyncPromiseTransform() {
@@ -450,7 +458,28 @@ async function streamPipelineAsyncPromiseAbortTransform() {
         });
 }
 
-// http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
+async function readableToString() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType string
+    await text(r);
+}
+
+async function readableToJson() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType unknown
+    await json(r);
+}
+
+async function readableToBuffer() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType Buffer
+    await buffer(r);
+}
+
+// https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
     const rs = createReadStream(Buffer.from('file.txt'));
     const r = createReadStream('file.txt');
@@ -470,4 +499,87 @@ function stream_readable_pipe_test() {
     rs.close();
 }
 
+function stream_duplex_allowHalfOpen_test() {
+    const d = new Duplex();
+    assert(typeof d.allowHalfOpen === 'boolean');
+    d.allowHalfOpen = true;
+}
+
 addAbortSignal(new AbortSignal(), new Readable());
+
+{
+    const a = Readable.from(['test'], {
+        objectMode: true,
+    });
+}
+
+{
+    const a = new Readable();
+    a.unshift('something', 'utf8');
+}
+
+{
+    const readable = new Readable();
+    Readable.isDisturbed(readable); // $ExpectType boolean
+    const readableDidRead: boolean = readable.readableDidRead;
+    const readableAborted: boolean = readable.readableAborted;
+}
+
+async function testReadableStream() {
+    const SECOND = 1000;
+
+    const stream = new ReadableStream<number>({
+        async start(controller) {
+            for await (const _ of every(SECOND)) controller.enqueue(performance.now());
+        },
+    });
+
+    // ERROR: 538:31  await-promise  Invalid 'for-await-of' of a non-AsyncIterable value.
+    // for await (const value of stream) {
+    //     // $ExpectType number
+    //     value;
+    // }
+}
+
+async function testWritableStream() {
+    const stream = new WritableStream({
+        write(chunk) {
+            console.log(chunk);
+        },
+    });
+
+    await stream.getWriter().write('Hello World');
+}
+
+async function testTransformStream() {
+    const stream = new ReadableStream({
+        start(controller) {
+            controller.enqueue('a');
+        },
+    });
+
+    const transform = new TransformStream({
+        transform(chunk, controller) {
+            controller.enqueue(chunk.toUpperCase());
+        },
+    });
+
+    const transformedStream = stream.pipeThrough(transform);
+
+    // ERROR: 570:31  await-promise  Invalid 'for-await-of' of a non-AsyncIterable value.
+    // for await (const chunk of transformedStream) console.log(chunk);
+}
+
+// https://nodejs.org/dist/latest-v16.x/docs/api/webstreams.html#transferring-with-postmessage_2
+async function testTransferringStreamWithPostMessage() {
+    const stream = new TransformStream();
+    const {port1, port2} = new MessageChannel();
+
+    // error: TypeError: port1.postMessage is not a function
+    // port1.onmessage = ({data}) => {
+    //     const { writable, readable } = data;
+    // }
+
+    // error TS2532: Cannot use 'stream' as a target of a postMessage call because it is not a Transferable.
+    // port2.postMessage(stream, [stream]);
+}

@@ -22,8 +22,8 @@ export {};
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export interface BaseProps extends React.RefAttributes<any> {
-    as?: React.ElementType;
-    css?: StyledComponents.CSSObject | StyledComponents.FlattenSimpleInterpolation | string;
+    as?: React.ElementType | undefined;
+    css?: StyledComponents.CSSObject | StyledComponents.FlattenSimpleInterpolation | string | undefined;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface SxProps {
     /**
      * The sx prop lets you style elements inline, using values from your theme.
      */
-    sx?: SxStyleProp;
+    sx?: SxStyleProp | undefined;
 }
 
 interface BoxKnownProps
@@ -55,8 +55,8 @@ interface BoxKnownProps
         StyledSystem.ColorProps,
         StyledSystem.FlexboxProps,
         SxProps {
-    variant?: StyledSystem.ResponsiveValue<string>;
-    tx?: string;
+    variant?: StyledSystem.ResponsiveValue<string> | undefined;
+    tx?: string | undefined;
 }
 export interface BoxProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
 export const Box: React.FunctionComponent<BoxProps>;
@@ -68,7 +68,7 @@ export interface ButtonProps
 export const Button: React.FunctionComponent<ButtonProps>;
 
 export interface CardProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
-export const Card: React.FunctionComponent<BoxKnownProps>;
+export const Card: React.FunctionComponent<CardProps>;
 
 // tslint:disable-next-line no-empty-interface
 interface FlexKnownProps extends BoxKnownProps {}

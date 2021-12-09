@@ -51,10 +51,10 @@ export namespace helpers {
     function generateClass(
         name: string,
         options?: {
-            extends?: Error,
-            globalize?: boolean,
-            args?: string[],
-            generateMessage?: GenerateMessageMethod
+            extends?: Error | undefined,
+            globalize?: boolean | undefined,
+            args?: string[] | undefined,
+            generateMessage?: GenerateMessageMethod | undefined
         }
     ): ErrorConstructor;
 }

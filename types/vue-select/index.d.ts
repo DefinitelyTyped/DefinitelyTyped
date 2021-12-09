@@ -1,4 +1,4 @@
-// Type definitions for vue-select 3.11
+// Type definitions for vue-select 3.16
 // Project: https://github.com/sagalbot/vue-select#readme
 // Definitions by: Ilia Beliaev <https://github.com/silh>, Flo Edelmann <https://github.com/FloEdelmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -72,10 +72,13 @@ export interface VueSelectProps {
 
     // in ajax mixin:
     loading: boolean;
+
+    dropdownShouldOpen: (vSelect: VueSelectInstance) => boolean;
+    deselectFromDropdown: boolean;
+    uid: string | number;
 }
 
 export interface VueSelectData {
-    uid: number;
     search: string;
     open: boolean;
     isComposing: boolean;
@@ -139,6 +142,8 @@ export interface VueSelectMethods {
 
     // in ajax mixin:
     toggleLoading: (toggle?: boolean | null) => boolean;
+
+    isOptionDeselectable: OptionConsumer<boolean>;
 }
 
 export interface VueSelectComputed {
@@ -179,7 +184,7 @@ export interface VueSelectSlotScope {
             type: 'search';
             autocomplete: VueSelectProps['autocomplete'];
             value: VueSelectData['search'];
-            'aria-activedescendant'?: string;
+            'aria-activedescendant'?: string | undefined;
         };
         events: {
             'compositionstart': () => any;
@@ -235,6 +240,7 @@ type ComputedValues = {
 
 export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>> & {
     $refs: {
+        search: HTMLInputElement;
         toggle: HTMLDivElement;
         selectedOptions: HTMLDivElement;
         actions: HTMLDivElement;

@@ -33,7 +33,7 @@ declare module "connect-timeout" {
              * @summary Controls if this module will "respond" in the form of forwarding an error.
              * @type {boolean}
              */
-            respond?: boolean;
+            respond?: boolean | undefined;
         }
     }
 

@@ -1,14 +1,13 @@
-// Type definitions for tailwindcss 2.0
+// Type definitions for tailwindcss 2.2
 // Project: https://github.com/tailwindlabs/tailwindcss
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
+// Definitions by: Dolan Miu <https://github.com/dolanmiu>,
+//                 Dylan Vann <https://github.com/DylanVann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
 import type { TailwindConfig } from './tailwind-config';
 
-declare function tailwindcss(
-    config: TailwindConfig,
-): {
+declare function tailwindcss(config: TailwindConfig): {
     postcssPlugin: 'tailwindcss';
     plugins: string[];
 };

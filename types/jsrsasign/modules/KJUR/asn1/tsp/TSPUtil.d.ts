@@ -37,9 +37,9 @@ declare namespace jsrsasign.KJUR.asn1.tsp {
         reqHex: string,
     ): {
         mi: MessageImprint;
-        policy?: string;
-        nonce?: string;
-        certreq?: boolean;
+        policy?: string | undefined;
+        nonce?: string | undefined;
+        certreq?: boolean | undefined;
     };
 
     /**

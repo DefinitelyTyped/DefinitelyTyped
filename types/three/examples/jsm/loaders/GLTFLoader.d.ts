@@ -13,6 +13,9 @@ import {
     Material,
     SkinnedMesh,
     Texture,
+    TextureLoader,
+    FileLoader,
+    ImageBitmapLoader,
 } from '../../../src/Three';
 
 import { DRACOLoader } from './DRACOLoader';
@@ -24,10 +27,10 @@ export interface GLTF {
     scenes: Group[];
     cameras: Camera[];
     asset: {
-        copyright?: string;
-        generator?: string;
-        version?: string;
-        minVersion?: string;
+        copyright?: string | undefined;
+        generator?: string | undefined;
+        version?: string | undefined;
+        minVersion?: string | undefined;
         extensions?: any;
         extras?: any;
     };
@@ -61,16 +64,35 @@ export class GLTFLoader extends Loader {
         onLoad: (gltf: GLTF) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
+
+    parseAsync(data: ArrayBuffer | string, path: string): Promise<void>;
 }
 
+export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
+
 export interface GLTFReference {
-    type: 'materials' | 'nodes' | 'textures';
-    index: number;
+    materials?: number;
+    nodes?: number;
+    textures?: number;
+    meshes?: number;
 }
 
 export class GLTFParser {
     json: any;
 
+    options: {
+        path: string;
+        manager: LoadingManager;
+        ktx2Loader: KTX2Loader;
+        meshoptDecoder: /* MeshoptDecoder */ any;
+        crossOrigin: string;
+        requestHeader: { [header: string]: string };
+    };
+
+    fileLoader: FileLoader;
+    textureLoader: TextureLoader | ImageBitmapLoader;
+    plugins: GLTFLoaderPlugin;
+    extensions: { [name: string]: any };
     associations: Map<Object3D | Material | Texture, GLTFReference>;
 
     getDependency: (type: string, index: number) => Promise<any>;
@@ -93,7 +115,7 @@ export class GLTFParser {
         mapName: string,
         mapDef: {
             index: number;
-            texCoord?: number;
+            texCoord?: number | undefined;
             extensions?: any;
         },
     ) => Promise<void>;
@@ -111,11 +133,9 @@ export class GLTFParser {
     ) => Promise<BufferGeometry[]>;
     loadMesh: (meshIndex: number) => Promise<Group | Mesh | SkinnedMesh>;
     loadCamera: (cameraIndex: number) => Promise<Camera>;
-    loadSkin: (
-        skinIndex: number,
-    ) => Promise<{
+    loadSkin: (skinIndex: number) => Promise<{
         joints: number[];
-        inverseBindMatrices?: BufferAttribute | InterleavedBufferAttribute;
+        inverseBindMatrices?: BufferAttribute | InterleavedBufferAttribute | undefined;
     }>;
     loadAnimation: (animationIndex: number) => Promise<AnimationClip>;
     loadNode: (nodeIndex: number) => Promise<Object3D>;
@@ -123,13 +143,16 @@ export class GLTFParser {
 }
 
 export interface GLTFLoaderPlugin {
-    beforeRoot?: () => Promise<void> | null;
-    afterRoot?: (result: GLTF) => Promise<void> | null;
-    loadMesh?: (meshIndex: number) => Promise<Group | Mesh | SkinnedMesh> | null;
-    loadBufferView?: (bufferViewIndex: number) => Promise<ArrayBuffer> | null;
-    loadMaterial?: (materialIndex: number) => Promise<Material> | null;
-    loadTexture?: (textureIndex: number) => Promise<Texture> | null;
-    getMaterialType?: (materialIndex: number) => typeof Material | null;
-    extendMaterialParams?: (materialIndex: number, materialParams: { [key: string]: any }) => Promise<any> | null;
-    createNodeAttachment?: (nodeIndex: number) => Promise<Object3D> | null;
+    beforeRoot?: (() => Promise<void> | null) | undefined;
+    afterRoot?: ((result: GLTF) => Promise<void> | null) | undefined;
+    loadMesh?: ((meshIndex: number) => Promise<Group | Mesh | SkinnedMesh> | null) | undefined;
+    loadBufferView?: ((bufferViewIndex: number) => Promise<ArrayBuffer> | null) | undefined;
+    loadMaterial?: ((materialIndex: number) => Promise<Material> | null) | undefined;
+    loadTexture?: ((textureIndex: number) => Promise<Texture> | null) | undefined;
+    getMaterialType?: ((materialIndex: number) => typeof Material | null) | undefined;
+    extendMaterialParams?:
+        | ((materialIndex: number, materialParams: { [key: string]: any }) => Promise<any> | null)
+        | undefined;
+    createNodeMesh?: ((nodeIndex: number) => Promise<Group | Mesh | SkinnedMesh> | null) | undefined;
+    createNodeAttachment?: ((nodeIndex: number) => Promise<Object3D> | null) | undefined;
 }

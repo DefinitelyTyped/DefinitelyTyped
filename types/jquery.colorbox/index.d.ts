@@ -1,27 +1,27 @@
 // Type definitions for jQuery.Colorbox 1.4.15
 // Project: http://www.jacklmoore.com/colorbox/
 // Definitions by: Gidon Junge <https://github.com/gjunge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
 interface ColorboxResizeSettings {
-    height?: number | string;
-    innerHeight?: number | string;
-    width?: number | string;
-    innerWidth?: number | string;
+    height?: number | string | undefined;
+    innerHeight?: number | string | undefined;
+    width?: number | string | undefined;
+    innerWidth?: number | string | undefined;
 }
 
 interface ColorboxSettings {
     /**
     * The transition type. Can be set to "elastic", "fade", or "none".
     */
-    transition?: string;
+    transition?: string | undefined;
     /**
     * Sets the speed of the fade and elastic transitions, in milliseconds.
     */
-    speed?: number;
+    speed?: number | undefined;
     /**
     * This can be used as an alternative anchor URL or to associate a URL for non-anchor elements such as images or form buttons.
     */
@@ -37,47 +37,47 @@ interface ColorboxSettings {
     /**
     * If true, and if maxWidth, maxHeight, innerWidth, innerHeight, width, or height have been defined, Colorbox will scale photos to fit within the those values.
     */
-    scalePhotos?: boolean;
+    scalePhotos?: boolean | undefined;
     /**
     * If false, Colorbox will hide scrollbars for overflowing content.
     */
-    scrolling?: boolean;
+    scrolling?: boolean | undefined;
     /**
     * The overlay opacity level. Range: 0 to 1.
     */
-    opacity?: number;
+    opacity?: number | undefined;
     /**
     * If true, Colorbox will immediately open.
     */
-    open?: boolean;
+    open?: boolean | undefined;
     /**
     * If true, focus will be returned when Colorbox exits to the element it was launched from.
     */
-    returnFocus?: boolean;
+    returnFocus?: boolean | undefined;
     /**
     * If false, the loading graphic removal and onComplete event will be delayed until iframe's content has completely loaded.
     */
-    fastIframe?: boolean;
+    fastIframe?: boolean | undefined;
     /**
     * Allows for preloading of 'Next' and 'Previous' content in a group, after the current content has finished loading. Set to false to disable.
     */
-    preloading?: boolean;
+    preloading?: boolean | undefined;
     /**
     * If false, disables closing Colorbox by clicking on the background overlay.
     */
-    overlayClose?: boolean;
+    overlayClose?: boolean | undefined;
     /**
     * If false, will disable closing colorbox on 'esc' key press.
     */
-    escKey?: boolean;
+    escKey?: boolean | undefined;
     /**
     * If false, will disable the left and right arrow keys from navigating between the items in a group.
     */
-    arrowKey?: boolean;
+    arrowKey?: boolean | undefined;
     /**
     * If false, will disable the ability to loop back to the beginning of the group when on the last element.
     */
-    loop?: boolean;
+    loop?: boolean | undefined;
     /**
     * For submitting GET or POST values through an ajax request. The data property will act exactly like jQuery's .load() data argument, as Colorbox uses .load() for ajax handling.
     */
@@ -89,43 +89,43 @@ interface ColorboxSettings {
     /**
     * Sets the fadeOut speed, in milliseconds, when closing Colorbox.
     */
-    fadeOut?: number;
+    fadeOut?: number | undefined;
     /**
     * Text or HTML for the group counter while viewing a group. {current} and {total} are detected and replaced with actual numbers while Colorbox runs.
     */
-    current?: string;
+    current?: string | undefined;
     /**
     * Text or HTML for the previous button while viewing a group.
     */
-    previous?: string;
+    previous?: string | undefined;
     /**
     * Text or HTML for the next button while viewing a group.
     */
-    next?: string;
+    next?: string | undefined;
     /**
     * Text or HTML for the close button. The 'esc' key will also close Colorbox.
     */
-    close?: string;
+    close?: string | undefined;
     /**
     * Set to false to remove the close button.
     */
-    closeButton?: boolean;
+    closeButton?: boolean | undefined;
     /**
     * Error message given when ajax content for a given URL cannot be loaded.
     */
-    xhrError?: string;
+    xhrError?: string | undefined;
     /**
     * Error message given when a link to an image fails to load.
     */
-    imgError?: string;
+    imgError?: string | undefined;
     /**
     * If true, specifies that content should be displayed in an iFrame.
     */
-    iframe?: boolean;
+    iframe?: boolean | undefined;
     /**
     * If true, content from the current document can be displayed by passing the href property a jQuery selector, or jQuery object.
     */
-    inline?: boolean;
+    inline?: boolean | undefined;
     /**
     * For displaying a string of HTML or text: $.colorbox({html:"<p>Hello</p>"});
     */
@@ -133,7 +133,7 @@ interface ColorboxSettings {
     /**
     * If true, this setting forces Colorbox to display a link as a photo. Use this when automatic photo detection fails (such as using a url like 'photo.php' instead of 'photo.jpg')
     */
-    photo?: boolean;
+    photo?: boolean | undefined;
     /**
     * This property isn't actually used as Colorbox assumes all hrefs should be treated as either ajax or photos, unless one of the other content types were specified.
     */
@@ -141,59 +141,59 @@ interface ColorboxSettings {
     /**
     * Set a fixed total width. This includes borders and buttons. Example: "100%", "500px", or 500
     */
-    width?: number | string;
+    width?: number | string | undefined;
     /**
     * Set a fixed total height. This includes borders and buttons. Example: "100%", "500px", or 500
     */
-    height?: number | string;
+    height?: number | string | undefined;
     /**
     * This is an alternative to 'width' used to set a fixed inner width. This excludes borders and buttons. Example: "50%", "500px", or 500
     */
-    innerWidth?: number | string;
+    innerWidth?: number | string | undefined;
     /**
     * This is an alternative to 'height' used to set a fixed inner height. This excludes borders and buttons. Example: "50%", "500px", or 500
     */
-    innerHeight?: number | string;
+    innerHeight?: number | string | undefined;
     /**
     * Set the initial width, prior to any content being loaded.
     */
-    initialWidth?: number | string;
+    initialWidth?: number | string | undefined;
     /**
     * Set the initial height, prior to any content being loaded.
     */
-    initialHeight?: number | string;
+    initialHeight?: number | string | undefined;
     /**
     * Set a maximum width for loaded content. Example: "100%", 500, "500px"
     */
-    maxWidth?: number | string;
+    maxWidth?: number | string | undefined;
     /**
     * Set a maximum height for loaded content. Example: "100%", 500, "500px"
     */
-    maxHeight?: number | string;
+    maxHeight?: number | string | undefined;
     /**
     * If true, adds an automatic slideshow to a content group / gallery.
     */
-    slideshow?: boolean;
+    slideshow?: boolean | undefined;
     /**
     * Sets the speed of the slideshow, in milliseconds.
     */
-    slideshowSpeed?: number;
+    slideshowSpeed?: number | undefined;
     /**
     * If true, the slideshow will automatically start to play.
     */
-    slideshowAuto?: boolean;
+    slideshowAuto?: boolean | undefined;
     /**
     * Text for the slideshow start button.
     */
-    slideshowStart?: string;
+    slideshowStart?: string | undefined;
     /**
     * Text for the slideshow stop button
     */
-    slideshowStop?: string;
+    slideshowStop?: string | undefined;
     /**
     * If true, Colorbox will be displayed in a fixed position within the visitor's viewport. This is unlike the default absolute positioning relative to the document.
     */
-    fixed?: boolean;
+    fixed?: boolean | undefined;
     /**
     * Accepts a pixel or percent value (50, "50px", "10%"). Controls Colorbox's vertical positioning instead of using the default position of being centered in the viewport.
     */
@@ -213,19 +213,19 @@ interface ColorboxSettings {
     /**
     * Repositions Colorbox if the window's resize event is fired.
     */
-    reposition?: boolean;
+    reposition?: boolean | undefined;
     /**
     * If true, Colorbox will scale down the current photo to match the screen's pixel ratio
     */
-    retinaImage?: boolean;
+    retinaImage?: boolean | undefined;
     /**
     * If true and the device has a high resolution display, Colorbox will replace the current photo's file extention with the retinaSuffix+extension
     */
-    retinaUrl?: boolean;
+    retinaUrl?: boolean | undefined;
     /**
     * If retinaUrl is true and the device has a high resolution display, the href value will have it's extention extended with this suffix. For example, the default value would change `my-photo.jpg` to `my-photo@2x.jpg`
     */
-    retinaSuffix?: string;
+    retinaSuffix?: string | undefined;
     /**
     * Callback that fires right before Colorbox begins to open.
     */

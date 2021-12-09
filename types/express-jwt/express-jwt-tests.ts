@@ -29,6 +29,26 @@ app.use(
     }),
 );
 
+const tenants: Record<string, { secret: string }> = {
+    a: {
+        secret: 'secret-a',
+    },
+};
+const multiTenancySecretCallback: jwt.SecretCallback = (req, payload, done) => {
+    const issuer: string = payload.iss;
+    if (tenants[issuer]) {
+        done(null, tenants[issuer].secret);
+    } else {
+        done(new jwt.UnauthorizedError('missing_secret', { message: 'Could not find secret for issuer.' }));
+    }
+};
+app.use(
+    jwt({
+        algorithms: ['HS256'],
+        secret: multiTenancySecretCallback,
+    }),
+);
+
 app.use(
     jwt({
         algorithms: ['HS256'],

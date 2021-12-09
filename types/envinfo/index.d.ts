@@ -4,40 +4,40 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Config {
-    System?: string[];
-    Binaries?: string[];
-    Managers?: string[];
-    Utilities?: string[];
-    Servers?: string[];
-    Virtualization?: string[];
-    SDKs?: string[];
-    IDEs?: string[];
-    Languages?: string[];
-    Databases?: string[];
-    Browsers?: string[];
-    npmPackages?: string | string[];
-    npmGlobalPackages?: string | string[];
+    System?: string[] | undefined;
+    Binaries?: string[] | undefined;
+    Managers?: string[] | undefined;
+    Utilities?: string[] | undefined;
+    Servers?: string[] | undefined;
+    Virtualization?: string[] | undefined;
+    SDKs?: string[] | undefined;
+    IDEs?: string[] | undefined;
+    Languages?: string[] | undefined;
+    Databases?: string[] | undefined;
+    Browsers?: string[] | undefined;
+    npmPackages?: string | string[] | undefined;
+    npmGlobalPackages?: string | string[] | undefined;
 }
 
 export interface RunConfig extends Config {
-    preset?: string;
+    preset?: string | undefined;
 }
 
 export interface Options {
-    json?: boolean;
-    markdown?: boolean;
-    console?: boolean;
-    title?: string;
-    fullTree?: boolean;
-    duplicates?: boolean;
-    showNotFound?: boolean;
+    json?: boolean | undefined;
+    markdown?: boolean | undefined;
+    console?: boolean | undefined;
+    title?: string | undefined;
+    fullTree?: boolean | undefined;
+    duplicates?: boolean | undefined;
+    showNotFound?: boolean | undefined;
 }
 
 export interface CliOptions extends Options, Config {
-    all?: boolean;
-    raw?: boolean;
-    helper?: string;
-    preset?: string;
+    all?: boolean | undefined;
+    raw?: boolean | undefined;
+    helper?: string | undefined;
+    preset?: string | undefined;
 }
 
 export type HelperNames =

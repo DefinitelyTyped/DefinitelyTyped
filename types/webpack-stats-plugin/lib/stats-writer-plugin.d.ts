@@ -27,22 +27,22 @@ declare namespace StatsWriterPlugin {
          * output file name
          * @default 'stats.json'
          */
-        filename?: string;
+        filename?: string | undefined;
         /**
          * fields of stats obj to keep
          * @default ['assetsByChunkName']
          */
-        fields?: null | string[];
+        fields?: null | string[] | undefined;
         /**
          * stats config object or string preset
          * @default {}
          */
-        stats?: { [key: string]: any } | string;
+        stats?: { [key: string]: any } | string | undefined;
         /**
          * transform stats obj
          * @default JSON.stringify()
          */
-        transform?: TransformFunc;
+        transform?: TransformFunc | undefined;
     }
 }
 declare class StatsWriterPlugin extends Plugin {

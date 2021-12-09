@@ -9,8 +9,8 @@ export interface BasicObject<T> {
 }
 export interface FormFieldDescriptor {
     description: string;
-    default?: string;
-    auto?: string;
+    default?: string | undefined;
+    auto?: string | undefined;
 }
 
 export interface StateLinkDescriptor {

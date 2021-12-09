@@ -18,9 +18,9 @@ export interface ApplySnapshotOptions {
     closeExistingWindows: boolean;
 }
 export interface PlatformOptions extends ApplicationOption {
-    defaultWindowOptions?: DefaultWindowOptions;
-    defaultViewOptions?: ViewCreationOptions;
-    disableDefaultCommands?: boolean;
+    defaultWindowOptions?: DefaultWindowOptions | undefined;
+    defaultViewOptions?: ViewCreationOptions | undefined;
+    disableDefaultCommands?: boolean | undefined;
 }
 interface DefaultWindowOptions extends WindowOption {
     stylesheetUrl: string;

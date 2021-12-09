@@ -38,13 +38,13 @@ declare namespace Limiter {
          * Max requests within duration
          * @default 2500
          */
-        max?: number;
+        max?: number | undefined;
 
         /**
          * Duration of limit in milliseconds
          * @default 3600000
          */
-        duration?: number;
+        duration?: number | undefined;
     }
 
     /**

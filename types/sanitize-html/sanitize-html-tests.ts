@@ -10,6 +10,7 @@ const options: IOptions = {
   allowedClasses: {
     a: ['className'],
     p: false,
+    span: [/regex/],
   },
   allowedStyles: {
     '*': {
@@ -41,6 +42,8 @@ const options: IOptions = {
   allowProtocolRelative: false,
   disallowedTagsMode: 'escape',
   enforceHtmlBoundary: true,
+  allowedScriptDomains: ['test.com'],
+  allowedScriptHostnames: ['test.com'],
 };
 
 sanitize.defaults.allowedAttributes; // $ExpectType Record<string, AllowedAttribute[]>
@@ -52,6 +55,8 @@ sanitize.defaults.allowProtocolRelative; // $ExpectType boolean
 sanitize.defaults.disallowedTagsMode; // $ExpectType DisallowedTagsModes
 sanitize.defaults.enforceHtmlBoundary; // $ExpectType boolean
 sanitize.defaults.selfClosing; // $ExpectType string[]
+
+sanitize.options.allowedClasses; // $ExpectType { [index: string]: boolean | (string | RegExp)[]; } | undefined
 
 const unsafe = '<div><script>alert("hello");</script></div>';
 

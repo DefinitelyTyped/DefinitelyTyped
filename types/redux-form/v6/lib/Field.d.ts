@@ -20,7 +20,7 @@ interface BaseFieldProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * A Component, stateless function, or string corresponding to a default
@@ -28,14 +28,14 @@ interface BaseFieldProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor<any> | "input" | "select" | "textarea";
+    component?: ComponentConstructor<any> | "input" | "select" | "textarea" | undefined;
 
     /**
      * Formats the value from the Redux store to be displayed in the field input.
      * Common use cases are to format Numbers into currencies or Dates into a
      * localized date format.
      */
-    format?: Formatter | null;
+    format?: Formatter | null | undefined;
 
     /**
      * A function to convert whatever value the user has entered into the value that you
@@ -44,7 +44,7 @@ interface BaseFieldProps {
      * For instance, if you want the value to be in all uppercase, you would pass
      *   value => value.toUpperCase()
      */
-    normalize?: Normalizer;
+    normalize?: Normalizer | undefined;
 
     /**
      * Don't use.
@@ -56,7 +56,7 @@ interface BaseFieldProps {
      * stored in the Redux store. Common use cases are to parse currencies into Numbers into
      * currencies or localized date formats into Dates.
      */
-    parse?: Parser;
+    parse?: Parser | undefined;
 
     /**
      * Allows you to to provide a field-level validation rule. The function will be given the
@@ -64,7 +64,7 @@ interface BaseFieldProps {
      * should return `undefined`, if the field is invalid, it should return an error
      * (usually, but not necessarily, a `String`).
      */
-    validate?: Validator | Validator[];
+    validate?: Validator | Validator[] | undefined;
 
     /**
      * Allows you to to provide a field-level warning rule. The function will be given the
@@ -72,14 +72,14 @@ interface BaseFieldProps {
      * it should return the warning (usually, but not necessarily, a `String`). If the field
      * does not need a warning, it should return `undefined`.
      */
-    warn?: Validator | Validator[];
+    warn?: Validator | Validator[] | undefined;
 
     /**
      * If true, the rendered component will be available with the
      * getRenderedComponent() method. Defaults to false. Cannot be used if your
      * component is a stateless function component.
      */
-    withRef?: boolean;
+    withRef?: boolean | undefined;
 }
 
 /**
@@ -174,7 +174,7 @@ interface WrappedFieldProps<S> {
      * An object containing all the props that you will normally want to pass to
      * your input component.
      */
-    input?: WrappedFieldInputProps;
+    input?: WrappedFieldInputProps | undefined;
 
     /**
      * An object containing all the metadata props.
@@ -196,7 +196,7 @@ interface WrappedFieldInputProps {
      * convenience of destructuring the whole field object into the props of a
      * form element.
      */
-    checked?: boolean;
+    checked?: boolean | undefined;
 
     /**
      * The name prop passed in.
@@ -247,7 +247,7 @@ interface WrappedFieldMetaProps<S> {
      * true if this field currently has focus. It will only work if you are
      * passing onFocus to your input element.
      */
-    active?: boolean;
+    active?: boolean | undefined;
 
     /**
      * true if this field has been set with the AUTOFILL action and has not since been changed
@@ -282,7 +282,7 @@ interface WrappedFieldMetaProps<S> {
     /**
      * The name of the form. Could be useful if you want to manually dispatch actions.
      */
-    form?: string;
+    form?: string | undefined;
 
     /**
      * true if the field value fails validation (has a validation error).
@@ -299,13 +299,13 @@ interface WrappedFieldMetaProps<S> {
     /**
      * true if the field is currently being submitted
      */
-    submitting?: boolean;
+    submitting?: boolean | undefined;
 
     /**
      * true if the form had onSubmit called and failed to submit for any reason.
      * A subsequent successful submit will set it back to false.
      */
-    submitFailed?: boolean;
+    submitFailed?: boolean | undefined;
 
     /**
      * true if the field has been touched. By default this will be set when
@@ -323,7 +323,7 @@ interface WrappedFieldMetaProps<S> {
      * true if this field has ever had focus. It will only work if you are
      * passing onFocus to your input element.
      */
-    visited?: boolean;
+    visited?: boolean | undefined;
 
     /**
      * The warning for this field if its value is not passing warning validation.

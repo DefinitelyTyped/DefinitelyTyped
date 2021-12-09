@@ -10,7 +10,7 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IAbstractManager extends Ext.IBase {
         /** [Property] (Ext.util.HashMap) */
-        all?: Ext.util.IHashMap;
+        all?: Ext.util.IHashMap | undefined;
         /** [Method] Creates and returns an instance of whatever this manager manages based on the supplied type and config object
         * @param config Object The config object.
         * @param defaultType String If no type is discovered in the config object, we fall back to this type.
@@ -64,11 +64,11 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IActionSheet extends Ext.ISheet {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/String) */
         bottom?: any;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Number/String) */
         height?: any;
         /** [Config Option] (Number/String) */
@@ -644,19 +644,19 @@ declare namespace Ext {
 declare namespace Ext.app {
     export interface IAction extends Ext.IBase {
         /** [Config Option] (String) */
-        action?: string;
+        action?: string | undefined;
         /** [Config Option] (Ext.app.Application) */
-        application?: Ext.app.IApplication;
+        application?: Ext.app.IApplication | undefined;
         /** [Config Option] (Array) */
-        args?: any[];
+        args?: any[] | undefined;
         /** [Config Option] (Array) */
-        beforeFilters?: any[];
+        beforeFilters?: any[] | undefined;
         /** [Config Option] (Ext.app.Controller) */
-        controller?: Ext.app.IController;
+        controller?: Ext.app.IController | undefined;
         /** [Config Option] (Object) */
         scope?: any;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Method] Starts execution of this Action by calling each of the beforeFilters in turn if any are specified  before calling t  */
         execute?(): void;
         /** [Method] Returns the value of action
@@ -738,47 +738,47 @@ declare namespace Ext.app {
 declare namespace Ext.app {
     export interface IApplication extends Ext.app.IController {
         /** [Config Option] (String) */
-        appFolder?: string;
+        appFolder?: string | undefined;
         /** [Config Option] (Array) */
-        controllers?: any[];
+        controllers?: any[] | undefined;
         /** [Config Option] (Ext.app.Profile) */
-        currentProfile?: Ext.app.IProfile;
+        currentProfile?: Ext.app.IProfile | undefined;
         /** [Config Option] (Boolean) */
-        glossOnIcon?: boolean;
+        glossOnIcon?: boolean | undefined;
         /** [Config Option] (Ext.app.History) */
-        history?: Ext.app.IHistory;
+        history?: Ext.app.IHistory | undefined;
         /** [Config Option] (String/Object) */
         icon?: any;
         /** [Config Option] (Boolean) */
-        isIconPrecomposed?: boolean;
+        isIconPrecomposed?: boolean | undefined;
         /** [Config Option] (Function) */
         launch?: any;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (String) */
-        phoneIcon?: string;
+        phoneIcon?: string | undefined;
         /** [Config Option] (String) */
-        phoneStartupScreen?: string;
+        phoneStartupScreen?: string | undefined;
         /** [Config Option] (Array) */
-        profiles?: any[];
+        profiles?: any[] | undefined;
         /** [Config Option] (String[]) */
-        requires?: string[];
+        requires?: string[] | undefined;
         /** [Config Option] (Ext.app.Router) */
-        router?: Ext.app.IRouter;
+        router?: Ext.app.IRouter | undefined;
         /** [Config Option] (Object) */
         startupImage?: any;
         /** [Config Option] (String) */
-        statusBarStyle?: string;
+        statusBarStyle?: string | undefined;
         /** [Config Option] (String) */
-        tabletIcon?: string;
+        tabletIcon?: string | undefined;
         /** [Config Option] (String) */
-        tabletStartupScreen?: string;
+        tabletStartupScreen?: string | undefined;
         /** [Config Option] (String/Function) */
         themeVariation?: any;
         /** [Config Option] (String) */
-        themeVariationPrefix?: string;
+        themeVariationPrefix?: string | undefined;
         /** [Config Option] (String) */
-        themeVariationTransitionCls?: string;
+        themeVariationTransitionCls?: string | undefined;
         /** [Method] Dispatches a given Ext app Action to the relevant Controller instance
         * @param action Ext.app.Action The action to dispatch.
         * @param addToHistory Boolean Sets the browser's url to the action's url.
@@ -895,7 +895,7 @@ declare namespace Ext.app {
 declare namespace Ext.app {
     export interface IController extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Ext.app.Application) */
-        application?: Ext.app.IApplication;
+        application?: Ext.app.IApplication | undefined;
         /** [Config Option] (Object) */
         before?: any;
         /** [Config Option] (Object) */
@@ -905,15 +905,15 @@ declare namespace Ext.app {
         /** [Config Option] (Function) */
         launch?: any;
         /** [Config Option] (String[]) */
-        models?: string[];
+        models?: string[] | undefined;
         /** [Config Option] (Object) */
         refs?: any;
         /** [Config Option] (Object) */
         routes?: any;
         /** [Config Option] (String[]) */
-        stores?: string[];
+        stores?: string[] | undefined;
         /** [Config Option] (Array) */
-        views?: any[];
+        views?: any[] | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -1176,11 +1176,11 @@ declare namespace Ext.app {
 declare namespace Ext.app {
     export interface IHistory extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Array) */
-        actions?: any[];
+        actions?: any[] | undefined;
         /** [Config Option] (String) */
-        token?: string;
+        token?: string | undefined;
         /** [Config Option] (Boolean) */
-        updateUrl?: boolean;
+        updateUrl?: boolean | undefined;
         /** [Method] Adds an Action to the stack optionally updating the browser s url and firing the change event
         * @param action Ext.app.Action The Action to add to the stack.
         * @param silent Boolean Cancels the firing of the change event if true.
@@ -1394,19 +1394,19 @@ declare namespace Ext.app {
 declare namespace Ext.app {
     export interface IProfile extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Ext.app.Application) */
-        application?: Ext.app.IApplication;
+        application?: Ext.app.IApplication | undefined;
         /** [Config Option] (Array) */
-        controllers?: any[];
+        controllers?: any[] | undefined;
         /** [Config Option] (Array) */
-        models?: any[];
+        models?: any[] | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (String) */
-        namespace?: string;
+        namespace?: string | undefined;
         /** [Config Option] (Array) */
-        stores?: any[];
+        stores?: any[] | undefined;
         /** [Config Option] (Array) */
-        views?: any[];
+        views?: any[] | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -1651,13 +1651,13 @@ declare namespace Ext.app {
 declare namespace Ext.app {
     export interface IRoute extends Ext.IBase {
         /** [Config Option] (String) */
-        action?: string;
+        action?: string | undefined;
         /** [Config Option] (Object) */
         conditions?: any;
         /** [Config Option] (String) */
-        controller?: string;
+        controller?: string | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Property] (Object) */
         paramsInMatchString?: any;
         /** [Method] Returns the value of action
@@ -1704,7 +1704,7 @@ declare namespace Ext.app {
         /** [Config Option] (Object) */
         defaults?: any;
         /** [Config Option] (Array) */
-        routes?: any[];
+        routes?: any[] | undefined;
         /** [Method] Connects a url based route to a controller action pair plus additional params
         * @param url String The url to recognize.
         * @param params Object Additional parameters.
@@ -1944,7 +1944,7 @@ declare namespace Ext {
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Method] Returns the value of cls
         * @returns String
         */
@@ -1966,7 +1966,7 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IBase extends Ext.IClass {
         /** [Property] (Ext.Class) */
-        self?: Ext.IClass;
+        self?: Ext.IClass | undefined;
         /** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does
         * @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments)
         * @returns Object Returns the result of calling the overridden method
@@ -2106,37 +2106,37 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IButton extends Ext.IComponent {
         /** [Config Option] (String) */
-        autoEvent?: string;
+        autoEvent?: string | undefined;
         /** [Config Option] (String) */
-        badge?: string;
+        badge?: string | undefined;
         /** [Config Option] (String) */
-        badgeCls?: string;
+        badgeCls?: string | undefined;
         /** [Config Option] (String) */
-        badgeText?: string;
+        badgeText?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Function) */
         handler?: any;
         /** [Config Option] (String) */
-        html?: string;
+        html?: string | undefined;
         /** [Config Option] (String) */
-        icon?: string;
+        icon?: string | undefined;
         /** [Config Option] (String) */
-        iconAlign?: string;
+        iconAlign?: string | undefined;
         /** [Config Option] (String) */
-        iconCls?: string;
+        iconCls?: string | undefined;
         /** [Config Option] (String) */
-        labelCls?: string;
+        labelCls?: string | undefined;
         /** [Config Option] (String) */
-        pressedCls?: string;
+        pressedCls?: string | undefined;
         /** [Config Option] (Number/Boolean) */
         pressedDelay?: any;
         /** [Config Option] (Object) */
         scope?: any;
         /** [Config Option] (String) */
-        text?: string;
+        text?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of autoEvent
         * @returns String
         */
@@ -2264,13 +2264,13 @@ declare namespace Ext {
 declare namespace Ext.carousel {
     export interface ICarousel extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (Boolean) */
-        indicator?: boolean;
+        indicator?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the index of the currently active card
@@ -2374,13 +2374,13 @@ declare namespace Ext.carousel {
 declare namespace Ext {
     export interface ICarousel extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (Boolean) */
-        indicator?: boolean;
+        indicator?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the index of the currently active card
@@ -2484,7 +2484,7 @@ declare namespace Ext {
 declare namespace Ext.carousel {
     export interface IIndicator extends Ext.IComponent {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Method] Destroys this Component  */
         destroy?(): void;
         /** [Method] Returns the value of baseCls
@@ -2508,7 +2508,7 @@ declare namespace Ext.carousel {
 declare namespace Ext.carousel {
     export interface IInfinite extends Ext.carousel.ICarousel {
         /** [Config Option] (Boolean) */
-        indicator?: boolean;
+        indicator?: boolean | undefined;
         /** [Method] Returns the value of indicator
         * @returns Object
         */
@@ -2538,7 +2538,7 @@ declare namespace Ext.carousel {
 declare namespace Ext.carousel {
     export interface IItem extends Ext.IDecorator {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Method] Returns the value of baseCls
@@ -2584,7 +2584,7 @@ declare namespace Ext.chart {
         /** [Config Option] (Object|Number) */
         insetPadding?: any;
         /** [Config Option] (Array) */
-        interactions?: any[];
+        interactions?: any[] | undefined;
         /** [Config Option] (Ext.chart.Legend/Object) */
         legend?: any;
         /** [Config Option] (Ext.chart.series.Series/Array) */
@@ -2592,9 +2592,9 @@ declare namespace Ext.chart {
         /** [Config Option] (Boolean/Object) */
         shadow?: any;
         /** [Config Option] (Ext.data.Store) */
-        store?: Ext.data.IStore;
+        store?: Ext.data.IStore | undefined;
         /** [Property] (String) */
-        version?: string;
+        version?: string | undefined;
         /** [Method] Changes the data store bound to this chart and refreshes it
         * @param store Ext.data.Store The store to bind to this chart.
         */
@@ -2738,37 +2738,37 @@ declare namespace Ext.chart.axis {
         /** [Config Option] (Object) */
         background?: any;
         /** [Config Option] (Ext.chart.AbstractChart) */
-        chart?: Ext.chart.IAbstractChart;
+        chart?: Ext.chart.IAbstractChart | undefined;
         /** [Config Option] (Array) */
-        fields?: any[];
+        fields?: any[] | undefined;
         /** [Config Option] (Object) */
         grid?: any;
         /** [Config Option] (Boolean) */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** [Config Option] (Number) */
-        increment?: number;
+        increment?: number | undefined;
         /** [Config Option] (Object) */
         label?: any;
         /** [Config Option] (Boolean) */
-        labelInSpan?: boolean;
+        labelInSpan?: boolean | undefined;
         /** [Config Option] (Object|Ext.chart.axis.layout.Layout) */
         layout?: any;
         /** [Config Option] (Number) */
-        majorTickSteps?: number;
+        majorTickSteps?: number | undefined;
         /** [Config Option] (Number) */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
         /** [Config Option] (Number) */
-        maximum?: number;
+        maximum?: number | undefined;
         /** [Config Option] (Number) */
-        minZoom?: number;
+        minZoom?: number | undefined;
         /** [Config Option] (Number) */
-        minimum?: number;
+        minimum?: number | undefined;
         /** [Config Option] (Number) */
-        minorTickSteps?: number;
+        minorTickSteps?: number | undefined;
         /** [Config Option] (Boolean) */
-        needHighPrecision?: boolean;
+        needHighPrecision?: boolean | undefined;
         /** [Config Option] (String) */
-        position?: string;
+        position?: string | undefined;
         /** [Config Option] (Function) */
         renderer?: any;
         /** [Config Option] (Object|Ext.chart.axis.segmenter.Segmenter) */
@@ -2778,9 +2778,9 @@ declare namespace Ext.chart.axis {
         /** [Config Option] (String|Object) */
         title?: any;
         /** [Config Option] (Number) */
-        titleMargin?: number;
+        titleMargin?: number | undefined;
         /** [Config Option] (Array) */
-        visibleRange?: any[];
+        visibleRange?: any[] | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -3248,7 +3248,7 @@ declare namespace Ext.chart.axis.layout {
 declare namespace Ext.chart.axis.layout {
     export interface ILayout extends Ext.IBase {
         /** [Config Option] (Ext.chart.axis.Axis) */
-        axis?: Ext.chart.axis.IAxis;
+        axis?: Ext.chart.axis.IAxis | undefined;
         /** [Method] Calculates the position of tick marks for the axis
         * @param context Object
         * @returns *
@@ -3405,7 +3405,7 @@ declare namespace Ext.chart.axis.segmenter {
 declare namespace Ext.chart.axis.segmenter {
     export interface ISegmenter extends Ext.IBase {
         /** [Config Option] (Ext.chart.axis.Axis) */
-        axis?: Ext.chart.axis.IAxis;
+        axis?: Ext.chart.axis.IAxis | undefined;
         /** [Method] Add step units to the value
         * @param value * The value to be added.
         * @param step Number The step of units. Negative value are allowed.
@@ -3507,55 +3507,55 @@ declare namespace Ext.chart.axis.segmenter {
 declare namespace Ext.chart.axis.sprite {
     export interface IAxis extends Ext.draw.sprite.ISprite,Ext.chart.IMarkerHolder {
         /** [Config Option] (Number) */
-        The?: number;
+        The?: number | undefined;
         /** [Config Option] (Ext.chart.axis.Axis) */
-        axis?: Ext.chart.axis.IAxis;
+        axis?: Ext.chart.axis.IAxis | undefined;
         /** [Config Option] (Boolean) */
-        axisLine?: boolean;
+        axisLine?: boolean | undefined;
         /** [Config Option] (Number) */
-        centerX?: number;
+        centerX?: number | undefined;
         /** [Config Option] (Number) */
-        centerY?: number;
+        centerY?: number | undefined;
         /** [Config Option] (Number) */
-        dataMax?: number;
+        dataMax?: number | undefined;
         /** [Config Option] (Number) */
-        dataMin?: number;
+        dataMin?: number | undefined;
         /** [Config Option] (Boolean) */
-        enlargeEstStepSizeByText?: boolean;
+        enlargeEstStepSizeByText?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        grid?: boolean;
+        grid?: boolean | undefined;
         /** [Config Option] (Object) */
         label?: any;
         /** [Config Option] (Object|Ext.chart.axis.layout.Layout) */
         layout?: any;
         /** [Config Option] (Number) */
-        length?: number;
+        length?: number | undefined;
         /** [Config Option] (Number) */
-        majorTickSize?: number;
+        majorTickSize?: number | undefined;
         /** [Config Option] (Boolean) */
-        majorTicks?: boolean;
+        majorTicks?: boolean | undefined;
         /** [Config Option] (Number) */
-        max?: number;
+        max?: number | undefined;
         /** [Config Option] (Number) */
-        min?: number;
+        min?: number | undefined;
         /** [Config Option] (Number) */
-        minStepSize?: number;
+        minStepSize?: number | undefined;
         /** [Config Option] (Number) */
-        minorTickSize?: number;
+        minorTickSize?: number | undefined;
         /** [Config Option] (Boolean) */
-        minorTricks?: boolean;
+        minorTricks?: boolean | undefined;
         /** [Config Option] (String) */
-        position?: string;
+        position?: string | undefined;
         /** [Config Option] (Function) */
         renderer?: any;
         /** [Config Option] (Object|Ext.chart.axis.segmenter.Segmenter) */
         segmenter?: any;
         /** [Config Option] (Number) */
-        textPadding?: number;
+        textPadding?: number | undefined;
         /** [Config Option] (Number) */
-        visibleMax?: number;
+        visibleMax?: number | undefined;
         /** [Config Option] (Number) */
-        visibleMin?: number;
+        visibleMin?: number | undefined;
         /** [Method]
         * @param name String
         * @param marker Ext.chart.Markers
@@ -3615,7 +3615,7 @@ declare namespace Ext.chart.axis.sprite {
 declare namespace Ext.chart.axis {
     export interface ITime extends Ext.chart.axis.INumeric {
         /** [Config Option] (Boolean) */
-        calculateByLabelSize?: boolean;
+        calculateByLabelSize?: boolean | undefined;
         /** [Config Option] (String/Boolean) */
         dateFormat?: any;
         /** [Config Option] (Date) */
@@ -3625,7 +3625,7 @@ declare namespace Ext.chart.axis {
         /** [Config Option] (Object|Ext.chart.axis.segmenter.Segmenter) */
         segmenter?: any;
         /** [Config Option] (Array) */
-        step?: any[];
+        step?: any[] | undefined;
         /** [Config Option] (Date) */
         toDate?: any;
         /** [Method] Returns the value of aggregator
@@ -3702,7 +3702,7 @@ declare namespace Ext.chart.axis {
 declare namespace Ext.chart {
     export interface ICartesianChart extends Ext.chart.IAbstractChart {
         /** [Config Option] (Boolean) */
-        flipXY?: boolean;
+        flipXY?: boolean | undefined;
         /** [Method] Returns the value of flipXY
         * @returns Boolean
         */
@@ -3730,7 +3730,7 @@ declare namespace Ext.chart {
 declare namespace Ext.chart {
     export interface IChart extends Ext.chart.IAbstractChart {
         /** [Config Option] (Boolean) */
-        flipXY?: boolean;
+        flipXY?: boolean | undefined;
         /** [Method] Returns the value of flipXY
         * @returns Boolean
         */
@@ -3797,13 +3797,13 @@ declare namespace Ext.chart.grid {
 declare namespace Ext.chart.interactions {
     export interface IAbstract extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Ext.chart.AbstractChart) */
-        chart?: Ext.chart.IAbstractChart;
+        chart?: Ext.chart.IAbstractChart | undefined;
         /** [Config Option] (Boolean) */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /** [Config Option] (String) */
-        gesture?: string;
+        gesture?: string | undefined;
         /** [Property] (Number) */
-        throttleGap?: number;
+        throttleGap?: number | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -4026,7 +4026,7 @@ declare namespace Ext.chart.interactions {
         /** [Config Option] (Object) */
         axes?: any;
         /** [Config Option] (String) */
-        gesture?: string;
+        gesture?: string | undefined;
         /** [Config Option] (Object) */
         lines?: any;
         /** [Method] Returns the value of axes
@@ -4064,7 +4064,7 @@ declare namespace Ext.chart.interactions {
         /** [Config Option] (Object/Array) */
         axes?: any;
         /** [Config Option] (String) */
-        gesture?: string;
+        gesture?: string | undefined;
         /** [Method] Returns the value of axes
         * @returns Object/Array
         */
@@ -4098,7 +4098,7 @@ declare namespace Ext.chart.interactions {
 declare namespace Ext.chart.interactions {
     export interface IItemHighlight extends Ext.chart.interactions.IAbstract {
         /** [Config Option] (String) */
-        gesture?: string;
+        gesture?: string | undefined;
         /** [Method] Returns the value of gesture
         * @returns String
         */
@@ -4118,7 +4118,7 @@ declare namespace Ext.chart.interactions {
 declare namespace Ext.chart.interactions {
     export interface IItemInfo extends Ext.chart.interactions.IAbstract {
         /** [Config Option] (String) */
-        gesture?: string;
+        gesture?: string | undefined;
         /** [Config Option] (Object) */
         panel?: any;
         /** [Method] Returns the value of gesture
@@ -4151,7 +4151,7 @@ declare namespace Ext.chart.interactions {
         /** [Config Option] (Object) */
         overflowArrowOptions?: any;
         /** [Config Option] (Boolean) */
-        showOverflowArrows?: boolean;
+        showOverflowArrows?: boolean | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of axes
@@ -4227,7 +4227,7 @@ declare namespace Ext.chart.interactions {
 declare namespace Ext.chart.interactions {
     export interface IRotate extends Ext.chart.interactions.IAbstract {
         /** [Config Option] (String) */
-        gesture?: string;
+        gesture?: string | undefined;
         /** [Method] Returns the value of gesture
         * @returns String
         */
@@ -4297,11 +4297,11 @@ declare namespace Ext.chart.label {
 declare namespace Ext.chart {
     export interface ILegend extends Ext.dataview.IDataView {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        disableSelection?: boolean;
+        disableSelection?: boolean | undefined;
         /** [Config Option] (String) */
-        docked?: string;
+        docked?: string | undefined;
         /** [Config Option] (Boolean/Object) */
         inline?: any;
         /** [Config Option] (String/String[]/Ext.XTemplate) */
@@ -4309,9 +4309,9 @@ declare namespace Ext.chart {
         /** [Config Option] (Number/String) */
         padding?: any;
         /** [Config Option] (String) */
-        position?: string;
+        position?: string | undefined;
         /** [Config Option] (Boolean) */
-        toggleable?: boolean;
+        toggleable?: boolean | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -4431,9 +4431,9 @@ declare namespace Ext.chart {
 declare namespace Ext.chart {
     export interface IPolarChart extends Ext.chart.IAbstractChart {
         /** [Config Option] (Array) */
-        center?: any[];
+        center?: any[] | undefined;
         /** [Config Option] (Number) */
-        radius?: number;
+        radius?: number | undefined;
         /** [Method] Returns the value of center
         * @returns Array
         */
@@ -4457,17 +4457,17 @@ declare namespace Ext.chart {
 declare namespace Ext.chart.series {
     export interface IArea extends Ext.chart.series.IStackedCartesian {
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
     }
 }
 declare namespace Ext.chart.series {
     export interface IBar extends Ext.chart.series.IStackedCartesian {
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] For a given x y point relative to the main region find a corresponding item from this series if any
         * @param x Object
         * @param y Object
@@ -4479,17 +4479,17 @@ declare namespace Ext.chart.series {
 declare namespace Ext.chart.series {
     export interface ICandleStick extends Ext.chart.series.ICartesian {
         /** [Config Option] (String) */
-        closeField?: string;
+        closeField?: string | undefined;
         /** [Config Option] (String) */
-        highField?: string;
+        highField?: string | undefined;
         /** [Config Option] (String) */
-        lowField?: string;
+        lowField?: string | undefined;
         /** [Config Option] (String) */
-        openField?: string;
+        openField?: string | undefined;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of closeField
         * @returns String
         */
@@ -4527,13 +4527,13 @@ declare namespace Ext.chart.series {
 declare namespace Ext.chart.series {
     export interface ICartesian extends Ext.chart.series.ISeries {
         /** [Config Option] (Ext.chart.axis.Axis) */
-        xAxis?: Ext.chart.axis.IAxis;
+        xAxis?: Ext.chart.axis.IAxis | undefined;
         /** [Config Option] (String) */
-        xField?: string;
+        xField?: string | undefined;
         /** [Config Option] (Ext.chart.axis.Axis) */
-        yAxis?: Ext.chart.axis.IAxis;
+        yAxis?: Ext.chart.axis.IAxis | undefined;
         /** [Config Option] (String) */
-        yField?: string;
+        yField?: string | undefined;
         /** [Method] For a given x y point relative to the main region find a corresponding item from this series if any
         * @param x Object
         * @param y Object
@@ -4583,37 +4583,37 @@ declare namespace Ext.chart.series {
 declare namespace Ext.chart.series {
     export interface IGauge extends Ext.chart.series.ISeries {
         /** [Config Option] (String) */
-        angleField?: string;
+        angleField?: string | undefined;
         /** [Config Option] (Array) */
-        colors?: any[];
+        colors?: any[] | undefined;
         /** [Config Option] (Number) */
-        donut?: number;
+        donut?: number | undefined;
         /** [Config Option] (String) */
-        field?: string;
+        field?: string | undefined;
         /** [Config Option] (Number) */
-        maximum?: number;
+        maximum?: number | undefined;
         /** [Config Option] (Number) */
-        minimum?: number;
+        minimum?: number | undefined;
         /** [Config Option] (Boolean) */
-        needle?: boolean;
+        needle?: boolean | undefined;
         /** [Config Option] (Number) */
-        needleLength?: number;
+        needleLength?: number | undefined;
         /** [Config Option] (Number) */
-        needleLengthRatio?: number;
+        needleLengthRatio?: number | undefined;
         /** [Config Option] (Number) */
-        needleWidth?: number;
+        needleWidth?: number | undefined;
         /** [Config Option] (Array) */
-        sectors?: any[];
+        sectors?: any[] | undefined;
         /** [Config Option] (Boolean) */
-        showInLegend?: boolean;
+        showInLegend?: boolean | undefined;
         /** [Config Option] (Number) */
-        value?: number;
+        value?: number | undefined;
         /** [Config Option] (Boolean) */
-        wholeDisk?: boolean;
+        wholeDisk?: boolean | undefined;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of angleField
         * @returns String
         */
@@ -4777,19 +4777,19 @@ declare namespace Ext.chart.series {
 declare namespace Ext.chart.series {
     export interface ILine extends Ext.chart.series.ICartesian {
         /** [Config Option] (Boolean) */
-        fill?: boolean;
+        fill?: boolean | undefined;
         /** [Config Option] (Number) */
-        selectionTolerance?: number;
+        selectionTolerance?: number | undefined;
         /** [Config Option] (Boolean/Number) */
         smooth?: any;
         /** [Config Option] (Boolean) */
-        step?: boolean;
+        step?: boolean | undefined;
         /** [Config Option] (Object) */
         style?: any;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of aggregator
         * @returns Object
         */
@@ -4835,25 +4835,25 @@ declare namespace Ext.chart.series {
 declare namespace Ext.chart.series {
     export interface IPie extends Ext.chart.series.IPolar {
         /** [Config Option] (Number) */
-        Allows?: number;
+        Allows?: number | undefined;
         /** [Config Option] (Boolean/Number) */
         donut?: any;
         /** [Config Option] (String) */
-        field?: string;
+        field?: string | undefined;
         /** [Config Option] (Array) */
-        hidden?: any[];
+        hidden?: any[] | undefined;
         /** [Config Option] (String) */
-        labelField?: string;
+        labelField?: string | undefined;
         /** [Config Option] (Number) */
-        rotation?: number;
+        rotation?: number | undefined;
         /** [Config Option] (Object) */
         style?: any;
         /** [Config Option] (Number) */
-        totalAngle?: number;
+        totalAngle?: number | undefined;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of donut
         * @returns Boolean/Number
         */
@@ -4922,13 +4922,13 @@ declare namespace Ext.chart.series {
         /** [Config Option] (Boolean/Number) */
         donut?: any;
         /** [Config Option] (String) */
-        field?: string;
+        field?: string | undefined;
         /** [Config Option] (Number) */
-        rotation?: number;
+        rotation?: number | undefined;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of distortion
         * @returns Number
         */
@@ -4984,21 +4984,21 @@ declare namespace Ext.chart.series {
 declare namespace Ext.chart.series {
     export interface IPolar extends Ext.chart.series.ISeries {
         /** [Config Option] (Array) */
-        center?: any[];
+        center?: any[] | undefined;
         /** [Config Option] (Number) */
-        offsetX?: number;
+        offsetX?: number | undefined;
         /** [Config Option] (Number) */
-        offsetY?: number;
+        offsetY?: number | undefined;
         /** [Config Option] (Number) */
-        radius?: number;
+        radius?: number | undefined;
         /** [Config Option] (Number) */
-        rotation?: number;
+        rotation?: number | undefined;
         /** [Config Option] (Boolean) */
-        showInLegend?: boolean;
+        showInLegend?: boolean | undefined;
         /** [Config Option] (String) */
-        xField?: string;
+        xField?: string | undefined;
         /** [Config Option] (String) */
-        yField?: string;
+        yField?: string | undefined;
         /** [Method] Returns the value of center
         * @returns Array
         */
@@ -5086,9 +5086,9 @@ declare namespace Ext.chart.series {
         /** [Config Option] (Object) */
         style?: any;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] For a given x y point relative to the main region find a corresponding item from this series if any
         * @param x Object
         * @param y Object
@@ -5102,9 +5102,9 @@ declare namespace Ext.chart.series {
         /** [Config Option] (Object) */
         itemInstancing?: any;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of itemInstancing
         * @returns Object
         */
@@ -5126,7 +5126,7 @@ declare namespace Ext.chart.series {
         /** [Config Option] (Object) */
         background?: any;
         /** [Config Option] (Array) */
-        colors?: any[];
+        colors?: any[] | undefined;
         /** [Config Option] (Boolean|Array) */
         hidden?: any;
         /** [Config Option] (Object) */
@@ -5140,7 +5140,7 @@ declare namespace Ext.chart.series {
         /** [Config Option] (String/String[]) */
         labelField?: any;
         /** [Config Option] (Number) */
-        labelOverflowPadding?: number;
+        labelOverflowPadding?: number | undefined;
         /** [Config Option] (Object) */
         marker?: any;
         /** [Config Option] (Object) */
@@ -5150,7 +5150,7 @@ declare namespace Ext.chart.series {
         /** [Config Option] (Function) */
         renderer?: any;
         /** [Config Option] (Boolean) */
-        showInLegend?: boolean;
+        showInLegend?: boolean | undefined;
         /** [Config Option] (Object) */
         store?: any;
         /** [Config Option] (Object) */
@@ -5160,11 +5160,11 @@ declare namespace Ext.chart.series {
         /** [Config Option] (Object) */
         surface?: any;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Property] (String) */
-        seriesType?: string;
+        seriesType?: string | undefined;
         /** [Property] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -5550,7 +5550,7 @@ declare namespace Ext.chart.series.sprite {
 declare namespace Ext.chart.series.sprite {
     export interface IArea extends Ext.chart.series.sprite.IStackedCartesian {
         /** [Config Option] (Boolean) */
-        step?: boolean;
+        step?: boolean | undefined;
         /** [Method] Render the given visible clip range
         * @param surface Object
         * @param ctx Object
@@ -5563,15 +5563,15 @@ declare namespace Ext.chart.series.sprite {
 declare namespace Ext.chart.series.sprite {
     export interface IBar extends Ext.chart.series.sprite.IStackedCartesian {
         /** [Config Option] (Number) */
-        inGroupGapWidth?: number;
+        inGroupGapWidth?: number | undefined;
         /** [Config Option] (Number) */
-        maxBarWidth?: number;
+        maxBarWidth?: number | undefined;
         /** [Config Option] (Number) */
-        minBarWidth?: number;
+        minBarWidth?: number | undefined;
         /** [Config Option] (Number) */
-        minGapWidth?: number;
+        minGapWidth?: number | undefined;
         /** [Config Option] (Number) */
-        radius?: number;
+        radius?: number | undefined;
         /** [Method] Get the nearest item index from point x y
         * @param x Object
         * @param y Object
@@ -5589,39 +5589,39 @@ declare namespace Ext.chart.series.sprite {
 declare namespace Ext.chart.series.sprite {
     export interface ICandleStick extends Ext.chart.series.sprite.IAggregative {
         /** [Config Option] (Number) */
-        barWidth?: number;
+        barWidth?: number | undefined;
         /** [Config Option] (String) */
-        ohlcType?: string;
+        ohlcType?: string | undefined;
         /** [Config Option] (Number) */
-        padding?: number;
+        padding?: number | undefined;
     }
 }
 declare namespace Ext.chart.series.sprite {
     export interface ICartesian extends Ext.draw.sprite.ISprite,Ext.chart.IMarkerHolder {
         /** [Config Option] (Array) */
-        Data?: any[];
+        Data?: any[] | undefined;
         /** [Config Option] (Boolean) */
-        If?: boolean;
+        If?: boolean | undefined;
         /** [Config Option] (Number) */
-        dataMaxX?: number;
+        dataMaxX?: number | undefined;
         /** [Config Option] (Number) */
-        dataMaxY?: number;
+        dataMaxY?: number | undefined;
         /** [Config Option] (Number) */
-        dataMinX?: number;
+        dataMinX?: number | undefined;
         /** [Config Option] (Number) */
-        dataMinY?: number;
+        dataMinY?: number | undefined;
         /** [Config Option] (Object) */
         dataX?: any;
         /** [Config Option] (Object) */
         dataY?: any;
         /** [Config Option] (String) */
-        field?: string;
+        field?: string | undefined;
         /** [Config Option] (Number) */
-        labelOverflowPadding?: number;
+        labelOverflowPadding?: number | undefined;
         /** [Config Option] (Object) */
         labels?: any;
         /** [Config Option] (Number) */
-        selectionTolerance?: number;
+        selectionTolerance?: number | undefined;
         /** [Method] Does a binary search of the data on the x axis using the given key
         * @param key String
         * @returns *
@@ -5669,13 +5669,13 @@ declare namespace Ext.chart.series.sprite {
 declare namespace Ext.chart.series.sprite {
     export interface ILine extends Ext.chart.series.sprite.IAggregative {
         /** [Config Option] (Boolean) */
-        fillArea?: boolean;
+        fillArea?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        preciseStroke?: boolean;
+        preciseStroke?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        smooth?: boolean;
+        smooth?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        step?: boolean;
+        step?: boolean | undefined;
         /** [Method] Subclass will fill the plain object with x y width height information of the plain bounding box of this sprite
         * @param plain Object
         */
@@ -5687,27 +5687,27 @@ declare namespace Ext.chart.series.sprite {
         /** [Config Option] (Object) */
         baseColor?: any;
         /** [Config Option] (Number) */
-        baseRotation?: number;
+        baseRotation?: number | undefined;
         /** [Config Option] (Number) */
-        centerX?: number;
+        centerX?: number | undefined;
         /** [Config Option] (Number) */
-        centerY?: number;
+        centerY?: number | undefined;
         /** [Config Option] (Number) */
-        distortion?: number;
+        distortion?: number | undefined;
         /** [Config Option] (Number) */
-        endAngle?: number;
+        endAngle?: number | undefined;
         /** [Config Option] (Number) */
-        endRho?: number;
+        endRho?: number | undefined;
         /** [Config Option] (Number) */
-        margin?: number;
+        margin?: number | undefined;
         /** [Config Option] (String) */
-        part?: string;
+        part?: string | undefined;
         /** [Config Option] (Number) */
-        startAngle?: number;
+        startAngle?: number | undefined;
         /** [Config Option] (Number) */
-        startRho?: number;
+        startRho?: number | undefined;
         /** [Config Option] (Number) */
-        thickness?: number;
+        thickness?: number | undefined;
         /** [Method]
         * @param name String
         * @param marker Ext.chart.Markers
@@ -5730,13 +5730,13 @@ declare namespace Ext.chart.series.sprite {
 declare namespace Ext.chart.series.sprite {
     export interface IPieSlice extends Ext.draw.sprite.ISector,Ext.chart.IMarkerHolder {
         /** [Config Option] (Boolean) */
-        doCallout?: boolean;
+        doCallout?: boolean | undefined;
         /** [Config Option] (String) */
-        label?: string;
+        label?: string | undefined;
         /** [Config Option] (Number) */
-        labelOverflowPadding?: number;
+        labelOverflowPadding?: number | undefined;
         /** [Config Option] (Boolean) */
-        rotateLabels?: boolean;
+        rotateLabels?: boolean | undefined;
         /** [Method]
         * @param name String
         * @param marker Ext.chart.Markers
@@ -5762,37 +5762,37 @@ declare namespace Ext.chart.series.sprite {
 declare namespace Ext.chart.series.sprite {
     export interface IPolar extends Ext.draw.sprite.ISprite,Ext.chart.IMarkerHolder {
         /** [Config Option] (Array) */
-        Data?: any[];
+        Data?: any[] | undefined;
         /** [Config Option] (Number) */
-        baseRotation?: number;
+        baseRotation?: number | undefined;
         /** [Config Option] (Number) */
-        centerX?: number;
+        centerX?: number | undefined;
         /** [Config Option] (Number) */
-        centerY?: number;
+        centerY?: number | undefined;
         /** [Config Option] (Number) */
-        dataMaxX?: number;
+        dataMaxX?: number | undefined;
         /** [Config Option] (Number) */
-        dataMaxY?: number;
+        dataMaxY?: number | undefined;
         /** [Config Option] (Number) */
-        dataMinX?: number;
+        dataMinX?: number | undefined;
         /** [Config Option] (Number) */
-        dataMinY?: number;
+        dataMinY?: number | undefined;
         /** [Config Option] (Object) */
         dataX?: any;
         /** [Config Option] (Object) */
         dataY?: any;
         /** [Config Option] (Number) */
-        endAngle?: number;
+        endAngle?: number | undefined;
         /** [Config Option] (Number) */
-        endRho?: number;
+        endRho?: number | undefined;
         /** [Config Option] (Number) */
-        labelOverflowPadding?: number;
+        labelOverflowPadding?: number | undefined;
         /** [Config Option] (Object) */
         labels?: any;
         /** [Config Option] (Number) */
-        startAngle?: number;
+        startAngle?: number | undefined;
         /** [Config Option] (Number) */
-        startRho?: number;
+        startRho?: number | undefined;
         /** [Method]
         * @param name String
         * @param marker Ext.chart.Markers
@@ -5846,9 +5846,9 @@ declare namespace Ext.chart.series.sprite {
 declare namespace Ext.chart.series {
     export interface IStackedCartesian extends Ext.chart.series.ICartesian {
         /** [Config Option] (Array) */
-        hidden?: any[];
+        hidden?: any[] | undefined;
         /** [Config Option] (Boolean) */
-        stacked?: boolean;
+        stacked?: boolean | undefined;
         /** [Method] For a given x y point relative to the main region find a corresponding item from this series if any
         * @param x Object
         * @param y Object
@@ -5884,13 +5884,13 @@ declare namespace Ext.chart {
 declare namespace Ext {
     export interface IClass {
         /** [Config Option] (String[]) */
-        alias?: string[];
+        alias?: string[] | undefined;
         /** [Config Option] (String/String[]) */
         alternateClassName?: any;
         /** [Config Option] (Object) */
         config?: any;
         /** [Config Option] (String) */
-        extend?: string;
+        extend?: string | undefined;
         /** [Config Option] (Object) */
         inheritableStatics?: any;
         /** [Config Option] (Object) */
@@ -5898,11 +5898,11 @@ declare namespace Ext {
         /** [Config Option] (Object) */
         platformConfig?: any;
         /** [Config Option] (Boolean) */
-        singleton?: boolean;
+        singleton?: boolean | undefined;
         /** [Config Option] (Object) */
         statics?: any;
         /** [Config Option] (String[]) */
-        uses?: string[];
+        uses?: string[] | undefined;
     }
 }
 declare namespace Ext {
@@ -5998,59 +5998,59 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IComponent extends Ext.IAbstractComponent,Ext.mixin.ITraversable {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/String) */
         border?: any;
         /** [Config Option] (Number/String) */
         bottom?: any;
         /** [Config Option] (Boolean) */
-        centered?: boolean;
+        centered?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (String) */
-        componentCls?: string;
+        componentCls?: string | undefined;
         /** [Config Option] (Ext.Element/HTMLElement/String) */
         contentEl?: any;
         /** [Config Option] (Object) */
         data?: any;
         /** [Config Option] (Boolean) */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /** [Config Option] (String) */
-        disabledCls?: string;
+        disabledCls?: string | undefined;
         /** [Config Option] (String) */
-        dock?: string;
+        dock?: string | undefined;
         /** [Config Option] (String) */
-        docked?: string;
+        docked?: string | undefined;
         /** [Config Option] (String/Mixed) */
         enterAnimation?: any;
         /** [Config Option] (String/Mixed) */
         exitAnimation?: any;
         /** [Config Option] (Number) */
-        flex?: number;
+        flex?: number | undefined;
         /** [Config Option] (Boolean) */
-        floating?: boolean;
+        floating?: boolean | undefined;
         /** [Config Option] (String) */
-        floatingCls?: string;
+        floatingCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        fullscreen?: boolean;
+        fullscreen?: boolean | undefined;
         /** [Config Option] (Number/String) */
         height?: any;
         /** [Config Option] (Boolean) */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** [Config Option] (String) */
-        hiddenCls?: string;
+        hiddenCls?: string | undefined;
         /** [Config Option] (String/Mixed) */
         hideAnimation?: any;
         /** [Config Option] (Boolean) */
-        hideOnMaskTap?: boolean;
+        hideOnMaskTap?: boolean | undefined;
         /** [Config Option] (String/Ext.Element/HTMLElement) */
         html?: any;
         /** [Config Option] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Config Option] (String) */
-        itemId?: string;
+        itemId?: string | undefined;
         /** [Config Option] (Boolean) */
-        layoutOnOrientationChange?: boolean;
+        layoutOnOrientationChange?: boolean | undefined;
         /** [Config Option] (Number/String) */
         left?: any;
         /** [Config Option] (Number/String) */
@@ -6064,17 +6064,17 @@ declare namespace Ext {
         /** [Config Option] (Number/String) */
         minWidth?: any;
         /** [Config Option] (Boolean) */
-        modal?: boolean;
+        modal?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        monitorOrientation?: boolean;
+        monitorOrientation?: boolean | undefined;
         /** [Config Option] (Number/String) */
         padding?: any;
         /** [Config Option] (Object/Array) */
         plugins?: any;
         /** [Config Option] (Ext.data.Model) */
-        record?: Ext.data.IModel;
+        record?: Ext.data.IModel | undefined;
         /** [Config Option] (Ext.Element) */
-        renderTo?: Ext.IElement;
+        renderTo?: Ext.IElement | undefined;
         /** [Config Option] (Number/String) */
         right?: any;
         /** [Config Option] (Boolean/String/Object) */
@@ -6082,27 +6082,27 @@ declare namespace Ext {
         /** [Config Option] (String/Mixed) */
         showAnimation?: any;
         /** [Config Option] (Boolean) */
-        stopMaskTapEvent?: boolean;
+        stopMaskTapEvent?: boolean | undefined;
         /** [Config Option] (String/Object) */
         style?: any;
         /** [Config Option] (String) */
-        styleHtmlCls?: string;
+        styleHtmlCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        styleHtmlContent?: boolean;
+        styleHtmlContent?: boolean | undefined;
         /** [Config Option] (Number/String) */
         top?: any;
         /** [Config Option] (String/String[]/Ext.Template/Ext.XTemplate[]) */
         tpl?: any;
         /** [Config Option] (String) */
-        tplWriteMode?: string;
+        tplWriteMode?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Number/String) */
         width?: any;
         /** [Config Option] (String[]) */
-        xtype?: string;
+        xtype?: string | undefined;
         /** [Config Option] (Number) */
-        zIndex?: number;
+        zIndex?: number | undefined;
         /** [Method] Adds a CSS class or classes to this Component s rendered element
         * @param cls String The CSS class to add.
         * @param prefix String Optional prefix to add to each class.
@@ -6546,59 +6546,59 @@ declare namespace Ext {
 declare namespace Ext.lib {
     export interface IComponent extends Ext.IAbstractComponent,Ext.mixin.ITraversable {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/String) */
         border?: any;
         /** [Config Option] (Number/String) */
         bottom?: any;
         /** [Config Option] (Boolean) */
-        centered?: boolean;
+        centered?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (String) */
-        componentCls?: string;
+        componentCls?: string | undefined;
         /** [Config Option] (Ext.Element/HTMLElement/String) */
         contentEl?: any;
         /** [Config Option] (Object) */
         data?: any;
         /** [Config Option] (Boolean) */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /** [Config Option] (String) */
-        disabledCls?: string;
+        disabledCls?: string | undefined;
         /** [Config Option] (String) */
-        dock?: string;
+        dock?: string | undefined;
         /** [Config Option] (String) */
-        docked?: string;
+        docked?: string | undefined;
         /** [Config Option] (String/Mixed) */
         enterAnimation?: any;
         /** [Config Option] (String/Mixed) */
         exitAnimation?: any;
         /** [Config Option] (Number) */
-        flex?: number;
+        flex?: number | undefined;
         /** [Config Option] (Boolean) */
-        floating?: boolean;
+        floating?: boolean | undefined;
         /** [Config Option] (String) */
-        floatingCls?: string;
+        floatingCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        fullscreen?: boolean;
+        fullscreen?: boolean | undefined;
         /** [Config Option] (Number/String) */
         height?: any;
         /** [Config Option] (Boolean) */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** [Config Option] (String) */
-        hiddenCls?: string;
+        hiddenCls?: string | undefined;
         /** [Config Option] (String/Mixed) */
         hideAnimation?: any;
         /** [Config Option] (Boolean) */
-        hideOnMaskTap?: boolean;
+        hideOnMaskTap?: boolean | undefined;
         /** [Config Option] (String/Ext.Element/HTMLElement) */
         html?: any;
         /** [Config Option] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Config Option] (String) */
-        itemId?: string;
+        itemId?: string | undefined;
         /** [Config Option] (Boolean) */
-        layoutOnOrientationChange?: boolean;
+        layoutOnOrientationChange?: boolean | undefined;
         /** [Config Option] (Number/String) */
         left?: any;
         /** [Config Option] (Number/String) */
@@ -6612,17 +6612,17 @@ declare namespace Ext.lib {
         /** [Config Option] (Number/String) */
         minWidth?: any;
         /** [Config Option] (Boolean) */
-        modal?: boolean;
+        modal?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        monitorOrientation?: boolean;
+        monitorOrientation?: boolean | undefined;
         /** [Config Option] (Number/String) */
         padding?: any;
         /** [Config Option] (Object/Array) */
         plugins?: any;
         /** [Config Option] (Ext.data.Model) */
-        record?: Ext.data.IModel;
+        record?: Ext.data.IModel | undefined;
         /** [Config Option] (Ext.Element) */
-        renderTo?: Ext.IElement;
+        renderTo?: Ext.IElement | undefined;
         /** [Config Option] (Number/String) */
         right?: any;
         /** [Config Option] (Boolean/String/Object) */
@@ -6630,27 +6630,27 @@ declare namespace Ext.lib {
         /** [Config Option] (String/Mixed) */
         showAnimation?: any;
         /** [Config Option] (Boolean) */
-        stopMaskTapEvent?: boolean;
+        stopMaskTapEvent?: boolean | undefined;
         /** [Config Option] (String/Object) */
         style?: any;
         /** [Config Option] (String) */
-        styleHtmlCls?: string;
+        styleHtmlCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        styleHtmlContent?: boolean;
+        styleHtmlContent?: boolean | undefined;
         /** [Config Option] (Number/String) */
         top?: any;
         /** [Config Option] (String/String[]/Ext.Template/Ext.XTemplate[]) */
         tpl?: any;
         /** [Config Option] (String) */
-        tplWriteMode?: string;
+        tplWriteMode?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Number/String) */
         width?: any;
         /** [Config Option] (String[]) */
-        xtype?: string;
+        xtype?: string | undefined;
         /** [Config Option] (Number) */
-        zIndex?: number;
+        zIndex?: number | undefined;
         /** [Method] Adds a CSS class or classes to this Component s rendered element
         * @param cls String The CSS class to add.
         * @param prefix String Optional prefix to add to each class.
@@ -7240,17 +7240,17 @@ declare namespace Ext {
         /** [Config Option] (Object/String/Number) */
         activeItem?: any;
         /** [Config Option] (Boolean) */
-        autoDestroy?: boolean;
+        autoDestroy?: boolean | undefined;
         /** [Config Option] (String/Object/Boolean) */
         cardSwitchAnimation?: any;
         /** [Config Option] (Object) */
         control?: any;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Object) */
         defaults?: any;
         /** [Config Option] (Boolean) */
-        hideOnMaskTap?: boolean;
+        hideOnMaskTap?: boolean | undefined;
         /** [Config Option] (Array/Object) */
         items?: any;
         /** [Config Option] (Object/String) */
@@ -7258,7 +7258,7 @@ declare namespace Ext {
         /** [Config Option] (Boolean/Object/Ext.Mask/Ext.LoadMask) */
         masked?: any;
         /** [Config Option] (Boolean) */
-        modal?: boolean;
+        modal?: boolean | undefined;
         /** [Config Option] (Boolean/String/Object) */
         scroll?: any;
         /** [Config Option] (Boolean/String/Object) */
@@ -7462,17 +7462,17 @@ declare namespace Ext.lib {
         /** [Config Option] (Object/String/Number) */
         activeItem?: any;
         /** [Config Option] (Boolean) */
-        autoDestroy?: boolean;
+        autoDestroy?: boolean | undefined;
         /** [Config Option] (String/Object/Boolean) */
         cardSwitchAnimation?: any;
         /** [Config Option] (Object) */
         control?: any;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Object) */
         defaults?: any;
         /** [Config Option] (Boolean) */
-        hideOnMaskTap?: boolean;
+        hideOnMaskTap?: boolean | undefined;
         /** [Config Option] (Array/Object) */
         items?: any;
         /** [Config Option] (Object/String) */
@@ -7480,7 +7480,7 @@ declare namespace Ext.lib {
         /** [Config Option] (Boolean/Object/Ext.Mask/Ext.LoadMask) */
         masked?: any;
         /** [Config Option] (Boolean) */
-        modal?: boolean;
+        modal?: boolean | undefined;
         /** [Config Option] (Boolean/String/Object) */
         scroll?: any;
         /** [Config Option] (Boolean/String/Object) */
@@ -7701,19 +7701,19 @@ declare namespace Ext.data {
 declare namespace Ext.data.association {
     export interface IAssociation extends Ext.IBase {
         /** [Config Option] (String) */
-        associatedModel?: string;
+        associatedModel?: string | undefined;
         /** [Config Option] (String) */
-        associatedName?: string;
+        associatedName?: string | undefined;
         /** [Config Option] (String) */
-        associationKey?: string;
+        associationKey?: string | undefined;
         /** [Config Option] (Ext.data.Model/String) */
         ownerModel?: any;
         /** [Config Option] (String) */
-        primaryKey?: string;
+        primaryKey?: string | undefined;
         /** [Config Option] (Ext.data.reader.Reader) */
-        reader?: Ext.data.reader.IReader;
+        reader?: Ext.data.reader.IReader | undefined;
         /** [Config Option] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of associatedModel
         * @returns String
         */
@@ -7791,19 +7791,19 @@ declare namespace Ext.data.association {
 declare namespace Ext.data {
     export interface IAssociation extends Ext.IBase {
         /** [Config Option] (String) */
-        associatedModel?: string;
+        associatedModel?: string | undefined;
         /** [Config Option] (String) */
-        associatedName?: string;
+        associatedName?: string | undefined;
         /** [Config Option] (String) */
-        associationKey?: string;
+        associationKey?: string | undefined;
         /** [Config Option] (Ext.data.Model/String) */
         ownerModel?: any;
         /** [Config Option] (String) */
-        primaryKey?: string;
+        primaryKey?: string | undefined;
         /** [Config Option] (Ext.data.reader.Reader) */
-        reader?: Ext.data.reader.IReader;
+        reader?: Ext.data.reader.IReader | undefined;
         /** [Config Option] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Method] Returns the value of associatedModel
         * @returns String
         */
@@ -7881,11 +7881,11 @@ declare namespace Ext.data {
 declare namespace Ext.data.association {
     export interface IBelongsTo extends Ext.data.association.IAssociation {
         /** [Config Option] (String) */
-        foreignKey?: string;
+        foreignKey?: string | undefined;
         /** [Config Option] (String) */
-        getterName?: string;
+        getterName?: string | undefined;
         /** [Config Option] (String) */
-        setterName?: string;
+        setterName?: string | undefined;
         /** [Method] Returns the value of foreignKey
         * @returns String
         */
@@ -7923,11 +7923,11 @@ declare namespace Ext.data.association {
 declare namespace Ext.data {
     export interface IBelongsToAssociation extends Ext.data.association.IAssociation {
         /** [Config Option] (String) */
-        foreignKey?: string;
+        foreignKey?: string | undefined;
         /** [Config Option] (String) */
-        getterName?: string;
+        getterName?: string | undefined;
         /** [Config Option] (String) */
-        setterName?: string;
+        setterName?: string | undefined;
         /** [Method] Returns the value of foreignKey
         * @returns String
         */
@@ -7965,21 +7965,21 @@ declare namespace Ext.data {
 declare namespace Ext.data.association {
     export interface IHasMany extends Ext.data.association.IAssociation {
         /** [Config Option] (Boolean) */
-        autoLoad?: boolean;
+        autoLoad?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoSync?: boolean;
+        autoSync?: boolean | undefined;
         /** [Config Option] (String) */
-        filterProperty?: string;
+        filterProperty?: string | undefined;
         /** [Config Option] (String) */
-        foreignKey?: string;
+        foreignKey?: string | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Object) */
         store?: any;
         /** [Config Option] (Object) */
         storeConfig?: any;
         /** [Config Option] (String) */
-        storeName?: string;
+        storeName?: string | undefined;
         /** [Method] Returns the value of autoLoad
         * @returns Boolean
         */
@@ -8033,21 +8033,21 @@ declare namespace Ext.data.association {
 declare namespace Ext.data {
     export interface IHasManyAssociation extends Ext.data.association.IAssociation {
         /** [Config Option] (Boolean) */
-        autoLoad?: boolean;
+        autoLoad?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoSync?: boolean;
+        autoSync?: boolean | undefined;
         /** [Config Option] (String) */
-        filterProperty?: string;
+        filterProperty?: string | undefined;
         /** [Config Option] (String) */
-        foreignKey?: string;
+        foreignKey?: string | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Object) */
         store?: any;
         /** [Config Option] (Object) */
         storeConfig?: any;
         /** [Config Option] (String) */
-        storeName?: string;
+        storeName?: string | undefined;
         /** [Method] Returns the value of autoLoad
         * @returns Boolean
         */
@@ -8101,11 +8101,11 @@ declare namespace Ext.data {
 declare namespace Ext.data.association {
     export interface IHasOne extends Ext.data.association.IAssociation {
         /** [Config Option] (String) */
-        foreignKey?: string;
+        foreignKey?: string | undefined;
         /** [Config Option] (String) */
-        getterName?: string;
+        getterName?: string | undefined;
         /** [Config Option] (String) */
-        setterName?: string;
+        setterName?: string | undefined;
         /** [Method] Returns the value of foreignKey
         * @returns String
         */
@@ -8143,11 +8143,11 @@ declare namespace Ext.data.association {
 declare namespace Ext.data {
     export interface IHasOneAssociation extends Ext.data.association.IAssociation {
         /** [Config Option] (String) */
-        foreignKey?: string;
+        foreignKey?: string | undefined;
         /** [Config Option] (String) */
-        getterName?: string;
+        getterName?: string | undefined;
         /** [Config Option] (String) */
-        setterName?: string;
+        setterName?: string | undefined;
         /** [Method] Returns the value of foreignKey
         * @returns String
         */
@@ -8185,23 +8185,23 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IBatch extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Boolean) */
-        autoStart?: boolean;
+        autoStart?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        pauseOnException?: boolean;
+        pauseOnException?: boolean | undefined;
         /** [Config Option] (Ext.data.Proxy) */
-        proxy?: Ext.data.IProxy;
+        proxy?: Ext.data.IProxy | undefined;
         /** [Property] (Number) */
-        current?: number;
+        current?: number | undefined;
         /** [Property] (Boolean) */
-        hasException?: boolean;
+        hasException?: boolean | undefined;
         /** [Property] (Boolean) */
-        isComplete?: boolean;
+        isComplete?: boolean | undefined;
         /** [Property] (Boolean) */
-        isRunning?: boolean;
+        isRunning?: boolean | undefined;
         /** [Property] (Ext.data.Operation[]) */
-        operations?: Ext.data.IOperation[];
+        operations?: Ext.data.IOperation[] | undefined;
         /** [Property] (Number) */
-        total?: number;
+        total?: number | undefined;
         /** [Method] Adds a new operation to this batch
         * @param operation Object The Operation object.
         */
@@ -8422,21 +8422,21 @@ declare namespace Ext.data {
         /** [Config Option] (Object) */
         defaultHeaders?: any;
         /** [Config Option] (String) */
-        defaultXhrHeader?: string;
+        defaultXhrHeader?: string | undefined;
         /** [Config Option] (Boolean) */
-        disableCaching?: boolean;
+        disableCaching?: boolean | undefined;
         /** [Config Option] (String) */
-        disableCachingParam?: string;
+        disableCachingParam?: string | undefined;
         /** [Config Option] (Object) */
         extraParams?: any;
         /** [Config Option] (String) */
-        method?: string;
+        method?: string | undefined;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Config Option] (Boolean) */
-        useDefaultXhrHeader?: boolean;
+        useDefaultXhrHeader?: boolean | undefined;
         /** [Method] Aborts any outstanding request
         * @param request Object Defaults to the last request.
         */
@@ -8788,9 +8788,9 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IError extends Ext.IBase {
         /** [Config Option] (String) */
-        field?: string;
+        field?: string | undefined;
         /** [Config Option] (String) */
-        message?: string;
+        message?: string | undefined;
         /** [Method] Returns the value of field
         * @returns String
         */
@@ -8829,27 +8829,27 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IField extends Ext.IBase {
         /** [Config Option] (Boolean) */
-        allowNull?: boolean;
+        allowNull?: boolean | undefined;
         /** [Config Option] (Function) */
         convert?: any;
         /** [Config Option] (String) */
-        dateFormat?: string;
+        dateFormat?: string | undefined;
         /** [Config Option] (Object) */
         defaultValue?: any;
         /** [Config Option] (String/Number) */
         mapping?: any;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Boolean) */
-        persist?: boolean;
+        persist?: boolean | undefined;
         /** [Config Option] (String) */
-        sortDir?: string;
+        sortDir?: string | undefined;
         /** [Config Option] (Function) */
         sortType?: any;
         /** [Config Option] (String/Object) */
         type?: any;
         /** [Config Option] (Boolean) */
-        useNull?: boolean;
+        useNull?: boolean | undefined;
         /** [Method] Returns the value of allowNull
         * @returns Boolean
         */
@@ -8959,9 +8959,9 @@ declare namespace Ext.data {
 declare namespace Ext.data.identifier {
     export interface ISequential extends Ext.data.identifier.ISimple {
         /** [Config Option] (String) */
-        prefix?: string;
+        prefix?: string | undefined;
         /** [Config Option] (Number) */
-        seed?: number;
+        seed?: number | undefined;
         /** [Method] Returns the value of prefix
         * @returns String
         */
@@ -8997,7 +8997,7 @@ declare namespace Ext.data.identifier {
         /** [Config Option] (Object) */
         id?: any;
         /** [Config Option] (Number) */
-        version?: number;
+        version?: number | undefined;
         /** [Property] (Number/Object) */
         salt?: any;
         /** [Property] (Number/Object) */
@@ -9153,11 +9153,11 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IModel extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Object[]) */
-        associations?: any[];
+        associations?: any[] | undefined;
         /** [Config Option] (String/Object/String[]/Object[]) */
         belongsTo?: any;
         /** [Config Option] (String) */
-        clientIdProperty?: string;
+        clientIdProperty?: string | undefined;
         /** [Config Option] (Object[]/String[]) */
         fields?: any;
         /** [Config Option] (String/Object/String[]/Object[]) */
@@ -9165,27 +9165,27 @@ declare namespace Ext.data {
         /** [Config Option] (String/Object/String[]/Object[]) */
         hasOne?: any;
         /** [Config Option] (String) */
-        idProperty?: string;
+        idProperty?: string | undefined;
         /** [Config Option] (Object/String) */
         identifier?: any;
         /** [Config Option] (Object/Ext.data.Proxy) */
         proxy?: any;
         /** [Config Option] (Boolean) */
-        useCache?: boolean;
+        useCache?: boolean | undefined;
         /** [Config Option] (Object[]) */
-        validations?: any[];
+        validations?: any[] | undefined;
         /** [Property] (Boolean) */
-        dirty?: boolean;
+        dirty?: boolean | undefined;
         /** [Property] (Boolean) */
-        editing?: boolean;
+        editing?: boolean | undefined;
         /** [Property] (Object) */
         modified?: any;
         /** [Property] (Boolean) */
-        phantom?: boolean;
+        phantom?: boolean | undefined;
         /** [Property] (Object) */
         raw?: any;
         /** [Property] (Array) */
-        stores?: any[];
+        stores?: any[] | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -9600,11 +9600,11 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IRecord extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Object[]) */
-        associations?: any[];
+        associations?: any[] | undefined;
         /** [Config Option] (String/Object/String[]/Object[]) */
         belongsTo?: any;
         /** [Config Option] (String) */
-        clientIdProperty?: string;
+        clientIdProperty?: string | undefined;
         /** [Config Option] (Object[]/String[]) */
         fields?: any;
         /** [Config Option] (String/Object/String[]/Object[]) */
@@ -9612,27 +9612,27 @@ declare namespace Ext.data {
         /** [Config Option] (String/Object/String[]/Object[]) */
         hasOne?: any;
         /** [Config Option] (String) */
-        idProperty?: string;
+        idProperty?: string | undefined;
         /** [Config Option] (Object/String) */
         identifier?: any;
         /** [Config Option] (Object/Ext.data.Proxy) */
         proxy?: any;
         /** [Config Option] (Boolean) */
-        useCache?: boolean;
+        useCache?: boolean | undefined;
         /** [Config Option] (Object[]) */
-        validations?: any[];
+        validations?: any[] | undefined;
         /** [Property] (Boolean) */
-        dirty?: boolean;
+        dirty?: boolean | undefined;
         /** [Property] (Boolean) */
-        editing?: boolean;
+        editing?: boolean | undefined;
         /** [Property] (Object) */
         modified?: any;
         /** [Property] (Boolean) */
-        phantom?: boolean;
+        phantom?: boolean | undefined;
         /** [Property] (Object) */
         raw?: any;
         /** [Property] (Array) */
-        stores?: any[];
+        stores?: any[] | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -10789,17 +10789,17 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface INodeStore extends Ext.data.IStore {
         /** [Config Option] (Object[]) */
-        filters?: any[];
+        filters?: any[] | undefined;
         /** [Config Option] (Boolean) */
-        folderSort?: boolean;
+        folderSort?: boolean | undefined;
         /** [Config Option] (Ext.data.Model) */
-        node?: Ext.data.IModel;
+        node?: Ext.data.IModel | undefined;
         /** [Config Option] (Boolean) */
-        recursive?: boolean;
+        recursive?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        rootVisible?: boolean;
+        rootVisible?: boolean | undefined;
         /** [Config Option] (Object[]) */
-        sorters?: any[];
+        sorters?: any[] | undefined;
         /** [Method] Returns the value of filters
         * @returns Object
         */
@@ -10858,41 +10858,41 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IOperation extends Ext.IBase {
         /** [Config Option] (String) */
-        action?: string;
+        action?: string | undefined;
         /** [Config Option] (Ext.data.Batch) */
-        batch?: Ext.data.IBatch;
+        batch?: Ext.data.IBatch | undefined;
         /** [Config Option] (Function) */
         callback?: any;
         /** [Config Option] (Ext.util.Filter[]) */
-        filters?: Ext.util.IFilter[];
+        filters?: Ext.util.IFilter[] | undefined;
         /** [Config Option] (Boolean) */
-        group?: boolean;
+        group?: boolean | undefined;
         /** [Config Option] (Ext.util.Grouper) */
-        grouper?: Ext.util.IGrouper;
+        grouper?: Ext.util.IGrouper | undefined;
         /** [Config Option] (Number) */
-        limit?: number;
+        limit?: number | undefined;
         /** [Config Option] (Ext.data.Model) */
-        model?: Ext.data.IModel;
+        model?: Ext.data.IModel | undefined;
         /** [Config Option] (Object) */
         params?: any;
         /** [Config Option] (Array) */
-        records?: any[];
+        records?: any[] | undefined;
         /** [Config Option] (Ext.data.Request) */
-        request?: Ext.data.IRequest;
+        request?: Ext.data.IRequest | undefined;
         /** [Config Option] (Object) */
         response?: any;
         /** [Config Option] (Ext.data.ResultSet) */
-        resultSet?: Ext.data.IResultSet;
+        resultSet?: Ext.data.IResultSet | undefined;
         /** [Config Option] (Object) */
         scope?: any;
         /** [Config Option] (Ext.util.Sorter[]) */
-        sorters?: Ext.util.ISorter[];
+        sorters?: Ext.util.ISorter[] | undefined;
         /** [Config Option] (Number) */
-        start?: number;
+        start?: number | undefined;
         /** [Config Option] (Boolean) */
-        synchronous?: boolean;
+        synchronous?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
         /** [Method] Checks whether this operation should cause writing to occur
         * @returns Boolean Whether the operation should cause a write to occur.
         */
@@ -11100,11 +11100,11 @@ declare namespace Ext.data {
 declare namespace Ext.data.plugin {
     export interface IBuffered extends Ext.IEvented {
         /** [Config Option] (Number) */
-        leadingBufferZone?: number;
+        leadingBufferZone?: number | undefined;
         /** [Config Option] (Number) */
-        purgePageCount?: number;
+        purgePageCount?: number | undefined;
         /** [Config Option] (Number) */
-        trailingBufferZone?: number;
+        trailingBufferZone?: number | undefined;
         /** [Method] Returns the value of bufferedCollection
         * @returns Object
         */
@@ -11174,13 +11174,13 @@ declare namespace Ext.data.proxy {
         /** [Config Option] (Object) */
         headers?: any;
         /** [Config Option] (String) */
-        password?: string;
+        password?: string | undefined;
         /** [Config Option] (Boolean) */
-        useDefaultXhrHeader?: boolean;
+        useDefaultXhrHeader?: boolean | undefined;
         /** [Config Option] (String) */
-        username?: string;
+        username?: string | undefined;
         /** [Config Option] (Boolean) */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
         /** [Property] (Object) */
         actionMethods?: any;
         /** [Method] Performs Ajax request
@@ -11242,13 +11242,13 @@ declare namespace Ext.data {
         /** [Config Option] (Object) */
         headers?: any;
         /** [Config Option] (String) */
-        password?: string;
+        password?: string | undefined;
         /** [Config Option] (Boolean) */
-        useDefaultXhrHeader?: boolean;
+        useDefaultXhrHeader?: boolean | undefined;
         /** [Config Option] (String) */
-        username?: string;
+        username?: string | undefined;
         /** [Config Option] (Boolean) */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
         /** [Property] (Object) */
         actionMethods?: any;
         /** [Method] Performs Ajax request
@@ -11310,13 +11310,13 @@ declare namespace Ext.data {
         /** [Config Option] (Object) */
         headers?: any;
         /** [Config Option] (String) */
-        password?: string;
+        password?: string | undefined;
         /** [Config Option] (Boolean) */
-        useDefaultXhrHeader?: boolean;
+        useDefaultXhrHeader?: boolean | undefined;
         /** [Config Option] (String) */
-        username?: string;
+        username?: string | undefined;
         /** [Config Option] (Boolean) */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
         /** [Property] (Object) */
         actionMethods?: any;
         /** [Method] Performs Ajax request
@@ -11396,7 +11396,7 @@ declare namespace Ext.data.proxy {
         /** [Config Option] (String/String[]) */
         paramOrder?: any;
         /** [Config Option] (Boolean) */
-        paramsAsHash?: boolean;
+        paramsAsHash?: boolean | undefined;
         /** [Method] Generates a url based on a given Ext data Request object
         * @returns String The url
         */
@@ -11460,7 +11460,7 @@ declare namespace Ext.data {
         /** [Config Option] (String/String[]) */
         paramOrder?: any;
         /** [Config Option] (Boolean) */
-        paramsAsHash?: boolean;
+        paramsAsHash?: boolean | undefined;
         /** [Method] Generates a url based on a given Ext data Request object
         * @returns String The url
         */
@@ -11516,11 +11516,11 @@ declare namespace Ext.data {
 declare namespace Ext.data.proxy {
     export interface IJsonP extends Ext.data.proxy.IServer {
         /** [Config Option] (Boolean) */
-        autoAppendParams?: boolean;
+        autoAppendParams?: boolean | undefined;
         /** [Config Option] (String) */
-        callbackKey?: string;
+        callbackKey?: string | undefined;
         /** [Config Option] (String) */
-        recordParam?: string;
+        recordParam?: string | undefined;
         /** [Method] Aborts the current server request if one is currently running  */
         abort?(): void;
         /** [Method] Generates a url based on a given Ext data Request object
@@ -11574,11 +11574,11 @@ declare namespace Ext.data.proxy {
 declare namespace Ext.data {
     export interface IScriptTagProxy extends Ext.data.proxy.IServer {
         /** [Config Option] (Boolean) */
-        autoAppendParams?: boolean;
+        autoAppendParams?: boolean | undefined;
         /** [Config Option] (String) */
-        callbackKey?: string;
+        callbackKey?: string | undefined;
         /** [Config Option] (String) */
-        recordParam?: string;
+        recordParam?: string | undefined;
         /** [Method] Aborts the current server request if one is currently running  */
         abort?(): void;
         /** [Method] Generates a url based on a given Ext data Request object
@@ -11720,9 +11720,9 @@ declare namespace Ext.data {
 declare namespace Ext.data.proxy {
     export interface IProxy extends Ext.IEvented {
         /** [Config Option] (Boolean) */
-        batchActions?: boolean;
+        batchActions?: boolean | undefined;
         /** [Config Option] (String) */
-        batchOrder?: string;
+        batchOrder?: string | undefined;
         /** [Config Option] (String/Ext.data.Model) */
         model?: any;
         /** [Config Option] (Object/String/Ext.data.reader.Reader) */
@@ -11803,9 +11803,9 @@ declare namespace Ext.data.proxy {
 declare namespace Ext.data {
     export interface IDataProxy extends Ext.IEvented {
         /** [Config Option] (Boolean) */
-        batchActions?: boolean;
+        batchActions?: boolean | undefined;
         /** [Config Option] (String) */
-        batchOrder?: string;
+        batchOrder?: string | undefined;
         /** [Config Option] (String/Ext.data.Model) */
         model?: any;
         /** [Config Option] (Object/String/Ext.data.reader.Reader) */
@@ -11886,9 +11886,9 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IProxy extends Ext.IEvented {
         /** [Config Option] (Boolean) */
-        batchActions?: boolean;
+        batchActions?: boolean | undefined;
         /** [Config Option] (String) */
-        batchOrder?: string;
+        batchOrder?: string | undefined;
         /** [Config Option] (String/Ext.data.Model) */
         model?: any;
         /** [Config Option] (Object/String/Ext.data.reader.Reader) */
@@ -11969,11 +11969,11 @@ declare namespace Ext.data {
 declare namespace Ext.data.proxy {
     export interface IRest extends Ext.data.proxy.IAjax {
         /** [Config Option] (Boolean) */
-        appendId?: boolean;
+        appendId?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        batchActions?: boolean;
+        batchActions?: boolean | undefined;
         /** [Config Option] (String) */
-        format?: string;
+        format?: string | undefined;
         /** [Method] Returns the value of actionMethods
         * @returns Object
         */
@@ -12011,11 +12011,11 @@ declare namespace Ext.data.proxy {
 declare namespace Ext.data {
     export interface IRestProxy extends Ext.data.proxy.IAjax {
         /** [Config Option] (Boolean) */
-        appendId?: boolean;
+        appendId?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        batchActions?: boolean;
+        batchActions?: boolean | undefined;
         /** [Config Option] (String) */
-        format?: string;
+        format?: string | undefined;
         /** [Method] Returns the value of actionMethods
         * @returns Object
         */
@@ -12055,33 +12055,33 @@ declare namespace Ext.data.proxy {
         /** [Config Option] (Object) */
         api?: any;
         /** [Config Option] (String) */
-        cacheString?: string;
+        cacheString?: string | undefined;
         /** [Config Option] (String) */
-        directionParam?: string;
+        directionParam?: string | undefined;
         /** [Config Option] (Boolean) */
-        enablePagingParams?: boolean;
+        enablePagingParams?: boolean | undefined;
         /** [Config Option] (Object) */
         extraParams?: any;
         /** [Config Option] (String) */
-        filterParam?: string;
+        filterParam?: string | undefined;
         /** [Config Option] (String) */
-        groupParam?: string;
+        groupParam?: string | undefined;
         /** [Config Option] (String) */
-        limitParam?: string;
+        limitParam?: string | undefined;
         /** [Config Option] (Boolean) */
-        noCache?: boolean;
+        noCache?: boolean | undefined;
         /** [Config Option] (String) */
-        pageParam?: string;
+        pageParam?: string | undefined;
         /** [Config Option] (Boolean) */
-        simpleSortMode?: boolean;
+        simpleSortMode?: boolean | undefined;
         /** [Config Option] (String) */
-        sortParam?: string;
+        sortParam?: string | undefined;
         /** [Config Option] (String) */
-        startParam?: string;
+        startParam?: string | undefined;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Method] Optional callback function which can be used to clean up after a request has been completed
         * @param request Ext.data.Request The Request object
         * @param success Boolean True if the request was successful
@@ -12258,33 +12258,33 @@ declare namespace Ext.data {
         /** [Config Option] (Object) */
         api?: any;
         /** [Config Option] (String) */
-        cacheString?: string;
+        cacheString?: string | undefined;
         /** [Config Option] (String) */
-        directionParam?: string;
+        directionParam?: string | undefined;
         /** [Config Option] (Boolean) */
-        enablePagingParams?: boolean;
+        enablePagingParams?: boolean | undefined;
         /** [Config Option] (Object) */
         extraParams?: any;
         /** [Config Option] (String) */
-        filterParam?: string;
+        filterParam?: string | undefined;
         /** [Config Option] (String) */
-        groupParam?: string;
+        groupParam?: string | undefined;
         /** [Config Option] (String) */
-        limitParam?: string;
+        limitParam?: string | undefined;
         /** [Config Option] (Boolean) */
-        noCache?: boolean;
+        noCache?: boolean | undefined;
         /** [Config Option] (String) */
-        pageParam?: string;
+        pageParam?: string | undefined;
         /** [Config Option] (Boolean) */
-        simpleSortMode?: boolean;
+        simpleSortMode?: boolean | undefined;
         /** [Config Option] (String) */
-        sortParam?: string;
+        sortParam?: string | undefined;
         /** [Config Option] (String) */
-        startParam?: string;
+        startParam?: string | undefined;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Method] Optional callback function which can be used to clean up after a request has been completed
         * @param request Ext.data.Request The Request object
         * @param success Boolean True if the request was successful
@@ -12467,9 +12467,9 @@ declare namespace Ext.data {
 declare namespace Ext.data.proxy {
     export interface ISql extends Ext.data.proxy.IClient {
         /** [Config Option] (String) */
-        database?: string;
+        database?: string | undefined;
         /** [Config Option] (String) */
-        table?: string;
+        table?: string | undefined;
         /** [Method] Performs the given create operation
         * @param operation Object
         * @param callback Object
@@ -12552,9 +12552,9 @@ declare namespace Ext.data.proxy {
 declare namespace Ext.data.proxy {
     export interface IWebStorage extends Ext.data.proxy.IClient {
         /** [Config Option] (Boolean) */
-        enablePagingParams?: boolean;
+        enablePagingParams?: boolean | undefined;
         /** [Config Option] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Property] (Object) */
         cache?: any;
         /** [Method] Destroys all records stored in the proxy and removes all keys and values used to support the proxy from the storage o  */
@@ -12617,9 +12617,9 @@ declare namespace Ext.data.proxy {
 declare namespace Ext.data {
     export interface IWebStorageProxy extends Ext.data.proxy.IClient {
         /** [Config Option] (Boolean) */
-        enablePagingParams?: boolean;
+        enablePagingParams?: boolean | undefined;
         /** [Config Option] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Property] (Object) */
         cache?: any;
         /** [Method] Destroys all records stored in the proxy and removes all keys and values used to support the proxy from the storage o  */
@@ -12682,9 +12682,9 @@ declare namespace Ext.data {
 declare namespace Ext.data.reader {
     export interface IArray extends Ext.data.reader.IJson {
         /** [Config Option] (String) */
-        successProperty?: string;
+        successProperty?: string | undefined;
         /** [Config Option] (String) */
-        totalProperty?: string;
+        totalProperty?: string | undefined;
         /** [Method] Returns the value of successProperty
         * @returns Object
         */
@@ -12706,9 +12706,9 @@ declare namespace Ext.data.reader {
 declare namespace Ext.data {
     export interface IArrayReader extends Ext.data.reader.IJson {
         /** [Config Option] (String) */
-        successProperty?: string;
+        successProperty?: string | undefined;
         /** [Config Option] (String) */
-        totalProperty?: string;
+        totalProperty?: string | undefined;
         /** [Method] Returns the value of successProperty
         * @returns Object
         */
@@ -12730,9 +12730,9 @@ declare namespace Ext.data {
 declare namespace Ext.data.reader {
     export interface IJson extends Ext.data.reader.IReader {
         /** [Config Option] (String) */
-        record?: string;
+        record?: string | undefined;
         /** [Config Option] (Boolean) */
-        useSimpleAccessors?: boolean;
+        useSimpleAccessors?: boolean | undefined;
         /** [Method] Returns the value of record
         * @returns String
         */
@@ -12759,9 +12759,9 @@ declare namespace Ext.data.reader {
 declare namespace Ext.data {
     export interface IJsonReader extends Ext.data.reader.IReader {
         /** [Config Option] (String) */
-        record?: string;
+        record?: string | undefined;
         /** [Config Option] (Boolean) */
-        useSimpleAccessors?: boolean;
+        useSimpleAccessors?: boolean | undefined;
         /** [Method] Returns the value of record
         * @returns String
         */
@@ -12788,21 +12788,21 @@ declare namespace Ext.data {
 declare namespace Ext.data.reader {
     export interface IReader extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (String) */
-        clientIdProperty?: string;
+        clientIdProperty?: string | undefined;
         /** [Config Option] (String) */
-        idProperty?: string;
+        idProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        implicitIncludes?: boolean;
+        implicitIncludes?: boolean | undefined;
         /** [Config Option] (String) */
-        messageProperty?: string;
+        messageProperty?: string | undefined;
         /** [Config Option] (String) */
-        root?: string;
+        root?: string | undefined;
         /** [Config Option] (String) */
-        rootProperty?: string;
+        rootProperty?: string | undefined;
         /** [Config Option] (String) */
-        successProperty?: string;
+        successProperty?: string | undefined;
         /** [Config Option] (String) */
-        totalProperty?: string;
+        totalProperty?: string | undefined;
         /** [Property] (Object) */
         metaData?: any;
         /** [Property] (Object) */
@@ -13068,21 +13068,21 @@ declare namespace Ext.data.reader {
 declare namespace Ext.data {
     export interface IReader extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (String) */
-        clientIdProperty?: string;
+        clientIdProperty?: string | undefined;
         /** [Config Option] (String) */
-        idProperty?: string;
+        idProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        implicitIncludes?: boolean;
+        implicitIncludes?: boolean | undefined;
         /** [Config Option] (String) */
-        messageProperty?: string;
+        messageProperty?: string | undefined;
         /** [Config Option] (String) */
-        root?: string;
+        root?: string | undefined;
         /** [Config Option] (String) */
-        rootProperty?: string;
+        rootProperty?: string | undefined;
         /** [Config Option] (String) */
-        successProperty?: string;
+        successProperty?: string | undefined;
         /** [Config Option] (String) */
-        totalProperty?: string;
+        totalProperty?: string | undefined;
         /** [Property] (Object) */
         metaData?: any;
         /** [Property] (Object) */
@@ -13348,21 +13348,21 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IDataReader extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (String) */
-        clientIdProperty?: string;
+        clientIdProperty?: string | undefined;
         /** [Config Option] (String) */
-        idProperty?: string;
+        idProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        implicitIncludes?: boolean;
+        implicitIncludes?: boolean | undefined;
         /** [Config Option] (String) */
-        messageProperty?: string;
+        messageProperty?: string | undefined;
         /** [Config Option] (String) */
-        root?: string;
+        root?: string | undefined;
         /** [Config Option] (String) */
-        rootProperty?: string;
+        rootProperty?: string | undefined;
         /** [Config Option] (String) */
-        successProperty?: string;
+        successProperty?: string | undefined;
         /** [Config Option] (String) */
-        totalProperty?: string;
+        totalProperty?: string | undefined;
         /** [Property] (Object) */
         metaData?: any;
         /** [Property] (Object) */
@@ -13628,7 +13628,7 @@ declare namespace Ext.data {
 declare namespace Ext.data.reader {
     export interface IXml extends Ext.data.reader.IReader {
         /** [Config Option] (String) */
-        record?: string;
+        record?: string | undefined;
         /** [Method] Normalizes the data object
         * @param data Object The raw data object.
         * @returns Object Returns the documentElement property of the data object if present, or the same object if not.
@@ -13657,7 +13657,7 @@ declare namespace Ext.data.reader {
 declare namespace Ext.data {
     export interface IXmlReader extends Ext.data.reader.IReader {
         /** [Config Option] (String) */
-        record?: string;
+        record?: string | undefined;
         /** [Method] Normalizes the data object
         * @param data Object The raw data object.
         * @returns Object Returns the documentElement property of the data object if present, or the same object if not.
@@ -13686,33 +13686,33 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IRequest extends Ext.IBase {
         /** [Config Option] (String) */
-        action?: string;
+        action?: string | undefined;
         /** [Config Option] (String) */
-        callbackKey?: string;
+        callbackKey?: string | undefined;
         /** [Config Option] (Boolean) */
-        disableCaching?: boolean;
+        disableCaching?: boolean | undefined;
         /** [Config Option] (Object) */
         headers?: any;
         /** [Config Option] (Object) */
         jsonData?: any;
         /** [Config Option] (Ext.data.JsonP) */
-        jsonp?: Ext.data.IJsonP;
+        jsonp?: Ext.data.IJsonP | undefined;
         /** [Config Option] (String) */
-        method?: string;
+        method?: string | undefined;
         /** [Config Option] (Ext.data.Operation) */
-        operation?: Ext.data.IOperation;
+        operation?: Ext.data.IOperation | undefined;
         /** [Config Option] (Object) */
         params?: any;
         /** [Config Option] (String) */
-        password?: string;
+        password?: string | undefined;
         /** [Config Option] (Ext.data.proxy.Proxy) */
-        proxy?: Ext.data.proxy.IProxy;
+        proxy?: Ext.data.proxy.IProxy | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Config Option] (String) */
-        username?: string;
+        username?: string | undefined;
         /** [Config Option] (Boolean) */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
         /** [Config Option] (Object) */
         xmlData?: any;
         /** [Method] Returns the value of action
@@ -13888,17 +13888,17 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IResultSet extends Ext.IBase {
         /** [Config Option] (Number) */
-        count?: number;
+        count?: number | undefined;
         /** [Config Option] (Boolean) */
-        loaded?: boolean;
+        loaded?: boolean | undefined;
         /** [Config Option] (String) */
-        message?: string;
+        message?: string | undefined;
         /** [Config Option] (Ext.data.Model[]) */
-        records?: Ext.data.IModel[];
+        records?: Ext.data.IModel[] | undefined;
         /** [Config Option] (Boolean) */
-        success?: boolean;
+        success?: boolean | undefined;
         /** [Config Option] (Number) */
-        total?: number;
+        total?: number | undefined;
         /** [Method] Returns the value of count
         * @returns Number
         */
@@ -14030,31 +14030,31 @@ declare namespace Ext.data {
         /** [Config Option] (Boolean/Object) */
         autoLoad?: any;
         /** [Config Option] (Boolean) */
-        autoSync?: boolean;
+        autoSync?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        buffered?: boolean;
+        buffered?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        clearOnPageLoad?: boolean;
+        clearOnPageLoad?: boolean | undefined;
         /** [Config Option] (Object[]/Ext.data.Model[]) */
         data?: any;
         /** [Config Option] (Boolean) */
-        destroyRemovedRecords?: boolean;
+        destroyRemovedRecords?: boolean | undefined;
         /** [Config Option] (Object[]/Ext.util.Collection) */
         fields?: any;
         /** [Config Option] (Object[]) */
-        filters?: any[];
+        filters?: any[] | undefined;
         /** [Config Option] (Function) */
         getGroupString?: any;
         /** [Config Option] (String) */
-        groupDir?: string;
+        groupDir?: string | undefined;
         /** [Config Option] (String) */
-        groupField?: string;
+        groupField?: string | undefined;
         /** [Config Option] (Object) */
         grouper?: any;
         /** [Config Option] (String) */
-        model?: string;
+        model?: string | undefined;
         /** [Config Option] (Number) */
-        pageSize?: number;
+        pageSize?: number | undefined;
         /** [Config Option] (Object) */
         params?: any;
         /** [Config Option] (Object/Array) */
@@ -14062,21 +14062,21 @@ declare namespace Ext.data {
         /** [Config Option] (String/Ext.data.proxy.Proxy/Object) */
         proxy?: any;
         /** [Config Option] (Boolean) */
-        remoteFilter?: boolean;
+        remoteFilter?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        remoteGroup?: boolean;
+        remoteGroup?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        remoteSort?: boolean;
+        remoteSort?: boolean | undefined;
         /** [Config Option] (Object[]) */
-        sorters?: any[];
+        sorters?: any[] | undefined;
         /** [Config Option] (String) */
-        storeId?: string;
+        storeId?: string | undefined;
         /** [Config Option] (Boolean) */
-        syncRemovedRecords?: boolean;
+        syncRemovedRecords?: boolean | undefined;
         /** [Config Option] (Number) */
-        totalCount?: number;
+        totalCount?: number | undefined;
         /** [Property] (Number) */
-        currentPage?: number;
+        currentPage?: number | undefined;
         /** [Method] Adds Model instance to the Store
         * @param model Ext.data.Model[]/Ext.data.Model... An array of Model instances or Model configuration objects, or variable number of Model instance or config arguments.
         * @returns Ext.data.Model[] The model instances that were added.
@@ -15909,13 +15909,13 @@ declare namespace Ext {
 declare namespace Ext.data {
     export interface ITreeStore extends Ext.data.INodeStore {
         /** [Config Option] (Boolean) */
-        clearOnLoad?: boolean;
+        clearOnLoad?: boolean | undefined;
         /** [Config Option] (String) */
-        defaultRootId?: string;
+        defaultRootId?: string | undefined;
         /** [Config Option] (String) */
-        defaultRootProperty?: string;
+        defaultRootProperty?: string | undefined;
         /** [Config Option] (String) */
-        nodeParam?: string;
+        nodeParam?: string | undefined;
         /** [Config Option] (Ext.data.Model/Ext.data.NodeInterface/Object) */
         root?: any;
         /** [Method] Get the Record with the specified id
@@ -16149,13 +16149,13 @@ declare namespace Ext.data {
 declare namespace Ext.data.writer {
     export interface IJson extends Ext.data.writer.IWriter {
         /** [Config Option] (Boolean) */
-        allowSingle?: boolean;
+        allowSingle?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        encode?: boolean;
+        encode?: boolean | undefined;
         /** [Config Option] (String) */
-        root?: string;
+        root?: string | undefined;
         /** [Config Option] (String) */
-        rootProperty?: string;
+        rootProperty?: string | undefined;
         /** [Method] Returns the value of allowSingle
         * @returns Boolean
         */
@@ -16193,13 +16193,13 @@ declare namespace Ext.data.writer {
 declare namespace Ext.data {
     export interface IJsonWriter extends Ext.data.writer.IWriter {
         /** [Config Option] (Boolean) */
-        allowSingle?: boolean;
+        allowSingle?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        encode?: boolean;
+        encode?: boolean | undefined;
         /** [Config Option] (String) */
-        root?: string;
+        root?: string | undefined;
         /** [Config Option] (String) */
-        rootProperty?: string;
+        rootProperty?: string | undefined;
         /** [Method] Returns the value of allowSingle
         * @returns Boolean
         */
@@ -16237,9 +16237,9 @@ declare namespace Ext.data {
 declare namespace Ext.data.writer {
     export interface IWriter extends Ext.IBase {
         /** [Config Option] (String) */
-        nameProperty?: string;
+        nameProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        writeAllFields?: boolean;
+        writeAllFields?: boolean | undefined;
         /** [Method] Returns the value of nameProperty
         * @returns String
         */
@@ -16271,9 +16271,9 @@ declare namespace Ext.data.writer {
 declare namespace Ext.data {
     export interface IDataWriter extends Ext.IBase {
         /** [Config Option] (String) */
-        nameProperty?: string;
+        nameProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        writeAllFields?: boolean;
+        writeAllFields?: boolean | undefined;
         /** [Method] Returns the value of nameProperty
         * @returns String
         */
@@ -16305,9 +16305,9 @@ declare namespace Ext.data {
 declare namespace Ext.data {
     export interface IWriter extends Ext.IBase {
         /** [Config Option] (String) */
-        nameProperty?: string;
+        nameProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        writeAllFields?: boolean;
+        writeAllFields?: boolean | undefined;
         /** [Method] Returns the value of nameProperty
         * @returns String
         */
@@ -16339,13 +16339,13 @@ declare namespace Ext.data {
 declare namespace Ext.data.writer {
     export interface IXml extends Ext.data.writer.IWriter {
         /** [Config Option] (String) */
-        defaultDocumentRoot?: string;
+        defaultDocumentRoot?: string | undefined;
         /** [Config Option] (String) */
-        documentRoot?: string;
+        documentRoot?: string | undefined;
         /** [Config Option] (String) */
-        header?: string;
+        header?: string | undefined;
         /** [Config Option] (String) */
-        record?: string;
+        record?: string | undefined;
         /** [Method] Returns the value of defaultDocumentRoot
         * @returns String
         */
@@ -16389,13 +16389,13 @@ declare namespace Ext.data.writer {
 declare namespace Ext.data {
     export interface IXmlWriter extends Ext.data.writer.IWriter {
         /** [Config Option] (String) */
-        defaultDocumentRoot?: string;
+        defaultDocumentRoot?: string | undefined;
         /** [Config Option] (String) */
-        documentRoot?: string;
+        documentRoot?: string | undefined;
         /** [Config Option] (String) */
-        header?: string;
+        header?: string | undefined;
         /** [Config Option] (String) */
-        record?: string;
+        record?: string | undefined;
         /** [Method] Returns the value of defaultDocumentRoot
         * @returns String
         */
@@ -16445,17 +16445,17 @@ declare namespace Ext.dataview.component {
 declare namespace Ext.dataview.component {
     export interface IDataItem extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Object) */
         dataMap?: any;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (String) */
-        itemCls?: string;
+        itemCls?: string | undefined;
         /** [Config Option] (Array/Object) */
         items?: any;
         /** [Config Option] (Ext.data.Model) */
-        record?: Ext.data.IModel;
+        record?: Ext.data.IModel | undefined;
         /** [Config Option] (Number/String) */
         width?: any;
         /** [Method] Returns the value of baseCls
@@ -16515,7 +16515,7 @@ declare namespace Ext.dataview.component {
 declare namespace Ext.dataview.component {
     export interface IListItem extends Ext.dataview.component.IDataItem {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Object) */
         dataMap?: any;
         /** [Config Option] (Array/Object) */
@@ -16577,9 +16577,9 @@ declare namespace Ext.dataview.component {
 declare namespace Ext.dataview.component {
     export interface ISimpleListItem extends Ext.IComponent {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Ext.data.Model) */
-        record?: Ext.data.IModel;
+        record?: Ext.data.IModel | undefined;
         /** [Method] Destroys this Component  */
         destroy?(): void;
         /** [Method] Returns the value of baseCls
@@ -16621,63 +16621,63 @@ declare namespace Ext.dataview.component {
 declare namespace Ext.dataview {
     export interface IDataView extends Ext.IContainer,Ext.mixin.ISelectable {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        blockRefresh?: boolean;
+        blockRefresh?: boolean | undefined;
         /** [Config Option] (Object[]) */
-        data?: any[];
+        data?: any[] | undefined;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Boolean) */
-        deferEmptyText?: boolean;
+        deferEmptyText?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        deselectOnContainerClick?: boolean;
+        deselectOnContainerClick?: boolean | undefined;
         /** [Config Option] (String) */
-        emptyText?: string;
+        emptyText?: string | undefined;
         /** [Config Option] (Boolean/Object) */
         inline?: any;
         /** [Config Option] (String) */
-        itemCls?: string;
+        itemCls?: string | undefined;
         /** [Config Option] (Object) */
         itemConfig?: any;
         /** [Config Option] (Boolean) */
-        itemSelector?: boolean;
+        itemSelector?: boolean | undefined;
         /** [Config Option] (String/String[]/Ext.XTemplate) */
         itemTpl?: any;
         /** [Config Option] (String/Boolean) */
         loadingText?: any;
         /** [Config Option] (Number) */
-        maxItemCache?: number;
+        maxItemCache?: number | undefined;
         /** [Config Option] (Boolean) */
-        multiSelect?: boolean;
+        multiSelect?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        overItemCls?: boolean;
+        overItemCls?: boolean | undefined;
         /** [Config Option] (String) */
-        pressedCls?: string;
+        pressedCls?: string | undefined;
         /** [Config Option] (Number) */
-        pressedDelay?: number;
+        pressedDelay?: number | undefined;
         /** [Config Option] (Boolean) */
-        scrollToTopOnRefresh?: boolean;
+        scrollToTopOnRefresh?: boolean | undefined;
         /** [Config Option] (Boolean/String/Object) */
         scrollable?: any;
         /** [Config Option] (String) */
-        selectedCls?: string;
+        selectedCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        selectedItemCls?: boolean;
+        selectedItemCls?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        simpleSelect?: boolean;
+        simpleSelect?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        singleSelect?: boolean;
+        singleSelect?: boolean | undefined;
         /** [Config Option] (Ext.data.Store/Object) */
         store?: any;
         /** [Config Option] (Boolean) */
-        trackOver?: boolean;
+        trackOver?: boolean | undefined;
         /** [Config Option] (String) */
-        triggerCtEvent?: string;
+        triggerCtEvent?: string | undefined;
         /** [Config Option] (String) */
-        triggerEvent?: string;
+        triggerEvent?: string | undefined;
         /** [Config Option] (Boolean) */
-        useComponents?: boolean;
+        useComponents?: boolean | undefined;
         /** [Method] Binds a new Store to this DataView  */
         bindStore?(): void;
         /** [Method] Deselects any currently selected records and clears all stored selections  */
@@ -16999,63 +16999,63 @@ declare namespace Ext.dataview {
 declare namespace Ext {
     export interface IDataView extends Ext.IContainer,Ext.mixin.ISelectable {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        blockRefresh?: boolean;
+        blockRefresh?: boolean | undefined;
         /** [Config Option] (Object[]) */
-        data?: any[];
+        data?: any[] | undefined;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Boolean) */
-        deferEmptyText?: boolean;
+        deferEmptyText?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        deselectOnContainerClick?: boolean;
+        deselectOnContainerClick?: boolean | undefined;
         /** [Config Option] (String) */
-        emptyText?: string;
+        emptyText?: string | undefined;
         /** [Config Option] (Boolean/Object) */
         inline?: any;
         /** [Config Option] (String) */
-        itemCls?: string;
+        itemCls?: string | undefined;
         /** [Config Option] (Object) */
         itemConfig?: any;
         /** [Config Option] (Boolean) */
-        itemSelector?: boolean;
+        itemSelector?: boolean | undefined;
         /** [Config Option] (String/String[]/Ext.XTemplate) */
         itemTpl?: any;
         /** [Config Option] (String/Boolean) */
         loadingText?: any;
         /** [Config Option] (Number) */
-        maxItemCache?: number;
+        maxItemCache?: number | undefined;
         /** [Config Option] (Boolean) */
-        multiSelect?: boolean;
+        multiSelect?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        overItemCls?: boolean;
+        overItemCls?: boolean | undefined;
         /** [Config Option] (String) */
-        pressedCls?: string;
+        pressedCls?: string | undefined;
         /** [Config Option] (Number) */
-        pressedDelay?: number;
+        pressedDelay?: number | undefined;
         /** [Config Option] (Boolean) */
-        scrollToTopOnRefresh?: boolean;
+        scrollToTopOnRefresh?: boolean | undefined;
         /** [Config Option] (Boolean/String/Object) */
         scrollable?: any;
         /** [Config Option] (String) */
-        selectedCls?: string;
+        selectedCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        selectedItemCls?: boolean;
+        selectedItemCls?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        simpleSelect?: boolean;
+        simpleSelect?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        singleSelect?: boolean;
+        singleSelect?: boolean | undefined;
         /** [Config Option] (Ext.data.Store/Object) */
         store?: any;
         /** [Config Option] (Boolean) */
-        trackOver?: boolean;
+        trackOver?: boolean | undefined;
         /** [Config Option] (String) */
-        triggerCtEvent?: string;
+        triggerCtEvent?: string | undefined;
         /** [Config Option] (String) */
-        triggerEvent?: string;
+        triggerEvent?: string | undefined;
         /** [Config Option] (Boolean) */
-        useComponents?: boolean;
+        useComponents?: boolean | undefined;
         /** [Method] Binds a new Store to this DataView  */
         bindStore?(): void;
         /** [Method] Deselects any currently selected records and clears all stored selections  */
@@ -17390,21 +17390,21 @@ declare namespace Ext.dataview.element {
 declare namespace Ext.dataview {
     export interface IIndexBar extends Ext.IComponent {
         /** [Config Option] (Boolean) */
-        alphabet?: boolean;
+        alphabet?: boolean | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (Boolean) */
-        itemSelector?: boolean;
+        itemSelector?: boolean | undefined;
         /** [Config Option] (Array) */
-        letters?: any[];
+        letters?: any[] | undefined;
         /** [Config Option] (String) */
-        listPrefix?: string;
+        listPrefix?: string | undefined;
         /** [Config Option] (Boolean) */
-        store?: boolean;
+        store?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Destroys this Component  */
         destroy?(): void;
         /** [Method] Returns the value of baseCls
@@ -17458,21 +17458,21 @@ declare namespace Ext.dataview {
 declare namespace Ext {
     export interface IIndexBar extends Ext.IComponent {
         /** [Config Option] (Boolean) */
-        alphabet?: boolean;
+        alphabet?: boolean | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (Boolean) */
-        itemSelector?: boolean;
+        itemSelector?: boolean | undefined;
         /** [Config Option] (Array) */
-        letters?: any[];
+        letters?: any[] | undefined;
         /** [Config Option] (String) */
-        listPrefix?: string;
+        listPrefix?: string | undefined;
         /** [Config Option] (Boolean) */
-        store?: boolean;
+        store?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Destroys this Component  */
         destroy?(): void;
         /** [Method] Returns the value of baseCls
@@ -17526,37 +17526,37 @@ declare namespace Ext {
 declare namespace Ext.dataview {
     export interface IList extends Ext.dataview.IDataView,Ext.mixin.IBindable {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (String) */
-        disclosureProperty?: string;
+        disclosureProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        grouped?: boolean;
+        grouped?: boolean | undefined;
         /** [Config Option] (Boolean/Object) */
         indexBar?: any;
         /** [Config Option] (Boolean) */
-        infinite?: boolean;
+        infinite?: boolean | undefined;
         /** [Config Option] (Number) */
-        itemHeight?: number;
+        itemHeight?: number | undefined;
         /** [Config Option] (Boolean/Function/Object) */
         onItemDisclosure?: any;
         /** [Config Option] (Boolean) */
-        pinHeaders?: boolean;
+        pinHeaders?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        preventSelectionOnDisclose?: boolean;
+        preventSelectionOnDisclose?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        refreshHeightOnUpdate?: boolean;
+        refreshHeightOnUpdate?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        striped?: boolean;
+        striped?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Boolean) */
-        useSimpleItems?: boolean;
+        useSimpleItems?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        variableHeights?: boolean;
+        variableHeights?: boolean | undefined;
         /** [Property] (Number) */
-        bufferSize?: number;
+        bufferSize?: number | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of baseCls
@@ -17734,37 +17734,37 @@ declare namespace Ext.dataview {
 declare namespace Ext {
     export interface IList extends Ext.dataview.IDataView,Ext.mixin.IBindable {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (String) */
-        disclosureProperty?: string;
+        disclosureProperty?: string | undefined;
         /** [Config Option] (Boolean) */
-        grouped?: boolean;
+        grouped?: boolean | undefined;
         /** [Config Option] (Boolean/Object) */
         indexBar?: any;
         /** [Config Option] (Boolean) */
-        infinite?: boolean;
+        infinite?: boolean | undefined;
         /** [Config Option] (Number) */
-        itemHeight?: number;
+        itemHeight?: number | undefined;
         /** [Config Option] (Boolean/Function/Object) */
         onItemDisclosure?: any;
         /** [Config Option] (Boolean) */
-        pinHeaders?: boolean;
+        pinHeaders?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        preventSelectionOnDisclose?: boolean;
+        preventSelectionOnDisclose?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        refreshHeightOnUpdate?: boolean;
+        refreshHeightOnUpdate?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        striped?: boolean;
+        striped?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Boolean) */
-        useSimpleItems?: boolean;
+        useSimpleItems?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        variableHeights?: boolean;
+        variableHeights?: boolean | undefined;
         /** [Property] (Number) */
-        bufferSize?: number;
+        bufferSize?: number | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of baseCls
@@ -17942,7 +17942,7 @@ declare namespace Ext {
 declare namespace Ext.dataview {
     export interface IListItemHeader extends Ext.IComponent {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -17956,51 +17956,51 @@ declare namespace Ext.dataview {
 declare namespace Ext.dataview {
     export interface INestedList extends Ext.IContainer {
         /** [Config Option] (Boolean) */
-        allowDeselect?: boolean;
+        allowDeselect?: boolean | undefined;
         /** [Config Option] (Object) */
         backButton?: any;
         /** [Config Option] (String) */
-        backText?: string;
+        backText?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String/Object/Boolean) */
         cardSwitchAnimation?: any;
         /** [Config Option] (Number) */
-        clearSelectionDelay?: number;
+        clearSelectionDelay?: number | undefined;
         /** [Config Option] (Ext.Component) */
-        detailCard?: Ext.IComponent;
+        detailCard?: Ext.IComponent | undefined;
         /** [Config Option] (Ext.Container) */
-        detailContainer?: Ext.IContainer;
+        detailContainer?: Ext.IContainer | undefined;
         /** [Config Option] (String) */
-        displayField?: string;
+        displayField?: string | undefined;
         /** [Config Option] (String) */
-        emptyText?: string;
+        emptyText?: string | undefined;
         /** [Config Option] (Number) */
-        itemHeight?: number;
+        itemHeight?: number | undefined;
         /** [Config Option] (Object) */
         listConfig?: any;
         /** [Config Option] (String) */
-        loadingText?: string;
+        loadingText?: string | undefined;
         /** [Config Option] (Boolean/Function) */
         onItemDisclosure?: any;
         /** [Config Option] (Ext.data.TreeStore/String) */
         store?: any;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Config Option] (Ext.Toolbar/Object/Boolean) */
         toolbar?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Boolean) */
-        updateTitleText?: boolean;
+        updateTitleText?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        useSimpleItems?: boolean;
+        useSimpleItems?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        useTitleAsBackText?: boolean;
+        useTitleAsBackText?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        useToolbar?: boolean;
+        useToolbar?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        variableHeights?: boolean;
+        variableHeights?: boolean | undefined;
         /** [Method] Returns the value of allowDeselect
         * @returns Boolean
         */
@@ -18208,51 +18208,51 @@ declare namespace Ext.dataview {
 declare namespace Ext {
     export interface INestedList extends Ext.IContainer {
         /** [Config Option] (Boolean) */
-        allowDeselect?: boolean;
+        allowDeselect?: boolean | undefined;
         /** [Config Option] (Object) */
         backButton?: any;
         /** [Config Option] (String) */
-        backText?: string;
+        backText?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String/Object/Boolean) */
         cardSwitchAnimation?: any;
         /** [Config Option] (Number) */
-        clearSelectionDelay?: number;
+        clearSelectionDelay?: number | undefined;
         /** [Config Option] (Ext.Component) */
-        detailCard?: Ext.IComponent;
+        detailCard?: Ext.IComponent | undefined;
         /** [Config Option] (Ext.Container) */
-        detailContainer?: Ext.IContainer;
+        detailContainer?: Ext.IContainer | undefined;
         /** [Config Option] (String) */
-        displayField?: string;
+        displayField?: string | undefined;
         /** [Config Option] (String) */
-        emptyText?: string;
+        emptyText?: string | undefined;
         /** [Config Option] (Number) */
-        itemHeight?: number;
+        itemHeight?: number | undefined;
         /** [Config Option] (Object) */
         listConfig?: any;
         /** [Config Option] (String) */
-        loadingText?: string;
+        loadingText?: string | undefined;
         /** [Config Option] (Boolean/Function) */
         onItemDisclosure?: any;
         /** [Config Option] (Ext.data.TreeStore/String) */
         store?: any;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Config Option] (Ext.Toolbar/Object/Boolean) */
         toolbar?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Boolean) */
-        updateTitleText?: boolean;
+        updateTitleText?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        useSimpleItems?: boolean;
+        useSimpleItems?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        useTitleAsBackText?: boolean;
+        useTitleAsBackText?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        useToolbar?: boolean;
+        useToolbar?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        variableHeights?: boolean;
+        variableHeights?: boolean | undefined;
         /** [Method] Returns the value of allowDeselect
         * @returns Boolean
         */
@@ -18848,7 +18848,7 @@ declare namespace Ext {
 declare namespace Ext.device.accelerometer {
     export interface IAbstract extends Ext.IBase {
         /** [Config Option] (Number) */
-        frequency?: number;
+        frequency?: number | undefined;
         /** [Method] Returns the value of frequency
         * @returns Number
         */
@@ -19217,7 +19217,7 @@ declare namespace Ext.device {
 declare namespace Ext.device.compass {
     export interface IAbstract extends Ext.IBase {
         /** [Config Option] (Number) */
-        frequency?: number;
+        frequency?: number | undefined;
         /** [Method] Returns the value of frequency
         * @returns Number
         */
@@ -19290,19 +19290,19 @@ declare namespace Ext.device.compass {
 declare namespace Ext.device.connection {
     export interface IAbstract extends Ext.IEvented,Ext.mixin.IObservable {
         /** [Property] (String) */
-        CELL_2G?: string;
+        CELL_2G?: string | undefined;
         /** [Property] (String) */
-        CELL_3G?: string;
+        CELL_3G?: string | undefined;
         /** [Property] (String) */
-        CELL_4G?: string;
+        CELL_4G?: string | undefined;
         /** [Property] (String) */
-        ETHERNET?: string;
+        ETHERNET?: string | undefined;
         /** [Property] (String) */
-        NONE?: string;
+        NONE?: string | undefined;
         /** [Property] (String) */
-        UNKNOWN?: string;
+        UNKNOWN?: string | undefined;
         /** [Property] (String) */
-        WIFI?: string;
+        WIFI?: string | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -19793,7 +19793,7 @@ declare namespace Ext.device.connection {
 declare namespace Ext.device.contacts {
     export interface IAbstract extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Boolean) */
-        includeImages?: boolean;
+        includeImages?: boolean | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -20277,13 +20277,13 @@ declare namespace Ext.device.contacts {
 declare namespace Ext.device.device {
     export interface IAbstract extends Ext.IBase,Ext.mixin.IObservable {
         /** [Property] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Property] (String) */
-        platform?: string;
+        platform?: string | undefined;
         /** [Property] (Object/Boolean) */
         scheme?: any;
         /** [Property] (String) */
-        uuid?: string;
+        uuid?: string | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -20470,21 +20470,21 @@ declare namespace Ext.device.device {
 declare namespace Ext.device.device {
     export interface ICordova extends Ext.device.device.IAbstract {
         /** [Property] (String) */
-        cordova?: string;
+        cordova?: string | undefined;
         /** [Property] (String) */
-        model?: string;
+        model?: string | undefined;
         /** [Property] (String) */
-        version?: string;
+        version?: string | undefined;
     }
 }
 declare namespace Ext.device.device {
     export interface IPhoneGap extends Ext.device.device.IAbstract {
         /** [Property] (String) */
-        cordova?: string;
+        cordova?: string | undefined;
         /** [Property] (String) */
-        model?: string;
+        model?: string | undefined;
         /** [Property] (String) */
-        version?: string;
+        version?: string | undefined;
     }
 }
 declare namespace Ext.device {
@@ -21015,13 +21015,13 @@ declare namespace Ext.device.filesystem {
 declare namespace Ext.device.geolocation {
     export interface IAbstract extends Ext.IBase {
         /** [Config Option] (Boolean) */
-        allowHighAccuracy?: boolean;
+        allowHighAccuracy?: boolean | undefined;
         /** [Config Option] (Number) */
-        frequency?: number;
+        frequency?: number | undefined;
         /** [Config Option] (Number) */
-        maximumAge?: number;
+        maximumAge?: number | undefined;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Method] If you are currently watching for the current position this will stop that task  */
         clearWatch?(): void;
         /** [Method] Returns the value of allowHighAccuracy
@@ -21675,13 +21675,13 @@ declare namespace Ext.device.media {
 declare namespace Ext.device.media {
     export interface ICordova extends Ext.device.media.IAbstract {
         /** [Property] (String) */
-        src?: string;
+        src?: string | undefined;
     }
 }
 declare namespace Ext.device.media {
     export interface IPhoneGap extends Ext.device.media.IAbstract {
         /** [Property] (String) */
-        src?: string;
+        src?: string | undefined;
     }
 }
 declare namespace Ext.device {
@@ -22526,11 +22526,11 @@ declare namespace Ext.device.purchases {
 declare namespace Ext.device.push {
     export interface IAbstract extends Ext.IBase {
         /** [Property] (Number) */
-        ALERT?: number;
+        ALERT?: number | undefined;
         /** [Property] (Number) */
-        BADGE?: number;
+        BADGE?: number | undefined;
         /** [Property] (Number) */
-        SOUND?: number;
+        SOUND?: number | undefined;
         /** [Method] Registers a push notification
         * @param config Object The configuration for to pass when registering this push notification service.
         */
@@ -22863,7 +22863,7 @@ declare namespace Ext.direct {
         /** [Config Option] (Object) */
         data?: any;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Method] Returns the value of code
         * @returns Object
         */
@@ -22933,7 +22933,7 @@ declare namespace Ext.direct {
 declare namespace Ext.direct {
     export interface IExceptionEvent extends Ext.direct.IRemotingEvent {
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Method] Returns the value of error
         * @returns Object
         */
@@ -23450,7 +23450,7 @@ declare namespace Ext.direct {
         /** [Config Option] (Object) */
         baseParams?: any;
         /** [Config Option] (Number) */
-        interval?: number;
+        interval?: number | undefined;
         /** [Config Option] (String/Function) */
         url?: any;
         /** [Method] Connect to the server side and begin the polling process  */
@@ -23490,9 +23490,9 @@ declare namespace Ext.direct {
 declare namespace Ext.direct {
     export interface IProvider extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Property] (Boolean) */
-        isProvider?: boolean;
+        isProvider?: boolean | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -23691,7 +23691,7 @@ declare namespace Ext.direct {
 declare namespace Ext.direct {
     export interface IRemotingEvent extends Ext.direct.IEvent {
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Method] Returns the value of name
         * @returns String
         */
@@ -23774,15 +23774,15 @@ declare namespace Ext.direct {
         /** [Config Option] (Number/Boolean) */
         enableBuffer?: any;
         /** [Config Option] (String) */
-        enableUrlEncode?: string;
+        enableUrlEncode?: string | undefined;
         /** [Config Option] (Number) */
-        maxRetries?: number;
+        maxRetries?: number | undefined;
         /** [Config Option] (String/Object) */
         namespace?: any;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Method] Abstract methods for subclasses to implement  */
         connect?(): void;
         /** [Method] Abstract methods for subclasses to implement  */
@@ -23936,7 +23936,7 @@ declare namespace Ext {
 declare namespace Ext.dom {
     export interface ICompositeElementLite extends Ext.IBase,Ext.dom.IElement {
         /** [Property] (HTMLElement[]) */
-        elements?: HTMLElement[];
+        elements?: HTMLElement[] | undefined;
         /** [Method] Adds elements to this Composite object
         * @param els HTMLElement[]/Ext.dom.CompositeElementLite Either an Array of DOM elements to add, or another Composite object who's elements should be added.
         * @param root HTMLElement/String The root element of the query or id of the root.
@@ -24460,7 +24460,7 @@ declare namespace Ext.dom {
 declare namespace Ext {
     export interface ICompositeElementLite extends Ext.IBase,Ext.dom.IElement {
         /** [Property] (HTMLElement[]) */
-        elements?: HTMLElement[];
+        elements?: HTMLElement[] | undefined;
         /** [Method] Adds elements to this Composite object
         * @param els HTMLElement[]/Ext.dom.CompositeElementLite Either an Array of DOM elements to add, or another Composite object who's elements should be added.
         * @param root HTMLElement/String The root element of the query or id of the root.
@@ -24984,7 +24984,7 @@ declare namespace Ext {
 declare namespace Ext {
     export interface ICompositeElement extends Ext.IBase,Ext.dom.IElement {
         /** [Property] (HTMLElement[]) */
-        elements?: HTMLElement[];
+        elements?: HTMLElement[] | undefined;
         /** [Method] Adds elements to this Composite object
         * @param els HTMLElement[]/Ext.dom.CompositeElementLite Either an Array of DOM elements to add, or another Composite object who's elements should be added.
         * @param root HTMLElement/String The root element of the query or id of the root.
@@ -25508,17 +25508,17 @@ declare namespace Ext {
 declare namespace Ext.dom {
     export interface IElement extends Ext.IBase,Ext.mixin.IObservable {
         /** [Property] (Number) */
-        DISPLAY?: number;
+        DISPLAY?: number | undefined;
         /** [Property] (Number) */
-        OFFSETS?: number;
+        OFFSETS?: number | undefined;
         /** [Property] (Number) */
-        VISIBILITY?: number;
+        VISIBILITY?: number | undefined;
         /** [Property] (String) */
-        defaultUnit?: string;
+        defaultUnit?: string | undefined;
         /** [Property] (HTMLElement) */
-        dom?: HTMLElement;
+        dom?: HTMLElement | undefined;
         /** [Property] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -26272,17 +26272,17 @@ declare namespace Ext.dom {
 declare namespace Ext {
     export interface IElement extends Ext.IBase,Ext.mixin.IObservable {
         /** [Property] (Number) */
-        DISPLAY?: number;
+        DISPLAY?: number | undefined;
         /** [Property] (Number) */
-        OFFSETS?: number;
+        OFFSETS?: number | undefined;
         /** [Property] (Number) */
-        VISIBILITY?: number;
+        VISIBILITY?: number | undefined;
         /** [Property] (String) */
-        defaultUnit?: string;
+        defaultUnit?: string | undefined;
         /** [Property] (HTMLElement) */
-        dom?: HTMLElement;
+        dom?: HTMLElement | undefined;
         /** [Property] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -27390,7 +27390,7 @@ declare namespace Ext.draw {
 declare namespace Ext.draw {
     export interface IColor extends Ext.IBase {
         /** [Config Option] (Number) */
-        lightnessFactor?: number;
+        lightnessFactor?: number | undefined;
         /** [Method] Return a new color that is darker than this color
         * @param factor Number Darker factor (0..1).
         * @returns Ext.draw.Color
@@ -27493,19 +27493,19 @@ declare namespace Ext.draw {
 declare namespace Ext.draw {
     export interface IComponent extends Ext.IContainer {
         /** [Config Option] (Boolean) */
-        autoSize?: boolean;
+        autoSize?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Boolean) */
-        fitSurface?: boolean;
+        fitSurface?: boolean | undefined;
         /** [Config Option] (Object[]) */
-        gradients?: any[];
+        gradients?: any[] | undefined;
         /** [Config Option] (Function) */
         resizeHandler?: any;
         /** [Config Option] (Boolean) */
-        viewBox?: boolean;
+        viewBox?: boolean | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of autoSize
@@ -27660,7 +27660,7 @@ declare namespace Ext.draw {
 declare namespace Ext.draw.engine {
     export interface ICanvas extends Ext.draw.ISurface {
         /** [Config Option] (Boolean) */
-        highPrecision?: boolean;
+        highPrecision?: boolean | undefined;
         /** [Method] Empty the surface content without touching the sprites */
         clear?(): void;
         /** [Method] Clears the current transformation state on the surface  */
@@ -27682,7 +27682,7 @@ declare namespace Ext.draw.engine {
 declare namespace Ext.draw.engine {
     export interface ISvg extends Ext.draw.ISurface {
         /** [Config Option] (Boolean) */
-        highPrecision?: boolean;
+        highPrecision?: boolean | undefined;
         /** [Method] Empty the surface content without touching the sprites */
         clear?(): void;
         /** [Method] Clears the current transformation state on the surface  */
@@ -27909,7 +27909,7 @@ declare namespace Ext.draw.gradient {
 declare namespace Ext.draw.gradient {
     export interface ILinear extends Ext.draw.gradient.IGradient {
         /** [Config Option] (Number) */
-        The?: number;
+        The?: number | undefined;
         /** [Method] Generates the gradient for the given context
         * @param ctx Ext.draw.engine.SvgContext The context.
         * @param bbox Object
@@ -28191,7 +28191,7 @@ declare namespace Ext.draw {
         /** [Config Option] (Function) */
         feeder?: any;
         /** [Config Option] (Number) */
-        limit?: number;
+        limit?: number | undefined;
         /** [Config Option] (Object) */
         scope?: any;
         /** [Method] Clear all the objects  */
@@ -28232,7 +28232,7 @@ declare namespace Ext.draw {
 declare namespace Ext.draw {
     export interface IMatrix extends Ext.IBase {
         /** [Property] (Number) */
-        a?: number;
+        a?: number | undefined;
         /** [Method] Postpend a matrix onto the current
         * @param xx Number Coefficient from x to x.
         * @param xy Number Coefficient from x to y.
@@ -28505,7 +28505,7 @@ declare namespace Ext.draw.modifier {
         /** [Config Option] (Object) */
         customEasings?: any;
         /** [Config Option] (Number) */
-        duration?: number;
+        duration?: number | undefined;
         /** [Config Option] (Function) */
         easing?: any;
         /** [Method] Appends an after event handler
@@ -28757,7 +28757,7 @@ declare namespace Ext.draw.modifier {
 declare namespace Ext.draw.modifier {
     export interface IHighlight extends Ext.draw.modifier.IModifier {
         /** [Config Option] (Boolean) */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /** [Config Option] (Object) */
         highlightStyle?: any;
         /** [Method] Filter modifier changes if overriding source attributes
@@ -28802,11 +28802,11 @@ declare namespace Ext.draw.modifier {
 declare namespace Ext.draw.modifier {
     export interface IModifier extends Ext.IBase {
         /** [Config Option] (Ext.draw.modifier.Modifier) */
-        next?: Ext.draw.modifier.IModifier;
+        next?: Ext.draw.modifier.IModifier | undefined;
         /** [Config Option] (Ext.draw.modifier.Modifier) */
-        previous?: Ext.draw.modifier.IModifier;
+        previous?: Ext.draw.modifier.IModifier | undefined;
         /** [Config Option] (Ext.draw.sprite.Sprite) */
-        sprite?: Ext.draw.sprite.ISprite;
+        sprite?: Ext.draw.sprite.ISprite | undefined;
         /** [Method] Returns the value of next
         * @returns Ext.draw.modifier.Modifier
         */
@@ -29120,11 +29120,11 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface IArc extends Ext.draw.sprite.ICircle {
         /** [Config Option] (Boolean) */
-        anticlockwise?: boolean;
+        anticlockwise?: boolean | undefined;
         /** [Config Option] (Number) */
-        endAngle?: number;
+        endAngle?: number | undefined;
         /** [Config Option] (Number) */
-        startAngle?: number;
+        startAngle?: number | undefined;
         /** [Method] Update the path
         * @param path Object
         * @param attr Object
@@ -29235,11 +29235,11 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface ICircle extends Ext.draw.sprite.IPath {
         /** [Config Option] (Number) */
-        cx?: number;
+        cx?: number | undefined;
         /** [Config Option] (Number) */
-        cy?: number;
+        cy?: number | undefined;
         /** [Config Option] (Number) */
-        r?: number;
+        r?: number | undefined;
         /** [Method] Update the path
         * @param path Object
         * @param attr Object
@@ -29276,15 +29276,15 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface IEllipse extends Ext.draw.sprite.IPath {
         /** [Config Option] (Number) */
-        axisRotation?: number;
+        axisRotation?: number | undefined;
         /** [Config Option] (Number) */
-        cx?: number;
+        cx?: number | undefined;
         /** [Config Option] (Number) */
-        cy?: number;
+        cy?: number | undefined;
         /** [Config Option] (Number) */
-        rx?: number;
+        rx?: number | undefined;
         /** [Config Option] (Number) */
-        ry?: number;
+        ry?: number | undefined;
         /** [Method] Update the path
         * @param path Object
         * @param attr Object
@@ -29303,11 +29303,11 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface IEllipticalArc extends Ext.draw.sprite.IEllipse {
         /** [Config Option] (Boolean) */
-        anticlockwise?: boolean;
+        anticlockwise?: boolean | undefined;
         /** [Config Option] (Number) */
-        endAngle?: number;
+        endAngle?: number | undefined;
         /** [Config Option] (Number) */
-        startAngle?: number;
+        startAngle?: number | undefined;
         /** [Method] Update the path
         * @param path Object
         * @param attr Object
@@ -29318,7 +29318,7 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface IImage extends Ext.draw.sprite.IRect {
         /** [Config Option] (String) */
-        src?: string;
+        src?: string | undefined;
         /** [Method] Render method
         * @param surface Object
         * @param ctx Object
@@ -29378,7 +29378,7 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface IPath extends Ext.draw.sprite.ISprite {
         /** [Config Option] (String) */
-        path?: string;
+        path?: string | undefined;
         /** [Method] Render method
         * @param surface Object
         * @param ctx Object
@@ -29403,15 +29403,15 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface IRect extends Ext.draw.sprite.IPath {
         /** [Config Option] (Number) */
-        height?: number;
+        height?: number | undefined;
         /** [Config Option] (Number) */
-        radius?: number;
+        radius?: number | undefined;
         /** [Config Option] (Number) */
-        width?: number;
+        width?: number | undefined;
         /** [Config Option] (Number) */
-        x?: number;
+        x?: number | undefined;
         /** [Config Option] (Number) */
-        y?: number;
+        y?: number | undefined;
         /** [Method] Update the path
         * @param path Object
         * @param attr Object
@@ -29431,19 +29431,19 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface ISector extends Ext.draw.sprite.IPath {
         /** [Config Option] (Number) */
-        centerX?: number;
+        centerX?: number | undefined;
         /** [Config Option] (Number) */
-        centerY?: number;
+        centerY?: number | undefined;
         /** [Config Option] (Number) */
-        endAngle?: number;
+        endAngle?: number | undefined;
         /** [Config Option] (Number) */
-        endRho?: number;
+        endRho?: number | undefined;
         /** [Config Option] (Number) */
-        margin?: number;
+        margin?: number | undefined;
         /** [Config Option] (Number) */
-        startAngle?: number;
+        startAngle?: number | undefined;
         /** [Config Option] (Number) */
-        startRho?: number;
+        startRho?: number | undefined;
         /** [Method] Update the path
         * @param path Object
         * @param attr Object
@@ -29454,59 +29454,59 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface ISprite extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Number) */
-        A?: number;
+        A?: number | undefined;
         /** [Config Option] (Array) */
-        An?: any[];
+        An?: any[] | undefined;
         /** [Config Option] (Number) */
-        fillOpacity?: number;
+        fillOpacity?: number | undefined;
         /** [Config Option] (String) */
-        fillStyle?: string;
+        fillStyle?: string | undefined;
         /** [Config Option] (Number) */
-        globalAlpha?: number;
+        globalAlpha?: number | undefined;
         /** [Config Option] (Boolean) */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** [Config Option] (String) */
-        lineCap?: string;
+        lineCap?: string | undefined;
         /** [Config Option] (String) */
-        lineJoin?: string;
+        lineJoin?: string | undefined;
         /** [Config Option] (Number) */
-        lineWidth?: number;
+        lineWidth?: number | undefined;
         /** [Config Option] (Number) */
-        miterLimit?: number;
+        miterLimit?: number | undefined;
         /** [Config Option] (Number) */
-        rotationCenterX?: number;
+        rotationCenterX?: number | undefined;
         /** [Config Option] (Number) */
-        rotationCenterY?: number;
+        rotationCenterY?: number | undefined;
         /** [Config Option] (Number) */
-        rotationRads?: number;
+        rotationRads?: number | undefined;
         /** [Config Option] (Number) */
-        scalingCenterX?: number;
+        scalingCenterX?: number | undefined;
         /** [Config Option] (Number) */
-        scalingCenterY?: number;
+        scalingCenterY?: number | undefined;
         /** [Config Option] (Number) */
-        scalingX?: number;
+        scalingX?: number | undefined;
         /** [Config Option] (Number) */
-        scalingY?: number;
+        scalingY?: number | undefined;
         /** [Config Option] (Number) */
-        shadowBlur?: number;
+        shadowBlur?: number | undefined;
         /** [Config Option] (String) */
-        shadowColor?: string;
+        shadowColor?: string | undefined;
         /** [Config Option] (Number) */
-        shadowOffsetX?: number;
+        shadowOffsetX?: number | undefined;
         /** [Config Option] (Number) */
-        shadowOffsetY?: number;
+        shadowOffsetY?: number | undefined;
         /** [Config Option] (Number) */
-        strokeOpacity?: number;
+        strokeOpacity?: number | undefined;
         /** [Config Option] (String) */
-        strokeStyle?: string;
+        strokeStyle?: string | undefined;
         /** [Config Option] (Boolean) */
-        transformFillStroke?: boolean;
+        transformFillStroke?: boolean | undefined;
         /** [Config Option] (Number) */
-        translationX?: number;
+        translationX?: number | undefined;
         /** [Config Option] (Number) */
-        translationY?: number;
+        translationY?: number | undefined;
         /** [Config Option] (Number) */
-        zIndex?: number;
+        zIndex?: number | undefined;
         /** [Property] (Object) */
         attr?: any;
         /** [Method] Appends an after event handler
@@ -29750,27 +29750,27 @@ declare namespace Ext.draw.sprite {
 declare namespace Ext.draw.sprite {
     export interface IText extends Ext.draw.sprite.ISprite {
         /** [Config Option] (String) */
-        font?: string;
+        font?: string | undefined;
         /** [Config Option] (String) */
-        fontFamily?: string;
+        fontFamily?: string | undefined;
         /** [Config Option] (String/Number) */
         fontSize?: any;
         /** [Config Option] (String) */
-        fontStyle?: string;
+        fontStyle?: string | undefined;
         /** [Config Option] (String) */
-        fontVariant?: string;
+        fontVariant?: string | undefined;
         /** [Config Option] (String) */
-        fontWeight?: string;
+        fontWeight?: string | undefined;
         /** [Config Option] (String) */
-        text?: string;
+        text?: string | undefined;
         /** [Config Option] (String) */
-        textAlign?: string;
+        textAlign?: string | undefined;
         /** [Config Option] (String) */
-        textBaseline?: string;
+        textBaseline?: string | undefined;
         /** [Config Option] (Number) */
-        x?: number;
+        x?: number | undefined;
         /** [Config Option] (Number) */
-        y?: number;
+        y?: number | undefined;
         /** [Method] Render method
         * @param surface Object
         * @param ctx Object
@@ -29788,13 +29788,13 @@ declare namespace Ext.draw {
         /** [Config Option] (Object) */
         background?: any;
         /** [Config Option] (Boolean) */
-        dirty?: boolean;
+        dirty?: boolean | undefined;
         /** [Config Option] (Array) */
-        groups?: any[];
+        groups?: any[] | undefined;
         /** [Config Option] (Ext.draw.Group) */
-        items?: Ext.draw.IGroup;
+        items?: Ext.draw.IGroup | undefined;
         /** [Config Option] (Array) */
-        region?: any[];
+        region?: any[] | undefined;
         /** [Property] (Object) */
         devicePixelRatio?: any;
         /** [Method] Add a Sprite to the surface  */
@@ -30008,19 +30008,19 @@ declare namespace Ext.draw {
 declare namespace Ext.env {
     export interface IBrowser extends Ext.IBase {
         /** [Property] (String) */
-        engineName?: string;
+        engineName?: string | undefined;
         /** [Property] (Ext.Version) */
-        engineVersion?: Ext.IVersion;
+        engineVersion?: Ext.IVersion | undefined;
         /** [Property] (Boolean) */
-        isSecure?: boolean;
+        isSecure?: boolean | undefined;
         /** [Property] (Boolean) */
-        isStrict?: boolean;
+        isStrict?: boolean | undefined;
         /** [Property] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Property] (String) */
-        userAgent?: string;
+        userAgent?: string | undefined;
         /** [Property] (Ext.Version) */
-        version?: Ext.IVersion;
+        version?: Ext.IVersion | undefined;
         /** [Method] A hybrid property can be either accessed as a method call for example  if Ext browser is IE
         * @param value String The OS name to check.
         * @returns Boolean
@@ -30035,9 +30035,9 @@ declare namespace Ext.env {
 declare namespace Ext.env {
     export interface IOS extends Ext.IBase {
         /** [Property] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Property] (Ext.Version) */
-        version?: Ext.IVersion;
+        version?: Ext.IVersion | undefined;
         /** [Method] A hybrid property can be either accessed as a method call i e  if Ext os is Android
         * @param value String The OS name to check.
         * @returns Boolean
@@ -30064,13 +30064,13 @@ declare namespace Ext.event {
 declare namespace Ext.event {
     export interface IDom {
         /** [Property] (Number) */
-        distance?: number;
+        distance?: number | undefined;
         /** [Property] (Number) */
-        pageX?: number;
+        pageX?: number | undefined;
         /** [Property] (Number) */
-        pageY?: number;
+        pageY?: number | undefined;
         /** [Property] (HTMLElement) */
-        target?: HTMLElement;
+        target?: HTMLElement | undefined;
         /** [Method] Gets the x coordinate of the event
         * @returns Number
         */
@@ -30101,15 +30101,15 @@ declare namespace Ext.event {
 declare namespace Ext.event {
     export interface IEvent extends Ext.IBase,Ext.event.ITouch {
         /** [Property] (Number) */
-        angle?: number;
+        angle?: number | undefined;
         /** [Property] (Number) */
-        direction?: number;
+        direction?: number | undefined;
         /** [Property] (Number) */
-        duration?: number;
+        duration?: number | undefined;
         /** [Property] (Number) */
-        rotation?: number;
+        rotation?: number | undefined;
         /** [Property] (Number) */
-        scale?: number;
+        scale?: number | undefined;
         /** [Method] Stop the event preventDefault and stopPropagation
         * @returns Ext.event.Event this
         */
@@ -30123,15 +30123,15 @@ declare namespace Ext.event {
 declare namespace Ext {
     export interface IEventObject extends Ext.IBase,Ext.event.ITouch {
         /** [Property] (Number) */
-        angle?: number;
+        angle?: number | undefined;
         /** [Property] (Number) */
-        direction?: number;
+        direction?: number | undefined;
         /** [Property] (Number) */
-        duration?: number;
+        duration?: number | undefined;
         /** [Property] (Number) */
-        rotation?: number;
+        rotation?: number | undefined;
         /** [Property] (Number) */
-        scale?: number;
+        scale?: number | undefined;
         /** [Method] Stop the event preventDefault and stopPropagation
         * @returns Ext.event.Event this
         */
@@ -30209,7 +30209,7 @@ declare namespace Ext.event.recognizer {
 declare namespace Ext.event.recognizer {
     export interface IDrag extends Ext.event.recognizer.ISingleTouch {
         /** [Config Option] (Number) */
-        minDistance?: number;
+        minDistance?: number | undefined;
         /** [Method] Returns the value of minDistance
         * @returns Number
         */
@@ -30327,7 +30327,7 @@ declare namespace Ext.event.recognizer {
 declare namespace Ext.event.recognizer {
     export interface ITap extends Ext.event.recognizer.ISingleTouch {
         /** [Config Option] (Number) */
-        moveDistance?: number;
+        moveDistance?: number | undefined;
         /** [Method] Returns the value of moveDistance
         * @returns Number
         */
@@ -30807,13 +30807,13 @@ declare namespace Ext {
 declare namespace Ext.field {
     export interface ICheckbox extends Ext.field.IField {
         /** [Config Option] (Boolean) */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (String) */
-        value?: string;
+        value?: string | undefined;
         /** [Method] Set the checked state of the checkbox to true
         * @returns Ext.field.Checkbox This checkbox.
         */
@@ -30884,13 +30884,13 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface ICheckbox extends Ext.field.IField {
         /** [Config Option] (Boolean) */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (String) */
-        value?: string;
+        value?: string | undefined;
         /** [Method] Set the checked state of the checkbox to true
         * @returns Ext.field.Checkbox This checkbox.
         */
@@ -30961,13 +30961,13 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IDatePicker extends Ext.field.ISelect {
         /** [Config Option] (String) */
-        dateFormat?: string;
+        dateFormat?: string | undefined;
         /** [Config Option] (Boolean) */
-        destroyPickerOnHide?: boolean;
+        destroyPickerOnHide?: boolean | undefined;
         /** [Config Option] (Object/Ext.picker.Date) */
         picker?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Object/Date) */
         value?: any;
         /** [Method] Returns the value of dateFormat
@@ -31024,13 +31024,13 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface IDatePicker extends Ext.field.ISelect {
         /** [Config Option] (String) */
-        dateFormat?: string;
+        dateFormat?: string | undefined;
         /** [Config Option] (Boolean) */
-        destroyPickerOnHide?: boolean;
+        destroyPickerOnHide?: boolean | undefined;
         /** [Config Option] (Object/Ext.picker.Date) */
         picker?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Object/Date) */
         value?: any;
         /** [Method] Returns the value of dateFormat
@@ -31087,7 +31087,7 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IEmail extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Method] Returns the value of autoCapitalize
@@ -31111,7 +31111,7 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface IEmail extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Method] Returns the value of autoCapitalize
@@ -31135,45 +31135,45 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IField extends Ext.IDecorator {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        clearIcon?: boolean;
+        clearIcon?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        fieldCls?: string;
+        fieldCls?: string | undefined;
         /** [Config Option] (String) */
-        fieldLabel?: string;
+        fieldLabel?: string | undefined;
         /** [Config Option] (String) */
-        inputCls?: string;
+        inputCls?: string | undefined;
         /** [Config Option] (String) */
-        inputType?: string;
+        inputType?: string | undefined;
         /** [Config Option] (String) */
-        label?: string;
+        label?: string | undefined;
         /** [Config Option] (String) */
-        labelAlign?: string;
+        labelAlign?: string | undefined;
         /** [Config Option] (String) */
-        labelCls?: string;
+        labelCls?: string | undefined;
         /** [Config Option] (Number/String) */
         labelWidth?: any;
         /** [Config Option] (Boolean) */
-        labelWrap?: boolean;
+        labelWrap?: boolean | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Boolean) */
-        required?: boolean;
+        required?: boolean | undefined;
         /** [Config Option] (String) */
-        requiredCls?: string;
+        requiredCls?: string | undefined;
         /** [Config Option] (Number) */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
         /** [Config Option] (String) */
-        useClearIcon?: string;
+        useClearIcon?: string | undefined;
         /** [Config Option] (Mixed) */
         value?: any;
         /** [Property] (Boolean) */
-        isField?: boolean;
+        isField?: boolean | undefined;
         /** [Property] (Ext.Element) */
-        labelEl?: Ext.IElement;
+        labelEl?: Ext.IElement | undefined;
         /** [Property] (Mixed) */
         originalValue?: any;
         /** [Method] Returns the value of baseCls
@@ -31303,45 +31303,45 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface IField extends Ext.IDecorator {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        clearIcon?: boolean;
+        clearIcon?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        fieldCls?: string;
+        fieldCls?: string | undefined;
         /** [Config Option] (String) */
-        fieldLabel?: string;
+        fieldLabel?: string | undefined;
         /** [Config Option] (String) */
-        inputCls?: string;
+        inputCls?: string | undefined;
         /** [Config Option] (String) */
-        inputType?: string;
+        inputType?: string | undefined;
         /** [Config Option] (String) */
-        label?: string;
+        label?: string | undefined;
         /** [Config Option] (String) */
-        labelAlign?: string;
+        labelAlign?: string | undefined;
         /** [Config Option] (String) */
-        labelCls?: string;
+        labelCls?: string | undefined;
         /** [Config Option] (Number/String) */
         labelWidth?: any;
         /** [Config Option] (Boolean) */
-        labelWrap?: boolean;
+        labelWrap?: boolean | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Boolean) */
-        required?: boolean;
+        required?: boolean | undefined;
         /** [Config Option] (String) */
-        requiredCls?: string;
+        requiredCls?: string | undefined;
         /** [Config Option] (Number) */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
         /** [Config Option] (String) */
-        useClearIcon?: string;
+        useClearIcon?: string | undefined;
         /** [Config Option] (Mixed) */
         value?: any;
         /** [Property] (Boolean) */
-        isField?: boolean;
+        isField?: boolean | undefined;
         /** [Property] (Ext.Element) */
-        labelEl?: Ext.IElement;
+        labelEl?: Ext.IElement | undefined;
         /** [Property] (Mixed) */
         originalValue?: any;
         /** [Method] Returns the value of baseCls
@@ -31471,13 +31471,13 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IFile extends Ext.field.IField {
         /** [Config Option] (String) */
-        accept?: string;
+        accept?: string | undefined;
         /** [Config Option] (String) */
-        capture?: string;
+        capture?: string | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Boolean) */
-        multiple?: boolean;
+        multiple?: boolean | undefined;
         /** [Method] Returns the value of accept
         * @returns String
         */
@@ -31517,11 +31517,11 @@ declare namespace Ext.field {
         /** [Config Option] (Function) */
         me?: any;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Function) */
         newValue?: any;
         /** [Config Option] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Config Option] (Function) */
         value?: any;
         /** [Method] Updated the capture attribute with the  ink capture configuration
@@ -31581,7 +31581,7 @@ declare namespace Ext.field {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -31605,7 +31605,7 @@ declare namespace Ext.form {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -31627,51 +31627,51 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IInput extends Ext.IComponent {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoComplete?: boolean;
+        autoComplete?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoCorrect?: boolean;
+        autoCorrect?: boolean | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** [Config Option] (String) */
-        cls?: string;
+        cls?: string | undefined;
         /** [Config Option] (Boolean) */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        fastFocus?: boolean;
+        fastFocus?: boolean | undefined;
         /** [Config Option] (String) */
-        focusCls?: string;
+        focusCls?: string | undefined;
         /** [Config Option] (Number) */
-        maxLength?: number;
+        maxLength?: number | undefined;
         /** [Config Option] (Number) */
-        maxRows?: number;
+        maxRows?: number | undefined;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (String) */
-        pattern?: string;
+        pattern?: string | undefined;
         /** [Config Option] (String) */
-        placeHolder?: string;
+        placeHolder?: string | undefined;
         /** [Config Option] (Boolean) */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /** [Config Option] (Mixed) */
         startValue?: any;
         /** [Config Option] (Number) */
-        stepValue?: number;
+        stepValue?: number | undefined;
         /** [Config Option] (Number) */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
         /** [Config Option] (String) */
-        type?: string;
+        type?: string | undefined;
         /** [Config Option] (Mixed) */
         value?: any;
         /** [Property] (Boolean) */
-        isFocused?: boolean;
+        isFocused?: boolean | undefined;
         /** [Method] Attempts to forcefully blur input focus for the field
         * @returns Ext.field.Input this
         */
@@ -31874,13 +31874,13 @@ declare namespace Ext.field {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (Number) */
-        stepValue?: number;
+        stepValue?: number | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -31932,13 +31932,13 @@ declare namespace Ext.form {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (Number) */
-        stepValue?: number;
+        stepValue?: number | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -31988,7 +31988,7 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IPassword extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Method] Returns the value of autoCapitalize
@@ -32012,7 +32012,7 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface IPassword extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Method] Returns the value of autoCapitalize
@@ -32038,7 +32038,7 @@ declare namespace Ext.field {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -32084,7 +32084,7 @@ declare namespace Ext.form {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -32130,7 +32130,7 @@ declare namespace Ext.field {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -32154,7 +32154,7 @@ declare namespace Ext.form {
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of component
         * @returns Object
         */
@@ -32176,7 +32176,7 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface ISelect extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoSelect?: boolean;
+        autoSelect?: boolean | undefined;
         /** [Config Option] (Object) */
         defaultPhonePickerConfig?: any;
         /** [Config Option] (Object) */
@@ -32184,15 +32184,15 @@ declare namespace Ext.field {
         /** [Config Option] (String/Number) */
         displayField?: any;
         /** [Config Option] (String) */
-        hiddenName?: string;
+        hiddenName?: string | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Array) */
-        options?: any[];
+        options?: any[] | undefined;
         /** [Config Option] (Ext.data.Store/Object/String) */
         store?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (String/Boolean) */
         usePicker?: any;
         /** [Config Option] (String/Number) */
@@ -32315,7 +32315,7 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface ISelect extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoSelect?: boolean;
+        autoSelect?: boolean | undefined;
         /** [Config Option] (Object) */
         defaultPhonePickerConfig?: any;
         /** [Config Option] (Object) */
@@ -32323,15 +32323,15 @@ declare namespace Ext.form {
         /** [Config Option] (String/Number) */
         displayField?: any;
         /** [Config Option] (String) */
-        hiddenName?: string;
+        hiddenName?: string | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (Array) */
-        options?: any[];
+        options?: any[] | undefined;
         /** [Config Option] (Ext.data.Store/Object/String) */
         store?: any;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (String/Boolean) */
         usePicker?: any;
         /** [Config Option] (String/Number) */
@@ -32456,15 +32456,15 @@ declare namespace Ext.field {
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (Number) */
-        increment?: number;
+        increment?: number | undefined;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (Boolean) */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /** [Config Option] (Number) */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
         /** [Config Option] (Number/Number[]) */
         value?: any;
         /** [Config Option] (Number/Number[]) */
@@ -32544,15 +32544,15 @@ declare namespace Ext.form {
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (Number) */
-        increment?: number;
+        increment?: number | undefined;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (Boolean) */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /** [Config Option] (Number) */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
         /** [Config Option] (Number/Number[]) */
         value?: any;
         /** [Config Option] (Number/Number[]) */
@@ -32630,27 +32630,27 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface ISpinner extends Ext.field.INumber {
         /** [Config Option] (Boolean) */
-        accelerateOnTapHold?: boolean;
+        accelerateOnTapHold?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Boolean) */
-        cycle?: boolean;
+        cycle?: boolean | undefined;
         /** [Config Option] (Number) */
-        defaultValue?: number;
+        defaultValue?: number | undefined;
         /** [Config Option] (Boolean) */
-        groupButtons?: boolean;
+        groupButtons?: boolean | undefined;
         /** [Config Option] (String) */
-        increment?: string;
+        increment?: string | undefined;
         /** [Config Option] (String) */
-        incrementValue?: string;
+        incrementValue?: string | undefined;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (Number) */
-        stepValue?: number;
+        stepValue?: number | undefined;
         /** [Method] Returns the value of accelerateOnTapHold
         * @returns Boolean
         */
@@ -32736,27 +32736,27 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface ISpinner extends Ext.field.INumber {
         /** [Config Option] (Boolean) */
-        accelerateOnTapHold?: boolean;
+        accelerateOnTapHold?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Boolean) */
-        cycle?: boolean;
+        cycle?: boolean | undefined;
         /** [Config Option] (Number) */
-        defaultValue?: number;
+        defaultValue?: number | undefined;
         /** [Config Option] (Boolean) */
-        groupButtons?: boolean;
+        groupButtons?: boolean | undefined;
         /** [Config Option] (String) */
-        increment?: string;
+        increment?: string | undefined;
         /** [Config Option] (String) */
-        incrementValue?: string;
+        incrementValue?: string | undefined;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (Number) */
-        stepValue?: number;
+        stepValue?: number | undefined;
         /** [Method] Returns the value of accelerateOnTapHold
         * @returns Boolean
         */
@@ -32842,25 +32842,25 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IText extends Ext.field.IField {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoComplete?: boolean;
+        autoComplete?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoCorrect?: boolean;
+        autoCorrect?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         bubbleEvents?: any;
         /** [Config Option] (Boolean) */
-        clearIcon?: boolean;
+        clearIcon?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Number) */
-        maxLength?: number;
+        maxLength?: number | undefined;
         /** [Config Option] (String) */
-        placeHolder?: string;
+        placeHolder?: string | undefined;
         /** [Config Option] (Boolean) */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Property] (String/Number) */
         startValue?: any;
         /** [Method] Attempts to forcefully blur input focus for the field
@@ -32970,25 +32970,25 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface IText extends Ext.field.IField {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoComplete?: boolean;
+        autoComplete?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoCorrect?: boolean;
+        autoCorrect?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         bubbleEvents?: any;
         /** [Config Option] (Boolean) */
-        clearIcon?: boolean;
+        clearIcon?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Number) */
-        maxLength?: number;
+        maxLength?: number | undefined;
         /** [Config Option] (String) */
-        placeHolder?: string;
+        placeHolder?: string | undefined;
         /** [Config Option] (Boolean) */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Property] (String/Number) */
         startValue?: any;
         /** [Method] Attempts to forcefully blur input focus for the field
@@ -33098,13 +33098,13 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface ITextArea extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Number) */
-        maxRows?: number;
+        maxRows?: number | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of autoCapitalize
         * @returns Boolean
         */
@@ -33142,13 +33142,13 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface ITextArea extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Config Option] (Number) */
-        maxRows?: number;
+        maxRows?: number | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of autoCapitalize
         * @returns Boolean
         */
@@ -33190,17 +33190,17 @@ declare namespace Ext.field {
 declare namespace Ext.field {
     export interface IToggle extends Ext.field.ISlider {
         /** [Config Option] (String) */
-        activeLabel?: string;
+        activeLabel?: string | undefined;
         /** [Config Option] (String) */
-        cls?: string;
+        cls?: string | undefined;
         /** [Config Option] (String) */
-        inactiveLabel?: string;
+        inactiveLabel?: string | undefined;
         /** [Config Option] (String) */
-        labelAlign?: string;
+        labelAlign?: string | undefined;
         /** [Config Option] (String) */
-        maxValueCls?: string;
+        maxValueCls?: string | undefined;
         /** [Config Option] (String) */
-        minValueCls?: string;
+        minValueCls?: string | undefined;
         /** [Method] Returns the value of activeLabel
         * @returns String
         */
@@ -33267,17 +33267,17 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface IToggle extends Ext.field.ISlider {
         /** [Config Option] (String) */
-        activeLabel?: string;
+        activeLabel?: string | undefined;
         /** [Config Option] (String) */
-        cls?: string;
+        cls?: string | undefined;
         /** [Config Option] (String) */
-        inactiveLabel?: string;
+        inactiveLabel?: string | undefined;
         /** [Config Option] (String) */
-        labelAlign?: string;
+        labelAlign?: string | undefined;
         /** [Config Option] (String) */
-        maxValueCls?: string;
+        maxValueCls?: string | undefined;
         /** [Config Option] (String) */
-        minValueCls?: string;
+        minValueCls?: string | undefined;
         /** [Method] Returns the value of activeLabel
         * @returns String
         */
@@ -33344,7 +33344,7 @@ declare namespace Ext.form {
 declare namespace Ext.field {
     export interface IUrl extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Method] Returns the value of autoCapitalize
@@ -33368,7 +33368,7 @@ declare namespace Ext.field {
 declare namespace Ext.form {
     export interface IUrl extends Ext.field.IText {
         /** [Config Option] (Boolean) */
-        autoCapitalize?: boolean;
+        autoCapitalize?: boolean | undefined;
         /** [Config Option] (Object) */
         component?: any;
         /** [Method] Returns the value of autoCapitalize
@@ -33392,11 +33392,11 @@ declare namespace Ext.form {
 declare namespace Ext.form {
     export interface IFieldSet extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        instructions?: string;
+        instructions?: string | undefined;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Method] A convenient method to disable all fields in this FieldSet
         * @param newDisabled Object
         * @returns Ext.form.FieldSet This FieldSet
@@ -33425,37 +33425,37 @@ declare namespace Ext.form {
         /** [Config Option] (Object) */
         api?: any;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Object) */
         baseParams?: any;
         /** [Config Option] (Boolean) */
-        enableSubmissionForm?: boolean;
+        enableSubmissionForm?: boolean | undefined;
         /** [Config Option] (Object) */
         enctype?: any;
         /** [Config Option] (String) */
-        method?: string;
+        method?: string | undefined;
         /** [Config Option] (Boolean) */
-        multipartDetection?: boolean;
+        multipartDetection?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         paramOrder?: any;
         /** [Config Option] (Boolean) */
-        paramsAsHash?: boolean;
+        paramsAsHash?: boolean | undefined;
         /** [Config Option] (Ext.data.Model) */
-        record?: Ext.data.IModel;
+        record?: Ext.data.IModel | undefined;
         /** [Config Option] (Boolean/String/Object) */
         scrollable?: any;
         /** [Config Option] (Boolean) */
-        standardSubmit?: boolean;
+        standardSubmit?: boolean | undefined;
         /** [Config Option] (Object) */
         submitOnAction?: any;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Config Option] (Boolean) */
-        trackResetOnLoad?: boolean;
+        trackResetOnLoad?: boolean | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Config Option] (Ext.dom.Element) */
-        waitMsgTarget?: Ext.dom.IElement;
+        waitMsgTarget?: Ext.dom.IElement | undefined;
         /** [Config Option] (Ext.XTemplate/String/String[]) */
         waitTpl?: any;
         /** [Method] A convenient method to disable all fields in this form
@@ -33636,37 +33636,37 @@ declare namespace Ext.form {
         /** [Config Option] (Object) */
         api?: any;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Object) */
         baseParams?: any;
         /** [Config Option] (Boolean) */
-        enableSubmissionForm?: boolean;
+        enableSubmissionForm?: boolean | undefined;
         /** [Config Option] (Object) */
         enctype?: any;
         /** [Config Option] (String) */
-        method?: string;
+        method?: string | undefined;
         /** [Config Option] (Boolean) */
-        multipartDetection?: boolean;
+        multipartDetection?: boolean | undefined;
         /** [Config Option] (String/String[]) */
         paramOrder?: any;
         /** [Config Option] (Boolean) */
-        paramsAsHash?: boolean;
+        paramsAsHash?: boolean | undefined;
         /** [Config Option] (Ext.data.Model) */
-        record?: Ext.data.IModel;
+        record?: Ext.data.IModel | undefined;
         /** [Config Option] (Boolean/String/Object) */
         scrollable?: any;
         /** [Config Option] (Boolean) */
-        standardSubmit?: boolean;
+        standardSubmit?: boolean | undefined;
         /** [Config Option] (Object) */
         submitOnAction?: any;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Config Option] (Boolean) */
-        trackResetOnLoad?: boolean;
+        trackResetOnLoad?: boolean | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Config Option] (Ext.dom.Element) */
-        waitMsgTarget?: Ext.dom.IElement;
+        waitMsgTarget?: Ext.dom.IElement | undefined;
         /** [Config Option] (Ext.XTemplate/String/String[]) */
         waitTpl?: any;
         /** [Method] A convenient method to disable all fields in this form
@@ -34065,7 +34065,7 @@ declare namespace Ext.fx.animation {
         /** [Config Option] (Object) */
         before?: any;
         /** [Config Option] (String) */
-        easing?: string;
+        easing?: string | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of after
@@ -34203,7 +34203,7 @@ declare namespace Ext.fx.animation {
         /** [Config Option] (Object) */
         before?: any;
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Method] Returns the value of after
         * @returns Object
         */
@@ -34243,7 +34243,7 @@ declare namespace Ext.fx.animation {
         /** [Config Option] (Object) */
         before?: any;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of after
         * @returns Object
         */
@@ -34283,7 +34283,7 @@ declare namespace Ext.fx.animation {
         /** [Config Option] (Object) */
         before?: any;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of after
         * @returns Object
         */
@@ -34335,9 +34335,9 @@ declare namespace Ext.fx.animation {
 declare namespace Ext.fx.animation {
     export interface IFlip extends Ext.fx.animation.IAbstract {
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (String) */
-        easing?: string;
+        easing?: string | undefined;
         /** [Method] Returns the value of direction
         * @returns String
         */
@@ -34375,7 +34375,7 @@ declare namespace Ext.fx.animation {
 declare namespace Ext.fx {
     export interface IAnimation extends Ext.IBase {
         /** [Config Option] (String) */
-        type?: string;
+        type?: string | undefined;
     }
 }
 declare namespace Ext.fx.animation {
@@ -34383,7 +34383,7 @@ declare namespace Ext.fx.animation {
         /** [Config Option] (Object) */
         before?: any;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of after
         * @returns Object
         */
@@ -34415,7 +34415,7 @@ declare namespace Ext.fx.animation {
         /** [Config Option] (Object) */
         before?: any;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of after
         * @returns Object
         */
@@ -34459,13 +34459,13 @@ declare namespace Ext.fx.animation {
 declare namespace Ext.fx.animation {
     export interface ISlide extends Ext.fx.animation.IAbstract {
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (String) */
-        easing?: string;
+        easing?: string | undefined;
         /** [Config Option] (Number) */
-        offset?: number;
+        offset?: number | undefined;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of direction
         * @returns String
         */
@@ -34527,13 +34527,13 @@ declare namespace Ext.fx.animation {
 declare namespace Ext.fx.animation {
     export interface ISlideIn extends Ext.fx.animation.IAbstract {
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (String) */
-        easing?: string;
+        easing?: string | undefined;
         /** [Config Option] (Number) */
-        offset?: number;
+        offset?: number | undefined;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of direction
         * @returns String
         */
@@ -34599,11 +34599,11 @@ declare namespace Ext.fx.animation {
 declare namespace Ext.fx.animation {
     export interface IWipe extends Ext.fx.IAnimation {
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (String) */
-        easing?: string;
+        easing?: string | undefined;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of direction
         * @returns String
         */
@@ -34633,11 +34633,11 @@ declare namespace Ext.fx.animation {
 declare namespace Ext.fx.animation {
     export interface IWipeIn extends Ext.fx.IAnimation {
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (String) */
-        easing?: string;
+        easing?: string | undefined;
         /** [Config Option] (Boolean) */
-        out?: boolean;
+        out?: boolean | undefined;
         /** [Method] Returns the value of direction
         * @returns String
         */
@@ -34721,11 +34721,11 @@ declare namespace Ext.fx.easing {
         /** [Config Option] (Object) */
         bounce?: any;
         /** [Config Option] (Number) */
-        minVelocity?: number;
+        minVelocity?: number | undefined;
         /** [Config Option] (Object) */
         momentum?: any;
         /** [Config Option] (Number) */
-        startVelocity?: number;
+        startVelocity?: number | undefined;
         /** [Method] Returns the value of bounce
         * @returns Object
         */
@@ -35155,15 +35155,15 @@ declare namespace Ext.fx {
 declare namespace Ext {
     export interface IImg extends Ext.IComponent {
         /** [Config Option] (String) */
-        backgroundCls?: string;
+        backgroundCls?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        imageCls?: string;
+        imageCls?: string | undefined;
         /** [Config Option] (String) */
-        mode?: string;
+        mode?: string | undefined;
         /** [Config Option] (String) */
-        src?: string;
+        src?: string | undefined;
         /** [Method] Destroys this Component  */
         destroy?(): void;
         /** [Method] Returns the value of backgroundCls
@@ -35722,9 +35722,9 @@ declare namespace Ext {
 declare namespace Ext {
     export interface ILabel extends Ext.IComponent {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        html?: string;
+        html?: string | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -35919,9 +35919,9 @@ declare namespace Ext.layout {
 declare namespace Ext.layout {
     export interface IBox extends Ext.layout.IDefault {
         /** [Config Option] (String) */
-        align?: string;
+        align?: string | undefined;
         /** [Config Option] (String) */
-        pack?: string;
+        pack?: string | undefined;
         /** [Method] Returns the value of align
         * @returns String
         */
@@ -35968,7 +35968,7 @@ declare namespace Ext.layout {
 declare namespace Ext.layout {
     export interface IDefault extends Ext.layout.IAbstract {
         /** [Config Option] (Ext.fx.layout.Card) */
-        animation?: Ext.fx.layout.ICard;
+        animation?: Ext.fx.layout.ICard | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of animation
@@ -35999,7 +35999,7 @@ declare namespace Ext.layout {
 declare namespace Ext.layout {
     export interface IFlexBox extends Ext.layout.IBox {
         /** [Config Option] (String) */
-        align?: string;
+        align?: string | undefined;
         /** [Method] Returns the value of align
         * @returns String
         */
@@ -36252,19 +36252,19 @@ declare namespace Ext {
 declare namespace Ext {
     export interface ILoadMask extends Ext.IMask {
         /** [Config Option] (String) */
-        cls?: string;
+        cls?: string | undefined;
         /** [Config Option] (Boolean) */
-        indicator?: boolean;
+        indicator?: boolean | undefined;
         /** [Config Option] (String) */
-        message?: string;
+        message?: string | undefined;
         /** [Config Option] (String) */
-        messageCls?: string;
+        messageCls?: string | undefined;
         /** [Config Option] (String) */
-        msg?: string;
+        msg?: string | undefined;
         /** [Config Option] (String) */
-        msgCls?: string;
+        msgCls?: string | undefined;
         /** [Config Option] (Ext.data.Store) */
-        store?: Ext.data.IStore;
+        store?: Ext.data.IStore | undefined;
         /** [Method] Changes the data store bound to this LoadMask
         * @param store Ext.data.Store The store to bind to this LoadMask
         */
@@ -36328,9 +36328,9 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IMap extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Ext.util.Geolocation) */
-        geo?: Ext.util.IGeolocation;
+        geo?: Ext.util.IGeolocation | undefined;
         /** [Config Option] (google.maps.Map) */
         map?: any;
         /** [Config Option] (Object) */
@@ -36338,9 +36338,9 @@ declare namespace Ext {
         /** [Config Option] (Object) */
         mapOptions?: any;
         /** [Config Option] (Boolean) */
-        maskMap?: boolean;
+        maskMap?: boolean | undefined;
         /** [Config Option] (String) */
-        maskMapCls?: string;
+        maskMapCls?: string | undefined;
         /** [Config Option] (Boolean/Ext.util.Geolocation) */
         useCurrentLocation?: any;
         /** [Method] Returns the value of baseCls
@@ -36406,9 +36406,9 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IMask extends Ext.IComponent {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        transparent?: boolean;
+        transparent?: boolean | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -36430,23 +36430,23 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IMedia extends Ext.IComponent {
         /** [Config Option] (Boolean) */
-        autoPause?: boolean;
+        autoPause?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoResume?: boolean;
+        autoResume?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        enableControls?: boolean;
+        enableControls?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        loop?: boolean;
+        loop?: boolean | undefined;
         /** [Config Option] (Ext.Element) */
-        media?: Ext.IElement;
+        media?: Ext.IElement | undefined;
         /** [Config Option] (Boolean) */
-        muted?: boolean;
+        muted?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        preload?: boolean;
+        preload?: boolean | undefined;
         /** [Config Option] (String) */
-        url?: string;
+        url?: string | undefined;
         /** [Config Option] (Number) */
-        volume?: number;
+        volume?: number | undefined;
         /** [Method] Destroys this Component  */
         destroy?(): void;
         /** [Method] Returns the value of autoPause
@@ -36560,11 +36560,11 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IMenu extends Ext.ISheet {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/String) */
         bottom?: any;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Number/String) */
         height?: any;
         /** [Config Option] (Number/String) */
@@ -36636,33 +36636,33 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IMessageBox extends Ext.ISheet {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Array/Object) */
         buttons?: any;
         /** [Config Option] (Number) */
-        defaultTextHeight?: number;
+        defaultTextHeight?: number | undefined;
         /** [Config Option] (Object) */
         hideAnimation?: any;
         /** [Config Option] (String) */
-        icon?: string;
+        icon?: string | undefined;
         /** [Config Option] (String) */
-        iconCls?: string;
+        iconCls?: string | undefined;
         /** [Config Option] (Object/String) */
         layout?: any;
         /** [Config Option] (String) */
-        message?: string;
+        message?: string | undefined;
         /** [Config Option] (String) */
-        msg?: string;
+        msg?: string | undefined;
         /** [Config Option] (Object) */
         prompt?: any;
         /** [Config Option] (Object) */
         showAnimation?: any;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Config Option] (Number) */
-        zIndex?: number;
+        zIndex?: number | undefined;
         /** [Method] Displays a standard read only message box with an OK button comparable to the basic JavaScript alert prompt
         * @param title String The title bar text.
         * @param message String The message box body text.
@@ -36783,15 +36783,15 @@ declare namespace Ext.mixin {
 declare namespace Ext.mixin {
     export interface IFilterable extends Ext.mixin.IMixin {
         /** [Config Option] (String) */
-        filterRoot?: string;
+        filterRoot?: string | undefined;
         /** [Config Option] (Array) */
-        filters?: any[];
+        filters?: any[] | undefined;
         /** [Property] (Object) */
         currentSortFn?: any;
         /** [Property] (Boolean) */
-        dirtyFilterFn?: boolean;
+        dirtyFilterFn?: boolean | undefined;
         /** [Property] (Boolean) */
-        filtered?: boolean;
+        filtered?: boolean | undefined;
         /** [Method] This method adds a filter
         * @param filter Ext.util.Sorter/Function/Object Can be an instance of Ext.util.Filter, an object representing an Ext.util.Filter configuration, or a filter function.
         */
@@ -37237,17 +37237,17 @@ declare namespace Ext.util {
 declare namespace Ext.mixin {
     export interface IProgressable extends Ext.mixin.IMixin {
         /** [Config Option] (Boolean) */
-        dynamic?: boolean;
+        dynamic?: boolean | undefined;
         /** [Config Option] (Number) */
-        maxProgressInput?: number;
+        maxProgressInput?: number | undefined;
         /** [Config Option] (Number) */
-        maxProgressOutput?: number;
+        maxProgressOutput?: number | undefined;
         /** [Config Option] (Number) */
-        minProgressInput?: number;
+        minProgressInput?: number | undefined;
         /** [Config Option] (Number) */
-        minProgressOutput?: number;
+        minProgressOutput?: number | undefined;
         /** [Config Option] (String) */
-        state?: string;
+        state?: string | undefined;
         /** [Method] Returns the value of dynamic
         * @returns Boolean
         */
@@ -37301,15 +37301,15 @@ declare namespace Ext.mixin {
 declare namespace Ext.mixin {
     export interface ISelectable extends Ext.mixin.IMixin {
         /** [Config Option] (Boolean) */
-        allowDeselect?: boolean;
+        allowDeselect?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        deselectOnContainerClick?: boolean;
+        deselectOnContainerClick?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        disableSelection?: boolean;
+        disableSelection?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        locked?: boolean;
+        locked?: boolean | undefined;
         /** [Config Option] (String) */
-        mode?: string;
+        mode?: string | undefined;
         /** [Method] Deselects any currently selected records and clears all stored selections  */
         clearSelections?(): void;
         /** [Method] Deselects the given record s
@@ -37425,17 +37425,17 @@ declare namespace Ext.mixin {
 declare namespace Ext.mixin {
     export interface ISortable extends Ext.mixin.IMixin {
         /** [Config Option] (String) */
-        defaultSortDirection?: string;
+        defaultSortDirection?: string | undefined;
         /** [Config Option] (String) */
-        sortRoot?: string;
+        sortRoot?: string | undefined;
         /** [Config Option] (Array) */
-        sorters?: any[];
+        sorters?: any[] | undefined;
         /** [Property] (Object) */
         currentSortFn?: any;
         /** [Property] (Boolean) */
-        dirtySortFn?: boolean;
+        dirtySortFn?: boolean | undefined;
         /** [Property] (Boolean) */
-        sorted?: boolean;
+        sorted?: boolean | undefined;
         /** [Method] This method adds a sorter
         * @param sorter Ext.util.Sorter/String/Function/Object Can be an instance of Ext.util.Sorter, a string indicating a property name, an object representing an Ext.util.Sorter configuration, or a sort function.
         * @param defaultDirection String The default direction for each sorter in the array. Defaults to the value of defaultSortDirection. Can be either 'ASC' or 'DESC'.
@@ -38482,13 +38482,13 @@ declare namespace Ext {
 declare namespace Ext.navigation {
     export interface IBar extends Ext.ITitleBar {
         /** [Config Option] (Boolean) */
-        androidAnimation?: boolean;
+        androidAnimation?: boolean | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        cls?: string;
+        cls?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of androidAnimation
         * @returns Boolean
         */
@@ -38526,9 +38526,9 @@ declare namespace Ext.navigation {
 declare namespace Ext.navigation {
     export interface IView extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        defaultBackButtonText?: string;
+        defaultBackButtonText?: string | undefined;
         /** [Config Option] (Array/Object) */
         items?: any;
         /** [Config Option] (Object) */
@@ -38536,7 +38536,7 @@ declare namespace Ext.navigation {
         /** [Config Option] (Boolean/Object) */
         navigationBar?: any;
         /** [Config Option] (Boolean) */
-        useTitleForBackButtonText?: boolean;
+        useTitleForBackButtonText?: boolean | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -38608,9 +38608,9 @@ declare namespace Ext.navigation {
 declare namespace Ext {
     export interface INavigationView extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        defaultBackButtonText?: string;
+        defaultBackButtonText?: string | undefined;
         /** [Config Option] (Array/Object) */
         items?: any;
         /** [Config Option] (Object) */
@@ -38618,7 +38618,7 @@ declare namespace Ext {
         /** [Config Option] (Boolean/Object) */
         navigationBar?: any;
         /** [Config Option] (Boolean) */
-        useTitleForBackButtonText?: boolean;
+        useTitleForBackButtonText?: boolean | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -38837,7 +38837,7 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IPanel extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/Boolean/String) */
         bodyBorder?: any;
         /** [Config Option] (Number/Boolean/String) */
@@ -38881,7 +38881,7 @@ declare namespace Ext {
 declare namespace Ext.lib {
     export interface IPanel extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/Boolean/String) */
         bodyBorder?: any;
         /** [Config Option] (Number/Boolean/String) */
@@ -38925,21 +38925,21 @@ declare namespace Ext.lib {
 declare namespace Ext.picker {
     export interface IDate extends Ext.picker.IPicker {
         /** [Config Option] (String) */
-        dayText?: string;
+        dayText?: string | undefined;
         /** [Config Option] (String/Mixed) */
         doneButton?: any;
         /** [Config Option] (String) */
-        monthText?: string;
+        monthText?: string | undefined;
         /** [Config Option] (Array) */
-        slotOrder?: any[];
+        slotOrder?: any[] | undefined;
         /** [Config Option] (Object/Date) */
         value?: any;
         /** [Config Option] (Number) */
-        yearFrom?: number;
+        yearFrom?: number | undefined;
         /** [Config Option] (String) */
-        yearText?: string;
+        yearText?: string | undefined;
         /** [Config Option] (Number) */
-        yearTo?: number;
+        yearTo?: number | undefined;
         /** [Method] Returns the value of dayText
         * @returns String
         */
@@ -39032,21 +39032,21 @@ declare namespace Ext.picker {
 declare namespace Ext {
     export interface IDatePicker extends Ext.picker.IPicker {
         /** [Config Option] (String) */
-        dayText?: string;
+        dayText?: string | undefined;
         /** [Config Option] (String/Mixed) */
         doneButton?: any;
         /** [Config Option] (String) */
-        monthText?: string;
+        monthText?: string | undefined;
         /** [Config Option] (Array) */
-        slotOrder?: any[];
+        slotOrder?: any[] | undefined;
         /** [Config Option] (Object/Date) */
         value?: any;
         /** [Config Option] (Number) */
-        yearFrom?: number;
+        yearFrom?: number | undefined;
         /** [Config Option] (String) */
-        yearText?: string;
+        yearText?: string | undefined;
         /** [Config Option] (Number) */
-        yearTo?: number;
+        yearTo?: number | undefined;
         /** [Method] Returns the value of dayText
         * @returns String
         */
@@ -39139,9 +39139,9 @@ declare namespace Ext {
 declare namespace Ext.picker {
     export interface IPicker extends Ext.ISheet {
         /** [Config Option] (String) */
-        activeCls?: string;
+        activeCls?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/String) */
         bottom?: any;
         /** [Config Option] (String/Mixed) */
@@ -39149,7 +39149,7 @@ declare namespace Ext.picker {
         /** [Config Option] (String/Mixed) */
         doneButton?: any;
         /** [Config Option] (Number) */
-        height?: number;
+        height?: number | undefined;
         /** [Config Option] (Object/String) */
         layout?: any;
         /** [Config Option] (Number/String) */
@@ -39157,11 +39157,11 @@ declare namespace Ext.picker {
         /** [Config Option] (Number/String) */
         right?: any;
         /** [Config Option] (Array) */
-        slots?: any[];
+        slots?: any[] | undefined;
         /** [Config Option] (Ext.TitleBar/Ext.Toolbar/Object) */
         toolbar?: any;
         /** [Config Option] (Boolean) */
-        useTitles?: boolean;
+        useTitles?: boolean | undefined;
         /** [Config Option] (String/Number) */
         value?: any;
         /** [Method] Updates the cancelButton configuration
@@ -39294,9 +39294,9 @@ declare namespace Ext.picker {
 declare namespace Ext {
     export interface IPicker extends Ext.ISheet {
         /** [Config Option] (String) */
-        activeCls?: string;
+        activeCls?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number/String) */
         bottom?: any;
         /** [Config Option] (String/Mixed) */
@@ -39304,7 +39304,7 @@ declare namespace Ext {
         /** [Config Option] (String/Mixed) */
         doneButton?: any;
         /** [Config Option] (Number) */
-        height?: number;
+        height?: number | undefined;
         /** [Config Option] (Object/String) */
         layout?: any;
         /** [Config Option] (Number/String) */
@@ -39312,11 +39312,11 @@ declare namespace Ext {
         /** [Config Option] (Number/String) */
         right?: any;
         /** [Config Option] (Array) */
-        slots?: any[];
+        slots?: any[] | undefined;
         /** [Config Option] (Ext.TitleBar/Ext.Toolbar/Object) */
         toolbar?: any;
         /** [Config Option] (Boolean) */
-        useTitles?: boolean;
+        useTitles?: boolean | undefined;
         /** [Config Option] (String/Number) */
         value?: any;
         /** [Method] Updates the cancelButton configuration
@@ -39449,19 +39449,19 @@ declare namespace Ext {
 declare namespace Ext.picker {
     export interface ISlot extends Ext.dataview.IDataView {
         /** [Config Option] (String) */
-        align?: string;
+        align?: string | undefined;
         /** [Config Option] (String) */
-        displayField?: string;
+        displayField?: string | undefined;
         /** [Config Option] (String) */
-        itemTpl?: string;
+        itemTpl?: string | undefined;
         /** [Config Option] (String) */
-        name?: string;
+        name?: string | undefined;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Config Option] (Number) */
-        value?: number;
+        value?: number | undefined;
         /** [Config Option] (String) */
-        valueField?: string;
+        valueField?: string | undefined;
         /** [Method] Looks at the data configuration and turns it into store
         * @param data Object
         * @returns Object
@@ -39538,11 +39538,11 @@ declare namespace Ext.plugin {
 declare namespace Ext.plugin {
     export interface IListPaging extends Ext.IComponent {
         /** [Config Option] (Boolean) */
-        autoPaging?: boolean;
+        autoPaging?: boolean | undefined;
         /** [Config Option] (String) */
-        loadMoreText?: string;
+        loadMoreText?: string | undefined;
         /** [Config Option] (String) */
-        noMoreRecordsText?: string;
+        noMoreRecordsText?: string | undefined;
         /** [Method] Returns the value of autoPaging
         * @returns Boolean
         */
@@ -39572,33 +39572,33 @@ declare namespace Ext.plugin {
 declare namespace Ext.plugin {
     export interface IPullRefresh extends Ext.IComponent {
         /** [Config Option] (Boolean) */
-        autoSnapBack?: boolean;
+        autoSnapBack?: boolean | undefined;
         /** [Config Option] (String) */
-        lastUpdatedDateFormat?: string;
+        lastUpdatedDateFormat?: string | undefined;
         /** [Config Option] (String) */
-        lastUpdatedText?: string;
+        lastUpdatedText?: string | undefined;
         /** [Config Option] (Ext.dataview.List) */
-        list?: Ext.dataview.IList;
+        list?: Ext.dataview.IList | undefined;
         /** [Config Option] (String) */
-        loadedText?: string;
+        loadedText?: string | undefined;
         /** [Config Option] (String) */
-        loadingText?: string;
+        loadingText?: string | undefined;
         /** [Config Option] (Number) */
-        overpullSnapBackDuration?: number;
+        overpullSnapBackDuration?: number | undefined;
         /** [Config Option] (String) */
-        pullRefreshText?: string;
+        pullRefreshText?: string | undefined;
         /** [Config Option] (String) */
-        pullReleaseText?: string;
+        pullReleaseText?: string | undefined;
         /** [Config Option] (String) */
-        pullText?: string;
+        pullText?: string | undefined;
         /** [Config Option] (Ext.XTemplate/String/Array) */
         pullTpl?: any;
         /** [Config Option] (String) */
-        releaseText?: string;
+        releaseText?: string | undefined;
         /** [Config Option] (Boolean) */
-        scrollerAutoRefresh?: boolean;
+        scrollerAutoRefresh?: boolean | undefined;
         /** [Config Option] (Number) */
-        snappingAnimationDuration?: number;
+        snappingAnimationDuration?: number | undefined;
         /** [Method] Returns the value of autoSnapBack
         * @returns Boolean
         */
@@ -39740,19 +39740,19 @@ declare namespace Ext.plugin {
 declare namespace Ext {
     export interface IProgressIndicator extends Ext.IContainer,Ext.mixin.IProgressable {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        centered?: boolean;
+        centered?: boolean | undefined;
         /** [Config Option] (String/Object) */
         fallbackText?: any;
         /** [Config Option] (Boolean) */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** [Config Option] (String/Mixed) */
         hideAnimation?: any;
         /** [Config Option] (String/Ext.XTemplate/Object) */
         loadingText?: any;
         /** [Config Option] (Boolean) */
-        modal?: boolean;
+        modal?: boolean | undefined;
         /** [Config Option] (Object) */
         monitoredStates?: any;
         /** [Config Option] (String/Mixed) */
@@ -39864,13 +39864,13 @@ declare namespace Ext {
 declare namespace Ext.scroll.indicator {
     export interface IAbstract extends Ext.IComponent {
         /** [Config Option] (Boolean) */
-        autoHide?: boolean;
+        autoHide?: boolean | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of active
         * @returns Boolean
         */
@@ -40014,15 +40014,15 @@ declare namespace Ext.scroll.indicator {
 declare namespace Ext.scroll {
     export interface IScroller extends Ext.IEvented {
         /** [Config Option] (Number) */
-        acceleration?: number;
+        acceleration?: number | undefined;
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (Boolean) */
-        directionLock?: boolean;
+        directionLock?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /** [Config Option] (Number) */
-        friction?: number;
+        friction?: number | undefined;
         /** [Config Option] (Object/Number) */
         initialOffset?: any;
         /** [Config Option] (Object) */
@@ -40133,7 +40133,7 @@ declare namespace Ext.scroll {
 declare namespace Ext.scroll {
     export interface IView extends Ext.IEvented {
         /** [Config Option] (String) */
-        indicatorsUi?: string;
+        indicatorsUi?: string | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of cls
@@ -40189,7 +40189,7 @@ declare namespace Ext.scroll {
 declare namespace Ext.util {
     export interface IScrollView extends Ext.IEvented {
         /** [Config Option] (String) */
-        indicatorsUi?: string;
+        indicatorsUi?: string | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Returns the value of cls
@@ -40245,21 +40245,21 @@ declare namespace Ext.util {
 declare namespace Ext {
     export interface ISegmentedButton extends Ext.IContainer {
         /** [Config Option] (Boolean) */
-        allowDepress?: boolean;
+        allowDepress?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        allowMultiple?: boolean;
+        allowMultiple?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        allowToggle?: boolean;
+        allowToggle?: boolean | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Object/String) */
         layout?: any;
         /** [Config Option] (Array) */
-        pressedButtons?: any[];
+        pressedButtons?: any[] | undefined;
         /** [Config Option] (String) */
-        pressedCls?: string;
+        pressedCls?: string | undefined;
         /** [Method] We override initItems so we can check for the pressed config  */
         applyItems?(): void;
         /** [Method] Returns the value of allowDepress
@@ -40344,23 +40344,23 @@ declare namespace Ext {
 declare namespace Ext {
     export interface ISheet extends Ext.IPanel {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        centered?: boolean;
+        centered?: boolean | undefined;
         /** [Config Option] (String) */
-        enter?: string;
+        enter?: string | undefined;
         /** [Config Option] (String) */
-        exit?: string;
+        exit?: string | undefined;
         /** [Config Option] (String/Mixed) */
         hideAnimation?: any;
         /** [Config Option] (Boolean) */
-        modal?: boolean;
+        modal?: boolean | undefined;
         /** [Config Option] (String/Mixed) */
         showAnimation?: any;
         /** [Config Option] (Boolean) */
-        stretchX?: boolean;
+        stretchX?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        stretchY?: boolean;
+        stretchY?: boolean | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -40430,21 +40430,21 @@ declare namespace Ext {
 declare namespace Ext.slider {
     export interface ISlider extends Ext.IContainer {
         /** [Config Option] (Boolean) */
-        allowThumbsOverlapping?: boolean;
+        allowThumbsOverlapping?: boolean | undefined;
         /** [Config Option] (Boolean/Object) */
         animation?: any;
         /** [Config Option] (Boolean) */
-        animationDuration?: boolean;
+        animationDuration?: boolean | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Number) */
-        increment?: number;
+        increment?: number | undefined;
         /** [Config Option] (Number) */
-        maxValue?: number;
+        maxValue?: number | undefined;
         /** [Config Option] (Number) */
-        minValue?: number;
+        minValue?: number | undefined;
         /** [Config Option] (Boolean) */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /** [Config Option] (Object) */
         thumbConfig?: any;
         /** [Config Option] (Number/Number[]) */
@@ -40555,7 +40555,7 @@ declare namespace Ext.slider {
 declare namespace Ext.slider {
     export interface IThumb extends Ext.IComponent {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Object) */
         draggable?: any;
         /** [Method] Returns the value of baseCls
@@ -40581,11 +40581,11 @@ declare namespace Ext.slider {
 declare namespace Ext.slider {
     export interface IToggle extends Ext.slider.ISlider {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        maxValueCls?: string;
+        maxValueCls?: string | undefined;
         /** [Config Option] (String) */
-        minValueCls?: string;
+        minValueCls?: string | undefined;
         /** [Method] Sets the increment configuration
         * @returns Number
         */
@@ -40624,9 +40624,9 @@ declare namespace Ext.slider {
 declare namespace Ext {
     export interface ISpacer extends Ext.IComponent {
         /** [Config Option] (Number) */
-        flex?: number;
+        flex?: number | undefined;
         /** [Config Option] (Number) */
-        width?: number;
+        width?: number | undefined;
         /** [Method] Returns the value of flex
         * @returns Number
         */
@@ -40735,7 +40735,7 @@ declare namespace Ext.tab {
         /** [Config Option] (Number/String/Ext.Component) */
         activeTab?: any;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Method] Returns the value of activeTab
         * @returns Number/String/Ext.Component
         */
@@ -40761,7 +40761,7 @@ declare namespace Ext {
         /** [Config Option] (Number/String/Ext.Component) */
         activeTab?: any;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Method] Returns the value of activeTab
         * @returns Number/String/Ext.Component
         */
@@ -40791,11 +40791,11 @@ declare namespace Ext.tab {
         /** [Config Option] (Object) */
         tabBar?: any;
         /** [Config Option] (Boolean) */
-        tabBarDock?: boolean;
+        tabBarDock?: boolean | undefined;
         /** [Config Option] (String) */
-        tabBarPosition?: string;
+        tabBarPosition?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Updates this container with the new active item
         * @param tabBar Object
         * @param newTab Object
@@ -40860,11 +40860,11 @@ declare namespace Ext {
         /** [Config Option] (Object) */
         tabBar?: any;
         /** [Config Option] (Boolean) */
-        tabBarDock?: boolean;
+        tabBarDock?: boolean | undefined;
         /** [Config Option] (String) */
-        tabBarPosition?: string;
+        tabBarPosition?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Updates this container with the new active item
         * @param tabBar Object
         * @param newTab Object
@@ -40923,15 +40923,15 @@ declare namespace Ext {
 declare namespace Ext.tab {
     export interface ITab extends Ext.IButton {
         /** [Config Option] (Boolean) */
-        active?: boolean;
+        active?: boolean | undefined;
         /** [Config Option] (String) */
-        activeCls?: string;
+        activeCls?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        pressedCls?: string;
+        pressedCls?: string | undefined;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Method] Returns the value of active
         * @returns Boolean
         */
@@ -40977,15 +40977,15 @@ declare namespace Ext.tab {
 declare namespace Ext {
     export interface ITab extends Ext.IButton {
         /** [Config Option] (Boolean) */
-        active?: boolean;
+        active?: boolean | undefined;
         /** [Config Option] (String) */
-        activeCls?: string;
+        activeCls?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        pressedCls?: string;
+        pressedCls?: string | undefined;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Method] Returns the value of active
         * @returns Boolean
         */
@@ -41070,11 +41070,11 @@ declare namespace Ext {
 declare namespace Ext {
     export interface ITemplate extends Ext.IBase {
         /** [Config Option] (Boolean) */
-        compiled?: boolean;
+        compiled?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        disableFormats?: boolean;
+        disableFormats?: boolean | undefined;
         /** [Property] (Boolean) */
-        isTemplate?: boolean;
+        isTemplate?: boolean | undefined;
         /** [Method] Applies the supplied values to the template and appends the new node s to the specified el
         * @param el String/HTMLElement/Ext.Element The context element.
         * @param values Object/Array The template values. See applyTemplate for details.
@@ -41180,9 +41180,9 @@ declare namespace Ext {
 declare namespace Ext {
     export interface ITitle extends Ext.IComponent {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -41204,23 +41204,23 @@ declare namespace Ext {
 declare namespace Ext {
     export interface ITitleBar extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String/String[]) */
         cls?: any;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (Array/Object) */
         items?: any;
         /** [Config Option] (String) */
-        maxButtonWidth?: string;
+        maxButtonWidth?: string | undefined;
         /** [Config Option] (String) */
-        minHeight?: string;
+        minHeight?: string | undefined;
         /** [Config Option] (String) */
-        title?: string;
+        title?: string | undefined;
         /** [Config Option] (String) */
-        titleAlign?: string;
+        titleAlign?: string | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -41296,21 +41296,21 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IToolbar extends Ext.IContainer {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        defaultType?: string;
+        defaultType?: string | undefined;
         /** [Config Option] (String) */
-        docked?: string;
+        docked?: string | undefined;
         /** [Config Option] (Object/String) */
         layout?: any;
         /** [Config Option] (String) */
-        minHeight?: string;
+        minHeight?: string | undefined;
         /** [Config Option] (String/Ext.Title) */
         title?: any;
         /** [Config Option] (Boolean) */
-        titleCls?: boolean;
+        titleCls?: boolean | undefined;
         /** [Config Option] (String) */
-        ui?: string;
+        ui?: string | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -41372,7 +41372,7 @@ declare namespace Ext {
 declare namespace Ext.util {
     export interface IAbstractMixedCollection extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (Boolean) */
-        allowFunctions?: boolean;
+        allowFunctions?: boolean | undefined;
         /** [Method] Adds an item to the collection
         * @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter.
         * @param obj Object The item to add.
@@ -41798,19 +41798,19 @@ declare namespace Ext.util {
 declare namespace Ext.util {
     export interface ICollection extends Ext.IBase,Ext.mixin.ISortable,Ext.mixin.IFilterable {
         /** [Config Option] (Object[]) */
-        filters?: any[];
+        filters?: any[] | undefined;
         /** [Config Option] (Object[]) */
-        sorters?: any[];
+        sorters?: any[] | undefined;
         /** [Property] (Array) */
-        all?: any[];
+        all?: any[] | undefined;
         /** [Property] (Object) */
         indices?: any;
         /** [Property] (Array) */
-        items?: any[];
+        items?: any[] | undefined;
         /** [Property] (Array) */
-        keys?: any[];
+        keys?: any[] | undefined;
         /** [Property] (Number) */
-        length?: number;
+        length?: number | undefined;
         /** [Property] (Object) */
         map?: any;
         /** [Method] Adds an item to the collection
@@ -42148,7 +42148,7 @@ declare namespace Ext.util {
 declare namespace Ext.util {
     export interface IDraggable extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (Object/Number) */
         initialOffset?: any;
         /** [Method] Appends an after event handler
@@ -42405,19 +42405,19 @@ declare namespace Ext.util {
 declare namespace Ext.util {
     export interface IDroppable extends Ext.IBase,Ext.mixin.IObservable {
         /** [Config Option] (String) */
-        activeCls?: string;
+        activeCls?: string | undefined;
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (Boolean) */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /** [Config Option] (String) */
-        group?: string;
+        group?: string | undefined;
         /** [Config Option] (String) */
-        hoverCls?: string;
+        hoverCls?: string | undefined;
         /** [Config Option] (String) */
-        invalidCls?: string;
+        invalidCls?: string | undefined;
         /** [Config Option] (String) */
-        validDropMode?: string;
+        validDropMode?: string | undefined;
         /** [Method] Appends an after event handler
         * @param eventName String/String[]/Object The name of the event to listen for.
         * @param fn Function/String The method the event invokes.
@@ -42620,19 +42620,19 @@ declare namespace Ext.util {
 declare namespace Ext.util {
     export interface IFilter extends Ext.IBase {
         /** [Config Option] (Boolean) */
-        anyMatch?: boolean;
+        anyMatch?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        caseSensitive?: boolean;
+        caseSensitive?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        exactMatch?: boolean;
+        exactMatch?: boolean | undefined;
         /** [Config Option] (Function) */
         filterFn?: any;
         /** [Config Option] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Config Option] (String) */
-        property?: string;
+        property?: string | undefined;
         /** [Config Option] (String) */
-        root?: string;
+        root?: string | undefined;
         /** [Config Option] (Object) */
         scope?: any;
         /** [Config Option] (RegExp/Mixed) */
@@ -42815,29 +42815,29 @@ declare namespace Ext.util {
 declare namespace Ext.util {
     export interface IGeolocation extends Ext.IEvented {
         /** [Config Option] (Boolean) */
-        allowHighAccuracy?: boolean;
+        allowHighAccuracy?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        autoUpdate?: boolean;
+        autoUpdate?: boolean | undefined;
         /** [Config Option] (Number) */
-        frequency?: number;
+        frequency?: number | undefined;
         /** [Config Option] (Number) */
-        maximumAge?: number;
+        maximumAge?: number | undefined;
         /** [Config Option] (Number) */
-        timeout?: number;
+        timeout?: number | undefined;
         /** [Property] (Number) */
-        accuracy?: number;
+        accuracy?: number | undefined;
         /** [Property] (Number) */
-        altitude?: number;
+        altitude?: number | undefined;
         /** [Property] (Number) */
-        altitudeAccuracy?: number;
+        altitudeAccuracy?: number | undefined;
         /** [Property] (Number) */
-        heading?: number;
+        heading?: number | undefined;
         /** [Property] (Number) */
-        latitude?: number;
+        latitude?: number | undefined;
         /** [Property] (Number) */
-        longitude?: number;
+        longitude?: number | undefined;
         /** [Property] (Number) */
-        speed?: number;
+        speed?: number | undefined;
         /** [Property] (Date) */
         timestamp?: any;
         /** [Method]  */
@@ -42894,7 +42894,7 @@ declare namespace Ext.util {
         /** [Config Option] (Function) */
         groupFn?: any;
         /** [Config Option] (String) */
-        sortProperty?: string;
+        sortProperty?: string | undefined;
         /** [Config Option] (Function) */
         sorterFn?: any;
         /** [Method] Returns the value of groupFn
@@ -43676,13 +43676,13 @@ declare namespace Ext.util.sizemonitor {
 declare namespace Ext.util {
     export interface ISortable extends Ext.mixin.IMixin {
         /** [Property] (String) */
-        defaultSortDirection?: string;
+        defaultSortDirection?: string | undefined;
         /** [Property] (Boolean) */
-        isSortable?: boolean;
+        isSortable?: boolean | undefined;
         /** [Property] (String) */
-        sortRoot?: string;
+        sortRoot?: string | undefined;
         /** [Property] (Ext.util.MixedCollection) */
-        sorters?: Ext.util.IMixedCollection;
+        sorters?: Ext.util.IMixedCollection | undefined;
         /** [Method]  */
         destroy?(): void;
         /** [Method] Performs initialization of this mixin  */
@@ -43700,13 +43700,13 @@ declare namespace Ext.util {
 declare namespace Ext.util {
     export interface ISorter extends Ext.IBase {
         /** [Config Option] (String) */
-        direction?: string;
+        direction?: string | undefined;
         /** [Config Option] (Mixed) */
         id?: any;
         /** [Config Option] (String) */
-        property?: string;
+        property?: string | undefined;
         /** [Config Option] (String) */
-        root?: string;
+        root?: string | undefined;
         /** [Config Option] (Function) */
         sorterFn?: any;
         /** [Config Option] (Function) */
@@ -44477,9 +44477,9 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IVideo extends Ext.IMedia {
         /** [Config Option] (String) */
-        baseCls?: string;
+        baseCls?: string | undefined;
         /** [Config Option] (String) */
-        posterUrl?: string;
+        posterUrl?: string | undefined;
         /** [Method] Returns the value of baseCls
         * @returns String
         */
@@ -44539,17 +44539,17 @@ declare namespace Ext.viewport {
 declare namespace Ext.viewport {
     export interface IDefault extends Ext.IContainer {
         /** [Config Option] (Boolean) */
-        autoMaximize?: boolean;
+        autoMaximize?: boolean | undefined;
         /** [Config Option] (String) */
-        id?: string;
+        id?: string | undefined;
         /** [Config Option] (Object/String) */
         layout?: any;
         /** [Config Option] (Boolean) */
-        preventPanning?: boolean;
+        preventPanning?: boolean | undefined;
         /** [Config Option] (Boolean) */
-        preventZooming?: boolean;
+        preventZooming?: boolean | undefined;
         /** [Property] (Boolean) */
-        isReady?: boolean;
+        isReady?: boolean | undefined;
         /** [Method] Returns the value of autoMaximize
         * @returns Boolean
         */
@@ -45688,7 +45688,7 @@ declare namespace Ext {
 declare namespace Ext {
     export interface IXTemplateParser extends Ext.IBase {
         /** [Property] (Number) */
-        level?: number;
+        level?: number | undefined;
         /** [Method] This method is called to process lt tpl case action gt
         * @param action String
         * @param actions Object Other actions keyed by the attribute name (such as 'exec').

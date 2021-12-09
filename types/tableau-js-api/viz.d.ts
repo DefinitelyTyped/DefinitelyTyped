@@ -94,16 +94,16 @@ export class Viz {
 }
 
 export interface VizCreateOptions {
-    disableUrlActionsPopups?: boolean;
-    hideTabs?: boolean;
-    hideToolbar?: boolean;
-    instanceIdToClone?: string;
-    width?: string;
-    height?: string;
-    device?: DeviceType;
-    onFirstInteractive?: (event: TableauEvent) => void;
-    onFirstVizSizeKnown?: (event: VizResizeEvent) => void;
-    toolbarPosition?: ToolbarPosition;
+    disableUrlActionsPopups?: boolean | undefined;
+    hideTabs?: boolean | undefined;
+    hideToolbar?: boolean | undefined;
+    instanceIdToClone?: string | undefined;
+    width?: string | undefined;
+    height?: string | undefined;
+    device?: DeviceType | undefined;
+    onFirstInteractive?: ((event: TableauEvent) => void) | undefined;
+    onFirstVizSizeKnown?: ((event: VizResizeEvent) => void) | undefined;
+    toolbarPosition?: ToolbarPosition | undefined;
 }
 
 export class ToolbarState {

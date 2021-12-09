@@ -57,42 +57,42 @@ interface LevelDownConstructor {
 }
 
 export interface LevelDownOpenOptions extends AbstractOpenOptions {
-  compression?: boolean;
-  cacheSize?: number;
-  writeBufferSize?: number;
-  blockSize?: number;
-  maxOpenFiles?: number;
-  blockRestartInterval?: number;
-  maxFileSize?: number;
+  compression?: boolean | undefined;
+  cacheSize?: number | undefined;
+  writeBufferSize?: number | undefined;
+  blockSize?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  blockRestartInterval?: number | undefined;
+  maxFileSize?: number | undefined;
 }
 
 export interface LevelDownGetOptions extends AbstractGetOptions {
-  fillCache?: boolean;
+  fillCache?: boolean | undefined;
 }
 
 export interface LevelDownPutOptions extends AbstractOptions {
-  sync?: boolean;
+  sync?: boolean | undefined;
 }
 
 export interface LevelDownDelOptions extends AbstractOptions {
-  sync?: boolean;
+  sync?: boolean | undefined;
 }
 
 export interface LevelDownBatchOptions extends AbstractOptions {
-  sync?: boolean;
+  sync?: boolean | undefined;
 }
 
 export interface LevelDownIteratorOptions extends AbstractIteratorOptions<Bytes> {
-  fillCache?: boolean;
+  fillCache?: boolean | undefined;
 }
 
 export interface LevelDownClearOptions {
-  gt?: Bytes;
-  gte?: Bytes;
-  lt?: Bytes;
-  lte?: Bytes;
-  reverse?: boolean;
-  limit?: number;
+  gt?: Bytes | undefined;
+  gte?: Bytes | undefined;
+  lt?: Bytes | undefined;
+  lte?: Bytes | undefined;
+  reverse?: boolean | undefined;
+  limit?: number | undefined;
 }
 
 export interface LevelDownIterator extends AbstractIterator<Bytes, Bytes> {

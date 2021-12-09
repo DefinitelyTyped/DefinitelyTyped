@@ -8,21 +8,21 @@ declare function svg2ttf(svgFontString: string, options?: svg2ttf.FontOptions): 
 
 declare namespace svg2ttf {
     interface FontOptions {
-        copyright?: string;
-        description?: string;
+        copyright?: string | undefined;
+        description?: string | undefined;
         /**
          * Unix timestamp (in seconds) to override creation time
          */
-        ts?: number;
+        ts?: number | undefined;
         /**
          * manufacturer url
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * font version string, can be Version x.y or x.y
          * @default 'Version 1.0'
          */
-        version?: string;
+        version?: string | undefined;
     }
 
     interface MicroBuffer {

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StringifyOptions {
-  canonical: boolean;
-  indent: boolean|number|string;
+  canonical?: boolean;
+  indent?: boolean|number|string;
 }
 
 interface CloneOptions {

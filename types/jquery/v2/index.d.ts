@@ -51,7 +51,7 @@ interface JQueryAjaxSettings {
     /**
      * By default, all requests are sent asynchronously (i.e. this is set to true by default). If you need synchronous requests, set this option to false. Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation. Note that synchronous requests may temporarily lock the browser, disabling any actions while the request is active. As of jQuery 1.8, the use of async: false with jqXHR ($.Deferred) is deprecated; you must use the success/error/complete callback options instead of the corresponding methods of the jqXHR object such as jqXHR.done() or the deprecated jqXHR.success().
      */
-    async?: boolean;
+    async?: boolean | undefined;
     /**
      * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless of the type of request.
      */
@@ -59,7 +59,7 @@ interface JQueryAjaxSettings {
     /**
      * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}" to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a POST is made to a URL that has already been requested by a GET.
      */
-    cache?: boolean;
+    cache?: boolean | undefined;
     /**
      * A function to be called when the request finishes (after success and error callbacks are executed). The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a string categorizing the status of the request ("success", "notmodified", "error", "timeout", "abort", or "parsererror"). As of jQuery 1.5, the complete setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
      */
@@ -67,7 +67,7 @@ interface JQueryAjaxSettings {
     /**
      * An object of string/regular-expression pairs that determine how jQuery will parse the response, given its content type. (version added: 1.5)
      */
-    contents?: { [key: string]: any; };
+    contents?: { [key: string]: any; } | undefined;
     //According to jQuery.ajax source code, ajax's option actually allows contentType to set to "false"
     // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
     /**
@@ -81,11 +81,11 @@ interface JQueryAjaxSettings {
     /**
      * An object containing dataType-to-dataType converters. Each converter's value is a function that returns the transformed value of the response. (version added: 1.5)
      */
-    converters?: { [key: string]: any; };
+    converters?: { [key: string]: any; } | undefined;
     /**
      * If you wish to force a crossDomain request (such as JSONP) on the same domain, set the value of crossDomain to true. This allows, for example, server-side redirection to another domain. (version added: 1.5)
      */
-    crossDomain?: boolean;
+    crossDomain?: boolean | undefined;
     /**
      * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be key-value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
      */
@@ -97,7 +97,7 @@ interface JQueryAjaxSettings {
     /**
      * The type of data that you're expecting back from the server. If none is specified, jQuery will try to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be returned as a string).
      */
-    dataType?: string;
+    dataType?: string | undefined;
     /**
      * A function to be called if the request fails. The function receives three arguments: The jqXHR (in jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note: This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
      */
@@ -105,19 +105,19 @@ interface JQueryAjaxSettings {
     /**
      * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to control various Ajax Events.
      */
-    global?: boolean;
+    global?: boolean | undefined;
     /**
      * An object of additional header key/value pairs to send along with requests using the XMLHttpRequest transport. The header X-Requested-With: XMLHttpRequest is always added, but its default XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from within the beforeSend function. (version added: 1.5)
      */
-    headers?: { [key: string]: any; };
+    headers?: { [key: string]: any; } | undefined;
     /**
      * Allow the request to be successful only if the response has changed since the last request. This is done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery 1.4 this technique also checks the 'etag' specified by the server to catch unmodified data.
      */
-    ifModified?: boolean;
+    ifModified?: boolean | undefined;
     /**
      * Allow the current environment to be recognized as "local," (e.g. the filesystem), even if jQuery does not recognize it as such by default. The following protocols are currently recognized as local: file, *-extension, and widget. If the isLocal setting needs modification, it is recommended to do so once in the $.ajaxSetup() method. (version added: 1.5.1)
      */
-    isLocal?: boolean;
+    isLocal?: boolean | undefined;
     /**
      * Override the callback function name in a jsonp request. This value will be used instead of 'callback' in the 'callback=?' part of the query string in the url. So {jsonp:'onJSONPLoad'} would result in 'onJSONPLoad=?' passed to the server. As of jQuery 1.5, setting the jsonp option to false prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for transformation. In this case, you should also explicitly set the jsonpCallback setting. For example, { jsonp: false, jsonpCallback: "callbackName" }
      */
@@ -129,27 +129,27 @@ interface JQueryAjaxSettings {
     /**
      * The HTTP method to use for the request (e.g. "POST", "GET", "PUT"). (version added: 1.9.0)
      */
-    method?: string;
+    method?: string | undefined;
     /**
      * A MIME type to override the XHR MIME type. (version added: 1.5.1)
      */
-    mimeType?: string;
+    mimeType?: string | undefined;
     /**
      * A password to be used with XMLHttpRequest in response to an HTTP access authentication request.
      */
-    password?: string;
+    password?: string | undefined;
     /**
      * By default, data passed in to the data option as an object (technically, anything other than a string) will be processed and transformed into a query string, fitting to the default content-type "application/x-www-form-urlencoded". If you want to send a DOMDocument, or other non-processed data, set this option to false.
      */
-    processData?: boolean;
+    processData?: boolean | undefined;
     /**
      * Only applies when the "script" transport is used (e.g., cross-domain requests with "jsonp" or "script" dataType and "GET" type). Sets the charset attribute on the script tag used in the request. Used when the character set on the local page is not the same as the one on the remote script.
      */
-    scriptCharset?: string;
+    scriptCharset?: string | undefined;
     /**
      * An object of numeric HTTP codes and functions to be called when the response has the corresponding code. f the request is successful, the status code functions take the same parameters as the success callback; if it results in an error (including 3xx redirect), they take the same parameters as the error callback. (version added: 1.5)
      */
-    statusCode?: { [key: string]: any; };
+    statusCode?: { [key: string]: any; } | undefined;
     /**
      * A function to be called if the request succeeds. The function gets passed three arguments: The data returned from the server, formatted according to the dataType parameter; a string describing the status; and the jqXHR (in jQuery 1.4.x, XMLHttpRequest) object. As of jQuery 1.5, the success setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
      */
@@ -157,23 +157,23 @@ interface JQueryAjaxSettings {
     /**
      * Set a timeout (in milliseconds) for the request. This will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the $.ajax call is made; if several other requests are in progress and the browser has no connections available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be cancelled by a timeout; the script will run even if it arrives after the timeout period.
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * Set this to true if you wish to use the traditional style of parameter serialization.
      */
-    traditional?: boolean;
+    traditional?: boolean | undefined;
     /**
      * The type of request to make ("POST" or "GET"), default is "GET". Note: Other HTTP request methods, such as PUT and DELETE, can also be used here, but they are not supported by all browsers.
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * A string containing the URL to which the request is sent.
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
      */
-    username?: string;
+    username?: string | undefined;
     /**
      * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE), the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or enhancements to the factory.
      */
@@ -181,7 +181,7 @@ interface JQueryAjaxSettings {
     /**
      * An object of fieldName-fieldValue pairs to set on the native XHR object. For example, you can use it to set withCredentials to true for cross-domain requests if needed. In jQuery 1.5, the withCredentials property was not propagated to the native XHR and thus CORS requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+ should you require the use of it. (version added: 1.5.1)
      */
-    xhrFields?: { [key: string]: any; };
+    xhrFields?: { [key: string]: any; } | undefined;
 }
 
 /**
@@ -655,25 +655,25 @@ interface JQueryEventObject extends BaseJQueryEventObject, JQueryCustomEventObje
  * @deprecated since version 1.9
  */
 interface JQuerySupport {
-    ajax?: boolean;
-    boxModel?: boolean;
-    changeBubbles?: boolean;
-    checkClone?: boolean;
-    checkOn?: boolean;
-    cors?: boolean;
-    cssFloat?: boolean;
-    hrefNormalized?: boolean;
-    htmlSerialize?: boolean;
-    leadingWhitespace?: boolean;
-    noCloneChecked?: boolean;
-    noCloneEvent?: boolean;
-    opacity?: boolean;
-    optDisabled?: boolean;
-    optSelected?: boolean;
+    ajax?: boolean | undefined;
+    boxModel?: boolean | undefined;
+    changeBubbles?: boolean | undefined;
+    checkClone?: boolean | undefined;
+    checkOn?: boolean | undefined;
+    cors?: boolean | undefined;
+    cssFloat?: boolean | undefined;
+    hrefNormalized?: boolean | undefined;
+    htmlSerialize?: boolean | undefined;
+    leadingWhitespace?: boolean | undefined;
+    noCloneChecked?: boolean | undefined;
+    noCloneEvent?: boolean | undefined;
+    opacity?: boolean | undefined;
+    optDisabled?: boolean | undefined;
+    optSelected?: boolean | undefined;
     scriptEval? (): boolean;
-    style?: boolean;
-    submitBubbles?: boolean;
-    tbody?: boolean;
+    style?: boolean | undefined;
+    submitBubbles?: boolean | undefined;
+    tbody?: boolean | undefined;
 }
 
 interface JQueryParam {
@@ -741,35 +741,35 @@ interface JQueryAnimationOptions {
     /**
      * A string indicating which easing function to use for the transition.
      */
-    easing?: string;
+    easing?: string | undefined;
     /**
      * A function to call once the animation is complete.
      */
-    complete?: Function;
+    complete?: Function | undefined;
     /**
      * A function to be called for each animated property of each animated element. This function provides an opportunity to modify the Tween object to change the value of the property before it is set.
      */
-    step?: (now: number, tween: any) => any;
+    step?: ((now: number, tween: any) => any) | undefined;
     /**
      * A function to be called after each step of the animation, only once per animated element regardless of the number of animated properties. (version added: 1.8)
      */
-    progress?: (animation: JQueryPromise<any>, progress: number, remainingMs: number) => any;
+    progress?: ((animation: JQueryPromise<any>, progress: number, remainingMs: number) => any) | undefined;
     /**
      * A function to call when the animation begins. (version added: 1.8)
      */
-    start?: (animation: JQueryPromise<any>) => any;
+    start?: ((animation: JQueryPromise<any>) => any) | undefined;
     /**
      * A function to be called when the animation completes (its Promise object is resolved). (version added: 1.8)
      */
-    done?: (animation: JQueryPromise<any>, jumpedToEnd: boolean) => any;
+    done?: ((animation: JQueryPromise<any>, jumpedToEnd: boolean) => any) | undefined;
     /**
      * A function to be called when the animation fails to complete (its Promise object is rejected). (version added: 1.8)
      */
-    fail?: (animation: JQueryPromise<any>, jumpedToEnd: boolean) => any;
+    fail?: ((animation: JQueryPromise<any>, jumpedToEnd: boolean) => any) | undefined;
     /**
      * A function to be called when the animation completes or stops without completing (its Promise object is either resolved or rejected). (version added: 1.8)
      */
-    always?: (animation: JQueryPromise<any>, jumpedToEnd: boolean) => any;
+    always?: ((animation: JQueryPromise<any>, jumpedToEnd: boolean) => any) | undefined;
     /**
      * A Boolean indicating whether to place the animation in the effects queue. If false, the animation will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case the animation is added to the queue represented by that string. When a custom queue name is used the animation does not automatically start; you must call .dequeue("queuename") to start it.
      */
@@ -777,7 +777,7 @@ interface JQueryAnimationOptions {
     /**
      * A map of one or more of the CSS properties defined by the properties argument and their corresponding easing functions. (version added: 1.4)
      */
-    specialEasing?: Object;
+    specialEasing?: Object | undefined;
 }
 
 interface JQueryEasingFunction {

@@ -1,4 +1,4 @@
-// Type definitions for formidable 1.2
+// Type definitions for formidable 2.0
 // Project: https://github.com/node-formidable/formidable
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Martin Badin <https://github.com/martin-badin>
@@ -89,56 +89,56 @@ declare namespace formidable {
          *
          * @default 'utf-8'
          */
-        encoding?: BufferEncoding;
+        encoding?: BufferEncoding | undefined;
 
         /**
          * the directory for placing file uploads in. You can move them later by using fs.rename()
          *
          * @default os.tmpdir()
          */
-        uploadDir?: string;
+        uploadDir?: string | undefined;
 
         /**
          * to include the extensions of the original files or not
          *
          * @default false
          */
-        keepExtensions?: boolean;
+        keepExtensions?: boolean | undefined;
 
         /**
          * allow upload empty files
          *
          * @default true
          */
-        allowEmptyFiles?: boolean;
+        allowEmptyFiles?: boolean | undefined;
 
         /**
          * the minium size of uploaded file
          *
          * @default 1
          */
-        minFileSize?: number;
+        minFileSize?: number | undefined;
 
         /**
          * limit the size of uploaded file
          *
          * @default 200 * 1024 * 1024
          */
-        maxFileSize?: number;
+        maxFileSize?: number | undefined;
 
         /**
          * limit the number of fields, set 0 for unlimited
          *
          * @default 1000
          */
-        maxFields?: number;
+        maxFields?: number | undefined;
 
         /**
          * limit the amount of memory all fields together (except files) can allocate in bytes
          *
          * @default 20 * 1024 * 1024
          */
-        maxFieldsSize?: number;
+        maxFieldsSize?: number | undefined;
 
         /**
          * include checksums calculated for incoming files, set this to some hash algorithm, see
@@ -146,7 +146,7 @@ declare namespace formidable {
          *
          * @default false
          */
-        hash?: string | false;
+        hashAlgorithm?: string | false | undefined;
 
         /**
          * which by default writes to host machine file system every file parsed; The function should
@@ -159,7 +159,7 @@ declare namespace formidable {
          *
          * @default null
          */
-        fileWriteStreamHandler?: () => void;
+        fileWriteStreamHandler?: (() => void) | undefined;
 
         /**
          * when you call the .parse method, the files argument (of the callback) will contain arrays of
@@ -168,9 +168,17 @@ declare namespace formidable {
          *
          * @default false
          */
-        multiples?: boolean;
+        multiples?: boolean | undefined;
 
-        enabledPlugins?: string[];
+        /**
+         * Use it to control newFilename. Must return a string. Will be joined with
+         * options.uploadDir.
+         *
+         * @default undefined
+         */
+        filename?: (name: string, ext: string, part: string, form: string) => string | undefined;
+
+        enabledPlugins?: string[] | undefined;
     }
 
     interface Fields {
@@ -181,19 +189,18 @@ declare namespace formidable {
     }
 
     interface Part extends Stream {
-        filename?: string;
+        filename?: string | undefined;
         headers: Record<string, string>;
-        mime?: string;
+        mime?: string | undefined;
         name: string;
     }
 
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<File, "size" | "path" | "name" | "type" | "hash"> {
-        filename: string;
+    interface FileJSON extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash"> {
         length: number;
-        mime: string;
+        mimetype: string | null;
         mtime: Date | null;
     }
 
@@ -208,28 +215,36 @@ declare namespace formidable {
          * The path this file is being written to. You can modify this in the `'fileBegin'` event in case
          * you are unhappy with the way formidable generates a temporary path for your files.
          */
-        path: string;
+        filepath: string;
 
         /**
          * The name this file had according to the uploading client.
          */
-        name: string | null;
+        originalFilename: string | null;
+
+        /**
+         * Calculated based on options provided
+         */
+        newFilename: string | null;
 
         /**
          * The mime type of this file, according to the uploading client.
          */
-        type: string | null;
+        mimetype: string | null;
 
         /**
          * A Date object (or `null`) containing the time this file was last written to. Mostly here for
          * compatibility with the [W3C File API Draft](http://dev.w3.org/2006/webapi/FileAPI/).
          */
-        lastModifiedDate?: Date | null;
+        mtime?: Date | null | undefined;
+
+        hashAlgorithm: false | "sha1" | "md5" | "sha256";
 
         /**
-         * If `options.hash` calculation was set, you can read the hex digest out of this var.
+         * If `options.hashAlgorithm` calculation was set, you can read the hex digest out of this var
+         * (at the end it will be a string).
          */
-        hash?: string | "sha1" | "md5" | "sha256" | null;
+        hash?: string | null;
 
         /**
          * This method returns a JSON-representation of the file, allowing you to JSON.stringify() the
@@ -244,7 +259,7 @@ declare namespace formidable {
 
     interface EmitData {
         formname: any;
-        key?: string | number;
+        key?: string | number | undefined;
         name: "fileBegin" | "file";
         value: File | string;
     }
@@ -281,6 +296,7 @@ declare namespace formidable {
 declare const formidable: {
     (options?: formidable.Options): Formidable;
     defaultOptions: formidable.DefaultOptions;
+    enabledPlugins: formidable.EnabledPlugins;
     plugins: formidable.EnabledPlugins;
     errors: typeof errors;
     File: typeof PersistentFile;

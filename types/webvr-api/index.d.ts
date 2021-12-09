@@ -133,9 +133,9 @@ declare var VRDisplay: {
 };
 
 interface VRLayer {
-    leftBounds?: number[] | Float32Array | null;
-    rightBounds?: number[] | Float32Array | null;
-    source?: HTMLCanvasElement | null;
+    leftBounds?: number[] | Float32Array | null | undefined;
+    rightBounds?: number[] | Float32Array | null | undefined;
+    source?: HTMLCanvasElement | null | undefined;
 }
 
 interface VRDisplayCapabilities {
@@ -206,9 +206,9 @@ declare var VRPose: {
 };
 
 interface VRStageParameters {
-    sittingToStandingTransform?: Float32Array;
-    sizeX?: number;
-    sizeY?: number;
+    sittingToStandingTransform?: Float32Array | undefined;
+    sizeX?: number | undefined;
+    sizeY?: number | undefined;
 }
 
 interface Navigator {
@@ -218,7 +218,7 @@ interface Navigator {
 
 interface VRDisplayEventInit extends EventInit {
     display: VRDisplay;
-    reason?: VRDisplayEventReason_dt_alias;
+    reason?: VRDisplayEventReason_dt_alias | undefined;
 }
 
 interface VRDisplayEvent extends Event {

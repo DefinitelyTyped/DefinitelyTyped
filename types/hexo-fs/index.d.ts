@@ -69,14 +69,14 @@ import {
 } from 'graceful-fs';
 
 export interface DirectoryOptions {
-    ignoreHidden?: boolean;
-    ignorePattern?: RegExp;
+    ignoreHidden?: boolean | undefined;
+    ignorePattern?: RegExp | undefined;
 }
 
 export interface AppendFileOptions {
-    encoding?: string | null;
-    mode?: string | number;
-    flag?: string;
+    encoding?: string | null | undefined;
+    mode?: string | number | undefined;
+    flag?: string | undefined;
 }
 
 // access
@@ -142,10 +142,10 @@ export { createReadStream, createWriteStream };
 export function emptyDir(path: string, callback?: (err: any, value?: string | string[]) => void): Promise<string | string[]>;
 export function emptyDir(
     path: string,
-    options?: DirectoryOptions & { exclude?: string[] },
+    options?: DirectoryOptions & { exclude?: string[] | undefined },
     callback?: (err: any, value?: string | string[]) => void
 ): Promise<string | string[]>;
-export function emptyDirSync(path: string, options?: DirectoryOptions & { exclude?: string[] }, parent?: string): string | string[];
+export function emptyDirSync(path: string, options?: DirectoryOptions & { exclude?: string[] | undefined }, parent?: string): string | string[];
 
 // ensurePath
 /**
@@ -168,12 +168,12 @@ export function ensureWriteStream(path: string, callback?: (err: any, value?: Wr
 export function ensureWriteStream(
     path: string,
     options?: string | {
-        flags?: string;
-        defaultEncoding?: string;
-        fd?: number;
-        mode?: number;
-        autoClose?: boolean;
-        start?: number;
+        flags?: string | undefined;
+        defaultEncoding?: string | undefined;
+        fd?: number | undefined;
+        mode?: number | undefined;
+        autoClose?: boolean | undefined;
+        start?: number | undefined;
     },
     callback?: (err: any, value?: WriteStream) => void
 ): Promise<WriteStream>;
@@ -181,12 +181,12 @@ export function ensureWriteStream(
  * Synchronous version of fs.ensureWriteStream.
  */
 export function ensureWriteStreamSync(path: string, options?: string | {
-    flags?: string;
-    defaultEncoding?: string;
-    fd?: number;
-    mode?: number;
-    autoClose?: boolean;
-    start?: number;
+    flags?: string | undefined;
+    defaultEncoding?: string | undefined;
+    fd?: number | undefined;
+    mode?: number | undefined;
+    autoClose?: boolean | undefined;
+    start?: number | undefined;
 }): WriteStream;
 
 // exists
@@ -257,7 +257,7 @@ export { readSync };
 // readdir
 export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>; // promisify
 export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer" }): Promise<Buffer[]>; // promisify
-export function readdir(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<Array<string | Buffer>>; // promisify
+export function readdir(path: PathLike, options?: { encoding?: string | null | undefined } | string | null): Promise<Array<string | Buffer>>; // promisify
 export { readdirSync };
 
 // readFile
@@ -270,24 +270,24 @@ export function readFile(path: PathLike | number, callback?: (err: any, value?: 
  */
 export function readFile(
     path: PathLike | number,
-    options?: { encoding?: string; flag?: string; escape?: boolean; },
+    options?: { encoding?: string | undefined; flag?: string | undefined; escape?: boolean | undefined; },
     callback?: (err: any, value?: string) => void
 ): Promise<string>;
 /**
  * Synchronous version of `fs.readFile`.
  */
-export function readFileSync(path: PathLike | number, options?: { encoding?: string; flag?: string; escape?: boolean; }): string;
+export function readFileSync(path: PathLike | number, options?: { encoding?: string | undefined; flag?: string | undefined; escape?: boolean | undefined; }): string;
 
 // readlink
-export function readlink(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>; // promisify
+export function readlink(path: PathLike, options?: { encoding?: BufferEncoding | null | undefined } | BufferEncoding | null): Promise<string>; // promisify
 export function readlink(path: PathLike, options: { encoding: 'buffer' } | 'buffer'): Promise<Buffer>; // promisify
-export function readlink(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>; // promisify
+export function readlink(path: PathLike, options?: { encoding?: string | null | undefined } | string | null): Promise<string | Buffer>; // promisify
 export { readlinkSync };
 
 // realpath
-export function realpath(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>; // promisify
+export function realpath(path: PathLike, options?: { encoding?: BufferEncoding | null | undefined } | BufferEncoding | null): Promise<string>; // promisify
 export function realpath(path: PathLike, options: { encoding: 'buffer' } | 'buffer'): Promise<Buffer>; // promisify
-export function realpath(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>; // promisify
+export function realpath(path: PathLike, options?: { encoding?: string | null | undefined } | string | null): Promise<string | Buffer>; // promisify
 export { realpathSync };
 
 // rename
@@ -355,13 +355,13 @@ export function writeFile(path: string, data: any, callback?: (err: any) => void
 export function writeFile(
     path: string,
     data: any,
-    options?: string | { encoding?: string | null; mode?: string | number; flag?: string },
+    options?: string | { encoding?: string | null | undefined; mode?: string | number | undefined; flag?: string | undefined },
     callback?: (err: any) => void
 ): Promise<void>;
 /**
  * Synchronous version of `fs.writeFile`.
  */
-export function writeFileSync(path: string, data: any, options?: string | { encoding?: string | null; mode?: string | number; flag?: string }): void;
+export function writeFileSync(path: string, data: any, options?: string | { encoding?: string | null | undefined; mode?: string | number | undefined; flag?: string | undefined }): void;
 
 // Static classes
 export { Stats, ReadStream, WriteStream } from 'graceful-fs';

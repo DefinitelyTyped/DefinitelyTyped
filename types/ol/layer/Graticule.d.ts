@@ -15,27 +15,27 @@ export interface GraticuleLabelDataType {
     text: string;
 }
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    maxLines?: number;
-    strokeStyle?: Stroke;
-    targetSize?: number;
-    showLabels?: boolean;
-    lonLabelFormatter?: (p0: number) => string;
-    latLabelFormatter?: (p0: number) => string;
-    lonLabelPosition?: number;
-    latLabelPosition?: number;
-    lonLabelStyle?: Text;
-    latLabelStyle?: Text;
-    intervals?: number[];
-    wrapX?: boolean;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    maxLines?: number | undefined;
+    strokeStyle?: Stroke | undefined;
+    targetSize?: number | undefined;
+    showLabels?: boolean | undefined;
+    lonLabelFormatter?: ((p0: number) => string) | undefined;
+    latLabelFormatter?: ((p0: number) => string) | undefined;
+    lonLabelPosition?: number | undefined;
+    latLabelPosition?: number | undefined;
+    lonLabelStyle?: Text | undefined;
+    latLabelStyle?: Text | undefined;
+    intervals?: number[] | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class Graticule extends VectorLayer {
     constructor(opt_options?: Options);

@@ -4,9 +4,9 @@ import { Config, Disposable, Project } from '../index';
 export class GitRepository {
     // Construction
     /** Creates a new GitRepository instance. */
-    static open(path: string, options?: { refreshOnWindowFocus?: boolean }): GitRepository;
+    static open(path: string, options?: { refreshOnWindowFocus?: boolean | undefined }): GitRepository;
 
-    constructor(path: string, options?: { refreshOnWindowFocus?: boolean; config?: Config; project?: Project });
+    constructor(path: string, options?: { refreshOnWindowFocus?: boolean | undefined; config?: Config | undefined; project?: Project | undefined });
 
     // Lifecycle
     /** Destroy this GitRepository object. */

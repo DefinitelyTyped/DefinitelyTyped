@@ -469,12 +469,12 @@ declare class Application<
      *
      */
     constructor(options?: {
-        env?: string,
-        keys?: string[],
-        proxy?: boolean,
-        subdomainOffset?: number,
-        proxyIpHeader?: string,
-        maxIpsCount?: number
+        env?: string | undefined,
+        keys?: string[] | undefined,
+        proxy?: boolean | undefined,
+        subdomainOffset?: number | undefined,
+        proxyIpHeader?: string | undefined,
+        maxIpsCount?: number | undefined
     });
 
     /**
@@ -730,7 +730,7 @@ declare namespace Application {
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
-        respond?: boolean;
+        respond?: boolean | undefined;
     }
 
     type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> = ExtendableContext

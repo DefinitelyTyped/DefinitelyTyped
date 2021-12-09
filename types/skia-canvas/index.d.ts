@@ -22,16 +22,16 @@ export class Canvas {
 
     newPage(width: number, height: number): CanvasRenderingContext2D;
 
-    saveAs(filename: string, options?: { format?: string; quality?: number }): void;
-    toBuffer(format: string, options?: { quality?: number; page?: number }): Buffer;
-    toDataURL(format: string, options?: { quality?: number; page?: number }): string;
+    saveAs(filename: string, options?: { format?: string | undefined; quality?: number | undefined }): void;
+    toBuffer(format: string, options?: { quality?: number | undefined; page?: number | undefined }): Buffer;
+    toDataURL(format: string, options?: { quality?: number | undefined; page?: number | undefined }): string;
 }
 
 export class CanvasRenderingContext2D extends globalThis.CanvasRenderingContext2D {
     fontVariant: string;
     textTracking: number;
     textWrap: boolean;
-    measureText(text: string): TextMetrics;
+    measureText(text: string, maxWidth?: number): TextMetrics;
 }
 
 export interface TextMetrics extends globalThis.TextMetrics {

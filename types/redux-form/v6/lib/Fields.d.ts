@@ -18,7 +18,7 @@ interface BaseFieldsProps {
      * A Component or stateless function that will be given all the props necessary
      * to render the field inputs.
      */
-    component?: ComponentConstructor<any>;
+    component?: ComponentConstructor<any> | undefined;
 
     /**
      * Formats the value from the Redux store to be displayed in the field input.
@@ -30,7 +30,7 @@ interface BaseFieldsProps {
      * To respect React 15 input behavior there is defaultFormat = value => value == null ? '' : value
      * internally used. To disable that you can pass null as format prop.
      */
-    format?: Formatter | null;
+    format?: Formatter | null | undefined;
 
     /**
      * Don't use.
@@ -44,13 +44,13 @@ interface BaseFieldsProps {
      * parse is called with the field value and name as arguments and should return the new parsed value to be
      * stored in the Redux store.
      */
-    parse?: Parser;
+    parse?: Parser | undefined;
 
     /**
      * If true, the rendered component will be available with the getRenderedComponent() method.
      * Defaults to false. Cannot be used if your component is a stateless function component.
      */
-    withRef?: boolean;
+    withRef?: boolean | undefined;
 }
 
 /**

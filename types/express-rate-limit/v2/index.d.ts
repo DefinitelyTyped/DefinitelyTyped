@@ -22,19 +22,19 @@ declare namespace RateLimit {
     }
 
     interface Options {
-        delayAfter?: number;
-        delayMs?: number;
+        delayAfter?: number | undefined;
+        delayMs?: number | undefined;
         handler?(req: express.Request, res: express.Response, next: express.NextFunction): any;
-        headers?: boolean;
+        headers?: boolean | undefined;
         keyGenerator?(req: express.Request, res: express.Response): string;
-        max?: number;
-        message?: string | Buffer | Message;
+        max?: number | undefined;
+        message?: string | Buffer | Message | undefined;
         skip?(req: express.Request, res: express.Response): boolean;
-        skipFailedRequests?: boolean;
-        statusCode?: number;
-        store?: Store;
+        skipFailedRequests?: boolean | undefined;
+        statusCode?: number | undefined;
+        store?: Store | undefined;
         onLimitReached?(req: express.Request, res: express.Response, optionsUsed: Options): void;
-        windowMs?: number;
+        windowMs?: number | undefined;
     }
 
     interface Instance extends express.RequestHandler {

@@ -12,16 +12,16 @@
  */
 export interface POEMessage {
     messageType: string;
-    orderId?: string;
-    timestamp?: number;
-    canceledQuantity?: number;
-    reason?: string;
-    liquidityFlag?: string;
-    matchNumber?: number;
-    side?: string;
-    instrument?: string;
-    quantity?: number;
-    price?: number;
+    orderId?: string | undefined;
+    timestamp?: number | undefined;
+    canceledQuantity?: number | undefined;
+    reason?: string | undefined;
+    liquidityFlag?: string | undefined;
+    matchNumber?: number | undefined;
+    side?: string | undefined;
+    instrument?: string | undefined;
+    quantity?: number | undefined;
+    price?: number | undefined;
 }
 
 export function formatInbound(message: POEMessage): Buffer;

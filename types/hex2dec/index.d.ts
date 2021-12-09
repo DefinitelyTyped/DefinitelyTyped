@@ -12,4 +12,4 @@ export function hexToDec(hexStr: string): string | null;
  * Takes a decimal string and, when the decimal is valid,
  * returns it as a hexadecimal string.
  */
-export function decToHex(decStr: string, opts?: { prefix?: boolean }): string | null;
+export function decToHex(decStr: string, opts?: { prefix?: boolean | undefined }): string | null;

@@ -247,32 +247,32 @@ export interface Tap<TTapType extends TapType = TapType, TArg1 = any, TArg2 = an
     name: string;
     type: TTapType;
     fn: TapFunction<TTapType, TArg1, TArg2, TArg3, THookResult>;
-    stage?: number;
-    context?: boolean;
-    before?: string | string[];
+    stage?: number | undefined;
+    context?: boolean | undefined;
+    before?: string | string[] | undefined;
 }
 
 export type TapOptions<TTapType extends TapType = TapType, TArg1 = any, TArg2 = any, TArg3 = any, THookResult = any> = {
     name: string;
-    stage?: number;
-    context?: boolean;
-    before?: string | string[];
+    stage?: number | undefined;
+    context?: boolean | undefined;
+    before?: string | string[] | undefined;
 } & (
     TTapType extends "sync" ? {
-        type?: "sync";
-        fn?: TapFunction<"sync", TArg1, TArg2, TArg3, THookResult>;
+        type?: "sync" | undefined;
+        fn?: TapFunction<"sync", TArg1, TArg2, TArg3, THookResult> | undefined;
     } :
     TTapType extends "async" ? {
-        type?: "async";
-        fn?: TapFunction<"async", TArg1, TArg2, TArg3, THookResult>;
+        type?: "async" | undefined;
+        fn?: TapFunction<"async", TArg1, TArg2, TArg3, THookResult> | undefined;
     } :
     TTapType extends "promise" ? {
-        type?: "promise";
-        fn?: TapFunction<"promise", TArg1, TArg2, TArg3, THookResult>;
+        type?: "promise" | undefined;
+        fn?: TapFunction<"promise", TArg1, TArg2, TArg3, THookResult> | undefined;
     } :
     {
-        type?: TTapType;
-        fn?: TapFunction<TTapType, TArg1, TArg2, TArg3, THookResult>;
+        type?: TTapType | undefined;
+        fn?: TapFunction<TTapType, TArg1, TArg2, TArg3, THookResult> | undefined;
     }
 );
 
@@ -305,11 +305,11 @@ export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any, THookResult = any
 export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
 
 export class HookInterceptor {
-    call?: (...args: any[]) => void;
-    loop?: (...args: any[]) => void;
-    tap?: (tap: Tap) => void;
-    register?: (tap: Tap) => Tap | undefined;
-    context?: boolean;
+    call?: ((...args: any[]) => void) | undefined;
+    loop?: ((...args: any[]) => void) | undefined;
+    tap?: ((tap: Tap) => void) | undefined;
+    register?: ((tap: Tap) => Tap | undefined) | undefined;
+    context?: boolean | undefined;
 }
 
 /** A HookMap is a helper class for a Map with Hooks */

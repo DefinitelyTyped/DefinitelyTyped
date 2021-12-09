@@ -184,17 +184,17 @@ interface JQueryColor {
 }
 
 interface HslaColor {
-    hue?: number;
-    saturation?: number;
-    lightness?: number;
-    alpha?: number;
+    hue?: number | undefined;
+    saturation?: number | undefined;
+    lightness?: number | undefined;
+    alpha?: number | undefined;
 }
 
 interface RgbaColor {
-    red?: number;
-    green?: number;
-    blue?: number;
-    alpha?: number;
+    red?: number | undefined;
+    green?: number | undefined;
+    blue?: number | undefined;
+    alpha?: number | undefined;
 }
 
 interface JQueryStatic {

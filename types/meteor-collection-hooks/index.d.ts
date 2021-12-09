@@ -94,18 +94,18 @@ declare namespace Mongo {
     };
     direct: {
       find(selector?: Mongo.Selector | Mongo.ObjectID | string, options?: {
-        sort?: Mongo.SortSpecifier;
-        skip?: number;
-        limit?: number;
-        fields?: Mongo.FieldSpecifier;
-        reactive?: boolean;
+        sort?: Mongo.SortSpecifier | undefined;
+        skip?: number | undefined;
+        limit?: number | undefined;
+        fields?: Mongo.FieldSpecifier | undefined;
+        reactive?: boolean | undefined;
         transform?(doc: any): void;
       }): Mongo.Cursor<T>;
       findOne(selector?: Mongo.Selector | Mongo.ObjectID | string, options?: {
-        sort?: Mongo.SortSpecifier;
-        skip?: number;
-        fields?: Mongo.FieldSpecifier;
-        reactive?: boolean;
+        sort?: Mongo.SortSpecifier | undefined;
+        skip?: number | undefined;
+        fields?: Mongo.FieldSpecifier | undefined;
+        reactive?: boolean | undefined;
         transform?(doc: any): void;
       }): T;
       insert(
@@ -117,17 +117,17 @@ declare namespace Mongo {
       ): number;
       update(
         selector: Mongo.Selector | Mongo.ObjectID | string, modifier: Mongo.Modifier, options?: {
-          multi?: boolean;
-          upsert?: boolean;
+          multi?: boolean | undefined;
+          upsert?: boolean | undefined;
         },
         callback?: () => void
       ): number;
       upsert(
         selector: Mongo.Selector | Mongo.ObjectID | string, modifier: Mongo.Modifier, options?: {
-          multi?: boolean;
+          multi?: boolean | undefined;
         },
         callback?: () => void
-      ): { numberAffected?: number; insertedId?: string; };
+      ): { numberAffected?: number | undefined; insertedId?: string | undefined; };
     };
     hookOptions: CollectionHooks.GlobalHookOptions;
   }
@@ -135,27 +135,27 @@ declare namespace Mongo {
 
 declare namespace CollectionHooks {
   interface ModifierOptions {
-    multi?: boolean;
-    upsert?: boolean;
+    multi?: boolean | undefined;
+    upsert?: boolean | undefined;
   }
 
   interface HookOptionValue {
-    fetchPrevious?: boolean;
+    fetchPrevious?: boolean | undefined;
   }
 
   interface LocalHookOptions {
-    all?: HookOptionValue;
-    find?: HookOptionValue;
-    findOne?: HookOptionValue;
-    insert?: HookOptionValue;
-    remove?: HookOptionValue;
-    update?: HookOptionValue;
-    upsert?: HookOptionValue;
+    all?: HookOptionValue | undefined;
+    find?: HookOptionValue | undefined;
+    findOne?: HookOptionValue | undefined;
+    insert?: HookOptionValue | undefined;
+    remove?: HookOptionValue | undefined;
+    update?: HookOptionValue | undefined;
+    upsert?: HookOptionValue | undefined;
   }
 
   interface GlobalHookOptions {
-    before?: LocalHookOptions;
-    after?: LocalHookOptions;
-    all?: LocalHookOptions;
+    before?: LocalHookOptions | undefined;
+    after?: LocalHookOptions | undefined;
+    all?: LocalHookOptions | undefined;
   }
 }

@@ -32,13 +32,13 @@ declare module 'draft-convert' {
         E extends RawDraftEntity = RawDraftEntity
     > {
         // Inline styles:
-        styleToHTML?: (style: S) => Tag | void;
+        styleToHTML?: ((style: S) => Tag | void) | undefined;
 
         // Block styles:
-        blockToHTML?: (block: RawDraftContentBlockWithCustomType<B>) => Tag;
+        blockToHTML?: ((block: RawDraftContentBlockWithCustomType<B>) => Tag) | undefined;
 
         // Entity styling:
-        entityToHTML?: (entity: E, originalText: string) => Tag;
+        entityToHTML?: ((entity: E, originalText: string) => Tag) | undefined;
     }
 
     type EntityKey = string;
@@ -51,26 +51,26 @@ declare module 'draft-convert' {
         E extends RawDraftEntity = RawDraftEntity
     > {
         // Inline styles:
-        htmlToStyle?: (nodeName: string, node: ExtendedHTMLElement<S>, currentStyle: Set<string>) => Set<string>;
+        htmlToStyle?: ((nodeName: string, node: ExtendedHTMLElement<S>, currentStyle: Set<string>) => Set<string>) | undefined;
 
         // Block styles:
-        htmlToBlock?: (
+        htmlToBlock?: ((
             nodeName: string,
             node: ExtendedHTMLElement<S>,
-        ) => B | { type: B; data: object } | false | undefined;
+        ) => B | { type: B; data: object } | false | undefined) | undefined;
 
         // Html entities
-        htmlToEntity?: (
+        htmlToEntity?: ((
             nodeName: string,
             node: ExtendedHTMLElement<S>,
             createEntity: (type: E['type'], mutability: DraftEntityMutability, data: E['data']) => EntityKey,
             getEntity: (key: EntityKey) => Entity,
             mergeEntityData: (key: string, data: object) => void,
             replaceEntityData: (key: string, data: object) => void,
-        ) => EntityKey | undefined;
+        ) => EntityKey | undefined) | undefined;
 
         // Text entities
-        textToEntity?: (
+        textToEntity?: ((
             text: string,
             createEntity: (type: E['type'], mutability: DraftEntityMutability, data: E['data']) => EntityKey,
             getEntity: (key: EntityKey) => Entity,
@@ -80,14 +80,14 @@ declare module 'draft-convert' {
             entity: EntityKey;
             offset: number;
             length: number;
-            result?: string;
-        }>;
+            result?: string | undefined;
+        }>) | undefined;
     }
 
     type ContentStateConverter = (contentState: ContentState) => string;
     type HTMLConverter = (html: string) => ContentState;
 
-    type Tag = ReactNode | { start: string; end: string; empty?: string } | { element: ReactNode; empty?: ReactNode };
+    type Tag = ReactNode | { start: string; end: string; empty?: string | undefined } | { element: ReactNode; empty?: ReactNode | undefined };
 
     export function convertToHTML<
         S = DraftInlineStyleType,

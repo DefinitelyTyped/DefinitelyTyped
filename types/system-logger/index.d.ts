@@ -23,15 +23,15 @@ export enum fileRotateType {
 
 export interface LoggerConfiguration {
   level: level;
-  silent?: boolean;
+  silent?: boolean | undefined;
   externalDisplayFormat?: any;
 }
 
 export interface FileConfiguration {
-  saveToFileName?: string;
-  isFileRotate?: boolean;
-  fileRotateType?: fileRotateType;
-  fileRotateMaxSize?: number;
+  saveToFileName?: string | undefined;
+  isFileRotate?: boolean | undefined;
+  fileRotateType?: fileRotateType | undefined;
+  fileRotateMaxSize?: number | undefined;
 }
 
 export interface SourcesConfiguration {

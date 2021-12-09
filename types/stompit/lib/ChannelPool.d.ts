@@ -14,11 +14,11 @@ export = ChannelPool;
 
 declare namespace ChannelPool {
     interface ChannelPoolOptions {
-        minChannels?: number;
-        minFreeChannels?: number;
-        maxChannels?: number;
-        freeExcessTimeout?: number;
-        requestChannelTimeout?: number;
-        channelOptions?: ChannelOptions;
+        minChannels?: number | undefined;
+        minFreeChannels?: number | undefined;
+        maxChannels?: number | undefined;
+        freeExcessTimeout?: number | undefined;
+        requestChannelTimeout?: number | undefined;
+        channelOptions?: ChannelOptions | undefined;
     }
 }

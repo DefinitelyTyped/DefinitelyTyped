@@ -331,10 +331,10 @@ declare global {
         testTimeout: number;
         scrolltop: boolean;
         urlConfig: {
-            id?: string;
-            label?: string;
-            tooltip?: string;
-            value?: string | string[] | { [key: string]: string };
+            id?: string | undefined;
+            label?: string | undefined;
+            tooltip?: string | undefined;
+            value?: string | string[] | { [key: string]: string } | undefined;
         }[];
     }
 
@@ -343,22 +343,22 @@ declare global {
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after?: (assert: Assert) => void | Promise<void>;
+        after?: ((assert: Assert) => void | Promise<void>) | undefined;
 
         /**
          * Runs after each test.
          */
-        afterEach?: (assert: Assert) => void | Promise<void>;
+        afterEach?: ((assert: Assert) => void | Promise<void>) | undefined;
 
         /**
          * Runs before the first test.
          */
-        before?: (assert: Assert) => void | Promise<void>;
+        before?: ((assert: Assert) => void | Promise<void>) | undefined;
 
         /**
          * Runs before each test.
          */
-        beforeEach?: (assert: Assert) => void | Promise<void>;
+        beforeEach?: ((assert: Assert) => void | Promise<void>) | undefined;
     }
 
     interface NestedHooks {

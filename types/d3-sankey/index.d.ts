@@ -32,45 +32,45 @@ export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends Sa
      * Array of outgoing links which have this node as their source.
      * This property is calculated internally by the Sankey layout generator.
      */
-    sourceLinks?: Array<SankeyLink<N, L>>;
+    sourceLinks?: Array<SankeyLink<N, L>> | undefined;
     /**
      * Array of incoming links which have this node as their target.
      * This property is calculated internally by the Sankey layout generator.
      */
-    targetLinks?: Array<SankeyLink<N, L>>;
+    targetLinks?: Array<SankeyLink<N, L>> | undefined;
     /**
      * Node's value calculated by Sankey layout Generator;
      * the sum of link.value for the node’s incoming links.
      */
-    value?: number;
+    value?: number | undefined;
     /**
      * Node’s zero-based index within the array of nodes calculated by Sankey layout generator.
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * Node’s zero-based graph depth, derived from the graph topology calculated by Sankey layout generator.
      */
-    depth?: number;
+    depth?: number | undefined;
     /**
      * Node’s zero-based graph height, derived from the graph topology calculated by Sankey layout generator.
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * Node's minimum horizontal position (derived from the node.depth) calculated by Sankey layout generator.
      */
-    x0?: number;
+    x0?: number | undefined;
     /**
      * Node’s maximum horizontal position (node.x0 + sankey.nodeWidth) calculated by Sankey layout generator.
      */
-    x1?: number;
+    x1?: number | undefined;
     /**
      * Node's minimum vertical position calculated by Sankey layout generator.
      */
-    y0?: number;
+    y0?: number | undefined;
     /**
      * Node's maximum vertical position (node.y1 - node.y0 is proportional to node.value) calculated by Sankey layout generator.
      */
-    y1?: number;
+    y1?: number | undefined;
 }
 
 /**
@@ -127,19 +127,19 @@ export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends Sa
     /**
      * Link's vertical starting position (at source node) calculated by Sankey layout generator.
      */
-    y0?: number;
+    y0?: number | undefined;
     /**
      * Link's vertical end position (at target node) calculated by Sankey layout generator.
      */
-    y1?: number;
+    y1?: number | undefined;
     /**
      * Link's width (proportional to its value) calculated by Sankey layout generator.
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * Link's zero-based index within the array of links calculated by Sankey layout generator.
      */
-    index?: number;
+    index?: number | undefined;
 }
 
 /**

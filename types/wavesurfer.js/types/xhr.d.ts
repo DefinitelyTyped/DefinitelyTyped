@@ -1,14 +1,14 @@
 export interface XHROptions {
-    url?: string;
-    method?: string;
-    mode?: string;
-    credentials?: string;
-    cache?: string;
-    responseType?: "arraybuffer" | "blob" | "json" | "text";
-    requestHeaders?: XHRRequestHeader[];
-    redirect?: string;
-    referrer?: string;
-    withCredentials?: boolean;
+    url?: string | undefined;
+    method?: string | undefined;
+    mode?: string | undefined;
+    credentials?: string | undefined;
+    cache?: string | undefined;
+    responseType?: "arraybuffer" | "blob" | "json" | "text" | undefined;
+    requestHeaders?: XHRRequestHeader[] | undefined;
+    redirect?: string | undefined;
+    referrer?: string | undefined;
+    withCredentials?: boolean | undefined;
 }
 
 export interface XHRRequestHeader {

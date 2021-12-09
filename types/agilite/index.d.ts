@@ -33,9 +33,9 @@ declare class Agilite {
 
 declare namespace Agilite {
   interface AgiliteConfig {
-    apiServerUrl?: string;
-    apiKey?: string;
-    teamId?: string;
+    apiServerUrl?: string | undefined;
+    apiKey?: string | undefined;
+    teamId?: string | undefined;
   }
 
   interface reqType {

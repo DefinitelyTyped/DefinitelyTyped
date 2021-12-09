@@ -10,6 +10,7 @@
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -32,11 +33,18 @@
  *
  * @return A player instance
  */
-declare function videojs(id: string | Element, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
+declare function videojs(
+    id: string | Element,
+    options?: videojs.PlayerOptions,
+    ready?: videojs.ReadyCallback,
+): videojs.Player;
 export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
+    interface ReadyCallback {
+        (this: Player): void;
+    }
     /**
      * Adding languages so that they're available to all players.
      * Example: `addLanguage('es', { 'Hello': 'Hola' });`
@@ -446,6 +454,19 @@ declare namespace videojs {
     function use(type: string, middleware: (player: Player) => Middleware): void;
 
     /**
+     * Used to subclass an existing class by emulating ES subclassing using the extends keyword.
+     * @param superClass super component to extend
+     * @param [subClassMethods] methods sub class will add to super
+     */
+    function extend<
+        TSuper extends new (...args: any[]) => any,
+        TSubClassMethods extends Record<string | symbol, (this: InstanceType<TSuper>, ...args: any[]) => any>,
+    >(
+        superClass: TSuper,
+        subClassMethods?: TSubClassMethods,
+    ): new (...args: ConstructorParameters<TSuper>) => InstanceType<TSuper> & TSubClassMethods;
+
+    /**
      * Current software version. Follows semver.
      *
      */
@@ -523,11 +544,11 @@ declare namespace videojs {
      *        an {@link AudioTrackList}, only one {@link AudioTrack} will be enabled.
      */
     interface AudioTrackOptions {
-        kind?: AudioTrack.Kind;
-        id?: string;
-        label?: string;
-        language?: string;
-        enabled?: boolean;
+        kind?: AudioTrack.Kind | undefined;
+        id?: string | undefined;
+        label?: string | undefined;
+        language?: string | undefined;
+        enabled?: boolean | undefined;
     }
 
     namespace AudioTrack {
@@ -623,7 +644,7 @@ declare namespace videojs {
     }
 
     interface AudioTrackMenuItemOptions extends MenuItemOptions {
-        track?: VideojsAudioTrack;
+        track?: VideojsAudioTrack | undefined;
     }
 
     /**
@@ -1015,7 +1036,7 @@ declare namespace videojs {
         | string
         | {
               name: string;
-              children?: Child[];
+              children?: Child[] | undefined;
           };
 
     /**
@@ -1205,7 +1226,7 @@ declare namespace videojs {
     };
 
     interface CloseButtonOptions extends ComponentOptions {
-        controlText?: string;
+        controlText?: string | undefined;
     }
 
     /**
@@ -1472,6 +1493,14 @@ declare namespace videojs {
         dispose(): void;
 
         /**
+         * Determine whether or not this component has been disposed.
+         *
+         * @return
+         *         If the component has been disposed, will be `true`. Otherwise, `false`.
+         */
+        isDisposed(): boolean;
+
+        /**
          * Get the `Component`s DOM element
          *
          * @return The DOM element for this `Component`.
@@ -1688,7 +1717,7 @@ declare namespace videojs {
          *
          * @return Returns itself; method can be chained.
          */
-        ready(callback: (this: Player) => void): this;
+        ready(callback: ReadyCallback): this;
 
         /**
          * Remove an attribute from the `Component`s element.
@@ -1924,7 +1953,9 @@ declare namespace videojs {
     };
 
     interface ComponentOptions {
-        children?: Child[];
+        children?: undefined | Child[];
+        createEl?: boolean;
+        el?: HTMLElement;
     }
 
     namespace Component {
@@ -1981,25 +2012,25 @@ declare namespace videojs {
     };
 
     interface ControlBarOptions extends ComponentOptions {
-        volumePanel?: VolumePanelOptions | boolean;
-        playToggle?: boolean;
-        captionsButton?: boolean;
-        chaptersButton?: boolean;
-        subtitlesButton?: boolean;
-        remainingTimeDisplay?: boolean;
-        progressControl?: ProgressControlOptions | boolean;
-        fullscreenToggle?: boolean;
-        playbackRateMenuButton?: boolean;
-        pictureInPictureToggle?: boolean;
-        currentTimeDisplay?: boolean;
-        timeDivider?: boolean;
-        durationDisplay?: boolean;
-        liveDisplay?: boolean;
-        seekToLive?: boolean;
-        customControlSpacer?: boolean;
-        descriptionsButton?: boolean;
-        subsCapsButton?: boolean;
-        audioTrackButton?: boolean;
+        volumePanel?: VolumePanelOptions | boolean | undefined;
+        playToggle?: boolean | undefined;
+        captionsButton?: boolean | undefined;
+        chaptersButton?: boolean | undefined;
+        subtitlesButton?: boolean | undefined;
+        remainingTimeDisplay?: boolean | undefined;
+        progressControl?: ProgressControlOptions | boolean | undefined;
+        fullscreenToggle?: boolean | undefined;
+        playbackRateMenuButton?: boolean | undefined;
+        pictureInPictureToggle?: boolean | undefined;
+        currentTimeDisplay?: boolean | undefined;
+        timeDivider?: boolean | undefined;
+        durationDisplay?: boolean | undefined;
+        liveDisplay?: boolean | undefined;
+        seekToLive?: boolean | undefined;
+        customControlSpacer?: boolean | undefined;
+        descriptionsButton?: boolean | undefined;
+        subsCapsButton?: boolean | undefined;
+        audioTrackButton?: boolean | undefined;
     }
 
     /**
@@ -3535,8 +3566,8 @@ declare namespace videojs {
     };
 
     interface MenuButtonOptions extends ComponentOptions {
-        title?: string;
-        iniChildren?: boolean;
+        title?: string | undefined;
+        iniChildren?: boolean | undefined;
     }
 
     /**
@@ -3600,10 +3631,10 @@ declare namespace videojs {
     };
 
     interface MenuItemOptions extends ComponentOptions {
-        label?: string;
-        multiSelectable?: boolean;
-        selectable?: boolean;
-        selected?: boolean;
+        label?: string | undefined;
+        multiSelectable?: boolean | undefined;
+        selectable?: boolean | undefined;
+        selected?: boolean | undefined;
     }
 
     interface Middleware {
@@ -3799,11 +3830,11 @@ declare namespace videojs {
      */
     interface ModalDialogOptions extends ComponentOptions {
         content?: any;
-        description?: string;
-        fillAlways?: boolean;
-        label?: string;
-        temporary?: boolean;
-        uncloseable?: boolean;
+        description?: string | undefined;
+        fillAlways?: boolean | undefined;
+        label?: string | undefined;
+        temporary?: boolean | undefined;
+        uncloseable?: boolean | undefined;
     }
 
     /**
@@ -3900,39 +3931,39 @@ declare namespace videojs {
             /**
              * Unused, except if this object is passed to the MediaSession API.
              */
-            album?: string;
+            album?: string | undefined;
 
             /**
              * Unused, except if this object is passed to the MediaSession API.
              */
-            artist?: string;
+            artist?: string | undefined;
 
             /**
              * Unused, except if this object is passed to the MediaSession API. If not specified, will be populated via the poster, if available.
              */
-            artwork?: any[];
+            artwork?: any[] | undefined;
 
             /**
              * URL to an image that will display before playback.
              */
-            poster?: string;
+            poster?: string | undefined;
 
             /**
              * A single source object, an array of source objects, or a string referencing a URL to a media source.
              * It is highly recommended that an object or array of objects is used here, so that source selection algorithms can take the type into account.
              */
-            src?: string | Tech.SourceObject | Tech.SourceObject[];
+            src?: string | Tech.SourceObject | Tech.SourceObject[] | undefined;
 
             /**
              * Unused, except if this object is passed to the MediaSession API.
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              *  An array of objects to be used to create text tracks, following the native track element format.
              *  For ease of removal, these will be created as "remote" text tracks and set to automatically clean up on source changes.
              */
-            textTracks?: any[];
+            textTracks?: any[] | undefined;
 
             /**
              * Properties that are not part of this type description will be retained; so, this can be viewed as a generic metadata storage mechanism as well.
@@ -4209,7 +4240,7 @@ declare namespace videojs {
     };
 
     interface ProgressControlOptions extends ComponentOptions {
-        seekBar?: boolean;
+        seekBar?: boolean | undefined;
     }
 
     interface Representation {
@@ -4512,12 +4543,12 @@ declare namespace videojs {
         /**
          * Set property names to bar to match with the child Slider class is looking for
          */
-        barName?: string;
+        barName?: string | undefined;
 
         /**
          * Set a horizontal or vertical class on the slider depending on the slider type
          */
-        vertical?: boolean;
+        vertical?: boolean | undefined;
     }
 
     /**
@@ -4695,21 +4726,6 @@ declare namespace videojs {
          *
          */
         bufferedPercent(): number;
-
-        /**
-         * Check if the tech can support the given mime-type.
-         *
-         * The base tech does not support any type, but source handlers might
-         * overwrite this.
-         *
-         * @param type
-         *         The mimetype to check for support
-         *
-         * @return 'probably', 'maybe', or empty string
-         *
-         * @see [Spec]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canPlayType}
-         */
-        canPlayType(type: string): string;
 
         /**
          * Remove any TextTracks added via addRemoteTextTrack that are
@@ -4985,19 +5001,22 @@ declare namespace videojs {
          *        The options passed to the tech
          * @return 'probably', 'maybe', or '' (empty string)
          */
-        canPlaySource(srcObj: any, options: any): 'problably' | 'maybe' | '';
+        canPlaySource(srcObj: any, options: any): CanPlayTypeResult;
 
         /**
-         * Check if the type is supported by this tech.
+         * Check if the tech can support the given mime-type.
          *
          * The base tech does not support any type, but source handlers might
          * overwrite this.
          *
          * @param type
-         *        The media type to check
-         * @return Returns the native video element's response
+         *         The mimetype to check for support
+         *
+         * @return 'probably', 'maybe', or '' (empty string)
+         *
+         * @see [Spec]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canPlayType}
          */
-        canPlayType(type: string): string;
+        canPlayType(type: string): CanPlayTypeResult;
 
         /**
          * Get a `Tech` from the shared list by name.
@@ -5063,7 +5082,7 @@ declare namespace videojs {
             /**
              * The mime type of the source
              */
-            type?: string;
+            type?: string | undefined;
         }
     }
 
@@ -5317,7 +5336,7 @@ declare namespace videojs {
     };
 
     interface TextTrackSettingsOptions extends ModalDialogOptions {
-        persistTextTrackSettings?: boolean;
+        persistTextTrackSettings?: boolean | undefined;
     }
 
     /**
@@ -5435,12 +5454,12 @@ declare namespace videojs {
     };
 
     interface TextTrackOptions extends TrackOptions {
-        tech?: Tech;
-        kind?: TextTrack.Kind;
-        mode?: TextTrack.Mode;
-        srclang?: string;
-        src?: string;
-        default?: boolean;
+        tech?: Tech | undefined;
+        kind?: TextTrack.Kind | undefined;
+        mode?: TextTrack.Mode | undefined;
+        srclang?: string | undefined;
+        src?: string | undefined;
+        default?: boolean | undefined;
     }
 
     namespace TextTrack {
@@ -5652,10 +5671,10 @@ declare namespace videojs {
     };
 
     interface TrackOptions {
-        id?: string;
-        kind?: string;
-        label?: string;
-        language?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        label?: string | undefined;
+        language?: string | undefined;
     }
 
     /**
@@ -5726,14 +5745,14 @@ declare namespace videojs {
     };
 
     interface UserActions {
-        doubleClick?: boolean | ((event: EventTarget.Event) => void);
-        hotkeys?: boolean | ((event: KeyboardEvent) => void) | UserActionHotkeys;
+        doubleClick?: boolean | ((event: EventTarget.Event) => void) | undefined;
+        hotkeys?: boolean | ((event: KeyboardEvent) => void) | UserActionHotkeys | undefined;
     }
 
     interface UserActionHotkeys {
-        fullscreenKey?: (event: KeyboardEvent) => boolean;
-        muteKey?: (event: KeyboardEvent) => boolean;
-        playPauseKey?: (event: KeyboardEvent) => boolean;
+        fullscreenKey?: ((event: KeyboardEvent) => boolean) | undefined;
+        muteKey?: ((event: KeyboardEvent) => boolean) | undefined;
+        playPauseKey?: ((event: KeyboardEvent) => boolean) | undefined;
     }
 
     /**
@@ -5866,8 +5885,8 @@ declare namespace videojs {
     };
 
     interface VolumeControlOptions extends ComponentOptions {
-        volumeBar?: VolumeBar;
-        vertical?: boolean;
+        volumeBar?: VolumeBar | undefined;
+        vertical?: boolean | undefined;
     }
 
     /**
@@ -5934,8 +5953,8 @@ declare namespace videojs {
     };
 
     interface VolumePanelOptions extends ComponentOptions {
-        inline?: boolean;
-        volumeControl?: VolumeControlOptions;
+        inline?: boolean | undefined;
+        volumeControl?: VolumeControlOptions | undefined;
     }
 
     namespace url {
@@ -5989,21 +6008,21 @@ declare namespace videojs {
     }
 
     interface XhrOptions {
-        beforeSend?: (xhrObject: XMLHttpRequest) => void;
+        beforeSend?: ((xhrObject: XMLHttpRequest) => void) | undefined;
         body?: any;
         headers?: any;
-        json?: boolean;
-        method?: 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT';
-        password?: string;
-        responseType?: '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
-        sync?: boolean;
-        timeout?: number;
-        uri?: string;
-        url?: string;
-        username?: string;
-        useXDR?: boolean;
-        xhr?: XMLHttpRequest;
-        withCredentials?: boolean;
+        json?: boolean | undefined;
+        method?: 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' | undefined;
+        password?: string | undefined;
+        responseType?: '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | undefined;
+        sync?: boolean | undefined;
+        timeout?: number | undefined;
+        uri?: string | undefined;
+        url?: string | undefined;
+        username?: string | undefined;
+        useXDR?: boolean | undefined;
+        xhr?: XMLHttpRequest | undefined;
+        withCredentials?: boolean | undefined;
     }
 
     interface XhrResponse {
@@ -6162,7 +6181,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return 'probably', 'maybe', or '' (empty string)
      */
-    canPlayType(type: string): 'probably' | 'maybe' | '';
+    canPlayType(type: string): CanPlayTypeResult;
 
     cancelFullScreen(): videojs.Player;
 
@@ -6930,37 +6949,37 @@ export interface VideoJsPlayer extends videojs.Component {
 }
 
 export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
-    aspectRatio?: string;
-    autoplay?: boolean | string;
-    bigPlayButton?: boolean;
-    controlBar?: videojs.ControlBarOptions | false;
-    textTrackSettings?: videojs.TextTrackSettingsOptions;
-    controls?: boolean;
-    defaultVolume?: number;
-    fill?: boolean;
-    fluid?: boolean;
-    height?: number;
+    aspectRatio?: string | undefined;
+    autoplay?: boolean | string | undefined;
+    bigPlayButton?: boolean | undefined;
+    controlBar?: videojs.ControlBarOptions | false | undefined;
+    textTrackSettings?: videojs.TextTrackSettingsOptions | undefined;
+    controls?: boolean | undefined;
+    defaultVolume?: number | undefined;
+    fill?: boolean | undefined;
+    fluid?: boolean | undefined;
+    height?: number | undefined;
     html5?: any;
-    inactivityTimeout?: number;
-    language?: string;
-    languages?: { [code: string]: videojs.LanguageTranslations };
-    liveui?: boolean;
-    loop?: boolean;
-    muted?: boolean;
-    nativeControlsForTouch?: boolean;
-    notSupportedMessage?: string;
-    playbackRates?: number[];
-    plugins?: Partial<VideoJsPlayerPluginOptions>;
-    poster?: string;
-    preload?: string;
-    responsive?: boolean;
-    sourceOrder?: boolean;
-    sources?: videojs.Tech.SourceObject[];
-    src?: string;
-    techOrder?: string[];
-    tracks?: videojs.TextTrackOptions[];
-    userActions?: videojs.UserActions;
-    width?: number;
+    inactivityTimeout?: number | undefined;
+    language?: string | undefined;
+    languages?: { [code: string]: videojs.LanguageTranslations } | undefined;
+    liveui?: boolean | undefined;
+    loop?: boolean | undefined;
+    muted?: boolean | undefined;
+    nativeControlsForTouch?: boolean | undefined;
+    notSupportedMessage?: string | undefined;
+    playbackRates?: number[] | undefined;
+    plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
+    poster?: string | undefined;
+    preload?: string | undefined;
+    responsive?: boolean | undefined;
+    sourceOrder?: boolean | undefined;
+    sources?: videojs.Tech.SourceObject[] | undefined;
+    src?: string | undefined;
+    techOrder?: string[] | undefined;
+    tracks?: videojs.TextTrackOptions[] | undefined;
+    userActions?: videojs.UserActions | undefined;
+    width?: number | undefined;
 }
 
 export interface VideoJsPlayerPluginOptions {
@@ -6970,5 +6989,9 @@ export interface VideoJsPlayerPluginOptions {
 declare global {
     interface Window {
         HELP_IMPROVE_VIDEOJS: boolean;
+        /**
+         * @link https://docs.videojs.com/tutorial-skins.html
+         */
+        VIDEOJS_NO_DYNAMIC_STYLE?: boolean | undefined;
     }
 }

@@ -6,25 +6,53 @@ export interface ThreeDSecureAccountDetails {
     lastTwo: string;
 }
 
-export interface ThreeDSecureVerifyPayload {
-    nonce: string;
-    details: ThreeDSecureAccountDetails;
-    description: string;
+export interface ThreeDSecureBinData {
+    commercial: string;
+    countryOfIssuance: string;
+    debit: string;
+    durbinRegulated: string;
+    healthcare: string;
+    issuingBank: string;
+    payroll: string;
+    prepaid: string;
+    productId: string;
+}
+
+export interface ThreeDSecureInfo {
     liabilityShiftPossible: boolean;
     liabilityShifted: boolean;
+    cavv: string;
+    xid: string;
+    dsTransactionId: string;
+    threeDSecureVersion: string;
+    eciFlag: string;
+    threeDSecureAuthenticationId: string;
+}
+
+export interface ThreeDSecureVerifyPayload {
+    nonce: string;
+    type: string;
+    details: ThreeDSecureAccountDetails;
+    description: string;
+    binData: ThreeDSecureBinData;
+    /** @deprecated Use threeDSecureInfo.liabilityShiftPossible */
+    liabilityShiftPossible: boolean;
+    /** @deprecated Use threeDSecureInfo.liabilityShifted */
+    liabilityShifted: boolean;
+    threeDSecureInfo: ThreeDSecureInfo;
 }
 
 export interface ThreeDSecureBillingAddress {
-    givenName?: string;
-    surname?: string;
-    phoneNumber?: string;
-    streetAddress?: string;
-    extendedAddress?: string;
-    line3?: string;
-    locality?: string;
-    region?: string;
-    postalCode?: string;
-    countryCodeAlpha2?: string;
+    givenName?: string | undefined;
+    surname?: string | undefined;
+    phoneNumber?: string | undefined;
+    streetAddress?: string | undefined;
+    extendedAddress?: string | undefined;
+    line3?: string | undefined;
+    locality?: string | undefined;
+    region?: string | undefined;
+    postalCode?: string | undefined;
+    countryCodeAlpha2?: string | undefined;
 }
 
 export interface ThreeDSecureShippingAddress {
@@ -38,72 +66,72 @@ export interface ThreeDSecureShippingAddress {
 }
 
 export interface ThreeDSecureAdditionalInformation {
-    workPhoneNumber?: string;
-    shippingGivenName?: string;
-    shippingSurname?: string;
-    shippingAddress?: ThreeDSecureShippingAddress;
-    streetAddress?: string;
-    extendedAddress?: string;
-    line3?: string;
-    locality?: string;
-    region?: string;
-    postalCode?: string;
-    countryCodeAlpha2?: string;
-    shippingPhone?: string;
-    shippingMethod?: string;
-    shippingMethodIndicator?: string;
-    productCode?: string;
-    deliveryTimeframe?: string;
-    deliveryEmail?: string;
-    reorderindicator?: string;
-    preorderIndicator?: string;
-    preorderDate?: string;
-    giftCardAmount?: string;
-    giftCardCurrencyCode?: string;
-    giftCardCount?: string;
-    accountAgeIndicator?: string;
-    accountCreateDate?: string;
-    accountChangeIndicator?: string;
-    accountChangeDate?: string;
-    accountPwdChangeIndicator?: string;
-    accountPwdChangeDate?: string;
-    shippingAddressUsageIndicator?: string;
-    shippingAddressUsageDate?: string;
-    transactionCountDay?: string;
-    transactionCountYear?: string;
-    addCardAttempts?: string;
-    accountPurchases?: string;
-    fraudActivity?: string;
-    shippingNameIndicator?: string;
-    paymentAccountIndicator?: string;
-    paymentAccountAge?: string;
-    acsWindowSize?: string;
-    sdkMaxTimeout?: string;
-    addressMatch?: string;
-    accountId?: string;
-    ipAddress?: string;
-    orderDescription?: string;
-    taxAmount?: string;
-    userAgent?: string;
-    authenticationIndicator?: string;
-    installment?: string;
-    purchaseDate?: string;
-    recurringEnd?: string;
-    recurringFrequency?: string;
+    workPhoneNumber?: string | undefined;
+    shippingGivenName?: string | undefined;
+    shippingSurname?: string | undefined;
+    shippingAddress?: ThreeDSecureShippingAddress | undefined;
+    streetAddress?: string | undefined;
+    extendedAddress?: string | undefined;
+    line3?: string | undefined;
+    locality?: string | undefined;
+    region?: string | undefined;
+    postalCode?: string | undefined;
+    countryCodeAlpha2?: string | undefined;
+    shippingPhone?: string | undefined;
+    shippingMethod?: string | undefined;
+    shippingMethodIndicator?: string | undefined;
+    productCode?: string | undefined;
+    deliveryTimeframe?: string | undefined;
+    deliveryEmail?: string | undefined;
+    reorderindicator?: string | undefined;
+    preorderIndicator?: string | undefined;
+    preorderDate?: string | undefined;
+    giftCardAmount?: string | undefined;
+    giftCardCurrencyCode?: string | undefined;
+    giftCardCount?: string | undefined;
+    accountAgeIndicator?: string | undefined;
+    accountCreateDate?: string | undefined;
+    accountChangeIndicator?: string | undefined;
+    accountChangeDate?: string | undefined;
+    accountPwdChangeIndicator?: string | undefined;
+    accountPwdChangeDate?: string | undefined;
+    shippingAddressUsageIndicator?: string | undefined;
+    shippingAddressUsageDate?: string | undefined;
+    transactionCountDay?: string | undefined;
+    transactionCountYear?: string | undefined;
+    addCardAttempts?: string | undefined;
+    accountPurchases?: string | undefined;
+    fraudActivity?: string | undefined;
+    shippingNameIndicator?: string | undefined;
+    paymentAccountIndicator?: string | undefined;
+    paymentAccountAge?: string | undefined;
+    acsWindowSize?: string | undefined;
+    sdkMaxTimeout?: string | undefined;
+    addressMatch?: string | undefined;
+    accountId?: string | undefined;
+    ipAddress?: string | undefined;
+    orderDescription?: string | undefined;
+    taxAmount?: string | undefined;
+    userAgent?: string | undefined;
+    authenticationIndicator?: string | undefined;
+    installment?: string | undefined;
+    purchaseDate?: string | undefined;
+    recurringEnd?: string | undefined;
+    recurringFrequency?: string | undefined;
 }
 
 export interface ThreeDSecureVerifyOptions {
     nonce: string;
     amount: number;
     bin: string;
-    challengeRequested?: boolean;
-    exemptionRequested?: boolean;
-    email?: string;
-    mobilePhoneNumber?: string;
-    billingAddress?: ThreeDSecureBillingAddress;
-    additionalInformation?: ThreeDSecureAdditionalInformation;
-    addFrame?: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
-    removeFrame?: () => void;
+    challengeRequested?: boolean | undefined;
+    exemptionRequested?: boolean | undefined;
+    email?: string | undefined;
+    mobilePhoneNumber?: string | undefined;
+    billingAddress?: ThreeDSecureBillingAddress | undefined;
+    additionalInformation?: ThreeDSecureAdditionalInformation | undefined;
+    addFrame?: ((err?: BraintreeError, iframe?: HTMLIFrameElement) => void) | undefined;
+    removeFrame?: (() => void) | undefined;
 }
 
 export interface ThreeDSecure {
@@ -113,17 +141,17 @@ export interface ThreeDSecure {
      * }, callback);
      */
     create(options: {
-        authorization?: string;
-        version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe';
-        client?: Client;
+        authorization?: string | undefined;
+        version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
+        client?: Client | undefined;
     }): Promise<ThreeDSecure>;
     create(
         options: {
-            authorization?: string;
-            version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe';
-            client?: Client;
+            authorization?: string | undefined;
+            version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
+            client?: Client | undefined;
         },
-        callback: callback,
+        callback: callback<ThreeDSecure>,
     ): void;
 
     /**
@@ -176,7 +204,7 @@ export interface ThreeDSecure {
      * });
      */
     verifyCard(options: ThreeDSecureVerifyOptions): Promise<ThreeDSecureVerifyPayload>;
-    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback): void;
+    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback<ThreeDSecureVerifyPayload>): void;
 
     /**
      * Cancel the 3DS flow and return the verification payload if available.     * @example
@@ -211,7 +239,7 @@ export interface ThreeDSecure {
      * });
      */
     prepareLookup(options: { nonce: string; bin: string }): Promise<string>;
-    prepareLookup(options: { nonce: string; bin: string }, callback: callback): void;
+    prepareLookup(options: { nonce: string; bin: string }, callback: callback<string>): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}

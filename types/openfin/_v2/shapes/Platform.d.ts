@@ -18,19 +18,19 @@ export declare enum WindowCreationReason {
     Restore = "restore"
 }
 export interface PlatformWindowCreationOptions extends WindowOption {
-    reason?: WindowCreationReason;
+    reason?: WindowCreationReason | undefined;
 }
 export interface HostContextChangedPayload {
     context: any;
     reason: HostContextChangedReasons;
 }
 export interface ApplySnapshotOptions {
-    closeExistingWindows?: boolean;
-    skipOutOfBoundsCheck?: boolean;
+    closeExistingWindows?: boolean | undefined;
+    skipOutOfBoundsCheck?: boolean | undefined;
 }
 export interface ApplySnapshotPayload {
     snapshot: Snapshot;
-    options?: ApplySnapshotOptions;
+    options?: ApplySnapshotOptions | undefined;
 }
 export interface CreateViewPayload {
     opts: ViewCreationOptions;
@@ -56,9 +56,9 @@ export interface GetWindowContextPayload {
     target: Identity;
 }
 export interface PlatformOptions extends ApplicationOption {
-    defaultWindowOptions?: DefaultWindowOptions;
-    defaultViewOptions?: ViewCreationOptions;
-    disableDefaultCommands?: boolean;
+    defaultWindowOptions?: DefaultWindowOptions | undefined;
+    defaultViewOptions?: ViewCreationOptions | undefined;
+    disableDefaultCommands?: boolean | undefined;
 }
 export interface Snapshot {
     windows: WindowOptions[];
@@ -66,7 +66,7 @@ export interface Snapshot {
         monitorInfo: MonitorInfo;
         runtimeInfo: string;
         timeStamp: string;
-    };
+    } | undefined;
 }
 export interface DefaultWindowOptions extends WindowOption {
     stylesheetUrl: string;

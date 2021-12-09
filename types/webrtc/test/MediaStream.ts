@@ -11,7 +11,6 @@ navigator.getUserMedia(mediaStreamConstraints,
     console.log('label:' + track.label);
     console.log('ended:' + track.readyState);
     track.onended = (event: Event) => console.log('Track ended');
-    const objectUrl = URL.createObjectURL(stream);
   },
   error => {
     console.log('Error message: ' + error.message);
@@ -24,7 +23,6 @@ navigator.webkitGetUserMedia(mediaStreamConstraints,
     console.log('label:' + track.label);
     console.log('ended:' + track.readyState);
     track.onended = (event: Event) => console.log('Track ended');
-    const objectUrl = URL.createObjectURL(stream);
   },
   error => {
     console.log('Error message: ' + error.message);
@@ -37,7 +35,6 @@ navigator.mozGetUserMedia(mediaStreamConstraints,
     console.log('label:' + track.label);
     console.log('ended:' + track.readyState);
     track.onended = (event: Event) => console.log('Track ended');
-    const objectUrl = URL.createObjectURL(stream);
   },
   error => {
     console.log('Error message: ' + error.message);

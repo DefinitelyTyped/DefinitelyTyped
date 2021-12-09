@@ -85,7 +85,7 @@ export interface CheckQuantityResponse {
 
 export interface HelperValidationResponse {
     rules: {
-        [name: string]: { required?: boolean; email?: boolean; digits?: boolean };
+        [name: string]: { required?: boolean | undefined; email?: boolean | undefined; digits?: boolean | undefined };
     };
 }
 
@@ -99,6 +99,7 @@ export interface CheckGiftcardResponse {
 export class Checkout {
     constructor(commerce: Commerce);
 
+    /** @deprecated */
     protect(token: string): Promise<any>;
     generateToken(identifier: string, data: object): Promise<CheckoutToken>;
     generateTokenFrom(type: IdentifierType, identifier: string): Promise<CheckoutToken>;
@@ -113,12 +114,20 @@ export class Checkout {
     checkDiscount(token: string, data: { code: string }): Promise<CheckDiscountResponse>;
     checkShippingOption(
         token: string,
-        data: { shipping_option_id: string; country: string; region?: string },
+        data: { shipping_option_id: string; country: string; region?: string | undefined },
     ): Promise<CheckShippingOptionResponse>;
-    getShippingOptions(token: string, data: { country: string; region?: string }): Promise<GetShippingOptionsResponse>;
+    getShippingOptions(
+        token: string,
+        data: { country: string; region?: string | undefined },
+    ): Promise<GetShippingOptionsResponse[]>;
     setTaxZone(
         token: string,
-        data: { ip_address?: string; country?: string; region?: string; postal_zip_code?: string },
+        data: {
+            ip_address?: string | undefined;
+            country?: string | undefined;
+            region?: string | undefined;
+            postal_zip_code?: string | undefined;
+        },
     ): Promise<SetTaxZoneResponse>;
     checkQuantity(token: string, lineItemId: string, data: object): Promise<CheckQuantityResponse>;
     helperValidation(token: string): Promise<HelperValidationResponse>;

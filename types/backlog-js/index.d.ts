@@ -10,9 +10,9 @@ declare class Request {
     private configure;
     constructor(configure: {
         host: string;
-        apiKey?: string;
-        accessToken?: string;
-        timeout?: number;
+        apiKey?: string | undefined;
+        accessToken?: string | undefined;
+        timeout?: number | undefined;
     });
     get<T>(path: string, params?: any): Promise<T>;
     post<T>(path: string, params?: any): Promise<T>;
@@ -22,7 +22,7 @@ declare class Request {
     request(options: {
         method: string;
         path: string;
-        params?: Params | FormData;
+        params?: Params | FormData | undefined;
     }): Promise<Response>;
     checkStatus(response: Response): Promise<Response>;
     parseJSON<T>(response: Response): Promise<T>;
@@ -39,9 +39,9 @@ type Params = {
 export class Backlog extends Request {
   constructor(configure: {
     host: string;
-    apiKey?: string;
-    accessToken?: string;
-    timeout?: number;
+    apiKey?: string | undefined;
+    accessToken?: string | undefined;
+    timeout?: number | undefined;
   });
   getSpace(): Promise<any>;
   getSpaceActivities(params: Option.Space.GetActivitiesParams): Promise<any>;
@@ -175,13 +175,13 @@ export class OAuth2 {
   constructor(credentials: Option.OAuth2.Credentials, timeout?: number);
   getAuthorizationURL(options: {
     host: string;
-    redirectUri?: string;
-    state?: string;
+    redirectUri?: string | undefined;
+    state?: string | undefined;
   }): string;
   getAccessToken(options: {
     host: string;
     code: string;
-    redirectUri?: string;
+    redirectUri?: string | undefined;
   }): Promise<Entity.OAuth2.AccessToken>;
   refreshAccessToken(options: {
     host: string;
@@ -201,7 +201,7 @@ export namespace Entity {
     export interface BrowserFileData {
       body: any;
       url: string;
-      blob?: () => Promise<Blob>;
+      blob?: (() => Promise<Blob>) | undefined;
     }
   }
   export namespace OAuth2 {
@@ -243,10 +243,10 @@ export namespace Option {
   }
   export namespace Notification {
     export interface GetNotificationsParams {
-      minId?: number;
-      maxId?: number;
-      count?: number;
-      order?: Order;
+      minId?: number | undefined;
+      maxId?: number | undefined;
+      count?: number | undefined;
+      order?: Order | undefined;
     }
     export interface GetNotificationsCountParams {
       alreadyRead: boolean;
@@ -255,11 +255,11 @@ export namespace Option {
   }
   export namespace Space {
     export interface GetActivitiesParams {
-      activityTypeId?: ActivityType[];
-      minId?: number;
-      maxId?: number;
-      count?: number;
-      order?: Order;
+      activityTypeId?: ActivityType[] | undefined;
+      minId?: number | undefined;
+      maxId?: number | undefined;
+      count?: number | undefined;
+      order?: Order | undefined;
     }
     export interface PutSpaceNotificationParams {
       content: string;
@@ -274,10 +274,10 @@ export namespace Option {
       roleType: RoleType;
     }
     export interface PatchUserParams {
-      password?: string;
-      name?: string;
-      mailAddress?: string;
-      roleType?: RoleType;
+      password?: string | undefined;
+      name?: string | undefined;
+      mailAddress?: string | undefined;
+      roleType?: RoleType | undefined;
     }
     export enum RoleType {
       Admin = 1,
@@ -288,41 +288,41 @@ export namespace Option {
       GuestViewer = 6,
     }
     export interface GetUserActivitiesParams {
-      activityTypeId?: ActivityType[];
-      minId?: number;
-      maxId?: number;
-      count?: number;
-      order?: Order;
+      activityTypeId?: ActivityType[] | undefined;
+      minId?: number | undefined;
+      maxId?: number | undefined;
+      count?: number | undefined;
+      order?: Order | undefined;
     }
     export interface GetUserStarsParams {
-      minId?: number;
-      maxId?: number;
-      count?: number;
-      order?: Order;
+      minId?: number | undefined;
+      maxId?: number | undefined;
+      count?: number | undefined;
+      order?: Order | undefined;
     }
     export interface GetUserStarsCountParams {
-      since?: string;
-      until?: string;
+      since?: string | undefined;
+      until?: string | undefined;
     }
     export interface GetRecentlyViewedParams {
-      order?: Order;
-      offset?: number;
-      count?: number;
+      order?: Order | undefined;
+      offset?: number | undefined;
+      count?: number | undefined;
     }
   }
   export namespace Group {
     export interface GetGroupsParams {
-      order?: Order;
-      offset?: number;
-      count?: number;
+      order?: Order | undefined;
+      offset?: number | undefined;
+      count?: number | undefined;
     }
     export interface PostGroupsParams {
       name: string;
-      members?: string[];
+      members?: string[] | undefined;
     }
     export interface PatchGroupParams {
-      name?: string;
-      members?: string[];
+      name?: string | undefined;
+      members?: string[] | undefined;
     }
   }
   export namespace Project {
@@ -331,22 +331,22 @@ export namespace Option {
       name: string;
       key: string;
       chartEnabled: boolean;
-      projectLeaderCanEditProjectLeader?: boolean;
+      projectLeaderCanEditProjectLeader?: boolean | undefined;
       subtaskingEnabled: boolean;
       textFormattingRule: TextFormattingRule;
     }
     export interface PatchProjectParams {
-      name?: string;
-      key?: string;
-      chartEnabled?: boolean;
-      subtaskingEnabled?: boolean;
-      projectLeaderCanEditProjectLeader?: boolean;
-      textFormattingRule?: TextFormattingRule;
-      archived?: boolean;
+      name?: string | undefined;
+      key?: string | undefined;
+      chartEnabled?: boolean | undefined;
+      subtaskingEnabled?: boolean | undefined;
+      projectLeaderCanEditProjectLeader?: boolean | undefined;
+      textFormattingRule?: TextFormattingRule | undefined;
+      archived?: boolean | undefined;
     }
     export interface GetProjectsParams {
-      archived?: boolean;
-      all?: boolean;
+      archived?: boolean | undefined;
+      all?: boolean | undefined;
     }
     export interface DeleteProjectUsersParams {
       userId: number;
@@ -363,8 +363,8 @@ export namespace Option {
       color: IssueTypeColor;
     }
     export interface PatchIssueTypeParams {
-      name?: string;
-      color?: IssueTypeColor;
+      name?: string | undefined;
+      color?: IssueTypeColor | undefined;
     }
     export interface DeleteIssueTypeParams {
       substituteIssueTypeId: number;
@@ -383,59 +383,59 @@ export namespace Option {
     }
     export interface PatchVersionsParams {
       name: string;
-      description?: string;
-      startDate?: string;
-      releaseDueDate?: string;
-      archived?: boolean;
+      description?: string | undefined;
+      startDate?: string | undefined;
+      releaseDueDate?: string | undefined;
+      archived?: boolean | undefined;
     }
     export interface PostCustomFieldParams {
       typeId: FieldType;
       name: string;
-      applicableIssueTypes?: number[];
-      description?: string;
-      required?: boolean;
+      applicableIssueTypes?: number[] | undefined;
+      description?: string | undefined;
+      required?: boolean | undefined;
     }
     export interface PostCustomFieldWithNumericParams extends PostCustomFieldParams {
-      min?: number;
-      max?: number;
-      initialValue?: number;
-      unit?: string;
+      min?: number | undefined;
+      max?: number | undefined;
+      initialValue?: number | undefined;
+      unit?: string | undefined;
     }
     export interface PostCustomFieldWithDateParams extends PostCustomFieldParams {
-      min?: string;
-      max?: string;
-      initialValueType?: number;
-      initialDate?: string;
-      initialShift?: number;
+      min?: string | undefined;
+      max?: string | undefined;
+      initialValueType?: number | undefined;
+      initialDate?: string | undefined;
+      initialShift?: number | undefined;
     }
     export interface PostCustomFieldWithListParams extends PostCustomFieldParams {
-      items?: string[];
-      allowInput?: boolean;
-      allowAddItem?: boolean;
+      items?: string[] | undefined;
+      allowInput?: boolean | undefined;
+      allowAddItem?: boolean | undefined;
     }
     export interface PatchCustomFieldParams {
-      name?: string;
-      applicableIssueTypes?: number[];
-      description?: string;
-      required?: boolean;
+      name?: string | undefined;
+      applicableIssueTypes?: number[] | undefined;
+      description?: string | undefined;
+      required?: boolean | undefined;
     }
     export interface PatchCustomFieldWithNumericParams extends PatchCustomFieldParams {
-      min?: number;
-      max?: number;
-      initialValue?: number;
-      unit?: string;
+      min?: number | undefined;
+      max?: number | undefined;
+      initialValue?: number | undefined;
+      unit?: string | undefined;
     }
     export interface PatchCustomFieldWithDateParams extends PatchCustomFieldParams {
-      min?: string;
-      max?: string;
-      initialValueType?: number;
-      initialDate?: string;
-      initialShift?: number;
+      min?: string | undefined;
+      max?: string | undefined;
+      initialValueType?: number | undefined;
+      initialDate?: string | undefined;
+      initialShift?: number | undefined;
     }
     export interface PatchCustomFieldWithListParams extends PatchCustomFieldParams {
-      items?: string[];
-      allowInput?: boolean;
-      allowAddItem?: boolean;
+      items?: string[] | undefined;
+      allowInput?: boolean | undefined;
+      allowAddItem?: boolean | undefined;
     }
     export interface PostCustomFieldItemParams {
       name: string;
@@ -444,23 +444,23 @@ export namespace Option {
       name: string;
     }
     export interface GetSharedFilesParams {
-      order?: Order;
-      offset?: number;
-      count?: number;
+      order?: Order | undefined;
+      offset?: number | undefined;
+      count?: number | undefined;
     }
     export interface PostWebhookParams {
-      name?: string;
-      description?: string;
-      hookUrl?: string;
-      allEvent?: boolean;
-      activityTypeIds?: number[];
+      name?: string | undefined;
+      description?: string | undefined;
+      hookUrl?: string | undefined;
+      allEvent?: boolean | undefined;
+      activityTypeIds?: number[] | undefined;
     }
     export interface PatchWebhookParams {
-      name?: string;
-      description?: string;
-      hookUrl?: string;
-      allEvent?: boolean;
-      activityTypeIds?: number[];
+      name?: string | undefined;
+      description?: string | undefined;
+      hookUrl?: string | undefined;
+      allEvent?: boolean | undefined;
+      activityTypeIds?: number[] | undefined;
     }
     export enum FieldType {
       Text = 1,
@@ -473,11 +473,11 @@ export namespace Option {
       Radio = 8,
     }
     export interface PostStarParams {
-      issueId?: number;
-      commentId?: number;
-      wikiId?: number;
-      pullRequestId?: number;
-      pullRequestCommentId?: number;
+      issueId?: number | undefined;
+      commentId?: number | undefined;
+      wikiId?: number | undefined;
+      pullRequestId?: number | undefined;
+      pullRequestCommentId?: number | undefined;
     }
   }
   export namespace Issue {
@@ -486,69 +486,69 @@ export namespace Option {
       summary: string;
       priorityId: number;
       issueTypeId: number;
-      parentIssueId?: number;
-      description?: string;
-      startDate?: string;
-      dueDate?: string;
-      estimatedHours?: number;
-      actualHours?: number;
-      categoryId?: number[];
-      versionId?: number[];
-      milestoneId?: number[];
-      assigneeId?: number;
-      notifiedUserId?: number[];
-      attachmentId?: number[];
+      parentIssueId?: number | undefined;
+      description?: string | undefined;
+      startDate?: string | undefined;
+      dueDate?: string | undefined;
+      estimatedHours?: number | undefined;
+      actualHours?: number | undefined;
+      categoryId?: number[] | undefined;
+      versionId?: number[] | undefined;
+      milestoneId?: number[] | undefined;
+      assigneeId?: number | undefined;
+      notifiedUserId?: number[] | undefined;
+      attachmentId?: number[] | undefined;
       [customField_: string]: any;
     }
     export interface PatchIssueParams {
-      summary?: string;
-      parentIssueId?: number;
-      description?: string;
-      statusId?: number;
-      resolutionId?: number;
-      startDate?: string;
-      dueDate?: string;
-      estimatedHours?: number;
-      actualHours?: number;
-      issueTypeId?: number;
-      categoryId?: number[];
-      versionId?: number[];
-      milestoneId?: number[];
-      priorityId?: number;
-      assigneeId?: number;
-      notifiedUserId?: number[];
-      attachmentId?: number[];
-      comment?: string;
+      summary?: string | undefined;
+      parentIssueId?: number | undefined;
+      description?: string | undefined;
+      statusId?: number | undefined;
+      resolutionId?: number | undefined;
+      startDate?: string | undefined;
+      dueDate?: string | undefined;
+      estimatedHours?: number | undefined;
+      actualHours?: number | undefined;
+      issueTypeId?: number | undefined;
+      categoryId?: number[] | undefined;
+      versionId?: number[] | undefined;
+      milestoneId?: number[] | undefined;
+      priorityId?: number | undefined;
+      assigneeId?: number | undefined;
+      notifiedUserId?: number[] | undefined;
+      attachmentId?: number[] | undefined;
+      comment?: string | undefined;
       [customField_: string]: any;
     }
     export interface GetIssuesParams {
-      projectId?: number[];
-      issueTypeId?: number[];
-      categoryId?: number[];
-      versionId?: number[];
-      milestoneId?: number[];
-      statusId?: number[];
-      priorityId?: number[];
-      assigneeId?: number[];
-      createdUserId?: number[];
-      resolutionId?: number[];
-      parentChild?: ParentChildType;
-      attachment?: boolean;
-      sharedFile?: boolean;
-      sort?: SortKey;
-      order?: Order;
-      offset?: number;
-      count?: number;
-      createdSince?: string;
-      createdUntil?: string;
-      updatedSince?: string;
-      updatedUntil?: string;
-      startDateSince?: string;
-      startDateUntil?: string;
-      dueDateSince?: string;
-      dueDateUntil?: string;
-      id?: number[];
-      parentIssueId?: number[];
+      projectId?: number[] | undefined;
+      issueTypeId?: number[] | undefined;
+      categoryId?: number[] | undefined;
+      versionId?: number[] | undefined;
+      milestoneId?: number[] | undefined;
+      statusId?: number[] | undefined;
+      priorityId?: number[] | undefined;
+      assigneeId?: number[] | undefined;
+      createdUserId?: number[] | undefined;
+      resolutionId?: number[] | undefined;
+      parentChild?: ParentChildType | undefined;
+      attachment?: boolean | undefined;
+      sharedFile?: boolean | undefined;
+      sort?: SortKey | undefined;
+      order?: Order | undefined;
+      offset?: number | undefined;
+      count?: number | undefined;
+      createdSince?: string | undefined;
+      createdUntil?: string | undefined;
+      updatedSince?: string | undefined;
+      updatedUntil?: string | undefined;
+      startDateSince?: string | undefined;
+      startDateUntil?: string | undefined;
+      dueDateSince?: string | undefined;
+      dueDateUntil?: string | undefined;
+      id?: number[] | undefined;
+      parentIssueId?: number[] | undefined;
       keyword: string;
       [customField_: string]: any;
     }
@@ -561,15 +561,15 @@ export namespace Option {
     }
     export type SortKey = "issueType" | "category" | "version" | "milestone" | "summary" | "status" | "priority" | "attachment" | "sharedFile" | "created" | "createdUser" | "updated" | "updatedUser" | "assignee" | "startDate" | "dueDate" | "estimatedHours" | "actualHours" | "childIssue";
     export interface GetIssueCommentsParams {
-      minId?: number;
-      maxId?: number;
-      count?: number;
-      order?: Order;
+      minId?: number | undefined;
+      maxId?: number | undefined;
+      count?: number | undefined;
+      order?: Order | undefined;
     }
     export interface PostIssueCommentsParams {
       content: string;
-      notifiedUserId?: number[];
-      attachmentId?: number[];
+      notifiedUserId?: number[] | undefined;
+      attachmentId?: number[] | undefined;
     }
     export interface PatchIssueCommentParams {
       content: string;
@@ -583,40 +583,40 @@ export namespace Option {
   }
   export namespace PullRequest {
     export interface GetPullRequestsParams {
-      statusId?: number[];
-      assigneeId?: number[];
-      issueId?: number[];
-      createdUserId?: number[];
-      offset?: number;
-      count?: number;
+      statusId?: number[] | undefined;
+      assigneeId?: number[] | undefined;
+      issueId?: number[] | undefined;
+      createdUserId?: number[] | undefined;
+      offset?: number | undefined;
+      count?: number | undefined;
     }
     export interface PostPullRequestParams {
       summary: string;
       description: string;
       base: string;
       branch: string;
-      issueId?: number;
-      assigneeId?: number;
-      notifiedUserId?: number[];
-      attachmentId?: number[];
+      issueId?: number | undefined;
+      assigneeId?: number | undefined;
+      notifiedUserId?: number[] | undefined;
+      attachmentId?: number[] | undefined;
     }
     export interface PatchPullRequestParams {
-      summary?: string;
-      description?: string;
-      issueId?: number;
-      assigneeId?: number;
-      notifiedUserId?: number[];
-      comment?: string[];
+      summary?: string | undefined;
+      description?: string | undefined;
+      issueId?: number | undefined;
+      assigneeId?: number | undefined;
+      notifiedUserId?: number[] | undefined;
+      comment?: string[] | undefined;
     }
     export interface GetPullRequestCommentsParams {
-      minId?: number;
-      maxId?: number;
-      count?: number;
-      order?: Order;
+      minId?: number | undefined;
+      maxId?: number | undefined;
+      count?: number | undefined;
+      order?: Order | undefined;
     }
     export interface PostPullRequestCommentsParams {
       content: string;
-      notifiedUserId?: number[];
+      notifiedUserId?: number[] | undefined;
     }
     export interface PatchPullRequestCommentsParams {
       content: string;
@@ -627,18 +627,18 @@ export namespace Option {
       projectId: number;
       name: string;
       content: string;
-      mailNotify?: boolean;
+      mailNotify?: boolean | undefined;
     }
     export interface PatchWikiParams {
-      name?: string;
-      content?: string;
-      mailNotify?: boolean;
+      name?: string | undefined;
+      content?: string | undefined;
+      mailNotify?: boolean | undefined;
     }
     export interface GetWikisHistoryParams {
-      minId?: number;
-      maxId?: number;
-      count?: number;
-      order?: Order;
+      minId?: number | undefined;
+      maxId?: number | undefined;
+      count?: number | undefined;
+      order?: Order | undefined;
     }
   }
   export namespace OAuth2 {

@@ -4,7 +4,7 @@ import { Route, RouteProps } from 'react-router';
 interface CustomRouteInterface extends RouteProps {
   aProperty: string;
   anotherOne: boolean;
-  willItEnd?: number;
+  willItEnd?: number | undefined;
 }
 
 // React advocates composition over inheritance, but doesn't prevent us from using it

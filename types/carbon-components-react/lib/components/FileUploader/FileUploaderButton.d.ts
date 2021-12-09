@@ -4,16 +4,16 @@ import { FileUploaderSize } from "./shared";
 import { ButtonKind } from "../Button";
 
 export interface FileUploaderButtonProps extends Omit<ReactLabelAttr, "onChange"> {
-    accept?: readonly string[],
-    buttonKind?: ButtonKind,
-    disabled?: boolean;
-    disableLabelChanges?: boolean,
-    labelText?: React.ReactNode,
-    listFiles?: boolean,
-    multiple?: boolean,
-    name?: string;
+    accept?: readonly string[] | undefined,
+    buttonKind?: ButtonKind | undefined,
+    disabled?: boolean | undefined;
+    disableLabelChanges?: boolean | undefined,
+    labelText?: React.ReactNode | undefined,
+    listFiles?: boolean | undefined,
+    multiple?: boolean | undefined,
+    name?: string | undefined;
     onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
-    size?: FileUploaderSize,
+    size?: FileUploaderSize | undefined,
 }
 
 declare const FileUploaderButton: React.FC<FileUploaderButtonProps>;

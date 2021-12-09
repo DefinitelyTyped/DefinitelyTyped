@@ -22,18 +22,18 @@ declare namespace Flow {
         type: Types['PAGE'];
         children: Array<Screen | Image | Rectangle | Ellipse | Diamond>;
         backgroundColor: Color;
-        startNodeID?: string;
+        startNodeID?: string | undefined;
     }
 
     interface Screen extends Graphic {
         type: Types['SCREEN'];
         children: Layer[];
-        connections?: Connection[];
+        connections?: Connection[] | undefined;
     }
 
     interface Image extends Graphic {
         type: Types['IMAGE'];
-        connections?: Connection[];
+        connections?: Connection[] | undefined;
     }
 
     interface Rectangle extends Shape {
@@ -52,7 +52,7 @@ declare namespace Flow {
         type: Types['LAYER'] | Types['HOTSPOT'];
         position: Point;
         size: Size;
-        connections?: Connection[];
+        connections?: Connection[] | undefined;
     }
 
     interface Connection {
@@ -60,7 +60,7 @@ declare namespace Flow {
     }
 
     interface Settings {
-        grid?: [number, number];
+        grid?: [number, number] | undefined;
     }
 
     interface Color {
@@ -113,7 +113,7 @@ interface Node {
 interface Shape extends Node {
     position: Flow.Point;
     size: Flow.Size;
-    connections?: Flow.Connection[];
+    connections?: Flow.Connection[] | undefined;
 }
 
 interface Graphic extends Node {

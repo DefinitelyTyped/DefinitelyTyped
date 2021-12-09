@@ -10,7 +10,7 @@ declare module 'ipaiva' {
     export const version: string;
 
     interface TextEditorOptions {
-        placeholder?: string;
+        placeholder?: string | undefined;
     }
 
     interface TextEditor {
@@ -50,14 +50,14 @@ declare module 'ipaiva' {
         type Props = Record<string, any>;
 
         interface Design {
-            main?: string;
-            data?: NodeData;
-            options?: DesignOptions;
+            main?: string | undefined;
+            data?: NodeData | undefined;
+            options?: DesignOptions | undefined;
             dependencies?: any;
-            transformer?: Transformer;
-            styleSchema?: DesignStyleSchema;
-            controls?: DesignControls;
-            nodeEvents?: DesignNodeEvents;
+            transformer?: Transformer | undefined;
+            styleSchema?: DesignStyleSchema | undefined;
+            controls?: DesignControls | undefined;
+            nodeEvents?: DesignNodeEvents | undefined;
             preCreate?(option: PreCreateOption): PreCreateOption;
             overrideRenderProperties?(props: Props): Props;
 
@@ -72,19 +72,19 @@ declare module 'ipaiva' {
         interface Render {}
 
         interface Transformer {
-            keepRatio?: boolean;
-            minWidth?: number;
-            minHeight?: number;
-            zoomable?: string;
+            keepRatio?: boolean | undefined;
+            minWidth?: number | undefined;
+            minHeight?: number | undefined;
+            zoomable?: string | undefined;
         }
 
         interface DesignOptions {
-            width?: number;
-            height?: number;
-            hasMask?: boolean;
+            width?: number | undefined;
+            height?: number | undefined;
+            hasMask?: boolean | undefined;
             attrs?: {
                 [key: string]: any;
-            };
+            } | undefined;
         }
 
         type DesignStyleSchema = any;

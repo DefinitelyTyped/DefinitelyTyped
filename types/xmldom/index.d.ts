@@ -33,7 +33,7 @@ declare namespace xmldom {
 
     interface Options {
         locator?: any;
-        errorHandler?: ErrorHandlerFunction | ErrorHandlerObject;
+        errorHandler?: ErrorHandlerFunction | ErrorHandlerObject | undefined;
     }
 
     interface ErrorHandlerFunction {
@@ -41,9 +41,9 @@ declare namespace xmldom {
     }
 
     interface ErrorHandlerObject {
-        warning?: (msg: any) => any;
-        error?: (msg: any) => any;
-        fatalError?: (msg: any) => any;
+        warning?: ((msg: any) => any) | undefined;
+        error?: ((msg: any) => any) | undefined;
+        fatalError?: ((msg: any) => any) | undefined;
     }
 }
 

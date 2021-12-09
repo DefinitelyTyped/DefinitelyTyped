@@ -7,9 +7,9 @@ export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
 export type CommandRegistryListener<TargetType extends EventTarget> =
     | {
           didDispatch(event: CommandEvent<TargetType>): void | Promise<void>;
-          displayName?: string;
-          description?: string;
-          hiddenInCommandPalette?: boolean;
+          displayName?: string | undefined;
+          description?: string | undefined;
+          hiddenInCommandPalette?: boolean | undefined;
       }
     | ((event: CommandEvent<TargetType>) => void | Promise<void>);
 
@@ -48,8 +48,8 @@ export interface CommandRegistry {
     }): Array<{
         name: string;
         displayName: string;
-        description?: string;
-        tags?: string[];
+        description?: string | undefined;
+        tags?: string[] | undefined;
     }>;
 
     /**

@@ -10,17 +10,17 @@ declare namespace jjv {
     interface Errors {
         validation: {
             [property: string]: {
-                required?: boolean;
-                type?: string;
+                required?: boolean | undefined;
+                type?: string | undefined;
             }
         };
     }
 
     interface Options {
-        checkRequired?: boolean;
-        useDefault?: boolean;
-        useCoerce?: boolean;
-        removeAdditional?: boolean;
+        checkRequired?: boolean | undefined;
+        useDefault?: boolean | undefined;
+        useCoerce?: boolean | undefined;
+        removeAdditional?: boolean | undefined;
     }
 
     interface Env {

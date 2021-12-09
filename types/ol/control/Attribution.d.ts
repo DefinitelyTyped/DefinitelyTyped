@@ -5,16 +5,16 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    target?: HTMLElement | string;
-    collapsible?: boolean;
-    collapsed?: boolean;
-    tipLabel?: string;
-    label?: string | HTMLElement;
-    expandClassName?: string;
-    collapseLabel?: string | HTMLElement;
-    collapseClassName?: string;
-    render?: (p0: MapEvent) => void;
+    className?: string | undefined;
+    target?: HTMLElement | string | undefined;
+    collapsible?: boolean | undefined;
+    collapsed?: boolean | undefined;
+    tipLabel?: string | undefined;
+    label?: string | HTMLElement | undefined;
+    expandClassName?: string | undefined;
+    collapseLabel?: string | HTMLElement | undefined;
+    collapseClassName?: string | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
 }
 export default class Attribution extends Control {
     constructor(opt_options?: Options);

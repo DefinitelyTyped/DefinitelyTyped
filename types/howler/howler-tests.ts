@@ -54,3 +54,11 @@ const id2 = sound5.play();
 // Fade out the first sound and speed up the second.
 sound5.fade(1, 0, 1000, id1);
 sound5.rate(1.5, id2);
+
+// Get/set the position of playback for a sound
+sound5.seek();
+sound5.seek(5);
+
+// Get/set the position of playback for a sound by id
+sound5.seek(id1);
+sound5.seek(id1, 5);

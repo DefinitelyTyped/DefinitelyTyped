@@ -12,7 +12,7 @@ declare namespace BLECentralPlugin {
         service: string;
         characteristic: string;
         properties: string[];
-        descriptors?: any[];
+        descriptors?: any[] | undefined;
     }
 
     interface PeripheralData {
@@ -37,7 +37,7 @@ declare namespace BLECentralPlugin {
 
 
     interface StartScanOptions {
-        reportDuplicates?: boolean;
+        reportDuplicates?: boolean | undefined;
     }
 
     interface BLECentralPluginCommon {

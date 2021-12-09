@@ -27,11 +27,11 @@ export interface FS {
 
 export type JFReadOptions =
     | {
-          encoding?: string | null;
-          flag?: string;
-          throws?: boolean;
-          fs?: FS;
-          reviver?: (key: any, value: any) => any;
+          encoding?: string | null | undefined;
+          flag?: string | undefined;
+          throws?: boolean | undefined;
+          fs?: FS | undefined;
+          reviver?: ((key: any, value: any) => any) | undefined;
       }
     | string
     | null
@@ -39,13 +39,13 @@ export type JFReadOptions =
 
 export type JFWriteOptions =
     | {
-          encoding?: string | null;
-          mode?: string | number;
-          flag?: string;
-          fs?: FS;
-          EOL?: string;
-          spaces?: string | number;
-          replacer?: (key: string, value: any) => any;
+          encoding?: string | null | undefined;
+          mode?: string | number | undefined;
+          flag?: string | undefined;
+          fs?: FS | undefined;
+          EOL?: string | undefined;
+          spaces?: string | number | undefined;
+          replacer?: ((key: string, value: any) => any) | undefined;
       }
     | string
     | null;

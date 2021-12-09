@@ -14,7 +14,7 @@ declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {
             /** The backend *DOWN adapter being used (MemDOWN, RiakDOWN, …). */
-            backend_adapter?: string;
+            backend_adapter?: string | undefined;
         }
     }
 }

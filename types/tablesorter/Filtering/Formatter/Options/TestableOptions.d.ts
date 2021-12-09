@@ -5,5 +5,5 @@ export interface TestableOptions {
     /**
      * A value indicating whether tests should be skipped.
      */
-    skipTest?: boolean;
+    skipTest?: boolean | undefined;
 }

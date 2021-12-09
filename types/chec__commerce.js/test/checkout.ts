@@ -71,7 +71,152 @@ commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
         gateway: 'test_gateway',
         card: {
             number: '4242 4242 4242 4242',
+            expiry_month: '01',
+            expiry_year: '2023',
+            cvc: '123',
+            postal_zip_code: '94103',
         },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    payment: {
+        // Stripe using Token API
+        gateway: 'stripe',
+        card: {
+            token: 'tok_ABC123',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // Stripe using Payment Intents API, first phase
+    payment: {
+        gateway: 'stripe',
+        stripe: {
+            payment_method_id: 'pm_ABC123',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // Stripe using Payment Intents API, second phase, with additional options
+    payment: {
+        gateway: 'stripe',
+        stripe: {
+            payment_intent_id: 'pm_ABC123',
+            setup_future_usage: 'off_session',
+            customer_id: 'cust_ABC123',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // Braintree
+    payment: {
+        gateway: 'braintree',
+        braintree: {
+            nonce: 'abc123',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // Omise
+    payment: {
+        gateway: 'omise',
+        omise: {
+            token: 'tok_ABC123',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // Razorpay
+    payment: {
+        gateway: 'razorpay',
+        razorpay: {
+            payment_id: 'hello',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // PayPal, authorization step
+    payment: {
+        gateway: 'paypal',
+        paypal: {
+            action: 'authorize',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // PayPal, capture step
+    payment: {
+        gateway: 'paypal',
+        paypal: {
+            action: 'capture',
+            payment_id: 'PAY-51028384J84281644LGFZXJQ',
+            payer_id: 'VE57TQRTVER5Y',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // Manual payments
+    payment: {
+        gateway: 'manual',
+        manual: {
+            id: 'gway_ABC123',
+        },
+    },
+});
+
+// $ExpectType Promise<CheckoutCaptureResponse>
+commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
+    customer: {
+        email: 'foo@example.com',
+    },
+    // Specifying a gateway ID directly
+    payment: {
+        gateway: 'gway_ABC123',
     },
 });
 
@@ -118,7 +263,7 @@ commerce.checkout.checkGiftcard(checkoutTokenId, {
 // $ExpectType Promise<HelperValidationResponse>
 commerce.checkout.helperValidation(checkoutTokenId);
 
-// $ExpectType Promise<GetShippingOptionsResponse>
+// $ExpectType Promise<GetShippingOptionsResponse[]>
 commerce.checkout.getShippingOptions(checkoutTokenId, {
     country,
     region,

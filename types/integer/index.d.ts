@@ -7,7 +7,7 @@
 // This can't just be written as a simple class since Integer instances can't
 // be constructed by its actual constructor without throwing, but calling it as
 // a regular function constructs new instances just fine...
-declare function Integer(val: Integer.IntLike): Integer.IntClass;
+declare function Integer(val?: Integer.IntLike): Integer.IntClass;
 
 declare namespace Integer {
     type IntLike = number | string | IntClass;

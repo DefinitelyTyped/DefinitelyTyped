@@ -7,6 +7,6 @@ declare module '../../' {
          * pressing the Enter key. If set to a string, it will continue comments
          * using a custom shortcut.
          */
-        continueComments?: boolean | string | { key: string, continueLineComment?: boolean };
+        continueComments?: boolean | string | { key: string, continueLineComment?: boolean | undefined } | undefined;
     }
 }

@@ -10,7 +10,7 @@ declare namespace CheckboxControl {
          * A heading for the input field, that appears above the checkbox. If
          * the prop is not passed no heading will be rendered.
          */
-        heading?: BaseControl.ControlProps['label'];
+        heading?: BaseControl.ControlProps['label'] | undefined;
         /**
          * A function that receives the checked state (boolean) as input.
          */

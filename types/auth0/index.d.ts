@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.33
+// Type definitions for auth0 2.34
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
@@ -12,33 +12,35 @@
 //                 Raimondo Butera <https://github.com/rbutera>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Dan Ursin <https://github.com/danursin>
+//                 Nathan Hardy <https://github.com/nhardy>
+//                 Nicholas Molen <https://github.com/robotastronaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
-    token?: string;
+    token?: string | undefined;
     domain: string;
-    clientId?: string;
-    clientSecret?: string;
-    audience?: string;
-    scope?: string;
-    tokenProvider?: TokenProvider;
-    retry?: RetryOptions;
+    clientId?: string | undefined;
+    clientSecret?: string | undefined;
+    audience?: string | undefined;
+    scope?: string | undefined;
+    tokenProvider?: TokenProvider | undefined;
+    retry?: RetryOptions | undefined;
 }
 
 export interface TokenProvider {
     enableCache: boolean;
-    cacheTTLInSeconds?: number;
+    cacheTTLInSeconds?: number | undefined;
 }
 
 export interface RetryOptions {
     /**
      * Default value is `true`.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Default value is `10`.
      */
-    maxRetries?: number;
+    maxRetries?: number | undefined;
 }
 
 export interface UserMetadata {
@@ -50,22 +52,22 @@ export interface AppMetadata {
 }
 
 export interface UserData<A = AppMetadata, U = UserMetadata> {
-    email?: string;
-    username?: string;
-    email_verified?: boolean;
-    verify_email?: boolean;
-    user_id?: string;
-    blocked?: boolean;
-    nickname?: string;
-    picture?: string;
-    password?: string;
-    phone_number?: string;
-    phone_verified?: boolean;
-    given_name?: string;
-    family_name?: string;
-    name?: string;
-    user_metadata?: U;
-    app_metadata?: A;
+    email?: string | undefined;
+    username?: string | undefined;
+    email_verified?: boolean | undefined;
+    verify_email?: boolean | undefined;
+    user_id?: string | undefined;
+    blocked?: boolean | undefined;
+    nickname?: string | undefined;
+    picture?: string | undefined;
+    password?: string | undefined;
+    phone_number?: string | undefined;
+    phone_verified?: boolean | undefined;
+    given_name?: string | undefined;
+    family_name?: string | undefined;
+    name?: string | undefined;
+    user_metadata?: U | undefined;
+    app_metadata?: A | undefined;
 }
 
 export interface CreateUserData extends UserData {
@@ -73,26 +75,26 @@ export interface CreateUserData extends UserData {
 }
 
 export interface SignUpUserData extends UserData {
-    connection?: string;
+    connection?: string | undefined;
 }
 
 export interface UpdateUserData extends UserData {
-    connection?: string;
-    blocked?: boolean;
-    verify_phone_number?: boolean;
-    verify_password?: boolean;
-    client_id?: string;
+    connection?: string | undefined;
+    blocked?: boolean | undefined;
+    verify_phone_number?: boolean | undefined;
+    verify_password?: boolean | undefined;
+    client_id?: string | undefined;
 }
 
 export interface GetUsersData {
-    per_page?: number;
-    page?: number;
-    sort?: string;
-    connection?: string;
-    fields?: string;
-    include_fields?: boolean;
-    q?: string;
-    search_engine?: string;
+    per_page?: number | undefined;
+    page?: number | undefined;
+    sort?: string | undefined;
+    connection?: string | undefined;
+    fields?: string | undefined;
+    include_fields?: boolean | undefined;
+    q?: string | undefined;
+    search_engine?: string | undefined;
 }
 
 export interface GetUsersDataPaged extends GetUsersData {
@@ -103,27 +105,27 @@ export interface Rule {
     /**
      * The name of the rule.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The rule's identifier.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The code to be executed when the rule runs.
      */
-    script?: string;
+    script?: string | undefined;
     /**
      * The rule's execution stage.
      */
-    stage?: string;
+    stage?: string | undefined;
     /**
      * `true` if the connection is enabled, `false` otherwise.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * The rule's order in relation to other rules. A rule with a lower order than another rule executes first.
      */
-    order?: number;
+    order?: number | undefined;
 }
 
 export interface RulesConfig {
@@ -141,15 +143,15 @@ export interface RulesConfigData {
 }
 
 export interface Role {
-    id?: string;
-    name?: string;
-    description?: string;
+    id?: string | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
 }
 
 export interface GetRolesData {
-    name_filter?: string;
-    per_page?: number;
-    page?: number;
+    name_filter?: string | undefined;
+    per_page?: number | undefined;
+    page?: number | undefined;
 }
 
 export interface GetRolesDataPaged extends GetRolesData {
@@ -162,12 +164,12 @@ export interface RolePage extends Page {
 
 export interface CreateRoleData {
     name: string;
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface UpdateRoleData {
-    name?: string;
-    description?: string;
+    name?: string | undefined;
+    description?: string | undefined;
 }
 
 export interface RolesData {
@@ -175,10 +177,10 @@ export interface RolesData {
 }
 
 export interface Permission {
-    resource_server_identifier?: string;
-    permission_name?: string;
-    resource_server_name?: string;
-    description?: string;
+    resource_server_identifier?: string | undefined;
+    permission_name?: string | undefined;
+    resource_server_name?: string | undefined;
+    description?: string | undefined;
 }
 
 export interface PermissionsData {
@@ -191,8 +193,8 @@ export interface PermissionData {
 }
 
 export interface GetRolePermissionsData extends ObjectWithId {
-    per_page?: number;
-    page?: number;
+    per_page?: number | undefined;
+    page?: number | undefined;
 }
 
 export interface GetRolePermissionsDataPaged extends GetRolePermissionsData {
@@ -200,8 +202,8 @@ export interface GetRolePermissionsDataPaged extends GetRolePermissionsData {
 }
 
 export interface GetRoleUsersData extends ObjectWithId {
-    per_page?: number;
-    page?: number;
+    per_page?: number | undefined;
+    page?: number | undefined;
 }
 
 export interface GetRoleUsersDataPaged extends GetRoleUsersData {
@@ -218,84 +220,84 @@ export interface Client {
     /**
      * The name of the client.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Free text description of the purpose of the Client. (Max character length: `140`).
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The id of the client.
      */
-    client_id?: string;
+    client_id?: string | undefined;
     /**
      * The client secret, it must not be public.
      */
-    client_secret?: string;
+    client_secret?: string | undefined;
     /**
      * The type of application this client represents.
      */
-    app_type?: string;
+    app_type?: string | undefined;
     /**
      * The URL of the client logo (recommended size: 150x150).
      */
-    logo_uri?: string;
+    logo_uri?: string | undefined;
     /**
      * Whether this client a first party client or not.
      */
-    is_first_party?: boolean;
+    is_first_party?: boolean | undefined;
     /**
      * Whether this client will conform to strict OIDC specifications.
      */
-    oidc_conformant?: boolean;
+    oidc_conformant?: boolean | undefined;
     /**
      * The URLs that Auth0 can use to as a callback for the client.
      */
-    callbacks?: string[];
-    allowed_origins?: string[];
-    web_origins?: string[];
-    client_aliases?: string[];
-    allowed_clients?: string[];
-    allowed_logout_urls?: string[];
+    callbacks?: string[] | undefined;
+    allowed_origins?: string[] | undefined;
+    web_origins?: string[] | undefined;
+    client_aliases?: string[] | undefined;
+    allowed_clients?: string[] | undefined;
+    allowed_logout_urls?: string[] | undefined;
     jwt_configuration?: {
         // The amount of time (in seconds) that the token will be valid after being issued
-        lifetime_in_seconds?: number;
-        scopes?: {};
+        lifetime_in_seconds?: number | undefined;
+        scopes?: {} | undefined;
         // The algorithm used to sign the JsonWebToken
-        alg?: 'HS256' | 'RS256';
-    };
+        alg?: 'HS256' | 'RS256' | undefined;
+    } | undefined;
     /**
      * A set of grant types that the client is authorized to use
      */
-    grant_types?: Grant[];
+    grant_types?: Grant[] | undefined;
     /**
      * Client signing keys.
      */
-    signing_keys?: string[];
+    signing_keys?: string[] | undefined;
     encryption_key?: {
-        pub?: string;
-        cert?: string;
-        subject?: string;
-    };
-    sso?: boolean;
+        pub?: string | undefined;
+        cert?: string | undefined;
+        subject?: string | undefined;
+    } | undefined;
+    sso?: boolean | undefined;
     /**
      * `true` to disable Single Sign On, `false` otherwise (default: `false`)
      */
-    sso_disabled?: boolean;
+    sso_disabled?: boolean | undefined;
     /**
      * `true` if this client can be used to make cross-origin authentication requests, `false` otherwise (default: `false`)
      */
-    cross_origin_auth?: boolean;
+    cross_origin_auth?: boolean | undefined;
     /**
      * Url of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
      */
-    cross_origin_loc?: string;
+    cross_origin_loc?: string | undefined;
     /**
      * `true` if the custom login page is to be used, `false` otherwise. (default: `true`)
      */
-    custom_login_page_on?: boolean;
-    custom_login_page?: string;
-    custom_login_page_preview?: string;
-    form_template?: string;
+    custom_login_page_on?: boolean | undefined;
+    custom_login_page?: string | undefined;
+    custom_login_page_preview?: string | undefined;
+    form_template?: string | undefined;
     addons?: any;
     /**
      * Defines the requested authentication method for the token endpoint.
@@ -303,58 +305,58 @@ export interface Client {
      * 'client_secret_post' (client uses HTTP POST parameters) or 'client_secret_basic' (client uses HTTP Basic)
      * ['none' or 'client_secret_post' or 'client_secret_basic']
      */
-    token_endpoint_auth_method?: string;
+    token_endpoint_auth_method?: string | undefined;
     client_metadata?: any;
     mobile?: any;
-    initiate_login_uri?: string;
+    initiate_login_uri?: string | undefined;
 }
 
 export interface ResourceServer {
     /**
      * The identifier of the resource server.
      */
-    identifier?: string;
-    scopes?: { description: string; value: string }[];
+    identifier?: string | undefined;
+    scopes?: { description: string; value: string }[] | undefined;
     /**
      * The algorithm used to sign tokens.
      */
-    signing_alg?: 'HS256' | 'RS256';
+    signing_alg?: 'HS256' | 'RS256' | undefined;
     /**
      * The secret used to sign tokens when using symmetric algorithms.
      */
-    signing_secret?: string;
+    signing_secret?: string | undefined;
     /**
      * Allows issuance of refresh tokens for this entity.
      */
-    allow_offline_access?: boolean;
+    allow_offline_access?: boolean | undefined;
     /**
      * Flag this entity as capable of skipping consent.
      */
-    skip_consent_for_verifiable_first_party_clients?: boolean;
+    skip_consent_for_verifiable_first_party_clients?: boolean | undefined;
     /**
      * The amount of time (in seconds) that the token will be valid after being issued.
      */
-    token_lifetime?: number;
+    token_lifetime?: number | undefined;
     /**
      * The amount of time (in seconds) that the token will be valid after being issued from browser based flows. Value cannot be larger than token_lifetime..
      */
-    token_lifetime_for_web?: number;
+    token_lifetime_for_web?: number | undefined;
     /**
      * The ID of the resource server.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * A friendly name for the resource server.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Enables the enforcement of the authorization policies.
      */
-    enforce_policies?: boolean;
+    enforce_policies?: boolean | undefined;
     /**
      * The dialect for the access token.
      */
-    token_dialect?: 'access_token' | 'access_token_authz';
+    token_dialect?: 'access_token' | 'access_token_authz' | undefined;
 }
 
 export interface CreateResourceServer extends ResourceServer {
@@ -382,22 +384,22 @@ export type ClientGrant = Partial<CreateClientGrant> & {
     /**
      * The id of the client grant.
      */
-    id?: string;
+    id?: string | undefined;
 };
 
 export interface GetClientGrantsOptions {
     /** @default 10 */
-    per_page?: number;
+    per_page?: number | undefined;
     /** @default 0 */
-    page?: number;
+    page?: number | undefined;
     /**
      * The audience.
      */
-    audience?: string;
+    audience?: string | undefined;
     /**
      * The id of the client (application).
      */
-    client_id?: string;
+    client_id?: string | undefined;
 }
 
 export interface GetClientGrantsOptionsPaged extends GetClientGrantsOptions {
@@ -405,7 +407,7 @@ export interface GetClientGrantsOptionsPaged extends GetClientGrantsOptions {
      * true if a query summary must be included in the result, false otherwise
      * @default false
      */
-    include_totals?: boolean;
+    include_totals?: boolean | undefined;
 }
 
 export interface ClientGrantPage extends Page {
@@ -492,33 +494,33 @@ export interface UpdateConnection {
      * be enabled. If the array is empty or the property is not
      * specified, no clients are enabled.
      */
-    enabled_clients?: string[];
+    enabled_clients?: string[] | undefined;
     /**
      * Defines the realms for which the connection will be used
      * (ie: email domains). If the array is empty or the property is
      * not specified, the connection name will be added as realm.
      */
-    realms?: string[];
+    realms?: string[] | undefined;
     metadata?: any;
     /**
      * True if the connection is domain level.
      */
-    is_domain_connection?: boolean;
+    is_domain_connection?: boolean | undefined;
 }
 
 export interface Connection extends UpdateConnection {
     /**
      * The connection's identifier.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The name of the connection.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The type of the connection, related to the identity provider.
      */
-    strategy?: Strategy;
+    strategy?: Strategy | undefined;
 }
 
 export interface CreateConnection extends UpdateConnection {
@@ -535,29 +537,29 @@ export interface CreateConnection extends UpdateConnection {
 }
 
 export interface User<A = AppMetadata, U = UserMetadata> {
-    email?: string;
-    email_verified?: boolean;
-    username?: string;
-    phone_number?: string;
-    phone_verified?: boolean;
-    user_id?: string;
-    _id?: string;
-    created_at?: string;
-    updated_at?: string;
-    identities?: Identity[];
-    app_metadata?: A;
-    user_metadata?: U;
-    picture?: string;
-    name?: string;
-    nickname?: string;
-    multifactor?: string[];
-    last_ip?: string;
-    last_login?: string;
-    last_password_reset?: string;
-    logins_count?: number;
-    blocked?: boolean;
-    given_name?: string;
-    family_name?: string;
+    email?: string | undefined;
+    email_verified?: boolean | undefined;
+    username?: string | undefined;
+    phone_number?: string | undefined;
+    phone_verified?: boolean | undefined;
+    user_id?: string | undefined;
+    _id?: string | undefined;
+    created_at?: string | undefined;
+    updated_at?: string | undefined;
+    identities?: Identity[] | undefined;
+    app_metadata?: A | undefined;
+    user_metadata?: U | undefined;
+    picture?: string | undefined;
+    name?: string | undefined;
+    nickname?: string | undefined;
+    multifactor?: string[] | undefined;
+    last_ip?: string | undefined;
+    last_login?: string | undefined;
+    last_password_reset?: string | undefined;
+    logins_count?: number | undefined;
+    blocked?: boolean | undefined;
+    given_name?: string | undefined;
+    family_name?: string | undefined;
 }
 
 export interface Page {
@@ -572,8 +574,8 @@ export interface UserPage<A = AppMetadata, U = UserMetadata> extends Page {
 }
 
 export interface GetUserRolesData extends ObjectWithId {
-    page?: number;
-    per_page?: number;
+    page?: number | undefined;
+    per_page?: number | undefined;
 }
 
 export interface GetUserRolesDataPaged extends GetUserRolesData {
@@ -581,8 +583,8 @@ export interface GetUserRolesDataPaged extends GetUserRolesData {
 }
 
 export interface GetUserPermissionsData extends ObjectWithId {
-    page?: number;
-    per_page?: number;
+    page?: number | undefined;
+    per_page?: number | undefined;
 }
 
 export interface GetUserPermissionsDataPaged extends GetUserPermissionsData {
@@ -594,20 +596,20 @@ export interface Identity {
     user_id: string;
     provider: string;
     isSocial: boolean;
-    access_token?: string;
+    access_token?: string | undefined;
     profileData?: {
-        email?: string;
-        email_verified?: boolean;
-        name?: string;
-        phone_number?: string;
-        phone_verified?: boolean;
-        request_language?: string;
-    };
+        email?: string | undefined;
+        email_verified?: boolean | undefined;
+        name?: string | undefined;
+        phone_number?: string | undefined;
+        phone_verified?: boolean | undefined;
+        request_language?: string | undefined;
+    } | undefined;
 }
 
 export interface AuthenticationClientOptions {
-    clientId?: string;
-    clientSecret?: string;
+    clientId?: string | undefined;
+    clientSecret?: string | undefined;
     domain: string;
 }
 
@@ -658,15 +660,19 @@ export interface ResetPasswordEmailOptions {
 
 export interface ClientCredentialsGrantOptions {
     audience: string;
-    scope?: string;
+    scope?: string | undefined;
 }
 
 export interface PasswordGrantOptions {
     username: string;
     password: string;
-    realm?: string;
-    scope?: string;
-    audience?: string;
+    realm?: string | undefined;
+    scope?: string | undefined;
+    audience?: string | undefined;
+}
+
+export interface PasswordGrantAdditionalOptions {
+    forwardedFor?: string;
 }
 
 export interface AuthorizationCodeGrantOptions {
@@ -676,7 +682,7 @@ export interface AuthorizationCodeGrantOptions {
 
 export interface AuthenticationClientRefreshTokenOptions {
     refresh_token: string;
-    client_id?: string;
+    client_id?: string | undefined;
 }
 
 export interface RefreshTokenOptions {
@@ -687,9 +693,9 @@ export interface TokenResponse {
     access_token: string;
     token_type: string;
     expires_in: number;
-    scope?: string;
-    id_token?: string;
-    refresh_token?: string;
+    scope?: string | undefined;
+    id_token?: string | undefined;
+    refresh_token?: string | undefined;
 }
 
 export interface ObjectWithId {
@@ -697,7 +703,7 @@ export interface ObjectWithId {
 }
 
 export interface Data {
-    name?: string;
+    name?: string | undefined;
     [propName: string]: any;
 }
 
@@ -779,29 +785,29 @@ export interface UnlinkAccountsParams {
 }
 
 export interface UnlinkAccountsResponseProfile {
-    email?: string;
-    email_verified?: boolean;
-    name?: string;
-    username?: string;
-    given_name?: string;
-    phone_number?: string;
-    phone_verified?: boolean;
-    family_name?: string;
+    email?: string | undefined;
+    email_verified?: boolean | undefined;
+    name?: string | undefined;
+    username?: string | undefined;
+    given_name?: string | undefined;
+    phone_number?: string | undefined;
+    phone_verified?: boolean | undefined;
+    family_name?: string | undefined;
 }
 
 export interface UnlinkAccountsResponse {
     connection: string;
     user_id: string;
     provider: string;
-    isSocial?: boolean;
-    access_token?: string;
-    profileData?: UnlinkAccountsResponseProfile;
+    isSocial?: boolean | undefined;
+    access_token?: string | undefined;
+    profileData?: UnlinkAccountsResponseProfile | undefined;
 }
 
 export interface LinkAccountsParams {
     user_id: string;
-    connection_id?: string;
-    provider?: string;
+    connection_id?: string | undefined;
+    provider?: string | undefined;
 }
 
 export interface Token {
@@ -824,29 +830,29 @@ export interface ExportUsersJob {
     id: string;
     type: 'users_export';
     status: JobStatus;
-    created_at?: string;
-    connection_id?: string;
-    fields?: ExportUserField[];
-    location?: string;
-    format?: JobFormat;
+    created_at?: string | undefined;
+    connection_id?: string | undefined;
+    fields?: ExportUserField[] | undefined;
+    location?: string | undefined;
+    format?: JobFormat | undefined;
 }
 
 export interface ImportUsersJob {
     id: string;
     type: 'users_import';
     status: JobStatus;
-    created_at?: string;
-    connection_id?: string;
-    upsert?: boolean;
-    external_id?: string;
-    send_completion_email?: boolean;
+    created_at?: string | undefined;
+    connection_id?: string | undefined;
+    upsert?: boolean | undefined;
+    external_id?: string | undefined;
+    send_completion_email?: boolean | undefined;
 }
 
 export interface VerificationEmailJob {
     id: string;
     type: 'verification_email';
     status: JobStatus;
-    created_at?: string;
+    created_at?: string | undefined;
 }
 
 export type CustomDomainVerificationMethod = 'txt';
@@ -858,9 +864,9 @@ export type CustomDomainType = 'auth0_managed_certs' | 'self_managed_certs';
 export interface CreateDomainData {
     domain: string;
     type: CustomDomainType;
-    verification_method?: CustomDomainVerificationMethod;
-    tls_policy?: string;
-    custom_client_ip_header?: string;
+    verification_method?: CustomDomainVerificationMethod | undefined;
+    tls_policy?: string | undefined;
+    custom_client_ip_header?: string | undefined;
 }
 
 export interface Domain {
@@ -869,23 +875,23 @@ export interface Domain {
     primary: boolean;
     status: CustomDomainStatus;
     type: CustomDomainType;
-    origin_domain_name?: string;
+    origin_domain_name?: string | undefined;
     verification: {
         methods: any[];
     };
-    custom_client_ip_header?: string;
-    tls_policy?: string;
+    custom_client_ip_header?: string | undefined;
+    tls_policy?: string | undefined;
 }
 
 export interface DomainVerification extends Domain {
-    cname_api_key?: string;
+    cname_api_key?: string | undefined;
 }
 
 export interface BaseImportUsersOptions {
     connection_id: string;
-    upsert?: boolean;
-    external_id?: string;
-    send_completion_email?: boolean;
+    upsert?: boolean | undefined;
+    external_id?: string | undefined;
+    send_completion_email?: boolean | undefined;
 }
 
 export interface ImportUsersFromFileOptions extends BaseImportUsersOptions {
@@ -899,31 +905,28 @@ export interface ImportUsersFromJsonOptions extends BaseImportUsersOptions {
 export type ImportUsersOptions = ImportUsersFromFileOptions | ImportUsersFromJsonOptions;
 
 export interface ExportUsersOptions {
-    connection_id?: string;
-    format?: JobFormat;
-    limit?: number;
-    fields?: ExportUserField[];
-}
-
-export interface UserIdParams {
-    user_id: string;
-    client_id?: string;
+    connection_id?: string | undefined;
+    format?: JobFormat | undefined;
+    limit?: number | undefined;
+    fields?: ExportUserField[] | undefined;
 }
 
 export interface ExportUserField {
     name: string;
-    export_as?: string;
+    export_as?: string | undefined;
 }
 
 export interface PasswordChangeTicketParams {
-    result_url?: string;
-    user_id?: string;
-    new_password?: string;
-    connection_id?: string;
-    email?: string;
-    ttl_sec?: number;
-    mark_email_as_verified?: boolean;
-    includeEmailInRedirect?: boolean;
+    result_url?: string | undefined;
+    user_id?: string | undefined;
+    client_id?: string | undefined;
+    organization_id?: string | undefined;
+    new_password?: string | undefined;
+    connection_id?: string | undefined;
+    email?: string | undefined;
+    ttl_sec?: number | undefined;
+    mark_email_as_verified?: boolean | undefined;
+    includeEmailInRedirect?: boolean | undefined;
 }
 
 export interface PasswordChangeTicketResponse {
@@ -931,17 +934,25 @@ export interface PasswordChangeTicketResponse {
 }
 
 export interface EmailVerificationTicketOptions {
+    result_url?: string | undefined;
     user_id: string;
-    result_url: string;
+    client_id?: string | undefined;
+    organization_id?: string | undefined;
+    identity?: {
+        user_id: string;
+        provider: string;
+    } | undefined;
+    ttl_sec?: number | undefined;
+    includeEmailInRedirect?: boolean | undefined;
 }
 
 export interface BaseClientOptions {
     baseUrl: string;
-    clientId?: string;
+    clientId?: string | undefined;
 }
 
 export interface OAuthClientOptions extends BaseClientOptions {
-    clientSecret?: string;
+    clientSecret?: string | undefined;
 }
 
 export interface DatabaseClientOptions extends BaseClientOptions {}
@@ -949,7 +960,7 @@ export interface DatabaseClientOptions extends BaseClientOptions {}
 export interface PasswordLessClientOptions extends BaseClientOptions {}
 
 export interface TokensManagerOptions extends BaseClientOptions {
-    clientSecret?: string;
+    clientSecret?: string | undefined;
     headers?: any;
 }
 export interface UsersOptions extends BaseClientOptions {
@@ -958,11 +969,21 @@ export interface UsersOptions extends BaseClientOptions {
 
 export interface CustomDomainsManagerOptions extends BaseClientOptions {
     headers?: any;
-    retry?: RetryOptions;
+    retry?: RetryOptions | undefined;
 }
 
-export interface SignInOptions extends VerifyOptions {
-    connection?: string;
+export interface SignInOptions {
+    username: string;
+    otp: string;
+    realm?: 'email' | 'sms';
+    /**
+     * @deprecated
+     */
+    password?: string;
+    /**
+     * @deprecated
+     */
+    connection?: 'email' | 'sms';
 }
 
 export interface SocialSignInOptions {
@@ -972,8 +993,8 @@ export interface SocialSignInOptions {
 
 export interface SignInToken {
     access_token: string;
-    id_token?: string;
-    token_type?: string;
+    id_token?: string | undefined;
+    token_type?: string | undefined;
     expiry: number;
 }
 
@@ -987,11 +1008,15 @@ export interface RequestEmailCodeOrLinkOptions {
     send: SendType;
 }
 
+export interface PasswordlessOptions {
+    forwardedFor?: string;
+}
+
 export interface ImpersonateSettingOptions {
     impersonator_id: string;
     protocol: string;
     token: string;
-    clientId?: string;
+    clientId?: string | undefined;
 }
 
 export type ClientAppType =
@@ -1017,14 +1042,14 @@ export type ClientAppType =
     | 'zendesk'
     | 'zoom';
 export interface GetClientsOptions {
-    fields?: string[];
-    include_fields?: boolean;
-    page?: number;
-    per_page?: number;
-    include_totals?: boolean;
-    is_global?: boolean;
-    is_first_party?: boolean;
-    app_type?: ClientAppType[];
+    fields?: string[] | undefined;
+    include_fields?: boolean | undefined;
+    page?: number | undefined;
+    per_page?: number | undefined;
+    include_totals?: boolean | undefined;
+    is_global?: boolean | undefined;
+    is_first_party?: boolean | undefined;
+    app_type?: ClientAppType[] | undefined;
 }
 
 export interface ObjectWithIdentifier {
@@ -1033,7 +1058,7 @@ export interface ObjectWithIdentifier {
 
 export interface BlockedForEntry {
     identifier: string;
-    ip?: string;
+    ip?: string | undefined;
 }
 
 export interface UserBlocks {
@@ -1054,17 +1079,38 @@ export interface Enrollment {
 }
 
 export interface PagingOptions {
-    per_page?: number;
-    page?: number;
+    per_page?: number | undefined;
+    page?: number | undefined;
+}
+
+export interface CheckpointPagingOptions {
+    /**
+     * @default 50
+     */
+    take?: number | undefined;
+    from?: string | undefined;
+}
+
+export interface GetGrantsParams extends PagingOptions {
+    user_id: string;
+    client_id: string;
+    audience: string;
+}
+
+export interface GrantResponse {
+    id: string;
+    clientID: string;
+    user_id: string;
+    scope: string[];
 }
 
 export class AuthenticationClient {
     // Members
-    database?: DatabaseAuthenticator;
-    oauth?: OAuthAuthenticator;
-    passwordless?: PasswordlessAuthenticator;
-    tokens?: TokensManager;
-    users?: UsersManager;
+    database?: DatabaseAuthenticator | undefined;
+    oauth?: OAuthAuthenticator | undefined;
+    passwordless?: PasswordlessAuthenticator | undefined;
+    tokens?: TokensManager | undefined;
+    users?: UsersManager | undefined;
 
     constructor(options: AuthenticationClientOptions);
     getClientInfo(): ClientInfo;
@@ -1103,7 +1149,9 @@ export class AuthenticationClient {
     ): void;
 
     passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<TokenResponse>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
     refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(
@@ -1112,7 +1160,307 @@ export class AuthenticationClient {
     ): void;
 }
 
+export interface Organization {
+    id: string;
+    name: string;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any;
+}
+
+export interface OrganizationsPaged extends Omit<Page, 'length'> {
+    organizations: Organization[];
+}
+
+export interface CreateOrganization {
+    name: string;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any;
+}
+
+export interface UpdateOrganization {
+    name?: string | undefined;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any;
+}
+
+export interface OrganizationConnection {
+    connection_id: string;
+    assign_membership_on_login: boolean;
+    connection: {
+        name: string;
+        strategy: string;
+    };
+}
+
+export interface AddOrganizationEnabledConnection {
+    connection_id: string;
+    assign_membership_on_login?: boolean | undefined;
+}
+
+export interface UpdateOrganizationEnabledConnection {
+    assign_membership_on_login: boolean;
+}
+
+export interface AddOrganizationMembers {
+    members: string[];
+}
+
+export interface RemoveOrganizationMembers {
+    members: string[];
+}
+
+export interface OrganizationMember {
+    user_id?: string | undefined;
+    picture?: string | undefined;
+    name?: string | undefined;
+    email?: string | undefined;
+}
+
+export interface OrganizationMembersPaged extends Omit<Page, 'length'> {
+    members: OrganizationMember[];
+}
+
+export interface OrganizationInvitation {
+    id: string;
+    organization_id: string;
+    inviter: {
+        name: string;
+    };
+    invitee: {
+        email: string;
+    };
+    invitation_url: string;
+    created_at: string;
+    expires_at: string;
+    connection_id?: string | undefined;
+    client_id: string;
+    app_metadata?: any;
+    user_metadata?: any;
+    ticket_id: string;
+    roles?: string[] | undefined;
+}
+
+export interface OrganizationInvitationsPaged extends Omit<Page, 'length'> {
+    invitations: OrganizationInvitation[];
+}
+
+export interface CreateOrganizationInvitation {
+    inviter: {
+        name: string;
+    };
+    invitee: {
+        email: string;
+    };
+    connection_id?: string | undefined;
+    client_id: string;
+    app_metadata?: any;
+    user_metadata?: any;
+    ttl_sec?: number | undefined;
+    send_invitation_email?: boolean | undefined;
+    roles?: string[] | undefined;
+}
+
+export interface AddOrganizationMemberRoles {
+    roles: string[];
+}
+
+export interface RemoveOrganizationMemberRoles {
+    roles: string[];
+}
+
+export interface VerifyEmail {
+    user_id: string;
+    organization_id?: string | undefined;
+    client_id?: string | undefined;
+    identity?: {
+        user_id: string;
+        provider: string;
+    } | undefined;
+}
+
+export class OrganizationsManager {
+    create(data: CreateOrganization): Promise<Organization>;
+    create(data: CreateOrganization, cb: (err: Error, organization: Organization) => void): void;
+
+    getAll(): Promise<Organization[]>;
+    getAll(cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions & { include_totals?: false; }): Promise<Organization[]>;
+    getAll(params: PagingOptions & { include_totals: true; }): Promise<OrganizationsPaged>;
+    getAll(params: PagingOptions & { include_totals?: false; }, cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions & { include_totals: true; }, cb: (err: Error, pagedOrganizations: OrganizationsPaged) => void): void;
+    getAll(params: CheckpointPagingOptions): Promise<Organization[]>;
+    getAll(params: CheckpointPagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
+
+    getByID(params: ObjectWithId): Promise<Organization>;
+    getByID(params: ObjectWithId, cb: (err: Error, organization: Organization) => void): void;
+
+    getByName(params: { name: string }): Promise<Organization>;
+    getByName(params: { name: string }, cb: (err: Error, organization: Organization) => void): void;
+
+    update(params: ObjectWithId, data: UpdateOrganization): Promise<Organization>;
+    update(params: ObjectWithId, data: UpdateOrganization, cb: (err: Error, organization: Organization) => void): void;
+
+    delete(params: ObjectWithId): Promise<void>;
+    delete(params: ObjectWithId, cb: (err: Error) => void): void;
+
+    getEnabledConnections(params: ObjectWithId & PagingOptions): Promise<OrganizationConnection[]>;
+    getEnabledConnections(
+        params: ObjectWithId & PagingOptions,
+        cb: (err: Error, connections: OrganizationConnection[]) => void,
+    ): void;
+
+    getEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<OrganizationConnection>;
+    getEnabledConnection(
+        params: ObjectWithId & { connection_id: string },
+        cb: (err: Error, connection: OrganizationConnection) => void,
+    ): void;
+
+    addEnabledConnection(params: ObjectWithId, data: AddOrganizationEnabledConnection): Promise<OrganizationConnection>;
+    addEnabledConnection(
+        params: ObjectWithId,
+        data: AddOrganizationEnabledConnection,
+        cb: (err: Error, connection: OrganizationConnection) => void,
+    ): void;
+
+    removeEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<void>;
+    removeEnabledConnection(params: ObjectWithId & { connection_id: string }, cb: (err: Error) => void): void;
+
+    updateEnabledConnection(
+        params: ObjectWithId & { connection_id: string },
+        data: UpdateOrganizationEnabledConnection,
+    ): Promise<OrganizationConnection>;
+    updateEnabledConnection(
+        params: ObjectWithId & { connection_id: string },
+        data: UpdateOrganizationEnabledConnection,
+        cb: (err: Error, connection: OrganizationConnection) => void,
+    ): void;
+
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }): Promise<OrganizationMember[]>;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }): Promise<OrganizationMembersPaged>;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }, cb: (err: Error, members: OrganizationMember[]) => void): void;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }, cb: (err: Error, pagedMembers: OrganizationMembersPaged) => void): void;
+    getMembers(params: ObjectWithId & CheckpointPagingOptions): Promise<OrganizationMember[]>;
+    getMembers(
+        params: ObjectWithId & CheckpointPagingOptions,
+        cb: (err: Error, members: OrganizationMember[]) => void,
+    ): void;
+
+    addMembers(params: ObjectWithId, data: AddOrganizationMembers): Promise<void>;
+    addMembers(params: ObjectWithId, data: AddOrganizationMembers, cb: (err: Error) => void): void;
+
+    removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers): Promise<void>;
+    removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers, cb: (err: Error) => void): void;
+
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals?: false;
+            },
+    ): Promise<OrganizationInvitation[]>;
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals: true;
+            },
+    ): Promise<OrganizationInvitationsPaged>;
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals?: false;
+            },
+        cb: (err: Error, invitations: OrganizationInvitation[]) => void,
+    ): void;
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions &
+            CheckpointPagingOptions & {
+                fields?: string;
+                include_fields?: boolean;
+                sort?: string;
+                include_totals: true;
+            },
+        cb: (err: Error, pagedInvitations: OrganizationInvitationsPaged) => void,
+    ): void;
+
+    getInvitation(
+        params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean },
+    ): Promise<OrganizationInvitation>;
+    getInvitation(
+        params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean },
+        cb: (err: Error, invitation: OrganizationInvitation) => void,
+    ): void;
+
+    createInvitation(params: ObjectWithId, data: CreateOrganizationInvitation): Promise<OrganizationInvitation>;
+    createInvitation(
+        params: ObjectWithId,
+        data: CreateOrganizationInvitation,
+        cb: (err: Error, invitation: OrganizationInvitation) => void,
+    ): void;
+
+    deleteInvitation(params: ObjectWithId & { invitation_id: string }): Promise<void>;
+    deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
+
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false }): Promise<Role[]>;
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true }): Promise<Omit<RolePage, 'length'>>;
+    getMemberRoles(
+        params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false },
+        cb: (err: Error, roles: Role[]) => void,
+    ): void;
+    getMemberRoles(
+        params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true },
+        cb: (err: Error, roles: Omit<RolePage, 'length'>) => void,
+    ): void;
+
+    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddOrganizationMemberRoles): Promise<void>;
+    addMemberRoles(
+        params: ObjectWithId & { user_id: string },
+        data: AddOrganizationMemberRoles,
+        cb: (err: Error) => void,
+    ): void;
+
+    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveOrganizationMemberRoles): Promise<void>;
+    removeMemberRoles(
+        params: ObjectWithId & { user_id: string },
+        data: RemoveOrganizationMemberRoles,
+        cb: (err: Error) => void,
+    ): void;
+}
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
+    organizations: OrganizationsManager;
+
     constructor(options: ManagementClientOptions);
 
     getClientInfo(): ClientInfo;
@@ -1395,8 +1743,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
     exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
 
-    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
-    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
+    sendEmailVerification(data: VerifyEmail): Promise<VerificationEmailJob>;
+    sendEmailVerification(data: VerifyEmail, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
     // Tickets
     createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
@@ -1462,6 +1810,13 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     // MFA invalidate remember browser
     invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
     invalidateRememberBrowser(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+    // Grants
+    getGrants(params: GetGrantsParams): Promise<GrantResponse[]>;
+    getGrants(params: GetGrantsParams, cb?: (err: Error, grants: GrantResponse[]) => void): void;
+
+    deleteGrant(params: ObjectWithId & {user_id: string}): Promise<void>;
+    deleteGrant(params: ObjectWithId & {user_id: string}, cb?: (err: Error) => void): void;
 }
 
 export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
@@ -1484,7 +1839,9 @@ export class OAuthAuthenticator {
     constructor(options: OAuthClientOptions);
 
     passwordGrant(options: PasswordGrantOptions): Promise<SignInToken>;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<SignInToken>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: SignInToken) => void): void;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: SignInToken) => void): void;
 
     signIn(data: SignInOptions): Promise<SignInToken>;
     signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
@@ -1502,19 +1859,22 @@ export class OAuthAuthenticator {
 export class PasswordlessAuthenticator {
     constructor(options: PasswordLessClientOptions, oauth: OAuthAuthenticator);
 
-    signIn(data: SignInOptions): Promise<SignInToken>;
-    signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+    signIn(userData: SignInOptions, options?: PasswordlessOptions): Promise<SignInToken>;
+    signIn(userData: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+    signIn(userData: SignInOptions, options: PasswordlessOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-    sendEmail(data: RequestEmailCodeOrLinkOptions): Promise<any>;
-    sendEmail(data: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
+    sendEmail(userData: RequestEmailCodeOrLinkOptions, options?: PasswordlessOptions): Promise<any>;
+    sendEmail(userData: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
+    sendEmail(userData: RequestEmailCodeOrLinkOptions, options: PasswordlessOptions, cb: (err: Error, message: string) => void): void;
 
-    sendSMS(data: RequestSMSCodeOptions): Promise<any>;
-    sendSMS(data: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
+    sendSMS(userData: RequestSMSCodeOptions, options?: PasswordlessOptions): Promise<any>;
+    sendSMS(userData: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
+    sendSMS(userData: RequestSMSCodeOptions, options: PasswordlessOptions, cb: (err: Error, message: string) => void): void;
 }
 
 export interface RevokeRefreshTokenOptions {
-    client_id?: string;
-    client_secret?: string;
+    client_id?: string | undefined;
+    client_secret?: string | undefined;
     token: string;
 }
 

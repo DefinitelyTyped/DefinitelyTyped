@@ -29,7 +29,7 @@ declare namespace AV {
     }
 
     interface HttpSourceOpts {
-        length?: number;
+        length?: number | undefined;
     }
 
     const HTTPSource: { new(url: string, opts?: HttpSourceOpts): Source; };

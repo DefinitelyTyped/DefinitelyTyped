@@ -11,8 +11,8 @@ import { Feature, FeatureCollection, GeometryObject, GeoJsonProperties } from "g
 import { Readable } from "stream";
 
 export interface Options {
-    encoding?: string;
-    highWaterMark?: number;
+    encoding?: string | undefined;
+    highWaterMark?: number | undefined;
 }
 export interface Source<RecordType> {
     bbox: number[];

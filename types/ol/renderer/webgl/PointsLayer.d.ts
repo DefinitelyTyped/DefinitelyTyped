@@ -30,14 +30,14 @@ export interface FeatureCacheItem {
     geometry: Geometry;
 }
 export interface Options {
-    className?: string;
-    attributes?: CustomAttribute[];
+    className?: string | undefined;
+    attributes?: CustomAttribute[] | undefined;
     vertexShader: string;
     fragmentShader: string;
-    hitVertexShader?: string;
-    hitFragmentShader?: string;
-    uniforms?: { [key: string]: UniformValue };
-    postProcesses?: PostProcessesOptions[];
+    hitVertexShader?: string | undefined;
+    hitFragmentShader?: string | undefined;
+    uniforms?: { [key: string]: UniformValue } | undefined;
+    postProcesses?: PostProcessesOptions[] | undefined;
 }
 export default class WebGLPointsLayerRenderer extends WebGLLayerRenderer {
     constructor(layer: Layer<Source>, options: Options);

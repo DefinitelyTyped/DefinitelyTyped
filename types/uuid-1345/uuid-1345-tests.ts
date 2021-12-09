@@ -210,7 +210,7 @@ console.log(UUID.namespace.oid);
 console.log(UUID.namespace.x500);
 
 // more API
-var checkResult:{version?:number, variant:string, format:string};
+var checkResult:{version?:number | undefined, variant:string, format:string};
 checkResult = UUID.check(uuid);
 uuidBuffer = UUID.parse(uuid);
 uuid = UUID.stringify(uuidBuffer);

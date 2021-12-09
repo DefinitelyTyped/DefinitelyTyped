@@ -10,7 +10,7 @@ export interface Country {
     dialCode: string;
     /** A format string for phone numbers. **This could be an empty string.** */
     format: string;
-    hasAreaCodes?: true;
+    hasAreaCodes?: true | undefined;
     priority: number;
 }
 

@@ -7,8 +7,91 @@
 
 import * as ReactInstance from 'react';
 import * as ReactDOMInstance from 'react-dom';
+import * as _ from 'lodash';
 
-export const BdApi: typeof BdApiModule;
+export {};
+
+declare global {
+    const BdApi: typeof BdApiModule;
+    const _: typeof _;
+    interface Window {
+        BdApi: typeof BdApiModule;
+        _: typeof _;
+    }
+    const global: Window;
+}
+
+/**
+ * Plugins must have a default export of a class that implements this interface
+ * @see https://github.com/BetterDiscord/BetterDiscord/wiki/Creating-Plugins
+ */
+export interface BdPlugin {
+    /**
+     * The name for the plugin to be displayed to the user in the plugins page and for internal settings to use.
+     *
+     * Note: This is no longer required if it is included in the meta.
+     * @returns the name for the plugin.
+     */
+    getName?(): string;
+
+    /**
+     * The description of the plugin shown in the plugins page.
+     *
+     * Note: This is no longer required if it is included in the meta.
+     * @returns the description of the plugin.
+     */
+    getDescription?(): string;
+
+    /**
+     * The version of the plugin displayed in the plugins page.
+     *
+     * Note: This is no longer required if it is included in the meta.
+     * @returns the version of the plugin.
+     */
+    getVersion?(): string;
+
+    /**
+     * The author string for the plugin displayed in the plugins page.
+     *
+     * Note: This is no longer required if it is included in the meta.
+     * @returns the author of the plugin.
+     */
+    getAuthor?(): string;
+
+    /**
+     * Called when the plugin is enabled or when it is loaded and was previously reloaded (such as discord start or reload).
+     */
+    start(): void;
+
+    /**
+     * Called when the plugin is disabled.
+     */
+    stop(): void;
+
+    /**
+     * Called when the user clicks on the settings button for the plugin. If this function is not implemented the button is not shown.
+     *
+     * Note: The button will be disabled if the plugin is disabled to avoid errors with not-started plugins.
+     */
+    getSettingsPanel?(): string;
+
+    /**
+     * Called when the plugin is loaded regardless of if it is enabled or disabled.
+     */
+    load?(): void;
+
+    /**
+     * Called on every mutation that occurs on the document. For more information on observers and mutations take a look at
+     * [MDN's documentation](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
+     * @param e The mutation that occurred.
+     */
+    observer?(e: MutationRecord): void;
+
+    /**
+     * Called every time the user navigates such as changing channel, changing servers, changing to friends list, etc.
+     */
+    onSwitch?(): void;
+}
 
 /**
  * Function with no arguments and no return value that may be called to revert changes made by `monkeyPatch` method, restoring (unpatching) original method.
@@ -61,12 +144,12 @@ export interface PatchData {
  * You can get access to original method using `originalMethod` parameter if you want to call it, but you do not have to. Can't be combined with `before` and `after`.
  */
 export interface MonkeyPatchOptions {
-    once?: boolean;
-    silent?: boolean;
-    displayName?: string;
-    before?: PatchFunction;
-    after?: PatchFunction;
-    instead?: PatchFunction;
+    once?: boolean | undefined;
+    silent?: boolean | undefined;
+    displayName?: string | undefined;
+    before?: PatchFunction | undefined;
+    after?: PatchFunction | undefined;
+    instead?: PatchFunction | undefined;
 }
 
 /**
@@ -76,9 +159,9 @@ export interface MonkeyPatchOptions {
  * @param timeout Adjusts the time (in ms) the toast should be shown for before disappearing automatically. Default: 3000
  */
 export interface ToastOptions {
-    type?: string;
-    icon?: boolean;
-    timeout?: number;
+    type?: string | undefined;
+    icon?: boolean | undefined;
+    timeout?: number | undefined;
 }
 
 /**
@@ -90,17 +173,17 @@ export interface ToastOptions {
  * @param options.onCancel Callback to occur when clicking the cancel button.
  */
 export interface ConfirmationModalOptions {
-    danger?: boolean;
-    confirmText?: string;
-    cancelText?: string;
-    onConfirm?: () => any;
-    onCancel?: () => any;
+    danger?: boolean | undefined;
+    confirmText?: string | undefined;
+    cancelText?: string | undefined;
+    onConfirm?: (() => any) | undefined;
+    onCancel?: (() => any) | undefined;
 }
 
 /**
  * The following functions are available as a part of each `AddonAPI` object from `BdApi`.
  */
-export class AddonAPI {
+declare class AddonAPI {
     /**
      * String representing the resolved location of the user's addon folder.
      */
@@ -145,7 +228,7 @@ export class AddonAPI {
     getAll(): void;
 }
 
-export namespace BdApiModule {
+declare namespace BdApiModule {
     /**
      * The React module being used inside Discord.
      */

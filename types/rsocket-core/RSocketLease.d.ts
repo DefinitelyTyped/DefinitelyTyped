@@ -18,7 +18,7 @@ export class Lease {
     startingAllowedRequests: number;
     timeToLiveMillis: number;
     expiry: number;
-    metadata?: Encodable;
+    metadata?: Encodable | undefined;
 
     constructor(timeToLiveMillis: number, allowedRequests: number, metadata?: Encodable);
 

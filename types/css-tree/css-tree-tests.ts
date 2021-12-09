@@ -703,3 +703,10 @@ csstree.definitionSyntax.walk(syntax, (node) => {
 csstree.definitionSyntax.walk(syntax, (node) => {
     node; // $ExpectType DSNode
 }, undefined);
+
+csstree.parse('.selector { /* comment */ }', {
+  onComment(value, loc) {
+    value; // $ExpectType string
+    loc; // $ExpectType CssLocation
+  }
+});

@@ -1,4 +1,4 @@
-// Type definitions for inquirer 7.3
+// Type definitions for inquirer 8.1
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
@@ -12,29 +12,29 @@
 //                 Jed Mao <https://github.com/jedmao>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-import { Interface as ReadlineInterface } from "readline";
-import { Observable } from "rxjs";
-import Choice = require("./lib/objects/choice");
-import Choices = require("./lib/objects/choices");
-import Separator = require("./lib/objects/separator");
-import "./lib/prompts/base";
-import "./lib/prompts/checkbox";
-import "./lib/prompts/confirm";
-import "./lib/prompts/editor";
-import "./lib/prompts/expand";
-import "./lib/prompts/input";
-import "./lib/prompts/list";
-import "./lib/prompts/number";
-import "./lib/prompts/password";
-import "./lib/prompts/rawlist";
-import "./lib/utils/events";
-import "./lib/utils/paginator";
-import "./lib/utils/readline";
-import "./lib/utils/screen-manager";
-import "./lib/utils/utils";
-import BottomBar = require("./lib/ui/bottom-bar");
-import PromptUI = require("./lib/ui/prompt");
+// TypeScript Version: 4.2
+import { Interface as ReadlineInterface } from 'readline';
+import { Observable } from 'rxjs';
+import Choice = require('./lib/objects/choice');
+import Choices = require('./lib/objects/choices');
+import Separator = require('./lib/objects/separator');
+import './lib/prompts/base';
+import './lib/prompts/checkbox';
+import './lib/prompts/confirm';
+import './lib/prompts/editor';
+import './lib/prompts/expand';
+import './lib/prompts/input';
+import './lib/prompts/list';
+import './lib/prompts/number';
+import './lib/prompts/password';
+import './lib/prompts/rawlist';
+import './lib/utils/events';
+import './lib/utils/paginator';
+import './lib/utils/readline';
+import './lib/utils/screen-manager';
+import './lib/utils/utils';
+import BottomBar = require('./lib/ui/bottom-bar');
+import PromptUI = require('./lib/ui/prompt');
 
 /**
  * Represents a union which preserves autocompletion.
@@ -81,12 +81,12 @@ interface ListQuestionOptionsBase<T, TChoiceMap> extends inquirer.Question<T> {
     /**
      * The choices of the prompt.
      */
-    choices?: inquirer.AsyncDynamicQuestionProperty<ReadonlyArray<inquirer.DistinctChoice<TChoiceMap>>, T>;
+    choices?: inquirer.AsyncDynamicQuestionProperty<ReadonlyArray<inquirer.DistinctChoice<TChoiceMap>>, T> | undefined;
 
     /**
      * The number of elements to show on each page.
      */
-    pageSize?: number;
+    pageSize?: number | undefined;
 }
 
 /**
@@ -107,7 +107,7 @@ declare namespace inquirer {
      * @template U
      * The union to convert to an intersection.
      */
-    type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+    type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
 
     /**
      * Provides an input and an output-stream.
@@ -116,12 +116,12 @@ declare namespace inquirer {
         /**
          * A stream to read the input from.
          */
-        input?: NodeJS.ReadStream;
+        input?: NodeJS.ReadStream | undefined;
 
         /**
          * A stream to write the output to.
          */
-        output?: NodeJS.WriteStream;
+        output?: NodeJS.WriteStream | undefined;
     }
 
     /**
@@ -209,7 +209,7 @@ declare namespace inquirer {
     /**
      * A set of answers.
      */
-    interface Answers extends Record<string, any> { }
+    interface Answers extends Record<string, any> {}
 
     /**
      * Provides the functionality to validate answers.
@@ -217,7 +217,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    type Validator<T extends Answers = Answers> = Question<T>["validate"];
+    type Validator<T extends Answers = Answers> = Question<T>['validate'];
 
     /**
      * Provides the functionality to transform an answer.
@@ -225,17 +225,32 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    type Transformer<T extends Answers = Answers> = InputQuestionOptions<T>["transformer"];
+    type Transformer<T extends Answers = Answers> = InputQuestionOptions<T>['transformer'];
 
     /**
      * Represents a dynamic property for a question.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
     type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
 
     /**
      * Represents a dynamic property for a question which can be fetched asynchronously.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
-    type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
+    type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<
+        T | Promise<T>,
+        TAnswers
+    >;
 
     /**
      * Provides options for a question.
@@ -247,32 +262,32 @@ declare namespace inquirer {
         /**
          * The type of the question.
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * The key to save the answer to the answers-hash.
          */
-        name?: KeyUnion<T>;
+        name?: KeyUnion<T> | undefined;
 
         /**
          * The message to show to the user.
          */
-        message?: AsyncDynamicQuestionProperty<string, T>;
+        message?: AsyncDynamicQuestionProperty<string, T> | undefined;
 
         /**
          * The default value of the question.
          */
-        default?: AsyncDynamicQuestionProperty<any, T>;
+        default?: AsyncDynamicQuestionProperty<any, T> | undefined;
 
         /**
          * The prefix of the `message`.
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * The suffix of the `message`.
          */
-        suffix?: string;
+        suffix?: string | undefined;
 
         /**
          * Post-processes the answer.
@@ -288,7 +303,7 @@ declare namespace inquirer {
         /**
          * A value indicating whether the question should be prompted.
          */
-        when?: AsyncDynamicQuestionProperty<boolean, T>;
+        when?: AsyncDynamicQuestionProperty<boolean, T> | undefined;
 
         /**
          * Validates the integrity of the answer.
@@ -312,25 +327,22 @@ declare namespace inquirer {
         /**
          * The type of the choice.
          */
-        type?: string;
+        type?: string | undefined;
     }
 
     /**
      * Provides options for a choice.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
+    interface ChoiceOptions extends ChoiceBase {
         /**
          * @inheritdoc
          */
-        type?: "choice";
+        type?: 'choice' | undefined;
 
         /**
          * The name of the choice to show to the user.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The value of the choice.
@@ -340,7 +352,7 @@ declare namespace inquirer {
         /**
          * The short form of the name of the choice.
          */
-        short?: string;
+        short?: string | undefined;
 
         /**
          * The extra properties of the choice.
@@ -354,11 +366,11 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions {
         /**
          * A value indicating whether the choice is disabled.
          */
-        disabled?: DynamicQuestionProperty<boolean | string, T>;
+        disabled?: DynamicQuestionProperty<boolean | string, T> | undefined;
     }
 
     /**
@@ -371,35 +383,32 @@ declare namespace inquirer {
         /**
          * A value indicating whether the choice should be initially checked.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
     }
 
     /**
      * Provides options for a choice of the `ExpandPrompt`.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ExpandChoiceOptions extends ChoiceOptions {
         /**
          * The key to press for selecting the choice.
          */
-        key?: string;
+        key?: string | undefined;
     }
 
     /**
      * Represents a separator.
      */
-    interface SeparatorOptions {
+    interface SeparatorOptions extends ChoiceBase {
         /**
          * Gets the type of the choice.
          */
-        type: "separator";
+        type: 'separator';
 
         /**
          * Gets or sets the text of the separator.
          */
-        line?: string;
+        line?: string | undefined;
     }
 
     /**
@@ -410,7 +419,7 @@ declare namespace inquirer {
      */
     interface BaseChoiceMap<T extends Answers = Answers> {
         Choice: Choice<T>;
-        ChoiceOptions: ChoiceOptions<T>;
+        ChoiceOptions: ChoiceOptions;
         SeparatorOptions: SeparatorOptions;
         Separator: Separator;
     }
@@ -442,7 +451,7 @@ declare namespace inquirer {
      * The type of the answers.
      */
     interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
-        ExpandChoiceOptions: ExpandChoiceOptions<T>;
+        ExpandChoiceOptions: ExpandChoiceOptions;
     }
 
     /**
@@ -461,17 +470,23 @@ declare namespace inquirer {
     /**
      * Provides valid choices for the question of the `TChoiceMap`.
      *
+     * @template TAnswers
+     * The type of the answers.
+     *
      * @template TChoiceMap
      * The choice-types to provide.
      */
-    type DistinctChoice<TChoiceMap> =
-        string |
-        TChoiceMap[keyof TChoiceMap];
+    type DistinctChoice<TAnswers extends Answers = Answers, TChoiceMap = AllChoiceMap<TAnswers>> =
+        | string
+        | TChoiceMap[keyof TChoiceMap];
 
     /**
      * Represents a set of choices.
+     *
+     * @template T
+     * The type of the answers.
      */
-    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap>>;
+    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap<T>>>;
 
     /**
      * Provides options for a question for the `InputPrompt`.
@@ -495,7 +510,7 @@ declare namespace inquirer {
          * @returns
          * The value to display to the user.
          */
-        transformer?(input: any, answers: T, flags: { isFinal?: boolean }): string | Promise<string>;
+        transformer?(input: any, answers: T, flags: { isFinal?: boolean | undefined }): string | Promise<string>;
     }
 
     /**
@@ -508,7 +523,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type?: "input";
+        type?: 'input' | undefined;
     }
 
     /**
@@ -517,7 +532,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> { }
+    interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {}
 
     /**
      * Provides options for a question for the `NumberPrompt`.
@@ -529,7 +544,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "number";
+        type: 'number';
     }
 
     /**
@@ -542,7 +557,7 @@ declare namespace inquirer {
         /**
          * The character to replace the user-input.
          */
-        mask?: string;
+        mask?: string | undefined;
     }
 
     /**
@@ -555,7 +570,23 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "password";
+        type: 'password';
+    }
+
+    /**
+     * Represents a list-based question that can loop.
+     *
+     * @template T
+     * The type of the answers.
+     *
+     * @template TChoiceMap
+     * The valid choices for the question.
+     */
+    interface LoopableListQuestionOptionsBase<T, TChoiceMap> extends ListQuestionOptionsBase<T, TChoiceMap> {
+        /**
+         * A value indicating whether choices in a list should be looped.
+         */
+        loop?: boolean | undefined;
     }
 
     /**
@@ -564,12 +595,8 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
-        /**
-         * A value indicating whether choices in a list should be looped.
-         */
-        loop?: boolean;
-    }
+    interface ListQuestionOptions<T extends Answers = Answers>
+        extends LoopableListQuestionOptionsBase<T, ListChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `ListPrompt`.
@@ -581,7 +608,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "list";
+        type: 'list';
     }
 
     /**
@@ -590,7 +617,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> { }
+    interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> {}
 
     /**
      * Provides options for a question for the `RawListPrompt`.
@@ -602,7 +629,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "rawlist";
+        type: 'rawlist';
     }
 
     /**
@@ -611,7 +638,8 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ExpandQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> { }
+    interface ExpandQuestionOptions<T extends Answers = Answers>
+        extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `ExpandPrompt`.
@@ -623,7 +651,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "expand";
+        type: 'expand';
     }
 
     /**
@@ -632,7 +660,8 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface CheckboxQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
+    interface CheckboxQuestionOptions<T extends Answers = Answers>
+        extends LoopableListQuestionOptionsBase<T, CheckboxChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `CheckboxPrompt`.
@@ -644,7 +673,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "checkbox";
+        type: 'checkbox';
     }
 
     /**
@@ -653,7 +682,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+    interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> {}
 
     /**
      * Provides options for a question for the `ConfirmPrompt`.
@@ -665,7 +694,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "confirm";
+        type: 'confirm';
     }
 
     /**
@@ -674,7 +703,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+    interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> {}
 
     /**
      * Provides options for a question for the `EditorPrompt`.
@@ -686,7 +715,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "editor";
+        type: 'editor';
     }
 
     /**
@@ -753,7 +782,7 @@ declare namespace inquirer {
     /**
      * Indicates the type of a question
      */
-    type QuestionTypeName = DistinctQuestion["type"];
+    type QuestionTypeName = DistinctQuestion['type'];
 
     /**
      * Represents a collection of questions.
@@ -786,7 +815,7 @@ declare namespace inquirer {
         /**
          * Represents the state of a prompt.
          */
-        type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
+        type PromptState = LiteralUnion<'pending' | 'idle' | 'loading' | 'answered' | 'done'>;
 
         /**
          * Represents a prompt.
@@ -822,7 +851,7 @@ declare namespace inquirer {
              * @param answers
              * The answers provided by the user.
              */
-            new(question: any, readLine: ReadlineInterface, answers: Answers): PromptBase;
+            new (question: any, readLine: ReadlineInterface, answers: Answers): PromptBase;
         }
 
         /**
@@ -898,7 +927,7 @@ declare namespace inquirer {
             /**
              * The initial text to display.
              */
-            bottomBar?: string;
+            bottomBar?: string | undefined;
         }
 
         /**

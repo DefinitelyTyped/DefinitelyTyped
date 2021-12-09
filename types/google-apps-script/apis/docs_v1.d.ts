@@ -37,740 +37,740 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface AutoText {
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTextStyleChanges?: object;
-        textStyle?: Docs.Schema.TextStyle;
-        type?: string;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTextStyleChanges?: object | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
+        type?: string | undefined;
       }
       interface Background {
-        color?: Docs.Schema.OptionalColor;
+        color?: Docs.Schema.OptionalColor | undefined;
       }
       interface BackgroundSuggestionState {
-        backgroundColorSuggested?: boolean;
+        backgroundColorSuggested?: boolean | undefined;
       }
       interface BatchUpdateDocumentRequest {
-        requests?: Docs.Schema.Request[];
-        writeControl?: Docs.Schema.WriteControl;
+        requests?: Docs.Schema.Request[] | undefined;
+        writeControl?: Docs.Schema.WriteControl | undefined;
       }
       interface BatchUpdateDocumentResponse {
-        documentId?: string;
-        replies?: Docs.Schema.Response[];
-        writeControl?: Docs.Schema.WriteControl;
+        documentId?: string | undefined;
+        replies?: Docs.Schema.Response[] | undefined;
+        writeControl?: Docs.Schema.WriteControl | undefined;
       }
       interface Body {
-        content?: Docs.Schema.StructuralElement[];
+        content?: Docs.Schema.StructuralElement[] | undefined;
       }
       interface Bullet {
-        listId?: string;
-        nestingLevel?: number;
-        textStyle?: Docs.Schema.TextStyle;
+        listId?: string | undefined;
+        nestingLevel?: number | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface BulletSuggestionState {
-        listIdSuggested?: boolean;
-        nestingLevelSuggested?: boolean;
-        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
+        listIdSuggested?: boolean | undefined;
+        nestingLevelSuggested?: boolean | undefined;
+        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
       }
       interface Color {
-        rgbColor?: Docs.Schema.RgbColor;
+        rgbColor?: Docs.Schema.RgbColor | undefined;
       }
       interface ColumnBreak {
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTextStyleChanges?: object;
-        textStyle?: Docs.Schema.TextStyle;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTextStyleChanges?: object | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface CreateNamedRangeRequest {
-        name?: string;
-        range?: Docs.Schema.Range;
+        name?: string | undefined;
+        range?: Docs.Schema.Range | undefined;
       }
       interface CreateNamedRangeResponse {
-        namedRangeId?: string;
+        namedRangeId?: string | undefined;
       }
       interface CreateParagraphBulletsRequest {
-        bulletPreset?: string;
-        range?: Docs.Schema.Range;
+        bulletPreset?: string | undefined;
+        range?: Docs.Schema.Range | undefined;
       }
       interface CropProperties {
-        angle?: number;
-        offsetBottom?: number;
-        offsetLeft?: number;
-        offsetRight?: number;
-        offsetTop?: number;
+        angle?: number | undefined;
+        offsetBottom?: number | undefined;
+        offsetLeft?: number | undefined;
+        offsetRight?: number | undefined;
+        offsetTop?: number | undefined;
       }
       interface CropPropertiesSuggestionState {
-        angleSuggested?: boolean;
-        offsetBottomSuggested?: boolean;
-        offsetLeftSuggested?: boolean;
-        offsetRightSuggested?: boolean;
-        offsetTopSuggested?: boolean;
+        angleSuggested?: boolean | undefined;
+        offsetBottomSuggested?: boolean | undefined;
+        offsetLeftSuggested?: boolean | undefined;
+        offsetRightSuggested?: boolean | undefined;
+        offsetTopSuggested?: boolean | undefined;
       }
       interface DeleteContentRangeRequest {
-        range?: Docs.Schema.Range;
+        range?: Docs.Schema.Range | undefined;
       }
       interface DeleteNamedRangeRequest {
-        name?: string;
-        namedRangeId?: string;
+        name?: string | undefined;
+        namedRangeId?: string | undefined;
       }
       interface DeleteParagraphBulletsRequest {
-        range?: Docs.Schema.Range;
+        range?: Docs.Schema.Range | undefined;
       }
       interface DeletePositionedObjectRequest {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface DeleteTableColumnRequest {
-        tableCellLocation?: Docs.Schema.TableCellLocation;
+        tableCellLocation?: Docs.Schema.TableCellLocation | undefined;
       }
       interface DeleteTableRowRequest {
-        tableCellLocation?: Docs.Schema.TableCellLocation;
+        tableCellLocation?: Docs.Schema.TableCellLocation | undefined;
       }
       interface Dimension {
-        magnitude?: number;
-        unit?: string;
+        magnitude?: number | undefined;
+        unit?: string | undefined;
       }
       interface Document {
-        body?: Docs.Schema.Body;
-        documentId?: string;
-        documentStyle?: Docs.Schema.DocumentStyle;
-        footers?: object;
-        footnotes?: object;
-        headers?: object;
-        inlineObjects?: object;
-        lists?: object;
-        namedRanges?: object;
-        namedStyles?: Docs.Schema.NamedStyles;
-        positionedObjects?: object;
-        revisionId?: string;
-        suggestedDocumentStyleChanges?: object;
-        suggestedNamedStylesChanges?: object;
-        suggestionsViewMode?: string;
-        title?: string;
+        body?: Docs.Schema.Body | undefined;
+        documentId?: string | undefined;
+        documentStyle?: Docs.Schema.DocumentStyle | undefined;
+        footers?: object | undefined;
+        footnotes?: object | undefined;
+        headers?: object | undefined;
+        inlineObjects?: object | undefined;
+        lists?: object | undefined;
+        namedRanges?: object | undefined;
+        namedStyles?: Docs.Schema.NamedStyles | undefined;
+        positionedObjects?: object | undefined;
+        revisionId?: string | undefined;
+        suggestedDocumentStyleChanges?: object | undefined;
+        suggestedNamedStylesChanges?: object | undefined;
+        suggestionsViewMode?: string | undefined;
+        title?: string | undefined;
       }
       interface DocumentStyle {
-        background?: Docs.Schema.Background;
-        defaultFooterId?: string;
-        defaultHeaderId?: string;
-        evenPageFooterId?: string;
-        evenPageHeaderId?: string;
-        firstPageFooterId?: string;
-        firstPageHeaderId?: string;
-        marginBottom?: Docs.Schema.Dimension;
-        marginLeft?: Docs.Schema.Dimension;
-        marginRight?: Docs.Schema.Dimension;
-        marginTop?: Docs.Schema.Dimension;
-        pageNumberStart?: number;
-        pageSize?: Docs.Schema.Size;
-        useEvenPageHeaderFooter?: boolean;
-        useFirstPageHeaderFooter?: boolean;
+        background?: Docs.Schema.Background | undefined;
+        defaultFooterId?: string | undefined;
+        defaultHeaderId?: string | undefined;
+        evenPageFooterId?: string | undefined;
+        evenPageHeaderId?: string | undefined;
+        firstPageFooterId?: string | undefined;
+        firstPageHeaderId?: string | undefined;
+        marginBottom?: Docs.Schema.Dimension | undefined;
+        marginLeft?: Docs.Schema.Dimension | undefined;
+        marginRight?: Docs.Schema.Dimension | undefined;
+        marginTop?: Docs.Schema.Dimension | undefined;
+        pageNumberStart?: number | undefined;
+        pageSize?: Docs.Schema.Size | undefined;
+        useEvenPageHeaderFooter?: boolean | undefined;
+        useFirstPageHeaderFooter?: boolean | undefined;
       }
       interface DocumentStyleSuggestionState {
-        backgroundSuggestionState?: Docs.Schema.BackgroundSuggestionState;
-        defaultFooterIdSuggested?: boolean;
-        defaultHeaderIdSuggested?: boolean;
-        evenPageFooterIdSuggested?: boolean;
-        evenPageHeaderIdSuggested?: boolean;
-        firstPageFooterIdSuggested?: boolean;
-        firstPageHeaderIdSuggested?: boolean;
-        marginBottomSuggested?: boolean;
-        marginLeftSuggested?: boolean;
-        marginRightSuggested?: boolean;
-        marginTopSuggested?: boolean;
-        pageNumberStartSuggested?: boolean;
-        pageSizeSuggestionState?: Docs.Schema.SizeSuggestionState;
-        useEvenPageHeaderFooterSuggested?: boolean;
-        useFirstPageHeaderFooterSuggested?: boolean;
+        backgroundSuggestionState?: Docs.Schema.BackgroundSuggestionState | undefined;
+        defaultFooterIdSuggested?: boolean | undefined;
+        defaultHeaderIdSuggested?: boolean | undefined;
+        evenPageFooterIdSuggested?: boolean | undefined;
+        evenPageHeaderIdSuggested?: boolean | undefined;
+        firstPageFooterIdSuggested?: boolean | undefined;
+        firstPageHeaderIdSuggested?: boolean | undefined;
+        marginBottomSuggested?: boolean | undefined;
+        marginLeftSuggested?: boolean | undefined;
+        marginRightSuggested?: boolean | undefined;
+        marginTopSuggested?: boolean | undefined;
+        pageNumberStartSuggested?: boolean | undefined;
+        pageSizeSuggestionState?: Docs.Schema.SizeSuggestionState | undefined;
+        useEvenPageHeaderFooterSuggested?: boolean | undefined;
+        useFirstPageHeaderFooterSuggested?: boolean | undefined;
       }
       interface EmbeddedObject {
-        description?: string;
+        description?: string | undefined;
         embeddedDrawingProperties?: any;
-        embeddedObjectBorder?: Docs.Schema.EmbeddedObjectBorder;
-        imageProperties?: Docs.Schema.ImageProperties;
-        linkedContentReference?: Docs.Schema.LinkedContentReference;
-        marginBottom?: Docs.Schema.Dimension;
-        marginLeft?: Docs.Schema.Dimension;
-        marginRight?: Docs.Schema.Dimension;
-        marginTop?: Docs.Schema.Dimension;
-        size?: Docs.Schema.Size;
-        title?: string;
+        embeddedObjectBorder?: Docs.Schema.EmbeddedObjectBorder | undefined;
+        imageProperties?: Docs.Schema.ImageProperties | undefined;
+        linkedContentReference?: Docs.Schema.LinkedContentReference | undefined;
+        marginBottom?: Docs.Schema.Dimension | undefined;
+        marginLeft?: Docs.Schema.Dimension | undefined;
+        marginRight?: Docs.Schema.Dimension | undefined;
+        marginTop?: Docs.Schema.Dimension | undefined;
+        size?: Docs.Schema.Size | undefined;
+        title?: string | undefined;
       }
       interface EmbeddedObjectBorder {
-        color?: Docs.Schema.OptionalColor;
-        dashStyle?: string;
-        propertyState?: string;
-        width?: Docs.Schema.Dimension;
+        color?: Docs.Schema.OptionalColor | undefined;
+        dashStyle?: string | undefined;
+        propertyState?: string | undefined;
+        width?: Docs.Schema.Dimension | undefined;
       }
       interface EmbeddedObjectBorderSuggestionState {
-        colorSuggested?: boolean;
-        dashStyleSuggested?: boolean;
-        propertyStateSuggested?: boolean;
-        widthSuggested?: boolean;
+        colorSuggested?: boolean | undefined;
+        dashStyleSuggested?: boolean | undefined;
+        propertyStateSuggested?: boolean | undefined;
+        widthSuggested?: boolean | undefined;
       }
       interface EmbeddedObjectSuggestionState {
-        descriptionSuggested?: boolean;
+        descriptionSuggested?: boolean | undefined;
         embeddedDrawingPropertiesSuggestionState?: any;
-        embeddedObjectBorderSuggestionState?: Docs.Schema.EmbeddedObjectBorderSuggestionState;
-        imagePropertiesSuggestionState?: Docs.Schema.ImagePropertiesSuggestionState;
-        linkedContentReferenceSuggestionState?: Docs.Schema.LinkedContentReferenceSuggestionState;
-        marginBottomSuggested?: boolean;
-        marginLeftSuggested?: boolean;
-        marginRightSuggested?: boolean;
-        marginTopSuggested?: boolean;
-        sizeSuggestionState?: Docs.Schema.SizeSuggestionState;
-        titleSuggested?: boolean;
+        embeddedObjectBorderSuggestionState?: Docs.Schema.EmbeddedObjectBorderSuggestionState | undefined;
+        imagePropertiesSuggestionState?: Docs.Schema.ImagePropertiesSuggestionState | undefined;
+        linkedContentReferenceSuggestionState?: Docs.Schema.LinkedContentReferenceSuggestionState | undefined;
+        marginBottomSuggested?: boolean | undefined;
+        marginLeftSuggested?: boolean | undefined;
+        marginRightSuggested?: boolean | undefined;
+        marginTopSuggested?: boolean | undefined;
+        sizeSuggestionState?: Docs.Schema.SizeSuggestionState | undefined;
+        titleSuggested?: boolean | undefined;
       }
       interface EndOfSegmentLocation {
-        segmentId?: string;
+        segmentId?: string | undefined;
       }
       interface Equation {
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
       }
       interface Footer {
-        content?: Docs.Schema.StructuralElement[];
-        footerId?: string;
+        content?: Docs.Schema.StructuralElement[] | undefined;
+        footerId?: string | undefined;
       }
       interface Footnote {
-        content?: Docs.Schema.StructuralElement[];
-        footnoteId?: string;
+        content?: Docs.Schema.StructuralElement[] | undefined;
+        footnoteId?: string | undefined;
       }
       interface FootnoteReference {
-        footnoteId?: string;
-        footnoteNumber?: string;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTextStyleChanges?: object;
-        textStyle?: Docs.Schema.TextStyle;
+        footnoteId?: string | undefined;
+        footnoteNumber?: string | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTextStyleChanges?: object | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface Header {
-        content?: Docs.Schema.StructuralElement[];
-        headerId?: string;
+        content?: Docs.Schema.StructuralElement[] | undefined;
+        headerId?: string | undefined;
       }
       interface HorizontalRule {
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTextStyleChanges?: object;
-        textStyle?: Docs.Schema.TextStyle;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTextStyleChanges?: object | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface ImageProperties {
-        angle?: number;
-        brightness?: number;
-        contentUri?: string;
-        contrast?: number;
-        cropProperties?: Docs.Schema.CropProperties;
-        sourceUri?: string;
-        transparency?: number;
+        angle?: number | undefined;
+        brightness?: number | undefined;
+        contentUri?: string | undefined;
+        contrast?: number | undefined;
+        cropProperties?: Docs.Schema.CropProperties | undefined;
+        sourceUri?: string | undefined;
+        transparency?: number | undefined;
       }
       interface ImagePropertiesSuggestionState {
-        angleSuggested?: boolean;
-        brightnessSuggested?: boolean;
-        contentUriSuggested?: boolean;
-        contrastSuggested?: boolean;
-        cropPropertiesSuggestionState?: Docs.Schema.CropPropertiesSuggestionState;
-        sourceUriSuggested?: boolean;
-        transparencySuggested?: boolean;
+        angleSuggested?: boolean | undefined;
+        brightnessSuggested?: boolean | undefined;
+        contentUriSuggested?: boolean | undefined;
+        contrastSuggested?: boolean | undefined;
+        cropPropertiesSuggestionState?: Docs.Schema.CropPropertiesSuggestionState | undefined;
+        sourceUriSuggested?: boolean | undefined;
+        transparencySuggested?: boolean | undefined;
       }
       interface InlineObject {
-        inlineObjectProperties?: Docs.Schema.InlineObjectProperties;
-        objectId?: string;
-        suggestedDeletionIds?: string[];
-        suggestedInlineObjectPropertiesChanges?: object;
-        suggestedInsertionId?: string;
+        inlineObjectProperties?: Docs.Schema.InlineObjectProperties | undefined;
+        objectId?: string | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInlineObjectPropertiesChanges?: object | undefined;
+        suggestedInsertionId?: string | undefined;
       }
       interface InlineObjectElement {
-        inlineObjectId?: string;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTextStyleChanges?: object;
-        textStyle?: Docs.Schema.TextStyle;
+        inlineObjectId?: string | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTextStyleChanges?: object | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface InlineObjectProperties {
-        embeddedObject?: Docs.Schema.EmbeddedObject;
+        embeddedObject?: Docs.Schema.EmbeddedObject | undefined;
       }
       interface InlineObjectPropertiesSuggestionState {
-        embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState;
+        embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState | undefined;
       }
       interface InsertInlineImageRequest {
-        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
-        location?: Docs.Schema.Location;
-        objectSize?: Docs.Schema.Size;
-        uri?: string;
+        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+        location?: Docs.Schema.Location | undefined;
+        objectSize?: Docs.Schema.Size | undefined;
+        uri?: string | undefined;
       }
       interface InsertInlineImageResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface InsertInlineSheetsChartResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface InsertPageBreakRequest {
-        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
-        location?: Docs.Schema.Location;
+        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+        location?: Docs.Schema.Location | undefined;
       }
       interface InsertTableRequest {
-        columns?: number;
-        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
-        location?: Docs.Schema.Location;
-        rows?: number;
+        columns?: number | undefined;
+        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+        location?: Docs.Schema.Location | undefined;
+        rows?: number | undefined;
       }
       interface InsertTableRowRequest {
-        insertBelow?: boolean;
-        tableCellLocation?: Docs.Schema.TableCellLocation;
+        insertBelow?: boolean | undefined;
+        tableCellLocation?: Docs.Schema.TableCellLocation | undefined;
       }
       interface InsertTextRequest {
-        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
-        location?: Docs.Schema.Location;
-        text?: string;
+        endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+        location?: Docs.Schema.Location | undefined;
+        text?: string | undefined;
       }
       interface Link {
-        bookmarkId?: string;
-        headingId?: string;
-        url?: string;
+        bookmarkId?: string | undefined;
+        headingId?: string | undefined;
+        url?: string | undefined;
       }
       interface LinkedContentReference {
-        sheetsChartReference?: Docs.Schema.SheetsChartReference;
+        sheetsChartReference?: Docs.Schema.SheetsChartReference | undefined;
       }
       interface LinkedContentReferenceSuggestionState {
-        sheetsChartReferenceSuggestionState?: Docs.Schema.SheetsChartReferenceSuggestionState;
+        sheetsChartReferenceSuggestionState?: Docs.Schema.SheetsChartReferenceSuggestionState | undefined;
       }
       interface List {
-        listProperties?: Docs.Schema.ListProperties;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionId?: string;
-        suggestedListPropertiesChanges?: object;
+        listProperties?: Docs.Schema.ListProperties | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionId?: string | undefined;
+        suggestedListPropertiesChanges?: object | undefined;
       }
       interface ListProperties {
-        nestingLevels?: Docs.Schema.NestingLevel[];
+        nestingLevels?: Docs.Schema.NestingLevel[] | undefined;
       }
       interface ListPropertiesSuggestionState {
-        nestingLevelsSuggestionStates?: Docs.Schema.NestingLevelSuggestionState[];
+        nestingLevelsSuggestionStates?: Docs.Schema.NestingLevelSuggestionState[] | undefined;
       }
       interface Location {
-        index?: number;
-        segmentId?: string;
+        index?: number | undefined;
+        segmentId?: string | undefined;
       }
       interface NamedRange {
-        name?: string;
-        namedRangeId?: string;
-        ranges?: Docs.Schema.Range[];
+        name?: string | undefined;
+        namedRangeId?: string | undefined;
+        ranges?: Docs.Schema.Range[] | undefined;
       }
       interface NamedRanges {
-        name?: string;
-        namedRanges?: Docs.Schema.NamedRange[];
+        name?: string | undefined;
+        namedRanges?: Docs.Schema.NamedRange[] | undefined;
       }
       interface NamedStyle {
-        namedStyleType?: string;
-        paragraphStyle?: Docs.Schema.ParagraphStyle;
-        textStyle?: Docs.Schema.TextStyle;
+        namedStyleType?: string | undefined;
+        paragraphStyle?: Docs.Schema.ParagraphStyle | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface NamedStyleSuggestionState {
-        namedStyleType?: string;
-        paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState;
-        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
+        namedStyleType?: string | undefined;
+        paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState | undefined;
+        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
       }
       interface NamedStyles {
-        styles?: Docs.Schema.NamedStyle[];
+        styles?: Docs.Schema.NamedStyle[] | undefined;
       }
       interface NamedStylesSuggestionState {
-        stylesSuggestionStates?: Docs.Schema.NamedStyleSuggestionState[];
+        stylesSuggestionStates?: Docs.Schema.NamedStyleSuggestionState[] | undefined;
       }
       interface NestingLevel {
-        bulletAlignment?: string;
-        glyphFormat?: string;
-        glyphSymbol?: string;
-        glyphType?: string;
-        indentFirstLine?: Docs.Schema.Dimension;
-        indentStart?: Docs.Schema.Dimension;
-        startNumber?: number;
-        textStyle?: Docs.Schema.TextStyle;
+        bulletAlignment?: string | undefined;
+        glyphFormat?: string | undefined;
+        glyphSymbol?: string | undefined;
+        glyphType?: string | undefined;
+        indentFirstLine?: Docs.Schema.Dimension | undefined;
+        indentStart?: Docs.Schema.Dimension | undefined;
+        startNumber?: number | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface NestingLevelSuggestionState {
-        bulletAlignmentSuggested?: boolean;
-        glyphFormatSuggested?: boolean;
-        glyphSymbolSuggested?: boolean;
-        glyphTypeSuggested?: boolean;
-        indentFirstLineSuggested?: boolean;
-        indentStartSuggested?: boolean;
-        startNumberSuggested?: boolean;
-        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
+        bulletAlignmentSuggested?: boolean | undefined;
+        glyphFormatSuggested?: boolean | undefined;
+        glyphSymbolSuggested?: boolean | undefined;
+        glyphTypeSuggested?: boolean | undefined;
+        indentFirstLineSuggested?: boolean | undefined;
+        indentStartSuggested?: boolean | undefined;
+        startNumberSuggested?: boolean | undefined;
+        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
       }
       interface ObjectReferences {
-        objectIds?: string[];
+        objectIds?: string[] | undefined;
       }
       interface OptionalColor {
-        color?: Docs.Schema.Color;
+        color?: Docs.Schema.Color | undefined;
       }
       interface PageBreak {
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTextStyleChanges?: object;
-        textStyle?: Docs.Schema.TextStyle;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTextStyleChanges?: object | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface Paragraph {
-        bullet?: Docs.Schema.Bullet;
-        elements?: Docs.Schema.ParagraphElement[];
-        paragraphStyle?: Docs.Schema.ParagraphStyle;
-        positionedObjectIds?: string[];
-        suggestedBulletChanges?: object;
-        suggestedParagraphStyleChanges?: object;
-        suggestedPositionedObjectIds?: object;
+        bullet?: Docs.Schema.Bullet | undefined;
+        elements?: Docs.Schema.ParagraphElement[] | undefined;
+        paragraphStyle?: Docs.Schema.ParagraphStyle | undefined;
+        positionedObjectIds?: string[] | undefined;
+        suggestedBulletChanges?: object | undefined;
+        suggestedParagraphStyleChanges?: object | undefined;
+        suggestedPositionedObjectIds?: object | undefined;
       }
       interface ParagraphBorder {
-        color?: Docs.Schema.OptionalColor;
-        dashStyle?: string;
-        padding?: Docs.Schema.Dimension;
-        width?: Docs.Schema.Dimension;
+        color?: Docs.Schema.OptionalColor | undefined;
+        dashStyle?: string | undefined;
+        padding?: Docs.Schema.Dimension | undefined;
+        width?: Docs.Schema.Dimension | undefined;
       }
       interface ParagraphElement {
-        autoText?: Docs.Schema.AutoText;
-        columnBreak?: Docs.Schema.ColumnBreak;
-        endIndex?: number;
-        equation?: Docs.Schema.Equation;
-        footnoteReference?: Docs.Schema.FootnoteReference;
-        horizontalRule?: Docs.Schema.HorizontalRule;
-        inlineObjectElement?: Docs.Schema.InlineObjectElement;
-        pageBreak?: Docs.Schema.PageBreak;
-        startIndex?: number;
-        textRun?: Docs.Schema.TextRun;
+        autoText?: Docs.Schema.AutoText | undefined;
+        columnBreak?: Docs.Schema.ColumnBreak | undefined;
+        endIndex?: number | undefined;
+        equation?: Docs.Schema.Equation | undefined;
+        footnoteReference?: Docs.Schema.FootnoteReference | undefined;
+        horizontalRule?: Docs.Schema.HorizontalRule | undefined;
+        inlineObjectElement?: Docs.Schema.InlineObjectElement | undefined;
+        pageBreak?: Docs.Schema.PageBreak | undefined;
+        startIndex?: number | undefined;
+        textRun?: Docs.Schema.TextRun | undefined;
       }
       interface ParagraphStyle {
-        alignment?: string;
-        avoidWidowAndOrphan?: boolean;
-        borderBetween?: Docs.Schema.ParagraphBorder;
-        borderBottom?: Docs.Schema.ParagraphBorder;
-        borderLeft?: Docs.Schema.ParagraphBorder;
-        borderRight?: Docs.Schema.ParagraphBorder;
-        borderTop?: Docs.Schema.ParagraphBorder;
-        direction?: string;
-        headingId?: string;
-        indentEnd?: Docs.Schema.Dimension;
-        indentFirstLine?: Docs.Schema.Dimension;
-        indentStart?: Docs.Schema.Dimension;
-        keepLinesTogether?: boolean;
-        keepWithNext?: boolean;
-        lineSpacing?: number;
-        namedStyleType?: string;
-        shading?: Docs.Schema.Shading;
-        spaceAbove?: Docs.Schema.Dimension;
-        spaceBelow?: Docs.Schema.Dimension;
-        spacingMode?: string;
-        tabStops?: Docs.Schema.TabStop[];
+        alignment?: string | undefined;
+        avoidWidowAndOrphan?: boolean | undefined;
+        borderBetween?: Docs.Schema.ParagraphBorder | undefined;
+        borderBottom?: Docs.Schema.ParagraphBorder | undefined;
+        borderLeft?: Docs.Schema.ParagraphBorder | undefined;
+        borderRight?: Docs.Schema.ParagraphBorder | undefined;
+        borderTop?: Docs.Schema.ParagraphBorder | undefined;
+        direction?: string | undefined;
+        headingId?: string | undefined;
+        indentEnd?: Docs.Schema.Dimension | undefined;
+        indentFirstLine?: Docs.Schema.Dimension | undefined;
+        indentStart?: Docs.Schema.Dimension | undefined;
+        keepLinesTogether?: boolean | undefined;
+        keepWithNext?: boolean | undefined;
+        lineSpacing?: number | undefined;
+        namedStyleType?: string | undefined;
+        shading?: Docs.Schema.Shading | undefined;
+        spaceAbove?: Docs.Schema.Dimension | undefined;
+        spaceBelow?: Docs.Schema.Dimension | undefined;
+        spacingMode?: string | undefined;
+        tabStops?: Docs.Schema.TabStop[] | undefined;
       }
       interface ParagraphStyleSuggestionState {
-        alignmentSuggested?: boolean;
-        avoidWidowAndOrphanSuggested?: boolean;
-        borderBetweenSuggested?: boolean;
-        borderBottomSuggested?: boolean;
-        borderLeftSuggested?: boolean;
-        borderRightSuggested?: boolean;
-        borderTopSuggested?: boolean;
-        directionSuggested?: boolean;
-        headingIdSuggested?: boolean;
-        indentEndSuggested?: boolean;
-        indentFirstLineSuggested?: boolean;
-        indentStartSuggested?: boolean;
-        keepLinesTogetherSuggested?: boolean;
-        keepWithNextSuggested?: boolean;
-        lineSpacingSuggested?: boolean;
-        namedStyleTypeSuggested?: boolean;
-        shadingSuggestionState?: Docs.Schema.ShadingSuggestionState;
-        spaceAboveSuggested?: boolean;
-        spaceBelowSuggested?: boolean;
-        spacingModeSuggested?: boolean;
+        alignmentSuggested?: boolean | undefined;
+        avoidWidowAndOrphanSuggested?: boolean | undefined;
+        borderBetweenSuggested?: boolean | undefined;
+        borderBottomSuggested?: boolean | undefined;
+        borderLeftSuggested?: boolean | undefined;
+        borderRightSuggested?: boolean | undefined;
+        borderTopSuggested?: boolean | undefined;
+        directionSuggested?: boolean | undefined;
+        headingIdSuggested?: boolean | undefined;
+        indentEndSuggested?: boolean | undefined;
+        indentFirstLineSuggested?: boolean | undefined;
+        indentStartSuggested?: boolean | undefined;
+        keepLinesTogetherSuggested?: boolean | undefined;
+        keepWithNextSuggested?: boolean | undefined;
+        lineSpacingSuggested?: boolean | undefined;
+        namedStyleTypeSuggested?: boolean | undefined;
+        shadingSuggestionState?: Docs.Schema.ShadingSuggestionState | undefined;
+        spaceAboveSuggested?: boolean | undefined;
+        spaceBelowSuggested?: boolean | undefined;
+        spacingModeSuggested?: boolean | undefined;
       }
       interface PositionedObject {
-        objectId?: string;
-        positionedObjectProperties?: Docs.Schema.PositionedObjectProperties;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionId?: string;
-        suggestedPositionedObjectPropertiesChanges?: object;
+        objectId?: string | undefined;
+        positionedObjectProperties?: Docs.Schema.PositionedObjectProperties | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionId?: string | undefined;
+        suggestedPositionedObjectPropertiesChanges?: object | undefined;
       }
       interface PositionedObjectPositioning {
-        layout?: string;
-        leftOffset?: Docs.Schema.Dimension;
-        topOffset?: Docs.Schema.Dimension;
+        layout?: string | undefined;
+        leftOffset?: Docs.Schema.Dimension | undefined;
+        topOffset?: Docs.Schema.Dimension | undefined;
       }
       interface PositionedObjectPositioningSuggestionState {
-        layoutSuggested?: boolean;
-        leftOffsetSuggested?: boolean;
-        topOffsetSuggested?: boolean;
+        layoutSuggested?: boolean | undefined;
+        leftOffsetSuggested?: boolean | undefined;
+        topOffsetSuggested?: boolean | undefined;
       }
       interface PositionedObjectProperties {
-        embeddedObject?: Docs.Schema.EmbeddedObject;
-        positioning?: Docs.Schema.PositionedObjectPositioning;
+        embeddedObject?: Docs.Schema.EmbeddedObject | undefined;
+        positioning?: Docs.Schema.PositionedObjectPositioning | undefined;
       }
       interface PositionedObjectPropertiesSuggestionState {
-        embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState;
-        positioningSuggestionState?: Docs.Schema.PositionedObjectPositioningSuggestionState;
+        embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState | undefined;
+        positioningSuggestionState?: Docs.Schema.PositionedObjectPositioningSuggestionState | undefined;
       }
       interface Range {
-        endIndex?: number;
-        segmentId?: string;
-        startIndex?: number;
+        endIndex?: number | undefined;
+        segmentId?: string | undefined;
+        startIndex?: number | undefined;
       }
       interface ReplaceAllTextRequest {
-        containsText?: Docs.Schema.SubstringMatchCriteria;
-        replaceText?: string;
+        containsText?: Docs.Schema.SubstringMatchCriteria | undefined;
+        replaceText?: string | undefined;
       }
       interface ReplaceAllTextResponse {
-        occurrencesChanged?: number;
+        occurrencesChanged?: number | undefined;
       }
       interface Request {
-        createNamedRange?: Docs.Schema.CreateNamedRangeRequest;
-        createParagraphBullets?: Docs.Schema.CreateParagraphBulletsRequest;
-        deleteContentRange?: Docs.Schema.DeleteContentRangeRequest;
-        deleteNamedRange?: Docs.Schema.DeleteNamedRangeRequest;
-        deleteParagraphBullets?: Docs.Schema.DeleteParagraphBulletsRequest;
-        deletePositionedObject?: Docs.Schema.DeletePositionedObjectRequest;
-        deleteTableColumn?: Docs.Schema.DeleteTableColumnRequest;
-        deleteTableRow?: Docs.Schema.DeleteTableRowRequest;
-        insertInlineImage?: Docs.Schema.InsertInlineImageRequest;
-        insertPageBreak?: Docs.Schema.InsertPageBreakRequest;
-        insertTable?: Docs.Schema.InsertTableRequest;
-        insertTableRow?: Docs.Schema.InsertTableRowRequest;
-        insertText?: Docs.Schema.InsertTextRequest;
-        replaceAllText?: Docs.Schema.ReplaceAllTextRequest;
-        updateParagraphStyle?: Docs.Schema.UpdateParagraphStyleRequest;
-        updateTextStyle?: Docs.Schema.UpdateTextStyleRequest;
+        createNamedRange?: Docs.Schema.CreateNamedRangeRequest | undefined;
+        createParagraphBullets?: Docs.Schema.CreateParagraphBulletsRequest | undefined;
+        deleteContentRange?: Docs.Schema.DeleteContentRangeRequest | undefined;
+        deleteNamedRange?: Docs.Schema.DeleteNamedRangeRequest | undefined;
+        deleteParagraphBullets?: Docs.Schema.DeleteParagraphBulletsRequest | undefined;
+        deletePositionedObject?: Docs.Schema.DeletePositionedObjectRequest | undefined;
+        deleteTableColumn?: Docs.Schema.DeleteTableColumnRequest | undefined;
+        deleteTableRow?: Docs.Schema.DeleteTableRowRequest | undefined;
+        insertInlineImage?: Docs.Schema.InsertInlineImageRequest | undefined;
+        insertPageBreak?: Docs.Schema.InsertPageBreakRequest | undefined;
+        insertTable?: Docs.Schema.InsertTableRequest | undefined;
+        insertTableRow?: Docs.Schema.InsertTableRowRequest | undefined;
+        insertText?: Docs.Schema.InsertTextRequest | undefined;
+        replaceAllText?: Docs.Schema.ReplaceAllTextRequest | undefined;
+        updateParagraphStyle?: Docs.Schema.UpdateParagraphStyleRequest | undefined;
+        updateTextStyle?: Docs.Schema.UpdateTextStyleRequest | undefined;
       }
       interface Response {
-        createNamedRange?: Docs.Schema.CreateNamedRangeResponse;
-        insertInlineImage?: Docs.Schema.InsertInlineImageResponse;
-        insertInlineSheetsChart?: Docs.Schema.InsertInlineSheetsChartResponse;
-        replaceAllText?: Docs.Schema.ReplaceAllTextResponse;
+        createNamedRange?: Docs.Schema.CreateNamedRangeResponse | undefined;
+        insertInlineImage?: Docs.Schema.InsertInlineImageResponse | undefined;
+        insertInlineSheetsChart?: Docs.Schema.InsertInlineSheetsChartResponse | undefined;
+        replaceAllText?: Docs.Schema.ReplaceAllTextResponse | undefined;
       }
       interface RgbColor {
-        blue?: number;
-        green?: number;
-        red?: number;
+        blue?: number | undefined;
+        green?: number | undefined;
+        red?: number | undefined;
       }
       interface SectionBreak {
-        sectionStyle?: Docs.Schema.SectionStyle;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
+        sectionStyle?: Docs.Schema.SectionStyle | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
       }
       interface SectionColumnProperties {
-        paddingEnd?: Docs.Schema.Dimension;
-        width?: Docs.Schema.Dimension;
+        paddingEnd?: Docs.Schema.Dimension | undefined;
+        width?: Docs.Schema.Dimension | undefined;
       }
       interface SectionStyle {
-        columnProperties?: Docs.Schema.SectionColumnProperties[];
-        columnSeparatorStyle?: string;
-        contentDirection?: string;
+        columnProperties?: Docs.Schema.SectionColumnProperties[] | undefined;
+        columnSeparatorStyle?: string | undefined;
+        contentDirection?: string | undefined;
       }
       interface Shading {
-        backgroundColor?: Docs.Schema.OptionalColor;
+        backgroundColor?: Docs.Schema.OptionalColor | undefined;
       }
       interface ShadingSuggestionState {
-        backgroundColorSuggested?: boolean;
+        backgroundColorSuggested?: boolean | undefined;
       }
       interface SheetsChartReference {
-        chartId?: number;
-        spreadsheetId?: string;
+        chartId?: number | undefined;
+        spreadsheetId?: string | undefined;
       }
       interface SheetsChartReferenceSuggestionState {
-        chartIdSuggested?: boolean;
-        spreadsheetIdSuggested?: boolean;
+        chartIdSuggested?: boolean | undefined;
+        spreadsheetIdSuggested?: boolean | undefined;
       }
       interface Size {
-        height?: Docs.Schema.Dimension;
-        width?: Docs.Schema.Dimension;
+        height?: Docs.Schema.Dimension | undefined;
+        width?: Docs.Schema.Dimension | undefined;
       }
       interface SizeSuggestionState {
-        heightSuggested?: boolean;
-        widthSuggested?: boolean;
+        heightSuggested?: boolean | undefined;
+        widthSuggested?: boolean | undefined;
       }
       interface StructuralElement {
-        endIndex?: number;
-        paragraph?: Docs.Schema.Paragraph;
-        sectionBreak?: Docs.Schema.SectionBreak;
-        startIndex?: number;
-        table?: Docs.Schema.Table;
-        tableOfContents?: Docs.Schema.TableOfContents;
+        endIndex?: number | undefined;
+        paragraph?: Docs.Schema.Paragraph | undefined;
+        sectionBreak?: Docs.Schema.SectionBreak | undefined;
+        startIndex?: number | undefined;
+        table?: Docs.Schema.Table | undefined;
+        tableOfContents?: Docs.Schema.TableOfContents | undefined;
       }
       interface SubstringMatchCriteria {
-        matchCase?: boolean;
-        text?: string;
+        matchCase?: boolean | undefined;
+        text?: string | undefined;
       }
       interface SuggestedBullet {
-        bullet?: Docs.Schema.Bullet;
-        bulletSuggestionState?: Docs.Schema.BulletSuggestionState;
+        bullet?: Docs.Schema.Bullet | undefined;
+        bulletSuggestionState?: Docs.Schema.BulletSuggestionState | undefined;
       }
       interface SuggestedDocumentStyle {
-        documentStyle?: Docs.Schema.DocumentStyle;
-        documentStyleSuggestionState?: Docs.Schema.DocumentStyleSuggestionState;
+        documentStyle?: Docs.Schema.DocumentStyle | undefined;
+        documentStyleSuggestionState?: Docs.Schema.DocumentStyleSuggestionState | undefined;
       }
       interface SuggestedInlineObjectProperties {
-        inlineObjectProperties?: Docs.Schema.InlineObjectProperties;
-        inlineObjectPropertiesSuggestionState?: Docs.Schema.InlineObjectPropertiesSuggestionState;
+        inlineObjectProperties?: Docs.Schema.InlineObjectProperties | undefined;
+        inlineObjectPropertiesSuggestionState?: Docs.Schema.InlineObjectPropertiesSuggestionState | undefined;
       }
       interface SuggestedListProperties {
-        listProperties?: Docs.Schema.ListProperties;
-        listPropertiesSuggestionState?: Docs.Schema.ListPropertiesSuggestionState;
+        listProperties?: Docs.Schema.ListProperties | undefined;
+        listPropertiesSuggestionState?: Docs.Schema.ListPropertiesSuggestionState | undefined;
       }
       interface SuggestedNamedStyles {
-        namedStyles?: Docs.Schema.NamedStyles;
-        namedStylesSuggestionState?: Docs.Schema.NamedStylesSuggestionState;
+        namedStyles?: Docs.Schema.NamedStyles | undefined;
+        namedStylesSuggestionState?: Docs.Schema.NamedStylesSuggestionState | undefined;
       }
       interface SuggestedParagraphStyle {
-        paragraphStyle?: Docs.Schema.ParagraphStyle;
-        paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState;
+        paragraphStyle?: Docs.Schema.ParagraphStyle | undefined;
+        paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState | undefined;
       }
       interface SuggestedPositionedObjectProperties {
-        positionedObjectProperties?: Docs.Schema.PositionedObjectProperties;
-        positionedObjectPropertiesSuggestionState?: Docs.Schema.PositionedObjectPropertiesSuggestionState;
+        positionedObjectProperties?: Docs.Schema.PositionedObjectProperties | undefined;
+        positionedObjectPropertiesSuggestionState?: Docs.Schema.PositionedObjectPropertiesSuggestionState | undefined;
       }
       interface SuggestedTableCellStyle {
-        tableCellStyle?: Docs.Schema.TableCellStyle;
-        tableCellStyleSuggestionState?: Docs.Schema.TableCellStyleSuggestionState;
+        tableCellStyle?: Docs.Schema.TableCellStyle | undefined;
+        tableCellStyleSuggestionState?: Docs.Schema.TableCellStyleSuggestionState | undefined;
       }
       interface SuggestedTableRowStyle {
-        tableRowStyle?: Docs.Schema.TableRowStyle;
-        tableRowStyleSuggestionState?: Docs.Schema.TableRowStyleSuggestionState;
+        tableRowStyle?: Docs.Schema.TableRowStyle | undefined;
+        tableRowStyleSuggestionState?: Docs.Schema.TableRowStyleSuggestionState | undefined;
       }
       interface SuggestedTextStyle {
-        textStyle?: Docs.Schema.TextStyle;
-        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
+        textStyle?: Docs.Schema.TextStyle | undefined;
+        textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
       }
       interface TabStop {
-        alignment?: string;
-        offset?: Docs.Schema.Dimension;
+        alignment?: string | undefined;
+        offset?: Docs.Schema.Dimension | undefined;
       }
       interface Table {
-        columns?: number;
-        rows?: number;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        tableRows?: Docs.Schema.TableRow[];
-        tableStyle?: Docs.Schema.TableStyle;
+        columns?: number | undefined;
+        rows?: number | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        tableRows?: Docs.Schema.TableRow[] | undefined;
+        tableStyle?: Docs.Schema.TableStyle | undefined;
       }
       interface TableCell {
-        content?: Docs.Schema.StructuralElement[];
-        endIndex?: number;
-        startIndex?: number;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTableCellStyleChanges?: object;
-        tableCellStyle?: Docs.Schema.TableCellStyle;
+        content?: Docs.Schema.StructuralElement[] | undefined;
+        endIndex?: number | undefined;
+        startIndex?: number | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTableCellStyleChanges?: object | undefined;
+        tableCellStyle?: Docs.Schema.TableCellStyle | undefined;
       }
       interface TableCellBorder {
-        color?: Docs.Schema.OptionalColor;
-        dashStyle?: string;
-        width?: Docs.Schema.Dimension;
+        color?: Docs.Schema.OptionalColor | undefined;
+        dashStyle?: string | undefined;
+        width?: Docs.Schema.Dimension | undefined;
       }
       interface TableCellLocation {
-        columnIndex?: number;
-        rowIndex?: number;
-        tableStartLocation?: Docs.Schema.Location;
+        columnIndex?: number | undefined;
+        rowIndex?: number | undefined;
+        tableStartLocation?: Docs.Schema.Location | undefined;
       }
       interface TableCellStyle {
-        backgroundColor?: Docs.Schema.OptionalColor;
-        borderBottom?: Docs.Schema.TableCellBorder;
-        borderLeft?: Docs.Schema.TableCellBorder;
-        borderRight?: Docs.Schema.TableCellBorder;
-        borderTop?: Docs.Schema.TableCellBorder;
-        columnSpan?: number;
-        contentAlignment?: string;
-        paddingBottom?: Docs.Schema.Dimension;
-        paddingLeft?: Docs.Schema.Dimension;
-        paddingRight?: Docs.Schema.Dimension;
-        paddingTop?: Docs.Schema.Dimension;
-        rowSpan?: number;
+        backgroundColor?: Docs.Schema.OptionalColor | undefined;
+        borderBottom?: Docs.Schema.TableCellBorder | undefined;
+        borderLeft?: Docs.Schema.TableCellBorder | undefined;
+        borderRight?: Docs.Schema.TableCellBorder | undefined;
+        borderTop?: Docs.Schema.TableCellBorder | undefined;
+        columnSpan?: number | undefined;
+        contentAlignment?: string | undefined;
+        paddingBottom?: Docs.Schema.Dimension | undefined;
+        paddingLeft?: Docs.Schema.Dimension | undefined;
+        paddingRight?: Docs.Schema.Dimension | undefined;
+        paddingTop?: Docs.Schema.Dimension | undefined;
+        rowSpan?: number | undefined;
       }
       interface TableCellStyleSuggestionState {
-        backgroundColorSuggested?: boolean;
-        borderBottomSuggested?: boolean;
-        borderLeftSuggested?: boolean;
-        borderRightSuggested?: boolean;
-        borderTopSuggested?: boolean;
-        columnSpanSuggested?: boolean;
-        contentAlignmentSuggested?: boolean;
-        paddingBottomSuggested?: boolean;
-        paddingLeftSuggested?: boolean;
-        paddingRightSuggested?: boolean;
-        paddingTopSuggested?: boolean;
-        rowSpanSuggested?: boolean;
+        backgroundColorSuggested?: boolean | undefined;
+        borderBottomSuggested?: boolean | undefined;
+        borderLeftSuggested?: boolean | undefined;
+        borderRightSuggested?: boolean | undefined;
+        borderTopSuggested?: boolean | undefined;
+        columnSpanSuggested?: boolean | undefined;
+        contentAlignmentSuggested?: boolean | undefined;
+        paddingBottomSuggested?: boolean | undefined;
+        paddingLeftSuggested?: boolean | undefined;
+        paddingRightSuggested?: boolean | undefined;
+        paddingTopSuggested?: boolean | undefined;
+        rowSpanSuggested?: boolean | undefined;
       }
       interface TableColumnProperties {
-        width?: Docs.Schema.Dimension;
-        widthType?: string;
+        width?: Docs.Schema.Dimension | undefined;
+        widthType?: string | undefined;
       }
       interface TableOfContents {
-        content?: Docs.Schema.StructuralElement[];
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
+        content?: Docs.Schema.StructuralElement[] | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
       }
       interface TableRow {
-        endIndex?: number;
-        startIndex?: number;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTableRowStyleChanges?: object;
-        tableCells?: Docs.Schema.TableCell[];
-        tableRowStyle?: Docs.Schema.TableRowStyle;
+        endIndex?: number | undefined;
+        startIndex?: number | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTableRowStyleChanges?: object | undefined;
+        tableCells?: Docs.Schema.TableCell[] | undefined;
+        tableRowStyle?: Docs.Schema.TableRowStyle | undefined;
       }
       interface TableRowStyle {
-        minRowHeight?: Docs.Schema.Dimension;
+        minRowHeight?: Docs.Schema.Dimension | undefined;
       }
       interface TableRowStyleSuggestionState {
-        minRowHeightSuggested?: boolean;
+        minRowHeightSuggested?: boolean | undefined;
       }
       interface TableStyle {
-        tableColumnProperties?: Docs.Schema.TableColumnProperties[];
+        tableColumnProperties?: Docs.Schema.TableColumnProperties[] | undefined;
       }
       interface TextRun {
-        content?: string;
-        suggestedDeletionIds?: string[];
-        suggestedInsertionIds?: string[];
-        suggestedTextStyleChanges?: object;
-        textStyle?: Docs.Schema.TextStyle;
+        content?: string | undefined;
+        suggestedDeletionIds?: string[] | undefined;
+        suggestedInsertionIds?: string[] | undefined;
+        suggestedTextStyleChanges?: object | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface TextStyle {
-        backgroundColor?: Docs.Schema.OptionalColor;
-        baselineOffset?: string;
-        bold?: boolean;
-        fontSize?: Docs.Schema.Dimension;
-        foregroundColor?: Docs.Schema.OptionalColor;
-        italic?: boolean;
-        link?: Docs.Schema.Link;
-        smallCaps?: boolean;
-        strikethrough?: boolean;
-        underline?: boolean;
-        weightedFontFamily?: Docs.Schema.WeightedFontFamily;
+        backgroundColor?: Docs.Schema.OptionalColor | undefined;
+        baselineOffset?: string | undefined;
+        bold?: boolean | undefined;
+        fontSize?: Docs.Schema.Dimension | undefined;
+        foregroundColor?: Docs.Schema.OptionalColor | undefined;
+        italic?: boolean | undefined;
+        link?: Docs.Schema.Link | undefined;
+        smallCaps?: boolean | undefined;
+        strikethrough?: boolean | undefined;
+        underline?: boolean | undefined;
+        weightedFontFamily?: Docs.Schema.WeightedFontFamily | undefined;
       }
       interface TextStyleSuggestionState {
-        backgroundColorSuggested?: boolean;
-        baselineOffsetSuggested?: boolean;
-        boldSuggested?: boolean;
-        fontSizeSuggested?: boolean;
-        foregroundColorSuggested?: boolean;
-        italicSuggested?: boolean;
-        linkSuggested?: boolean;
-        smallCapsSuggested?: boolean;
-        strikethroughSuggested?: boolean;
-        underlineSuggested?: boolean;
-        weightedFontFamilySuggested?: boolean;
+        backgroundColorSuggested?: boolean | undefined;
+        baselineOffsetSuggested?: boolean | undefined;
+        boldSuggested?: boolean | undefined;
+        fontSizeSuggested?: boolean | undefined;
+        foregroundColorSuggested?: boolean | undefined;
+        italicSuggested?: boolean | undefined;
+        linkSuggested?: boolean | undefined;
+        smallCapsSuggested?: boolean | undefined;
+        strikethroughSuggested?: boolean | undefined;
+        underlineSuggested?: boolean | undefined;
+        weightedFontFamilySuggested?: boolean | undefined;
       }
       interface UpdateParagraphStyleRequest {
-        fields?: string;
-        paragraphStyle?: Docs.Schema.ParagraphStyle;
-        range?: Docs.Schema.Range;
+        fields?: string | undefined;
+        paragraphStyle?: Docs.Schema.ParagraphStyle | undefined;
+        range?: Docs.Schema.Range | undefined;
       }
       interface UpdateTextStyleRequest {
-        fields?: string;
-        range?: Docs.Schema.Range;
-        textStyle?: Docs.Schema.TextStyle;
+        fields?: string | undefined;
+        range?: Docs.Schema.Range | undefined;
+        textStyle?: Docs.Schema.TextStyle | undefined;
       }
       interface WeightedFontFamily {
-        fontFamily?: string;
-        weight?: number;
+        fontFamily?: string | undefined;
+        weight?: number | undefined;
       }
       interface WriteControl {
-        requiredRevisionId?: string;
-        targetRevisionId?: string;
+        requiredRevisionId?: string | undefined;
+        targetRevisionId?: string | undefined;
       }
     }
   }
   interface Docs {
-    Documents?: Docs.Collection.DocumentsCollection;
+    Documents?: Docs.Collection.DocumentsCollection | undefined;
     // Create a new instance of AutoText
     newAutoText(): Docs.Schema.AutoText;
     // Create a new instance of Background

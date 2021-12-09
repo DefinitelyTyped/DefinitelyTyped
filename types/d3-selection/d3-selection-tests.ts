@@ -762,6 +762,8 @@ exitCircles2
 // MERGE ENTER + UPDATE ------------------------------------------------------------------
 
 circles2 = enterCircles.merge(circles2); // merge enter and update selections
+declare const transition: d3Selection.TransitionLike<SVGCircleElement, CircleDatumAlternative>;
+circles2 = circles2.merge(transition);
 
 // FURTHER DATA-JOIN TESTs (function argument, changes in data type between old and new data)
 
@@ -783,8 +785,6 @@ tr = d3Selection.select('body')
     .append('table')
     .selectAll()
     .data(matrix)
-    // $ExpectError
-    .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
     .enter().append('tr');
 
 let li: d3Selection.Selection<HTMLLIElement, number, HTMLElement, any>;
@@ -1272,3 +1272,18 @@ const groups = svgEl.selectAll<SVGGElement, {}>('g')
     groups.select('text')
         .text(d => d.text)
         .attr('dy', '0.32em');
+
+declare const mockTransition: <GElement extends d3Selection.BaseType, Datum>(
+    selection: d3Selection.Selection<GElement, Datum, HTMLElement, unknown>
+) => d3Selection.TransitionLike<GElement, Datum>;
+
+d3Selection
+    .select(document.body)
+    .selectAll<HTMLElement, number | string>("p")
+    .datum(function() { return this.textContent; })
+    .data([1, 3], d => d!)
+    .join(
+        enter => mockTransition(enter.append("p").attr("class", "enter").text(d => d)),
+        update => mockTransition(update.attr("class", "update")),
+        exit => mockTransition(exit.attr("class", "exit"))
+    );

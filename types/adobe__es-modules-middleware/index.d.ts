@@ -13,7 +13,7 @@ declare module 'karma' {
          * used in Karma to aid in testing es-modules in the browser
          * see {@link https://github.com/adobe/es-modules-middleware}
          */
-        esModulesMiddleware?: MiddlewareOptions;
+        esModulesMiddleware?: MiddlewareOptions | undefined;
     }
 }
 

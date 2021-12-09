@@ -56,17 +56,17 @@ export interface StoreConfig<S> {
     reducer: Reducer<S>;
     actions?: {
         [k: string]: (...args: readonly any[]) => Action | Generator<any>;
-    };
+    } | undefined;
     selectors?: {
         [k: string]: (state: S, ...args: readonly any[]) => any;
-    };
+    } | undefined;
     resolvers?: {
         [k: string]: (...args: readonly any[]) => any;
-    };
+    } | undefined;
     controls?: {
         [k: string]: (action: Action) => any;
-    };
-    initialState?: S;
+    } | undefined;
+    initialState?: S | undefined;
 
     /**
      * Use persist with the persistence plugin to persist state.
@@ -86,7 +86,7 @@ export interface StoreConfig<S> {
      *   persist: [ 'state-key-to-persist' ],
      * } );
      */
-    persist?: true | Array<keyof S>;
+    persist?: true | Array<keyof S> | undefined;
 }
 
 export interface Store<S, A extends Action = Action> {
@@ -143,8 +143,8 @@ export type Plugin<T extends Record<string, any>> = (registry: DataRegistry, opt
 
 export const plugins: {
     persistence: Plugin<{
-        storage?: Pick<Storage, 'getItem' | 'setItem'> & Partial<Storage>;
-        storageKey?: string;
+        storage?: Pick<Storage, 'getItem' | 'setItem'> & Partial<Storage> | undefined;
+        storageKey?: string | undefined;
     }>;
 };
 

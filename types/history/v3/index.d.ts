@@ -28,8 +28,8 @@ export interface History<Q = DefaultQuery, QL = DefaultQueryLike> {
 }
 
 export interface HistoryOptions {
-    getUserConfirmation?: (message: string, callback: (result: boolean) => void) => void;
-    keyLength?: number;
+    getUserConfirmation?: ((message: string, callback: (result: boolean) => void) => void) | undefined;
+    keyLength?: number | undefined;
 }
 
 export type Hash = string;
@@ -46,11 +46,11 @@ export interface Location<Q = DefaultQuery> {
 }
 
 export interface LocationDescriptorObject {
-    pathname?: Pathname;
-    search?: Search;
-    query?: QueryLike;
-    hash?: Hash;
-    state?: LocationState;
+    pathname?: Pathname | undefined;
+    search?: Search | undefined;
+    query?: QueryLike | undefined;
+    hash?: Hash | undefined;
+    state?: LocationState | undefined;
 }
 
 export type LocationDescriptor = LocationDescriptorObject | Path;

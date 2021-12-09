@@ -25,13 +25,13 @@ declare namespace empower {
          *
          * @default false
          */
-        modifyMessageOnRethrow?: boolean;
+        modifyMessageOnRethrow?: boolean | undefined;
         /**
          * If truthy, add `powerAssertContext` property to `AssertionError` on rethrow.
          *
          * @default false
          */
-        saveContextOnRethrow?: boolean;
+        saveContextOnRethrow?: boolean | undefined;
     };
 
     /**

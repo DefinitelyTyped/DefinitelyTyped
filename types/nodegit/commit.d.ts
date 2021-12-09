@@ -34,7 +34,7 @@ export class Commit {
         messageEncoding: string,
         message: string,
         tree: Tree | Oid,
-        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string, signedData: string}> | {code: Error.CODE, field?: string, signedData: string}
+        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
     ): Promise<Oid>;
     author(): Signature;
     committer(): Signature;

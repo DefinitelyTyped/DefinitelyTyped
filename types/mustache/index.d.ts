@@ -419,8 +419,8 @@ type PartialsOrLookupFn = Record<string, string> | PartialLookupFn;
 type PartialLookupFn = (partialName: string) => string | undefined;
 
 interface RenderOptions {
-    escape?: EscapeFunction;
-    tags?: OpeningAndClosingTags;
+    escape?: EscapeFunction | undefined;
+    tags?: OpeningAndClosingTags | undefined;
 }
 
 interface TemplateCache {

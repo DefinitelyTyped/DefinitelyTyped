@@ -67,11 +67,11 @@ export interface InspectorThemeDefinition {
 export type InspectorTheme = 'chromeLight' | 'chromeDark' | InspectorThemeDefinition;
 
 export interface ThemedComponentProps {
-    theme?: InspectorTheme;
+    theme?: InspectorTheme | undefined;
 }
 
 interface TreeViewProps {
-    name?: string;
+    name?: string | undefined;
     /**
      * Not required prop because we also allow undefined value.
      */
@@ -79,31 +79,31 @@ interface TreeViewProps {
     /**
      * Provide a custom nodeRenderer.
      */
-    nodeRenderer?: InspectorNodeRenderer;
+    nodeRenderer?: InspectorNodeRenderer | undefined;
     /**
      * An integer specifying to which level the tree should be initially expanded.
      */
-    expandLevel?: number;
+    expandLevel?: number | undefined;
     /**
      * An array containing all the paths that should be expanded when the component is initialized, or a string of just one path.
      */
-    expandPaths?: string | ReadonlyArray<string>;
+    expandPaths?: string | ReadonlyArray<string> | undefined;
 }
 
 export interface TableInspectorProps extends ThemedComponentProps {
     data?: any;
-    columns?: ReadonlyArray<string>;
+    columns?: ReadonlyArray<string> | undefined;
 }
 
 export interface ObjectInspectorProps extends TreeViewProps, ThemedComponentProps {
     /**
      * Show non-enumerable properties.
      */
-    showNonenumerable?: boolean;
+    showNonenumerable?: boolean | undefined;
     /**
      * Sort object keys with optional compare function.
      */
-    sortObjectKeys?: boolean | ((a: any, b: any) => number);
+    sortObjectKeys?: boolean | ((a: any, b: any) => number) | undefined;
 }
 
 export interface DOMInspectorProps extends TreeViewProps, ThemedComponentProps {
@@ -114,7 +114,7 @@ export interface InspectorBaseProps {
     /**
      * Whether to inspect `data` in a table.
      */
-    table?: boolean;
+    table?: boolean | undefined;
 }
 
 export interface InspectorAsTableProps extends InspectorBaseProps, TableInspectorProps {
@@ -122,27 +122,27 @@ export interface InspectorAsTableProps extends InspectorBaseProps, TableInspecto
 }
 
 export interface InspectorAsTreeProps extends InspectorBaseProps, ObjectInspectorProps, DOMInspectorProps {
-    table?: false;
+    table?: false | undefined;
     data: any;
 }
 
 export type InspectorProps = InspectorAsTableProps | InspectorAsTreeProps;
 
 export interface ObjectLabelProps {
-    name?: string;
+    name?: string | undefined;
     data?: any;
-    isNonenumerable?: boolean;
+    isNonenumerable?: boolean | undefined;
 }
 
 export interface ObjectRootLabelProps {
-    name?: string;
+    name?: string | undefined;
     data?: any;
 }
 
 export interface ObjectNameProps {
-    name?: string;
-    dimmed?: boolean;
-    styles?: object;
+    name?: string | undefined;
+    dimmed?: boolean | undefined;
+    styles?: object | undefined;
 }
 
 export interface ObjectValueProps {
@@ -150,7 +150,7 @@ export interface ObjectValueProps {
      * The object to describe.
      */
     object?: any;
-    styles?: object;
+    styles?: object | undefined;
 }
 
 export const chromeLight: InspectorThemeDefinition;

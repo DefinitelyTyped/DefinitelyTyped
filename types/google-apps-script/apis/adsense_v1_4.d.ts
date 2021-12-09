@@ -44,7 +44,7 @@ declare namespace GoogleAppsScript {
           list(accountId: string, optionalArgs: object): Adsense.Schema.AdClients;
         }
         interface AdunitsCollection {
-          Customchannels?: Adsense.Collection.Accounts.Adunits.CustomchannelsCollection;
+          Customchannels?: Adsense.Collection.Accounts.Adunits.CustomchannelsCollection | undefined;
           // Gets the specified ad unit in the specified ad client for the specified account.
           get(accountId: string, adClientId: string, adUnitId: string): Adsense.Schema.AdUnit;
           // Get ad code for the specified ad unit.
@@ -63,7 +63,7 @@ declare namespace GoogleAppsScript {
           remove(accountId: string, alertId: string): void;
         }
         interface CustomchannelsCollection {
-          Adunits?: Adsense.Collection.Accounts.Customchannels.AdunitsCollection;
+          Adunits?: Adsense.Collection.Accounts.Customchannels.AdunitsCollection | undefined;
           // Get the specified custom channel from the specified ad client for the specified account.
           get(accountId: string, adClientId: string, customChannelId: string): Adsense.Schema.CustomChannel;
           // List all custom channels in the specified ad client for the specified account.
@@ -76,7 +76,7 @@ declare namespace GoogleAppsScript {
           list(accountId: string): Adsense.Schema.Payments;
         }
         interface ReportsCollection {
-          Saved?: Adsense.Collection.Accounts.Reports.SavedCollection;
+          Saved?: Adsense.Collection.Accounts.Reports.SavedCollection | undefined;
           // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
           generate(accountId: string, startDate: string, endDate: string): Adsense.Schema.AdsenseReportsGenerateResponse;
           // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
@@ -136,14 +136,14 @@ declare namespace GoogleAppsScript {
         }
       }
       interface AccountsCollection {
-        Adclients?: Adsense.Collection.Accounts.AdclientsCollection;
-        Adunits?: Adsense.Collection.Accounts.AdunitsCollection;
-        Alerts?: Adsense.Collection.Accounts.AlertsCollection;
-        Customchannels?: Adsense.Collection.Accounts.CustomchannelsCollection;
-        Payments?: Adsense.Collection.Accounts.PaymentsCollection;
-        Reports?: Adsense.Collection.Accounts.ReportsCollection;
-        Savedadstyles?: Adsense.Collection.Accounts.SavedadstylesCollection;
-        Urlchannels?: Adsense.Collection.Accounts.UrlchannelsCollection;
+        Adclients?: Adsense.Collection.Accounts.AdclientsCollection | undefined;
+        Adunits?: Adsense.Collection.Accounts.AdunitsCollection | undefined;
+        Alerts?: Adsense.Collection.Accounts.AlertsCollection | undefined;
+        Customchannels?: Adsense.Collection.Accounts.CustomchannelsCollection | undefined;
+        Payments?: Adsense.Collection.Accounts.PaymentsCollection | undefined;
+        Reports?: Adsense.Collection.Accounts.ReportsCollection | undefined;
+        Savedadstyles?: Adsense.Collection.Accounts.SavedadstylesCollection | undefined;
+        Urlchannels?: Adsense.Collection.Accounts.UrlchannelsCollection | undefined;
         // Get information about the selected AdSense account.
         get(accountId: string): Adsense.Schema.Account;
         // Get information about the selected AdSense account.
@@ -160,7 +160,7 @@ declare namespace GoogleAppsScript {
         list(optionalArgs: object): Adsense.Schema.AdClients;
       }
       interface AdunitsCollection {
-        Customchannels?: Adsense.Collection.Adunits.CustomchannelsCollection;
+        Customchannels?: Adsense.Collection.Adunits.CustomchannelsCollection | undefined;
         // Gets the specified ad unit in the specified ad client.
         get(adClientId: string, adUnitId: string): Adsense.Schema.AdUnit;
         // Get ad code for the specified ad unit.
@@ -179,7 +179,7 @@ declare namespace GoogleAppsScript {
         remove(alertId: string): void;
       }
       interface CustomchannelsCollection {
-        Adunits?: Adsense.Collection.Customchannels.AdunitsCollection;
+        Adunits?: Adsense.Collection.Customchannels.AdunitsCollection | undefined;
         // Get the specified custom channel from the specified ad client.
         get(adClientId: string, customChannelId: string): Adsense.Schema.CustomChannel;
         // List all custom channels in the specified ad client for this AdSense account.
@@ -188,15 +188,15 @@ declare namespace GoogleAppsScript {
         list(adClientId: string, optionalArgs: object): Adsense.Schema.CustomChannels;
       }
       interface MetadataCollection {
-        Dimensions?: Adsense.Collection.Metadata.DimensionsCollection;
-        Metrics?: Adsense.Collection.Metadata.MetricsCollection;
+        Dimensions?: Adsense.Collection.Metadata.DimensionsCollection | undefined;
+        Metrics?: Adsense.Collection.Metadata.MetricsCollection | undefined;
       }
       interface PaymentsCollection {
         // List the payments for this AdSense account.
         list(): Adsense.Schema.Payments;
       }
       interface ReportsCollection {
-        Saved?: Adsense.Collection.Reports.SavedCollection;
+        Saved?: Adsense.Collection.Reports.SavedCollection | undefined;
         // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
         generate(startDate: string, endDate: string): Adsense.Schema.AdsenseReportsGenerateResponse;
         // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
@@ -219,214 +219,214 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Account {
-        creation_time?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        premium?: boolean;
-        subAccounts?: Adsense.Schema.Account[];
-        timezone?: string;
+        creation_time?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        premium?: boolean | undefined;
+        subAccounts?: Adsense.Schema.Account[] | undefined;
+        timezone?: string | undefined;
       }
       interface Accounts {
-        etag?: string;
-        items?: Adsense.Schema.Account[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Adsense.Schema.Account[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface AdClient {
-        arcOptIn?: boolean;
-        id?: string;
-        kind?: string;
-        productCode?: string;
-        supportsReporting?: boolean;
+        arcOptIn?: boolean | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        productCode?: string | undefined;
+        supportsReporting?: boolean | undefined;
       }
       interface AdClients {
-        etag?: string;
-        items?: Adsense.Schema.AdClient[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Adsense.Schema.AdClient[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface AdCode {
-        adCode?: string;
-        ampBody?: string;
-        ampHead?: string;
-        kind?: string;
+        adCode?: string | undefined;
+        ampBody?: string | undefined;
+        ampHead?: string | undefined;
+        kind?: string | undefined;
       }
       interface AdStyle {
-        colors?: Adsense.Schema.AdStyleColors;
-        corners?: string;
-        font?: Adsense.Schema.AdStyleFont;
-        kind?: string;
+        colors?: Adsense.Schema.AdStyleColors | undefined;
+        corners?: string | undefined;
+        font?: Adsense.Schema.AdStyleFont | undefined;
+        kind?: string | undefined;
       }
       interface AdStyleColors {
-        background?: string;
-        border?: string;
-        text?: string;
-        title?: string;
-        url?: string;
+        background?: string | undefined;
+        border?: string | undefined;
+        text?: string | undefined;
+        title?: string | undefined;
+        url?: string | undefined;
       }
       interface AdStyleFont {
-        family?: string;
-        size?: string;
+        family?: string | undefined;
+        size?: string | undefined;
       }
       interface AdUnit {
-        code?: string;
-        contentAdsSettings?: Adsense.Schema.AdUnitContentAdsSettings;
-        customStyle?: Adsense.Schema.AdStyle;
-        feedAdsSettings?: Adsense.Schema.AdUnitFeedAdsSettings;
-        id?: string;
-        kind?: string;
-        mobileContentAdsSettings?: Adsense.Schema.AdUnitMobileContentAdsSettings;
-        name?: string;
-        savedStyleId?: string;
-        status?: string;
+        code?: string | undefined;
+        contentAdsSettings?: Adsense.Schema.AdUnitContentAdsSettings | undefined;
+        customStyle?: Adsense.Schema.AdStyle | undefined;
+        feedAdsSettings?: Adsense.Schema.AdUnitFeedAdsSettings | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        mobileContentAdsSettings?: Adsense.Schema.AdUnitMobileContentAdsSettings | undefined;
+        name?: string | undefined;
+        savedStyleId?: string | undefined;
+        status?: string | undefined;
       }
       interface AdUnitContentAdsSettings {
-        backupOption?: Adsense.Schema.AdUnitContentAdsSettingsBackupOption;
-        size?: string;
-        type?: string;
+        backupOption?: Adsense.Schema.AdUnitContentAdsSettingsBackupOption | undefined;
+        size?: string | undefined;
+        type?: string | undefined;
       }
       interface AdUnitContentAdsSettingsBackupOption {
-        color?: string;
-        type?: string;
-        url?: string;
+        color?: string | undefined;
+        type?: string | undefined;
+        url?: string | undefined;
       }
       interface AdUnitFeedAdsSettings {
-        adPosition?: string;
-        frequency?: number;
-        minimumWordCount?: number;
-        type?: string;
+        adPosition?: string | undefined;
+        frequency?: number | undefined;
+        minimumWordCount?: number | undefined;
+        type?: string | undefined;
       }
       interface AdUnitMobileContentAdsSettings {
-        markupLanguage?: string;
-        scriptingLanguage?: string;
-        size?: string;
-        type?: string;
+        markupLanguage?: string | undefined;
+        scriptingLanguage?: string | undefined;
+        size?: string | undefined;
+        type?: string | undefined;
       }
       interface AdUnits {
-        etag?: string;
-        items?: Adsense.Schema.AdUnit[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Adsense.Schema.AdUnit[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface AdsenseReportsGenerateResponse {
-        averages?: string[];
-        endDate?: string;
-        headers?: Adsense.Schema.AdsenseReportsGenerateResponseHeaders[];
-        kind?: string;
-        rows?: string[][];
-        startDate?: string;
-        totalMatchedRows?: string;
-        totals?: string[];
-        warnings?: string[];
+        averages?: string[] | undefined;
+        endDate?: string | undefined;
+        headers?: Adsense.Schema.AdsenseReportsGenerateResponseHeaders[] | undefined;
+        kind?: string | undefined;
+        rows?: string[][] | undefined;
+        startDate?: string | undefined;
+        totalMatchedRows?: string | undefined;
+        totals?: string[] | undefined;
+        warnings?: string[] | undefined;
       }
       interface AdsenseReportsGenerateResponseHeaders {
-        currency?: string;
-        name?: string;
-        type?: string;
+        currency?: string | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
       }
       interface Alert {
-        id?: string;
-        isDismissible?: boolean;
-        kind?: string;
-        message?: string;
-        severity?: string;
-        type?: string;
+        id?: string | undefined;
+        isDismissible?: boolean | undefined;
+        kind?: string | undefined;
+        message?: string | undefined;
+        severity?: string | undefined;
+        type?: string | undefined;
       }
       interface Alerts {
-        items?: Adsense.Schema.Alert[];
-        kind?: string;
+        items?: Adsense.Schema.Alert[] | undefined;
+        kind?: string | undefined;
       }
       interface CustomChannel {
-        code?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        targetingInfo?: Adsense.Schema.CustomChannelTargetingInfo;
+        code?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        targetingInfo?: Adsense.Schema.CustomChannelTargetingInfo | undefined;
       }
       interface CustomChannelTargetingInfo {
-        adsAppearOn?: string;
-        description?: string;
-        location?: string;
-        siteLanguage?: string;
+        adsAppearOn?: string | undefined;
+        description?: string | undefined;
+        location?: string | undefined;
+        siteLanguage?: string | undefined;
       }
       interface CustomChannels {
-        etag?: string;
-        items?: Adsense.Schema.CustomChannel[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Adsense.Schema.CustomChannel[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Metadata {
-        items?: Adsense.Schema.ReportingMetadataEntry[];
-        kind?: string;
+        items?: Adsense.Schema.ReportingMetadataEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface Payment {
-        id?: string;
-        kind?: string;
-        paymentAmount?: string;
-        paymentAmountCurrencyCode?: string;
-        paymentDate?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        paymentAmount?: string | undefined;
+        paymentAmountCurrencyCode?: string | undefined;
+        paymentDate?: string | undefined;
       }
       interface Payments {
-        items?: Adsense.Schema.Payment[];
-        kind?: string;
+        items?: Adsense.Schema.Payment[] | undefined;
+        kind?: string | undefined;
       }
       interface ReportingMetadataEntry {
-        compatibleDimensions?: string[];
-        compatibleMetrics?: string[];
-        id?: string;
-        kind?: string;
-        requiredDimensions?: string[];
-        requiredMetrics?: string[];
-        supportedProducts?: string[];
+        compatibleDimensions?: string[] | undefined;
+        compatibleMetrics?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        requiredDimensions?: string[] | undefined;
+        requiredMetrics?: string[] | undefined;
+        supportedProducts?: string[] | undefined;
       }
       interface SavedAdStyle {
-        adStyle?: Adsense.Schema.AdStyle;
-        id?: string;
-        kind?: string;
-        name?: string;
+        adStyle?: Adsense.Schema.AdStyle | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface SavedAdStyles {
-        etag?: string;
-        items?: Adsense.Schema.SavedAdStyle[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Adsense.Schema.SavedAdStyle[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface SavedReport {
-        id?: string;
-        kind?: string;
-        name?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface SavedReports {
-        etag?: string;
-        items?: Adsense.Schema.SavedReport[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Adsense.Schema.SavedReport[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface UrlChannel {
-        id?: string;
-        kind?: string;
-        urlPattern?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        urlPattern?: string | undefined;
       }
       interface UrlChannels {
-        etag?: string;
-        items?: Adsense.Schema.UrlChannel[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: Adsense.Schema.UrlChannel[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
     }
   }
   interface Adsense {
-    Accounts?: Adsense.Collection.AccountsCollection;
-    Adclients?: Adsense.Collection.AdclientsCollection;
-    Adunits?: Adsense.Collection.AdunitsCollection;
-    Alerts?: Adsense.Collection.AlertsCollection;
-    Customchannels?: Adsense.Collection.CustomchannelsCollection;
-    Metadata?: Adsense.Collection.MetadataCollection;
-    Payments?: Adsense.Collection.PaymentsCollection;
-    Reports?: Adsense.Collection.ReportsCollection;
-    Savedadstyles?: Adsense.Collection.SavedadstylesCollection;
-    Urlchannels?: Adsense.Collection.UrlchannelsCollection;
+    Accounts?: Adsense.Collection.AccountsCollection | undefined;
+    Adclients?: Adsense.Collection.AdclientsCollection | undefined;
+    Adunits?: Adsense.Collection.AdunitsCollection | undefined;
+    Alerts?: Adsense.Collection.AlertsCollection | undefined;
+    Customchannels?: Adsense.Collection.CustomchannelsCollection | undefined;
+    Metadata?: Adsense.Collection.MetadataCollection | undefined;
+    Payments?: Adsense.Collection.PaymentsCollection | undefined;
+    Reports?: Adsense.Collection.ReportsCollection | undefined;
+    Savedadstyles?: Adsense.Collection.SavedadstylesCollection | undefined;
+    Urlchannels?: Adsense.Collection.UrlchannelsCollection | undefined;
   }
 }
 

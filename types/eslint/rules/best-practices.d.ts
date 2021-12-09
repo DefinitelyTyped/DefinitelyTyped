@@ -636,12 +636,12 @@ export interface BestPractices extends Linter.RulesRecord {
             ...Array<
                 | {
                       object: string;
-                      property?: string;
-                      message?: string;
+                      property?: string | undefined;
+                      message?: string | undefined;
                   }
                 | {
                       property: string;
-                      message?: string;
+                      message?: string | undefined;
                   }
             >
         ]

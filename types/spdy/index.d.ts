@@ -16,14 +16,14 @@ export namespace agent {
     function create(base: any, options: AgentOptions): Agent | PlainAgent;
 
     interface AgentOptions extends https.AgentOptions {
-        port?: number;
+        port?: number | undefined;
         spdy?: {
-            plain?: boolean,
-            ssl?: boolean,
-            'x-forwarded-for'?: string,
-            protocol?: string,
-            protocols?: string[]
-        };
+            plain?: boolean | undefined,
+            ssl?: boolean | undefined,
+            'x-forwarded-for'?: string | undefined,
+            protocol?: string | undefined,
+            protocols?: string[] | undefined
+        } | undefined;
     }
 }
 
@@ -75,22 +75,22 @@ export namespace server {
             | 'http/1.0';
 
     interface PushOptions {
-        status?: number;
-        method?: string;
+        status?: number | undefined;
+        method?: string | undefined;
         request?: any;
         response?: any;
     }
 
     interface ServerOptions extends https.ServerOptions {
         spdy?: {
-            protocols?: Protocol[],
-            plain?: boolean,
-            'x-forwarded-for'?: boolean,
+            protocols?: Protocol[] | undefined,
+            plain?: boolean | undefined,
+            'x-forwarded-for'?: boolean | undefined,
             connection?: {
-                windowSize?: number,
-                autoSpdy31?: boolean,
-            },
-        };
+                windowSize?: number | undefined,
+                autoSpdy31?: boolean | undefined,
+            } | undefined,
+        } | undefined;
     }
 }
 

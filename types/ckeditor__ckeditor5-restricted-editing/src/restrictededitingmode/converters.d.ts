@@ -12,7 +12,7 @@ export function resurrectCollapsedMarkerPostFixer(editor: Editor): (writer: Down
 export function extendMarkerOnTypingPostFixer(editor: Editor): (writer: DowncastWriter) => void;
 
 export function upcastHighlightToMarker(config: {
-    view?: MatcherPattern;
+    view?: MatcherPattern | undefined;
     model: ((el: ViewElement) => Element) | Element;
     converterPriority: PriorityString;
 }): (dispatcher: UpcastDispatcher) => void;

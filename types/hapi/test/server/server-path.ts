@@ -8,7 +8,7 @@ const server = new Server({
 // Definition for INERT
 declare module 'hapi' {
     interface HandlerDecorations {
-        file?: string;
+        file?: string | undefined;
     }
 }
 

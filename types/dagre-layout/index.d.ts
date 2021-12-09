@@ -16,30 +16,30 @@ export namespace graphlib {
         setDefaultEdgeLabel(callback: string|(() => string|object)): Graph;
         setDefaultNodeLabel(callback: string|(() => string|object)): Graph;
         setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }, value?: string): Graph;
-        setEdge(params: {v: string, w: string, name?: string}, value?: string): Graph;
+        setEdge(params: {v: string, w: string, name?: string | undefined}, value?: string): Graph;
         setGraph(label: GraphLabel): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
         graph(): GraphLabel;
 
-        constructor(opt?: {directed?: boolean, multigraph?: boolean, compound?: boolean});
+        constructor(opt?: {directed?: boolean | undefined, multigraph?: boolean | undefined, compound?: boolean | undefined});
         setParent(name: string, parentName: string): void;
         hasNode(name: string): boolean;
     }
 }
 
 export interface GraphLabel {
-    width?: number;
-    height?: number;
-    compound?: boolean;
-    rankdir?: string;
-    align?: string;
-    nodesep?: number;
-    edgesep?: number;
-    ranksep?: number;
-    marginx?: number;
-    marginy?: number;
-    acyclicer?: string;
-    ranker?: string;
+    width?: number | undefined;
+    height?: number | undefined;
+    compound?: boolean | undefined;
+    rankdir?: string | undefined;
+    align?: string | undefined;
+    nodesep?: number | undefined;
+    edgesep?: number | undefined;
+    ranksep?: number | undefined;
+    marginx?: number | undefined;
+    marginy?: number | undefined;
+    acyclicer?: string | undefined;
+    ranker?: string | undefined;
 }
 
 export function layout(graph: graphlib.Graph): void;
@@ -47,5 +47,5 @@ export function layout(graph: graphlib.Graph): void;
 export interface Edge {
     v: string;
     w: string;
-    name?: string;
+    name?: string | undefined;
 }

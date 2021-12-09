@@ -10,11 +10,11 @@ const proxy: Builtins['proxy'] = ({ logLevel }) => {
 
 interface Configuration {
     entry: string[];
-    watch?: boolean;
-    plugins?: object[];
+    watch?: boolean | undefined;
+    plugins?: object[] | undefined;
     output?: {
-        publicPath?: string;
-    };
+        publicPath?: string | undefined;
+    } | undefined;
 }
 
 const usage = (config: Configuration) => {

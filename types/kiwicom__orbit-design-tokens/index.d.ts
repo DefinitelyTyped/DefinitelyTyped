@@ -122,15 +122,15 @@ export interface Foundation {
 }
 
 export interface CustomPalette {
-    product?: Partial<ProductColor>;
-    white?: Partial<WhiteColor>;
-    cloud?: Partial<CloudColor>;
-    ink?: Partial<InkColor>;
-    orange?: Partial<StatusColor>;
-    red?: Partial<StatusColor>;
-    green?: Partial<StatusColor>;
-    blue?: Partial<StatusColor>;
-    social?: Partial<SocialColor>;
+    product?: Partial<ProductColor> | undefined;
+    white?: Partial<WhiteColor> | undefined;
+    cloud?: Partial<CloudColor> | undefined;
+    ink?: Partial<InkColor> | undefined;
+    orange?: Partial<StatusColor> | undefined;
+    red?: Partial<StatusColor> | undefined;
+    green?: Partial<StatusColor> | undefined;
+    blue?: Partial<StatusColor> | undefined;
+    social?: Partial<SocialColor> | undefined;
 }
 
 export type CustomBase = Partial<Base>;
@@ -618,9 +618,9 @@ export interface ThemePaletteColors {
     productNormalHover: string;
     productNormalActive: string;
     productDark: string;
-    productDarkHover?: string;
-    productDarkActive?: string;
-    productDarker?: string;
+    productDarkHover?: string | undefined;
+    productDarkActive?: string | undefined;
+    productDarker?: string | undefined;
 }
 
 export function fromPlainObject(themePaletteColors: ThemePaletteColors): Tokens;

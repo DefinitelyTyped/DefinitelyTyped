@@ -89,8 +89,8 @@ declare namespace request {
     }
 
     interface ResponseError extends Error {
-        status?: number;
-        response?: Response;
+        status?: number | undefined;
+        response?: Response | undefined;
     }
 
     interface HTTPError extends Error {
@@ -114,7 +114,7 @@ declare namespace request {
         header: any;
         headers: any;
         info: boolean;
-        links: object;
+        links: Record<string, string>;
         noContent: boolean;
         notAcceptable: boolean;
         notFound: boolean;
@@ -137,7 +137,7 @@ declare namespace request {
         attach(
             field: string,
             file: MultipartValueSingle,
-            options?: string | { filename?: string; contentType?: string },
+            options?: string | { filename?: string | undefined; contentType?: string | undefined },
         ): this;
         auth(user: string, pass: string, options?: { type: "basic" | "auto" }): this;
         auth(token: string, options: { type: "bearer" }): this;
@@ -170,7 +170,7 @@ declare namespace request {
         set(field: object): this;
         set(field: string, val: string): this;
         set(field: "Cookie", val: string[]): this;
-        timeout(ms: number | { deadline?: number; response?: number }): this;
+        timeout(ms: number | { deadline?: number | undefined; response?: number | undefined }): this;
         trustLocalhost(enabled?: boolean): this;
         type(val: string): this;
         unset(field: string): this;
@@ -185,8 +185,8 @@ declare namespace request {
     interface ProgressEvent {
         direction: "download" | "upload";
         loaded: number;
-        percent?: number;
-        total?: number;
+        percent?: number | undefined;
+        total?: number | undefined;
     }
 }
 

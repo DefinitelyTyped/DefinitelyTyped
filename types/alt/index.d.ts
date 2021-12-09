@@ -47,8 +47,8 @@ declare namespace AltJS {
 
     //instance
     getInstance?():AltJS.AltStore<S>;
-    alt?:Alt;
-    displayName?:string;
+    alt?:Alt | undefined;
+    displayName?:string | undefined;
   }
 
   export type Source = {[name:string]: () => SourceModel<any>};
@@ -57,7 +57,7 @@ declare namespace AltJS {
     local?(state:any, ...args: any[]):any;
     remote(state:any, ...args: any[]):Promise<S>;
     shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
-    loading?:(args:any) => void;
+    loading?:((args:any) => void) | undefined;
     success:(state:S) => void;
     error:(args:any) => void;
     interceptResponse?(response:any, action:Action<any>, ...args:Array<any>):any;
@@ -88,17 +88,17 @@ declare namespace AltJS {
   export interface ActionsClass {
     generateActions?( ...action:Array<string>):void;
     dispatch( ...payload:Array<any>):void;
-    actions?:Actions;
+    actions?:Actions | undefined;
   }
 
   type StateTransform = (store:StoreModel<any>) => AltJS.AltStore<any>;
 
   interface AltConfig {
     dispatcher?:any;
-    serialize?:(serializeFn:(data:Object) => string) => void;
-    deserialize?:(deserializeFn:(serialData:string) => Object) => void;
-    storeTransforms?:Array<StateTransform>;
-    batchingFunction?:(callback:( ...data:Array<any>) => any) => void;
+    serialize?:((serializeFn:(data:Object) => string) => void) | undefined;
+    deserialize?:((deserializeFn:(serialData:string) => Object) => void) | undefined;
+    storeTransforms?:Array<StateTransform> | undefined;
+    batchingFunction?:((callback:( ...data:Array<any>) => any) => void) | undefined;
   }
 
   class Alt {
@@ -144,15 +144,15 @@ declare module "alt/AltContainer" {
   import * as React from "react";
 
   interface ContainerProps {
-    store?:AltJS.AltStore<any>;
-    stores?:Array<AltJS.AltStore<any>>;
-    inject?:{[key:string]:any};
-    actions?:{[key:string]:Object};
-    render?:(...props:Array<any>) => React.ReactElement;
-    flux?:AltJS.Alt;
-    transform?:(store:AltJS.AltStore<any>, actions:any) => any;
-    shouldComponentUpdate?:(props:any) => boolean;
-    component?:React.Component<any>;
+    store?:AltJS.AltStore<any> | undefined;
+    stores?:Array<AltJS.AltStore<any>> | undefined;
+    inject?:{[key:string]:any} | undefined;
+    actions?:{[key:string]:Object} | undefined;
+    render?:((...props:Array<any>) => React.ReactElement) | undefined;
+    flux?:AltJS.Alt | undefined;
+    transform?:((store:AltJS.AltStore<any>, actions:any) => any) | undefined;
+    shouldComponentUpdate?:((props:any) => boolean) | undefined;
+    component?:React.Component<any> | undefined;
   }
 
   type AltContainer = React.ReactElement<ContainerProps>;

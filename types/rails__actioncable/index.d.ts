@@ -33,8 +33,8 @@ export interface Mixin {
 
     received?(data: any): void;
 
-    readonly documentIsActive?: boolean;
-    readonly appearingOn?: string | null;
+    readonly documentIsActive?: boolean | undefined;
+    readonly appearingOn?: string | null | undefined;
 
     [key: string]: any;
 }
@@ -181,6 +181,28 @@ export class Subscriptions<C = Consumer> {
     readonly subscriptions: Array<Subscription<C>>;
 
     create<M>(channelName: string | ChannelNameWithParams, mixin?: Mixin & M): Subscription<C> & Mixin & M;
+
+    private add<T extends Subscription>(subscription: T): T;
+
+    private remove<T extends Subscription>(subscription: T): T;
+
+    private reject(identifier: string): Subscription[];
+
+    private forget<T extends Subscription>(subscription: T): T;
+
+    private findAll(identifier: string): Subscription[];
+
+    private reload(): Subscription[];
+
+    private notifyAll(callbackName: string, ...args: any): Subscription[];
+
+    private notify(subscription: Subscription, callbackName: string, ...args: any): Subscription[];
+
+    private subscribe(subscription: Subscription): void;
+
+    private confirmSubscription(identifier: string): void;
+
+    private sendCommand(subscription: Subscription, command: any): boolean;
 }
 
 /**
@@ -201,7 +223,7 @@ export function createWebSocketURL(url: string): string;
  */
 export const logger: {
     log(...messages: any[]): void;
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 };
 
 /**

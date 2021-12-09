@@ -2,7 +2,7 @@
 // Project: https://github.com/ember-cli/console-ui#readme
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
 import { QuestionCollection } from 'inquirer';
 
@@ -17,11 +17,11 @@ export = UI;
  */
 declare class UI {
     constructor(options?: {
-        inputStream?: NodeJS.ReadableStream;
-        outputStream?: NodeJS.WritableStream;
-        errorStream?: NodeJS.WritableStream;
-        writeLevel?: WriteLevel;
-        ci?: boolean;
+        inputStream?: NodeJS.ReadableStream | undefined;
+        outputStream?: NodeJS.WritableStream | undefined;
+        errorStream?: NodeJS.WritableStream | undefined;
+        writeLevel?: WriteLevel | undefined;
+        ci?: boolean | undefined;
     });
 
     /**

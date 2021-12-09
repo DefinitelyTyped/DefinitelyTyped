@@ -23,66 +23,66 @@ type Callback<T> = (err: Error, res: T) => void;
 
 export namespace Options {
     interface DocLoader {
-        documentLoader?: (url: Url,
+        documentLoader?: ((url: Url,
             callback: (err: Error, remoteDoc: RemoteDocument) => void)
-                => Promise<RemoteDocument>;
+                => Promise<RemoteDocument>) | undefined;
     }
 
     interface Common extends DocLoader {
-        base?: string;
-        expandContext?: ContextDefinition;
+        base?: string | undefined;
+        expandContext?: ContextDefinition | undefined;
     }
 
     interface ExpMap {
         // TODO: Figure out type of info
-        expansionMap?: (info: any) => any;
+        expansionMap?: ((info: any) => any) | undefined;
     }
 
     interface Compact extends Common, ExpMap {
-        compactArrays?: boolean;
-        appropriate?: boolean;
-        compactToRelative?: boolean;
-        graph?: boolean;
-        skipExpansion?: boolean;
-        expansion?: boolean;
-        framing?: boolean;
+        compactArrays?: boolean | undefined;
+        appropriate?: boolean | undefined;
+        compactToRelative?: boolean | undefined;
+        graph?: boolean | undefined;
+        skipExpansion?: boolean | undefined;
+        expansion?: boolean | undefined;
+        framing?: boolean | undefined;
         // TODO: Figure out type of info
-        compactionMap?: (info: any) => void;
+        compactionMap?: ((info: any) => void) | undefined;
     }
 
     interface Expand extends Common, ExpMap {
-        keepFreeFloatingNodes?: boolean;
+        keepFreeFloatingNodes?: boolean | undefined;
     }
 
     type Flatten = Common;
 
     interface Frame {
-        embed?: '@last' | '@always' | '@never' | '@link';
-        explicit?: boolean;
-        requireAll?: boolean;
-        omitDefault?: boolean;
+        embed?: '@last' | '@always' | '@never' | '@link' | undefined;
+        explicit?: boolean | undefined;
+        requireAll?: boolean | undefined;
+        omitDefault?: boolean | undefined;
     }
 
     interface Normalize extends Common {
-        algorithm?: 'URDNA2015' | `URGNA2012`;
-        skipExpansion?: boolean;
-        expansion?: boolean;
-        inputFormat?: MimeNQuad;
-        format?: MimeNQuad;
-        useNative?: boolean;
+        algorithm?: 'URDNA2015' | `URGNA2012` | undefined;
+        skipExpansion?: boolean | undefined;
+        expansion?: boolean | undefined;
+        inputFormat?: MimeNQuad | undefined;
+        format?: MimeNQuad | undefined;
+        useNative?: boolean | undefined;
     }
 
     interface FromRdf {
-        format?: MimeNQuad;
+        format?: MimeNQuad | undefined;
         rdfParser?: any;
-        useRdfType?: boolean;
-        useNativeTypes?: boolean;
+        useRdfType?: boolean | undefined;
+        useNativeTypes?: boolean | undefined;
     }
 
     interface ToRdf extends Common {
-        skipExpansion?: boolean;
-        format?: MimeNQuad;
-        produceGeneralizedRdf?: boolean;
+        skipExpansion?: boolean | undefined;
+        format?: MimeNQuad | undefined;
+        produceGeneralizedRdf?: boolean | undefined;
     }
 
     // TODO Complete and uncomment if needed (see comments at the end of the file)

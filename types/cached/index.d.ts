@@ -1,10 +1,9 @@
-// Type definitions for cached 5.0
+// Type definitions for cached 6.0
 // Project: https://github.com/groupon/node-cached
 // Definitions by: Juraj Mäsiar <https://github.com/Juraj-Masiar>
-// Definitions: https://github.com/Juraj-Masiar/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import Bluebird = require("bluebird");
 import Memcached = require('memcached');
 
 export = cached;
@@ -51,14 +50,14 @@ interface BackendOptions {
  * @param name - Name of the cache - should be unique per-cache. If you create two instances with the same name, you'll get the same instance.
  * @param options - CacheOptions
  */
-declare function cached(name: string, options: CacheOptions): Cache;
+declare function cached<T>(name: string, options: CacheOptions): Cache<T>;
 
 declare namespace cached {
     /**
      * This allows you to circumvent the global named caches. The options are the same as above, just name is also part of the options object when using this function.
      * @param options
      */
-    function createCache(options: NewCacheOptions): Cache;
+    function createCache<T>(options: NewCacheOptions): Cache<T>;
 
     /**
      * Drop the given named cache.
@@ -77,10 +76,10 @@ declare namespace cached {
      * Convert a node-style function that takes a callback as its first parameter into a parameterless function that generates a promise.
      * In other words: this is what you'd want to wrap your node-style functions in when using them as value arguments to set or getOrElse.
      */
-    function deferred<T>(func: (callback: (err: any, result?: T) => void) => void): Bluebird<T>;
+    function deferred<T>(func: (callback: (err: any, result?: T) => void) => void): Promise<T>;
 }
 
-declare class Cache {
+declare class Cache<T> {
     constructor(options: {
         name: string;
         defaults: CacheDefaults;
@@ -101,16 +100,15 @@ declare class Cache {
      * b. A Promise of (a)
      * c. A function returning (a) or (b)
      * @param options - optional cache options for this key only
-     * @param callback - will be called with the resolved value, following node conventions (error, value)
      */
-    set<T>(key: string, value: T | (() => T) | Promise<T> | (() => Promise<T>), options?: CacheDefaults, callback?: (err: any, value: T) => void): Promise<T>;
+    set(key: string, value: T | (() => T) | Promise<T> | (() => Promise<T>), options?: CacheDefaults): Promise<void>;
 
     /**
      * Cache retrieve operation. key has to be a string.
      * Cache misses are generally treated the same as retrieving null, errors should only be caused by transport errors and connection problems.
      * If you want to cache null/undefined (e.g. 404 responses), you may want to wrap it or choose a different value, like false, to represent this condition.
      */
-    get<T>(key: string, callback?: (err: any, value: T) => void): Promise<T | null>;
+    get(key: string): Promise<T | null>;
 
     /**
      * This is the function you'd want to use most of the time.
@@ -121,10 +119,10 @@ declare class Cache {
      * This is done on a per-instance level, so if you create many cache instances reading and writing the same keys, you are asking for trouble.
      * If you don't, the worst case is every process in your system fetching the value at once. Which should be a smaller number than the number of concurrent requests in most cases.
      */
-    getOrElse<T>(key: string, value: T | (() => T) | Promise<T> | (() => Promise<T>), options?: CacheDefaults, callback?: (err: any, value: T) => void): Promise<T>;
+    getOrElse(key: string, value: T | (() => T) | Promise<T> | (() => Promise<T>), options?: CacheDefaults): Promise<T>;
 
     /**
      * Cache delete operation. key has to be a string.
      */
-    unset(key: string, callback?: (err: any) => void): Promise<void>;
+    unset(key: string): Promise<void>;
 }

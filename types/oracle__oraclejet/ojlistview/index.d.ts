@@ -8,29 +8,29 @@ export interface ojListView<K, D> extends baseComponent<ojListViewSettableProper
     dnd: {
         drag?: {
             items: {
-                dataTypes?: string | string[];
-                drag?: ((param0: Event) => void);
-                dragEnd?: ((param0: Event) => void);
+                dataTypes?: string | string[] | undefined;
+                drag?: ((param0: Event) => void) | undefined;
+                dragEnd?: ((param0: Event) => void) | undefined;
                 dragStart?: ((param0: Event, param1: {
                     items: Element[];
-                }) => void);
+                }) => void) | undefined;
             };
-        };
+        } | undefined;
         drop?: {
             items: {
-                dataTypes?: string | string[];
+                dataTypes?: string | string[] | undefined;
                 dragEnter?: ((param0: Event, param1: {
                     item: Element;
-                }) => void);
+                }) => void) | undefined;
                 dragLeave?: ((param0: Event, param1: {
                     item: Element;
-                }) => void);
+                }) => void) | undefined;
                 dragOver?: ((param0: Event, param1: {
                     item: Element;
-                }) => void);
-                drop?: ((param0: Event, param1: ojListView.ItemsDropContext) => void);
+                }) => void) | undefined;
+                drop?: ((param0: Event, param1: ojListView.ItemsDropContext) => void) | undefined;
             };
-        };
+        } | undefined;
         reorder: {
             items: 'enabled' | 'disabled';
         };
@@ -43,44 +43,44 @@ export interface ojListView<K, D> extends baseComponent<ojListViewSettableProper
     };
     groupHeaderPosition: 'static' | 'sticky';
     item: {
-        focusable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean;
+        focusable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean | undefined;
         renderer?: ((param0: ojListView.ItemContext<K, D>) => {
             insert: Element | string;
-        } | undefined) | null;
-        selectable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean;
+        } | undefined) | null | undefined;
+        selectable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean | undefined;
     };
     scrollPolicy: 'auto' | 'loadMoreOnScroll';
     scrollPolicyOptions: {
-        fetchSize?: number;
-        maxCount?: number;
-        scroller?: Element;
+        fetchSize?: number | undefined;
+        maxCount?: number | undefined;
+        scroller?: Element | undefined;
     };
     scrollPosition: {
-        x?: number;
-        y?: number;
-        index?: number;
-        parent?: K;
-        key?: K;
-        offsetX?: number;
-        offsetY?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        index?: number | undefined;
+        parent?: K | undefined;
+        key?: K | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     };
     selection: K[];
     selectionMode: 'none' | 'single' | 'multiple';
     selectionRequired: boolean;
     translations: {
-        accessibleNavigateSkipItems?: string;
-        accessibleReorderAfterItem?: string;
-        accessibleReorderBeforeItem?: string;
-        accessibleReorderInsideItem?: string;
-        accessibleReorderTouchInstructionText?: string;
-        indexerCharacters?: string;
-        labelCopy?: string;
-        labelCut?: string;
-        labelPaste?: string;
-        labelPasteAfter?: string;
-        labelPasteBefore?: string;
-        msgFetchingData?: string;
-        msgNoData?: string;
+        accessibleNavigateSkipItems?: string | undefined;
+        accessibleReorderAfterItem?: string | undefined;
+        accessibleReorderBeforeItem?: string | undefined;
+        accessibleReorderInsideItem?: string | undefined;
+        accessibleReorderTouchInstructionText?: string | undefined;
+        indexerCharacters?: string | undefined;
+        labelCopy?: string | undefined;
+        labelCut?: string | undefined;
+        labelPaste?: string | undefined;
+        labelPasteAfter?: string | undefined;
+        labelPasteBefore?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgNoData?: string | undefined;
     };
     onAsChanged: ((event: JetElementCustomEvent<ojListView<K, D>["as"]>) => any) | null;
     onCurrentItemChanged: ((event: JetElementCustomEvent<ojListView<K, D>["currentItem"]>) => any) | null;
@@ -117,9 +117,9 @@ export interface ojListView<K, D> extends baseComponent<ojListViewSettableProper
     setProperties(properties: ojListViewSettablePropertiesLenient<K, D>): void;
     getContextByNode(node: Element): ojListView.ContextByNode<K> | null;
     getDataForVisibleItem(context: {
-        key?: K;
-        index?: number;
-        parent?: Element;
+        key?: K | undefined;
+        index?: number | undefined;
+        parent?: Element | undefined;
     }): D;
     refresh(): void;
     scrollToItem(item: {
@@ -199,8 +199,8 @@ export namespace ojListView {
         subId: string;
         key: K;
         index: number;
-        parent?: Element;
-        group?: boolean;
+        parent?: Element | undefined;
+        group?: boolean | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type ItemContext<K, D> = {
@@ -209,9 +209,9 @@ export namespace ojListView {
         key: K;
         data: D;
         parentElement: Element;
-        depth?: number;
-        parentKey?: K;
-        leaf?: boolean;
+        depth?: number | undefined;
+        parentKey?: K | undefined;
+        leaf?: boolean | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type ItemsDropContext = {
@@ -255,29 +255,29 @@ export interface ojListViewSettableProperties<K, D> extends baseComponentSettabl
     dnd: {
         drag?: {
             items: {
-                dataTypes?: string | string[];
-                drag?: ((param0: Event) => void);
-                dragEnd?: ((param0: Event) => void);
+                dataTypes?: string | string[] | undefined;
+                drag?: ((param0: Event) => void) | undefined;
+                dragEnd?: ((param0: Event) => void) | undefined;
                 dragStart?: ((param0: Event, param1: {
                     items: Element[];
-                }) => void);
+                }) => void) | undefined;
             };
-        };
+        } | undefined;
         drop?: {
             items: {
-                dataTypes?: string | string[];
+                dataTypes?: string | string[] | undefined;
                 dragEnter?: ((param0: Event, param1: {
                     item: Element;
-                }) => void);
+                }) => void) | undefined;
                 dragLeave?: ((param0: Event, param1: {
                     item: Element;
-                }) => void);
+                }) => void) | undefined;
                 dragOver?: ((param0: Event, param1: {
                     item: Element;
-                }) => void);
-                drop?: ((param0: Event, param1: ojListView.ItemsDropContext) => void);
+                }) => void) | undefined;
+                drop?: ((param0: Event, param1: ojListView.ItemsDropContext) => void) | undefined;
             };
-        };
+        } | undefined;
         reorder: {
             items: 'enabled' | 'disabled';
         };
@@ -290,44 +290,44 @@ export interface ojListViewSettableProperties<K, D> extends baseComponentSettabl
     };
     groupHeaderPosition: 'static' | 'sticky';
     item: {
-        focusable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean;
+        focusable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean | undefined;
         renderer?: ((param0: ojListView.ItemContext<K, D>) => {
             insert: Element | string;
-        } | undefined) | null;
-        selectable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean;
+        } | undefined) | null | undefined;
+        selectable?: ((param0: ojListView.ItemContext<K, D>) => boolean) | boolean | undefined;
     };
     scrollPolicy: 'auto' | 'loadMoreOnScroll';
     scrollPolicyOptions: {
-        fetchSize?: number;
-        maxCount?: number;
-        scroller?: Element;
+        fetchSize?: number | undefined;
+        maxCount?: number | undefined;
+        scroller?: Element | undefined;
     };
     scrollPosition: {
-        x?: number;
-        y?: number;
-        index?: number;
-        parent?: K;
-        key?: K;
-        offsetX?: number;
-        offsetY?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        index?: number | undefined;
+        parent?: K | undefined;
+        key?: K | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     };
     selection: K[];
     selectionMode: 'none' | 'single' | 'multiple';
     selectionRequired: boolean;
     translations: {
-        accessibleNavigateSkipItems?: string;
-        accessibleReorderAfterItem?: string;
-        accessibleReorderBeforeItem?: string;
-        accessibleReorderInsideItem?: string;
-        accessibleReorderTouchInstructionText?: string;
-        indexerCharacters?: string;
-        labelCopy?: string;
-        labelCut?: string;
-        labelPaste?: string;
-        labelPasteAfter?: string;
-        labelPasteBefore?: string;
-        msgFetchingData?: string;
-        msgNoData?: string;
+        accessibleNavigateSkipItems?: string | undefined;
+        accessibleReorderAfterItem?: string | undefined;
+        accessibleReorderBeforeItem?: string | undefined;
+        accessibleReorderInsideItem?: string | undefined;
+        accessibleReorderTouchInstructionText?: string | undefined;
+        indexerCharacters?: string | undefined;
+        labelCopy?: string | undefined;
+        labelCut?: string | undefined;
+        labelPaste?: string | undefined;
+        labelPasteAfter?: string | undefined;
+        labelPasteBefore?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgNoData?: string | undefined;
     };
 }
 export interface ojListViewSettablePropertiesLenient<K, D> extends Partial<ojListViewSettableProperties<K, D>> {

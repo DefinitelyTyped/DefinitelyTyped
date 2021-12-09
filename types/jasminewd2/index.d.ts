@@ -76,6 +76,6 @@ declare namespace jasmine {
 
   interface AsyncCustomMatcherResult {
     pass: boolean | Promise<boolean>;
-    message?: string;
+    message?: string | undefined;
   }
 }

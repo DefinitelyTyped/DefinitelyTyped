@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-export type ImporterReturnType = { file: string } | { file?: string; contents: string } | Error | null | types.Null | types.Error;
+export type ImporterReturnType = { file: string } | { file?: string | undefined; contents: string } | Error | null | types.Null | types.Error;
 
 /**
  * The context value is a value that is shared for the duration of a single render.
@@ -77,30 +77,30 @@ export type SassFunction = SyncSassFunction | AsyncSassFunction;
 export type FunctionDeclarations<FunctionType extends SassFunction = SassFunction> = Record<string, FunctionType>;
 
 export interface Options {
-    file?: string;
-    data?: string;
-    importer?: Importer | Importer[];
-    functions?: FunctionDeclarations;
-    includePaths?: string[];
-    indentedSyntax?: boolean;
-    indentType?: string;
-    indentWidth?: number;
-    linefeed?: string;
-    omitSourceMapUrl?: boolean;
-    outFile?: string;
-    outputStyle?: "compact" | "compressed" | "expanded" | "nested";
-    precision?: number;
-    sourceComments?: boolean;
-    sourceMap?: boolean | string;
-    sourceMapContents?: boolean;
-    sourceMapEmbed?: boolean;
-    sourceMapRoot?: string;
+    file?: string | undefined;
+    data?: string | undefined;
+    importer?: Importer | Importer[] | undefined;
+    functions?: FunctionDeclarations | undefined;
+    includePaths?: string[] | undefined;
+    indentedSyntax?: boolean | undefined;
+    indentType?: string | undefined;
+    indentWidth?: number | undefined;
+    linefeed?: string | undefined;
+    omitSourceMapUrl?: boolean | undefined;
+    outFile?: string | undefined;
+    outputStyle?: "compact" | "compressed" | "expanded" | "nested" | undefined;
+    precision?: number | undefined;
+    sourceComments?: boolean | undefined;
+    sourceMap?: boolean | string | undefined;
+    sourceMapContents?: boolean | undefined;
+    sourceMapEmbed?: boolean | undefined;
+    sourceMapRoot?: string | undefined;
     [key: string]: any;
 }
 
 export interface SyncOptions extends Options {
-    functions?: FunctionDeclarations<SyncSassFunction>;
-    importer?: SyncImporter | SyncImporter[];
+    functions?: FunctionDeclarations<SyncSassFunction> | undefined;
+    importer?: SyncImporter | SyncImporter[] | undefined;
 }
 
 /**

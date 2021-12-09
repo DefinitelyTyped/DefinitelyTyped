@@ -78,8 +78,8 @@ export namespace Value {
     numberValue: number,
     stringValue: string,
     boolValue: boolean,
-    structValue?: Struct.AsObject,
-    listValue?: ListValue.AsObject,
+    structValue?: Struct.AsObject | undefined,
+    listValue?: ListValue.AsObject | undefined,
   }
 
   export enum KindCase {

@@ -11,11 +11,11 @@ import { Duplex } from 'stream';
 
 declare namespace favicons {
     interface IconOptions {
-        offset?: number;
-        background?: boolean | string;
-        mask?: boolean;
-        overlayGlow?: boolean;
-        ovelayShadow?: boolean;
+        offset?: number | undefined;
+        background?: boolean | string | undefined;
+        mask?: boolean | undefined;
+        overlayGlow?: boolean | undefined;
+        ovelayShadow?: boolean | undefined;
     }
 
     interface FaviconOptions {

@@ -12,7 +12,7 @@ declare function introJs(querySelector: string): introJs.IntroJs;
 declare namespace introJs {
     interface Step {
         intro: string;
-        element?: string | HTMLElement | Element;
+        element?: string | HTMLElement | Element | undefined;
         position?:
             | 'top'
             | 'left'
@@ -21,49 +21,49 @@ declare namespace introJs {
             | 'bottom-left-aligned'
             | 'bottom-middle-aligned'
             | 'bottom-right-aligned'
-            | 'auto';
-        tooltipClass?: string;
-        highlightClass?: string;
-        scrollTo?: 'off' | 'tooltip' | 'element';
-        disableInteraction?: boolean;
-        title?: string;
-        step?: number;
+            | 'auto' | undefined;
+        tooltipClass?: string | undefined;
+        highlightClass?: string | undefined;
+        scrollTo?: 'off' | 'tooltip' | 'element' | undefined;
+        disableInteraction?: boolean | undefined;
+        title?: string | undefined;
+        step?: number | undefined;
     }
 
     interface Hint {
         hint: string;
-        element?: string | HTMLElement | Element;
-        hintPosition?: string;
+        element?: string | HTMLElement | Element | undefined;
+        hintPosition?: string | undefined;
     }
 
     interface Options {
-        nextLabel?: string;
-        prevLabel?: string;
-        skipLabel?: string;
-        doneLabel?: string;
-        hidePrev?: boolean;
-        hideNext?: boolean;
-        tooltipPosition?: string;
-        tooltipClass?: string;
-        highlightClass?: string;
-        buttonClass?: string;
-        exitOnEsc?: boolean;
-        exitOnOverlayClick?: boolean;
-        showStepNumbers?: boolean;
-        keyboardNavigation?: boolean;
-        showButtons?: boolean;
-        showBullets?: boolean;
-        showProgress?: boolean;
-        scrollToElement?: boolean;
-        overlayOpacity?: number;
-        scrollPadding?: number;
-        positionPrecedence?: string[];
-        disableInteraction?: boolean;
-        hintPosition?: string;
-        hintButtonLabel?: string;
-        hintAnimation?: boolean;
-        steps?: Step[];
-        hints?: Hint[];
+        nextLabel?: string | undefined;
+        prevLabel?: string | undefined;
+        skipLabel?: string | undefined;
+        doneLabel?: string | undefined;
+        hidePrev?: boolean | undefined;
+        hideNext?: boolean | undefined;
+        tooltipPosition?: string | undefined;
+        tooltipClass?: string | undefined;
+        highlightClass?: string | undefined;
+        buttonClass?: string | undefined;
+        exitOnEsc?: boolean | undefined;
+        exitOnOverlayClick?: boolean | undefined;
+        showStepNumbers?: boolean | undefined;
+        keyboardNavigation?: boolean | undefined;
+        showButtons?: boolean | undefined;
+        showBullets?: boolean | undefined;
+        showProgress?: boolean | undefined;
+        scrollToElement?: boolean | undefined;
+        overlayOpacity?: number | undefined;
+        scrollPadding?: number | undefined;
+        positionPrecedence?: string[] | undefined;
+        disableInteraction?: boolean | undefined;
+        hintPosition?: string | undefined;
+        hintButtonLabel?: string | undefined;
+        hintAnimation?: boolean | undefined;
+        steps?: Step[] | undefined;
+        hints?: Hint[] | undefined;
     }
     interface IntroJs {
         start(): IntroJs;

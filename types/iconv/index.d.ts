@@ -1,37 +1,29 @@
-// Type definitions for iconv 2.1.11
+// Type definitions for iconv 3.0
 // Project: https://github.com/bnoordhuis/node-iconv
 // Definitions by: delphinus <https://github.com/delphinus35>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node" />
+/// <reference types="node" />
 
-declare namespace Iconv {
+import { Stream } from 'stream';
 
-    interface Static {
-
-        new(fromEncoding: string, toEncoding: string): Iconv;
-        (fromEncoding: string, toEncoding: string): Iconv;
-    }
-
-    interface Iconv extends NodeJS.WritableStream {
-
-        writable: boolean;
-        convert(input: string | Buffer, encoding?: string): Buffer;
-        write(input: string | Buffer, encoding?: string): boolean;
-        end(input?: string | Buffer, encoding?: string): void;
-
-        // copy from NodeJS.WritableStream for compatibility
-        write(buffer: Buffer|string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-
-        // copy from stream.Stream
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-    }
+interface Static {
+    new (fromEncoding: string, toEncoding: string): Iconv;
+    (fromEncoding: string, toEncoding: string): Iconv;
+    prototype: Iconv;
 }
 
-declare var Iconv: Iconv.Static;
-export = Iconv;
+export interface Iconv extends Stream {
+    readonly writable: true;
+    convert(input: string, encoding?: BufferEncoding): Buffer;
+    convert(input: Buffer): Buffer;
+    write(input: string, encoding?: BufferEncoding): boolean;
+    write(input: Buffer): boolean;
+
+    end(input: string, encoding?: BufferEncoding): void;
+    end(input?: Buffer): void;
+}
+
+export const Iconv: Static;
+
+export {};

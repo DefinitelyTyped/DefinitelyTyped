@@ -7,7 +7,7 @@
 // TypeScript Version: 2.8
 
 // NOTE: Users of the React 18 alpha should add a reference
-// to 'react-is/alpha' in their project. See alpha.d.ts's top comment
+// to 'react-is/next' in their project. See next.d.ts's top comment
 // for reference and documentation on how exactly to do it.
 
 export as namespace ReactIs;
@@ -16,11 +16,11 @@ import {
   LazyExoticComponent,
   MemoExoticComponent,
   ReactElement,
-  ReactType
+  ElementType
 } from "react";
 
 export function typeOf(value: any): symbol | undefined;
-export function isValidElementType(value: any): value is ReactType;
+export function isValidElementType(value: any): value is ElementType;
 export function isAsyncMode(value: any): value is ReactElement;
 export function isContextConsumer(value: any): value is ReactElement;
 export function isContextProvider(value: any): value is ReactElement;

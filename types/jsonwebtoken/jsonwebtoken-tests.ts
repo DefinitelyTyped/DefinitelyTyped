@@ -182,30 +182,36 @@ if (typeof verified2 !== 'string') {
     verified2;
 }
 
+// This tests creates a token with iat as now, verifies with maxAge=now()+3600sec
+cert = fs.readFileSync("public.pem"); // get public key
+const verified3 = jwt.verify(token, cert, {maxAge: 3600});
+
+if (typeof verified3 !== 'string') {
+    // $ExpectType JwtPayload
+    verified3;
+}
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
-let decoded = jwt.decode(token);
+// $ExpectType string | JwtPayload | null
+jwt.decode(token);
 
-decoded = jwt.decode(token, { complete: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false });
 
-if (decoded !== null && typeof decoded === "object") {
-    console.log(decoded.foo);
-}
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { json: false });
 
-decoded = jwt.decode(token, { json: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false, json: false });
 
-decoded = jwt.decode(token, { complete: false, json: false });
+// $ExpectType JwtPayload | null
+jwt.decode(token, { json: true });
 
-decoded = jwt.decode(token, { json: true });
-if (decoded) {
-    // $ExpectType JwtPayload
-    decoded;
-}
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true });
 
-const decoded2 = jwt.decode(token, { complete: true });
-if (decoded2) {
-  // $ExpectType Jwt
-  decoded2;
-}
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true, json: true });

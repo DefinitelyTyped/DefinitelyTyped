@@ -18,54 +18,54 @@ declare namespace SVGIcons2SVGFontStream {
          *
          * @default 'iconfont'
          */
-        fontName?: string;
+        fontName?: string | undefined;
         /**
          * The font id you want (Default value: the options.fontName)
          *
          * @default the options.fontName value
          */
-        fontId?: string;
+        fontId?: string | undefined;
         /**
          * The font style you want.
          */
-        fontStyle?: string;
+        fontStyle?: string | undefined;
         /**
          * The font weight
          */
-        fontWeight?: string;
+        fontWeight?: string | undefined;
         /**
          * Creates a monospace font of the width of the largest input icon.
          */
-        fixedWidth?: boolean;
+        fixedWidth?: boolean | undefined;
         /**
          * Calculate the bounds of a glyph and center it horizontally.
          */
-        centerHorizontally?: boolean;
+        centerHorizontally?: boolean | undefined;
         /**
          * Centers the glyphs vertically in the generated font.
          * @default false
          */
-        centerVertically?: boolean;
+        centerVertically?: boolean | undefined;
         /**
          * Normalize icons by scaling them to the height of the highest icon.
          */
-        normalize?: boolean;
+        normalize?: boolean | undefined;
         /**
          * The outputted font height (defaults to the height of the highest input icon).
          */
-        fontHeight?: number;
+        fontHeight?: number | undefined;
         /**
          * Setup SVG path rounding.
          *
          * @default 10e12
          */
-        round?: number;
+        round?: number | undefined;
         /**
          * The font descent. It is usefull to fix the font baseline yourself.
          *
          * Warning: The descent is a positive value!
          */
-        descent?: number;
+        descent?: number | undefined;
         /**
          * The font ascent.
          *
@@ -74,19 +74,19 @@ declare namespace SVGIcons2SVGFontStream {
          * Use this options only if you know what you're doing.
          * A suitable value for this is computed for you.
          */
-        ascent?: number;
+        ascent?: number | undefined;
         /**
          * The font [metadata](http://www.w3.org/TR/SVG/metadata.html).
          *
          * You can set any character data in but it is the be suited place for a copyright mention.
          */
-        metadata?: string;
+        metadata?: string | undefined;
         /**
          * A function which determines the metadata for an icon.
          * It takes a parameter file with an icon svg and should return icon metadata (asynchronously) via the callback function.
          * You can use this function to provide custom logic for svg to codepoint mapping.
          */
-        metadataProvider?: MetadataProvider;
+        metadataProvider?: MetadataProvider | undefined;
         /**
          * Allows you to provide your own logging function.
          *
@@ -94,7 +94,7 @@ declare namespace SVGIcons2SVGFontStream {
          *
          * @default console.log()
          */
-        log?: (message?: any) => void;
+        log?: ((message?: any) => void) | undefined;
     }
 
     interface Metadata {
@@ -105,10 +105,10 @@ declare namespace SVGIcons2SVGFontStream {
     }
 
     interface MetadataOptions {
-        prependUnicode?: boolean;
-        startUnicode?: number;
-        log?: typeof console['log'];
-        err?: typeof console['error'];
+        prependUnicode?: boolean | undefined;
+        startUnicode?: number | undefined;
+        log?: typeof console['log'] | undefined;
+        err?: typeof console['error'] | undefined;
     }
 
     interface MetadataProvider {

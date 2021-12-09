@@ -2,17 +2,17 @@ export interface Map {
     [key: string]: any;
 }
 export interface CursorParams {
-    page?: number;
-    per_page?: number;
+    page?: number | undefined;
+    per_page?: number | undefined;
 }
 export type Strings = string[];
 
 export interface Cursor {
-    page?: number;
-    per_page?: number;
-    has_more?: boolean;
-    current_page?: number;
-    total_pages?: number;
+    page?: number | undefined;
+    per_page?: number | undefined;
+    has_more?: boolean | undefined;
+    current_page?: number | undefined;
+    total_pages?: number | undefined;
 }
 export interface Entries<T> extends Cursor {
     entries: T[];

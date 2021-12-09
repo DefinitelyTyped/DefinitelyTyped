@@ -451,6 +451,20 @@ describe("Stripe elements", () => {
                 // Handle result.error or result.paymentIntent
             });
 
+        // stripe.confirmSofortPayment(clientSecret,data?)
+        stripe
+            .confirmSofortPayment('{PAYMENT_INTENT_CLIENT_SECRET}', {
+                payment_method: {
+                  sofort: {
+                    country: 'DE'
+                  }
+                },
+                return_url: 'https://example.com/return_url'
+            })
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+
         const ibanElement = elements.create('iban');
         stripe.confirmSepaDebitPayment(
             'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',

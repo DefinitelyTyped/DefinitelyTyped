@@ -14,7 +14,7 @@ declare namespace worldCurrencies {
         units: {
             major: Unit;
             minor: MinorUnit;
-            minor2?: MinorUnit;
+            minor2?: MinorUnit | undefined;
         };
         banknotes: CashValues;
         coins: CashValues;

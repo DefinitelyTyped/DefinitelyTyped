@@ -3,6 +3,6 @@
 // Definitions by: Gabriel Fournier <https://github.com/carboneater>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function json2xml(json: unknown, opts?: { header?: boolean, attributes_key?: string }): string;
+declare function json2xml(json: unknown, opts?: { header?: boolean | undefined, attributes_key?: string | undefined }): string;
 
 export = json2xml;

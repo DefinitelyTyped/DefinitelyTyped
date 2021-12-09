@@ -98,15 +98,15 @@ interface CssProps
 
 interface HammerOptions
 {
-  cssProps?:CssProps;
-  domEvents?:boolean;
-  enable?:boolean | ((manager: HammerManager) => boolean);
-  preset?:RecognizerTuple[];
-  touchAction?:string;
-  recognizers?:RecognizerTuple[];
+  cssProps?:CssProps | undefined;
+  domEvents?:boolean | undefined;
+  enable?:boolean | ((manager: HammerManager) => boolean) | undefined;
+  preset?:RecognizerTuple[] | undefined;
+  touchAction?:string | undefined;
+  recognizers?:RecognizerTuple[] | undefined;
 
-  inputClass?:HammerInput;
-  inputTarget?:EventTarget;
+  inputClass?:HammerInput | undefined;
+  inputTarget?:EventTarget | undefined;
 }
 
 interface HammerManagerConstructor {
@@ -255,16 +255,16 @@ declare class TouchMouseInput extends HammerInput
 }
 
 interface RecognizerOptions {
-  direction?: number;
-  enable?: boolean | ((recognizer: Recognizer, inputData: HammerInput) => boolean);
-  event?: string;
-  interval?: number;
-  pointers?: number;
-  posThreshold?: number;
-  taps?: number
-  threshold?: number;
-  time?: number;
-  velocity?: number;
+  direction?: number | undefined;
+  enable?: boolean | ((recognizer: Recognizer, inputData: HammerInput) => boolean) | undefined;
+  event?: string | undefined;
+  interval?: number | undefined;
+  pointers?: number | undefined;
+  posThreshold?: number | undefined;
+  taps?: number | undefined
+  threshold?: number | undefined;
+  time?: number | undefined;
+  velocity?: number | undefined;
 }
 
 interface RecognizerStatic

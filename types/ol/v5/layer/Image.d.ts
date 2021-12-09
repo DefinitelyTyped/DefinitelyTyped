@@ -10,14 +10,14 @@ import Source from '../source/Source';
 import Layer from './Layer';
 
 export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    map?: PluggableMap;
-    source?: ImageSource;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    map?: PluggableMap | undefined;
+    source?: ImageSource | undefined;
 }
 export default class ImageLayer extends Layer {
     constructor(opt_options?: Options);

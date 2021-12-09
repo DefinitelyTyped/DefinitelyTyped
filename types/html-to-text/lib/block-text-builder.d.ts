@@ -2,18 +2,18 @@
  * types of options for BlockTextBuilder methods.  These replace previously positional options.
  */
 
-export interface AddInlineOptions { noWordTransform?: boolean; }
-export interface OpenBlockOptions { leadingLineBreaks?: number;
-    reservedLineLength?: number;
-    isPre?: boolean; }
+export interface AddInlineOptions { noWordTransform?: boolean | undefined; }
+export interface OpenBlockOptions { leadingLineBreaks?: number | undefined;
+    reservedLineLength?: number | undefined;
+    isPre?: boolean | undefined; }
 export type BlockTransformer = (str: string) => string;
-export interface CloseBlockOptions { trailingLineBreaks?: number; blockTransform?: BlockTransformer; }
-export interface OpenTableCellOptions { maxColumnWidth?: number; }
-export interface CloseTableCellOptions { colspan?: number; rowspan?: number; }
-export interface CloseTableOptions { colSpacing?: number;
-    rowSpacing?: number;
-    leadingLineBreaks?: number;
-    trailingLineBreaks?: number; }
+export interface CloseBlockOptions { trailingLineBreaks?: number | undefined; blockTransform?: BlockTransformer | undefined; }
+export interface OpenTableCellOptions { maxColumnWidth?: number | undefined; }
+export interface CloseTableCellOptions { colspan?: number | undefined; rowspan?: number | undefined; }
+export interface CloseTableOptions { colSpacing?: number | undefined;
+    rowSpacing?: number | undefined;
+    leadingLineBreaks?: number | undefined;
+    trailingLineBreaks?: number | undefined; }
 
 /**
  * Helps to build text from inline and block elements.

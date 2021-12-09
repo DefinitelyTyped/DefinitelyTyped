@@ -34,7 +34,7 @@ export const transforms: {
 
 export interface FieldValueCallbackInfo {
     label: string;
-    default?: string;
+    default?: string | undefined;
 }
 
 export type FieldValueCallback<T> = FieldValueCallbackWithoutField<T> | FieldValueCallbackWithField<T>;
@@ -48,8 +48,8 @@ export interface FieldValueCallbackWithField<T> {
 }
 
 export interface FieldInfo<T> {
-    label?: string;
-    default?: string;
+    label?: string | undefined;
+    default?: string | undefined;
     value: string | FieldValueCallback<T>;
 }
 
@@ -59,29 +59,29 @@ export interface NormalizedFieldInfo<T> {
 }
 
 export interface Options<T> {
-    fields?: Array<string | FieldInfo<T>>;
-    ndjson?: boolean;
-    defaultValue?: string;
-    quote?: string;
-    escapedQuote?: string;
-    delimiter?: string;
-    eol?: string;
-    excelStrings?: boolean;
-    header?: boolean;
-    includeEmptyRows?: boolean;
-    withBOM?: boolean;
-    transforms?: Array<Json2CsvTransform<any, any>>;
+    fields?: Array<string | FieldInfo<T>> | undefined;
+    ndjson?: boolean | undefined;
+    defaultValue?: string | undefined;
+    quote?: string | undefined;
+    escapedQuote?: string | undefined;
+    delimiter?: string | undefined;
+    eol?: string | undefined;
+    excelStrings?: boolean | undefined;
+    header?: boolean | undefined;
+    includeEmptyRows?: boolean | undefined;
+    withBOM?: boolean | undefined;
+    transforms?: Array<Json2CsvTransform<any, any>> | undefined;
 }
 
 export interface FlattenOptions {
-    objects?: boolean;
-    arrays?: boolean;
-    separator?: string;
+    objects?: boolean | undefined;
+    arrays?: boolean | undefined;
+    separator?: string | undefined;
 }
 
 export type Json2CsvTransform<T1, T2> = (item: T1) => T2 | T2[];
 
 export interface UnwindOptions {
-    paths?: string[];
-    blankOut?: boolean;
+    paths?: string[] | undefined;
+    blankOut?: boolean | undefined;
 }

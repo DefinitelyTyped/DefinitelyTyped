@@ -87,7 +87,7 @@ declare namespace chrome {
     namespace accessibilityFeatures {
         interface AccessibilityFeaturesGetArg {
             /** Whether to return the value that applies to the incognito session (default false).  */
-            incognito?: boolean;
+            incognito?: boolean | undefined;
         }
 
         type LevelOfControl =
@@ -106,7 +106,7 @@ declare namespace chrome {
              */
             levelOfControl: LevelOfControl;
             /** Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
-            incognitoSpecific?: boolean;
+            incognitoSpecific?: boolean | undefined;
         }
 
         type Scope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
@@ -124,7 +124,7 @@ declare namespace chrome {
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: Scope;
+            scope?: Scope | undefined;
         }
 
         interface AccessibilityFeaturesClearArg {
@@ -135,7 +135,7 @@ declare namespace chrome {
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: Scope;
+            scope?: Scope | undefined;
         }
 
         interface AccessibilityFeaturesSetting {
@@ -239,16 +239,16 @@ declare namespace chrome {
     namespace alarms {
         interface AlarmCreateInfo {
             /** Length of time in minutes after which the onAlarm event should fire.  */
-            delayInMinutes?: integer;
+            delayInMinutes?: integer | undefined;
             /** If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
-            periodInMinutes?: integer;
+            periodInMinutes?: integer | undefined;
             /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
-            when?: integer;
+            when?: integer | undefined;
         }
 
         interface Alarm {
             /** If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
-            periodInMinutes?: integer;
+            periodInMinutes?: integer | undefined;
             /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
             scheduledTime: integer;
             /** Name of this alarm. */
@@ -373,33 +373,33 @@ declare namespace chrome {
              * The ID of the file or URL handler that the app is being invoked with.
              * Handler IDs are the top-level keys in the file_handlers and/or url_handlers dictionaries in the manifest.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * The file entries for the onLaunched event triggered by a matching file handler in the file_handlers manifest key.
              */
-            items?: LaunchDataItem[];
+            items?: LaunchDataItem[] | undefined;
             /**
              * The URL for the onLaunched event triggered by a matching URL handler in the url_handlers manifest key.
              */
-            url?: string;
+            url?: string | undefined;
             /**
              * The referrer URL for the onLaunched event triggered by a matching URL handler in the url_handlers manifest key.
              */
-            referrerUrl?: string;
+            referrerUrl?: string | undefined;
             /**
              * Whether the app is being launched in a Chrome OS kiosk session.
              */
-            isKioskSession?: boolean;
+            isKioskSession?: boolean | undefined;
             /**
              * Whether the app is being launched in a Chrome OS public session.
              * @since Chrome 47.
              */
-            isPublicSession?: boolean;
+            isPublicSession?: boolean | undefined;
             /**
              * Where the app is launched from.
              * @see enum LaunchSource
              */
-            source?: ToStringLiteral<typeof LaunchSource>;
+            source?: ToStringLiteral<typeof LaunchSource> | undefined;
             /**
              * Contains data that specifies the ActionType this app was launched with. This is null if the app was not launched with a specific action intent.
              *  ______________________________________________________________________________
@@ -408,7 +408,7 @@ declare namespace chrome {
              * |____________________|____________|____________________________________________|
              * @since Chrome 54.
              */
-            actionData?: ToStringLiteral<typeof ActionType>;
+            actionData?: ToStringLiteral<typeof ActionType> | undefined;
         }
 
         interface LaunchDataItem {
@@ -419,7 +419,7 @@ declare namespace chrome {
             /**
              * The MIME type of the file.
              */
-            type?: string;
+            type?: string | undefined;
         }
 
         /**
@@ -454,10 +454,10 @@ declare namespace chrome {
      */
     namespace app {
         interface ContentBounds {
-            left?: integer;
-            top?: integer;
-            width?: integer;
-            height?: integer;
+            left?: integer | undefined;
+            top?: integer | undefined;
+            width?: integer | undefined;
+            height?: integer | undefined;
         }
 
         /**
@@ -474,21 +474,21 @@ declare namespace chrome {
 
         interface BoundsSpecification {
             /** The X coordinate of the content or window. */
-            left?: integer;
+            left?: integer | undefined;
             /** The Y coordinate of the content or window. */
-            top?: integer;
+            top?: integer | undefined;
             /** The width of the content or window. */
-            width?: integer;
+            width?: integer | undefined;
             /** The height of the content or window. */
-            height?: integer;
+            height?: integer | undefined;
             /** The minimum width of the content or window. */
-            minWidth?: integer;
+            minWidth?: integer | undefined;
             /** The minimum height of the content or window. */
-            minHeight?: integer;
+            minHeight?: integer | undefined;
             /** The maximum width of the content or window. */
-            maxWidth?: integer;
+            maxWidth?: integer | undefined;
             /** The maximum height of the content or window. */
-            maxHeight?: integer;
+            maxHeight?: integer | undefined;
         }
 
         interface Bounds {
@@ -501,13 +501,13 @@ declare namespace chrome {
             /** This property can be used to read or write the current height of the content or window. */
             height: integer;
             /** This property can be used to read or write the current minimum width of the content or window. A value of null indicates 'unspecified'. */
-            minWidth?: integer | null;
+            minWidth?: integer | null | undefined;
             /** This property can be used to read or write the current minimum height of the content or window. A value of null indicates 'unspecified'. */
-            minHeight?: integer | null;
+            minHeight?: integer | null | undefined;
             /** This property can be used to read or write the current maximum width of the content or window. A value of null indicates 'unspecified'. */
-            maxWidth?: integer | null;
+            maxWidth?: integer | null | undefined;
             /** This property can be used to read or write the current maximum height of the content or window. A value of null indicates 'unspecified'. */
-            maxHeight?: integer | null;
+            maxHeight?: integer | null | undefined;
             /** Set the left and top position of the content or window. */
             setPosition(left: integer, top: integer): void;
             /** Set the width and height of the content or window. */
@@ -538,7 +538,7 @@ declare namespace chrome {
              * @description
              * Enable alpha on frame 'none'
              */
-            alphaEnabled?: boolean;
+            alphaEnabled?: boolean | undefined;
         }
         interface FrameOptionsChrome {
             /**
@@ -552,19 +552,19 @@ declare namespace chrome {
              * Allows the frame color to be set. Frame coloring is only available if the frame type is chrome.
              * @since Frame coloring is new in Chrome 36.
              */
-            color?: string;
+            color?: string | undefined;
             /**
              * Allows the frame color of the window when active to be set. Frame coloring is only available if the frame type is chrome.
              * Frame coloring is only available if the frame type is chrome.
              * @since Frame coloring is new in Chrome 36.
              */
-            activeColor?: string;
+            activeColor?: string | undefined;
             /**
              * Allows the frame color of the window when inactive to be set differently to the active color. Frame coloring is only available if the frame type is chrome.
              * inactiveColor must be used in conjunction with color.
              * @since Frame coloring is new in Chrome 36.
              */
-            inactiveColor?: string;
+            inactiveColor?: string | undefined;
         }
 
         interface CreateWindowOptions extends ContentBounds {
@@ -575,7 +575,7 @@ declare namespace chrome {
              * If a window with a given id is created while another window with the same id already exists,
              * the currently opened window will be focused instead of creating a new window.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * Used to specify the initial position, initial size and constraints of the window's content (excluding window decorations).
              * If an id is also specified and a window with a matching id has been shown before, the remembered bounds will be used instead.
@@ -583,7 +583,7 @@ declare namespace chrome {
              * Therefore setting the same bounds property for both the innerBounds and outerBounds will result in an error.
              * @since This property is new in Chrome 36.
              */
-            innerBounds?: BoundsSpecification;
+            innerBounds?: BoundsSpecification | undefined;
             /**
              * Used to specify the initial position, initial size and constraints of the window (including window decorations such as the title bar and frame).
              * If an id is also specified and a window with a matching id has been shown before, the remembered bounds will be used instead.
@@ -591,32 +591,32 @@ declare namespace chrome {
              * Therefore setting the same bounds property for both the innerBounds and outerBounds will result in an error.
              * @since This property is new in Chrome 36.
              */
-            outerBounds?: BoundsSpecification;
+            outerBounds?: BoundsSpecification | undefined;
             /**
              * Minimum width of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            minWidth?: integer;
+            minWidth?: integer | undefined;
             /**
              * Minimum height of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            minHeight?: integer;
+            minHeight?: integer | undefined;
             /**
              * Maximum width of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            maxWidth?: integer;
+            maxWidth?: integer | undefined;
             /**
              * Maximum height of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            maxHeight?: integer;
+            maxHeight?: integer | undefined;
             /**
              * @deprecated Deprecated since Chrome 69. All app windows use the 'shell' window type.
              * @description Type of window to create
              **/
-            type?: 'shell';
+            type?: 'shell' | undefined;
             /**
              * If true, the window will have its own shelf icon.
              * Otherwise the window will be grouped in the shelf with other windows that are associated with the app.
@@ -624,54 +624,54 @@ declare namespace chrome {
              * @default false
              * @since Chrome 54.
              */
-            showInShelf?: boolean;
+            showInShelf?: boolean | undefined;
             /**
              * URL of the window icon.
              * A window can have its own icon when showInShelf is set to true.
              * The URL should be a global or an app's local URL.
              * @since Chrome 54.
              */
-            icon?: string;
+            icon?: string | undefined;
             /**
              * Frame type: none or chrome (defaults to chrome).
              * For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window.
              * -webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.
              * @since Use of FrameOptions is new in M36.
              */
-            frame?: 'none' | 'chrome' | FrameOptions | FrameOptionsChrome;
+            frame?: 'none' | 'chrome' | FrameOptions | FrameOptionsChrome | undefined;
             /**
              * @requires(dev) Chrome dev only
              * @requires Permissions: 'app.window.alpha'
              * @description
              * Enable alpha on frame 'none'
              */
-            alphaEnabled?: boolean;
+            alphaEnabled?: boolean | undefined;
             /**
              * @requires frame = 'none'
              * @requires Permissions: 'app.window.ime'
              * @description
              * Windows API - ime (No fullscreen window in kiosk mode)
              */
-            ime?: boolean;
+            ime?: boolean | undefined;
             /**
              * Size and position of the content in the window (excluding the titlebar).
              * If an id is also specified and a window with a matching id has been shown before,
              * the remembered bounds of the window will be used instead.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            bounds?: ContentBounds;
+            bounds?: ContentBounds | undefined;
             /**
              * The initial state of the window, allowing it to be created already fullscreen, maximized, or minimized. Defaults to 'normal'.
              */
-            state?: ToStringLiteral<typeof _State>;
+            state?: ToStringLiteral<typeof _State> | undefined;
             /**
              * If true, the window will be created in a hidden state. Call show() on the window to show it once it has been created. Defaults to false.
              */
-            hidden?: boolean;
+            hidden?: boolean | undefined;
             /**
              * If true, the window will be resizable by the user. Defaults to true.
              */
-            resizable?: boolean;
+            resizable?: boolean | undefined;
             /**
              * @deprecated Deprecated since Chrome 34. Multiple windows with the same id is no longer supported.
              * By default if you specify an id for the window,
@@ -679,7 +679,7 @@ declare namespace chrome {
              * If a window with the same id already exists that window is activated instead.
              * If you do want to create multiple windows with the same id, you can set this property to false.
              */
-            singleton?: boolean;
+            singleton?: boolean | undefined;
             /**
              * @requires Permissions: 'alwaysOnTopWindows' or 'app.window.alwaysOnTop'
              * @description
@@ -688,14 +688,14 @@ declare namespace chrome {
              * Call setAlwaysOnTop() on the window to change this property after creation.
              * @default false
              */
-            alwaysOnTop?: boolean;
+            alwaysOnTop?: boolean | undefined;
             /** If true, the window will be focused when created. Defaults to true. */
-            focused?: boolean;
+            focused?: boolean | undefined;
             /**
              * If true, and supported by the platform, the window will be visible on all workspaces.
              * @since Chrome 39.
              */
-            visibleOnAllWorkspaces?: boolean;
+            visibleOnAllWorkspaces?: boolean | undefined;
         }
         interface AppWindow {
             /** Focus the window. */
@@ -802,8 +802,8 @@ declare namespace chrome {
 
         interface WindowParams extends AppWindow {
             id: string;
-            frameId?: integer;
-            existingWindow?: boolean;
+            frameId?: integer | undefined;
+            existingWindow?: boolean | undefined;
             [key: string]: any;
         }
 
@@ -899,19 +899,19 @@ declare namespace chrome {
             /** The sound level of the device, volume for output, gain for input. */
             level: integer;
             /** The stable/persisted device id string when available. */
-            stableDeviceId?: string;
+            stableDeviceId?: string | undefined;
         }
         interface DeviceIdLists {
             /**
              * List of input devices specified by their ID.
              * To indicate input devices should be unaffected, leave this property unset.
              */
-            input?: string[];
+            input?: string[] | undefined;
             /**
              * List of output devices specified by their ID.
              * To indicate output devices should be unaffected, leave this property unset.
              */
-            output?: string[];
+            output?: string[] | undefined;
         }
         interface SetDeviceProperties {
             /**
@@ -919,7 +919,7 @@ declare namespace chrome {
              * If used with audio input device, represents audio device gain.
              * If used with audio output device, represents audio device volume.
              */
-            level?: integer;
+            level?: integer | undefined;
         }
         /**
          * Device properties by which to filter the list of returned audio devices.
@@ -929,11 +929,11 @@ declare namespace chrome {
             /**
              * If set, only audio devices whose stream type is included in this list will satisfy the filter.
              */
-            streamTypes?: StreamType[];
+            streamTypes?: StreamType[] | undefined;
             /**
              * If set, only audio devices whose active state matches this value will satisfy the filter.
              */
-            isActive?: boolean;
+            isActive?: boolean | undefined;
         }
         /**
           * Gets a list of audio devices filtered based on |filter|.
@@ -1012,41 +1012,41 @@ declare namespace chrome {
             /** The address of the device, in the format 'XX:XX:XX:XX:XX:XX'. */
             address: string;
             /** The human-readable name of the device. */
-            name?: string;
+            name?: string | undefined;
             /** The class of the device, a bit-field defined by http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband. */
-            deviceClass?: integer;
+            deviceClass?: integer | undefined;
             /** The Device ID record of the device, where available. */
-            vendorIdSource?: DeviceVendorIdSource;
-            vendorId?: integer;
-            productId?: integer;
-            deviceId?: integer;
+            vendorIdSource?: DeviceVendorIdSource | undefined;
+            vendorId?: integer | undefined;
+            productId?: integer | undefined;
+            deviceId?: integer | undefined;
             /**
              * The type of the device, if recognized by Chrome.
              * This is obtained from the |deviceClass| field and only represents a small fraction of the possible device types.
              * When in doubt you should use the |deviceClass| field directly.
              */
-            type?: DeviceType;
+            type?: DeviceType | undefined;
             /** Indicates whether or not the device is paired with the system. */
-            paired?: boolean;
+            paired?: boolean | undefined;
             /** Indicates whether the device is currently connected to the system. */
-            connected?: boolean;
+            connected?: boolean | undefined;
             /**
              * Indicates whether the device is currently connecting to the system.
              * @since Chrome 48
              */
-            connecting?: boolean;
+            connecting?: boolean | undefined;
             /**
              * Indicates whether the device is connectable.
              * @since Chrome 48
              */
-            connectable?: boolean;
+            connectable?: boolean | undefined;
             /**
              * UUIDs of protocols, profiles and services advertised by the device.
              * For classic Bluetooth devices, this list is obtained from EIR data and SDP tables.
              * For Low Energy devices, this list is obtained from AD and GATT primary services.
              * For dual mode devices this may be obtained from both.
              */
-            uuids?: string[];
+            uuids?: string[] | undefined;
             /**
              * The received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
              * @since Chrome 44
@@ -1070,9 +1070,9 @@ declare namespace chrome {
          */
         interface DeviceFilter {
             /** Type of filter to apply to the device list. Default is all. */
-            filterType?: DeviceFilterType;
+            filterType?: DeviceFilterType | undefined;
             /** Maximum number of bluetoth devices to return. Default is 0 (no limit) if unspecified. */
-            limit?: integer;
+            limit?: integer | undefined;
         }
         /** Get information about the Bluetooth adapter. */
         function getAdapterState(callback: (adapterInfo: AdapterState) => void): void;
@@ -1137,12 +1137,12 @@ declare namespace chrome {
              * Use the instance ID to distinguish between services from a peripheral with the same UUID and to make function calls that take in a service identifier.
              * Present, if this instance represents a remote service.
              **/
-            instanceId?: string;
+            instanceId?: string | undefined;
             /**
              * The device address of the remote peripheral that the GATT service belongs to.
              * Present, if this instance represents a remote service.
              */
-            deviceAddress?: string;
+            deviceAddress?: string | undefined;
         }
         type CharacteristicProperties =
             'broadcast' |
@@ -1163,13 +1163,13 @@ declare namespace chrome {
             /** The UUID of the characteristic, e.g. 00002a37-0000-1000-8000-00805f9b34fb. */
             uuid: string;
             /** The GATT service this characteristic belongs to. */
-            service?: Service;
+            service?: Service | undefined;
             /** The properties of this characteristic. */
             properties: CharacteristicProperties[];
             /** Returns the identifier assigned to this characteristic. Use the instance ID to distinguish between characteristics from a peripheral with the same UUID and to make function calls that take in a characteristic identifier. Present, if this instance represents a remote characteristic. */
-            instanceId?: string;
+            instanceId?: string | undefined;
             /** The currently cached characteristic value. This value gets updated when the value of the characteristic is read or updated via a notification or indication. */
-            value?: ArrayBuffer;
+            value?: ArrayBuffer | undefined;
         }
         type DescriptorPermissions =
             'read' |
@@ -1183,26 +1183,26 @@ declare namespace chrome {
             /** The UUID of the characteristic descriptor, e.g. 00002902-0000-1000-8000-00805f9b34fb. */
             uuid: string;
             /** The GATT characteristic this descriptor belongs to. */
-            characteristic?: Characteristic;
+            characteristic?: Characteristic | undefined;
             /**
              * The permissions of this descriptor.
              * @since Chrome 52.
              */
             permissions: DescriptorPermissions[];
             /** Returns the identifier assigned to this descriptor. Use the instance ID to distinguish between descriptors from a peripheral with the same UUID and to make function calls that take in a descriptor identifier. Present, if this instance represents a remote characteristic. */
-            instanceId?: string;
+            instanceId?: string | undefined;
             /** The currently cached descriptor value. This value gets updated when the value of the descriptor is read. */
-            value?: ArrayBuffer;
+            value?: ArrayBuffer | undefined;
         }
         interface RequestDevice {
             /** The address of the device, in the format 'XX:XX:XX:XX:XX:XX'. */
             address: string;
             /** The human-readable name of the device. */
-            name?: string;
+            name?: string | undefined;
             /** The class of the device, a bit - field defined by:
              * @see [Specs]{@link http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband}
              **/
-            deviceClass?: integer;
+            deviceClass?: integer | undefined;
         }
         interface Request {
             /** Unique ID for this request. Use this ID when responding to this request. */
@@ -1210,7 +1210,7 @@ declare namespace chrome {
             /** Device that send this request. */
             device: RequestDevice;
             /** Value to write (if this is a write request). */
-            value?: ArrayBuffer;
+            value?: ArrayBuffer | undefined;
         }
         interface IProperties {
             /**
@@ -1231,11 +1231,11 @@ declare namespace chrome {
             /** Type of advertisement. */
             type: AdvertisementType;
             /** List of UUIDs to include in the 'Service UUIDs' field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
-            serviceUuids?: string[];
+            serviceUuids?: string[] | undefined;
             /** List of manufacturer specific data to be included in 'Manufacturer Specific Data' fields of the advertising data. */
-            manufacturerData?: { id: integer, data: integer[] };
+            manufacturerData?: { id: integer, data: integer[] } | undefined;
             /** List of UUIDs to include in the 'Solicit UUIDs' field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
-            solicitUuids?: string[];
+            solicitUuids?: string[] | undefined;
             /** List of service data to be included in 'Service Data' fields of the advertising data. */
             serviceData: { uuid: string, data: integer[] };
         }
@@ -1245,7 +1245,7 @@ declare namespace chrome {
             /** If this is an error response, this should be true. */
             isError: boolean;
             /** Response value. Write requests and error responses will ignore this parameter. */
-            value?: ArrayBuffer;
+            value?: ArrayBuffer | undefined;
         }
         /**
          * Establishes a connection between the application and the device with the given address. A device may be already connected and its GATT services available without calling connect, however, an app that wants to access GATT services of a device should call this function to make sure that a connection to the device is maintained. If the device is not connected, all GATT services of the device will be discovered after a successful call to connect.
@@ -1558,15 +1558,15 @@ declare namespace chrome {
              * When the application is loaded, any sockets previously
              * opened with persistent=true can be fetched with $ref:getSockets.
              */
-            persistent?: boolean;
+            persistent?: boolean | undefined;
             /** An application-defined string associated with the socket. */
-            name?: string;
+            name?: string | undefined;
             /**
              * @default 4096
              * @description
              * The size of the buffer used to receive data.
              * */
-            bufferSize?: integer;
+            bufferSize?: integer | undefined;
         }
         interface ListenOptions {
             /**
@@ -1575,19 +1575,19 @@ declare namespace chrome {
              * in use or the method call will fail. When not specified,
              * an unused channel will be automatically allocated.
              */
-            channel?: integer;
+            channel?: integer | undefined;
             /**
              * The L2CAP PSM used by listenUsingL2cap.
              * If specified, this PSM must not be previously
              * in use or the method call with fail. When not specified,
              * an unused PSM will be automatically allocated.
              * */
-            psm?: integer;
+            psm?: integer | undefined;
             /**
              * Length of the socket's listen queue.
              * The default value depends on the operating system's host subsystem.
              * */
-            backlog?: integer;
+            backlog?: integer | undefined;
         }
         interface SocketInfo {
             /**
@@ -1604,13 +1604,13 @@ declare namespace chrome {
             /**
              * Application-defined string associated with the socket.
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * The size of the buffer used to receive data.
              * If no buffer size has been specified explictly,
              * the value is not provided.
              */
-            bufferSize?: integer;
+            bufferSize?: integer | undefined;
             /**
              * Flag indicating whether a connected socket
              * blocks its peer from sending more data, or
@@ -1628,7 +1628,7 @@ declare namespace chrome {
              * If the underlying socket is connected,
              * contains the Bluetooth address of the device it is connected to.
              */
-            address?: string;
+            address?: string | undefined;
             /**
              * If the underlying socket is connected,
              * contains information about the service
@@ -1637,7 +1637,7 @@ declare namespace chrome {
              * contains information about the service
              * UUID it is listening on.
              */
-            uuid?: string;
+            uuid?: string | undefined;
         }
 
         interface CreateInfo {
@@ -1944,14 +1944,14 @@ declare namespace chrome {
              * Must be the DER encoding of a X.509 certificate. Currently, only
              * certificates of RSA keys are supported.
              */
-            certificate?: ArrayBuffer;
+            certificate?: ArrayBuffer | undefined;
             /**
              * Must be set to all hashes supported for this certificate. This app
              * will only be asked for signatures of digests calculated with one of these
              * hash algorithms. This should be in order of decreasing hash preference.
              * @see Hash
              */
-            supportedHashes?: Hash[];
+            supportedHashes?: Hash[] | undefined;
         }
         interface SignRequest {
             /**
@@ -1978,13 +1978,13 @@ declare namespace chrome {
              * The type of code requested. Default is PIN.
              * @see PinRequestType
              */
-            requestType?: ToStringLiteral<typeof PinRequestType>;
+            requestType?: ToStringLiteral<typeof PinRequestType> | undefined;
             /**
              * The error template displayed to the user. This should be set if the
              * previous request failed, to notify the user of the failure reason.
              * @see PinRequestErrorType
              */
-            errorType?: ToStringLiteral<typeof PinRequestErrorType>;
+            errorType?: ToStringLiteral<typeof PinRequestErrorType> | undefined;
             /**
              * The number of attempts left. This is provided so that any UI can present
              * this information to the user. Chrome is not expected to enforce this,
@@ -1992,7 +1992,7 @@ declare namespace chrome {
              * errorType = MAX_ATTEMPTS_EXCEEDED when the number of pin requests is
              * exceeded.
              */
-            attemptsLeft?: number;
+            attemptsLeft?: number | undefined;
         }
         interface StopRequestPinDetails {
             /**
@@ -2005,10 +2005,10 @@ declare namespace chrome {
              * e.g. MAX_ATTEMPTS_EXCEEDED.
              * @see PinRequestErrorType
              */
-            errorType?: ToStringLiteral<typeof PinRequestErrorType>;
+            errorType?: ToStringLiteral<typeof PinRequestErrorType> | undefined;
         }
         interface PinResponseDetails {
-            userInput?: string;
+            userInput?: string | undefined;
         }
         /**
          * Requests the PIN from the user. Only one ongoing request at a time is
@@ -2125,11 +2125,11 @@ declare namespace chrome {
     namespace commands {
         interface Command {
             /** The name of the command  */
-            name?: string;
+            name?: string | undefined;
             /** The command description  */
-            description?: string;
+            description?: string | undefined;
             /** The shortcut active for this command, or blank if not active.  */
-            shortcut?: string;
+            shortcut?: string | undefined;
         }
 
         interface CommandEvent extends chrome.events.Event<(command: string) => void> { }
@@ -2221,26 +2221,26 @@ declare namespace chrome {
              * The parent ID, if any, for the item clicked.
              * @since Chrome 35.
              */
-            parentMenuItemId?: integer | string;
+            parentMenuItemId?: integer | string | undefined;
 
             /**
              * One of 'image', 'video', or 'audio' if the context menu was
              * activated on one of these types of elements.
              * @since Chrome 35.
              */
-            mediaType?: MediaType;
+            mediaType?: MediaType | undefined;
 
             /**
              * If the element is a link, the URL it points to.
              * @since Chrome 35.
              */
-            linkUrl?: string;
+            linkUrl?: string | undefined;
 
             /**
              * Will be present for elements with a 'src' URL.
              * @since Chrome 35.
              */
-            srcUrl?: string;
+            srcUrl?: string | undefined;
 
             /**
              * The URL of the page where the menu item was clicked.
@@ -2256,20 +2256,20 @@ declare namespace chrome {
              * if it was in a frame.
              * @since Chrome 35.
              */
-            frameUrl?: string;
+            frameUrl?: string | undefined;
 
             /**
              * The ID of the frame of the element where the context menu was clicked,
              * if it was in a frame.
              * @since Chrome 35.
              */
-            frameId?: integer;
+            frameId?: integer | undefined;
 
             /**
              * The text for the context selection, if any.
              * @since Chrome 35.
              */
-            selectionText?: string;
+            selectionText?: string | undefined;
 
             /**
              * A flag indicating whether the element is editable (text input, textarea, etc.).
@@ -2281,13 +2281,13 @@ declare namespace chrome {
              * A flag indicating the state of a checkbox or radio item before it was clicked.
              * @since Chrome 35.
              */
-            wasChecked?: boolean;
+            wasChecked?: boolean | undefined;
 
             /**
              * A flag indicating the state of a checkbox or radio item after it is clicked.
              * @since Chrome 35.
              */
-            checked?: boolean;
+            checked?: boolean | undefined;
         }
 
         interface CreateProperties {
@@ -2296,14 +2296,14 @@ declare namespace chrome {
              * @default 'normal' - Defaults to 'normal' if not specified.
              * @see ItemType
              */
-            type?: ToStringLiteral<typeof ItemType>;
+            type?: ToStringLiteral<typeof ItemType> | undefined;
 
             /**
              * The unique ID to assign to this item.
              * Mandatory for event pages.
              * Cannot be the same as another ID for this app.
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * The text to be displayed in the item;
@@ -2316,7 +2316,7 @@ declare namespace chrome {
              * item for the selection is 'Translate 'cool'
              * to Pig Latin'.
              **/
-            title?: string;
+            title?: string | undefined;
 
             /**
              * The initial state of a checkbox or radio item:
@@ -2324,73 +2324,73 @@ declare namespace chrome {
              * Only one radio item can be selected at a time
              * in a given group of radio items.
              **/
-            checked?: boolean;
+            checked?: boolean | undefined;
 
             /**
              * List of contexts this menu item will appear in.
              * @default ['page'] - Defaults to ['page'] if not specified.
              * @see ContextType
              **/
-            contexts?: ToStringLiteral<typeof ContextType>[];
+            contexts?: ToStringLiteral<typeof ContextType>[] | undefined;
 
             /**
              * Whether the item is visible in the menu.
              * @since Chrome 62.
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
 
             /**
              * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
              * @param info Information sent when a context menu item is clicked.
              */
-            onclick?: (info: OnClickData) => void;
+            onclick?: ((info: OnClickData) => void) | undefined;
 
             /** The ID of a parent menu item; this makes the item a child of a previously added item.  */
-            parentId?: integer | string;
+            parentId?: integer | string | undefined;
 
             /**
              * Lets you restrict the item to apply only to documents whose URL
              * matches one of the given patterns. (This applies to frames as well.)
              * For details on the format of a pattern, see Match Patterns.
              **/
-            documentUrlPatterns?: string[];
+            documentUrlPatterns?: string[] | undefined;
 
             /**
              * Similar to documentUrlPatterns,
              * but lets you filter based on the src attribute
              * of img/audio/video tags and the href of anchor tags.
              **/
-            targetUrlPatterns?: string[];
+            targetUrlPatterns?: string[] | undefined;
 
             /**
              * Whether this context menu item is enabled or disabled.
              * @default true
              */
-            enabled?: boolean;
+            enabled?: boolean | undefined;
         }
 
         interface UpdateProperties {
             /** @see ItemType */
-            type?: ToStringLiteral<typeof ItemType>;
-            title?: string;
-            checked?: boolean;
+            type?: ToStringLiteral<typeof ItemType> | undefined;
+            title?: string | undefined;
+            checked?: boolean | undefined;
             /** @see ContextType */
-            contexts?: ToStringLiteral<typeof ContextType>[];
+            contexts?: ToStringLiteral<typeof ContextType>[] | undefined;
             /**
              * Whether the item is visible in the menu.
              * @since Chrome 62.
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * Information sent when a context menu item is clicked.
              * @since Chrome 44
              */
-            onclick?: (info: OnClickData) => void;
+            onclick?: ((info: OnClickData) => void) | undefined;
             /** Note: You cannot change an item to be a child of one of its own descendants.  */
-            parentId?: integer | string;
-            documentUrlPatterns?: string[];
-            targetUrlPatterns?: string[];
-            enabled?: boolean;
+            parentId?: integer | string | undefined;
+            documentUrlPatterns?: string[] | undefined;
+            targetUrlPatterns?: string[] | undefined;
+            enabled?: boolean | undefined;
         }
 
         interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData) => void> { }
@@ -2549,7 +2549,7 @@ declare namespace chrome {
         interface ErrorInfo {
             /** @see ErrorType */
             type: ToStringLiteral<typeof ErrorType>;
-            description?: string;
+            description?: string | undefined;
         }
         interface SinkInfo {
             /** Id of the sink. It is guaranteed to be unique during the browser session. */
@@ -2567,17 +2567,17 @@ declare namespace chrome {
              * Authentication method.
              * @see AuthenticationMethod
              */
-            method?: ToStringLiteral<typeof AuthenticationMethod>;
+            method?: ToStringLiteral<typeof AuthenticationMethod> | undefined;
             /**
              * Authentication data (e.g. PIN value).
              */
-            data?: string;
+            data?: string | undefined;
         }
         interface StartSessionInfo {
             sinkId: integer;
-            authenticationInfo?: AuthenticationInfo;
-            audioTrack?: object;
-            videoTrack?: object;
+            authenticationInfo?: AuthenticationInfo | undefined;
+            audioTrack?: object | undefined;
+            videoTrack?: object | undefined;
         }
         const getAvailableSinks: Function;
         const requestAuthentication: Function;
@@ -2608,7 +2608,7 @@ declare namespace chrome {
              * Supplied only if resultCode indicates success.
              * Note that we presently return only IPv4 addresses.
              */
-            address?: string;
+            address?: string | undefined;
         }
         /**
          * Resolves the given hostname or IP address literal.
@@ -2641,9 +2641,9 @@ declare namespace chrome {
     namespace documentScan {
         interface DocumentScanOptions {
             /** The MIME types that are accepted by the caller.  */
-            mimeTypes?: string[];
+            mimeTypes?: string[] | undefined;
             /** The number of scanned images allowed (defaults to 1).  */
-            maxImages?: integer;
+            maxImages?: integer | undefined;
         }
 
         interface DocumentScanCallbackArg {
@@ -2880,39 +2880,39 @@ declare namespace chrome {
              * components need to be done separately using hostSuffix, because
              * no implicit dot is added at the end of the host name.
              **/
-            hostContains?: string;
+            hostContains?: string | undefined;
             /** Matches if the host name of the URL is equal to a specified string.  */
-            hostEquals?: string;
+            hostEquals?: string | undefined;
             /** Matches if the host name of the URL starts with a specified string.  */
-            hostPrefix?: string;
+            hostPrefix?: string | undefined;
             /** Matches if the host name of the URL ends with a specified string.  */
-            hostSuffix?: string;
+            hostSuffix?: string | undefined;
             /** Matches if the path segment of the URL contains a specified string.  */
-            pathContains?: string;
+            pathContains?: string | undefined;
             /** Matches if the path segment of the URL starts with a specified string.  */
-            pathEquals?: string;
+            pathEquals?: string | undefined;
             /** Matches if the path segment of the URL ends with a specified string.  */
-            pathPrefix?: string;
+            pathPrefix?: string | undefined;
             /** Matches if the path segment of the URL is equal to a specified string.  */
-            pathSuffix?: string;
+            pathSuffix?: string | undefined;
             /** Matches if the query segment of the URL contains a specified string.  */
-            queryContains?: string;
+            queryContains?: string | undefined;
             /** Matches if the query segment of the URL is equal to a specified string.  */
-            queryEquals?: string;
+            queryEquals?: string | undefined;
             /** Matches if the query segment of the URL starts with a specified string.  */
-            queryPrefix?: string;
+            queryPrefix?: string | undefined;
             /** Matches if the query segment of the URL ends with a specified string.  */
-            querySuffix?: string;
+            querySuffix?: string | undefined;
             /** Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlContains?: string;
+            urlContains?: string | undefined;
             /** Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlEquals?: string;
+            urlEquals?: string | undefined;
             /** Matches if the URL (without fragment identifier) matches a specified regular expression.
              * Port numbers are stripped from the URL if they match the default port number.
              * The regular expressions use the RE2 syntax.
              * @see[RE2 syntax docs]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
              */
-            urlMatches?: string;
+            urlMatches?: string | undefined;
             /**
              * Matches if the URL without query segment and fragment identifier matches a specified regular expression.
              * Port numbers are stripped from the URL if they match the default port number.
@@ -2920,18 +2920,18 @@ declare namespace chrome {
              * @see[RE2 syntax docs]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
              * @since Chrome 28.
              */
-            originAndPathMatches?: string;
+            originAndPathMatches?: string | undefined;
             /** Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlPrefix?: string;
+            urlPrefix?: string | undefined;
             /** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlSuffix?: string;
+            urlSuffix?: string | undefined;
             /** Matches if the scheme of the URL is equal to any of the schemes specified in the array. */
-            schemes?: string[];
+            schemes?: string[] | undefined;
             /**
              * Matches if the port of the URL is contained in any of the specified port lists.
              * For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.
              */
-            ports?: Array<integer | integer[]>;
+            ports?: Array<integer | integer[]> | undefined;
         }
         /** An object which allows the addition and removal of listeners for a Chrome event. */
         interface Event<T extends Function> {
@@ -3016,13 +3016,13 @@ declare namespace chrome {
          */
         interface Rule<T extends object = any, K extends object = any> {
             /** Identifier that allows referencing this rule.  */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * Tags can be used to annotate rules and perform operations on sets of rules.
              * @since Chrome 28.
              */
-            tags?: string[];
+            tags?: string[] | undefined;
 
             /** List of conditions that can trigger the actions. */
             conditions: T[];
@@ -3034,7 +3034,7 @@ declare namespace chrome {
              * Optional priority of this rule.
              * @default 100
              */
-            priority?: integer;
+            priority?: integer | undefined;
         }
     }
     // #endregion
@@ -3054,7 +3054,7 @@ declare namespace chrome {
              * The format of the resulting image.
              * @default 'jpeg'
              */
-            format?: 'jpeg';
+            format?: 'jpeg' | undefined;
 
             /**
              * Controls the quality of the resulting image.
@@ -3062,14 +3062,14 @@ declare namespace chrome {
              * will have more visual artifacts, and the number
              * of bytes needed to store it will decrease.
              */
-            quality?: integer;
+            quality?: integer | undefined;
         }
 
         interface ImageDetailsJpeg {
             /**
              * The format of the resulting image.
              */
-            format?: 'png';
+            format?: 'png' | undefined;
         }
         /**
          * Details about the format and quality of an image.
@@ -3107,19 +3107,19 @@ declare namespace chrome {
                  * and is only injected into the top frame. If true and frameId is set,
                  * then the code is inserted in the selected frame and all of its child frames.
                  */
-                allFrames?: boolean;
+                allFrames?: boolean | undefined;
                 /**
                  * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
                  * @see[frame ref]{@link https://developer.chrome.com/apps/webNavigation#frame_ids}
                  * @since Chrome 50.
                  */
-                frameId?: integer;
+                frameId?: integer | undefined;
                 /**
                  * If matchAboutBlank is true, then the code is also injected in about:blank
                  * and about:srcdoc frames if your extension has access to its parent document.
                  * Code cannot be inserted in top-level about:-frames. By default it is false.
                  */
-                matchAboutBlank?: boolean;
+                matchAboutBlank?: boolean | undefined;
                 /**
                  * The soonest that the JavaScript or CSS will be injected into the tab.
                  * @default 'document_idle'
@@ -3181,7 +3181,7 @@ declare namespace chrome {
              * Extensions should not include the leading '.'.
              * @example ['jpg', 'png']
              */
-            allowedFileExtensions?: string[];
+            allowedFileExtensions?: string[] | undefined;
         }
         interface SelectionResult {
             /** Selected file entry. It will be null if a file hasn't been selected. */
@@ -3262,15 +3262,15 @@ declare namespace chrome {
              * If not present, a description will be automatically generated;
              * typically containing an expanded list of valid extensions (e.g. 'text/html' may expand to '*.html, *.htm').
              */
-            description?: string;
+            description?: string | undefined;
             /**
              * Mime-types to accept, e.g. 'image/jpeg' or 'audio/*'. One of mimeTypess must contain at least one valid element.
              */
-            mimeTypes?: string[];
+            mimeTypes?: string[] | undefined;
             /**
              * Extensions to accept, e.g. 'jpg', 'gif', 'crx'.
              */
-            extensions?: string[];
+            extensions?: string[] | undefined;
         }
 
         interface ChooseEntryOptionsBase {
@@ -3284,20 +3284,20 @@ declare namespace chrome {
             /**
              * The suggested file name that will be presented to the user as the default name to read or write.
              */
-            suggestedName?: string;
+            suggestedName?: string | undefined;
 
             /**
              * The optional list of accept options for this file opener.
              * Each option will be presented as a unique group to the end-user.
              */
-            accepts?: AcceptOptions[];
+            accepts?: AcceptOptions[] | undefined;
 
             /**
              * Whether to accept all file types, in addition to the options specified in the accepts argument.
              * If the accepts field is unset or contains no valid entries, this will always be reset to true.
              * @default true
              */
-            acceptsAllTypes?: boolean;
+            acceptsAllTypes?: boolean | undefined;
         }
         interface ChooseSaveFileEntryOptions extends ChooseEntryOptionsBase {
             type: 'saveFile';
@@ -3311,7 +3311,7 @@ declare namespace chrome {
              * @default false
              * @since Chrome 30.
              */
-            acceptsMultiple?: false;
+            acceptsMultiple?: false | undefined;
         }
         interface ChooseMultipleFilesEntryOptions extends ChooseEntryOptionsBase {
             type: 'openFile' | 'openWritableFile';
@@ -3340,7 +3340,7 @@ declare namespace chrome {
              * Whether the requested file system should be writable. The default is read-only.
              * @default false
              **/
-            writable?: boolean;
+            writable?: boolean | undefined;
         }
 
         /** @private */
@@ -3494,26 +3494,26 @@ declare namespace chrome {
 
         interface EntryMetadata {
             /** True if it is a directory. Must be provided if requested in options */
-            isDirectory?: boolean;
+            isDirectory?: boolean | undefined;
             /**
              * Name of this entry (not full path name).
              * Must not contain '/'.
              * For root it must be empty.
              * Must be provided if requested in options.
              **/
-            name?: string;
+            name?: string | undefined;
             /** File size in bytes. Must be provided if requested in options. */
-            size?: double;
+            size?: double | undefined;
             /** The last modified time of this entry. */
-            modificationTime?: Date;
+            modificationTime?: Date | undefined;
             /** Mime type for the entry.  */
-            mimeType?: string;
+            mimeType?: string | undefined;
             /**
              * Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size.
              * Optional, but can be provided only when explicitly requested
              * by the onGetMetadataRequested event.
              */
-            thumbnail?: string;
+            thumbnail?: string | undefined;
         }
 
         interface FileSystemInfo {
@@ -3545,7 +3545,7 @@ declare namespace chrome {
              * Whether the file system supports the tag field for observing directories.
              * @since Chrome 45.
              */
-            supportsNotifyTag?: boolean;
+            supportsNotifyTag?: boolean | undefined;
 
             /**
              * List of watchers.
@@ -3577,7 +3577,7 @@ declare namespace chrome {
             recursive: boolean;
 
             /** Tag used by the last notification for the watcher.  */
-            lastTag?: string;
+            lastTag?: string | undefined;
         }
 
         /** @since Chrome 45. */
@@ -3598,7 +3598,7 @@ declare namespace chrome {
              **/
             id: ToStringLiteral<typeof CommonActionId> | string;
             /** The title of the action. It may be ignored for common actions.  */
-            title?: string;
+            title?: string | undefined;
         }
 
         /** @since Chrome 45. */
@@ -3622,23 +3622,23 @@ declare namespace chrome {
              * Whether the file system supports operations which may change contents
              * of the file system (such as creating, deleting or writing to files).
              */
-            writable?: boolean;
+            writable?: boolean | undefined;
             /**
              * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
              * @since Chrome 41.
              */
-            openedFilesLimit?: integer;
+            openedFilesLimit?: integer | undefined;
             /**
              * Whether the file system supports the tag field for observed directories.
              * @since Chrome 45.
              */
-            supportsNotifyTag?: boolean;
+            supportsNotifyTag?: boolean | undefined;
             /**
              * Whether the framework should resume the file system at the next sign-in session.
              * @default true
              * @since Chrome 64.
              */
-            persistent?: boolean;
+            persistent?: boolean | undefined;
         }
 
         interface UnmountOptions {
@@ -3671,14 +3671,14 @@ declare namespace chrome {
              */
             changeType: ToStringLiteral<typeof ChangeType>;
             /** List of changes to entries within the observed directory (including the entry itself)  */
-            changes?: NotificationChange[];
+            changes?: NotificationChange[] | undefined;
             /**
              * Tag for the notification.
              * Required if the file system was mounted with the supportsNotifyTag option.
              * Note, that this flag is necessary to provide notifications about changes
              * which changed even when the system was shutdown.
              */
-            tag?: string;
+            tag?: string | undefined;
         }
         /**
          * Internal interfaces, not for use
@@ -4199,7 +4199,7 @@ declare namespace chrome {
             /** The ID of the message. It must be unique for each message in scope of the applications. See the Cloud Messaging documentation for advice for picking and handling an ID. */
             messageId: string;
             /** Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
-            timeToLive?: integer;
+            timeToLive?: integer | undefined;
             /**
              * Message data to send to the server.
              *
@@ -4220,19 +4220,19 @@ declare namespace chrome {
              * The sender who issued the message.
              * @since Chrome 41.
              */
-            from?: string;
+            from?: string | undefined;
             /**
              * Optional.
              * The collapse key of a message. See Collapsible Messages section of Cloud Messaging documentation for details.
              */
-            collapseKey?: string;
+            collapseKey?: string | undefined;
         }
 
         interface GcmError {
             /** The error message describing the problem. */
             errorMessage: string;
             /** The ID of the message with this error, if error is related to a specific message. */
-            messageId?: string;
+            messageId?: string | undefined;
             /** Additional details related to the error, when available. */
             detail: Object;
         }
@@ -4332,42 +4332,42 @@ declare namespace chrome {
         /** @since Chrome 39. */
         interface DeviceFilter {
             /** Device vendor ID. */
-            vendorId?: integer;
+            vendorId?: integer | undefined;
             /** Device product ID, only checked only if the vendor ID matches. */
-            productId?: integer;
+            productId?: integer | undefined;
             /** HID usage page identifier. */
-            usagePage?: integer;
+            usagePage?: integer | undefined;
             /** HID usage identifier, checked only if the HID usage page matches. */
-            usage?: integer;
+            usage?: integer | undefined;
         }
         interface DeviceOptions {
             /**
              * Equivalent to setting DeviceFilter.vendorId.
              * @deprecated Deprecated since Chrome 39
              */
-            vendorId?: chrome.deprecated;
+            vendorId?: chrome.deprecated | undefined;
             /**
              * Equivalent to setting DeviceFilter.productId.
              * @deprecated Deprecated since Chrome 39.
              */
-            productId?: chrome.deprecated;
+            productId?: chrome.deprecated | undefined;
             /**
              * A device matching any given filter will be returned.
              * An empty filter list will return all devices the app has permission for.
              * @since Chrome 39
              */
-            filters?: DeviceFilter[];
+            filters?: DeviceFilter[] | undefined;
         }
         interface UserSelectedDevicePickerOptions {
             /**
              * Allow the user to select multiple devices.
              */
-            multiple?: boolean;
+            multiple?: boolean | undefined;
             /**
              * Filter the list of devices presented to the user.
              * If multiple filters are provided devices matching any filter will be displayed.
              */
-            filters?: DeviceFilter[];
+            filters?: DeviceFilter[] | undefined;
         }
 
         /**
@@ -4770,7 +4770,7 @@ declare namespace chrome {
              * When the flag is false or omitted, getAuthToken will return failure any time
              * a prompt would be required.
              */
-            interactive?: boolean;
+            interactive?: boolean | undefined;
             /**
              * Optional.
              * The account ID whose token should be returned.
@@ -4778,14 +4778,14 @@ declare namespace chrome {
              * account is only supported when the 'enable-new-profile-management' flag is set.
              * @since Chrome 37.
              */
-            account?: AccountInfo;
+            account?: AccountInfo | undefined;
             /**
              * Optional.
              * A list of OAuth2 scopes to request.
              * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
              * @since Chrome 37.
              */
-            scopes?: string[];
+            scopes?: string[] | undefined;
         }
 
         interface UserInfo {
@@ -4819,7 +4819,7 @@ declare namespace chrome {
              * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
              * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
              */
-            interactive?: boolean;
+            interactive?: boolean | undefined;
         }
 
         /**
@@ -4967,7 +4967,7 @@ declare namespace chrome {
              * Allows including a small number of string key/value pairs that will
              * be associated with the token and may be used in processing the request.
              */
-            options?: { [key: string]: string };
+            options?: { [key: string]: string } | undefined;
         }
         interface DeleteTokenParams {
             /**
@@ -5063,11 +5063,11 @@ declare namespace chrome {
              * @since Chrome 17.
              * @see enum ExtensionDisabledReason
              */
-            disabledReason?: ToStringLiteral<typeof ExtensionDisabledReason>;
+            disabledReason?: ToStringLiteral<typeof ExtensionDisabledReason> | undefined;
             /**
              * The launch url.
              */
-            appLaunchUrl?: string;
+            appLaunchUrl?: string | undefined;
             /**
              * The description of this app.
              */
@@ -5083,7 +5083,7 @@ declare namespace chrome {
              * so you might consider using explicit width and height attributes on img tags
              * referencing these images. See the manifest documentation on icons for more details.
              */
-            icons?: IconInfo[];
+            icons?: IconInfo[] | undefined;
             /**
              * Returns a list of host based permissions.
              * Permissions regarding url access.
@@ -5095,7 +5095,7 @@ declare namespace chrome {
              * The URL of the homepage of this app.
              * @since Chrome 11.
              */
-            homepageUrl?: string;
+            homepageUrl?: string | undefined;
             /**
              * Whether this app can be disabled or uninstalled by the user.
              */
@@ -5124,7 +5124,7 @@ declare namespace chrome {
              * The update URL of this app.
              * @since Chrome 16.
              */
-            updateUrl?: string;
+            updateUrl?: string | undefined;
             /**
              * The type of this app.
              * @since Chrome 23.
@@ -5141,17 +5141,17 @@ declare namespace chrome {
              * True if this is an app, which it will be till this is removed.
              * @deprecated since Chrome 33. Please use management.ExtensionInfo.type.
              */
-            isApp?: true;
+            isApp?: true | undefined;
             /**
              * The app launch type.
              * @since Chrome 37.
              */
-            launchType?: ToStringLiteral<typeof LaunchType>;
+            launchType?: ToStringLiteral<typeof LaunchType> | undefined;
             /**
              * The currently available launch types.
              * @since Chrome 37.
              */
-            availableLaunchTypes?: ToStringLiteral<typeof LaunchType>[];
+            availableLaunchTypes?: ToStringLiteral<typeof LaunchType>[] | undefined;
         }
 
         /** Information about an icon belonging to an extension, app, or theme. */
@@ -5170,7 +5170,7 @@ declare namespace chrome {
              * Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls.
              * If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown.
              */
-            showConfirmDialog?: boolean;
+            showConfirmDialog?: boolean | undefined;
         }
 
         /**
@@ -5306,7 +5306,7 @@ declare namespace chrome {
              * **if_needed**
              * Ask the user to manage permitted galleries only if the return set would otherwise be empty.
              */
-            interactive?: Interactive;
+            interactive?: Interactive | undefined;
         }
         interface MediaFileSystemMetadata {
             /** The name of the file system. */
@@ -5314,7 +5314,7 @@ declare namespace chrome {
             /** A unique and persistent id for the media gallery. */
             galleryId: string;
             /** If the media gallery is on a removable device, a unique id for the device while the device is online. */
-            deviceId?: string;
+            deviceId?: string | undefined;
             /** True if the media gallery is on a removable device. */
             isRemovable: boolean;
             /** True if the device the media gallery is on was detected as a media device. i.e. a PTP or MTP device, or a DCIM directory is present. */
@@ -5347,22 +5347,22 @@ declare namespace chrome {
             /** The browser sniffed mime type. */
             mimeType: string;
             /** Defined for images and video. In pixels. */
-            height?: integer;
-            width?: integer;
+            height?: integer | undefined;
+            width?: integer | undefined;
             /** Defined for audio and video. In seconds. */
-            duration?: integer;
+            duration?: integer | undefined;
             /** Defined for images and video. In degrees. */
-            rotation?: integer;
+            rotation?: integer | undefined;
             /** Defined for audio and video only. */
-            album?: string;
-            artist?: string;
-            comment?: string;
-            copyright?: string;
-            disc?: integer;
-            genre?: string;
-            language?: string;
-            title?: string;
-            track?: integer;
+            album?: string | undefined;
+            artist?: string | undefined;
+            comment?: string | undefined;
+            copyright?: string | undefined;
+            disc?: integer | undefined;
+            genre?: string | undefined;
+            language?: string | undefined;
+            title?: string | undefined;
+            track?: integer | undefined;
             /**
              * All the metadata in the media file.
              * For formats with multiple streams, stream order will be preserved.
@@ -5400,15 +5400,15 @@ declare namespace chrome {
             /** The type of progress event, i.e. start, finish, etc. */
             type: ScanProgressType;
             /** The number of Galleries found. */
-            galleryCount?: integer;
+            galleryCount?: integer | undefined;
             /**
              * Appoximate number of media files found;
              * some file types can be either audio or video
              * and are included in both counts.
              */
-            audioCount?: integer;
-            imageCount?: integer;
-            videoCount?: integer;
+            audioCount?: integer | undefined;
+            imageCount?: integer | undefined;
+            videoCount?: integer | undefined;
         }
 
         /**
@@ -5545,38 +5545,38 @@ declare namespace chrome {
             /** Currently only WiFi supported. */
             Type: ToStringLiteral<typeof NetworkType>;
             /** A unique identifier of the network. */
-            GUID?: string;
+            GUID?: string | undefined;
             /**
              * A hex-encoded byte sequence.
              */
-            HexSSID?: string;
+            HexSSID?: string | undefined;
             /**
              * The decoded SSID of the network (default encoding is UTF-8).
              * To filter for non-UTF-8 SSIDs, use HexSSID instead.
              */
-            SSID?: string;
+            SSID?: string | undefined;
             /**
              * The basic service set identification (BSSID) uniquely identifying the
              * basic service set. *BSSID* is represented as a human readable,
              * hex-encoded string with bytes separated by colons, e.g.
              * 45:67:89:ab:cd:ef.
              */
-            BSSID?: string;
+            BSSID?: string | undefined;
             /** Identifier indicating the security type of the network. */
-            Security?: 'None' | 'WEP-PSK' | 'WPA-PSK' | 'WPA-EAP';
+            Security?: 'None' | 'WEP-PSK' | 'WPA-PSK' | 'WPA-EAP' | undefined;
         }
         interface NetworkInfoFilterHexSSID {
             /**
              * A hex-encoded byte sequence.
              */
-            HexSSID?: string;
+            HexSSID?: string | undefined;
         }
         interface NetworkInfoFilterSSID {
             /**
              * The decoded SSID of the network (default encoding is UTF-8).
              * To filter for non-UTF-8 SSIDs, use HexSSID instead.
              */
-            SSID?: string;
+            SSID?: string | undefined;
         }
         /**
          * Allows an extension to define network filters for the networks it can handle.
@@ -5643,54 +5643,54 @@ declare namespace chrome {
                 IF extends InterfaceType = 'full',
                 OF extends ObjectFunction = 'unknown'> {
                 /** For cellular networks, cellular network properties. */
-                Cellular?: IF extends 'partial' ? CellularBase : CellularProperties<M>;
+                Cellular?: IF extends 'partial' ? CellularBase : CellularProperties<M> | undefined;
                 /** For Ethernet networks, the Ethernet network properties. */
-                Ethernet?: IF extends 'partial' ? { Authentication: string; } : EthernetProperties<M>;
+                Ethernet?: IF extends 'partial' ? { Authentication: string; } : EthernetProperties<M> | undefined;
                 /** The network GUID. */
-                GUID?: string;
+                GUID?: string | undefined;
                 /** The network's IP address configuration type. */
-                IPAddressConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType;
+                IPAddressConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType | undefined;
                 /** A user friendly network name. */
-                Name?: M extends 'managed' ? ManagedDOMString : string;
+                Name?: M extends 'managed' ? ManagedDOMString : string | undefined;
                 /** The IP configuration type for the name servers used by the network. */
-                NameServersConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType;
+                NameServersConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType | undefined;
                 /** The network priority. */
-                Priority?: M extends 'managed' ? ManagedLong : integer;
+                Priority?: M extends 'managed' ? ManagedLong : integer | undefined;
                 /** The network type. */
-                Type?: NetworkType;
+                Type?: NetworkType | undefined;
                 /** For VPN networks, the network VPN properties. */
-                VPN?: IF extends 'partial' ? { Type: string; } : VPNProperties<M>;
+                VPN?: IF extends 'partial' ? { Type: string; } : VPNProperties<M> | undefined;
                 /** For WiFi networks, the network WiFi properties. */
-                WiFi?: IF extends 'partial' ? WiFiPropertiesBase : WiFiProperties<M, OF>;
+                WiFi?: IF extends 'partial' ? WiFiPropertiesBase : WiFiProperties<M, OF> | undefined;
                 /** For WiMAX networks, the network WiMAX properties. */
-                WiMAX?: IF extends 'partial' ? { SignalStrength?: integer } : WiMAXProperties<M>;
+                WiMAX?: IF extends 'partial' ? { SignalStrength?: integer | undefined } : WiMAXProperties<M> | undefined;
             }
         }
         interface ManagedType<T> {
             /** The active value currently used by the network configuration manager (e.g. Shill). */
-            Active?: T;
+            Active?: T | undefined;
             /** The source from which the effective property value was determined. */
-            Effective?: string;
+            Effective?: string | undefined;
             /** The property value provided by the user policy. */
-            UserPolicy?: T;
+            UserPolicy?: T | undefined;
             /** The property value provided by the device policy. */
-            DevicePolicy?: T;
+            DevicePolicy?: T | undefined;
             /** The property value set by the logged in user. Only provided if *UserEditable* is true. */
-            UserSetting?: T;
+            UserSetting?: T | undefined;
             /** The value set for all users of the device. Only provided if *DeviceEditiable* is true. */
-            SharedSetting?: T;
+            SharedSetting?: T | undefined;
             /**
              * Whether a UserPolicy for the property exists and allows the property
              * to be edited (i.e. the policy set recommended property value).
              * @default false
              */
-            UserEditable?: boolean;
+            UserEditable?: boolean | undefined;
             /**
              * Whether a DevicePolicy for the property exists and allows the property
              * to be edited (i.e. the policy set recommended property value).
              * @default false
              */
-            DeviceEditable?: boolean;
+            DeviceEditable?: boolean | undefined;
         }
         interface ManagedBoolean extends ManagedType<boolean> { }
         interface ManagedLong extends ManagedType<integer> { }
@@ -5704,64 +5704,64 @@ declare namespace chrome {
             /** Cellular network ID as a simple concatenation of the network's MCC (Mobile Country Code) and MNC (Mobile Network Code). */
             Code: string;
             /** The two-letter country code. */
-            Country?: string;
+            Country?: string | undefined;
         }
         interface IssuerSubjectPattern {
             /** If set, the value against which to match the certificate subject's common name. */
-            CommonName?: string;
+            CommonName?: string | undefined;
             /** If set, the value against which to match the certificate subject's common location. */
-            Locality?: string;
+            Locality?: string | undefined;
             /**
              * If set, the value against which to match the certificate subject's organizations.
              * At least one organization should match the value.
              */
-            Organization?: string;
+            Organization?: string | undefined;
             /**
              * If set, the value against which to match the certificate subject's organizational units.
              * At least one organizational unit should match the value.
              */
-            OrganizationalUnit?: string;
+            OrganizationalUnit?: string | undefined;
         }
         interface CertPattern {
             /**
              * List of URIs to which the user can be directed in case
              * no certificates that match this pattern are found.
              */
-            EnrollmentURI?: string[];
+            EnrollmentURI?: string[] | undefined;
             /**
              * If set, pattern against which X.509 issuer settings should be matched.
              */
-            Issuer?: IssuerSubjectPattern;
+            Issuer?: IssuerSubjectPattern | undefined;
             /**
              * List of certificate issuer CA certificates.
              * A certificate must be signed by one of them in order to match this pattern.
              */
-            IssuerCARef?: string[];
+            IssuerCARef?: string[] | undefined;
             /**
              * If set, pattern against which X.509 subject settings should be matched.
              */
-            IssuerSubjectPattern?: IssuerSubjectPattern;
+            IssuerSubjectPattern?: IssuerSubjectPattern | undefined;
         }
         type ClientCertType = 'Ref' | 'Pattern';
         interface EAPProperties {
-            AnonymousIdentity?: string;
-            ClientCertPattern?: CertPattern;
+            AnonymousIdentity?: string | undefined;
+            ClientCertPattern?: CertPattern | undefined;
             /** @since Chrome 60. */
-            ClientCertPKCS11Id?: string;
-            ClientCertRef?: string;
-            ClientCertType?: ClientCertType;
-            Identity?: string;
-            Inner?: string;
+            ClientCertPKCS11Id?: string | undefined;
+            ClientCertRef?: string | undefined;
+            ClientCertType?: ClientCertType | undefined;
+            Identity?: string | undefined;
+            Inner?: string | undefined;
             /** The outer EAP type. Required by ONC, but may not be provided when translating from Shill. */
-            Outer?: string;
-            Password?: string;
-            SaveCredentials?: boolean;
-            ServerCAPEMs?: string[];
-            ServerCARefs?: string[];
+            Outer?: string | undefined;
+            Password?: string | undefined;
+            SaveCredentials?: boolean | undefined;
+            ServerCAPEMs?: string[] | undefined;
+            ServerCARefs?: string[] | undefined;
             /** @since Chrome 60. */
-            SubjectMatch?: ManagedDOMString;
-            UseProactiveKeyCaching?: boolean;
-            UseSytemCAs?: boolean;
+            SubjectMatch?: ManagedDOMString | undefined;
+            UseProactiveKeyCaching?: boolean | undefined;
+            UseSytemCAs?: boolean | undefined;
         }
         interface FoundNetworkProperties {
             /** Network availability. */
@@ -5771,9 +5771,9 @@ declare namespace chrome {
             /** Access technology used by the network. */
             Technology: string;
             /** The network operator's short-format name. */
-            ShortName?: string;
+            ShortName?: string | undefined;
             /** The network operator's long-format name. */
-            LongName?: string;
+            LongName?: string | undefined;
         }
         type IPConfigurationType = 'IPv4' | 'IPv6';
         interface IPConfigProperties<M extends ManagedObject = 'unmanaged',
@@ -5782,54 +5782,54 @@ declare namespace chrome {
             SL = M extends 'managed' ? ManagedDOMStringList : string[],
             L = M extends 'managed' ? ManagedLong : integer> {
             /** Gateway address used for the IP configuration. */
-            Gateway?: S;
+            Gateway?: S | undefined;
             /** The IP address for a connection. Can be IPv4 or IPv6 address, depending on value of Type. */
-            IPAddress?: S;
+            IPAddress?: S | undefined;
             /** Array of addresses used for name servers. */
-            NameServers?: SL;
+            NameServers?: SL | undefined;
             /** The routing prefix. */
-            RoutingPrefix?: L;
+            RoutingPrefix?: L | undefined;
             /** The IP configuration type. Can be IPv4 or IPv6. */
-            Type?: M extends 'managed' ? ManagedType<IPConfigurationType> : IPConfigurationType;
+            Type?: M extends 'managed' ? ManagedType<IPConfigurationType> : IPConfigurationType | undefined;
             /** The URL for WEb Proxy Auto-Discovery, as reported over DHCP. */
-            WebProxyAutoDiscoveryUrl?: S;
+            WebProxyAutoDiscoveryUrl?: S | undefined;
         }
         interface PaymentPortalPost {
             /** The HTTP method to use for the payment portal. */
             Method: 'POST';
             /** The post data to send to the payment portal. */
-            PostData?: string;
+            PostData?: string | undefined;
             /** The payment portal URL. */
-            Url?: string;
+            Url?: string | undefined;
         }
         interface PaymentPortal {
             /** The HTTP method to use for the payment portal. */
             Method: string;
             /** The payment portal URL. */
-            Url?: string;
+            Url?: string | undefined;
         }
         interface ProxyLocation {
             /** The proxy IP address host. */
-            Host?: string;
+            Host?: string | undefined;
             /** The port to use for the proxy */
-            Port?: integer;
+            Port?: integer | undefined;
         }
         interface ManagedProxyLocation {
             /** The proxy IP address host. */
-            Host?: ManagedDOMString;
+            Host?: ManagedDOMString | undefined;
             /** The port to use for the proxy */
-            Port?: ManagedLong;
+            Port?: ManagedLong | undefined;
         }
         interface ManualProxySettings<M,
             P = M extends 'managed' ? ManagedProxyLocation : ProxyLocation> {
             /** Settings for HTTP proxy. */
-            HTTPProxy?: P;
+            HTTPProxy?: P | undefined;
             /** Settings for secure HTTP proxy. */
-            SecureHTTPProxy?: P;
+            SecureHTTPProxy?: P | undefined;
             /** Settings for FTP proxy. */
-            FTPProxy?: P;
+            FTPProxy?: P | undefined;
             /** Settings for SOCKS proxy. */
-            SOCKS?: P;
+            SOCKS?: P | undefined;
         }
         interface ProxySettings<M = 'unmanaged',
             S = M extends 'managed' ? ManagedDOMString : string,
@@ -5837,11 +5837,11 @@ declare namespace chrome {
             /** The type of proxy settings. */
             Type: M extends 'managed' ? ManagedType<ProxySettingsType> : ProxySettingsType;
             /** Manual proxy settings - used only for *Manual* proxy settings. */
-            Manual?: ManualProxySettings<M>;
+            Manual?: ManualProxySettings<M> | undefined;
             /** Domains and hosts for which manual proxy settings are excluded. */
-            ExcludeDomains?: SL;
+            ExcludeDomains?: SL | undefined;
             /** URL for proxy auto-configuration file. */
-            PAC?: S;
+            PAC?: S | undefined;
         }
         interface SIMLockStatus {
             /** The status of SIM lock - possible values are 'sim-pin', 'sim-puk' and ''. */
@@ -5849,120 +5849,120 @@ declare namespace chrome {
             /** Whether SIM lock is enabled. */
             LockEnabled: boolean;
             /** Number of PIN lock tries allowed before PUK is required to unlock the SIM. */
-            RetriesLeft?: integer;
+            RetriesLeft?: integer | undefined;
         }
         interface ThirdPartyVPNProperties {
             /** ID of the third-party VPN provider extension. */
             ExtensionID: string;
             /** The VPN provider name. */
-            ProviderName?: string;
+            ProviderName?: string | undefined;
         }
         interface ManagedThirdPartyVPNProperties {
             /** ID of the third-party VPN provider extension. */
             ExtensionID: ManagedDOMString;
             /** The VPN provider name. */
-            ProviderName?: string;
+            ProviderName?: string | undefined;
         }
         interface CellularBase {
             /** Carrier account activation state. */
-            ActivationState?: ActivationStateType;
+            ActivationState?: ActivationStateType | undefined;
             /** If the modem is registered on a network, the network technology currently in use. */
-            NetworkTechnology?: string;
+            NetworkTechnology?: string | undefined;
             /** The roaming state of the cellular modem on the current network. */
-            RoamingState?: string;
+            RoamingState?: string | undefined;
             /** Whether a SIM card is present. */
-            SIMPresent?: boolean;
+            SIMPresent?: boolean | undefined;
             /** The current network signal strength. */
-            SignalStrength?: integer;
+            SignalStrength?: integer | undefined;
         }
         interface CellularProperties<M extends ManagedObject = 'unmanaged'> extends CellularBase {
             /** Whether the cellular network should be connected automatically (when in range). */
-            AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean;
+            AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean | undefined;
             /** The cellular network activation type. */
-            ActivationType?: string;
+            ActivationType?: string | undefined;
             /** Whether roaming is allowed for the network. */
-            AllowRoaming?: boolean;
+            AllowRoaming?: boolean | undefined;
             /** The name of the carrier for which the cellular device is configured. */
-            Carrier?: M extends 'managed' ? ManagedDOMString : string;
+            Carrier?: M extends 'managed' ? ManagedDOMString : string | undefined;
             /** Cellular device technology family - CDMA or GSM. */
-            Family?: 'CDMA' | 'GSM';
+            Family?: 'CDMA' | 'GSM' | undefined;
             /** The firmware revision loaded in the cellular modem. */
-            FirmwareRevision?: string;
+            FirmwareRevision?: string | undefined;
             /** The list of networks found during the most recent network scan. */
-            FoundNetworks?: FoundNetworkProperties[];
+            FoundNetworks?: FoundNetworkProperties[] | undefined;
             /** The cellular modem hardware revision. */
-            HardwareRevision?: string;
+            HardwareRevision?: string | undefined;
             /** Information about the operator that issued the SIM card currently installed in the modem. */
-            HomeProvider?: CellularProviderProperties;
+            HomeProvider?: CellularProviderProperties | undefined;
             /** The cellular modem manufacturer. */
-            MAnufacturer?: string;
+            MAnufacturer?: string | undefined;
             /** The cellular modem model ID. */
-            ModelID?: string;
+            ModelID?: string | undefined;
             /** Online payment portal a user can use to sign-up for or modify a mobile data plan. */
-            PaymentPortal?: PaymentPortal | PaymentPortalPost;
+            PaymentPortal?: PaymentPortal | PaymentPortalPost | undefined;
             /** The revision of the Preferred Roaming List loaded in the modem. */
-            PRLVersion?: integer;
+            PRLVersion?: integer | undefined;
             /**
              * @since Chrome 63.
              * True when a cellular network scan is in progress.
              */
-            Scanning?: boolean;
+            Scanning?: boolean | undefined;
             /** Information about the operator on whose network the modem is currently registered. */
-            ServingOperator?: CellularProviderProperties;
+            ServingOperator?: CellularProviderProperties | undefined;
             /** The state of SIM lock for GSM family networks. */
-            SIMLockStatus?: SIMLockStatus;
+            SIMLockStatus?: SIMLockStatus | undefined;
             /** Whether the cellular network supports scanning. */
-            SupportNetworkScan?: boolean;
+            SupportNetworkScan?: boolean | undefined;
             /** A list of supported carriers. */
-            SupportedCarriers?: string[];
+            SupportedCarriers?: string[] | undefined;
         }
         type EthernetAuthenticationType = 'None' | '8021X';
         interface EthernetProperties<M extends ManagedObject = 'unmanaged'> {
             /** Whether the Ethernet network should be connected automatically. */
-            AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean;
+            AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean | undefined;
             /** The authentication used by the Ethernet network. Possible values are None and 8021X. */
-            Authentication?: M extends 'managed' ? ManagedType<EthernetAuthenticationType> : EthernetAuthenticationType;
+            Authentication?: M extends 'managed' ? ManagedType<EthernetAuthenticationType> : EthernetAuthenticationType | undefined;
             /** Network's EAP settings. Required for 8021X authentication. */
-            EAP?: EAPProperties;
+            EAP?: EAPProperties | undefined;
         }
         interface VPNProperties<M extends ManagedObject = 'unmanaged',
             B = M extends 'managed' ? ManagedBoolean : boolean,
             S = M extends 'managed' ? ManagedDOMString : string> {
             /** Whether the VPN network should be connected automatically. */
-            AutoConnect?: B;
+            AutoConnect?: B | undefined;
             /** The VPN host. */
-            Host?: S;
+            Host?: S | undefined;
             /**
              * The VPN type.
              * This cannot be an enum because of 'L2TP-IPSec'.
              * This is optional for NetworkConfigProperties which is passed to
              * *setProperties* which may be used to set only specific properties.
              */
-            Type?: S;
+            Type?: S | undefined;
         }
         interface WiFiPropertiesBase<M extends ManagedObject = 'unmanaged',
             S = M extends 'managed' ? ManagedDOMString : string> {
             /** The BSSID of the associated access point.. */
-            BSSID?: string;
+            BSSID?: string | undefined;
             /**
              * The WiFi service operating frequency in MHz.
              * For connected networks, the current frequency on which the network is connected.
              * Otherwise, the frequency of the best available BSS.
              */
-            Frequency?: integer;
+            Frequency?: integer | undefined;
             /** HEX-encoded copy of the network SSID. */
-            HexSSID?: S;
+            HexSSID?: S | undefined;
             /** The network security type. */
-            Security?: S;
+            Security?: S | undefined;
             /** The network SSID. */
-            SSID?: S;
+            SSID?: S | undefined;
             /** The network signal strength. */
-            SignalStrength?: integer;
+            SignalStrength?: integer | undefined;
             /**
              * @since Chrome 70
              * @description The tethering state associated with the connection.
              */
-            TetheringState?: string;
+            TetheringState?: string | undefined;
         }
         interface WiFiProperties<M extends ManagedObject = 'unmanaged',
             OF extends _internal_.ObjectFunction = 'getter',
@@ -5974,32 +5974,32 @@ declare namespace chrome {
              * Whether ARP polling of default gateway is allowed.
              * @default true
              */
-            AllowGatewayARPPolling?: B;
+            AllowGatewayARPPolling?: B | undefined;
             /** Whether the WiFi network should be connected automatically when in range. */
-            AutoConnect?: B;
+            AutoConnect?: B | undefined;
             /** The network EAP properties. Required for WEP-8021X and WPA-EAP networks. */
-            EAP?: EAPProperties;
+            EAP?: EAPProperties | undefined;
             /** Contains all operating frequency recently seen for the WiFi network. */
-            FrequencyList?: integer[];
+            FrequencyList?: integer[] | undefined;
             /** Whether the network SSID will be broadcast. */
-            HiddenSSID?: B;
+            HiddenSSID?: B | undefined;
             /** Signal-to-noise value (in dB) below which roaming to a new network should be attempted. */
-            RoamTreshold?: L;
+            RoamTreshold?: L | undefined;
             /**
              * @since Chrome 66.
              * The passphrase for WEP/WPA/WPA2 connections.
              * *This property can only be set!*
              */
-            Passphrase?: OF extends 'setter' ? string : never;
+            Passphrase?: OF extends 'setter' ? string : never | undefined;
         }
         interface WiMAXProperties<M extends ManagedObject = 'unmanaged',
             B = M extends 'managed' ? ManagedBoolean : boolean> {
             /** Whether the network should be connected automatically. */
-            AutoConnect?: B;
+            AutoConnect?: B | undefined;
             /** The network EAP properties. */
-            EAP?: EAPProperties;
+            EAP?: EAPProperties | undefined;
             /** The network signal strength. */
-            SignalStrength?: integer;
+            SignalStrength?: integer | undefined;
         }
         type ManagedObject = 'managed' | 'unmanaged';
         type InterfaceType = 'partial' | 'full';
@@ -6011,32 +6011,32 @@ declare namespace chrome {
             M extends ManagedObject = 'unmanaged',
             IF extends InterfaceType = 'full'> extends _internal_.NetworkConfigBase<M, IF, 'getter'> {
             /** Whether the network is connectable. */
-            Connectable?: boolean;
+            Connectable?: boolean | undefined;
             /** The network's current connection state. */
-            ConnectionState?: ConnectionStateType;
+            ConnectionState?: ConnectionStateType | undefined;
             /** The last recorded network error state. */
-            ErrorState?: string;
+            ErrorState?: string | undefined;
             /** The network's IP configuration. */
-            IPConfigs?: IPConfigProperties[];
+            IPConfigs?: IPConfigProperties[] | undefined;
             /** The network's MAC address. */
-            MacAddress?: string;
+            MacAddress?: string | undefined;
             /** The network's proxy settings. */
-            ProxySettings?: ProxySettings;
+            ProxySettings?: ProxySettings | undefined;
             /**
              * For a connected network, whether the network connectivity to the Internet is limited,
              * e.g. if the network is behind a portal, or a cellular network is not activated.
              */
-            RestrictedConnectivity?: boolean;
+            RestrictedConnectivity?: boolean | undefined;
             /** The network's static IP configuration. */
-            StaticIPConfig?: IPConfigProperties<M>;
+            StaticIPConfig?: IPConfigProperties<M> | undefined;
             /** IP configuration that was received from the DHCP server before applying static IP configuration. */
-            SavedIPConfig?: IPConfigProperties;
+            SavedIPConfig?: IPConfigProperties | undefined;
             /**
              * Indicates whether and how the network is configured.
              * 'None' conflicts with extension code generation,
              * so we must use a string for 'Source' instead of a SourceType enum.
              */
-            Source?: 'Device' | 'DevicePolicy' | 'User' | 'UserPolicy' | 'None';
+            Source?: 'Device' | 'DevicePolicy' | 'User' | 'UserPolicy' | 'None' | undefined;
         }
         interface ManagedProperties extends NetworkProperties<'managed'> { }
         interface NetworkStateProperties extends NetworkProperties<'unmanaged', 'partial'> { }
@@ -6049,18 +6049,18 @@ declare namespace chrome {
              * If true, only include visible (physically connected or in-range) networks.
              * @default false
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * If true, only include configured (saved) networks.
              * @default false
              */
-            configured?: boolean;
+            configured?: boolean | undefined;
             /**
              * Maximum number of networks to return.
              * Use 0 for no limit
              * @default 1000 if unspecified.
              * */
-            limit?: integer;
+            limit?: integer | undefined;
         }
 
         /* The current state of the device. */
@@ -6069,11 +6069,11 @@ declare namespace chrome {
         /** A list of devices and their state. */
         interface DeviceStates {
             /** Set if the device is enabled. True if the device is currently scanning. */
-            Scanning?: boolean;
+            Scanning?: boolean | undefined;
             /** The SIM lock status if Type = Cellular and SIMPresent = True. */
-            SIMLockStatus?: SIMLockStatus;
+            SIMLockStatus?: SIMLockStatus | undefined;
             /** Set to the SIM present state if the device type is Cellular. */
-            SIMPresent?: boolean;
+            SIMPresent?: boolean | undefined;
             /**
              * The current state of the device.
              *
@@ -6098,20 +6098,20 @@ declare namespace chrome {
              * If true, only policy networks may auto connect.
              * @default false
              */
-            AllowOnlyPolicyNetworksToAutoconnect?: boolean;
+            AllowOnlyPolicyNetworksToAutoconnect?: boolean | undefined;
             /**
              * If true, only policy networks may be connected to
              * and no new networks may be added or configured.
              * @default false
              */
-            AllowOnlyPolicyNetworksToConnect?: boolean;
+            AllowOnlyPolicyNetworksToConnect?: boolean | undefined;
             /**
              * List of blacklisted networks.
              * Connections to blacklisted networks are prohibited.
              * Networks can be whitelisted again by specifying an explicit network configuration.
              * @default []
              */
-            BlacklistedHexSSIDs?: string[];
+            BlacklistedHexSSIDs?: string[] | undefined;
         }
 
         /**
@@ -6297,7 +6297,7 @@ declare namespace chrome {
 
         interface ButtonOptions {
             title: string;
-            iconUrl?: string;
+            iconUrl?: string | undefined;
         }
 
         interface ItemOptions {
@@ -6326,7 +6326,7 @@ declare namespace chrome {
              * The app icon mask should be in alpha channel,
              * as only the alpha channel of the image will be considered.
              */
-            appIconMaskUrl?: string;
+            appIconMaskUrl?: string | undefined;
 
             /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
             title: string;
@@ -6338,7 +6338,7 @@ declare namespace chrome {
              * Alternate notification content with a lower-weight font.
              * @since Chrome 31.
              */
-            contextMessage?: string;
+            contextMessage?: string | undefined;
 
             /**
              * Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest.
@@ -6346,38 +6346,38 @@ declare namespace chrome {
              * -2 and -1 result in an error as notifications with those priorities will not be shown at all.
              * @default 0
              */
-            priority?: -2 | -1 | 0 | 1 | 2;
+            priority?: -2 | -1 | 0 | 1 | 2 | undefined;
 
             /** A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
-            eventTime?: double;
+            eventTime?: double | undefined;
 
             /** Text and icons for up to two notification action buttons. */
-            buttons?: ButtonOptions[];
+            buttons?: ButtonOptions[] | undefined;
 
             /**
              * @deprecated Deprecated since Chrome 59. The image is not visible for Mac OS X users.
              * A URL to the image thumbnail for image-type notifications.
              * URLs have the same restrictions as iconUrl.
              */
-            imageUrl?: string;
+            imageUrl?: string | undefined;
 
             /**
              * Items for multi-item notifications.
              * Items for multi-item notifications. Users on Mac OS X only see the first item.
              */
-            items?: ItemOptions[];
+            items?: ItemOptions[] | undefined;
 
             /**
              * Current progress ranges from 0 to 100.
              * @since Chrome 30.
              */
-            progress?: integer;
+            progress?: integer | undefined;
 
             /**
              * @deprecated Deprecated since Chrome 67. This UI hint is ignored as of Chrome 67
              * @description Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
              */
-            isClickable?: boolean;
+            isClickable?: boolean | undefined;
 
             /**
              * Indicates that the notification should remain visible
@@ -6385,14 +6385,14 @@ declare namespace chrome {
              * This defaults to false.
              * @since Chrome 50
              */
-            requireInteraction?: boolean;
+            requireInteraction?: boolean | undefined;
 
             /**
              * @since Chrome 70.
              * @description Indicates that no sounds or vibrations should be made when the notification is being shown.
              * @default false
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
         }
 
         /** The notification closed, either by the system or by user action. */
@@ -6484,7 +6484,7 @@ declare namespace chrome {
              * List of named permissions (does not include hosts or origins).
              * Anything listed here must appear in the optional_permissions list in the manifest.
              */
-            permissions?: chrome.runtime.OptionalPermission[];
+            permissions?: chrome.runtime.OptionalPermission[] | undefined;
             /**
              * List of origin permissions.
              * Anything listed here must be a subset of a host that appears in the
@@ -6493,7 +6493,7 @@ declare namespace chrome {
              * you can request an origin of http://help.example.com/.
              * Any path is ignored.
              */
-            origins?: chrome.runtime.UrlMatches[] | string[];
+            origins?: chrome.runtime.UrlMatches[] | string[] | undefined;
         }
 
         interface PermissionEvent extends chrome.events.Event<(permissions: Permissions) => void> { }
@@ -6596,7 +6596,7 @@ declare namespace chrome {
              * Entries that the extension doesn't have permission for or which doesn't
              * match the request, are removed.
              */
-            clientCerts?: ArrayBuffer[];
+            clientCerts?: ArrayBuffer[] | undefined;
 
             /** If true, the filtered list is presented to the user to manually select a
              * certificate and thereby granting the extension access to the
@@ -6753,7 +6753,7 @@ declare namespace chrome {
             /** Printer's human readable name. */
             name: string;
             /** Printer's human readable description. */
-            description?: string;
+            description?: string | undefined;
         }
 
         interface PrinterCapabilities {
@@ -6839,11 +6839,11 @@ declare namespace chrome {
 
         interface LastError {
             /** Details about the error which occurred.  */
-            message?: string;
+            message?: string | undefined;
         }
 
         interface ConnectInfo {
-            name?: string;
+            name?: string | undefined;
         }
 
         interface InstalledDetails {
@@ -6856,18 +6856,18 @@ declare namespace chrome {
              * Optional.
              * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
              */
-            previousVersion?: string;
+            previousVersion?: string | undefined;
             /**
              * Optional.
              * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'.
              * @since Chrome 29.
              */
-            id?: string;
+            id?: string | undefined;
         }
 
         interface MessageOptions {
             /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
-            includeTlsChannelId?: boolean;
+            includeTlsChannelId?: boolean | undefined;
         }
 
         /**
@@ -6876,22 +6876,22 @@ declare namespace chrome {
          */
         interface MessageSender {
             /** The ID of the app that opened the connection, if any. */
-            id?: string;
+            id?: string | undefined;
             /**
              * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
              * @since Chrome 41.
              */
-            frameId?: integer;
+            frameId?: integer | undefined;
             /**
              * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
              * @since Chrome 28.
              */
-            url?: string;
+            url?: string | undefined;
             /**
              * The TLS channel ID of the page or frame that opened the connection, if requested by the app, and if available.
              * @since Chrome 32.
              */
-            tlsChannelId?: string;
+            tlsChannelId?: string | undefined;
         }
 
         /**
@@ -6927,7 +6927,7 @@ declare namespace chrome {
              * Optional.
              * This property will only be present on ports passed to onConnect/onConnectExternal listeners.
              */
-            sender?: MessageSender;
+            sender?: MessageSender | undefined;
             /** An object which allows the addition and removal of listeners for a Chrome event. */
             onDisconnect: chrome.events.Event<(port: Port) => void>;
             /** An object which allows the addition and removal of listeners for a Chrome event. */
@@ -6958,27 +6958,27 @@ declare namespace chrome {
         }
 
         interface ManifestAction {
-            default_icon?: ManifestIcons;
-            default_title?: string;
-            default_popup?: string;
+            default_icon?: ManifestIcons | undefined;
+            default_title?: string | undefined;
+            default_popup?: string | undefined;
         }
 
         interface SearchProvider {
-            name?: string;
-            keyword?: string;
-            favicon_url?: string;
+            name?: string | undefined;
+            keyword?: string | undefined;
+            favicon_url?: string | undefined;
             search_url: string;
-            encoding?: string;
-            suggest_url?: string;
-            instant_url?: string;
-            image_url?: string;
-            search_url_post_params?: string;
-            suggest_url_post_params?: string;
-            instant_url_post_params?: string;
-            image_url_post_params?: string;
-            alternate_urls?: string[];
-            prepopulated_id?: integer;
-            is_default?: boolean;
+            encoding?: string | undefined;
+            suggest_url?: string | undefined;
+            instant_url?: string | undefined;
+            image_url?: string | undefined;
+            search_url_post_params?: string | undefined;
+            suggest_url_post_params?: string | undefined;
+            instant_url_post_params?: string | undefined;
+            image_url_post_params?: string | undefined;
+            alternate_urls?: string[] | undefined;
+            prepopulated_id?: integer | undefined;
+            is_default?: boolean | undefined;
         }
 
         type UrlMatches =
@@ -7289,12 +7289,12 @@ declare namespace chrome {
             type: 'object';
             properties?: {
                 [key: string]: JSONSchemaBasicType | JSONSchemaRefType;
-            }
-            additionalProperties?: JSONSchemaObjectType;
+            } | undefined
+            additionalProperties?: JSONSchemaObjectType | undefined;
         }
         interface JSONSchemaArrayType {
             type: 'array',
-            id?: string;
+            id?: string | undefined;
             items: JSONSchemaBasicType | JSONSchemaObjectType | JSONSchemaRefType;
         }
 
@@ -7306,31 +7306,31 @@ declare namespace chrome {
              * The host:port pattern for connect operations.
              * *:* are allowed
              */
-            connect?: string | string[];
+            connect?: string | string[] | undefined;
         }
         interface SocketTcpServerPermission {
             /**
              * The host:port pattern for listen operations.
              * *:* are allowed
              */
-            listen?: string | string[];
+            listen?: string | string[] | undefined;
         }
         interface SocketUdpPermission {
             /**
              * The host:port pattern for bind operations.
              * *:* are allowed
              */
-            bind?: string | string[];
+            bind?: string | string[] | undefined;
             /**
              * The host:port pattern for joinGroup operations.
              * *:* are allowed
              */
-            multicastMembership?: string | string[];
+            multicastMembership?: string | string[] | undefined;
             /**
              * The host:port pattern for send operations.
              * *:* are allowed
              */
-            send?: string | string[];
+            send?: string | string[] | undefined;
         }
 
         interface WebViewPartition {
@@ -7352,7 +7352,7 @@ declare namespace chrome {
          */
         interface ManagedSchema {
             /** Each schema must have either a $ref value or exactly one type. */
-            '$ref'?: string;
+            '$ref'?: string | undefined;
             /** The top-level schema must have type object. */
             type: 'object';
             /**
@@ -7361,18 +7361,18 @@ declare namespace chrome {
              */
             properties?: {
                 [key: string]: JSONSchemaBasicType | JSONSchemaArrayType | JSONSchemaObjectType | JSONSchemaRefType;
-            };
+            } | undefined;
         }
 
         interface AutomationDesktop {
             desktop: true;
-            interact?: true;
+            interact?: true | undefined;
         }
         interface AutomationNonInteractive {
             interact: false;
-            desktop?: false;
+            desktop?: false | undefined;
             /** Patterns for matching, use chrome url pattern */
-            matches?: UrlMatches[] | string[];
+            matches?: UrlMatches[] | string[] | undefined;
         }
         type AutomationOptions = boolean | AutomationDesktop | AutomationNonInteractive;
 
@@ -7388,7 +7388,7 @@ declare namespace chrome {
              */
             app: {
                 background: {
-                    scripts?: string[];
+                    scripts?: string[] | undefined;
                 }
             };
             /**
@@ -7432,7 +7432,7 @@ declare namespace chrome {
              * apps that have no _locales directory. For details, see Internationalization:
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
-            default_locale?: string;
+            default_locale?: string | undefined;
 
             /**
              * A plain text string (no HTML or other formatting; no more than 132 characters)
@@ -7441,7 +7441,7 @@ declare namespace chrome {
              * locale-specific strings for this field; see Internationalization for details.
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
-            description?: string;
+            description?: string | undefined;
 
             /**
              * One or more icons that represent the extension, app, or theme.
@@ -7464,7 +7464,7 @@ declare namespace chrome {
              *            '48': 'icon48.png',
              *            '128': 'icon128.png' },
              */
-            icons?: ManifestIcons;
+            icons?: ManifestIcons | undefined;
 
             //////////////
             // OPTIONAL //
@@ -7480,7 +7480,7 @@ declare namespace chrome {
              * @example
              * 'action_handlers': ['new_note']
              */
-            action_handlers?: ToStringLiteral<typeof app.runtime.ActionType>[];
+            action_handlers?: ToStringLiteral<typeof app.runtime.ActionType>[] | undefined;
 
             /**
              * App author information
@@ -7489,13 +7489,13 @@ declare namespace chrome {
             author?: {
                 name: string,
                 email: string,
-            } | any;
+            } | any | undefined;
 
             /**
              * Allows inspection of page contents, not enabled on stable anyways except for whitelist.
              * @see[Docs]{@link https://github.com/chromium/chromium/blob/master/extensions/common/manifest_handlers/automation.cc}
              */
-            automation?: AutomationOptions | boolean;
+            automation?: AutomationOptions | boolean | undefined;
 
             /**
              * Note: The 'bluetooth' manifest permission is used by the
@@ -7504,11 +7504,11 @@ declare namespace chrome {
              * @requires Platforms: Chrome OS, Windows and Mac
              */
             bluetooth?: {
-                uuids?: string[],
-                socket?: boolean,
-                low_energy?: boolean,
-                peripheral?: boolean,
-            };
+                uuids?: string[] | undefined,
+                socket?: boolean | undefined,
+                low_energy?: boolean | undefined,
+                peripheral?: boolean | undefined,
+            } | undefined;
             /**
              * Use the commands API to add keyboard shortcuts that trigger actions in your app.
              * E.g. an action to open the browser action or send a command to the app.
@@ -7525,28 +7525,28 @@ declare namespace chrome {
                      * },
                      */
                     suggested_key?: {
-                        default?: string;
-                        windows?: string;
-                        mac?: string;
-                        chromeos?: string;
-                        linux?: string;
-                    };
+                        default?: string | undefined;
+                        windows?: string | undefined;
+                        mac?: string | undefined;
+                        chromeos?: string | undefined;
+                        linux?: string | undefined;
+                    } | undefined;
                     /** Command description */
-                    description?: string;
+                    description?: string | undefined;
                     /** Global scope? */
-                    global?: boolean
+                    global?: boolean | undefined
                 }
-            };
+            } | undefined;
             /**
              * An implementation detail (actually written by Chrome, not the app author).
              */
-            readonly current_locale?: string;
+            readonly current_locale?: string | undefined;
 
             /** Restricted to whitelist */
-            display_in_launcher?: boolean;
+            display_in_launcher?: boolean | undefined;
 
             /** Restricted to whitelist */
-            display_in_new_tab_page?: boolean;
+            display_in_new_tab_page?: boolean | undefined;
 
             /**
              * The *event_rules* manifest property provides a mechanism to add rules that
@@ -7557,18 +7557,18 @@ declare namespace chrome {
              */
             event_rules?: {
                 /** Event name */
-                event?: chrome.webViewRequest.DeclarativeWebRequestEventList,
+                event?: chrome.webViewRequest.DeclarativeWebRequestEventList | undefined,
                 actions?: {
                     /** Action type */
                     type: chrome.webViewRequest.DeclarativeWebRequestActionsList,
-                }[];
+                }[] | undefined;
                 conditions?: {
                     /** Condition */
                     type: chrome.webViewRequest.DeclarativeWebRequestConditionsList,
                     /** Arguments, see original condition docs in chrome.webViewRequest */
                     [key: string]: any | any[],
-                }[],
-            }[];
+                }[] | undefined,
+            }[] | undefined;
 
             /**
              * Declares which extensions, apps, and web pages can connect
@@ -7591,7 +7591,7 @@ declare namespace chrome {
                  * Determines if messages sent via `runtime.connect` or `runtime.sendMessage`
                  * are allowed to set `runtime.MessageSender.tlsChannelId`.
                  */
-                accept_tls_channel_id?: boolean,
+                accept_tls_channel_id?: boolean | undefined,
             }
 
             /**
@@ -7611,19 +7611,19 @@ declare namespace chrome {
                  */
                 file_filters: string[],
                 /** ['read'] = read only mode */
-                file_access?: ['read'] | string[]
-            }[];
+                file_access?: ['read'] | string[] | undefined
+            }[] | undefined;
 
             /**
              * Triggers a launch of the app when one of these files are handled.
              */
             file_handlers?: {
                 [key: string]: {
-                    extensions?: Array<'*' | string | { include_directories: boolean }>,
+                    extensions?: Array<'*' | string | { include_directories: boolean }> | undefined,
                     /** File types to handle */
-                    types?: Array<'*' | string | { include_directories: boolean }>,
+                    types?: Array<'*' | string | { include_directories: boolean }> | undefined,
                 },
-            };
+            } | undefined;
 
             /**
              * Files app uses above information in order to render related UI elements approprietly.
@@ -7633,20 +7633,20 @@ declare namespace chrome {
                  * For example, if *configurable* is set to **true**,
                  * then a menu item for configuring volumes will be rendered.
                  */
-                configurable?: boolean,
+                configurable?: boolean | undefined,
                 /**
                  * If *multiple_mounts* is set to **true**, then *Files app*
                  * will allow to add more than one mount points from the UI.
                  */
-                multiple_mounts?: boolean,
+                multiple_mounts?: boolean | undefined,
                 /**
                  * If *watchable* is **false**, then a refresh button will be rendered.
                  * Note, that if possible you should add support for watchers, so changes
                  * on the file system can be reflected immediately and automatically.
                  */
-                watchable?: boolean,
-                source?: 'network',
-            };
+                watchable?: boolean | undefined,
+                source?: 'network' | undefined,
+            } | undefined;
 
             /**
              * Import resources from another extension / app.
@@ -7654,17 +7654,17 @@ declare namespace chrome {
              */
             import?: {
                 id: string;
-            }[];
+            }[] | undefined;
 
             /** This value can be used to control the unique ID of an app when it is loaded during development. */
-            key?: string;
+            key?: string | undefined;
 
             /**
              * The minimum version of Chrome that your app, if any.
              * @example
              * 'minimum_chrome_version': '33.0.1715.0'
              */
-            minimum_chrome_version?: string;
+            minimum_chrome_version?: string | undefined;
 
             /** One or more mappings from MIME types to the Native Client module that handles each type. */
             nacl_modules?: {
@@ -7672,7 +7672,7 @@ declare namespace chrome {
                 path: string;
                 /** The MIME type for which the Native Client module will be registered as content handler. */
                 mime_type: string;
-            }[];
+            }[] | undefined;
 
             /**
              * Use the Chrome Identity API to authenticate users:
@@ -7684,27 +7684,27 @@ declare namespace chrome {
                 client_id: string;
                 /** Applies to these scopes */
                 scopes: string[];
-            };
+            } | undefined;
 
             /**
              * Whether the app is expected to work offline.
              * When Chrome detects that it is offline, apps with this field set to true will be highlighted on the New Tab page.
              */
-            offline_enabled?: boolean;
+            offline_enabled?: boolean | undefined;
 
             /**
              * Use the chrome.permissions API to request declared optional permissions
              * at run time rather than install time, so users understand why the
              * permissions are needed and grant only those that are necessary.
              */
-            optional_permissions?: OptionalPermission[] | Array<OptionalPermission | chrome.runtime.UrlMatches[]> | Array<OptionalPermission | chrome.runtime.UrlMatches[] | string>;
+            optional_permissions?: OptionalPermission[] | Array<OptionalPermission | chrome.runtime.UrlMatches[]> | Array<OptionalPermission | chrome.runtime.UrlMatches[] | string> | undefined;
 
             /**
              * Permissions help to limit damage if your app is compromised by malware.
              * Some permissions are also displayed to users before installation,
              * as detailed in Permission Warnings.
              */
-            permissions?: Permission[] | Array<Permission | string>;
+            permissions?: Permission[] | Array<Permission | string> | undefined;
 
             /**
              * Native Client
@@ -7714,7 +7714,7 @@ declare namespace chrome {
             platforms?: {
                 nacl_arch: ToStringLiteral<typeof chrome.runtime.PlatformNaclArch>;
                 sub_package_path: string;
-            }[];
+            }[] | undefined;
 
             /**
              * Technologies required by the app. Hosting sites such
@@ -7743,7 +7743,7 @@ declare namespace chrome {
                 '3D'?: {
                     /** List of the 3D-related features your app requires. */
                     features: ['webgl'];
-                };
+                } | undefined;
 
                 /**
                  * The 'plugins' requirement indicates if an app requires NPAPI to run.
@@ -7763,8 +7763,8 @@ declare namespace chrome {
                 plugins?: {
                     /** @default true */
                     npapi: boolean;
-                }
-            };
+                } | undefined
+            } | undefined;
 
             /**
              * @deprecated
@@ -7777,8 +7777,8 @@ declare namespace chrome {
                 /**
                  * @default 'sandbox allow-scripts allow-forms'
                  */
-                content_security_policy?: string;
-            };
+                content_security_policy?: string | undefined;
+            } | undefined;
 
             /**
              * The short_name (maximum of 12 characters recommended) is
@@ -7792,7 +7792,7 @@ declare namespace chrome {
              * You can specify locale-specific strings, see Internationalization docs:
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
-            short_name?: string;
+            short_name?: string | undefined;
 
             /** Doc missing. Declared as a feature, but unused. */
             signature?: any;
@@ -7803,12 +7803,12 @@ declare namespace chrome {
              */
             sockets?: {
                 /** The tcp manifest property declares which sockets.tcp operations an app can issue. */
-                tcp?: SocketTcpPermission;
+                tcp?: SocketTcpPermission | undefined;
                 /** The tcpServer manifest property declares which sockets.tcpServer operations an app can issue. */
-                tcpServer?: SocketTcpServerPermission;
+                tcpServer?: SocketTcpServerPermission | undefined;
                 /** The udp manifest property declares which sockets.udp operations an app can issue. */
-                udp?: SocketUdpPermission;
-            };
+                udp?: SocketUdpPermission | undefined;
+            } | undefined;
 
             /**
              * Unlike the local and sync storage areas,
@@ -7830,7 +7830,7 @@ declare namespace chrome {
                  * @see[Docs and Schema Format]{@link https://developer.chrome.com/apps/manifest/storage}
                  */
                 managed_schema: string;
-            };
+            } | undefined;
 
             // system_indicator?: any; // Deprecated / removed: https://bugs.chromium.org/p/chromium/issues/detail?id=142450
             /**
@@ -7843,7 +7843,7 @@ declare namespace chrome {
              * (@see[Protecting Windows users from malicious extensions]{@link http://blog.chromium.org/2013/11/protecting-windows-users-from-malicious.html}).
              * @see[Documentation]{@link https://developer.chrome.com/apps/autoupdate}
              */
-            update_url?: string;
+            update_url?: string | undefined;
 
             /**
              * Used by packaged apps to specify URL patterns the app wants to intercept and handle.
@@ -7868,9 +7868,9 @@ declare namespace chrome {
                      * The title field is reserved for future use in all relevant UI elements.
                      * It should describe the action that the app performs when launched with this type of URL handler.
                      */
-                    title?: string;
+                    title?: string | undefined;
                 }
-            };
+            } | undefined;
 
             /** The usbPrinters manifest property declares which USB printers are supported by an app using the printerProvider API. */
             usb_printers?: {
@@ -7880,7 +7880,7 @@ declare namespace chrome {
                  * A vendorId is required and only one of productId or interfaceClass may be provided.
                  */
                 filters: chrome.usb.DeviceFilterStrict[];
-            };
+            } | undefined;
 
             /**
              * version_name can be set to a descriptive version string and will be used for display purposes if present.
@@ -7890,7 +7890,7 @@ declare namespace chrome {
              * 'version_name': 'build rc3'
              * 'version_name': 'Gold Edition'
              */
-            version_name?: string;
+            version_name?: string | undefined;
 
             /**
              * By default, webviews are prevented from loading any resources packaged with the app.
@@ -7903,7 +7903,7 @@ declare namespace chrome {
             webview?: {
                 /** Webview partition list */
                 partitions: WebViewPartition[]
-            }
+            } | undefined
         }
 
         /**
@@ -7925,14 +7925,14 @@ declare namespace chrome {
                  * the required platform version is respected and the app update is
                  * deferred until the underlying platform becomes compliant.
                  */
-                always_update?: boolean;
-                required_platform_version?: string;
-            };
+                always_update?: boolean | undefined;
+                required_platform_version?: string | undefined;
+            } | undefined;
 
             /**
              * This app can only be used as a kiosk app on Chrome OS
              */
-            kiosk_only?: boolean;
+            kiosk_only?: boolean | undefined;
 
             /**
              * Not useful since it will prevent app from running.
@@ -7941,7 +7941,7 @@ declare namespace chrome {
             kiosk_secondary_apps?: any;
         }
         interface ValidNonKioskManifest extends PartialManifest {
-            kiosk_enabled?: false;
+            kiosk_enabled?: false | undefined;
         }
 
         interface InvalidManifest extends PartialManifest {
@@ -7954,21 +7954,21 @@ declare namespace chrome {
             //
 
             /** Not for packaged apps */
-            options_ui?: never;
+            options_ui?: never | undefined;
             /** Not for packaged apps */
-            options_page?: never;
+            options_page?: never | undefined;
             /** Not for packaged apps */
-            browser_action?: never;
+            browser_action?: never | undefined;
             /**
              * Not for packaged apps
              * Only for extensions and legacy packaged apps
              */
-            content_security_policy?: never;
+            content_security_policy?: never | undefined;
             /**
              * Not for packaged apps
              * Only for extensions and legacy packaged apps
              */
-            chrome_url_overrides?: never;
+            chrome_url_overrides?: never | undefined;
         }
 
         type Manifest = ValidKioskManifest | ValidNonKioskManifest | InvalidManifest;
@@ -8270,7 +8270,7 @@ declare namespace chrome {
             /** The result code returned from the underlying network call. A negative value indicates an error. */
             resultCode: integer;
             /** The number of bytes sent (if result == 0) */
-            bytesSent?: integer;
+            bytesSent?: integer | undefined;
         }
 
         interface ReceiveEventArgs {
@@ -8296,14 +8296,14 @@ declare namespace chrome {
              * previously opened with persistent=true can be fetched with *getSockets*.
              * @default false
              */
-            persistent?: boolean;
+            persistent?: boolean | undefined;
             /** An application-defined string associated with the socket. */
-            name?: string;
+            name?: string | undefined;
             /**
              * The size of the buffer used to receive data.
              * @default: 4096
              */
-            bufferSize?: integer;
+            bufferSize?: integer | undefined;
         }
 
         interface SocketInfo {
@@ -8312,21 +8312,21 @@ declare namespace chrome {
             /** Flag indicating whether the socket is left open when the application is suspended (see SocketProperties.persistent). */
             persistent: boolean;
             /** Application-defined string associated with the socket. */
-            name?: string;
+            name?: string | undefined;
             /** The size of the buffer used to receive data. If no buffer size has been specified explictly, the value is not provided. */
-            bufferSize?: integer;
+            bufferSize?: integer | undefined;
             /** Flag indicating whether a connected socket blocks its peer from sending more data (see setPaused). */
             paused: boolean;
             /** Flag indicating whether the socket is connected to a remote peer. */
             connected: boolean;
             /** If the underlying socket is connected, contains its local IPv4/6 address. */
-            localAddress?: string;
+            localAddress?: string | undefined;
             /** If the underlying socket is connected, contains its local port. */
-            localPort?: integer;
+            localPort?: integer | undefined;
             /** If the underlying socket is connected, contains the peer/ IPv4/6 address. */
-            peerAddress?: string;
+            peerAddress?: string | undefined;
             /** If the underlying socket is connected, contains the peer port. */
-            peerPort?: integer;
+            peerPort?: integer | undefined;
         }
     }
 
@@ -8346,9 +8346,9 @@ declare namespace chrome {
              * @see[TLS Info and support table]{@link https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.3}
              */
             tlsVersion?: {
-                min?: 'tls1' | 'tls1.1' | 'tls1.2' | 'tls1.3',
-                max?: 'tls1' | 'tls1.1' | 'tls1.2' | 'tls1.3',
-            },
+                min?: 'tls1' | 'tls1.1' | 'tls1.2' | 'tls1.3' | undefined,
+                max?: 'tls1' | 'tls1.1' | 'tls1.2' | 'tls1.3' | undefined,
+            } | undefined,
         }
         /** Creates a TCP socket. */
         function create(callback: (createInfo: CreateInfo) => void): void;
@@ -8501,10 +8501,10 @@ declare namespace chrome {
              *
              * @see http://developer.chrome.com/apps/app_lifecycle.html
              */
-            persistent?: boolean;
+            persistent?: boolean | undefined;
 
             /** An application-defined string associated with the socket. */
-            name?: string;
+            name?: string | undefined;
         }
 
         /**
@@ -8522,7 +8522,7 @@ declare namespace chrome {
             persistent: boolean;
 
             /** Application-defined string associated with the socket. */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Flag indicating whether connection requests on a listening socket are
@@ -8532,10 +8532,10 @@ declare namespace chrome {
             paused: boolean;
 
             /** If the socket is listening, contains its local IPv4/6 address. */
-            localAddress?: string;
+            localAddress?: string | undefined;
 
             /** If the socket is listening, contains its local port. */
-            localPort?: integer;
+            localPort?: integer | undefined;
         }
 
         /**
@@ -9099,7 +9099,7 @@ declare namespace chrome {
              */
             status: ToStringLiteral<typeof FileStatus>;
             /** Optional error that is only returned if there was a problem retrieving the FileStatus for the given file. */
-            error?: string;
+            error?: string | undefined;
         }
         interface FileStatusChangedDetail {
             /**
@@ -9119,13 +9119,13 @@ declare namespace chrome {
              * Only applies if status is 'synced'.
              * @see SyncAction
              */
-            action?: ToStringLiteral<typeof SyncAction>;
+            action?: ToStringLiteral<typeof SyncAction> | undefined;
             /**
              * Sync direction for the onFileStatusChanged event.
              * Only applies if status is 'synced'.
              * @see SyncDirection
              */
-            direction?: ToStringLiteral<typeof SyncDirection>;
+            direction?: ToStringLiteral<typeof SyncDirection> | undefined;
         }
         /**
          * Returns a syncable filesystem backed by Google Drive.
@@ -9238,7 +9238,7 @@ declare namespace chrome {
              * List of CPU temperature readings from each thermal zone of the CPU.
              * Temperatures are in degrees Celsius.
              */
-            temperatures?: double[];
+            temperatures?: double[] | undefined;
         }
 
         /** Queries basic CPU information of the system. */
@@ -9392,7 +9392,7 @@ declare namespace chrome {
              * @see(See `enableUnifiedDesktop` for details).
              * @since Chrome 59
              * */
-            isUnified?: boolean;
+            isUnified?: boolean | undefined;
 
             /**
              * @requires(CrOS) Chrome OS only.
@@ -9405,20 +9405,20 @@ declare namespace chrome {
              * which must not be the same as the id passed to setDisplayProperties.
              * If set, no other property may be set.
              */
-            mirroringSourceId?: string;
+            mirroringSourceId?: string | undefined;
 
             /**
              * If set to true, makes the display primary.
              * No-op if set to false.
              */
-            isPrimary?: boolean;
+            isPrimary?: boolean | undefined;
 
             /**
              * If set, sets the display's overscan insets to the provided values.
              * Note that overscan values may not be negative or larger than a half of the screen's size.
              * Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter.
              */
-            overscan?: Insets;
+            overscan?: Insets | undefined;
 
             /**
              * If set, updates the display's rotation.
@@ -9426,7 +9426,7 @@ declare namespace chrome {
              * The rotation is set clockwise, relative to the display's vertical position.
              * It's applied after overscan parameter.
              */
-            rotation?: 0 | 90 | 180 | 270;
+            rotation?: 0 | 90 | 180 | 270 | undefined;
 
             /**
              * If set, updates the display's logical bounds origin along x-axis.
@@ -9438,19 +9438,19 @@ declare namespace chrome {
              * Note that is also invalid to set bounds origin values if isPrimary is also set
              * (as isPrimary parameter is applied first).
              */
-            boundsOriginX?: integer;
+            boundsOriginX?: integer | undefined;
 
             /**
              * If set, updates the display's logical bounds origin along y-axis.
              * @see[See documentation for boundsOriginX parameter.]
              */
-            boundsOriginY?: integer;
+            boundsOriginY?: integer | undefined;
 
             /**
              * If set, updates the display mode to the mode matching this value.
              * @since Chrome 52
              */
-            displayMode?: DisplayMode;
+            displayMode?: DisplayMode | undefined;
 
             /**
              * @since Chrome 65.
@@ -9460,7 +9460,7 @@ declare namespace chrome {
              * in a better quality zoom than just performing
              * a pixel by pixel stretch enlargement.
              */
-            displayZoomFactor?: double;
+            displayZoomFactor?: double | undefined;
         }
 
         /**
@@ -9473,7 +9473,7 @@ declare namespace chrome {
              * @see[enableUnifiedDesktop]
              * @default false
              */
-            singleUnified?: boolean;
+            singleUnified?: boolean | undefined;
         }
 
         /** Information about display properties. */
@@ -9497,8 +9497,8 @@ declare namespace chrome {
                 /**
                  * Year of manufacturer.
                  */
-                yearOfManufacture?: string;
-            }
+                yearOfManufacture?: string | undefined;
+            } | undefined
             /**
              * @requires(CrOS) Only working properly on Chrome OS.
              * Identifier of the display that is being mirrored on the display unit.
@@ -9562,13 +9562,13 @@ declare namespace chrome {
              * **mixed**
              * The specified source display will be mirrored to the provided destination displays. All other connected displays will be extended.
              */
-            mode?: 'off' | 'normal' | 'mixed';
+            mode?: 'off' | 'normal' | 'mixed' | undefined;
         }
         interface MirrorModeInfoMixed extends MirrorModeInfo {
             mode: 'mixed';
-            mirroringSourceId?: string;
+            mirroringSourceId?: string | undefined;
             /** The ids of the mirroring destination displays. */
-            mirroringDestinationIds?: string[];
+            mirroringDestinationIds?: string[] | undefined;
         }
 
         /**
@@ -9793,7 +9793,7 @@ declare namespace chrome {
              * Maximum power this source is capable of delivering if known.
              * Reported in watts, rounded to two significant digits.
              */
-            maxPower?: double;
+            maxPower?: double | undefined;
             /** Whether this power source is connected to the device. */
             active: boolean;
         }
@@ -9905,9 +9905,9 @@ declare namespace chrome {
         /** An event from the TTS engine to communicate the status of an utterance. */
         interface TtsEvent {
             /** The index of the current character in the utterance. */
-            charIndex?: integer;
+            charIndex?: integer | undefined;
             /** The error description, if the event type is 'error'. */
-            errorMessage?: string;
+            errorMessage?: string | undefined;
             /**
              * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
              * One of: 'start', 'end', 'word', 'sentence', 'marker', 'interrupted', 'cancelled', 'error', 'pause', or 'resume'
@@ -9918,63 +9918,63 @@ declare namespace chrome {
         /** A description of a voice available for speech synthesis. */
         interface TtsVoice {
             /** The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-            lang?: string;
+            lang?: string | undefined;
             /**
              * @deprecated Deprecated since Chrome 70. Gender is deprecated and will be ignored.
              * @description This voice's gender.
              */
-            gender?: 'male' | 'female';
+            gender?: 'male' | 'female' | undefined;
             /** The name of the voice. */
-            voiceName?: string;
+            voiceName?: string | undefined;
             /** The ID of the extension providing this voice. */
-            extensionsId?: string;
+            extensionsId?: string | undefined;
             /** All of the callback event types that this voice is capable of sending. */
-            eventTypes?: string[];
+            eventTypes?: string[] | undefined;
             /**
              * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
              * @since Chrome 33.
              */
-            remote?: boolean;
+            remote?: boolean | undefined;
         }
 
         interface SpeakOptions {
             /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-            volume?: integer;
+            volume?: integer | undefined;
             /**
              * Optional.
              * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
              */
-            enqueue?: boolean;
+            enqueue?: boolean | undefined;
             /**
              * Optional.
              * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
              */
-            rate?: integer;
+            rate?: integer | undefined;
             /**
              * This function is called with events that occur in the process of speaking the utterance.
              * @param event The update event from the text-to-speech engine indicating the status of this utterance.
              */
-            onEvent?: (event: TtsEvent) => void;
+            onEvent?: ((event: TtsEvent) => void) | undefined;
             /**
              * Optional.
              * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
              */
-            pitch?: integer;
+            pitch?: integer | undefined;
             /** The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-            lang?: string;
+            lang?: string | undefined;
             /** The name of the voice to use for synthesis. If empty, uses any available voice. */
-            voiceName?: string;
+            voiceName?: string | undefined;
             /** The extension ID of the speech engine to use, if known. */
-            extensionId?: string;
+            extensionId?: string | undefined;
             /**
              * @deprecated Deprecated since Chrome 70. Gender is deprecated and will be ignored.
              * @description Gender of voice for synthesized speech.
              */
-            gender?: 'male' | 'female';
+            gender?: 'male' | 'female' | undefined;
             /** The TTS event types the voice must support. */
-            requiredEventTypes?: string[];
+            requiredEventTypes?: string[] | undefined;
             /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-            desiredEventTypes?: string[];
+            desiredEventTypes?: string[] | undefined;
         }
 
         /** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
@@ -10044,7 +10044,7 @@ declare namespace chrome {
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted
              *     when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: ChromeSettingScope;
+            scope?: ChromeSettingScope | undefined;
         }
 
         interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
@@ -10063,12 +10063,12 @@ declare namespace chrome {
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted
              *     when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: ChromeSettingScope;
+            scope?: ChromeSettingScope | undefined;
         }
 
         interface ChromeSettingGetDetails {
             /** Whether to return the value that applies to the incognito session (default false). */
-            incognito?: boolean;
+            incognito?: boolean | undefined;
         }
 
         /**
@@ -10091,7 +10091,7 @@ declare namespace chrome {
              * Whether the effective value is specific to the incognito session.
              * This property will only be present if the incognito property in the details parameter of get() was true.
              */
-            incognitoSpecific?: boolean;
+            incognitoSpecific?: boolean | undefined;
         }
 
         interface ChromeSettingChangedEvent extends chrome.events.Event<DetailsCallback> { }
@@ -10244,14 +10244,14 @@ declare namespace chrome {
              * Transfer synchronization mode (isochronous only).
              * @see SynchronizationType
              */
-            synchronization?: ToStringLiteral<typeof SynchronizationType>;
+            synchronization?: ToStringLiteral<typeof SynchronizationType> | undefined;
             /**
              * Endpoint usage hint
              * @see UsageType
              */
-            usage?: ToStringLiteral<typeof UsageType>;
+            usage?: ToStringLiteral<typeof UsageType> | undefined;
             /** Polling interval (interrupt and isochronous only). */
-            pollingInterval?: integer;
+            pollingInterval?: integer | undefined;
             /**
              * Extra descriptor data associated with this endpoint.
              * @since Chrome 39.
@@ -10275,7 +10275,7 @@ declare namespace chrome {
             /** The USB interface protocol. */
             interfaceProtocol: integer;
             /** Description of the interface */
-            description?: string;
+            description?: string | undefined;
             /** Available endpoints. */
             endpoints: EndpointDescriptor[];
             /**
@@ -10295,7 +10295,7 @@ declare namespace chrome {
             /** The configuration number. */
             configurationValue: integer;
             /** Description of the configuration. */
-            description?: string;
+            description?: string | undefined;
             /** The device is self-powered. */
             selfPowered: boolean;
             /** The device supports remote wakeup. */
@@ -10317,35 +10317,35 @@ declare namespace chrome {
             /** The target endpoint address. The interface containing this endpoint must be claimed. */
             endpoint: integer;
             /** The maximum number of bytes to receive (required only by input transfers). */
-            length?: integer;
+            length?: integer | undefined;
             /** The data to transmit (required only by output transfers). */
-            data?: ArrayBuffer;
+            data?: ArrayBuffer | undefined;
             /**
              * Request timeout (in milliseconds).
              * The default value 0 indicates no timeout.
              * @default 0
              */
-            timeout?: integer;
+            timeout?: integer | undefined;
         }
 
         interface TransferResultInfo {
             /** A value of 0 indicates that the transfer was a success. Other values indicate failure. */
-            resultCode?: integer;
+            resultCode?: integer | undefined;
             /** The data returned by an input transfer. undefined for output transfers. */
-            data?: ArrayBuffer;
+            data?: ArrayBuffer | undefined;
         }
 
         interface DeviceFilterStrict {
             /** Device vendor ID. */
             vendorId: integer;
             /** Device product ID, checked only if the vendor ID matches. */
-            productId?: integer;
+            productId?: integer | undefined;
             /** USB interface class, matches any interface on the device. */
-            interfaceClass?: integer;
+            interfaceClass?: integer | undefined;
             /** USB interface sub-class, checked only if the interface class matches. */
-            interfaceSubclass?: integer;
+            interfaceSubclass?: integer | undefined;
             /** USB interface protocol, checked only if the interface sub-class matches. */
-            interfaceProtocol?: integer;
+            interfaceProtocol?: integer | undefined;
         }
 
         /** @since Chrome 39. */
@@ -10375,16 +10375,16 @@ declare namespace chrome {
             /** The wIndex field, see *Ibid*. */
             index: integer;
             /** The maximum number of bytes to receive(required only by input transfers). */
-            length?: integer;
+            length?: integer | undefined;
             /** The data to transmit (required only by output transfers). */
-            data?: ArrayBuffer;
+            data?: ArrayBuffer | undefined;
             /**
              * @since Chrome 43.
              * Request timeout (in milliseconds).
              * The default value 0 indicates no timeout.
              * @default 0
              */
-            timeout?: integer;
+            timeout?: integer | undefined;
         }
 
         interface IsochronousTransferInfo {
@@ -10406,7 +10406,7 @@ declare namespace chrome {
          * @param options The properties to search for on target devices.
          * @param callback
          */
-        function getDevices(options: { filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+        function getDevices(options: { filters?: DeviceFilter[] | undefined }, callback: (devices: Device[]) => void): void;
 
         /**
          * Presents a device picker to the user and returns the Devices selected.
@@ -10420,7 +10420,7 @@ declare namespace chrome {
          *                   If multiple filters are provided, devices matching any filter will be displayed.
          * @param callback Invoked with a list of chosen Devices.
          */
-        function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+        function getUserSelectedDevices(options: { multiple?: boolean | undefined, filters?: DeviceFilter[] | undefined }, callback: (devices: Device[]) => void): void;
 
         /**
          * Returns the full set of device configuration descriptors.
@@ -10465,7 +10465,7 @@ declare namespace chrome {
          * @requires(CrOS) Chrome OS if you specify *interfaceId*
          * @param callback
          */
-        function findDevices(options: { vendorId: integer, productId: integer, interfaceId?: integer }, callback: (handles: ConnectionHandle[]) => void): void;
+        function findDevices(options: { vendorId: integer, productId: integer, interfaceId?: integer | undefined }, callback: (handles: ConnectionHandle[]) => void): void;
 
         /**
          * Closes a connection handle.
@@ -10621,15 +10621,15 @@ declare namespace chrome {
          */
         interface FeatureRestrictions {
             /** Whether virtual keyboards can provide auto-complete. */
-            autoCompleteEnabled?: boolean;
+            autoCompleteEnabled?: boolean | undefined;
             /** Whether virtual keyboards can provide auto-correct. */
-            autoCorrectEnabled?: boolean;
+            autoCorrectEnabled?: boolean | undefined;
             /** Whether virtual keyboards can provide input via handwriting recognition. */
-            handwritingEnabled?: boolean;
+            handwritingEnabled?: boolean | undefined;
             /** Whether virtual keyboards can provide spell-check. */
-            spellCheckEnabled?: boolean;
+            spellCheckEnabled?: boolean | undefined;
             /** Whether virtual keyboards can provide voice input. */
-            voiceInputEnabled?: boolean;
+            voiceInputEnabled?: boolean | undefined;
         }
 
         /**
@@ -10722,12 +10722,12 @@ declare namespace chrome {
              * Broadcast address for the VPN interface.
              * (default: deduced from IP address and mask)
              */
-            broadcastAddress?: string;
+            broadcastAddress?: string | undefined;
             /**
              * MTU setting for the VPN interface (default 1500 bytes).
              * @default '1500'
              */
-            mtu?: string;
+            mtu?: string | undefined;
             /**
              * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel.
              * This can be used to bypass traffic to and from the VPN server.
@@ -10749,7 +10749,7 @@ declare namespace chrome {
              */
             inclusionList: string[];
             /** A list of search domains. (default: no search domain) */
-            domainSearch?: string[];
+            domainSearch?: string[] | undefined;
             /** A list of IPs for the DNS servers. */
             dnsServers: string[];
             /**
@@ -10840,9 +10840,9 @@ declare namespace chrome {
 
         interface WallpaperDetails {
             /** The jpeg or png encoded wallpaper image. */
-            data?: ArrayBuffer;
+            data?: ArrayBuffer | undefined;
             /** The URL of the wallpaper to be set. */
-            url?: string;
+            url?: string | undefined;
             /**
              * The supported wallpaper layouts.
              * @see WallpaperLayout
@@ -10851,7 +10851,7 @@ declare namespace chrome {
             /** The file name of the saved wallpaper. */
             filename: string;
             /** True if a 128x60 thumbnail should be generated. */
-            thumbnail?: boolean;
+            thumbnail?: boolean | undefined;
         }
 
         /**
@@ -10917,26 +10917,26 @@ declare namespace chrome {
             'declarativeWebRequest.IgnoreRules';
         interface HeaderFilter {
             /** Matches if the header name starts with the specified string. */
-            namePrefix?: string;
+            namePrefix?: string | undefined;
             /** Matches if the header name ends with the specified string. */
-            nameSuffix?: string;
+            nameSuffix?: string | undefined;
             /** Matches if the header name contains all of the specified strings. */
-            nameContains?: string | string[];
+            nameContains?: string | string[] | undefined;
             /** Matches if the header name is equal to the specified string. */
-            nameEquals?: string;
+            nameEquals?: string | undefined;
             /** Matches if the header value starts with the specified string. */
-            valuePrefix?: string;
+            valuePrefix?: string | undefined;
             /** Matches if the header value ends with the specified string. */
-            valueSuffix?: string;
+            valueSuffix?: string | undefined;
             /** Matches if the header value contains all of the specified strings. */
-            valueContains?: string | string[];
+            valueContains?: string | string[] | undefined;
             /** Matches if the header value is equal to the specified string. */
-            valueEquals?: string;
+            valueEquals?: string | undefined;
 
         }
         interface RequestMatcherFields {
             /** Matches if the conditions of the UrlFilter are fulfilled for the URL of the request. */
-            url?: chrome.events.UrlFilter;
+            url?: chrome.events.UrlFilter | undefined;
             /**
              * Matches if the conditions of the UrlFilter are fulfilled for the
              * 'first party' URL of the request. The 'first party' URL of a request,
@@ -10944,47 +10944,47 @@ declare namespace chrome {
              * describes what is considered 'first party' for the sake of third-party
              * checks for cookies.
              */
-            firstPartyForCookiesUrl?: chrome.events.UrlFilter;
+            firstPartyForCookiesUrl?: chrome.events.UrlFilter | undefined;
             /**
              * Matches if the request type of a request is contained in the list.
              * Requests that cannot match any of the types will be filtered out. */
-            resourceType?: webRequest.ResourceType[];
+            resourceType?: webRequest.ResourceType[] | undefined;
             /**
              * Matches if the MIME media type of a response
              * (from the HTTP Content-Type header)
              * is contained in the list. */
-            contentType?: string[];
+            contentType?: string[] | undefined;
             /**
              * Matches if the MIME media type of a response
              * (from the HTTP Content-Type header) is not contained in the list.
              */
-            excludeContentType?: string[];
+            excludeContentType?: string[] | undefined;
             /**
              * Matches if some of the request headers is matched by one of the HeaderFilters.
              */
-            requestHeaders?: HeaderFilter[];
+            requestHeaders?: HeaderFilter[] | undefined;
             /**
              * Matches if none of the request headers is matched by any of the HeaderFilters.
              */
-            excludeRequestHeaders?: HeaderFilter[];
+            excludeRequestHeaders?: HeaderFilter[] | undefined;
             /**
              * Matches if some of the response headers is matched by one of the HeaderFilters.
              */
-            responseHeaders?: HeaderFilter[];
+            responseHeaders?: HeaderFilter[] | undefined;
             /**
              * Matches if none of the response headers is matched by any of the HeaderFilters.
              */
-            excludeResponseHeaders?: HeaderFilter[];
+            excludeResponseHeaders?: HeaderFilter[] | undefined;
             /**
              * If set to true, matches requests that are subject to third-party cookie policies.
              * If set to false, matches all other requests.
              */
-            thirdPartyForCookies?: boolean;
+            thirdPartyForCookies?: boolean | undefined;
             /**
              * Contains a list of strings describing stages.
              * If this attribute is present, then it limits the applicable stages to those listed.
              * Note that the whole condition is only applicable in stages compatible with all attributes. */
-            stages?: Stage[];
+            stages?: Stage[] | undefined;
         }
         /**
          * @description Matches network events by various criteria.
@@ -11107,7 +11107,7 @@ declare namespace chrome {
             /** HTTP request header name (case-insensitive). */
             name: string;
             /** HTTP request header value (case-insensitive). */
-            value?: string;
+            value?: string | undefined;
         }
 
         /**
@@ -11125,7 +11125,7 @@ declare namespace chrome {
              * This boundary is not persisted, it affects only rules and their actions
              * of the same network request stage.
              */
-            lowerPriorityThan?: integer;
+            lowerPriorityThan?: integer | undefined;
             /**
              * If set, rules with the specified tag are ignored. This ignoring is not persisted,
              * it affects only rules and their actions of the same network request stage.
@@ -11133,7 +11133,7 @@ declare namespace chrome {
              * This action affects rules of lower priority than the current rule.
              * Rules with the same priority may or may not be ignored.
              */
-            hasTag?: string;
+            hasTag?: string | undefined;
         }
 
         /**
@@ -11167,9 +11167,9 @@ declare namespace chrome {
          */
         interface RequestCookie {
             /** Name of a cookie. */
-            name?: string;
+            name?: string | undefined;
             /** Value of a AddRequestCookie, may be padded in double-quotes. */
-            value?: string;
+            value?: string | undefined;
         }
 
         /**
@@ -11178,41 +11178,41 @@ declare namespace chrome {
 
         interface ResponseCookie {
             /** Name of a cookie. */
-            name?: string;
+            name?: string | undefined;
             /** Value of a cookie, may be padded in double-quotes. */
-            value?: string;
+            value?: string | undefined;
             /** Value of the Expires cookie attribute. */
-            expires?: string;
+            expires?: string | undefined;
             /** Value of the Max-Age cookie attribute */
-            maxAge?: integer;
+            maxAge?: integer | undefined;
             /** Value of the Domain cookie attribute. */
-            domain?: string;
+            domain?: string | undefined;
             /** Value of the Path cookie attribute. */
-            path?: string;
+            path?: string | undefined;
             /** Existence of the Secure cookie attribute. */
-            secure?: string;
+            secure?: string | undefined;
             /** Existence of the HttpOnly cookie attribute. */
-            httpOnly?: string;
+            httpOnly?: string | undefined;
         }
 
         /** A filter of a cookie in HTTP Responses. */
         interface FilterResponseCookie {
             /** Name of a cookie. */
-            name?: string;
+            name?: string | undefined;
             /** Value of a cookie, may be padded in double-quotes. */
-            value?: string;
+            value?: string | undefined;
             /** Value of the Expires cookie attribute. */
-            expires?: string;
+            expires?: string | undefined;
             /** Value of the Max-Age cookie attribute */
-            maxAge?: double;
+            maxAge?: double | undefined;
             /** Value of the Domain cookie attribute. */
-            domain?: string;
+            domain?: string | undefined;
             /** Value of the Path cookie attribute. */
-            path?: string;
+            path?: string | undefined;
             /** Existence of the Secure cookie attribute. */
-            secure?: string;
+            secure?: string | undefined;
             /** Existence of the HttpOnly cookie attribute */
-            httpOnly?: string;
+            httpOnly?: string | undefined;
             /**
              * Inclusive upper bound on the cookie lifetime (specified in seconds after current time).
              * Only cookies whose expiration date-time is in the interval [now, now + ageUpperBound]
@@ -11221,7 +11221,7 @@ declare namespace chrome {
              * from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age'
              * is used to calculate the cookie lifetime.
              */
-            ageUpperBound?: integer;
+            ageUpperBound?: integer | undefined;
             /**
              * Inclusive lower bound on the cookie lifetime (specified in seconds after current time).
              * Only cookies whose expiration date-time is set to 'now + ageLowerBound' or later fulfill
@@ -11229,12 +11229,12 @@ declare namespace chrome {
              * lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both
              * are specified, 'max-age' is used to calculate the cookie lifetime.
              */
-            ageLowerBound?: integer;
+            ageLowerBound?: integer | undefined;
             /**
              * Filters session cookies.
              * Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes.
              */
-            sessionCookie?: boolean;
+            sessionCookie?: boolean | undefined;
         }
 
         interface AddCookie<T> {
@@ -11576,14 +11576,14 @@ declare class HTMLWebViewElement extends HTMLElement {
      * even if elements exist that are specified as transparent.
      * This does not affect transparency within the contents of the webview itself.
      */
-    allowtransparency?: boolean;
+    allowtransparency?: boolean | undefined;
 
     /**
      * If 'on', the webview container will automatically resize within the bounds specified by the attributes minwidth, minheight, maxwidth, and maxheight.
      * These constraints do not impact the webview UNLESS autosize is enabled.
      * When autosize is enabled, the webview container size cannot be less than the minimum values or greater than the maximum.
      */
-    autosize?: 'on' | boolean;
+    autosize?: 'on' | boolean | undefined;
 
     /** Similar to chrome's ContextMenus API, but applies to webview instead of browser.
          * Use the webview.contextMenus API to add items to webview's context menu.
@@ -11607,7 +11607,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * Subsequent attempts to modify the value will fail with a DOM exception.
      * By assigning the same partition ID, multiple webviews can share the same storage partition.
      */
-    partition?: string;
+    partition?: string | undefined;
 
     /** Interface which provides access to webRequest events on the guest page. */
     request: WebView.WebRequestEventInterface;
@@ -12042,7 +12042,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * Allow scaling?
      * @default false
      */
-    allowscaling?: boolean;
+    allowscaling?: boolean | undefined;
 }
 /////////////
 // WEBVIEW //
@@ -12432,7 +12432,7 @@ declare namespace WebView {
          * If absent, defaults to 0 (which would remove all browsing data).
          * @default 0
          */
-        since?: chrome.integer;
+        since?: chrome.integer | undefined;
     }
 
 
@@ -12449,11 +12449,11 @@ declare namespace WebView {
          * cross site scripting attacks.
          * @see[More information]{@link https://en.wikipedia.org/wiki/Cross-site_scripting}
          */
-        code?: string,
+        code?: string | undefined,
         /**
          * JavaScript or CSS file to inject.
          */
-        file?: string
+        file?: string | undefined
     }
 
     /**
@@ -12464,26 +12464,26 @@ declare namespace WebView {
     /** A set of data types. Missing properties are interpreted as false. */
     interface ClearDataTypeSet {
         /** Websites' appcaches. */
-        appcache?: boolean;
+        appcache?: boolean | undefined;
         /**
          * The browser's cache. Note: when removing data, this clears the entire cache; it is not limited to the range you specify.
          * @since Chrome 43.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /** The partition's cookies. */
-        cookies?: boolean;
+        cookies?: boolean | undefined;
         /** The partition's session cookies. */
-        sessionCookies?: boolean;
+        sessionCookies?: boolean | undefined;
         /** The partition's persistent cookies. */
-        persistentCookies?: boolean;
+        persistentCookies?: boolean | undefined;
         /** Websites' filesystems. */
-        fileSystems?: boolean;
+        fileSystems?: boolean | undefined;
         /** Websites' IndexedDB data. */
-        indexedDB?: boolean;
+        indexedDB?: boolean | undefined;
         /** Websites' local storage data. */
-        localStorage?: boolean;
+        localStorage?: boolean | undefined;
         /** Websites' WebSQL data. */
-        webSQL?: boolean;
+        webSQL?: boolean | undefined;
     }
     /**
     * The different contexts a menu can appear in.
@@ -12510,20 +12510,20 @@ declare namespace WebView {
          * Warning: Be careful using the code parameter.
          * Incorrect use of it may open your app to xss attacks.
          */
-        code?: string;
+        code?: string | undefined;
 
         /** JavaScript or CSS file to inject. */
-        file?: string;
+        file?: string | undefined;
     }
     /** The type of injection item: code or a set of files. */
     interface InjectionItems {
         /** JavaScript code or CSS to be injected into matching pages. */
-        code?: string;
+        code?: string | undefined;
         /**
          * The list of JavaScript or CSS files to be injected into matching pages.
          * These are injected in the order they appear in this array.
          */
-        files?: any[];
+        files?: any[] | undefined;
     }
     /** Details of the content script to inject. **/
     interface ContentScriptDetails {
@@ -12534,10 +12534,10 @@ declare namespace WebView {
         matches: string[];
 
         /** Excludes pages that this content script would otherwise be injected into. */
-        exclude_matches?: string[];
+        exclude_matches?: string[] | undefined;
 
         /** JavaScript code or CSS to be injected into matching pages. */
-        code?: string;
+        code?: string | undefined;
 
         /**
          * Whether to insert the content script on about:blank and about:srcdoc.
@@ -12546,57 +12546,57 @@ declare namespace WebView {
          * The inherit URL is the URL of the document that created the frame or window.
          * Content scripts cannot be inserted in sandboxed frames.
          */
-        match_about_blank?: boolean;
+        match_about_blank?: boolean | undefined;
 
         /**
          * The CSS code or a list of CSS files to be injected into matching pages.
          * These are injected in the order they appear,
          * before any DOM is constructed or displayed for the page.
          */
-        css?: InjectionItems;
+        css?: InjectionItems | undefined;
 
         /**
          * The JavaScript code or a list of JavaScript files to be injected into matching pages.
          * These are injected in the order they appear.
          */
-        js?: InjectionItems;
+        js?: InjectionItems | undefined;
 
         /**
          * The soonest that the JavaScript or CSS will be injected into the tab.
          * Defaults to 'document_idle'.
          */
-        run_at?: chrome.extensionTypes.RunAt;
+        run_at?: chrome.extensionTypes.RunAt | undefined;
 
         /**
          * If all_frames is true, this implies that the JavaScript or CSS should be injected into all frames of current page.
          * By default, all_frames is false and the JavaScript or CSS is only injected into the top frame.
          * @default false
          */
-        all_frames?: boolean;
+        all_frames?: boolean | undefined;
 
         /**
          * Applied after matches to include only those URLs that also match this glob.
          * Intended to emulate the @include Greasemonkey keyword.
          */
-        include_globs?: string[];
+        include_globs?: string[] | undefined;
 
         /**
          * Applied after matches to exclude URLs that match this glob.
          * Intended to emulate the @exclude Greasemonkey keyword.
          */
-        exclude_globs?: string[];
+        exclude_globs?: string[] | undefined;
     }
     interface ContextMenuCreateProperties {
 
         /**
          * The type of menu item. Defaults to 'normal' if not specified.
          */
-        type?: chrome.ToStringLiteral<typeof chrome.contextMenus.ItemType>;
+        type?: chrome.ToStringLiteral<typeof chrome.contextMenus.ItemType> | undefined;
 
         /**
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
          */
-        id?: string;
+        id?: string | undefined;
 
         /**
          * The text to be displayed in the item; this is -required- unless type is 'separator'.
@@ -12604,90 +12604,90 @@ declare namespace WebView {
          * For example, if this parameter's value is 'Translate '%s' to Pig Latin' and the user selects
          * the word 'cool', the context menu item for the selection is 'Translate 'cool' to Pig Latin'.
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * The initial state of a checkbox or radio item:
          * true for selected and false for unselected.
          * Only one radio item can be selected at a time in a given group of radio items.
          */
-        checked?: boolean
+        checked?: boolean | undefined
 
         /**
          * List of contexts this menu item will appear in.
          * Defaults to ['page'] if not specified.
          */
-        contexts?: any[];
+        contexts?: any[] | undefined;
 
         /**
          * A function that will be called back when the menu item is clicked.
          */
-        onclick?: (info: any) => void
+        onclick?: ((info: any) => void) | undefined
 
         /**
          * The ID of a parent menu item; this makes the item a child of a previously added item.
          */
-        parentId?: chrome.integer | string;
+        parentId?: chrome.integer | string | undefined;
 
         /**
          * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
          */
-        documentUrlPatterns?: any[];
+        documentUrlPatterns?: any[] | undefined;
 
         /**
          * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
          */
-        targetUrlPatterns?: any[];
+        targetUrlPatterns?: any[] | undefined;
 
         /**
          * Whether this context menu item is enabled or disabled. Defaults to true.
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
     }
     interface ContextMenuUpdateProperties {
         /** The type of menu item. */
-        type?: WebView.ContextType;
+        type?: WebView.ContextType | undefined;
 
         /** The text to be displayed in the item */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * The state of a checkbox or radio item: true for selected and false for unselected.
          * Only one radio item can be selected at a time in a given group of radio items.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
 
         /**
          * List of contexts this menu item will appear in.
          */
-        contexts?: any[];
+        contexts?: any[] | undefined;
 
         /**
          * A function that will be called back when the menu item is clicked.
         * @param callback
          */
-        onclick?: (info: any) => void;
+        onclick?: ((info: any) => void) | undefined;
 
         /**
          * The ID of a parent menu item; this makes the item a child of a previously added item. <em>Note:</em> You cannot change an item to be a child of one of its own descendants.
          */
-        parentId?: chrome.integer | string;
+        parentId?: chrome.integer | string | undefined;
 
         /**
          * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns.
          * (This applies to frames as well.)
          */
-        documentUrlPatterns?: any[];
+        documentUrlPatterns?: any[] | undefined;
 
         /**
          * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
          */
-        targetUrlPatterns?: any[];
+        targetUrlPatterns?: any[] | undefined;
 
         /**
          * Whether this context menu item is enabled or disabled.
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
     }
     interface OnShowEvent {
         /** Call this to prevent showing the context menu. */
@@ -12776,12 +12776,12 @@ declare namespace WebView {
          * Flag to find matches in reverse order.
          * @default false
          */
-        backward?: boolean;
+        backward?: boolean | undefined;
         /**
          * Flag to match with case-sensitivity.
          * @default false
          */
-        matchCase?: boolean;
+        matchCase?: boolean | undefined;
     }
     interface NewWindow {
         /**
@@ -12819,8 +12819,8 @@ declare namespace WebView {
     /** An HTTP Header, represented as an object containing a key and either a value or a binaryValue. */
     interface HttpHeader {
         name: string;
-        value?: string;
-        binaryValue?: ArrayBuffer;
+        value?: string | undefined;
+        binaryValue?: ArrayBuffer | undefined;
     }
 
     interface ResourceRequest {
@@ -12842,7 +12842,7 @@ declare namespace WebView {
         /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
          * @since Chrome 63.
         */
-        initiator?: string;
+        initiator?: string | undefined;
     }
 
     interface WebRequestDetails extends ResourceRequest {
@@ -12852,7 +12852,7 @@ declare namespace WebView {
 
     interface WebRequestHeadersDetails extends WebRequestDetails {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
-        requestHeaders?: HttpHeader[];
+        requestHeaders?: HttpHeader[] | undefined;
     }
 
     interface WebRequestBodyDetails extends WebRequestDetails {
@@ -12869,24 +12869,24 @@ declare namespace WebView {
      */
     interface UploadData {
         /** Optional. An ArrayBuffer with a copy of the data. */
-        bytes?: ArrayBuffer;
+        bytes?: ArrayBuffer | undefined;
         /** Optional. A string with the file's path and name. */
-        file?: string;
+        file?: string | undefined;
     }
 
     interface WebRequestBody {
         /** Optional. Errors when obtaining request body data. */
-        error?: string;
+        error?: string | undefined;
         /**
          * Optional.
          * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.
          */
-        formData?: { [key: string]: string[] };
+        formData?: { [key: string]: string[] } | undefined;
         /**
          * Optional.
          * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array.
          */
-        raw?: UploadData[];
+        raw?: UploadData[] | undefined;
     }
 
     interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails {
@@ -12904,7 +12904,7 @@ declare namespace WebView {
 
     interface WebResponseHeadersDetails extends WebResponseDetails {
         /** Optional. The HTTP response headers that have been received with this response. */
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeader[] | undefined;
         /** standard HTTP method i.e. GET, POST, PUT, etc. */
         method: string;
     }
@@ -12914,7 +12914,7 @@ declare namespace WebView {
          * Optional.
          * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
          */
-        ip?: string;
+        ip?: string | undefined;
         /** Indicates if this response was fetched from disk cache. */
         fromCache: boolean;
     }
@@ -12927,16 +12927,16 @@ declare namespace WebView {
     /** An object describing filters to apply to webRequest events. */
     interface RequestFilter {
         /** Optional. */
-        tabId?: chrome.integer;
+        tabId?: chrome.integer | undefined;
         /**
          * A list of request types. Requests that cannot match any of the types will be filtered out.
          */
-        types?: chrome.webRequest.ResourceType[];
+        types?: chrome.webRequest.ResourceType[] | undefined;
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
         urls: string[];
 
         /** Optional. */
-        windowId?: chrome.integer;
+        windowId?: chrome.integer | undefined;
     }
 
     interface AuthCredentials {
@@ -12949,7 +12949,7 @@ declare namespace WebView {
         /**
          * If true, the request is cancelled.
          * Used in onBeforeRequest, this prevents the request from being sent. */
-        cancel?: boolean;
+        cancel?: boolean | undefined;
         /**
          * Only used as a response to the onBeforeRequest and onHeadersReceived events.
          * If set, the original request is prevented from being sent/completed and is
@@ -12959,7 +12959,7 @@ declare namespace WebView {
          * redirect is initiated at the onHeadersReceived stage, then the redirect
          * will be issued using the GET method.
          */
-        redirectUrl?: string;
+        redirectUrl?: string | undefined;
         /**
          * Only used as a response to the onHeadersReceived event.
          * If set, the server is assumed to have responded with these
@@ -12967,24 +12967,24 @@ declare namespace WebView {
          * want to modify the headers in order to limit the number of conflicts
          * (only one extension may modify responseHeaders for each request).
          */
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeader[] | undefined;
         /**
          * Only used as a response to the onAuthRequired event.
          * If set, the request is made using the supplied credentials.
          */
-        authCredentials?: AuthCredentials;
+        authCredentials?: AuthCredentials | undefined;
         /**
          * Only used as a response to the onBeforeSendHeaders event.
          * If set, the request is made with these request headers instead.
          */
-        requestHeaders?: HttpHeader[];
+        requestHeaders?: HttpHeader[] | undefined;
     }
 
     interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
         /** The authentication scheme, e.g. Basic or Digest. */
         scheme: string;
         /** The authentication realm provided by the server, if there is one. */
-        realm?: string;
+        realm?: string | undefined;
         /** The server requesting authentication. */
         challenger: WebAuthChallenger;
         /** True for Proxy-Authenticate, false for WWW-Authenticate. */

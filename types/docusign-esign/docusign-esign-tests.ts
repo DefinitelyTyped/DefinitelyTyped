@@ -22,7 +22,7 @@ const apiClient = () => {
     return new docusign.ApiClient({ basePath, oAuthBasePath });
 };
 
-const getEnvelope = async (envelopeId: string, options: { advancedUpdate?: string; include?: string }) => {
+const getEnvelope = async (envelopeId: string, options: { advancedUpdate?: string | undefined; include?: string | undefined }) => {
     const params = await getDsRequestParams();
     const client = await getClient(params.token);
     const envelopesApi = new docusign.EnvelopesApi(client);

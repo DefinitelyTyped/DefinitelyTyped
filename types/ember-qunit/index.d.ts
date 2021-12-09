@@ -19,7 +19,7 @@ interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
     setup?(assert: Assert): void;
     teardown?(assert: Assert): void;
     afterTeardown?(assert: Assert): void;
-    needs?: string[];
+    needs?: string[] | undefined;
 }
 
 /**
@@ -52,7 +52,7 @@ interface SetupTestOptions {
     /**
      * The resolver to use when instantiating container-managed entities in the test.
      */
-    resolver?: Ember.Resolver;
+    resolver?: Ember.Resolver | undefined;
 }
 
 /**
@@ -113,66 +113,78 @@ interface QUnitStartOptions {
     /**
      * If `false` tests will not be loaded automatically.
      */
-    loadTests?: boolean;
+    loadTests?: boolean | undefined;
 
     /**
      * If `false` the test container will not be setup based on `devmode`,
      * `dockcontainer`, or `nocontainer` URL params.
      */
-    setupTestContainer?: boolean;
+    setupTestContainer?: boolean | undefined;
 
     /**
      * If `false` tests will not be automatically started (you must run
      * `QUnit.start()` to kick them off).
      */
-    startTests?: boolean;
+    startTests?: boolean | undefined;
 
     /**
      * If `false` the default Ember.Test adapter will not be updated.
      */
-    setupTestAdapter?: boolean;
+    setupTestAdapter?: boolean | undefined;
 
     /**
      * `false` opts out of the default behavior of setting `Ember.testing`
      * to `true` before all tests and back to `false` after each test will.
      */
-    setupEmberTesting?: boolean;
+    setupEmberTesting?: boolean | undefined;
 
     /**
      * If `false` validation of `Ember.onerror` will be disabled.
      */
-    setupEmberOnerrorValidation?: boolean;
+    setupEmberOnerrorValidation?: boolean | undefined;
 
     /**
      * If `false` test isolation validation will be disabled.
      */
-    setupTestIsolationValidation?: boolean;
+    setupTestIsolationValidation?: boolean | undefined;
 }
 
 export function start(options?: QUnitStartOptions): void;
 
 declare global {
+    // NOTE: disables `no-unnecessary-generics` inline because, unfortunately,
+    // the design of Ember's test tooling (and indeed *QUnit's* test system)
+    // requires that we allow users to update the type of the context of the
+    // test. This is indeed strictly *wrong*! However, changing it will require
+    // changing how Ember handles testing. See [the PR][pr] for further details.
+    //
+    // [pr]: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/56494
+
     interface NestedHooks {
         /**
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        after<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs after each test.
          */
-        afterEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        afterEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before the first test.
          */
-        before(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        before<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before each test.
          */
-        beforeEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        beforeEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 
     interface QUnit {
@@ -191,7 +203,8 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        test(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        test<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Adds a test to exclusively run, preventing all other tests from running.
@@ -209,7 +222,8 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        only<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Use this method to test a unit of code which is still under development (in a “todo” state).
@@ -221,7 +235,8 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        todo<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Adds a test like object to be skipped.
@@ -236,6 +251,7 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        skip(name: string, callback?: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        skip<TC extends TestContext>(name: string, callback?: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 }

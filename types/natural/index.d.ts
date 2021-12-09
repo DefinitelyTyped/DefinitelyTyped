@@ -1,4 +1,4 @@
-// Type definitions for Natural 2.1
+// Type definitions for Natural 5.1
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -18,15 +18,15 @@ declare class TreebankWordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
 }
 interface RegexTokenizerOptions {
-    pattern?: RegExp;
-    discardEmpty?: boolean;
+    pattern?: RegExp | undefined;
+    discardEmpty?: boolean | undefined;
 }
 declare class RegexpTokenizer implements Tokenizer {
     constructor(options: RegexTokenizerOptions);
     tokenize(text: string): string[];
 }
 declare class OrthographyTokenizer implements Tokenizer {
-    constructor(options: RegexTokenizerOptions & {language: string});
+    constructor(options: RegexTokenizerOptions & { language: string });
     tokenize(text: string): string[];
 }
 declare class WordPunctTokenizer implements Tokenizer {
@@ -85,17 +85,17 @@ declare function JaroWinklerDistance(s1: string, s2: string, dt?: number): numbe
 declare function LevenshteinDistance(source: string, target: string, options?: any): number;
 export interface DamerauLevenshteinDistanceOptions {
     /** @default 1 */
-    insertion_cost?: number;
+    insertion_cost?: number | undefined;
     /** @default 1 */
-    deletion_cost?: number;
+    deletion_cost?: number | undefined;
     /** @default 1 */
-    substitution_cost?: number;
+    substitution_cost?: number | undefined;
     /** @default 1 */
-    transposition_cost?: number;
+    transposition_cost?: number | undefined;
     /** @default false */
-    search?: boolean;
+    search?: boolean | undefined;
     /** @default false */
-    restricted?: boolean;
+    restricted?: boolean | undefined;
 }
 interface SubstringDistanceResult {
     substring: string;
@@ -117,7 +117,7 @@ export function DamerauLevenshteinDistance(
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options?: DamerauLevenshteinDistanceOptions & { search?: false },
+    options?: DamerauLevenshteinDistanceOptions & { search?: false | undefined },
 ): number;
 export function DamerauLevenshteinDistance(
     source: string,
@@ -131,15 +131,21 @@ interface Stemmer {
     tokenizeAndStem(text: string): string[];
     attach(): void;
 }
+
+declare var CarryStemmerFr: Stemmer;
+declare var LancasterStemmer: Stemmer;
 declare var PorterStemmer: Stemmer;
-declare var PorterStemmerRu: Stemmer;
 declare var PorterStemmerEs: Stemmer;
 declare var PorterStemmerFa: Stemmer;
 declare var PorterStemmerFr: Stemmer;
 declare var PorterStemmerIt: Stemmer;
+declare var PorterStemmerNl: Stemmer;
 declare var PorterStemmerNo: Stemmer;
 declare var PorterStemmerPt: Stemmer;
-declare var LancasterStemmer: Stemmer;
+declare var PorterStemmerRu: Stemmer;
+declare var PorterStemmerSv: Stemmer;
+declare var StemmerId: Stemmer;
+declare var StemmerJa: Stemmer;
 
 interface BayesClassifierClassification {
     label: string;
@@ -304,8 +310,8 @@ declare class Predicate {
     constructor(name: string, parameter1: string, parameter2?: string);
     name: string;
     parameter1: string;
-    parameter2?: string;
-    function?: (tagged_sentence: string[][], i: number, parameter: string) => boolean;
+    parameter2?: string | undefined;
+    function?: ((tagged_sentence: string[][], i: number, parameter: string) => boolean) | undefined;
     evaluate(tagged_sentence: string[][], position: number): boolean;
 }
 
@@ -330,9 +336,21 @@ declare class Lexicon {
     tagWord(word: string): string[];
 }
 
+interface TaggedWord {
+    token: string;
+    tag: string;
+}
+
+declare class Sentence {
+    constructor(data?: string[]);
+    taggedWords: TaggedWord[];
+    addTaggedWord(token: string, tag: string): void;
+    clone(): Sentence;
+}
+
 declare class BrillPOSTagger {
     constructor(lexicon: Lexicon, ruleSet: RuleSet);
     lexicon: Lexicon;
     ruleSet: RuleSet;
-    tag(sentence: string[]): string[][];
+    tag(sentence: string[]): Sentence;
 }

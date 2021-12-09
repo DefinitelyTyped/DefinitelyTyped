@@ -1,8 +1,9 @@
 import { Editor } from "mem-fs-editor";
+import Generator = require("../..");
 
 declare namespace Storage {
     /**
-     * Provides options for the `Storage` class.
+     * Provides options for the {@link Storage `Storage`} class.
      */
     interface StorageOptions {
         /**
@@ -25,11 +26,11 @@ declare namespace Storage {
 /**
  * Storage instances handle a json file where Generator authors can store data.
  *
- * The `Generator` class instantiate the storage named `config` by default.
+ * The {@link Generator `Generator`} class instantiates the storage named {@link Generator.config `config`} by default.
  */
 declare class Storage {
     /**
-     * Initializes a new instance of the `Storage` class.
+     * Initializes a new instance of the {@link Storage `Storage`} class.
      *
      * @param name The name of the new storage (this is a namespace).
      * @param fs A mem-fs editor instance.
@@ -51,7 +52,7 @@ declare class Storage {
     createStorage(path: string): Storage;
 
     /**
-     * Recreates the store with `defaults` value and schedules a save. If keys already exist, the initial value is kept.
+     * Recreates the store with {@link defaults `defaults`} value and schedules a save. If keys already exist, the initial value is kept.
      *
      * @param defaults The key-value object to store.
      */
@@ -89,7 +90,7 @@ declare class Storage {
     save(): void;
 
     /**
-     * Merges the specified `content` into the storage.
+     * Merges the specified {@link content `content`} into the storage.
      *
      * @param content
      * The content to merge into the storage.

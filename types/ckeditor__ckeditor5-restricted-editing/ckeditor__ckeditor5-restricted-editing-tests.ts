@@ -39,17 +39,41 @@ new RestrictedEditingExceptionCommand(editor).refresh();
 new RestrictedEditingModeNavigationCommand(editor, 'forward').execute();
 new RestrictedEditingModeNavigationCommand(editor, 'backward').refresh();
 
-converters.upcastHighlightToMarker({ converterPriority: 'low', view: '', model: new Element('div') });
+converters.upcastHighlightToMarker({ converterPriority: 'low', view: '', model: Element.fromJSON({name: 'div'}) });
 converters.setupExceptionHighlighting(editor);
 converters.extendMarkerOnTypingPostFixer(editor);
 converters.resurrectCollapsedMarkerPostFixer(editor);
 
-const marker = utils.getMarkerAtPosition(editor, new Position(new Element('div'), [0]));
+const marker = utils.getMarkerAtPosition(editor, new Position(Element.fromJSON({name: 'div'}), [0]));
 if (marker) {
     marker.is('foo');
-    utils.isSelectionInMarker(new Selection(new Position(new Element('div'), [0])), marker);
+    utils.isSelectionInMarker(new Selection(new Position(Element.fromJSON({name: 'div'}), [0])), marker);
 }
 utils.isPositionInRangeBoundaries(
-    new Range(new Position(new Element('div'), [0])),
-    new Position(new Element('div'), [0]),
+    new Range(new Position(Element.fromJSON({name: 'div'}), [0])),
+    new Position(Element.fromJSON({name: 'div'}), [0]),
 );
+
+// $ExpectType RestrictedEditingMode
+editor.plugins.get('RestrictedEditingMode');
+
+// $ExpectType RestrictedEditingModeEditing
+editor.plugins.get('RestrictedEditingModeEditing');
+
+// $ExpectType RestrictedEditingModeUI
+editor.plugins.get('RestrictedEditingModeUI');
+
+// $ExpectType StandardEditingMode
+editor.plugins.get('StandardEditingMode');
+
+// $ExpectType StandardEditingModeEditing
+editor.plugins.get('StandardEditingModeEditing');
+
+// $ExpectType StandardEditingModeUI
+editor.plugins.get('StandardEditingModeUI');
+
+// $ExpectType RestrictedEditingModeNavigationCommand | undefined
+editor.commands.get('RestrictedEditingModeNavigationCommand');
+
+// $ExpectType RestrictedEditingExceptionCommand | undefined
+editor.commands.get('RestrictedEditingExceptionCommand');

@@ -20,8 +20,8 @@ export namespace supportsColor {
          * If `false`, then `process.argv` is not considered when determining color support.
          * @default true
          */
-        sniffFlags?: boolean;
-        isTTY?: boolean;
+        sniffFlags?: boolean | undefined;
+        isTTY?: boolean | undefined;
     }
 
     type SupportsColor = false | Level;
@@ -29,7 +29,7 @@ export namespace supportsColor {
 
 export function supportsColor(
     stream: {
-        isTTY?: boolean;
+        isTTY?: boolean | undefined;
     },
     options?: supportsColor.Options,
 ): supportsColor.SupportsColor;

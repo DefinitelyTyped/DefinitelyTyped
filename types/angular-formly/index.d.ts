@@ -24,34 +24,34 @@ declare namespace AngularFormly {
     interface IFieldGroup {
         data?: {
             [key: string]: any;
-        };
-        className?: string;
-        elementAttributes?: string;
-        fieldGroup?: IFieldArray;
-        form?: Object;
-        hide?: boolean;
-        hideExpression?: string | IExpressionFunction;
-        key?: string | number;
+        } | undefined;
+        className?: string | undefined;
+        elementAttributes?: string | undefined;
+        fieldGroup?: IFieldArray | undefined;
+        form?: Object | undefined;
+        hide?: boolean | undefined;
+        hideExpression?: string | IExpressionFunction | undefined;
+        key?: string | number | undefined;
         model?: string | {
             [key: string]: any;
-        };
-        options?: IFormOptionsAPI;
-        templateOptions?: ITemplateOptions;
-        wrapper?: string | string[];
+        } | undefined;
+        options?: IFormOptionsAPI | undefined;
+        templateOptions?: ITemplateOptions | undefined;
+        wrapper?: string | string[] | undefined;
     }
 
 
     interface IFormOptionsAPI {
         data?: {
             [key: string]: any;
-        };
-        fieldTransform?: Function | Array<Function>;
-        formState?: Object;
-        removeChromeAutoComplete?: boolean;
-        resetModel?: Function;
-        templateManipulators?: ITemplateManipulators;
-        updateInitialValue?: Function;
-        wrapper?: string | string[];
+        } | undefined;
+        fieldTransform?: Function | Array<Function> | undefined;
+        formState?: Object | undefined;
+        removeChromeAutoComplete?: boolean | undefined;
+        resetModel?: Function | undefined;
+        templateManipulators?: ITemplateManipulators | undefined;
+        updateInitialValue?: Function | undefined;
+        wrapper?: string | string[] | undefined;
     }
 
 
@@ -64,11 +64,11 @@ declare namespace AngularFormly {
 
 
     interface IModelOptions {
-        updateOn?: string;
-        debounce?: number;
-        allowInvalid?: boolean;
-        getterSetter?: string;
-        timezone?: string;
+        updateOn?: string | undefined;
+        debounce?: number | undefined;
+        allowInvalid?: boolean | undefined;
+        getterSetter?: string | undefined;
+        timezone?: string | undefined;
     }
 
 
@@ -78,14 +78,14 @@ declare namespace AngularFormly {
 
 
     interface ITemplateManipulators {
-        preWrapper?: ITemplateManipulator[];
-        postWrapper?: ITemplateManipulator[];
+        preWrapper?: ITemplateManipulator[] | undefined;
+        postWrapper?: ITemplateManipulator[] | undefined;
     }
 
     interface ISelectOption {
-        name?: string;
-        value?: string;
-        group?: string;
+        name?: string | undefined;
+        value?: string | undefined;
+        group?: string | undefined;
         [key: string]: any;
     }
 
@@ -95,38 +95,38 @@ declare namespace AngularFormly {
     interface ITemplateOptions {
 
         // both attribute or regular attribute
-        disabled?: boolean;
-        maxlength?: number;
-        minlength?: number;
-        pattern?: string;
-        required?: boolean;
+        disabled?: boolean | undefined;
+        maxlength?: number | undefined;
+        minlength?: number | undefined;
+        pattern?: string | undefined;
+        required?: boolean | undefined;
 
         //attribute only
-        max?: number;
-        min?: number;
-        placeholder?: number | string;
-        tabindex?: number;
-        type?: string;
+        max?: number | undefined;
+        min?: number | undefined;
+        placeholder?: number | string | undefined;
+        tabindex?: number | undefined;
+        type?: string | undefined;
 
         //expression types
-        onBlur?: string | IExpressionFunction;
-        onChange?: string | IExpressionFunction;
-        onClick?: string | IExpressionFunction;
-        onFocus?: string | IExpressionFunction;
-        onKeydown?: string | IExpressionFunction;
-        onKeypress?: string | IExpressionFunction;
-        onKeyup?: string | IExpressionFunction;
+        onBlur?: string | IExpressionFunction | undefined;
+        onChange?: string | IExpressionFunction | undefined;
+        onClick?: string | IExpressionFunction | undefined;
+        onFocus?: string | IExpressionFunction | undefined;
+        onKeydown?: string | IExpressionFunction | undefined;
+        onKeypress?: string | IExpressionFunction | undefined;
+        onKeyup?: string | IExpressionFunction | undefined;
 
         //Bootstrap types
-        label?: string;
-        description?: string;
+        label?: string | undefined;
+        description?: string | undefined;
         [key: string]: any;
 
         // types for select/radio fields
-        options?: Array<ISelectOption>;
-        groupProp?: string;  // default: group
-        valueProp?: string;  // default: value
-        labelProp?: string;  // default: name
+        options?: Array<ISelectOption> | undefined;
+        groupProp?: string | undefined;  // default: group
+        valueProp?: string | undefined;  // default: value
+        labelProp?: string | undefined;  // default: name
 
     }
 
@@ -136,7 +136,7 @@ declare namespace AngularFormly {
      */
     interface IValidator {
         expression: string | IExpressionFunction;
-        message?: string | IExpressionFunction;
+        message?: string | IExpressionFunction | undefined;
     }
 
 
@@ -149,10 +149,10 @@ declare namespace AngularFormly {
      * see http://docs.angular-formly.com/docs/field-configuration-object#watcher-objectarray-of-watches
      */
     interface IWatcher {
-        deep?: boolean; //Defaults to false
-        expression?: string | { (field: IFieldRuntimeObject, scope: ITemplateScope): boolean };
+        deep?: boolean | undefined; //Defaults to false
+        expression?: string | { (field: IFieldRuntimeObject, scope: ITemplateScope): boolean } | undefined;
         listener: (field: IFieldRuntimeObject, newValue: any, oldValue: any, scope: ITemplateScope, stopWatching: Function) => void;
-        type?: string; //Defaults to $watch but can be set to $watchCollection or $watchGroup
+        type?: string | undefined; //Defaults to $watch but can be set to $watchCollection or $watchGroup
     }
 
     interface IFieldRuntimeObject extends IFieldObject {
@@ -175,7 +175,7 @@ declare namespace AngularFormly {
          */
         model?: string | {
             [key: string]: any;
-        };
+        } | undefined;
     }
 
 
@@ -191,7 +191,7 @@ declare namespace AngularFormly {
          */
         asyncValidators?: {
             [key: string]: string | IExpressionFunction | IValidator;
-        };
+        } | undefined;
 
         /**
          * This is a great way to add custom behavior to a specific field. It is injectable with the $scope of the
@@ -199,7 +199,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#controller-controller-name-as-string--controller-f
          */
-        controller?: string | Function;
+        controller?: string | Function | undefined;
 
 
         /**
@@ -210,7 +210,7 @@ declare namespace AngularFormly {
          */
         data?: {
             [key: string]: any;
-        };
+        } | undefined;
 
 
         /**
@@ -228,12 +228,12 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#classname-string
          */
-        className?: string;
+        className?: string | undefined;
 
 
         elementAttributes?: {
             [key: string]: string;
-        };
+        } | undefined;
 
 
         /**
@@ -245,7 +245,7 @@ declare namespace AngularFormly {
          */
         expressionProperties?: {
             [key: string]: string | IExpressionFunction | IValidator;
-        };
+        } | undefined;
 
 
         /**
@@ -254,7 +254,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#hide-boolean
          */
-        hide?: boolean;
+        hide?: boolean | undefined;
 
 
         /**
@@ -264,7 +264,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#hideexpression-string--function
          */
-        hideExpression?: string | IExpressionFunction;
+        hideExpression?: string | IExpressionFunction | undefined;
 
 
         /**
@@ -279,7 +279,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#id-string
          */
-        id?: string;
+        id?: string | undefined;
 
 
         initialValue?: any;
@@ -291,7 +291,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#key-string
          */
-        key?: string | number;
+        key?: string | number | undefined;
 
 
         /**
@@ -300,7 +300,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#link-link-function
          */
-        link?: ng.IDirectiveLinkFn;
+        link?: ng.IDirectiveLinkFn | undefined;
 
 
         /**
@@ -311,7 +311,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#modeloptions
          */
-        modelOptions?: IModelOptions;
+        modelOptions?: IModelOptions | undefined;
 
 
         /**
@@ -324,7 +324,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#name-string
          */
-        name?: string;
+        name?: string | undefined;
 
 
         /**
@@ -340,7 +340,7 @@ declare namespace AngularFormly {
             expression?: any;
             value?: any;
             [key: string]: any;
-        };
+        } | undefined;
 
 
         /**
@@ -351,7 +351,7 @@ declare namespace AngularFormly {
          */
         ngModelElAttrs?: {
             [key: string]: string;
-        };
+        } | undefined;
 
 
         /**
@@ -361,7 +361,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#noformcontrol-boolean
          */
-        noFormControl?: boolean;
+        noFormControl?: boolean | undefined;
 
 
         /**
@@ -371,7 +371,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#optionstypes-string--array-of-strings
          */
-        optionsTypes?: string | string[];
+        optionsTypes?: string | string[] | undefined;
 
 
         /**
@@ -384,7 +384,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#template-string--function
          */
-        template?: string | { (fieldConfiguration: IFieldConfigurationObject): string | ng.IPromise<string> };
+        template?: string | { (fieldConfiguration: IFieldConfigurationObject): string | ng.IPromise<string> } | undefined;
 
 
         /**
@@ -393,7 +393,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#templatemanipulator-object-of-arrays-of-functions
          */
-        templateManipulators?: ITemplateManipulators;
+        templateManipulators?: ITemplateManipulators | undefined;
 
 
         /**
@@ -402,7 +402,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#templateoptions-object
          */
-        templateOptions?: ITemplateOptions;
+        templateOptions?: ITemplateOptions | undefined;
 
 
         /**
@@ -411,7 +411,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#templateurl-string--function
          */
-        templateUrl?: string | { (fieldConfiguration: IFieldConfigurationObject): string | ng.IPromise<string> };
+        templateUrl?: string | { (fieldConfiguration: IFieldConfigurationObject): string | ng.IPromise<string> } | undefined;
 
 
         /**
@@ -420,7 +420,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#type-string
          */
-        type?: string;
+        type?: string | undefined;
 
 
         /**
@@ -434,7 +434,7 @@ declare namespace AngularFormly {
              * is set to true based on this rule: field invalid && (field touched || validation.show) (with slight difference
              * for pre-angular 1.3 because it doesn't have touched support).
              */
-            errorExistsAndShouldBeVisible?: boolean;
+            errorExistsAndShouldBeVisible?: boolean | undefined;
 
 
             /**
@@ -443,7 +443,7 @@ declare namespace AngularFormly {
              */
             messages?: {
                 [key: string]: IExpressionFunction | string;
-            }
+            } | undefined
 
 
             /**
@@ -451,9 +451,9 @@ declare namespace AngularFormly {
              * to be set to true when there are $errors. This is useful when you're trying to call the user's attention to
              * some fields for some reason.
              */
-            show?: boolean;
+            show?: boolean | undefined;
 
-        };
+        } | undefined;
 
 
         /**
@@ -467,7 +467,7 @@ declare namespace AngularFormly {
          */
         validators?: {
             [key: string]: string | IExpressionFunction | IValidator;
-        };
+        } | undefined;
 
 
         /**
@@ -489,7 +489,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#watcher-objectarray-of-watches
          */
-        watcher?: IWatcher | IWatcher[];
+        watcher?: IWatcher | IWatcher[] | undefined;
 
 
         /**
@@ -500,7 +500,7 @@ declare namespace AngularFormly {
          *
          * http://docs.angular-formly.com/docs/field-configuration-object#wrapper-string--array-of-strings
          */
-        wrapper?: string | string[];
+        wrapper?: string | string[] | undefined;
 
 
         //ALL PROPERTIES BELOW ARE ADDED (So you should not be setting them yourself.)
@@ -511,7 +511,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#formcontrol-ngmodelcontroller
          */
-        formControl?: ng.IFormController | ng.IFormController[];
+        formControl?: ng.IFormController | ng.IFormController[] | undefined;
 
 
         /**
@@ -520,7 +520,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#resetmodel-function
          */
-        resetModel?: () => void;
+        resetModel?: (() => void) | undefined;
 
 
         /**
@@ -530,7 +530,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#runexpressions-function
          */
-        runExpressions?: () => void;
+        runExpressions?: (() => void) | undefined;
 
 
         /**
@@ -539,7 +539,7 @@ declare namespace AngularFormly {
          *
          * see http://docs.angular-formly.com/docs/field-configuration-object#updateinitialvalue-function
          */
-        updateInitialValue?: () => void;
+        updateInitialValue?: (() => void) | undefined;
 
     }
 
@@ -549,36 +549,36 @@ declare namespace AngularFormly {
      * see http://docs.angular-formly.com/docs/custom-templates#section-formlyconfig-settype-options
      */
     interface ITypeOptions {
-        apiCheck?: { [key: string]: Function };
-        apiCheckFunction?: string; //'throw' or 'warn
+        apiCheck?: { [key: string]: Function } | undefined;
+        apiCheckFunction?: string | undefined; //'throw' or 'warn
         apiCheckInstance?: any;
-        apiCheckOptions?: Object;
-        defaultOptions?: IFieldConfigurationObject | Function;
-        controller?: Function | string | any[];
+        apiCheckOptions?: Object | undefined;
+        defaultOptions?: IFieldConfigurationObject | Function | undefined;
+        controller?: Function | string | any[] | undefined;
         data?: {
             [key: string]: any;
-        };
-        extends?: string;
-        link?: ng.IDirectiveLinkFn;
-        overwriteOk?: boolean;
+        } | undefined;
+        extends?: string | undefined;
+        link?: ng.IDirectiveLinkFn | undefined;
+        overwriteOk?: boolean | undefined;
         name: string;
-        template?: Function | string;
-        templateUrl?: Function | string;
-        validateOptions?: Function;
-        wrapper?: string | string[];
+        template?: Function | string | undefined;
+        templateUrl?: Function | string | undefined;
+        validateOptions?: Function | undefined;
+        wrapper?: string | string[] | undefined;
     }
 
     interface IWrapperOptions {
-        apiCheck?: { [key: string]: Function };
-        apiCheckFunction?: string; //'throw' or 'warn
+        apiCheck?: { [key: string]: Function } | undefined;
+        apiCheckFunction?: string | undefined; //'throw' or 'warn
         apiCheckInstance?: any;
-        apiCheckOptions?: Object;
-        overwriteOk?: boolean;
-        name?: string;
-        template?: string;
-        templateUrl?: string;
-        types?: string[];
-        validateOptions?: Function;
+        apiCheckOptions?: Object | undefined;
+        overwriteOk?: boolean | undefined;
+        name?: string | undefined;
+        template?: string | undefined;
+        templateUrl?: string | undefined;
+        types?: string[] | undefined;
+        validateOptions?: Function | undefined;
     }
 
     interface IFormlyConfigExtras {
@@ -627,7 +627,7 @@ declare namespace AngularFormly {
         //the model of the form (or the model specified by the field if it was specified).
         model?: {
             [key: string]: any;
-        };
+        } | undefined;
         //Shortcut to options.validation.errorExistsAndShouldBeVisible
         showError: boolean;
         //Shortcut to options.templateOptions

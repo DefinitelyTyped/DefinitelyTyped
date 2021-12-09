@@ -25,20 +25,20 @@ export interface ImageState extends CroppedRect {
 }
 
 export interface AvatarEditorProps {
-    className?: string;
+    className?: string | undefined;
     image: string | File;
-    width?: number;
-    height?: number;
-    border?: number | number[];
-    borderRadius?: number;
-    color?: number[];
-    style?: object;
-    scale?: number;
-    position?: Position;
-    rotate?: number;
-    crossOrigin?: string;
-    disableBoundaryChecks?: boolean;
-    disableDrop?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    border?: number | number[] | undefined;
+    borderRadius?: number | undefined;
+    color?: number[] | undefined;
+    style?: object | undefined;
+    scale?: number | undefined;
+    position?: Position | undefined;
+    rotate?: number | undefined;
+    crossOrigin?: string | undefined;
+    disableBoundaryChecks?: boolean | undefined;
+    disableDrop?: boolean | undefined;
     onDropFile?(event: DragEvent): void;
     onLoadFailure?(event: Event): void;
     onLoadSuccess?(imgInfo: ImageState): void;

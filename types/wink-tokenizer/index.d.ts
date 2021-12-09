@@ -72,73 +72,73 @@ declare namespace Tokenizer {
          * such as $ or £ symbols
          * @default true
          */
-        currency?: boolean;
+        currency?: boolean | undefined;
 
         /**
          * @default true
          */
-        email?: boolean;
+        email?: boolean | undefined;
 
         /**
          * @default true
          */
-        emoji?: boolean;
+        emoji?: boolean | undefined;
 
         /**
          * @default true
          */
-        emoticon?: boolean;
+        emoticon?: boolean | undefined;
 
         /**
          * @default true
          */
-        hashtag?: boolean;
+        hashtag?: boolean | undefined;
 
         /**
          * @default true
          */
-        number?: boolean;
+        number?: boolean | undefined;
 
         /**
          * ordinals like 1st , 2nd , 3rd , 4th or 12th or 91st
          * @default true
          */
-        ordinal?: boolean;
+        ordinal?: boolean | undefined;
 
         /**
          * @default true
          */
-        punctuation?: boolean;
+        punctuation?: boolean | undefined;
 
         /**
          * @default true
          */
-        quoted_phrase?: boolean;
+        quoted_phrase?: boolean | undefined;
 
         /**
          * @default true
          */
-        symbol?: boolean;
+        symbol?: boolean | undefined;
 
         /**
          * @default true
          */
-        time?: boolean;
+        time?: boolean | undefined;
 
         /**
          * @default true
          */
-        mention?: boolean;
+        mention?: boolean | undefined;
 
         /**
          * @default true
          */
-        url?: boolean;
+        url?: boolean | undefined;
 
         /**
          * @default true
          */
-        word?: boolean;
+        word?: boolean | undefined;
     }
 }
 

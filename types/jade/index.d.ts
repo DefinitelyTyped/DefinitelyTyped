@@ -8,20 +8,20 @@ export type JadeCustomFilterFunction = (text: string, options: {
 }) => string;
 
 export interface JadeOptions {
-    filename?: string;
-    basedir?: string;
-    doctype?: string;
-    pretty?: boolean | string;
+    filename?: string | undefined;
+    basedir?: string | undefined;
+    doctype?: string | undefined;
+    pretty?: boolean | string | undefined;
     filters?: {
         [key: string]: JadeCustomFilterFunction
-    };
-    self?: boolean;
-    debug?: boolean;
-    compileDebug?: boolean;
-    globals?: string[];
-    cache?: boolean;
-    inlineRuntimeFunctions?: boolean;
-    name?: string;
+    } | undefined;
+    self?: boolean | undefined;
+    debug?: boolean | undefined;
+    compileDebug?: boolean | undefined;
+    globals?: string[] | undefined;
+    cache?: boolean | undefined;
+    inlineRuntimeFunctions?: boolean | undefined;
+    name?: string | undefined;
 }
 
 export interface TemplateLocals {

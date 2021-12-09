@@ -15,17 +15,17 @@ type OmittedValues = 'database' | 'resourceArn' | 'secretArn' | 'schema';
 interface iParams {
     secretArn: string;
     resourceArn: string;
-    database?: string;
-    keepAlive?: boolean;
-    hydrateColumnNames?: boolean;
-    sslEnabled?: boolean;
-    options?: ClientConfiguration;
-    region?: string;
-    engine?: 'mysql' | 'pg';
+    database?: string | undefined;
+    keepAlive?: boolean | undefined;
+    hydrateColumnNames?: boolean | undefined;
+    sslEnabled?: boolean | undefined;
+    options?: ClientConfiguration | undefined;
+    region?: string | undefined;
+    engine?: 'mysql' | 'pg' | undefined;
     formatOptions?: {
-        deserializeDate?: boolean;
-        treatAsLocalDate?: boolean;
-    };
+        deserializeDate?: boolean | undefined;
+        treatAsLocalDate?: boolean | undefined;
+    } | undefined;
 }
 
 interface Transaction {
@@ -35,8 +35,8 @@ interface Transaction {
             | {
                   sql: string;
                   parameters: [] | unknown;
-                  database?: string;
-                  hydrateColumnNames?: boolean;
+                  database?: string | undefined;
+                  hydrateColumnNames?: boolean | undefined;
               }
             | ((prevResult: { insertId?: any }) => any),
     ): Transaction;
@@ -50,10 +50,10 @@ interface iDataAPIClient {
     query<T = any>(sql: string, params?: [] | unknown): Promise<iDataAPIQueryResult<T>>; // params can be [] or {};
     query<T = any>(obj: {
         sql: string;
-        parameters?: [] | unknown;
-        transactionId?: string;
-        database?: string;
-        hydrateColumnNames?: boolean;
+        parameters?: [] | unknown | undefined;
+        transactionId?: string | undefined;
+        database?: string | undefined;
+        hydrateColumnNames?: boolean | undefined;
     }): Promise<iDataAPIQueryResult<T>>;
     transaction(): Transaction; // needs to return an interface with
 

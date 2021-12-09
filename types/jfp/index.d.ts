@@ -1,7 +1,7 @@
 // Type definitions for JFP
 // Project: http://cmstead.github.io/JFP
 // Definitions by: Chris Stead <http://www.chrisstead.com>
-// Definitions: https://github.com/cmstead/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var j: j.JfpStatic;
 export = j;

@@ -4,13 +4,13 @@ import { ReactInputAttr, } from "../../../typings/shared";
 type ExcludedAttributes = "defaultValue" | "id" | "size" | "value";
 
 export interface TextInputSharedProps extends Omit<ReactInputAttr, ExcludedAttributes> {
-    defaultValue?: TextInputSharedProps["value"],
-    helperText?: React.ReactNode,
-    hideLabel?: boolean,
+    defaultValue?: TextInputSharedProps["value"] | undefined,
+    helperText?: React.ReactNode | undefined,
+    hideLabel?: boolean | undefined,
     id: string,
-    invalid?: boolean,
-    invalidText?: React.ReactNode,
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
     labelText: NonNullable<React.ReactNode>,
-    light?: boolean,
-    value?: string | number,
+    light?: boolean | undefined,
+    value?: string | number | undefined,
 }

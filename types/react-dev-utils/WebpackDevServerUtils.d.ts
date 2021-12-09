@@ -2,8 +2,8 @@ import webpack = require('webpack');
 import WebpackDevServer = require('webpack-dev-server');
 
 export interface Urls {
-    lanUrlForConfig?: string;
-    lanUrlForTerminal?: string;
+    lanUrlForConfig?: string | undefined;
+    lanUrlForTerminal?: string | undefined;
     localUrlForTerminal: string;
     localUrlForBrowser: string;
 }
@@ -32,7 +32,7 @@ export interface CreateCompilerOptions {
     /**
      * If `true`; yarn instructions will be emitted in the terminal instead of npm.
      */
-    useYarn?: boolean;
+    useYarn?: boolean | undefined;
     /**
      * Takes the `require('webpack')` entry point.
      */

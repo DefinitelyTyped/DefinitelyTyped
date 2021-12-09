@@ -5,14 +5,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="node" />
+
 import * as busboy from 'busboy';
 import { RequestHandler } from 'express';
+import * as http from 'http';
 
 declare function connectBusboy(options?: connectBusboy.ConnectBusboyOptions): RequestHandler;
 
 declare namespace connectBusboy {
-    interface ConnectBusboyOptions extends busboy.BusboyConfig {
-        immediate?: boolean;
+    interface ConnectBusboyOptions extends Omit<busboy.BusboyConfig, 'headers'> {
+        headers?: http.IncomingHttpHeaders;
+        immediate?: boolean | undefined;
     }
 }
 

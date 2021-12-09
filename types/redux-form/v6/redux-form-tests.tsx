@@ -59,7 +59,7 @@ class MyForm extends React.Component {
     }
 }
 
-const MyStatelessFunctionalComponent: React.SFC<any> = () => <div/>;
+const MyStatelessFunctionalComponent: React.FC<any> = () => <div/>;
 
 reduxForm({
     form: 'mySFCForm'
@@ -125,7 +125,7 @@ const ConnectedDecoratedInitializeFromStateFormFunction = connect(
     }),
 )(DecoratedInitializeFromStateFormFunction);
 
-// React ComponentClass instead of StatelessComponent
+// React ComponentClass instead of FunctionComponent
 
 class InitializeFromStateFormClass extends React.Component<Props> {
     render() {
@@ -141,7 +141,7 @@ const DecoratedInitializeFromStateFormClass = reduxForm<DataShape, {}, {}>({
 // You have to connect() to any reducers that you wish to connect to yourself
 const mapStateToProps = (state: any) => ({
     initialValues: { firstName: state.account.data.firstName }  // pull initial values from account reducer
-} as {initialValues?: Partial<DataShape>});
+} as {initialValues?: Partial<DataShape> | undefined});
 const ConnectedDecoratedInitializeFromStateFormClass = connect(mapStateToProps)(DecoratedInitializeFromStateFormClass);
 
 reducer({}, {

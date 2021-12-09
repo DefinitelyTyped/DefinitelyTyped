@@ -6,6 +6,7 @@ setup([
         port: 3002,
         usedPortAction: 'kill',
         launchTimeout: 60000,
+        path: 'api',
     },
     {
         command: 'yarn next:ci',
@@ -26,6 +27,7 @@ setup([
 setup({
     command: 'yarn storybook:ci',
     port: 3002,
+    path: 'path',
     usedPortAction: 'kill',
     launchTimeout: 60000,
 }).then(() => {

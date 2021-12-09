@@ -22,12 +22,12 @@ export interface StrategyOptionBase {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
-    tokenURL?: string;
-    authorizationURL?: string;
+    tokenURL?: string | undefined;
+    authorizationURL?: string | undefined;
 }
 
 export interface StrategyOption extends StrategyOptionBase {
-    passReqToCallback?: false;
+    passReqToCallback?: false | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOptionBase {

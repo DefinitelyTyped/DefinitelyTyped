@@ -21,7 +21,7 @@ declare namespace furigana {
          *
          * This option takes a string with the opening bracket followed by the closing bracket.
          */
-        fallbackParens?: string;
+        fallbackParens?: string | undefined;
 
         /**
          * separators are characters that allow you to split furigana between individual kanji (read the usage section).
@@ -29,7 +29,7 @@ declare namespace furigana {
          *
          * If you want additional characters to act as separators, provide them with this option.
          */
-        extraSeparators?: string;
+        extraSeparators?: string | undefined;
 
         /**
          * combinators are characters that allow you to indicate a kanji boundary
@@ -38,7 +38,7 @@ declare namespace furigana {
          * Default combinators are + and ＋.
          * If you need additional combinator characters, provide them with this option.
          */
-        extraCombinators?: string;
+        extraCombinators?: string | undefined;
     }
 }
 

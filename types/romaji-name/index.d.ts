@@ -38,7 +38,7 @@ export interface ParseResults {
     /**
      * An object holding the settings that were passed in to the parseName method.
      */
-    settings?: ParseOptions;
+    settings?: ParseOptions | undefined;
 
     /**
      * A guess at the locale of the name. Only two values exist: "ja" and "".
@@ -50,45 +50,45 @@ export interface ParseResults {
     /**
      * A string of the Romaji form of the given name. (Will only exist if a Romaji form was originally provided.)
      */
-    given?: string;
+    given?: string | undefined;
 
     /**
      * A string of the Kana form of the given name.
      * (Will only exist if a Romaji form was originally provided and if the locale is "ja".)
      */
-    given_kana?: string;
+    given_kana?: string | undefined;
 
     /**
      * A string of the Kanji form of the given name. (Will only exist if a Kanji form was originally provided.)
      */
-    given_kanji?: string;
+    given_kanji?: string | undefined;
 
     /**
      * A string of the Romaji form of the middlename.
      */
-    middle?: string;
+    middle?: string | undefined;
 
     /**
      * A string of the Romaji form of the surname.
      * (Will only exist if a Romaji form was originally provided.)
      */
-    surname?: string;
+    surname?: string | undefined;
 
     /**
      * A string of the Kana form of the surname.
      * (Will only exist if a Romaji form was originally provided and if the locale is "ja".)
      */
-    surname_kana?: string;
+    surname_kana?: string | undefined;
 
     /**
      * A string of the Kanji form of the surname. (Will only exist if a Kanji form was originally provided.)
      */
-    surname_kanji?: string;
+    surname_kanji?: string | undefined;
 
     /**
      * A number representing the generation of the name. For example "John Smith II" would have a generation of 2.
      */
-    generation?: number;
+    generation?: number | undefined;
 
     /**
      * The full name, in properly-stressed romaji, including the generation. For example: "Nakamura Gakuryō II".
@@ -100,7 +100,7 @@ export interface ParseResults {
      * This is a proper ascii representation of the name (with long vowels converted from "ō" into "oo", for example).
      * Example: "Nakamura Gakuryoo II".
      */
-    ascii?: string;
+    ascii?: string | undefined;
 
     /**
      * The full name, in plain text, including the generation.
@@ -113,33 +113,33 @@ export interface ParseResults {
     /**
      * The full name, in kana, without the generation. For example: "なかむらがくりょう".
      */
-    kana?: string;
+    kana?: string | undefined;
 
     /**
      * The full name, in kanji, including the generation. For example: "戯画堂芦幸 2世".
      */
-    kanji?: string;
+    kanji?: string | undefined;
 
     /**
      * If the name is a representation of an unknown individual (e.g. it's the string "Unknown", "Not known", or many of the other variations)
      * then this property will exist and be true.
      */
-    unknown?: true;
+    unknown?: true | undefined;
 
     /**
      * If the name includes a prefix like "Attributed to" then this will be true.
      */
-    attributed?: boolean;
+    attributed?: boolean | undefined;
 
     /**
      *  If the name includes some sort of "After" or "In the style of" or similar prefix then this will be true.
      */
-    after?: boolean;
+    after?: boolean | undefined;
 
     /**
      * If the name includes a prefix like "School of", "Pupil of", or similar then this will be true.
      */
-    school?: boolean;
+    school?: boolean | undefined;
 }
 
 /**
@@ -149,18 +149,18 @@ export interface ParseOptions {
     /**
      * Names that don't have a "ja" locale should be flipped ("Smith John" becomes "John Smith").
      */
-    flipNonJa?: boolean;
+    flipNonJa?: boolean | undefined;
 
     /**
      * Removes anything that's wrapped in parentheses.
      * Normally this is left intact and any extra information is parsed from it.
      */
-    stripParens?: boolean;
+    stripParens?: boolean | undefined;
 
     /**
      * Assumes that the first name is always the given name.
      */
-    givenFirst?: boolean;
+    givenFirst?: boolean | undefined;
 }
 
 /**

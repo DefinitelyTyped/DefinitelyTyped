@@ -77,7 +77,7 @@ declare namespace logProcessErrors {
          */
         level?: {
             [key in ExceptionType | "default"]?: LogLevel | LogLevelGetter;
-        };
+        } | undefined;
 
         /**
          * Which process errors should trigger `process.exit(1)`:
@@ -99,7 +99,7 @@ declare namespace logProcessErrors {
          *
          * logProcessErrors({ exitOn: ['uncaughtException', 'unhandledRejection'] });
          */
-        exitOn?: ExceptionType[];
+        exitOn?: ExceptionType[] | undefined;
 
         /**
          * When running tests, makes them fail if there are any process errors.
@@ -134,7 +134,7 @@ declare namespace logProcessErrors {
          *   t.pass();
          * });
          */
-        testing?: "ava" | "mocha" | "jasmine" | "tape" | "node-tap";
+        testing?: "ava" | "mocha" | "jasmine" | "tape" | "node-tap" | undefined;
 
         /**
          * Whether or not to colorize messages.
@@ -146,7 +146,7 @@ declare namespace logProcessErrors {
          *
          * logProcessErrors({ colors: false });
          */
-        colors?: boolean;
+        colors?: boolean | undefined;
     }
 
     interface EnhancedError extends Error {

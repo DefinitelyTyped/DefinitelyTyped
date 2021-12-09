@@ -8,8 +8,8 @@ export default class LassoContext extends EventEmitter {
   constructor();
 
   LassoContext: boolean;
-  basePath?: string;
-  contentType?: string;
+  basePath?: string | undefined;
+  contentType?: string | undefined;
   data?: any;
   dependencyRegistry: DependencyRegistry;
   flags: any[];

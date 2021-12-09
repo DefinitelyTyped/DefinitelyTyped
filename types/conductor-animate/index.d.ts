@@ -1,6 +1,6 @@
 // Type definitions for conductor-animate 1.0
 // Project: https://github.com/TaeKimJR/conductor-animate#readme
-// Definitions by: Tae Kim <https://github.com/DefinitelyTyped>
+// Definitions by: Tae Kim <https://github.com/TaeKimJR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
@@ -14,8 +14,8 @@ interface Config {
 }
 
 interface AnimatedProps {
-    additional?: object;
-    children?: React.ReactNode | React.ReactNodeArray | null;
+    additional?: object | undefined;
+    children?: React.ReactNode | React.ReactNodeArray | null | undefined;
     id: string;
 }
 

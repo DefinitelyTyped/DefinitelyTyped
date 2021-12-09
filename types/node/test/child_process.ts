@@ -1,15 +1,17 @@
-import * as childProcess from 'child_process';
-import * as net from 'net';
-import * as fs from 'fs';
-import assert = require('assert');
-import { promisify } from 'util';
-import { Writable, Readable, Pipe } from 'stream';
+import * as childProcess from 'node:child_process';
+import * as net from 'node:net';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import { promisify } from 'node:util';
+import { Writable, Readable, Pipe } from 'node:stream';
+import { URL } from 'node:url';
 
 {
     childProcess.exec("echo test");
-    childProcess.exec("echo test", { windowsHide: true });
+    const abortController = new AbortController();
+    childProcess.exec("echo test", { windowsHide: true, signal: abortController.signal });
     childProcess.spawn("echo");
-    childProcess.spawn("echo", { windowsHide: true, signal: new AbortSignal(), killSignal: "SIGABRT" });
+    childProcess.spawn("echo", { windowsHide: true, signal: new AbortSignal(), killSignal: "SIGABRT", timeout: 123 });
     childProcess.spawn("echo", ["test"], { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
     childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
@@ -20,11 +22,39 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     childProcess.spawnSync("echo test", { encoding: 'utf-8' });
     childProcess.spawnSync("echo test", { encoding: 'buffer' });
+    childProcess.spawnSync("echo test", { cwd: new URL('file://aaaaaaaa')});
+
+    childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test", { encoding: 'buffer' }).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test", { encoding: 'utf-8' }).output; // $ExpectType (string | null)[]
+    childProcess.spawnSync("echo", ['test']).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test", ['test'], {}).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test", ['test'], { encoding: 'buffer' }).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test", ['test'], { encoding: 'utf-8' }).output; // $ExpectType (string | null)[]
+    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | Buffer | null)[]
 }
 
 {
-    childProcess.execSync("echo test", { encoding: 'utf-8' });
-    childProcess.execSync("echo test", { encoding: 'buffer' });
+    childProcess.execSync("echo test"); // $ExpectType Buffer
+    childProcess.execSync("echo test", {}); // $ExpectType Buffer
+    childProcess.execSync("echo test", { encoding: 'buffer' }); // $ExpectType Buffer
+    childProcess.execSync("echo test", { encoding: 'utf-8' }); // $ExpectType string
+    ((opts?: childProcess.ExecSyncOptions) => childProcess.execSync('echo test', opts))(); // $ExpectType string | Buffer
+    childProcess.execSync("git status", { // $ExpectType string
+        cwd: 'test',
+        input: 'test',
+        stdio: 'pipe',
+        env: {},
+        shell: 'hurr',
+        uid: 1,
+        gid: 1,
+        timeout: 123,
+        killSignal: 1,
+        maxBuffer: 123,
+        encoding: "utf8",
+        windowsHide: true
+    });
 }
 
 {
@@ -43,8 +73,23 @@ import { Writable, Readable, Pipe } from 'stream';
 }
 
 {
+    const y: childProcess.ChildProcess = childProcess.spawn('echo', ['test']);
+    const x = y instanceof childProcess.ChildProcess;
+}
+
+{
     childProcess.execFileSync("echo test", {input: new Uint8Array([])});
     childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+
+    childProcess.execFileSync("echo test"); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", {}); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", {encoding: 'buffer'}); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", {encoding: 'utf8'}); // $ExpectType string
+    childProcess.execFileSync("echo test", ['test']); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", ['test'], {}); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", ['test'], {encoding: 'buffer'}); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", ['test'], {encoding: 'utf8'}); // $ExpectType string
+    ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync('echo test', ['args'], opts))(); // $ExpectType string | Buffer
 }
 
 {
@@ -55,7 +100,8 @@ import { Writable, Readable, Pipe } from 'stream';
         execPath: '',
         execArgv: ['asda'],
         signal: new AbortSignal(),
-        killSignal: "SIGABRT"
+        killSignal: "SIGABRT",
+        timeout: 123,
     });
     const ipc: Pipe = forked.channel!;
     const hasRef: boolean = ipc.hasRef();

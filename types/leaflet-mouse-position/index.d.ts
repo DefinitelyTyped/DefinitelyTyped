@@ -9,7 +9,7 @@ import { ControlOptions, Control as LControl } from 'leaflet';
 
 declare module 'leaflet' {
     interface MapOptions {
-        positionControl?: boolean;
+        positionControl?: boolean | undefined;
     }
 
     namespace control {
@@ -18,15 +18,15 @@ declare module 'leaflet' {
 
     namespace Control {
         interface MousePositionControlOptions extends ControlOptions {
-            separator?: string;
-            emptyString?: string;
-            lngFirst?: boolean;
-            numDigits?: number;
-            lngFormatter?: (lng: number) => string;
-            latFormatter?: (lat: number) => string;
-            formatter?: (lng: number, lat: number) => string;
-            prefix?: string;
-            wrapLng?: boolean;
+            separator?: string | undefined;
+            emptyString?: string | undefined;
+            lngFirst?: boolean | undefined;
+            numDigits?: number | undefined;
+            lngFormatter?: ((lng: number) => string) | undefined;
+            latFormatter?: ((lat: number) => string) | undefined;
+            formatter?: ((lng: number, lat: number) => string) | undefined;
+            prefix?: string | undefined;
+            wrapLng?: boolean | undefined;
         }
 
         class MousePosition extends LControl {

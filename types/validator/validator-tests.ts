@@ -13,9 +13,10 @@ import isAfterFunc from 'validator/lib/isAfter';
 import isAlphaFunc from 'validator/lib/isAlpha';
 import isAlphanumericFunc from 'validator/lib/isAlphanumeric';
 import isAsciiFunc from 'validator/lib/isAscii';
+import isBase58Func from 'validator/lib/isBase58';
 import isBase64Func from 'validator/lib/isBase64';
 import isBeforeFunc from 'validator/lib/isBefore';
-import isIBANFunc from 'validator/lib/isIBAN';
+import isIBANFunc, { locales } from 'validator/lib/isIBAN';
 import isBICFunc from 'validator/lib/isBIC';
 import isBooleanFunc from 'validator/lib/isBoolean';
 import isByteLengthFunc from 'validator/lib/isByteLength';
@@ -29,7 +30,7 @@ import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
 import isEmailFunc from 'validator/lib/isEmail';
 import isEmptyFunc from 'validator/lib/isEmpty';
-import isFQDNFunc from 'validator/lib/isFQDN';
+import isFQDNFunc, { IsFQDNOptions } from 'validator/lib/isFQDN';
 import isFloatFunc from 'validator/lib/isFloat';
 import isFullWidthFunc from 'validator/lib/isFullWidth';
 import isHalfWidthFunc from 'validator/lib/isHalfWidth';
@@ -47,6 +48,7 @@ import isISINFunc from 'validator/lib/isISIN';
 import isISO8601Func from 'validator/lib/isISO8601';
 import isISO31661Alpha2Func from 'validator/lib/isISO31661Alpha2';
 import isISO31661Alpha3Func from 'validator/lib/isISO31661Alpha3';
+import isISO4217Func from 'validator/lib/isISO4217';
 import isISRCFunc from 'validator/lib/isISRC';
 import isInFunc from 'validator/lib/isIn';
 import isIntFunc from 'validator/lib/isInt';
@@ -88,6 +90,7 @@ import trimFunc from 'validator/lib/trim';
 import unescapeFunc from 'validator/lib/unescape';
 import whitelistFunc from 'validator/lib/whitelist';
 import isSlugFunc from 'validator/lib/isSlug';
+import isVatFunc from 'validator/lib/isVAT';
 
 {
     let _blacklist = validator.blacklist;
@@ -120,14 +123,15 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isBefore = validator.isBefore;
     _isBefore = isBeforeFunc;
 
-    let _isIBANFunc = validator.isIBAN;
-    _isIBANFunc = isIBANFunc;
+    validator.isIBAN; // $ExpectType (str: string) => boolean
+    isIBANFunc; // $ExpectType (str: string) => boolean
+    validator.ibanLocales;
 
     let _isBIC = validator.isBIC;
     _isBIC = isBICFunc;
 
-    let _isBoolean = validator.isBoolean;
-    _isBoolean = isBooleanFunc;
+    validator.isBoolean; // $ExpectType (str: string, options?: Options | undefined) => boolean
+    isBooleanFunc; // $ExpectType (str: string, options?: Options | undefined) => boolean
 
     let _isByteLength = validator.isByteLength;
     _isByteLength = isByteLengthFunc;
@@ -162,8 +166,11 @@ import isSlugFunc from 'validator/lib/isSlug';
     let _isEmpty = validator.isEmpty;
     _isEmpty = isEmptyFunc;
 
-    let _isFQDN = validator.isFQDN;
-    _isFQDN = isFQDNFunc;
+    validator.isFQDN; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
+    isFQDNFunc; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
+    const isFQDNOptions: IsFQDNOptions = {
+        allow_numeric_tld: true,
+    };
 
     let _isFloat = validator.isFloat;
     _isFloat = isFloatFunc;
@@ -215,6 +222,9 @@ import isSlugFunc from 'validator/lib/isSlug';
 
     let _isISO31661Alpha3 = validator.isISO31661Alpha3;
     _isISO31661Alpha3 = isISO31661Alpha3Func;
+
+    validator.isISO4217; // $ExpectType (str: string) => boolean
+    isISO4217Func; // $ExpectType (str: string) => boolean
 
     let _isISRC = validator.isISRC;
     _isISRC = isISRCFunc;
@@ -387,6 +397,7 @@ import isISINFuncEs from 'validator/es/lib/isISIN';
 import isISO8601FuncEs from 'validator/es/lib/isISO8601';
 import isISO31661Alpha2FuncEs from 'validator/es/lib/isISO31661Alpha2';
 import isISO31661Alpha3FuncEs from 'validator/es/lib/isISO31661Alpha3';
+import isISO4217FuncEs, { CurrencyCodes } from 'validator/es/lib/isISO4217';
 import isISRCFuncEs from 'validator/es/lib/isISRC';
 import isInFuncEs from 'validator/es/lib/isIn';
 import isIntFuncEs from 'validator/es/lib/isInt';
@@ -428,6 +439,8 @@ import trimFuncEs from 'validator/es/lib/trim';
 import unescapeFuncEs from 'validator/es/lib/unescape';
 import whitelistFuncEs from 'validator/es/lib/whitelist';
 import isSlugFuncEs from 'validator/es/lib/isSlug';
+import isBase58FuncEs from 'validator/es/lib/isBase58';
+import isVATFuncEs from 'validator/es/lib/isVAT';
 
 /************************************************
  *                                               *
@@ -499,6 +512,9 @@ const any: any = null;
     result = validator.isAlpha('sample', 'sv-SE');
     result = validator.isAlpha('sample', 'tr-TR');
     result = validator.isAlpha('sample', 'uk-UA');
+    result = validator.isAlpha('sample', undefined, { ignore: /[\s!?]/g });
+    result = validator.isAlpha('sample', 'fr-FR', { ignore: /[\s!?]/g });
+    result = validator.isAlpha('sample', 'fr-FR', { ignore: ' !?' });
 
     result = validator.isAlphanumeric('sample');
     result = validator.isAlphanumeric('sample', 'ar');
@@ -549,9 +565,13 @@ const any: any = null;
     result = validator.isAlphanumeric('sample', 'sv-SE');
     result = validator.isAlphanumeric('sample', 'tr-TR');
     result = validator.isAlphanumeric('sample', 'uk-UA');
+    result = validator.isAlphanumeric('sample', undefined, { ignore: /[\s!?]/g });
+    result = validator.isAlphanumeric('sample', 'fr-FR', { ignore: /[\s!?]/g });
+    result = validator.isAlphanumeric('sample', 'fr-FR', { ignore: ' !?' });
 
     result = validator.isAscii('sample');
 
+    isBase58Func('sample'); // $ExpectType boolean
     const isBase64Options: validator.IsBase64Options = {};
     result = validator.isBase64('sample');
     result = validator.isBase64('sample', isBase64Options);
@@ -590,7 +610,9 @@ const any: any = null;
 
     result = validator.isDivisibleBy('sample', 2);
 
-    const isEmailOptions: validator.IsEmailOptions = {};
+    const isEmailOptions: validator.IsEmailOptions = {
+        host_blacklist: ['domain'],
+    };
     result = validator.isEmail('sample');
     result = validator.isEmail('sample', isEmailOptions);
 
@@ -598,7 +620,9 @@ const any: any = null;
     result = validator.isEmpty('sample');
     result = validator.isEmpty('sample', isEmptyOptions);
 
-    const isFQDNOptions: validator.IsFQDNOptions = {};
+    const isFQDNOptions: validator.IsFQDNOptions = {
+        allow_wildcard: true,
+    };
     result = validator.isFQDN('sample');
     result = validator.isFQDN('sample', isFQDNOptions);
 
@@ -757,6 +781,7 @@ const any: any = null;
     result = validator.isMobilePhone('sample', 'any');
     result = validator.isMobilePhone('sample');
     result = validator.isMobilePhone('sample', ['pl-PL', 'pt-PT']);
+    result = validator.isMobilePhone('sample', ['es-AR', 'es-CO']); // $ExpectType boolean
 
     result = validator.isMongoId('sample');
 
@@ -814,7 +839,9 @@ const any: any = null;
 
     result = validator.isSurrogatePair('sample');
 
-    const isURLOptions: validator.IsURLOptions = {};
+    const isURLOptions: validator.IsURLOptions = {
+        require_host: true,
+    };
     result = validator.isURL('sample');
     result = validator.isURL('sample', isURLOptions);
 
@@ -825,6 +852,8 @@ const any: any = null;
     result = validator.isUppercase('sample');
 
     result = validator.isVariableWidth('sample');
+    validator.isVAT('GB999 9999 00', 'GB'); // $ExpectType boolean
+    isVatFunc('foo', 'GB'); // $ExpectType boolean
 
     result = validator.isWhitelisted('sample', 'abc');
     result = validator.isWhitelisted('sample', ['a', 'b', 'c']);

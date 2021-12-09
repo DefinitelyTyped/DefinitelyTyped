@@ -40,15 +40,15 @@ declare module '.' {
         /**
          * @deprecated Use `hydrateRoot(container)` instead
          */
-        hydrate?: boolean;
+        hydrate?: boolean | undefined;
         /**
          * @deprecated Use `hydrateRoot(container, hydrateOptions)` instead
          */
-        hydrationOptions?: HydrationOptions;
+        hydrationOptions?: HydrationOptions | undefined;
     }
 
     interface Root {
-        render(children: React.ReactChild | React.ReactNodeArray): void;
+        render(children: React.ReactChild | Iterable<React.ReactNode>): void;
         unmount(): void;
     }
 
@@ -59,5 +59,9 @@ declare module '.' {
      */
     function createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
 
-    function hydrateRoot(container: Element | Document | DocumentFragment | Comment, options?: HydrationOptions): Root;
+    function hydrateRoot(
+        container: Element | Document | DocumentFragment | Comment,
+        initialChildren: React.ReactChild | Iterable<React.ReactNode>,
+        options?: HydrationOptions,
+    ): Root;
 }

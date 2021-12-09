@@ -2,10 +2,10 @@ import * as React from "react";
 import { ReactLIAttr } from "../../../typings/shared";
 
 export interface TreeNodeStandaloneProps extends Omit<ReactLIAttr, 'aria-expanded' | 'onClick' | 'onSelect'> {
-    active?: number | string;
-    depth?: number;
-    isExpanded?: boolean;
-    label?: React.ReactNode;
+    active?: number | string | undefined;
+    depth?: number | undefined;
+    isExpanded?: boolean | undefined;
+    label?: React.ReactNode | undefined;
     onClick?(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>): void;
     onNodeFocusEvent?(event: React.FocusEvent<HTMLLIElement>): void;
     onSelect?(
@@ -26,8 +26,8 @@ export interface TreeNodeStandaloneProps extends Omit<ReactLIAttr, 'aria-expande
         node: { id: string; label: TreeNodeStandaloneProps['label']; value: TreeNodeStandaloneProps['value'] },
     ): void;
     renderIcon?: any;
-    selected?: ReadonlyArray<number | string>;
-    value?: string;
+    selected?: ReadonlyArray<number | string> | undefined;
+    value?: string | undefined;
 }
 
 type TreeViewProvidedProps = 'active' | 'depth' | 'onNodeFocusEvent' | 'onTreeSelect' | 'selected' | 'tabIndex';

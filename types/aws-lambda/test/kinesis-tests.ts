@@ -36,6 +36,9 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
     let firehoseRecordMetadata: FirehoseRecordMetadata | undefined;
 
     str = event.records[0].recordId;
+    str = event.deliveryStreamArn;
+    strOrUndefined = event.sourceKinesisStreamArn;
+
     firehoseRecordMetadata = event.records[0].kinesisRecordMetadata;
 
     if (firehoseRecordMetadata) {
@@ -48,6 +51,11 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
                 recordId: event.records[0].recordId,
                 result: 'Ok' as FirehoseRecordTransformationStatus,
                 data: 'eyJmb28iOiJiYXIifQ==',
+                metadata: {
+                    partitionKeys: {
+                        testPart: 'test1'
+                    }
+                }
             },
         ],
     };

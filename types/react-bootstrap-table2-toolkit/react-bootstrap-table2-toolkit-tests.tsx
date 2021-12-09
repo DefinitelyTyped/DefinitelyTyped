@@ -12,10 +12,10 @@ import ToolkitProvider, { InjectedSearchProps, Search, CSVExport } from 'react-b
 interface Product {
     id: number;
     name: string;
-    price?: number;
-    quality?: number;
-    inStockStatus?: number;
-    sales?: number;
+    price?: number | undefined;
+    quality?: number | undefined;
+    inStockStatus?: number | undefined;
+    sales?: number | undefined;
 }
 
 const products: Product[] = [

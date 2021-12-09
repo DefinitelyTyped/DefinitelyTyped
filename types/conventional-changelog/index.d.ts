@@ -47,7 +47,7 @@ declare namespace conventionalChangelog {
          * `options.config` will be overwritten by the values of preset. You should use
          * either `preset` or `config`, but not both.
          */
-        preset?: string;
+        preset?: string | undefined;
     }
 }
 

@@ -8,8 +8,8 @@ import { Plugin } from 'postcss';
 
 declare namespace cssnano {
     interface CssNanoOptions {
-        configFile?: string;
-        preset?: [string, object] | string;
+        configFile?: string | undefined;
+        preset?: [string, object] | string | undefined;
     }
 
     type CssNano = Plugin<CssNanoOptions>;

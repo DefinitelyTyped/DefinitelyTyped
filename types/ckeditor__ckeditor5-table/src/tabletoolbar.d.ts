@@ -6,3 +6,9 @@ export default class TableToolbar extends Plugin {
     static readonly pluginName: 'TableToolbar';
     afterInit(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableToolbar: TableToolbar;
+    }
+}

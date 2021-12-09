@@ -11,8 +11,8 @@ type Appendable = NodeJS.ReadableStream | NodeJS.WritableStream | Buffer | strin
 type NextFunction = (next: (stream: Appendable) => any) => any;
 
 interface Options {
-    maxDataSize?: number;
-    pauseStreams?: boolean;
+    maxDataSize?: number | undefined;
+    pauseStreams?: boolean | undefined;
 }
 
 declare class CombinedStream extends Stream implements Options {

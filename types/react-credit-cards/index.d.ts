@@ -14,17 +14,17 @@ export interface CallbackArgument {
 export type Focused = "name" | "number" | "expiry" | "cvc";
 
 export interface ReactCreditCardProps {
-    acceptedCards?: ReadonlyArray<string>;
-    callback?: (type: CallbackArgument, isValid: boolean) => void;
+    acceptedCards?: ReadonlyArray<string> | undefined;
+    callback?: ((type: CallbackArgument, isValid: boolean) => void) | undefined;
     cvc: string | number;
     expiry: string | number;
-    focused?: Focused;
-    issuer?: string;
-    locale?: { valid: string };
+    focused?: Focused | undefined;
+    issuer?: string | undefined;
+    locale?: { valid: string } | undefined;
     name: string;
     number: string | number;
-    placeholders?: { name: string };
-    preview?: boolean;
+    placeholders?: { name: string } | undefined;
+    preview?: boolean | undefined;
 }
 
 declare class ReactCreditCard extends React.Component<

@@ -691,11 +691,11 @@ export class AcceptDisputeResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * Details about the accepted dispute.
      */
-    dispute?: Dispute;
+    dispute?: Dispute | undefined;
 }
 
 /**
@@ -725,11 +725,11 @@ export class AccumulateLoyaltyPointsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The resulting loyalty event.
      */
-    event?: LoyaltyEvent;
+    event?: LoyaltyEvent | undefined;
 }
 
 export class ActionCancelReason {}
@@ -748,7 +748,7 @@ export class AddGroupToCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -770,7 +770,7 @@ export class AdditionalRecipient {
     /**
      * The unique ID for this `AdditionalRecipientReceivable`, assigned by the server.
      */
-    receivable_id?: string;
+    receivable_id?: string | undefined;
 }
 
 /**
@@ -782,63 +782,63 @@ export class Address {
      * details, like street number, street name, and building name. They do *not* provide less specific details like
      * city, state/province, or country (these details are provided in other fields).
      */
-    address_line_1?: string;
+    address_line_1?: string | undefined;
     /**
      * The second line of the address, if any.
      */
-    address_line_2?: string;
+    address_line_2?: string | undefined;
     /**
      * The third line of the address, if any.
      */
-    address_line_3?: string;
+    address_line_3?: string | undefined;
     /**
      * The city or town of the address.
      */
-    locality?: string;
+    locality?: string | undefined;
     /**
      * A civil region within the address's `locality`, if any.
      */
-    sublocality?: string;
+    sublocality?: string | undefined;
     /**
      * A civil region within the address's `sublocality`, if any.
      */
-    sublocality_2?: string;
+    sublocality_2?: string | undefined;
     /**
      * A civil region within the address's `sublocality_2`, if any.
      */
-    sublocality_3?: string;
+    sublocality_3?: string | undefined;
     /**
      * A civil entity within the address's country. In the US, this is the state.
      */
-    administrative_district_level_1?: string;
+    administrative_district_level_1?: string | undefined;
     /**
      * A civil entity within the address's `administrative_district_level_1`. In the US, this is the county.
      */
-    administrative_district_level_2?: string;
+    administrative_district_level_2?: string | undefined;
     /**
      * A civil entity within the address's `administrative_district_level_2`, if any.
      */
-    administrative_district_level_3?: string;
+    administrative_district_level_3?: string | undefined;
     /**
      * The address's postal code.
      */
-    postal_code?: string;
+    postal_code?: string | undefined;
     /**
      * The address's country, in ISO 3166-1-alpha-2 format. See [Country](#type-country) for possible values
      */
-    country?: CountryType;
+    country?: CountryType | undefined;
     /**
      * Optional first name when it's representing recipient.
      */
-    first_name?: string;
+    first_name?: string | undefined;
     /**
      * Optional last name when it's representing recipient.
      */
-    last_name?: string;
+    last_name?: string | undefined;
     /**
      * Optional organization name when it's representing recipient.
      */
-    organization?: string;
+    organization?: string | undefined;
 }
 
 /**
@@ -863,11 +863,11 @@ export class AdjustLoyaltyPointsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The resulting event data for adjusting points.
      */
-    event?: LoyaltyEvent;
+    event?: LoyaltyEvent | undefined;
 }
 
 /**
@@ -877,11 +877,11 @@ export class BalancePaymentDetails {
     /**
      * ID for the account used to fund the payment.
      */
-    account_id?: string;
+    account_id?: string | undefined;
     /**
      * The balance payment’s current state. Can be `COMPLETED` or `FAILED`.
      */
-    status?: string;
+    status?: string | undefined;
 }
 
 /**
@@ -921,19 +921,19 @@ export class BankAccount {
     /**
      * Secondary identifier for the bank. For more information, see  [Bank Accounts API](https://developer.squareup.com/docs/docs/bank-accounts-api).
      */
-    secondary_bank_identification_number?: string;
+    secondary_bank_identification_number?: string | undefined;
     /**
      * Reference identifier that will be displayed to UK bank account owners when collecting direct debit authorization. Only required for UK bank accounts.
      */
-    debit_mandate_reference_id?: string;
+    debit_mandate_reference_id?: string | undefined;
     /**
      * Client-provided identifier for linking the banking account to an entity in a third-party system (for example, a bank account number or a user identifier).
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * The location to which the bank account belongs.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * Read-only. The current verification status of this BankAccount object. See [BankAccountStatus](#type-bankaccountstatus) for possible values
      */
@@ -950,15 +950,15 @@ export class BankAccount {
      * A Square-assigned, unique identifier for the bank account based on the account information.
      * The account fingerprint can be used to compare account entries and determine if the they represent the same real-world bank account.
      */
-    fingerprint?: string;
+    fingerprint?: string | undefined;
     /**
      * The current version of the `BankAccount`.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * Read only. Name of actual financial institution. For example \"Bank of America\".
      */
-    bank_name?: string;
+    bank_name?: string | undefined;
 }
 
 /**
@@ -977,28 +977,28 @@ export class BatchChangeInventoryRequest {
      * See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) in the
      * [API Development 101](https://developer.squareup.com/docs/basics/api101/overview) section for more information.
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
     /**
      * The set of physical counts and inventory adjustments to be made.
      * Changes are applied based on the client-supplied timestamp and may be sent out of order.
      */
-    changes?: Array<InventoryChange>;
+    changes?: Array<InventoryChange> | undefined;
     /**
      * Indicates whether the current physical count should be ignored if the quantity is unchanged since the last physical count.
      * Default: `true`.
      */
-    ignore_unchanged_counts?: boolean;
+    ignore_unchanged_counts?: boolean | undefined;
 }
 
 export class BatchChangeInventoryResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The current counts for all objects referenced in the request.
      */
-    counts?: Array<InventoryCount>;
+    counts?: Array<InventoryCount> | undefined;
 }
 
 export class BatchDeleteCatalogObjectsRequest {
@@ -1006,23 +1006,23 @@ export class BatchDeleteCatalogObjectsRequest {
      * The IDs of the CatalogObjects to be deleted. When an object is deleted, other objects in the graph that depend on
      * that object will be deleted as well (for example, deleting a CatalogItem will delete its CatalogItemVariation.
      */
-    object_ids?: Array<string>;
+    object_ids?: Array<string> | undefined;
 }
 
 export class BatchDeleteCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The IDs of all CatalogObjects deleted by this request.
      */
-    deleted_object_ids?: Array<string>;
+    deleted_object_ids?: Array<string> | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this deletion
      * in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    deleted_at?: string;
+    deleted_at?: string | undefined;
 }
 
 export class BatchRetrieveCatalogObjectsRequest {
@@ -1037,119 +1037,119 @@ export class BatchRetrieveCatalogObjectsRequest {
      *  * If the `objects` field of the response contains a CatalogItemVariation, its parent CatalogItem will be returned
      *  in the `related_objects` field of the response.
      */
-    include_related_objects?: boolean;
+    include_related_objects?: boolean | undefined;
 }
 
 export class BatchRetrieveCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * A list of `CatalogObject`s returned.
      */
-    objects?: Array<CatalogObject>;
+    objects?: Array<CatalogObject> | undefined;
     /**
      * A list of `CatalogObject`s referenced by the object in the `objects` field.
      */
-    related_objects?: Array<CatalogObject>;
+    related_objects?: Array<CatalogObject> | undefined;
 }
 
 export class BatchRetrieveInventoryChangesRequest {
     /**
      * The filter to return results by `CatalogObject` ID. The filter is only applicable when set. The default value is null.
      */
-    catalog_object_ids?: Array<string>;
+    catalog_object_ids?: Array<string> | undefined;
     /**
      * The filter to return results by `Location` ID. The filter is only applicable when set. The default value is null.
      */
-    location_ids?: Array<string>;
+    location_ids?: Array<string> | undefined;
     /**
      * The filter to return results by `InventoryChangeType` values other than `TRANSFER`.
      * The default value is `[PHYSICAL_COUNT, ADJUSTMENT]`. See [InventoryChangeType](#type-inventorychangetype) for possible values.
      */
-    types?: Array<InventoryType>;
+    types?: Array<InventoryType> | undefined;
     /**
      * The filter to return `ADJUSTMENT` query results by `InventoryState`. This filter is only applied when set.
      * The default value is null. See [InventoryState](#type-inventorystate) for possible values.
      */
-    states?: Array<InventoryStateType>;
+    states?: Array<InventoryStateType> | undefined;
     /**
      * The filter to return results with their `calculated_at` value after the given time as specified in an RFC 3339 timestamp.
      * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
-    updated_after?: string;
+    updated_after?: string | undefined;
     /**
      * The filter to return results with their `created_at` or `calculated_at` value strictly before the given time as specified in an RFC 3339 timestamp.
      * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
-    updated_before?: string;
+    updated_before?: string | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class BatchRetrieveInventoryChangesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The current calculated inventory changes for the requested objects and locations.
      */
-    changes?: Array<InventoryChange>;
+    changes?: Array<InventoryChange> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class BatchRetrieveInventoryCountsRequest {
     /**
      * The filter to return results by `CatalogObject` ID. The filter is applicable only when set. The default is null.
      */
-    catalog_object_ids?: Array<string>;
+    catalog_object_ids?: Array<string> | undefined;
     /**
      * The filter to return results by `Location` ID. This filter is applicable only when set. The default is null.
      */
-    location_ids?: Array<string>;
+    location_ids?: Array<string> | undefined;
     /**
      * The filter to return results with their `calculated_at` value  after the given time as specified in an RFC 3339 timestamp.
      * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
      */
-    updated_after?: string;
+    updated_after?: string | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The filter to return results by `InventoryState`. The filter is only applicable when set.
      * Ignored are untracked states of `NONE`, `SOLD`, and `UNLINKED_RETURN`. The default is null.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    states?: Array<string>;
+    states?: Array<string> | undefined;
 }
 
 export class BatchRetrieveInventoryCountsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The current calculated inventory counts for the requested objects and locations.
      */
-    counts?: Array<InventoryCount>;
+    counts?: Array<InventoryCount> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class BatchRetrieveOrdersRequest {
@@ -1157,7 +1157,7 @@ export class BatchRetrieveOrdersRequest {
      * The ID of the location for these orders.
      * This field is optional: omit it to retrieve orders within the scope of the current authorization's merchant ID.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The IDs of the orders to retrieve. A maximum of 100 orders can be retrieved per request.
      */
@@ -1171,11 +1171,11 @@ export class BatchRetrieveOrdersResponse {
     /**
      * The requested orders. This will omit any requested orders that do not exist.
      */
-    orders?: Array<Order>;
+    orders?: Array<Order> | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class BatchUpsertCatalogObjectsRequest {
@@ -1208,20 +1208,20 @@ export class BatchUpsertCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created successfully created CatalogObjects.
      */
-    objects?: Array<CatalogObject>;
+    objects?: Array<CatalogObject> | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this update
      * in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * The mapping between client and server IDs for this upsert.
      */
-    id_mappings?: Array<CatalogIdMapping>;
+    id_mappings?: Array<CatalogIdMapping> | undefined;
 }
 
 /**
@@ -1231,7 +1231,7 @@ export class BreakType {
     /**
      * UUID for this object.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The ID of the business location this type of break applies to.
      */
@@ -1252,15 +1252,15 @@ export class BreakType {
      * Used for resolving concurrency issues; request will fail if version provided does not match server version at time of request.
      * If a value is not provided, Square's servers execute a "blind" write; potentially overwriting another writer's data.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * A read-only timestamp in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -1285,7 +1285,7 @@ export class BulkCreateTeamMembersResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -1311,7 +1311,7 @@ export class BulkUpdateTeamMembersResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -1321,7 +1321,7 @@ export class BusinessHours {
     /**
      * The list of time periods during which the business is open. There may be at most 10 periods per day.
      */
-    periods?: Array<BusinessHoursPeriod>;
+    periods?: Array<BusinessHoursPeriod> | undefined;
 }
 
 /**
@@ -1331,15 +1331,15 @@ export class BusinessHoursPeriod {
     /**
      * The day of week for this time period. See [DayOfWeek](#type-dayofweek) for possible values
      */
-    day_of_week?: DayOfWeekType;
+    day_of_week?: DayOfWeekType | undefined;
     /**
      * The start time of a business hours period, specified in local time using partial-time RFC3339 format.
      */
-    start_local_time?: string;
+    start_local_time?: string | undefined;
     /**
      * The end time of a business hours period, specified in local time using partial-time RFC3339 format.
      */
-    end_local_time?: string;
+    end_local_time?: string | undefined;
 }
 
 /**
@@ -1351,13 +1351,13 @@ export class CalculateLoyaltyPointsRequest {
      * Specify this field if your application uses the Orders API to process orders.
      * Otherwise, specify the `transaction_amount`.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * The purchase amount for which to calculate the points.
      * Specify this field if your application does not use the Orders API to process orders.
      * Otherwise, specify the `order_id`.
      */
-    transaction_amount_money?: Money;
+    transaction_amount_money?: Money | undefined;
 }
 
 /**
@@ -1367,11 +1367,11 @@ export class CalculateLoyaltyPointsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The points that the buyer can earn from a specified purchase.
      */
-    points?: number;
+    points?: number | undefined;
 }
 
 export class CalculateOrderRequest {
@@ -1385,18 +1385,18 @@ export class CalculateOrderRequest {
      * The reward(s) do not correspond to actual redemptions, that is, no `reward`s are created.
      * Therefore, the reward `id`s are random strings used only to reference the reward tier.
      */
-    proposed_rewards?: Array<OrderReward>;
+    proposed_rewards?: Array<OrderReward> | undefined;
 }
 
 export class CalculateOrderResponse {
     /**
      * The calculated version of the order provided in the request.
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -1417,11 +1417,11 @@ export class CancelInvoiceResponse {
     /**
      * The canceled invoice.
      */
-    invoice?: Invoice;
+    invoice?: Invoice | undefined;
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -1442,7 +1442,7 @@ export class CancelPaymentByIdempotencyKeyResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -1458,11 +1458,11 @@ export class CancelPaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The successfully canceled `Payment` object.
      */
-    payment?: Payment;
+    payment?: Payment | undefined;
 }
 
 /**
@@ -1477,11 +1477,11 @@ export class CancelSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The canceled subscription.
      */
-    subscription?: Subscription;
+    subscription?: Subscription | undefined;
 }
 
 export class CancelTerminalCheckoutRequest {}
@@ -1490,11 +1490,11 @@ export class CancelTerminalCheckoutResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The canceled `TerminalCheckout`
      */
-    checkout?: TerminalCheckout;
+    checkout?: TerminalCheckout | undefined;
 }
 
 export class CancelTerminalRefundRequest {}
@@ -1503,11 +1503,11 @@ export class CancelTerminalRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The updated `TerminalRefund`
      */
-    refund?: TerminalRefund;
+    refund?: TerminalRefund | undefined;
 }
 
 /**
@@ -1522,7 +1522,7 @@ export class CaptureTransactionResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -1533,50 +1533,50 @@ export class Card {
     /**
      * Unique ID for this card. Generated by Square.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The card's brand. See [CardBrand](#type-cardbrand) for possible values
      */
-    card_brand?: CardBrandType;
+    card_brand?: CardBrandType | undefined;
     /**
      * The last 4 digits of the card number.
      */
-    last_4?: string;
+    last_4?: string | undefined;
     /**
      * The expiration month of the associated card as an integer between 1 and 12.
      */
-    exp_month?: number;
+    exp_month?: number | undefined;
     /**
      * The four-digit year of the card's expiration date.
      */
-    exp_year?: number;
+    exp_year?: number | undefined;
     /**
      * The name of the cardholder.
      */
-    cardholder_name?: string;
+    cardholder_name?: string | undefined;
     /**
      * The billing address for this card.
      */
-    billing_address?: Address;
+    billing_address?: Address | undefined;
     /**
      * @proposed Intended as a Square-assigned identifier, based on the card number, to identify the card across
      * multiple locations within a single application.
      */
-    fingerprint?: string;
+    fingerprint?: string | undefined;
     /**
      * The type of the card. The Card object includes this field only in response to Payments API calls.
      * See [CardType](#type-cardtype) for possible values.
      */
-    card_type?: string;
+    card_type?: string | undefined;
     /**
      * Indicates whether the Card is prepaid or not. The Card object includes this field only in response to Payments API calls.
      * See [CardPrepaidType](#type-cardprepaidtype) for possible values.
      */
-    prepaid_type?: string;
+    prepaid_type?: string | undefined;
     /**
      * The first six digits of the card number, known as the Bank Identification Number (BIN). Only the Payments API returns this field.
      */
-    bin?: string;
+    bin?: string | undefined;
 }
 
 /**
@@ -1591,58 +1591,58 @@ export class CardPaymentDetails {
     /**
      * The card payment's current state. It can be one of: `AUTHORIZED`, `CAPTURED`, `VOIDED`, `FAILED`.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * The credit card's non-confidential details.
      */
-    card?: Card;
+    card?: Card | undefined;
     /**
      * The method used to enter the card's details for the payment. Can be `KEYED`, `SWIPED`, `EMV`, `ON_FILE`, or `CONTACTLESS`.
      */
-    entry_method?: string;
+    entry_method?: string | undefined;
     /**
      * Status code returned from the Card Verification Value (CVV) check. Can be `CVV_ACCEPTED`, `CVV_REJECTED`, `CVV_NOT_CHECKED`.
      */
-    cvv_status?: string;
+    cvv_status?: string | undefined;
     /**
      * Status code returned from the Address Verification System (AVS) check. Can be `AVS_ACCEPTED`, `AVS_REJECTED`, `AVS_NOT_CHECKED`.
      */
-    avs_status?: string;
+    avs_status?: string | undefined;
     /**
      * Status code returned by the card issuer that describes the payment's authorization status.
      */
-    auth_result_code?: string;
+    auth_result_code?: string | undefined;
     /**
      * For EMV payments, identifies the EMV application used for the payment.
      */
-    application_identifier?: string;
+    application_identifier?: string | undefined;
     /**
      * For EMV payments, the human-readable name of the EMV application used for the payment.
      */
-    application_name?: string;
+    application_name?: string | undefined;
     /**
      * For EMV payments, the cryptogram generated for the payment.
      */
-    application_cryptogram?: string;
+    application_cryptogram?: string | undefined;
     /**
      * For EMV payments, method used to verify the cardholder's identity.
      * Can be one of `PIN`, `SIGNATURE`, `PIN_AND_SIGNATURE`, `ON_DEVICE`, or `NONE`.
      */
-    verification_method?: string;
+    verification_method?: string | undefined;
     /**
      * For EMV payments, the results of the cardholder verification.
      */
-    verification_results?: 'SUCCESS' | 'FAILURE' | 'UNKNOWN';
+    verification_results?: 'SUCCESS' | 'FAILURE' | 'UNKNOWN' | undefined;
     /**
      * The statement description sent to the card networks.
      * @note The actual statement description will vary and is likely to be truncated and appended with additional
      * information on a per issuer basis.
      */
-    statement_description?: string;
+    statement_description?: string | undefined;
     /**
      * Details about the device that took the payment.
      */
-    device_details?: DeviceDetails;
+    device_details?: DeviceDetails | undefined;
     /**
      * Whether or not the card is required to be physically present in order for the payment to be refunded.
      * If true, the card is required to be present.
@@ -1651,7 +1651,7 @@ export class CardPaymentDetails {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -1670,11 +1670,11 @@ export class CashDrawerDevice {
     /**
      * The device Square-issued ID
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The device merchant-specified name.
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 /**
@@ -1691,111 +1691,111 @@ export class CashDrawerShift {
     /**
      * The shift unique ID.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The shift current state. See [CashDrawerShiftState](#type-cashdrawershiftstate) for possible values.
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * The time when the shift began, in ISO 8601 format.
      */
-    opened_at?: string;
+    opened_at?: string | undefined;
     /**
      * The time when the shift ended, in ISO 8601 format.
      */
-    ended_at?: string;
+    ended_at?: string | undefined;
     /**
      * The time when the shift was closed, in ISO 8601 format.
      */
-    closed_at?: string;
+    closed_at?: string | undefined;
     /**
      * The IDs of all employees that were logged into Square Point of Sale at any point while the cash drawer shift was open.
      */
-    employee_ids?: Array<string>;
+    employee_ids?: Array<string> | undefined;
     /**
      * The ID of the employee that started the cash drawer shift.
      */
-    opening_employee_id?: string;
+    opening_employee_id?: string | undefined;
     /**
      * The ID of the employee that ended the cash drawer shift.
      */
-    ending_employee_id?: string;
+    ending_employee_id?: string | undefined;
     /**
      * The ID of the employee that closed the cash drawer shift by auditing the cash drawer contents.
      */
-    closing_employee_id?: string;
+    closing_employee_id?: string | undefined;
     /**
      * The free-form text description of a cash drawer by an employee.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The amount of money in the cash drawer at the start of the shift. The amount must be greater than or equal to zero.
      */
-    opened_cash_money?: Money;
+    opened_cash_money?: Money | undefined;
     /**
      * The amount of money added to the cash drawer from cash payments.
      * This is computed by summing all events with the types CASH_TENDER_PAYMENT and CASH_TENDER_CANCELED_PAYMENT.
      * The amount is always greater than or equal to zero.
      */
-    cash_payment_money?: Money;
+    cash_payment_money?: Money | undefined;
     /**
      * The amount of money removed from the cash drawer from cash refunds.
      * It is computed by summing the events of type CASH_TENDER_REFUND. The amount is always greater than or equal to zero.
      */
-    cash_refunds_money?: Money;
+    cash_refunds_money?: Money | undefined;
     /**
      * The amount of money added to the cash drawer for reasons other than cash payments.
      * It is computed by summing the events of type PAID_IN. The amount is always greater than or equal to zero.
      */
-    cash_paid_in_money?: Money;
+    cash_paid_in_money?: Money | undefined;
     /**
      * The amount of money removed from the cash drawer for reasons other than cash refunds.
      * It is computed by summing the events of type PAID_OUT. The amount is always greater than or equal to zero.
      */
-    cash_paid_out_money?: Money;
+    cash_paid_out_money?: Money | undefined;
     /**
      * The amount of money that should be in the cash drawer at the end of the shift, based on the shift's other money amounts.
      * This can be negative if employees have not correctly recorded all the events on the cash drawer.
      * cash_paid_out_money is a summation of amounts from cash_payment_money (zero or positive), cash_refunds_money
      * (zero or negative), cash_paid_in_money (zero or positive), and cash_paid_out_money (zero or negative) event types.
      */
-    expected_cash_money?: Money;
+    expected_cash_money?: Money | undefined;
     /**
      * The amount of money found in the cash drawer at the end of the shift by an auditing employee. The amount should be positive.
      */
-    closed_cash_money?: Money;
+    closed_cash_money?: Money | undefined;
     /**
      * The device running Square Point of Sale that was connected to the cash drawer.
      */
-    device?: CashDrawerDevice;
+    device?: CashDrawerDevice | undefined;
 }
 
 export class CashDrawerShiftEvent {
     /**
      * The unique ID of the event.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The ID of the employee that created the event.
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
     /**
      * The type of cash drawer shift event. See [CashDrawerEventType](#type-cashdrawereventtype) for possible values
      */
-    event_type?: string;
+    event_type?: string | undefined;
     /**
      * The amount of money that was added to or removed from the cash drawer in the event.
      * The amount can be positive (for added money), negative (for removed money), or zero (for other tender type payments).
      */
-    event_money?: Money;
+    event_money?: Money | undefined;
     /**
      * The event time in ISO 8601 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * An optional description of the event, entered by the employee that created the event.
      */
-    description?: string;
+    description?: string | undefined;
 }
 
 /**
@@ -1812,42 +1812,42 @@ export class CashDrawerShiftSummary {
     /**
      * The shift unique ID.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The shift current state. See [CashDrawerShiftState](#type-cashdrawershiftstate) for possible values.
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * The shift start time in ISO 8601 format.
      */
-    opened_at?: string;
+    opened_at?: string | undefined;
     /**
      * The shift end time in ISO 8601 format.
      */
-    ended_at?: string;
+    ended_at?: string | undefined;
     /**
      * The shift close time in ISO 8601 format.
      */
-    closed_at?: string;
+    closed_at?: string | undefined;
     /**
      * An employee free-text description of a cash drawer shift.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The amount of money in the cash drawer at the start of the shift. This must be a positive amount.
      */
-    opened_cash_money?: Money;
+    opened_cash_money?: Money | undefined;
     /**
      * The amount of money that should be in the cash drawer at the end of the shift, based on the cash drawer events on the shift.
      * The amount is correct if all shift employees accurately recorded their cash drawer shift events.
      * Unrecorded events and events with the wrong amount result in an incorrect expected_cash_money amount that can be negative.
      */
-    expected_cash_money?: Money;
+    expected_cash_money?: Money | undefined;
     /**
      * The amount of money found in the cash drawer at the end of the shift by an auditing employee.
      * The amount must be greater than or equal to zero.
      */
-    closed_cash_money?: Money;
+    closed_cash_money?: Money | undefined;
 }
 
 /**
@@ -1858,7 +1858,7 @@ export class CatalogCategory {
      * The category name.
      * This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 /**
@@ -1883,11 +1883,11 @@ export class CatalogCustomAttributeDefinition {
      * Seller-oriented description of the meaning of this Custom Attribute, any constraints that the seller should observe, etc.
      * May be displayed as a tooltip in Square UIs.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * Contains information about the application that created this custom attribute definition.
      */
-    readonly source_application?: SourceApplication;
+    readonly source_application?: SourceApplication | undefined;
     /**
      * The set of Catalog Object Types that this Custom Attribute may be applied to.
      * Currently, only `ITEM` and `ITEM_VARIATION` are allowed. At least one type must be included.
@@ -1899,36 +1899,36 @@ export class CatalogCustomAttributeDefinition {
      * Square Dashboard). May be modified.
      * See [CatalogCustomAttributeDefinitionSellerVisibility](#type-catalogcustomattributedefinitionsellervisibility) for possible values.
      */
-    seller_visibility?: string;
+    seller_visibility?: string | undefined;
     /**
      * The visibility of a custom attribute to applications other than the application that created the attribute.
      * See [CatalogCustomAttributeDefinitionAppVisibility](#type-catalogcustomattributedefinitionappvisibility) for possible values.
      */
-    app_visibility?: string;
+    app_visibility?: string | undefined;
     /**
      * Optionally, populated when `type` = `STRING`, unset otherwise.
      */
-    string_config?: CatalogCustomAttributeDefinitionStringConfig;
+    string_config?: CatalogCustomAttributeDefinitionStringConfig | undefined;
     /**
      * Optionally, populated when `type` = `NUMBER`, unset otherwise.
      */
-    number_config?: CatalogCustomAttributeDefinitionNumberConfig;
+    number_config?: CatalogCustomAttributeDefinitionNumberConfig | undefined;
     /**
      * Populated when `type` is set to `SELECTION`, unset otherwise.
      */
-    selection_config?: CatalogCustomAttributeDefinitionSelectionConfig;
+    selection_config?: CatalogCustomAttributeDefinitionSelectionConfig | undefined;
     /**
      * The number of custom attributes that reference this custom attribute definition.
      * Set by the server in response to a ListCatalog request with `include_counts` set to `true`.
      * If the actual count is greater than 100, `custom_attribute_usage_count` will be set to `100`.
      */
-    readonly custom_attribute_usage_count?: number;
+    readonly custom_attribute_usage_count?: number | undefined;
     /**
      * The name of the desired custom attribute key that can be used to access the custom attribute value on catalog objects.
      * Cannot be modified after the custom attribute definition has been created.
      * Must be between 1 and 60 characters, and may only contain the characters `[a-zA-Z0-9_-]`.
      */
-    key?: string;
+    key?: string | undefined;
 }
 
 /**
@@ -1944,7 +1944,7 @@ export class CatalogCustomAttributeDefinitionNumberConfig {
      *  - if the precision is 2, the quantity can be 0.01, 0.12, etc.
      *  Default: 5
      */
-    precision?: number;
+    precision?: number | undefined;
 }
 
 /**
@@ -1956,11 +1956,11 @@ export class CatalogCustomAttributeDefinitionSelectionConfig {
      * The value can be modified, but changing the value will not affect existing custom attribute values on objects.
      * Clients need to handle custom attributes with more selected values than allowed by this limit.
      */
-    max_allowed_selections?: number;
+    max_allowed_selections?: number | undefined;
     /**
      * The set of valid `CatalogCustomAttributeSelections`. Up to a maximum of 100 selections can be defined. Can be modified.
      */
-    allowed_selections?: Array<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection>;
+    allowed_selections?: Array<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> | undefined;
 }
 
 /**
@@ -1970,7 +1970,7 @@ export class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
     /**
      * Unique ID set by Square.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * Selection name, unique within `allowed_selections`.
      */
@@ -1992,7 +1992,7 @@ export class CatalogCustomAttributeDefinitionStringConfig {
      * within the seller's catalog. For example, this may be used for a value like a SKU that should not be duplicated
      * within a seller's catalog. May not be modified after the definition has been created.
      */
-    enforce_uniqueness?: boolean;
+    enforce_uniqueness?: boolean | undefined;
 }
 
 /**
@@ -2008,36 +2008,36 @@ export class CatalogCustomAttributeValue {
     /**
      * The name of the custom attribute.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The string value of the custom attribute. Populated if `type` = `STRING`.
      */
-    string_value?: string;
+    string_value?: string | undefined;
     /**
      * The id of the `CatalogCustomAttributeDefinition` this value belongs to.
      */
-    readonly custom_attribute_definition_id?: string;
+    readonly custom_attribute_definition_id?: string | undefined;
     /**
      * A copy of type from the associated `CatalogCustomAttributeDefinition`.
      * See [CatalogCustomAttributeDefinitionType](#type-catalogcustomattributedefinitiontype) for possible values.
      */
-    readonly type?: string;
+    readonly type?: string | undefined;
     /**
      * Populated if `type` = `NUMBER`. Contains a string representation of a decimal number, using a `.` as the decimal separator.
      */
-    number_value?: string;
+    number_value?: string | undefined;
     /**
      * A `true` or `false` value. Populated if `type` = `BOOLEAN`.
      */
-    boolean_value?: boolean;
+    boolean_value?: boolean | undefined;
     /**
      * One or more choices from `allowed_selections`. Populated if `type` = `SELECTION`.
      */
-    selection_uid_values?: Array<string>;
+    selection_uid_values?: Array<string> | undefined;
     /**
      * A copy of key from the associated `CatalogCustomAttributeDefinition`.
      */
-    readonly key?: string;
+    readonly key?: string | undefined;
 }
 
 /**
@@ -2047,32 +2047,32 @@ export class CatalogDiscount {
     /**
      * The discount name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Indicates whether the discount is a fixed amount or percentage, or entered at the time of sale.
      * See [CatalogDiscountType](#type-catalogdiscounttype) for possible values.
      */
-    discount_type?: DiscountType;
+    discount_type?: DiscountType | undefined;
     /**
      * The percentage of the discount as a string representation of a decimal number, using a `.` as the decimal separator and without a `%` sign.
      * A value of `7.5` corresponds to `7.5%`. Specify a percentage of `0` if `discount_type` is `VARIABLE_PERCENTAGE`.
      * Do not use this field for amount-based or variable discounts.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * The amount of the discount. Specify an amount of `0` if `discount_type` is `VARIABLE_AMOUNT`.
      * Do not use this field for percentage-based or variable discounts.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * Indicates whether a mobile staff member needs to enter their PIN to apply the discount to a payment in the Square
      * Point of Sale app.
      */
-    pin_required?: boolean;
+    pin_required?: boolean | undefined;
     /**
      * The color of the discount display label in the Square Point of Sale app. This must be a valid hex color code.
      */
-    label_color?: string;
+    label_color?: string | undefined;
     /**
      * Indicates whether this discount should reduce the price used to calculate tax.
      * Most discounts should use `MODIFY_TAX_BASIS`. However, in some circumstances taxes must be calculated based on
@@ -2082,7 +2082,7 @@ export class CatalogDiscount {
      * `DO_NOT_MODIFY_TAX_BASIS` for this field. If you are unsure whether you need to use this field, consult your
      * tax professional. See [CatalogDiscountModifyTaxBasis](#type-catalogdiscountmodifytaxbasis) for possible values.
      */
-    modify_tax_basis?: string;
+    modify_tax_basis?: string | undefined;
 }
 
 export class CatalogDiscountModifyTaxBasis {}
@@ -2105,11 +2105,11 @@ export class CatalogIdMapping {
     /**
      * The client-supplied temporary `#`-prefixed ID for a new `CatalogObject`.
      */
-    client_object_id?: string;
+    client_object_id?: string | undefined;
     /**
      * The permanent ID for the CatalogObject created by the server.
      */
-    object_id?: string;
+    object_id?: string | undefined;
 }
 
 /**
@@ -2119,16 +2119,16 @@ export class CatalogImage {
     /**
      * The internal name to identify this image in calls to the Square API.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The URL of this image, generated by Square after an image is uploaded using the `CreateCatalogImage` endpoint.
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * A caption that describes what is shown in the image. Displayed in the Square Online Store.
      * This is a searchable attribute for use in applicable query filters.
      */
-    caption?: string;
+    caption?: string | undefined;
 }
 
 export class CatalogInfoRequest {}
@@ -2137,64 +2137,64 @@ export class CatalogInfoResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * Limits that apply to this API.
      */
-    limits?: CatalogInfoResponseLimits;
+    limits?: CatalogInfoResponseLimits | undefined;
     /**
      * Names and abbreviations for standard units.
      */
-    standard_unit_description_group?: StandardUnitDescriptionGroup;
+    standard_unit_description_group?: StandardUnitDescriptionGroup | undefined;
 }
 
 export class CatalogInfoResponseLimits {
     /**
      * The maximum number of objects that may appear within a single batch in a `/v2/catalog/batch-upsert` request.
      */
-    batch_upsert_max_objects_per_batch?: number;
+    batch_upsert_max_objects_per_batch?: number | undefined;
     /**
      * The maximum number of objects that may appear across all batches in a `/v2/catalog/batch-upsert` request.
      */
-    batch_upsert_max_total_objects?: number;
+    batch_upsert_max_total_objects?: number | undefined;
     /**
      * The maximum number of object IDs that may appear in a `/v2/catalog/batch-retrieve` request.
      */
-    batch_retrieve_max_object_ids?: number;
+    batch_retrieve_max_object_ids?: number | undefined;
     /**
      * The maximum number of results that may be returned in a page of a `/v2/catalog/search` response.
      */
-    search_max_page_limit?: number;
+    search_max_page_limit?: number | undefined;
     /**
      * The maximum number of object IDs that may be included in a single `/v2/catalog/batch-delete` request.
      */
-    batch_delete_max_object_ids?: number;
+    batch_delete_max_object_ids?: number | undefined;
     /**
      * The maximum number of item IDs that may be included in a single `/v2/catalog/update-item-taxes` request.
      */
-    update_item_taxes_max_item_ids?: number;
+    update_item_taxes_max_item_ids?: number | undefined;
     /**
      * The maximum number of tax IDs to be enabled that may be included in a single `/v2/catalog/update-item-taxes` request.
      */
-    update_item_taxes_max_taxes_to_enable?: number;
+    update_item_taxes_max_taxes_to_enable?: number | undefined;
     /**
      * The maximum number of tax IDs to be disabled that may be included in a single `/v2/catalog/update-item-taxes` request.
      */
-    update_item_taxes_max_taxes_to_disable?: number;
+    update_item_taxes_max_taxes_to_disable?: number | undefined;
     /**
      * The maximum number of item IDs that may be included in a single `/v2/catalog/update-item-modifier-lists` request.
      */
-    update_item_modifier_lists_max_item_ids?: number;
+    update_item_modifier_lists_max_item_ids?: number | undefined;
     /**
      * The maximum number of modifier list IDs to be enabled that may be included in a single
      * `/v2/catalog/update-item-modifier-lists` request.
      */
-    update_item_modifier_lists_max_modifier_lists_to_enable?: number;
+    update_item_modifier_lists_max_modifier_lists_to_enable?: number | undefined;
     /**
      * The maximum number of modifier list IDs to be disabled that may be included in a single
      * `/v2/catalog/update-item-modifier-lists` request.
      */
-    update_item_modifier_lists_max_modifier_lists_to_disable?: number;
+    update_item_modifier_lists_max_modifier_lists_to_disable?: number | undefined;
 }
 
 /**
@@ -2204,57 +2204,57 @@ export class CatalogItem {
     /**
      * The item's name. This is a searchable attribute for use in applicable query filters, its value must not be empty, and the length is of Unicode code points.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The item's description. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the string are used.
      * This attribute is searchable, and its value length is of Unicode code points.
      */
-    abbreviation?: string;
+    abbreviation?: string | undefined;
     /**
      * The color of the item's display label in the Square Point of Sale app. This must be a valid hex color code.
      */
-    label_color?: string;
+    label_color?: string | undefined;
     /**
      * If `true`, the item can be added to shipping orders from the merchant's online store.
      */
-    available_online?: boolean;
+    available_online?: boolean | undefined;
     /**
      * If `true`, the item can be added to pickup orders from the merchant's online store.
      */
-    available_for_pickup?: boolean;
+    available_for_pickup?: boolean | undefined;
     /**
      * If `true`, the item can be added to electronically fulfilled orders from the merchant's online store.
      */
-    available_electronically?: boolean;
+    available_electronically?: boolean | undefined;
     /**
      * The ID of the item's category, if any.
      */
-    category_id?: string;
+    category_id?: string | undefined;
     /**
      * A set of IDs indicating the taxes enabled for this item. When updating an item, any taxes listed here will be
      * added to the item. Taxes may also be added to or deleted from an item using `UpdateItemTaxes`.
      */
-    tax_ids?: Array<string>;
+    tax_ids?: Array<string> | undefined;
     /**
      * A set of `CatalogItemModifierListInfo` objects representing the modifier lists that apply to this item, along with
      * the overrides and min and max limits that are specific to this item. Modifier lists may also be added to or
      * deleted from an item using `UpdateItemModifierLists`.
      */
-    modifier_list_info?: Array<CatalogItemModifierListInfo>;
+    modifier_list_info?: Array<CatalogItemModifierListInfo> | undefined;
     /**
      * A list of CatalogObjects containing the `CatalogItemVariation`s for this item.
      */
-    variations?: Array<CatalogObject>;
+    variations?: Array<CatalogObject> | undefined;
     /**
      * The product type of the item. May not be changed once an item has been created.
      * Only items of product type `REGULAR` or `APPOINTMENTS_SERVICE` may be created by this API; items with other product
      * types are read-only. See [CatalogItemProductType](#type-catalogitemproducttype) for possible values
      */
-    product_type?: 'REGULAR' | 'GIFT_CARD' | 'APPOINTMENTS_SERVICE' | 'RETAIL_ITEM' | 'RESTAURANT_ITEM';
+    product_type?: 'REGULAR' | 'GIFT_CARD' | 'APPOINTMENTS_SERVICE' | 'RETAIL_ITEM' | 'RESTAURANT_ITEM' | undefined;
     /**
      * If `false`, the Square Point of Sale app will present the `CatalogItem`'s details screen immediately, allowing
      * the merchant to choose `CatalogModifier`s before adding the item to the cart. This is the default behavior.
@@ -2262,12 +2262,12 @@ export class CatalogItem {
      * and merchants can edit modifiers by drilling down onto the item's details. Third-party clients are encouraged to
      * implement similar behaviors.
      */
-    skip_modifier_screen?: boolean;
+    skip_modifier_screen?: boolean | undefined;
     /**
      * List of item options IDs for this item. Used to manage and group item variations in a specified order.
      * Maximum: 6 item options.
      */
-    item_options?: Array<CatalogItemOptionForItem>;
+    item_options?: Array<CatalogItemOptionForItem> | undefined;
 }
 
 /**
@@ -2281,19 +2281,19 @@ export class CatalogItemModifierListInfo {
     /**
      * A set of `CatalogModifierOverride` objects that override whether a given `CatalogModifier` is enabled by default.
      */
-    modifier_overrides?: Array<CatalogModifierOverride>;
+    modifier_overrides?: Array<CatalogModifierOverride> | undefined;
     /**
      * If 0 or larger, the smallest number of `CatalogModifier`s that must be selected from this `CatalogModifierList`.
      */
-    min_selected_modifiers?: number;
+    min_selected_modifiers?: number | undefined;
     /**
      * If 0 or larger, the largest number of `CatalogModifier`s that can be selected from this `CatalogModifierList`.
      */
-    max_selected_modifiers?: number;
+    max_selected_modifiers?: number | undefined;
     /**
      * If `true`, enable this `CatalogModifierList`. The default value is `true`.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 }
 
 /**
@@ -2304,24 +2304,24 @@ export class CatalogItemOption {
      * The item option's display name for the seller. Must be unique across all item options.
      * This is a searchable attribute for use in applicable query filters.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The item option's display name for the customer. This is a searchable attribute for use in applicable query filters.
      */
-    display_name?: string;
+    display_name?: string | undefined;
     /**
      * TThe item option's human-readable description. Displayed in the Square Point of Sale app for the seller and in the
      * Online Store or on receipts for the buyer. This is a searchable attribute for use in applicable query filters.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * If true, display colors for entries in `values` when present.
      */
-    show_colors?: boolean;
+    show_colors?: boolean | undefined;
     /**
      * A list of CatalogObjects containing the `CatalogItemOptionValue`s for this item.
      */
-    values?: Array<CatalogObject>;
+    values?: Array<CatalogObject> | undefined;
 }
 
 /**
@@ -2331,7 +2331,7 @@ export class CatalogItemOptionForItem {
     /**
      * The unique id of the item option, used to form the dimensions of the item option matrix in a specified order.
      */
-    item_option_id?: string;
+    item_option_id?: string | undefined;
 }
 
 /**
@@ -2341,25 +2341,25 @@ export class CatalogItemOptionValue {
     /**
      * Unique ID of the associated item option.
      */
-    item_option_id?: string;
+    item_option_id?: string | undefined;
     /**
      * Name of this item option value. This is a searchable attribute for use in applicable query filters.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * A human-readable description for the option value. This is a searchable attribute for use in applicable query filters.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The HTML-supported hex color for the item option (e.g., "#ff8d4e85").
      * Only displayed if `show_colors` is enabled on the parent `ItemOption`. When left unset, `color` defaults to
      * white ("#ffffff") when `show_colors` is enabled on the parent `ItemOption`.
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * Determines where this option value appears in a list of option values.
      */
-    ordinal?: number;
+    ordinal?: number | undefined;
 }
 
 /**
@@ -2371,11 +2371,11 @@ export class CatalogItemOptionValueForItemVariation {
     /**
      * The unique id of an item option.
      */
-    item_option_id?: string;
+    item_option_id?: string | undefined;
     /**
      * The unique id of the selected value for the item option.
      */
-    item_option_value_id?: string;
+    item_option_value_id?: string | undefined;
 }
 
 /**
@@ -2390,72 +2390,72 @@ export class CatalogItemVariation {
     /**
      * The ID of the `CatalogItem` associated with this item variation.
      */
-    item_id?: string;
+    item_id?: string | undefined;
     /**
      * The item variation's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The item variation's SKU, if any. This is a searchable attribute for use in applicable query filters.
      */
-    sku?: string;
+    sku?: string | undefined;
     /**
      * The item variation's UPC, if any. This is a searchable attribute for use in applicable query filters.
      * It is only accessible through the Square API, and not exposed in the Square Seller Dashboard, Square Point of Sale or Retail Point of Sale apps.
      */
-    upc?: string;
+    upc?: string | undefined;
     /**
      * The order in which this item variation should be displayed. This value is read-only. On writes, the ordinal for
      * each item variation within a parent `CatalogItem` is set according to the item variations's position. On reads,
      * the value is not guaranteed to be sequential or unique.
      */
-    ordinal?: number;
+    ordinal?: number | undefined;
     /**
      * Indicates whether the item variation's price is fixed or determined at the time of sale.
      * See [CatalogPricingType](#type-catalogpricingtype) for possible values.
      */
-    pricing_type?: PricingType;
+    pricing_type?: PricingType | undefined;
     /**
      * The item variation's price, if fixed pricing is used.
      */
-    price_money?: Money;
+    price_money?: Money | undefined;
     /**
      * Per-location price and inventory overrides.
      */
-    location_overrides?: Array<ItemVariationLocationOverrides>;
+    location_overrides?: Array<ItemVariationLocationOverrides> | undefined;
     /**
      * If `true`, inventory tracking is active for the variation.
      */
-    track_inventory?: boolean;
+    track_inventory?: boolean | undefined;
     /**
      * Indicates whether the item variation displays an alert when its inventory quantity is less than or equal to its
      * `inventory_alert_threshold`. See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY';
+    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY' | undefined;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
      */
-    inventory_alert_threshold?: number;
+    inventory_alert_threshold?: number | undefined;
     /**
      * Arbitrary user metadata to associate with the item variation. This attribute value length is of Unicode code points.
      */
-    user_data?: string;
+    user_data?: string | undefined;
     /**
      * If the `CatalogItem` that owns this item variation is of type `APPOINTMENTS_SERVICE`, then this is the duration
      * of the service in milliseconds. For example, a 30 minute appointment would have the value `1800000`, which is
      * equal to 30 (minutes) * 60 (seconds per minute) * 1000 (milliseconds per second).
      */
-    service_duration?: number;
+    service_duration?: number | undefined;
     /**
      * List of item option values associated with this item variation. Listed in the same order as the item options of the parent item.
      */
-    item_option_values?: Array<CatalogItemOptionValueForItemVariation>;
+    item_option_values?: Array<CatalogItemOptionValueForItemVariation> | undefined;
     /**
      * ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity sold of this item variation.
      * If left unset, the item will be sold in whole quantities.
      */
-    measurement_unit_id?: string;
+    measurement_unit_id?: string | undefined;
 }
 
 /**
@@ -2465,7 +2465,7 @@ export class CatalogMeasurementUnit {
     /**
      * Indicates the unit used to measure the quantity of a catalog item variation.
      */
-    measurement_unit?: MeasurementUnit;
+    measurement_unit?: MeasurementUnit | undefined;
     /**
      * An integer between 0 and 5 that represents the maximum number of positions allowed after the decimal in quantities
      * measured with this unit. For example:
@@ -2474,7 +2474,7 @@ export class CatalogMeasurementUnit {
      *  - if the precision is 2, the quantity can be 0.01, 0.12, etc.
      *  Default: 3
      */
-    precision?: number;
+    precision?: number | undefined;
 }
 
 /**
@@ -2484,19 +2484,19 @@ export class CatalogModifier {
     /**
      * The modifier name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The modifier price.
      */
-    price_money?: Money;
+    price_money?: Money | undefined;
     /**
      * Determines where this `CatalogModifier` appears in the `CatalogModifierList`.
      */
-    ordinal?: number;
+    ordinal?: number | undefined;
     /**
      * The ID of the `CatalogModifierList` associated with this modifier.
      */
-    modifier_list_id?: string;
+    modifier_list_id?: string | undefined;
 }
 
 /**
@@ -2509,21 +2509,21 @@ export class CatalogModifierList {
      * The name for the `CatalogModifierList` instance.
      * This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Determines where this modifier list appears in a list of `CatalogModifierList` values.
      */
-    ordinal?: number;
+    ordinal?: number | undefined;
     /**
      * Indicates whether multiple options from the modifier list can be applied to a single `CatalogItem`.
      * See [CatalogModifierListSelectionType](#type-catalogmodifierlistselectiontype) for possible values
      */
-    selection_type?: string;
+    selection_type?: string | undefined;
     /**
      * The options included in the `CatalogModifierList`. You must include at least one `CatalogModifier`.
      * Each CatalogObject must have type `MODIFIER` and contain `CatalogModifier` data.
      */
-    modifiers?: Array<CatalogObject>;
+    modifiers?: Array<CatalogObject> | undefined;
 }
 
 /**
@@ -2542,7 +2542,7 @@ export class CatalogModifierOverride {
     /**
      * If `true`, this `CatalogModifier` should be selected by default for this `CatalogItem`.
      */
-    on_by_default?: boolean;
+    on_by_default?: boolean | undefined;
 }
 
 /**
@@ -2582,17 +2582,17 @@ export class CatalogObject {
      * Last modification [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) in RFC 3339 format,
      * e.g., "2016-08-15T23:59:33.123Z" would indicate the UTC time (denoted by `Z`) of August 15, 2016 at 23:59:33 and 123 milliseconds.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * The version of the object. When updating an object, the version supplied must match the version in the database,
      * otherwise the write will be rejected as conflicting.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * If `true`, the object has been deleted from the database. Must be `false` for new objects being inserted. When
      * deleted, the `updated_at` field will equal the deletion time.
      */
-    is_deleted?: boolean;
+    is_deleted?: boolean | undefined;
     /**
      * A map (key-value pairs) of application-defined custom attribute values.
      * The value of a key-value pair is a `CatalogCustomAttributeValue` object.
@@ -2605,99 +2605,99 @@ export class CatalogObject {
      * Custom attribute values are intended to store additional information about a catalog object or associations with
      * an entity in another system. Do not use custom attributes to store any sensitive information (personally identifiable information, card details, etc.).
      */
-    custom_attribute_values?: Record<string, CatalogCustomAttributeValue>;
+    custom_attribute_values?: Record<string, CatalogCustomAttributeValue> | undefined;
     /**
      * The Connect v1 IDs for this object at each location where it is present, where they differ from the object's Connect V2 ID.
      * The field will only be present for objects that have been created or modified by legacy APIs.
      */
-    catalog_v1_ids?: Array<Record<string, any>>;
+    catalog_v1_ids?: Array<Record<string, any>> | undefined;
     /**
      * If `true`, this object is present at all locations (including future locations), except where specified in the
      * `absent_at_location_ids` field. If `false`, this object is not present at any locations (including future
      * locations), except where specified in the `present_at_location_ids` field. If not specified, defaults to `true`.
      */
-    present_at_all_locations?: boolean;
+    present_at_all_locations?: boolean | undefined;
     /**
      * A list of locations where the object is present, even if `present_at_all_locations` is `false`.
      */
-    present_at_location_ids?: Array<string>;
+    present_at_location_ids?: Array<string> | undefined;
     /**
      * A list of locations where the object is not present, even if `present_at_all_locations` is `true`.
      */
-    absent_at_location_ids?: Array<string>;
+    absent_at_location_ids?: Array<string> | undefined;
     /**
      * Identifies the `CatalogImage` attached to this `CatalogObject`.
      */
-    image_id?: string;
+    image_id?: string | undefined;
     /**
      * Structured data for a `CatalogItem`, set for CatalogObjects of type `ITEM`.
      */
-    item_data?: CatalogItem;
+    item_data?: CatalogItem | undefined;
     /**
      * Structured data for a `CatalogCategory`, set for CatalogObjects of type `CATEGORY`.
      */
-    category_data?: CatalogCategory;
+    category_data?: CatalogCategory | undefined;
     /**
      * Structured data for a `CatalogItemVariation`, set for CatalogObjects of type `ITEM_VARIATION`.
      */
-    item_variation_data?: CatalogItemVariation;
+    item_variation_data?: CatalogItemVariation | undefined;
     /**
      * Structured data for a `CatalogTax`, set for CatalogObjects of type `TAX`.
      */
-    tax_data?: CatalogTax;
+    tax_data?: CatalogTax | undefined;
     /**
      * Structured data for a `CatalogDiscount`, set for CatalogObjects of type `DISCOUNT`.
      */
-    discount_data?: CatalogDiscount;
+    discount_data?: CatalogDiscount | undefined;
     /**
      * Structured data for a `CatalogModifierList`, set for CatalogObjects of type `MODIFIER_LIST`.
      */
-    modifier_list_data?: CatalogModifierList;
+    modifier_list_data?: CatalogModifierList | undefined;
     /**
      * Structured data for a `CatalogModifier`, set for CatalogObjects of type `MODIFIER`.
      */
-    modifier_data?: CatalogModifier;
+    modifier_data?: CatalogModifier | undefined;
     /**
      * Structured data for a `CatalogTimePeriod`, set for CatalogObjects of type `TIME_PERIOD`.
      */
-    time_period_data?: CatalogTimePeriod;
+    time_period_data?: CatalogTimePeriod | undefined;
     /**
      * Structured data for a `CatalogProductSet`, set for CatalogObjects of type `PRODUCT_SET`.
      */
-    product_set_data?: CatalogProductSet;
+    product_set_data?: CatalogProductSet | undefined;
     /**
      * Structured data for a `CatalogPricingRule`, set for CatalogObjects of type `PRICING_RULE`.
      * A `CatalogPricingRule` object often works with a `CatalogProductSet` object or a `CatalogTimePeriod` object.
      */
-    pricing_rule_data?: CatalogPricingRule;
+    pricing_rule_data?: CatalogPricingRule | undefined;
     /**
      * Structured data for a `CatalogImage`, set for CatalogObjects of type `IMAGE`.
      */
-    image_data?: CatalogImage;
+    image_data?: CatalogImage | undefined;
     /**
      * Structured data for a `CatalogMeasurementUnit`, set for CatalogObjects of type `MEASUREMENT_UNIT`.
      */
-    measurement_unit_data?: CatalogMeasurementUnit;
+    measurement_unit_data?: CatalogMeasurementUnit | undefined;
     /**
      * Structured data for a `CatalogSubscriptionPlan`, set for CatalogObjects of type `SUBSCRIPTION_PLAN`.
      */
-    subscription_plan_data?: CatalogSubscriptionPlan;
+    subscription_plan_data?: CatalogSubscriptionPlan | undefined;
     /**
      * Structured data for a `CatalogItemOption`, set for CatalogObjects of type `ITEM_OPTION`.
      */
-    item_option_data?: CatalogItemOption;
+    item_option_data?: CatalogItemOption | undefined;
     /**
      * Structured data for a `CatalogItemOptionValue`, set for CatalogObjects of type `ITEM_OPTION_VAL`.
      */
-    item_option_value_data?: CatalogItemOptionValue;
+    item_option_value_data?: CatalogItemOptionValue | undefined;
     /**
      * Structured data for a `CatalogCustomAttributeDefinition`, set for CatalogObjects of type `CUSTOM_ATTRIBUTE_DEFINITION`.
      */
-    custom_attribute_definition_data?: CatalogCustomAttributeDefinition;
+    custom_attribute_definition_data?: CatalogCustomAttributeDefinition | undefined;
     /**
      * Structured data for a `CatalogQuickAmountsSettings`, set for CatalogObjects of type `QUICK_AMOUNTS_SETTINGS`.
      */
-    quick_amounts_settings_data?: CatalogQuickAmountsSettings;
+    quick_amounts_settings_data?: CatalogQuickAmountsSettings | undefined;
 }
 
 /**
@@ -2723,21 +2723,21 @@ export class CatalogPricingRule {
     /**
      * User-defined name for the pricing rule. For example, "Buy one get one free" or "10% off".
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * A list of unique IDs for the catalog time periods when this pricing rule is in effect.
      * If left unset, the pricing rule is always in effect.
      */
-    time_period_ids?: Array<string>;
+    time_period_ids?: Array<string> | undefined;
     /**
      * Unique ID for the `CatalogDiscount` to take off the price of all matched items.
      */
-    discount_id?: string;
+    discount_id?: string | undefined;
     /**
      * Unique ID for the `CatalogProductSet` that will be matched by this rule.
      * A match rule matches within the entire cart, and can match multiple times. This field will always be set.
      */
-    match_products_id?: string;
+    match_products_id?: string | undefined;
     /**
      * @deprecated Please use the `exclude_products_id` field to apply an exclude set instead.
      * Exclude sets allow better control over quantity ranges and offer more flexibility for which matched items receive a discount.
@@ -2745,37 +2745,37 @@ export class CatalogPricingRule {
      * rules (the match set). An apply rule can only match once in the match set. If not supplied, the pricing will be
      * applied to all products in the match set. Other products retain their base price, or a price generated by other rules.
      */
-    apply_products_id?: string;
+    apply_products_id?: string | undefined;
     /**
      * `CatalogProductSet` to exclude from the pricing rule. An exclude rule matches within the subset of the cart that
      * fits the match rules (the match set). An exclude rule can only match once in the match set. If not supplied,
      * the pricing will be applied to all products in the match set. Other products retain their base price, or
      * a price generated by other rules.
      */
-    exclude_products_id?: string;
+    exclude_products_id?: string | undefined;
     /**
      * Represents the date the Pricing Rule is valid from. Represented in RFC3339 full-date format (YYYY-MM-DD).
      */
-    valid_from_date?: string;
+    valid_from_date?: string | undefined;
     /**
      * Represents the local time the pricing rule should be valid from. Represented in RFC3339 partial-time format (HH:MM:SS).
      * Partial seconds will be truncated.
      */
-    valid_from_local_time?: string;
+    valid_from_local_time?: string | undefined;
     /**
      * Represents the date the Pricing Rule is valid until. Represented in RFC3339 full-date format (YYYY-MM-DD).
      */
-    valid_until_date?: string;
+    valid_until_date?: string | undefined;
     /**
      * Represents the local time the pricing rule should be valid until.
      * Represented in RFC3339 partial-time format (HH:MM:SS). Partial seconds will be truncated.
      */
-    valid_until_local_time?: string;
+    valid_until_local_time?: string | undefined;
     /**
      * If an `exclude_products_id` was given, controls which subset of matched products is excluded from any discounts.
      * Default value: `LEAST_EXPENSIVE` See [ExcludeStrategy](#type-excludestrategy) for possible values.
      */
-    exclude_strategy?: string;
+    exclude_strategy?: string | undefined;
 }
 
 /**
@@ -2792,39 +2792,39 @@ export class CatalogProductSet {
     /**
      * User-defined name for the product set. For example, "Clearance Items" or "Winter Sale Items".
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Unique IDs for any `CatalogObject` included in this product set. Any number of these catalog objects can be in
      * an order for a pricing rule to apply. This can be used with `product_ids_all` in a parent `CatalogProductSet`
      * to match groups of products for a bulk discount, such as a discount for an entree and side combo.
      * Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set. Max: 500 catalog object IDs.
      */
-    product_ids_any?: Array<string>;
+    product_ids_any?: Array<string> | undefined;
     /**
      * Unique IDs for any `CatalogObject` included in this product set. All objects in this set must be included in an
      * order for a pricing rule to apply. Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set.
      * Max: 500 catalog object IDs.
      */
-    product_ids_all?: Array<string>;
+    product_ids_all?: Array<string> | undefined;
     /**
      * If set, there must be exactly this many items from `products_any` or `products_all` in the cart for the discount to apply.
      * Cannot be combined with either `quantity_min` or `quantity_max`.
      */
-    quantity_exact?: number;
+    quantity_exact?: number | undefined;
     /**
      * If set, there must be at least this many items from `products_any` or `products_all` in a cart for the discount to apply.
      * See `quantity_exact`. Defaults to 0 if `quantity_exact`, `quantity_min` and `quantity_max` are all unspecified.
      */
-    quantity_min?: number;
+    quantity_min?: number | undefined;
     /**
      * If set, the pricing rule will apply to a maximum of this many items from `products_any` or `products_all`.
      */
-    quantity_max?: number;
+    quantity_max?: number | undefined;
     /**
      * If set to `true`, the product set will include every item in the catalog.
      * Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set.
      */
-    all_products?: boolean;
+    all_products?: boolean | undefined;
 }
 
 /**
@@ -2847,54 +2847,54 @@ export class CatalogQuery {
     /**
      * A query expression to sort returned query result by the given attribute.
      */
-    sorted_attribute_query?: CatalogQuerySortedAttribute;
+    sorted_attribute_query?: CatalogQuerySortedAttribute | undefined;
     /**
      * An exact query expression to return objects with attribute name and value matching the specified attribute name and value exactly.
      * Value matching is case insensitive.
      */
-    exact_query?: CatalogQueryExact;
+    exact_query?: CatalogQueryExact | undefined;
     /**
      * A set query expression to return objects with attribute name and value matching the specified attribute name
      * and any of the specified attribute values exactly. Value matching is case insensitive.
      */
-    set_query?: CatalogQuerySet;
+    set_query?: CatalogQuerySet | undefined;
     /**
      * A prefix query expression to return objects with attribute values that have a prefix matching the specified string value.
      * Value matching is case insensitive.
      */
-    prefix_query?: CatalogQueryPrefix;
+    prefix_query?: CatalogQueryPrefix | undefined;
     /**
      * A range query expression to return objects with numeric values that lie in the specified range.
      */
-    range_query?: CatalogQueryRange;
+    range_query?: CatalogQueryRange | undefined;
     /**
      * A text query expression to return object whose searchable attributes contain all of the given keywords,
      * irrespective of their order. For example, if a `CatalogItem` contains custom attribute values of
      * `{\"name\": \"t-shirt\"}` and `{\"description\": \"Small, Purple\"}`, the query filter of
      * `{\"keywords\": [\"shirt\", \"sma\", \"purp\"]}` returns this item.
      */
-    text_query?: CatalogQueryText;
+    text_query?: CatalogQueryText | undefined;
     /**
      * A query expression to return items that have any of the specified taxes (as identified by the corresponding `CatalogTax` object IDs) enabled.
      */
-    items_for_tax_query?: CatalogQueryItemsForTax;
+    items_for_tax_query?: CatalogQueryItemsForTax | undefined;
     /**
      * A query expression to return items that have any of the given modifier list (as identified by the corresponding `CatalogModifierList`s IDs) enabled.
      */
-    items_for_modifier_list_query?: CatalogQueryItemsForModifierList;
+    items_for_modifier_list_query?: CatalogQueryItemsForModifierList | undefined;
     /**
      * A query expression to return items that contains the specified item options (as identified the corresponding `CatalogItemOption` IDs).
      */
-    items_for_item_options_query?: CatalogQueryItemsForItemOptions;
+    items_for_item_options_query?: CatalogQueryItemsForItemOptions | undefined;
     /**
      * A query expression to return item variations (of the `CatalogItemVariation` that contain all of the specified `CatalogItemOption` IDs.
      */
-    item_variations_for_item_option_values_query?: CatalogQueryItemVariationsForItemOptionValues;
+    item_variations_for_item_option_values_query?: CatalogQueryItemVariationsForItemOptionValues | undefined;
 }
 
 export class CatalogQueryCustomAttributeUsage {
-    custom_attribute_definition_ids?: Array<string>;
-    has_value?: boolean;
+    custom_attribute_definition_ids?: Array<string> | undefined;
+    has_value?: boolean | undefined;
 }
 
 /**
@@ -2920,7 +2920,7 @@ export class CatalogQueryItemVariationsForItemOptionValues {
      * A set of `CatalogItemOptionValue` IDs to be used to find associated `CatalogItemVariation`s.
      * All ItemVariations that contain all of the given Item Option Values (in any order) will be returned.
      */
-    item_option_value_ids?: Array<string>;
+    item_option_value_ids?: Array<string> | undefined;
 }
 
 /**
@@ -2931,7 +2931,7 @@ export class CatalogQueryItemsForItemOptions {
      * A set of `CatalogItemOption` IDs to be used to find associated `CatalogItem`s.
      * All Items that contain all of the given Item Options (in any order) will be returned.
      */
-    item_option_ids?: Array<string>;
+    item_option_ids?: Array<string> | undefined;
 }
 
 /**
@@ -2979,11 +2979,11 @@ export class CatalogQueryRange {
     /**
      * The desired minimum value for the search attribute (inclusive).
      */
-    attribute_min_value?: number;
+    attribute_min_value?: number | undefined;
     /**
      * The desired maximum value for the search attribute (inclusive).
      */
-    attribute_max_value?: number;
+    attribute_max_value?: number | undefined;
 }
 
 /**
@@ -3014,11 +3014,11 @@ export class CatalogQuerySortedAttribute {
      * or greater, while descending sorts will return only objects with this value or less.
      * If unset, start at the beginning (for ascending sorts) or end (for descending sorts).
      */
-    initial_attribute_value?: string;
+    initial_attribute_value?: string | undefined;
     /**
      * The desired sort order, "ASC" (ascending) or "DESC" (descending). See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderType;
+    sort_order?: SortOrderType | undefined;
 }
 
 /**
@@ -3048,11 +3048,11 @@ export class CatalogQuickAmount {
      * Describes the ranking of the Quick Amount provided by machine learning model, in the range [0, 100].
      * MANUAL type amount will always have score = 100.
      */
-    score?: number;
+    score?: number | undefined;
     /**
      * The order in which this Quick Amount should be displayed.
      */
-    ordinal?: number;
+    ordinal?: number | undefined;
 }
 
 /**
@@ -3072,11 +3072,11 @@ export class CatalogQuickAmountsSettings {
     /**
      * Represents location's eligibility for auto amounts The boolean should be consistent with whether there are AUTO amounts in the `amounts`.
      */
-    eligible_for_auto_amounts?: boolean;
+    eligible_for_auto_amounts?: boolean | undefined;
     /**
      * Represents a set of Quick Amounts at this location.
      */
-    amounts?: Array<CatalogQuickAmount>;
+    amounts?: Array<CatalogQuickAmount> | undefined;
 }
 
 /**
@@ -3091,11 +3091,11 @@ export class CatalogSubscriptionPlan {
     /**
      * The name of the plan.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * A list of SubscriptionPhase containing the `SubscriptionPhase` for this plan.
      */
-    phases?: Array<SubscriptionPhase>;
+    phases?: Array<SubscriptionPhase> | undefined;
 }
 
 /**
@@ -3105,30 +3105,30 @@ export class CatalogTax {
     /**
      * The tax's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Whether the tax is calculated based on a payment's subtotal or total.
      * See [TaxCalculationPhase](#type-taxcalculationphase) for possible values.
      */
-    calculation_phase?: 'TAX_SUBTOTAL_PHASE' | 'TAX_TOTAL_PHASE';
+    calculation_phase?: 'TAX_SUBTOTAL_PHASE' | 'TAX_TOTAL_PHASE' | undefined;
     /**
      * Whether the tax is `ADDITIVE` or `INCLUSIVE`. See [TaxInclusionType](#type-taxinclusiontype) for possible values.
      */
-    inclusion_type?: TaxType;
+    inclusion_type?: TaxType | undefined;
     /**
      * The percentage of the tax in decimal form, using a '.' as the decimal separator and without a '%' sign.
      * A value of `7.5` corresponds to 7.5%.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * If `true`, the fee applies to custom amounts entered into the Square Point of Sale app that are not associated
      * with a particular `CatalogItem`.
      */
-    applies_to_custom_amounts?: boolean;
+    applies_to_custom_amounts?: boolean | undefined;
     /**
      * A Boolean flag to indicate whether the tax is displayed as enabled (`true`) in the Square Point of Sale app or not (`false`).
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 }
 
 /**
@@ -3143,7 +3143,7 @@ export class CatalogTimePeriod {
      * `DTSTART` must be in local (unzoned) time format. Note that while `BEGIN:VEVENT` and `END:VEVENT`
      * is not required in the request. The response will always include them.
      */
-    event?: string;
+    event?: string | undefined;
 }
 
 /**
@@ -3169,52 +3169,52 @@ export class ChargeRequest {
      * nonce to this endpoint must be the _same application_ that generated the nonce with the `SqPaymentForm`.
      * Otherwise, the nonce is invalid. Do not provide a value for this field if you provide a value for `customer_card_id`.
      */
-    card_nonce?: string;
+    card_nonce?: string | undefined;
     /**
      * The ID of the customer card on file to charge. Do not provide a value for this field if you provide a value for `card_nonce`.
      * If you provide this value, you _must_ also provide a value for `customer_id`.
      */
-    customer_card_id?: string;
+    customer_card_id?: string | undefined;
     /**
      * If `true`, the request will only perform an Auth on the provided card. You can then later perform either a
      * Capture (with the `CaptureTransaction` or a Void (with the `VoidTransaction`. Default value: `false`
      */
-    delay_capture?: boolean;
+    delay_capture?: boolean | undefined;
     /**
      * An optional ID you can associate with the transaction for your own purposes (such as to associate the transaction
      * with an entity ID in your own database). This value cannot exceed 40 characters.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
 
     /**
      * An optional note to associate with the transaction. This value cannot exceed 60 characters.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * The ID of the customer to associate this transaction with.
      * This field is required if you provide a value for `customer_card_id`, and optional otherwise.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The buyer's billing address. This value is optional, but this transaction is ineligible for chargeback protection
      * if neither this parameter nor `shipping_address` is provided.
      */
-    billing_address?: Address;
+    billing_address?: Address | undefined;
     /**
      * The buyer's shipping address, if available. This value is optional, but this transaction is ineligible for
      * chargeback protection if neither this parameter nor `billing_address` is provided.
      */
-    shipping_address?: Address;
+    shipping_address?: Address | undefined;
     /**
      * The buyer's email address, if available.
      * This value is optional, but this transaction is ineligible for chargeback protection if it is not provided.
      */
-    buyer_email_address?: string;
+    buyer_email_address?: string | undefined;
     /**
      * The ID of the order to associate with this transaction. If you provide this value, the `amount_money` value of
      * your request must __exactly match__ the value of the order's `total_money` field.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * The basic primitive of multi-party transaction. The value is optional. The transaction facilitated by you can be
      * split from here. If you provide this value, the `amount_money` value in your additional_recipients must not be
@@ -3222,11 +3222,11 @@ export class ChargeRequest {
      * the app owner merchant. This field requires the `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission.
      * This field is currently not supported in sandbox.
      */
-    additional_recipients?: Array<AdditionalRecipient>;
+    additional_recipients?: Array<AdditionalRecipient> | undefined;
     /**
      * A token generated by SqPaymentForm's verifyBuyer() that represents customer's device info and 3ds challenge result.
      */
-    verification_token?: string;
+    verification_token?: string | undefined;
 }
 
 /**
@@ -3256,11 +3256,11 @@ export class ChargeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created transaction.
      */
-    transaction?: Transaction;
+    transaction?: Transaction | undefined;
 }
 
 /**
@@ -3270,32 +3270,32 @@ export class Checkout {
     /**
      * ID generated by Square Checkout when a new checkout is requested.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The URL that the buyer's browser should be redirected to after the checkout is completed.
      */
-    checkout_page_url?: string;
+    checkout_page_url?: string | undefined;
     /**
      * If `true`, Square Checkout will collect shipping information on your behalf and store that information with the
      * transaction information in your Square Dashboard. Default: `false`.
      */
-    ask_for_shipping_address?: boolean;
+    ask_for_shipping_address?: boolean | undefined;
     /**
      * The email address to display on the Square Checkout confirmation page and confirmation email that the buyer can
      * use to contact the merchant. If this value is not set, the confirmation page and email will display the primary
      * email address associated with the merchant's Square account. Default: none; only exists if explicitly set.
      */
-    merchant_support_email?: string;
+    merchant_support_email?: string | undefined;
     /**
      * If provided, the buyer's email is pre-populated on the checkout page as an editable text field.
      * Default: none; only exists if explicitly set.
      */
-    pre_populate_buyer_email?: string;
+    pre_populate_buyer_email?: string | undefined;
     /**
      * If provided, the buyer's shipping info is pre-populated on the checkout page as editable text fields.
      * Default: none; only exists if explicitly set.
      */
-    pre_populate_shipping_address?: Address;
+    pre_populate_shipping_address?: Address | undefined;
     /**
      * The URL to redirect to after checkout is completed with `checkoutId`, Square's `orderId`, `transactionId`, and
      * `referenceId` appended as URL parameters. For example, if the provided redirect_url is
@@ -3305,20 +3305,20 @@ export class Checkout {
      * however Square strongly recommends that you provide a redirect URL so you can verify the transaction results and
      * finalize the order through your existing/normal confirmation workflow.
      */
-    redirect_url?: string;
+    redirect_url?: string | undefined;
     /**
      * Order to be checked out.
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * The time when the checkout was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Additional recipients (other than the merchant) receiving a portion of this checkout. For example, fees assessed
      * on the purchase by a third party integration.
      */
-    additional_recipients?: Array<AdditionalRecipient>;
+    additional_recipients?: Array<AdditionalRecipient> | undefined;
 }
 
 /**
@@ -3334,11 +3334,11 @@ export class CompletePaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The successfully completed payment.
      */
-    payment?: Payment;
+    payment?: Payment | undefined;
 }
 
 /**
@@ -3348,11 +3348,11 @@ export class Coordinates {
     /**
      * The latitude of the coordinate expressed in degrees.
      */
-    latitude?: number;
+    latitude?: number | undefined;
     /**
      * The longitude of the coordinate expressed in degrees.
      */
-    longitude?: number;
+    longitude?: number | undefined;
 }
 
 /**
@@ -3368,7 +3368,7 @@ export class CreateBreakTypeRequest {
     /**
      * Unique string value to insure idempotency of the operation.
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
     /**
      * The `BreakType` to be created.
      */
@@ -3383,11 +3383,11 @@ export class CreateBreakTypeResponse {
     /**
      * The `BreakType` that was created by the request.
      */
-    break_type?: BreakType;
+    break_type?: BreakType | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class CreateCatalogImageRequest {
@@ -3401,23 +3401,23 @@ export class CreateCatalogImageRequest {
      * Unique ID of the `CatalogObject` to attach to this `CatalogImage`. Leave this field empty to create unattached images,
      * for example if you are building an integration where these images can be attached to catalog items at a later time.
      */
-    object_id?: string;
+    object_id?: string | undefined;
     /**
      * The new `IMAGE`-type `CatalogObject` to be attached to this `CatalogImage`.
      * If the `CatalogObject` already has a `CatalogImage`, this call will overwrite it.
      */
-    image?: CatalogObject;
+    image?: CatalogObject | undefined;
 }
 
 export class CreateCatalogImageResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The newly created `CatalogImage` including a Square-generated URL for each image.
      */
-    image?: CatalogObject;
+    image?: CatalogObject | undefined;
 }
 
 /**
@@ -3442,23 +3442,23 @@ export class CreateCheckoutRequest {
      * If `true`, Square Checkout will collect shipping information on your behalf and store that information with the
      * transaction information in your Square Dashboard. Default: `false`.
      */
-    ask_for_shipping_address?: boolean;
+    ask_for_shipping_address?: boolean | undefined;
     /**
      * The email address to display on the Square Checkout confirmation page and confirmation email that the buyer can
      * use to contact the merchant. If this value is not set, the confirmation page and email will display the primary
      * email address associated with the merchant's Square account. Default: none; only exists if explicitly set.
      */
-    merchant_support_email?: string;
+    merchant_support_email?: string | undefined;
     /**
      * If provided, the buyer's email is pre-populated on the checkout page as an editable text field.
      * Default: none; only exists if explicitly set.
      */
-    pre_populate_buyer_email?: string;
+    pre_populate_buyer_email?: string | undefined;
     /**
      * If provided, the buyer's shipping info is pre-populated on the checkout page as editable text fields.
      * Default: none; only exists if explicitly set.
      */
-    pre_populate_shipping_address?: Address;
+    pre_populate_shipping_address?: Address | undefined;
     /**
      * The URL to redirect to after checkout is completed with `checkoutId`, Square's `orderId`, `transactionId`, and
      * `referenceId` appended as URL parameters. For example, if the provided redirect_url is
@@ -3469,7 +3469,7 @@ export class CreateCheckoutRequest {
      * finalize the order through your existing/normal confirmation workflow.
      * Default: none; only exists if explicitly set.
      */
-    redirect_url?: string;
+    redirect_url?: string | undefined;
     /**
      * The basic primitive of multi-party transaction. The value is optional. The transaction facilitated by you can be
      * split from here. If you provide this value, the `amount_money` value in your additional_recipients must not be
@@ -3477,11 +3477,11 @@ export class CreateCheckoutRequest {
      * location of the app owner merchant. This field requires `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission.
      * This field is currently not supported in sandbox.
      */
-    additional_recipients?: Array<ChargeRequestAdditionalRecipient>;
+    additional_recipients?: Array<ChargeRequestAdditionalRecipient> | undefined;
     /**
      * An optional note to associate with the checkout object. This value cannot exceed 60 characters.
      */
-    note?: string;
+    note?: string | undefined;
 }
 
 /**
@@ -3492,11 +3492,11 @@ export class CreateCheckoutResponse {
      * The newly created checkout.
      * If the same request was made with the same idempotency_key, this will be the checkout created with the idempotency_key.
      */
-    checkout?: Checkout;
+    checkout?: Checkout | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -3513,16 +3513,16 @@ export class CreateCustomerCardRequest {
     /**
      * Address information for the card on file. Only the `postal_code` field is required for payments in the US and Canada.
      */
-    billing_address?: Address;
+    billing_address?: Address | undefined;
     /**
      * The full name printed on the credit card.
      */
-    cardholder_name?: string;
+    cardholder_name?: string | undefined;
     /**
      * An identifying token generated by `SqPaymentForm.verifyBuyer()`. Verification tokens encapsulate customer device
      * information and 3-D Secure challenge results to indicate that Square has verified the buyer identity.
      */
-    verification_token?: string;
+    verification_token?: string | undefined;
 }
 
 /**
@@ -3533,11 +3533,11 @@ export class CreateCustomerCardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created card on file.
      */
-    card?: Card;
+    card?: Card | undefined;
 }
 
 /**
@@ -3548,7 +3548,7 @@ export class CreateCustomerGroupRequest {
      * The idempotency key for the request.
      * See the [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) guide for more information.
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
     /**
      * The customer group to create.
      */
@@ -3563,11 +3563,11 @@ export class CreateCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The successfully created customer group.
      */
-    group?: CustomerGroup;
+    group?: CustomerGroup | undefined;
 }
 
 /**
@@ -3578,49 +3578,49 @@ export class CreateCustomerRequest {
      * The idempotency key for the request.
      * See the [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency) guide for more information.
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
     /**
      * The given (i.e., first) name associated with the customer profile.
      */
-    given_name?: string;
+    given_name?: string | undefined;
     /**
      * The family (i.e., last) name associated with the customer profile.
      */
-    family_name?: string;
+    family_name?: string | undefined;
     /**
      * A business name associated with the customer profile.
      */
-    company_name?: string;
+    company_name?: string | undefined;
     /**
      * A nickname for the customer profile.
      */
-    nickname?: string;
+    nickname?: string | undefined;
     /**
      * The email address associated with the customer profile.
      */
-    email_address?: string;
+    email_address?: string | undefined;
     /**
      * The physical address associated with the customer profile.
      */
-    address?: Address;
+    address?: Address | undefined;
     /**
      * The 11-digit phone number associated with the customer profile.
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * An optional, second ID used to associate the customer profile with an entity in another system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * A custom note associated with the customer profile.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * The birthday associated with the customer profile, in RFC 3339 format. Year is optional, timezone and times are not allowed.
      * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
      * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
      */
-    birthday?: string;
+    birthday?: string | undefined;
 }
 
 /**
@@ -3631,11 +3631,11 @@ export class CreateCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created customer.
      */
-    customer?: Customer;
+    customer?: Customer | undefined;
 }
 
 export class CreateDeviceCodeRequest {
@@ -3654,11 +3654,11 @@ export class CreateDeviceCodeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created DeviceCode object containing the device code string.
      */
-    device_code?: DeviceCode;
+    device_code?: DeviceCode | undefined;
 }
 
 /**
@@ -3672,11 +3672,11 @@ export class CreateDisputeEvidenceFileRequest {
     /**
      * The type of evidence you are uploading. See [DisputeEvidenceType](#type-disputeevidencetype) for possible values
      */
-    evidence_type?: string;
+    evidence_type?: string | undefined;
     /**
      * The MIME type of the uploaded file. One of image/heic, image/heif, image/jpeg, application/pdf,  image/png, image/tiff.
      */
-    content_type?: string;
+    content_type?: string | undefined;
 }
 
 /**
@@ -3686,11 +3686,11 @@ export class CreateDisputeEvidenceFileResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The metadata of the newly uploaded dispute evidence.
      */
-    evidence?: DisputeEvidence;
+    evidence?: DisputeEvidence | undefined;
 }
 
 /**
@@ -3704,7 +3704,7 @@ export class CreateDisputeEvidenceTextRequest {
     /**
      * The type of evidence you are uploading. See [DisputeEvidenceType](#type-disputeevidencetype) for possible values.
      */
-    evidence_type?: string;
+    evidence_type?: string | undefined;
     /**
      * The evidence string.
      */
@@ -3718,11 +3718,11 @@ export class CreateDisputeEvidenceTextResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The newly uploaded dispute evidence metadata.
      */
-    evidence?: DisputeEvidence;
+    evidence?: DisputeEvidence | undefined;
 }
 
 /**
@@ -3738,7 +3738,7 @@ export class CreateInvoiceRequest {
      * If you do not provide `idempotency_key` (or provide an empty string as the value), the endpoint treats each request as independent.
      * For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
 }
 
 /**
@@ -3748,11 +3748,11 @@ export class CreateInvoiceResponse {
     /**
      * The newly created invoice.
      */
-    invoice?: Invoice;
+    invoice?: Invoice | undefined;
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -3763,7 +3763,7 @@ export class CreateLocationRequest {
      * The initial values of the location being created. The `name` field is required. All other fields are optional.
      * Unspecified fields will be set to default values using existing location data.
      */
-    location?: Location;
+    location?: Location | undefined;
 }
 
 /**
@@ -3773,11 +3773,11 @@ export class CreateLocationResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The newly created `Location`.
      */
-    location?: Location;
+    location?: Location | undefined;
 }
 
 /**
@@ -3801,11 +3801,11 @@ export class CreateLoyaltyAccountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The newly created loyalty account.
      */
-    loyalty_account?: LoyaltyAccount;
+    loyalty_account?: LoyaltyAccount | undefined;
 }
 
 /**
@@ -3829,11 +3829,11 @@ export class CreateLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The loyalty reward created.
      */
-    reward?: LoyaltyReward;
+    reward?: LoyaltyReward | undefined;
 }
 
 /**
@@ -3843,7 +3843,7 @@ export class CreateMobileAuthorizationCodeRequest {
     /**
      * The Square location ID the authorization code should be tied to.
      */
-    location_id?: string;
+    location_id?: string | undefined;
 }
 
 /**
@@ -3853,34 +3853,34 @@ export class CreateMobileAuthorizationCodeResponse {
     /**
      * Generated authorization code that connects a mobile application instance to a Square account.
      */
-    authorization_code?: string;
+    authorization_code?: string | undefined;
     /**
      * The timestamp when `authorization_code` expires in [RFC 3339](https://tools.ietf.org/html/rfc3339) format,
      * e.g., "2016-09-04T23:59:33.123Z".
      */
-    expires_at?: string;
+    expires_at?: string | undefined;
     /**
      * An error object that provides details about how creation of authorization code failed.
      */
-    error?: Error;
+    error?: Error | undefined;
 }
 
 export class CreateOrderRequest {
     /**
      * The order to create. If this field is set, then the only other top-level field that can be set is the idempotency_key.
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * The ID of the business location to associate the order with.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * A value you specify that uniquely identifies this order among orders you've created.
      * If you're unsure whether a particular order was created successfully, you can reattempt it with the same idempotency
      * key without worrying about creating duplicate orders.
      * See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
 }
 
 /**
@@ -3891,11 +3891,11 @@ export class CreateOrderResponse {
     /**
      * The newly created order.
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -3930,7 +3930,7 @@ export class CreatePaymentRequest {
      * For more information, see [Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts).
      * The currency code must match the currency associated with the business that is accepting the payment.
      */
-    tip_money?: Money;
+    tip_money?: Money | undefined;
     /**
      * The amount of money that the developer is taking as a fee for facilitating the payment on behalf of the seller.
      * The amount cannot be more than 90% of the total amount of the payment.
@@ -3940,7 +3940,7 @@ export class CreatePaymentRequest {
      * The application must be from a developer account in the same country and using the same currency code as the seller.
      * For more information about the application fee scenario, see [Take Payments and Collect Fees](https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees).
      */
-    app_fee_money?: Money;
+    app_fee_money?: Money | undefined;
     /**
      * The duration of time after the payment's creation when Square automatically cancels the payment.
      * This automatic cancellation applies only to payments that do not reach a terminal state (COMPLETED, CANCELED, or FAILED)
@@ -3950,39 +3950,39 @@ export class CreatePaymentRequest {
      *  - Card-present payments: \"PT36H\" (36 hours) from the creation time.
      *  - Card-not-present payments: \"P7D\" (7 days) from the creation time.
      */
-    delay_duration?: string;
+    delay_duration?: string | undefined;
     /**
      * If set to `true`, this payment will be completed when possible.
      * If set to `false`, this payment is held in an approved state until either explicitly completed (captured) or canceled (voided).
      * For more information, see [Delayed capture](https://developer.squareup.com/docs/payments-api/take-payments#delayed-payments).
      * Default: true.
      */
-    autocomplete?: boolean;
+    autocomplete?: boolean | undefined;
     /**
      * Associates a previously created order with this payment.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * The `Customer` ID of the customer associated with the payment.
      * This is required if the `source_id` refers to a card on file created using the Customers API.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The location ID to associate with the payment. If not specified, the default location is used.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * A user-defined ID to associate with the payment.
      * You can use this field to associate the payment to an entity in an external system
      * (for example, you might specify an order ID that is generated by a third-party shopping cart). Limit 40 characters.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * An identifying token generated by `SqPaymentForm.verifyBuyer()`.
      * Verification tokens encapsulate customer device information and 3-D Secure challenge results to indicate
      * that Square has verified the buyer identity. For more information, see [SCA Overview](https://developer.squareup.com/docs/sca-overview).
      */
-    verification_token?: string;
+    verification_token?: string | undefined;
     /**
      * If set to `true` and charging a Square Gift Card, a payment might be returned with `amount_money` equal to less than what was requested.
      * For example, a request for $20 when charging a Square Gift Card with a balance of $5 results in an APPROVED payment of $5.
@@ -3991,30 +3991,30 @@ export class CreatePaymentRequest {
      * For more information, see [Partial amount with Square Gift Cards](https://developer.squareup.com/docs/payments-api/take-payments#partial-payment-gift-card).
      * Default: false.
      */
-    accept_partial_authorization?: boolean;
+    accept_partial_authorization?: boolean | undefined;
     /**
      * The buyer's email address.
      */
-    buyer_email_address?: string;
+    buyer_email_address?: string | undefined;
     /**
      * The buyer's billing address.
      */
-    billing_address?: Address;
+    billing_address?: Address | undefined;
     /**
      * The buyer's shipping address.
      */
-    shipping_address?: Address;
+    shipping_address?: Address | undefined;
     /**
      * An optional note to be entered by the developer when creating a payment. Limit 500 characters.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * Optional additional payment information to include on the customer's card statement as part of the statement description.
      * This can be, for example, an invoice number, ticket number, or short description that uniquely identifies the purchase.
      * Note that the `statement_description_identifier` might get truncated on the statement description to fit the required
      * information including the Square identifier (SQ *) and name of the seller taking the payment.
      */
-    statement_description_identifier?: string;
+    statement_description_identifier?: string | undefined;
 }
 
 /**
@@ -4025,11 +4025,11 @@ export class CreatePaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The newly created payment.
      */
-    payment?: Payment;
+    payment?: Payment | undefined;
 }
 
 /**
@@ -4051,7 +4051,7 @@ export class CreateRefundRequest {
     /**
      * A description of the reason for the refund. Default value: `Refund via API`
      */
-    reason?: string;
+    reason?: string | undefined;
     /**
      * The amount of money to refund. Note that you specify the amount in the __smallest denomination of the applicable currency__.
      * For example, US dollar amounts are specified in cents.
@@ -4069,11 +4069,11 @@ export class CreateRefundResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created refund.
      */
-    refund?: Refund;
+    refund?: Refund | undefined;
 }
 
 /**
@@ -4083,7 +4083,7 @@ export class CreateShiftRequest {
     /**
      * Unique string value to insure the idempotency of the operation.
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
     /**
      * The `Shift` to be created
      */
@@ -4098,11 +4098,11 @@ export class CreateShiftResponse {
     /**
      * The `Shift` that was created on the request.
      */
-    shift?: Shift;
+    shift?: Shift | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -4132,34 +4132,34 @@ export class CreateSubscriptionRequest {
      * The start date of the subscription, in YYYY-MM-DD format. For example, 2013-01-15.
      * If the start date is left empty, the subscription begins immediately.
      */
-    start_date?: string;
+    start_date?: string | undefined;
     /**
      * The date when the subscription should be canceled, in YYYY-MM-DD format (for example, 2025-02-29).
      * This overrides the plan configuration if it comes before the date the subscription would otherwise end.
      */
-    canceled_date?: string;
+    canceled_date?: string | undefined;
     /**
      * The tax to add when billing the subscription.
      * The percentage is expressed in decimal form, using a `'.'` as the decimal separator and without a `'%'` sign.
      * For example, a value of 7.5 corresponds to 7.5%.
      */
-    tax_percentage?: string;
+    tax_percentage?: string | undefined;
     /**
      * A custom price to apply for the subscription. If specified, it overrides the price configured by the subscription plan.
      */
-    price_override_money?: Money;
+    price_override_money?: Money | undefined;
     /**
      * The ID of the `customer](#type-customer) [card` to charge. If not specified, Square sends an invoice via email.
      * For an example to create a customer and add a card on file, see [Subscriptions Walkthrough](https://developer.squareup.com/docs/docs/subscriptions-api/walkthrough).
      */
-    card_id?: string;
+    card_id?: string | undefined;
     /**
      * The timezone that is used in date calculations for the subscription. If unset, defaults to the location timezone.
      * If a timezone is not configured for the location, defaults to \"America/New_York\".
      * Format: the IANA Timezone Database identifier for the location timezone.
      * For a list of time zones, see [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
      */
-    timezone?: string;
+    timezone?: string | undefined;
 }
 
 /**
@@ -4169,12 +4169,12 @@ export class CreateSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The newly created subscription.
      * For more information, see [Subscription object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object).
      */
-    subscription?: Subscription;
+    subscription?: Subscription | undefined;
 }
 
 /**
@@ -4187,7 +4187,7 @@ export class CreateTeamMemberRequest {
      * See [Idempotency keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      * <br> <b>Min Length 1 Max Length 45</b>
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
     /**
      * The data which will be used to create the `TeamMember` object.
      */
@@ -4201,11 +4201,11 @@ export class CreateTeamMemberResponse {
     /**
      * The successfully created `TeamMember` object.
      */
-    team_member?: TeamMember;
+    team_member?: TeamMember | undefined;
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class CreateTerminalCheckoutRequest {
@@ -4225,11 +4225,11 @@ export class CreateTerminalCheckoutResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created `TerminalCheckout`
      */
-    checkout?: TerminalCheckout;
+    checkout?: TerminalCheckout | undefined;
 }
 
 export class CreateTerminalRefundRequest {
@@ -4242,18 +4242,18 @@ export class CreateTerminalRefundRequest {
     /**
      * The refund to create.
      */
-    refund?: TerminalRefund;
+    refund?: TerminalRefund | undefined;
 }
 
 export class CreateTerminalRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The created `TerminalRefund`
      */
-    refund?: TerminalRefund;
+    refund?: TerminalRefund | undefined;
 }
 
 /**
@@ -4270,31 +4270,31 @@ export class CustomAttributeFilter {
      * A query expression to filter items or item variations by matching their custom attributes'
      * `custom_attribute_definition_id` property value against the the specified id.
      */
-    custom_attribute_definition_id?: string;
+    custom_attribute_definition_id?: string | undefined;
     /**
      * A query expression to filter items or item variations by matching their custom attributes'
      * `key` property value against the specified key.
      */
-    key?: string;
+    key?: string | undefined;
     /**
      * A query expression to filter items or item variations by matching their custom attributes' `string_value`
      * property value against the specified text.
      */
-    string_filter?: string;
+    string_filter?: string | undefined;
     /**
      * A query expression to filter items or item variations with their custom attributes containing a number value within the specified range.
      */
-    number_filter?: Range;
+    number_filter?: Range | undefined;
     /**
      * A query expression to filter items or item variations by matching  their custom attributes'
      * `selection_uid_values` values against the specified selection uids.
      */
-    selection_uids_filter?: Array<string>;
+    selection_uids_filter?: Array<string> | undefined;
     /**
      * A query expression to filter items or item variations by matching their custom attributes'
      * `boolean_value` property values against the specified Boolean expression.
      */
-    bool_filter?: boolean;
+    bool_filter?: boolean | undefined;
 }
 
 /**
@@ -4304,86 +4304,86 @@ export class Customer {
     /**
      * A unique Square-assigned ID for the customer profile.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The timestamp when the customer profile was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp when the customer profile was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * Payment details of cards stored on file for the customer profile.
      */
-    cards?: Array<Card>;
+    cards?: Array<Card> | undefined;
     /**
      * The given (i.e., first) name associated with the customer profile.
      */
-    given_name?: string;
+    given_name?: string | undefined;
     /**
      * The family (i.e., last) name associated with the customer profile.
      */
-    family_name?: string;
+    family_name?: string | undefined;
     /**
      * A nickname for the customer profile.
      */
-    nickname?: string;
+    nickname?: string | undefined;
     /**
      * A business name associated with the customer profile.
      */
-    company_name?: string;
+    company_name?: string | undefined;
     /**
      * The email address associated with the customer profile.
      */
-    email_address?: string;
+    email_address?: string | undefined;
     /**
      * The physical address associated with the customer profile.
      */
-    address?: Address;
+    address?: Address | undefined;
     /**
      * The 11-digit phone number associated with the customer profile.
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * The birthday associated with the customer profile, in RFC 3339 format. Year is optional, timezone and times are not allowed.
      * For example:
      *  * `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
      *  * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
      */
-    birthday?: string;
+    birthday?: string | undefined;
     /**
      * An optional, second ID used to associate the customer profile with an entity in another system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * A custom note associated with the customer profile.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * Represents general customer preferences.
      */
-    preferences?: CustomerPreferences;
+    preferences?: CustomerPreferences | undefined;
     /**
      * The customer groups and segments the customer belongs to.
      * This deprecated field has been replaced with the dedicated `group_ids` for customer groups and the dedicated
      * `segment_ids` field for customer segments. You can retrieve information about a given customer group and segment
      * respectively using the Customer Groups API and Customer Segments API.
      */
-    groups?: Array<CustomerGroupInfo>;
+    groups?: Array<CustomerGroupInfo> | undefined;
     /**
      * A creation source represents the method used to create the customer profile.
      * See [CustomerCreationSource](#type-customercreationsource) for possible values.
      */
-    creation_source?: CustomerSourceType;
+    creation_source?: CustomerSourceType | undefined;
     /**
      * The IDs of customer groups the customer belongs to.
      */
-    group_ids?: Array<string>;
+    group_ids?: Array<string> | undefined;
     /**
      * The IDs of segments the customer belongs to.
      */
-    segment_ids?: Array<string>;
+    segment_ids?: Array<string> | undefined;
 }
 
 /**
@@ -4400,13 +4400,13 @@ export class CustomerCreationSourceFilter {
      * The list of creation sources used as filtering criteria.
      * See [CustomerCreationSource](#type-customercreationsource) for possible values.
      */
-    values?: Array<CustomerSourceType>;
+    values?: Array<CustomerSourceType> | undefined;
     /**
      * Indicates whether a customer profile matching the filter criteria should be included in the result or excluded
      * from the result. Default: `INCLUDE`.
      * See [CustomerInclusionExclusion](#type-customerinclusionexclusion) for possible values.
      */
-    rule?: 'INCLUDE' | 'EXCLUDE';
+    rule?: 'INCLUDE' | 'EXCLUDE' | undefined;
 }
 
 /**
@@ -4416,15 +4416,15 @@ export class CustomerFilter {
     /**
      * A filter to select customers based on their creation source.
      */
-    creation_source?: CustomerCreationSourceFilter;
+    creation_source?: CustomerCreationSourceFilter | undefined;
     /**
      * A filter to select customers based on when they were created.
      */
-    created_at?: TimeRange;
+    created_at?: TimeRange | undefined;
     /**
      * A filter to select customers based on when they were updated.
      */
-    updated_at?: TimeRange;
+    updated_at?: TimeRange | undefined;
     /**
      * A filter to [select customers by email address](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#search-by-email-address) visible to the seller.
      * This filter is case insensitive. For [exact matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#exact-search-by-email-address),
@@ -4436,7 +4436,7 @@ export class CustomerFilter {
      * Email addresses are tokenized by replacing, by spaces,  punctuations including periods (`.`), underscores (`_`),
      * and the `&#64;` symbols. A match is found if a tokenized email address contains all the tokens in the search query,irrespective of the token order.
      */
-    email_address?: CustomerTextFilter;
+    email_address?: CustomerTextFilter | undefined;
     /**
      * A filter to [select customers by their phone numbers](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#search-by-phone-number) visible to the seller.
      * This filter is case insensitive. For [exact matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#exact-search-by-phone-number),
@@ -4453,7 +4453,7 @@ export class CustomerFilter {
      * phone number of `415-123-4678`. Similarly, if the search query contains `415` as part of the phone number, the
      * search returns those customers with phone numbers of `(415)-123-4567`, `(123) 415-1567`, and `1 (415) 123-4567`.
      */
-    phone_number?: CustomerTextFilter;
+    phone_number?: CustomerTextFilter | undefined;
     /**
      * A filter to [select customers by their reference IDs](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#search-by-reference-id).
      * This filter is case insensitive. [Exact matching](https://developer.squareup.com/docs/docs/customers-api/cookbook/search-customers#exact-search-by-reference-id)
@@ -4464,7 +4464,7 @@ export class CustomerFilter {
      * A match is found if a tokenized stored reference ID contains all tokens specified in any order in the query.
      * For example, a query of `NYC M` will match customer profiles with the `reference_id` value of `NYC_M_35_JOHNSON` and `NYC_27_MURRAY`.
      */
-    reference_id?: CustomerTextFilter;
+    reference_id?: CustomerTextFilter | undefined;
     /**
      * A filter to select customers based on their group membership.
      * The `group_ids` is a JSON object of the following general format:
@@ -4477,7 +4477,7 @@ export class CustomerFilter {
      * non-existent group ID is provided, the result is an empty list. You can use the `group_ids` search filter with
      * other available filters. You cannot use the `group_ids` filter to select customers based on segment membership.
      */
-    group_ids?: FilterValue;
+    group_ids?: FilterValue | undefined;
 }
 
 /**
@@ -4488,7 +4488,7 @@ export class CustomerGroup {
     /**
      * Unique Square-generated ID for the customer group.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * Name of the customer group.
      */
@@ -4496,11 +4496,11 @@ export class CustomerGroup {
     /**
      * The timestamp when the customer group was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp when the customer group was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -4529,7 +4529,7 @@ export class CustomerPreferences {
     /**
      * The customer has unsubscribed from receiving marketing campaign emails.
      */
-    email_unsubscribed?: boolean;
+    email_unsubscribed?: boolean | undefined;
 }
 
 /**
@@ -4539,11 +4539,11 @@ export class CustomerQuery {
     /**
      * A list of filtering criteria.
      */
-    filter?: CustomerFilter;
+    filter?: CustomerFilter | undefined;
     /**
      * Sorting criteria for query results. The default behavior is to sort  customers alphabetically by `given_name` and `family_name`.
      */
-    sort?: CustomerSort;
+    sort?: CustomerSort | undefined;
 }
 
 /**
@@ -4554,7 +4554,7 @@ export class CustomerSegment {
     /**
      * Unique Square-generated ID for the segment.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * Name of the segment.
      */
@@ -4562,11 +4562,11 @@ export class CustomerSegment {
     /**
      * The timestamp when the segment was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp when the segment was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -4578,13 +4578,13 @@ export class CustomerSort {
      * For example, use creation date (`created_at`) of customers or default attributes as the sort key.
      * Default: `DEFAULT`. See [CustomerSortField](#type-customersortfield) for possible values.
      */
-    field?: string;
+    field?: string | undefined;
     /**
      * Indicates the order in which results should be sorted based on the sort field value.
      * Strings use standard alphabetic comparison to determine order. Strings representing numbers are sorted as strings.
      * Default: `ASC`. See [SortOrder](#type-sortorder) for possible values.
      */
-    order?: SortOrderType;
+    order?: SortOrderType | undefined;
 }
 
 /**
@@ -4600,13 +4600,13 @@ export class CustomerTextFilter {
     /**
      * Use the exact filter to select customers whose attributes match exactly the specified query.
      */
-    exact?: string;
+    exact?: string | undefined;
     /**
      * Use the fuzzy filter to select customers whose attributes match the specified query in a fuzzy manner.
      * When the fuzzy option is used, search queries are tokenized, and then each query token must be matched somewhere in the searched attribute.
      * For single token queries, this is effectively the same behavior as a partial match operation.
      */
-    fuzzy?: string;
+    fuzzy?: string | undefined;
 }
 
 /**
@@ -4617,12 +4617,12 @@ export class DateRange {
      * String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601 extended format for calendar dates.
      * The beginning of a date range (inclusive).
      */
-    start_date?: string;
+    start_date?: string | undefined;
     /**
      * String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601 extended format for calendar dates.
      * The end of a date range (inclusive)
      */
-    end_date?: string;
+    end_date?: string | undefined;
 }
 
 /**
@@ -4642,7 +4642,7 @@ export class DeleteBreakTypeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class DeleteCatalogObjectRequest {}
@@ -4651,18 +4651,18 @@ export class DeleteCatalogObjectResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The IDs of all catalog objects deleted by this request. Multiple IDs may be returned when associated objects
      * are also deleted, for example a catalog item variation will be deleted (and its ID included in this field)
      * when its parent catalog item is deleted.
      */
-    deleted_object_ids?: Array<string>;
+    deleted_object_ids?: Array<string> | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this deletion
      * in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
      */
-    deleted_at?: string;
+    deleted_at?: string | undefined;
 }
 
 /**
@@ -4677,7 +4677,7 @@ export class DeleteCustomerCardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -4692,7 +4692,7 @@ export class DeleteCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -4707,7 +4707,7 @@ export class DeleteCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -4717,7 +4717,7 @@ export class DeleteInvoiceRequest {
     /**
      * The version of the `invoice` to delete. If you do not know the version, you can call `GetInvoice` or `ListInvoices`.
      */
-    version?: number;
+    version?: number | undefined;
 }
 
 /**
@@ -4727,7 +4727,7 @@ export class DeleteInvoiceResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -4742,7 +4742,7 @@ export class DeleteLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -4757,18 +4757,18 @@ export class DeleteShiftResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class Device {
     /**
      * The device's Square-issued ID.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The device's merchant-specified name.
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 export class DeviceCheckoutOptions {
@@ -4781,30 +4781,30 @@ export class DeviceCheckoutOptions {
     /**
      * Instruct the device to skip the receipt screen. Defaults to false.
      */
-    skip_receipt_screen?: boolean;
+    skip_receipt_screen?: boolean | undefined;
     /**
      * Tip specific settings
      */
-    tip_settings?: TipSettings;
+    tip_settings?: TipSettings | undefined;
 }
 
 export class DeviceCode {
     /**
      * The unique id for this device code.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * An optional user-defined name for the device code.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The unique code that can be used to login.
      */
-    code?: string;
+    code?: string | undefined;
     /**
      * The unique id of the device that used this code. Populated when the device is paired up.
      */
-    device_id?: string;
+    device_id?: string | undefined;
     /**
      * The targeting product type of the device code. See [ProductType](#type-producttype) for possible values.
      */
@@ -4812,27 +4812,27 @@ export class DeviceCode {
     /**
      * The location assigned to this code.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The pairing status of the device code. See [DeviceCodeStatus](#type-devicecodestatus) for possible values.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * When this DeviceCode will expire and no longer login. Timestamp in RFC 3339 format.
      */
-    pair_by?: string;
+    pair_by?: string | undefined;
     /**
      * When this DeviceCode was created. Timestamp in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * When this DeviceCode's status was last changed. Timestamp in RFC 3339 format.
      */
-    status_changed_at?: string;
+    status_changed_at?: string | undefined;
     /**
      * When this DeviceCode was paired. Timestamp in RFC 3339 format.
      */
-    paired_at?: string;
+    paired_at?: string | undefined;
 }
 
 /**
@@ -4847,15 +4847,15 @@ export class DeviceDetails {
     /**
      * Square-issued ID of the device.
      */
-    device_id?: string;
+    device_id?: string | undefined;
     /**
      * Square-issued installation ID for the device.
      */
-    device_installation_id?: string;
+    device_installation_id?: string | undefined;
     /**
      * The name of the device set by the merchant.
      */
-    device_name?: string;
+    device_name?: string | undefined;
 }
 
 /**
@@ -4865,79 +4865,79 @@ export class Dispute {
     /**
      * Unique ID for this `Dispute`, generated by Square.
      */
-    dispute_id?: string;
+    dispute_id?: string | undefined;
     /**
      * The disputed amount. The amount can be less than the entire transaction amount.
      * For example, a cardholder purchased multiple items, however initiated dispute only for some of the items.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * The dispute reason why cardholder initiated dispute with their bank. See [DisputeReason](#type-disputereason) for possible values
      */
-    reason?: string;
+    reason?: string | undefined;
     /**
      * The current state of this dispute. See [DisputeState](#type-disputestate) for possible values
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * The time when the next action is due, in RFC 3339 format.
      */
-    due_at?: string;
+    due_at?: string | undefined;
     /**
      * The payment challenged in this dispute.
      */
-    disputed_payment?: DisputedPayment;
+    disputed_payment?: DisputedPayment | undefined;
     /**
      * The IDs of the evidence associated with the dispute.
      */
-    evidence_ids?: Array<string>;
+    evidence_ids?: Array<string> | undefined;
     /**
      * The card brand used in the disputed payment. See [CardBrand](#type-cardbrand) for possible values
      */
-    card_brand?: string;
+    card_brand?: string | undefined;
     /**
      * Timestamp when the dispute was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Timestamp when dispute was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * ID of the dispute in the card brand system, generated by the card brand.
      */
-    brand_dispute_id?: string;
+    brand_dispute_id?: string | undefined;
     /**
      * Timestamp when the dispute was reported, in RFC 3339 format.
      */
-    reported_date?: string;
+    reported_date?: string | undefined;
     /**
      * The current version of the `Dispute`.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The ID of location where dispute originated.
      */
-    location_id?: string;
+    location_id?: string | undefined;
 }
 
 export class DisputeEvidence {
     /**
      * The Square-generated ID of the evidence.
      */
-    evidence_id?: string;
+    evidence_id?: string | undefined;
     /**
      * The ID of the dispute the evidence is associated with.
      */
-    dispute_id?: string;
+    dispute_id?: string | undefined;
     /**
      * The time when the next action is due, in RFC 3339 format.
      */
-    uploaded_at?: string;
+    uploaded_at?: string | undefined;
     /**
      * The type of the evidence. See [DisputeEvidenceType](#type-disputeevidencetype) for possible values
      */
-    evidence_type?: string;
+    evidence_type?: string | undefined;
 }
 
 /**
@@ -4947,11 +4947,11 @@ export class DisputeEvidenceFile {
     /**
      * The file name including the file extension. For example: \"receipt.tiff\".
      */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * Dispute evidence files must one of application/pdf, image/heic, image/heif, image/jpeg, image/png, image/tiff formats.
      */
-    filetype?: string;
+    filetype?: string | undefined;
 }
 
 /**
@@ -4976,7 +4976,7 @@ export class DisputedPayment {
     /**
      * Square-generated unique ID of the payment being disputed.
      */
-    payment_id?: string;
+    payment_id?: string | undefined;
 }
 
 /**
@@ -4991,43 +4991,43 @@ export class Employee {
     /**
      * UUID for this object.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The employee's first name.
      */
-    first_name?: string;
+    first_name?: string | undefined;
     /**
      * The employee's last name.
      */
-    last_name?: string;
+    last_name?: string | undefined;
     /**
      * The employee's email address
      */
-    email?: string;
+    email?: string | undefined;
     /**
      * The employee's phone number in E.164 format, i.e. "+12125554250"
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * A list of location IDs where this employee has access to.
      */
-    location_ids?: Array<string>;
+    location_ids?: Array<string> | undefined;
     /**
      * Specifies the status of the employees being fetched. See [EmployeeStatus](#type-employeestatus) for possible values.
      */
-    status?: ActivityStatusType;
+    status?: ActivityStatusType | undefined;
     /**
      * Whether this employee is the owner of the merchant. Each merchant has one owner employee, and that employee has full authority over the account.
      */
-    is_owner?: boolean;
+    is_owner?: boolean | undefined;
     /**
      * A read-only timestamp in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -5043,20 +5043,20 @@ export class EmployeeWage {
     /**
      * UUID for this object.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The `Employee` that this wage is assigned to.
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
     /**
      * The job title that this wage relates to.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Can be a custom-set hourly wage or the calculated effective hourly wage based on annual wage and hours worked per
      * week.
      */
-    hourly_rate?: Money;
+    hourly_rate?: Money | undefined;
 }
 
 /**
@@ -5082,15 +5082,15 @@ export class FilterValue {
     /**
      * A list of terms that must be present on the field of the resource.
      */
-    all?: Array<string>;
+    all?: Array<string> | undefined;
     /**
      * A list of terms where at least one of them must be present on the field of the resource.
      */
-    any?: Array<string>;
+    any?: Array<string> | undefined;
     /**
      * A list of terms that must not be present on the field the resource
      */
-    none?: Array<string>;
+    none?: Array<string> | undefined;
 }
 
 /**
@@ -5110,11 +5110,11 @@ export class GetBankAccountResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `BankAccount` object.
      */
-    bank_account?: BankAccount;
+    bank_account?: BankAccount | undefined;
 }
 
 /**
@@ -5130,11 +5130,11 @@ export class GetBreakTypeResponse {
     /**
      * The response object.
      */
-    break_type?: BreakType;
+    break_type?: BreakType | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class GetDeviceCodeRequest {}
@@ -5143,11 +5143,11 @@ export class GetDeviceCodeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The queried DeviceCode.
      */
-    device_code?: DeviceCode;
+    device_code?: DeviceCode | undefined;
 }
 
 /**
@@ -5163,11 +5163,11 @@ export class GetEmployeeWageResponse {
     /**
      * The requested `EmployeeWage` object.
      */
-    employee_wage?: EmployeeWage;
+    employee_wage?: EmployeeWage | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -5182,11 +5182,11 @@ export class GetInvoiceResponse {
     /**
      * The invoice requested.
      */
-    invoice?: Invoice;
+    invoice?: Invoice | undefined;
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -5203,11 +5203,11 @@ export class GetPaymentRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `PaymentRefund`.
      */
-    refund?: PaymentRefund;
+    refund?: PaymentRefund | undefined;
 }
 
 /**
@@ -5222,11 +5222,11 @@ export class GetPaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `Payment`.
      */
-    payment?: Payment;
+    payment?: Payment | undefined;
 }
 
 /**
@@ -5242,11 +5242,11 @@ export class GetShiftResponse {
     /**
      * The requested `Shift`.
      */
-    shift?: Shift;
+    shift?: Shift | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -5262,11 +5262,11 @@ export class GetTeamMemberWageResponse {
     /**
      * The requested `TeamMemberWage` object.
      */
-    team_member_wage?: TeamMemberWage;
+    team_member_wage?: TeamMemberWage | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class GetTerminalCheckoutRequest {}
@@ -5275,11 +5275,11 @@ export class GetTerminalCheckoutResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `TerminalCheckout`
      */
-    checkout?: TerminalCheckout;
+    checkout?: TerminalCheckout | undefined;
 }
 
 export class GetTerminalRefundRequest {}
@@ -5288,11 +5288,11 @@ export class GetTerminalRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `Refund`
      */
-    refund?: TerminalRefund;
+    refund?: TerminalRefund | undefined;
 }
 
 /**
@@ -5307,77 +5307,77 @@ export class InventoryAdjustment {
     /**
      * A unique ID generated by Square for the `InventoryAdjustment`.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * An optional ID provided by the application to tie the `InventoryAdjustment` to an external system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * The `InventoryState` of the related quantity of items before the adjustment. See [InventoryState](#type-inventorystate) for possible values
      */
-    from_state?: InventoryStateType;
+    from_state?: InventoryStateType | undefined;
     /**
      * The `InventoryState` of the related quantity of items after the adjustment. See [InventoryState](#type-inventorystate) for possible values
      */
-    to_state?: InventoryStateType;
+    to_state?: InventoryStateType | undefined;
     /**
      * The Square ID of the `Location` where the related quantity of items are being tracked.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The Square generated ID of the `CatalogObject` being tracked.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The `CatalogObjectType` of the `CatalogObject` being tracked. Tracking is only supported for the `ITEM_VARIATION` type.
      */
-    catalog_object_type?: string;
+    catalog_object_type?: string | undefined;
     /**
      * The number of items affected by the adjustment as a decimal string. Can support up to 5 digits after the decimal point.
      */
-    quantity?: string;
+    quantity?: string | undefined;
     /**
      * The read-only total price paid for goods associated with the adjustment.
      * Present if and only if `to_state` is `SOLD`. Always non-negative.
      */
-    total_price_money?: Money;
+    total_price_money?: Money | undefined;
     /**
      * A client-generated timestamp in RFC 3339 format that indicates when the adjustment took place. For write actions,
      * the `occurred_at` timestamp cannot be older than 24 hours or in the future relative to the time of the request.
      */
-    occurred_at?: string;
+    occurred_at?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format that indicates when Square received the adjustment.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Read-only information about the application that caused the inventory adjustment.
      */
-    source?: SourceApplication;
+    source?: SourceApplication | undefined;
     /**
      * The Square ID of the `Employee` responsible for the inventory adjustment.
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
     /**
      * The read-only Square ID of the [Transaction][#type-transaction] that caused the adjustment. Only relevant for
      * payment-related state transitions.
      */
-    transaction_id?: string;
+    transaction_id?: string | undefined;
     /**
      * The read-only Square ID of the [Refund][#type-refund] that caused the adjustment. Only relevant for
      * refund-related state transitions.
      */
-    refund_id?: string;
+    refund_id?: string | undefined;
     /**
      * The read-only Square ID of the purchase order that caused the adjustment. Only relevant for state transitions
      * from the Square for Retail app.
      */
-    purchase_order_id?: string;
+    purchase_order_id?: string | undefined;
     /**
      * The read-only Square ID of the Square goods receipt that caused the adjustment. Only relevant for state
      * transitions from the Square for Retail app.
      */
-    goods_receipt_id?: string;
+    goods_receipt_id?: string | undefined;
 }
 
 /**
@@ -5394,21 +5394,21 @@ export class InventoryChange {
      * Indicates how the inventory change was applied. See `InventoryChangeType` for all possible values.
      * See [InventoryChangeType](#type-inventorychangetype) for possible values.
      */
-    type?: InventoryType;
+    type?: InventoryType | undefined;
     /**
      * Contains details about the physical count when `type` is `PHYSICAL_COUNT` and unset for all other types.
      */
-    physical_count?: InventoryPhysicalCount;
+    physical_count?: InventoryPhysicalCount | undefined;
     /**
      * Contains details about the inventory adjustment when `type` is `ADJUSTMENT` and unset for all other types.
      */
-    adjustment?: InventoryAdjustment;
+    adjustment?: InventoryAdjustment | undefined;
     /**
      * Contains details about the inventory transfer when `type` is `TRANSFER` and unset for all other types.
      * @note An `InventoryTransfer` object is read-only and can only be present in a `RetrieveInventoryChangesResponse`
      * and `BatchRetrieveInventoryChangesResponse` object.
      */
-    transfer?: InventoryTransfer;
+    transfer?: InventoryTransfer | undefined;
 }
 
 /**
@@ -5424,28 +5424,28 @@ export class InventoryCount {
     /**
      * The Square generated ID of the `CatalogObject` being tracked.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The `CatalogObjectType` of the `CatalogObject` being tracked. Tracking is only supported for the `ITEM_VARIATION` type.
      */
-    catalog_object_type?: string;
+    catalog_object_type?: string | undefined;
     /**
      * The current `InventoryState` for the related quantity of items. See [InventoryState](#type-inventorystate) for possible values
      */
-    state?: InventoryStateType;
+    state?: InventoryStateType | undefined;
     /**
      * The Square ID of the `Location` where the related quantity of items are being tracked.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The number of items affected by the estimated count as a decimal string. Can support up to 5 digits after the decimal point.
      */
-    quantity?: string;
+    quantity?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format that indicates when Square received the most recent physical count or
      * adjustment that had an affect on the estimated count.
      */
-    calculated_at?: string;
+    calculated_at?: string | undefined;
 }
 
 /**
@@ -5457,49 +5457,49 @@ export class InventoryPhysicalCount {
     /**
      * A unique ID generated by Square for the `InventoryPhysicalCount`.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * An optional ID provided by the application to tie the `InventoryPhysicalCount` to an external system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * The Square generated ID of the `CatalogObject` being tracked.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The `CatalogObjectType` of the `CatalogObject` being tracked. Tracking is only supported for the `ITEM_VARIATION` type.
      */
-    catalog_object_type?: string;
+    catalog_object_type?: string | undefined;
     /**
      * The current `InventoryState` for the related quantity of items.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    state?: InventoryStateType;
+    state?: InventoryStateType | undefined;
     /**
      * The Square ID of the `Location` where the related quantity of items are being tracked.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The number of items affected by the physical count as a decimal string. Can support up to 5 digits after the decimal point.
      */
-    quantity?: string;
+    quantity?: string | undefined;
     /**
      * Read-only information about the application that submitted the physical count.
      */
-    source?: SourceApplication;
+    source?: SourceApplication | undefined;
     /**
      * The Square ID of the `Employee` responsible for the physical count.
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
     /**
      * A client-generated timestamp in RFC 3339 format that indicates when the physical count took place. For write actions,
      * the `occurred_at` timestamp cannot be older than 24 hours or in the future relative to the time of the request.
      */
-    occurred_at?: string;
+    occurred_at?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format that indicates when Square received the physical count.
      */
-    created_at?: string;
+    created_at?: string | undefined;
 }
 
 /**
@@ -5514,52 +5514,52 @@ export class InventoryTransfer {
     /**
      * A unique ID generated by Square for the `InventoryTransfer`.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * An optional ID provided by the application to tie the `InventoryTransfer` to an external system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * The `InventoryState` for the quantity of items being transferred. See [InventoryState](#type-inventorystate) for possible values.
      */
-    state?: InventoryStateType;
+    state?: InventoryStateType | undefined;
     /**
      * The Square ID of the `Location` where the related quantity of items were tracked before the transfer.
      */
-    from_location_id?: string;
+    from_location_id?: string | undefined;
     /**
      * The Square ID of the `Location` where the related quantity of items were tracked after the transfer.
      */
-    to_location_id?: string;
+    to_location_id?: string | undefined;
     /**
      * The Square generated ID of the `CatalogObject` being tracked.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The `CatalogObjectType` of the `CatalogObject` being tracked.Tracking is only supported for the `ITEM_VARIATION` type.
      */
-    catalog_object_type?: string;
+    catalog_object_type?: string | undefined;
     /**
      * The number of items affected by the transfer as a decimal string. Can support up to 5 digits after the decimal point.
      */
-    quantity?: string;
+    quantity?: string | undefined;
     /**
      * A client-generated timestamp in RFC 3339 format that indicates when the transfer took place. For write actions,
      * the `occurred_at` timestamp cannot be older than 24 hours or in the future relative to the time of the request.
      */
-    occurred_at?: string;
+    occurred_at?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format that indicates when Square received the transfer request.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Read-only information about the application that initiated the inventory transfer.
      */
-    source?: SourceApplication;
+    source?: SourceApplication | undefined;
     /**
      * The Square ID of the `Employee` responsible for the inventory transfer.
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
 }
 
 /**
@@ -5570,79 +5570,79 @@ export class Invoice {
     /**
      * The Square-assigned ID of the invoice.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The Square-assigned version number, which is incremented each time an update is committed to the invoice.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The ID of the location that this invoice is associated with. This field is required when creating an invoice.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The ID of the `order` for which the invoice is created.
      * This order must be in the `OPEN` state and must belong to the `location_id` specified for this invoice.
      * This field is required when creating an invoice.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * The customer who gets the invoice. Square uses the contact information to deliver the invoice.
      * This field is required to publish an invoice.
      */
-    primary_recipient?: InvoiceRecipient;
+    primary_recipient?: InvoiceRecipient | undefined;
     /**
      * An array of `InvoicePaymentRequest` objects. Each object defines a payment request in an invoice payment schedule.
      * It provides information such as when and how Square processes payments. You must specify at least one payment request.
      * For invoices  with multiple payment requests, you can specify a maximum of 12 `INSTALLMENT` request types.
      * All of the payment requests must specify the same `request_method`. This field is required when creating an invoice.
      */
-    payment_requests?: Array<InvoicePaymentRequest>;
+    payment_requests?: Array<InvoicePaymentRequest> | undefined;
     /**
      * A user-friendly invoice number. The value is unique within a location.
      * If not provided when creating an invoice, Square assigns a value.
      * It increments from 1 and padded with zeros making it 7 characters long for example, 0000001, 0000002.
      */
-    invoice_number?: string;
+    invoice_number?: string | undefined;
     /**
      * The title of the invoice.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * The description of the invoice. This is visible the customer receiving the invoice.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The timestamp when the invoice is scheduled for processing, in RFC 3339 format. At the specified time, depending
      * on the `request_method`, Square sends the invoice to the customer's email address or charge the customer's card on file.
      * If the field is not set, Square processes the invoice immediately after publication.
      */
-    scheduled_at?: string;
+    scheduled_at?: string | undefined;
     /**
      * The URL of the Square-hosted invoice page. After you publish the invoice using the `PublishInvoice` endpoint,
      * Square hosts the invoice page and returns the page URL in the response.
      */
-    public_url?: string;
+    public_url?: string | undefined;
     /**
      * The current amount due for the invoice.
      * In addition to the amount due on the next payment request, this also includes any overdue payment amounts.
      */
-    next_payment_amount_money?: Money;
+    next_payment_amount_money?: Money | undefined;
     /**
      * The status of the invoice. See [InvoiceStatus](#type-invoicestatus) for possible values
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * The time zone of the date values (for example, `due_date`) specified in the invoice.
      */
-    timezone?: string;
+    timezone?: string | undefined;
     /**
      * The timestamp when the invoice was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp when the invoice was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -5658,7 +5658,7 @@ export class InvoiceFilter {
      * Limits the search to the specified customers, within the specified locations.
      * Specifying a customer is optional. In the current implementation, a maximum of one customer can be specified.
      */
-    customer_ids?: Array<string>;
+    customer_ids?: Array<string> | undefined;
 }
 
 /**
@@ -5669,24 +5669,24 @@ export class InvoicePaymentReminder {
     /**
      * A Square-assigned ID that uniquely identifies the reminder within the `InvoicePaymentRequest`.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The number of days before (a negative number) or after (a positive number) the payment request `due_date` when the reminder is sent.
      * For example, -3 indicates that the reminder should be sent 3 days before the payment request `due_date`.
      */
-    relative_scheduled_days?: number;
+    relative_scheduled_days?: number | undefined;
     /**
      * The reminder message.
      */
-    message?: string;
+    message?: string | undefined;
     /**
      * The status of the reminder. See [InvoicePaymentReminderStatus](#type-invoicepaymentreminderstatus) for possible values.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * If sent, the timestamp when the reminder was sent, in RFC 3339 format.
      */
-    sent_at?: string;
+    sent_at?: string | undefined;
 }
 
 /**
@@ -5704,25 +5704,25 @@ export class InvoicePaymentRequest {
     /**
      * The Square-generated ID of the payment request in an `invoice`.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * Indicates how Square processes the payment request. See [InvoiceRequestMethod](#type-invoicerequestmethod) for possible values.
      */
-    request_method?: string;
+    request_method?: string | undefined;
     /**
      * Identifies the payment request type. This type defines how the payment request amount is determined.
      * See [InvoiceRequestType](#type-invoicerequesttype) for possible values.
      */
-    request_type?: string;
+    request_type?: string | undefined;
     /**
      * The due date (in the invoice location's time zone) for the payment request. After this date, the invoice becomes overdue.
      */
-    due_date?: string;
+    due_date?: string | undefined;
     /**
      * If the payment request specifies `DEPOSIT` or `INSTALLMENT` as the  `request_type`, this indicates the request amount.
      * You cannot specify this when `request_type` is `BALANCE` or when the  payment request includes the `percentage_requested` field.
      */
-    fixed_amount_requested_money?: Money;
+    fixed_amount_requested_money?: Money | undefined;
     /**
      * Specifies the amount for the payment request in percentage:
      *  - When the payment `request_type` is `DEPOSIT`, it is the percentage of the order total amount.
@@ -5731,37 +5731,37 @@ export class InvoicePaymentRequest {
      *      You cannot specify this when the payment `request_type` is `BALANCE` or when the  payment request specifies the
      *      `fixed_amount_requested_money` field.
      */
-    percentage_requested?: string;
+    percentage_requested?: string | undefined;
     /**
      * If set to true, the Square-hosted invoice page (the `public_url` field of the invoice) provides a place for the customer to pay a tip.
      * This field is allowed only on the final payment request and the payment `request_type` must be `BALANCE` or `INSTALLMENT`.
      */
-    tipping_enabled?: boolean;
+    tipping_enabled?: boolean | undefined;
     /**
      * If the request method is `CHARGE_CARD_ON_FILE`, this field provides the card to charge.
      */
-    card_id?: string;
+    card_id?: string | undefined;
     /**
      * A list of one or more reminders to send for the payment request.
      */
-    reminders?: Array<InvoicePaymentReminder>;
+    reminders?: Array<InvoicePaymentReminder> | undefined;
     /**
      * The payment request amount, computed using the order amount and information from the various payment
      * request fields (`invoice_request_type`,  `fixed_amount_requested_money`, and `percentage_requested`).
      */
-    computed_amount_money?: Money;
+    computed_amount_money?: Money | undefined;
     /**
      * The amount of money already paid for the specific payment request.
      * This amount might include a rounding adjustment if the most recent invoice payment was in cash in a currency
      * that rounds cash payments (such as, `CAD` or `AUD`).
      */
-    total_completed_amount_money?: Money;
+    total_completed_amount_money?: Money | undefined;
     /**
      * If the most recent payment was a cash payment in a currency that rounds cash payments (such as, `CAD` or `AUD`)
      * and the payment  is rounded from `computed_amount_money` in the payment request, then this field specifies the
      * rounding adjustment applied. This amount  might be negative.
      */
-    rounding_adjustment_included_money?: Money;
+    rounding_adjustment_included_money?: Money | undefined;
 }
 
 /**
@@ -5776,7 +5776,7 @@ export class InvoiceQuery {
     /**
      * Describes the sort order for the search result.
      */
-    sort?: InvoiceSort;
+    sort?: InvoiceSort | undefined;
 }
 
 /**
@@ -5786,31 +5786,31 @@ export class InvoiceRecipient {
     /**
      * The ID of the customer. This is the customer profile ID that you provide when creating a draft invoice.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The recipient's given (that is, first) name.
      */
-    given_name?: string;
+    given_name?: string | undefined;
     /**
      * The recipient's family (that is, last) name.
      */
-    family_name?: string;
+    family_name?: string | undefined;
     /**
      * The recipient's email address.
      */
-    email_address?: string;
+    email_address?: string | undefined;
     /**
      * The recipient's physical address.
      */
-    address?: Address;
+    address?: Address | undefined;
     /**
      * The recipient's phone number.
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * The name of the recipient's company.
      */
-    company_name?: string;
+    company_name?: string | undefined;
 }
 
 /**
@@ -5837,7 +5837,7 @@ export class InvoiceSort {
     /**
      * The order to use for sorting the results. See [SortOrder](#type-sortorder) for possible values.
      */
-    order?: string;
+    order?: string | undefined;
 }
 
 /**
@@ -5857,30 +5857,30 @@ export class ItemVariationLocationOverrides {
     /**
      * The ID of the `Location`.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The price of the `CatalogItemVariation` at the given `Location`, or blank for variable pricing.
      */
-    price_money?: Money;
+    price_money?: Money | undefined;
     /**
      * The pricing type (fixed or variable) for the `CatalogItemVariation` at the given `Location`.
      * See [CatalogPricingType](#type-catalogpricingtype) for possible values.
      */
-    pricing_type?: string;
+    pricing_type?: string | undefined;
     /**
      * If `true`, inventory tracking is active for the `CatalogItemVariation` at this `Location`.
      */
-    track_inventory?: boolean;
+    track_inventory?: boolean | undefined;
     /**
      * Indicates whether the `CatalogItemVariation` displays an alert when its inventory quantity is less than or
      * equal to its `inventory_alert_threshold`. See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY';
+    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY' | undefined;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
      */
-    inventory_alert_threshold?: number;
+    inventory_alert_threshold?: number | undefined;
 }
 
 /**
@@ -5899,15 +5899,15 @@ export class JobAssignment {
     /**
      * The hourly pay rate of the job.
      */
-    hourly_rate?: Money;
+    hourly_rate?: Money | undefined;
     /**
      * The total pay amount for a 12 month period on the job. Set if the job `PayType` is `SALARY`.
      */
-    annual_rate?: Money;
+    annual_rate?: Money | undefined;
     /**
      * The planned hours per week for the job. Set if the job `PayType` is `SALARY`.
      */
-    weekly_hours?: number;
+    weekly_hours?: number | undefined;
 }
 
 /**
@@ -5924,16 +5924,16 @@ export class ListBankAccountsRequest {
      * Use it in the next `ListBankAccounts` request to retrieve the next set  of results.
      * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Upper limit on the number of bank accounts to return in the response. Currently, 1000 is the largest supported limit.
      * You can specify a limit  of up to 1000 bank accounts. This is also the default limit.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Location ID. You can specify this optional filter to retrieve only the linked bank accounts belonging to a specific location.
      */
-    location_id?: string;
+    location_id?: string | undefined;
 }
 
 /**
@@ -5943,17 +5943,17 @@ export class ListBankAccountsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * List of BankAccounts associated with this account.
      */
-    bank_accounts?: Array<BankAccount>;
+    bank_accounts?: Array<BankAccount> | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can  use in a subsequent request to fetch next set of bank accounts.
      * If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -5963,15 +5963,15 @@ export class ListBreakTypesRequest {
     /**
      * Filter Break Types returned to only those that are associated with the specified location.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * Maximum number of Break Types to return per page. Can range between 1 and 200. The default is the maximum at 200.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Pointer to the next page of Break Type results to fetch.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -5982,15 +5982,15 @@ export class ListBreakTypesResponse {
     /**
      *  A page of `BreakType` results.
      */
-    break_types?: Array<BreakType>;
+    break_types?: Array<BreakType> | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next next page of Break Type results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class ListCashDrawerShiftEventsRequest {
@@ -6001,26 +6001,26 @@ export class ListCashDrawerShiftEventsRequest {
     /**
      * Number of resources to be returned in a page of results (200 by default, 1000 max).
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Opaque cursor for fetching the next page of results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class ListCashDrawerShiftEventsResponse {
     /**
      * All of the events (payments, refunds, etc.) for a cash drawer during the shift.
      */
-    events?: Array<CashDrawerShiftEvent>;
+    events?: Array<CashDrawerShiftEvent> | undefined;
     /**
      * Opaque cursor for fetching the next page. Cursor is not present in the last page of results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class ListCashDrawerShiftsRequest {
@@ -6032,38 +6032,38 @@ export class ListCashDrawerShiftsRequest {
      * The order in which cash drawer shifts are listed in the response, based on their opened_at field.
      * Default value: ASC See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: string;
+    sort_order?: string | undefined;
     /**
      * The inclusive start time of the query on opened_at, in ISO 8601 format.
      */
-    begin_time?: string;
+    begin_time?: string | undefined;
     /**
      * The exclusive end date of the query on opened_at, in ISO 8601 format.
      */
-    end_time?: string;
+    end_time?: string | undefined;
     /**
      * Number of cash drawer shift events in a page of results (200 by default, 1000 max).
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Opaque cursor for fetching the next page of results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class ListCashDrawerShiftsResponse {
     /**
      * A collection of CashDrawerShiftSummary objects for shifts that match the query.
      */
-    items?: Array<CashDrawerShiftSummary>;
+    items?: Array<CashDrawerShiftSummary> | undefined;
     /**
      * Opaque cursor for fetching the next page of results. Cursor is not present in the last page of results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class ListCatalogRequest {
@@ -6071,27 +6071,27 @@ export class ListCatalogRequest {
      * TThe pagination cursor returned in the previous response. Leave unset for an initial request.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * An optional case-insensitive, comma-separated list of object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`.
      */
-    types?: 'ITEM' | 'ITEM_VARIATION' | 'CATEGORY' | 'DISCOUNT' | 'TAX' | 'MODIFIER' | 'MODIFIER_LIST' | 'IMAGE';
+    types?: 'ITEM' | 'ITEM_VARIATION' | 'CATEGORY' | 'DISCOUNT' | 'TAX' | 'MODIFIER' | 'MODIFIER_LIST' | 'IMAGE' | undefined;
 }
 
 export class ListCatalogResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The CatalogObjects returned.
      */
-    objects?: Array<CatalogObject>;
+    objects?: Array<CatalogObject> | undefined;
 }
 
 /**
@@ -6103,7 +6103,7 @@ export class ListCustomerGroupsRequest {
      * Provide this to retrieve the next set of results for your original query.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6114,17 +6114,17 @@ export class ListCustomerGroupsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * A list of customer groups belonging to the current merchant.
      */
-    groups?: Array<CustomerGroup>;
+    groups?: Array<CustomerGroup> | undefined;
     /**
      * A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * This value is present only if the request succeeded and additional results are available.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6135,7 +6135,7 @@ export class ListCustomerSegmentsRequest {
      * A pagination cursor returned by previous calls to __ListCustomerSegments__. Used to retrieve the next set of query results.
      * See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6146,17 +6146,17 @@ export class ListCustomerSegmentsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The list of customer segments belonging to the associated Square account.
      */
-    segments?: Array<CustomerSegment>;
+    segments?: Array<CustomerSegment> | undefined;
     /**
      * A pagination cursor to be used in subsequent calls to __ListCustomerSegments__ to retrieve the next set of query results.
      * Only present only if the request succeeded and additional results are available.
      * See the [Pagination guide](https://developer.squareup.com/docs/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6167,17 +6167,17 @@ export class ListCustomersRequest {
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for your original query.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Indicates how Customers should be sorted. Default: `DEFAULT`.
      * See [CustomerSortField](#type-customersortfield) for possible values.
      */
-    sort_field?: string;
+    sort_field?: string | undefined;
     /**
      * Indicates whether Customers should be sorted in ascending (`ASC`) or descending (`DESC`) order. Default: `ASC`.
      * See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderType;
+    sort_order?: SortOrderType | undefined;
 }
 
 /**
@@ -6188,17 +6188,17 @@ export class ListCustomersResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * An array of `Customer` objects that match the provided query.
      */
-    customers?: Array<Customer>;
+    customers?: Array<Customer> | undefined;
     /**
      * A pagination cursor to retrieve the next set of results for the original query.
      * Only present if the request succeeded and additional results are available.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class ListDeviceCodesRequest {
@@ -6207,38 +6207,38 @@ export class ListDeviceCodesRequest {
      * Provide this to retrieve the next set of results for your original query.
      * See [Paginating results](#paginatingresults) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * If specified, only returns DeviceCodes of the specified location. Returns DeviceCodes of all locations if empty.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * If specified, only returns DeviceCodes targeting the specified product type.
      * Returns DeviceCodes of all product types if empty. See [ProductType](#type-producttype) for possible values.
      */
-    product_type?: string;
+    product_type?: string | undefined;
     /**
      * If specified, returns DeviceCodes with the specified statuses. Returns DeviceCodes of status `PAIRED` and `UNPAIRED` if empty.
      * See [DeviceCodeStatus](#type-devicecodestatus) for possible values
      */
-    status?: Array<string>;
+    status?: Array<string> | undefined;
 }
 
 export class ListDeviceCodesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The queried DeviceCode.
      */
-    device_codes?: Array<DeviceCode>;
+    device_codes?: Array<DeviceCode> | undefined;
     /**
      * A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * This value is present only if the request succeeded and additional results are available.
      * See [Paginating results](#paginatingresults) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6253,11 +6253,11 @@ export class ListDisputeEvidenceResponse {
     /**
      * The list of evidence previously uploaded to the specified dispute.
      */
-    evidence?: Array<DisputeEvidence>;
+    evidence?: Array<DisputeEvidence> | undefined;
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -6269,17 +6269,17 @@ export class ListDisputesRequest {
      * Provide this to retrieve the next set of results for the original query.
      * For more information, see [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The dispute states to filter the result. If not specified, the endpoint returns all open disputes (dispute status
      * is not `INQUIRY_CLOSED`, `WON`, or `LOST`). See [DisputeState](#type-disputestate) for possible values.
      */
-    states?: Array<string>;
+    states?: Array<string> | undefined;
     /**
      * The ID of the location for which to return a list of disputes. If not specified, the endpoint returns all open
      * disputes (dispute status is not `INQUIRY_CLOSED`, `WON`, or  `LOST`) associated with all locations.
      */
-    location_id?: string;
+    location_id?: string | undefined;
 }
 
 /**
@@ -6289,16 +6289,16 @@ export class ListDisputesResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The list of Disputes.
      */
-    disputes?: Array<Dispute>;
+    disputes?: Array<Dispute> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * For more information, see [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6308,16 +6308,16 @@ export class ListEmployeeWagesRequest {
     /**
      * Filter wages returned to only those that are associated with the specified employee.
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
     /**
      * Maximum number of Employee Wages to return per page. Can range between 1 and 200. The default is the maximum at
      * 200.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Pointer to the next page of Employee Wage results to fetch.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6327,15 +6327,15 @@ export class ListEmployeeWagesResponse {
     /**
      * A page of Employee Wage results.
      */
-    employee_wages?: Array<EmployeeWage>;
+    employee_wages?: Array<EmployeeWage> | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next next page of Employee Wage results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -6345,19 +6345,19 @@ export class ListEmployeesRequest {
     /**
      * Filter employees returned to only those that are associated with the specified location.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * Specifies the EmployeeStatus to filter the employee by. See [EmployeeStatus](#type-employeestatus) for possible values.
      */
-    status?: ActivityStatusType;
+    status?: ActivityStatusType | undefined;
     /**
      * The number of employees to be returned on each page.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * The token required to retrieve the specified page of results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6368,15 +6368,15 @@ export class ListEmployeesResponse {
     /**
      * List of employees returned from the request.
      */
-    employees?: Array<Employee>;
+    employees?: Array<Employee> | undefined;
     /**
      * The token to be used to retrieve the next page of results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -6392,12 +6392,12 @@ export class ListInvoicesRequest {
      * Provide this cursor to retrieve the next set of results for your original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The maximum number of invoices to return (200 is the maximum `limit`).
      * If not provided, the server  uses a default limit of 100 invoices.
      */
-    limit?: number;
+    limit?: number | undefined;
 }
 
 /**
@@ -6407,16 +6407,16 @@ export class ListInvoicesResponse {
     /**
      * The invoices retrieved.
      */
-    invoices?: Array<Invoice>;
+    invoices?: Array<Invoice> | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of invoices.
      * If empty, this is the final response. For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -6432,11 +6432,11 @@ export class ListLocationsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The business locations.
      */
-    locations?: Array<Location>;
+    locations?: Array<Location> | undefined;
 }
 
 /**
@@ -6451,11 +6451,11 @@ export class ListLoyaltyProgramsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * A list of `LoyaltyProgram` for the merchant.
      */
-    programs?: Array<LoyaltyProgram>;
+    programs?: Array<LoyaltyProgram> | undefined;
 }
 
 /**
@@ -6465,7 +6465,7 @@ export class ListMerchantsRequest {
     /**
      * The cursor generated by the previous response.
      */
-    cursor?: number;
+    cursor?: number | undefined;
 }
 
 /**
@@ -6475,15 +6475,15 @@ export class ListMerchantsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `Merchant` entities.
      */
-    merchant?: Array<Merchant>;
+    merchant?: Array<Merchant> | undefined;
     /**
      * If the  response is truncated, the cursor to use in next request to fetch next set of objects.
      */
-    cursor?: number;
+    cursor?: number | undefined;
 }
 
 /**
@@ -6494,41 +6494,41 @@ export class ListPaymentRefundsRequest {
      * Timestamp for the beginning of the requested reporting period, in RFC 3339 format.
      * Default: The current time minus one year.
      */
-    begin_time?: string;
+    begin_time?: string | undefined;
     /**
      * Timestamp for the end of the requested reporting period, in RFC 3339 format. Default: The current time.
      */
-    end_time?: string;
+    end_time?: string | undefined;
     /**
      * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      */
-    sort_order?: SortOrderType;
+    sort_order?: SortOrderType | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Limit results to the location supplied. By default, results are returned for all locations associated with the merchant.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * If provided, only refunds with the given status are returned. For a list of refund status values, see `PaymentRefund`.
      * Default: If omitted refunds are returned regardless of status.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * If provided, only refunds with the given source type are returned.
      * - `CARD` - List refunds only for payments where card was specified as payment source.
      * Default: If omitted refunds are returned regardless of source type.
      */
-    source_type?: string;
+    source_type?: string | undefined;
     /**
      * Maximum number of results to be returned in a single page.
      * It is possible to receive fewer results than the specified limit on a given page.
      * If the supplied value is greater than 100, at most 100 results will be returned. Default: `100`
      */
-    limit?: number;
+    limit?: number | undefined;
 }
 
 /**
@@ -6539,16 +6539,16 @@ export class ListPaymentRefundsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The list of requested refunds.
      */
-    refunds?: Array<PaymentRefund>;
+    refunds?: Array<PaymentRefund> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6558,45 +6558,45 @@ export class ListPaymentsRequest {
     /**
      * The timestamp for the beginning of the reporting period, in RFC 3339 format. Inclusive. Default: The current time minus one year.
      */
-    begin_time?: string;
+    begin_time?: string | undefined;
     /**
      * The timestamp for the end of the reporting period, in RFC 3339 format. Default: The current time.
      */
-    end_time?: string;
+    end_time?: string | undefined;
     /**
      * The order in which results are listed: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest (default).
      */
-    sort_order?: string;
+    sort_order?: string | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this cursor to retrieve the next set of results for the original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Limit results to the location supplied.
      * By default, results are returned for the default (main) location associated with the seller.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The exact amount in the `total_money` for a payment.
      */
-    total?: number;
+    total?: number | undefined;
     /**
      * The last four digits of a payment card.
      */
-    last_4?: string;
+    last_4?: string | undefined;
     /**
      * The brand of the payment card (for example, VISA).
      */
-    card_brand?: CardBrandType;
+    card_brand?: CardBrandType | undefined;
     /**
      * The maximum number of results to be returned in a single page.
      * It is possible to receive fewer results than the specified limit on a given page.
      * The default value of 100 is also the maximum allowed value. If the provided value is greater than 100, it is
      * ignored and the default value is used instead. Default: `100`
      */
-    limit?: number;
+    limit?: number | undefined;
 }
 
 /**
@@ -6606,16 +6606,16 @@ export class ListPaymentsResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested list of payments.
      */
-    payments?: Array<Payment>;
+    payments?: Array<Payment> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6627,23 +6627,23 @@ export class ListRefundsRequest {
      * See [Date ranges](#dateranges) for details on date inclusivity/exclusivity.
      * Default value: The current time minus one year.
      */
-    begin_time?: string;
+    begin_time?: string | undefined;
     /**
      * The end of the requested reporting period, in RFC 3339 format.
      * See [Date ranges](#dateranges) for details on date inclusivity/exclusivity. Default value: The current time.
      */
-    end_time?: string;
+    end_time?: string | undefined;
     /**
      * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
      * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values
      */
-    sort_order?: SortOrderType;
+    sort_order?: SortOrderType | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for your original query.
      * See [Paginating results](#paginatingresults) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6654,17 +6654,17 @@ export class ListRefundsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * An array of refunds that match your query.
      */
-    refunds?: Array<Refund>;
+    refunds?: Array<Refund> | undefined;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain.
      * Provide this value as the `cursor` parameter in a subsequent request to this endpoint.
      * See [Paginating results](#paginatingresults) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6676,11 +6676,11 @@ export class ListSubscriptionEventsRequest {
      * Provide this to retrieve the next set of results for the original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The upper limit on the number of subscription events to return in the response. Default: `200`
      */
-    limit?: number;
+    limit?: number | undefined;
 }
 
 /**
@@ -6690,17 +6690,17 @@ export class ListSubscriptionEventsResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The `SubscriptionEvents` retrieved.
      */
-    subscription_events?: Array<SubscriptionEvent>;
+    subscription_events?: Array<SubscriptionEvent> | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of events.
      * If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 /**
  * A request for a set of `TeamMemberWage` objects
@@ -6709,15 +6709,15 @@ export class ListTeamMemberWagesRequest {
     /**
      * Filter wages returned to only those that are associated with the specified team member.
      */
-    team_member_id?: string;
+    team_member_id?: string | undefined;
     /**
      * Maximum number of Team Member Wages to return per page. Can range between 1 and 200. The default is the maximum at 200.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Pointer to the next page of Employee Wage results to fetch.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6727,15 +6727,15 @@ export class ListTeamMemberWagesResponse {
     /**
      * A page of Team Member Wage results.
      */
-    team_member_wages?: Array<TeamMemberWage>;
+    team_member_wages?: Array<TeamMemberWage> | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next next page of Team Member Wage results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -6747,23 +6747,23 @@ export class ListTransactionsRequest {
      * The beginning of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details
      * on date inclusivity/exclusivity. Default value: The current time minus one year.
      */
-    begin_time?: string;
+    begin_time?: string | undefined;
     /**
      * The end of the requested reporting period, in RFC 3339 format.
      * See [Date ranges](#dateranges) for details on date inclusivity/exclusivity. Default value: The current time.
      */
-    end_time?: string;
+    end_time?: string | undefined;
     /**
      * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
      * Default value: `DESC` See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderType;
+    sort_order?: SortOrderType | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for your original query.
      * See [Paginating results](#paginatingresults) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6774,17 +6774,17 @@ export class ListTransactionsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * An array of transactions that match your query.
      */
-    transactions?: Array<Transaction>;
+    transactions?: Array<Transaction> | undefined;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain.
      * Provide this value as the `cursor` parameter in a subsequent request to this endpoint.
      * See [Paginating results](#paginatingresults) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6794,11 +6794,11 @@ export class ListWorkweekConfigsRequest {
     /**
      * Maximum number of Workweek Configs to return per page.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Pointer to the next page of Workweek Config results to fetch.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -6809,15 +6809,15 @@ export class ListWorkweekConfigsResponse {
     /**
      * A page of Employee Wage results.
      */
-    workweek_configs?: Array<WorkweekConfig>;
+    workweek_configs?: Array<WorkweekConfig> | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next page of Employee Wage results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -6827,117 +6827,117 @@ export class Location {
     /**
      * The Square-issued ID of the location.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The name of the location. This information appears in the dashboard as the nickname.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The physical address of the location.
      */
-    address?: Address;
+    address?: Address | undefined;
     /**
      * The [IANA Timezone](https://www.iana.org/time-zones) identifier for the timezone of the location.
      */
-    timezone?: string;
+    timezone?: string | undefined;
     /**
      * The Square features that are enabled for the location. See `LocationCapability` for possible values.
      * See [LocationCapability](#type-locationcapability) for possible values
      */
-    capabilities?: Array<string>;
+    capabilities?: Array<string> | undefined;
     /**
      * The status of the location, either active or inactive. See [LocationStatus](#type-locationstatus) for possible values.
      */
-    status?: ActivityStatusType;
+    status?: ActivityStatusType | undefined;
     /**
      * The time when the location was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The ID of the merchant that owns the location.
      */
-    merchant_id?: string;
+    merchant_id?: string | undefined;
     /**
      * The country of the location, in ISO 3166-1-alpha-2 format. See `Country` for possible values.
      * See [Country](#type-country) for possible values
      */
-    country?: CountryType;
+    country?: CountryType | undefined;
     /**
      * The language associated with the location, in [BCP 47 format](https://tools.ietf.org/html/bcp47#appendix-A).
      */
-    language_code?: string;
+    language_code?: string | undefined;
     /**
      * The currency used for all transactions at this location, in ISO 4217 format. See `Currency` for possible values.
      * See [Currency](#type-currency) for possible values.
      */
-    currency?: CurrencyType;
+    currency?: CurrencyType | undefined;
     /**
      * The phone number of the location in human readable format.
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * The business name of the location This is the name visible to the customers of the location.
      * For example, this name appears on customer receipts.
      */
-    business_name?: string;
+    business_name?: string | undefined;
     /**
      * The type of the location, either physical or mobile. See [LocationType](#type-locationtype) for possible values
      */
-    type?: 'PHYSICAL' | 'MOBILE';
+    type?: 'PHYSICAL' | 'MOBILE' | undefined;
     /**
      * The website URL of the location.
      */
-    website_url?: string;
+    website_url?: string | undefined;
     /**
      *  Represents the hours of operation for the location.
      */
-    business_hours?: BusinessHours;
+    business_hours?: BusinessHours | undefined;
     /**
      * The email of the location. This email is visible to the customers of the location. For example, the email appears on customer receipts.
      */
-    business_email?: string;
+    business_email?: string | undefined;
     /**
      * The description of the location.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The Twitter username of the location without the '&#64;' symbol.
      */
-    twitter_username?: string;
+    twitter_username?: string | undefined;
     /**
      * The Instagram username of the location without the '&#64;' symbol.
      */
-    instagram_username?: string;
+    instagram_username?: string | undefined;
     /**
      * The Facebook profile URL of the location. The URL should begin with 'facebook.com/'.
      */
-    facebook_url?: string;
+    facebook_url?: string | undefined;
     /**
      * The physical coordinates (latitude and longitude) of the location.
      */
-    coordinates?: Coordinates;
+    coordinates?: Coordinates | undefined;
     /**
      * The URL of the logo image for the location. The Seller must choose this logo in the Seller dashboard (Receipts section)
      * for the logo to appear on transactions (such as receipts, invoices) that Square generates on behalf of the Seller.
      * This image should have an aspect ratio close to 1:1 and is recommended to be at least 200x200 pixels.
      */
-    logo_url?: string;
+    logo_url?: string | undefined;
     /**
      * The URL of the Point of Sale background image for the location.
      */
-    pos_background_url?: string;
+    pos_background_url?: string | undefined;
     /**
      * The merchant category code (MCC) of the location, as standardized by ISO 18245.
      * The MCC describes the kind of goods or services sold at the location.
      */
-    mcc?: string;
+    mcc?: string | undefined;
     /**
      * The URL of a full-format logo image for the location.
      * The Seller must choose this logo in the Seller dashboard (Receipts section) for the logo to appear on
      * transactions (such as receipts, invoices) that Square generates on behalf of the Seller.
      * This image can have an aspect ratio of 2:1 or greater and is recommended to be at least 1280x648 pixels.
      */
-    full_format_logo_url?: string;
+    full_format_logo_url?: string | undefined;
 }
 
 /**
@@ -6962,7 +6962,7 @@ export class LoyaltyAccount {
     /**
      * The Square-assigned ID of the loyalty account.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The list of mappings that the account is associated with.
      * Currently, a buyer can only be mapped to a loyalty account using a phone number.
@@ -6978,27 +6978,27 @@ export class LoyaltyAccount {
      * Your application should be able to handle loyalty accounts that have a negative point balance (`balance` is less than 0).
      * This might occur if a seller makes a manual adjustment or as a result of a refund or exchange.
      */
-    balance?: number;
+    balance?: number | undefined;
     /**
      * The total points accrued during the lifetime of the account.
      */
-    lifetime_points?: number;
+    lifetime_points?: number | undefined;
     /**
      * The Square-assigned ID of the `customer` that is associated with the account.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The timestamp when enrollment occurred, in RFC 3339 format.
      */
-    enrolled_at?: string;
+    enrolled_at?: string | undefined;
     /**
      * The timestamp when the loyalty account was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp when the loyalty account was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -7008,7 +7008,7 @@ export class LoyaltyAccountMapping {
     /**
      * The Square-assigned ID of the mapping.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The type of mapping. See [LoyaltyAccountMappingType](#type-loyaltyaccountmappingtype) for possible values.
      */
@@ -7020,7 +7020,7 @@ export class LoyaltyAccountMapping {
     /**
      * The timestamp when the mapping was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
 }
 
 /**
@@ -7047,23 +7047,23 @@ export class LoyaltyEvent {
     /**
      * Provides metadata when the event `type` is `ACCUMULATE_POINTS`.
      */
-    accumulate_points?: LoyaltyEventAccumulatePoints;
+    accumulate_points?: LoyaltyEventAccumulatePoints | undefined;
     /**
      * Provides metadata when the event `type` is `CREATE_REWARD`.
      */
-    create_reward?: LoyaltyEventCreateReward;
+    create_reward?: LoyaltyEventCreateReward | undefined;
     /**
      * Provides metadata when the event `type` is `REDEEM_REWARD`.
      */
-    redeem_reward?: LoyaltyEventRedeemReward;
+    redeem_reward?: LoyaltyEventRedeemReward | undefined;
     /**
      * Provides metadata when the event `type` is `DELETE_REWARD`.
      */
-    delete_reward?: LoyaltyEventDeleteReward;
+    delete_reward?: LoyaltyEventDeleteReward | undefined;
     /**
      * Provides metadata when the event `type` is `ADJUST_POINTS`.
      */
-    adjust_points?: LoyaltyEventAdjustPoints;
+    adjust_points?: LoyaltyEventAdjustPoints | undefined;
     /**
      * The ID of the `loyalty account` in which the event occurred.
      */
@@ -7071,7 +7071,7 @@ export class LoyaltyEvent {
     /**
      * The ID of the `location` where the event occurred.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * Defines whether the event was generated by the Square Point of Sale.
      * See [LoyaltyEventSource](#type-loyaltyeventsource) for possible values.
@@ -7080,11 +7080,11 @@ export class LoyaltyEvent {
     /**
      * Provides metadata when the event `type` is `EXPIRE_POINTS`.
      */
-    expire_points?: LoyaltyEventExpirePoints;
+    expire_points?: LoyaltyEventExpirePoints | undefined;
     /**
      * Provides metadata when the event `type` is `OTHER`.
      */
-    other_event?: LoyaltyEventOther;
+    other_event?: LoyaltyEventOther | undefined;
 }
 
 /**
@@ -7094,16 +7094,16 @@ export class LoyaltyEventAccumulatePoints {
     /**
      * The ID of the `loyalty program`.
      */
-    loyalty_program_id?: string;
+    loyalty_program_id?: string | undefined;
     /**
      * The number of points accumulated by the event.
      */
-    points?: number;
+    points?: number | undefined;
     /**
      * The ID of the `order` for which the buyer accumulated the points.
      * This field is returned only if the Orders API is used to process orders.
      */
-    order_id?: string;
+    order_id?: string | undefined;
 }
 
 /**
@@ -7113,7 +7113,7 @@ export class LoyaltyEventAdjustPoints {
     /**
      * The Square-assigned ID of the `loyalty program`.
      */
-    loyalty_program_id?: string;
+    loyalty_program_id?: string | undefined;
     /**
      * The number of points added or removed.
      */
@@ -7121,7 +7121,7 @@ export class LoyaltyEventAdjustPoints {
     /**
      * The reason for the adjustment of points.
      */
-    reason?: string;
+    reason?: string | undefined;
 }
 
 /**
@@ -7135,7 +7135,7 @@ export class LoyaltyEventCreateReward {
     /**
      * The Square-assigned ID of the created `loyalty reward`. This field is returned only if the event source is `LOYALTY_API`.
      */
-    reward_id?: string;
+    reward_id?: string | undefined;
     /**
      * The loyalty points used to create the reward.
      */
@@ -7163,7 +7163,7 @@ export class LoyaltyEventDeleteReward {
     /**
      * The ID of the deleted `loyalty reward`. This field is returned only if the event source is `LOYALTY_API`.
      */
-    reward_id?: string;
+    reward_id?: string | undefined;
     /**
      * The number of points returned to the loyalty account.
      */
@@ -7191,23 +7191,23 @@ export class LoyaltyEventFilter {
     /**
      * Filter events by loyalty account.
      */
-    loyalty_account_filter?: LoyaltyEventLoyaltyAccountFilter;
+    loyalty_account_filter?: LoyaltyEventLoyaltyAccountFilter | undefined;
     /**
      * Filter events by event type.
      */
-    type_filter?: LoyaltyEventTypeFilter;
+    type_filter?: LoyaltyEventTypeFilter | undefined;
     /**
      * Filter events by date time range.  For each range, the start time is inclusive and the end time  is exclusive.
      */
-    date_time_filter?: LoyaltyEventDateTimeFilter;
+    date_time_filter?: LoyaltyEventDateTimeFilter | undefined;
     /**
      * Filter events by location.
      */
-    location_filter?: LoyaltyEventLocationFilter;
+    location_filter?: LoyaltyEventLocationFilter | undefined;
     /**
      * Filter events by the order associated with the event.
      */
-    order_filter?: LoyaltyEventOrderFilter;
+    order_filter?: LoyaltyEventOrderFilter | undefined;
 }
 
 /**
@@ -7262,7 +7262,7 @@ export class LoyaltyEventQuery {
     /**
      * The query filter criteria.
      */
-    filter?: LoyaltyEventFilter;
+    filter?: LoyaltyEventFilter | undefined;
 }
 
 /**
@@ -7276,12 +7276,12 @@ export class LoyaltyEventRedeemReward {
     /**
      * The ID of the redeemed `loyalty reward`. This field is returned only if the event source is `LOYALTY_API`.
      */
-    reward_id?: string;
+    reward_id?: string | undefined;
     /**
      * The ID of the `order` that redeemed the reward.
      * This field is returned only if the Orders API is used to process orders.
      */
-    order_id?: string;
+    order_id?: string | undefined;
 }
 
 /**
@@ -7321,7 +7321,7 @@ export class LoyaltyProgram {
     /**
      * If present, details for how points expire.
      */
-    expiration_policy?: LoyaltyProgramExpirationPolicy;
+    expiration_policy?: LoyaltyProgramExpirationPolicy | undefined;
     /**
      * A cosmetic name for the “points” currency.
      */
@@ -7356,23 +7356,23 @@ export class LoyaltyProgramAccrualRule {
     /**
      * The number of points that  buyers earn based on the `accrual_type`.
      */
-    points?: number;
+    points?: number | undefined;
     /**
      * When the accrual rule is visit-based (`accrual_type` is `VISIT`), this field indicates the minimum purchase
      * required during the visit to  quality for the reward.
      */
-    visit_minimum_amount_money?: Money;
+    visit_minimum_amount_money?: Money | undefined;
     /**
      * When the accrual rule is spend-based (`accrual_type` is `SPEND`), this field indicates the amount that a buyer must spend
      * to earn the points. For example, suppose the accrual rule is \"earn 1 point for every $10 you spend\".
      * Then, buyer earns a point for every $10 they spend. If  buyer spends $105, the buyer earns 10 points.
      */
-    spend_amount_money?: Money;
+    spend_amount_money?: Money | undefined;
     /**
      * The ID of the `catalog object` to purchase to earn the number of points defined by the rule.
      * This is either an item variation or a category, depending on the type. This is defined on `ITEM_VARIATION` rules and `CATEGORY` rules.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
 }
 
 /**
@@ -7407,20 +7407,20 @@ export class LoyaltyProgramRewardDefinition {
     /**
      * Present if `discount_type` is `FIXED_PERCENTAGE`. For example, a 7.25% off discount will be represented as \"7.25\".
      */
-    percentage_discount?: string;
+    percentage_discount?: string | undefined;
     /**
      * A list of `catalog object` ids to which this reward can be applied.
      * They are either all item-variation ids or category ids, depending on the `type` field.
      */
-    catalog_object_ids?: Array<string>;
+    catalog_object_ids?: Array<string> | undefined;
     /**
      * Present if `discount_type` is `FIXED_AMOUNT`. For example, $5 off.
      */
-    fixed_discount_money?: Money;
+    fixed_discount_money?: Money | undefined;
     /**
      * When `discount_type` is `FIXED_PERCENTAGE`, the maximum discount amount that can be applied.
      */
-    max_discount_money?: Money;
+    max_discount_money?: Money | undefined;
 }
 
 /**
@@ -7479,11 +7479,11 @@ export class LoyaltyReward {
     /**
      * The Square-assigned ID of the loyalty reward.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The status of a loyalty reward. See [LoyaltyRewardStatus](#type-loyaltyrewardstatus) for possible values.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * The Square-assigned ID of the `loyalty account` to which the reward belongs.
      */
@@ -7495,23 +7495,23 @@ export class LoyaltyReward {
     /**
      * The number of loyalty points used for the reward.
      */
-    points?: number;
+    points?: number | undefined;
     /**
      * The Square-assigned ID of the `order` to which the reward is attached.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * The timestamp when the reward was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp when the reward was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * The timestamp when the reward was redeemed, in RFC 3339 format.
      */
-    redeemed_at?: string;
+    redeemed_at?: string | undefined;
 }
 
 /**
@@ -7527,37 +7527,37 @@ export class MeasurementUnit {
     /**
      * A custom unit of measurement defined by the seller using the Point of Sale app or ad-hoc as an order line item.
      */
-    custom_unit?: MeasurementUnitCustom;
+    custom_unit?: MeasurementUnitCustom | undefined;
     /**
      * Represents a standard area unit. See [MeasurementUnitArea](#type-measurementunitarea) for possible values.
      */
-    area_unit?: AreaUnitType;
+    area_unit?: AreaUnitType | undefined;
     /**
      * Represents a standard length unit. See [MeasurementUnitLength](#type-measurementunitlength) for possible values.
      */
-    length_unit?: LengthUnitType;
+    length_unit?: LengthUnitType | undefined;
     /**
      * Represents a standard volume unit. See [MeasurementUnitVolume](#type-measurementunitvolume) for possible values.
      */
-    volume_unit?: VolumeUnitType;
+    volume_unit?: VolumeUnitType | undefined;
     /**
      * Represents a standard unit of weight or mass. See [MeasurementUnitWeight](#type-measurementunitweight) for possible values.
      */
-    weight_unit?: WeightUnitType;
+    weight_unit?: WeightUnitType | undefined;
     /**
      * Reserved for API integrations that lack the ability to specify a real measurement unit.
      * See [MeasurementUnitGeneric](#type-measurementunitgeneric) for possible values.
      */
-    generic_unit?: string;
+    generic_unit?: string | undefined;
     /**
      * Represents a standard unit of time. See [MeasurementUnitTime](#type-measurementunittime) for possible values.
      */
-    time_unit?: string;
+    time_unit?: string | undefined;
     /**
      * Represents the type of the measurement unit.
      * See [MeasurementUnitUnitType](#type-measurementunitunittype) for possible values.
      */
-    type?: string;
+    type?: string | undefined;
 }
 
 /**
@@ -7617,11 +7617,11 @@ export class Merchant {
     /**
      * The Square-issued ID of the merchant.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The business name of the merchant.
      */
-    business_name?: string;
+    business_name?: string | undefined;
     /**
      * The country code associated with the merchant account, in ISO 3166 format. See [Country](#type-country) for possible values.
      */
@@ -7629,19 +7629,19 @@ export class Merchant {
     /**
      * The language code associated with the merchant account, in BCP 47 format.
      */
-    language_code?: string;
+    language_code?: string | undefined;
     /**
      * The currency associated with the merchant account, in ISO 4217 format. See [Currency](#type-currency) for possible values
      */
-    currency?: string;
+    currency?: string | undefined;
     /**
      * The merchant status, active or inactive. See [MerchantStatus](#type-merchantstatus) for possible values
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * The ID of the main `Location` for this merchant.
      */
-    main_location_id?: string;
+    main_location_id?: string | undefined;
 }
 
 export class MerchantStatus {}
@@ -7653,7 +7653,7 @@ export class ModelBreak {
     /**
      * UUID for this object.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected; seconds are truncated.
      */
@@ -7661,7 +7661,7 @@ export class ModelBreak {
     /**
      * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected; seconds are truncated.
      */
-    end_at?: string;
+    end_at?: string | undefined;
     /**
      * The `BreakType` this `Break` was templated on.
      */
@@ -7696,11 +7696,11 @@ export class ModelError {
     /**
      * A human-readable description of the error for debugging purposes.
      */
-    detail?: string;
+    detail?: string | undefined;
     /**
      * The name of the field provided in the original request (if any) that the error pertains to.
      */
-    field?: string;
+    field?: string | undefined;
 }
 
 /**
@@ -7737,11 +7737,11 @@ export class ObtainTokenRequest {
      * The authorization code to exchange. This is required if `grant_type` is set to `authorization_code`, to indicate
      * that the application wants to exchange an authorization code for an OAuth access token.
      */
-    code?: string;
+    code?: string | undefined;
     /**
      * The redirect URL assigned in the [application dashboard](https://connect.squareup.com/apps).
      */
-    redirect_uri?: string;
+    redirect_uri?: string | undefined;
     /**
      * Specifies the method to request an OAuth access token.
      * Valid values are: `authorization_code`, `refresh_token`, and `migration_token`.
@@ -7751,14 +7751,14 @@ export class ObtainTokenRequest {
      * A valid refresh token for generating a new OAuth access token. A valid refresh token is required if `grant_type`
      * is set to `refresh_token`, to indicate the application wants a replacement for an expired OAuth access token.
      */
-    refresh_token?: string;
+    refresh_token?: string | undefined;
     /**
      * Legacy OAuth access token obtained using a Connect API version prior to 2019-03-13. This parameter is required
      * if `grant_type` is set to `migration_token` to indicate that the application wants to get a replacement OAuth access token.
      * The response also returns a refresh token.
      * For more information, see [Migrate to Using Refresh Tokens](https://developer.squareup.com/docs/authz/oauth/migration).
      */
-    migration_token?: string;
+    migration_token?: string | undefined;
 }
 
 export class ObtainTokenResponse {
@@ -7767,39 +7767,39 @@ export class ObtainTokenResponse {
      * Provide the access token in a header with every request to Connect API endpoints.
      * See the [Build with OAuth](https://developer.squareup.com/docs/authz/oauth/build-with-the-api) guide for more information.
      */
-    access_token?: string;
+    access_token?: string | undefined;
     /**
      * This value is always "bearer".
      */
-    token_type?: string;
+    token_type?: string | undefined;
     /**
      * The date when access_token expires, in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
      */
-    expires_at?: string;
+    expires_at?: string | undefined;
     /**
      * The ID of the authorizing merchant's business.
      */
-    merchant_id?: string;
+    merchant_id?: string | undefined;
     /**
      * @deprecated The ID of a subscription plan the merchant signed up for.
      * Only present if the merchant signed up for a subscription during authorization.
      */
-    subscription_id?: string;
+    subscription_id?: string | undefined;
     /**
      * @deprecated The ID of the subscription plan the merchant signed up for.
      * Only present if the merchant signed up for a subscription during authorization.
      */
-    plan_id?: string;
+    plan_id?: string | undefined;
     /**
      * Then OpenID token belonging to this this person.
      * Only present if the OPENID scope is included in the authorize request.
      */
-    id_token?: string;
+    id_token?: string | undefined;
     /**
      * A refresh token. OAuth refresh tokens are 64 bytes long.
      * For more information, see [OAuth access token management](https://developer.squareup.com/docs/authz/oauth/how-it-works#oauth-access-token-management).
      */
-    refresh_token?: string;
+    refresh_token?: string | undefined;
 }
 
 /**
@@ -7811,27 +7811,27 @@ export class Order {
     /**
      * The order's unique ID.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The ID of the merchant location this order is associated with.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * A client specified identifier to associate an entity in another system with this order.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * The origination details of the order.
      */
-    source?: OrderSource;
+    source?: OrderSource | undefined;
     /**
      * The `Customer` ID of the customer associated with the order.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The line items included in the order.
      */
-    line_items?: Array<OrderLineItem>;
+    line_items?: Array<OrderLineItem> | undefined;
     /**
      * The list of all taxes associated with the order. Taxes can be scoped to either `ORDER` or `LINE_ITEM`.
      * For taxes with `LINE_ITEM` scope, an `OrderLineItemAppliedTax` must be added to each line item that the tax applies to.
@@ -7840,7 +7840,7 @@ export class Order {
      * @note If `LINE_ITEM` scope is set on any taxes in this field, usage of the deprecated `line_items.taxes`
      * field will result in an error. Please use `line_items.applied_taxes` instead.
      */
-    taxes?: Array<OrderLineItemTax>;
+    taxes?: Array<OrderLineItemTax> | undefined;
     /**
      * The list of all discounts associated with the order. Discounts can be scoped to either `ORDER` or `LINE_ITEM`.
      * For discounts scoped to `LINE_ITEM`, an `OrderLineItemAppliedDiscount` must be added to each line item that the
@@ -7849,42 +7849,42 @@ export class Order {
      * @note If `LINE_ITEM` scope is set on any discounts in this field, usage of the deprecated `line_items.discounts`
      * field will result in an error. Please use `line_items.applied_discounts` instead.
      */
-    discounts?: Array<OrderLineItemDiscount>;
+    discounts?: Array<OrderLineItemDiscount> | undefined;
     /**
      * A list of service charges applied to the order.
      */
-    service_charges?: Array<OrderServiceCharge>;
+    service_charges?: Array<OrderServiceCharge> | undefined;
     /**
      * Details on order fulfillment. Orders can only be created with at most one fulfillment.
      * However, orders returned by the API may contain multiple fulfillments.
      */
-    fulfillments?: Array<OrderFulfillment>;
+    fulfillments?: Array<OrderFulfillment> | undefined;
     /**
      * Collection of items from sale Orders being returned in this one. Normally part of an Itemized Return or Exchange.
      * There will be exactly one `Return` object per sale Order being referenced.
      */
-    returns?: Array<OrderReturn>;
+    returns?: Array<OrderReturn> | undefined;
     /**
      * Rollup of returned money amounts.
      */
-    return_amounts?: OrderMoneyAmounts;
+    return_amounts?: OrderMoneyAmounts | undefined;
     /**
      * Net money amounts (sale money - return money).
      */
-    net_amounts?: OrderMoneyAmounts;
+    net_amounts?: OrderMoneyAmounts | undefined;
     /**
      * A positive or negative rounding adjustment to the total of the order, commonly used to apply Cash Rounding when
      * the minimum unit of account is smaller than the lowest physical denomination of currency.
      */
-    rounding_adjustment?: OrderRoundingAdjustment;
+    rounding_adjustment?: OrderRoundingAdjustment | undefined;
     /**
      * The Tenders which were used to pay for the Order.
      */
-    tenders?: Array<Tender>;
+    tenders?: Array<Tender> | undefined;
     /**
      * The Refunds that are part of this Order.
      */
-    refunds?: Array<Refund>;
+    refunds?: Array<Refund> | undefined;
     /**
      * Application-defined data attached to this order. Metadata fields are intended to store descriptive references
      * or associations with an entity in another system or store brief information about the object.
@@ -7896,93 +7896,93 @@ export class Order {
      * 10 entries per metadata field. Entries written by applications are private and can only be read or modified by
      * the same application. See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; };
+    metadata?: { [key: string]: string; } | undefined;
     /**
      * Timestamp for when the order was created. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Timestamp for when the order was last updated. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * Timestamp for when the order reached a terminal [state](#property-state). In RFC 3339 format, e.g., \"2016-09-04T23:59:33.123Z\".
      */
-    closed_at?: string;
+    closed_at?: string | undefined;
     /**
      * The current state of the order. `OPEN`,`COMPLETED`,`CANCELED` See [OrderState](#type-orderstate) for possible values.
      */
-    state?: OrderStateType;
+    state?: OrderStateType | undefined;
     /**
      * Version number which is incremented each time an update is committed to the order. Orders that were not created
      * through the API will not include a version and thus cannot be updated.
      * [Read more about working with versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The total amount of money to collect for the order.
      */
-    total_money?: Money;
+    total_money?: Money | undefined;
     /**
      * The total tax amount of money to collect for the order.
      */
-    total_tax_money?: Money;
+    total_tax_money?: Money | undefined;
     /**
      * The total discount amount of money to collect for the order.
      */
-    total_discount_money?: Money;
+    total_discount_money?: Money | undefined;
     /**
      * The total tip amount of money to collect for the order.
      */
-    total_tip_money?: Money;
+    total_tip_money?: Money | undefined;
     /**
      * The total amount of money collected in service charges for the order.
      * @note `total_service_charge_money` is the sum of `applied_money` fields for each individual service charge.
      *  Therefore, `total_service_charge_money` will only include inclusive tax amounts, not additive tax amounts.
      */
-    total_service_charge_money?: Money;
+    total_service_charge_money?: Money | undefined;
     /**
      * Pricing options for an order. The options affect how the order's price is calculated.
      * They can be used, for example, to apply automatic price adjustments that are based on pre-configured
      * [pricing rules](https://developer.squareup.com/docs/reference/square/objects/CatalogPricingRule).
      */
-    pricing_options?: OrderPricingOptions;
+    pricing_options?: OrderPricingOptions | undefined;
     /**
      * A set-like list of rewards that have been added to the order.
      */
-    rewards?: Array<OrderReward>;
+    rewards?: Array<OrderReward> | undefined;
 }
 
 export class OrderCreated {
     /**
      * The order's unique ID.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * Version number which is incremented each time an update is committed to the order.
      * Orders that were not created through the API will not include a version and thus cannot be updated.
      * [Read more about working with versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders).
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The ID of the merchant location this order is associated with.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The state of the order. See [OrderState](#type-orderstate) for possible values.
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * Timestamp for when the order was created in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
 }
 
 export class OrderCreatedObject {
     /**
      * Information about the created order.
      */
-    order_created?: OrderCreated;
+    order_created?: OrderCreated | undefined;
 }
 
 /**
@@ -7993,17 +7993,17 @@ export class OrderEntry {
     /**
      * The id of the Order.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * Version number which is incremented each time an update is committed to the order.
      * Orders that were not created through the API will not include a version and thus cannot be updated.
      * [Read more about working with versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The location id the Order belongs to.
      */
-    location_id?: string;
+    location_id?: string | undefined;
 }
 
 /**
@@ -8013,15 +8013,15 @@ export class OrderFulfillment {
     /**
      * Unique ID that identifies the fulfillment only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The type of the fulfillment. See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values.
      */
-    type?: FulfillmentType;
+    type?: FulfillmentType | undefined;
     /**
      * The state of the fulfillment. See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
      */
-    state?: FulfillmentStateType;
+    state?: FulfillmentStateType | undefined;
     /**
      * Application-defined data attached to this fulfillment. Metadata fields are intended to store descriptive
      * references or associations with an entity in another system or store brief information about the object.
@@ -8033,11 +8033,11 @@ export class OrderFulfillment {
      * per metadata field. Entries written by applications are private and can only be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; };
+    metadata?: { [key: string]: string; } | undefined;
     /**
      * Contains details for a pickup fulfillment. Required when fulfillment type is `PICKUP`.
      */
-    pickup_details?: OrderFulfillmentPickupDetails;
+    pickup_details?: OrderFulfillmentPickupDetails | undefined;
     /**
      * Contains details for a shipment fulfillment. Required when fulfillment type is `SHIPMENT`.
      * A shipment fulfillment's relationship to fulfillment `state`:
@@ -8048,7 +8048,7 @@ export class OrderFulfillment {
      *  `CANCELED`: Shipment has been canceled.
      *  `FAILED`: Shipment has failed.
      */
-    shipment_details?: OrderFulfillmentShipmentDetails;
+    shipment_details?: OrderFulfillmentShipmentDetails | undefined;
 }
 
 /**
@@ -8058,90 +8058,90 @@ export class OrderFulfillmentPickupDetails {
     /**
      * Information on the person meant to pick up this fulfillment from a physical location.
      */
-    recipient?: OrderFulfillmentRecipient;
+    recipient?: OrderFulfillmentRecipient | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when this fulfillment will expire if it is not accepted.
      * Must be in RFC 3339 format e.g., "2016-09-04T23:59:33.123Z". Expiration time can only be set up to 7 days in the future.
      * If `expires_at` is not set, this pickup fulfillment will be automatically accepted when placed.
      */
-    expires_at?: string;
+    expires_at?: string | undefined;
     /**
      * The duration of time after which an open and accepted pickup fulfillment will automatically move to the `COMPLETED` state.
      * Must be in RFC3339 duration format e.g., "P1W3D".
      * If not set, this pickup fulfillment will remain accepted until it is canceled or completed.
      */
-    auto_complete_duration?: string;
+    auto_complete_duration?: string | undefined;
     /**
      * The schedule type of the pickup fulfillment. Defaults to `SCHEDULED`.
      * See [OrderFulfillmentPickupDetailsScheduleType](#type-orderfulfillmentpickupdetailsscheduletype) for possible values.
      */
-    schedule_type?: 'SCHEDULED' | 'ASAP';
+    schedule_type?: 'SCHEDULED' | 'ASAP' | undefined;
     /**
      * The [timestamp](#workingwithdates) that represents the start of the pickup window.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". For fulfillments with the schedule type `ASAP`,
      * this is automatically set to the current time plus the expected duration to prepare the fulfillment.
      */
-    pickup_at?: string;
+    pickup_at?: string | undefined;
     /**
      * The window of time in which the order should be picked up after the `pickup_at` timestamp.
      * Must be in RFC3339 duration format, e.g., "P1W3D". Can be used as an informational guideline for merchants.
      */
-    pickup_window_duration?: string;
+    pickup_window_duration?: string | undefined;
     /**
      * The duration of time it takes to prepare this fulfillment. Must be in RFC3339 duration format, e.g., "P1W3D".
      */
-    prep_time_duration?: string;
+    prep_time_duration?: string | undefined;
     /**
      * A note meant to provide additional instructions about the pickup fulfillment displayed in the Square Point of Sale and set by the API.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the fulfillment was placed.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    placed_at?: string;
+    placed_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the fulfillment was accepted.
      * In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    accepted_at?: string;
+    accepted_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the fulfillment was rejected.
      * In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    rejected_at?: string;
+    rejected_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the fulfillment is marked as ready for pickup.
      * In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    ready_at?: string;
+    ready_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the fulfillment expired.
      * In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    expired_at?: string;
+    expired_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the fulfillment was picked up by the recipient.
      * In RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    picked_up_at?: string;
+    picked_up_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) in RFC3339 timestamp format.
      * e.g., "2016-09-04T23:59:33.123Z", indicating when the fulfillment was canceled.
      */
-    canceled_at?: string;
+    canceled_at?: string | undefined;
     /**
      * A description of why the pickup was canceled. Max length: 100 characters.
      */
-    cancel_reason?: string;
+    cancel_reason?: string | undefined;
     /**
      * If true, indicates this pickup order is for curbside pickup, not in-store pickup.
      */
-    is_curbside_pickup?: boolean;
+    is_curbside_pickup?: boolean | undefined;
     /**
      * Specific details for curbside pickup. Can only be populated if `is_curbside_pickup` is true.
      */
-    curbside_pickup_details?: OrderFulfillmentPickupDetailsCurbsidePickupDetails;
+    curbside_pickup_details?: OrderFulfillmentPickupDetailsCurbsidePickupDetails | undefined;
 }
 
 /**
@@ -8151,12 +8151,12 @@ export class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
     /**
      * Specific details for curbside pickup, such as parking number, vehicle model, etc.
      */
-    curbside_details?: string;
+    curbside_details?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) in RFC 3339 timestamp format, e.g., \"2016-09-04T23:59:33.123Z\",
      * indicating when the buyer arrived and is waiting for pickup.
      */
-    buyer_arrived_at?: string;
+    buyer_arrived_at?: string | undefined;
 }
 
 /**
@@ -8170,27 +8170,27 @@ export class OrderFulfillmentRecipient {
      * the request values will override the information from the customer profile. If the targeted customer profile
      * does not contain the necessary information and these fields are left unset, the request will result in an error.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The display name of the fulfillment recipient.
      * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
      */
-    display_name?: string;
+    display_name?: string | undefined;
     /**
      * The email address of the fulfillment recipient.
      * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
      */
-    email_address?: string;
+    email_address?: string | undefined;
     /**
      * The phone number of the fulfillment recipient.
      * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * The address of the fulfillment recipient.
      * If provided, overrides the value pulled from the customer profile indicated by `customer_id`.
      */
-    address?: Address;
+    address?: Address | undefined;
 }
 
 /**
@@ -8200,71 +8200,71 @@ export class OrderFulfillmentShipmentDetails {
     /**
      * Information on the person meant to receive this shipment fulfillment.
      */
-    recipient?: OrderFulfillmentRecipient;
+    recipient?: OrderFulfillmentRecipient | undefined;
     /**
      * The shipping carrier being used to ship this fulfillment e.g. UPS, FedEx, USPS, etc.
      */
-    carrier?: string;
+    carrier?: string | undefined;
     /**
      * A note with additional information for the shipping carrier.
      */
-    shipping_note?: string;
+    shipping_note?: string | undefined;
     /**
      * A description of the type of shipping product purchased from the carrier. e.g. First Class, Priority, Express
      */
-    shipping_type?: string;
+    shipping_type?: string | undefined;
     /**
      * The reference number provided by the carrier to track the shipment's progress.
      */
-    tracking_number?: string;
+    tracking_number?: string | undefined;
     /**
      * A link to the tracking webpage on the carrier's website.
      */
-    tracking_url?: string;
+    tracking_url?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the shipment was requested.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    placed_at?: string;
+    placed_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when this fulfillment was moved to the `RESERVED` state.
      * Indicates that preparation of this shipment has begun. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    in_progress_at?: string;
+    in_progress_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when this fulfillment was moved to the `PREPARED` state.
      * Indicates that the fulfillment is packaged. Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    packaged_at?: string;
+    packaged_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the shipment is expected to be delivered to the shipping carrier.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    expected_shipped_at?: string;
+    expected_shipped_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when this fulfillment was moved to the `COMPLETED`state.
      * Indicates that the fulfillment has been given to the shipping carrier.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    shipped_at?: string;
+    shipped_at?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating the shipment was canceled.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    canceled_at?: string;
+    canceled_at?: string | undefined;
     /**
      * A description of why the shipment was canceled.
      */
-    cancel_reason?: string;
+    cancel_reason?: string | undefined;
     /**
      * The [timestamp](#workingwithdates) indicating when the shipment failed to be completed.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z".
      */
-    failed_at?: string;
+    failed_at?: string | undefined;
     /**
      * A description of why the shipment failed to be completed.
      */
-    failure_reason?: string;
+    failure_reason?: string | undefined;
 }
 
 /**
@@ -8281,40 +8281,40 @@ export class OrderFulfillmentUpdated {
     /**
      * The order's unique ID.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * Version number which is incremented each time an update is committed to the order.
      * Orders that were not created through the API will not include a version and thus cannot be updated.
      * [Read more about working with versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders)
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The ID of the merchant location this order is associated with.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The state of the order. See [OrderState](#type-orderstate) for possible values
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * Timestamp for when the order was created in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Timestamp for when the order was last updated in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * The fulfillment that were updated with this version change.
      */
-    fulfillment_update?: Array<OrderFulfillmentUpdatedUpdate>;
+    fulfillment_update?: Array<OrderFulfillmentUpdatedUpdate> | undefined;
 }
 
 export class OrderFulfillmentUpdatedObject {
     /**
      * Information about the updated order fulfillment.
      */
-    order_fulfillment_updated?: OrderFulfillmentUpdated;
+    order_fulfillment_updated?: OrderFulfillmentUpdated | undefined;
 }
 
 /**
@@ -8324,19 +8324,19 @@ export class OrderFulfillmentUpdatedUpdate {
     /**
      * Unique ID that identifies the fulfillment only within this order.
      */
-    fulfillment_uid?: string;
+    fulfillment_uid?: string | undefined;
     /**
      * The state of the fulfillment before the change.
      * Will not be populated if the fulfillment is created with this new Order version.
      * See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
      */
-    old_state?: string;
+    old_state?: string | undefined;
     /**
      * The state of the fulfillment after the change.
      * May be equal to old_state if a non-state field was changed on the fulfillment (e.g. tracking number).
      * See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
      */
-    new_state?: string;
+    new_state?: string | undefined;
 }
 
 /**
@@ -8347,11 +8347,11 @@ export class OrderLineItem {
     /**
      * Unique ID that identifies the line item only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The name of the line item.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The quantity purchased, formatted as a decimal number. For example: `\"3\"`.
      * Line items with a quantity of `\"0\"` will be automatically removed upon paying for or otherwise completing the order.
@@ -8361,19 +8361,19 @@ export class OrderLineItem {
     /**
      * The unit and precision that this line item's quantity is measured in.
      */
-    quantity_unit?: OrderQuantityUnit;
+    quantity_unit?: OrderQuantityUnit | undefined;
     /**
      * The note of the line item.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * The `CatalogItemVariation` id applied to this line item.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The name of the variation applied to this line item.
      */
-    variation_name?: string;
+    variation_name?: string | undefined;
     /**
      * Application-defined data attached to this line item. Metadata fields are intended to store descriptive references
      * or associations with an entity in another system or store brief information about the object. Square does not
@@ -8385,11 +8385,11 @@ export class OrderLineItem {
      * be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; };
+    metadata?: { [key: string]: string; } | undefined;
     /**
      * The [CatalogModifier](#type-catalogmodifier)s applied to this line item.
      */
-    modifiers?: Array<OrderLineItemModifier>;
+    modifiers?: Array<OrderLineItemModifier> | undefined;
     /**
      * The list of references to taxes applied to this line item. Each `OrderLineItemAppliedTax` has a `tax_uid` that
      * references the `uid` of a top-level `OrderLineItemTax` applied to the line item. On reads, the amount applied is populated.
@@ -8397,7 +8397,7 @@ export class OrderLineItem {
      * added to the order. `OrderLineItemAppliedTax` records for `LINE_ITEM` scoped taxes must be added in requests for
      * the tax to apply to any line items. To change the amount of a tax, modify the referenced top-level tax.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax>;
+    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
     /**
      * The list of references to discounts applied to this line item. Each `OrderLineItemAppliedDiscount` has a
      * `discount_uid` that references the `uid` of a top-level `OrderLineItemDiscounts` applied to the line item.
@@ -8406,33 +8406,33 @@ export class OrderLineItem {
      * records for `LINE_ITEM` scoped discounts must be added in requests for the discount to apply to any line items.
      * To change the amount of a discount, modify the referenced top-level discount.
      */
-    applied_discounts?: Array<OrderLineItemAppliedDiscount>;
+    applied_discounts?: Array<OrderLineItemAppliedDiscount> | undefined;
     /**
      * The base price for a single unit of the line item.
      */
-    base_price_money?: Money;
+    base_price_money?: Money | undefined;
     /**
      * The total price of all item variations sold in this line item.
      * Calculated as `base_price_money` multiplied by `quantity`. Does not include modifiers.
      */
-    variation_total_price_money?: Money;
+    variation_total_price_money?: Money | undefined;
     /**
      * The amount of money made in gross sales for this line item.
      * Calculated as the sum of the variation's total price and each modifier's total price.
      */
-    gross_sales_money?: Money;
+    gross_sales_money?: Money | undefined;
     /**
      * The total tax amount of money to collect for the line item.
      */
-    total_tax_money?: Money;
+    total_tax_money?: Money | undefined;
     /**
      * The total discount amount of money to collect for the line item.
      */
-    total_discount_money?: Money;
+    total_discount_money?: Money | undefined;
     /**
      * The total amount of money to collect for this line item.
      */
-    total_money?: Money;
+    total_money?: Money | undefined;
 }
 
 /**
@@ -8445,7 +8445,7 @@ export class OrderLineItemAppliedDiscount {
     /**
      * Unique ID that identifies the applied discount only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The `uid` of the discount the applied discount represents. Must reference a discount present in the
      * `order.discounts` field. This field is immutable. To change which discounts apply to a line item, you must delete
@@ -8455,7 +8455,7 @@ export class OrderLineItemAppliedDiscount {
     /**
      * The amount of money applied by the discount to the line item.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
 }
 
 /**
@@ -8468,7 +8468,7 @@ export class OrderLineItemAppliedTax {
     /**
      * Unique ID that identifies the applied tax only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The `uid` of the tax for which this applied tax represents.
      * Must reference a tax present in the `order.taxes` field. This field is immutable.
@@ -8478,7 +8478,7 @@ export class OrderLineItemAppliedTax {
     /**
      * The amount of money applied by the tax to the line item.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
 }
 
 /**
@@ -8490,35 +8490,35 @@ export class OrderLineItemDiscount {
     /**
      * Unique ID that identifies the discount only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The catalog object id referencing `CatalogDiscount`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The discount's name.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The type of the discount. Discounts that don't reference a catalog object ID must have a type of `FIXED_PERCENTAGE`
      * or `FIXED_AMOUNT`. See [OrderLineItemDiscountType](#type-orderlineitemdiscounttype) for possible values.
      */
-    type?: DiscountType;
+    type?: DiscountType | undefined;
     /**
      * The percentage of the discount, as a string representation of a decimal number.
      * A value of `7.25` corresponds to a percentage of 7.25%. `percentage` is not set for amount-based discounts.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * The total declared monetary amount of the discount. `amount_money` is not set for percentage-based discounts.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * The amount of discount actually applied to the line item. Represents the amount of money applied as a line
      * item-scoped discount. When an amount-based discount is scoped to the entire order, the value of `applied_money`
      * is different from `amount_money` because the total amount of the discount is distributed across all line items.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
     /**
      * Application-defined data attached to this discount. Metadata fields are intended to store descriptive references
      * or associations with an entity in another system or store brief information about the object. Square does not process
@@ -8530,7 +8530,7 @@ export class OrderLineItemDiscount {
      * are private and can only be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: Record<string, string>;
+    metadata?: Record<string, string> | undefined;
     /**
      * Indicates the level at which the discount applies. For `ORDER` scoped discounts, Square generates references
      * in `applied_discounts` on all order line items that do not have them. For `LINE_ITEM` scoped discounts,
@@ -8538,20 +8538,20 @@ export class OrderLineItemDiscount {
      * This field is immutable. To change the scope of a discount you must delete the discount and re-add it as a new discount.
      * See [OrderLineItemDiscountScope](#type-orderlineitemdiscountscope) for possible values.
      */
-    scope?: DiscountApplicationScopeType;
+    scope?: DiscountApplicationScopeType | undefined;
     /**
      * The reward identifiers corresponding to this discount.
      * The application and specification of discounts that have `reward_ids` are completely controlled by the backing
      * criteria corresponding to the reward tiers of the rewards that are added to the order through the Loyalty API.
      * To manually unapply discounts that are the result of added rewards, the rewards must be removed from the order through the Loyalty API.
      */
-    reward_ids?: Array<string>;
+    reward_ids?: Array<string> | undefined;
     /**
      * The object identifier of a `pricing rule` to be applied automatically to this discount.
      * The specification and application of the discounts, to which a `pricing_rule_id` is assigned,
      * are completely controlled by the corresponding pricing rule.
      */
-    pricing_rule_id?: string;
+    pricing_rule_id?: string | undefined;
 }
 
 /**
@@ -8571,25 +8571,25 @@ export class OrderLineItemModifier {
     /**
      * Unique ID that identifies the modifier only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The catalog object id referencing `CatalogModifier`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The name of the item modifier.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The base price for the modifier. `base_price_money` is required for ad hoc modifiers.
      * If both `catalog_object_id` and `base_price_money` are set, `base_price_money` will override the predefined `CatalogModifier` price.
      */
-    base_price_money?: Money;
+    base_price_money?: Money | undefined;
     /**
      * The total price of the item modifier for its line item.
      * This is the modifier's `base_price_money` multiplied by the line item's quantity.
      */
-    total_price_money?: Money;
+    total_price_money?: Money | undefined;
 }
 
 /**
@@ -8601,25 +8601,25 @@ export class OrderLineItemTax {
     /**
      * Unique ID that identifies the tax only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The catalog object id referencing `CatalogTax`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The tax's name.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Indicates the calculation method used to apply the tax.
      * See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
      */
-    type?: TaxType;
+    type?: TaxType | undefined;
     /**
      * The percentage of the tax, as a string representation of a decimal number.
      * For example, a value of "7.25" corresponds to a percentage of 7.25%.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * Application-defined data attached to this tax. Metadata fields are intended to store descriptive references or
      * associations with an entity in another system or store brief information about the object. Square does not process
@@ -8631,11 +8631,11 @@ export class OrderLineItemTax {
      * are private and can only be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: Record<string, string>;
+    metadata?: Record<string, string> | undefined;
     /**
      * The amount of the money applied by the tax in the order.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
     /**
      * Indicates the level at which the tax applies. For `ORDER` scoped taxes, Square generates references in
      * `applied_taxes` on all order line items that do not have them. For `LINE_ITEM` scoped taxes, the tax will only
@@ -8643,7 +8643,7 @@ export class OrderLineItemTax {
      * To change the scope, you must delete the tax and re-add it as a new tax.
      * See [OrderLineItemTaxScope](#type-orderlineitemtaxscope) for possible values.
      */
-    scope?: TaxApplicationScopeType;
+    scope?: TaxApplicationScopeType | undefined;
 }
 
 /**
@@ -8663,23 +8663,23 @@ export class OrderMoneyAmounts {
     /**
      * Total money.
      */
-    total_money?: Money;
+    total_money?: Money | undefined;
     /**
      * Money associated with taxes.
      */
-    tax_money?: Money;
+    tax_money?: Money | undefined;
     /**
      * Money associated with discounts.
      */
-    discount_money?: Money;
+    discount_money?: Money | undefined;
     /**
      * Money associated with tips.
      */
-    tip_money?: Money;
+    tip_money?: Money | undefined;
     /**
      * Money associated with service charges.
      */
-    service_charge_money?: Money;
+    service_charge_money?: Money | undefined;
 }
 
 /**
@@ -8691,7 +8691,7 @@ export class OrderPricingOptions {
     /**
      * The option to determine whether or not pricing rule-based discounts are automatically applied to an order.
      */
-    auto_apply_discounts?: boolean;
+    auto_apply_discounts?: boolean | undefined;
 }
 
 /**
@@ -8702,12 +8702,12 @@ export class OrderQuantityUnit {
     /**
      * A `MeasurementUnit` that represents the unit of measure for the quantity.
      */
-    measurement_unit?: MeasurementUnit;
+    measurement_unit?: MeasurementUnit | undefined;
     /**
      * For non-integer quantities, represents the number of digits after the decimal point that are recorded for this quantity.
      * For example, a precision of 1 allows quantities like "1.0" and "1.1", but not "1.01". Min: 0. Max: 5.
      */
-    precision?: number;
+    precision?: number | undefined;
 }
 
 /**
@@ -8717,38 +8717,38 @@ export class OrderReturn {
     /**
      * Unique ID that identifies the return only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * Order which contains the original sale of these returned line items. This will be unset for unlinked returns.
      */
-    source_order_id?: string;
+    source_order_id?: string | undefined;
     /**
      * Collection of line items which are being returned.
      */
-    return_line_items?: Array<OrderReturnLineItem>;
+    return_line_items?: Array<OrderReturnLineItem> | undefined;
     /**
      * Collection of service charges which are being returned.
      */
-    return_service_charges?: Array<OrderReturnServiceCharge>;
+    return_service_charges?: Array<OrderReturnServiceCharge> | undefined;
     /**
      * Collection of references to taxes being returned for an order, including the total applied tax amount to be returned.
      * The taxes must reference a top-level tax ID from the source order.
      */
-    return_taxes?: Array<OrderReturnTax>;
+    return_taxes?: Array<OrderReturnTax> | undefined;
     /**
      * Collection of references to discounts being returned for an order, including the total applied discount amount to be returned.
      * The discounts must reference a top-level discount ID from the source order.
      */
-    return_discounts?: Array<OrderReturnDiscount>;
+    return_discounts?: Array<OrderReturnDiscount> | undefined;
     /**
      * A positive or negative rounding adjustment to the total value being returned. Commonly used to apply Cash Rounding
      * when the minimum unit of account is smaller than the lowest physical denomination of currency.
      */
-    rounding_adjustment?: OrderRoundingAdjustment;
+    rounding_adjustment?: OrderRoundingAdjustment | undefined;
     /**
      * Aggregate monetary value being returned by this Return entry.
      */
-    return_amounts?: OrderMoneyAmounts;
+    return_amounts?: OrderMoneyAmounts | undefined;
 }
 
 /**
@@ -8760,45 +8760,45 @@ export class OrderReturnDiscount {
     /**
      * Unique ID that identifies the return discount only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * `uid` of the Discount from the Order which contains the original application of this discount.
      */
-    source_discount_uid?: string;
+    source_discount_uid?: string | undefined;
     /**
      * The catalog object id referencing `CatalogDiscount`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The discount's name.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The type of the discount. If it is created by API, it would be either `FIXED_PERCENTAGE` or `FIXED_AMOUNT`.
      * Discounts that don't reference a catalog object ID must have a type of `FIXED_PERCENTAGE` or `FIXED_AMOUNT`.
      * See [OrderLineItemDiscountType](#type-orderlineitemdiscounttype) for possible values.
      */
-    type?: DiscountType;
+    type?: DiscountType | undefined;
     /**
      * The percentage of the tax, as a string representation of a decimal number. A value of `7.25` corresponds
      * to a percentage of 7.25%. `percentage` is not set for amount-based discounts.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * The total declared monetary amount of the discount. `amount_money` is not set for percentage-based discounts.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * The amount of discount actually applied to this line item. When an amount-based discount is at order-level,
      * this value is different from `amount_money` because the discount is distributed across the line items.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
     /**
      * Indicates the level at which the discount applies. This field is set by the server.
      * If set in a CreateOrder request, it will be ignored on write.
      * See [OrderLineItemDiscountScope](#type-orderlineitemdiscountscope) for possible values.
      */
-    scope?: DiscountApplicationScopeType;
+    scope?: DiscountApplicationScopeType | undefined;
 }
 
 /**
@@ -8808,15 +8808,15 @@ export class OrderReturnLineItem {
     /**
      * Unique identifier for this return line item entry.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * `uid` of the LineItem in the original sale Order.
      */
-    source_line_item_uid?: string;
+    source_line_item_uid?: string | undefined;
     /**
      * The name of the line item.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The quantity returned, formatted as a decimal number. For example: "3".
      * Line items with a `quantity_unit` can have non-integer quantities. For example: "1.70000".
@@ -8825,60 +8825,60 @@ export class OrderReturnLineItem {
     /**
      * The unit and precision that this return line item's quantity is measured in.
      */
-    quantity_unit?: OrderQuantityUnit;
+    quantity_unit?: OrderQuantityUnit | undefined;
     /**
      * The note of the returned line item.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * The `CatalogItemVariation` id applied to this returned line item.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The name of the variation applied to this returned line item.
      */
-    variation_name?: string;
+    variation_name?: string | undefined;
     /**
      * The `CatalogModifier`s applied to this line item.
      */
-    return_modifiers?: Array<OrderReturnLineItemModifier>;
+    return_modifiers?: Array<OrderReturnLineItemModifier> | undefined;
     /**
      * The list of references to `OrderReturnTax` entities applied to the returned line item.
      * Each `OrderLineItemAppliedTax` has a `tax_uid` that references the `uid` of a top-level `OrderReturnTax`
      * applied to the returned line item. On reads, the amount applied is populated.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax>;
+    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
     /**
      * The list of references to `OrderReturnDiscount` entities applied to the returned line item.
      * Each `OrderLineItemAppliedDiscount` has a `discount_uid` that references the `uid` of a top-level `OrderReturnDiscount`
      * applied to the returned line item. On reads, the amount applied is populated.
      */
-    applied_discounts?: Array<OrderLineItemAppliedDiscount>;
+    applied_discounts?: Array<OrderLineItemAppliedDiscount> | undefined;
     /**
      * The base price for a single unit of the line item.
      */
-    base_price_money?: Money;
+    base_price_money?: Money | undefined;
     /**
      * The total price of all item variations returned in this line item.
      * Calculated as `base_price_money` multiplied by `quantity`. Does not include modifiers.
      */
-    variation_total_price_money?: Money;
+    variation_total_price_money?: Money | undefined;
     /**
      * The gross return amount of money calculated as (item base price + modifiers price) * quantity.
      */
-    gross_return_money?: Money;
+    gross_return_money?: Money | undefined;
     /**
      * The total tax amount of money to return for the line item.
      */
-    total_tax_money?: Money;
+    total_tax_money?: Money | undefined;
     /**
      * The total discount amount of money to return for the line item.
      */
-    total_discount_money?: Money;
+    total_discount_money?: Money | undefined;
     /**
      * The total amount of money to return for this line item.
      */
-    total_money?: Money;
+    total_money?: Money | undefined;
 }
 
 /**
@@ -8888,29 +8888,29 @@ export class OrderReturnLineItemModifier {
     /**
      * Unique ID that identifies the return modifier only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * `uid` of the Modifier from the LineItem from the Order which contains the original sale of this line item modifier.
      */
-    source_modifier_uid?: string;
+    source_modifier_uid?: string | undefined;
     /**
      * The catalog object id referencing `CatalogModifier`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The name of the item modifier.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The base price for the modifier. `base_price_money` is required for ad hoc modifiers.
      * If both `catalog_object_id` and `base_price_money` are set, `base_price_money` will override the predefined `CatalogModifier` price.
      */
-    base_price_money?: Money;
+    base_price_money?: Money | undefined;
     /**
      * The total price of the item modifier for its line item.
      * This is the modifier's `base_price_money` multiplied by the line item's quantity.
      */
-    total_price_money?: Money;
+    total_price_money?: Money | undefined;
 }
 
 /**
@@ -8920,62 +8920,62 @@ export class OrderReturnServiceCharge {
     /**
      * Unique ID that identifies the return service charge only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * `uid` of the Service Charge from the Order containing the original charge of the service charge.
      * `source_service_charge_uid` is `null` for unlinked returns.
      */
-    source_service_charge_uid?: string;
+    source_service_charge_uid?: string | undefined;
     /**
      * The name of the service charge.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The catalog object ID of the associated `CatalogServiceCharge`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The percentage of the service charge, as a string representation of a decimal number.
      * For example, a value of "7.25" corresponds to a percentage of 7.25%.
      * Exactly one of `percentage` or `amount_money` should be set.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * The amount of a non-percentage based service charge. Exactly one of `percentage` or `amount_money` should be set.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * The amount of money applied to the order by the service charge, including any inclusive tax amounts, as calculated by Square.
      * - For fixed-amount service charges, `applied_money` is equal to `amount_money`.
      * - For percentage-based service charges, `applied_money` is the money calculated using the percentage.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
     /**
      * The total amount of money to collect for the service charge.
      * @note if an inclusive tax is applied to the service charge, `total_money` does not equal `applied_money`
      * plus `total_tax_money` since the inclusive tax amount will already be included in both `applied_money`
      * and `total_tax_money`.
      */
-    total_money?: Money;
+    total_money?: Money | undefined;
     /**
      * The total amount of tax money to collect for the service charge.
      */
-    total_tax_money?: Money;
+    total_tax_money?: Money | undefined;
     /**
      * The calculation phase after which to apply the service charge.
      * See [OrderServiceChargeCalculationPhase](#type-orderservicechargecalculationphase) for possible values.
      */
-    calculation_phase?: string;
+    calculation_phase?: string | undefined;
     /**
      * Indicates whether the surcharge can be taxed. Service charges calculated in the `TOTAL_PHASE` cannot be marked as taxable.
      */
-    taxable?: boolean;
+    taxable?: boolean | undefined;
     /**
      * The list of references to `OrderReturnTax` entities applied to the `OrderReturnServiceCharge`.
      * Each `OrderLineItemAppliedTax` has a `tax_uid` that references the `uid` of a top-level `OrderReturnTax` that
      * is being applied to the `OrderReturnServiceCharge`. On reads, the amount applied is populated.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax>;
+    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
 }
 
 /**
@@ -8987,40 +8987,40 @@ export class OrderReturnTax {
     /**
      * Unique ID that identifies the return tax only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * `uid` of the Tax from the Order which contains the original charge of this tax.
      */
-    source_tax_uid?: string;
+    source_tax_uid?: string | undefined;
     /**
      * The catalog object id referencing `CatalogTax`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The tax's name.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Indicates the calculation method used to apply the tax.
      * See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
      */
-    type?: TaxType;
+    type?: TaxType | undefined;
     /**
      * The percentage of the tax, as a string representation of a decimal number.
      * For example, a value of "7.25" corresponds to a percentage of 7.25%.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * The amount of the money applied by the tax in an order.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
     /**
      * Indicates the level at which the `OrderReturnTax` applies. For `ORDER` scoped taxes, Square generates references
      * in `applied_taxes` on all `OrderReturnLineItem`s. For `LINE_ITEM` scoped taxes, the tax will only apply to
      * `OrderReturnLineItem`s with references in their `applied_discounts` field.
      * See [OrderLineItemTaxScope](#type-orderlineitemtaxscope) for possible values.
      */
-    scope?: TaxApplicationScopeType;
+    scope?: TaxApplicationScopeType | undefined;
 }
 
 /**
@@ -9046,15 +9046,15 @@ export class OrderRoundingAdjustment {
     /**
      * Unique ID that identifies the rounding adjustment only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The name of the rounding adjustment from the original sale Order.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Actual rounding adjustment amount.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
 }
 
 /**
@@ -9064,50 +9064,50 @@ export class OrderServiceCharge {
     /**
      * Unique ID that identifies the service charge only within this order.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The name of the service charge.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The catalog object ID referencing the service charge `CatalogObject`.
      */
-    catalog_object_id?: string;
+    catalog_object_id?: string | undefined;
     /**
      * The service charge percentage as a string representation of a decimal number.
      * For example, "7.25" indicates a service charge of 7.25%. Exactly 1 of `percentage` or `amount_money` should be set.
      */
-    percentage?: string;
+    percentage?: string | undefined;
     /**
      * The amount of a non-percentage based service charge. Exactly one of `percentage` or `amount_money` should be set.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * The amount of money applied to the order by the service charge, including any inclusive tax amounts, as calculated by Square.
      * - For fixed-amount service charges, `applied_money` is equal to `amount_money`.
      * - For percentage-based service charges, `applied_money` is the money calculated using the percentage.
      */
-    applied_money?: Money;
+    applied_money?: Money | undefined;
     /**
      * The total amount of money to collect for the service charge.
      * @note if an inclusive tax is applied to the service charge, `total_money` __does not__ equal `applied_money` plus
      * `total_tax_money` since the inclusive tax amount will already be included in both `applied_money` and `total_tax_money`.
      */
-    total_money?: Money;
+    total_money?: Money | undefined;
     /**
      * The total amount of tax money to collect for the service charge.
      */
-    total_tax_money?: Money;
+    total_tax_money?: Money | undefined;
     /**
      * The calculation phase at which to apply the service charge.
      * See [OrderServiceChargeCalculationPhase](#type-orderservicechargecalculationphase) for possible values.
      */
-    calculation_phase?: string;
+    calculation_phase?: string | undefined;
     /**
      * Indicates whether the service charge can be taxed. If set to `true`, order-level taxes automatically apply to
      * the service charge. Note that service charges calculated in the `TOTAL_PHASE` cannot be marked as taxable.
      */
-    taxable?: boolean;
+    taxable?: boolean | undefined;
     /**
      * The list of references to taxes applied to this service charge.
      * Each `OrderLineItemAppliedTax` has a `tax_uid` that references the `uid` of a top-level `OrderLineItemTax` that
@@ -9117,7 +9117,7 @@ export class OrderServiceCharge {
      * any taxable service charge. Taxable service charges have the `taxable` field set to true and calculated in
      * the `SUBTOTAL_PHASE`. To change the amount of a tax, modify the referenced top-level tax.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax>;
+    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
     /**
      * Application-defined data attached to this service charge. Metadata fields are intended to store descriptive
      * references or associations with an entity in another system or store brief information about the object. Square
@@ -9129,7 +9129,7 @@ export class OrderServiceCharge {
      * Entries written by applications are private and can only be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: Record<string, string>;
+    metadata?: Record<string, string> | undefined;
 }
 
 /**
@@ -9146,7 +9146,7 @@ export class OrderSource {
      * The name used to identify the place (physical or digital) that an order originates.
      * If unset, the name defaults to the name of the application that created the order.
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 /**
@@ -9158,36 +9158,36 @@ export class OrderUpdated {
     /**
      * The order's unique ID.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * Version number which is incremented each time an update is committed to the order.
      * Orders that were not created through the API will not include a version and thus cannot be updated.
      * [Read more about working with versions](https://developer.squareup.com/docs/docs/orders-api/manage-orders#update-orders).
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The ID of the merchant location this order is associated with.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The state of the order. See [OrderState](#type-orderstate) for possible values
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * Timestamp for when the order was created in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Timestamp for when the order was last updated in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 export class OrderUpdatedObject {
     /**
      * Information about the updated order.
      */
-    order_updated?: OrderUpdated;
+    order_updated?: OrderUpdated | undefined;
 }
 
 /**
@@ -9204,11 +9204,11 @@ export class PayOrderRequest {
     /**
      * The version of the order being paid. If not supplied, the latest version will be paid.
      */
-    order_version?: number;
+    order_version?: number | undefined;
     /**
      * The IDs of the `payments` to collect. The payment total must match the order total.
      */
-    payment_ids?: Array<string>;
+    payment_ids?: Array<string> | undefined;
 }
 
 /**
@@ -9218,11 +9218,11 @@ export class PayOrderResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The paid, updated `order`.
      */
-    order?: Order;
+    order?: Order | undefined;
 }
 
 /**
@@ -9232,51 +9232,51 @@ export class Payment {
     /**
      * Unique ID for the payment.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * Timestamp of when the payment was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Timestamp of when the payment was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * The amount of money processed for this payment, not including `tip_money`. Specified in the smallest denomination
      * of the applicable currency. For example, US dollar amounts are specified in cents. For more information,
      * see [Working with monetary amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts).
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * The amount designated as a tip. Specified in the smallest denomination of the applicable currency.
      * For example, US dollar amounts are specified in cents.
      */
-    tip_money?: Money;
+    tip_money?: Money | undefined;
     /**
      * The total money for the payment, including `amount_money` and `tip_money`.
      * Specified in the smallest denomination of the applicable currency. For example, US dollar amounts are specified in cents.
      */
-    total_money?: Money;
+    total_money?: Money | undefined;
     /**
      * The amount of money the developer is taking as a fee for facilitating the payment on behalf of the seller.
      * Specified in the smallest denomination of the applicable currency. For example, US dollar amounts are specified in cents.
      * For more information, see [Take Payments and Collect Fees](https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees).
      * Cannot be more than 90% of the `total_money` value.
      */
-    app_fee_money?: Money;
+    app_fee_money?: Money | undefined;
     /**
      * Processing fees and fee adjustments assessed by Square on this payment.
      */
-    processing_fee?: Array<ProcessingFee>;
+    processing_fee?: Array<ProcessingFee> | undefined;
     /**
      * Total amount of the payment refunded to-date. Specified in the smallest denomination of the applicable currency.
      * For example, US dollar amounts are specified in cents.
      */
-    refunded_money?: Money;
+    refunded_money?: Money | undefined;
     /**
      * Indicates whether the payment is `APPROVED`, `COMPLETED`, `CANCELED`, or `FAILED`.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * The duration of time after the payment's creation when Square automatically applies the `delay_action` to the payment.
      * This automatic `delay_action` applies only to payments that don't reach a terminal state (COMPLETED, CANCELED, or FAILED)
@@ -9286,80 +9286,80 @@ export class Payment {
      *  - Card Present payments: "PT36H" (36 hours) from the creation time.
      *  - Card Not Present payments: "P7D" (7 days) from the creation time.
      */
-    delay_duration?: string;
+    delay_duration?: string | undefined;
     /**
      * The action to be applied to the payment when the `delay_duration` has elapsed. This field is read only.
      * Current values include: `CANCEL`.
      */
-    delay_action?: string;
+    delay_action?: string | undefined;
     /**
      * Read only timestamp of when the `delay_action` will automatically be applied, in RFC 3339 format.
      * Note that this field is calculated by summing the payment's `delay_duration` and `created_at` fields.
      * The `created_at` field is generated by Square and may not exactly match the time on your local machine.
      */
-    delayed_until?: string;
+    delayed_until?: string | undefined;
     /**
      * The source type for this payment. Current values include: `CARD`.
      */
-    source_type?: string;
+    source_type?: string | undefined;
     /**
      * Non-confidential details about the source. Only populated if the `source_type` is `CARD`.
      */
-    card_details?: CardPaymentDetails;
+    card_details?: CardPaymentDetails | undefined;
     /**
      * ID of the location associated with the payment.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * ID of the order associated with this payment.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * An optional ID that associates this payment with an entity in another system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * The `Customer` ID of the customer associated with the payment.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * An optional ID of the employee associated with taking this payment.
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
     /**
      * List of `refund_id`s identifying refunds for this payment.
      */
-    refund_ids?: Array<string>;
+    refund_ids?: Array<string> | undefined;
     /**
      * The buyer's e-mail address.
      */
-    buyer_email_address?: string;
+    buyer_email_address?: string | undefined;
     /**
      * The buyer's billing address.
      */
-    billing_address?: Address;
+    billing_address?: Address | undefined;
     /**
      * The buyer's shipping address.
      */
-    shipping_address?: Address;
+    shipping_address?: Address | undefined;
     /**
      * An optional note to include when creating a payment.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * Additional payment information that gets added on the customer's card statement as part of the statement description.
      * Note that the `statement_description_identifier` may get truncated on the statement description to fit the required
      * information including the Square identifier (SQ *) and name of the merchant taking the payment.
      */
-    statement_description_identifier?: string;
+    statement_description_identifier?: string | undefined;
     /**
      * The payment's receipt number. The field will be missing if a payment is CANCELED.
      */
-    receipt_number?: string;
+    receipt_number?: string | undefined;
     /**
      * The URL for the payment's receipt. The field will only be populated for COMPLETED payments.
      */
-    receipt_url?: string;
+    receipt_url?: string | undefined;
 }
 
 export class PaymentOptions {
@@ -9367,7 +9367,7 @@ export class PaymentOptions {
      * Indicates whether the Payment objects created from this `TerminalCheckout` will automatically be `COMPLETED`
      * or left in an `APPROVED` state for later modification.
      */
-    autocomplete?: boolean;
+    autocomplete?: boolean | undefined;
 }
 
 /**
@@ -9389,7 +9389,7 @@ export class PaymentRefund {
     /**
      * Location ID associated with the payment this refund is attached to.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The amount of money refunded, specified in the smallest denomination of the applicable currency.
      * For example, US dollar amounts are specified in cents.
@@ -9400,31 +9400,31 @@ export class PaymentRefund {
      * denomination of the applicable currency. For example, US dollar amounts are specified in cents.
      * See [Working with monetary amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for details.
      */
-    app_fee_money?: Money;
+    app_fee_money?: Money | undefined;
     /**
      * Processing fees and fee adjustments assessed by Square on this refund.
      */
-    processing_fee?: Array<ProcessingFee>;
+    processing_fee?: Array<ProcessingFee> | undefined;
     /**
      * The ID of the payment assocated with this refund.
      */
-    payment_id?: string;
+    payment_id?: string | undefined;
     /**
      * The ID of the order associated with the refund.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * The reason for the refund.
      */
-    reason?: string;
+    reason?: string | undefined;
     /**
      * Timestamp of when the refund was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * Timestamp of when the refund was last updated, in RFC 3339 format.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -9434,16 +9434,16 @@ export class ProcessingFee {
     /**
      * Timestamp of when the fee takes effect, in RFC 3339 format.
      */
-    effective_at?: string;
+    effective_at?: string | undefined;
     /**
      * The type of fee assessed or adjusted. Can be one of: `INITIAL`, `ADJUSTMENT`.
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * The fee amount assessed or adjusted by Square. May be negative.
      * Positive values represent funds being assessed, while negative values represent funds being returned.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
 }
 
 /**
@@ -9466,7 +9466,7 @@ export class PublishInvoiceRequest {
      * If you do not provide `idempotency_key` (or provide an empty string as the value), the endpoint  treats each request as independent.
      * For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
 }
 
 /**
@@ -9476,11 +9476,11 @@ export class PublishInvoiceResponse {
     /**
      * The published invoice.
      */
-    invoice?: Invoice;
+    invoice?: Invoice | undefined;
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -9490,11 +9490,11 @@ export class Range {
     /**
      * The lower bound of the number range.
      */
-    min?: string;
+    min?: string | undefined;
     /**
      * The upper bound of the number range.
      */
-    max?: string;
+    max?: string | undefined;
 }
 
 /**
@@ -9518,11 +9518,11 @@ export class RedeemLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The `LoyaltyEvent` for redeeming the reward.
      */
-    event?: LoyaltyEvent;
+    event?: LoyaltyEvent | undefined;
 }
 
 /**
@@ -9548,7 +9548,7 @@ export class Refund {
     /**
      * The timestamp for when the refund was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The reason for the refund being issued.
      */
@@ -9565,12 +9565,12 @@ export class Refund {
     /**
      * The amount of Square processing fee money refunded to the *merchant*.
      */
-    processing_fee_money?: Money;
+    processing_fee_money?: Money | undefined;
     /**
      * Additional recipients (other than the merchant) receiving a portion of this refund.
      * For example, fees assessed on a refund of a purchase by a third party integration.
      */
-    additional_recipients?: Array<AdditionalRecipient>;
+    additional_recipients?: Array<AdditionalRecipient> | undefined;
 }
 
 /**
@@ -9598,7 +9598,7 @@ export class RefundPaymentRequest {
      * also included when taking the payment. This is part of the application fee scenario the API supports.
      * For more information, see [Collect Fees](https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees).
      */
-    app_fee_money?: Money;
+    app_fee_money?: Money | undefined;
     /**
      * Unique ID of the payment being refunded.
      */
@@ -9606,7 +9606,7 @@ export class RefundPaymentRequest {
     /**
      * A description of the reason for the refund.
      */
-    reason?: string;
+    reason?: string | undefined;
 }
 
 /**
@@ -9617,11 +9617,11 @@ export class RefundPaymentResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The successfully created `PaymentRefund`.
      */
-    refund?: PaymentRefund;
+    refund?: PaymentRefund | undefined;
 }
 
 /**
@@ -9647,11 +9647,11 @@ export class RegisterDomainResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * Status of the domain registration. See `RegisterDomainResponseStatus` for possible values.
      */
-    status?: 'PENDING' | 'VERIFIED';
+    status?: 'PENDING' | 'VERIFIED' | undefined;
 }
 
 /**
@@ -9671,7 +9671,7 @@ export class RemoveDisputeEvidenceResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -9686,14 +9686,14 @@ export class RemoveGroupFromCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class RenewTokenRequest {
     /**
      * The token you want to renew.
      */
-    access_token?: string;
+    access_token?: string | undefined;
 }
 
 export class RenewTokenResponse {
@@ -9702,31 +9702,31 @@ export class RenewTokenResponse {
      * You provide this token in a header with every request to Connect API endpoints.
      * See [Request and response headers](https://developer.squareup.com/docs/api/connect/v2/#requestandresponseheaders) for the format of this header.
      */
-    access_token?: string;
+    access_token?: string | undefined;
     /**
      * This value is always _bearer_.
      */
-    token_type?: string;
+    token_type?: string | undefined;
     /**
      * The date when access_token expires, in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
      */
-    expires_at?: string;
+    expires_at?: string | undefined;
     /**
      * The ID of the authorizing merchant's business.
      */
-    merchant_id?: string;
+    merchant_id?: string | undefined;
     /**
      * @deprecated
      * The ID of the merchant subscription associated with the authorization. Only present if the merchant signed up for
      * a subscription during authorization.
      */
-    subscription_id?: string;
+    subscription_id?: string | undefined;
     /**
      * @deprecated
      * The ID of the subscription plan the merchant signed up for. Only present if the merchant signed up for a
      * subscription during authorization.
      */
-    plan_id?: string;
+    plan_id?: string | undefined;
 }
 
 export class RetrieveCashDrawerShiftRequest {
@@ -9740,11 +9740,11 @@ export class RetrieveCashDrawerShiftResponse {
     /**
      * The cash drawer shift queried for.
      */
-    cash_drawer_shift?: CashDrawerShift;
+    cash_drawer_shift?: CashDrawerShift | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class RetrieveCatalogObjectRequest {
@@ -9755,22 +9755,22 @@ export class RetrieveCatalogObjectRequest {
      *  - If the `object` field of the response contains a `CatalogItemVariation`, its parent `CatalogItem` will be returned
      *     in the `related_objects` field of the response.  Default value: `false`
      */
-    include_related_objects?: boolean;
+    include_related_objects?: boolean | undefined;
 }
 
 export class RetrieveCatalogObjectResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The `CatalogObject`s returned.
      */
-    object?: CatalogObject;
+    object?: CatalogObject | undefined;
     /**
      * A list of `CatalogObject`s referenced by the object in the `object` field.
      */
-    related_objects?: Array<CatalogObject>;
+    related_objects?: Array<CatalogObject> | undefined;
 }
 
 /**
@@ -9786,11 +9786,11 @@ export class RetrieveCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The retrieved customer group.
      */
-    group?: CustomerGroup;
+    group?: CustomerGroup | undefined;
 }
 
 /**
@@ -9806,11 +9806,11 @@ export class RetrieveCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested customer.
      */
-    customer?: Customer;
+    customer?: Customer | undefined;
 }
 
 /**
@@ -9826,11 +9826,11 @@ export class RetrieveCustomerSegmentResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The retrieved customer segment.
      */
-    segment?: CustomerSegment;
+    segment?: CustomerSegment | undefined;
 }
 
 /**
@@ -9845,11 +9845,11 @@ export class RetrieveDisputeEvidenceResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * Metadata about the dispute evidence file.
      */
-    evidence?: DisputeEvidence;
+    evidence?: DisputeEvidence | undefined;
 }
 
 /**
@@ -9864,11 +9864,11 @@ export class RetrieveDisputeResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * Details about the requested `Dispute`.
      */
-    dispute?: Dispute;
+    dispute?: Dispute | undefined;
 }
 
 /**
@@ -9884,11 +9884,11 @@ export class RetrieveEmployeeResponse {
     /**
      * The response object.
      */
-    employee?: Employee;
+    employee?: Employee | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class RetrieveInventoryAdjustmentRequest {}
@@ -9897,69 +9897,69 @@ export class RetrieveInventoryAdjustmentResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `InventoryAdjustment`.
      */
-    adjustment?: InventoryAdjustment;
+    adjustment?: InventoryAdjustment | undefined;
 }
 
 export class RetrieveInventoryChangesRequest {
     /**
      * The `Location` IDs to look up as a comma-separated list. An empty list queries all locations.
      */
-    location_ids?: string;
+    location_ids?: string | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class RetrieveInventoryChangesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The set of inventory changes for the requested object and locations.
      */
-    changes?: Array<InventoryChange>;
+    changes?: Array<InventoryChange> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class RetrieveInventoryCountRequest {
     /**
      * The `Location` IDs to look up as a comma-separated list. An empty list queries all locations.
      */
-    location_ids?: string;
+    location_ids?: string | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
      * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class RetrieveInventoryCountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The current calculated inventory counts for the requested object and locations.
      */
-    counts?: Array<InventoryCount>;
+    counts?: Array<InventoryCount> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class RetrieveInventoryPhysicalCountRequest {}
@@ -9968,11 +9968,11 @@ export class RetrieveInventoryPhysicalCountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `InventoryPhysicalCount`.
      */
-    count?: InventoryPhysicalCount;
+    count?: InventoryPhysicalCount | undefined;
 }
 
 /**
@@ -9987,11 +9987,11 @@ export class RetrieveLocationResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested location.
      */
-    location?: Location;
+    location?: Location | undefined;
 }
 
 /**
@@ -10006,11 +10006,11 @@ export class RetrieveLoyaltyAccountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The loyalty account.
      */
-    loyalty_account?: LoyaltyAccount;
+    loyalty_account?: LoyaltyAccount | undefined;
 }
 
 /**
@@ -10025,11 +10025,11 @@ export class RetrieveLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The loyalty reward retrieved.
      */
-    reward?: LoyaltyReward;
+    reward?: LoyaltyReward | undefined;
 }
 
 /**
@@ -10044,11 +10044,11 @@ export class RetrieveMerchantResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested `Merchant` object.
      */
-    merchant?: Merchant;
+    merchant?: Merchant | undefined;
 }
 
 export class RetrieveOrderRequest {}
@@ -10057,11 +10057,11 @@ export class RetrieveOrderResponse {
     /**
      * The requested order.
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -10076,11 +10076,11 @@ export class RetrieveSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The subscription retrieved.
      */
-    subscription?: Subscription;
+    subscription?: Subscription | undefined;
 }
 
 /**
@@ -10095,11 +10095,11 @@ export class RetrieveTeamMemberResponse {
     /**
      * The successfully retrieved `TeamMember` object.
      */
-    team_member?: TeamMember;
+    team_member?: TeamMember | undefined;
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -10115,11 +10115,11 @@ export class RetrieveTransactionResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested transaction.
      */
-    transaction?: Transaction;
+    transaction?: Transaction | undefined;
 }
 
 /**
@@ -10134,39 +10134,39 @@ export class RetrieveWageSettingResponse {
     /**
      * The successfully retrieved `WageSetting` object.
      */
-    wage_setting?: WageSetting;
+    wage_setting?: WageSetting | undefined;
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class RevokeTokenRequest {
     /**
      * The Square issued ID for your application, available from the [application dashboard](https://connect.squareup.com/apps).
      */
-    client_id?: string;
+    client_id?: string | undefined;
     /**
      * The access token of the merchant whose token you want to revoke.
      * Do not provide a value for merchant_id if you provide this parameter.
      */
-    access_token?: string;
+    access_token?: string | undefined;
     /**
      * The ID of the merchant whose token you want to revoke.
      * Do not provide a value for access_token if you provide this parameter.
      */
-    merchant_id?: string;
+    merchant_id?: string | undefined;
     /**
      * If `true`, terminate the given single access token, but do not terminate the entire authorization. Default: `false`
      */
-    revoke_only_access_token?: boolean;
+    revoke_only_access_token?: boolean | undefined;
 }
 
 export class RevokeTokenResponse {
     /**
      * If the request is successful, this is true.
      */
-    success?: boolean;
+    success?: boolean | undefined;
 }
 
 /**
@@ -10177,43 +10177,43 @@ export class SearchCatalogItemsRequest {
      * The text filter expression to return items or item variations containing specified text in the `name`, `description`,
      * or `abbreviation` attribute value of an item, or in the `name`, `sku`, or `upc` attribute value of an item variation.
      */
-    text_filter?: string;
+    text_filter?: string | undefined;
     /**
      * The category id query expression to return items containing the specified category IDs.
      */
-    category_ids?: Array<string>;
+    category_ids?: Array<string> | undefined;
     /**
      * The stock-level query expression to return item variations with the specified stock levels.
      * See [SearchCatalogItemsRequestStockLevel](#type-searchcatalogitemsrequeststocklevel) for possible values.
      */
-    stock_levels?: Array<string>;
+    stock_levels?: Array<string> | undefined;
     /**
      * The enabled-location query expression to return items and item variations having specified enabled locations.
      */
-    enabled_location_ids?: Array<string>;
+    enabled_location_ids?: Array<string> | undefined;
     /**
      * The pagination token, returned in the previous response, used to fetch the next batch of pending results.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The maximum number of results to return per page. The default value is 100.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * The order to sort the results by item names. The default sort order is ascending (`ASC`).
      * See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: string;
+    sort_order?: string | undefined;
     /**
      * The product types query expression to return items or item variations having the specified product types.
      * See [CatalogItemProductType](#type-catalogitemproducttype) for possible values.
      */
-    product_types?: Array<string>;
+    product_types?: Array<string> | undefined;
     /**
      * The customer-attribute filter to return items or item variations matching the specified custom attribute expressions.
      * A maximum number of 10 custom attribute expressions are supported in a single call to the `SearchCatalogItems` endpoint.
      */
-    custom_attribute_filters?: Array<CustomAttributeFilter>;
+    custom_attribute_filters?: Array<CustomAttributeFilter> | undefined;
 }
 
 /**
@@ -10228,19 +10228,19 @@ export class SearchCatalogItemsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * Returned items matching the specified query expressions.
      */
-    items?: Array<CatalogObject>;
+    items?: Array<CatalogObject> | undefined;
     /**
      * Pagination token used in the next request to return more of the search result.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Ids of returned item variations matching the specified query expression.
      */
-    matched_variation_ids?: Array<string>;
+    matched_variation_ids?: Array<string> | undefined;
 }
 
 export class SearchCatalogObjectsRequest {
@@ -10248,17 +10248,17 @@ export class SearchCatalogObjectsRequest {
      * The pagination cursor returned in the previous response. Leave unset for an initial request.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The desired set of object types to appear in the search results.
      * See [CatalogObjectType](#type-catalogobjecttype) for possible values
      */
-    object_types?: Array<ObjectType>;
+    object_types?: Array<ObjectType> | undefined;
     /**
      * If `true`, deleted objects will be included in the results.
      * Deleted objects will have their `is_deleted` field set to `true`.
      */
-    include_deleted_objects?: boolean;
+    include_deleted_objects?: boolean | undefined;
     /**
      * If `true`, the response will include additional objects that are related to the requested object, as follows:
      *  - If a CatalogItem is returned in the object field of the response, its associated CatalogCategory, CatalogTax
@@ -10266,48 +10266,48 @@ export class SearchCatalogObjectsRequest {
      *  - If a CatalogItemVariation is returned in the object field of the response, its parent CatalogItem will be
      *  included in the `related_objects` field of the response.
      */
-    include_related_objects?: boolean;
+    include_related_objects?: boolean | undefined;
     /**
      * Return objects modified after this [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates),
      * in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`. The timestamp is exclusive - objects with a timestamp equal
      * to `begin_time` will not be included in the response.
      */
-    begin_time?: string;
+    begin_time?: string | undefined;
     /**
      * A query to be used to filter or sort the results. If no query is specified, the entire catalog will be returned.
      */
-    query?: CatalogQuery;
+    query?: CatalogQuery | undefined;
     /**
      * A limit on the number of results to be returned in a single page.
      * The limit is advisory - the implementation may return more or fewer results.
      * If the supplied limit is negative, zero, or is higher than the maximum limit of 1,000, it will be ignored.
      */
-    limit?: number;
+    limit?: number | undefined;
 }
 
 export class SearchCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The CatalogObjects returned.
      */
-    objects?: Array<CatalogObject>;
+    objects?: Array<CatalogObject> | undefined;
     /**
      * A list of CatalogObjects referenced by the objects in the `objects` field.
      */
-    related_objects?: Array<CatalogObject>;
+    related_objects?: Array<CatalogObject> | undefined;
     /**
      * When the associated product catalog was last updated.
      * Will match the value for `end_time` or `cursor` if either field is included in the `SearchCatalog` request.
      */
-    latest_time?: string;
+    latest_time?: string | undefined;
 }
 
 /**
@@ -10318,18 +10318,18 @@ export class SearchCustomersRequest {
      * Include the pagination cursor in subsequent calls to this endpoint to retrieve the next set of results associated with the original query.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * A limit on the number of results to be returned in a single page.
      * The limit is advisory - the implementation may return more or fewer results. If the supplied limit is negative,
      * zero, or is higher than the maximum limit of 100, it will be ignored.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Query customers based on the given conditions and sort order. Calling SearchCustomers without an explicit query
      * parameter will return all customers ordered alphabetically based on `given_name` and `family_name`.
      */
-    query?: CustomerQuery;
+    query?: CustomerQuery | undefined;
 }
 
 /**
@@ -10340,18 +10340,18 @@ export class SearchCustomersResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * An array of `Customer` objects that match a query.
      */
-    customers?: Array<Customer>;
+    customers?: Array<Customer> | undefined;
     /**
      * A pagination cursor that can be used during subsequent calls to SearchCustomers to retrieve the next set of results
      * associated with the original query. Pagination cursors are only present when a request succeeds and additional
      * results are available.
      * See the [Pagination guide](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10366,13 +10366,13 @@ export class SearchInvoicesRequest {
      * The maximum number of invoices to return (200 is the maximum `limit`).
      * If not provided, the server uses a default limit of 100 invoices.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this cursor to retrieve the next set of results for your original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10382,16 +10382,16 @@ export class SearchInvoicesResponse {
     /**
      * The list of invoices returned by the search.
      */
-    invoices?: Array<Invoice>;
+    invoices?: Array<Invoice> | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of invoices.
      * If empty, this is the final response. For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -10401,16 +10401,16 @@ export class SearchLoyaltyAccountsRequest {
     /**
      * The search criteria for the request.
      */
-    query?: SearchLoyaltyAccountsRequestLoyaltyAccountQuery;
+    query?: SearchLoyaltyAccountsRequestLoyaltyAccountQuery | undefined;
     /**
      * The maximum number of results to include in the response.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10420,11 +10420,11 @@ export class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
     /**
      * The set of mappings to use in the loyalty account search. This cannot be combined with `customer_ids`. Max: 30 mappings.
      */
-    mappings?: Array<LoyaltyAccountMapping>;
+    mappings?: Array<LoyaltyAccountMapping> | undefined;
     /**
      * The set of customer IDs to use in the loyalty account search. This cannot be combined with `mappings`. Max: 30 customer IDs.
      */
-    customer_ids?: Array<string>;
+    customer_ids?: Array<string> | undefined;
 }
 
 /**
@@ -10434,16 +10434,16 @@ export class SearchLoyaltyAccountsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The loyalty accounts that met the search criteria, in order of creation date.
      */
-    loyalty_accounts?: Array<LoyaltyAccount>;
+    loyalty_accounts?: Array<LoyaltyAccount> | undefined;
     /**
      * The pagination cursor to use in a subsequent request. If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10454,17 +10454,17 @@ export class SearchLoyaltyEventsRequest {
      * A set of one or more predefined query filters to apply when  searching for loyalty events.
      * The endpoint performs a logical AND to evaluate multiple filters and performs a logical OR on arrays that specifies multiple field values.
      */
-    query?: LoyaltyEventQuery;
+    query?: LoyaltyEventQuery | undefined;
     /**
      * The maximum number of results to include in the response. The last page might contain fewer events. The default is 30 events.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for your original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10474,16 +10474,16 @@ export class SearchLoyaltyEventsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The loyalty events that satisfy the search criteria.
      */
-    events?: Array<LoyaltyEvent>;
+    events?: Array<LoyaltyEvent> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10493,17 +10493,17 @@ export class SearchLoyaltyRewardsRequest {
     /**
      * The search criteria for the request. If empty, the endpoint retrieves all loyalty rewards in the loyalty program.
      */
-    query?: SearchLoyaltyRewardsRequestLoyaltyRewardQuery;
+    query?: SearchLoyaltyRewardsRequestLoyaltyRewardQuery | undefined;
     /**
      * The maximum number of results to return in the response.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10517,7 +10517,7 @@ export class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     /**
      * The status of the loyalty reward. See [LoyaltyRewardStatus](#type-loyaltyrewardstatus) for possible values.
      */
-    status?: string;
+    status?: string | undefined;
 }
 
 /**
@@ -10527,15 +10527,15 @@ export class SearchLoyaltyRewardsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The loyalty rewards that satisfy the search criteria. These are returned in descending order by `updated_at`.
      */
-    rewards?: Array<LoyaltyReward>;
+    rewards?: Array<LoyaltyReward> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10546,7 +10546,7 @@ export class SearchOrdersCustomerFilter {
     /**
      * List of customer IDs to filter by. Max: 10 customer IDs.
      */
-    customer_ids?: Array<string>;
+    customer_ids?: Array<string> | undefined;
 }
 
 /**
@@ -10565,17 +10565,17 @@ export class SearchOrdersDateTimeFilter {
      * Time range for filtering on the `created_at` timestamp.
      * If you use this value, you must also set the `sort_field` in the OrdersSearchSort object to `CREATED_AT`.
      */
-    created_at?: TimeRange;
+    created_at?: TimeRange | undefined;
     /**
      * Time range for filtering on the `updated_at` timestamp.
      * If you use this value, you must also set the `sort_field` in the OrdersSearchSort object to `UPDATED_AT`.
      */
-    updated_at?: TimeRange;
+    updated_at?: TimeRange | undefined;
     /**
      * Time range for filtering on the `closed_at` timestamp.
      * If you use this value, you must also set the `sort_field` in the OrdersSearchSort object to `CLOSED_AT`.
      */
-    closed_at?: TimeRange;
+    closed_at?: TimeRange | undefined;
 }
 
 /**
@@ -10585,25 +10585,25 @@ export class SearchOrdersFilter {
     /**
      * Filter by `OrderState`.
      */
-    state_filter?: SearchOrdersStateFilter;
+    state_filter?: SearchOrdersStateFilter | undefined;
     /**
      * Filter for results within a time range.
      * @note If you filter for orders by time range, you must set SearchOrdersSort to sort by the same field.
      * [Learn more about filtering orders by time range](https://developer.squareup.com/docs/orders-api/manage-orders#important-note-on-filtering-orders-by-time-range)
      */
-    date_time_filter?: SearchOrdersDateTimeFilter;
+    date_time_filter?: SearchOrdersDateTimeFilter | undefined;
     /**
      * Filter by fulfillment type or state.
      */
-    fulfillment_filter?: SearchOrdersFulfillmentFilter;
+    fulfillment_filter?: SearchOrdersFulfillmentFilter | undefined;
     /**
      * Filter by source of order.
      */
-    source_filter?: SearchOrdersSourceFilter;
+    source_filter?: SearchOrdersSourceFilter | undefined;
     /**
      * Filter by customers associated with the order.
      */
-    customer_filter?: SearchOrdersCustomerFilter;
+    customer_filter?: SearchOrdersCustomerFilter | undefined;
 }
 
 /**
@@ -10614,12 +10614,12 @@ export class SearchOrdersFulfillmentFilter {
      * List of `fulfillment types` to filter for. Will return orders if any of its fulfillments match any of the fulfillment
      * types listed in this field. See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values.
      */
-    fulfillment_types?: Array<FulfillmentType>;
+    fulfillment_types?: Array<FulfillmentType> | undefined;
     /**
      * List of `fulfillment states` to filter for. Will return orders if any of its fulfillments match any of the
      * fulfillment states listed in this field. See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
      */
-    fulfillment_states?: Array<FulfillmentStateType>;
+    fulfillment_states?: Array<FulfillmentStateType> | undefined;
 }
 
 /**
@@ -10629,11 +10629,11 @@ export class SearchOrdersQuery {
     /**
      * Criteria to filter results by.
      */
-    filter?: SearchOrdersFilter;
+    filter?: SearchOrdersFilter | undefined;
     /**
      * Criteria to sort results by.
      */
-    sort?: SearchOrdersSort;
+    sort?: SearchOrdersSort | undefined;
 }
 
 /**
@@ -10646,30 +10646,30 @@ export class SearchOrdersRequest {
      * The location IDs for the orders to query. All locations must belong to the same merchant.
      * Min: 1 location IDs. Max: 10 location IDs.
      */
-    location_ids?: Array<string>;
+    location_ids?: Array<string> | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for your original query.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Query conditions used to filter or sort the results. Note that when fetching additional pages using a cursor,
      * the query must be equal to the query used to fetch the first page of results.
      */
-    query?: SearchOrdersQuery;
+    query?: SearchOrdersQuery | undefined;
     /**
      * Maximum number of results to be returned in a single page.
      * It is possible to receive fewer results than the specified limit on a given page. Default: `500`.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Boolean that controls the format of the search results.
      *  - If `true`, SearchOrders will return `OrderEntry` objects.
      *  - If `false`, SearchOrders will return complete Order objects.
      *  Default: `false`.
      */
-    return_entries?: boolean;
+    return_entries?: boolean | undefined;
 }
 
 /**
@@ -10680,20 +10680,20 @@ export class SearchOrdersResponse {
     /**
      * List of `OrderEntries` that fit the query conditions. Populated only if `return_entries` was set to `true` in the request.
      */
-    order_entries?: Array<OrderEntry>;
+    order_entries?: Array<OrderEntry> | undefined;
     /**
      * List of `Order` objects that match query conditions. Populated only if `return_entries` in the request is set to `false`.
      */
-    orders?: Array<Order>;
+    orders?: Array<Order> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * `Errors` encountered during the search.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -10713,7 +10713,7 @@ export class SearchOrdersSort {
      * The chronological order in which results are returned. Defaults to `DESC`.
      * See [SortOrder](#type-sortorder) for possible values.
      */
-    sort_order?: SortOrderType;
+    sort_order?: SortOrderType | undefined;
 }
 
 /**
@@ -10729,7 +10729,7 @@ export class SearchOrdersSourceFilter {
      * Filters by `Source` `name`. Will return any orders with with a `source.name` that matches any of the listed source names.
      * Max: 10 source names.
      */
-    source_names?: Array<string>;
+    source_names?: Array<string> | undefined;
 }
 
 /**
@@ -10749,15 +10749,15 @@ export class SearchShiftsRequest {
     /**
      * Query filters.
      */
-    query?: ShiftQuery;
+    query?: ShiftQuery | undefined;
     /**
      * number of resources in a page (200 by default).
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * opaque cursor for fetching the next page.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10768,15 +10768,15 @@ export class SearchShiftsResponse {
     /**
      * Shifts.
      */
-    shifts?: Array<Shift>;
+    shifts?: Array<Shift> | undefined;
     /**
      * Opaque cursor for fetching the next page.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -10786,11 +10786,11 @@ export class SearchSubscriptionsFilter {
     /**
      * A filter to select subscriptions based on the customer.
      */
-    customer_ids?: Array<string>;
+    customer_ids?: Array<string> | undefined;
     /**
      * A filter to select subscriptions based the location.
      */
-    location_ids?: Array<string>;
+    location_ids?: Array<string> | undefined;
 }
 
 /**
@@ -10800,7 +10800,7 @@ export class SearchSubscriptionsQuery {
     /**
      * A list of filtering criteria.
      */
-    filter?: SearchSubscriptionsFilter;
+    filter?: SearchSubscriptionsFilter | undefined;
 }
 
 /**
@@ -10811,16 +10811,16 @@ export class SearchSubscriptionsRequest {
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of results for the original query.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The upper limit on the number of subscriptions to return in the response. Default: `200`.
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * Query subscriptions based on the given conditions and sort order.
      * Calling SearchSubscriptions without an explicit query parameter will return all subscriptions.
      */
-    query?: SearchSubscriptionsQuery;
+    query?: SearchSubscriptionsQuery | undefined;
 }
 
 /**
@@ -10830,17 +10830,17 @@ export class SearchSubscriptionsResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The search result.
      */
-    subscriptions?: Array<Subscription>;
+    subscriptions?: Array<Subscription> | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can  use in a subsequent request to fetch the next
      * set of subscriptions. If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10853,12 +10853,12 @@ export class SearchTeamMembersFilter {
     /**
      * When present, filter by team members assigned to the specified locations. When empty, include team members assigned to any location.
      */
-    'locationIds'?: Array<string>;
+    'locationIds'?: Array<string> | undefined;
     /**
      * When present, filter by team members who match the given status. When empty, include team members of all statuses.
      * See [TeamMemberStatus](#type-teammemberstatus) for possible values.
      */
-    status?: string;
+    status?: string | undefined;
 }
 
 /**
@@ -10868,7 +10868,7 @@ export class SearchTeamMembersQuery {
     /**
      * The options to filter by.
      */
-    filter?: SearchTeamMembersFilter;
+    filter?: SearchTeamMembersFilter | undefined;
 }
 
 /**
@@ -10878,16 +10878,16 @@ export class SearchTeamMembersRequest {
     /**
      * The query parameters.
      */
-    query?: SearchTeamMembersQuery;
+    query?: SearchTeamMembersQuery | undefined;
     /**
      * The maximum number of `TeamMember` objects in a page (25 by default).
      */
-    limit?: number;
+    limit?: number | undefined;
     /**
      * The opaque cursor for fetching the next page.
      * Read about [pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) with Square APIs for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10897,16 +10897,16 @@ export class SearchTeamMembersResponse {
     /**
      * The filtered list of `TeamMember` objects.
      */
-    team_members?: Array<TeamMember>;
+    team_members?: Array<TeamMember> | undefined;
     /**
      * The opaque cursor for fetching the next page.
      * Read about [pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) with Square APIs for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class SearchTerminalCheckoutsRequest {
@@ -10914,33 +10914,33 @@ export class SearchTerminalCheckoutsRequest {
      * Queries terminal checkouts based on given conditions and sort order.
      * Leaving this unset will return all checkouts with the default sort order.
      */
-    query?: TerminalCheckoutQuery;
+    query?: TerminalCheckoutQuery | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Limit the number of results returned for a single request.
      */
-    limit?: number;
+    limit?: number | undefined;
 }
 
 export class SearchTerminalCheckoutsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested search result of `TerminalCheckout`s.
      */
-    checkouts?: Array<TerminalCheckout>;
+    checkouts?: Array<TerminalCheckout> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 export class SearchTerminalRefundsRequest {
@@ -10948,32 +10948,32 @@ export class SearchTerminalRefundsRequest {
      * Query the terminal refunds based on given conditions and sort order. Calling `SearchTerminalRefunds` without
      * an explicitly query parameter will return all available refunds with the default sort order.
      */
-    query?: TerminalRefundQuery;
+    query?: TerminalRefundQuery | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for the original query.
      */
-    cursor?: string;
+    cursor?: string | undefined;
     /**
      * Limit the number of results returned for a single request.
      */
-    limit?: number;
+    limit?: number | undefined;
 }
 
 export class SearchTerminalRefundsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The requested search result of `TerminalRefund`s.
      */
-    refunds?: Array<TerminalRefund>;
+    refunds?: Array<TerminalRefund> | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
      */
-    cursor?: string;
+    cursor?: string | undefined;
 }
 
 /**
@@ -10984,20 +10984,20 @@ export class Shift {
     /**
      * UUID for this object.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use `team_member_id` instead
      */
-    employee_id?: string;
+    employee_id?: string | undefined;
     /**
      * The ID of the location this shift occurred at. Should be based on where the employee clocked in.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * Read-only convenience value that is calculated from the location based on `location_id`. Format: the IANA
      * Timezone Database identifier for the location timezone.
      */
-    timezone?: string;
+    timezone?: string | undefined;
     /**
      * RFC 3339; shifted to location timezone + offset. Precision up to the minute is respected; seconds are truncated.
      */
@@ -11005,37 +11005,37 @@ export class Shift {
     /**
      * RFC 3339; shifted to timezone + offset. Precision up to the minute is respected; seconds are truncated.
      */
-    end_at?: string;
+    end_at?: string | undefined;
     /**
      * Job and pay related information. If wage is not set on create, will default to a wage of zero money.
      * If title is not set on create, will default to the name of the role the employee is assigned to, if any.
      */
-    wage?: ShiftWage;
+    wage?: ShiftWage | undefined;
     /**
      * A list of any paid or unpaid breaks that were taken during this shift.
      */
-    breaks?: Array<ModelBreak>;
+    breaks?: Array<ModelBreak> | undefined;
     /**
      * Describes working state of the current `Shift`. See [ShiftStatus](#type-shiftstatus) for possible values.
      */
-    status?: 'OPEN' | 'CLOSED';
+    status?: 'OPEN' | 'CLOSED' | undefined;
     /**
      * Used for resolving concurrency issues; request will fail if version provided does not match server version at
      * time of request. If not provided, Square executes a blind write; potentially overwriting data from another write.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * A read-only timestamp in RFC 3339 format; presented in UTC.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format; presented in UTC.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * The ID of the team member this shift belongs to. Replaced `employee_id` at version \"2020-08-26\"
      */
-    team_member_id?: string;
+    team_member_id?: string | undefined;
 }
 
 /**
@@ -11050,23 +11050,23 @@ export class ShiftFilter {
     /**
      * Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use `team_member_ids` instead.
      */
-    employee_ids?: Array<string>;
+    employee_ids?: Array<string> | undefined;
     /**
      * Fetch a `Shift` instance by `Shift.status`. See [ShiftFilterStatus](#type-shiftfilterstatus) for possible values.
      */
-    status?: 'OPEN' | 'CLOSED';
+    status?: 'OPEN' | 'CLOSED' | undefined;
     /**
      * Fetch `Shift`s that start in the time range - Inclusive.
      */
-    start?: TimeRange;
+    start?: TimeRange | undefined;
     /**
      * Fetch the `Shift`s that end in the time range - Inclusive.
      */
-    end?: TimeRange;
+    end?: TimeRange | undefined;
     /**
      * Fetch the `Shift`s based on workday date range.
      */
-    workday?: ShiftWorkday;
+    workday?: ShiftWorkday | undefined;
     /**
      * Fetch shifts for the specified team members. Replaced `employee_ids` at version \"2020-08-26\"
      */
@@ -11085,11 +11085,11 @@ export class ShiftQuery {
     /**
      * Query filter options.
      */
-    filter?: ShiftFilter;
+    filter?: ShiftFilter | undefined;
     /**
      * Sort order details.
      */
-    sort?: ShiftSort;
+    sort?: ShiftSort | undefined;
 }
 
 /**
@@ -11099,11 +11099,11 @@ export class ShiftSort {
     /**
      * The field to sort on. See [ShiftSortField](#type-shiftsortfield) for possible values.
      */
-    field?: 'START_AT' | 'END_AT' | 'CREATED_AT' | 'UPDATED_AT';
+    field?: 'START_AT' | 'END_AT' | 'CREATED_AT' | 'UPDATED_AT' | undefined;
     /**
      * The order in which results are returned. Defaults to DESC. See [SortOrder](#type-sortorder) for possible values.
      */
-    order?: SortOrderType;
+    order?: SortOrderType | undefined;
 }
 
 /**
@@ -11123,11 +11123,11 @@ export class ShiftWage {
     /**
      * The name of the job performed during this shift. Square labor-reporting UIs may group shifts together by title.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Can be a custom-set hourly wage or the calculated effective hourly wage based on annual wage and hours worked per week.
      */
-    hourly_rate?: Money;
+    hourly_rate?: Money | undefined;
 }
 
 /**
@@ -11138,17 +11138,17 @@ export class ShiftWorkday {
     /**
      * Dates for fetching the shifts
      */
-    date_range?: DateRange;
+    date_range?: DateRange | undefined;
     /**
      * The strategy on which the dates are applied. See [ShiftWorkdayMatcher](#type-shiftworkdaymatcher) for possible values.
      */
-    match_shifts_by?: 'START_AT' | 'END_AT' | 'INTERSECTION';
+    match_shifts_by?: 'START_AT' | 'END_AT' | 'INTERSECTION' | undefined;
     /**
      * Location-specific timezones convert workdays to datetime filters.
      * Every location included in the query must have a timezone, or this field must be provided as a fallback.
      * Format: the IANA timezone database identifier for the relevant timezone.
      */
-    default_timezone?: string;
+    default_timezone?: string | undefined;
 }
 
 /**
@@ -11168,15 +11168,15 @@ export class SourceApplication {
     /**
      * Read-only `Product` type for the application. See [Product](#type-product) for possible values.
      */
-    product?: ProductSourceType;
+    product?: ProductSourceType | undefined;
     /**
      * Read-only Square ID assigned to the application. Only used for `Product` type `EXTERNAL_API`.
      */
-    application_id?: string;
+    application_id?: string | undefined;
     /**
      * Read-only display name assigned to the application (e.g. "Custom Application", "Square POS 4.74 for Android").
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 /**
@@ -11186,15 +11186,15 @@ export class StandardUnitDescription {
     /**
      * Identifies the measurement unit being described.
      */
-    unit?: MeasurementUnit;
+    unit?: MeasurementUnit | undefined;
     /**
      * UI display name of the measurement unit. For example, 'Pound'.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * UI display abbreviation for the measurement unit. For example, 'lb'.
      */
-    abbreviation?: string;
+    abbreviation?: string | undefined;
 }
 
 /**
@@ -11204,11 +11204,11 @@ export class StandardUnitDescriptionGroup {
     /**
      * List of standard (non-custom) measurement units in this description group.
      */
-    standard_unit_descriptions?: Array<StandardUnitDescription>;
+    standard_unit_descriptions?: Array<StandardUnitDescription> | undefined;
     /**
      * IETF language tag.
      */
-    language_code?: string;
+    language_code?: string | undefined;
 }
 
 /**
@@ -11223,11 +11223,11 @@ export class SubmitEvidenceResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The `Dispute` for which evidence was submitted.
      */
-    dispute?: Dispute;
+    dispute?: Dispute | undefined;
 }
 
 /**
@@ -11238,74 +11238,74 @@ export class Subscription {
     /**
      * The Square-assigned ID of the subscription.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The ID of the location associated with the subscription.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The ID of the associated `subscription plan`.
      */
-    plan_id?: string;
+    plan_id?: string | undefined;
     /**
      * The ID of the associated `customer` profile.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The start date of the subscription, in YYYY-MM-DD format (for example, 2013-01-15).
      */
-    start_date?: string;
+    start_date?: string | undefined;
     /**
      * The subscription cancellation date, in YYYY-MM-DD format (for example, 2013-01-15).
      * On this date, the subscription status changes to `CANCELED` and the subscription billing stops.
      * If you don't set this field, the subscription plan dictates if and  when subscription ends.
      * You cannot update this field, you can only clear it.
      */
-    canceled_date?: string;
+    canceled_date?: string | undefined;
     /**
      * The current status of the subscription. See [SubscriptionStatus](#type-subscriptionstatus) for possible values.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * The tax amount applied when billing the subscription.
      * The percentage is expressed in decimal form, using a `'.'` as the decimal separator and without a `'%'` sign.
      * For example, a value of `7.5` corresponds to 7.5%.
      */
-    tax_percentage?: string;
+    tax_percentage?: string | undefined;
     /**
      * The IDs of the `invoices` created for the  subscription, listed in order when the invoices were created (oldest invoices appear first).
      */
-    invoice_ids?: Array<string>;
+    invoice_ids?: Array<string> | undefined;
     /**
      * A custom price to apply for the subscription. If specified, it overrides the price configured by the subscription plan.
      */
-    price_override_money?: Money;
+    price_override_money?: Money | undefined;
     /**
      * The version of the object. When updating an object, the version supplied must match the version in the database,
      * otherwise the write will be rejected as conflicting.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The timestamp when the subscription was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The ID of the `customer](#type-customer) [card` that is charged for the subscription.
      */
-    card_id?: string;
+    card_id?: string | undefined;
     /**
      * The date up to which the customer is invoiced for the subscription, in YYYY-MM-DD format (for example, 2013-01-15).
      * After the invoice is paid for a given billing period, this date will be the last day of the billing period.
      * For example, suppose for the month of May a customer gets an invoice (or charged the card) on May 1.
      * For the monthly billing scenario, this date is then set to May 31.
      */
-    paid_until_date?: string;
+    paid_until_date?: string | undefined;
     /**
      * Timezone that will be used in date calculations for the subscription.
      * Defaults to the timezone of the location based on `location_id`.
      * Format: the IANA Timezone Database identifier for the location timezone (for example, `America/Los_Angeles`).
      */
-    timezone?: string;
+    timezone?: string | undefined;
 }
 
 /**
@@ -11348,7 +11348,7 @@ export class SubscriptionPhase {
     /**
      * The Square-assigned ID of the subscription phase. This field cannot be changed after a `SubscriptionPhase` is created.
      */
-    uid?: string;
+    uid?: string | undefined;
     /**
      * The billing cadence of the phase. For example, weekly or monthly.
      * This field cannot be changed after a `SubscriptionPhase` is created.
@@ -11359,7 +11359,7 @@ export class SubscriptionPhase {
      * The number of `cadence`s the phase lasts. If not set, the phase never ends. Only the last phase can be indefinite.
      * This field cannot be changed after a `SubscriptionPhase` is created.
      */
-    periods?: number;
+    periods?: number | undefined;
     /**
      * The amount to bill for each `cadence`.
      */
@@ -11368,7 +11368,7 @@ export class SubscriptionPhase {
      * The position this phase appears in the sequence of phases defined for the plan, indexed from 0.
      * This field cannot be changed after a `SubscriptionPhase` is created.
      */
-    ordinal?: number;
+    ordinal?: number | undefined;
 }
 
 /**
@@ -11393,50 +11393,50 @@ export class TeamMember {
     /**
      * The unique ID for the team member.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * A second ID used to associate the team member with an entity in another system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * Whether the team member is the owner of the Square account.
      */
-    is_owner?: boolean;
+    is_owner?: boolean | undefined;
     /**
      * Describes the status of the team member. See [TeamMemberStatus](#type-teammemberstatus) for possible values.
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * The given (i.e., first) name associated with the team member.
      */
-    given_name?: string;
+    given_name?: string | undefined;
     /**
      * The family (i.e., last) name associated with the team member.
      */
-    family_name?: string;
+    family_name?: string | undefined;
     /**
      * The email address associated with the team member.
      */
-    email_address?: string;
+    email_address?: string | undefined;
     /**
      * The team member's phone number in E.164 format.
      * Examples: +14155552671 - the country code is 1 for US +551155256325 - the country code is 55 for BR.
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * The timestamp in RFC 3339 format describing when the team member was created.
      * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp in RFC 3339 format describing when the team member was last updated.
      * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /**
      * Describes the team member's assigned locations.
      */
-    assigned_locations?: TeamMemberAssignedLocations;
+    assigned_locations?: TeamMemberAssignedLocations | undefined;
 }
 
 /**
@@ -11447,11 +11447,11 @@ export class TeamMemberAssignedLocations {
      * The current assignment type of the team member.
      * See [TeamMemberAssignedLocationsAssignmentType](#type-teammemberassignedlocationsassignmenttype) for possible values.
      */
-    assignment_type?: string;
+    assignment_type?: string | undefined;
     /**
      * The locations that the team member is assigned to.
      */
-    location_ids?: Array<string>;
+    location_ids?: Array<string> | undefined;
 }
 
 /**
@@ -11471,19 +11471,19 @@ export class TeamMemberWage {
     /**
      * UUID for this object.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The `Team Member` that this wage is assigned to.
      */
-    team_member_id?: string;
+    team_member_id?: string | undefined;
     /**
      * The job title that this wage relates to.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Can be a custom-set hourly wage or the calculated effective hourly wage based on annual wage and hours worked per week.
      */
-    hourly_rate?: Money;
+    hourly_rate?: Money | undefined;
 }
 
 /**
@@ -11493,42 +11493,42 @@ export class Tender {
     /**
      * The tender's unique ID.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The ID of the transaction's associated location.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The ID of the tender's associated transaction.
      */
-    transaction_id?: string;
+    transaction_id?: string | undefined;
     /**
      * The timestamp for when the tender was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * An optional note associated with the tender at the time of payment.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * The total amount of the tender, including `tip_money`. If the tender has a `payment_id`, the `total_money` of
      * the corresponding `Payment` will be equal to the `amount_money` of the tender.
      */
-    amount_money?: Money;
+    amount_money?: Money | undefined;
     /**
      * The tip's amount of the tender.
      */
-    tip_money?: Money;
+    tip_money?: Money | undefined;
     /**
      * The amount of any Square processing fees applied to the tender. This field is not immediately populated when a
      * new transaction is created. It is usually available after about ten seconds.
      */
-    processing_fee_money?: Money;
+    processing_fee_money?: Money | undefined;
     /**
      * If the tender is associated with a customer or represents a customer's card on file, this is the ID of the
      * associated customer.
      */
-    customer_id?: string;
+    customer_id?: string | undefined;
     /**
      * The type of tender, such as `CARD` or `CASH`. See [TenderType](#type-tendertype) for possible values.
      */
@@ -11536,20 +11536,20 @@ export class Tender {
     /**
      * The details of the card tender. This value is present only if the value of `type` is `CARD`.
      */
-    card_details?: TenderCardDetails;
+    card_details?: TenderCardDetails | undefined;
     /**
      * The details of the cash tender. This value is present only if the value of `type` is `CASH`.
      */
-    cash_details?: TenderCashDetails;
+    cash_details?: TenderCashDetails | undefined;
     /**
      * Additional recipients (other than the merchant) receiving a portion of this tender.
      * For example, fees assessed on the purchase by a third party integration.
      */
-    additional_recipients?: Array<AdditionalRecipient>;
+    additional_recipients?: Array<AdditionalRecipient> | undefined;
     /**
      * The ID of the `Payment` that corresponds to this tender. This value is only present for payments created with the v2 Payments API.
      */
-    payment_id?: string;
+    payment_id?: string | undefined;
 }
 
 /**
@@ -11561,16 +11561,16 @@ export class TenderCardDetails {
      * See `TenderCardDetailsStatus` for possible values.
      * See [TenderCardDetailsStatus](#type-tendercarddetailsstatus) for possible values.
      */
-    status?: 'AUTHORIZED' | 'CAPTURED' | 'VOIDED' | 'FAILED';
+    status?: 'AUTHORIZED' | 'CAPTURED' | 'VOIDED' | 'FAILED' | undefined;
     /**
      * The credit card's non-confidential details.
      */
-    card?: Card;
+    card?: Card | undefined;
     /**
      * The method used to enter the card's details for the transaction.
      * See [TenderCardDetailsEntryMethod](#type-tendercarddetailsentrymethod) for possible values.
      */
-    entry_method?: 'SWIPED' | 'KEYED' | 'EMV' | 'ON_FILE' | 'CONTACTLESS';
+    entry_method?: 'SWIPED' | 'KEYED' | 'EMV' | 'ON_FILE' | 'CONTACTLESS' | undefined;
 }
 
 /**
@@ -11590,11 +11590,11 @@ export class TenderCashDetails {
     /**
      * The total amount of cash provided by the buyer, before change is given.
      */
-    buyer_tendered_money?: Money;
+    buyer_tendered_money?: Money | undefined;
     /**
      * The amount of change returned to the buyer.
      */
-    change_back_money?: Money;
+    change_back_money?: Money | undefined;
 }
 
 /**
@@ -11606,7 +11606,7 @@ export class TerminalCheckout {
     /**
      * A unique ID for this `TerminalCheckout`
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The amount of money (including tax amount) that the Square Terminal device should try to collect.
      */
@@ -11615,11 +11615,11 @@ export class TerminalCheckout {
      * An optional user-defined reference ID which can be used to associate this `TerminalCheckout` to another entity in an external system.
      * For example, an order ID generated by a third-party shopping cart. Will also be associated with any payments used to complete the checkout.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * An optional note to associate with the checkout, as well any payments used to complete the checkout.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * Options to control the display and behavior of the Square Terminal device.
      */
@@ -11629,38 +11629,38 @@ export class TerminalCheckout {
      * TerminalCheckouts that are `PENDING` will be automatically `CANCELED` and have a cancellation reason of `TIMED\\_OUT`.
      * Default: 5 minutes from creation. Maximum: 5 minutes.
      */
-    deadline_duration?: string;
+    deadline_duration?: string | undefined;
     /**
      * The status of the `TerminalCheckout`. Options: `PENDING`, `IN\\_PROGRESS`, `CANCEL\\_REQUESTED`, `CANCELED`, `COMPLETED`
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * Present if the status is `CANCELED`. See [ActionCancelReason](#type-actioncancelreason) for possible values
      */
-    cancel_reason?: string;
+    cancel_reason?: string | undefined;
     /**
      * A list of ids for payments created by this `TerminalCheckout`.
      */
-    payment_ids?: Array<string>;
+    payment_ids?: Array<string> | undefined;
     /**
      * The time when the `TerminalCheckout` was created as an RFC 3339 timestamp.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The time when the `TerminalCheckout` was last updated as an RFC 3339 timestamp.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 export class TerminalCheckoutQuery {
     /**
      * Options for filtering returned `TerminalCheckout`s
      */
-    filter?: TerminalCheckoutQueryFilter;
+    filter?: TerminalCheckoutQueryFilter | undefined;
     /**
      * Option for sorting returned `TerminalCheckout`s
      */
-    sort?: TerminalCheckoutQuerySort;
+    sort?: TerminalCheckoutQuerySort | undefined;
 }
 
 export class TerminalCheckoutQueryFilter {
@@ -11668,33 +11668,33 @@ export class TerminalCheckoutQueryFilter {
      * `TerminalCheckout`s associated with a specific device.
      * If no device is specified then all `TerminalCheckout`s for the merchant will be displayed.
      */
-    device_id?: string;
+    device_id?: string | undefined;
     /**
      * Time range for the beginning of the reporting period. Inclusive. Default: The current time minus one day.
      */
-    created_at?: TimeRange;
+    created_at?: TimeRange | undefined;
     /**
      * Filtered results with the desired status of the `TerminalCheckout` Options: PENDING, IN\\_PROGRESS, CANCELED, COMPLETED
      */
-    status?: string;
+    status?: string | undefined;
 }
 
 export class TerminalCheckoutQuerySort {
     /**
      * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      */
-    sort_order?: string;
+    sort_order?: string | undefined;
 }
 
 export class TerminalRefund {
     /**
      * A unique ID for this `TerminalRefund`
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The reference to the payment refund created by completing this `TerminalRefund`.
      */
-    refund_id?: string;
+    refund_id?: string | undefined;
     /**
      * Unique ID of the payment being refunded.
      */
@@ -11702,7 +11702,7 @@ export class TerminalRefund {
     /**
      * The reference to the Square order id for the payment identified by the `payment_id`.
      */
-    order_id?: string;
+    order_id?: string | undefined;
     /**
      * The amount of money, inclusive of `tax_money`, that the `TerminalRefund` should return.
      * This value is limited to the amount taken in the original payment minus any completed or pending refunds.
@@ -11711,38 +11711,38 @@ export class TerminalRefund {
     /**
      * A description of the reason for the refund. Note: maximum 192 characters.
      */
-    reason?: string;
+    reason?: string | undefined;
     /**
      * The unique Id of the device intended for this `TerminalRefund`. The Id can be retrieved from /v2/devices api.
      */
-    device_id?: string;
+    device_id?: string | undefined;
     /**
      * The duration as an RFC 3339 duration, after which the refund will be automatically canceled.
      * TerminalRefunds that are `PENDING` will be automatically `CANCELED` and have a cancellation reason of `TIMED_OUT`
      * Default: 5 minutes from creation. Maximum: 5 minutes.
      */
-    deadline_duration?: string;
+    deadline_duration?: string | undefined;
     /**
      * The status of the `TerminalRefund`. Options: `PENDING`, `IN\\_PROGRESS`, `CANCELED`, `COMPLETED`
      */
-    status?: string;
+    status?: string | undefined;
     /**
      * Present if the status is `CANCELED`. See [ActionCancelReason](#type-actioncancelreason) for possible values.
      */
-    cancel_reason?: string;
+    cancel_reason?: string | undefined;
     /**
      * The time when the `TerminalRefund` was created as an RFC 3339 timestamp.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The time when the `TerminalRefund` was last updated as an RFC 3339 timestamp.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 export class TerminalRefundQuery {
-    filter?: TerminalRefundQueryFilter;
-    sort?: TerminalRefundQuerySort;
+    filter?: TerminalRefundQueryFilter | undefined;
+    sort?: TerminalRefundQuerySort | undefined;
 }
 
 export class TerminalRefundQueryFilter {
@@ -11750,23 +11750,23 @@ export class TerminalRefundQueryFilter {
      * `TerminalRefund`s associated with a specific device.
      * If no device is specified then all `TerminalRefund`s for the signed in account will be displayed.
      */
-    device_id?: string;
+    device_id?: string | undefined;
     /**
      * Timestamp for the beginning of the reporting period, in RFC 3339 format. Inclusive. Default: The current time minus one day.
      */
-    created_at?: TimeRange;
+    created_at?: TimeRange | undefined;
     /**
      * Filtered results with the desired status of the `TerminalRefund`
      * Options: `PENDING`, `IN\\_PROGRESS`, `CANCEL\\_REQUESTED`, `CANCELED`, `COMPLETED`
      */
-    status?: string;
+    status?: string | undefined;
 }
 
 export class TerminalRefundQuerySort {
     /**
      * The order in which results are listed. - `ASC` - oldest to newest - `DESC` - newest to oldest (default).
      */
-    sort_order?: string;
+    sort_order?: string | undefined;
 }
 
 /**
@@ -11778,27 +11778,27 @@ export class TimeRange {
     /**
      * A datetime value in RFC 3339 format indicating when the time range starts.
      */
-    start_at?: string;
+    start_at?: string | undefined;
     /**
      * A datetime value in RFC 3339 format indicating when the time range ends.
      */
-    end_at?: string;
+    end_at?: string | undefined;
 }
 
 export class TipSettings {
     /**
      * Indicates whether tipping is enabled for this checkout. Defaults to false.
      */
-    allow_tipping?: boolean;
+    allow_tipping?: boolean | undefined;
     /**
      * Indicates whether tip options should be presented on their own screen before presenting the signature
      * screen during card payment. Defaults to false.
      */
-    separate_tip_screen?: boolean;
+    separate_tip_screen?: boolean | undefined;
     /**
      * Indicates whether custom tip amounts are allowed during the checkout flow. Defaults to false.
      */
-    custom_tip_field?: boolean;
+    custom_tip_field?: boolean | undefined;
 }
 
 /**
@@ -11809,32 +11809,32 @@ export class Transaction {
     /**
      * The transaction's unique ID, issued by Square payments servers.
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The ID of the transaction's associated location.
      */
-    location_id?: string;
+    location_id?: string | undefined;
     /**
      * The timestamp for when the transaction was created, in RFC 3339 format.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The tenders used to pay in the transaction.
      */
-    tenders?: Array<Tender>;
+    tenders?: Array<Tender> | undefined;
     /**
      * Refunds that have been applied to any tender in the transaction.
      */
-    refunds?: Array<Refund>;
+    refunds?: Array<Refund> | undefined;
     /**
      * If the transaction was created with the `Charge` endpoint, this value is the same as the value provided for
      * the `reference_id` parameter in the request to that endpoint. Otherwise, it is not set.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * The Square product that processed the transaction. See [TransactionProduct](#type-transactionproduct) for possible values.
      */
-    product?: 'REGISTER' | 'EXTERNAL_API' | 'BILLING' | 'APPOINTMENTS' | 'INVOICES' | 'ONLINE_STORE' | 'PAYROLL' | 'OTHER';
+    product?: 'REGISTER' | 'EXTERNAL_API' | 'BILLING' | 'APPOINTMENTS' | 'INVOICES' | 'ONLINE_STORE' | 'PAYROLL' | 'OTHER' | undefined;
     /**
      * If the transaction was created in the Square Point of Sale app, this value is the ID generated for the
      * transaction by Square Point of Sale. This ID has no relationship to the transaction's canonical `id`, which is
@@ -11842,15 +11842,15 @@ export class Transaction {
      * cannot immediately be completed (for example, if the transaction is processed in offline mode).
      * It is not currently possible with the Connect API to perform a transaction lookup by this value.
      */
-    client_id?: string;
+    client_id?: string | undefined;
     /**
      * The shipping address provided in the request, if any.
      */
-    shipping_address?: Address;
+    shipping_address?: Address | undefined;
     /**
      * The order_id is an identifier for the order associated with this transaction, if any.
      */
-    order_id?: string;
+    order_id?: string | undefined;
 }
 
 /**
@@ -11881,11 +11881,11 @@ export class UpdateBreakTypeResponse {
     /**
      * The response object.
      */
-    break_type?: BreakType;
+    break_type?: BreakType | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -11906,11 +11906,11 @@ export class UpdateCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The successfully updated customer group.
      */
-    group?: CustomerGroup;
+    group?: CustomerGroup | undefined;
 }
 
 /**
@@ -11920,45 +11920,45 @@ export class UpdateCustomerRequest {
     /**
      * The given (i.e., first) name associated with the customer profile.
      */
-    given_name?: string;
+    given_name?: string | undefined;
     /**
      * The family (i.e., last) name associated with the customer profile.
      */
-    family_name?: string;
+    family_name?: string | undefined;
     /**
      * A business name associated with the customer profile.
      */
-    company_name?: string;
+    company_name?: string | undefined;
     /**
      * A nickname for the customer profile.
      */
-    nickname?: string;
+    nickname?: string | undefined;
     /**
      * The email address associated with the customer profile.
      */
-    email_address?: string;
+    email_address?: string | undefined;
     /**
      * The physical address associated with the customer profile.
      */
-    address?: Address;
+    address?: Address | undefined;
     /**
      * The 11-digit phone number associated with the customer profile.
      */
-    phone_number?: string;
+    phone_number?: string | undefined;
     /**
      * An optional, second ID used to associate the customer profile with an entity in another system.
      */
-    reference_id?: string;
+    reference_id?: string | undefined;
     /**
      * A custom note associated with the customer profile.
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * The birthday associated with the customer profile, in RFC 3339 format. Year is optional, timezone and times are not allowed.
      * For example: `0000-09-01T00:00:00-00:00` indicates a birthday on September 1st.
      * `1998-09-01T00:00:00-00:00` indications a birthday on September 1st __1998__.
      */
-    birthday?: string;
+    birthday?: string | undefined;
 }
 
 /**
@@ -11969,11 +11969,11 @@ export class UpdateCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The updated customer.
      */
-    customer?: Customer;
+    customer?: Customer | undefined;
 }
 
 /**
@@ -11991,12 +11991,12 @@ export class UpdateInvoiceRequest {
      * (or provide an empty string as the value), the endpoint treats each request as independent.
      * For more information, see [Idempotency](https://developer.squareup.com/docs/docs/working-with-apis/idempotency).
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
     /**
      * List of fields to clear.
      * For examples, see [Update an invoice](https://developer.squareup.com/docs/docs/invoices-api/overview#update-an-invoice).
      */
-    fields_to_clear?: Array<string>;
+    fields_to_clear?: Array<string> | undefined;
 }
 
 /**
@@ -12006,11 +12006,11 @@ export class UpdateInvoiceResponse {
     /**
      * The updated invoice.
      */
-    invoice?: Invoice;
+    invoice?: Invoice | undefined;
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class UpdateItemModifierListsRequest {
@@ -12021,23 +12021,23 @@ export class UpdateItemModifierListsRequest {
     /**
      * The IDs of the CatalogModifierList objects to enable for the CatalogItem.
      */
-    modifier_lists_to_enable?: Array<string>;
+    modifier_lists_to_enable?: Array<string> | undefined;
     /**
      * The IDs of the CatalogModifierList objects to disable for the CatalogItem.
      */
-    modifier_lists_to_disable?: Array<string>;
+    modifier_lists_to_disable?: Array<string> | undefined;
 }
 
 export class UpdateItemModifierListsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-date) of this
      * update in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 export class UpdateItemTaxesRequest {
@@ -12048,23 +12048,23 @@ export class UpdateItemTaxesRequest {
     /**
      * IDs of the CatalogTax objects to enable.
      */
-    taxes_to_enable?: Array<string>;
+    taxes_to_enable?: Array<string> | undefined;
     /**
      * IDs of the CatalogTax objects to disable.
      */
-    taxes_to_disable?: Array<string>;
+    taxes_to_disable?: Array<string> | undefined;
 }
 
 export class UpdateItemTaxesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this update
      * in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -12074,7 +12074,7 @@ export class UpdateLocationRequest {
     /**
      * The `Location` object with only the fields to update.
      */
-    location?: Location;
+    location?: Location | undefined;
 }
 
 /**
@@ -12084,11 +12084,11 @@ export class UpdateLocationResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The updated `Location`.
      */
-    location?: Location;
+    location?: Location | undefined;
 }
 
 /**
@@ -12099,19 +12099,19 @@ export class UpdateOrderRequest {
      * The [sparse order](https://developer.squareup.com/docs/orders-api/manage-orders#sparse-order-objects) containing
      * only the fields to update and the version the update is being applied to.
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * The [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation) fields to clear.
      * For example, `line_items[uid].note` [Read more about Deleting fields](https://developer.squareup.com/docs/orders-api/manage-orders#delete-fields).
      */
-    fields_to_clear?: Array<string>;
+    fields_to_clear?: Array<string> | undefined;
     /**
      * A value you specify that uniquely identifies this update request If you're unsure whether a particular update was
      * applied to an order successfully, you can reattempt it with the same idempotency key without worrying about creating
      * duplicate updates to the order. The latest order version will be returned.
      * See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
      */
-    idempotency_key?: string;
+    idempotency_key?: string | undefined;
 }
 
 /**
@@ -12121,11 +12121,11 @@ export class UpdateOrderResponse {
     /**
      * The updated Order.
      */
-    order?: Order;
+    order?: Order | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -12146,11 +12146,11 @@ export class UpdateShiftResponse {
     /**
      * The updated `Shift`.
      */
-    shift?: Shift;
+    shift?: Shift | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -12161,7 +12161,7 @@ export class UpdateSubscriptionRequest {
      * The subscription object containing the current version, and fields to update. Unset fields will be left at their
      * current server values, and JSON `null` values will be treated as a request to clear the relevant data.
      */
-    subscription?: Subscription;
+    subscription?: Subscription | undefined;
 }
 
 /**
@@ -12171,11 +12171,11 @@ export class UpdateSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The modified `Subscription` object.
      */
-    subscription?: Subscription;
+    subscription?: Subscription | undefined;
 }
 
 /**
@@ -12185,7 +12185,7 @@ export class UpdateTeamMemberRequest {
     /**
      * The data which will be used to update the `TeamMember` object.
      */
-    team_member?: TeamMember;
+    team_member?: TeamMember | undefined;
 }
 
 /**
@@ -12195,11 +12195,11 @@ export class UpdateTeamMemberResponse {
     /**
      * The successfully updated `TeamMember` object.
      */
-    team_member?: TeamMember;
+    team_member?: TeamMember | undefined;
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -12219,11 +12219,11 @@ export class UpdateWageSettingResponse {
     /**
      * The successfully updated `WageSetting` object.
      */
-    wage_setting?: WageSetting;
+    wage_setting?: WageSetting | undefined;
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -12244,11 +12244,11 @@ export class UpdateWorkweekConfigResponse {
     /**
      * The response object.
      */
-    workweek_config?: WorkweekConfig;
+    workweek_config?: WorkweekConfig | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 export class UpsertCatalogObjectRequest {
@@ -12273,15 +12273,15 @@ export class UpsertCatalogObjectResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
     /**
      * The successfully created or updated CatalogObject.
      */
-    catalog_object?: CatalogObject;
+    catalog_object?: CatalogObject | undefined;
     /**
      * The mapping between client and server IDs for this upsert.
      */
-    id_mappings?: Array<CatalogIdMapping>;
+    id_mappings?: Array<CatalogIdMapping> | undefined;
 }
 
 /**
@@ -12292,11 +12292,11 @@ export class VersionedCatalogObject {
     /**
      * The ID of the referenced object.
      */
-    object_id?: string;
+    object_id?: string | undefined;
     /**
      * The version of the object.
      */
-    catalog_version?: number;
+    catalog_version?: number | undefined;
 }
 
 /**
@@ -12311,7 +12311,7 @@ export class VoidTransactionResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error>;
+    errors?: Array<Error> | undefined;
 }
 
 /**
@@ -12321,7 +12321,7 @@ export class WageSetting {
     /**
      * The unique ID of the `TeamMember` whom this wage setting describes.
      */
-    team_member_id?: string;
+    team_member_id?: string | undefined;
     /**
      * The ordered list of jobs that the team member is assigned to.
      * The first job assignment is considered the team member's \"Primary Job\". <br> <b>Min Length 1 Max Length 12</b>
@@ -12330,24 +12330,24 @@ export class WageSetting {
     /**
      * Whether the team member is exempt from the overtime rules of the seller country.
      */
-    is_overtime_exempt?: boolean;
+    is_overtime_exempt?: boolean | undefined;
     /**
      * Used for resolving concurrency issues; request will fail if version provided does not match server version at time of request.
      * If not provided, Square executes a blind write, potentially overwriting data from another write.
      * Read about [optimistic concurrency](https://developer.squareup.com/docs/docs/working-with-apis/optimistic-concurrency)
      * in Square APIs for more information.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * The timestamp in RFC 3339 format describing when the wage setting object was created.
      * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * The timestamp in RFC 3339 format describing when the wage setting object was last updated.
      * Ex: \"2018-10-04T04:00:00-07:00\" or \"2019-02-05T12:00:00Z\"
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**
@@ -12362,7 +12362,7 @@ export class WorkweekConfig {
     /**
      * UUID for this object
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * The day of the week on which a business week cuts over for compensation purposes.
      * See [Weekday](#type-weekday) for possible values.
@@ -12377,15 +12377,15 @@ export class WorkweekConfig {
      * Used for resolving concurrency issues; request will fail if version provided does not match server version at
      * time of request. If not provided, Square executes a blind write; potentially overwriting data from another write.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * A read-only timestamp in RFC 3339 format; presented in UTC.
      */
-    created_at?: string;
+    created_at?: string | undefined;
     /**
      * A read-only timestamp in RFC 3339 format; presented in UTC.
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 /**

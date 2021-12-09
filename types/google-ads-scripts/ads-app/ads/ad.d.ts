@@ -92,7 +92,7 @@ declare namespace GoogleAdsScripts {
         /** A Text asset with an optional pinning. */
         interface AdTextAsset {
             /** The (possibly null) pinned location for this asset. */
-            pinning?: string;
+            pinning?: string | undefined;
             /** The text of this asset (e.g. "headline"). */
             text: string;
         }

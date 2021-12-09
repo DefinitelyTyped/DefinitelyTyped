@@ -7,9 +7,9 @@
 
 import * as React from "react";
 
-export interface PortalProps extends React.Props<any> {
+export interface PortalProps {
     children: React.ReactNode;
-    node?: Element | null;
+    node?: Element | null | undefined;
 }
 
 export const Portal: React.ComponentClass<PortalProps>;
@@ -21,13 +21,13 @@ export interface PortalFunctionParams {
     isOpen: boolean;
 }
 
-export interface PortalWithStateProps extends React.Props<any> {
+export interface PortalWithStateProps {
     children: (params: PortalFunctionParams) => React.ReactNode;
-    node?: Element | null;
-    defaultOpen?: boolean;
-    openByClickOn?: React.ReactElement;
-    closeOnEsc?: boolean;
-    closeOnOutsideClick?: boolean;
+    node?: Element | null | undefined;
+    defaultOpen?: boolean | undefined;
+    openByClickOn?: React.ReactElement | undefined;
+    closeOnEsc?: boolean | undefined;
+    closeOnOutsideClick?: boolean | undefined;
     onOpen?(): void;
     onClose?(): void;
 }

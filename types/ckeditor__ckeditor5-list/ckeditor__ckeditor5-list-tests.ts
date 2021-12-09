@@ -1,41 +1,40 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import L from '@ckeditor/ckeditor5-list';
+import { DowncastWriter, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
+import Document from '@ckeditor/ckeditor5-engine/src/view/document';
+import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
+import Position from '@ckeditor/ckeditor5-engine/src/view/position';
+import View from '@ckeditor/ckeditor5-engine/src/view/view';
+import { List, ListEditing, ListStyle, ListUI, TodoList, TodoListEditing, TodoListUI } from '@ckeditor/ckeditor5-list';
 import CheckTodoListCommand from '@ckeditor/ckeditor5-list/src/checktodolistcommand';
+import * as converters from '@ckeditor/ckeditor5-list/src/converters';
 import IndentCommand from '@ckeditor/ckeditor5-list/src/indentcommand';
 import ListCommand from '@ckeditor/ckeditor5-list/src/listcommand';
 import ListStyleCommand from '@ckeditor/ckeditor5-list/src/liststylecommand';
 import * as todoConverters from '@ckeditor/ckeditor5-list/src/todolistconverters';
-import * as converters from '@ckeditor/ckeditor5-list/src/converters';
 import * as utils from '@ckeditor/ckeditor5-list/src/utils';
-import { DowncastWriter, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
-import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
-import Document from '@ckeditor/ckeditor5-engine/src/view/document';
-import Position from '@ckeditor/ckeditor5-engine/src/view/position';
-import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-L.List.requires.map(Plugin => new Plugin(editor).init());
-new L.List(editor);
+List.requires.map(Plugin => new Plugin(editor).init());
+new List(editor);
 
-new L.ListUI(editor).init();
+new ListUI(editor).init();
 
-L.ListStyle.requires.map(Plugin => new Plugin(editor).init());
-new L.ListStyle(editor);
+ListStyle.requires.map(Plugin => new Plugin(editor).init());
+new ListStyle(editor);
 
-L.ListEditing.requires.map(Plugin => new Plugin(editor).init());
-new L.ListEditing(editor).init();
-new L.ListEditing(editor).afterInit();
+ListEditing.requires.map(Plugin => new Plugin(editor).init());
+new ListEditing(editor).init();
+new ListEditing(editor).afterInit();
 
-L.TodoList.requires.map(Plugin => new Plugin(editor).init());
-new L.TodoList(editor);
+TodoList.requires.map(Plugin => new Plugin(editor).init());
+new TodoList(editor);
 
-new L.TodoListUI(editor);
+new TodoListUI(editor);
 
-L.TodoListEditing.requires.map(Plugin => new Plugin(editor).init());
-new L.TodoListEditing(editor);
+TodoListEditing.requires.map(Plugin => new Plugin(editor).init());
+new TodoListEditing(editor);
 
 new CheckTodoListCommand(editor).execute();
 
@@ -58,6 +57,46 @@ converters.modelViewInsertion(new Model());
 converters.modelViewRemove(new Model());
 converters.modelToViewPosition(new View(new StylesProcessor()));
 
-utils.findNestedList(new EmptyElement());
-utils.mergeViewLists(new DowncastWriter(new Document(new StylesProcessor())), new EmptyElement(), new EmptyElement());
+const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
+utils.findNestedList(emptyElement);
+utils.mergeViewLists(new DowncastWriter(new Document(new StylesProcessor())), emptyElement, emptyElement);
 utils.positionAfterUiElements(new Position(new DocumentFragment(), 1));
+
+// $ExpectType List
+editor.plugins.get('List');
+
+// $ExpectType ListEditing
+editor.plugins.get('ListEditing');
+
+// $ExpectType ListStyle
+editor.plugins.get('ListStyle');
+
+// $ExpectType ListStyleEditing
+editor.plugins.get('ListStyleEditing');
+
+// $ExpectType ListStyleUI
+editor.plugins.get('ListStyleUI');
+
+// $ExpectType ListUI
+editor.plugins.get('ListUI');
+
+// $ExpectType TodoList
+editor.plugins.get('TodoList');
+
+// $ExpectType TodoListEditing
+editor.plugins.get('TodoListEditing');
+
+// $ExpectType TodoListUI
+editor.plugins.get('TodoListUI');
+
+// $ExpectType CheckTodoListCommand | undefined
+editor.commands.get('CheckTodoListCommand');
+
+// $ExpectType IndentCommand | undefined
+editor.commands.get('IndentCommand');
+
+// $ExpectType ListCommand | undefined
+editor.commands.get('ListCommand');
+
+// $ExpectType ListStyleCommand | undefined
+editor.commands.get('ListStyleCommand');

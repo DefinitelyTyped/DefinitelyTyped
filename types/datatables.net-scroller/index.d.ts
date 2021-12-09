@@ -12,45 +12,45 @@ declare namespace DataTables {
         /*
          * Select extension options
          */
-        scroller?: boolean | ScrollerSettings;
+        scroller?: boolean | ScrollerSettings | undefined;
     }
 
     interface ScrollerSettings {
         /*
          * Indicate if Scroller show show trace information on the console or not.
          */
-        trace?: boolean;
+        trace?: boolean | undefined;
 
         /*
         * Scroller will attempt to automatically calculate the height of rows for it's internal
         * calculations. However the height that is used can be overridden using this parameter.
          */
-        rowHeight?: number | string;
+        rowHeight?: number | string | undefined;
 
         /*
         * When using server-side processing, Scroller will wait a small amount of time to allow
         * the scrolling to finish before requesting more data from the server.
          */
-        serverWait?: number;
+        serverWait?: number | undefined;
 
         /*
         * The display buffer is what Scroller uses to calculate how many rows it should pre-fetch
         * for scrolling.
          */
-        displayBuffer?: number;
+        displayBuffer?: number | undefined;
 
         /*
         * Scroller uses the boundary scaling factor to decide when to redraw the table - which it
         * typically does before you reach the end of the currently loaded data set (in order to
         * allow the data to look continuous to a user scrolling through the data).
          */
-        boundaryScale?: number;
+        boundaryScale?: number | undefined;
 
         /*
         * Show (or not) the loading element in the background of the table. Note that you should
         * include the dataTables.scroller.css file for this to be displayed correctly.
          */
-        loadingIndicator?: boolean;
+        loadingIndicator?: boolean | undefined;
     }
 
     interface Api {

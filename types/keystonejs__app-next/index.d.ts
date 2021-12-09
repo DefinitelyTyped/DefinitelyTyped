@@ -19,7 +19,7 @@ declare module '@keystonejs/app-next' {
     class NextApp extends BaseApp {
         constructor(options?: NextOptions);
 
-        prepareMiddleware({ dev, distDir }: { dev?: boolean, distDir?: any }): Promise<any>;
+        prepareMiddleware({ dev, distDir }: { dev?: boolean | undefined, distDir?: any }): Promise<any>;
         build(): Promise<void>;
     }
 }

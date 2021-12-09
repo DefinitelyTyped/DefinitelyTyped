@@ -1205,7 +1205,7 @@ Joi.object().keys({
 
 interface User {
     name: string;
-    family?: string;
+    family?: string | undefined;
     age: number;
 }
 

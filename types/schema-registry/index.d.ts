@@ -8,9 +8,9 @@
 export interface RegistryClientConfig {
     host: string;
     port: number;
-    protocol?: string;
-    logger?: object;
-    type?: string;
+    protocol?: string | undefined;
+    logger?: object | undefined;
+    type?: string | undefined;
 }
 
 export interface AvroSchemaResponseInterface {

@@ -15,18 +15,18 @@ export function getAttributes({
     viewBox,
     ...attributes
 }?: {
-    width?: number;
-    height?: number;
-    viewBox?: string;
-    tabindex?: number | string;
-    title?: string;
-    role?: string;
+    width?: number | undefined;
+    height?: number | undefined;
+    viewBox?: string | undefined;
+    tabindex?: number | string | undefined;
+    title?: string | undefined;
+    role?: string | undefined;
 }): {
     width: number;
     height: number;
     viewBox: string;
-    title?: string;
-    role?: string;
+    title?: string | undefined;
+    role?: string | undefined;
     focusable: string;
     preserveAspectRatio: string;
 };

@@ -5,11 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    wait?: number;
-    pollPeriod?: number;
-    stale?: number;
-    retries?: number;
-    retryWait?: number;
+    wait?: number | undefined;
+    pollPeriod?: number | undefined;
+    stale?: number | undefined;
+    retries?: number | undefined;
+    retryWait?: number | undefined;
 }
 
 export function lock(path: string, opts: Options, callback: (err: Error | null) => void): void;

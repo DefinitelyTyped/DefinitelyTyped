@@ -6,10 +6,10 @@
 
 declare class HTMLtoJSX {
     constructor(options?: {
-        createClass?: boolean;
-        outputClassName?: string;
+        createClass?: boolean | undefined;
+        outputClassName?: string | undefined;
         /** as a string e.g. '    ' or '\t' */
-        indent?: string;
+        indent?: string | undefined;
     });
     convert(html: string): string;
 }

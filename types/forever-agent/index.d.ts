@@ -10,7 +10,7 @@ import { Agent as HttpAgent, AgentOptions as HttpAgentOptions } from "http";
 export = ForeverAgentModule;
 
 interface ForeverAgentOptions extends HttpAgentOptions {
-    minSockets?: number;
+    minSockets?: number | undefined;
 }
 
 declare class ForeverAgent extends HttpAgent {

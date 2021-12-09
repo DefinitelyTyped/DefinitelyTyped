@@ -167,7 +167,7 @@ declare namespace GoogleAppsScript {
         remove(customer: string, domainName: string): void;
       }
       interface GroupsCollection {
-        Aliases?: AdminDirectory.Collection.Groups.AliasesCollection;
+        Aliases?: AdminDirectory.Collection.Groups.AliasesCollection | undefined;
         // Retrieve Group
         get(groupKey: string): AdminDirectory.Schema.Group;
         // Create Group
@@ -256,9 +256,9 @@ declare namespace GoogleAppsScript {
         ListTrustedApps(): AdminDirectory.Schema.TrustedApps;
       }
       interface ResourcesCollection {
-        Buildings?: AdminDirectory.Collection.Resources.BuildingsCollection;
-        Calendars?: AdminDirectory.Collection.Resources.CalendarsCollection;
-        Features?: AdminDirectory.Collection.Resources.FeaturesCollection;
+        Buildings?: AdminDirectory.Collection.Resources.BuildingsCollection | undefined;
+        Calendars?: AdminDirectory.Collection.Resources.CalendarsCollection | undefined;
+        Features?: AdminDirectory.Collection.Resources.FeaturesCollection | undefined;
       }
       interface RoleAssignmentsCollection {
         // Retrieve a role assignment.
@@ -311,8 +311,8 @@ declare namespace GoogleAppsScript {
         remove(userKey: string, clientId: string): void;
       }
       interface UsersCollection {
-        Aliases?: AdminDirectory.Collection.Users.AliasesCollection;
-        Photos?: AdminDirectory.Collection.Users.PhotosCollection;
+        Aliases?: AdminDirectory.Collection.Users.AliasesCollection | undefined;
+        Photos?: AdminDirectory.Collection.Users.PhotosCollection | undefined;
         // retrieve user
         get(userKey: string): AdminDirectory.Schema.User;
         // retrieve user
@@ -349,712 +349,712 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Alias {
-        alias?: string;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        primaryEmail?: string;
+        alias?: string | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        primaryEmail?: string | undefined;
       }
       interface Aliases {
-        aliases?: any[];
-        etag?: string;
-        kind?: string;
+        aliases?: any[] | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
       }
       interface AppAccessCollections {
-        blockedApiAccessBuckets?: string[];
-        enforceSettingsForAndroidDrive?: boolean;
-        errorMessage?: string;
-        etag?: string;
-        kind?: string;
-        resourceId?: string;
-        resourceName?: string;
-        trustDomainOwnedApps?: boolean;
+        blockedApiAccessBuckets?: string[] | undefined;
+        enforceSettingsForAndroidDrive?: boolean | undefined;
+        errorMessage?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        resourceId?: string | undefined;
+        resourceName?: string | undefined;
+        trustDomainOwnedApps?: boolean | undefined;
       }
       interface Asp {
-        codeId?: number;
-        creationTime?: string;
-        etag?: string;
-        kind?: string;
-        lastTimeUsed?: string;
-        name?: string;
-        userKey?: string;
+        codeId?: number | undefined;
+        creationTime?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        lastTimeUsed?: string | undefined;
+        name?: string | undefined;
+        userKey?: string | undefined;
       }
       interface Asps {
-        etag?: string;
-        items?: AdminDirectory.Schema.Asp[];
-        kind?: string;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.Asp[] | undefined;
+        kind?: string | undefined;
       }
       interface Building {
-        address?: AdminDirectory.Schema.BuildingAddress;
-        buildingId?: string;
-        buildingName?: string;
-        coordinates?: AdminDirectory.Schema.BuildingCoordinates;
-        description?: string;
-        etags?: string;
-        floorNames?: string[];
-        kind?: string;
+        address?: AdminDirectory.Schema.BuildingAddress | undefined;
+        buildingId?: string | undefined;
+        buildingName?: string | undefined;
+        coordinates?: AdminDirectory.Schema.BuildingCoordinates | undefined;
+        description?: string | undefined;
+        etags?: string | undefined;
+        floorNames?: string[] | undefined;
+        kind?: string | undefined;
       }
       interface BuildingAddress {
-        addressLines?: string[];
-        administrativeArea?: string;
-        languageCode?: string;
-        locality?: string;
-        postalCode?: string;
-        regionCode?: string;
-        sublocality?: string;
+        addressLines?: string[] | undefined;
+        administrativeArea?: string | undefined;
+        languageCode?: string | undefined;
+        locality?: string | undefined;
+        postalCode?: string | undefined;
+        regionCode?: string | undefined;
+        sublocality?: string | undefined;
       }
       interface BuildingCoordinates {
-        latitude?: number;
-        longitude?: number;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
       }
       interface Buildings {
-        buildings?: AdminDirectory.Schema.Building[];
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
+        buildings?: AdminDirectory.Schema.Building[] | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface CalendarResource {
-        buildingId?: string;
-        capacity?: number;
-        etags?: string;
-        featureInstances?: object;
-        floorName?: string;
-        floorSection?: string;
-        generatedResourceName?: string;
-        kind?: string;
-        resourceCategory?: string;
-        resourceDescription?: string;
-        resourceEmail?: string;
-        resourceId?: string;
-        resourceName?: string;
-        resourceType?: string;
-        userVisibleDescription?: string;
+        buildingId?: string | undefined;
+        capacity?: number | undefined;
+        etags?: string | undefined;
+        featureInstances?: object | undefined;
+        floorName?: string | undefined;
+        floorSection?: string | undefined;
+        generatedResourceName?: string | undefined;
+        kind?: string | undefined;
+        resourceCategory?: string | undefined;
+        resourceDescription?: string | undefined;
+        resourceEmail?: string | undefined;
+        resourceId?: string | undefined;
+        resourceName?: string | undefined;
+        resourceType?: string | undefined;
+        userVisibleDescription?: string | undefined;
       }
       interface CalendarResources {
-        etag?: string;
-        items?: AdminDirectory.Schema.CalendarResource[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.CalendarResource[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Channel {
-        address?: string;
-        expiration?: string;
-        id?: string;
-        kind?: string;
-        params?: object;
-        payload?: boolean;
-        resourceId?: string;
-        resourceUri?: string;
-        token?: string;
-        type?: string;
+        address?: string | undefined;
+        expiration?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        params?: object | undefined;
+        payload?: boolean | undefined;
+        resourceId?: string | undefined;
+        resourceUri?: string | undefined;
+        token?: string | undefined;
+        type?: string | undefined;
       }
       interface ChromeOsDevice {
-        activeTimeRanges?: AdminDirectory.Schema.ChromeOsDeviceActiveTimeRanges[];
-        annotatedAssetId?: string;
-        annotatedLocation?: string;
-        annotatedUser?: string;
-        autoUpdateExpiration?: string;
-        bootMode?: string;
-        cpuStatusReports?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReports[];
-        deviceFiles?: AdminDirectory.Schema.ChromeOsDeviceDeviceFiles[];
-        deviceId?: string;
-        diskVolumeReports?: AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReports[];
-        etag?: string;
-        ethernetMacAddress?: string;
-        firmwareVersion?: string;
-        kind?: string;
-        lastEnrollmentTime?: string;
-        lastSync?: string;
-        macAddress?: string;
-        meid?: string;
-        model?: string;
-        notes?: string;
-        orderNumber?: string;
-        orgUnitPath?: string;
-        osVersion?: string;
-        platformVersion?: string;
-        recentUsers?: AdminDirectory.Schema.ChromeOsDeviceRecentUsers[];
-        serialNumber?: string;
-        status?: string;
-        supportEndDate?: string;
-        systemRamFreeReports?: AdminDirectory.Schema.ChromeOsDeviceSystemRamFreeReports[];
-        systemRamTotal?: string;
-        tpmVersionInfo?: AdminDirectory.Schema.ChromeOsDeviceTpmVersionInfo;
-        willAutoRenew?: boolean;
+        activeTimeRanges?: AdminDirectory.Schema.ChromeOsDeviceActiveTimeRanges[] | undefined;
+        annotatedAssetId?: string | undefined;
+        annotatedLocation?: string | undefined;
+        annotatedUser?: string | undefined;
+        autoUpdateExpiration?: string | undefined;
+        bootMode?: string | undefined;
+        cpuStatusReports?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReports[] | undefined;
+        deviceFiles?: AdminDirectory.Schema.ChromeOsDeviceDeviceFiles[] | undefined;
+        deviceId?: string | undefined;
+        diskVolumeReports?: AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReports[] | undefined;
+        etag?: string | undefined;
+        ethernetMacAddress?: string | undefined;
+        firmwareVersion?: string | undefined;
+        kind?: string | undefined;
+        lastEnrollmentTime?: string | undefined;
+        lastSync?: string | undefined;
+        macAddress?: string | undefined;
+        meid?: string | undefined;
+        model?: string | undefined;
+        notes?: string | undefined;
+        orderNumber?: string | undefined;
+        orgUnitPath?: string | undefined;
+        osVersion?: string | undefined;
+        platformVersion?: string | undefined;
+        recentUsers?: AdminDirectory.Schema.ChromeOsDeviceRecentUsers[] | undefined;
+        serialNumber?: string | undefined;
+        status?: string | undefined;
+        supportEndDate?: string | undefined;
+        systemRamFreeReports?: AdminDirectory.Schema.ChromeOsDeviceSystemRamFreeReports[] | undefined;
+        systemRamTotal?: string | undefined;
+        tpmVersionInfo?: AdminDirectory.Schema.ChromeOsDeviceTpmVersionInfo | undefined;
+        willAutoRenew?: boolean | undefined;
       }
       interface ChromeOsDeviceAction {
-        action?: string;
-        deprovisionReason?: string;
+        action?: string | undefined;
+        deprovisionReason?: string | undefined;
       }
       interface ChromeOsDeviceActiveTimeRanges {
-        activeTime?: number;
-        date?: string;
+        activeTime?: number | undefined;
+        date?: string | undefined;
       }
       interface ChromeOsDeviceCpuStatusReports {
-        cpuTemperatureInfo?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo[];
-        cpuUtilizationPercentageInfo?: number[];
-        reportTime?: string;
+        cpuTemperatureInfo?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo[] | undefined;
+        cpuUtilizationPercentageInfo?: number[] | undefined;
+        reportTime?: string | undefined;
       }
       interface ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo {
-        label?: string;
-        temperature?: number;
+        label?: string | undefined;
+        temperature?: number | undefined;
       }
       interface ChromeOsDeviceDeviceFiles {
-        createTime?: string;
-        downloadUrl?: string;
-        name?: string;
-        type?: string;
+        createTime?: string | undefined;
+        downloadUrl?: string | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
       }
       interface ChromeOsDeviceDiskVolumeReports {
-        volumeInfo?: AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReportsVolumeInfo[];
+        volumeInfo?: AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReportsVolumeInfo[] | undefined;
       }
       interface ChromeOsDeviceDiskVolumeReportsVolumeInfo {
-        storageFree?: string;
-        storageTotal?: string;
-        volumeId?: string;
+        storageFree?: string | undefined;
+        storageTotal?: string | undefined;
+        volumeId?: string | undefined;
       }
       interface ChromeOsDeviceRecentUsers {
-        email?: string;
-        type?: string;
+        email?: string | undefined;
+        type?: string | undefined;
       }
       interface ChromeOsDeviceSystemRamFreeReports {
-        reportTime?: string;
-        systemRamFreeInfo?: string[];
+        reportTime?: string | undefined;
+        systemRamFreeInfo?: string[] | undefined;
       }
       interface ChromeOsDeviceTpmVersionInfo {
-        family?: string;
-        firmwareVersion?: string;
-        manufacturer?: string;
-        specLevel?: string;
-        tpmModel?: string;
-        vendorSpecific?: string;
+        family?: string | undefined;
+        firmwareVersion?: string | undefined;
+        manufacturer?: string | undefined;
+        specLevel?: string | undefined;
+        tpmModel?: string | undefined;
+        vendorSpecific?: string | undefined;
       }
       interface ChromeOsDevices {
-        chromeosdevices?: AdminDirectory.Schema.ChromeOsDevice[];
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
+        chromeosdevices?: AdminDirectory.Schema.ChromeOsDevice[] | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ChromeOsMoveDevicesToOu {
-        deviceIds?: string[];
+        deviceIds?: string[] | undefined;
       }
       interface Customer {
-        alternateEmail?: string;
-        customerCreationTime?: string;
-        customerDomain?: string;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        language?: string;
-        phoneNumber?: string;
-        postalAddress?: AdminDirectory.Schema.CustomerPostalAddress;
+        alternateEmail?: string | undefined;
+        customerCreationTime?: string | undefined;
+        customerDomain?: string | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        language?: string | undefined;
+        phoneNumber?: string | undefined;
+        postalAddress?: AdminDirectory.Schema.CustomerPostalAddress | undefined;
       }
       interface CustomerPostalAddress {
-        addressLine1?: string;
-        addressLine2?: string;
-        addressLine3?: string;
-        contactName?: string;
-        countryCode?: string;
-        locality?: string;
-        organizationName?: string;
-        postalCode?: string;
-        region?: string;
+        addressLine1?: string | undefined;
+        addressLine2?: string | undefined;
+        addressLine3?: string | undefined;
+        contactName?: string | undefined;
+        countryCode?: string | undefined;
+        locality?: string | undefined;
+        organizationName?: string | undefined;
+        postalCode?: string | undefined;
+        region?: string | undefined;
       }
       interface DomainAlias {
-        creationTime?: string;
-        domainAliasName?: string;
-        etag?: string;
-        kind?: string;
-        parentDomainName?: string;
-        verified?: boolean;
+        creationTime?: string | undefined;
+        domainAliasName?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        parentDomainName?: string | undefined;
+        verified?: boolean | undefined;
       }
       interface DomainAliases {
-        domainAliases?: AdminDirectory.Schema.DomainAlias[];
-        etag?: string;
-        kind?: string;
+        domainAliases?: AdminDirectory.Schema.DomainAlias[] | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
       }
       interface Domains {
-        creationTime?: string;
-        domainAliases?: AdminDirectory.Schema.DomainAlias[];
-        domainName?: string;
-        etag?: string;
-        isPrimary?: boolean;
-        kind?: string;
-        verified?: boolean;
+        creationTime?: string | undefined;
+        domainAliases?: AdminDirectory.Schema.DomainAlias[] | undefined;
+        domainName?: string | undefined;
+        etag?: string | undefined;
+        isPrimary?: boolean | undefined;
+        kind?: string | undefined;
+        verified?: boolean | undefined;
       }
       interface Domains2 {
-        domains?: AdminDirectory.Schema.Domains[];
-        etag?: string;
-        kind?: string;
+        domains?: AdminDirectory.Schema.Domains[] | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
       }
       interface Feature {
-        etags?: string;
-        kind?: string;
-        name?: string;
+        etags?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface FeatureInstance {
-        feature?: AdminDirectory.Schema.Feature;
+        feature?: AdminDirectory.Schema.Feature | undefined;
       }
       interface FeatureRename {
-        newName?: string;
+        newName?: string | undefined;
       }
       interface Features {
-        etag?: string;
-        features?: AdminDirectory.Schema.Feature[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        features?: AdminDirectory.Schema.Feature[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Group {
-        adminCreated?: boolean;
-        aliases?: string[];
-        description?: string;
-        directMembersCount?: string;
-        email?: string;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        nonEditableAliases?: string[];
+        adminCreated?: boolean | undefined;
+        aliases?: string[] | undefined;
+        description?: string | undefined;
+        directMembersCount?: string | undefined;
+        email?: string | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        nonEditableAliases?: string[] | undefined;
       }
       interface Groups {
-        etag?: string;
-        groups?: AdminDirectory.Schema.Group[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        groups?: AdminDirectory.Schema.Group[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Member {
-        delivery_settings?: string;
-        email?: string;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        role?: string;
-        status?: string;
-        type?: string;
+        delivery_settings?: string | undefined;
+        email?: string | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        role?: string | undefined;
+        status?: string | undefined;
+        type?: string | undefined;
       }
       interface Members {
-        etag?: string;
-        kind?: string;
-        members?: AdminDirectory.Schema.Member[];
-        nextPageToken?: string;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        members?: AdminDirectory.Schema.Member[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface MembersHasMember {
-        isMember?: boolean;
+        isMember?: boolean | undefined;
       }
       interface MobileDevice {
-        adbStatus?: boolean;
-        applications?: AdminDirectory.Schema.MobileDeviceApplications[];
-        basebandVersion?: string;
-        bootloaderVersion?: string;
-        brand?: string;
-        buildNumber?: string;
-        defaultLanguage?: string;
-        developerOptionsStatus?: boolean;
-        deviceCompromisedStatus?: string;
-        deviceId?: string;
-        devicePasswordStatus?: string;
-        email?: string[];
-        encryptionStatus?: string;
-        etag?: string;
-        firstSync?: string;
-        hardware?: string;
-        hardwareId?: string;
-        imei?: string;
-        kernelVersion?: string;
-        kind?: string;
-        lastSync?: string;
-        managedAccountIsOnOwnerProfile?: boolean;
-        manufacturer?: string;
-        meid?: string;
-        model?: string;
-        name?: string[];
-        networkOperator?: string;
-        os?: string;
-        otherAccountsInfo?: string[];
-        privilege?: string;
-        releaseVersion?: string;
-        resourceId?: string;
-        securityPatchLevel?: string;
-        serialNumber?: string;
-        status?: string;
-        supportsWorkProfile?: boolean;
-        type?: string;
-        unknownSourcesStatus?: boolean;
-        userAgent?: string;
-        wifiMacAddress?: string;
+        adbStatus?: boolean | undefined;
+        applications?: AdminDirectory.Schema.MobileDeviceApplications[] | undefined;
+        basebandVersion?: string | undefined;
+        bootloaderVersion?: string | undefined;
+        brand?: string | undefined;
+        buildNumber?: string | undefined;
+        defaultLanguage?: string | undefined;
+        developerOptionsStatus?: boolean | undefined;
+        deviceCompromisedStatus?: string | undefined;
+        deviceId?: string | undefined;
+        devicePasswordStatus?: string | undefined;
+        email?: string[] | undefined;
+        encryptionStatus?: string | undefined;
+        etag?: string | undefined;
+        firstSync?: string | undefined;
+        hardware?: string | undefined;
+        hardwareId?: string | undefined;
+        imei?: string | undefined;
+        kernelVersion?: string | undefined;
+        kind?: string | undefined;
+        lastSync?: string | undefined;
+        managedAccountIsOnOwnerProfile?: boolean | undefined;
+        manufacturer?: string | undefined;
+        meid?: string | undefined;
+        model?: string | undefined;
+        name?: string[] | undefined;
+        networkOperator?: string | undefined;
+        os?: string | undefined;
+        otherAccountsInfo?: string[] | undefined;
+        privilege?: string | undefined;
+        releaseVersion?: string | undefined;
+        resourceId?: string | undefined;
+        securityPatchLevel?: string | undefined;
+        serialNumber?: string | undefined;
+        status?: string | undefined;
+        supportsWorkProfile?: boolean | undefined;
+        type?: string | undefined;
+        unknownSourcesStatus?: boolean | undefined;
+        userAgent?: string | undefined;
+        wifiMacAddress?: string | undefined;
       }
       interface MobileDeviceAction {
-        action?: string;
+        action?: string | undefined;
       }
       interface MobileDeviceApplications {
-        displayName?: string;
-        packageName?: string;
-        permission?: string[];
-        versionCode?: number;
-        versionName?: string;
+        displayName?: string | undefined;
+        packageName?: string | undefined;
+        permission?: string[] | undefined;
+        versionCode?: number | undefined;
+        versionName?: string | undefined;
       }
       interface MobileDevices {
-        etag?: string;
-        kind?: string;
-        mobiledevices?: AdminDirectory.Schema.MobileDevice[];
-        nextPageToken?: string;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        mobiledevices?: AdminDirectory.Schema.MobileDevice[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Notification {
-        body?: string;
-        etag?: string;
-        fromAddress?: string;
-        isUnread?: boolean;
-        kind?: string;
-        notificationId?: string;
-        sendTime?: string;
-        subject?: string;
+        body?: string | undefined;
+        etag?: string | undefined;
+        fromAddress?: string | undefined;
+        isUnread?: boolean | undefined;
+        kind?: string | undefined;
+        notificationId?: string | undefined;
+        sendTime?: string | undefined;
+        subject?: string | undefined;
       }
       interface Notifications {
-        etag?: string;
-        items?: AdminDirectory.Schema.Notification[];
-        kind?: string;
-        nextPageToken?: string;
-        unreadNotificationsCount?: number;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.Notification[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        unreadNotificationsCount?: number | undefined;
       }
       interface OrgUnit {
-        blockInheritance?: boolean;
-        description?: string;
-        etag?: string;
-        kind?: string;
-        name?: string;
-        orgUnitId?: string;
-        orgUnitPath?: string;
-        parentOrgUnitId?: string;
-        parentOrgUnitPath?: string;
+        blockInheritance?: boolean | undefined;
+        description?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        orgUnitId?: string | undefined;
+        orgUnitPath?: string | undefined;
+        parentOrgUnitId?: string | undefined;
+        parentOrgUnitPath?: string | undefined;
       }
       interface OrgUnits {
-        etag?: string;
-        kind?: string;
-        organizationUnits?: AdminDirectory.Schema.OrgUnit[];
+        etag?: string | undefined;
+        kind?: string | undefined;
+        organizationUnits?: AdminDirectory.Schema.OrgUnit[] | undefined;
       }
       interface Privilege {
-        childPrivileges?: AdminDirectory.Schema.Privilege[];
-        etag?: string;
-        isOuScopable?: boolean;
-        kind?: string;
-        privilegeName?: string;
-        serviceId?: string;
-        serviceName?: string;
+        childPrivileges?: AdminDirectory.Schema.Privilege[] | undefined;
+        etag?: string | undefined;
+        isOuScopable?: boolean | undefined;
+        kind?: string | undefined;
+        privilegeName?: string | undefined;
+        serviceId?: string | undefined;
+        serviceName?: string | undefined;
       }
       interface Privileges {
-        etag?: string;
-        items?: AdminDirectory.Schema.Privilege[];
-        kind?: string;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.Privilege[] | undefined;
+        kind?: string | undefined;
       }
       interface Role {
-        etag?: string;
-        isSuperAdminRole?: boolean;
-        isSystemRole?: boolean;
-        kind?: string;
-        roleDescription?: string;
-        roleId?: string;
-        roleName?: string;
-        rolePrivileges?: AdminDirectory.Schema.RoleRolePrivileges[];
+        etag?: string | undefined;
+        isSuperAdminRole?: boolean | undefined;
+        isSystemRole?: boolean | undefined;
+        kind?: string | undefined;
+        roleDescription?: string | undefined;
+        roleId?: string | undefined;
+        roleName?: string | undefined;
+        rolePrivileges?: AdminDirectory.Schema.RoleRolePrivileges[] | undefined;
       }
       interface RoleAssignment {
-        assignedTo?: string;
-        etag?: string;
-        kind?: string;
-        orgUnitId?: string;
-        roleAssignmentId?: string;
-        roleId?: string;
-        scopeType?: string;
+        assignedTo?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        orgUnitId?: string | undefined;
+        roleAssignmentId?: string | undefined;
+        roleId?: string | undefined;
+        scopeType?: string | undefined;
       }
       interface RoleAssignments {
-        etag?: string;
-        items?: AdminDirectory.Schema.RoleAssignment[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.RoleAssignment[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface RoleRolePrivileges {
-        privilegeName?: string;
-        serviceId?: string;
+        privilegeName?: string | undefined;
+        serviceId?: string | undefined;
       }
       interface Roles {
-        etag?: string;
-        items?: AdminDirectory.Schema.Role[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.Role[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Schema {
-        displayName?: string;
-        etag?: string;
-        fields?: AdminDirectory.Schema.SchemaFieldSpec[];
-        kind?: string;
-        schemaId?: string;
-        schemaName?: string;
+        displayName?: string | undefined;
+        etag?: string | undefined;
+        fields?: AdminDirectory.Schema.SchemaFieldSpec[] | undefined;
+        kind?: string | undefined;
+        schemaId?: string | undefined;
+        schemaName?: string | undefined;
       }
       interface SchemaFieldSpec {
-        displayName?: string;
-        etag?: string;
-        fieldId?: string;
-        fieldName?: string;
-        fieldType?: string;
-        indexed?: boolean;
-        kind?: string;
-        multiValued?: boolean;
-        numericIndexingSpec?: AdminDirectory.Schema.SchemaFieldSpecNumericIndexingSpec;
-        readAccessType?: string;
+        displayName?: string | undefined;
+        etag?: string | undefined;
+        fieldId?: string | undefined;
+        fieldName?: string | undefined;
+        fieldType?: string | undefined;
+        indexed?: boolean | undefined;
+        kind?: string | undefined;
+        multiValued?: boolean | undefined;
+        numericIndexingSpec?: AdminDirectory.Schema.SchemaFieldSpecNumericIndexingSpec | undefined;
+        readAccessType?: string | undefined;
       }
       interface SchemaFieldSpecNumericIndexingSpec {
-        maxValue?: number;
-        minValue?: number;
+        maxValue?: number | undefined;
+        minValue?: number | undefined;
       }
       interface Schemas {
-        etag?: string;
-        kind?: string;
-        schemas?: AdminDirectory.Schema.Schema[];
+        etag?: string | undefined;
+        kind?: string | undefined;
+        schemas?: AdminDirectory.Schema.Schema[] | undefined;
       }
       interface Token {
-        anonymous?: boolean;
-        clientId?: string;
-        displayText?: string;
-        etag?: string;
-        kind?: string;
-        nativeApp?: boolean;
-        scopes?: string[];
-        userKey?: string;
+        anonymous?: boolean | undefined;
+        clientId?: string | undefined;
+        displayText?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nativeApp?: boolean | undefined;
+        scopes?: string[] | undefined;
+        userKey?: string | undefined;
       }
       interface Tokens {
-        etag?: string;
-        items?: AdminDirectory.Schema.Token[];
-        kind?: string;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.Token[] | undefined;
+        kind?: string | undefined;
       }
       interface TrustedAppId {
-        androidPackageName?: string;
-        certificateHashSHA1?: string;
-        certificateHashSHA256?: string;
-        etag?: string;
-        kind?: string;
+        androidPackageName?: string | undefined;
+        certificateHashSHA1?: string | undefined;
+        certificateHashSHA256?: string | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
       }
       interface TrustedApps {
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
-        trustedApps?: AdminDirectory.Schema.TrustedAppId[];
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        trustedApps?: AdminDirectory.Schema.TrustedAppId[] | undefined;
       }
       interface User {
-        addresses?: object[];
-        agreedToTerms?: boolean;
-        aliases?: string[];
-        archived?: boolean;
-        changePasswordAtNextLogin?: boolean;
-        creationTime?: string;
-        customSchemas?: object;
-        customerId?: string;
-        deletionTime?: string;
-        emails?: object[];
-        etag?: string;
-        externalIds?: object[];
-        gender?: object;
-        hashFunction?: string;
-        id?: string;
-        ims?: object[];
-        includeInGlobalAddressList?: boolean;
-        ipWhitelisted?: boolean;
-        isAdmin?: boolean;
-        isDelegatedAdmin?: boolean;
-        isEnforcedIn2Sv?: boolean;
-        isEnrolledIn2Sv?: boolean;
-        isMailboxSetup?: boolean;
-        keywords?: object[];
-        kind?: string;
-        languages?: object[];
-        lastLoginTime?: string;
-        locations?: object[];
-        name?: AdminDirectory.Schema.UserName;
-        nonEditableAliases?: string[];
-        notes?: object[];
-        orgUnitPath?: string;
-        organizations?: object[];
-        password?: string;
-        phones?: object[];
-        posixAccounts?: object[];
-        primaryEmail?: string;
-        relations?: object[];
-        sshPublicKeys?: object[];
-        suspended?: boolean;
-        suspensionReason?: string;
-        thumbnailPhotoEtag?: string;
-        thumbnailPhotoUrl?: string;
-        websites?: object[];
+        addresses?: object[] | undefined;
+        agreedToTerms?: boolean | undefined;
+        aliases?: string[] | undefined;
+        archived?: boolean | undefined;
+        changePasswordAtNextLogin?: boolean | undefined;
+        creationTime?: string | undefined;
+        customSchemas?: object | undefined;
+        customerId?: string | undefined;
+        deletionTime?: string | undefined;
+        emails?: object[] | undefined;
+        etag?: string | undefined;
+        externalIds?: object[] | undefined;
+        gender?: object | undefined;
+        hashFunction?: string | undefined;
+        id?: string | undefined;
+        ims?: object[] | undefined;
+        includeInGlobalAddressList?: boolean | undefined;
+        ipWhitelisted?: boolean | undefined;
+        isAdmin?: boolean | undefined;
+        isDelegatedAdmin?: boolean | undefined;
+        isEnforcedIn2Sv?: boolean | undefined;
+        isEnrolledIn2Sv?: boolean | undefined;
+        isMailboxSetup?: boolean | undefined;
+        keywords?: object[] | undefined;
+        kind?: string | undefined;
+        languages?: object[] | undefined;
+        lastLoginTime?: string | undefined;
+        locations?: object[] | undefined;
+        name?: AdminDirectory.Schema.UserName | undefined;
+        nonEditableAliases?: string[] | undefined;
+        notes?: object[] | undefined;
+        orgUnitPath?: string | undefined;
+        organizations?: object[] | undefined;
+        password?: string | undefined;
+        phones?: object[] | undefined;
+        posixAccounts?: object[] | undefined;
+        primaryEmail?: string | undefined;
+        relations?: object[] | undefined;
+        sshPublicKeys?: object[] | undefined;
+        suspended?: boolean | undefined;
+        suspensionReason?: string | undefined;
+        thumbnailPhotoEtag?: string | undefined;
+        thumbnailPhotoUrl?: string | undefined;
+        websites?: object[] | undefined;
       }
       interface UserAbout {
-        contentType?: string;
-        value?: string;
+        contentType?: string | undefined;
+        value?: string | undefined;
       }
       interface UserAddress {
-        country?: string;
-        countryCode?: string;
-        customType?: string;
-        extendedAddress?: string;
-        formatted?: string;
-        locality?: string;
-        poBox?: string;
-        postalCode?: string;
-        primary?: boolean;
-        region?: string;
-        sourceIsStructured?: boolean;
-        streetAddress?: string;
-        type?: string;
+        country?: string | undefined;
+        countryCode?: string | undefined;
+        customType?: string | undefined;
+        extendedAddress?: string | undefined;
+        formatted?: string | undefined;
+        locality?: string | undefined;
+        poBox?: string | undefined;
+        postalCode?: string | undefined;
+        primary?: boolean | undefined;
+        region?: string | undefined;
+        sourceIsStructured?: boolean | undefined;
+        streetAddress?: string | undefined;
+        type?: string | undefined;
       }
       interface UserEmail {
-        address?: string;
-        customType?: string;
-        primary?: boolean;
-        type?: string;
+        address?: string | undefined;
+        customType?: string | undefined;
+        primary?: boolean | undefined;
+        type?: string | undefined;
       }
       interface UserExternalId {
-        customType?: string;
-        type?: string;
-        value?: string;
+        customType?: string | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface UserGender {
-        addressMeAs?: string;
-        customGender?: string;
-        type?: string;
+        addressMeAs?: string | undefined;
+        customGender?: string | undefined;
+        type?: string | undefined;
       }
       interface UserIm {
-        customProtocol?: string;
-        customType?: string;
-        im?: string;
-        primary?: boolean;
-        protocol?: string;
-        type?: string;
+        customProtocol?: string | undefined;
+        customType?: string | undefined;
+        im?: string | undefined;
+        primary?: boolean | undefined;
+        protocol?: string | undefined;
+        type?: string | undefined;
       }
       interface UserKeyword {
-        customType?: string;
-        type?: string;
-        value?: string;
+        customType?: string | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface UserLanguage {
-        customLanguage?: string;
-        languageCode?: string;
+        customLanguage?: string | undefined;
+        languageCode?: string | undefined;
       }
       interface UserLocation {
-        area?: string;
-        buildingId?: string;
-        customType?: string;
-        deskCode?: string;
-        floorName?: string;
-        floorSection?: string;
-        type?: string;
+        area?: string | undefined;
+        buildingId?: string | undefined;
+        customType?: string | undefined;
+        deskCode?: string | undefined;
+        floorName?: string | undefined;
+        floorSection?: string | undefined;
+        type?: string | undefined;
       }
       interface UserMakeAdmin {
-        status?: boolean;
+        status?: boolean | undefined;
       }
       interface UserName {
-        familyName?: string;
-        fullName?: string;
-        givenName?: string;
+        familyName?: string | undefined;
+        fullName?: string | undefined;
+        givenName?: string | undefined;
       }
       interface UserOrganization {
-        costCenter?: string;
-        customType?: string;
-        department?: string;
-        description?: string;
-        domain?: string;
-        fullTimeEquivalent?: number;
-        location?: string;
-        name?: string;
-        primary?: boolean;
-        symbol?: string;
-        title?: string;
-        type?: string;
+        costCenter?: string | undefined;
+        customType?: string | undefined;
+        department?: string | undefined;
+        description?: string | undefined;
+        domain?: string | undefined;
+        fullTimeEquivalent?: number | undefined;
+        location?: string | undefined;
+        name?: string | undefined;
+        primary?: boolean | undefined;
+        symbol?: string | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
       }
       interface UserPhone {
-        customType?: string;
-        primary?: boolean;
-        type?: string;
-        value?: string;
+        customType?: string | undefined;
+        primary?: boolean | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface UserPhoto {
-        etag?: string;
-        height?: number;
-        id?: string;
-        kind?: string;
-        mimeType?: string;
-        photoData?: string;
-        primaryEmail?: string;
-        width?: number;
+        etag?: string | undefined;
+        height?: number | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        mimeType?: string | undefined;
+        photoData?: string | undefined;
+        primaryEmail?: string | undefined;
+        width?: number | undefined;
       }
       interface UserPosixAccount {
-        accountId?: string;
-        gecos?: string;
-        gid?: string;
-        homeDirectory?: string;
-        operatingSystemType?: string;
-        primary?: boolean;
-        shell?: string;
-        systemId?: string;
-        uid?: string;
-        username?: string;
+        accountId?: string | undefined;
+        gecos?: string | undefined;
+        gid?: string | undefined;
+        homeDirectory?: string | undefined;
+        operatingSystemType?: string | undefined;
+        primary?: boolean | undefined;
+        shell?: string | undefined;
+        systemId?: string | undefined;
+        uid?: string | undefined;
+        username?: string | undefined;
       }
       interface UserRelation {
-        customType?: string;
-        type?: string;
-        value?: string;
+        customType?: string | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface UserSshPublicKey {
-        expirationTimeUsec?: string;
-        fingerprint?: string;
-        key?: string;
+        expirationTimeUsec?: string | undefined;
+        fingerprint?: string | undefined;
+        key?: string | undefined;
       }
       interface UserUndelete {
-        orgUnitPath?: string;
+        orgUnitPath?: string | undefined;
       }
       interface UserWebsite {
-        customType?: string;
-        primary?: boolean;
-        type?: string;
-        value?: string;
+        customType?: string | undefined;
+        primary?: boolean | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface Users {
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
-        trigger_event?: string;
-        users?: AdminDirectory.Schema.User[];
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        trigger_event?: string | undefined;
+        users?: AdminDirectory.Schema.User[] | undefined;
       }
       interface VerificationCode {
-        etag?: string;
-        kind?: string;
-        userId?: string;
-        verificationCode?: string;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        userId?: string | undefined;
+        verificationCode?: string | undefined;
       }
       interface VerificationCodes {
-        etag?: string;
-        items?: AdminDirectory.Schema.VerificationCode[];
-        kind?: string;
+        etag?: string | undefined;
+        items?: AdminDirectory.Schema.VerificationCode[] | undefined;
+        kind?: string | undefined;
       }
     }
   }
   interface AdminDirectory {
-    Asps?: AdminDirectory.Collection.AspsCollection;
-    Channels?: AdminDirectory.Collection.ChannelsCollection;
-    Chromeosdevices?: AdminDirectory.Collection.ChromeosdevicesCollection;
-    Customers?: AdminDirectory.Collection.CustomersCollection;
-    DomainAliases?: AdminDirectory.Collection.DomainAliasesCollection;
-    Domains?: AdminDirectory.Collection.DomainsCollection;
-    Groups?: AdminDirectory.Collection.GroupsCollection;
-    Members?: AdminDirectory.Collection.MembersCollection;
-    Mobiledevices?: AdminDirectory.Collection.MobiledevicesCollection;
-    Notifications?: AdminDirectory.Collection.NotificationsCollection;
-    Orgunits?: AdminDirectory.Collection.OrgunitsCollection;
-    Privileges?: AdminDirectory.Collection.PrivilegesCollection;
-    ResolvedAppAccessSettings?: AdminDirectory.Collection.ResolvedAppAccessSettingsCollection;
-    Resources?: AdminDirectory.Collection.ResourcesCollection;
-    RoleAssignments?: AdminDirectory.Collection.RoleAssignmentsCollection;
-    Roles?: AdminDirectory.Collection.RolesCollection;
-    Schemas?: AdminDirectory.Collection.SchemasCollection;
-    Tokens?: AdminDirectory.Collection.TokensCollection;
-    Users?: AdminDirectory.Collection.UsersCollection;
-    VerificationCodes?: AdminDirectory.Collection.VerificationCodesCollection;
+    Asps?: AdminDirectory.Collection.AspsCollection | undefined;
+    Channels?: AdminDirectory.Collection.ChannelsCollection | undefined;
+    Chromeosdevices?: AdminDirectory.Collection.ChromeosdevicesCollection | undefined;
+    Customers?: AdminDirectory.Collection.CustomersCollection | undefined;
+    DomainAliases?: AdminDirectory.Collection.DomainAliasesCollection | undefined;
+    Domains?: AdminDirectory.Collection.DomainsCollection | undefined;
+    Groups?: AdminDirectory.Collection.GroupsCollection | undefined;
+    Members?: AdminDirectory.Collection.MembersCollection | undefined;
+    Mobiledevices?: AdminDirectory.Collection.MobiledevicesCollection | undefined;
+    Notifications?: AdminDirectory.Collection.NotificationsCollection | undefined;
+    Orgunits?: AdminDirectory.Collection.OrgunitsCollection | undefined;
+    Privileges?: AdminDirectory.Collection.PrivilegesCollection | undefined;
+    ResolvedAppAccessSettings?: AdminDirectory.Collection.ResolvedAppAccessSettingsCollection | undefined;
+    Resources?: AdminDirectory.Collection.ResourcesCollection | undefined;
+    RoleAssignments?: AdminDirectory.Collection.RoleAssignmentsCollection | undefined;
+    Roles?: AdminDirectory.Collection.RolesCollection | undefined;
+    Schemas?: AdminDirectory.Collection.SchemasCollection | undefined;
+    Tokens?: AdminDirectory.Collection.TokensCollection | undefined;
+    Users?: AdminDirectory.Collection.UsersCollection | undefined;
+    VerificationCodes?: AdminDirectory.Collection.VerificationCodesCollection | undefined;
     // Create a new instance of Alias
     newAlias(): AdminDirectory.Schema.Alias;
     // Create a new instance of Building

@@ -1,67 +1,73 @@
+import { Editor } from '@ckeditor/ckeditor5-core';
 import {
-    Notification,
     addListToDropdown,
     addToolbarToDropdown,
+    BalloonPanelView,
+    BalloonToolbar,
+    BlockToolbar,
     BodyCollection,
     BoxedEditorUIView,
     ButtonView,
     clickOutsideHandler,
     ColorGridView,
     ColorTileView,
+    ContextualBalloon,
     createDropdown,
+    createLabeledDropdown,
+    createLabeledInputText,
     DropdownButtonView,
     EditorUIView,
+    enableToolbarKeyboardFocus,
     FocusCycler,
+    FormHeaderView,
     getLocalizedColorOptions,
+    IconView,
     injectCssTransitionDisabler,
     InlineEditableUIView,
+    InputTextView,
+    LabeledFieldView,
+    LabelView,
+    ListItemView,
+    ListView,
     Model,
     normalizeColorOptions,
+    normalizeToolbarConfig,
+    Notification,
     SplitButtonView,
+    StickyPanelView,
     submitHandler,
     SwitchButtonView,
     Template,
+    ToolbarSeparatorView,
+    ToolbarView,
     TooltipView,
     View,
     ViewCollection,
-    LabelView,
-    InputTextView,
-    IconView,
-    FormHeaderView,
-    createLabeledDropdown,
-    createLabeledInputText,
-    ContextualBalloon,
-    normalizeToolbarConfig,
-    BalloonToolbar,
-    LabeledFieldView,
-    ListItemView,
-    ListView,
-    StickyPanelView,
-    BalloonPanelView,
-    ToolbarSeparatorView,
-    enableToolbarKeyboardFocus,
-    ToolbarView,
-    BlockToolbar,
-} from "@ckeditor/ckeditor5-ui";
-import { DomEmitterMixin, EmitterMixin, FocusTracker, KeystrokeHandler, Locale } from "@ckeditor/ckeditor5-utils";
-import DropdownView from "@ckeditor/ckeditor5-ui/src/dropdown/dropdownview";
-import DropdownPanelView from "@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview";
-import { Editor } from "@ckeditor/ckeditor5-core";
+} from '@ckeditor/ckeditor5-ui';
+import preventDefault from '@ckeditor/ckeditor5-ui/src/bindings/preventdefault';
+import DropdownPanelView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview';
+import DropdownView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownview';
+import IframeView from '@ckeditor/ckeditor5-ui/src/iframe/iframeview';
+import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
+import ListSeparatorView from '@ckeditor/ckeditor5-ui/src/list/listseparatorview';
+import ToolbarLineBreakView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview';
+import { DomEmitterMixin, EmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 
 let num = 0;
-let str = "";
-let nul: null = null;
+let str = '';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
+let bool = true;
 /**
  * View
  */
 
 let view = new View();
-const func: (...args: any[]) => any = view.t;
-const undef: undefined = view.locale as undefined;
-let bool: boolean = view.isRendered;
-let template: Template = view.template;
+view.isRendered === bool;
+let template: Template;
+template = view.template as Template;
+
+let htmlelement = template.render() as HTMLElement;
 
 let locale: Locale = new Locale();
 view = new View(locale);
@@ -74,47 +80,49 @@ view.deregisterChild(view);
 view.deregisterChild([view]);
 
 view.setTemplate({
-    tag: "div",
+    tag: 'div',
     attributes: {
-        class: [view.bindTemplate.to("foo")],
+        class: [view.bindTemplate.to('foo')],
     },
 });
 
-view.setTemplate({ tag: "a" });
+view.setTemplate({ tag: 'a' });
 
 view.setTemplate({
-    tag: "div",
+    tag: 'div',
     children: [
         view,
         {
-            tag: "p",
+            tag: 'p',
             children: [view],
         },
         {
-            text: "foo",
+            text: 'foo',
         },
     ],
 });
 
 view.extendTemplate({
     attributes: {
-        class: [view.bindTemplate.if("foo")],
+        class: [view.bindTemplate.if('foo')],
     },
 });
 
 view.render();
 view.destroy();
 
-let htmlelement: HTMLElement = view.element as HTMLElement;
-nul = view.element as null;
+htmlelement = view.element!;
+view.element === null;
 
 /**
  * ViewCollection
  */
 let viewCollection: ViewCollection = view.createCollection();
 view = viewCollection.get(0) as View;
-nul = viewCollection.get(0) as null;
-viewCollection.setParent(document.createElement("div"));
+viewCollection.get(0) === null;
+// $ExpectType (View & { id: string; }) | null
+viewCollection.get(0);
+viewCollection.setParent(htmlelement);
 viewCollection.add(view);
 // $ExpectError
 viewCollection.add([view]);
@@ -128,38 +136,53 @@ viewCollection.destroy();
  * Template
  */
 const templateBind = Template.bind(new Model(), DomEmitterMixin);
-template = new Template({ tag: "p" });
-template = new Template({
-    text: "foo",
-    tag: "p",
+new Template({ tag: 'p' });
+new Template({
+    tag: 'p',
+    on: {
+        click: templateBind.to('clicked'),
+        'click@a.foo': templateBind.to('clicked'),
+        mouseover: [templateBind.to('clicked'), templateBind.to('executed')],
+    },
+});
+new Template({
+    tag: 'div',
+    children: viewCollection,
+});
+
+new Template({
+    text: 'foo',
+    tag: 'p',
     attributes: {
-        a: "foo",
-        b: ["bar", "baz"],
+        a: 'foo',
+        b: ['bar', 'baz'],
         c: {
-            ns: "abc",
-            value: templateBind.to("qux"),
+            ns: 'abc',
+            value: templateBind.to('qux'),
         },
     },
     children: [
         {
-            text: "content",
+            tag: 'div',
+            text: 'content',
         },
         {
-            text: templateBind.to("x"),
+            tag: 'div',
+            text: templateBind.to('x'),
         },
-        "abc",
+        'abc',
         {
-            text: ["a", "b"],
+            tag: 'div',
+            text: ['a', 'b'],
         },
-        document.createElement("div"),
+        document.createElement('div'),
     ],
     on: {
-        "a@span": templateBind.to("b"),
-        "b@span": templateBind.to(() => {}),
-        "c@span": [templateBind.to("c"), templateBind.to(() => {})],
+        'a@span': templateBind.to('b'),
+        'b@span': templateBind.to(() => {}),
+        'c@span': [templateBind.to('c'), templateBind.to(() => {})],
     },
 });
-htmlelement = template.render() as HTMLElement;
 
 /**
  * Model
@@ -169,19 +192,28 @@ const model = new MyModel();
 model.set({ a: 4 });
 model.a;
 // $ExpectError
-model.a = 4;
+model.a = num;
+
+/**
+ * ListView
+ */
+const listView = new ListView(locale);
+listView.focus();
+let focusTracker: FocusTracker = listView.focusTracker;
+// $ExpectError
+listView.focusTracker as ListView;
 
 /**
  * FocusCycler
  */
 let focusCycler = new FocusCycler({
     focusables: viewCollection,
-    focusTracker: new FocusTracker(),
+    focusTracker,
 });
 focusCycler = new FocusCycler({
     focusables: viewCollection,
     focusTracker: new FocusTracker(),
-    actions: { focusPrevious: "bar", focusNext: "foo" },
+    actions: { focusPrevious: 'bar', focusNext: 'foo' },
 });
 focusCycler.focusPrevious();
 focusCycler.focusLast();
@@ -199,7 +231,7 @@ str = tooltip.text;
 clickOutsideHandler({
     emitter: Object.create(EmitterMixin),
     activator: () => false,
-    contextElements: [document.createElement("div")],
+    contextElements: [document.createElement('div')],
     callback: () => {},
 });
 
@@ -244,8 +276,8 @@ view = switchbuttonview.children.get(0) as View;
  * ColorGrid
  */
 const colorDefinition = {
-    color: "#fff",
-    label: "white",
+    color: '#fff',
+    label: 'white',
     options: {
         hasBorder: false,
     },
@@ -254,10 +286,10 @@ const colorDefinition = {
 const [colorDefinition1] = getLocalizedColorOptions(locale, [colorDefinition]);
 const [colorDefinition2] = normalizeColorOptions([colorDefinition1]);
 
-let colorGridWiew = new ColorGridView(locale);
-colorGridWiew = new ColorGridView(locale, { colorDefinitions: [colorDefinition1, colorDefinition2] });
+new ColorGridView(locale);
+new ColorGridView(locale, { colorDefinitions: [colorDefinition1, colorDefinition2] });
 
-const colorTileView = new ColorTileView(locale);
+new ColorTileView(locale);
 
 /**
  * DropdownButtonView
@@ -279,7 +311,7 @@ let dropdownView = new DropdownView(locale, dropdownbuttonview, new DropdownPane
 /**
  * Dropdown Utils
  */
-const options: { model: Model; type: "button" } = { model, type: "button" };
+const options: { model: Model; type: 'button' } = { model, type: 'button' };
 addListToDropdown(dropdownView, [options]);
 addToolbarToDropdown(dropdownView, [buttonView]);
 createDropdown(locale, buttonView);
@@ -301,13 +333,16 @@ viewCollection = boxedEditor.main;
 /**
  * EditableUIView
  */
-const inlineeditableuiview = new InlineEditableUIView(locale, view);
+// $ExpectType boolean
+new InlineEditableUIView(locale, view)._hasExternalElement;
+// $ExpectError
+new InlineEditableUIView(locale, view)._hasExternalElement = true;
 
 /**
  * FormHeaderView
  */
-let formheaderview = new FormHeaderView(locale);
-formheaderview = new FormHeaderView(locale, { label: "foo", class: "bar" });
+new FormHeaderView(locale);
+new FormHeaderView(locale, { label: 'foo', class: 'bar' });
 
 /**
  * IconView
@@ -337,9 +372,9 @@ str = labelview.for = labelview.id = labelview.text;
 const labeledfieldview = new LabeledFieldView(locale, () => view);
 labeledfieldview.focus();
 
-dropdownView = createLabeledDropdown(labeledfieldview, "foo", "bar");
+dropdownView = createLabeledDropdown(labeledfieldview, 'foo', 'bar');
 
-inputtextview = createLabeledInputText(labeledfieldview, "foo", "baR");
+inputtextview = createLabeledInputText(labeledfieldview, 'foo', 'baR');
 
 /**
  * ListItemView
@@ -348,20 +383,13 @@ const listItemView = new ListItemView(locale);
 viewCollection = listItemView.children;
 
 /**
- * ListView
- */
-const listView = new ListView(locale);
-listView.focus();
-let focusTracker: FocusTracker = listView.focusTracker;
-
-/**
  * Notification
  */
 const notification = new Notification(editor);
-notification.showInfo("hello");
-notification.showSuccess("hello");
-notification.showWarning("hello");
-notification.showWarning("hello", { namespace: "", title: "world" });
+notification.showInfo('hello');
+notification.showSuccess('hello');
+notification.showWarning('hello');
+notification.showWarning('hello', { namespace: '', title: 'world' });
 
 /**
  * BalloonPanelView
@@ -374,10 +402,10 @@ viewCollection = ballonPanelView.content;
  * ContextualBalloon
  */
 const contextualballon = new ContextualBalloon(editor);
-contextualballon.add({ stackId: "" });
-bool = contextualballon.isEnabled;
+contextualballon.add({ stackId: '' });
+contextualballon.isEnabled === bool;
 contextualballon.remove(view);
-contextualballon.showStack("foo");
+contextualballon.showStack('foo');
 
 /**
  * StickyPanelView
@@ -391,7 +419,7 @@ htmlelement = stickypanelview.limiterElement;
  * ToolipView
  */
 const tooltipView = new TooltipView();
-str = tooltipView.position as string;
+str = tooltipView.position;
 str = tooltipView.text;
 
 /**
@@ -400,7 +428,7 @@ str = tooltipView.text;
 let toolbarView = new ToolbarView(locale);
 toolbarView.focus();
 bool = toolbarView.isCompact;
-bool = toolbarView.options.isFloating as boolean;
+bool = toolbarView.options.isFloating!;
 
 /**
  * ToolbarSeparatorView
@@ -421,7 +449,7 @@ enableToolbarKeyboardFocus({
 /**
  * normalizeToolbarConfig
  */
-const toolbarConfig = normalizeToolbarConfig(["foo", "bar", "set"]);
+const toolbarConfig = normalizeToolbarConfig(['foo', 'bar', 'set', str]);
 normalizeToolbarConfig(toolbarConfig);
 
 /**
@@ -439,3 +467,56 @@ focusTracker = balloonToolbar.focusTracker;
 const blockToolbar = new BlockToolbar(editor);
 toolbarView = blockToolbar.toolbarView;
 buttonView = blockToolbar.buttonView;
+
+/**
+ * preventDefault
+ */
+view.setTemplate({
+    tag: 'div',
+
+    on: {
+        foo: preventDefault(view),
+    },
+});
+
+/**
+ * IframeView
+ */
+const iframeView = new IframeView();
+iframeView.render().then(() => {});
+document.body.appendChild(iframeView.element!);
+iframeView.element!.remove();
+
+/**
+ * LabeledInputView
+ */
+const labeledInputView = new LabeledInputView(locale, InputTextView);
+labeledInputView.render();
+labeledInputView.statusView.element!.tagName.startsWith('');
+labeledInputView.labelView.for.startsWith('');
+labeledInputView.inputView.isReadOnly === bool;
+labeledInputView.select();
+
+/**
+ * ListSeparatorView
+ */
+new ListSeparatorView().render();
+new ListSeparatorView().element!.tagName.startsWith('foo');
+
+/**
+ * ToolbarLineBreakView
+ */
+new ToolbarLineBreakView().render();
+new ToolbarLineBreakView().element!.tagName.startsWith('foo');
+
+// $ExpectType BalloonToolbar
+editor.plugins.get('BalloonToolbar');
+
+// $ExpectType BlockToolbar
+editor.plugins.get('BlockToolbar');
+
+// $ExpectType ContextualBalloon
+editor.plugins.get('ContextualBalloon');
+
+// $ExpectType Notification
+editor.plugins.get('Notification');

@@ -33,6 +33,7 @@ export * from './promise';
 export * from './query';
 export * from './record';
 export * from './record-result';
+export * from './record-stream';
 export * from './salesforce-id';
 export * from './salesforce-object';
 export * from './streaming';

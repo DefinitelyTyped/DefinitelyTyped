@@ -1,6 +1,6 @@
 // Type definitions for amazon-dax-client 1.2
 // Project: https://aws.amazon.com/dynamodb/dax/
-// Definitions by: Courtney Pitcher <https://github.com/DefinitelyTyped>
+// Definitions by: Courtney Pitcher <https://github.com/IgniparousTempest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -12,25 +12,25 @@ declare class AmazonDaxClient {
 }
 
 interface AmazonDaxClientOptions {
-    params?: Map<string, any>;
-    endpoint?: string;
-    endpoints?: ReadonlyArray<string>;
-    accessKeyId?: string;
-    secretAccessKey?: string;
-    region?: string;
-    maxRetries?: number;
-    maxRedirects?: number;
-    apiVersion?: string | Date;
-    httpOptions?: AmazonDaxClientHttpOptions;
+    params?: Map<string, any> | undefined;
+    endpoint?: string | undefined;
+    endpoints?: ReadonlyArray<string> | undefined;
+    accessKeyId?: string | undefined;
+    secretAccessKey?: string | undefined;
+    region?: string | undefined;
+    maxRetries?: number | undefined;
+    maxRedirects?: number | undefined;
+    apiVersion?: string | Date | undefined;
+    httpOptions?: AmazonDaxClientHttpOptions | undefined;
 }
 
 interface AmazonDaxClientHttpOptions {
-    proxy?: string;
+    proxy?: string | undefined;
     agent?: any;
-    connectTimeout?: number;
-    timeout?: number;
-    xhrAsync?: boolean;
-    xhrWithCredentials?: boolean;
+    connectTimeout?: number | undefined;
+    timeout?: number | undefined;
+    xhrAsync?: boolean | undefined;
+    xhrWithCredentials?: boolean | undefined;
 }
 
 export = AmazonDaxClient;

@@ -31,20 +31,20 @@ export type PopperSizingTypes =
 export type PopoverProps = {
     body: React.ReactNode;
     control: React.ReactNode;
-    className?: string;
-    disabled?: boolean;
-    disableEdgeDetection?: boolean;
-    disableKeyPressHandler?: boolean;
-    disableStyles?: boolean;
-    noArrow?: boolean;
-    placement?: PopperPlacement;
-    popperClassName?: string;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
+    disableEdgeDetection?: boolean | undefined;
+    disableKeyPressHandler?: boolean | undefined;
+    disableStyles?: boolean | undefined;
+    noArrow?: boolean | undefined;
+    placement?: PopperPlacement | undefined;
+    popperClassName?: string | undefined;
     popperProps?: any;
-    type?: PopoverTypes;
-    useArrowKeyNavigation?: boolean;
-    widthSizingType?: PopperSizingTypes;
-    onClickOutside?: (event: MouseEvent | TouchEvent | FocusEvent) => void;
-    onEscapeKey?: () => void;
+    type?: PopoverTypes | undefined;
+    useArrowKeyNavigation?: boolean | undefined;
+    widthSizingType?: PopperSizingTypes | undefined;
+    onClickOutside?: ((event: MouseEvent | TouchEvent | FocusEvent) => void) | undefined;
+    onEscapeKey?: (() => void) | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare class Popover extends React.Component<PopoverProps> {}

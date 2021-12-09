@@ -19,7 +19,7 @@ export type AsyncCompleter =
 export type Completer = AsyncCompleter | readline.Completer;
 
 export interface ReadLineOptions extends readline.ReadLineOptions {
-    completer?: Completer;
+    completer?: Completer | undefined;
 }
 
 export function createInterface(

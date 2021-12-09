@@ -1,8 +1,8 @@
 import stringify = require('json-stringify-safe');
 
 interface CircularObj {
-    circularRef?: CircularObj;
-    list?: CircularObj[];
+    circularRef?: CircularObj | undefined;
+    list?: CircularObj[] | undefined;
 }
 
 const circularObj: CircularObj = {};

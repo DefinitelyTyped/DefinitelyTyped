@@ -25,6 +25,6 @@ declare namespace getos {
         os: 'linux';
         dist: string;
         release: string;
-        codename?: string;
+        codename?: string | undefined;
     }
 }

@@ -9,15 +9,15 @@ export type TableSelectRowOnChange = (
 ) => void;
 
 export interface TableSelectRowProps {
-    ariaLabel?: string,
+    ariaLabel?: string | undefined,
     checked: boolean,
-    className?: string,
-    disabled?: boolean,
+    className?: string | undefined,
+    disabled?: boolean | undefined,
     id: string,
     name: string,
-    onChange?: TableSelectRowOnChange;
+    onChange?: TableSelectRowOnChange | undefined;
     onSelect(event: React.MouseEvent<HTMLInputElement>): void,
-    radio?: boolean,
+    radio?: boolean | undefined,
 }
 
 declare const TableSelectRow: React.FC<TableSelectRowProps>;

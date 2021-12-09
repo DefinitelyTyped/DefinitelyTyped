@@ -22,9 +22,9 @@ declare function expressSitemapXml(
 
 declare namespace expressSitemapXml {
     interface LeafObject {
-        changeFreq?: string;
+        changeFreq?: string | undefined;
         /** specify `true` for today's date */
-        lastMod?: string | Date | true;
+        lastMod?: string | Date | true | undefined;
         url: string;
     }
 

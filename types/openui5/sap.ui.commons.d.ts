@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -102,7 +102,6 @@ declare module "sap/ui/commons/library" {
      */
     Standard = "Standard",
   }
-
   /**
    * @deprecated (since 1.38)
    *
@@ -638,6 +637,8 @@ declare module "sap/ui/commons/Accordion" {
 
   import AccordionSection from "sap/ui/commons/AccordionSection";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -685,6 +686,31 @@ declare module "sap/ui/commons/Accordion" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Accordion with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Accordion>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Accordion.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some section to the aggregation {@link #getSections sections}.
      */
     addSection(
@@ -710,7 +736,25 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sectionClose sectionClose} event of this `sap.ui.commons.Accordion`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
+     *
+     * Event is triggered when the user closes a section.
+     */
+    attachSectionClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -733,7 +777,25 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sectionOpen sectionOpen} event of this `sap.ui.commons.Accordion`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
+     *
+     * Event is triggered when the user opens a section.
+     */
+    attachSectionOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -757,7 +819,26 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sectionsReorder sectionsReorder} event of this
+     * `sap.ui.commons.Accordion`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
+     *
+     * Event is triggered when the user changes the position of a section.
+     */
+    attachSectionsReorder(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -785,7 +866,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -800,7 +881,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -816,33 +897,12 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Accordion with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Accordion>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:sectionClose sectionClose} to attached listeners.
      */
@@ -893,10 +953,6 @@ declare module "sap/ui/commons/Accordion" {
         newIndex?: int;
       }
     ): this;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Accordion.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOpenedSectionsId openedSectionsId}.
      *
@@ -990,61 +1046,6 @@ declare module "sap/ui/commons/Accordion" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sectionClose sectionClose} event of this `sap.ui.commons.Accordion`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
-     *
-     * Event is triggered when the user closes a section.
-     */
-    attachSectionClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sectionOpen sectionOpen} event of this `sap.ui.commons.Accordion`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
-     *
-     * Event is triggered when the user opens a section.
-     */
-    attachSectionOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sectionsReorder sectionsReorder} event of this
-     * `sap.ui.commons.Accordion`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
-     *
-     * Event is triggered when the user changes the position of a section.
-     */
-    attachSectionsReorder(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $AccordionSettings extends $ControlSettings {
@@ -1066,17 +1067,17 @@ declare module "sap/ui/commons/Accordion" {
     /**
      * Event is triggered when the user opens a section.
      */
-    sectionOpen?: Function;
+    sectionOpen?: (oEvent: Event) => void;
 
     /**
      * Event is triggered when the user closes a section.
      */
-    sectionClose?: Function;
+    sectionClose?: (oEvent: Event) => void;
 
     /**
      * Event is triggered when the user changes the position of a section.
      */
-    sectionsReorder?: Function;
+    sectionsReorder?: (oEvent: Event) => void;
   }
 }
 
@@ -1084,6 +1085,8 @@ declare module "sap/ui/commons/AccordionSection" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -1132,6 +1135,31 @@ declare module "sap/ui/commons/AccordionSection" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.AccordionSection with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, AccordionSection>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.AccordionSection.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -1157,7 +1185,25 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:scroll scroll} event of this `sap.ui.commons.AccordionSection`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.AccordionSection` itself.
+     *
+     * Event is fired when the user scrolls the panel
+     */
+    attachScroll(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
        */
@@ -1176,33 +1222,12 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.AccordionSection with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, AccordionSection>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:scroll scroll} to attached listeners.
      */
@@ -1254,10 +1279,6 @@ declare module "sap/ui/commons/AccordionSection" {
      * When the section content exceeds maxHeight, a vertical scroll bar appears.
      */
     getMaxHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.AccordionSection.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -1348,24 +1369,6 @@ declare module "sap/ui/commons/AccordionSection" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:scroll scroll} event of this `sap.ui.commons.AccordionSection`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.AccordionSection` itself.
-     *
-     * Event is fired when the user scrolls the panel
-     */
-    attachScroll(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $AccordionSectionSettings extends $ElementSettings {
@@ -1402,12 +1405,14 @@ declare module "sap/ui/commons/AccordionSection" {
     /**
      * Event is fired when the user scrolls the panel
      */
-    scroll?: Function;
+    scroll?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/ui/commons/ApplicationHeader" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -1454,44 +1459,6 @@ declare module "sap/ui/commons/ApplicationHeader" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
-     *
-     * Fires an event to log off the user from the application. No parameters.
-     */
-    attachLogoff(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ApplicationHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachLogoff(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.ApplicationHeader with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -1512,6 +1479,66 @@ declare module "sap/ui/commons/ApplicationHeader" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.ApplicationHeader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
+     *
+     * Fires an event to log off the user from the application. No parameters.
+     */
+    attachLogoff(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ApplicationHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
+     *
+     * Fires an event to log off the user from the application. No parameters.
+     */
+    attachLogoff(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ApplicationHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachLogoff(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:logoff logoff} to attached listeners.
      */
@@ -1549,10 +1576,6 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * The text that will be displayed beside the logo in the application header. This property is optional.
      */
     getLogoText(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ApplicationHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getUserName userName}.
      *
@@ -1628,24 +1651,6 @@ declare module "sap/ui/commons/ApplicationHeader" {
        */
       sUserName?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
-     *
-     * Fires an event to log off the user from the application. No parameters.
-     */
-    attachLogoff(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ApplicationHeader` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ApplicationHeaderSettings extends $ControlSettings {
@@ -1677,7 +1682,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
     /**
      * Fires an event to log off the user from the application. No parameters.
      */
-    logoff?: Function;
+    logoff?: (oEvent: Event) => void;
   }
 }
 
@@ -1750,6 +1755,10 @@ declare module "sap/ui/commons/Area" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.Area.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getAlt alt}.
      *
      * Alternative text that is displayed in the case the image is not available
@@ -1767,10 +1776,6 @@ declare module "sap/ui/commons/Area" {
      * Hyper link that is executed when the area is clicked
      */
     getHref(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Area.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShape shape}.
      *
@@ -1862,6 +1867,8 @@ declare module "sap/ui/commons/AutoComplete" {
 
   import { ToolbarItem } from "sap/ui/commons/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListBox from "sap/ui/commons/ListBox";
@@ -1908,44 +1915,6 @@ declare module "sap/ui/commons/AutoComplete" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
-     *
-     * Fired when the user has changed the value and a suggestion list update should occur.
-     */
-    attachSuggest(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachSuggest(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.AutoComplete with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -1966,6 +1935,66 @@ declare module "sap/ui/commons/AutoComplete" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.AutoComplete.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
+     *
+     * Fired when the user has changed the value and a suggestion list update should occur.
+     */
+    attachSuggest(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
+     *
+     * Fired when the user has changed the value and a suggestion list update should occur.
+     */
+    attachSuggest(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachSuggest(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:suggest suggest} to attached listeners.
      */
@@ -1993,10 +2022,6 @@ declare module "sap/ui/commons/AutoComplete" {
      * @deprecated (since 1.10.0) - NOT SUPPORTED
      */
     getListBox(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.AutoComplete.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.10.0) - NOT SUPPORTED
      */
@@ -2046,24 +2071,6 @@ declare module "sap/ui/commons/AutoComplete" {
      * @deprecated (since 1.10.0) - NOT SUPPORTED
      */
     setSelectedKey(sSelectedKey: string): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
-     *
-     * Fired when the user has changed the value and a suggestion list update should occur.
-     */
-    attachSuggest(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $AutoCompleteSettings extends $ComboBoxSettings {
@@ -2076,7 +2083,7 @@ declare module "sap/ui/commons/AutoComplete" {
     /**
      * Fired when the user has changed the value and a suggestion list update should occur.
      */
-    suggest?: Function;
+    suggest?: (oEvent: Event) => void;
   }
 }
 
@@ -2086,6 +2093,8 @@ declare module "sap/ui/commons/Button" {
   import { ToolbarItem, ButtonStyle } from "sap/ui/commons/library";
 
   import { IFormContent, ID, CSSSize, URI } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2134,6 +2143,31 @@ declare module "sap/ui/commons/Button" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Button with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Button>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Button.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -2168,7 +2202,25 @@ declare module "sap/ui/commons/Button" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Button` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Button`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Button` itself.
+     *
+     * Event is fired when the user presses the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Button` itself
        */
@@ -2183,33 +2235,12 @@ declare module "sap/ui/commons/Button" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Button with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Button>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -2227,7 +2258,7 @@ declare module "sap/ui/commons/Button" {
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
-    getAccessibilityInfo(): Object;
+    getAccessibilityInfo(): object;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
      * ariaDescribedBy}.
@@ -2307,10 +2338,6 @@ declare module "sap/ui/commons/Button" {
      * Default value is `false`.
      */
     getLite(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Button.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getStyle style}.
      *
@@ -2552,24 +2579,6 @@ declare module "sap/ui/commons/Button" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Button`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Button` itself.
-     *
-     * Event is fired when the user presses the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Button` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ButtonSettings extends $ControlSettings {
@@ -2654,7 +2663,7 @@ declare module "sap/ui/commons/Button" {
     /**
      * Event is fired when the user presses the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -2710,19 +2719,6 @@ declare module "sap/ui/commons/Callout" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.Callout with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -2744,15 +2740,28 @@ declare module "sap/ui/commons/Callout" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.Callout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Determines the content of the Callout
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.commons.Callout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -2809,6 +2818,8 @@ declare module "sap/ui/commons/CalloutBase" {
     $TooltipBaseSettings,
   } from "sap/ui/core/TooltipBase";
 
+  import Event from "sap/ui/base/Event";
+
   import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -2853,6 +2864,31 @@ declare module "sap/ui/commons/CalloutBase" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.CalloutBase with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.TooltipBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CalloutBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.CalloutBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adjust position of the already opened Callout window. Call this method each time when the size of the
      * opened Callout window may be changed due to new or changed contents.
      */
@@ -2875,7 +2911,26 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
+     * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
+     */
+    attachBeforeOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2898,7 +2953,25 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * Event is fired when the Callout window is closed.
+     */
+    attachClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2921,7 +2994,25 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * The event is fired when the popup is opened.
+     */
+    attachOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2946,7 +3037,27 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.11.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * Is fired when the Callout has been opened
+     */
+    attachOpened(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2965,7 +3076,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2980,7 +3091,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2995,7 +3106,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3012,33 +3123,12 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.CalloutBase with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.TooltipBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CalloutBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -3091,10 +3181,6 @@ declare module "sap/ui/commons/CalloutBase" {
       mParameters?: object
     ): this;
     /**
-     * Returns a metadata object for class sap.ui.commons.CalloutBase.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Set position of the Callout window relative to the parent control. This function automatically calculates
      * and sets the correct offset, use it instead of `setMyPosition/setAtPosition`.
      */
@@ -3108,106 +3194,31 @@ declare module "sap/ui/commons/CalloutBase" {
        */
       atPosition: Dock
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
-     * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
-     */
-    attachBeforeOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * Event is fired when the Callout window is closed.
-     */
-    attachClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * The event is fired when the popup is opened.
-     */
-    attachOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.11.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * Is fired when the Callout has been opened
-     */
-    attachOpened(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalloutBaseSettings extends $TooltipBaseSettings {
     /**
      * The event is fired when the popup is opened.
      */
-    open?: Function;
+    open?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the Callout window is closed.
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
 
     /**
      * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
      * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.11.0
      *
      * Is fired when the Callout has been opened
      */
-    opened?: Function;
+    opened?: (oEvent: Event) => void;
   }
 }
 
@@ -3266,6 +3277,31 @@ declare module "sap/ui/commons/Carousel" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Carousel with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Carousel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Carousel.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -3294,27 +3330,6 @@ declare module "sap/ui/commons/Carousel" {
      * Destroys all the content in the aggregation {@link #getContent content}.
      */
     destroyContent(): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Carousel with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Carousel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Gets current value of property {@link #getAnimationDuration animationDuration}.
      *
@@ -3375,10 +3390,6 @@ declare module "sap/ui/commons/Carousel" {
      * Determines the height of the Carousel
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Carousel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOrientation orientation}.
      *
@@ -3665,6 +3676,8 @@ declare module "sap/ui/commons/CheckBox" {
     CSSSize,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -3709,6 +3722,31 @@ declare module "sap/ui/commons/CheckBox" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.CheckBox with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CheckBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.CheckBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -3743,7 +3781,25 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.CheckBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CheckBox` itself.
+     *
+     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
        */
@@ -3770,33 +3826,12 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.CheckBox with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CheckBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -3850,10 +3885,6 @@ declare module "sap/ui/commons/CheckBox" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.CheckBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -4042,24 +4073,6 @@ declare module "sap/ui/commons/CheckBox" {
      * Unbinds property {@link #getChecked checked} from model data.
      */
     unbindChecked(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.CheckBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CheckBox` itself.
-     *
-     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CheckBoxSettings extends $ControlSettings {
@@ -4121,7 +4134,7 @@ declare module "sap/ui/commons/CheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -4269,6 +4282,31 @@ declare module "sap/ui/commons/ComboBox" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.ComboBox with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.TextField.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ComboBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.ComboBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Compares the previous value with the current value and fires the "Change" event if the ComboBox is editable
      * and the value has changed or whether the value has been changed e.g. via up/down or auto-complete feature
      */
@@ -4308,27 +4346,6 @@ declare module "sap/ui/commons/ComboBox" {
      * Destroys all the items in the aggregation {@link #getItems items}.
      */
     destroyItems(): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.ComboBox with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.TextField.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ComboBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fire event change to attached listeners.
      *
@@ -4379,10 +4396,6 @@ declare module "sap/ui/commons/ComboBox" {
      * Default value is `10`.
      */
     getMaxPopupItems(): int;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ComboBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelectedItemId selectedItemId}.
      *
@@ -4694,6 +4707,10 @@ declare module "sap/ui/commons/DatePicker" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.DatePicker.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Fire event change to attached listeners.
      *
      * Provides the following event parameters:
@@ -4715,7 +4732,7 @@ declare module "sap/ui/commons/DatePicker" {
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
-    getAccessibilityInfo(): Object;
+    getAccessibilityInfo(): object;
     /**
      * Gets current value of property {@link #getLocale locale}.
      *
@@ -4724,10 +4741,6 @@ declare module "sap/ui/commons/DatePicker" {
      * will be ignored, because the locale information of the model are used.
      */
     getLocale(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.DatePicker.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getYyyymmdd yyyymmdd}.
      *
@@ -4793,6 +4806,8 @@ declare module "sap/ui/commons/Dialog" {
     OpenState,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { enums } from "sap/ui/commons/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -4845,6 +4860,31 @@ declare module "sap/ui/commons/Dialog" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Dialog with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Dialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Dialog.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
      */
     addButton(
@@ -4880,7 +4920,26 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.commons.Dialog`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Dialog` itself.
+     *
+     * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
+     * information about last position and last size.
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
        */
@@ -4907,33 +4966,12 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Dialog with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Dialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:closed closed} to attached listeners.
      */
@@ -5065,10 +5103,6 @@ declare module "sap/ui/commons/Dialog" {
      * the window larger.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Dialog.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinHeight minHeight}.
      *
@@ -5512,25 +5546,6 @@ declare module "sap/ui/commons/Dialog" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.commons.Dialog`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Dialog` itself.
-     *
-     * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
-     * information about last position and last size.
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DialogSettings extends $ControlSettings {
@@ -5668,7 +5683,7 @@ declare module "sap/ui/commons/Dialog" {
      * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
      * information about last position and last size.
      */
-    closed?: Function;
+    closed?: (oEvent: Event) => void;
   }
 }
 
@@ -5677,6 +5692,8 @@ declare module "sap/ui/commons/DropdownBox" {
     default as ComboBox,
     $ComboBoxSettings,
   } from "sap/ui/commons/ComboBox";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -5723,50 +5740,6 @@ declare module "sap/ui/commons/DropdownBox" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.DropdownBox` itself.
-     *
-     * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
-     * F4 key is pressed.
-     */
-    attachSearchHelp(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Using this method the history of the DropdownBox can be cleared. This might be necessary if the items
-     * of the DropdownBox have changed. Otherwise invalid items may appear in the history.
-     */
-    clearHistory(): void;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachSearchHelp(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.DropdownBox with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -5787,6 +5760,73 @@ declare module "sap/ui/commons/DropdownBox" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.DropdownBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.DropdownBox` itself.
+     *
+     * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
+     * F4 key is pressed.
+     */
+    attachSearchHelp(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.DropdownBox` itself.
+     *
+     * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
+     * F4 key is pressed.
+     */
+    attachSearchHelp(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Using this method the history of the DropdownBox can be cleared. This might be necessary if the items
+     * of the DropdownBox have changed. Otherwise invalid items may appear in the history.
+     */
+    clearHistory(): void;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachSearchHelp(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:searchHelp searchHelp} to attached listeners.
      */
@@ -5812,10 +5852,6 @@ declare module "sap/ui/commons/DropdownBox" {
      * Default value is `0`.
      */
     getMaxHistoryItems(): int;
-    /**
-     * Returns a metadata object for class sap.ui.commons.DropdownBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSearchHelpAdditionalText searchHelpAdditionalText}.
      *
@@ -6041,25 +6077,6 @@ declare module "sap/ui/commons/DropdownBox" {
        */
       sSearchHelpText: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.DropdownBox` itself.
-     *
-     * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
-     * F4 key is pressed.
-     */
-    attachSearchHelp(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DropdownBoxSettings extends $ComboBoxSettings {
@@ -6095,7 +6112,7 @@ declare module "sap/ui/commons/DropdownBox" {
      * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
      * F4 key is pressed.
      */
-    searchHelp?: Function;
+    searchHelp?: (oEvent: Event) => void;
   }
 }
 
@@ -7072,6 +7089,10 @@ declare module "sap/ui/commons/form/SimpleForm" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.form.SimpleForm.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.14
      *
      * Getter for property `layout`. The FormLayout that is used to render the SimpleForm
@@ -7079,10 +7100,6 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * Default value is `ResponsiveLayout`
      */
     getLayout(): form.SimpleFormLayout;
-    /**
-     * Returns a metadata object for class sap.ui.commons.form.SimpleForm.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.14
      *
@@ -7154,19 +7171,6 @@ declare module "sap/ui/commons/FormattedTextView" {
     );
 
     /**
-     * Adds some control to the aggregation {@link #getControls controls}.
-     */
-    addControl(
-      /**
-       * The control to add; if empty, nothing is inserted
-       */
-      oControl: Control
-    ): this;
-    /**
-     * Destroys all the controls in the aggregation {@link #getControls controls}.
-     */
-    destroyControls(): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.FormattedTextView with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -7187,6 +7191,23 @@ declare module "sap/ui/commons/FormattedTextView" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.FormattedTextView.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some control to the aggregation {@link #getControls controls}.
+     */
+    addControl(
+      /**
+       * The control to add; if empty, nothing is inserted
+       */
+      oControl: Control
+    ): this;
+    /**
+     * Destroys all the controls in the aggregation {@link #getControls controls}.
+     */
+    destroyControls(): this;
     /**
      * Gets current value of property {@link #getAccessibleRole accessibleRole}.
      *
@@ -7209,10 +7230,6 @@ declare module "sap/ui/commons/FormattedTextView" {
      * Default value is `empty string`.
      */
     getHtmlText(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.FormattedTextView.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Indicates whether the FormattedTextView contains other controls.
      */
@@ -7389,6 +7406,10 @@ declare module "sap/ui/commons/HorizontalDivider" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.HorizontalDivider.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the divider.
@@ -7396,10 +7417,6 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * Default value is `Medium`.
      */
     getHeight(): HorizontalDividerHeight | keyof typeof HorizontalDividerHeight;
-    /**
-     * Returns a metadata object for class sap.ui.commons.HorizontalDivider.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getType type}.
      *
@@ -7495,6 +7512,8 @@ declare module "sap/ui/commons/Image" {
 
   import { IFormContent, CSSSize, URI } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -7543,44 +7562,6 @@ declare module "sap/ui/commons/Image" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Image`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Image` itself.
-     *
-     * Event is fired when the user clicks on the control.
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Image` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.commons.Image`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.Image with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -7601,6 +7582,66 @@ declare module "sap/ui/commons/Image" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Image.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Image`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Image` itself.
+     *
+     * Event is fired when the user clicks on the control.
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Image` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Image`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Image` itself.
+     *
+     * Event is fired when the user clicks on the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Image` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.commons.Image`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -7635,10 +7676,6 @@ declare module "sap/ui/commons/Image" {
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Image.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSrc src}.
      *
@@ -7744,24 +7781,6 @@ declare module "sap/ui/commons/Image" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Image`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Image` itself.
-     *
-     * Event is fired when the user clicks on the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Image` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ImageSettings extends $ControlSettings {
@@ -7804,7 +7823,7 @@ declare module "sap/ui/commons/Image" {
     /**
      * Event is fired when the user clicks on the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -7812,6 +7831,8 @@ declare module "sap/ui/commons/ImageMap" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import Area from "sap/ui/commons/Area";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -7858,6 +7879,31 @@ declare module "sap/ui/commons/ImageMap" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.ImageMap with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ImageMap>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.ImageMap.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some area to the aggregation {@link #getAreas areas}.
      */
     addArea(
@@ -7883,7 +7929,25 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.ImageMap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ImageMap` itself.
+     *
+     * Event for the areas that can be clicked in an ImageMap
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
        */
@@ -7913,33 +7977,12 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.ImageMap with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ImageMap>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -7960,10 +8003,6 @@ declare module "sap/ui/commons/ImageMap" {
      * Area representing the reference to the target location
      */
     getAreas(): Area[];
-    /**
-     * Returns a metadata object for class sap.ui.commons.ImageMap.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -8023,24 +8062,6 @@ declare module "sap/ui/commons/ImageMap" {
        */
       sName?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.ImageMap`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ImageMap` itself.
-     *
-     * Event for the areas that can be clicked in an ImageMap
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ImageMapSettings extends $ControlSettings {
@@ -8057,12 +8078,14 @@ declare module "sap/ui/commons/ImageMap" {
     /**
      * Event for the areas that can be clicked in an ImageMap
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/ui/commons/InPlaceEdit" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { TextViewDesign } from "sap/ui/commons/library";
 
@@ -8113,6 +8136,31 @@ declare module "sap/ui/commons/InPlaceEdit" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.InPlaceEdit with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, InPlaceEdit>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.InPlaceEdit.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.InPlaceEdit`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -8130,7 +8178,26 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.InPlaceEdit`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
+     * key is pressed.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -8157,7 +8224,29 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.16.5
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
+     *
+     * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
+     * is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -8181,7 +8270,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8198,33 +8287,12 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.InPlaceEdit with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, InPlaceEdit>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -8259,7 +8327,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
-    getAccessibilityInfo(): Object;
+    getAccessibilityInfo(): object;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -8277,10 +8345,6 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * Default value is `Standard`.
      */
     getDesign(): TextViewDesign | keyof typeof TextViewDesign;
-    /**
-     * Returns a metadata object for class sap.ui.commons.InPlaceEdit.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the tooltip for this InPlaceEdit if any or an undefined value. The tooltip can either be a simple
      * string or a subclass of {@link sap.ui.core.TooltipBase}.
@@ -8383,47 +8447,6 @@ declare module "sap/ui/commons/InPlaceEdit" {
        */
       sValueState?: ValueState | keyof typeof ValueState
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.InPlaceEdit`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
-     * key is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.16.5
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
-     *
-     * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
-     * is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $InPlaceEditSettings extends $ControlSettings {
@@ -8457,7 +8480,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
      * key is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16.5
@@ -8466,7 +8489,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -8550,6 +8573,10 @@ declare module "sap/ui/commons/Label" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.Label.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
@@ -8572,10 +8599,6 @@ declare module "sap/ui/commons/Label" {
      * ID of the element which is the current target of the association {@link #getLabelFor labelFor}, or `null`.
      */
     getLabelFor(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Label.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.11.0
      *
@@ -8909,6 +8932,31 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.layout.AbsoluteLayout with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, AbsoluteLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.AbsoluteLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds the given control and a corresponding position container into the aggregation named 'positions'.
      * Returns 'this' to allow method chaining.
      */
@@ -8942,27 +8990,6 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      */
     destroyPositions(): this;
     /**
-     * Creates a new subclass of class sap.ui.commons.layout.AbsoluteLayout with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, AbsoluteLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Returns an array of the controls contained in the aggregated position containers (might be empty).
      */
     getContent(): Control[];
@@ -8982,10 +9009,6 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      * Default value is `Hidden`.
      */
     getHorizontalScrolling(): Scrolling | keyof typeof Scrolling;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.AbsoluteLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getPositions positions}.
      *
@@ -9232,6 +9255,31 @@ declare module "sap/ui/commons/layout/BorderLayout" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.layout.BorderLayout with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, BorderLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.BorderLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds controls to the specified area.
      */
     addContent(
@@ -9289,27 +9337,6 @@ declare module "sap/ui/commons/layout/BorderLayout" {
      * Destroys the top in the aggregation {@link #getTop top}.
      */
     destroyTop(): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.layout.BorderLayout with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, BorderLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Returns the area of the given type. If the area does not exist, it will be created when create is set
      * to true.
@@ -9391,10 +9418,6 @@ declare module "sap/ui/commons/layout/BorderLayout" {
      * Default value is `'100%'`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.BorderLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.5.2) - replaced by the global configuration for the page
      *
@@ -9685,19 +9708,6 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.layout.BorderLayoutArea with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -9718,6 +9728,23 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.BorderLayoutArea.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
     /**
      * @deprecated (since 1.3.3) - Redundant to the aggregation by the parent border layout.
      *
@@ -9744,10 +9771,6 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * Default value is `'left'`.
      */
     getContentAlign(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.BorderLayoutArea.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOverflowX overflowX}.
      *
@@ -10105,27 +10128,6 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
     );
 
     /**
-     * Adds some row to the aggregation {@link #getRows rows}.
-     */
-    addRow(
-      /**
-       * The row to add; if empty, nothing is inserted
-       */
-      oRow: MatrixLayoutRow
-    ): this;
-    /**
-     * Creates a new matrix layout row and appends it to this matrix layout.
-     *
-     * Each argument must be either a matrix layout cell, which is added to the row "as is", or an arbitrary
-     * content control, which is wrapped with a new (default) matrix layout cell first and then added to the
-     * row.
-     */
-    createRow(): this;
-    /**
-     * Destroys all the rows in the aggregation {@link #getRows rows}.
-     */
-    destroyRows(): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.layout.MatrixLayout with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -10146,6 +10148,31 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.MatrixLayout.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some row to the aggregation {@link #getRows rows}.
+     */
+    addRow(
+      /**
+       * The row to add; if empty, nothing is inserted
+       */
+      oRow: MatrixLayoutRow
+    ): this;
+    /**
+     * Creates a new matrix layout row and appends it to this matrix layout.
+     *
+     * Each argument must be either a matrix layout cell, which is added to the row "as is", or an arbitrary
+     * content control, which is wrapped with a new (default) matrix layout cell first and then added to the
+     * row.
+     */
+    createRow(): this;
+    /**
+     * Destroys all the rows in the aggregation {@link #getRows rows}.
+     */
+    destroyRows(): this;
     /**
      * Gets current value of property {@link #getColumns columns}.
      *
@@ -10169,10 +10196,6 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * Default value is `true`.
      */
     getLayoutFixed(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.MatrixLayout.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getRows rows}.
      *
@@ -10394,6 +10417,31 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.layout.MatrixLayoutCell with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MatrixLayoutCell>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.MatrixLayoutCell.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -10445,27 +10493,6 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.ui.commons.layout.MatrixLayoutCell with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MatrixLayoutCell>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets current value of property {@link #getBackgroundDesign backgroundDesign}.
      *
      * Determines the matrix layout cell's background design.
@@ -10500,10 +10527,6 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * Default value is `'Begin'`.
      */
     getHAlign(): layout.HAlign | keyof typeof layout.HAlign;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.MatrixLayoutCell.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPadding padding}.
      *
@@ -10823,6 +10846,31 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.layout.MatrixLayoutRow with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MatrixLayoutRow>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.MatrixLayoutRow.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some cell to the aggregation {@link #getCells cells}.
      */
     addCell(
@@ -10874,27 +10922,6 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
      */
     destroyCells(): this;
     /**
-     * Creates a new subclass of class sap.ui.commons.layout.MatrixLayoutRow with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MatrixLayoutRow>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getCells cells}.
      *
      * The matrix layout row's individual cells.
@@ -10906,10 +10933,6 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
      * Height of the row.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.MatrixLayoutRow.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns true if the given style class string is valid and if this Element has this style class set via
      * a previous call to addStyleClass().
@@ -11049,10 +11072,6 @@ declare module "sap/ui/commons/layout/PositionContainer" {
     );
 
     /**
-     * Destroys the control in the aggregation {@link #getControl control}.
-     */
-    destroyControl(): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.layout.PositionContainer with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -11073,6 +11092,14 @@ declare module "sap/ui/commons/layout/PositionContainer" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.PositionContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the control in the aggregation {@link #getControl control}.
+     */
+    destroyControl(): this;
     /**
      * Gets current value of property {@link #getBottom bottom}.
      *
@@ -11109,10 +11136,6 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * Defines the distance to the left of the layout (as specified in HTML)
      */
     getLeft(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.PositionContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRight right}.
      *
@@ -11429,6 +11452,10 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.layout.ResponsiveFlowLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.11.0
      *
      * Getter for property `margin`. This property prevents any margin of the element if set to false
@@ -11436,10 +11463,6 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      * Default value is `true`
      */
     getMargin(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.ResponsiveFlowLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.11.0
      *
@@ -11550,6 +11573,8 @@ declare module "sap/ui/commons/Link" {
 
   import { IFormContent, ID, URI, CSSSize } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -11599,6 +11624,31 @@ declare module "sap/ui/commons/Link" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Link with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Link>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Link.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -11633,7 +11683,25 @@ declare module "sap/ui/commons/Link" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Link` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Link`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Link` itself.
+     *
+     * Event is fired when the user clicks the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Link` itself
        */
@@ -11648,33 +11716,12 @@ declare module "sap/ui/commons/Link" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Link with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Link>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -11729,10 +11776,6 @@ declare module "sap/ui/commons/Link" {
      * not be set, but instead an event handler for the "press" event should be registered.
      */
     getHref(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Link.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTarget target}.
      *
@@ -11870,24 +11913,6 @@ declare module "sap/ui/commons/Link" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Link`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Link` itself.
-     *
-     * Event is fired when the user clicks the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Link` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $LinkSettings extends $ControlSettings {
@@ -11938,7 +11963,7 @@ declare module "sap/ui/commons/Link" {
     /**
      * Event is fired when the user clicks the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -11948,6 +11973,8 @@ declare module "sap/ui/commons/ListBox" {
   import { ID, CSSSize, TextAlign } from "sap/ui/core/library";
 
   import Item from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -11997,6 +12024,31 @@ declare module "sap/ui/commons/ListBox" {
       mSettings?: $ListBoxSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.commons.ListBox with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ListBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.ListBox.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -12060,7 +12112,25 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.ListBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ListBox` itself.
+     *
+     * Event is fired when selection is changed by user interaction.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
        */
@@ -12083,33 +12153,12 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.ListBox with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ListBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:select select} to attached listeners.
      */
@@ -12215,10 +12264,6 @@ declare module "sap/ui/commons/ListBox" {
      * Determines the maximum width of the ListBox. If not set, there is no maximum width.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ListBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
@@ -12601,24 +12646,6 @@ declare module "sap/ui/commons/ListBox" {
        */
       sWidth: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.ListBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ListBox` itself.
-     *
-     * Event is fired when selection is changed by user interaction.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ListBoxSettings extends $ControlSettings {
@@ -12723,7 +12750,7 @@ declare module "sap/ui/commons/ListBox" {
     /**
      * Event is fired when selection is changed by user interaction.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -12870,19 +12897,6 @@ declare module "sap/ui/commons/MenuBar" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: MenuItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.MenuBar with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -12903,6 +12917,23 @@ declare module "sap/ui/commons/MenuBar" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.MenuBar.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: MenuItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
     /**
      * Gets current value of property {@link #getDesign design}.
      *
@@ -12925,10 +12956,6 @@ declare module "sap/ui/commons/MenuBar" {
      * Aggregation of menu items.
      */
     getItems(): MenuItem[];
-    /**
-     * Returns a metadata object for class sap.ui.commons.MenuBar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -13050,6 +13077,8 @@ declare module "sap/ui/commons/MenuBar" {
 declare module "sap/ui/commons/MenuButton" {
   import { default as Button, $ButtonSettings } from "sap/ui/commons/Button";
 
+  import Event from "sap/ui/base/Event";
+
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
 
   import Menu from "sap/ui/unified/Menu";
@@ -13097,6 +13126,31 @@ declare module "sap/ui/commons/MenuButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.MenuButton with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.Button.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MenuButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.MenuButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelected itemSelected} event of this `sap.ui.commons.MenuButton`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -13113,7 +13167,25 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelected itemSelected} event of this `sap.ui.commons.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
+     *
+     * Event that is fired when a menu item is selected by the user
+     */
+    attachItemSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -13145,6 +13217,26 @@ declare module "sap/ui/commons/MenuButton" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
+     *
+     * Event is fired when an item from the menu was selected.
+     * See:
+     * 	sap.ui.commons.MenuButton#attachItemSelected
+     */
+    attachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys the menu in the aggregation named `menu`.
      */
     destroyMenu(): this;
@@ -13157,7 +13249,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13180,27 +13272,6 @@ declare module "sap/ui/commons/MenuButton" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.MenuButton with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.Button.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MenuButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:itemSelected itemSelected} to attached listeners.
      */
@@ -13251,10 +13322,6 @@ declare module "sap/ui/commons/MenuButton" {
      */
     getMenu(): Menu;
     /**
-     * Returns a metadata object for class sap.ui.commons.MenuButton.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Sets a new value for property {@link #getDockButton dockButton}.
      *
      * The position / edge (see sap.ui.core.Popup.Dock) of the button where the menu is docked. Default is 'begin
@@ -13291,44 +13358,6 @@ declare module "sap/ui/commons/MenuButton" {
        */
       oMenu: Menu
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelected itemSelected} event of this `sap.ui.commons.MenuButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
-     *
-     * Event that is fired when a menu item is selected by the user
-     */
-    attachItemSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.MenuButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
-     *
-     * Event is fired when an item from the menu was selected.
-     * See:
-     * 	sap.ui.commons.MenuButton#attachItemSelected
-     */
-    attachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MenuButtonSettings extends $ButtonSettings {
@@ -13352,7 +13381,7 @@ declare module "sap/ui/commons/MenuButton" {
     /**
      * Event that is fired when a menu item is selected by the user
      */
-    itemSelected?: Function;
+    itemSelected?: (oEvent: Event) => void;
   }
 }
 
@@ -13612,20 +13641,6 @@ declare module "sap/ui/commons/Message" {
     );
 
     /**
-     * Registers a callback function to be invoked if long text Details are to be made available.
-     *
-     * This callback function will be supplied the corresponding Message "id", and should return the (simple)
-     * HTML string to be displayed within the Message Details Dialog.
-     *
-     * E.g.: myMessage.bindDetails(getDetails); function getDetails(sId) {... return htmlString;}
-     */
-    bindDetails(
-      /**
-       * the callback function
-       */
-      fnCallBack: Function
-    ): void;
-    /**
      * Creates a new subclass of class sap.ui.commons.Message with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -13647,6 +13662,24 @@ declare module "sap/ui/commons/Message" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.Message.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Registers a callback function to be invoked if long text Details are to be made available.
+     *
+     * This callback function will be supplied the corresponding Message "id", and should return the (simple)
+     * HTML string to be displayed within the Message Details Dialog.
+     *
+     * E.g.: myMessage.bindDetails(getDetails); function getDetails(sId) {... return htmlString;}
+     */
+    bindDetails(
+      /**
+       * the callback function
+       */
+      fnCallBack: Function
+    ): void;
+    /**
      * Gets current value of property {@link #getAssociatedElementId associatedElementId}.
      *
      * Associated UI element ID. (Optional) For navigation to error field.
@@ -13658,10 +13691,6 @@ declare module "sap/ui/commons/Message" {
      * Internal attribute, used to force the display of the "short" or the "long" text only.
      */
     getDesign(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Message.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -13798,6 +13827,31 @@ declare module "sap/ui/commons/MessageBar" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.MessageBar with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MessageBar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.MessageBar.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds/updates a supplied list of messages. The MessageBar will appear if at least one message exists.
      */
     addMessages(
@@ -13819,27 +13873,6 @@ declare module "sap/ui/commons/MessageBar" {
        */
       aIds: string[]
     ): void;
-    /**
-     * Creates a new subclass of class sap.ui.commons.MessageBar with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MessageBar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Gets current value of property {@link #getAnchorID anchorID}.
      *
@@ -13877,10 +13910,6 @@ declare module "sap/ui/commons/MessageBar" {
      * Default value is `3`.
      */
     getMaxToasted(): int;
-    /**
-     * Returns a metadata object for class sap.ui.commons.MessageBar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -14304,6 +14333,10 @@ declare module "sap/ui/commons/MessageList" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.MessageList.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getAnchorId anchorId}.
      *
      * ID of the anchor under which the MessageList will render.
@@ -14317,10 +14350,6 @@ declare module "sap/ui/commons/MessageList" {
      * Default value is `'7'`.
      */
     getMaxListed(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.MessageList.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -14403,6 +14432,8 @@ declare module "sap/ui/commons/MessageList" {
 declare module "sap/ui/commons/MessageToast" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Message from "sap/ui/commons/Message";
@@ -14447,44 +14478,6 @@ declare module "sap/ui/commons/MessageToast" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
-     *
-     * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
-     */
-    attachNext(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MessageToast` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachNext(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.MessageToast with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -14506,6 +14499,66 @@ declare module "sap/ui/commons/MessageToast" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.MessageToast.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
+     *
+     * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
+     */
+    attachNext(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MessageToast` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
+     *
+     * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
+     */
+    attachNext(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MessageToast` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachNext(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Fires event {@link #event:next next} to attached listeners.
      */
     fireNext(
@@ -14520,10 +14573,6 @@ declare module "sap/ui/commons/MessageToast" {
      * ID of the anchor on top of which the MessageToast is to render.
      */
     getAnchorId(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.MessageToast.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the idle state of the control. Returns true if no message is being toasted.
      */
@@ -14557,24 +14606,6 @@ declare module "sap/ui/commons/MessageToast" {
        */
       sAnchorId: string
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
-     *
-     * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
-     */
-    attachNext(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MessageToast` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MessageToastSettings extends $ControlSettings {
@@ -14586,12 +14617,14 @@ declare module "sap/ui/commons/MessageToast" {
     /**
      * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
      */
-    next?: Function;
+    next?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/ui/commons/Paginator" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { PaginatorEvent } from "sap/ui/commons/library";
 
@@ -14637,44 +14670,6 @@ declare module "sap/ui/commons/Paginator" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
-     *
-     * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
-     */
-    attachPage(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachPage(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.Paginator with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -14695,6 +14690,66 @@ declare module "sap/ui/commons/Paginator" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Paginator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
+     *
+     * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
+     */
+    attachPage(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
+     *
+     * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
+     */
+    attachPage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPage(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:page page} to attached listeners.
      */
@@ -14730,10 +14785,6 @@ declare module "sap/ui/commons/Paginator" {
      */
     getCurrentPage(): int;
     /**
-     * Returns a metadata object for class sap.ui.commons.Paginator.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getNumberOfPages numberOfPages}.
      *
      * Represents the overall number of pages that are embedded into the parent control
@@ -14767,24 +14818,6 @@ declare module "sap/ui/commons/Paginator" {
        */
       iNumberOfPages?: int
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
-     *
-     * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
-     */
-    attachPage(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $PaginatorSettings extends $ControlSettings {
@@ -14801,7 +14834,7 @@ declare module "sap/ui/commons/Paginator" {
     /**
      * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
      */
-    page?: Function;
+    page?: (oEvent: Event) => void;
   }
 }
 
@@ -14862,6 +14895,31 @@ declare module "sap/ui/commons/Panel" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Panel with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Panel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Panel.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
      */
     addButton(
@@ -14891,27 +14949,6 @@ declare module "sap/ui/commons/Panel" {
      * Destroys the title in the aggregation {@link #getTitle title}.
      */
     destroyTitle(): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Panel with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Panel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Gets current value of property {@link #getApplyContentPadding applyContentPadding}.
      *
@@ -14978,10 +15015,6 @@ declare module "sap/ui/commons/Panel" {
      * adjusted to the content. Dimension allows to explicitly specify the height.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Panel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the scroll position of the panel in pixels from the left. Returns 0 if not rendered yet. Also
      * internally updates the control property.
@@ -15475,6 +15508,10 @@ declare module "sap/ui/commons/ProgressIndicator" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.ProgressIndicator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
@@ -15506,10 +15543,6 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ProgressIndicator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPercentValue percentValue}.
      *
@@ -15671,6 +15704,8 @@ declare module "sap/ui/commons/RadioButton" {
     CSSSize,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -15719,6 +15754,31 @@ declare module "sap/ui/commons/RadioButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.RadioButton with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RadioButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.RadioButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -15753,7 +15813,25 @@ declare module "sap/ui/commons/RadioButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RadioButton` itself.
+     *
+     * Triggers when the user makes a change on the RadioButton.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButton` itself
        */
@@ -15768,33 +15846,12 @@ declare module "sap/ui/commons/RadioButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.RadioButton with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RadioButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:select select} to attached listeners.
      */
@@ -15846,10 +15903,6 @@ declare module "sap/ui/commons/RadioButton" {
      * Can be used for subsequent actions.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RadioButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -16047,24 +16100,6 @@ declare module "sap/ui/commons/RadioButton" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RadioButton` itself.
-     *
-     * Triggers when the user makes a change on the RadioButton.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButton` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RadioButtonSettings extends $ControlSettings {
@@ -16132,7 +16167,7 @@ declare module "sap/ui/commons/RadioButton" {
     /**
      * Triggers when the user makes a change on the RadioButton.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -16142,6 +16177,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Item from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -16194,6 +16231,31 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.RadioButtonGroup with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RadioButtonGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.RadioButtonGroup.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -16237,7 +16299,25 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButtonGroup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RadioButtonGroup` itself.
+     *
+     * Fires when selection is changed by user interaction.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
        */
@@ -16273,33 +16353,12 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.RadioButtonGroup with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RadioButtonGroup>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:select select} to attached listeners.
      */
@@ -16360,10 +16419,6 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * The RadioButtons of this RadioButtonGroup.
      */
     getItems(): Item[];
-    /**
-     * Returns a metadata object for class sap.ui.commons.RadioButtonGroup.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelectedIndex selectedIndex}.
      *
@@ -16569,24 +16624,6 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * Unbinds aggregation {@link #getItems items} from model data.
      */
     unbindItems(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButtonGroup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RadioButtonGroup` itself.
-     *
-     * Fires when selection is changed by user interaction.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RadioButtonGroupSettings extends $ControlSettings {
@@ -16647,7 +16684,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     /**
      * Fires when selection is changed by user interaction.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -16769,6 +16806,8 @@ declare module "sap/ui/commons/RatingIndicator" {
 
   import { ID, URI } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -16815,6 +16854,31 @@ declare module "sap/ui/commons/RatingIndicator" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.RatingIndicator with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RatingIndicator>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.RatingIndicator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -16849,7 +16913,25 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.RatingIndicator`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RatingIndicator` itself.
+     *
+     * The event is fired when the user has done a rating.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
        */
@@ -16876,33 +16958,12 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.RatingIndicator with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RatingIndicator>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -16980,10 +17041,6 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Default value is `5`.
      */
     getMaxValue(): int;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RatingIndicator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -17152,24 +17209,6 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Unbinds property {@link #getValue value} from model data.
      */
     unbindValue(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.RatingIndicator`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RatingIndicator` itself.
-     *
-     * The event is fired when the user has done a rating.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RatingIndicatorSettings extends $ControlSettings {
@@ -17235,7 +17274,7 @@ declare module "sap/ui/commons/RatingIndicator" {
     /**
      * The event is fired when the user has done a rating.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -17243,6 +17282,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import ResponsiveContainerRange from "sap/ui/commons/ResponsiveContainerRange";
+
+  import Event from "sap/ui/base/Event";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -17293,6 +17334,31 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.ResponsiveContainer with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ResponsiveContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.ResponsiveContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some range to the aggregation {@link #getRanges ranges}.
      */
     addRange(
@@ -17318,7 +17384,26 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:rangeSwitch rangeSwitch} event of this `sap.ui.commons.ResponsiveContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ResponsiveContainer` itself.
+     *
+     * The event is fired the width of the container reaches a new range.
+     */
+    attachRangeSwitch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
        * itself
@@ -17338,33 +17423,12 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.ResponsiveContainer with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ResponsiveContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:rangeSwitch rangeSwitch} to attached listeners.
      */
@@ -17392,10 +17456,6 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * Default value is `'100%'`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ResponsiveContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getRanges ranges}.
      *
@@ -17490,25 +17550,6 @@ declare module "sap/ui/commons/ResponsiveContainer" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:rangeSwitch rangeSwitch} event of this `sap.ui.commons.ResponsiveContainer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ResponsiveContainer` itself.
-     *
-     * The event is fired the width of the container reaches a new range.
-     */
-    attachRangeSwitch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ResponsiveContainerSettings extends $ControlSettings {
@@ -17538,7 +17579,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     /**
      * The event is fired the width of the container reaches a new range.
      */
-    rangeSwitch?: Function;
+    rangeSwitch?: (oEvent: Event) => void;
   }
 }
 
@@ -17612,6 +17653,10 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.ResponsiveContainerRange.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * ID of the element which is the current target of the association {@link #getContent content}, or `null`.
      */
     getContent(): ID;
@@ -17631,10 +17676,6 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * Default value is `empty string`.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ResponsiveContainerRange.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -17795,6 +17836,10 @@ declare module "sap/ui/commons/RichTooltip" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.RichTooltip.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.11.1
      *
      * Gets current value of property {@link #getImageAltText imageAltText}.
@@ -17808,10 +17853,6 @@ declare module "sap/ui/commons/RichTooltip" {
      * If RichTooltip contains an image, this property is used to define the source path.
      */
     getImageSrc(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RichTooltip.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -17913,6 +17954,8 @@ declare module "sap/ui/commons/RoadMap" {
 
   import RoadMapStep from "sap/ui/commons/RoadMapStep";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -17960,6 +18003,31 @@ declare module "sap/ui/commons/RoadMap" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.RoadMap with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RoadMap>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.RoadMap.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some step to the aggregation {@link #getSteps steps}.
      */
     addStep(
@@ -17985,7 +18053,25 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:stepExpanded stepExpanded} event of this `sap.ui.commons.RoadMap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
+     *
+     * Event is fired when a given step is expanded or collapsed by user.
+     */
+    attachStepExpanded(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18008,7 +18094,25 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:stepSelected stepSelected} event of this `sap.ui.commons.RoadMap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
+     *
+     * Event is fired when the user selects a step.
+     */
+    attachStepSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18027,7 +18131,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18042,33 +18146,12 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.RoadMap with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RoadMap>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:stepExpanded stepExpanded} to attached listeners.
      */
@@ -18103,10 +18186,6 @@ declare module "sap/ui/commons/RoadMap" {
      * ID of the first step to be displayed
      */
     getFirstVisibleStep(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RoadMap.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumberOfVisibleSteps numberOfVisibleSteps}.
      *
@@ -18227,42 +18306,6 @@ declare module "sap/ui/commons/RoadMap" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:stepExpanded stepExpanded} event of this `sap.ui.commons.RoadMap`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
-     *
-     * Event is fired when a given step is expanded or collapsed by user.
-     */
-    attachStepExpanded(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:stepSelected stepSelected} event of this `sap.ui.commons.RoadMap`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
-     *
-     * Event is fired when the user selects a step.
-     */
-    attachStepSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RoadMapSettings extends $ControlSettings {
@@ -18294,12 +18337,12 @@ declare module "sap/ui/commons/RoadMap" {
     /**
      * Event is fired when the user selects a step.
      */
-    stepSelected?: Function;
+    stepSelected?: (oEvent: Event) => void;
 
     /**
      * Event is fired when a given step is expanded or collapsed by user.
      */
-    stepExpanded?: Function;
+    stepExpanded?: (oEvent: Event) => void;
   }
 }
 
@@ -18351,25 +18394,6 @@ declare module "sap/ui/commons/RoadMapStep" {
     );
 
     /**
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
-     * in one of the next releases.
-     *
-     * Adds some subStep to the aggregation {@link #getSubSteps subSteps}.
-     */
-    addSubStep(
-      /**
-       * The subStep to add; if empty, nothing is inserted
-       */
-      oSubStep: RoadMapStep
-    ): this;
-    /**
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
-     * in one of the next releases.
-     *
-     * Destroys all the subSteps in the aggregation {@link #getSubSteps subSteps}.
-     */
-    destroySubSteps(): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.RoadMapStep with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -18390,6 +18414,29 @@ declare module "sap/ui/commons/RoadMapStep" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.RoadMapStep.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * in one of the next releases.
+     *
+     * Adds some subStep to the aggregation {@link #getSubSteps subSteps}.
+     */
+    addSubStep(
+      /**
+       * The subStep to add; if empty, nothing is inserted
+       */
+      oSubStep: RoadMapStep
+    ): this;
+    /**
+     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * in one of the next releases.
+     *
+     * Destroys all the subSteps in the aggregation {@link #getSubSteps subSteps}.
+     */
+    destroySubSteps(): this;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -18415,10 +18462,6 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Label of the step
      */
     getLabel(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RoadMapStep.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
@@ -18594,6 +18637,8 @@ declare module "sap/ui/commons/RowRepeater" {
 
   import RowRepeaterSorter from "sap/ui/commons/RowRepeaterSorter";
 
+  import Event from "sap/ui/base/Event";
+
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -18645,6 +18690,31 @@ declare module "sap/ui/commons/RowRepeater" {
       mSettings?: $RowRepeaterSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.commons.RowRepeater with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RowRepeater>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.RowRepeater.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some filter to the aggregation {@link #getFilters filters}.
      */
@@ -18698,7 +18768,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when a filter is set.
+     */
+    attachFilter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18721,7 +18809,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when paging was executed.
+     */
+    attachPage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18744,7 +18850,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when the number of rows was changed.
+     */
+    attachResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18767,7 +18891,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when a sorting is applied.
+     */
+    attachSort(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18814,7 +18956,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18829,7 +18971,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18844,7 +18986,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18859,33 +19001,12 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.RowRepeater with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RowRepeater>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:filter filter} to attached listeners.
      */
@@ -18985,10 +19106,6 @@ declare module "sap/ui/commons/RowRepeater" {
      * Default value is `empty string`.
      */
     getFixedRowHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RowRepeater.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getNoData noData}.
      *
@@ -19298,78 +19415,6 @@ declare module "sap/ui/commons/RowRepeater" {
      * Unbinds aggregation {@link #getRows rows} from model data.
      */
     unbindRows(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when a filter is set.
-     */
-    attachFilter(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when paging was executed.
-     */
-    attachPage(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when the number of rows was changed.
-     */
-    attachResize(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when a sorting is applied.
-     */
-    attachSort(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RowRepeaterSettings extends $ControlSettings {
@@ -19435,22 +19480,22 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * This event is triggered when a filter is set.
      */
-    filter?: Function;
+    filter?: (oEvent: Event) => void;
 
     /**
      * This event is triggered when a sorting is applied.
      */
-    sort?: Function;
+    sort?: (oEvent: Event) => void;
 
     /**
      * This event is triggered when paging was executed.
      */
-    page?: Function;
+    page?: (oEvent: Event) => void;
 
     /**
      * This event is triggered when the number of rows was changed.
      */
-    resize?: Function;
+    resize?: (oEvent: Event) => void;
   }
 }
 
@@ -19521,6 +19566,10 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.RowRepeaterFilter.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getFilters filters}.
      *
      * The set of filter objects.
@@ -19532,10 +19581,6 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
      * The filter icon if needed for display.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RowRepeaterFilter.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -19668,15 +19713,15 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.RowRepeaterSorter.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * The sorter icon if needed for display.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.RowRepeaterSorter.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSorter sorter}.
      *
@@ -19755,6 +19800,8 @@ declare module "sap/ui/commons/SearchField" {
 
   import { ID, TextAlign, ValueState, CSSSize } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import SearchProvider from "sap/ui/core/search/SearchProvider";
@@ -19800,6 +19847,31 @@ declare module "sap/ui/commons/SearchField" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.SearchField with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SearchField>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.SearchField.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -19834,7 +19906,25 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.commons.SearchField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
+     *
+     * Event which is fired when the user triggers a search
+     */
+    attachSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19857,7 +19947,25 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.SearchField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
+     *
+     * Event which is fired when new suggest values are required.
+     */
+    attachSuggest(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19880,7 +19988,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19895,33 +20003,12 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.SearchField with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SearchField>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:search search} to attached listeners.
      */
@@ -20037,10 +20124,6 @@ declare module "sap/ui/commons/SearchField" {
      * Default value is `10`.
      */
     getMaxSuggestionItems(): int;
-    /**
-     * Returns a metadata object for class sap.ui.commons.SearchField.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.32
      *
@@ -20451,42 +20534,6 @@ declare module "sap/ui/commons/SearchField" {
        */
       aASuggestions: string[]
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.commons.SearchField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
-     *
-     * Event which is fired when the user triggers a search
-     */
-    attachSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.SearchField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
-     *
-     * Event which is fired when new suggest values are required.
-     */
-    attachSuggest(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SearchFieldSettings extends $ControlSettings {
@@ -20609,12 +20656,12 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: Function;
+    search?: (oEvent: Event) => void;
 
     /**
      * Event which is fired when new suggest values are required.
      */
-    suggest?: Function;
+    suggest?: (oEvent: Event) => void;
   }
 }
 
@@ -20709,6 +20756,8 @@ declare module "sap/ui/commons/SegmentedButton" {
 
   import Button from "sap/ui/commons/Button";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -20759,6 +20808,31 @@ declare module "sap/ui/commons/SegmentedButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.SegmentedButton with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SegmentedButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.SegmentedButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Rerendering of the Buttons
      */
     _rerenderButtons(): void;
@@ -20788,7 +20862,25 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.SegmentedButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.SegmentedButton` itself.
+     *
+     * Event fired when button selected
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
        */
@@ -20807,33 +20899,12 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.SegmentedButton with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SegmentedButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:select select} to attached listeners.
      */
@@ -20862,10 +20933,6 @@ declare module "sap/ui/commons/SegmentedButton" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.SegmentedButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedButton selectedButton},
      * or `null`.
@@ -20936,24 +21003,6 @@ declare module "sap/ui/commons/SegmentedButton" {
        */
       oSelectedButton: ID | Button
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.SegmentedButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.SegmentedButton` itself.
-     *
-     * Event fired when button selected
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SegmentedButtonSettings extends $ControlSettings {
@@ -20975,7 +21024,7 @@ declare module "sap/ui/commons/SegmentedButton" {
     /**
      * Event fired when button selected
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -20983,6 +21032,8 @@ declare module "sap/ui/commons/Slider" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { IFormContent, ID, CSSSize } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -21028,6 +21079,31 @@ declare module "sap/ui/commons/Slider" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Slider with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Slider>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Slider.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -21062,7 +21138,25 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.Slider`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
+     *
+     * Value was changed. This event is fired if the value has changed by a user action.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21086,7 +21180,26 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.Slider`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
+     *
+     * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
+     * mouseup.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21101,7 +21214,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -21116,33 +21229,12 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Slider with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Slider>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -21225,10 +21317,6 @@ declare module "sap/ui/commons/Slider" {
      * Default value is `100`.
      */
     getMax(): float;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Slider.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMin min}.
      *
@@ -21503,43 +21591,6 @@ declare module "sap/ui/commons/Slider" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.Slider`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
-     *
-     * Value was changed. This event is fired if the value has changed by a user action.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.Slider`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
-     *
-     * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
-     * mouseup.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SliderSettings extends $ControlSettings {
@@ -21630,13 +21681,13 @@ declare module "sap/ui/commons/Slider" {
     /**
      * Value was changed. This event is fired if the value has changed by a user action.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
      * mouseup.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -21694,6 +21745,31 @@ declare module "sap/ui/commons/Splitter" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Splitter with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Splitter>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Splitter.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some firstPaneContent to the aggregation {@link #getFirstPaneContent firstPaneContent}.
      */
     addFirstPaneContent(
@@ -21720,27 +21796,6 @@ declare module "sap/ui/commons/Splitter" {
      */
     destroySecondPaneContent(): this;
     /**
-     * Creates a new subclass of class sap.ui.commons.Splitter with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Splitter>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getFirstPaneContent firstPaneContent}.
      *
      * Controls inside the first pane. These are the left ones in case of defining a vertical splitter, and
@@ -21755,10 +21810,6 @@ declare module "sap/ui/commons/Splitter" {
      * Default value is `'100%'`.
      */
     getHeight(): SplitterSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Splitter.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinSizeFirstPane minSizeFirstPane}.
      *
@@ -22155,6 +22206,10 @@ declare module "sap/ui/commons/Tab" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.Tab.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getClosable closable}.
      *
      * Specifies whether the tab contains a close button.
@@ -22170,10 +22225,6 @@ declare module "sap/ui/commons/Tab" {
      * Default value is `None`.
      */
     getHorizontalScrolling(): Scrolling | keyof typeof Scrolling;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Tab.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 0.17.0) - This property is not used. To identify the selected tab in a TabStrip selectedIndex
      * is used.
@@ -22293,6 +22344,8 @@ declare module "sap/ui/commons/TabStrip" {
 
   import Tab from "sap/ui/commons/Tab";
 
+  import Event from "sap/ui/base/Event";
+
   import { CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -22341,6 +22394,31 @@ declare module "sap/ui/commons/TabStrip" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.TabStrip with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TabStrip>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.TabStrip.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some tab to the aggregation {@link #getTabs tabs}.
      */
     addTab(
@@ -22366,7 +22444,25 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.TabStrip`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
+     *
+     * Fires when the user closes a tab.
+     */
+    attachClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22389,7 +22485,25 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.TabStrip`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
+     *
+     * Fires when the user selects a tab.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22434,7 +22548,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -22449,33 +22563,12 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.TabStrip with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TabStrip>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:close close} to attached listeners.
      */
@@ -22518,10 +22611,6 @@ declare module "sap/ui/commons/TabStrip" {
      * Specifies the height of the tab bar and content area.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TabStrip.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelectedIndex selectedIndex}.
      *
@@ -22636,42 +22725,6 @@ declare module "sap/ui/commons/TabStrip" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.TabStrip`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
-     *
-     * Fires when the user closes a tab.
-     */
-    attachClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.TabStrip`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
-     *
-     * Fires when the user selects a tab.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TabStripSettings extends $ControlSettings {
@@ -22703,12 +22756,12 @@ declare module "sap/ui/commons/TabStrip" {
     /**
      * Fires when the user selects a tab.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * Fires when the user closes a tab.
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
   }
 }
 
@@ -22783,6 +22836,10 @@ declare module "sap/ui/commons/TextArea" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.TextArea.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getCols cols}.
      *
      * Number of Columns. Cols means number of characters per row. This proprty is only used if Width is not
@@ -22815,10 +22872,6 @@ declare module "sap/ui/commons/TextArea" {
      * ID of label control
      */
     getLabeledBy(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TextArea.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRows rows}.
      *
@@ -22990,6 +23043,8 @@ declare module "sap/ui/commons/TextField" {
     CSSSize,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -23036,6 +23091,31 @@ declare module "sap/ui/commons/TextField" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.TextField with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TextField>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.TextField.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Compares the previous value with the current value and fires the change event if the TextField is editable
      * and the value has changed.
      */
@@ -23081,7 +23161,26 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -23106,7 +23205,27 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -23133,7 +23252,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -23148,33 +23267,12 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.TextField with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TextField>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -23207,7 +23305,7 @@ declare module "sap/ui/commons/TextField" {
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
-    getAccessibilityInfo(): Object;
+    getAccessibilityInfo(): object;
     /**
      * Gets current value of property {@link #getAccessibleRole accessibleRole}.
      *
@@ -23287,10 +23385,6 @@ declare module "sap/ui/commons/TextField" {
      * Default value is `0`.
      */
     getMaxLength(): int;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TextField.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -23656,45 +23750,6 @@ declare module "sap/ui/commons/TextField" {
      * Unbinds property {@link #getValue value} from model data.
      */
     unbindValue(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TextFieldSettings extends $ControlSettings {
@@ -23796,14 +23851,14 @@ declare module "sap/ui/commons/TextField" {
      * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
      * key is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
      * This is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -23871,6 +23926,31 @@ declare module "sap/ui/commons/TextView" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.TextView with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TextView>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.TextView.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -23900,27 +23980,6 @@ declare module "sap/ui/commons/TextView" {
        */
       oBindingInfo: PropertyBindingInfo
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.commons.TextView with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TextView>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -23967,10 +24026,6 @@ declare module "sap/ui/commons/TextView" {
      * Default value is `empty string`.
      */
     getHelpId(): string;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TextView.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSemanticColor semanticColor}.
      *
@@ -24346,6 +24401,10 @@ declare module "sap/ui/commons/Title" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.Title.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.9.1
      *
      * Getter for property `level`. Defines the level of the title. If set to auto the level of the title is
@@ -24356,10 +24415,6 @@ declare module "sap/ui/commons/Title" {
      * Default value is `Auto`
      */
     getLevel(): TitleLevel | keyof typeof TitleLevel;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Title.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.9.1
      *
@@ -24444,14 +24499,14 @@ declare module "sap/ui/commons/ToggleButton" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * See:
-     * 	sap.ui.core.Control#getAccessibilityInfo
-     */
-    getAccessibilityInfo(): Object;
-    /**
      * Returns a metadata object for class sap.ui.commons.ToggleButton.
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * See:
+     * 	sap.ui.core.Control#getAccessibilityInfo
+     */
+    getAccessibilityInfo(): object;
     /**
      * Gets current value of property {@link #getPressed pressed}.
      *
@@ -24540,6 +24595,31 @@ declare module "sap/ui/commons/Toolbar" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Toolbar with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Toolbar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Toolbar.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -24566,27 +24646,6 @@ declare module "sap/ui/commons/Toolbar" {
      */
     destroyRightItems(): this;
     /**
-     * Creates a new subclass of class sap.ui.commons.Toolbar with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Toolbar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Design settings are theme-dependent.
@@ -24600,10 +24659,6 @@ declare module "sap/ui/commons/Toolbar" {
      * Aggregating the tool bar items.
      */
     getItems(): ToolbarItem[];
-    /**
-     * Returns a metadata object for class sap.ui.commons.Toolbar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getRightItems rightItems}.
      *
@@ -24859,6 +24914,10 @@ declare module "sap/ui/commons/ToolbarSeparator" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.commons.ToolbarSeparator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Design of the Separator.
@@ -24872,10 +24931,6 @@ declare module "sap/ui/commons/ToolbarSeparator" {
      * Default value is `true`.
      */
     getDisplayVisualSeparator(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ToolbarSeparator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -24925,6 +24980,8 @@ declare module "sap/ui/commons/Tree" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import TreeNode from "sap/ui/commons/TreeNode";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -24977,6 +25034,31 @@ declare module "sap/ui/commons/Tree" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.Tree with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Tree>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.Tree.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some node to the aggregation {@link #getNodes nodes}.
      */
     addNode(
@@ -25002,7 +25084,25 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.Tree`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
+     *
+     * Event is fired when a tree node is selected.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25026,7 +25126,26 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
+     * `sap.ui.commons.Tree`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
+     *
+     * fired when the selection of the tree has been changed
+     */
+    attachSelectionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25061,7 +25180,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25077,7 +25196,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25087,27 +25206,6 @@ declare module "sap/ui/commons/Tree" {
      * Expands all nodes in the tree.
      */
     expandAll(): void;
-    /**
-     * Creates a new subclass of class sap.ui.commons.Tree with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Tree>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -25155,10 +25253,6 @@ declare module "sap/ui/commons/Tree" {
      * Default value is `'auto'`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.commons.Tree.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
@@ -25390,43 +25484,6 @@ declare module "sap/ui/commons/Tree" {
      * Unbinds aggregation {@link #getNodes nodes} from model data.
      */
     unbindNodes(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.Tree`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
-     *
-     * Event is fired when a tree node is selected.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
-     * `sap.ui.commons.Tree`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
-     *
-     * fired when the selection of the tree has been changed
-     */
-    attachSelectionChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TreeSettings extends $ControlSettings {
@@ -25481,12 +25538,12 @@ declare module "sap/ui/commons/Tree" {
     /**
      * Event is fired when a tree node is selected.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * fired when the selection of the tree has been changed
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -25496,6 +25553,8 @@ declare module "sap/ui/commons/TreeNode" {
   import { ID, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -25542,6 +25601,31 @@ declare module "sap/ui/commons/TreeNode" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.commons.TreeNode with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TreeNode>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.TreeNode.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -25585,7 +25669,25 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selected selected} event of this `sap.ui.commons.TreeNode`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
+     *
+     * Node is selected
+     */
+    attachSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -25609,7 +25711,26 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleOpenState toggleOpenState} event of this
+     * `sap.ui.commons.TreeNode`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
+     *
+     * Node state has changed.
+     */
+    attachToggleOpenState(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -25641,7 +25762,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25657,7 +25778,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25676,27 +25797,6 @@ declare module "sap/ui/commons/TreeNode" {
        */
       bDisableExpandFinishedHandler: boolean
     ): void;
-    /**
-     * Creates a new subclass of class sap.ui.commons.TreeNode with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TreeNode>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:selected selected} to attached listeners.
      */
@@ -25760,10 +25860,6 @@ declare module "sap/ui/commons/TreeNode" {
      * Default value is `false`.
      */
     getIsSelected(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TreeNode.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getNodes nodes}.
      *
@@ -25932,43 +26028,6 @@ declare module "sap/ui/commons/TreeNode" {
        */
       sText?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selected selected} event of this `sap.ui.commons.TreeNode`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
-     *
-     * Node is selected
-     */
-    attachSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleOpenState toggleOpenState} event of this
-     * `sap.ui.commons.TreeNode`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
-     *
-     * Node state has changed.
-     */
-    attachToggleOpenState(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TreeNodeSettings extends $ElementSettings {
@@ -26020,17 +26079,19 @@ declare module "sap/ui/commons/TreeNode" {
     /**
      * Node state has changed.
      */
-    toggleOpenState?: Function;
+    toggleOpenState?: (oEvent: Event) => void;
 
     /**
      * Node is selected
      */
-    selected?: Function;
+    selected?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/ui/commons/TriStateCheckBox" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -26082,44 +26143,6 @@ declare module "sap/ui/commons/TriStateCheckBox" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
-     *
-     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
-     */
-    attachChange(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.TriStateCheckBox with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -26140,6 +26163,66 @@ declare module "sap/ui/commons/TriStateCheckBox" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.TriStateCheckBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
+     *
+     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     */
+    attachChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
+     *
+     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -26170,10 +26253,6 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TriStateCheckBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelectionState selectionState}.
      *
@@ -26328,24 +26407,6 @@ declare module "sap/ui/commons/TriStateCheckBox" {
        */
       destState: TriStateCheckBoxState | keyof typeof TriStateCheckBoxState
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
-     *
-     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TriStateCheckBoxSettings extends $ControlSettings {
@@ -26393,7 +26454,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -26402,6 +26463,8 @@ declare module "sap/ui/commons/ValueHelpField" {
     default as TextField,
     $TextFieldSettings,
   } from "sap/ui/commons/TextField";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -26447,46 +26510,6 @@ declare module "sap/ui/commons/ValueHelpField" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:valueHelpRequest valueHelpRequest} event of
-     * this `sap.ui.commons.ValueHelpField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
-     *
-     * Event which is fired when the ValueHelp is requested.
-     */
-    attachValueHelpRequest(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ValueHelpField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:valueHelpRequest valueHelpRequest} event of
-     * this `sap.ui.commons.ValueHelpField`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachValueHelpRequest(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.commons.ValueHelpField with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -26507,6 +26530,69 @@ declare module "sap/ui/commons/ValueHelpField" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.ValueHelpField.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:valueHelpRequest valueHelpRequest} event of
+     * this `sap.ui.commons.ValueHelpField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
+     *
+     * Event which is fired when the ValueHelp is requested.
+     */
+    attachValueHelpRequest(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ValueHelpField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:valueHelpRequest valueHelpRequest} event of
+     * this `sap.ui.commons.ValueHelpField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
+     *
+     * Event which is fired when the ValueHelp is requested.
+     */
+    attachValueHelpRequest(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ValueHelpField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:valueHelpRequest valueHelpRequest} event of
+     * this `sap.ui.commons.ValueHelpField`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachValueHelpRequest(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:valueHelpRequest valueHelpRequest} to attached listeners.
      */
@@ -26537,10 +26623,6 @@ declare module "sap/ui/commons/ValueHelpField" {
      * be shown. This can be a URI to an image or an icon font URI.
      */
     getIconURL(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.commons.ValueHelpField.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Handle F4 event
      */
@@ -26592,25 +26674,6 @@ declare module "sap/ui/commons/ValueHelpField" {
        */
       sIconURL?: URI
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:valueHelpRequest valueHelpRequest} event of
-     * this `sap.ui.commons.ValueHelpField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
-     *
-     * Event which is fired when the ValueHelp is requested.
-     */
-    attachValueHelpRequest(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ValueHelpField` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ValueHelpFieldSettings extends $TextFieldSettings {
@@ -26635,7 +26698,7 @@ declare module "sap/ui/commons/ValueHelpField" {
     /**
      * Event which is fired when the ValueHelp is requested.
      */
-    valueHelpRequest?: Function;
+    valueHelpRequest?: (oEvent: Event) => void;
   }
 }
 

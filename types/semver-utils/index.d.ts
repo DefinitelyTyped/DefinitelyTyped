@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface SemVer {
-    semver?: string;
-    version?: string;
-    major?: string;
-    minor?: string;
-    patch?: string;
-    release?: string;
-    build?: string;
-    operator?: string;
+    semver?: string | undefined;
+    version?: string | undefined;
+    major?: string | undefined;
+    minor?: string | undefined;
+    patch?: string | undefined;
+    release?: string | undefined;
+    build?: string | undefined;
+    operator?: string | undefined;
 }
 
 export function parse(version: string): SemVer;

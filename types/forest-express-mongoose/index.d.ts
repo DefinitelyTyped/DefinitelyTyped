@@ -16,9 +16,9 @@ export interface LianaOptions {
     connections: {
         [connectionName: string]: mongoose.Connection;
     };
-    includedModels?: string[];
-    excludedModels?: string[];
-    configDir?: string;
+    includedModels?: string[] | undefined;
+    excludedModels?: string[] | undefined;
+    configDir?: string | undefined;
 }
 
 export function init(options: LianaOptions): Promise<Application>;
@@ -162,32 +162,32 @@ export interface SegmentAggregationCreator {
 
 export interface SmartFieldOptions {
     field: string;
-    description?: string;
+    description?: string | undefined;
     type: string | string[];
-    isReadOnly?: boolean;
-    reference?: string;
-    enums?: string[];
+    isReadOnly?: boolean | undefined;
+    reference?: string | undefined;
+    enums?: string[] | undefined;
     defaultValue?: any;
-    get?: SmartFieldValueGetter;
-    set?: SmartFieldValueSetter;
-    search?: SmartFieldSearcher;
+    get?: SmartFieldValueGetter | undefined;
+    set?: SmartFieldValueSetter | undefined;
+    search?: SmartFieldSearcher | undefined;
 }
 
 export interface SmartActionOptions {
     name: string;
-    type?: string;
+    type?: string | undefined;
     fields?: Array<{
         field: string;
         type: string | string[];
-        reference?: string;
-        enums?: string[];
-        description?: string;
-        isRequired?: boolean;
-    }>;
-    download?: boolean;
-    endpoint?: string;
-    httpMethod?: string;
-    values?: SmartActionValuesInjector;
+        reference?: string | undefined;
+        enums?: string[] | undefined;
+        description?: string | undefined;
+        isRequired?: boolean | undefined;
+    }> | undefined;
+    download?: boolean | undefined;
+    endpoint?: string | undefined;
+    httpMethod?: string | undefined;
+    values?: SmartActionValuesInjector | undefined;
 }
 
 export interface SmartSegmentOptions {
@@ -196,9 +196,9 @@ export interface SmartSegmentOptions {
 }
 
 export interface CollectionOptions {
-    fields?: SmartFieldOptions[];
-    actions?: SmartActionOptions[];
-    segments?: SmartSegmentOptions[];
+    fields?: SmartFieldOptions[] | undefined;
+    actions?: SmartActionOptions[] | undefined;
+    segments?: SmartSegmentOptions[] | undefined;
 }
 
 export function collection(name: string, options: CollectionOptions): void;

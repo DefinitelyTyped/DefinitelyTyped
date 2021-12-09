@@ -1,12 +1,12 @@
 import '../../';
 
 export interface HardwrapOptions {
-    column?: number;
-    paragraphStart?: RegExp;
-    paragraphEnd?: RegExp;
-    wrapOn?: RegExp;
-    killTrailingSpace?: boolean;
-    forceBreak?: boolean;
+    column?: number | undefined;
+    paragraphStart?: RegExp | undefined;
+    paragraphEnd?: RegExp | undefined;
+    wrapOn?: RegExp | undefined;
+    killTrailingSpace?: boolean | undefined;
+    forceBreak?: boolean | undefined;
 }
 
 declare module '../../' {

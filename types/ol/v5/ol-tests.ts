@@ -296,12 +296,12 @@ setTimeout(() => {
  */
 
 interface CustomControlOptions extends ControlOptions {
-    name?: string;
+    name?: string | undefined;
 }
 
 class CustomControl extends Control {
     name: string;
-    mapViewport?: HTMLElement;
+    mapViewport?: HTMLElement | undefined;
     private readonly _boundListener: (e: Event) => void;
     private readonly _eventKeys: EventsKey[];
 
