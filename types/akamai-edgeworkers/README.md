@@ -64,6 +64,6 @@ function onClientRequest(request: EW.IngressClientRequest) {
 }
 ```
 
-[EdgeWorker API]: https://learn.akamai.com/en-us/webhelp/edgeworkers/edgeworkers-user-guide/GUID-14077BCA-0D9F-422C-8273-2F3E37339D5B.html
+[EdgeWorker API]: https://techdocs.akamai.com/edgeworkers/docs/about-the-javascript-api
 [predefined EdgeWorker callbacks]: https://techdocs.akamai.com/edgeworkers/docs/event-handler-functions
-[built-in modules]: https://learn.akamai.com/en-us/webhelp/edgeworkers/edgeworkers-user-guide/GUID-96AA837C-30A3-4825-9756-DE5C7C78D82C.html
+[built-in modules]: https://techdocs.akamai.com/edgeworkers/docs/built-in-modules
