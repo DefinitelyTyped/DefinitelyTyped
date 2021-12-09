@@ -142,7 +142,8 @@ export interface APIGatewayProxyEventV2 {
             clientCert: {
                 clientCertPem: string;
                 issuerDN: string;
-                serialNumber: string;
+                // not documented, so omitting:
+                // serialNumber: string;
                 subjectDN: string;
                 validity: {
                     notBefore: string;
