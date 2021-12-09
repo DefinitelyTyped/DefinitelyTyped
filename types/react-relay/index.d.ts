@@ -4,7 +4,7 @@
 //                 Marais Rossouw <https://github.com/maraisr>
 //                 Edvin Erikson <https://github.com/edvinerikson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.8
 
 export * from './hooks';
 export * from './legacy';

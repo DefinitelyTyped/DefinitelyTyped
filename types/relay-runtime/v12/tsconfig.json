@@ -15,10 +15,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
         "jsx": "react",
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
         "paths": {
-            "react-relay": ["react-relay/v12"]
+            "relay-runtime": ["relay-runtime/v12"]
         }
     },
     "files": [

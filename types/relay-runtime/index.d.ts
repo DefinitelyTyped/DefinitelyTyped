@@ -5,7 +5,7 @@
 //                 Marais Rossouw <https://github.com/maraisr>
 //                 Lorenzo Di Giacomo <https://github.com/morrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.8
 
 import ConnectionInterface from './lib/handlers/connection/ConnectionInterface';
 export { ConnectionInterface };
