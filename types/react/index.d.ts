@@ -925,7 +925,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
-    function useState<S>(initialState: (S extends (() => void) ? never : S) | (() => S)): [S, Dispatch<SetStateAction<S>>];
+    function useState<S>(initialState: (S extends (() => any) ? never : S) | (() => S)): [S, Dispatch<SetStateAction<S>>];
     // convenience overload when first argument is omitted
     /**
      * Returns a stateful value, and a function to update it.
