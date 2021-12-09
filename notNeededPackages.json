@@ -600,6 +600,10 @@
             "libraryName": "composer-concerto",
             "asOfVersion": "0.71.1"
         },
+        "compression-webpack-plugin": {
+            "libraryName": "compression-webpack-plugin",
+            "asOfVersion": "9.1.1"
+        },
         "condense-whitespace": {
             "libraryName": "condense-whitespace",
             "asOfVersion": "2.0.0"
