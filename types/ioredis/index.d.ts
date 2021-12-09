@@ -347,6 +347,12 @@ declare namespace IORedis {
         brpoplpush(source: string, destination: string, timeout: number, callback: Callback<string>): void;
         brpoplpush(source: string, destination: string, timeout: number): Promise<string>;
 
+        blmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', timeout: number, callback: Callback<string | null>): void;
+        blmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', timeout: number): Promise<string | null>;
+
+        lmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', callback: Callback<string | null>): void;
+        lmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT'): Promise<string | null>;
+
         llen(key: KeyType, callback: Callback<number>): void;
         llen(key: KeyType): Promise<number>;
 
