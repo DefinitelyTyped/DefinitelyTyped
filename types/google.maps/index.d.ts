@@ -76,8 +76,8 @@ declare namespace google.maps {
      * A circle on the Earth&#39;s surface; also known as a &quot;spherical
      * cap&quot;.
      */
-    constructor(opts?: google.maps.CircleLiteral|null|
-                google.maps.CircleOptions);
+    constructor(circleOrCircleOptions?: google.maps.Circle|null|
+                google.maps.CircleLiteral|google.maps.CircleOptions);
     /**
      * Gets the <code>LatLngBounds</code> of this Circle.
      */
@@ -1160,8 +1160,6 @@ declare namespace google.maps {
      * The total duration of this leg, taking into account the traffic
      * conditions indicated by the <code>trafficModel</code> property. This
      * property may be <code>undefined</code> as the duration may be unknown.
-     * Only available to Premium Plan customers when <code>drivingOptions</code>
-     * is defined when making the request.
      */
     duration_in_traffic?: google.maps.Duration;
     /**
@@ -1198,6 +1196,11 @@ declare namespace google.maps {
      */
     steps: google.maps.DirectionsStep[];
     /**
+     * Information about traffic speed along the leg.
+     * @deprecated This array will always be empty.
+     */
+    traffic_speed_entry: any[];
+    /**
      * An array of non-stopover waypoints along this leg, which were specified
      * in the original request. <p> <strong>Deprecated in alternative
      * routes</strong>. Version 3.27 will be the last version of the API that
@@ -1208,6 +1211,20 @@ declare namespace google.maps {
      * an alternative route.
      */
     via_waypoints: google.maps.LatLng[];
+  }
+}
+declare namespace google.maps {
+  /**
+   * An object containing a <code>points</code> property to describe the
+   * polyline of a {@link google.maps.DirectionsStep}.
+   */
+  interface DirectionsPolyline {
+    /**
+     * An <a
+     * href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">encoded
+     * polyline</a>.
+     */
+    points: string;
   }
 }
 declare namespace google.maps {
@@ -1445,6 +1462,14 @@ declare namespace google.maps {
    */
   interface DirectionsResult {
     /**
+     * Contains an array of available travel modes. This field is returned when
+     * a request specifies a travel mode and gets no results. The array contains
+     * the available travel modes in the countries of the given set of
+     * waypoints. This field is not returned if one or more of the waypoints are
+     * &#39;via waypoints&#39;.
+     */
+    available_travel_modes?: google.maps.TravelMode[];
+    /**
      * An array of <code>DirectionsGeocodedWaypoint</code>s, each of which
      * contains information about the geocoding of origin, destination and
      * waypoints.
@@ -1502,6 +1527,11 @@ declare namespace google.maps {
      * is an approximate (smoothed) path of the resulting directions.
      */
     overview_polyline: string;
+    /**
+     * Contains a short textual description for the route, suitable for naming
+     * and disambiguating the route from alternatives.
+     */
+    summary: string;
     /**
      * Warnings to be displayed when showing these directions.
      */
@@ -1607,21 +1637,61 @@ declare namespace google.maps {
      */
     duration?: google.maps.Duration;
     /**
+     * An <a
+     * href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">encoded
+     * polyline representation</a> of the step. This is an approximate
+     * (smoothed) path of the step.
+     */
+    encoded_lat_lngs: string;
+    /**
      * The ending location of this step.
      */
     end_location: google.maps.LatLng;
+    /**
+     * The ending location of this step.
+     * @deprecated Please use {@link google.maps.DirectionsStep.end_location}.
+     */
+    end_point: google.maps.LatLng;
     /**
      * Instructions for this step.
      */
     instructions: string;
     /**
      * A sequence of <code>LatLng</code>s describing the course of this step.
+     * This is an approximate (smoothed) path of the step.
+     * @deprecated Please use {@link google.maps.DirectionsStep.path}.
+     */
+    lat_lngs: google.maps.LatLng[];
+    /**
+     * Contains the action to take for the current step (<code>turn-left</code>,
+     * <code>merge</code>, <code>straight</code>, etc.). Values are subject to
+     * change, and new values may be introduced without prior notice.
+     */
+    maneuver: string;
+    /**
+     * A sequence of <code>LatLng</code>s describing the course of this step.
+     * This is an approximate (smoothed) path of the step.
      */
     path: google.maps.LatLng[];
+    /**
+     * Contains an object with a single property, &#39;points&#39;, that holds
+     * an <a
+     * href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">encoded
+     * polyline</a> representation of the step. This polyline is an approximate
+     * (smoothed) path of the step.
+     * @deprecated Please use {@link
+     *     google.maps.DirectionsStep.encoded_lat_lngs}.
+     */
+    polyline?: google.maps.DirectionsStep[];
     /**
      * The starting location of this step.
      */
     start_location: google.maps.LatLng;
+    /**
+     * The starting location of this step.
+     * @deprecated Please use {@link google.maps.DirectionsStep.start_location}.
+     */
+    start_point: google.maps.LatLng;
     /**
      * Sub-steps of this step. Specified for non-transit sections of transit
      * routes.
@@ -1632,6 +1702,11 @@ declare namespace google.maps {
      * unless the travel mode of this step is <code>TRANSIT</code>.
      */
     transit?: google.maps.TransitDetails;
+    /**
+     * Details pertaining to this step if the travel mode is
+     * <code>TRANSIT</code>.
+     */
+    transit_details?: google.maps.TransitDetails;
     /**
      * The mode of travel used in this step.
      */
@@ -2948,16 +3023,21 @@ declare namespace google.maps {
    * followed by the longitude.<br> Notice that you cannot modify the
    * coordinates of a <code>LatLng</code>. If you want to compute another point,
    * you have to create a new one.<br> <p> Most methods that accept
-   * <code>LatLng</code> objects also accept a <code><a
-   * href="#LatLngLiteral">LatLngLiteral</a></code> object, so that the
-   * following are equivalent: <pre> map.setCenter(new google.maps.LatLng(-34,
-   * 151));<br> map.setCenter({lat: -34, lng: 151});
-   * </pre> <p> The constructor also accepts literal objects, and converts them
-   * to instances of <code>LatLng</code>. The possible calls to the constructor
-   * are below: <pre> new google.maps.LatLng(-34, 151);<br> new
-   * google.maps.LatLng(-34, 151, true);<br> new google.maps.LatLng({lat: -34,
-   * lng: 151});<br> new google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
-   * google.maps.LatLng({lat: -34, lng: 151}, null, true); </pre>
+   * <code>LatLng</code> objects also accept a <code>{@link
+   * google.maps.LatLngLiteral}</code> object, so that the following are
+   * equivalent: <pre> map.setCenter(new google.maps.LatLng(-34, 151));<br>
+   * map.setCenter({lat: -34, lng: 151});
+   * </pre> <p> The constructor also accepts <code>{@link
+   * google.maps.LatLngLiteral}</code> and <code>LatLng</code> objects. If a
+   * <code>LatLng</code> instance is passed to the constructor, a copy is
+   * created. <p> The possible calls to the constructor are below: <pre> new
+   * google.maps.LatLng(-34, 151);<br> new google.maps.LatLng(-34, 151,
+   * true);<br> new google.maps.LatLng({lat: -34, lng: 151});<br> new
+   * google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
+   * google.maps.LatLng({lat: -34, lng: 151}, null, true);<br> new
+   * google.maps.LatLng(new google.maps.LatLng(-34, 151));<br> new
+   * google.maps.LatLng(new google.maps.LatLng(-34, 151), true);<br> new
+   * google.maps.LatLng(new google.maps.LatLng(-34, 151), null, true); </pre>
    */
   class LatLng {
     /**
@@ -2976,19 +3056,25 @@ declare namespace google.maps {
      * <em>first</em>, followed by the longitude.<br> Notice that you cannot
      * modify the coordinates of a <code>LatLng</code>. If you want to compute
      * another point, you have to create a new one.<br> <p> Most methods that
-     * accept <code>LatLng</code> objects also accept a <code><a
-     * href="#LatLngLiteral">LatLngLiteral</a></code> object, so that the
-     * following are equivalent: <pre> map.setCenter(new google.maps.LatLng(-34,
-     * 151));<br> map.setCenter({lat: -34, lng: 151});
-     * </pre> <p> The constructor also accepts literal objects, and converts
-     * them to instances of <code>LatLng</code>. The possible calls to the
-     * constructor are below: <pre> new google.maps.LatLng(-34, 151);<br> new
-     * google.maps.LatLng(-34, 151, true);<br> new google.maps.LatLng({lat: -34,
-     * lng: 151});<br> new google.maps.LatLng({lat: -34, lng: 151}, true);<br>
-     * new google.maps.LatLng({lat: -34, lng: 151}, null, true); </pre>
+     * accept <code>LatLng</code> objects also accept a <code>{@link
+     * google.maps.LatLngLiteral}</code> object, so that the following are
+     * equivalent: <pre> map.setCenter(new google.maps.LatLng(-34, 151));<br>
+     * map.setCenter({lat: -34, lng: 151});
+     * </pre> <p> The constructor also accepts <code>{@link
+     * google.maps.LatLngLiteral}</code> and <code>LatLng</code> objects. If a
+     * <code>LatLng</code> instance is passed to the constructor, a copy is
+     * created. <p> The possible calls to the constructor are below: <pre> new
+     * google.maps.LatLng(-34, 151);<br> new google.maps.LatLng(-34, 151,
+     * true);<br> new google.maps.LatLng({lat: -34, lng: 151});<br> new
+     * google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
+     * google.maps.LatLng({lat: -34, lng: 151}, null, true);<br> new
+     * google.maps.LatLng(new google.maps.LatLng(-34, 151));<br> new
+     * google.maps.LatLng(new google.maps.LatLng(-34, 151), true);<br> new
+     * google.maps.LatLng(new google.maps.LatLng(-34, 151), null, true); </pre>
      */
     constructor(
-        latOrLatLngLiteral: number|google.maps.LatLngLiteral,
+        latOrLatLngOrLatLngLiteral: number|google.maps.LatLngLiteral|
+        google.maps.LatLng,
         lngOrNoWrap?: number|boolean|null, noWrap?: boolean);
     /**
      * Comparison function.
@@ -3031,7 +3117,8 @@ declare namespace google.maps {
      * crosses the 180 degrees longitudinal meridian.
      */
     constructor(
-        sw?: google.maps.LatLng|null|google.maps.LatLngLiteral,
+        swOrLatLngBounds?: google.maps.LatLng|null|
+        google.maps.LatLngLiteral|google.maps.LatLngBounds,
         ne?: google.maps.LatLng|null|google.maps.LatLngLiteral);
     /**
      * Returns <code>true</code> if the given lat/lng is in this bounds.
