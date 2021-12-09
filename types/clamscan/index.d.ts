@@ -110,7 +110,7 @@ declare class NodeClam {
     private _processResult;
 }
 
-export interface NodeClamFunctions {
+interface NodeClamFunctions {
     reset(options?: Options, cb?: () => void): Promise<object> | NodeClamScanError | NodeClamFileError;
 
     getVersion(cb?: () => void): Promise<string> | NodeClamScanError | NodeClamFileError;
@@ -154,19 +154,19 @@ export interface NodeClamFunctions {
     }>;
 }
 
-export interface NodeClamScanError {
+interface NodeClamScanError {
     data: {
         is_infected: string;
         viruses: any[];
     };
 }
 
-export interface NodeClamFileError {
+interface NodeClamFileError {
     is_infected: string;
     viruses: any[];
 }
 
-export interface Options {
+interface Options {
     removeInfected?: boolean; // If true, removes infected files
     quarantineInfected?: boolean | string; // False: Don't quarantine, Path: Moves files to this place.
     scanLog?: string; // Path to a writeable log file to write scan results into
@@ -195,4 +195,4 @@ export interface Options {
     preference?: any; // If clamdscan is found and active, it will be used by default
 }
 
-export default NodeClam;
+export = NodeClam;

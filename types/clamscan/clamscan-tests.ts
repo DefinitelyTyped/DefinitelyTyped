@@ -1,4 +1,4 @@
-import NodeClam from 'clamscan';
+import NodeClam = require('clamscan');
 
 const ClamScan = new NodeClam().init({
     debugMode: false,
