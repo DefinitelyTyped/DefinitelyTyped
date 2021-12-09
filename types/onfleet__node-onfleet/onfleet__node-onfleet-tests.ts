@@ -34,7 +34,12 @@ const testAddress = {
 
 async function testTasks(onfleet: Onfleet) {
     // test tasks.get
-    await onfleet.tasks.get('fake_task_id');
+    const task = await onfleet.tasks.get('fake_task_id');
+    // test tasks.get GetTaskResult props
+    task.estimatedCompletionTime;
+    task.eta;
+    task.trackingViewed;
+
     await onfleet.tasks.get({ from: 1455072025000 });
     await onfleet.tasks.get({ from: 145507202500, lastId: 'fake_task_id' });
     await onfleet.tasks.get('fake_task_id', 'shortId');
