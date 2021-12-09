@@ -95,7 +95,7 @@ export type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback<T = JwtPayload> = (
+export type VerifyCallback<T = unknown> = (
     err: VerifyErrors | null,
     decoded: T | undefined,
 ) => void;
@@ -118,21 +118,9 @@ export interface JwtHeader {
     x5c?: string | string[] | undefined;
 }
 
-// standard claims https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
-export interface JwtPayload {
-    [key: string]: any;
-    iss?: string | undefined;
-    sub?: string | undefined;
-    aud?: string | string[] | undefined;
-    exp?: number | undefined;
-    nbf?: number | undefined;
-    iat?: number | undefined;
-    jti?: string | undefined;
-}
-
 export interface Jwt {
     header: JwtHeader;
-    payload: JwtPayload;
+    payload: unknown;
     signature: string;
 }
 
@@ -199,7 +187,7 @@ export function sign(
  * returns - The decoded token.
  */
 export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): any;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): unknown;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -235,5 +223,5 @@ export function verify(
  * returns - The decoded Token
  */
 export function decode(token: string, options: DecodeOptions & { complete: true }): null | Jwt;
-export function decode(token: string, options: DecodeOptions & { json: true }): null | JwtPayload;
-export function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
+export function decode(token: string, options: DecodeOptions & { json: true }): unknown;
+export function decode(token: string, options?: DecodeOptions): unknown;

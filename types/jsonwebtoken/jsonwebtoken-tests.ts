@@ -88,10 +88,6 @@ jwt.verify(token, secret, (err, decoded) => {
     console.log(result.foo); // bar
 });
 
-// verify without a callback
-const decoded = jwt.verify(token, secret);
-console.log(decoded.foo);
-
 // verify a token asymmetric
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (err, decoded) => {
@@ -149,7 +145,7 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (_err, payload) => {
     if (payload) {
-        // $ExpectType JwtPayload
+        // $ExpectType unknown
         payload;
     }
 });
@@ -157,7 +153,7 @@ jwt.verify(token, cert, (_err, payload) => {
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, {}, (_err, payload) => {
     if (payload) {
-        // $ExpectType JwtPayload
+        // $ExpectType unknown
         payload;
     }
 });
@@ -174,7 +170,7 @@ cert = fs.readFileSync("public.pem"); // get public key
 const verified = jwt.verify(token, cert);
 
 if (typeof verified !== 'string') {
-    // $ExpectType any
+    // $ExpectType unknown
     verified;
 }
 
@@ -191,7 +187,7 @@ cert = fs.readFileSync("public.pem"); // get public key
 const verified3 = jwt.verify(token, cert, {maxAge: 3600});
 
 if (typeof verified3 !== 'string') {
-    // $ExpectType any
+    // $ExpectType unknown
     verified3;
 }
 
@@ -199,19 +195,19 @@ if (typeof verified3 !== 'string') {
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
-// $ExpectType string | JwtPayload | null
+// $ExpectType unknown
 jwt.decode(token);
 
-// $ExpectType string | JwtPayload | null
+// $ExpectType unknown
 jwt.decode(token, { complete: false });
 
-// $ExpectType string | JwtPayload | null
+// $ExpectType unknown
 jwt.decode(token, { json: false });
 
-// $ExpectType string | JwtPayload | null
+// $ExpectType unknown
 jwt.decode(token, { complete: false, json: false });
 
-// $ExpectType JwtPayload | null
+// $ExpectType unknown
 jwt.decode(token, { json: true });
 
 // $ExpectType Jwt | null
