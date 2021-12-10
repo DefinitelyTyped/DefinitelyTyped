@@ -1,4 +1,5 @@
 import {
+    APIGatewayEventClientCertificate,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from "../common/api-gateway";
@@ -139,17 +140,7 @@ export interface APIGatewayProxyEventV2 {
             };
         } | undefined;
         authentication?: {
-            clientCert: {
-                clientCertPem: string;
-                issuerDN: string;
-                // not documented, so omitting:
-                // serialNumber: string;
-                subjectDN: string;
-                validity: {
-                    notBefore: string;
-                    notAfter: string;
-                };
-            };
+            clientCert: APIGatewayEventClientCertificate;
         };
         domainName: string;
         domainPrefix: string;

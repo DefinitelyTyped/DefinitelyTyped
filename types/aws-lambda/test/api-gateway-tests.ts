@@ -177,11 +177,14 @@ const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback
     str = event.requestContext.time;
     num = event.requestContext.timeEpoch;
 
-    str = event.requestContext.authentication!.clientCert.clientCertPem;
-    str = event.requestContext.authentication!.clientCert.issuerDN;
-    str = event.requestContext.authentication!.clientCert.subjectDN;
-    str = event.requestContext.authentication!.clientCert.validity.notAfter;
-    str = event.requestContext.authentication!.clientCert.validity.notBefore;
+    if (event.requestContext.authentication) {
+        str = event.requestContext.authentication.clientCert.clientCertPem;
+        str = event.requestContext.authentication.clientCert.issuerDN;
+        str = event.requestContext.authentication.clientCert.serialNumber;
+        str = event.requestContext.authentication.clientCert.subjectDN;
+        str = event.requestContext.authentication.clientCert.validity.notAfter;
+        str = event.requestContext.authentication.clientCert.validity.notBefore;
+    }
 
     const result = createProxyResultV2();
 
