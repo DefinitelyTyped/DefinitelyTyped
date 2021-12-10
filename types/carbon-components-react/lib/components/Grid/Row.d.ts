@@ -1,11 +1,17 @@
-import * as React from "react";
-import { ReactAttr, FCReturn, ReactDivAttr, JSXIntrinsicElementProps } from "../../../typings/shared";
+import * as React from 'react';
+import {
+    ReactAttr,
+    FCReturn,
+    ReactDivAttr,
+    JSXIntrinsicElementProps,
+    ReactComponentConstructor
+} from "../../../typings/shared";
 
 interface RowBaseIsolatedProps {
     condensed?: boolean | undefined;
     narrow?: boolean | undefined;
 }
-type SafeProps<P> = Omit<P, 'as' | 'condensed'>;
+type SafeProps<P> = Omit<P, keyof RowBaseIsolatedProps>;
 
 interface RowBaseProps extends RowBaseIsolatedProps {
     children?: React.ReactNode | undefined;
@@ -22,7 +28,7 @@ export type RowIntrinsicProps<K extends keyof JSX.IntrinsicElements> = RowBasePr
         as: K;
     };
 
-export type RowCustomComponentProps<C extends React.JSXElementConstructor<any>> = C extends React.JSXElementConstructor<
+export type RowCustomComponentProps<C extends ReactComponentConstructor<never>> = C extends ReactComponentConstructor<
     infer P
 >
     ? RowBaseProps &
@@ -33,6 +39,6 @@ export type RowCustomComponentProps<C extends React.JSXElementConstructor<any>> 
 
 declare function Row(props: RowDefaultProps): FCReturn;
 declare function Row<T extends keyof JSX.IntrinsicElements>(props: RowIntrinsicProps<T>): FCReturn;
-declare function Row<T extends React.JSXElementConstructor<any>>(props: RowCustomComponentProps<T>): FCReturn;
+declare function Row<T extends ReactComponentConstructor<never>>(props: RowCustomComponentProps<T>): FCReturn;
 
 export default Row;

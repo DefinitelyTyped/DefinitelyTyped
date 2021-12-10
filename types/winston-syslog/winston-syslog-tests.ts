@@ -1,3 +1,4 @@
+import glossy = require('glossy');
 import winston = require('winston');
 import { Syslog, SyslogTransportOptions } from 'winston-syslog';
 
@@ -16,7 +17,8 @@ const syslogOptions: SyslogTransportOptions = {
     localhost: str,
     type: str,
     app_name: str,
-    eol: str
+    eol: str,
+    customProducer: glossy.Produce
 };
 
 const syslogTransport = new Syslog(syslogOptions);

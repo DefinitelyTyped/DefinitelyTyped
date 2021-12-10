@@ -179,6 +179,8 @@ interface IEvent<E extends Event = Event> {
     pointer?: Point | undefined;
     absolutePointer?: Point | undefined;
     transform?: { corner: string; original: Object; originX: string; originY: string; width: number } | undefined;
+    currentTarget?: Object | undefined;
+    currentSubTargets?: Object[] | undefined;
 }
 
 interface IFillOptions {
@@ -1194,18 +1196,6 @@ interface IStaticCanvasOptions {
     svgViewportTransformation?: boolean | undefined;
 }
 
-export interface FreeDrawingBrush {
-    /**
-     * Can be any regular color value.
-     */
-    color: string;
-
-    /**
-     * Brush width measured in pixels.
-     */
-    width: number;
-}
-
 export interface StaticCanvas
     extends IObservable<StaticCanvas>,
         IStaticCanvasOptions,
@@ -1222,7 +1212,7 @@ export class StaticCanvas {
 
     _activeObject?: Object | Group | undefined;
 
-    freeDrawingBrush: FreeDrawingBrush;
+    freeDrawingBrush: BaseBrush;
 
     /**
      * Calculates canvas element offset relative to the document
@@ -1638,6 +1628,26 @@ export class StaticCanvas {
      * @param [callback] Receives cloned instance as a first argument
      */
     cloneWithoutData(callback?: any): void;
+
+    /**
+     * Create a new HTMLCanvas element painted with the current canvas content.
+     * No need to resize the actual one or repaint it.
+     * Will transfer object ownership to a new canvas, paint it, and set everything back.
+     * This is an intermediary step used to get to a dataUrl but also it is useful to
+     * create quick image copies of a canvas without passing for the dataUrl string
+     * @param {Number} [multiplier] a zoom factor.
+     * @param {Object} [cropping] Cropping informations
+     * @param {Number} [cropping.left] Cropping left offset.
+     * @param {Number} [cropping.top] Cropping top offset.
+     * @param {Number} [cropping.width] Cropping width.
+     * @param {Number} [cropping.height] Cropping height.
+     */
+    toCanvasElement(multiplier?: number, cropping?: Readonly<{
+      left?: number;
+      top?: number;
+      width?: number;
+      height?: number;
+    }>): HTMLCanvasElement;
 
     /**
      * Populates canvas with data from the specified JSON.
@@ -5865,6 +5875,18 @@ export class PatternBrush extends PencilBrush {
     createPath(pathData: string): Path;
 }
 export class PencilBrush extends BaseBrush {
+    /**
+     * Constructor
+     * @param {Canvas} canvas
+    */
+    constructor(canvas: Canvas);
+    /**
+     * Constructor
+     * @param {Canvas} canvas
+     * @return {PencilBrush} Instance of a pencil brush
+    */
+    initialize(canvas: Canvas): PencilBrush;
+
     /**
      * Converts points to SVG path
      * @param points Array of points

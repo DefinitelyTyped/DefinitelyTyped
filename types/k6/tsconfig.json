@@ -23,6 +23,7 @@
         "test/crypto.ts",
         "test/data.ts",
         "test/encoding.ts",
+        "test/execution.ts",
         "test/global.ts",
         "test/grpc.ts",
         "test/html.ts",

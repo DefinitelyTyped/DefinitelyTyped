@@ -15,17 +15,6 @@ import {
 } from './dataschema';
 
 /**
- * Conversion helper consuming all disallowed attributes from the definition view element.
- *
- * This converter listenes on `high` priority to ensure that all attributes are consumed
- * before standard priority converters.
- */
-export function disallowedAttributesConverter(
-    definition: DataSchemaDefinition,
-    dataFilter: DataFilter,
-): (dispatcher: UpcastDispatcher) => void;
-
-/**
  * View-to-model conversion helper for object elements.
  *
  * Preserves object element content in `htmlContent` attribute.

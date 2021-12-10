@@ -1,4 +1,4 @@
-import inquirer = require("inquirer");
+import inquirer = require('inquirer');
 
 /**
  * Pizza delivery prompt example
@@ -11,7 +11,7 @@ const questions: inquirer.DistinctQuestion[] = [
         type: 'confirm',
         name: 'toBeDelivered',
         message: 'Is this for delivery?',
-        default: false
+        default: false,
     },
     {
         type: 'input',
@@ -19,14 +19,14 @@ const questions: inquirer.DistinctQuestion[] = [
         message: "What's your phone number?",
         validate(value) {
             const pass = value.match(
-                /^([01]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i
+                /^([01]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i,
             );
             if (pass) {
                 return true;
             }
 
             return 'Please enter a valid phone number';
-        }
+        },
     },
     {
         type: 'list',
@@ -35,7 +35,7 @@ const questions: inquirer.DistinctQuestion[] = [
         choices: ['Large', 'Medium', 'Small'],
         filter(val) {
             return val.toLowerCase();
-        }
+        },
     },
     {
         type: 'input',
@@ -45,7 +45,7 @@ const questions: inquirer.DistinctQuestion[] = [
             const valid = !isNaN(parseFloat(value));
             return valid || 'Please enter a number';
         },
-        filter: Number
+        filter: Number,
     },
     {
         type: 'expand',
@@ -55,31 +55,31 @@ const questions: inquirer.DistinctQuestion[] = [
             {
                 key: 'p',
                 name: 'Pepperoni and cheese',
-                value: 'PepperoniCheese'
+                value: 'PepperoniCheese',
             },
             {
                 key: 'a',
                 name: 'All dressed',
-                value: 'alldressed'
+                value: 'alldressed',
             },
             {
                 key: 'w',
                 name: 'Hawaiian',
-                value: 'hawaiian'
-            }
-        ]
+                value: 'hawaiian',
+            },
+        ],
     },
     {
         type: 'rawlist',
         name: 'beverage',
         message: 'You also get a free 2L beverage',
-        choices: ['Pepsi', '7up', 'Coke']
+        choices: ['Pepsi', '7up', 'Coke'],
     },
     {
         type: 'input',
         name: 'comments',
         message: 'Any comments on your purchase experience?',
-        default: 'Nope, all good!'
+        default: 'Nope, all good!',
     },
     {
         type: 'list',
@@ -88,8 +88,8 @@ const questions: inquirer.DistinctQuestion[] = [
         choices: ['cake', 'fries'],
         when(answers) {
             return answers.comments !== 'Nope, all good!';
-        }
-    }
+        },
+    },
 ];
 
 inquirer.prompt(questions).then(answers => {

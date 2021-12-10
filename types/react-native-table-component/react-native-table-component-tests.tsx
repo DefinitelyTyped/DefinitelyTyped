@@ -49,7 +49,8 @@ const styles2 = StyleSheet.create({
     container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
     head: {  height: 40,  backgroundColor: '#f1f8ff'  },
     wrapper: { flexDirection: 'row' },
-    title: { flex: 1, backgroundColor: '#f6f8fa' },
+    title: { flex: 1 },
+    titleBgColor: { backgroundColor: '#f6f8fa' },
     row: {  height: 28  },
     text: { textAlign: 'center' }
 });
@@ -82,7 +83,7 @@ export class ExampleTwo extends React.Component<{}, ExampleTwoState> {
           <Table borderStyle={{borderWidth: 1}}>
             <Row data={state.tableHead} flexArr={[1, 2, 1, 1]} style={styles2.head} textStyle={styles2.text}/>
             <TableWrapper style={styles2.wrapper}>
-              <Col data={state.tableTitle} style={styles2.title} heightArr={[28, 28]} textStyle={styles2.text}/>
+              <Col data={state.tableTitle} style={[styles2.title, styles2.titleBgColor]} heightArr={[28, 28]} textStyle={styles2.text}/>
               <Rows data={state.tableData} flexArr={[2, 1, 1]} style={styles2.row} textStyle={styles2.text}/>
             </TableWrapper>
           </Table>

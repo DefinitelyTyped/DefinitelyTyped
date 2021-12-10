@@ -1,6 +1,7 @@
 // Type definitions for flexsearch 0.7
 // Project: https://github.com/nextapps-de/flexsearch/
 // Definitions by: LOSSES Don <https://github.com/Losses>
+//                 nian2760 <https://github.com/nian2760>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************/
@@ -9,7 +10,7 @@
 export type Id = number | string;
 export type Limit = number;
 export type ExportHandler<T> = (id: string | number, value: T) => void;
-export type AsyncCallback = () => void;
+export type AsyncCallback<T = undefined> = T extends undefined ? () => void : (result: T) => void;
 export type UnknownFunction = (...x: unknown[]) => unknown;
 
 export type StoreOption = boolean | string | string[];
@@ -65,6 +66,7 @@ export interface ContextOptions {
  * * Search options: https://github.com/nextapps-de/flexsearch#search-options
  */
 export interface SearchOptions {
+   query?: string;
    limit?: number;
    offset?: number;
    suggest?: boolean;
@@ -166,10 +168,10 @@ export type IndexSearchResult = Id[];
 
 export class Index {
    constructor(x?: Preset | IndexOptions<string>);
-   add(id: Id, item: string): Index;
-   append(id: Id, item: string): void;
-   update(id: Id, item: string): void;
-   remove(target: Id): void;
+   add(id: Id, item: string): this;
+   append(id: Id, item: string): this;
+   update(id: Id, item: string): this;
+   remove(target: Id): this;
    search(query: string, options?: Limit | SearchOptions): IndexSearchResult;
    search(
       query: string,
@@ -185,18 +187,19 @@ export class Index {
    import(id: Id, item: string): Promise<void>;
 
    // Async Methods
-   addAsync(id: Id, item: string, callback?: AsyncCallback): Promise<void>;
-   appendAsync(id: Id, item: string, callback?: AsyncCallback): Promise<void>;
-   updateAsync(id: Id, item: string, callback?: AsyncCallback): Promise<void>;
-   removeAsync(target: Id, callback?: AsyncCallback): Promise<void>;
+   addAsync(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   appendAsync(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   updateAsync(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   removeAsync(target: Id, callback?: AsyncCallback<this>): Promise<this>;
    searchAsync(
       query: string,
-      options?: Limit | SearchOptions
+      options?: Limit | SearchOptions,
+      callback?: AsyncCallback<IndexSearchResult>
    ): Promise<IndexSearchResult>;
    searchAsync(
       query: string,
       limit: number,
-      options: SearchOptions
+      options?: Limit | SearchOptions
    ): IndexSearchResult;
    searchAsync(options: SearchOptions): Promise<IndexSearchResult>;
 }
@@ -207,7 +210,42 @@ export class Index {
  * * API overview: https://github.com/nextapps-de/flexsearch#api-overview
  * * Worker index: https://github.com/nextapps-de/flexsearch#worker-index
  */
-export class WorkerIndex extends Index { }
+export class Worker {
+   constructor(x?: Preset | IndexOptions<string>);
+
+   add(id: Id, item: string, callback?: AsyncCallback<Worker>): Promise<this>;
+   append(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   update(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   remove(target: Id, callback?: AsyncCallback<this>): Promise<this>;
+   search(
+      query: string,
+      options?: Limit | SearchOptions,
+      callback?: AsyncCallback<IndexSearchResult>
+   ): Promise<IndexSearchResult>;
+   search(
+      query: string,
+      limit: number,
+      options?: Limit | SearchOptions
+   ): IndexSearchResult;
+   search(options: SearchOptions): Promise<IndexSearchResult>;
+
+   // Async Methods
+   addAsync(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   appendAsync(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   updateAsync(id: Id, item: string, callback?: AsyncCallback<this>): Promise<this>;
+   removeAsync(target: Id, callback?: AsyncCallback<this>): Promise<this>;
+   searchAsync(
+      query: string,
+      options?: Limit | SearchOptions,
+      callback?: AsyncCallback<IndexSearchResult>
+   ): Promise<IndexSearchResult>;
+   searchAsync(
+      query: string,
+      limit: number,
+      options?: Limit | SearchOptions
+   ): IndexSearchResult;
+   searchAsync(options: SearchOptions): Promise<IndexSearchResult>;
+}
 
 /************************************/
 /* Document Search                  */
@@ -292,14 +330,17 @@ export class Document<T, Store extends StoreOption = false> {
       options: IndexOptionsForDocumentSearch<T, Store>,
       typeHack?: T
    );
-   add(id: Id, document: T): Document<T, Store>;
-   append(id: Id, document: T): void;
-   update(id: Id, document: T): void;
-   remove(target: Id | T): void;
+   add(document: T): this;
+   add(id: Id, document: T): this;
+   append(document: T): this;
+   append(id: Id, document: T): this;
+   update(document: T): this;
+   update(id: Id, document: T): this;
+   remove(target: Id | T): this;
    search(query: string, limit?: number): SimpleDocumentSearchResultSetUnit[];
 
    // https://github.com/nextapps-de/flexsearch#field-search
-   search(query: string, fields: string[]): SimpleDocumentSearchResultSetUnit[];
+   search(query: string, options: string[] | Partial<DocumentSearchOptions<boolean>>): SimpleDocumentSearchResultSetUnit[];
 
    search<Enrich extends boolean = false>(
       query: string,
@@ -307,34 +348,41 @@ export class Document<T, Store extends StoreOption = false> {
       options?: Partial<DocumentSearchOptions<Enrich>>
    ): DocumentSearchResult<T, Store, Enrich>;
    search(
-      query: string,
       options: Partial<DocumentSearchOptions<boolean>>
-   ): void;
-   search(
-      options: Partial<DocumentSearchOptions<boolean>>
-   ): void;
+   ): SimpleDocumentSearchResultSetUnit[];
    export(handler: ExportHandler<T>): Promise<void>;
    import(id: Id, document: T): Promise<void>;
 
    // Async Methods
-   addAsync(id: Id, document: T, callback?: AsyncCallback): Promise<void>;
-   appendAsync(id: Id, document: T, callback?: AsyncCallback): Promise<void>;
-   updateAsync(id: Id, document: T, callback?: AsyncCallback): Promise<void>;
-   removeAsync(target: Id | T, callback?: AsyncCallback): Promise<void>;
+   addAsync(id: Id, document: T, callback?: AsyncCallback): Promise<this>;
+   appendAsync(id: Id, document: T, callback?: AsyncCallback): Promise<this>;
+   updateAsync(id: Id, document: T, callback?: AsyncCallback): Promise<this>;
+   removeAsync(target: Id | T, callback?: AsyncCallback): Promise<this>;
+   searchAsync<Enrich extends boolean = false>(
+      query: string,
+      options: string[] | Partial<DocumentSearchOptions<Enrich>>
+   ): Promise<DocumentSearchResult<T, Store, Enrich>>;
    searchAsync(
       query: string,
       limit?: number,
-      callback?: AsyncCallback
    ): Promise<SimpleDocumentSearchResultSetUnit[]>;
+   searchAsync(
+      query: string,
+      limit: number,
+      callback: AsyncCallback<SimpleDocumentSearchResultSetUnit[]>
+   ): Promise<this>;
    searchAsync<Enrich extends boolean = false>(
       query: string,
-      options?: Partial<DocumentSearchOptions<Enrich>>,
-      callback?: AsyncCallback
+      options: Partial<DocumentSearchOptions<Enrich>>,
+      callback: AsyncCallback<DocumentSearchResult<T, Store, Enrich>>
+   ): Promise<this>;
+   searchAsync<Enrich extends boolean = false>(
+      options: Partial<DocumentSearchOptions<Enrich>>
    ): Promise<DocumentSearchResult<T, Store, Enrich>>;
    searchAsync<Enrich extends boolean = false>(
       options: Partial<DocumentSearchOptions<Enrich>>,
-      callback?: AsyncCallback
-   ): Promise<DocumentSearchResult<T, Store, Enrich>>;
+      callback: AsyncCallback<DocumentSearchResult<T, Store, Enrich>>
+   ): Promise<this>;
 }
 
 /************************************/

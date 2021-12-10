@@ -18,7 +18,12 @@ zingchart.render({
             label: {
               text: 'Days'
             },
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            lineColor: 'red',
+        },
+        scaleY: {
+            autoFit: true,
+            zooming: true,
         },
         plot: {
             animation: {
@@ -37,8 +42,27 @@ zingchart.render({
                 text: 'Hello World',
             },
         },
+        timeZone: 1,
         zoom: {
             shared: true,
         }
     }],
+    labels: [{
+        alpha: 0.5,
+        text: 'testing',
+    }],
+    scaleX: {
+        step: '3hour',
+        transform: {
+            type: 'date',
+        },
+    },
+    series: [{
+        borderRadius: 3,
+        legendMarker: {
+            lineStyle: 'dotted',
+        },
+    }],
+    zoom: {},
+    zoomSnap: true,
 });

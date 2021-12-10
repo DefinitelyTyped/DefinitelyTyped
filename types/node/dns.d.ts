@@ -42,7 +42,7 @@
  * ```
  *
  * See the `Implementation considerations section` for more information.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/dns.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/dns.js)
  */
 declare module 'dns' {
     import * as dnsPromises from 'node:dns/promises';
@@ -502,7 +502,7 @@ declare module 'dns' {
      *
      * The {@link setServers} method affects only {@link resolve},`dns.resolve*()` and {@link reverse} (and specifically _not_ {@link lookup}).
      *
-     * This method works much like[resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
+     * This method works much like [resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
      * That is, if attempting to resolve with the first server provided results in a`NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
      * subsequent servers provided. Fallback DNS servers will only be used if the
      * earlier ones time out or result in some other error.
@@ -526,6 +526,17 @@ declare module 'dns' {
      * @since v0.11.3
      */
     export function getServers(): string[];
+    /**
+     * Set the default value of `verbatim` in {@link lookup}. The value could be:
+     * - `ipv4first`: sets default `verbatim` `false`.
+     * - `verbatim`: sets default `verbatim` `true`.
+     *
+     * The default is `ipv4first` and {@link setDefaultResultOrder} have higher priority than `--dns-result-order`.
+     * When using worker threads, {@link setDefaultResultOrder} from the main thread won't affect the default dns orders in workers.
+     * @since v14.18.0
+     * @param order must be 'ipv4first' or 'verbatim'.
+     */
+    export function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
     // Error codes
     export const NODATA: string;
     export const FORMERR: string;

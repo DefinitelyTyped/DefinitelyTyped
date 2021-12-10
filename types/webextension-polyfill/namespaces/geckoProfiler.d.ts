@@ -13,7 +13,9 @@ export namespace GeckoProfiler {
         | "js"
         | "leaf"
         | "mainthreadio"
-        | "responsiveness"
+        | "fileio"
+        | "fileioall"
+        | "noiostacks"
         | "screenshots"
         | "seqstyle"
         | "stackwalk"
@@ -21,15 +23,16 @@ export namespace GeckoProfiler {
         | "jstracer"
         | "jsallocations"
         | "nostacksampling"
-        | "nativeallocations"
         | "preferencereads"
+        | "nativeallocations"
         | "ipcmessages"
-        | "fileio"
-        | "fileioall"
-        | "noiostacks"
         | "audiocallbacktracing"
         | "cpu"
-        | "notimerresolutionchange";
+        | "notimerresolutionchange"
+        | "cpuallthreads"
+        | "samplingallthreads"
+        | "markersallthreads"
+        | "responsiveness";
 
     type supports = "windowLength";
 

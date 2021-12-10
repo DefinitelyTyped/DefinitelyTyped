@@ -218,6 +218,59 @@ pubnub.grant(grantchannelGroupsOptions).then(status => {
     console.log(status);
 });
 
+const grantTokenParameters = {
+    ttl: 15,
+    authorized_uuid: 'my-authorized-uuid',
+    resources: {
+        channels: {
+            'channel-a': {
+                read: true,
+            },
+            'channel-b': {
+                read: true,
+                write: true,
+            },
+            'channel-c': {
+                read: true,
+                write: true,
+            },
+            'channel-d': {
+                read: true,
+                write: true,
+            },
+        },
+        groups: {
+            'channel-group-b': {
+                read: true,
+            },
+        },
+        uuids: {
+            'uuid-c': {
+                get: true,
+            },
+            'uuid-d': {
+                get: true,
+                update: true,
+            },
+        },
+    },
+    patterns: {
+        channels: {
+            '^channel-[A-Za-z0-9]$': {
+                read: true,
+            },
+        },
+    }
+};
+
+pubnub.grantToken(grantTokenParameters).then(token => console.log(token));
+
+pubnub.parseToken('someToken');
+
+pubnub.setToken('someToken');
+
+pubnub.revokeToken('someToken');
+
 pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
 
 pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));

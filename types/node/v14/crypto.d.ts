@@ -140,7 +140,7 @@ declare module 'crypto' {
     function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
 
     // https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings
-    type BinaryToTextEncoding = 'base64' | 'hex';
+    type BinaryToTextEncoding = 'base64' | 'base64url' | 'hex';
     type CharacterEncoding = 'utf8' | 'utf-8' | 'utf16le' | 'latin1';
     type LegacyCharacterEncoding = 'ascii' | 'binary' | 'ucs2' | 'ucs-2';
 
@@ -514,7 +514,7 @@ declare module 'crypto' {
             key: BinaryLike,
             curve: string,
             inputEncoding?: BinaryToTextEncoding,
-            outputEncoding?: 'latin1' | 'hex' | 'base64',
+            outputEncoding?: 'latin1' | 'hex' | 'base64' | 'base64url',
             format?: 'uncompressed' | 'compressed' | 'hybrid',
         ): Buffer | string;
         generateKeys(): Buffer;
@@ -1183,4 +1183,7 @@ declare module 'crypto' {
      * 'dh' (for Diffie-Hellman), 'ec' (for ECDH), 'x448', or 'x25519' (for ECDH-ES).
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+}
+declare module 'node:crypto' {
+    export * from 'crypto';
 }

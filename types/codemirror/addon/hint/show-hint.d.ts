@@ -83,6 +83,7 @@ declare module '../../' {
         container?: HTMLElement | null | undefined;
         customKeys?: { [key: string]: ((editor: Editor, handle: CompletionHandle) => void) | string } | null | undefined;
         extraKeys?: { [key: string]: ((editor: Editor, handle: CompletionHandle) => void) | string } | null | undefined;
+        scrollMargin?: number | undefined;
         paddingForScrollbar?: boolean | undefined;
         moveOnOverlap?: boolean | undefined;
         words?: ReadonlyArray<string> | undefined; // used by fromList

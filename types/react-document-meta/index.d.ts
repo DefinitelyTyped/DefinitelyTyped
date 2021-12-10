@@ -7,6 +7,7 @@
 import * as React from 'react';
 
 export interface DocumentMetaProps {
+    children?: React.ReactNode;
     readonly title?: string | undefined;
     readonly description?: string | undefined;
     readonly canonical?: string | undefined;

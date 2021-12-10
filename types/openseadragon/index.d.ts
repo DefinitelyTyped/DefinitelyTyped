@@ -463,7 +463,7 @@ declare namespace OpenSeadragon {
     class ControlDock {
         constructor(options: object);
 
-        addControl(element: Control, controlOptions: TControlOptions): void;
+        addControl(element: string | Element, controlOptions: TControlOptions): void;
         areControlsEnabled(): boolean;
         clearControls(): ControlDock;
         removeControl(element: Control): ControlDock;

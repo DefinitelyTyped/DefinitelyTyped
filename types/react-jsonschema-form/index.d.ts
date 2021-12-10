@@ -26,6 +26,7 @@ declare module 'react-jsonschema-form' {
     };
 
     export interface FormProps<T> {
+        children?: React.ReactNode;
         /** Form schema */
         schema: JSONSchema6;
         /** If true, disabled prop is passed down to each field on the form */

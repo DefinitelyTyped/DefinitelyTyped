@@ -1593,13 +1593,13 @@ declare namespace _ {
     interface LodashGroupBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashGroupBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashGroupBy1x2<T>;
-        <T>(iteratee: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<T[]>;
+        <T>(iteratee: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<[T, ...T[]]>;
         <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashGroupBy2x2<T>;
-        <T extends object>(iteratee: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): lodash.Dictionary<Array<T[keyof T]>>;
+        <T extends object>(iteratee: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): lodash.Dictionary<[T[keyof T], ...Array<T[keyof T]>]>;
     }
-    type LodashGroupBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T[]>;
-    type LodashGroupBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<T[]>;
-    type LodashGroupBy2x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<Array<T[keyof T]>>;
+    type LodashGroupBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<[T, ...T[]]>;
+    type LodashGroupBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<[T, ...T[]]>;
+    type LodashGroupBy2x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<[T[keyof T], ...Array<T[keyof T]>]>;
     interface LodashGt {
         (value: any): LodashGt1x1;
         (value: lodash.__, other: any): LodashGt1x2;

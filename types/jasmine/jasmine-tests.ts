@@ -7,8 +7,13 @@ import JasmineClass from "jasmine";
         projectBaseDir: "/",
     });
 
-    jasmineClass.addSpecFiles(["file"]);
     jasmineClass.addSpecFile("file");
+    jasmineClass.addSpecFiles(["dir/**/*.js"]);
+    jasmineClass.addMatchingSpecFiles(["dir/**/*.js"]);
+
+    jasmineClass.addHelperFile("file");
+    jasmineClass.addHelperFiles(["dir/**/*.js"]);
+    jasmineClass.addMatchingHelperFiles(["dir/**/*.js"]);
 
     jasmineClass.env.configure({
         random: true,
@@ -21,6 +26,7 @@ import JasmineClass from "jasmine";
         stopSpecOnExpectationFailure: true,
         failFast: true,
         oneFailurePerSpec: true,
+        autoCleanClosures: false,
     });
 
     jasmineClass.loadConfig({
@@ -55,6 +61,7 @@ import JasmineClass from "jasmine";
         showColors: true,
     });
 
+    jasmineClass.exitOnCompletion = false;
     await jasmineClass.execute();
 })();
 
@@ -1389,6 +1396,13 @@ describe("jasmine.objectContaining", () => {
         );
     });
 
+    describe('stringContaining', () => {
+        it('passes', () => {
+            expect('foot').toEqual(jasmine.stringContaining('foo'));
+            expect('foot').toEqual(jasmine.stringContaining(/foo/));
+        });
+    });
+
     it("can be used in a nested object", () => {
         interface nestedFooType {
             nested: {
@@ -2369,6 +2383,20 @@ describe("setDefaultSpyStrategy", () => {
 describe("version", () => {
     it("get version", () => {
         console.log(jasmine.version);
+    });
+});
+
+describe("Jasmine constructor", () => {
+    it("creates new Jasmine instance without args", () => {
+        const instance = new JasmineClass();
+        expect(instance).toBeInstanceOf(JasmineClass);
+    });
+
+    it("creates new Jasmine instance with args", () => {
+        const instance = new JasmineClass({
+            projectBaseDir: 'foo',
+        });
+        expect(instance).toBeInstanceOf(JasmineClass);
     });
 });
 

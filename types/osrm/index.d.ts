@@ -12,7 +12,11 @@
  * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md
  */
  declare class OSRM {
-    constructor(options: string | OSRM.ConstructorOptions);
+    constructor(options: string);
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: OSRM.PathConstructorOptions);
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: OSRM.SharedMemoryConstructorOptions);
     /**
      * Returns the fastest route between two or more coordinates while visiting the waypoints in order.
      */
@@ -431,15 +435,7 @@ declare namespace OSRM {
          * The algorithm to use for routing. Can be 'CH', 'CoreCH' or 'MLD'. Default is 'CH'. Make sure you prepared the dataset with the correct toolchain.
          */
         algorithm?: AlgorithmTypes;
-        /**
-         * Connects to the persistent shared memory datastore. This requires you to run osrm-datastore prior to creating an OSRM object.
-         */
-        shared_memory?: boolean;
-        /**
-         * Connects to the persistent shared memory datastore defined by --dataset_name option when running osrm-datastore.
-         * This requires you to run osrm-datastore --dataset_name prior to creating an OSRM object.
-         */
-        dataset_name?: string;
+
         /**
          * DEPRECATED Old behaviour: Path to a file on disk to store the memory using mmap. Current behaviour: setting this
          * value is the same as setting mmap_memory: true.
@@ -449,10 +445,6 @@ declare namespace OSRM {
          * Map on-disk files to virtual memory addresses (mmap), rather than loading into RAM.
          */
         mmap_memory?: boolean;
-        /**
-         * The path to the .osrm files. This is mutually exclusive with setting {options.shared_memory} to true.
-         */
-        path?: string;
         /**
          * Max. locations supported in trip query (default: unlimited).
          */
@@ -477,6 +469,24 @@ declare namespace OSRM {
          * Max.number of alternatives supported in alternative routes query (default: 3).
          */
         max_alternatives?: number;
+    }
+
+    interface PathConstructorOptions extends ConstructorOptions {
+        /**
+         * The path to the .osrm files. This is mutually exclusive with setting {options.shared_memory} to true.
+         */
+        path?: string;
+    }
+    interface SharedMemoryConstructorOptions extends ConstructorOptions {
+        /**
+         * Connects to the persistent shared memory datastore. This requires you to run osrm-datastore prior to creating an OSRM object.
+         */
+        shared_memory?: boolean;
+        /**
+         * Connects to the persistent shared memory datastore defined by --dataset_name option when running osrm-datastore.
+         * This requires you to run osrm-datastore --dataset_name prior to creating an OSRM object.
+         */
+        dataset_name?: string;
     }
 
     /**

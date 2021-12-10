@@ -455,3 +455,110 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         `);
     }
 };
+
+const fileSecurityUpdateInfo = () => {
+    // get file
+    const file = DriveApp.getFileById('');
+    // get resource key
+    Logger.log(file.getResourceKey());
+
+    // update flag for update enabled
+    if (file.getSecurityUpdateEligible() && !file.getSecurityUpdateEnabled()) {
+        file.setSecurityUpdateEnabled(true);
+    }
+};
+const folderSecurityUpdateInfo = () => {
+    // get folder
+    const folder = DriveApp.getFolderById('');
+    // get resource key
+    Logger.log(folder.getResourceKey());
+
+    // update flag for update enabled
+    if (folder.getSecurityUpdateEligible() && !folder.getSecurityUpdateEnabled()) {
+        folder.setSecurityUpdateEnabled(true);
+    }
+};
+
+interface BorderStyleOptions {
+    color: string;
+    radius: number;
+}
+
+interface ImageComponentOptions extends BorderStyleOptions {
+    alt: string;
+    src: string;
+}
+
+interface GridItemOptions extends ImageComponentOptions {
+    id: string;
+    title: string;
+    subtitle: string;
+}
+
+interface GridOptions extends BorderStyleOptions {
+    items: GoogleAppsScript.Card_Service.GridItem[];
+}
+
+const makeBorderStyle = ({ color, radius }: BorderStyleOptions) => {
+    // $ExpectType BorderStyle
+    const style = CardService.newBorderStyle();
+    style
+        .setCornerRadius(radius)
+        .setStrokeColor(color)
+        .setType(CardService.BorderType.STROKE);
+
+    return style;
+};
+
+const makeImageCropStyle = (ratio: number) => {
+    // $ExpectType ImageCropStyle
+    const style = CardService.newImageCropStyle();
+    style
+        .setAspectRatio(ratio)
+        .setImageCropType(CardService.ImageCropType.CIRCLE);
+
+    return style;
+};
+
+const makeImageComponent = ({ alt, src, ...options }: ImageComponentOptions) => {
+    // $ExpectType ImageComponent
+    const img = CardService.newImageComponent();
+    img
+        .setAltText(alt)
+        .setBorderStyle(makeBorderStyle(options))
+        .setCropStyle(makeImageCropStyle(42))
+        .setImageUrl(src);
+
+    return img;
+};
+
+const makeGridItem = ({ id, subtitle, title, ...options }: GridItemOptions) => {
+    // $ExpectType GridItem
+    const item = CardService.newGridItem();
+    item
+        .setIdentifier(id)
+        .setImage(makeImageComponent(options))
+        .setLayout(CardService.GridItemLayout.TEXT_BELOW)
+        .setSubtitle(subtitle)
+        .setTextAlignment(CardService.HorizontalAlignment.CENTER)
+        .setTitle(title);
+
+    return item;
+};
+
+const makeGrid = ({ items, ...options}: GridOptions) => {
+    // $ExpectType Grid
+    const grid = CardService.newGrid();
+    items.forEach(item => grid.addItem(item));
+
+    const action = CardService.newAction();
+    action.setFunctionName("somefunc");
+
+    grid
+        .setOnClickAction(action)
+        .setBorderStyle(makeBorderStyle(options))
+        .setNumColumns(2)
+        .setTitle('My Grid');
+
+    return grid;
+};

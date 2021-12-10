@@ -81,6 +81,15 @@ export declare const enum BMPDepthType {
     TWENTYFOUR = "bitDepth24",
     THIRTYTWO = "bitDepth32"
 }
+/**
+ * The number of bits per color channel.
+ */
+export declare const enum BitsPerChannelType {
+    ONE = "bitDepth1",
+    EIGHT = "bitDepth8",
+    SIXTEEN = "bitDepth16",
+    THIRTYTWO = "bitDepth32"
+}
 export declare const enum OperatingSystem {
     WINDOWS = "windows",
     OS2 = "OS2"
@@ -107,6 +116,8 @@ export declare const enum JPEGFormatOptions {
  * adjacent to transparent areas of the image.
  * When transparency is turned off for an image,
  * the matte color is applied to transparent areas.
+ *
+ * @extendscript MatteType
  */
 export declare const enum MatteColor {
     BACKGROUND = "backgroundColor",
@@ -122,7 +133,8 @@ export declare const enum MatteColor {
 export declare const enum Dither {
     DIFFUSION = "diffusion",
     PATTERN = "pattern",
-    NOISE = "blue"
+    NOISE = "blue",
+    NONE = "none"
 }
 /**
  * The type of colors to be included the color
@@ -145,7 +157,7 @@ export declare const enum ForcedColors {
 /**
  * The palette type to use
  */
-export declare const enum PaletteType {
+export declare const enum Palette {
     EXACT = "exact",
     MACOSPALETTE = "macintoshSystem",
     WINDOWSPALETTE = "windowsSystem",
@@ -184,13 +196,30 @@ export declare enum AnchorPosition {
     TOPRIGHT = "top-right"
 }
 /**
+ * Type of pixels to trim around an image, passed to [[Document.trim]].
+ */
+export declare enum TrimType {
+    /**
+     * Bottom right pixel color.
+     */
+    BOTTOMRIGHT = "bottom-right",
+    /**
+     * Top left pixel color.
+     */
+    TOPLEFT = "top-left",
+    /**
+     * Transparent pixels.
+     */
+    TRANSPARENT = "transparent"
+}
+/**
  * Options for layer list label colors
  */
 export declare const enum LabelColors {
     RED = "red",
     ORANGE = "orange",
     YELLOW = "yellowColor",
-    GREEN = "green",
+    GREEN = "grain",
     BLUE = "blue",
     VIOLET = "violet",
     GRAY = "gray"
@@ -225,7 +254,21 @@ export declare const enum BlendMode {
     HUE = "hue",
     SATURATION = "saturation",
     COLOR = "color",
-    LUMINOSITY = "luminosity"
+    LUMINOSITY = "luminosity",
+    PASSTHROUGH = "passThrough"
+}
+/**
+ * Color mode of an open document. See also [[Document.mode]] and [[Document.changeMode]]
+ */
+export declare const enum DocumentMode {
+    BITMAP = "bitmapMode",
+    CMYK = "CMYKColorMode",
+    DUOTONE = "duotoneMode",
+    GRAYSCALE = "grayscaleMode",
+    INDEXEDCOLOR = "indexedColorMode",
+    LAB = "labColorMode",
+    MULTICHANNEL = "multichannelMode",
+    RGB = "RGBColorMode"
 }
 /**
  * Color Modes available for new document
@@ -238,6 +281,20 @@ export declare const enum NewDocumentMode {
     LAB = "labColorMode"
 }
 /**
+ * The new color profile or mode for a document, specified in [[Document.changeMode]]
+ *
+ * NOTE: Color images must be changed to GRAYSCALE mode before you can change them to BITMAP mode.
+ */
+export declare const enum ChangeMode {
+    BITMAP = "bitmapMode",
+    CMYK = "CMYKColorMode",
+    GRAYSCALE = "grayscaleMode",
+    INDEXEDCOLOR = "indexedColorMode",
+    LAB = "labColorMode",
+    MULTICHANNEL = "multichannelMode",
+    RGB = "RGBColorMode"
+}
+/**
  * Fill methods available for the new document background
  */
 export declare const enum DocumentFill {
@@ -247,6 +304,9 @@ export declare const enum DocumentFill {
     TRANSPARENT = "transparent",
     COLOR = "color"
 }
+/**
+ * Kinds of different layers in a document
+ */
 export declare const enum LayerKind {
     BLACKANDWHITE = "blackAndWhite",
     BRIGHTNESSCONTRAST = "brightnessContrast",
@@ -273,4 +333,140 @@ export declare const enum LayerKind {
     VIDEO = "video",
     GROUP = "group",
     COLORLOOKUP = "colorLookup"
+}
+/**
+ * Placement modes for Layer.move method
+ */
+export declare const enum ElementPlacement {
+    /**
+     * Place above a layer, above group if group layer
+     */
+    PLACEBEFORE = "placeBefore",
+    /**
+     * Place at the top
+     */
+    PLACEATBEGINNING = "placeAtBeginning",
+    /**
+     * Place at the bottom, above background if background layer exists
+     */
+    PLACEATEND = "placeAtEnd",
+    /**
+     * Place below a layer, below group if group layer
+     */
+    PLACEAFTER = "placeAfter",
+    /**
+     * Place inside a group layer, throws error if not group layer
+     */
+    PLACEINSIDE = "placeInside"
+}
+/**
+ * Type of color profile used to manage a document, used in [[Document.colorProfileType]]
+ */
+export declare const enum ColorProfileType {
+    /**
+     * Set for all custom profiles
+     */
+    CUSTOM = "customEnum",
+    /**
+     * Set when document is not color managed
+     */
+    NONE = "none",
+    /**
+     * Set when document uses the working color profile
+     */
+    WORKING = "workingSpaceCode"
+}
+/**
+ * Specifies the quality of an image you are converting to bitmap mode. Used in [[BitmapConversionOptions]]
+ */
+export declare const enum BitmapConversionType {
+    CUSTOMPATTERN = "customPattern",
+    DIFFUSIONDITHER = "diffusionDither",
+    HALFTHRESHOLD = "halfThreshold",
+    HALFTONESCREEN = "halfToneScreen",
+    PATTERNDITHER = "patternDither"
+}
+/**
+ * Specifies the shape of the dots (ink deposits) in the halftone screen. Used in [[BitmapConversionOptions]]
+ */
+export declare const enum BitmapHalfToneType {
+    CROSS = "cross",
+    DIAMOND = "diamond",
+    ELLIPSE = "ellipse",
+    LINE = "lineClass",
+    ROUND = "round",
+    SQUARE = "square"
+}
+/**
+ * The rendering intent to use when converting from one color space to another with
+ * [[Document.convertProfile]]
+ */
+export declare const enum Intent {
+    ABSOLUTECOLORIMETRIC = "absColorimetric",
+    PERCEPTUAL = "image",
+    RELATIVECOLORIMETRIC = "colorimetric",
+    SATURATION = "graphics"
+}
+/**
+ * Used in multiple places to represent orientation.
+ *
+ * Orientation of a guide in [[Guide.direction]]
+ */
+export declare const enum Direction {
+    HORIZONTAL = "horizontal",
+    VERTICAL = "vertical"
+}
+/**
+ * The color model representing the current color space
+ * of a [[SolidColor]] object.
+ */
+export declare const enum ColorModel {
+    GRAYSCALE = "grayScale",
+    HSB = "HSBColorEnum",
+    CMYK = "CMYKColorEnum",
+    LAB = "labColor",
+    RGB = "RGBColor",
+    NONE = "noColor"
+}
+/**
+ * The type of layer to get rasterized.
+ */
+export declare const enum RasterizeType {
+    ENTIRELAYER = "entire",
+    FILLCONTENT = "content",
+    LAYERCLIPPINGPATH = "clippingPath",
+    LINKEDLAYERS = "linked",
+    SHAPE = "shape",
+    TEXTCONTENTS = "type",
+    VECTORMASK = "vectorMask",
+    PLACED = "placed",
+    VIDEO = "video",
+    LAYERSTYLE = "layerStyle"
+}
+export declare const enum DialogModes {
+    /**
+     * All dialogs will be shown
+     */
+    ALL = "display",
+    /**
+     * Dialogs will be shown only if Photoshop raises an error
+     */
+    ERROR = "silent",
+    /**
+     * All dialogs will be hidden, and bad calls will silently fail
+     */
+    NONE = "dontDisplay"
+}
+/**
+ * The type of a color channel.
+ */
+export declare const enum ChannelType {
+    /** Specific to document color mode */
+    COMPONENT = "component",
+    /** Alpha channel where color indicates masked area */
+    MASKEDAREA = "maskedAreas",
+    /** Alpha channel where color indicates selected area */
+    SELECTEDAREA = "selectedAreas",
+    /** Alpha channel to store a spot color */
+    SPOTCOLOR = "spot"
 }

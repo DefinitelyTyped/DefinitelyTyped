@@ -10,6 +10,28 @@
 
 import * as mojangminecraft from "mojang-minecraft";
 /**
+ * Represents the type of fluid for use within a fluid
+ * containing block, like a cauldron.
+ */
+export enum FluidType {
+    /**
+     * Represents water as a type of fluida.
+     */
+    water = 0,
+    /**
+     * Represents lava as a type of fluid.
+     */
+    lava = 1,
+    /**
+     * Represents powder snow as a type of fluid.
+     */
+    powderSnow = 2,
+    /**
+     * Represents a potion as a type of fluid.
+     */
+    potion = 3
+}
+/**
  * Returns information about whether this fence is connected to
  * other fences in several directions.
  */
@@ -18,22 +40,22 @@ export class FenceConnectivity {
      * Represents whether this fence block is connected to another
      * fence to the east (x + 1).
      */
-    "east": boolean;
+    readonly "east": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the north (z - 1).
      */
-    "north": boolean;
+    readonly "north": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the south (z + 1).
      */
-    "south": boolean;
+    readonly "south": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the west (x - 1).
      */
-    "west": boolean;
+    readonly "west": boolean;
 }
 /**
  * Executes a set of steps defined via chained .thenXyz
@@ -48,7 +70,9 @@ export class GameTestSequence {
      * sequence execution.
      * @param callback
      * Callback function to execute.
-     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
+     * @returns
+     * Returns a GameTestSequence object where additional .thenXyz
+     * method steps can be added.
      */
     thenExecute(callback: () => void): GameTestSequence;
     /**
@@ -60,7 +84,9 @@ export class GameTestSequence {
      * Number of ticks to wait before executing the callback.
      * @param callback
      * Callback function to execute.
-     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
+     * @returns
+     * Returns a GameTestSequence object where additional .thenXyz
+     * method steps can be added.
      */
     thenExecuteAfter(delayTicks: number, callback: () => void): GameTestSequence;
     /**
@@ -70,7 +96,9 @@ export class GameTestSequence {
      * @param tickCount
      * @param callback
      * Callback function to execute.
-     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
+     * @returns
+     * Returns a GameTestSequence object where additional .thenXyz
+     * method steps can be added.
      */
     thenExecuteFor(tickCount: number, callback: () => void): GameTestSequence;
     /**
@@ -87,7 +115,9 @@ export class GameTestSequence {
      * @param delayTicks
      * Number of ticks to delay for this step in the GameTest
      * sequence.
-     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
+     * @returns
+     * Returns a GameTestSequence object where additional .thenXyz
+     * method steps can be added.
      */
     thenIdle(delayTicks: number): GameTestSequence;
     /**
@@ -104,7 +134,9 @@ export class GameTestSequence {
      * @param callback
      * Testing callback function to execute. Typically, this
      * function will have .assertXyz functions within it.
-     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
+     * @returns
+     * Returns a GameTestSequence object where additional .thenXyz
+     * method steps can be added.
      */
     thenWait(callback: () => void): GameTestSequence;
     /**
@@ -118,9 +150,11 @@ export class GameTestSequence {
      * @param callback
      * Testing callback function to execute. Typically, this
      * function will have .assertXyz functions within it.
-     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
+     * @returns
+     * Returns a GameTestSequence object where additional .thenXyz
+     * method steps can be added.
      */
-    thenWaitWithDelay(delayTicks: number, callback: () => void): GameTestSequence;
+    thenWaitAfter(delayTicks: number, callback: () => void): GameTestSequence;
 }
 /**
  * A utility class to set GameTest parameters for a test.
@@ -132,7 +166,9 @@ export class RegistrationBuilder {
      * Sets the batch for the test to run in.
      * @param batchName
      * Name of the batch for the test.
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     batch(batchName: ('night'|'day')): RegistrationBuilder;
     /**
@@ -140,7 +176,9 @@ export class RegistrationBuilder {
      * Sets the maximum number of times a test will try to rerun if
      * it fails.
      * @param attemptCount
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     maxAttempts(attemptCount: number): RegistrationBuilder;
     /**
@@ -148,7 +186,9 @@ export class RegistrationBuilder {
      * Sets the maximum number of ticks a test will run for before
      * timing out and failing.
      * @param tickCount
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     maxTicks(tickCount: number): RegistrationBuilder;
     /**
@@ -158,7 +198,9 @@ export class RegistrationBuilder {
      * @param paddingBlocks
      * Size, in blocks, around the GameTest where additional
      * GameTests should not be created.
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     padding(paddingBlocks: number): RegistrationBuilder;
     /**
@@ -168,7 +210,9 @@ export class RegistrationBuilder {
      * @param isRequired
      * If set to true, the test must pass in order for the entire
      * run of tests to pass.
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     required(isRequired: boolean): RegistrationBuilder;
     /**
@@ -176,7 +220,9 @@ export class RegistrationBuilder {
      * Sets the number of successful test runs to be considered
      * successful.
      * @param attemptCount
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     requiredSuccessfulAttempts(attemptCount: number): RegistrationBuilder;
     /**
@@ -191,7 +237,9 @@ export class RegistrationBuilder {
      * Sets the number of ticks for a test to wait before executing
      * when the structure is spawned.
      * @param tickCount
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     setupTicks(tickCount: number): RegistrationBuilder;
     /**
@@ -200,7 +248,9 @@ export class RegistrationBuilder {
      * will load `/structures/xyz/bar.mcstructure` from the
      * behavior pack stack.
      * @param structureName
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     structureName(structureName: string): RegistrationBuilder;
     /**
@@ -208,35 +258,499 @@ export class RegistrationBuilder {
      * Adds a tag to a test. You can run all tests with a given tag
      * with `/gametest runset <tag>`.
      * @param tag
-     * @returns RegistrationBuilder object where additional configuration methods can be called.
+     * @returns
+     * RegistrationBuilder object where additional configuration
+     * methods can be called.
      */
     tag(tag: string): RegistrationBuilder;
+}
+/**
+ * A simulated player can be used within GameTests to represent
+ * how a player moves throughout the world and to support
+ * testing of how entities and the environment will react to a
+ * player. This type derives much of its structure and methods
+ * from the {@link mojang-minecraft.Player} type.
+ */
+export class SimulatedPlayer extends mojangminecraft.Player {
+    /**
+     * Rotation of the body in degrees. Range is between -180 and
+     * 180 degrees.
+     * @throws This property can throw when used.
+     */
+    readonly "bodyRotation": number;
+    /**
+     * Dimension that the simulated player is currently within.
+     * @throws This property can throw when used.
+     */
+    readonly "dimension": mojangminecraft.Dimension;
+    /**
+     * Rotation of the head across pitch and yaw angles.
+     * @throws This property can throw when used.
+     */
+    readonly "headRotation": mojangminecraft.PitchYawRotation;
+    /**
+     * Identifier for the player.
+     * @throws This property can throw when used.
+     */
+    readonly "id": string;
+    /**
+     * True if the player is currently using a sneaking movement.
+     */
+    "isSneaking": boolean;
+    /**
+     * Current location of the player.
+     * @throws This property can throw when used.
+     */
+    readonly "location": mojangminecraft.Location;
+    /**
+     * Name of the player.
+     * @throws This property can throw when used.
+     */
+    readonly "name": string;
+    /**
+     * Optional name tag of the player.
+     */
+    "nameTag": string;
+    /**
+     * Retrieves or sets an entity that is used as the target of
+     * AI-related behaviors, like attacking.
+     */
+    "target": mojangminecraft.Entity;
+    /**
+     * Current speed of the player across X, Y, and Z dimensions.
+     * @throws This property can throw when used.
+     */
+    readonly "velocity": mojangminecraft.Location;
+    /**
+     * @remarks
+     * Adds an effect, like poison, to the entity.
+     * @param effectType
+     * Type of effect to add to the entity.
+     * @param duration
+     * Amount of time, in seconds, for the effect to apply.
+     * @param amplifier
+     * Optional amplification of the effect to apply.
+     * @throws This function can throw errors.
+     */
+    addEffect(effectType: mojangminecraft.EffectType, duration: number, amplifier: number): void;
+    /**
+     * @remarks
+     * Adds a specified tag to a simulated player.
+     * @param tag
+     * Content of the tag to add.
+     * @throws This function can throw errors.
+     */
+    addTag(tag: string): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to make an attack 'swipe'.
+     * Returns true if the attack was performed - for example, the
+     * player was not on cooldown and had a valid target. Target
+     * selection is performed by raycasting from the player's head.
+     * @throws This function can throw errors.
+     */
+    attack(): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to attack the provided target.
+     * Returns true if the attack was performed - for example, the
+     * player was not on cooldown and had a valid target. The
+     * attack can be performed at any distance and does not require
+     * line of sight to the target entity.
+     * @param entity
+     * @throws This function can throw errors.
+     */
+    attackEntity(entity: mojangminecraft.Entity): boolean;
+    /**
+     * @remarks
+     * Destroys the block at blockLocation, respecting the rules of
+     * the server player's game mode. The block will be hit until
+     * broken, an item is used or stopDestroyBlock is called.
+     * Returns true if the block at blockLocation is solid.
+     * @param blockLocation
+     * Location of the block to interact with.
+     * @param direction
+     * Direction to place the specified item within.
+     * @throws This function can throw errors.
+     */
+    destroyBlock(blockLocation: mojangminecraft.BlockLocation, direction?: number): boolean;
+    /**
+     * @remarks
+     * Gets a component (that represents additional capabilities)
+     * for an entity.
+     * @param componentId
+     * The identifier of the component (e.g., 'minecraft:rideable')
+     * to retrieve. If no namespace prefix is specified,
+     * 'minecraft:' is assumed. If the component is not present on
+     * the entity, undefined is returned.
+     */
+    getComponent(componentId: string): mojangminecraft.IEntityComponent;
+    /**
+     * @remarks
+     * Returns all components that are both present on this entity
+     * and supported by the API.
+     */
+    getComponents(): mojangminecraft.IEntityComponent[];
+    /**
+     * @remarks
+     * Returns the effect for the specified EffectType on the
+     * entity, or undefined if the effect is not present.
+     * @param effectType
+     * @returns
+     * Effect object for the specified effect, or undefined if the
+     * effect is not present.
+     * @throws This function can throw errors.
+     */
+    getEffect(effectType: mojangminecraft.EffectType): mojangminecraft.Effect;
+    /**
+     * @remarks
+     * Returns all tags associated with this simulated player.
+     * @throws This function can throw errors.
+     */
+    getTags(): string[];
+    /**
+     * @remarks
+     * Returns true if the specified component is present on this
+     * entity.
+     * @param componentId
+     * The identifier of the component (e.g., 'minecraft:rideable')
+     * to retrieve. If no namespace prefix is specified,
+     * 'minecraft:' is assumed.
+     */
+    hasComponent(componentId: string): boolean;
+    /**
+     * @remarks
+     * Tests whether a simulated player has a particular tag.
+     * @param tag
+     * Identifier of the tag to test for.
+     * @throws This function can throw errors.
+     */
+    hasTag(tag: string): boolean;
+    /**
+     * @remarks
+     * Performs a raycast from the player’s head and interacts with
+     * the first intersected block or entity. Returns true if the
+     * interaction was successful. Maximum range is 6 blocks.
+     * @throws This function can throw errors.
+     */
+    interact(): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to interact with a block. The
+     * block at the specified block location must be solid. Returns
+     * true if the interaction was performed.
+     * @param blockLocation
+     * Location of the block to interact with.
+     * @param direction
+     * Direction to place the specified item within.
+     * @throws This function can throw errors.
+     */
+    interactWithBlock(blockLocation: mojangminecraft.BlockLocation, direction?: number): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to interact with a mob. Returns
+     * true if the interaction was performed.
+     * @param entity
+     * Entity to interact with.
+     * @throws This function can throw errors.
+     */
+    interactWithEntity(entity: mojangminecraft.Entity): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to jump.
+     * @returns
+     * True if a jump was performed.
+     * @throws This function can throw errors.
+     */
+    jump(): boolean;
+    /**
+     * @remarks
+     * Kills this entity. The entity will drop loot as normal.
+     * @throws This function can throw errors.
+     */
+    kill(): void;
+    /**
+     * @remarks
+     * Rotates the simulated player's head/body to look at the
+     * given block location.
+     * @param blockLocation
+     * @throws This function can throw errors.
+     */
+    lookAtBlock(blockLocation: mojangminecraft.BlockLocation): void;
+    /**
+     * @remarks
+     * Rotates the simulated player's head/body to look at the
+     * given entity.
+     * @param entity
+     * @throws This function can throw errors.
+     */
+    lookAtEntity(entity: mojangminecraft.Entity): void;
+    /**
+     * @remarks
+     * Rotates the simulated player's head/body to look at the
+     * given location.
+     * @param location
+     * @throws This function can throw errors.
+     */
+    lookAtLocation(location: mojangminecraft.Location): void;
+    /**
+     * @remarks
+     * Orders the simulated player to walk in the given direction
+     * relative to the GameTest.
+     * @param westEast
+     * @param northSouth
+     * @param speed
+     * @throws This function can throw errors.
+     */
+    move(westEast: number, northSouth: number, speed?: number): void;
+    /**
+     * @remarks
+     * Orders the simulated player to walk in the given direction
+     * relative to the player's current rotation.
+     * @param leftRight
+     * @param backwardForward
+     * @param speed
+     * @throws This function can throw errors.
+     */
+    moveRelative(leftRight: number, backwardForward: number, speed?: number): void;
+    /**
+     * @remarks
+     * Orders the simulated player to move to the given block
+     * location in a straight line. If a move or navigation is
+     * already playing, this will override the last
+     * move/navigation.
+     * @param blockLocation
+     * @param speed
+     * @throws This function can throw errors.
+     */
+    moveToBlock(blockLocation: mojangminecraft.BlockLocation, speed?: number): void;
+    /**
+     * @remarks
+     * Orders the simulated player to move to the given location in
+     * a straight line. If a move or navigation is already playing,
+     * this will override the last move/navigation.
+     * @param location
+     * @param speed
+     * @throws This function can throw errors.
+     */
+    moveToLocation(location: mojangminecraft.Location, speed?: number): void;
+    /**
+     * @remarks
+     * Orders the simulated player to move to a specific block
+     * location using navigation. If a move or navigation is
+     * already playing, this will override the last move/walk. Note
+     * that if the simulated player gets stuck, that simulated
+     * player will stop. The player must be touching the ground in
+     * order to start navigation.
+     * @param blockLocation
+     * @param speed
+     * @throws This function can throw errors.
+     */
+    navigateToBlock(blockLocation: mojangminecraft.BlockLocation, speed?: number): mojangminecraft.NavigationResult;
+    /**
+     * @remarks
+     * Will use navigation to follow the selected entity to within
+     * a one block radius. If a move or navigation is already
+     * playing, this will override the last move/navigation.
+     * @param entity
+     * @param speed
+     * @throws This function can throw errors.
+     */
+    navigateToEntity(entity: mojangminecraft.Entity, speed?: number): mojangminecraft.NavigationResult;
+    /**
+     * @remarks
+     * Orders the simulated player to move to a specific location
+     * using navigation. If a move or navigation is already
+     * playing, this will override the last move/walk. Note that if
+     * the simulated player gets stuck, that simulated player will
+     * stop. The player must be touching the ground in order to
+     * start navigation.
+     * @param location
+     * @param speed
+     * @throws This function can throw errors.
+     */
+    navigateToLocation(location: mojangminecraft.Location, speed?: number): mojangminecraft.NavigationResult;
+    /**
+     * @remarks
+     * Use navigation to follow the route provided via the
+     * locations parameter. If a move or navigation is already
+     * playing, this will override the last move/navigation.
+     * @param locations
+     * A list of locations to use for routing.
+     * @param speed
+     * Net speed to use for doing the navigation.
+     * @throws This function can throw errors.
+     */
+    navigateToLocations(locations: mojangminecraft.Location[], speed?: number): void;
+    /**
+     * @remarks
+     * Removes a specified tag from a simulated player.
+     * @param tag
+     * Content of the tag to remove.
+     * @throws This function can throw errors.
+     */
+    removeTag(tag: string): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to turn by the provided angle,
+     * relative to the player's current rotation.
+     * @param angleInDegrees
+     * @throws This function can throw errors.
+     */
+    rotateBody(angleInDegrees: number): void;
+    /**
+     * @remarks
+     * Runs a particular command from the context of this simulated
+     * player.
+     * @param commandString
+     * Command to run. Note that command strings should not start
+     * with slash.
+     * @returns
+     * For commands that return data, returns a JSON structure with
+     * command response values.
+     * @throws This function can throw errors.
+     * @example commands.js
+     * ```typescript
+     *        player.runCommand("say You got a new high score!");
+     *        player.runCommand("scoreboard players set @s score 10");
+     *
+     * ```
+     */
+    runCommand(commandString: string): any;
+    /**
+     * @remarks
+     * Selects the provided slot in the player's hotbar.
+     * @param slot
+     * Index of the hotbar slot, ranging from 0 through 8.
+     * @throws This function can throw errors.
+     */
+    selectSlot(slot: number): void;
+    /**
+     * @remarks
+     * Causes the simulated player to turn to face the provided
+     * angle, relative to the GameTest.
+     * @param angleInDegrees
+     * @throws This function can throw errors.
+     */
+    setBodyRotation(angleInDegrees: number): void;
+    /**
+     * @remarks
+     * Stops destroying the block that is currently being hit.
+     * @throws This function can throw errors.
+     */
+    stopDestroyingBlock(): void;
+    /**
+     * @remarks
+     * Stops interacting with entities or blocks.
+     * @throws This function can throw errors.
+     */
+    stopInteracting(): void;
+    /**
+     * @remarks
+     * Stops moving/walking/following if the simulated player is
+     * moving.
+     * @throws This function can throw errors.
+     */
+    stopMoving(): void;
+    /**
+     * @remarks
+     * Stops using the currently active item.
+     * @throws This function can throw errors.
+     */
+    stopUsingItem(): void;
+    /**
+     * @remarks
+     * Triggers an entity type event. For every entity, a number of
+     * events are defined in an entities' definition for key entity
+     * behaviors; for example, creepers have a
+     * minecraft:start_exploding type event.
+     * @param eventName
+     * Name of the entity type event to trigger. If a namespace is
+     * not specified, minecraft: is assumed.
+     * @throws This function can throw errors.
+     */
+    triggerEvent(eventName: string): void;
+    /**
+     * @remarks
+     * Causes the simulated player to use an item. Does not consume
+     * the item. Returns false if the item is on cooldown.
+     * @param itemStack
+     * Item to use.
+     * @throws This function can throw errors.
+     */
+    useItem(itemStack: mojangminecraft.ItemStack): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to hold and use an item in their
+     * inventory.
+     * @param slot
+     * Index of the inventory slot.
+     * @throws This function can throw errors.
+     */
+    useItemInSlot(slot: number): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to use an item in their
+     * inventory on a block. The block at the specified block
+     * location must be solid. Returns true if the item was used.
+     * @param slot
+     * Index of the slot to use.
+     * @param blockLocation
+     * Location to use the item upon.
+     * @param direction
+     * Direction to place the specified item within.
+     * @param faceLocationX
+     * Block-face-relative X position where to place the item.
+     * @param faceLocationY
+     * Block-face-relative Y position where to place the item.
+     * @throws This function can throw errors.
+     */
+    useItemInSlotOnBlock(slot: number, blockLocation: mojangminecraft.BlockLocation, direction?: number, faceLocationX?: number, faceLocationY?: number): boolean;
+    /**
+     * @remarks
+     * Causes the simulated player to use an item on a block. The
+     * block at the specified block location must be solid. Returns
+     * true if the item was used.
+     * @param itemStack
+     * Item to use.
+     * @param blockLocation
+     * Location to use the item upon.
+     * @param direction
+     * Direction to place the specified item within.
+     * @param faceLocationX
+     * Block-face-relative X position where to place the item.
+     * @param faceLocationY
+     * Block-face-relative Y position where to place the item.
+     * @throws This function can throw errors.
+     */
+    useItemOnBlock(itemStack: mojangminecraft.ItemStack, blockLocation: mojangminecraft.BlockLocation, direction?: number, faceLocationX?: number, faceLocationY?: number): boolean;
 }
 /**
  * These well-known tags can be used to classify different
  * tests into suites to run.
  */
+// tslint:disable-next-line:no-unnecessary-class
 export class Tags {
     /**
      * Indicates that the tagged test should be a part of all
      * suites.
      */
-    "suiteAll": string;
+    static readonly "suiteAll" = "suite:all";
     /**
      * Indicates that the tagged test should be a part of an
      * internal (debug) test suite.
      */
-    "suiteDebug": string;
+    static readonly "suiteDebug" = "suite:debug";
     /**
      * Indicates that the tagged test should be a part of the
      * default test suite.
      */
-    "suiteDefault": string;
+    static readonly "suiteDefault" = "suite:default";
     /**
-     * Indicates that the tagged test should be a part of a
-     * a suite of disabled tests.
+     * Indicates that the tagged test should be a part of a suite
+     * of disabled tests.
      */
-    "suiteDisabled": string;
+    static readonly "suiteDisabled" = "suite:disabled";
 }
 /**
  * Main class for GameTest functions, with helpers and data for
@@ -262,12 +776,16 @@ export class Test {
      * Tests that a block of the specified type is present at the
      * specified location. If it is not, an exception is thrown.
      * @param blockType
+     * Expected block type.
      * @param blockLocation
      * Location of the block to test at.
      * @param isPresent
+     * If true, this function tests whether a block of the
+     * specified type is at the location. If false, tests that a
+     * block of the specified type is not present.
      * @throws This function can throw errors.
      */
-    assertBlockPresent(blockType: mojangminecraft.BlockType, blockLocation: mojangminecraft.BlockLocation, isPresent: boolean): void;
+    assertBlockPresent(blockType: mojangminecraft.BlockType, blockLocation: mojangminecraft.BlockLocation, isPresent?: boolean): void;
     /**
      * @remarks
      * Tests that a block has a particular state value at the
@@ -276,11 +794,14 @@ export class Test {
      * @param blockLocation
      * Location of the block to test at.
      * @param callback
+     * Callback function that contains additional tests based on
+     * the block at the specified location.
      * @throws This function can throw errors.
      * @example testIfButtonNotPressed.js
      * ```typescript
-     *        test.assertBlockState("button_pressed_bit", 0, buttonPos);
-     *
+     *        test.assertBlockState(buttonPos, (block) => {
+     *        return block.getBlockData().getProperty("button_pressed_bit") == 0;
+     *        });
      * ```
      */
     assertBlockState(blockLocation: mojangminecraft.BlockLocation, callback: (arg: mojangminecraft.Block) => boolean): void;
@@ -300,7 +821,7 @@ export class Test {
      * location.
      * @throws This function can throw errors.
      */
-    assertCanReachLocation(mob: mojangminecraft.Entity, blockLocation: mojangminecraft.BlockLocation, canReach: boolean): void;
+    assertCanReachLocation(mob: mojangminecraft.Entity, blockLocation: mojangminecraft.BlockLocation, canReach?: boolean): void;
     /**
      * @remarks
      * Tests that a container (e.g., a chest) at the specified
@@ -331,11 +852,14 @@ export class Test {
      * Tests that an entity has a specific piece of armor equipped.
      * If not, an error is thrown.
      * @param entityTypeIdentifier
+     * Identifier of the entity to match (e.g.,
+     * 'minecraft:skeleton').
      * @param armorSlot
      * Container slot index to test.
      * @param armorName
      * Name of the armor to look for.
      * @param armorData
+     * Data value integer to look for.
      * @param blockLocation
      * Location of the entity with armor to test for.
      * @param hasArmor
@@ -348,12 +872,15 @@ export class Test {
      *
      * ```
      */
-    assertEntityHasArmor(entityTypeIdentifier: string, armorSlot: number, armorName: string, armorData: number, blockLocation: mojangminecraft.BlockLocation, hasArmor: boolean): void;
+    assertEntityHasArmor(entityTypeIdentifier: string, armorSlot: number, armorName: string, armorData: number, blockLocation: mojangminecraft.BlockLocation, hasArmor?: boolean): void;
     /**
      * @remarks
      * Tests that an entity has a particular component. If not, an
      * exception is thrown.
      * @param entityTypeIdentifier
+     * Identifier of the specified entity (e.g.,
+     * 'minecraft:skeleton'). If the namespace is not specified,
+     * 'minecraft:' is assumed.
      * @param componentIdentifier
      * Identifier of the component to check for. If the namespace
      * is not specified, 'minecraft:' is assumed.
@@ -370,17 +897,23 @@ export class Test {
      *
      * ```
      */
-    assertEntityHasComponent(entityTypeIdentifier: string, componentIdentifier: string, blockLocation: mojangminecraft.BlockLocation, hasComponent: boolean): void;
+    assertEntityHasComponent(entityTypeIdentifier: string, componentIdentifier: string, blockLocation: mojangminecraft.BlockLocation, hasComponent?: boolean): void;
     /**
      * @remarks
-     * Tests that a particular entity is still present and alive
-     * within the GameTest area. If not, an error is thrown.
+     * Depending on the value for isPresent, tests that a
+     * particular entity is present or not present at the specified
+     * location. Depending on the value of isPresent, if the entity
+     * is found or not found, an error is thrown.
      * @param entity
      * Specific entity to test for.
      * @param blockLocation
+     * Location of the entity to test for.
+     * @param isPresent
+     * Whether to test that an entity is present or not present at
+     * the specified location.
      * @throws This function can throw errors.
      */
-    assertEntityInstancePresent(entity: mojangminecraft.Entity, blockLocation: mojangminecraft.BlockLocation): void;
+    assertEntityInstancePresent(entity: mojangminecraft.Entity, blockLocation: mojangminecraft.BlockLocation, isPresent?: boolean): void;
     /**
      * @remarks
      * Depending on the value of isPresent, tests for the presence
@@ -388,6 +921,9 @@ export class Test {
      * particular location. If the condition is not met, an
      * exception is thrown.
      * @param entityTypeIdentifier
+     * Type of entity to test for (e.g., 'minecraft:skeleton'). If
+     * an entity namespace is not specified, 'minecraft:' is
+     * assumed.
      * @param blockLocation
      * Location of the entity to test for.
      * @param isPresent
@@ -396,16 +932,22 @@ export class Test {
      * the specified type is not present.
      * @throws This function can throw errors.
      */
-    assertEntityPresent(entityTypeIdentifier: string, blockLocation: mojangminecraft.BlockLocation, isPresent: boolean): void;
+    assertEntityPresent(entityTypeIdentifier: string, blockLocation: mojangminecraft.BlockLocation, isPresent?: boolean): void;
     /**
      * @remarks
      * Tests that an entity of a specified type is present within
      * the GameTest area. If not, an exception is thrown.
      * @param entityTypeIdentifier
+     * Type of entity to test for (e.g., 'minecraft:skeleton'). If
+     * an entity namespace is not specified, 'minecraft:' is
+     * assumed.
      * @param isPresent
+     * If true, this function tests whether an entity of the
+     * specified type is present in the GameTest area. If false,
+     * tests that an entity of the specified type is not present.
      * @throws This function can throw errors.
      */
-    assertEntityPresentInArea(entityTypeIdentifier: string, isPresent: boolean): void;
+    assertEntityPresentInArea(entityTypeIdentifier: string, isPresent?: boolean): void;
     /**
      * @remarks
      * Tests that an entity (e.g., a skeleton) at the specified
@@ -414,6 +956,9 @@ export class Test {
      * @param blockLocation
      * Location of the entity to look for.
      * @param entityTypeIdentifier
+     * Identifier of the entity (e.g., 'minecraft:skeleton') to
+     * look for. Note if no namespace is specified, 'minecraft:' is
+     * assumed.
      * @param callback
      * Callback function where facets of the selected entity can be
      * tested for. If this callback function returns false or no
@@ -422,10 +967,10 @@ export class Test {
      * @throws This function can throw errors.
      * @example villagerEffectTest.js
      * ```typescript
-     *        test.assertEntityData(
+     *        test.assertEntityState(
      *        villagerPos,
-     *        "minecraft:villager",
-     *        (entity) => entity.getEffect(Effects.regeneration).getDuration() > 120
+     *        "minecraft:villager_v2",
+     *        (entity) => entity.getEffect(MinecraftEffectTypes.regeneration).duration > 120
      *        ); // At least 6 seconds remaining in the villagers' effect
      *
      * ```
@@ -437,6 +982,9 @@ export class Test {
      * of a specified type is touching or connected to another
      * entity. If the condition is not met, an exception is thrown.
      * @param entityTypeIdentifier
+     * Type of entity to test for (e.g., 'minecraft:skeleton'). If
+     * an entity namespace is not specified, 'minecraft:' is
+     * assumed.
      * @param location
      * Location of the entity to test for.
      * @param isTouching
@@ -445,7 +993,7 @@ export class Test {
      * not testing the specified location.
      * @throws This function can throw errors.
      */
-    assertEntityTouching(entityTypeIdentifier: string, location: mojangminecraft.Location, isTouching: boolean): void;
+    assertEntityTouching(entityTypeIdentifier: string, location: mojangminecraft.Location, isTouching?: boolean): void;
     /**
      * @remarks
      * Depending on the value of isWaterlogged, tests that a block
@@ -459,7 +1007,7 @@ export class Test {
      * be waterlogged.
      * @throws This function can throw errors.
      */
-    assertIsWaterlogged(blockLocation: mojangminecraft.BlockLocation, isWaterlogged: boolean): void;
+    assertIsWaterlogged(blockLocation: mojangminecraft.BlockLocation, isWaterlogged?: boolean): void;
     /**
      * @remarks
      * Tests that items of a particular type and count are present
@@ -499,7 +1047,7 @@ export class Test {
      * entity of the specified type is not present.
      * @throws This function can throw errors.
      */
-    assertItemEntityPresent(itemType: mojangminecraft.ItemType, blockLocation: mojangminecraft.BlockLocation, searchDistance: number, isPresent: boolean): void;
+    assertItemEntityPresent(itemType: mojangminecraft.ItemType, blockLocation: mojangminecraft.BlockLocation, searchDistance: number, isPresent?: boolean): void;
     /**
      * @remarks
      * Tests that Redstone power at a particular location matches a
@@ -534,9 +1082,16 @@ export class Test {
      * @remarks
      * Gets a block at the specified block location.
      * @param blockLocation
+     * Location of the block to retrieve.
      * @throws This function can throw errors.
      */
     getBlock(blockLocation: mojangminecraft.BlockLocation): mojangminecraft.Block;
+    /**
+     * @remarks
+     * Gets the dimension of this test.
+     * @throws This function can throw errors.
+     */
+    getDimension(): mojangminecraft.Dimension;
     /**
      * @remarks
      * If the block at the specified block location is a fence,
@@ -550,10 +1105,18 @@ export class Test {
     /**
      * @remarks
      * Returns the direction of the current test - see the
-     * {@link mojang-minecraft.Direction} enum for more information on
+     * {@link mojang-minecraft}.Direction enum for more information on
      * potential values (north, east, south, west - values 2-5).
      */
-    getTestDirection(): number;
+    getTestDirection(): mojangminecraft.Direction;
+    /**
+     * @remarks
+     * This asynchronous function will wait for the specified time
+     * in ticks before continuing execution.
+     * @param tickDelay
+     * Amount of time to wait, in ticks.
+     */
+    idle(tickDelay: number): Promise<void>;
     /**
      * @remarks
      * Kills all entities within the GameTest structure.
@@ -565,7 +1128,9 @@ export class Test {
      * Presses a button at a block location.
      * @param blockLocation
      * Location to push the button at.
-     * @throws Will throw an error if a button is not present at the specified position.
+     * @throws
+     * Will throw an error if a button is not present at the
+     * specified position.
      */
     pressButton(blockLocation: mojangminecraft.BlockLocation): void;
     /**
@@ -581,7 +1146,9 @@ export class Test {
      * Pulls a lever at a block location.
      * @param blockLocation
      * Location to pull the lever at.
-     * @throws Will throw an error if a lever is not present at the specified position.
+     * @throws
+     * Will throw an error if a lever is not present at the
+     * specified position.
      */
     pullLever(blockLocation: mojangminecraft.BlockLocation): void;
     /**
@@ -603,7 +1170,10 @@ export class Test {
      * above the structure block are (0, 1, 0). Rotation of the
      * GameTest structure is also taken into account.
      * @param worldBlockLocation
-     * @returns A location relative to the GameTest command block.
+     * Absolute location in the world to convert to a relative
+     * location.
+     * @returns
+     * A location relative to the GameTest command block.
      * @throws This function can throw errors.
      */
     relativeBlockLocation(worldBlockLocation: mojangminecraft.BlockLocation): mojangminecraft.BlockLocation;
@@ -617,10 +1187,18 @@ export class Test {
      * @param worldLocation
      * Absolute location in the world to convert to a relative
      * location.
-     * @returns A location relative to the GameTest command block.
+     * @returns
+     * A location relative to the GameTest command block.
      * @throws This function can throw errors.
      */
     relativeLocation(worldLocation: mojangminecraft.Location): mojangminecraft.Location;
+    /**
+     * @remarks
+     * Removes a simulated player from the world.
+     * @param simulatedPlayer
+     * Simulated player to remove.
+     */
+    removeSimulatedPlayer(simulatedPlayer: SimulatedPlayer): void;
     /**
      * @remarks
      * Returns a relative direction given the current rotation of
@@ -634,7 +1212,7 @@ export class Test {
      * opposite of the test direction, and so on.
      * @throws This function can throw errors.
      */
-    rotateDirection(direction: number): number;
+    rotateDirection(direction: mojangminecraft.Direction): mojangminecraft.Direction;
     /**
      * @remarks
      * Runs a specific callback after a specified delay of ticks
@@ -666,6 +1244,7 @@ export class Test {
      * Permutation that contains the configuration data for a
      * block.
      * @param blockLocation
+     * Location of the block to set.
      * @throws This function can throw errors.
      */
     setBlockPermutation(blockData: mojangminecraft.BlockPermutation, blockLocation: mojangminecraft.BlockLocation): void;
@@ -674,6 +1253,7 @@ export class Test {
      * Sets a block to a particular type at the specified block
      * location.
      * @param blockType
+     * Type of block to set.
      * @param blockLocation
      * Location of the block to set.
      * @throws This function can throw errors.
@@ -681,8 +1261,21 @@ export class Test {
     setBlockType(blockType: mojangminecraft.BlockType, blockLocation: mojangminecraft.BlockLocation): void;
     /**
      * @remarks
+     * For blocks that are fluid containers - like a cauldron -
+     * changes the type of fluid within that container.
+     * @param location
+     * Location of the fluid container block.
+     * @param type
+     * Type of fluid to set. See {@link mojang-gametest}.FluidType for a
+     * list of values.
+     * @throws This function can throw errors.
+     */
+    setFluidContainer(location: mojangminecraft.BlockLocation, type: number): void;
+    /**
+     * @remarks
      * Sets the fuse of an explodable entity.
      * @param entity
+     * Entity that is explodable.
      * @param fuseLength
      * Length of time, in ticks, before the entity explodes.
      * @throws This function can throw errors.
@@ -692,8 +1285,14 @@ export class Test {
      * @remarks
      * Spawns an entity at a location.
      * @param entityTypeIdentifier
+     * Type of entity to create. If no namespace is provided,
+     * 'minecraft:' is assumed. Note that an optional initial spawn
+     * event can be specified between less than/greater than signs
+     * (e.g., namespace:entityType<spawnEvent>).
      * @param blockLocation
-     * @returns The spawned entity. If the entity cannot be spawned, returns,undefined.
+     * @returns
+     * The spawned entity. If the entity cannot be spawned, returns
+     * undefined.
      * @throws This function can throw errors.
      * @example spawnAdultPig.js
      * ```typescript
@@ -706,9 +1305,14 @@ export class Test {
      * @remarks
      * Spawns an entity at a location.
      * @param entityTypeIdentifier
+     * Type of entity to create. If no namespace is provided,
+     * 'minecraft:' is assumed. Note that an optional initial spawn
+     * event can be specified between less than/greater than signs
+     * (e.g., namespace:entityType<spawnEvent>).
      * @param location
-     * Location where the entity should be spawned.
-     * @returns The spawned entity. If the entity cannot be spawned, returns,undefined.
+     * @returns
+     * The spawned entity. If the entity cannot be spawned, returns
+     * undefined.
      * @throws This function can throw errors.
      * @example spawnAdultPig.js
      * ```typescript
@@ -726,8 +1330,8 @@ export class Test {
      * @throws This function can throw errors.
      * @example spawnEmeralds.js
      * ```typescript
-     *        const oneEmerald = new ItemStack(Items.emerald, 1, 0);
-     *        const fiveEmeralds = new ItemStack(Items.emerald, 5, 0);
+     *        const oneEmerald = new ItemStack(MinecraftItemTypes.emerald, 1, 0);
+     *        const fiveEmeralds = new ItemStack(MinecraftItemTypes.emerald, 5, 0);
      *
      *        test.spawnItem(oneEmerald, new Location(3.5, 3, 1.5));
      *        test.spawnItem(fiveEmeralds, new Location(1.5, 3, 1.5));
@@ -735,6 +1339,16 @@ export class Test {
      * ```
      */
     spawnItem(itemStack: mojangminecraft.ItemStack, location: mojangminecraft.Location): mojangminecraft.Entity;
+    /**
+     * @remarks
+     * Creates a new simulated player within the world.
+     * @param blockLocation
+     * Location where to spawn the simulated player.
+     * @param name
+     * Name to give the new simulated player.
+     * @throws This function can throw errors.
+     */
+    spawnSimulatedPlayer(blockLocation: mojangminecraft.BlockLocation, name?: string): SimulatedPlayer;
     /**
      * @remarks
      * Spawns an entity at a location without any AI behaviors.
@@ -753,6 +1367,7 @@ export class Test {
      * like .walkTo to create predictable mob actions.
      * @param entityTypeIdentifier
      * @param location
+     * Location where the entity should be spawned.
      * @throws This function can throw errors.
      */
     spawnWithoutBehaviorsAtLocation(entityTypeIdentifier: string, location: mojangminecraft.Location): mojangminecraft.Entity;
@@ -761,6 +1376,7 @@ export class Test {
      * Tests that a particular item entity is present at a
      * particular location. If not, an exception is thrown.
      * @param blockLocation
+     * BlockLocation containing a multiface block.
      * @param fromFace
      * Face to spread from. This face must already be set.
      * @param direction
@@ -772,12 +1388,14 @@ export class Test {
      *        test.spreadFromFaceTowardDirection(new BlockLocation(1, 2, 1), Direction.south, Direction.down);
      * ```
      */
-    spreadFromFaceTowardDirection(blockLocation: mojangminecraft.BlockLocation, fromFace: number, direction: number): void;
+    spreadFromFaceTowardDirection(blockLocation: mojangminecraft.BlockLocation, fromFace: mojangminecraft.Direction, direction: mojangminecraft.Direction): void;
     /**
      * @remarks
      * Creates a new GameTestSequence - A set of steps that play
      * out sequentially within a GameTest.
-     * @returns A new GameTestSequence with chaining methods that facilitate creating a set of steps.
+     * @returns
+     * A new GameTestSequence with chaining methods that facilitate
+     * creating a set of steps.
      */
     startSequence(): GameTestSequence;
     /**
@@ -839,6 +1457,7 @@ export class Test {
      * the specified block of a type is found or not found
      * (depending on isPresent), the test is marked as a success.
      * @param blockType
+     * Type of block to test for.
      * @param blockLocation
      * Location of the block to test at.
      * @param isPresent
@@ -847,19 +1466,24 @@ export class Test {
      * the specified type is not present.
      * @throws This function can throw errors.
      */
-    succeedWhenBlockTypePresent(blockType: mojangminecraft.BlockType, blockLocation: mojangminecraft.BlockLocation, isPresent: boolean): void;
+    succeedWhenBlockPresent(blockType: mojangminecraft.BlockType, blockLocation: mojangminecraft.BlockLocation, isPresent?: boolean): void;
     /**
      * @remarks
-     * Tests for the presence of a component on every tick. When
-     * the specified component is found, the test is marked as a
-     * success.
+     * Tests for the presence of a component on every tick.
+     * Depending on the value of hasComponent, when the specified
+     * component is found, the test is marked as a success.
      * @param entityTypeIdentifier
+     * Type of entity to look for. If no namespace is specified,
+     * 'minecraft:' is assumed.
      * @param componentIdentifier
      * Type of component to test for the presence of. If no
      * namespace is specified, 'minecraft:' is assumed.
      * @param blockLocation
      * Block location of the entity to test.
      * @param hasComponent
+     * If true, this function tests for the presence of a
+     * component. If false, this function tests for the lack of a
+     * component.
      * @throws This function can throw errors.
      */
     succeedWhenEntityHasComponent(entityTypeIdentifier: string, componentIdentifier: string, blockLocation: mojangminecraft.BlockLocation, hasComponent: boolean): void;
@@ -870,6 +1494,9 @@ export class Test {
      * type is found or not found (depending on isPresent), the
      * test is marked as a success.
      * @param entityTypeIdentifier
+     * Type of entity to test for (e.g., 'minecraft:skeleton'). If
+     * an entity namespace is not specified, 'minecraft:' is
+     * assumed.
      * @param blockLocation
      * Location of the entity to test for.
      * @param isPresent
@@ -878,7 +1505,31 @@ export class Test {
      * the specified type is not present.
      * @throws This function can throw errors.
      */
-    succeedWhenEntityPresent(entityTypeIdentifier: string, blockLocation: mojangminecraft.BlockLocation, isPresent: boolean): void;
+    succeedWhenEntityPresent(entityTypeIdentifier: string, blockLocation: mojangminecraft.BlockLocation, isPresent?: boolean): void;
+    /**
+     * @remarks
+     * Triggers a block event from a fixed list of available block
+     * events.
+     * @param blockLocation
+     * @param event
+     * Event to trigger. Valid values include minecraft:drip,
+     * minecraft:grow_stalagtite, minecraft:grow_stalagmite,
+     * minecraft:grow_up, minecraft:grow_down and
+     * minecraft:grow_sideways.
+     * @param eventParameters
+     * @throws This function can throw errors.
+     */
+    triggerInternalBlockEvent(blockLocation: mojangminecraft.BlockLocation, event: string, eventParameters?: number[]): void;
+    /**
+     * @remarks
+     * This asynchronous function will wait until the code in the
+     * specified callback successfully completes. until can be used
+     * in conjunction with .assert functions to evaluate that a
+     * condition is true.
+     * @param callback
+     * Function with code to evaluate.
+     */
+    until(callback: () => void): Promise<void>;
     /**
      * @remarks
      * Forces a mob to walk to a particular location. Usually used
@@ -888,6 +1539,7 @@ export class Test {
      * @param mob
      * Mob entity to give orders to.
      * @param blockLocation
+     * Location where the entity should be walk to.
      * @param speedModifier
      * Adjustable modifier to the mob's walking speed.
      * @throws This function can throw errors.
@@ -915,7 +1567,9 @@ export class Test {
      * coordinates relative to world. Rotation of the GameTest
      * structure is also taken into account.
      * @param relativeBlockLocation
-     * @returns An absolute location relative to the GameTest command block.
+     * Location relative to the GameTest command block.
+     * @returns
+     * An absolute location relative to the GameTest command block.
      * @throws This function can throw errors.
      */
     worldBlockLocation(relativeBlockLocation: mojangminecraft.BlockLocation): mojangminecraft.BlockLocation;
@@ -927,7 +1581,8 @@ export class Test {
      * also taken into account.
      * @param relativeLocation
      * Location relative to the GameTest command block.
-     * @returns An absolute location relative to the GameTest command block.
+     * @returns
+     * An absolute location relative to the GameTest command block.
      * @throws This function can throw errors.
      */
     worldLocation(relativeLocation: mojangminecraft.Location): mojangminecraft.Location;
@@ -943,7 +1598,10 @@ export class Test {
  * Name of this specific test.
  * @param testFunction
  * Implementation of the test function.
- * @returns Returns a {@link mojang-gametest.RegistrationBuilder} object where additional options for this test can be specified via builder methods.
+ * @returns
+ * Returns a {@link mojang-gametest.RegistrationBuilder} object where
+ * additional options for this test can be specified via
+ * builder methods.
  * @example example1.js
  * ```typescript
  *        GameTest.register("ExampleTests", "alwaysFail", (test) => {

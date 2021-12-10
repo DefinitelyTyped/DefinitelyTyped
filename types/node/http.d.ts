@@ -37,12 +37,12 @@
  *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -113,7 +113,7 @@ declare module 'http' {
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
     interface ClientRequestArgs {
-        abort?: AbortSignal | undefined;
+        signal?: AbortSignal | undefined;
         protocol?: string | null | undefined;
         host?: string | null | undefined;
         hostname?: string | null | undefined;
@@ -136,6 +136,7 @@ declare module 'http' {
         setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
+        lookup?: LookupFunction | undefined;
     }
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage | undefined;
@@ -183,6 +184,18 @@ declare module 'http' {
          * @since v0.7.0
          */
         maxHeadersCount: number | null;
+        /**
+         * The maximum number of requests socket can handle
+         * before closing keep alive connection.
+         *
+         * A value of `0` will disable the limit.
+         *
+         * When the limit is reached it will set the `Connection` header value to `close`,
+         * but will not actually close the connection, subsequent requests sent
+         * after the limit is reached will get `503 Service Unavailable` as a response.
+         * @since v16.10.0
+         */
+        maxRequestsPerSocket: number | null;
         /**
          * The number of milliseconds of inactivity before a socket is presumed
          * to have timed out.
@@ -341,11 +354,9 @@ declare module 'http' {
         readonly socket: Socket | null;
         constructor();
         /**
-         * occurs, Same as binding to the `timeout` event.
-         *
          * Once a socket is associated with the message and is connected,`socket.setTimeout()` will be called with `msecs` as the first parameter.
          * @since v0.9.12
-         * @param callback Optional function to be called when a timeout
+         * @param callback Optional function to be called when a timeout occurs. Same as binding to the `timeout` event.
          */
         setTimeout(msecs: number, callback?: () => void): this;
         /**
@@ -940,7 +951,7 @@ declare module 'http' {
          */
         destroy(error?: Error): void;
     }
-    interface AgentOptions {
+    interface AgentOptions extends Partial<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */

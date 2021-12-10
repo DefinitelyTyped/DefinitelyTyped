@@ -1,7 +1,7 @@
 import webpack = require('webpack');
 import WebpackDevServer = require('webpack-dev-server');
-import { Application } from 'express';
 import { AddressInfo } from 'net';
+
 const compiler = webpack({});
 const multipleCompiler = webpack([]);
 
@@ -84,7 +84,12 @@ const config: WebpackDevServer.Configuration = {
             logLevel: 'debug',
         },
     },
-
+    server: {
+        type: 'https',
+        options: {
+            passphrase: '----',
+        },
+    },
     headers: {
         'X-Custom-Header': 'yes',
     },
@@ -162,6 +167,17 @@ const c2: WebpackDevServer.Configuration = {
         },
     },
     webSocketServer: 'ws',
+
+    headers: [
+        {
+            key: 'X-Foo',
+            value: 'value1',
+        },
+        {
+            key: 'X-Bar',
+            value: 'value2',
+        },
+    ],
 };
 const c3: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
@@ -173,6 +189,10 @@ const c3: WebpackDevServer.Configuration = {
     devMiddleware: {
         stats: 'verbose',
     },
+
+    headers: () => {
+        return { 'X-Bar': ['key1=value1', 'key2=value2'] };
+    },
 };
 const c4: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
@@ -180,7 +200,7 @@ const c4: WebpackDevServer.Configuration = {
     port: 8080,
 
     static: ['/path/to/directory', '/path/to/another-directory'],
-
+    server: 'spdy',
     devMiddleware: {
         writeToDisk: (filePath: string) => true,
     },
@@ -195,12 +215,23 @@ const c5: WebpackDevServer.Configuration = {
             context: (pathname: string) => true,
         },
     ],
+
+    headers: () => [
+        {
+            key: 'X-Foo',
+            value: 'value1',
+        },
+        {
+            key: 'X-Bar',
+            value: 'value2',
+        },
+    ],
 };
 const c6: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
     host: 'localhost',
     port: 8080,
-
+    webSocketServer: 'sockjs',
     historyApiFallback: {
         disableDotRule: true,
         htmlAcceptHeaders: ['text/html'],

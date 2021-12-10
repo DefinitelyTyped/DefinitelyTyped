@@ -6530,7 +6530,7 @@ $( "#checkMetaKey" ).click(function( event ) {
     } | {
         postDispatch(this: TTarget, event: Event): void;
     } | {
-        [key: string]: never;
+        [key: string]: any;
     };
 
     interface SpecialEventHooks {

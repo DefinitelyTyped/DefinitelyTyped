@@ -1,15 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "dt-header": false,
-        "no-consecutive-blank-lines": false,
-        "no-reference-import": false,
-        "no-string-throw": false,
-        "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "unified-signatures": false,
-        "whitespace": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

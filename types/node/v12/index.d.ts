@@ -32,11 +32,9 @@
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Marcin Kopacz <https://github.com/chyzwar>
 //                 Trivikram Kamat <https://github.com/trivikr>
-//                 Minh Son Nguyen <https://github.com/nguymin4>
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
-//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.7.

@@ -58,12 +58,10 @@ export * from './core/Clock';
 /**
  * Extras
  */
-export * from './extras/objects/ImmediateRenderObject';
 export * from './extras/curves/Curves';
 export * from './extras/core/Shape';
 export * from './extras/core/Path';
 export * from './extras/core/ShapePath';
-export * from './extras/core/Font';
 export * from './extras/core/CurvePath';
 export * from './extras/core/Curve';
 export * from './extras/DataUtils';
@@ -121,7 +119,6 @@ export * from './loaders/BufferGeometryLoader';
 export * from './loaders/LoadingManager';
 export * from './loaders/ImageLoader';
 export * from './loaders/ImageBitmapLoader';
-export * from './loaders/FontLoader';
 export * from './loaders/FileLoader';
 export * from './loaders/Loader';
 export * from './loaders/LoaderUtils';

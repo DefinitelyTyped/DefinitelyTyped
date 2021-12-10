@@ -1,7 +1,8 @@
-import * as http from 'http';
-import * as stream from 'stream';
-import * as url from 'url';
-import * as net from 'net';
+import * as http from 'node:http';
+import * as stream from 'node:stream';
+import * as url from 'node:url';
+import * as net from 'node:net';
+import * as dns from 'node:dns';
 
 // http Server
 {
@@ -438,4 +439,10 @@ import * as net from 'net';
       _socket = socket;
       _head = head;
     });
+}
+
+{
+  http.request({ lookup: undefined });
+  http.request({ lookup: dns.lookup });
+  http.request({ lookup: (hostname, options, cb) => { cb(null, '', 1); } });
 }

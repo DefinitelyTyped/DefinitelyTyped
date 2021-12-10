@@ -16,6 +16,7 @@
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
+//                 Ido Salomon <https://github.com/idosal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -774,7 +775,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text?: string | undefined;
+        text?: string | null | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
     }
@@ -2042,7 +2043,16 @@ declare namespace chrome.declarativeContent {
         constructor(options: PageStateMatcherProperties);
     }
 
-    /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
+    /**
+     * Declarative event action that enables the extension's action while the corresponding conditions are met.
+     * Manifest v3.
+     */
+    export class ShowAction { }
+
+    /**
+     * Declarative event action that shows the extension's page action while the corresponding conditions are met.
+     * Manifest v2.
+     */
     export class ShowPageAction { }
 
     /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
@@ -2941,10 +2951,18 @@ declare namespace chrome.enterprise.platformKeys {
         id: string;
         /**
          * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed.
-         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 and ECDSA with namedCurve P-256 can be generated. Each key can be used for signing data at most once.
          * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
          */
         subtleCrypto: SubtleCrypto;
+        /**
+         * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed.
+         * Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+         * @since Chrome 97.
+         */
+        softwareBackedSubtleCrypto: SubtleCrypto;
     }
 
     /**
@@ -3074,6 +3092,14 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the Annotated Location of the device.
      */
     export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+    /**
+     * @since Chrome 82.
+     * @description
+     * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
+     * If the current user is not affiliated or no hostname has been set by the the enterprise policy, returns an empty string.
+     * @param callback Called with the hostname of the device.
+     */
+    export function getDeviceHostname(callback: (hostname: string) => void): void;
 }
 
 ////////////////////
@@ -5376,6 +5402,8 @@ declare namespace chrome.networking.config {
  * @since Chrome 28.
  */
 declare namespace chrome.notifications {
+    export type TemplateType = "basic" | "image" | "list" | "progress";
+
     export interface ButtonOptions {
         title: string;
         iconUrl?: string | undefined;
@@ -5388,19 +5416,7 @@ declare namespace chrome.notifications {
         message: string;
     }
 
-    export interface NotificationOptions {
-        /** Optional. Which type of notification to display. Required for notifications.create method. */
-        type?: string | undefined;
-        /**
-         * Optional.
-         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
-         */
-        iconUrl?: string | undefined;
-        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-        title?: string | undefined;
-        /** Optional. Main notification content. Required for notifications.create method. */
-        message?: string | undefined;
+    export type NotificationOptions<T extends boolean = false> = {
         /**
          * Optional.
          * Alternate notification content with a lower-weight font.
@@ -5447,7 +5463,32 @@ declare namespace chrome.notifications {
          * @since Chrome 70
          */
         silent?: boolean | undefined;
-    }
+    } & (T extends true ? {
+        /**
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl: string;
+        /** Main notification content. Required for notifications.create method. */
+        message: string;
+        /** Which type of notification to display. Required for notifications.create method. */
+        type: TemplateType;
+        /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title: string;
+    } : {
+        /**
+         * Optional.
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl?: string | undefined;
+        /** Optional. Main notification content. Required for notifications.create method. */
+        message?: string | undefined;
+        /** Optional. Which type of notification to display. Required for notifications.create method. */
+        type?: TemplateType | undefined;
+        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title?: string | undefined;
+    })
 
     export interface NotificationClosedEvent
         extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
@@ -5490,7 +5531,7 @@ declare namespace chrome.notifications {
      */
     export function create(
         notificationId: string,
-        options: NotificationOptions,
+        options: NotificationOptions<true>,
         callback?: (notificationId: string) => void,
     ): void;
     /**
@@ -5503,7 +5544,7 @@ declare namespace chrome.notifications {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string notificationId) {...};
      */
-    export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    export function create(options: NotificationOptions<true>, callback?: (notificationId: string) => void): void;
     /**
      * Updates an existing notification.
      * @param notificationId The id of the notification to be updated. This is returned by notifications.create method.
@@ -6195,7 +6236,7 @@ declare namespace chrome.serial {
         /** Flag indicating whether the connection is blocked from firing onReceive events. */
         paused: boolean;
         /** See ConnectionOptions.persistent */
-        peristent: boolean;
+        persistent: boolean;
         /** See ConnectionOptions.name */
         name: string;
         /** See ConnectionOptions.bufferSize */
@@ -6220,7 +6261,7 @@ declare namespace chrome.serial {
     export interface ConnectionOptions {
         /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
          *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        peristent?: boolean | undefined;
+        persistent?: boolean | undefined;
         /** Optional. An application-defined string to associate with the connection. */
         name?: string | undefined;
         /** Optional. The size of the buffer used to receive data. The default value is 4096. */
@@ -6456,6 +6497,20 @@ declare namespace chrome.runtime {
     /** The ID of the extension/app. */
     export var id: string;
 
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformOs */
+    export type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformArch */
+    export type PlatformArch = 'arm' | 'arm64' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
+    export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
+    export enum OnInstalledReason {
+        INSTALL = 'install',
+        UPDATE = 'update',
+        CHROME_UPDATE = 'chrome_update',
+        SHARED_MODULE_UPDATE = 'shared_module_update'
+    }
+
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
         message?: string | undefined;
@@ -6469,9 +6524,8 @@ declare namespace chrome.runtime {
     export interface InstalledDetails {
         /**
          * The reason that this event is being dispatched.
-         * One of: "install", "update", "chrome_update", or "shared_module_update"
          */
-        reason: string;
+        reason: OnInstalledReason;
         /**
          * Optional.
          * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
@@ -6532,19 +6586,16 @@ declare namespace chrome.runtime {
     export interface PlatformInfo {
         /**
          * The operating system chrome is running on.
-         * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
          */
-        os: string;
+        os: PlatformOs;
         /**
          * The machine's processor architecture.
-         * One of: "arm", "x86-32", or "x86-64"
          */
-        arch: string;
+        arch: PlatformArch;
         /**
          * The native client architecture. This may be different from arch on some platforms.
-         * One of: "arm", "x86-32", or "x86-64"
          */
-        nacl_arch: string;
+        nacl_arch: PlatformNaclArch;
     }
 
     /**
@@ -7097,7 +7148,10 @@ declare namespace chrome.runtime {
 declare namespace chrome.scripting {
 
     /* The CSS style origin for a style change. */
-    export type StyleOrigin = "AUTHOR" | "USER";
+    export type StyleOrigin = 'AUTHOR' | 'USER';
+
+    /* The JavaScript world for a script to execute within. */
+    export type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
     export interface InjectionResult {
         /* The frame associated with the injection. */
@@ -7129,6 +7183,8 @@ declare namespace chrome.scripting {
     export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
+        /* The JavaScript world for a script to execute within. */
+        world?: ExecutionWorld;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
@@ -10123,6 +10179,13 @@ declare namespace chrome.webNavigation {
      */
     export function getFrame(details: GetFrameDetails, callback: (details: GetFrameResultDetails | null) => void): void;
     /**
+     * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
+     * @param details Information about the frame to retrieve information about.
+     * @return The getFrame method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getFrame(details: GetFrameDetails): Promise<GetFrameResultDetails | null>;
+
+    /**
      * Retrieves information about all frames of a given tab.
      * @param details Information about the tab to retrieve all frames from.
      * @param callback
@@ -10132,7 +10195,14 @@ declare namespace chrome.webNavigation {
         details: GetAllFrameDetails,
         callback: (details: GetAllFrameResultDetails[] | null) => void,
     ): void;
-
+    /**
+     * Retrieves information about all frames of a given tab.
+     * @param details Information about the tab to retrieve all frames from.
+     * @return The getAllFrames method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getAllFrames(
+        details: GetAllFrameDetails,
+    ): Promise<GetAllFrameResultDetails[] | null>;
     /** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
     export var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
     /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
@@ -10696,10 +10766,20 @@ declare namespace chrome.windows {
     }
 
     export interface WindowIdEvent
-        extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(windowId: number) => void> {
+            addListener(
+                callback: (windowId: number) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     export interface WindowReferenceEvent
-        extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(window: Window) => void> {
+            addListener(
+                callback: (window: Window) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     /**
      * Specifies what type of browser window to create.
@@ -10915,11 +10995,11 @@ declare namespace chrome.declarativeNetRequest {
         IMAGE = "image",
         FONT = "font",
         OBJECT = "object",
-        XML_HTTP_REQUEST = "xmlhttprequest",
+        XMLHTTPREQUEST = "xmlhttprequest",
         PING = "ping",
         CSP_REPORT = "csp_report",
         MEDIA = "media",
-        WEB_SOCKET = "websocket",
+        WEBSOCKET = "websocket",
         OTHER = "other"
     }
 

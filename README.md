@@ -53,31 +53,14 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 
 <details>
-<summary>Currently versions 3.7 and above are tested...</summary>
+<summary>Currently versions 3.8 and above are tested...</summary>
 
-If you're using TypeScript 2.0 to 3.6, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+If you're using TypeScript 2.0 to 3.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
-| Version | Released       | End of Support |
-| ------- | -------------- | -------------- |
-| 2.8     | March 2018     | March 2020     |
-| 2.9     | May 2018       | May 2020       |
-| 3.0     | July 2018      | August 2020    |
-| 3.1     | September 2018 | September 2020 |
-| 3.2     | November 2018  | November 2020  |
-| 3.3     | January 2019   | January 2021   |
-| 3.4     | March 2019     | March 2021     |
-| 3.5     | May 2019       | May 2021       |
-| 3.6     | August 2019    | August 2021    |
-| 3.7     | November 2019  | November 2021  |
-| 3.8     | February 2020  | February 2022  |
-| 3.9     | May 2020       | May 2022       |
-| 4.0     | August 2020    | August 2022    |
-| 4.1     | November 2020  | November 2022  |
-| 4.2     | February 2021  | February 2023  |
-| 4.3     | May 2021       | May 2023       |
-| 4.4     | August 2021    | August 2023    |
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -417,7 +400,7 @@ PRs that have been approved by an author listed in the definition's header are u
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 
 For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher. 
-Changes to these projects can have massive ecosystem effects, and so we treat changes to the with a lot of care.
+Changes to these projects can have massive ecosystem effects, and so we treat changes to them with a lot of care.
 These modules require both a sign-off from a DT maintainer, and enthusiastic support from the module owners. The bar for passing this can be quite high, and often PRs can go stale because it doesn't have a champion.
 If you're finding that no-one is committing, try to make your PR have a smaller focus.
 

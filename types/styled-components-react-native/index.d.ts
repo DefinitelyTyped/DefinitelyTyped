@@ -94,7 +94,6 @@ declare module "styled-components/native" {
         TabBarIOS: ReactNativeThemedStyledFunction<typeof ReactNative.TabBarIOS, T>;
         Text: ReactNativeThemedStyledFunction<typeof ReactNative.Text, T>;
         TextInput: ReactNativeThemedStyledFunction<typeof ReactNative.TextInput, T>;
-        ToolbarAndroid: ReactNativeThemedStyledFunction<typeof ReactNative.ToolbarAndroid, T>;
         TouchableHighlight: ReactNativeThemedStyledFunction<typeof ReactNative.TouchableHighlight, T>;
         TouchableNativeFeedback: ReactNativeThemedStyledFunction<typeof ReactNative.TouchableNativeFeedback, T>;
         TouchableOpacity: ReactNativeThemedStyledFunction<typeof ReactNative.TouchableOpacity, T>;

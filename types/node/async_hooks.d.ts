@@ -6,7 +6,7 @@
  * import async_hooks from 'async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/async_hooks.js)
  */
 declare module 'async_hooks' {
     /**

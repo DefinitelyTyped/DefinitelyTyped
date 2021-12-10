@@ -1,4 +1,4 @@
-// Type definitions for sanitize-html 2.3
+// Type definitions for sanitize-html 2.6
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
@@ -10,6 +10,8 @@
 //                 tomotetra <https://github.com/tomotetra>
 //                 Dariusz Syncerek <https://github.com/dsyncerek>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Alex Rantos <https://github.com/alex-rantos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ParserOptions } from "htmlparser2";
@@ -54,13 +56,15 @@ declare namespace sanitize {
   interface IOptions {
     allowedAttributes?: Record<string, AllowedAttribute[]> | false | undefined;
     allowedStyles?: { [index: string]: { [index: string]: RegExp[] } } | undefined;
-    allowedClasses?: { [index: string]: string[] | boolean } | undefined;
+    allowedClasses?: { [index: string]: boolean | Array<string | RegExp> } | undefined;
     allowedIframeDomains?: string[] | undefined;
     allowedIframeHostnames?: string[] | undefined;
     allowIframeRelativeUrls?: boolean | undefined;
     allowedSchemes?: string[] | boolean | undefined;
     allowedSchemesByTag?: { [index: string]: string[] } | boolean | undefined;
     allowedSchemesAppliedToAttributes?: string[] | undefined;
+    allowedScriptDomains?: string[] | undefined;
+    allowedScriptHostnames?: string[] | undefined;
     allowProtocolRelative?: boolean | undefined;
     allowedTags?: string[] | false | undefined;
     allowVulnerableTags?: boolean | undefined;
@@ -82,6 +86,7 @@ declare namespace sanitize {
   }
 
   const defaults: IDefaults;
+  const options: IOptions;
 
   function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
 }

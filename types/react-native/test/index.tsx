@@ -63,8 +63,6 @@ import {
     NativeScrollEvent,
     NativeSyntheticEvent,
     PermissionsAndroid,
-    Picker,
-    PickerIOS,
     Platform,
     PlatformColor,
     Pressable,
@@ -486,6 +484,7 @@ export class PressableTest extends React.Component<{}> {
                         borderless: true,
                         color: 'green',
                         radius: 20,
+                        foreground: true,
                     }}
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}
@@ -520,6 +519,7 @@ appState = 'extension';
 const AppStateExample = () => {
     const appState = React.useRef(AppState.currentState);
     const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+    const appStateIsAvailable = AppState.isAvailable;
 
     React.useEffect(() => {
       const subscription = AppState.addEventListener("change", nextAppState => {
@@ -543,6 +543,7 @@ const AppStateExample = () => {
     return (
       <View style={styles.container}>
         <Text>Current state is: {appStateVisible}</Text>
+        <Text>Available: {appStateIsAvailable}</Text>
       </View>
     );
   };
@@ -666,6 +667,10 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                     )}
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 />
             </React.Fragment>
         );
@@ -739,6 +744,70 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
                 />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={null}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={null}
+                />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={undefined}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={undefined}
+                />
             </React.Fragment>
         );
     }
@@ -765,6 +834,10 @@ LogBox.install();
 LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+    _stickyHeaderComponent = ({ children }: any) => {
+        return <View>{children}</View>;
+    };
+
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -818,6 +891,8 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
+                            StickyHeaderComponent={this._stickyHeaderComponent}
+                            stickyHeaderHiddenOnScroll={true}
                         />
                     );
                 }}
@@ -1038,7 +1113,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput
                     ref={input => (this.username = input)}
                     textContentType="username"
-                    autoCompleteType="username"
+                    autoComplete="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -1245,6 +1320,9 @@ AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
 AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
 );
+AccessibilityInfo.getRecommendedTimeoutMillis(5000).then(timeoutMiles =>
+    console.log(`AccessibilityInfo.getRecommendedTimeoutMillis => ${timeoutMiles}`)
+);
 
 AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
     console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`),
@@ -1264,9 +1342,10 @@ AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
 AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
     console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
-);
+const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
+AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
+).remove();
+AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
@@ -1296,13 +1375,6 @@ const DatePickerAndroidTest = () => {
         }
     });
 };
-
-const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
-        <Picker.Item label="Item1" value="v1" />
-        <Picker.Item label="Item2" value="v2" />
-    </Picker>
-);
 
 const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>('NativeBridgedComponent'); // $ExpectType HostComponent<{ nativeProp: string; }>
 
@@ -1638,7 +1710,7 @@ const DarkMode = () => {
     const color = useColorScheme();
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
-    Appearance.addChangeListener(({ colorScheme }) => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
 
@@ -1648,6 +1720,10 @@ const DarkMode = () => {
 
     React.useEffect(() => {
         console.log('-color', color);
+
+        return () => {
+            subscription.remove();
+        };
     }, [color]);
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;

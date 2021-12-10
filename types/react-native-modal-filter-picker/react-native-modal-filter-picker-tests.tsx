@@ -38,7 +38,7 @@ const renderPicker = () => (
         showFilter
         modal={{ animated: true }}
         selectedOption="some-option-key"
-        listViewProps={{ accessible: true }}
+        flatListProps={{ accessible: true }}
         renderOption={(option, isSelected) => (
             <View key={option.key}>
                 <Text>

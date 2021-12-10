@@ -1,4 +1,4 @@
-import * as parse5 from "parse5";
+import * as parse5 from 'parse5';
 import defaultAdapter = require("parse5/lib/tree-adapters/default");
 
 // Shorthands
@@ -68,7 +68,6 @@ const html = parse5.serialize(element);
 html; // $ExpectType string
 
 parse5.serialize(element, { treeAdapter: defaultAdapter });
-parse5.serialize(element, { treeAdapter: defaultAdapter });
 
 // Location info
 const loc = element.sourceCodeLocation!;
@@ -87,12 +86,14 @@ loc.startTag.endCol; // $ExpectType number
 loc.startTag.startOffset; // $ExpectType number
 loc.startTag.endOffset; // $ExpectType number
 
-loc.startTag.attrs["someAttr"].startLine; // $ExpectType number
-loc.startTag.attrs["someAttr"].startCol; // $ExpectType number
-loc.startTag.attrs["someAttr"].endLine; // $ExpectType number
-loc.startTag.attrs["someAttr"].endCol; // $ExpectType number
-loc.startTag.attrs["someAttr"].startOffset; // $ExpectType number
-loc.startTag.attrs["someAttr"].endOffset; // $ExpectType number
+const attrs = loc.startTag.attrs!;
+
+attrs["someAttr"].startLine; // $ExpectType number
+attrs["someAttr"].startCol; // $ExpectType number
+attrs["someAttr"].endLine; // $ExpectType number
+attrs["someAttr"].endCol; // $ExpectType number
+attrs["someAttr"].startOffset; // $ExpectType number
+attrs["someAttr"].endOffset; // $ExpectType number
 
 loc.endTag.startLine; // $ExpectType number
 loc.endTag.startCol; // $ExpectType number
@@ -102,6 +103,8 @@ loc.endTag.startOffset; // $ExpectType number
 loc.endTag.endOffset; // $ExpectType number
 
 // Default AST
+declare const defaultNode: parse5.Node;
+
 declare const defaultDocument: parse5.Document;
 
 defaultDocument.childNodes; // $ExpectType ChildNode[]
@@ -187,12 +190,35 @@ adapter.getCommentNodeContent(defaultCommentNode); // $ExpectType string
 adapter.getDocumentTypeNodeName(defaultDoctype); // $ExpectType string
 adapter.getDocumentTypeNodePublicId(defaultDoctype); // $ExpectType string
 adapter.getDocumentTypeNodeSystemId(defaultDoctype); // $ExpectType string
+
 adapter.isTextNode(element); // $ExpectType boolean
 adapter.isCommentNode(element); // $ExpectType boolean
 adapter.isDocumentTypeNode(element); // $ExpectType boolean
 adapter.isElementNode(element); // $ExpectType boolean
+if (adapter.isTextNode(defaultNode)) {
+    defaultNode; // $ExpectType TextNode
+}
+if (adapter.isCommentNode(defaultNode)) {
+    defaultNode; // $ExpectType CommentNode
+}
+if (adapter.isDocumentTypeNode(defaultNode)) {
+    defaultNode; // $ExpectType DocumentType
+}
+if (adapter.isElementNode(defaultNode)) {
+    defaultNode; // $ExpectType Element
+}
 
-declare const location: parse5.ElementLocation | parse5.StartTagLocation | parse5.Location;
+declare const location: parse5.ElementLocation | parse5.Location;
+declare const nullableLocation: typeof location | null;
+declare const endLocation: parse5.EndLocation;
 
 adapter.setNodeSourceCodeLocation(defaultTextNode, location); // $ExpectType void
-adapter.getNodeSourceCodeLocation(defaultTextNode); // $ExpectType Location | StartTagLocation | ElementLocation
+adapter.setNodeSourceCodeLocation(defaultTextNode, nullableLocation); // $ExpectType void
+adapter.updateNodeSourceCodeLocation(defaultTextNode, endLocation); // $ExpectType void
+
+// $ExpectType Location | ElementLocation | null || ElementLocation | Location | null
+adapter.getNodeSourceCodeLocation(defaultTextNode);
+
+// The `interface *Base` types are intentionally not exported:
+type _EndLocationBase = parse5.EndLocationBase; // $ExpectError
+type _ElementLocationBase = parse5.ElementLocationBase; // $ExpectError

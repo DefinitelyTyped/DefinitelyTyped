@@ -2,7 +2,7 @@ import * as R from 'ramda';
 
 () => {
     /* Type inference when catcher is typed */
-    R.tryCatch((x: number) => x, R.F)(5); // $ExpectType number | boolean
+    R.tryCatch((x: number) => x, R.F)(5); // $ExpectType number | false
 
     R.tryCatch(
         (x: number) => x + 1,
@@ -39,8 +39,8 @@ import * as R from 'ramda';
     R.tryCatch((x: number) => x + 1)(err => err)(2); // $ExpectType unknown
     R.tryCatch((x: number) => x + 1)((err, x)  => x)(2); // $ExpectType number
 
-    R.tryCatch((x: number) => x, R.F); // $ExpectType (() => boolean) | ((x: number) => number)
-    R.tryCatch((x: number) => x)(R.F); // $ExpectType ((x: number) => number) | (() => boolean)
+    R.tryCatch((x: number) => x, R.F); // $ExpectType (() => false) | ((x: number) => number)
+    R.tryCatch((x: number) => x)(R.F); // $ExpectType ((x: number) => number) | (() => false)
 
     /* Catcher type inference */
 
@@ -72,13 +72,13 @@ import * as R from 'ramda';
 
     /* Generic functions */
 
-    const f1 = R.tryCatch(<T>(x: T) => x, R.F); // $ExpectType (() => boolean) | (<T>(x: T) => T)
+    const f1 = R.tryCatch(<T>(x: T) => x, R.F); // $ExpectType (() => false) | (<T>(x: T) => T)
 
-    f1('foobar'); // $ExpectType boolean | "foobar"
-    f1({}); // $ExpectType boolean | {}
+    f1('foobar'); // $ExpectType false | "foobar"
+    f1({}); // $ExpectType false | {}
 
-    R.tryCatch(<T extends string | number>(x: T) => x, R.F)(123); // $ExpectType boolean | 123
-    R.tryCatch(<T extends string | number>(x: T) => x, R.F)('asdf'); // $ExpectType boolean | "asdf"
+    R.tryCatch(<T extends string | number>(x: T) => x, R.F)(123); // $ExpectType false | 123
+    R.tryCatch(<T extends string | number>(x: T) => x, R.F)('asdf'); // $ExpectType false | "asdf"
     R.tryCatch(<T extends string | number>(x: T) => x, R.F)(null); // $ExpectError
 
     R.tryCatch(R.and, R.F)(true, true); // $ExpectType boolean
@@ -90,13 +90,10 @@ import * as R from 'ramda';
         (err, x) => x // $ExpectType (err: unknown, x: string | number) => string | number
     )(123); // $ExpectType 123
 
-    // Invalid number of args for the tryer
-    R.tryCatch(R.T)(R.F)(true); // $ExpectError
-
     R.tryCatch(R.prop('x'), R.F)({ x: true }); // $ExpectType boolean
     R.tryCatch(R.prop<'x', true>('x'), R.F)({ x: true }); // $ExpectType boolean
-    R.tryCatch(R.prop('x'), R.F)({ x: 13 }); // $ExpectType number | boolean
-    R.tryCatch(R.prop('x'))(R.F)({ x: 13 }); // $ExpectType number | boolean
+    R.tryCatch(R.prop('x'), R.F)({ x: 13 }); // $ExpectType number | false
+    R.tryCatch(R.prop('x'))(R.F)({ x: 13 }); // $ExpectType number | false
     R.tryCatch(R.prop('x'), R.F)(null); // $ExpectError
     R.tryCatch(R.prop('x'), R.F)(null); // $ExpectError
 
@@ -110,5 +107,5 @@ import * as R from 'ramda';
 
     gtf('arg2' as const); // $ExpectType "some-error" | { x: "arg"; y: "arg2"; }
 
-    R.tryCatch(R.and, R.always(undefined))(true); // $ExpectType ((val2: any) => boolean) | undefined
+    R.tryCatch(R.and, R.always(undefined))(true); // $ExpectType (<U>(b: U) => boolean | U) | undefined
 };

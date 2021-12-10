@@ -36,7 +36,7 @@ declare namespace googletag {
      * The script then replaces cmd with a `googletag.CommandArray` object whose push method is defined to execute the function argument passed to it.
      * This mechanism allows GPT to reduce perceived latency by fetching the JavaScript asynchronously while allowing the browser to continue rendering the page.
      */
-    let cmd: Array<() => void> | CommandArray;
+    let cmd: CommandArray | Array<() => void>;
     /**
      * This is the namespace that GPT uses for `enum types`.
      */
@@ -246,10 +246,10 @@ declare namespace googletag {
     interface CommandArray {
         /**
          * Executes the sequence of functions specified in the arguments in order.
-         * @param f A JavaScript function to be executed.
+         * @param fs The sequence of functions to be executed.
          * @returns The number of commands processed so far. This is compatible with Array.push's return value (the current length of the array).
          */
-        push(f: () => void): number;
+        push(...fs: Array<() => void>): number;
     }
     /**
      * Companion Ads service.
@@ -583,6 +583,7 @@ declare namespace googletag {
          * Only applies to async mode.
          * Note: this has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
          * which automatically reflects the ads actually on the page and has no expiration time.
+         * @deprecated See the Google Ad Manager help page on "Creative selection for multiple ad slots" for more information: https://support.google.com/admanager/answer/183281.
          * @returns The service object on which the function was called.
          */
         updateCorrelator(): PubAdsService;
@@ -700,7 +701,7 @@ declare namespace googletag {
     }
     interface Size {
         getWidth(): number;
-        getHieght(): number;
+        getHeight(): number;
     }
     /**
      * Builder for size mapping specification objects.

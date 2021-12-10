@@ -1,4 +1,4 @@
-// Type definitions for romans 1.1
+// Type definitions for romans 2.0
 // Project: https://github.com/qbunt/romanize#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,12 +36,14 @@ export const allNumerals: RomanNumeral[];
 /**
  * takes in a floating point number, returns a roman numeral string
  * @param decimal
+ * @throws {Error} if `decimal` is not an unsigned integer
  */
 export function romanize(decimal: number): string;
 
 /**
  * takes in a roman numeral string, returns a number
  * @param romanStr
+ * @throws {Error} if `romanStr` is not valid roman numeral
  */
 export function deromanize(romanStr: string): number;
 

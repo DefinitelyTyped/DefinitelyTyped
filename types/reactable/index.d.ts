@@ -18,6 +18,7 @@ export type SortDirection = 'asc' | 'desc';
 export type FilterMethodType = (text: string) => void;
 
 export interface TableComponentProperties<T> {
+    children?: React.ReactNode;
     data?: T[] | undefined;
     className?: string | undefined;
     columns?: ColumnsType[] | undefined;
@@ -36,16 +37,19 @@ export interface TableComponentProperties<T> {
 }
 
 export interface ThProperties {
+    children?: React.ReactNode;
     column: string;
     className?: string | undefined;
 }
 
 export interface TrProperties<T> {
+    children?: React.ReactNode;
     data?: T | undefined;
     className?: string | undefined;
 }
 
 export interface TdProperties {
+    children?: React.ReactNode;
     column: string;
     value?: any;
     data?: any;

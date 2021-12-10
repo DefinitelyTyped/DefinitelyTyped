@@ -1910,10 +1910,16 @@ declare module 'inspector' {
 
         /**
          * Connects a session to the inspector back-end.
-         * An exception will be thrown if there is already a connected session established either
-         * through the API or by a front-end connected to the Inspector WebSocket port.
          */
         connect(): void;
+
+        /**
+         * Connects a session to the main thread inspector back-end.
+         * An exception will be thrown if this API was not called on a Worker
+         * thread.
+         * @since 12.11.0
+         */
+        connectToMainThread(): void;
 
         /**
          * Immediately close the session. All pending message callbacks will be called with an error.
@@ -3038,4 +3044,8 @@ declare module 'inspector' {
      * An exception will be thrown if there is no active inspector.
      */
     function waitForDebugger(): void;
+}
+declare module 'node:inspector' {
+    import EventEmitter = require('inspector');
+    export = EventEmitter;
 }

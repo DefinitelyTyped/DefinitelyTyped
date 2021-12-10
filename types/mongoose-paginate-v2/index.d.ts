@@ -1,4 +1,4 @@
-// Type definitions for mongoose-paginate-v2 1.3
+// Type definitions for mongoose-paginate-v2 1.4
 // Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
@@ -7,19 +7,21 @@
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 gamsterX <https://github.com/gamsterx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-//
-// Based on type declarations for mongoose-paginate 5.0.0.
+// Minimum TypeScript Version: 4.1
 
 declare module 'mongoose' {
     interface CustomLabels {
         totalDocs?: string | undefined;
+        docs?: string | undefined;
         limit?: string | undefined;
         page?: string | undefined;
-        totalPages?: string | undefined;
-        docs?: string | undefined;
         nextPage?: string | undefined;
         prevPage?: string | undefined;
+        hasNextPage?: string | undefined;
+        hasPrevPage?: string | undefined;
+        totalPages?: string | undefined;
+        pagingCounter?: string | undefined;
+        meta?: string | undefined;
     }
 
     interface ReadOptions {
@@ -29,61 +31,56 @@ declare module 'mongoose' {
 
     interface PaginateOptions {
         select?: object | string | undefined;
+        collation?: import('mongodb').CollationOptions | undefined;
         sort?: object | string | undefined;
-        customLabels?: CustomLabels | undefined;
-        collation?: CollationOptions | undefined;
-        populate?: object[] | string[] | object | string | QueryPopulateOptions | undefined;
+        populate?: PopulateOptions[] | string[] | PopulateOptions | string | PopulateOptions | undefined;
+        projection?: any;
         lean?: boolean | undefined;
         leanWithId?: boolean | undefined;
         offset?: number | undefined;
         page?: number | undefined;
         limit?: number | undefined;
-        read?: ReadOptions | undefined;
+        customLabels?: CustomLabels | undefined;
         /* If pagination is set to `false`, it will return all docs without adding limit condition. (Default: `true`) */
         pagination?: boolean | undefined;
-        projection?: any;
-        options?: QueryFindOptions | undefined;
-    }
-
-    interface QueryPopulateOptions {
-        /** space delimited path(s) to populate */
-        path: string;
-        /** optional fields to select */
-        select?: any;
-        /** optional query conditions to match */
-        match?: any;
-        /** optional model to use for population */
-        model?: string | Model<any> | undefined;
-        /** optional query options like sort, limit, etc */
-        options?: any;
-        /** deep populate */
-        populate?: QueryPopulateOptions | QueryPopulateOptions[] | undefined;
+        useEstimatedCount?: boolean | undefined;
+        useCustomCountFn?: (() => Promise<number>) | undefined;
+        forceCountFn?: boolean | undefined;
+        allowDiskUse?: boolean | undefined;
+        read?: ReadOptions | undefined;
+        options?: QueryOptions | undefined;
     }
 
     interface PaginateResult<T> {
         docs: T[];
         totalDocs: number;
         limit: number;
-        page?: number | undefined;
-        totalPages: number;
-        nextPage?: number | null | undefined;
-        prevPage?: number | null | undefined;
-        pagingCounter: number;
         hasPrevPage: boolean;
         hasNextPage: boolean;
+        page?: number | undefined;
+        totalPages: number;
+        offset: number;
+        prevPage?: number | null | undefined;
+        nextPage?: number | null | undefined;
+        pagingCounter: number;
         meta?: any;
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    interface PaginateModel<T extends Document> extends Model<T> {
-        paginate(
-            query?: FilterQuery<T>,
-            options?: PaginateOptions,
-            callback?: (err: any, result: PaginateResult<T>) => void,
-        ): Promise<PaginateResult<T>>;
-    }
+    type PaginateDocument<T, TMethods, TVirtuals, O extends PaginateOptions = {}> = O['lean'] extends true
+        ? O['leanWithId'] extends true
+            ? LeanDocument<T & { id: string }>
+            : LeanDocument<T>
+        : HydratedDocument<T, TMethods, TVirtuals>;
 
-    function model(name: string, schema?: Schema, collection?: string, skipInit?: boolean): PaginateModel<any>;
+    interface PaginateModel<T, TQueryHelpers = {}, TMethods = {}, TVirtuals = {}>
+        extends Model<T, TQueryHelpers, TMethods, TVirtuals> {
+        paginate<O extends PaginateOptions>(
+            query?: FilterQuery<T>,
+            options?: O,
+            callback?: (err: any, result: PaginateResult<PaginateDocument<T, TMethods, TVirtuals, O>>) => void,
+        ): Promise<PaginateResult<PaginateDocument<T, TMethods, TVirtuals, O>>>;
+    }
 }
 
 import mongoose = require('mongoose');

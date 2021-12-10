@@ -14,6 +14,7 @@ import {
     setupRenderingTest,
     setupTest,
 } from 'ember-qunit';
+import { TestContext } from 'ember-test-helpers';
 
 moduleForComponent('x-foo', {
     integration: true,
@@ -226,6 +227,97 @@ module.only('exclusive module with hooks', function (hooks) {
 
     hooks.beforeEach(function () {
         this.owner.lookup('service:store');
+    });
+});
+
+module('extending TestContext works', function () {
+    interface Context extends TestContext {
+        someProp: string;
+        anotherProp: boolean;
+    }
+
+    module('it works with non-async', function (nonAsyncHooks) {
+        nonAsyncHooks.before(function (this: Context) {
+            this.someProp = 'hello';
+        });
+
+        nonAsyncHooks.beforeEach(function (this: Context) {
+            this.anotherProp = true;
+        });
+
+        nonAsyncHooks.after(function (this: Context) {
+            this.someProp = 'goodbye';
+        });
+
+        nonAsyncHooks.afterEach(function (this: Context) {
+            this.anotherProp = false;
+        });
+
+        test('it works with tests', function (this: Context, assert) {
+            this.someProp = this.someProp + ' cool person';
+            assert.true(this.anotherProp);
+        });
+
+        skip('it works with skip', function (this: Context, assert) {
+            this.someProp = 'wahoo';
+            assert.ok(typeof this.someProp === 'string');
+        });
+
+        only('it works with only', function (this: Context, assert) {
+            this.someProp = 'crazy pants';
+            assert.ok(typeof this.someProp === 'string');
+        });
+
+        todo('it works with todo', function (this: Context, assert) {
+            this.someProp = 'tada';
+            assert.ok(typeof this.someProp === 'string');
+        });
+    });
+
+    module('it works with async, too', function (asyncHooks) {
+        asyncHooks.before(async function (this: Context) {
+            this.someProp = 'hello';
+            await Promise.resolve(this.someProp);
+        });
+
+        asyncHooks.beforeEach(async function (this: Context) {
+            this.anotherProp = true;
+            await Promise.resolve(this.anotherProp);
+        });
+
+        asyncHooks.after(async function (this: Context) {
+            this.someProp = 'goodbye';
+            await Promise.resolve(this.someProp);
+        });
+
+        asyncHooks.afterEach(async function (this: Context) {
+            this.anotherProp = false;
+            await Promise.resolve(this.anotherProp);
+        });
+
+        test('it works with tests', async function (this: Context, assert) {
+            this.someProp = this.someProp + ' cool person';
+            assert.true(this.anotherProp);
+            await Promise.resolve('cool');
+        });
+
+        skip('it works with skip', async function (this: Context, assert) {
+            this.someProp = 'wahoo';
+            const result = await Promise.resolve(this.someProp);
+            assert.ok(typeof result === 'string');
+        });
+
+        only('it works with only', async function (this: Context, assert) {
+            this.someProp = 'crazy pants';
+            const result = await Promise.resolve(this.someProp);
+            assert.ok(typeof result === 'string');
+        });
+
+        todo('it works with todo', async function (this: Context, assert) {
+            this.someProp = 'tada';
+            const result = await Promise.resolve(this.someProp);
+            assert.ok(typeof result === 'string');
+        });
     });
 });
 

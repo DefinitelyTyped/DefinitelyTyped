@@ -8,8 +8,8 @@ export type BraintreeConfig = {
 
 export type DirectConfig = {
   display?: {
-    displayName?: string | undefined;
-  } | undefined;
+    displayName?: string;
+  };
 };
 
 export type PayPalConfig = BraintreeConfig | DirectConfig;

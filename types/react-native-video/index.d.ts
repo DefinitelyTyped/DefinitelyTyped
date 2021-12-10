@@ -24,6 +24,13 @@ export interface OnLoadData {
         width: number;
         orientation: 'portrait' | 'landscape';
     };
+    videoTracks: Array<{
+        bitrate: number;
+        codecs: string;
+        width: number;
+        height: number;
+        trackId: string;
+    }>;
     audioTracks: Array<{
         index: number;
         title: string;
@@ -179,6 +186,7 @@ export interface VideoProperties extends ViewProps {
     audioOnly?: boolean | undefined;
     preventsDisplaySleepDuringVideoPlayback?: boolean | undefined;
     drm?: DRMSettings | undefined;
+    preferredForwardBufferDuration?: number | undefined;
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;

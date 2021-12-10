@@ -4,7 +4,6 @@
 //                 Lukas Spieß <https://github.com/lumaxis>
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
 //                 John Wood <https://github.com/johnjesse>
 //                 Alec Flett <https://github.com/alecf>
@@ -101,27 +100,27 @@ declare namespace Sinon {
          * Useful if a function is called with more than one callback, and simply calling the first callback is not desired.
          * @param pos
          */
-        callArg(pos: number): void;
-        callArgOn(pos: number, obj: any, ...args: any[]): void;
+        callArg(pos: number): unknown[];
+        callArgOn(pos: number, obj: any, ...args: any[]): unknown[];
         /**
          * Like callArg, but with arguments.
          */
-        callArgWith(pos: number, ...args: any[]): void;
-        callArgOnWith(pos: number, obj: any, ...args: any[]): void;
+        callArgWith(pos: number, ...args: any[]): unknown[];
+        callArgOnWith(pos: number, obj: any, ...args: any[]): unknown[];
         /**
          * Invoke callbacks passed to the stub with the given arguments.
          * If the stub was never called with a function argument, yield throws an error.
          * Returns an Array with all callbacks return values in the order they were called, if no error is thrown.
          * Also aliased as invokeCallback.
          */
-        yield(...args: any[]): void;
-        yieldOn(obj: any, ...args: any[]): void;
+        yield(...args: any[]): unknown[];
+        yieldOn(obj: any, ...args: any[]): unknown[];
         /**
          * Invokes callbacks passed as a property of an object to the stub.
          * Like yield, yieldTo grabs the first matching argument, finds the callback and calls it with the (optional) arguments.
          */
-        yieldTo(property: string, ...args: any[]): void;
-        yieldToOn(property: string, obj: any, ...args: any[]): void;
+        yieldTo(property: string, ...args: any[]): unknown[];
+        yieldToOn(property: string, obj: any, ...args: any[]): unknown[];
     }
 
     interface SinonSpyCall<TArgs extends any[] = any[], TReturnValue = any>
@@ -1465,7 +1464,7 @@ declare namespace Sinon {
      *
      * @template TType Object type being stubbed.
      */
-    type SinonStubbedInstance<TType> = {
+    type SinonStubbedInstance<TType> = TType & {
         [P in keyof TType]: SinonStubbedMember<TType[P]>;
     };
 
@@ -1653,6 +1652,14 @@ declare namespace Sinon {
         ): SinonStubbedInstance<TType>;
     }
 
+    type SinonPromise<T> = Promise<T> & {
+        status: 'pending'|'resolved'|'rejected';
+        resolve(val: unknown): Promise<T>;
+        reject(reason: unknown): Promise<void>;
+        resolvedValue?: T;
+        rejectedValue?: unknown;
+    };
+
     interface SinonApi {
         expectation: SinonExpectationStatic;
 
@@ -1687,6 +1694,10 @@ declare namespace Sinon {
          * on a format of your choosing, such as "{ id: 42 }"
          */
         setFormatter: (customFormatter: (...args: any[]) => string) => void;
+
+        promise<T = unknown>(
+            executor?: (resolve: (value: T) => void, reject: (reason?: unknown) => void) => void
+        ): SinonPromise<T>;
     }
 
     type SinonStatic = SinonSandbox & SinonApi;

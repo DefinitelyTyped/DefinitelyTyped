@@ -1,7 +1,7 @@
-import Prompt = require("./base");
-import { Answers, ListQuestionOptions } from "../..";
-import Paginator = require("../utils/paginator");
-import { Interface as ReadlineInterface } from "readline";
+import Prompt = require('./base');
+import { Answers, ListQuestionOptions } from '../..';
+import Paginator = require('../utils/paginator');
+import { Interface as ReadlineInterface } from 'readline';
 
 /**
  * The question-options for the `ListPrompt<T>`.

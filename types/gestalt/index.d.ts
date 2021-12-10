@@ -1,4 +1,4 @@
-// Type definitions for gestalt 34.3
+// Type definitions for gestalt 40.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -65,7 +65,7 @@ export interface ActivationCardProps {
                         | React.MouseEvent<HTMLAnchorElement>
                         | React.KeyboardEvent<HTMLAnchorElement>
                         | React.KeyboardEvent<HTMLButtonElement>,
-                        { disableOnNavigation?: (() => void) | undefined }
+                        { dangerouslyDisableOnNavigation?: (() => void) | undefined }
                     >
                   | undefined;
               rel?: 'none' | 'nofollow' | undefined;
@@ -100,15 +100,7 @@ export interface AvatarGroupProps {
     accessibilityHaspopup?: boolean | undefined;
     addCollaborators?: boolean | undefined;
     href?: string | undefined;
-    onClick?:
-        | AbstractEventHandler<
-              | React.MouseEvent<HTMLButtonElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
-          >
-        | undefined;
+    onClick?: OnTapType | undefined;
     role?: 'button' | 'link' | undefined;
     size?: 'xs' | 'sm' | 'md' | 'fit' | undefined;
 }
@@ -293,7 +285,7 @@ export interface ButtonProps {
               | React.MouseEvent<HTMLAnchorElement>
               | React.KeyboardEvent<HTMLAnchorElement>
               | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     rel?: 'none' | 'nofollow' | undefined;
@@ -324,7 +316,7 @@ export interface ActionData {
               | React.KeyboardEvent<HTMLAnchorElement>
               | React.MouseEvent<HTMLButtonElement>
               | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     rel?: 'none' | 'nofollow' | undefined;
@@ -466,15 +458,15 @@ export interface ContainerProps {
 }
 
 /**
- * DataPoint Props Interface
- * https://gestalt.netlify.app/DataPoint
+ * Datapoint Props Interface
+ * https://gestalt.netlify.app/datapoint
  */
-export interface DataPointProps {
+export interface DatapointProps {
     title: string;
     value: string;
     size?: 'md' | 'lg' | undefined;
     tooltipText?: string | undefined;
-    trend?: { accesibilityLabel: string, value: number } | undefined;
+    trend?: { accesibilityLabel: string; value: number } | undefined;
     trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
 }
 
@@ -509,6 +501,13 @@ export interface DropdownProps {
      * Ref for the element that the Dropdown will attach to, will most likely be a Button
      */
     anchor?: HTMLElement | undefined;
+
+    /**
+     * Removes the Layer component around Popover.
+     * Should only be used in cases where Layer breaks the Dropdown positionings such as
+     * when the anchor element is within a sticky component.
+     */
+    dangerouslyRemoveLayer?: boolean;
     headerContent?: React.ReactNode | undefined;
     /**
      * Preferred direction for the Dropdown to open
@@ -520,6 +519,8 @@ export interface DropdownProps {
 }
 
 export interface DropdownItemProps {
+    children?: React.ReactNode;
+
     onSelect: AbstractEventHandler<
         React.FocusEvent<HTMLInputElement>,
         {
@@ -532,6 +533,11 @@ export interface DropdownItemProps {
      * When supplied, will display a Badge next to the item's label.
      */
     badgeText?: string | undefined;
+
+    /**
+     * When supplied, will add a data-test-id prop to the dom element.
+     */
+    dataTestId?: string | undefined;
 
     /**
      * Either the selected item info or an array of selected items,
@@ -550,6 +556,11 @@ export interface DropdownLinkProps {
      * When supplied, will display a Badge next to the item's label.
      */
     badgeText?: string | undefined;
+    children?: React.ReactNode;
+    /**
+     * When supplied, will add a data-test-id prop to the dom element.
+     */
+     dataTestId?: string | undefined;
     /**
      * When true, adds an arrow icon to the end of the item to signal this item takes users to an external source
      * and opens the link in a new tab.
@@ -562,7 +573,7 @@ export interface DropdownLinkProps {
               | React.MouseEvent<HTMLAnchorElement>
               | React.KeyboardEvent<HTMLButtonElement>
               | React.KeyboardEvent<HTMLAnchorElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
 }
@@ -736,6 +747,7 @@ export type Icons =
     | 'heart-outline'
     | 'heart-broken'
     | 'history'
+    | 'idea-pin'
     | 'impressum'
     | 'info-circle'
     | 'key'
@@ -791,7 +803,6 @@ export type Icons =
     | 'speech-ellipsis'
     | 'star'
     | 'star-half'
-    | 'story-pin'
     | 'switch-account'
     | 'tag'
     | 'terms'
@@ -877,7 +888,7 @@ export interface IconButtonProps {
               | React.KeyboardEvent<HTMLAnchorElement>
               | React.MouseEvent<HTMLButtonElement>
               | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     padding?: 1 | 2 | 3 | 4 | 5 | undefined;
@@ -957,7 +968,7 @@ export interface LinkProps {
     onClick?:
         | AbstractEventHandler<
               React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
@@ -1007,8 +1018,8 @@ export interface MasonryProps<T = any> {
  */
 export interface ModalProps {
     /*
-    * Temporary undocumented prop to disable ScrollBoundaryContainer.
-    */
+     * Temporary undocumented prop to disable ScrollBoundaryContainer.
+     */
     _dangerouslyDisableScrollBoundaryContainer?: boolean;
     accessibilityModalLabel: string;
     onDismiss: () => void;
@@ -1041,8 +1052,10 @@ export interface ModalProps {
  */
 export interface ModuleProps {
     id: string;
+    badgeText?: string | undefined;
     icon?: Icons | undefined;
     iconAccessibilityLabel?: string | undefined;
+    iconButton?: React.ReactElement<typeof IconButton> | undefined;
     title?: string | undefined;
     type?: 'error' | 'info' | undefined;
 }
@@ -1065,6 +1078,91 @@ export interface ModuleExpandableProps {
     }>;
     expandedIndex?: number | null | undefined;
     onExpandedChange?: ((expandedIndex: number | null) => void) | undefined;
+}
+
+/**
+ * NumberField Props Interface
+ * https://gestalt.netlify.app/numberfield
+ */
+export interface NumberFieldProps {
+    /**
+     * A unique identifier for the input
+     */
+    id: string;
+    /**
+     * Callback triggered when the value of the input changes, whether by keyboard entry or the input's arrows.
+     */
+    onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: number | undefined }) => void;
+    /**
+     * Indicate if autocomplete should be available to the input.
+     */
+    autoComplete?: 'on' | 'off' | undefined;
+    /**
+     * Indicate if the input is disabled
+     * @default false
+     */
+    disabled?: boolean | undefined;
+    /**
+     * For most cases, pass a string with a helpful error message (be sure to localize!).
+     * In certain instances it can be useful to make some text clickable; to suppor this you may instead pass a React.Node to wrap text in Link or TapArea.
+     */
+    errorMessage?: React.ReactNode | undefined;
+    /**
+     * More information about how to complete the form field
+     */
+    helperText?: string | undefined;
+    /**
+     * The label for the input. Be sure to localize the text.
+     */
+    label?: string | undefined;
+    /**
+     * The upper bound of valid input, inclusive.
+     */
+    max?: number | undefined;
+    /**
+     * The lower bound of valid input, inclusive.
+     */
+    min?: number | undefined;
+    /**
+     * An unique name for the input
+     */
+    name?: string | undefined;
+    /**
+     * Callback triggered when the user blurs the input.
+     */
+    onBlur?:
+        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | undefined;
+    /**
+     * Callback triggered when the user focuses the input.
+     */
+    onFocus?:
+        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | undefined;
+    /**
+     * Callback triggered when the user presses any key while the input is focused.
+     */
+    onKeyDown?:
+        | ((args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | undefined;
+    /**
+     * Placeholder text shown when the user has not yes input a value.
+     */
+    placeholder?: string | undefined;
+    /**
+     * md: 40px, lg: 48px
+     *
+     * @default "md"
+     */
+    size?: 'md' | 'lg' | undefined;
+    /**
+     * Indicates the amount the value will increase or decrease when using the input's arrows.
+     */
+    step?: number | undefined;
+    /**
+     * The current value of the input.
+     */
+    value?: number | undefined;
 }
 
 /**
@@ -1273,6 +1371,17 @@ export interface StackProps {
 }
 
 /**
+ * Status Props Interface
+ * https://gestalt.netlify.app/status
+ */
+ export interface StatusProps {
+    type: "unstarted" | "inProgress" | "halted" | "ok" | "problem" | "canceled" | "warning";
+    accessibilityLabel?: string | undefined;
+    subtext?: string | undefined;
+    title?: string | undefined;
+}
+
+/**
  * Sticky Props Interface
  * https://gestalt.netlify.app/Sticky
  */
@@ -1303,6 +1412,7 @@ export interface SwitchProps {
  * https://gestalt.netlify.app/Table
  */
 export interface TableProps {
+    accessibilityLabel: string;
     borderStyle?: 'sm' | 'none' | undefined;
     children?: React.ReactNode | undefined;
     maxHeight?: number | string | undefined;
@@ -1371,7 +1481,7 @@ export interface TabsProps {
     onChange: (args: {
         event: React.SyntheticEvent<React.MouseEvent>;
         activeTabIndex: number;
-        disableOnNavigation: () => void;
+        dangerouslyDisableOnNavigation: () => void;
     }) => void;
     tabs: ReadonlyArray<{
         href: string;
@@ -1417,6 +1527,14 @@ export interface TagProps {
     removeIconAccessibilityLabel?: string | undefined;
 }
 
+export type OnTapType = AbstractEventHandler<
+    | React.MouseEvent<HTMLDivElement>
+    | React.KeyboardEvent<HTMLDivElement>
+    | React.MouseEvent<HTMLAnchorElement>
+    | React.KeyboardEvent<HTMLAnchorElement>,
+    { dangerouslydangerouslyDisableOnNavigation?: (() => void) | undefined }
+>;
+
 /**
  * TabArea Props Interface
  * https://gestalt.netlify.app/TapArea
@@ -1437,15 +1555,7 @@ export interface TapAreaProps {
     onMouseDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
-    onTap?:
-        | AbstractEventHandler<
-              | React.MouseEvent<HTMLDivElement>
-              | React.KeyboardEvent<HTMLDivElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>,
-              { disableOnNavigation?: (() => void) | undefined }
-          >
-        | undefined;
+    onTap?: OnTapType | undefined;
     rel?: 'none' | 'nofollow' | undefined;
     role?: 'button' | 'link' | undefined;
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
@@ -1589,52 +1699,11 @@ export interface TooltipProps {
 }
 
 /**
- * Typeahead Props Interface
- * https://gestalt.netlify.app/Typeahead
- */
-export interface TypeaheadProps {
-    id: string;
-    noResultText: string;
-    options: ReadonlyArray<{
-        label: string;
-        value: string;
-    }>;
-    label?: string | undefined;
-    onBlur?:
-        | ((args: {
-              event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
-              value: string;
-          }) => void)
-        | undefined;
-    onChange?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
-    onFocus?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void) | undefined;
-    onSelect?:
-        | ((args: {
-              event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
-              item:
-                  | {
-                        label: string;
-                        value: string;
-                    }
-                  | null
-                  | undefined;
-          }) => void)
-        | undefined;
-    placeholder?: string | undefined;
-    size?: 'md' | 'lg' | undefined;
-    /**
-     * List of tags to display in the component
-     */
-    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
-    value?: string | undefined;
-    zIndex?: Indexable | undefined;
-}
-
-/**
  * Upsell Props Interface
  * https://gestalt.netlify.app/Upsell
  */
 export interface UpsellProps {
+    children?: React.ReactElement;
     message: string;
     dismissButton?:
         | {
@@ -1763,7 +1832,7 @@ export class Collage extends React.Component<CollageProps, any> {}
 export class ColorSchemeProvider extends React.Component<ColorSchemeProviderProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
-export class DataPoint extends React.Component<DataPointProps, any> {}
+export class Datapoint extends React.Component<DatapointProps, any> {}
 export class ScrollBoundaryContainer extends React.Component<ScrollBoundaryContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
 export class Dropdown extends React.Component<DropdownProps, any> {
@@ -1789,6 +1858,7 @@ export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 export class Module extends React.Component<ModuleProps, any> {
     static Expandable: React.FC<ModuleExpandableProps>;
 }
+export const NumberField: ReactForwardRef<HTMLInputElement, NumberFieldProps>;
 export class OnLinkNavigationProvider extends React.Component<OnLinkNavigationProviderProps, any> {}
 export class PageHeader extends React.Component<PageHeaderProps, any> {}
 export class Pog extends React.Component<PogProps, any> {}
@@ -1802,6 +1872,7 @@ export class SelectList extends React.Component<SelectListProps, any> {}
 export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
 export class Spinner extends React.Component<SpinnerProps, any> {}
 export class Stack extends React.Component<StackProps, any> {}
+export class Status extends React.Component<StatusProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}
 export class Switch extends React.Component<SwitchProps, any> {}
 export class Table extends React.Component<TableProps, any> {
@@ -1822,7 +1893,6 @@ export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
 export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
-export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
 export class Upsell extends React.Component<UpsellProps, any> {
     static Form: React.FC<UpsellFormProps>;
 }

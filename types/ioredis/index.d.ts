@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.27
+// Type definitions for ioredis 4.28
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -17,6 +17,7 @@
 //                 Asyrique <https://github.com/asyrique>
 //                 Michael Salaverry <https://github.com/barakplasma>
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
+//                 T.J. Tarazevits <https://github.com/venku122>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -346,11 +347,20 @@ declare namespace IORedis {
         brpoplpush(source: string, destination: string, timeout: number, callback: Callback<string>): void;
         brpoplpush(source: string, destination: string, timeout: number): Promise<string>;
 
+        blmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', timeout: number, callback: Callback<string | null>): void;
+        blmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', timeout: number): Promise<string | null>;
+
+        lmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', callback: Callback<string | null>): void;
+        lmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT'): Promise<string | null>;
+
         llen(key: KeyType, callback: Callback<number>): void;
         llen(key: KeyType): Promise<number>;
 
         lindex(key: KeyType, index: number, callback: Callback<string>): void;
         lindex(key: KeyType, index: number): Promise<string>;
+
+        lindexBuffer(key: KeyType, index: number, callback: Callback<Buffer>): void;
+        lindexBuffer(key: KeyType, index: number): Promise<Buffer>;
 
         lset(key: KeyType, index: number, value: ValueType, callback: Callback<Ok>): void;
         lset(key: KeyType, index: number, value: ValueType): Promise<Ok>;
@@ -382,6 +392,8 @@ declare namespace IORedis {
 
         sismember(key: KeyType, member: string, callback: Callback<BooleanResponse>): void;
         sismember(key: KeyType, member: string): Promise<BooleanResponse>;
+
+        smismember(key: KeyType, ...members: string[]): Promise<BooleanResponse[]>;
 
         scard(key: KeyType, callback: Callback<number>): void;
         scard(key: KeyType): Promise<number>;
@@ -780,8 +792,8 @@ declare namespace IORedis {
         zcard(key: KeyType, callback: Callback<number>): void;
         zcard(key: KeyType): Promise<number>;
 
-        zscore(key: KeyType, member: string, callback: Callback<string>): void;
-        zscore(key: KeyType, member: string): Promise<string>;
+        zscore(key: KeyType, member: string, callback: Callback<string | null>): void;
+        zscore(key: KeyType, member: string): Promise<string | null>;
 
         zrank(key: KeyType, member: string, callback: Callback<number | null>): void;
         zrank(key: KeyType, member: string): Promise<number | null>;
@@ -1196,6 +1208,8 @@ declare namespace IORedis {
         quit(callback: Callback<Ok>): void;
         quit(): Promise<Ok>;
 
+        scan(cursor: number | string): Promise<[string, string[]]>;
+
         scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
         scan(
             cursor: number | string,
@@ -1267,9 +1281,11 @@ declare namespace IORedis {
 
         xclaim: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
+        xautoclaim: OverloadedSubCommand<ValueType,  [string, Array<[string, string[]]>]>;
+
         xdel: OverloadedKeyCommand<string, number>;
 
-        xgroup: OverloadedSubCommand<ValueType, Ok>;
+        xgroup: OverloadedSubCommand<ValueType, Ok | number>;
 
         xinfo: OverloadedSubCommand<ValueType, any>;
 
@@ -1282,7 +1298,7 @@ declare namespace IORedis {
 
         xread: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
-        xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
+        xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
         xrevrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
@@ -2051,6 +2067,11 @@ declare namespace IORedis {
          * default: 10000.
          */
         connectTimeout?: number | undefined;
+        /**
+         * The milliseconds before socket.destroy() is called after socket.end() if the connection remains half-open during disconnection.
+         * default: 2000
+         */
+        disconnectTimeout?: number | undefined;
         /**
          * After reconnected, if the previous connection was in the subscriber mode, client will auto re-subscribe these channels.
          * default: true.

@@ -1,4 +1,4 @@
-// Type definitions for React Router 5.1
+// Type definitions for react-router-dom 5.3
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
@@ -6,6 +6,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -43,6 +44,7 @@ export {
 
 export interface BrowserRouterProps {
     basename?: string | undefined;
+    children?: React.ReactNode;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     forceRefresh?: boolean | undefined;
     keyLength?: number | undefined;
@@ -51,6 +53,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
     basename?: string | undefined;
+    children?: React.ReactNode;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     hashType?: 'slash' | 'noslash' | 'hashbang' | undefined;
 }
@@ -78,10 +81,12 @@ export interface NavLinkProps<S = H.LocationState> extends Omit<LinkProps<S>, "c
     strict?: boolean | undefined;
     isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
     location?: H.Location<S> | undefined;
-    className?: string | ((isActive: boolean) => string);
+    className?: string | ((isActive: boolean) => string) | undefined;
     style?:
-      | React.CSSProperties
-      | ((isActive: boolean) => React.CSSProperties);
+        | React.CSSProperties
+        | ((isActive: boolean) => React.CSSProperties)
+        | undefined;
+    sensitive?: boolean | undefined;
 }
 export function NavLink<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.
