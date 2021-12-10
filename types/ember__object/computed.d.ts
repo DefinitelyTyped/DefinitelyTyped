@@ -53,7 +53,7 @@ export function alias(
  */
 export function and(
     ...dependentKeys: string[]
-): ComputedProperty<boolean>;
+): ComputedProperty<any>;
 /**
  * A computed property that converts the provided dependent property
  * into a boolean value.
@@ -261,7 +261,7 @@ export function oneWay(
  */
 export function or(
     ...dependentKeys: string[]
-): ComputedProperty<boolean>;
+): ComputedProperty<any>;
 /**
  * Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides
  * a readOnly one way binding. Very often when using `computed.oneWay` one does

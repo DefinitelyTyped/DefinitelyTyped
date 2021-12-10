@@ -2468,12 +2468,12 @@ declare module 'ember' {
              * A computed property that performs a logical `and` on the
              * original values for the provided dependent properties.
              */
-            and(...dependentKeys: string[]): ComputedProperty<boolean>;
+            and(...dependentKeys: string[]): ComputedProperty<any>;
             /**
              * A computed property which performs a logical `or` on the
              * original values for the provided dependent properties.
              */
-            or(...dependentKeys: string[]): ComputedProperty<boolean>;
+            or(...dependentKeys: string[]): ComputedProperty<any>;
             /**
              * Creates a new property that is an alias for another property
              * on an object. Calls to `get` or `set` this property behave as
