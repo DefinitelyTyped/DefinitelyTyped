@@ -158,10 +158,41 @@ const objectWithComputedProperties = Ember.Object.extend({
     union: Ember.computed.union('foo', 'bar', 'baz', 'qux'),
     uniq: Ember.computed.uniq('foo'),
     uniqBy: Ember.computed.uniqBy('foo', 'bar'),
-});
-
-const component2 = Component.extend({
-    isAnimal: or('isDog', 'isCat'),
 }).create();
 
-assertType<boolean>(component2.get('isAnimal'));
+assertType<any>(objectWithComputedProperties.get('alias'));
+assertType<any>(objectWithComputedProperties.get('and'));
+assertType<boolean>(objectWithComputedProperties.get('bool'));
+assertType<any[]>(objectWithComputedProperties.get('collect'));
+assertType<any>(objectWithComputedProperties.get('deprecatingAlias'));
+assertType<boolean>(objectWithComputedProperties.get('empty'));
+assertType<boolean>(objectWithComputedProperties.get('equalNumber'));
+assertType<boolean>(objectWithComputedProperties.get('equalString'));
+assertType<boolean>(objectWithComputedProperties.get('equalObject'));
+assertType<any[]>(objectWithComputedProperties.get('filter'));
+assertType<any[]>(objectWithComputedProperties.get('filterBy1'));
+assertType<any[]>(objectWithComputedProperties.get('filterBy2'));
+assertType<boolean>(objectWithComputedProperties.get('gt'));
+assertType<boolean>(objectWithComputedProperties.get('gte'));
+assertType<any[]>(objectWithComputedProperties.get('intersect'));
+assertType<boolean>(objectWithComputedProperties.get('lt'));
+assertType<boolean>(objectWithComputedProperties.get('lte'));
+assertType<any[]>(objectWithComputedProperties.get('map'));
+assertType<any[]>(objectWithComputedProperties.get('mapBy'));
+assertType<boolean>(objectWithComputedProperties.get('match'));
+assertType<number>(objectWithComputedProperties.get('max'));
+assertType<number>(objectWithComputedProperties.get('min'));
+assertType<boolean>(objectWithComputedProperties.get('none'));
+assertType<boolean>(objectWithComputedProperties.get('not'));
+assertType<boolean>(objectWithComputedProperties.get('notEmpty'));
+assertType<any>(objectWithComputedProperties.get('oneWay'));
+assertType<any>(objectWithComputedProperties.get('or'));
+assertType<any>(objectWithComputedProperties.get('readOnly'));
+assertType<any>(objectWithComputedProperties.get('reads'));
+assertType<any[]>(objectWithComputedProperties.get('setDiff'));
+assertType<any[]>(objectWithComputedProperties.get('sort1'));
+assertType<any[]>(objectWithComputedProperties.get('sort2'));
+assertType<number>(objectWithComputedProperties.get('sum'));
+assertType<any[]>(objectWithComputedProperties.get('union'));
+assertType<any[]>(objectWithComputedProperties.get('uniq'));
+assertType<any[]>(objectWithComputedProperties.get('uniqBy'));
