@@ -154,11 +154,15 @@ const objectWithComputedProperties = Ember.Object.extend({
     uniqBy: Ember.computed.uniqBy('foo', 'bar'),
 }).create();
 
-assertType<unknown>(objectWithComputedProperties.get('alias'));
-assertType<unknown>(objectWithComputedProperties.get('and'));
+// There isn't a good way to assert that something's type is unknown.
+// The best way is to assert that it is Anything, and verify that it gets an error.
+type Anything = {} | undefined | null;
+
+assertType<Anything>(objectWithComputedProperties.get('alias')) // $ExpectError;
+assertType<Anything>(objectWithComputedProperties.get('and')); // $ExpectError;
 assertType<boolean>(objectWithComputedProperties.get('bool'));
 assertType<unknown[]>(objectWithComputedProperties.get('collect'));
-assertType<unknown>(objectWithComputedProperties.get('deprecatingAlias'));
+assertType<Anything>(objectWithComputedProperties.get('deprecatingAlias')); // $ExpectError;
 assertType<boolean>(objectWithComputedProperties.get('empty'));
 assertType<boolean>(objectWithComputedProperties.get('equalNumber'));
 assertType<boolean>(objectWithComputedProperties.get('equalString'));
@@ -179,10 +183,10 @@ assertType<number>(objectWithComputedProperties.get('min'));
 assertType<boolean>(objectWithComputedProperties.get('none'));
 assertType<boolean>(objectWithComputedProperties.get('not'));
 assertType<boolean>(objectWithComputedProperties.get('notEmpty'));
-assertType<unknown>(objectWithComputedProperties.get('oneWay'));
-assertType<unknown>(objectWithComputedProperties.get('or'));
-assertType<unknown>(objectWithComputedProperties.get('readOnly'));
-assertType<unknown>(objectWithComputedProperties.get('reads'));
+assertType<Anything>(objectWithComputedProperties.get('oneWay')); // $ExpectError;
+assertType<Anything>(objectWithComputedProperties.get('or')); // $ExpectError;
+assertType<Anything>(objectWithComputedProperties.get('readOnly')); // $ExpectError;
+assertType<Anything>(objectWithComputedProperties.get('reads')); // $ExpectError;
 assertType<unknown[]>(objectWithComputedProperties.get('setDiff'));
 assertType<unknown[]>(objectWithComputedProperties.get('sort1'));
 assertType<unknown[]>(objectWithComputedProperties.get('sort2'));
