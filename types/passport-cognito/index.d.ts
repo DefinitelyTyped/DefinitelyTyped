@@ -21,8 +21,21 @@ export type CognitoVerifyFunction = (
   done: (error: any, user?: any) => void,
 ) => any;
 
+export type CognitoVerifyFunctionWithSession = (
+  accessToken: string,
+  idToken: string,
+  refreshToken: string,
+  user: object,
+	session: {
+		getIdToken: () => {
+			getExpiration: () => number;
+		};
+	},
+  done: (error: any, user?: any) => void,
+) => any;
+
 export class Strategy extends passport.Strategy {
-  constructor(options: CognitoStrategyOptions, verify: CognitoVerifyFunction);
+  constructor(options: CognitoStrategyOptions, verify: CognitoVerifyFunction | CognitoVerifyFunctionWithSession);
 
   name: string;
   authenticate(req: express.Request, options?: object): void;
