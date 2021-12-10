@@ -15,3 +15,12 @@ test(AbstractLevelDOWN('there'));
 test(new AbstractLevelDOWN<any, string>('here'));
 // $ExpectType void
 test(AbstractLevelDOWN<any, string>('there'));
+
+// Init db (in order to test properties/methods)
+const db = new AbstractLevelDOWN('here');
+
+// $ExpectType "new" | "opening" | "open" | "closing" | "closed"
+db.status;
+
+// $ExpectType boolean
+db.isOperational();

@@ -46,6 +46,9 @@ export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
   ): AbstractChainedBatch<K, V>;
 
   iterator(options?: AbstractIteratorOptions<K>): AbstractIterator<K, V>;
+
+  readonly status: "new" | "opening" | "open" | "closing" | "closed";
+  isOperational(): boolean;
 }
 
 export interface AbstractLevelDOWNConstructor {
