@@ -5,7 +5,7 @@
 //                 Carson Farmer <https://github.com/carsonfarmer>
 //                 Steffen Park <https://github.com/istherepie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 

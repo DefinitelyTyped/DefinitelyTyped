@@ -4,7 +4,7 @@
 //                 Daniel Byrne <https://github.com/danwbyrne>
 //                 Steffen Park <https://github.com/istherepie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
+// TypeScript Version: 2.3
 
 export interface AbstractOptions {
   readonly [k: string]: any;
