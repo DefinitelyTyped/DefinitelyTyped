@@ -1,10 +1,11 @@
-// Type definitions for levelup 4.3
+// Type definitions for levelup 5.1
 // Project: https://github.com/Level/levelup
 // Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
 //                 Daniel Byrne <https://github.com/danwbyrne>
 //                 Carson Farmer <https://github.com/carsonfarmer>
+//                 Steffen Park <https://github.com/istherepie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.6
 
 /// <reference types="node" />
 
