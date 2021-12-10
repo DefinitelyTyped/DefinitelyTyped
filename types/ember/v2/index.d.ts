@@ -2443,7 +2443,7 @@ declare module 'ember' {
              * A computed property that returns true if the provided dependent property
              * is equal to the given value.
              */
-            equal(dependentKey: string, value: any): ComputedProperty<boolean>;
+            equal(dependentKey: string, value: unknown): ComputedProperty<boolean>;
             /**
              * A computed property that returns true if the provided dependent property
              * is greater than the provided value.
@@ -2468,18 +2468,18 @@ declare module 'ember' {
              * A computed property that performs a logical `and` on the
              * original values for the provided dependent properties.
              */
-            and(...dependentKeys: string[]): ComputedProperty<any>;
+            and(...dependentKeys: string[]): ComputedProperty<unknown>;
             /**
              * A computed property which performs a logical `or` on the
              * original values for the provided dependent properties.
              */
-            or(...dependentKeys: string[]): ComputedProperty<any>;
+            or(...dependentKeys: string[]): ComputedProperty<unknown>;
             /**
              * Creates a new property that is an alias for another property
              * on an object. Calls to `get` or `set` this property behave as
              * though they were called on the original property.
              */
-            alias(dependentKey: string): ComputedProperty<any>;
+            alias(dependentKey: string): ComputedProperty<unknown>;
             /**
              * Where `computed.alias` aliases `get` and `set`, and allows for bidirectional
              * data flow, `computed.oneWay` only provides an aliased `get`. The `set` will
@@ -2487,29 +2487,29 @@ declare module 'ember' {
              * become the value set. This causes the downstream property to permanently
              * diverge from the upstream property.
              */
-            oneWay(dependentKey: string): ComputedProperty<any>;
+            oneWay(dependentKey: string): ComputedProperty<unknown>;
             /**
              * This is a more semantically meaningful alias of `computed.oneWay`,
              * whose name is somewhat ambiguous as to which direction the data flows.
              */
-            reads(dependentKey: string): ComputedProperty<any>;
+            reads(dependentKey: string): ComputedProperty<unknown>;
             /**
              * Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides
              * a readOnly one way binding. Very often when using `computed.oneWay` one does
              * not also want changes to propagate back up, as they will replace the value.
              */
-            readOnly(dependentKey: string): ComputedProperty<any>;
+            readOnly(dependentKey: string): ComputedProperty<unknown>;
             /**
              * Creates a new property that is an alias for another property
              * on an object. Calls to `get` or `set` this property behave as
              * though they were called on the original property, but also
              * print a deprecation warning.
              */
-            deprecatingAlias(dependentKey: string, options: DeprecationOptions): ComputedProperty<any>;
+            deprecatingAlias(dependentKey: string, options: DeprecationOptions): ComputedProperty<unknown>;
             /**
              * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
              */
-            deprecatingAlias(dependentKey: string, options?: Partial<DeprecationOptions>): ComputedProperty<any>;
+            deprecatingAlias(dependentKey: string, options?: Partial<DeprecationOptions>): ComputedProperty<unknown>;
             /**
              * A computed property that returns the sum of the values
              * in the dependent array.
@@ -2532,54 +2532,54 @@ declare module 'ember' {
              */
             map<U>(
                 dependentKey: string,
-                callback: (value: any, index: number, array: any[]) => U,
+                callback: (value: unknown, index: number, array: unknown[]) => U,
             ): ComputedProperty<U[]>;
             /**
              * Returns an array mapped to the specified key.
              */
-            mapBy(dependentKey: string, propertyKey: string): ComputedProperty<any[]>;
+            mapBy(dependentKey: string, propertyKey: string): ComputedProperty<unknown[]>;
             /**
              * Filters the array by the callback.
              */
             filter(
                 dependentKey: string,
-                callback: (value: any, index: number, array: any[]) => boolean,
-            ): ComputedProperty<any[]>;
+                callback: (value: unknown, index: number, array: unknown[]) => boolean,
+            ): ComputedProperty<unknown[]>;
             /**
              * Filters the array by the property and value
              */
-            filterBy(dependentKey: string, propertyKey: string, value?: any): ComputedProperty<any[]>;
+            filterBy(dependentKey: string, propertyKey: string, value?: unknown): ComputedProperty<unknown[]>;
             /**
              * A computed property which returns a new array with all the unique
              * elements from one or more dependent arrays.
              */
-            uniq(propertyKey: string): ComputedProperty<any[]>;
+            uniq(propertyKey: string): ComputedProperty<unknown[]>;
             /**
              * A computed property which returns a new array with all the unique
              * elements from an array, with uniqueness determined by specific key.
              */
-            uniqBy(dependentKey: string, propertyKey: string): ComputedProperty<any[]>;
+            uniqBy(dependentKey: string, propertyKey: string): ComputedProperty<unknown[]>;
             /**
              * A computed property which returns a new array with all the unique
              * elements from one or more dependent arrays.
              */
-            union(...propertyKeys: string[]): ComputedProperty<any[]>;
+            union(...propertyKeys: string[]): ComputedProperty<unknown[]>;
             /**
              * A computed property which returns a new array with all the elements
              * two or more dependent arrays have in common.
              */
-            intersect(...propertyKeys: string[]): ComputedProperty<any[]>;
+            intersect(...propertyKeys: string[]): ComputedProperty<unknown[]>;
             /**
              * A computed property which returns a new array with all the
              * properties from the first dependent array that are not in the second
              * dependent array.
              */
-            setDiff(setAProperty: string, setBProperty: string): ComputedProperty<any[]>;
+            setDiff(setAProperty: string, setBProperty: string): ComputedProperty<unknown[]>;
             /**
              * A computed property that returns the array of values
              * for the provided dependent properties.
              */
-            collect(...dependentKeys: string[]): ComputedProperty<any[]>;
+            collect(...dependentKeys: string[]): ComputedProperty<unknown[]>;
             /**
              * A computed property which returns a new array with all the
              * properties from the first dependent array sorted based on a property
@@ -2587,8 +2587,8 @@ declare module 'ember' {
              */
             sort(
                 itemsKey: string,
-                sortDefinition: string | ((itemA: any, itemB: any) => number),
-            ): ComputedProperty<any[]>;
+                sortDefinition: string | ((itemA: unknown, itemB: unknown) => number),
+            ): ComputedProperty<unknown[]>;
         };
         const run: {
             /**
