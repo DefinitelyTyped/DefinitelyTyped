@@ -21,3 +21,21 @@ passport.use(
         ) => {}
     )
 );
+
+passport.use(
+    new cognito.Strategy(
+        {
+            clientId: "clientId",
+            region: "region",
+            userPoolId: "userPoolId"
+        },
+        (
+            accessToken: string,
+            idToken: string,
+            refreshToken: string,
+            user: object,
+            session: object,
+            cb: (err: Error | null, user?: object | false) => void
+        ) => {}
+    )
+);
