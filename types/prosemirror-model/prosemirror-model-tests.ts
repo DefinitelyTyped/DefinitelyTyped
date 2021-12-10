@@ -119,3 +119,26 @@ const fragmentTests = () => {
     // $ExpectType string
     const textBetweenSeparatorAndNullLeafArgs = prosemirrorFragment.textBetween(1, 2, 'separator', null);
 };
+
+const serializeFragmentTests = () => {
+    const target = window.document.createElement('div');
+    const schema = new model.Schema({
+        nodes: nodeSpec
+    });
+
+    const node = model.Node.fromJSON(schema, {
+        type: 'doc',
+        content: {},
+        marks: []
+    });
+
+    // $ExpectType DocumentFragment
+    const resWithTarget = model.DOMSerializer
+        .fromSchema(schema)
+        .serializeFragment(node.content, {}, target);
+
+    // $ExpectType DocumentFragment
+    const resWithoutTarget = model.DOMSerializer
+        .fromSchema(schema)
+        .serializeFragment(node.content, {});
+};
