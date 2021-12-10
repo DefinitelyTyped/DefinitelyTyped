@@ -1,4 +1,4 @@
-// Type definitions for pino-datadog 2.0.2
+// Type definitions for pino-datadog 2.0
 // Project: https://github.com/ovhemert/pino-datadog
 // Definitions by: czystyl <https://github.com/czystyl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
