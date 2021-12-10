@@ -109,9 +109,9 @@ class Bar extends EmberObject {
     @filter filterTest1: string[]; // $ExpectError
     @filter() filterTest2: string[]; // $ExpectError
     @filter('firstName') filterTest3: string[]; // $ExpectError
-    @filter('firstName', x => Boolean(x)) filterTest4: string[];
-    @filter('firstName', 'secondName', x => Boolean(x)) filterTest5: string[]; // $ExpectError
-    @filter('firstName', ['secondName'], x => Boolean(x)) filterTest6: string[];
+    @filter('firstName', Boolean) filterTest4: string[];
+    @filter('firstName', 'secondName', Boolean) filterTest5: string[]; // $ExpectError
+    @filter('firstName', ['secondName'], Boolean) filterTest6: string[];
 
     @filterBy filterByTest1: any[]; // $ExpectError
     @filterBy() filterByTest2: any[]; // $ExpectError
