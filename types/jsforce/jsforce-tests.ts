@@ -498,6 +498,12 @@ async function testSObject(connection: sf.Connection) {
             ret; // $ExpectType RecordResult[]
         });
     }
+    {
+        connection.requestPost('/api/test', {}, (err, ret) => {
+            err; // $ExpectType Error
+            ret; // $ExpectType object
+        });
+    }
 }
 
 const requestInfo: sf.RequestInfo = {

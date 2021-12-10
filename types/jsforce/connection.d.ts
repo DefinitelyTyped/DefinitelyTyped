@@ -336,6 +336,17 @@ export class Connection extends BaseConnection {
     logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
     limits(callback?: (err: Error, res: undefined) => void): Promise<LimitsInfo>;
     identity(callback?: (err: Error, res: IdentityInfo) => void): Promise<IdentityInfo>;
+    requestPost<T = object>(
+        url: string,
+        body: object,
+        options_callback?: HttpApiOptions | ((err: Error, Object: T) => void),
+    ): Promise<T>;
+    requestPost<T = object>(
+        url: string,
+        body: object,
+        options?: HttpApiOptions,
+        callback?: (err: Error, Object: T) => void,
+    ): Promise<T>;
 }
 
 export class Tooling extends BaseConnection {
