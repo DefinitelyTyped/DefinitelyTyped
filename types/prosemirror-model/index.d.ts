@@ -1426,7 +1426,7 @@ export class DOMSerializer<S extends Schema = any> {
      * document, should be passed so that the serializer can create
      * nodes.
      */
-    serializeFragment(fragment: Fragment<S>, options?: { [key: string]: any }): DocumentFragment;
+    serializeFragment(fragment: Fragment<S>, options?: { [key: string]: any }, target?: Node): DocumentFragment;
     /**
      * Serialize this node to a DOM node. This can be useful when you
      * need to serialize a part of a document, as opposed to the whole
