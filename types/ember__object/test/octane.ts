@@ -109,9 +109,9 @@ class Bar extends EmberObject {
     @filter filterTest1: string[]; // $ExpectError
     @filter() filterTest2: string[]; // $ExpectError
     @filter('firstName') filterTest3: string[]; // $ExpectError
-    @filter('firstName', x => x) filterTest4: string[];
-    @filter('firstName', 'secondName', x => x) filterTest5: string[]; // $ExpectError
-    @filter('firstName', ['secondName'], x => x) filterTest6: string[];
+    @filter('firstName', x => Boolean(x)) filterTest4: string[];
+    @filter('firstName', 'secondName', x => Boolean(x)) filterTest5: string[]; // $ExpectError
+    @filter('firstName', ['secondName'], x => Boolean(x)) filterTest6: string[];
 
     @filterBy filterByTest1: any[]; // $ExpectError
     @filterBy() filterByTest2: any[]; // $ExpectError
@@ -214,10 +214,10 @@ class Bar extends EmberObject {
     @sort('values') sortTest3: number; // $ExpectError
     @sort('values', 'id') sortTest4: number;
     @sort('values', 'id', 'a') sortTest5: number; // $ExpectError
-    @sort('values', (a, b) => a - b) sortTest6: number;
-    @sort('values', ['id'], (a, b) => a - b) sortTest7: number;
-    @sort('values', 'id', (a, b) => a - b) sortTest8: number; // $ExpectError
-    @sort(['id'], (a, b) => a - b) sortTest9: number; // $ExpectError
+    @sort('values', (a, b) => Number(a) - Number(b)) sortTest6: number;
+    @sort('values', ['id'], (a, b) => Number(a) - Number(b)) sortTest7: number;
+    @sort('values', 'id', (a, b) => Number(a) - Number(b)) sortTest8: number; // $ExpectError
+    @sort(['id'], (a, b) => Number(a) - Number(b)) sortTest9: number; // $ExpectError
 
     @sum sumTest1: number; // $ExpectError
     @sum() sumTest2: number; // $ExpectError
