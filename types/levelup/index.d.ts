@@ -87,6 +87,9 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
     isOpen(): boolean;
     isClosed(): boolean;
 
+    readonly status: "new" | "opening" | "open" | "closing" | "closed";
+    isOperational(): boolean;
+
     createReadStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
     createKeyStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
     createValueStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;

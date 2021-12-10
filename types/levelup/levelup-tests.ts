@@ -57,6 +57,12 @@ db.isOpen();
 // $ExpectType boolean
 db.isClosed();
 
+// $ExpectType "new" | "opening" | "open" | "closing" | "closed"
+db.status;
+
+// $ExpectType boolean
+db.isOperational();
+
 db.createReadStream()
     .on('data', (data: any) => {
       console.log(data.key, '=', data.value);
