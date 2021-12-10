@@ -222,9 +222,9 @@ export class Pool implements PoolOptions {
   usedPool: object;
   poolsize: number;
   odbc: ODBC;
+  openSync(connStr: string): Database;
   constructor(options?: PoolOptions)
     open(connStr: string, cb: (err: Error, db: Database) => void): void;
-    openSync(connStr: string): Database;
     init(count: number, connStr: string): boolean;
     setMaxPoolSize(count: number): boolean;
     setConnectTimeout(timeout: number): boolean;
