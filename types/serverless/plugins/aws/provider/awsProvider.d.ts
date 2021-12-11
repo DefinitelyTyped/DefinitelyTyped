@@ -635,6 +635,7 @@ declare namespace Aws {
     interface CloudFormationResource {
         Type: string;
         Properties: { [key: string]: any };
+        Condition?: string | undefined;
         DependsOn?: string | { [key: string]: any } | undefined;
         DeletionPolicy?: string | undefined;
     }
@@ -655,9 +656,14 @@ declare namespace Aws {
     interface Outputs {
         [key: string]: Output;
     }
+    
+    interface ResourcesConditions {
+        [key: string]: any
+    }
 
     interface Resources {
         Description?: string | undefined;
+        Conditions?: ResourcesConditions
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources | undefined;
         Outputs?: Outputs | undefined;
