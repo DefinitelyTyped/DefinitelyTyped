@@ -656,14 +656,14 @@ declare namespace Aws {
     interface Outputs {
         [key: string]: Output;
     }
-    
+
     interface ResourcesConditions {
-        [key: string]: any
+        [key: string]: any;
     }
 
     interface Resources {
         Description?: string | undefined;
-        Conditions?: ResourcesConditions
+        Conditions?: ResourcesConditions;
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources | undefined;
         Outputs?: Outputs | undefined;
