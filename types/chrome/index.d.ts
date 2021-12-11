@@ -1475,8 +1475,6 @@ declare namespace chrome.contentSettings {
  * Permissions:  "contextMenus"
  */
 declare namespace chrome.contextMenus {
-    type ContextMediaType = "image" | "video" | "audio";
-
     export interface OnClickData {
         /**
          * Optional.
@@ -1518,7 +1516,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
-        mediaType?: ContextMediaType | undefined;
+        mediaType?: 'image' | 'video' | 'audio' | undefined;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1562,7 +1560,7 @@ declare namespace chrome.contextMenus {
         /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
         title?: string | undefined;
         /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-        contexts?: ContextType[] | undefined;
+        contexts?: ContextType | ContextType[] | undefined;
         /**
          * Optional.
          * Since Chrome 20.
