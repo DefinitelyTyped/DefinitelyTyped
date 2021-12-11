@@ -1138,7 +1138,7 @@ function testExtensionSendRequest() {
 }
 
 function testContextMenusCreate() {
-    chrome.contextMenus.create({
+    const creationOptions: chrome.contextMenus.CreateProperties = {
         id: 'dummy-id',
         documentUrlPatterns: ['https://*/*'],
         checked: false,
@@ -1150,7 +1150,10 @@ function testContextMenusCreate() {
         parentId: 1,
         type: 'normal',
         visible: true
-    }, () => console.log('created'));
+    };
+    chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType void
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType void
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] }); // $ExpectError
 }
 
 function testContextMenusRemove() {
