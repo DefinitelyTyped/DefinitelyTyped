@@ -1043,7 +1043,7 @@ declare module 'fs/promises' {
      * disappears in the directory.
      *
      * All the `caveats` for `fs.watch()` also apply to `fsPromises.watch()`.
-     * @since v15.9.0
+     * @since v15.9.0, v14.18.0
      * @return of objects with the properties:
      */
     function watch(
