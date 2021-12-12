@@ -18,7 +18,7 @@ export type MonthNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type WeekdayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export type DayNumbers =
-    1
+    | 1
     | 2
     | 3
     | 4
@@ -51,7 +51,7 @@ export type DayNumbers =
     | 31;
 
 export type SecondNumbers =
-    0
+    | 0
     | 1
     | 2
     | 3
@@ -115,7 +115,7 @@ export type SecondNumbers =
 export type MinuteNumbers = SecondNumbers;
 
 export type HourNumbers =
-    0
+    | 0
     | 1
     | 2
     | 3
@@ -141,7 +141,7 @@ export type HourNumbers =
     | 23;
 
 export type WeekNumbers =
-    1
+    | 1
     | 2
     | 3
     | 4
@@ -193,8 +193,7 @@ export type WeekNumbers =
     | 50
     | 51
     | 52
-    | 53
-    ;
+    | 53;
 
 export type QuarterNumbers = 1 | 2 | 3 | 4;
 
