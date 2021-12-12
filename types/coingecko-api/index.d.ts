@@ -350,7 +350,6 @@ interface CoinsFetchDataTicker {
     token_info_url: string | null;
     coin_id: string;
     target_coin_id: string;
-    asdasd: boolean;
 }
 
 /**
