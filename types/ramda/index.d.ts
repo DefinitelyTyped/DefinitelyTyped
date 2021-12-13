@@ -1605,6 +1605,8 @@ export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
 /**
  * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
  */
+export function pickBy(pred: ObjPred, record: Record<keyof any, any>): Record<keyof any, any>;
+export function pickBy(pred: ObjPred): (record: Record<keyof any, any>) => Record<keyof any, any>;
 export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
 export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
 

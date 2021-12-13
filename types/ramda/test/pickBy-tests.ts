@@ -39,3 +39,18 @@ import * as R from 'ramda';
     interface T2 { a: number; b: number; c: number; }
     const result = excludePropertyD<T2, T1>({ a: 1, b: 2, c: 3, d: 4 }); // => { a: 1, b: 2, c: 3 }
 };
+
+() => {
+  const value1: Record<string | number | symbol, any> = R.pickBy(R.startsWith('private_'), {
+    privateName: '[test]:privateName1',
+  });
+
+  const value2: Record<string | number | symbol, any> = R.pickBy(R.startsWith('private_'))({
+    privateName: '[test]:privateName1',
+  });
+
+  const value3: Record<string | number | symbol, any> = R.pipe(
+    R.pickBy(R.startsWith('private_')),
+    R.filter<"dictionary">(R.is(String))
+  )({ privateName: '[test]:privateName1' });
+};
