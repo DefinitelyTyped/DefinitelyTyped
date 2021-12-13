@@ -30,6 +30,13 @@ const customIntrospector = TokenIntrospection({
 
 customIntrospector(token).then(console.log);
 
+const fetchIntrospector = TokenIntrospection({
+    endpoint: 'https://example.com/introspect',
+    fetch,
+});
+
+fetchIntrospector(token).then(console.log);
+
 // Use local/remote introspection explicitly
 
 import LocalTokenIntrospection = require('token-introspection/local-introspection');

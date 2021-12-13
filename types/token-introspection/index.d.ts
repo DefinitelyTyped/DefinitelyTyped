@@ -9,7 +9,7 @@ import { JwtPayload } from 'jsonwebtoken';
 
 import customErrors = require('./errors');
 
-declare function fetch(url: string, options: RequestInit): Promise<Response>;
+type Fetch = (url: string, options: RequestInit) => Promise<Response>;
 
 declare function tokenIntrospect(opts?: tokenIntrospect.Options): tokenIntrospect.IntrospectionFunction;
 
@@ -76,7 +76,7 @@ declare namespace tokenIntrospect {
         /**
          * Defaults to [node-fetch](https://github.com/bitinn/node-fetch), but you can inject [zipkin-instrumentation-fetch](https://www.npmjs.com/package/zipkin-instrumentation-fetch).
          */
-        fetch?: typeof fetch;
+        fetch?: Fetch;
     }
 
     interface IntrospectResult extends JwtPayload {
