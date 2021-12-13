@@ -9590,8 +9590,8 @@ interface NativeModulesStatic {
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
  * See https://reactnative.dev/docs/native-modules-ios
- * Use:
- * <code>const MyModule = NativeModules.ModuleName</code>
+ * @example
+ * const MyModule = NativeModules.ModuleName
  */
 export const NativeModules: NativeModulesStatic;
 export const Platform:
@@ -9730,8 +9730,8 @@ declare global {
 
     /**
      * This variable is set to true when react-native is running in Dev mode
-     * Typical usage:
-     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     * @example
+     * if (__DEV__) console.log('Running in dev mode')
      */
     const __DEV__: boolean;
 
