@@ -1151,9 +1151,9 @@ function testContextMenusCreate() {
         type: 'normal',
         visible: true
     };
-    chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType void
-    chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType void
-    chrome.contextMenus.create({ ...creationOptions, contexts: 'page_action' }); // $ExpectType void
+    chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: 'page_action' }); // $ExpectType string | number
     chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] }); // $ExpectError
 }
 

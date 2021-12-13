@@ -1632,10 +1632,9 @@ declare namespace chrome.contextMenus {
     /**
      * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
      * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
-     * If you specify the callback parameter, it should be a function that looks like this:
-     * function() {...};
+     * @returns The ID of the newly created item.
      */
-    export function create(createProperties: CreateProperties, callback?: () => void): void;
+    export function create(createProperties: CreateProperties, callback?: () => void): number | string;
     /**
      * Updates a previously created context menu item.
      * @param id The ID of the item to update.
