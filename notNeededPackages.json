@@ -648,6 +648,10 @@
             "libraryName": "copy-text-to-clipboard",
             "asOfVersion": "2.0.1"
         },
+        "copy-webpack-plugin": {
+            "libraryName": "copy-webpack-plugin",
+            "asOfVersion": "10.1.0"
+        },
         "cordova-plugin-battery-status": {
             "libraryName": "cordova-plugin-battery-status",
             "asOfVersion": "1.2.3"
