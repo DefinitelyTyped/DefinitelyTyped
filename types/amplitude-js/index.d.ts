@@ -99,6 +99,7 @@ export class AmplitudeClient {
     isNewSession(): boolean;
     setSessionId(sessionId: number): void;
     getSessionId(): number;
+    resetSessionId(): void;
 
     setDomain(domain: string): void;
     setUserId(userId: string | null): void;

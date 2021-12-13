@@ -78,6 +78,7 @@ import amplitude = require('amplitude-js');
     client.setGlobalUserProperties({ gender: 'female', sign_up_complete: true });
     client.setVersionName('1.12.3');
     client.setSessionId(1505430378000);
+    client.resetSessionId();
     client.options.logLevel = 'WARN';
     client.getSessionId() === 123;
     client.isNewSession();
