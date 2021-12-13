@@ -26,41 +26,41 @@ declare namespace MongooseDelete {
     interface SoftDeleteModel<T extends Omit<mongoose.Document, 'delete'>, QueryHelpers = {}>
         extends mongoose.Model<T, QueryHelpers> {
         /** Count only deleted documents */
-        countDeleted: typeof mongoose.Model.count;
+        countDeleted: this["count"];
         /** Count all documents including deleted */
-        countWithDeleted: typeof mongoose.Model.count;
+        countWithDeleted: this["count"];
         /** Count only deleted documents */
-        countDocumentsDeleted: typeof mongoose.Model.countDocuments;
+        countDocumentsDeleted: this["countDocuments"];
         /** Count all documents including deleted */
-        countDocumentsWithDeleted: typeof mongoose.Model.countDocuments;
+        countDocumentsWithDeleted: this["countDocuments"];
         /** Find only deleted documents */
-        findDeleted: typeof mongoose.Model.find;
+        findDeleted: this["find"];
         /** Find all documents including deleted */
-        findWithDeleted: typeof mongoose.Model.find;
+        findWithDeleted: this["find"];
         /** Find One only deleted documents */
-        findOneDeleted: typeof mongoose.Model.findOne;
+        findOneDeleted: this["findOne"];
         /** Find One all documents including deleted */
-        findOneWithDeleted: typeof mongoose.Model.findOne;
+        findOneWithDeleted: this["findOne"];
         /** Find One And Update only deleted documents */
-        findOneAndUpdateDeleted: typeof mongoose.Model.findOneAndUpdate;
+        findOneAndUpdateDeleted: this["findOneAndUpdate"];
         /** Find One And Update all documents including deleted */
-        findOneAndUpdateWithDeleted: typeof mongoose.Model.findOneAndUpdate;
+        findOneAndUpdateWithDeleted: this["findOneAndUpdate"];
         /** Update only deleted documents */
-        updateDeleted: typeof mongoose.Model.update;
+        updateDeleted: this["update"];
         /** Update all documents including deleted */
-        updateWithDeleted: typeof mongoose.Model.update;
+        updateWithDeleted: this["update"];
         /** Update One only deleted documents */
-        updateOneDeleted: typeof mongoose.Model.updateOne;
+        updateOneDeleted: this["updateOne"];
         /** Update One all documents including deleted */
-        updateOneWithDeleted: typeof mongoose.Model.updateOne;
+        updateOneWithDeleted: this["updateOne"];
         /** Update Many only deleted documents */
-        updateManyDeleted: typeof mongoose.Model.updateMany;
+        updateManyDeleted: this["updateMany"];
         /** Update Many all documents including deleted */
-        updateManyWithDeleted: typeof mongoose.Model.updateMany;
+        updateManyWithDeleted: this["updateMany"];
         /** Aggregate only deleted documents */
-        aggregateDeleted: typeof mongoose.Model.aggregate;
+        aggregateDeleted: this["aggregate"];
         /** Aggregate all documents including deleted */
-        aggregateWithDeleted: typeof mongoose.Model.aggregate;
+        aggregateWithDeleted: this["aggregate"];
 
         /**
          * Delete documents by conditions
