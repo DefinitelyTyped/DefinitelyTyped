@@ -41,3 +41,21 @@ import RemoteTokenIntrospection = require('token-introspection/remote-introspect
 
 const remote = RemoteTokenIntrospection({ endpoint: 'https://example.com/introspect' });
 remote(token).then(console.log);
+
+// Check the errors
+
+import {
+    ConfigurationError,
+    IntrospectionError,
+    MalformedTokenError,
+    NotBeforeError,
+    TokenExpiredError,
+    TokenNotActiveError,
+} from 'token-introspection/errors';
+
+new ConfigurationError('dummy message');
+new IntrospectionError('dummy message');
+new MalformedTokenError('dummy message');
+new NotBeforeError('dummy message');
+new TokenExpiredError('dummy message');
+new TokenNotActiveError('dummy message');
