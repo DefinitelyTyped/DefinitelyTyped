@@ -83,5 +83,6 @@ declare namespace tokenIntrospect {
         active: true | 'true';
     }
 
+    /** @async */
     type IntrospectionFunction = (token: string, tokenTypeHint?: string) => Promise<IntrospectResult>;
 }
