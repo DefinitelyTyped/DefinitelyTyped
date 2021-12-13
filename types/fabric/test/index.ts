@@ -7,6 +7,10 @@ function sample1() {
 
   canvas.on('object:moving', (e: fabric.IEvent) => {
     e.target.opacity = 0.5;
+    e.currentTarget.sendBackwards();
+    e.currentSubTargets.forEach((subTarget) => {
+      subTarget.bringToFront();
+    });
   });
   canvas.on('object:modified', (e: fabric.IEvent) => {
     e.target.opacity = 1;
@@ -1064,4 +1068,17 @@ function sample16() {
   canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
   canvas.freeDrawingBrush.width = 2;
   canvas.isDrawingMode = true;
+}
+
+function sample17() {
+  const canvas = new fabric.Canvas('c');
+  canvas.toCanvasElement();
+  canvas.toCanvasElement(2);
+  canvas.toCanvasElement(2, { left: 10 });
+  canvas.toCanvasElement(2, {
+    left: 1,
+    top: 2,
+    width: 3,
+    height: 4,
+  });
 }

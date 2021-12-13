@@ -6,7 +6,7 @@ import { Locale } from '@ckeditor/ckeditor5-utils';
  *
  * It allows to render any DOM element and use it in mentions list.
  */
-export default class DomWrapperView<T extends HTMLElement> extends View {
+export default class DomWrapperView<T extends HTMLElement = HTMLElement> extends View {
     /**
      * Creates an instance of {@link module:mention/ui/domwrapperview~DomWrapperView} class.
      */
@@ -19,7 +19,7 @@ export default class DomWrapperView<T extends HTMLElement> extends View {
      * The DOM element for which wrapper was created.
      */
     readonly domElement: T;
-    element?: T | null;
+    element?: T;
     get isOn(): boolean;
     protected set isOn(value: boolean);
 }

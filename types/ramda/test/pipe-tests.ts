@@ -65,19 +65,19 @@ function shout(x: number): string {
     return n % 2 === 0;
   }
 
-  const a: R.Dictionary<number> = R.pipe(R.filter<number, 'object'>(isEven))({
+  const a: R.Dictionary<number> = R.pipe(R.filter(isEven))({
     a: 0,
     b: 1,
   }); // => { a: 0 }
 
-  const b: number[] = R.pipe(R.filter<number, 'array'>(isEven))([0, 1]); // => [0]
+  const b: number[] = R.pipe(R.filter(isEven))([0, 1]); // => [0]
 
-  const c: R.Dictionary<number> = R.pipe(R.reject<number, 'object'>(isEven))({
+  const c: R.Dictionary<number> = R.pipe(R.reject(isEven))({
     a: 0,
     b: 1,
   }); // => { b: 1 }
 
-  const d: number[] = R.pipe(R.reject<number, 'array'>(isEven))([0, 1]); // => [1]
+  const d: number[] = R.pipe(R.reject(isEven))([0, 1]); // => [1]
 };
 
 () => {
@@ -176,4 +176,102 @@ function shout(x: number): string {
     R.otherwise(useDefault),
     R.andThen(loadAlternative),
   );
+};
+() => {
+  // Expected at least 1 arguments, but got 0
+  // $ExpectError
+  const f0 = R.pipe();
+  // $ExpectType (x: number, y: number) => number
+  const f1 = R.pipe(Math.pow);
+  // $ExpectType (x: number, y: number) => number
+  const f2 = R.pipe(
+    Math.pow,
+    R.negate,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f3 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f4 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f5 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+    R.inc,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f6 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f7 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f8 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f9 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f10 = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+  );
+  const x1: number = f1(3, 4);
+  const x2: number = f2(3, 4);
+  const x3: number = f3(3, 4);
+  const x4: number = f4(3, 4);
+  const x5: number = f5(3, 4);
+  const x6: number = f1(3, 4);
+  const x7: number = f2(3, 4);
+  const x8: number = f3(3, 4);
+  const x9: number = f4(3, 4);
+  const x10: number = f5(3, 4);
 };

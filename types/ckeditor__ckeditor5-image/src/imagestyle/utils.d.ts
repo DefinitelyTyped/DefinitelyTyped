@@ -1,9 +1,15 @@
-import { ImageStyleOptionDefinition } from '../imagestyle';
+import PluginCollection from '@ckeditor/ckeditor5-core/src/plugincollection';
+import { ImageStyleConfig, ImageStyleOptionDefinition } from '../imagestyle';
+import { ImageStyleDropdownDefinition } from './imagestyleui';
 
-declare function isValidOption(
-    option: ImageStyleOptionDefinition,
-    plugins: { isInlinePluginLoaded: boolean; isBlockPluginLoaded: boolean },
-): boolean;
+/**
+ * Returns a list of the normalized and validated image style options.
+ */
+declare function normalizeStyles(config: {
+    isInlinePluginLoaded: boolean;
+    isBlockPluginLoaded: boolean;
+    configuredStyles: ImageStyleConfig;
+}): ImageStyleConfig;
 
 declare const DEFAULT_OPTIONS: {
     // This style represents an image placed in the line of text.
@@ -89,6 +95,43 @@ declare const DEFAULT_ICONS: {
     inline: string;
 };
 
+/*
+ * Returns the default image styles configuration depending on the loaded image editing plugins.
+ */
+declare function getDefaultStylesConfiguration(
+    isBlockPluginLoaded: boolean,
+    isInlinePluginLoaded: boolean,
+):
+    | {
+          options: [
+              'inline',
+              'alignLeft',
+              'alignRight',
+              'alignCenter',
+              'alignBlockLeft',
+              'alignBlockRight',
+              'block',
+              'side',
+          ];
+      }
+    | {
+          options: ['block', 'side'];
+      }
+    | {
+          options: ['inline', 'alignLeft', 'alignRight'];
+      }
+    | {};
+
+// Displays a console warning with the 'image-style-configuration-definition-invalid' error.
+declare function warnInvalidStyle(info: ImageStyleOptionDefinition | ImageStyleDropdownDefinition): void;
+
+/**
+ * Returns a list of the available predefined drop-downs' definitions depending on the loaded image editing plugins.
+ */
+declare function getDefaultDropdownDefinitions(
+    pluginCollection: PluginCollection,
+): typeof DEFAULT_DROPDOWN_DEFINITIONS | [];
+
 declare const DEFAULT_DROPDOWN_DEFINITIONS: [
     {
         name: 'imageStyle:wrapText';
@@ -105,7 +148,10 @@ declare const DEFAULT_DROPDOWN_DEFINITIONS: [
 ];
 
 declare const _default: {
-    isValidOption: typeof isValidOption;
+    normalizeStyles: typeof normalizeStyles;
+    getDefaultStylesConfiguration: typeof getDefaultStylesConfiguration;
+    getDefaultDropdownDefinitions: typeof getDefaultDropdownDefinitions;
+    warnInvalidStyle: typeof warnInvalidStyle;
     DEFAULT_OPTIONS: typeof DEFAULT_OPTIONS;
     DEFAULT_ICONS: typeof DEFAULT_ICONS;
     DEFAULT_DROPDOWN_DEFINITIONS: typeof DEFAULT_DROPDOWN_DEFINITIONS;

@@ -77,7 +77,7 @@ export interface JsdocOptions {
      * By default results are cached to speed up repeat invocations.
      * Set to true to disable this.
      */
-    noCache?: boolean | undefined;
+    'no-cache'?: boolean | undefined;
     /**
      * One or more filenames to process.
      * Accepts globs (e.g. *.js). Either files, source or data must be supplied.

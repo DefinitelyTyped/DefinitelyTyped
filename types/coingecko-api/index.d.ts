@@ -1,6 +1,7 @@
 // Type definitions for coingecko-api 1.0
 // Project: https://github.com/miscavage/CoinGecko-API#readme
-// Definitions by: Jan Klimo <https://github.com/janklimo>, Artem Ilinykh <https://github.com/singlesly>
+// Definitions by: Jan Klimo <https://github.com/janklimo>
+//                 Artem Ilinykh <https://github.com/singlesly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Locale =
@@ -313,7 +314,89 @@ interface CoinsFetchData {
     };
     public_interest_stats: { alexa_rank: number; bing_matches: null };
     last_updated: string;
+    tickers: CoinsFetchDataTicker[];
+}
+
+type TrustScore = 'green' | 'yellow' | 'red';
+
+interface CoinsFetchDataTicker {
+    base: string;
+    target: string;
+    market: {
+        name: string;
+        identifier: string;
+        has_trading_incentive: boolean
+    };
+    last: number;
+    volume: number;
+    converted_last: {
+        btc: number;
+        eth: number;
+        usd: number;
+    };
+    converted_volume: {
+        btc: number;
+        eth: number;
+        usd: number;
+    };
+    trust_score: TrustScore;
+    bid_ask_spread_percentage: number;
+    timestamp: Date;
+    last_traded_at: Date;
+    last_fetch_at: Date;
+    is_anomaly: boolean;
+    is_stale: boolean;
+    trade_url: string | null;
+    token_info_url: string | null;
+    coin_id: string;
+    target_coin_id: string;
+}
+
+/**
+ * Exchanges
+ */
+interface ExchangesAllParams {
+    /**
+     * Total results per page
+     * [default: 100]
+     */
+    // tslint:disable-next-line no-redundant-undefined
+    per_page?: number | undefined;
+    /**
+     * Page through results
+     */
+    // tslint:disable-next-line no-redundant-undefined
+    page?: number | undefined;
+}
+
+interface Exchange {
+    id: string;
+    name: string;
+    year_established: number;
+    country: string;
+    description: string;
+    url: string;
+    image: string;
+    has_trading_incentive: boolean;
+    trust_score: number;
+    trust_score_rank: number;
+    trade_volume_24h_btc: number;
+    trade_volume_24h_btc_normalized: number;
+}
+
+interface ExchangesFetchData extends Exchange {
+    facebook_url: string;
+    reddit_url: string;
+    telegram_url: string;
+    slack_url: string;
+    other_url_1: string;
+    other_url_2: string;
+    twitter_handle: string;
+    centralized: boolean;
+    public_notice: string;
+    alert_notice: string;
     tickers: [];
+    status_updates: [];
 }
 
 /**
@@ -375,14 +458,14 @@ declare class CoinGecko {
 
         /**
          * Get historical data (name, price, market, stats) at a given date for a coin
-         * @param coinId - (Required) The coin id (can be obtained from coins.list()) eg. bitcoin
+         * @param coinId - (Required) The coin id (can be obtained from coins.all()) eg. bitcoin
          * @param params - Parameters to pass through to the request
          */
         fetchHistory(coinId: string, params: CoinsFetchHistoryParams): Promise<Response<CoinsFetchHistoryData>>;
 
         /**
          * Get current data (name, price, market, … including exchange tickers) for a coin.
-         * @param coinId - (Required) The coin id (can be obtained from coins.list()) eg. bitcoin
+         * @param coinId - (Required) The coin id (can be obtained from coins.all()) eg. bitcoin
          * @param params - Parameters to pass through to the request
          */
         fetch(coinId: string, params: CoinsFetchParams): Promise<Response<CoinsFetchData>>;
@@ -394,6 +477,20 @@ declare class CoinGecko {
          * @param params - Parameters to pass through to the request
          */
         price(params: SimplePriceParams): Promise<Response>;
+    };
+
+    exchanges: {
+        /**
+         * List all exchanges
+         * @param params - Parameters to pass through to the request
+         */
+        all(params?: ExchangesAllParams): Promise<Response<Exchange[]>>;
+
+        /**
+         * Get exchange volume in BTC and tickers
+         * @param exchangeId - (Required) The exchange id (can be obtained from exchanges.all()) eg. ripio
+         */
+        fetch(exchangeId: string): Promise<Response<ExchangesFetchData>>;
     };
 }
 

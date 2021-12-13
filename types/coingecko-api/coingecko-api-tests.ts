@@ -27,6 +27,18 @@ const client = new CoinGecko();
         tickers: false,
     });
 
+    (await client.coins.fetch("bitcoin", {
+        tickers: true
+    })).data.tickers.map(e => e.converted_volume)[0].btc;
+
+    /**
+     * exchanges
+     */
+
+    await client.exchanges.all();
+
+    await client.exchanges.fetch('mercado_bitcoin');
+
     /**
      * simple
      */

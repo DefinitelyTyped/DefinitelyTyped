@@ -31,6 +31,7 @@ export class ImapFlow extends EventEmitter {
 
     connect(): Promise<void>;
     logout(): Promise<void>;
+    close(): void;
     download(
         range: SequenceString,
         part?: string,

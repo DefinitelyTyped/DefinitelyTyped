@@ -69,6 +69,11 @@ declare namespace PouchDB {
              * 'update_after': Returns results immediately, but kicks off a build afterwards.
              */
             stale?: 'ok' | 'update_after' | undefined;
+            /**
+             * Include an update_seq value indicating which sequence id
+             * of the underlying database the view reflects.
+             */
+            update_seq?: boolean | undefined;
         }
 
         interface Response<Content extends {}> {

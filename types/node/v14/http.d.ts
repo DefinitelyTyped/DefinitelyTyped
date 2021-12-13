@@ -485,3 +485,6 @@ declare module 'http' {
      */
     const maxHeaderSize: number;
 }
+declare module 'node:http' {
+    export * from 'http';
+}

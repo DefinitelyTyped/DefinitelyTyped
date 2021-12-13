@@ -11,6 +11,8 @@ declare namespace jsts {
     namespace algorithm {
         import Point = jsts.geom.Point;
         import Coordinate = jsts.geom.Coordinate;
+        import Geometry = jsts.geom.Geometry;
+        import GeometryFactory = jsts.geom.GeometryFactory;
 
         export class Orientation {
             static CLOCKWISE: number;
@@ -26,38 +28,136 @@ declare namespace jsts {
         }
 
         export class BoundaryNodeRule {}
+
+        /**
+         * Computes the convex hull of a Geometry.
+         * The convex hull is the smallest convex Geometry that contains
+         * all the points in the input Geometry.
+         * Uses the Graham Scan algorithm.
+         */
+        export class ConvexHull {
+            /**
+             * Create a new convex hull construction for the input Coordinate array.
+             */
+            constructor(pts: Coordinate[], geomFactory: GeometryFactory);
+            /**
+             * Create a new convex hull construction for the input Geometry.
+             */
+            constructor(geometry: Geometry);
+
+            /**
+             * Returns a Geometry that represents the convex hull of the input geometry.
+             * The returned geometry contains the minimal number of points needed
+             * to represent the convex hull. In particular,
+             * no more than two consecutive points will be collinear.
+             *
+             * @returns if the convex hull contains 3 or more points, a Polygon;
+             * 2 points, a LineString; 1 point, a Point; 0 points, an empty GeometryCollection.
+             */
+            getConvexHull(): Geometry;
+        }
+
+        /**
+         * Computes a point in the interior of an areal geometry.
+         * The point will lie in the geometry interior in all except certain pathological cases.
+         *
+         * KNOWN BUGS
+         * If a fixed precision model is used, in some cases this method
+         * may return a point which does not lie in the interior.
+         * If the input polygon is extremely narrow the computed point
+         * may not lie in the interior of the polygon.
+         */
+        export class InteriorPointArea {
+            /**
+             * Creates a new interior point finder for an areal geometry.
+             */
+            constructor(g: Geometry);
+
+            /**
+             * Computes an interior point for the polygonal components of a Geometry.
+             *
+             * @param geom the geometry to compute
+             * @returns the computed interior point, or null if the geometry has no polygonal components
+             */
+            static getInteriorPoint(geom: Geometry): Coordinate | null;
+
+            /**
+             * Gets the computed interior point.
+             *
+             * @returns the coordinate of an interior point or null if the input geometry is empty
+             */
+            getInteriorPoint(): Coordinate | null;
+        }
+    }
+
+    namespace densify {
+        import Geometry = jsts.geom.Geometry;
+        /**
+         * Densifies a Geometry by inserting extra vertices along the line segments
+         * contained in the geometry. All segments in the created densified geometry
+         * will be no longer than than the given distance tolerance.
+         * Densified polygonal geometries are guaranteed to be topologically correct.
+         * The coordinates created during densification respect the input geometry's PrecisionModel.
+         */
+        export class Densifier {
+            /**
+             * Creates a new densifier instance.
+             */
+            constructor(inputGeom: Geometry);
+
+            /**
+             * Densifies a geometry using a given distance tolerance,
+             * and respecting the input geometry's PrecisionModel.
+             *
+             * @param geom the geometry to densify
+             * @param {double} distanceTolerance the distance tolerance to densify
+             *
+             * @returns the densified geometry
+             */
+            static densify(geom: Geometry, distanceTolerance: number): Geometry;
+
+            /**
+             * Sets the distance tolerance for the densification.
+             * All line segments in the densified geometry will be no longer than
+             * the distance tolerance. simplified geometry will be within this distance
+             * of the original geometry. The distance tolerance must be positive.
+             *
+             * @param {double} distanceTolerance the densification tolerance to use
+             */
+            setDistanceTolerance(distanceTolerance: number): void;
+
+            /**
+             * Gets the densified geometry.
+             */
+            getResultGeometry(): Geometry;
+        }
     }
 
     namespace geom {
-
-
-
         /**
          * Specifies the precision model of the Coordinates in a Geometry. In other words, specifies the grid of allowable points for all Geometrys.
          * The makePrecise method allows rounding a coordinate to a "precise" value; that is, one whose precision is known exactly.
          *
          * Coordinates are assumed to be precise in geometries. That is, the coordinates are assumed to be rounded to the precision model given for the geometry. JTS input routines automatically round coordinates to the precision model before creating Geometries. All internal operations assume that coordinates are rounded to the precision model. Constructive methods (such as boolean operations) always round computed coordinates to the appropriate precision model.
-         * 
+         *
          * Currently one type of precision model are supported:
          *
          * FLOATING - represents full double precision floating point.
          * Coordinates are represented internally as Java double-precision values. Since Java uses the IEEE-754 floating point standard, this provides 53 bits of precision.
-         * 
+         *
          * JSTS methods currently do not handle inputs with different precision models.
          *
          */
         export class PrecisionModel {
-
-
             static FIXED: string;
             static FLOATING: string;
             static FLOATING_SINGLE: string;
 
             /**
-             * 
+             *
              * @param modelType
              */
-            constructor(modelType?: number|string);
+            constructor(modelType?: number | string);
         }
 
         /**
@@ -71,12 +171,10 @@ declare namespace jsts {
          * It is assumed that input Coordinates meet the given precision.
          */
         export class GeometryFactory {
-
             /**
              * Constructs a GeometryFactory that generates Geometries having a floating PrecisionModel and a spatial-reference ID of 0.
              */
             constructor(precisionModel?: PrecisionModel);
-
 
             /**
              * Creates a LineString using the given Coordinates; a null or empty array will
@@ -98,27 +196,25 @@ declare namespace jsts {
              */
             createPoint(coordinates: Coordinate): Point;
             /**
-            * Creates a LinearRing using the given Coordinates; a null or empty array
-            * will create an empty LinearRing. Consecutive points must not be equal.
-            *
-            * @param {Coordinate[]}
-            *          coordinates an array without null elements, or an empty array,
-            * or null.
-            * @return {LineString} A new LinearRing.
-            */
+             * Creates a LinearRing using the given Coordinates; a null or empty array
+             * will create an empty LinearRing. Consecutive points must not be equal.
+             *
+             * @param {Coordinate[]}
+             *          coordinates an array without null elements, or an empty array,
+             * or null.
+             * @return {LineString} A new LinearRing.
+             */
             createLinearRing(coordinates: Array<Coordinate>): LinearRing;
             /**
-            * Creates a Polygon using the given LinearRing.
-            *
-            * @param {LinearRing} A LinearRing constructed by coordinates.
-            * @return {Polygon} A new Polygon.
-            */
-            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;            
-
+             * Creates a Polygon using the given LinearRing.
+             *
+             * @param {LinearRing} A LinearRing constructed by coordinates.
+             * @return {Polygon} A new Polygon.
+             */
+            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;
         }
 
         export class GeometryCollection extends jsts.geom.Geometry {
-
             constructor(geometries?: Array<Geometry>, factory?: GeometryFactory);
         }
 
@@ -639,8 +735,8 @@ declare namespace jsts {
             constructor(factory?: any);
 
             /**
-            * The bounding box of this <code>Geometry</code>.
-            */
+             * The bounding box of this <code>Geometry</code>.
+             */
             envelope: Envelope;
 
             /**
@@ -1601,15 +1697,9 @@ declare namespace jsts {
         }
 
         export class IntersectionMatrix {
-            static matches(
-                actualDimensionValue: number,
-                requiredDimensionSymbol: string
-            ): boolean;
+            static matches(actualDimensionValue: number, requiredDimensionSymbol: string): boolean;
 
-            static matches(
-                actualDimensionSymbols: string,
-                requiredDimensionSymbols: string
-            ): boolean;
+            static matches(actualDimensionSymbols: string, requiredDimensionSymbols: string): boolean;
 
             static isTrue(actualDimensionValue: number): boolean;
 
@@ -1629,28 +1719,15 @@ declare namespace jsts {
 
             setAtLeast(row: number, col: number, dimensionValue: number): void;
 
-            setAtLeastIfValid(
-                row: number,
-                col: number,
-                minimumDimensionValue: number
-            ): void;
+            setAtLeastIfValid(row: number, col: number, minimumDimensionValue: number): void;
 
             isWithin(): boolean;
 
-            isTouches(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isTouches(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
-            isOverlaps(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isOverlaps(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
-            isEquals(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isEquals(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
             toString(): string;
 
@@ -1661,27 +1738,14 @@ declare namespace jsts {
             transpose(): IntersectionMatrix;
 
             matches(
-                requiredDimensionSymbols: [
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string
-                ]
+                requiredDimensionSymbols: [string, string, string, string, string, string, string, string, string],
             ): boolean;
 
             add(im: IntersectionMatrix): void;
 
             isDisjoint(): boolean;
 
-            isCrosses(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isCrosses(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
             constructor(elements?: string[]);
 
@@ -1698,8 +1762,7 @@ declare namespace jsts {
          * must be equal (in 2D). If these conditions are not met, the constructors
          * throw an {@link IllegalArgumentException}
          */
-        export class LinearRing extends LineString {
-        }
+        export class LinearRing extends LineString {}
 
         export class LineString extends Geometry {
             /**
@@ -1813,51 +1876,21 @@ declare namespace jsts {
             export class AffineTransformation {
                 static translationInstance(x: number, y: number): AffineTransformation;
 
-                static shearInstance(
-                    xShear: number,
-                    yShear: number
-                ): AffineTransformation;
+                static shearInstance(xShear: number, yShear: number): AffineTransformation;
 
-                static reflectionInstance(
-                    x0: number,
-                    y0: number,
-                    x1?: number,
-                    y1?: number
-                ): AffineTransformation;
+                static reflectionInstance(x0: number, y0: number, x1?: number, y1?: number): AffineTransformation;
 
                 static rotationInstance(theta: number): AffineTransformation;
 
-                static rotationInstance(
-                    sinTheta: number,
-                    cosTheta: number
-                ): AffineTransformation;
+                static rotationInstance(sinTheta: number, cosTheta: number): AffineTransformation;
 
-                static rotationInstance(
-                    theta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                static rotationInstance(theta: number, x: number, y: number): AffineTransformation;
 
-                static rotationInstance(
-                    sinTheta: number,
-                    cosTheta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                static rotationInstance(sinTheta: number, cosTheta: number, x: number, y: number): AffineTransformation;
 
-                static scaleInstance(
-                    xScale: number,
-                    yScale: number,
-                    x?: number,
-                    y?: number
-                ): AffineTransformation;
+                static scaleInstance(xScale: number, yScale: number, x?: number, y?: number): AffineTransformation;
 
-                setToReflectionBasic(
-                    x0: number,
-                    y0: number,
-                    x1: number,
-                    y1: number
-                ): AffineTransformation;
+                setToReflectionBasic(x0: number, y0: number, x1: number, y1: number): AffineTransformation;
 
                 getInverse(): AffineTransformation;
 
@@ -1883,25 +1916,16 @@ declare namespace jsts {
                     m02: number,
                     m10: number,
                     m11: number,
-                    m12: number
+                    m12: number,
                 ): AffineTransformation;
 
                 setToRotation(theta: number): AffineTransformation;
 
                 setToRotation(sinTheta: number, cosTheta: number): AffineTransformation;
 
-                setToRotation(
-                    theta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                setToRotation(theta: number, x: number, y: number): AffineTransformation;
 
-                setToRotation(
-                    sinTheta: number,
-                    cosTheta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                setToRotation(sinTheta: number, cosTheta: number, x: number, y: number): AffineTransformation;
 
                 getMatrixEntries(): [number, number, number, number, number, number];
 
@@ -1913,12 +1937,7 @@ declare namespace jsts {
 
                 rotate(theta: number, x: number, y: number): AffineTransformation;
 
-                rotate(
-                    sinTheta: number,
-                    cosTheta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                rotate(sinTheta: number, cosTheta: number, x: number, y: number): AffineTransformation;
 
                 getDeterminant(): number;
 
@@ -1934,12 +1953,7 @@ declare namespace jsts {
 
                 setToReflection(x: number, y: number): AffineTransformation;
 
-                setToReflection(
-                    x0: number,
-                    y0: number,
-                    x1: number,
-                    y1: number
-                ): AffineTransformation;
+                setToReflection(x0: number, y0: number, x1: number, y1: number): AffineTransformation;
 
                 toString(): string;
 
@@ -1953,23 +1967,11 @@ declare namespace jsts {
 
                 transform(seq: CoordinateSequence, i: number): void;
 
-                reflect(
-                    x0: number,
-                    y0: number,
-                    x1?: number,
-                    y1?: number
-                ): AffineTransformation;
+                reflect(x0: number, y0: number, x1?: number, y1?: number): AffineTransformation;
 
                 constructor(trans?: AffineTransformation);
 
-                constructor(
-                    m00: number,
-                    m01: number,
-                    m02: number,
-                    m10: number,
-                    m11: number,
-                    m12: number
-                );
+                constructor(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number);
 
                 constructor(
                     src0: Coordinate,
@@ -1977,7 +1979,7 @@ declare namespace jsts {
                     src2: Coordinate,
                     dest0: Coordinate,
                     dest1: Coordinate,
-                    dest2: Coordinate
+                    dest2: Coordinate,
                 );
             }
         }
@@ -2139,10 +2141,7 @@ declare namespace jsts {
              *    (positive is to the left, negative is to the right)
              * @return {jsts.geom.Coordinate} the point at that distance and offset
              */
-            pointAlongOffset(
-                segmentLengthFraction: number,
-                offsetDistance: number
-            ): Coordinate;
+            pointAlongOffset(segmentLengthFraction: number, offsetDistance: number): Coordinate;
 
             /**
              * Computes the Projection Factor for the projection of the point p onto this
@@ -2313,8 +2312,6 @@ declare namespace jsts {
     }
 
     namespace io {
-
-
         /**
          * OpenLayers 3 Geometry parser and writer
          */
@@ -2410,7 +2407,7 @@ declare namespace jsts {
              * @return {string} a <Geometry Tagged Text> string (see the OpenGIS Simple
              *         Features Specification).
              */
-             write(geometry: geom.Geometry): string;
+            write(geometry: geom.Geometry): string;
         }
     }
 
@@ -2426,11 +2423,7 @@ declare namespace jsts {
 
             constructor(g0: Geometry, g1?: Geometry);
 
-            constructor(
-                g0: Geometry,
-                g1: Geometry,
-                boundaryNodeRule: BoundaryNodeRule
-            );
+            constructor(g0: Geometry, g1: Geometry, boundaryNodeRule: BoundaryNodeRule);
         }
 
         namespace relate {
@@ -2446,11 +2439,7 @@ declare namespace jsts {
 
                 static equalsTopo(g1: Geometry, g2: Geometry): boolean;
 
-                static relate(
-                    g1: Geometry,
-                    g2: Geometry,
-                    boundaryNodeRule?: BoundaryNodeRule
-                ): IntersectionMatrix;
+                static relate(g1: Geometry, g2: Geometry, boundaryNodeRule?: BoundaryNodeRule): IntersectionMatrix;
 
                 static overlaps(g1: Geometry, g2: Geometry): boolean;
 
@@ -2460,14 +2449,10 @@ declare namespace jsts {
 
                 getIntersectionMatrix(): IntersectionMatrix;
 
-                constructor(
-                    g1: Geometry,
-                    g2: Geometry,
-                    boundaryNodeRule?: BoundaryNodeRule
-                );
+                constructor(g1: Geometry, g2: Geometry, boundaryNodeRule?: BoundaryNodeRule);
             }
         }
-          
+
         namespace buffer {
             import Geometry = jsts.geom.Geometry;
             import PrecisionModel = jsts.geom.PrecisionModel;
@@ -2528,12 +2513,7 @@ declare namespace jsts {
                  *
                  * @constructor
                  */
-                constructor(
-                    quadrantSegments?: number,
-                    endCapStyle?: number,
-                    joinStyle?: number,
-                    mitreLimit?: number
-                );
+                constructor(quadrantSegments?: number, endCapStyle?: number, joinStyle?: number, mitreLimit?: number);
 
                 /**
                  * Gets the number of quadrant segments which will be used
@@ -2743,11 +2723,7 @@ declare namespace jsts {
                  *
                  * @return {double} a scale factor for the buffer computation.
                  */
-                static precisionScaleFactor(
-                    g: Geometry,
-                    distance: number,
-                    maxPrecisionDigits: number
-                ): number;
+                static precisionScaleFactor(g: Geometry, distance: number, maxPrecisionDigits: number): number;
 
                 /**
                  * Computes the buffer of a geometry for a given buffer distance.
@@ -2773,11 +2749,7 @@ declare namespace jsts {
                  * @return {Geometry} the buffer of the input geometry.
                  *
                  */
-                static bufferOp2(
-                    g: Geometry,
-                    distance: number,
-                    params: BufferParameters
-                ): Geometry;
+                static bufferOp2(g: Geometry, distance: number, params: BufferParameters): Geometry;
 
                 /**
                  * Computes the buffer for a geometry for a given buffer distance and accuracy
@@ -2793,11 +2765,7 @@ declare namespace jsts {
                  * @return {Geometry} the buffer of the input geometry.
                  *
                  */
-                static bufferOp3(
-                    g: Geometry,
-                    distance: number,
-                    quadrantSegments: number
-                ): Geometry;
+                static bufferOp3(g: Geometry, distance: number, quadrantSegments: number): Geometry;
 
                 /**
                  * Computes the buffer for a geometry for a given buffer distance and accuracy
@@ -2819,7 +2787,7 @@ declare namespace jsts {
                     g: Geometry,
                     distance: number,
                     quadrantSegments: number,
-                    endCapStyle: number
+                    endCapStyle: number,
                 ): Geometry;
 
                 /**
@@ -2862,9 +2830,221 @@ declare namespace jsts {
                 bufferFixedPrecision(fixedPM: PrecisionModel): void;
             }
         }
+
+        namespace distance {
+            import Coordinate = jsts.geom.Coordinate;
+            import Geometry = jsts.geom.Geometry;
+
+            /**
+             * Find two points on two Geometrys which lie within a given distance,
+             * or else are the nearest points on the geometries
+             * (in which case this also provides the distance between the geometries).
+             *
+             * The distance computation also finds a pair of points in the input geometries
+             * which have the minimum distance between them.
+             * If a point lies in the interior of a line segment,
+             * the coordinate computed is a close approximation to the exact point.
+             *
+             * Empty geometry collection components are ignored.
+             *
+             * The algorithms used are straightforward O(n^2) comparisons.
+             * This worst-case performance could be improved on by using Voronoi techniques or spatial indexes.
+             */
+            export class DistanceOp {
+                /**
+                 * Constructs a DistanceOp that computes the distance and nearest points
+                 * between the two specified geometries.
+                 */
+                constructor(g0: Geometry, g1: Geometry);
+                /**
+                 * Constructs a DistanceOp that computes the distance and nearest points
+                 * between the two specified geometries.
+                 *
+                 * @param {double} terminateDistance the distance on which to terminate the search
+                 */
+                constructor(g0: Geometry, g1: Geometry, terminateDistance: number);
+
+                /**
+                 * Compute the distance between the nearest points of two geometries.
+                 *
+                 * @returns {double} the distance between the geometries
+                 */
+                static distance(g0: Geometry, g1: Geometry): number;
+
+                /**
+                 * Test whether two geometries lie within a given distance of each other.
+                 *
+                 * @param {double} distance
+                 *
+                 * @returns true if g0.distance(g1) <= distance
+                 */
+                static isWithinDistance(g0: Geometry, g1: Geometry, distance: number): boolean;
+
+                /**
+                 * Compute the the nearest points of two geometries.
+                 * The points are presented in the same order as the input Geometries.
+                 *
+                 * @returns the nearest points in the geometries
+                 */
+                static nearestPoints(g0: Geometry, g1: Geometry): [Coordinate, Coordinate];
+
+                /**
+                 * Report the distance between the nearest points on the input geometries.
+                 *
+                 * @returns {double} the distance between the geometries or 0 if either input geometry is empty
+                 *
+                 * @throws {IllegalArgumentException} if either input geometry is null
+                 */
+                distance(): number;
+
+                /**
+                 * Report the coordinates of the nearest points in the input geometries.
+                 * The points are presented in the same order as the input Geometries.
+                 *
+                 * @returns a pair of Coordinates of the nearest points
+                 */
+                nearestPoints(): [Coordinate, Coordinate];
+
+                /**
+                 * Report the locations of the nearest points in the input geometries.
+                 * The locations are presented in the same order as the input Geometries.
+                 *
+                 * @returns a pair of GeometryLocations for the nearest points
+                 */
+                nearestLocations(): [GeometryLocation, GeometryLocation];
+            }
+
+            /**
+             * Represents the location of a point on a Geometry.
+             * Maintains both the actual point location
+             * (which may not be exact, if the point is not a vertex)
+             * as well as information about the component and segment index where the point occurs.
+             * Locations inside area Geometrys will not have an associated segment index,
+             * so in this case the segment index will have the sentinel value of INSIDE_AREA.
+             */
+            export class GeometryLocation {
+                /**
+                 * A special value of segmentIndex used for locations inside area geometries.
+                 *
+                 * @type {int}
+                 */
+                static INSIDE_AREA: number;
+
+                /**
+                 * Constructs a GeometryLocation specifying a point on a geometry,
+                 * as well as the segment that the point is on
+                 * (or INSIDE_AREA if the point is not on a segment).
+                 *
+                 * @param component the component of the geometry containing the point
+                 * @param {int} segIndex the segment index of the location, or INSIDE_AREA
+                 * @param pt the coordinate of the location
+                 */
+                constructor(component: Geometry, segIndex: number, pt: Coordinate);
+                /**
+                 * Constructs a GeometryLocation specifying a point inside an area geometry.
+                 *
+                 * @param component the component of the geometry containing the point
+                 * @param pt the coordinate of the location
+                 */
+                constructor(component: Geometry, pt: Coordinate);
+
+                /**
+                 * Returns the geometry component on (or in) which this location occurs.
+                 */
+                getGeometryComponent(): Geometry;
+
+                /**
+                 * Returns the segment index for this location.
+                 * If the location is inside an area, the index will have the value INSIDE_AREA;
+                 *
+                 * @returns {int} the segment index for the location, or INSIDE_AREA
+                 */
+                getSegmentIndex(): number;
+
+                /**
+                 * Returns the Coordinate of this location.
+                 */
+                getCoordinate(): Coordinate;
+
+                /**
+                 * Tests whether this location represents a point inside an area geometry.
+                 */
+                isInsideArea(): boolean;
+
+                toString(): string;
+            }
+        }
+    }
+
+    namespace precision {
+        import Geometry = jsts.geom.Geometry;
+        import PrecisionModel = jsts.geom.PrecisionModel;
+
+        /**
+         * Reduces the precision of a Geometry according to the supplied PrecisionModel,
+         * ensuring that the result is topologically valid.
+         */
+        export class GeometryPrecisionReducer {
+            constructor(precisionModel: PrecisionModel);
+
+            reduce(geom: Geometry): Geometry;
+
+            /**
+             * Convenience method for doing precision reduction on a single geometry,
+             * with collapses removed and keeping the geometry precision model the same,
+             * and preserving polygonal topology.
+             *
+             * @param g the geometry to reduce
+             * @param precModel the precision model to use
+             *
+             * @returns the reduced geometry
+             */
+            static reduce(g: Geometry, precModel: PrecisionModel): Geometry;
+
+            /**
+             * Convenience method for doing pointwise precision reduction on a single geometry,
+             * with collapses removed and keeping the geometry precision model the same,
+             * but NOT preserving valid polygonal topology.
+             *
+             * @param g the geometry to reduce
+             * @param precModel the precision model to use
+             *
+             * @returns the reduced geometry
+             */
+            static reducePointwise(g: Geometry, precModel: PrecisionModel): Geometry;
+
+            /**
+             * Sets whether the PrecisionModel of the new reduced Geometry will be changed
+             * to be the PrecisionModel supplied to specify the precision reduction.
+             * The default is to NOT change the precision model
+             *
+             * @param changePrecisionModel if true the precision model of the created Geometry
+             * will be the the precisionModel supplied in the constructor.
+             */
+            setChangePrecisionModel(changePrecisionModel: boolean): void;
+
+            /**
+             * Sets whether the precision reduction will be done in pointwise fashion only.
+             * Pointwise precision reduction reduces the precision of the individual coordinates only,
+             * but does not attempt to recreate valid topology.
+             * This is only relevant for geometries containing polygonal components.
+             *
+             * @param isPointwise if reduction should be done pointwise only
+             */
+            setPointwise(isPointwise: boolean): void;
+
+            /**
+             * Sets whether the reduction will result in collapsed components being removed completely,
+             * or simply being collapsed to an (invalid) Geometry of the same type.
+             * The default is to remove collapsed components.
+             *
+             * @param removeCollapsed if true collapsed components will be removed
+             */
+            setRemoveCollapsedComponents(removeCollapsed: boolean): void;
+        }
     }
 }
 
-declare module "jsts" {
+declare module 'jsts' {
     export = jsts;
 }

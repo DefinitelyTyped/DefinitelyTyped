@@ -10,7 +10,6 @@
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
-//                 Danilo Fuchs <https://github.com/danilofuchs>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -51,14 +50,14 @@ export type IntrinsicElementsKeys = keyof JSX.IntrinsicElements;
 type Defaultize<P, D> = P extends any
     ? string extends keyof P
         ? P
-        : Pick<P, Exclude<keyof P, keyof D>> &
-              Partial<Pick<P, Extract<keyof P, keyof D>>> &
-              Partial<Pick<D, Exclude<keyof D, keyof P>>>
+        : PickU<P, Exclude<keyof P, keyof D>> &
+              Partial<PickU<P, Extract<keyof P, keyof D>>> &
+              Partial<PickU<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
 
-type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends object, A extends keyof any> = Omit<
+type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends object, A extends keyof any> = OmitU<
     ReactDefaultizedProps<
         C,
         React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>
@@ -67,7 +66,7 @@ type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends ob
     A
 > &
     Partial<
-        Pick<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>
+        PickU<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>
     >;
 
 export type StyledComponentProps<
@@ -131,11 +130,11 @@ export interface GlobalStyleComponent<P, T> extends React.ComponentClass<ThemedG
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
 type StyledComponentInterpolation =
-    | Pick<StyledComponentBase<any, any, any, any>, keyof StyledComponentBase<any, any>>
-    | Pick<StyledComponentBase<any, any, any>, keyof StyledComponentBase<any, any>>;
+    | PickU<StyledComponentBase<any, any, any, any>, keyof StyledComponentBase<any, any>>
+    | PickU<StyledComponentBase<any, any, any>, keyof StyledComponentBase<any, any>>;
 
 // abuse Pick to strip the call signature from ForwardRefExoticComponent
-type ForwardRefExoticBase<P> = Pick<React.ForwardRefExoticComponent<P>, keyof React.ForwardRefExoticComponent<any>>;
+type ForwardRefExoticBase<P> = PickU<React.ForwardRefExoticComponent<P>, keyof React.ForwardRefExoticComponent<any>>;
 
 // Config to be used with withConfig
 export interface StyledConfig<O extends object = {}> {
@@ -304,8 +303,10 @@ export interface BaseThemedCssFunction<T extends object> {
 export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<AnyIfEmpty<T>>;
 
 // Helper type operators
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type WithOptionalTheme<P extends { theme?: T | undefined }, T> = Omit<P, 'theme'> & {
+// Pick that distributes over union types
+export type PickU<T, K extends keyof T> = T extends any ? {[P in K]: T[P]} : never;
+export type OmitU<T, K extends keyof T> = T extends any ? PickU<T, Exclude<keyof T, K>> : never;
+type WithOptionalTheme<P extends { theme?: T | undefined }, T> = OmitU<P, 'theme'> & {
     theme?: T | undefined;
 };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
@@ -412,6 +413,7 @@ export type StylisPlugin = (
 ) => string | void;
 
 export interface StyleSheetManagerProps {
+    children?: React.ReactNode;
     disableCSSOMInjection?: boolean | undefined;
     disableVendorPrefixes?: boolean | undefined;
     stylisPlugins?: StylisPlugin[] | undefined;

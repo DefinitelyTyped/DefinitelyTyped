@@ -2,34 +2,51 @@
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
 
-import { Schema, model, PaginateModel, PaginateOptions, PaginateResult, Document } from 'mongoose';
+import { Schema, model, PaginateModel, PaginateOptions, Types } from 'mongoose';
 import mongoosePaginate = require('mongoose-paginate-v2');
 import { Router, Request, Response } from 'express';
 
 //#region Test Models
-interface User extends Document {
+interface Book {
+    author: string;
+    title: string;
+}
+
+interface BookMethods {
+    getTitle: () => string;
+}
+
+const BookSchema = new Schema<Book, PaginateModel<Book, {}, BookMethods>, BookMethods>({
+    author: String,
+    title: String,
+});
+
+const BookModel = model<Book, PaginateModel<Book, {}, BookMethods>, BookMethods>('Book', BookSchema);
+
+const book = new BookModel();
+console.log(book.getTitle() === 'Oliver Twist');
+
+interface User {
     email: string;
     username: string;
     password: string;
 }
 
-const UserSchema: Schema = new Schema({
+const UserSchema = new Schema({
     email: String,
     username: String,
     password: String,
 });
 
 UserSchema.plugin(mongoosePaginate);
+const UserModel = model<User, PaginateModel<User>>('User', UserSchema);
 
-interface UserModel<T extends Document> extends PaginateModel<T> {}
-
-const UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
 //#endregion
 
 //#region Test Paginate
 const router: Router = Router();
 
-router.get('/users.json', (req: Request, res: Response) => {
+router.get('/users.json', async (req: Request, res: Response) => {
     const descending = true;
     const options: PaginateOptions = {};
     options.select = 'email username';
@@ -60,7 +77,7 @@ router.get('/users.json', (req: Request, res: Response) => {
     options.read = { pref: 'secondary', tags: [{ region: 'South' }] };
     options.options = { batchSize: 200 };
 
-    UserModel.paginate({}, options, (err: any, value: PaginateResult<User>) => {
+    UserModel.paginate({}, options, (err: any, value) => {
         if (err) {
             console.log(err);
             return res.status(500).send(err);
@@ -75,7 +92,13 @@ router.get('/users.json', (req: Request, res: Response) => {
         console.log('offset: ' + value.offset);
         console.log('docs: ');
         console.dir(value.docsCustom);
+        const user = value.docs[0];
+        console.log(user.save());
+        console.log(user.email === 'user@example.com');
         return res.json(value);
     });
+
+    const users = await UserModel.paginate({}, { lean: true, leanWithId: true });
+    console.log(users.docs[0].id === new Types.ObjectId().toString());
 });
 //#endregion

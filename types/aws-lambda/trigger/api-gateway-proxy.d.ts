@@ -1,4 +1,5 @@
 import {
+    APIGatewayEventClientCertificate,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from "../common/api-gateway";
@@ -138,6 +139,9 @@ export interface APIGatewayProxyEventV2 {
                 scopes: string[];
             };
         } | undefined;
+        authentication?: {
+            clientCert: APIGatewayEventClientCertificate;
+        };
         domainName: string;
         domainPrefix: string;
         http: {

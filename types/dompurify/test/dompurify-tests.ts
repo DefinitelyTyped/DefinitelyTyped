@@ -28,6 +28,14 @@ DOMPurify.sanitize(dirty, { PARSER_MEDIA_TYPE: 'text/html' }); // $ExpectType st
 DOMPurify.sanitize(dirty, { RETURN_DOM: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { SANITIZE_DOM: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { WHOLE_DOCUMENT: true }); // $ExpectType string
+// $ExpectType string
+DOMPurify.sanitize(dirty, {
+    CUSTOM_ELEMENT_HANDLING: {
+        tagNameCheck: /foo/,
+        attributeNameCheck: attr => attr === 'baz',
+        allowCustomizedBuiltInElements: true,
+    },
+});
 
 DOMPurify.sanitize(dirty, { RETURN_DOM: true }); // $ExpectType HTMLElement
 DOMPurify.sanitize(dirty, { RETURN_DOM: true, RETURN_DOM_FRAGMENT: false }); // $ExpectType HTMLElement

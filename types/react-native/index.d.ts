@@ -42,7 +42,6 @@
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
 //                 Pedro Hernández <https://github.com/phvillegas>
-//                 Brett Lindsay <https://github.com/bdlindsay>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -2284,6 +2283,7 @@ export interface AccessibilityValue {
 export type AccessibilityRole =
     | 'none'
     | 'button'
+    | 'togglebutton'
     | 'link'
     | 'search'
     | 'image'
@@ -2306,8 +2306,10 @@ export type AccessibilityRole =
     | 'spinbutton'
     | 'switch'
     | 'tab'
+    | 'tabbar'
     | 'tablist'
     | 'timer'
+    | 'list'
     | 'toolbar';
 
 export interface AccessibilityPropsAndroid {
@@ -4208,9 +4210,19 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined | null;
 
     /**
      * Rendered in between each section.
@@ -7353,7 +7365,7 @@ export type BackPressEventName = 'hardwareBackPress';
  * returns true then subscriptions registered earlier
  * will not be called.
  *
- * @see https://reactnative.dev/docs/backhandler.html
+ * @see https://reactnative.dev/docs/backhandler
  */
 export interface BackHandlerStatic {
     exitApp(): void;
@@ -9578,8 +9590,8 @@ interface NativeModulesStatic {
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
  * See https://reactnative.dev/docs/native-modules-ios
- * Use:
- * <code>const MyModule = NativeModules.ModuleName</code>
+ * @example
+ * const MyModule = NativeModules.ModuleName
  */
 export const NativeModules: NativeModulesStatic;
 export const Platform:
@@ -9718,8 +9730,8 @@ declare global {
 
     /**
      * This variable is set to true when react-native is running in Dev mode
-     * Typical usage:
-     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     * @example
+     * if (__DEV__) console.log('Running in dev mode')
      */
     const __DEV__: boolean;
 
