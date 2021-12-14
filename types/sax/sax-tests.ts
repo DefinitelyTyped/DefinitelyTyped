@@ -33,7 +33,7 @@ import fs = require("fs");
             const attrValue: string = attr.value;
         }
     };
-    
+
     parser.onopentagstart = (tag: sax.QualifiedTag) => {};
 
     parser.onsgmldeclaration = (sgmlDecl: string) => {};

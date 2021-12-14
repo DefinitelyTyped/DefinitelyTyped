@@ -97,8 +97,7 @@ export class SAXStream extends stream.Duplex {
     on(event: "doctype", listener: (this: this, doctype: string) => void): this;
     on(event: "processinginstruction", listener: (this: this, node: { name: string; body: string }) => void): this;
     on(event: "sgmldeclaration", listener: (this: this, sgmlDecl: string) => void): this;
-    on(event: "opentag", listener: (this: this, tag: Tag | QualifiedTag) => void): this;
-    on(event: "opentagstart", listener: (this: this, tag: Tag | QualifiedTag) => void): this;
+    on(event: "opentag" | "opentagstart", listener: (this: this, tag: Tag | QualifiedTag) => void): this;
     on(event: "closetag", listener: (this: this, tagName: string) => void): this;
     on(event: "attribute", listener: (this: this, attr: { name: string; value: string }) => void): this;
     on(event: "comment", listener: (this: this, comment: string) => void): this;
