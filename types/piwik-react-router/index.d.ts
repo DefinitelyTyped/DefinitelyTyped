@@ -2,7 +2,6 @@
 // Project: https://github.com/joernroeder/piwik-react-router
 // Definitions by: Can Serkan UREN <https://github.com/canserkanuren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
 
 interface PiwikReactRouterHistory {
     location: string;
