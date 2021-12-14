@@ -18,6 +18,7 @@
 //                 Michael Salaverry <https://github.com/barakplasma>
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 //                 T.J. Tarazevits <https://github.com/venku122>
+//                 Michiel De Mey <https://github.com/michieldemey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -108,7 +109,7 @@ declare namespace IORedis {
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
         (...args: T[]): Promise<U>;
-        (arg1: T[]): Promise<U>;
+        (arg1: T | T[]): Promise<U>;
     }
 
     interface OverloadedBlockingListCommand<T, U> {

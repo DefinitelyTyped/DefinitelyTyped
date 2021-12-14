@@ -26,6 +26,7 @@ redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
 redis.del('foo', 'bar').then(result => result * 1);
 
 // Test OverloadedListCommand
+redis.del('foo').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
