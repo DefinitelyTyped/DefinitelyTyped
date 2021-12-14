@@ -572,8 +572,8 @@ const tokenAuthorizer: APIGatewayTokenAuthorizerHandler = async (event, context,
     str = event.methodArn;
     str = event.authorizationToken;
     strOrUndefined = event.resource; // $ExpectError
-
     // etc...
+
     const result = createAuthorizerResult();
 
     callback(new Error());
