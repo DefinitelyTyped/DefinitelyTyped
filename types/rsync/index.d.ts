@@ -22,8 +22,7 @@ interface Flag {
 
 interface Rsync {
     // instance methods
-    set(option: string, value: string): Rsync;
-    set(option: string): Rsync;
+    set(option: string, value?: string): Rsync;
 
     unset(option: string): Rsync;
 
