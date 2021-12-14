@@ -4,7 +4,7 @@
 //                 Alex Kondratyuk <https://github.com/lynxtaa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface KeyboardEventLike {
+export interface KeyboardEventLike {
     key: string;
     which: number;
     altKey: boolean;
