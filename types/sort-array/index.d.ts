@@ -1,14 +1,21 @@
-// Type definitions for sort-array 2.0
+// Type definitions for sort-array 4.1
 // Project: https://github.com/75lb/sort-array#readme
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// Minimum TypeScript Version: 4.4
 
-type ColumnNames<T> = keyof T | Array<keyof T>;
-type CustomOrderTypes<T> = Array<T[keyof T]>;
-type CustomOrder<T> = Record<keyof T, CustomOrderTypes<T>>;
-
-declare function sortArray<T>(recordset: T[], columnNames: ColumnNames<T>, customOrder?: Partial<CustomOrder<T>>): T[];
-declare function sortArray(recordset: object[], columnNames: string | string[], customOrder?: Record<string, any[]>): object[];
-
+type Primitive = number | string | boolean | bigint | symbol | null | undefined;
+interface SortOptions<Computed> {
+    by?: string | string[];
+    order?: string | string[];
+    customOrders?: {
+        [key: string]: any;
+    };
+    computed?: {
+        [key: string]: (item: Computed) => Primitive;
+    };
+    nullRank?: -1 | 1;
+    undefinedRank?: -1 | 1;
+}
+declare function sortArray<T>(array: T[], options?: SortOptions<T>): T[];
 export = sortArray;
