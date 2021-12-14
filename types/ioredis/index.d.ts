@@ -746,20 +746,20 @@ declare namespace IORedis {
             callback: Callback<Buffer[]>,
         ): void;
 
-        zrevrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
+        zrevrangebylex(key: KeyType, max: string, min: string): Promise<string[]>;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrevrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
+        zrevrangebylex(key: KeyType, max: string, min: string, callback: Callback<string[]>): void;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
