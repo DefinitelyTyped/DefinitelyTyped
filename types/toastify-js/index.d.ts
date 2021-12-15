@@ -23,7 +23,7 @@ declare namespace Toastify {
         gravity?: 'top' | 'bottom' | undefined;
         position?: 'left' | 'center' | 'right' | undefined;
         /**
-         * Deprecated, use style.background option instead
+         * @deprecated use style.background option instead
          */
         backgroundColor?: string | undefined;
         /**
