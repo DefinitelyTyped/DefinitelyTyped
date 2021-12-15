@@ -169,5 +169,6 @@ export interface LevelUpChain<K = any, V = any> {
 
 export const errors: LevelUpConstructor["errors"];
 
-declare const LevelUp: LevelUpConstructor;
-export default LevelUp;
+export const LevelUp: LevelUpConstructor;
+
+export {};
