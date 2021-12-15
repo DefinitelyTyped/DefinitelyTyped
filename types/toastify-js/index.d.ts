@@ -1,4 +1,4 @@
-// Type definitions for toastify-js 1.9
+// Type definitions for toastify-js 1.11
 // Project: https://github.com/apvarun/toastify-js#readme
 // Definitions by: adblanc <https://github.com/adblanc>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -16,12 +16,15 @@ declare namespace Toastify {
         text?: string | undefined;
         node?: Node | undefined;
         duration?: number | undefined;
-        selector?: string | undefined;
+        selector?: string | Node | undefined;
         destination?: string | undefined;
         newWindow?: boolean | undefined;
         close?: boolean | undefined;
         gravity?: 'top' | 'bottom' | undefined;
         position?: 'left' | 'center' | 'right' | undefined;
+        /**
+         * Deprecated, use style.background option instead
+         */
         backgroundColor?: string | undefined;
         /**
          * Image/icon to be shown before text
@@ -38,6 +41,18 @@ declare namespace Toastify {
         callback?: (() => void) | undefined;
         onClick?: (() => void) | undefined;
         offset?: Offset | undefined;
+        /**
+         * Toggle the default behavior of escaping HTML markup
+         */
+        escapeMarkup?: boolean | undefined;
+        /**
+         * HTML DOM Style properties to add any style directly to toast
+         */
+        style?: { [cssRule: string]: string };
+        /**
+         * Set the order in which toasts are stacked in page
+         */
+        oldestFirst?: boolean | undefined;
     }
 }
 declare function Toastify(
