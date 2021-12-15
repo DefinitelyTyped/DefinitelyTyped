@@ -38,6 +38,9 @@ export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
   del(key: K, cb: ErrorCallback): void;
   del(key: K, options: AbstractOptions, cb: ErrorCallback): void;
 
+  getMany(key: K[], cb: ErrorValueCallback<V[]>): void;
+  getMany(key: K[], options: AbstractGetOptions, cb: ErrorValueCallback<V[]>): void;
+
   batch(): AbstractChainedBatch<K, V>;
   batch(array: ReadonlyArray<AbstractBatch<K, V>>, cb: ErrorCallback): AbstractChainedBatch<K, V>;
   batch(
