@@ -14,6 +14,7 @@ export interface AuthorInfo {
   departmentInfo: string;
   emailInfo: string;
 }
+
 export interface SamsungAuthorInfo {
   name: string;
   password: string;
