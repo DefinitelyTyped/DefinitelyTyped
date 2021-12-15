@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -268,18 +268,22 @@ declare module 'fs' {
      */
     export interface StatWatcher extends EventEmitter {
         /**
+         * When called, requests that the Node.js event loop _not_ exit so long as the `fs.StatWatcher` is active. Calling `watcher.ref()` multiple times will have
+         * no effect.
+         *
+         * By default, all `fs.StatWatcher` objects are "ref'ed", making it normally
+         * unnecessary to call `watcher.ref()` unless `watcher.unref()` had been
+         * called previously.
          * @since v14.3.0, v12.20.0
-         * When called, requests that the Node.js event loop not exit so long as the `fs.StatWatcher` is active.
-         * Calling `watcher.ref()` multiple times will have no effect.
-         * By default, all `fs.StatWatcher`` objects are "ref'ed", making it normally unnecessary to call `watcher.ref()`
-         * unless `watcher.unref()` had been called previously.
          */
         ref(): this;
         /**
+         * When called, the active `fs.StatWatcher` object will not require the Node.js
+         * event loop to remain active. If there is no other activity keeping the
+         * event loop running, the process may exit before the `fs.StatWatcher` object's
+         * callback is invoked. Calling `watcher.unref()` multiple times will have
+         * no effect.
          * @since v14.3.0, v12.20.0
-         * When called, the active `fs.StatWatcher`` object will not require the Node.js event loop to remain active.
-         * If there is no other activity keeping the event loop running, the process may exit before the `fs.StatWatcher`` object's callback is invoked.
-         * `Calling watcher.unref()` multiple times will have no effect.
          */
         unref(): this;
     }
@@ -1014,8 +1018,10 @@ declare module 'fs' {
         function __promisify__(fd: number, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
     /**
-     * Synchronous fstat(2) - Get file status.
-     * @param fd A file descriptor.
+     * Retrieves the `fs.Stats` for the file descriptor.
+     *
+     * See the POSIX [`fstat(2)`](http://man7.org/linux/man-pages/man2/fstat.2.html) documentation for more detail.
+     * @since v0.1.95
      */
     export function fstatSync(
         fd: number,
@@ -1030,7 +1036,6 @@ declare module 'fs' {
         }
     ): BigIntStats;
     export function fstatSync(fd: number, options?: StatOptions): Stats | BigIntStats;
-
     /**
      * Retrieves the `fs.Stats` for the symbolic link referred to by the path.
      * The callback gets two arguments `(err, stats)` where `stats` is a `fs.Stats` object. `lstat()` is identical to `stat()`, except that if `path` is a symbolic
@@ -2812,6 +2817,52 @@ declare module 'fs' {
         persistent?: boolean | undefined;
         interval?: number | undefined;
     }
+    /**
+     * Watch for changes on `filename`. The callback `listener` will be called each
+     * time the file is accessed.
+     *
+     * The `options` argument may be omitted. If provided, it should be an object. The`options` object may contain a boolean named `persistent` that indicates
+     * whether the process should continue to run as long as files are being watched.
+     * The `options` object may specify an `interval` property indicating how often the
+     * target should be polled in milliseconds.
+     *
+     * The `listener` gets two arguments the current stat object and the previous
+     * stat object:
+     *
+     * ```js
+     * import { watchFile } from 'fs';
+     *
+     * watchFile('message.text', (curr, prev) => {
+     *   console.log(`the current mtime is: ${curr.mtime}`);
+     *   console.log(`the previous mtime was: ${prev.mtime}`);
+     * });
+     * ```
+     *
+     * These stat objects are instances of `fs.Stat`. If the `bigint` option is `true`,
+     * the numeric values in these objects are specified as `BigInt`s.
+     *
+     * To be notified when the file was modified, not just accessed, it is necessary
+     * to compare `curr.mtimeMs` and `prev.mtimeMs`.
+     *
+     * When an `fs.watchFile` operation results in an `ENOENT` error, it
+     * will invoke the listener once, with all the fields zeroed (or, for dates, the
+     * Unix Epoch). If the file is created later on, the listener will be called
+     * again, with the latest stat objects. This is a change in functionality since
+     * v0.10.
+     *
+     * Using {@link watch} is more efficient than `fs.watchFile` and`fs.unwatchFile`. `fs.watch` should be used instead of `fs.watchFile` and`fs.unwatchFile` when possible.
+     *
+     * When a file being watched by `fs.watchFile()` disappears and reappears,
+     * then the contents of `previous` in the second callback event (the file's
+     * reappearance) will be the same as the contents of `previous` in the first
+     * callback event (its disappearance).
+     *
+     * This happens when:
+     *
+     * * the file is deleted, followed by a restore
+     * * the file is renamed and then renamed a second time back to its original name
+     * @since v0.1.31
+     */
     export function watchFile(
         filename: PathLike,
         options:
