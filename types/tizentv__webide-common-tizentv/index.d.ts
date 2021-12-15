@@ -14,9 +14,19 @@ export interface AuthorInfo {
   departmentInfo: string;
   emailInfo: string;
 }
+export interface SamsungAuthorInfo {
+  name: string;
+  password: string;
+  country: string;
+  state: string;
+  city: string;
+  organization: string;
+  department: string;
+}
+
 export interface DistributorInfo {
   distributorPassword: string;
-  privilegeLevel: string;
+  privilegeLevel: SamsungPrivilegeLevel;
   duidList: string[];
 }
 
@@ -48,6 +58,7 @@ export interface ProfileItem {
 }
 
 export type PrivilegeLevel = 'partner' | 'public';
+export type SamsungPrivilegeLevel = 'Partner' | 'Public';
 export type ItemType = 'author' | 'distributor1' | 'distributor2';
 
 export class TVWebApp {
@@ -74,14 +85,14 @@ export class TizenCertManager {
 export class SamsungCertManager {
   constructor(resourcePath: string);
   init(): Promise<void>;
-  createAuthorCert(profileName: string, authorInfo: AuthorInfo, accessInfo: AccessInfo): Promise<void>;
+  createAuthorCert(profileName: string, authorInfo: SamsungAuthorInfo, accessInfo: AccessInfo): Promise<void>;
   createDistributorCert(profileName: string, distrbutorInfo: DistributorInfo, accessInfo: AccessInfo): Promise<void>;
-  generateAuthorCSR(authorInfo: AuthorInfo): void;
+  generateAuthorCSR(authorInfo: SamsungAuthorInfo): void;
   generateDistributorCSR(duidList: string[], accessInfo: AccessInfo): void;
   fetchAuthorCRT(accessInfo: AccessInfo): Promise<void>;
   fetchDistributorCRT(isCrt: boolean): Promise<void>;
   generateAuthorPCKS12(password: string): void;
-  generateDistributorPCKS12(password: string, privilegeLevel: PrivilegeLevel): void;
+  generateDistributorPCKS12(password: string, privilegeLevel: SamsungPrivilegeLevel): void;
   loadCaCert(certFile: string): string;
 }
 
@@ -92,7 +103,7 @@ export class ProfileManager {
   removeProfile(profileName: string): boolean;
   modifyProfile(profileName: string, itemType: ItemType, certpath: string, password: string): boolean;
   isProfileExist(profileName: string): boolean;
-  listProfile(): string[];
-  getProfileKeys(profileName: string): string[];
-  getProfileItems(profileName: string): ProfileItem[];
+  listProfile(): string[] | null;
+  getProfileKeys(profileName: string): string[] | null;
+  getProfileItems(profileName: string): ProfileItem | null;
 }
