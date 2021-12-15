@@ -29,7 +29,7 @@ interface PiwikReactRouter {
     trackError: (e: PiwikReactRouterTrackErrorEvent, eventName: string) => void;
     connectToHistory: (
         history: PiwikReactRouterHistory,
-        modifier: (history: PiwikReactRouterHistory) => void,
+        modifier?: (history: PiwikReactRouterHistory) => void,
     ) => PiwikReactRouterHistory;
     disconnectFromHistory: () => boolean;
 }

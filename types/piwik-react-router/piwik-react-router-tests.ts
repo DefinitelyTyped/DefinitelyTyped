@@ -10,3 +10,5 @@ piwik.setUserId('userId');
 piwik.push({ arg1: 1, arg2: 2 });
 
 piwik.trackError({ message: 'message', filename: 'filename', lineno: 'lineno' }, 'EventName');
+
+piwik.connectToHistory({ location: 'tst' });
