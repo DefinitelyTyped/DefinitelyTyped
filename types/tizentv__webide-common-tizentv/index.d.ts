@@ -85,8 +85,8 @@ export class TizenCertManager {
 export class SamsungCertManager {
   constructor(resourcePath: string);
   init(): Promise<void>;
-  createAuthorCert(profileName: string, authorInfo: SamsungAuthorInfo, accessInfo: AccessInfo): Promise<void>;
-  createDistributorCert(profileName: string, distrbutorInfo: DistributorInfo, accessInfo: AccessInfo): Promise<void>;
+  createAuthorCert(profileName: string, authorInfo: SamsungAuthorInfo, accessInfo: AccessInfo): Promise<string>;
+  createDistributorCert(profileName: string, distrbutorInfo: DistributorInfo, accessInfo: AccessInfo): Promise<string>;
   generateAuthorCSR(authorInfo: SamsungAuthorInfo): void;
   generateDistributorCSR(duidList: string[], accessInfo: AccessInfo): void;
   fetchAuthorCRT(accessInfo: AccessInfo): Promise<void>;
