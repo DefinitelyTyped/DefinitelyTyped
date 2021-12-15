@@ -38,6 +38,10 @@ db.del("key", (error) => {});
 db.del("key", {keyEncoding: "json"}, (error) => {});
 db.del("key", {sync: true}, (error) => {});
 
+db.getMany(["key1", "key2"], {keyEncoding: "json"}, (error, values) => {});
+db.getMany(["key1", "key2"], {fillCache: true}, (error, values) => {});
+db.getMany(["key1", "key2"], (error, values) => {});
+
 db.batch([{
     type          : 'put'
     , key           : ([1, 2, 3])

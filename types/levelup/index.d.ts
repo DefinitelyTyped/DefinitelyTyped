@@ -23,6 +23,11 @@ type LevelUpGet<K, V, O> =
     ((key: K, options: O, callback: ErrorValueCallback<V>) => void) &
     ((key: K, options?: O) => Promise<V>);
 
+type LevelUpGetMany<K, V, O> =
+    ((keys: K[], callback: ErrorValueCallback<V[]>) => void) &
+    ((keys: K[], options: O, callback: ErrorValueCallback<V[]>) => void) &
+    ((keys: K[], options?: O) => Promise<V[]>);
+
 type LevelUpDel<K, O> =
     ((key: K, callback: ErrorCallback) => void) &
     ((key: K, options: O, callback: ErrorCallback) => void) &
@@ -47,6 +52,11 @@ type InferDBGet<DB> =
     DB extends { get: (key: infer K, options: infer O, callback: ErrorValueCallback<infer V>) => void } ?
     LevelUpGet<K, V, O> :
     LevelUpGet<any, any, AbstractGetOptions>;
+
+type InferDBGetMany<DB> =
+    DB extends { getMany: (keys: Array<infer K>, options: infer O, callback: ErrorValueCallback<Array<infer V>>) => void } ?
+    LevelUpGetMany<K, V, O> :
+    LevelUpGetMany<any, any, AbstractGetOptions>;
 
 type InferDBDel<DB> =
     DB extends { del: (key: infer K, options: infer O, callback: ErrorCallback) => void } ?
@@ -77,6 +87,7 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
     get: InferDBGet<DB>;
     del: InferDBDel<DB>;
     clear: InferDBClear<DB>;
+    getMany: InferDBGetMany<DB>;
 
     batch(array: AbstractBatch[], options?: any): Promise<void>;
     batch(array: AbstractBatch[], options: any, callback: (err?: any) => any): void;
