@@ -1,3 +1,4 @@
+import React = require('react');
 import LinesEllipsis = require('react-lines-ellipsis');
 import HTMLEllipsis = require('react-lines-ellipsis/lib/html');
 import LinesEllipsisLoose = require('react-lines-ellipsis/lib/loose');
@@ -32,25 +33,14 @@ type linesEllipsisLoosePropsType0 = LinesEllipsisLooseProps['lineHeight'];
 // $ExpectType boolean | undefined
 type linesEllipsisLoosePropsType1 = LinesEllipsisLooseProps['overflowFallback'];
 
-// $ExpectType LinesEllipsis
-new LinesEllipsis({});
-// $ExpectType Readonly<ReactLinesEllipsisProps> & Readonly<{ children?: ReactNode; }>
-new LinesEllipsis({}).props;
+declare const linesEllipsisProps: Readonly<ReactLinesEllipsisProps>;
+<LinesEllipsis {...linesEllipsisProps}>children</LinesEllipsis>;
 
-// $ExpectType HTMLEllipsis
-new HTMLEllipsis({});
-// $ExpectType Readonly<HTMLEllipsisProps> & Readonly<{ children?: ReactNode; }>
-new HTMLEllipsis({}).props;
+declare const htmlEllipsisProps: Readonly<HTMLEllipsisProps>;
+<HTMLEllipsis {...htmlEllipsisProps}>children</HTMLEllipsis>;
 
-// $ExpectType HTMLEllipsis
-new HTMLEllipsis({});
-// $ExpectType Readonly<HTMLEllipsisProps> & Readonly<{ children?: ReactNode; }>
-new HTMLEllipsis({}).props;
-
-// $ExpectType LinesEllipsisLoose
-new LinesEllipsisLoose({});
-// $ExpectType Readonly<LinesEllipsisLooseProps> & Readonly<{ children?: ReactNode; }>
-new LinesEllipsisLoose({}).props;
+declare const linesEllipsisLooseProps: Readonly<LinesEllipsisLooseProps>;
+<LinesEllipsisLoose {...linesEllipsisLooseProps}>children</LinesEllipsisLoose>;
 
 /* $ExpectType <P extends CommonReactLinesEllipsisProps>(WrappedComponent: ComponentType<P>)
  * => ComponentType<P & { innerRef?: LegacyRef<HTMLDivElement> | undefined; }>
