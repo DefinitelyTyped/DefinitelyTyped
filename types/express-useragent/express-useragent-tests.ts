@@ -31,6 +31,7 @@ function serializeDetails(details: useragent.Details): string {
         isLinux64: details.isLinux64,
         isMac: details.isMac,
         isMobile: details.isMobile,
+        isMobileNative: details.isMobile,
         isOmniWeb: details.isOmniWeb,
         isOpera: details.isOpera,
         isRaspberry: details.isRaspberry,
