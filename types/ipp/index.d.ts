@@ -1,5 +1,5 @@
 // Type definitions for ipp 2.0
-// Project: http://github.com/williamkapke/ipp
+// Project: https://github.com/williamkapke/ipp
 // Definitions by: Filip Stenbacka <https://github.com/filiptypjeu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Based on: https://www.iana.org/assignments/ipp-registrations/ipp-registrations.xhtml

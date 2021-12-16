@@ -1,5 +1,5 @@
 // Type definitions for format-io 0.9
-// Project: http://github.com/coderaiser/format-io
+// Project: https://github.com/coderaiser/format-io
 // Definitions by: Amit Beckenstein <https://github.com/amitbeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
