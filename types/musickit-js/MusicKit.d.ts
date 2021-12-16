@@ -42,6 +42,10 @@ declare namespace MusicKit {
 
     const version: string;
 
+    interface AuthStatus {
+        AUTHORIZED: 3;
+    }
+    
     /**
      * A dictionary of configuration options for the MusicKit instance.
      */
