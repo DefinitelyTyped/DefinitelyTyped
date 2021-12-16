@@ -380,7 +380,7 @@ export interface CheckboxProps {
  * https://gestalt.netlify.app/ComboBox
  */
 
-export interface ComboBoxOptions {
+export interface ComboBoxItemType {
     label: string;
     subtext?: string;
     value: string;
@@ -390,7 +390,7 @@ export interface ComboBoxProps {
     accessibilityClearButtonLabel: string;
     id: string;
     label: string;
-    options: ComboBoxOptions[];
+    options: ComboBoxItemType[];
     noResultText: string;
     disabled?: boolean;
     errorMessage?: string;
@@ -402,9 +402,12 @@ export interface ComboBoxProps {
     onFocus?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     onClear?: () => void;
-    onSelect?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onSelect?: (args: {
+        event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
+        item: ComboBoxItemType;
+    }) => void;
     placeholder?: string;
-    selectedOption?: ComboBoxOptions;
+    selectedOption?: ComboBoxItemType;
     size?: 'md' | 'lg';
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
 }
