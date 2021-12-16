@@ -4150,7 +4150,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a reference to the underlying host component
      */
-    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+    getNativeScrollRef: () => React.ElementRef<View> | React.ElementRef<ScrollViewComponent> | null | undefined;
 
     getScrollableNode: () => any;
 
