@@ -455,11 +455,11 @@ declare module 'firebird' {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): any;
-        end(buffer: Buffer, cb?: Function): any;
-        end(str: string, cb?: Function): any;
-        end(str: string, encoding?: string, cb?: Function): any;
-        destroy(error?: Error): any;
+        end(): this;
+        end(buffer: Buffer, cb?: Function): this;
+        end(str: string, cb?: Function): this;
+        end(str: string, encoding?: string, cb?: Function): this;
+        destroy(error?: Error): this;
 
         check_destroyed(): void;
     }
