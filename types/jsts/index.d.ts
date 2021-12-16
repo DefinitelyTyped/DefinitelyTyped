@@ -307,6 +307,22 @@ declare namespace jsts {
 
             computeIntersection(p: Coordinate, p1: Coordinate, p2: Coordinate, p3: Coordinate): void;
         }
+
+        namespace locate {
+            /**
+             * An interface for classes which determine the Location of points in a Geometry.
+             */
+            interface PointOnGeometryLocator {
+                /**
+                 * Determines the Location of a point in the Geometry.
+                 *
+                 * @param p the point to test
+                 *
+                 * @returns {int} the location of the point in the geometry
+                 */
+                locate(p: Coordinate): number;
+            }
+        }
     }
 
     namespace densify {
