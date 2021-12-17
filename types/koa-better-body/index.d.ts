@@ -12,7 +12,18 @@ declare function KoaBetterBody(
 declare namespace KoaBetterBody {
   interface Options {
     /**
-     * @default { <br />&nbsp;&nbsp;multipart: ['multipart/form-data'], <br />&nbsp;&nbsp;text: ['text/*'], <br />&nbsp;&nbsp;form: ['application/x-www-form-urlencoded'], <br />&nbsp;&nbsp;json: ['application/json', 'application/json-patch+json', 'application/vnd.api+json', 'application/csp-report'], <br />&nbsp;&nbsp;buffer: ['text/*'] <br />}
+     * {
+     * <br />&nbsp;&nbsp;multipart: ['multipart/form-data'],
+     * <br />&nbsp;&nbsp;text: ['text/*'],
+     * <br />&nbsp;&nbsp;form: ['application/x-www-form-urlencoded'],
+     * <br />&nbsp;&nbsp;json: [
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/json',
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/json-patch+json',
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/vnd.api+json',
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/csp-report'
+     * <br />&nbsp;&nbsp;],
+     * <br />&nbsp;&nbsp;buffer: ['text/*']
+     * }
      */
     extendTypes?: Record<string, string | string[]> & {
       custom?: string | string[];
