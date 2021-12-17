@@ -34,9 +34,11 @@ interface BlendingParams {
     'blend-alpha'?: ImgixParamType | undefined;
     'blend-crop'?: ImgixParamType | undefined;
     'blend-fit'?: ImgixParamType | undefined;
+    'blend-h'?: ImgixParamType | undefined;
     'blend-mode'?: ImgixParamType | undefined;
     'blend-pad'?: ImgixParamType | undefined;
     'blend-size'?: ImgixParamType | undefined;
+    'blend-w'?: ImgixParamType | undefined;
     'blend-x'?: ImgixParamType | undefined;
     'blend-y'?: ImgixParamType | undefined;
     blend?: ImgixParamType | undefined;
