@@ -766,6 +766,7 @@ declare namespace chrome.cast.media {
         currentTime: number;
         customData: Object;
         media: chrome.cast.media.MediaInfo;
+	playbackRate: number;
     }
 
     export class EditTracksInfoRequest {
