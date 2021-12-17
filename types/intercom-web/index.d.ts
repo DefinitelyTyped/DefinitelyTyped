@@ -6,7 +6,6 @@
 //                 Samer Albahra <https://github.com/salbahra>
 //                 Onat Yigit Mercan <https://github.com/onatm>
 //                 Chia-Lun Wu <https://github.com/bingo4508>
-//                 James Thomson <https://github.com/getreworked>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Intercom_ {
