@@ -92,6 +92,7 @@ interface FormatParams {
     dl?: ImgixParamType | undefined;
     dpi?: ImgixParamType | undefined;
     fm?: ImgixParamType | undefined;
+    iptc?: ImgixParamType | undefined;
     lossless?: ImgixParamType | undefined;
     q?: ImgixParamType | undefined;
 }
