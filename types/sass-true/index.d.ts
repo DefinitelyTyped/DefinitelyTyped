@@ -2,7 +2,10 @@
 // Project: https://github.com/oddbird/true
 // Definitions by: robertmaier <https://github.com/robertmaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import type { Options } from 'sass';
+
+/// <reference types="node" />
+
+import type { LegacyOptions as Options } from 'sass';
 
 export interface TrueOptions {
     sass?: typeof import('sass');

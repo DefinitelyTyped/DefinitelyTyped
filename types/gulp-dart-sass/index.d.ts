@@ -3,7 +3,9 @@
 // Definitions by: Jacob Malone <https://github.com/jcbmln>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Options } from 'sass';
+/// <reference types="node" />
+
+import { LegacyOptions as Options } from 'sass';
 
 interface SassResults {
     css: string;
