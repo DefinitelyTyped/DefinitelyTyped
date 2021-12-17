@@ -99,6 +99,7 @@ interface FormatParams {
 
 interface MaskImageParams {
     'corner-radius'?: ImgixParamType | undefined;
+    'mask-bg'?: ImgixParamType | undefined;
     mask?: ImgixParamType | undefined;
 }
 
