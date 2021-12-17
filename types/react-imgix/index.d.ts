@@ -110,6 +110,7 @@ interface NoiseReductionParams {
 
 interface PDFParams {
     page?: ImgixParamType | undefined;
+    'pdf-annotation'?: ImgixParamType | undefined;
 }
 
 interface PixelDensityParams {
