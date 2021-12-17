@@ -165,6 +165,7 @@ interface TextParams {
 interface TrimParams {
     'trim-color'?: ImgixParamType | undefined;
     'trim-md'?: ImgixParamType | undefined;
+    'trim-pad'?: ImgixParamType | undefined;
     'trim-sd'?: ImgixParamType | undefined;
     'trim-tol'?: ImgixParamType | undefined;
     trim?: ImgixParamType | undefined;
