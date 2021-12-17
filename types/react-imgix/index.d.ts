@@ -184,7 +184,9 @@ interface WatermarkParams {
     'mark-fit'?: ImgixParamType | undefined;
     'mark-h'?: ImgixParamType | undefined;
     'mark-pad'?: ImgixParamType | undefined;
+    'mark-rot'?: ImgixParamType | undefined;
     'mark-scale'?: ImgixParamType | undefined;
+    'mark-title'?: ImgixParamType | undefined;
     'mark-w'?: ImgixParamType | undefined;
     'mark-x'?: ImgixParamType | undefined;
     'mark-y'?: ImgixParamType | undefined;
