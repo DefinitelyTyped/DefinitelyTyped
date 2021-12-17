@@ -1,4 +1,4 @@
-// Type definitions for @hippy/react 2.7
+// Type definitions for @hippy/react 2.11.5
 // Project: http://hippyjs.org
 // Definitions by: zeroyu <https://github.com/zerosrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
