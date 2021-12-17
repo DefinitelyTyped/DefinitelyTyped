@@ -18,6 +18,7 @@
 //                 Michael Salaverry <https://github.com/barakplasma>
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 //                 T.J. Tarazevits <https://github.com/venku122>
+//                 Michiel De Mey <https://github.com/michieldemey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -108,7 +109,7 @@ declare namespace IORedis {
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
         (...args: T[]): Promise<U>;
-        (arg1: T[]): Promise<U>;
+        (arg1: T | T[]): Promise<U>;
     }
 
     interface OverloadedBlockingListCommand<T, U> {
@@ -746,20 +747,20 @@ declare namespace IORedis {
             callback: Callback<Buffer[]>,
         ): void;
 
-        zrevrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
+        zrevrangebylex(key: KeyType, max: string, min: string): Promise<string[]>;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrevrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
+        zrevrangebylex(key: KeyType, max: string, min: string, callback: Callback<string[]>): void;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,

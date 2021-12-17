@@ -1516,7 +1516,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
-        mediaType?: string | undefined;
+        mediaType?: 'image' | 'video' | 'audio' | undefined;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1548,6 +1548,10 @@ declare namespace chrome.contextMenus {
         srcUrl?: string | undefined;
     }
 
+    type ContextType = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "video" | "audio" | "launcher" | "browser_action" | "page_action" | "action";
+
+    type ContextItemType = "normal" | "checkbox" | "radio" | "separator";
+
     export interface CreateProperties {
         /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
         documentUrlPatterns?: string[] | undefined;
@@ -1556,7 +1560,7 @@ declare namespace chrome.contextMenus {
         /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
         title?: string | undefined;
         /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-        contexts?: string[] | undefined;
+        contexts?: ContextType | ContextType[] | undefined;
         /**
          * Optional.
          * Since Chrome 20.
@@ -1575,7 +1579,7 @@ declare namespace chrome.contextMenus {
         /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
         parentId?: any;
         /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-        type?: string | undefined;
+        type?: ContextItemType | undefined;
         /**
          * Optional.
          * Since Chrome 21.
@@ -1594,14 +1598,14 @@ declare namespace chrome.contextMenus {
         documentUrlPatterns?: string[] | undefined;
         checked?: boolean | undefined;
         title?: string | undefined;
-        contexts?: string[] | undefined;
+        contexts?: ContextType[] | undefined;
         /** Optional. Since Chrome 20.  */
         enabled?: boolean | undefined;
         targetUrlPatterns?: string[] | undefined;
         onclick?: Function | undefined;
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
         parentId?: number | string;
-        type?: string | undefined;
+        type?: ContextItemType | undefined;
         /**
          * Optional.
          * @since Chrome 62.
@@ -1628,10 +1632,9 @@ declare namespace chrome.contextMenus {
     /**
      * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
      * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
-     * If you specify the callback parameter, it should be a function that looks like this:
-     * function() {...};
+     * @returns The ID of the newly created item.
      */
-    export function create(createProperties: CreateProperties, callback?: () => void): void;
+    export function create(createProperties: CreateProperties, callback?: () => void): number | string;
     /**
      * Updates a previously created context menu item.
      * @param id The ID of the item to update.
