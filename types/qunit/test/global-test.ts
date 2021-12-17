@@ -770,3 +770,7 @@ QUnit.module( "async nested hooks", function( hooks ) {
     assert.ok( true, "async afterEach called" );
   } );
 });
+
+QUnit.onUncaughtException = (error: Error) => {
+  throw error;
+};
