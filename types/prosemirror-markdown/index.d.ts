@@ -191,10 +191,36 @@ export let defaultMarkdownSerializer: MarkdownSerializer;
  * node and mark serialization methods (see `toMarkdown`).
  */
 export class MarkdownSerializerState<S extends Schema = any> {
+    constructor(
+        nodes: {
+            [name: string]: (state: MarkdownSerializerState, node: ProsemirrorNode<S>) => void;
+        },
+        marks: {
+            [key: string]: MarkSerializerConfig;
+        },
+    );
+    /**
+     * The node serializer
+     * functions for this serializer.
+     */
+    nodes: {
+        [name: string]: (state: MarkdownSerializerState, node: ProsemirrorNode<S>) => void;
+    };
+    /**
+     * The mark serializer info.
+     */
+    marks: { [key: string]: any };
+    delim: string;
+    out: string;
+    closed: boolean;
+    inTightList: boolean;
     /**
      * The options passed to the serializer.
      */
     options: { tightLists?: boolean | null | undefined };
+
+    flushClose(size: number): void;
+
     /**
      * Render a block, prefixing each line with `delim`, and the first
      * line in `firstDelim`. `node` should be the node that is closed at
@@ -202,6 +228,8 @@ export class MarkdownSerializerState<S extends Schema = any> {
      * content of the block.
      */
     wrapBlock(delim: string, firstDelim: string | undefined, node: ProsemirrorNode<S>, f: () => void): void;
+
+    atBlank(): boolean;
     /**
      * Ensure the current content ends with a newline.
      */
@@ -225,7 +253,7 @@ export class MarkdownSerializerState<S extends Schema = any> {
     /**
      * Render the given node as a block.
      */
-    render(node: ProsemirrorNode<S>): void;
+    render(node: ProsemirrorNode<S>, parent: ProsemirrorNode<S>, index: number): void;
 
     /**
      * Render the contents of `parent` as block nodes.
@@ -256,6 +284,11 @@ export class MarkdownSerializerState<S extends Schema = any> {
      * Repeat the given string `n` times.
      */
     repeat(str: string, n: number): string;
+
+    /**
+     * Get the markdown string for a given opening or closing mark.
+     */
+    markString(mark: Mark, open: boolean, parent?: Node, index?: number): string;
 
     /**
      * Get leading and trailing whitespace from a string. Values of
