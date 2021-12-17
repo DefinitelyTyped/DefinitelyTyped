@@ -1,4 +1,4 @@
-// Type definitions for @hippy/react 2.11.5
+// Type definitions for @hippy/react 2.11
 // Project: http://hippyjs.org
 // Definitions by: zeroyu <https://github.com/zerosrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1338,7 +1338,7 @@ interface WaterfallViewProps {
         endEdgePos: number;
         firstVisibleRowIndex: number;
         lastVisibleRowIndex: number;
-        visibleRowFrames: Object;
+        visibleRowFrames: object;
     }): void;
 
     // Called when user pulls the ListView down
