@@ -45,8 +45,16 @@ interface BlendingParams {
 }
 
 interface BorderAndPaddingParams {
+    'border-bottom'?: ImgixParamType | undefined;
+    'border-left'?: ImgixParamType | undefined;
     'border-radius-inner'?: ImgixParamType | undefined;
     'border-radius'?: ImgixParamType | undefined;
+    'border-right'?: ImgixParamType | undefined;
+    'border-top'?: ImgixParamType | undefined;
+    'pad-bottom'?: ImgixParamType | undefined;
+    'pad-left'?: ImgixParamType | undefined;
+    'pad-right'?: ImgixParamType | undefined;
+    'pad-top'?: ImgixParamType | undefined;
     border?: ImgixParamType | undefined;
     pad?: ImgixParamType | undefined;
 }
