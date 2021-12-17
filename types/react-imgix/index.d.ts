@@ -177,7 +177,7 @@ interface WatermarkParams {
     mark?: ImgixParamType | undefined;
 }
 
-type ImigixParams = AdjustmentParams &
+type ImgixParams = AdjustmentParams &
     AutomaticParams &
     BlendingParams &
     BorderAndPaddingParams &
@@ -225,12 +225,12 @@ interface CommonProps {
     domain?: string | undefined;
 }
 
-export interface SharedImigixAndSourceProps extends CommonProps {
+export interface SharedImgixAndSourceProps extends CommonProps {
     src: string;
     disableQualityByDPR?: boolean | undefined;
     disableSrcSet?: boolean | undefined;
     disableLibraryParam?: boolean | undefined;
-    imgixParams?: ImigixParams | undefined;
+    imgixParams?: ImgixParams | undefined;
     srcSetOptions?: SrcSetParams | undefined;
     sizes?: string | undefined;
     width?: number | undefined;
@@ -243,7 +243,7 @@ export interface ImgixProviderProps extends CommonProps {
     disableQualityByDPR?: boolean | undefined;
     disableSrcSet?: boolean | undefined;
     disableLibraryParam?: boolean | undefined;
-    imgixParams?: ImigixParams | undefined;
+    imgixParams?: ImgixParams | undefined;
     sizes?: string | undefined;
     width?: number | undefined;
     height?: number | undefined;
@@ -251,9 +251,9 @@ export interface ImgixProviderProps extends CommonProps {
 }
 
 export class Picture extends React.Component<React.PropsWithChildren<CommonProps>> {}
-export class Source extends React.Component<SharedImigixAndSourceProps> {}
+export class Source extends React.Component<SharedImgixAndSourceProps> {}
 export class ImgixProvider extends React.Component<React.PropsWithChildren<ImgixProviderProps>> {}
-export function buildURL(src: string, imgixParams?: ImigixParams, options?: SharedImigixAndSourceProps): string;
+export function buildURL(src: string, imgixParams?: ImgixParams, options?: SharedImgixAndSourceProps): string;
 
 type Warnings = 'fallbackImage' | 'sizesAttribute' | 'invalidARFormat';
 
@@ -264,7 +264,7 @@ export namespace PublicConfigAPI {
 
 export interface BackgroundProps {
     src: string;
-    imgixParams?: ImigixParams | undefined;
+    imgixParams?: ImgixParams | undefined;
     className?: string | undefined;
     disableLibraryParam?: boolean | undefined;
     htmlAttributes?: ImgixHTMLAttributes | undefined;
@@ -272,5 +272,5 @@ export interface BackgroundProps {
 
 export const Background: React.FunctionComponent<React.PropsWithChildren<BackgroundProps>>;
 
-declare class Imgix extends React.Component<SharedImigixAndSourceProps> {}
+declare class Imgix extends React.Component<SharedImgixAndSourceProps> {}
 export default Imgix;
