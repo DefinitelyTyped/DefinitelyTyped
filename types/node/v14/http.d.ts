@@ -237,7 +237,7 @@ declare module 'http' {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): this;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
