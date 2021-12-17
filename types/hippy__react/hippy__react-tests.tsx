@@ -10,6 +10,8 @@ import {
     ViewPager,
     View,
     Text,
+    Image,
+    WaterfallView,
     HippyEventEmitter,
     callNativeWithPromise,
     UIManagerModule,
@@ -18,12 +20,38 @@ import {
     AnimationSet,
     AsyncStorage,
     NetInfo,
+    Hippy,
 } from '@hippy/react';
 
-<View>
-    <Text>'test'</Text>
-</View>;
+function Comp() {
+    const textInput = React.useRef<TextInput>(null);
 
-<ListView numberOfRows={1} bounces={false} />;
-<ViewPager initialPage={0} keyboardDismissMode="none" />;
-<ScrollView keyboardDismissMode="none" />;
+    React.useEffect(() => {
+        textInput.current?.focus();
+    }, []);
+
+    React.useEffect(() => {
+        NetInfo.addEventListener('change', () => {});
+    }, [NetInfo]);
+
+    return (
+        <View>
+            <Text>
+                'test'
+                <Text>'nested'</Text>
+            </Text>
+            <TextInput ref={textInput} />
+            <ListView numberOfRows={1} bounces={false} />;
+            <ViewPager initialPage={0} keyboardDismissMode="none" horizontal />;
+            <ScrollView keyboardDismissMode="none" />;
+        </View>
+    );
+}
+
+new Hippy({
+    appName: 'demo',
+    entryPage: () => {
+        return <View />;
+    },
+    silent: true,
+}).start();
