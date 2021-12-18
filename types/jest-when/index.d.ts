@@ -1,4 +1,4 @@
-// Type definitions for jest-when 2.7
+// Type definitions for jest-when 3.5
 // Project: https://github.com/timkindberg/jest-when#readme
 // Definitions by: Alden Taylor <https://github.com/aldentaylor>,
 //                 Trung Dang <https://github.com/immanuel192>,
