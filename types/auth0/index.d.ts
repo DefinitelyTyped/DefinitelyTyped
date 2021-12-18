@@ -636,6 +636,11 @@ export interface RequestSMSOptions {
 
 export interface VerifySMSOptions {
     username: string;
+    otp: string;
+}
+
+export interface VerifySMSOptionsDeprecated {
+    username: string;
     password: string;
 }
 
@@ -1129,8 +1134,8 @@ export class AuthenticationClient {
     verifyEmailCode(data: VerifyEmailOptions): Promise<any>;
     verifyEmailCode(data: VerifyEmailOptions, cb: (err: Error, message: string) => void): void;
 
-    verifySMSCode(data: VerifySMSOptions): Promise<any>;
-    verifySMSCode(data: VerifySMSOptions, cb: (err: Error, message: string) => void): void;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated): Promise<any>;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated, cb: (err: Error, message: string) => void): void;
 
     getDelegationToken(data: DelegationTokenOptions): Promise<any>;
     getDelegationToken(data: DelegationTokenOptions, cb: (err: Error, message: string) => void): void;

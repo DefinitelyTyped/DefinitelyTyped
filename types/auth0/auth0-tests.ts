@@ -208,6 +208,10 @@ auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}, (response: any) => { 
 auth.verifySMSCode({username: '+1234567890', password: 'password'}).then((response: any) => { console.log(response); });
 auth.verifySMSCode({username: '+1234567890', password: 'password'}, (response: any) => { console.log(response); });
 
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}).then((response: any) => { console.log(response); });
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}, (response: any) => { console.log(response); });
+
+
 // Get management client access token
 management
     .getAccessToken()
