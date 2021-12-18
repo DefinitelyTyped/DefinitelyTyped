@@ -190,4 +190,27 @@ describe('mock-when test', () => {
 
       expect(toBeMocked('another one')).toEqual('another one');
     });
+
+    it('supports function matchers', () => {
+      const fn = jest.fn<string, [{[key: string]: boolean}, number]>();
+      const allValuesTrue = when((arg: {[key: string]: boolean}) => Object.keys(arg).map((k) => arg[k]).every(Boolean));
+      const numberDivisibleBy3 = when((arg: number) => arg % 3 === 0);
+
+      when(fn)
+      .calledWith(allValuesTrue, numberDivisibleBy3)
+      .mockReturnValue('yay!');
+
+      expect(fn({ foo: true, bar: true }, 9)).toEqual('yay!');
+      expect(fn({ foo: true, bar: false }, 9)).toEqual(undefined);
+      expect(fn({ foo: true, bar: false }, 13)).toEqual(undefined);
+
+      when(fn)
+        .calledWith('foo', 123)  // $ExpectError
+        .mockReturnValue('nay!');
+
+      const badMatcher = when((arg: string) => arg.length === 5);
+      when(fn)
+        .calledWith(badMatcher, numberDivisibleBy3)  // $ExpectError
+        .mockReturnValue('nay!');
+    });
 });

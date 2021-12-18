@@ -10,10 +10,12 @@
 
 /// <reference types="jest" />
 
+export type ArgumentOrMatcher<ArgTypes extends any[]> = { [Index in keyof ArgTypes]: ArgTypes[Index] | WhenMock<boolean, [ArgTypes[Index]]> };
+
 export interface WhenMock<T = any, Y extends any[] = any>
   extends jest.MockInstance<T, Y> {
-  calledWith(...matchers: Y): this;
-  expectCalledWith(...matchers: Y): this;
+  calledWith(...matchers: ArgumentOrMatcher<Y>): this;
+  expectCalledWith(...matchers: ArgumentOrMatcher<Y>): this;
   mockReturnValue(value: T): this;
   mockReturnValueOnce(value: T): this;
   mockResolvedValue(value: jest.ResolvedValue<T>): this;
