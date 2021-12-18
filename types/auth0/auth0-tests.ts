@@ -211,7 +211,6 @@ auth.verifySMSCode({username: '+1234567890', password: 'password'}, (response: a
 auth.verifySMSCode({username: '+1234567890', otp: 'password'}).then((response: any) => { console.log(response); });
 auth.verifySMSCode({username: '+1234567890', otp: 'password'}, (response: any) => { console.log(response); });
 
-
 // Get management client access token
 management
     .getAccessToken()
