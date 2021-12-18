@@ -26,6 +26,10 @@ export interface WhenMock<T = any, Y extends any[] = any>
   mockRejectedValueOnce(value: jest.RejectedValue<T>): this;
   mockImplementation(fn: (...args: Y) => T): this;
   mockImplementationOnce(fn?: (...args: Y) => T): this;
+  defaultReturnValue(value: T): this;
+  defaultResolvedValue(value: jest.ResolvedValue<T>): this;
+  defaultRejectedValue(value: jest.RejectedValue<T>): this;
+  defaultImplementation(fn: (...args: Y) => T): this;
 }
 
 export interface AllArgsMatcher<Y> {

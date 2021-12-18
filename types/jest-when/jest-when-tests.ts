@@ -235,4 +235,23 @@ describe('mock-when test', () => {
 
       when.allArgs((args: number[], equals) => args.length > 0 && equals(args, expect.arrayContaining([123])));
     });
+
+    it('supports default methods', () => {
+      const fn = jest.fn<string, [string]>();
+
+      when(fn)
+        .calledWith('foo').mockReturnValue('special')
+        .defaultReturnValue('default');
+
+      expect(fn('foo')).toEqual('special');
+      expect(fn('bar')).toEqual('default');
+
+      function unsupportedCallError(...args: any[]): never {
+        throw new Error(`Wrong args: ${JSON.stringify(args, null, 2)}`);
+      }
+
+      when(fn)
+        .calledWith('foo').mockReturnValue('bar')
+        .defaultImplementation(unsupportedCallError);
+    });
 });
