@@ -14,7 +14,9 @@ export type ArgumentOrMatcher<ArgTypes extends any[]> = { [Index in keyof ArgTyp
 
 export interface WhenMock<T = any, Y extends any[] = any>
   extends jest.MockInstance<T, Y> {
+  calledWith(allArgsMatcher: AllArgsMatcher<Y>): this;
   calledWith(...matchers: ArgumentOrMatcher<Y>): this;
+  expectCalledWith(allArgsMatcher: AllArgsMatcher<Y>): this;
   expectCalledWith(...matchers: ArgumentOrMatcher<Y>): this;
   mockReturnValue(value: T): this;
   mockReturnValueOnce(value: T): this;
@@ -26,7 +28,18 @@ export interface WhenMock<T = any, Y extends any[] = any>
   mockImplementationOnce(fn?: (...args: Y) => T): this;
 }
 
-export type When = <T, Y extends any[]>(fn: ((...args: Y) => T) | jest.MockInstance<T, Y>) => WhenMock<T, Y>;
+export interface AllArgsMatcher<Y> {
+  (args: Y, equals: jest.MatcherUtils['equals']): boolean;
+  // Internal, but needed to distinguish from normal callables
+  _isAllArgsFunctionMatcher: true;
+  _isFunctionMatcher: true;
+}
+
+export interface When {
+  <T, Y extends any[]>(fn: ((...args: Y) => T) | jest.MockInstance<T, Y>): WhenMock<T, Y>;
+
+  allArgs<Y extends any[]>(matcher: (args: Y, equals: jest.MatcherUtils['equals']) => boolean): AllArgsMatcher<Y>;
+}
 
 export const when: When;
 export function resetAllWhenMocks(): void;

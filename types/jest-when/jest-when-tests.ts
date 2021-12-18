@@ -213,4 +213,26 @@ describe('mock-when test', () => {
         .calledWith(badMatcher, numberDivisibleBy3)  // $ExpectError
         .mockReturnValue('nay!');
     });
+
+    it('supports allArgs', () => {
+      const fn = jest.fn<string, [] | [number] | [number, number]>();
+      const allArgsMatcher = when.allArgs((args: number[]) => args.length === 1);
+
+      when(fn)
+        .calledWith(allArgsMatcher)
+        .mockReturnValue('yay!');
+
+      expect(fn()).toBe(undefined);
+      expect(fn(123)).toBe('yay!');
+      expect(fn(123, 456)).toBe(undefined);
+
+      // allArgs matcher should be the only argument to calledWith/expectCalledWith
+      when(fn)
+        .calledWith(allArgsMatcher, 456)  // $ExpectError
+        .mockReturnValue('nay!');
+
+      when.allArgs((args: number) => args > 0); // $ExpectError
+
+      when.allArgs((args: number[], equals) => args.length > 0 && equals(args, expect.arrayContaining([123])));
+    });
 });
