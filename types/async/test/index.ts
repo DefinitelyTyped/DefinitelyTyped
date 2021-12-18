@@ -544,6 +544,24 @@ async.map<number, string>(
     (err: Error, results: string[]) => { console.log("async.map: done with results", results); }
 );
 
+async function promiseTest() {
+    const promiseMap = await async.map<number, string>(
+        { a: 1, b: 2, c: 3 },
+        async (val: number) => {
+            return new Promise<string>((resolve, reject) => {
+                setTimeout(
+                    () => {
+                        console.log(`async.map: ${val}`);
+                        resolve(val.toString())
+                    },
+                    500);
+            })
+        }
+    );
+    console.log("async.map promise: done with results", promiseMap);
+}
+promiseTest()
+
 async.mapSeries<number, string>(
     { a: 1, b: 2, c: 3 },
     (val: number, next: AsyncResultCallback<string>) => {
