@@ -771,6 +771,8 @@ QUnit.module( "async nested hooks", function( hooks ) {
   } );
 });
 
-QUnit.onUncaughtException = (error: Error) => {
-  throw error;
+QUnit.onUncaughtException = (error: unknown) => {
+  if (error instanceof Error) {
+    console.log(error.message);
+  }
 };

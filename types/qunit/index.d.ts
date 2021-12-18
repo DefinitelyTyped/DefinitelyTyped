@@ -592,7 +592,7 @@ declare global {
          * @since 2.17.0
          * @param {Error|any} error
          */
-        onUncaughtException(error: unknown): void;
+        onUncaughtException: (error: unknown) => void;
 
         /**
          * DEPRECATED: Report the result of a custom assertion.
