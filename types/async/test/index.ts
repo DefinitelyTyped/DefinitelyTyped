@@ -552,15 +552,15 @@ async function promiseTest() {
                 setTimeout(
                     () => {
                         console.log(`async.map: ${val}`);
-                        resolve(val.toString())
+                        resolve(val.toString());
                     },
                     500);
-            })
+            });
         }
     );
     console.log("async.map promise: done with results", promiseMap);
 }
-promiseTest()
+promiseTest();
 
 async.mapSeries<number, string>(
     { a: 1, b: 2, c: 3 },
