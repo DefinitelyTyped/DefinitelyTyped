@@ -327,8 +327,8 @@ declare namespace jest {
      */
     function useRealTimers(): typeof jest;
 
-    interface MockOptions {
-        virtual?: boolean | undefined;
+    interface MockOptions { // tslint:disable-next-line: no-trailing-whitespace
+        virtual?: boolean | undefined; // tslint:disable-next-line: no-trailing-whitespace
     }    
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type MockableFunction = (...args: any[]) => any;
