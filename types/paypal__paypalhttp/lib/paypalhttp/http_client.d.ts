@@ -6,27 +6,25 @@ import { Json } from './serializer/json';
 import { Text } from './serializer/text';
 import { Multipart } from './serializer/multipart';
 
-export namespace HttpClient {
-    type Injector = (request: Request) => void;
-
-    interface Headers extends IncomingHttpHeaders {
-        [key: string]: string | string[] | undefined;
-    }
-
-    interface Request<T = object> {
-        body: T;
-        headers: Headers;
-        path: string;
-        verb: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
-    }
-
-    interface Response<R> extends ServerResponse {
-        headers: Headers;
-        message?: string;
-        result?: R;
-        statusCode: number;
-    }
+export interface HttpHeaders extends IncomingHttpHeaders {
+    [key: string]: string | string[] | undefined;
 }
+
+export interface HttpRequest<T = object> {
+    body: T;
+    headers: HttpHeaders;
+    path: string;
+    verb: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
+}
+
+export interface HttpResponse<R> extends ServerResponse {
+    headers: HttpHeaders;
+    message?: string;
+    result?: R;
+    statusCode: number;
+}
+
+export type HttpInjector = (request: HttpRequest) => void;
 
 export class HttpClient {
     readonly encoder: Encoder<typeof Json | typeof Text | typeof Multipart | typeof FormEncoded>;
@@ -38,11 +36,11 @@ export class HttpClient {
 
     getTimeout(): number;
 
-    addInjector(injector: HttpClient.Injector): void;
+    addInjector(injector: HttpInjector): void;
 
-    formatHeaders(headers: HttpClient.Headers): HttpClient.Headers;
+    formatHeaders(headers: HttpHeaders): HttpHeaders;
 
-    mapHeader(rawHeaders: HttpClient.Headers, formattedHeaders: HttpClient.Headers): HttpClient.Headers;
+    mapHeader(rawHeaders: HttpHeaders, formattedHeaders: HttpHeaders): HttpHeaders;
 
-    execute(req: HttpClient.Request): Promise<HttpClient.Response<any>>;
+    execute(req: HttpRequest): Promise<HttpResponse<any>>;
 }

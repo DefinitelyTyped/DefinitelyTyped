@@ -1,21 +1,21 @@
 /// <reference types="node" />
 
-import { HttpClient } from '../http_client';
+import { HttpRequest, HttpHeaders } from '../http_client';
 import { Serializer } from './serializer';
 
 export class FormPart {
-    readonly headers: HttpClient.Headers;
+    readonly headers: HttpHeaders;
     readonly value: any;
 
-    constructor(value: any, headers: HttpClient.Headers);
+    constructor(value: any, headers: HttpHeaders);
 }
 
 export class Multipart extends Serializer {
     static _CRLF: string;
 
-    encode(request: HttpClient.Request): Buffer;
+    encode(request: HttpRequest): Buffer;
 
-    formatHeaders(headers: HttpClient.Headers): HttpClient.Headers;
+    formatHeaders(headers: HttpHeaders): HttpHeaders;
 
     decode(): Error;
 }

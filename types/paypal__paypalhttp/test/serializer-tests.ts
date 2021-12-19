@@ -1,6 +1,6 @@
 import paypal = require('@paypal/paypalhttp');
 
-const req: paypal.HttpClient.Request = {
+const req: paypal.HttpRequest = {
     path: '/path',
     verb: 'POST',
     headers: {
@@ -12,7 +12,7 @@ const req: paypal.HttpClient.Request = {
 {
     const formPart = new paypal.FormPart('value', req.headers);
 
-    formPart.headers; // $ExpectType Headers
+    formPart.headers; // $ExpectType HttpHeaders
     formPart.value; // $ExpectType any
 }
 

@@ -10,7 +10,7 @@ client.addInjector(req => {
     req.headers['Request-Id'] = 'abcd';
 });
 
-const req: paypal.HttpClient.Request = {
+const req: paypal.HttpRequest = {
     path: '/path/to/resource',
     verb: 'GET',
     headers: {
@@ -22,7 +22,7 @@ const req: paypal.HttpClient.Request = {
 client.execute(req).then(resp => {
     // $ExpectType number
     resp.statusCode;
-    // $ExpectType Headers
+    // $ExpectType HttpHeaders
     resp.headers;
     // $ExpectType any
     resp.result;
@@ -33,7 +33,7 @@ async () => {
 
     // $ExpectType number
     resp.statusCode;
-    // $ExpectType Headers
+    // $ExpectType HttpHeaders
     resp.headers;
     // $ExpectType any
     resp.result;
@@ -44,7 +44,7 @@ client
     .then(resp => {
         // $ExpectType number
         resp.statusCode;
-        // $ExpectType Headers
+        // $ExpectType HttpHeaders
         resp.headers;
         // $ExpectType any
         resp.result;
