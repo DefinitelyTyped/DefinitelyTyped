@@ -73,6 +73,7 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
 ];
 
 declare namespace jest {
+    const mocked: typeof import('jest-mock').mocked;
     /**
      * Disables automatic mocking in the module loader.
      */

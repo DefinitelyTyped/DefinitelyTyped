@@ -1572,3 +1572,9 @@ test(`returns a Promise<any> and takes done`, (done) => {
 test(`async function takes done`, async (done) => {
     done();
 });
+
+// $ExpectError
+jest.mocked();
+
+// $ExpectType any
+jest.mocked({});
