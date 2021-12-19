@@ -50,47 +50,74 @@ afterEach((done: jest.DoneCallback) => Promise.resolve());
 
 describe(0, () => {});
 describe('name', () => {});
-describe(() => {}, () => {});
+describe(
+    () => {},
+    () => {},
+);
 describe({ name: 'name' }, () => {});
 
 describe.only(0, () => {});
 describe.only('name', () => {});
-describe.only(() => {}, () => {});
+describe.only(
+    () => {},
+    () => {},
+);
 describe.only({ name: 'name' }, () => {});
 
 describe.skip(0, () => {});
 describe.skip('name', () => {});
-describe.skip(() => {}, () => {});
+describe.skip(
+    () => {},
+    () => {},
+);
 describe.skip({ name: 'name' }, () => {});
 
 fdescribe(0, () => {});
 fdescribe('name', () => {});
-fdescribe(() => {}, () => {});
+fdescribe(
+    () => {},
+    () => {},
+);
 fdescribe({ name: 'name' }, () => {});
 
 fdescribe.only(0, () => {});
 fdescribe.only('name', () => {});
-fdescribe.only(() => {}, () => {});
+fdescribe.only(
+    () => {},
+    () => {},
+);
 fdescribe.only({ name: 'name' }, () => {});
 
 fdescribe.skip(0, () => {});
 fdescribe.skip('name', () => {});
-fdescribe.skip(() => {}, () => {});
+fdescribe.skip(
+    () => {},
+    () => {},
+);
 fdescribe.skip({ name: 'name' }, () => {});
 
 xdescribe(0, () => {});
 xdescribe('name', () => {});
-xdescribe(() => {}, () => {});
+xdescribe(
+    () => {},
+    () => {},
+);
 xdescribe({ name: 'name' }, () => {});
 
 xdescribe.only(0, () => {});
 xdescribe.only('name', () => {});
-xdescribe.only(() => {}, () => {});
+xdescribe.only(
+    () => {},
+    () => {},
+);
 xdescribe.only({ name: 'name' }, () => {});
 
 xdescribe.skip(0, () => {});
 xdescribe.skip('name', () => {});
-xdescribe.skip(() => {}, () => {});
+xdescribe.skip(
+    () => {},
+    () => {},
+);
 xdescribe.skip({ name: 'name' }, () => {});
 
 /* it */
@@ -332,7 +359,7 @@ jest.requireActual('./thisReturnsTheActualModule').default;
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
-const spreadRequireActual = {...jest.requireActual('./thisReturnsTheActualModule')};
+const spreadRequireActual = { ...jest.requireActual('./thisReturnsTheActualModule') };
 
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType any
@@ -348,7 +375,7 @@ jest.requireMock('./thisAlwaysReturnsTheMock').default;
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
-const spreadRequireMock = {...jest.requireMock('./thisAlwaysReturnsTheMock')};
+const spreadRequireMock = { ...jest.requireMock('./thisAlwaysReturnsTheMock') };
 
 /* Mocks and spies */
 
@@ -370,7 +397,7 @@ const mock7 = jest.fn((arg: number) => arg);
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
 // $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean]>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) =>
-    Promise.resolve(_makeItStop)
+    Promise.resolve(_makeItStop),
 );
 // $ExpectType Mock<never, []>
 const mock10 = jest.fn(() => {
@@ -484,7 +511,7 @@ const spy3Mock = spy3
 const spiedPromiseTarget = {
     resolvesString() {
         return Promise.resolve('string');
-    }
+    },
 };
 jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockResolvedValue('value')
@@ -529,7 +556,7 @@ class SpyableClass {
     foo() {}
 }
 // $ExpectType SpyInstance<SpyableClass, [number, string]> || SpyInstance<SpyableClass, [a: number, b: string]>
-jest.spyOn({ SpyableClass }, "SpyableClass");
+jest.spyOn({ SpyableClass }, 'SpyableClass');
 
 interface Type1 {
     a: number;
@@ -668,7 +695,7 @@ switch (mockResult.type) {
 /* getState and setState */
 // $ExpectError
 expect.setState(true);
-expect.setState({for: 'state'});
+expect.setState({ for: 'state' });
 const expectState = expect.getState();
 // $ExpectType string
 expectState.currentTestName;
@@ -895,7 +922,7 @@ describe('', () => {
         // $ExpectError
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
         // $ExpectError
-        expect({}).toEqual<{ p1: string, p2: number }>({ p1: 'hello' });
+        expect({}).toEqual<{ p1: string; p2: number }>({ p1: 'hello' });
 
         expect(0).toBeCloseTo(1);
         expect(0).toBeCloseTo(1, 2);
@@ -1075,11 +1102,19 @@ describe('', () => {
 
         /* Promise matchers */
 
-        expect(Promise.reject('jest')).rejects.toEqual('jest').then(() => {});
-        expect(Promise.reject('jest')).rejects.not.toEqual('other').then(() => {});
+        expect(Promise.reject('jest'))
+            .rejects.toEqual('jest')
+            .then(() => {});
+        expect(Promise.reject('jest'))
+            .rejects.not.toEqual('other')
+            .then(() => {});
 
-        expect(Promise.resolve('jest')).resolves.toEqual('jest').then(() => {});
-        expect(Promise.resolve('jest')).resolves.not.toEqual('other').then(() => {});
+        expect(Promise.resolve('jest'))
+            .resolves.toEqual('jest')
+            .then(() => {});
+        expect(Promise.resolve('jest'))
+            .resolves.not.toEqual('other')
+            .then(() => {});
         /* type matchers */
 
         expect({}).toBe(expect.anything());
@@ -1103,7 +1138,7 @@ describe('', () => {
                     foo: 'bar',
                 }),
                 ghi: expect.stringMatching('foo'),
-            })
+            }),
         );
 
         /* Inverse type matchers */
@@ -1124,73 +1159,89 @@ describe('', () => {
 /* Custom matchers and CustomExpect */
 describe('', () => {
     it('', () => {
-        const customMatcher = (expected: any, actual: {prop: string}, option1: boolean) => {
-            return {pass: true, message: () => ''};
+        const customMatcher = (expected: any, actual: { prop: string }, option1: boolean) => {
+            return { pass: true, message: () => '' };
         };
         const asyncMatcher = () => {
-            return Promise.resolve({pass: true, message: () => ''});
+            return Promise.resolve({ pass: true, message: () => '' });
         };
 
-        const customMatchers = {customMatcher, asyncMatcher};
+        const customMatchers = { customMatcher, asyncMatcher };
         expect.extend(customMatchers);
         const extendedExpect: jest.ExtendedExpect<typeof customMatchers> = expect as any;
 
         // extracting matcher types
-        const matchers = extendedExpect({thing: true});
+        const matchers = extendedExpect({ thing: true });
         let nonPromiseMatchers: jest.NonPromiseMatchers<typeof matchers> = matchers;
         const isNot = true;
         if (isNot) {
             nonPromiseMatchers = matchers.not;
         }
         // retains U from <U>(actual: U) => JestExtendedMatchers<T, U>; - BUT CANNOT DO THAT WITH CUSTOM...
-        nonPromiseMatchers.toMatchInlineSnapshot({thing: extendedExpect.any(Boolean)});
+        nonPromiseMatchers.toMatchInlineSnapshot({ thing: extendedExpect.any(Boolean) });
         // $ExpectError
-        nonPromiseMatchers.toMatchInlineSnapshot({notthing: extendedExpect.any(Boolean)});
+        nonPromiseMatchers.toMatchInlineSnapshot({ notthing: extendedExpect.any(Boolean) });
 
         let promiseMatchers: jest.PromiseMatchers<typeof matchers> = matchers.rejects;
         if (isNot) {
             promiseMatchers = matchers.rejects.not;
         }
         // $ExpectType Promise<void>
-        promiseMatchers.customMatcher({prop: ''}, true);
+        promiseMatchers.customMatcher({ prop: '' }, true);
 
         // retains built in asymmetric matcher
         extendedExpect.not.arrayContaining;
 
-        extendedExpect.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
+        extendedExpect.customMatcher({ prop: 'good' }, false).asymmetricMatch({}).valueOf();
         // $ExpectError
-        extendedExpect.customMatcher({prop: {not: 'good'}}, false);
+        extendedExpect.customMatcher({ prop: { not: 'good' } }, false);
 
-        extendedExpect.not.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
+        extendedExpect.not.customMatcher({ prop: 'good' }, false).asymmetricMatch({}).valueOf();
         // $ExpectError
-        extendedExpect.not.customMatcher({prop: 'good'}, 'bad').asymmetricMatch({}).valueOf();
+        extendedExpect.not.customMatcher({ prop: 'good' }, 'bad').asymmetricMatch({}).valueOf();
 
         // $ExpectError
         const asynMatcherExcluded = extendedExpect.asyncMatcher;
 
-        extendedExpect('').customMatcher({prop: 'good'}, true);
+        extendedExpect('').customMatcher({ prop: 'good' }, true);
         // $ExpectError
-        extendedExpect('').customMatcher({prop: 'good'}, 'bad');
+        extendedExpect('').customMatcher({ prop: 'good' }, 'bad');
 
-        extendedExpect('').not.customMatcher({prop: 'good'}, true);
+        extendedExpect('').not.customMatcher({ prop: 'good' }, true);
         // $ExpectError
-        extendedExpect('').not.customMatcher({prop: 'good'}, 'bad');
+        extendedExpect('').not.customMatcher({ prop: 'good' }, 'bad');
 
-        extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, true).then(() => {});
+        extendedExpect(Promise.resolve(''))
+            .resolves.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
         // $ExpectError
-        extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.resolve(''))
+            .resolves.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
 
-        extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, true).then(() => {});
+        extendedExpect(Promise.resolve(''))
+            .resolves.not.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
         // $ExpectError
-        extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.resolve(''))
+            .resolves.not.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
 
-        extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, true).then(() => {});
+        extendedExpect(Promise.reject(''))
+            .rejects.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
         // $ExpectError
-        extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.reject(''))
+            .rejects.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
 
-        extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, true).then(() => {});
+        extendedExpect(Promise.reject(''))
+            .rejects.not.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
         // $ExpectError
-        extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.reject(''))
+            .rejects.not.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
     });
 });
 
@@ -1257,7 +1308,7 @@ expect({ abc: 'def' }).toBe(
             foo: 'bar',
         }),
         ghi: jasmine.stringMatching('foo'),
-    })
+    }),
 );
 
 /* Jasmine spies */
@@ -1373,7 +1424,11 @@ let matchersUtil2: jasmine.MatchersUtil = {
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/26368
 
-describe.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a: number, b: number, expected: number) => {
+describe.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a: number, b: number, expected: number) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
     });
@@ -1396,7 +1451,11 @@ describe.each`
     });
 });
 
-describe.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+describe.only.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
     });
@@ -1413,7 +1472,11 @@ describe.only.each`
     });
 });
 
-describe.skip.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+describe.skip.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
     });
@@ -1430,16 +1493,24 @@ describe.skip.each`
     });
 });
 
-test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+test.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     expect(a + b).toBe(expected);
 });
 
-test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+test.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])(
     '.add(%i, %i)',
     (a, b, expected) => {
         expect(a + b).toBe(expected);
     },
-    5000
+    5000,
 );
 
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
@@ -1451,7 +1522,7 @@ test.each(constCases)('%s + %s', (...args) => {
 
 declare const constCasesWithMoreThanTen: [
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-    [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+    [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911],
 ];
 
 test.each(constCasesWithMoreThanTen)('should fall back with more than 10 args', (...args) => {
@@ -1479,18 +1550,22 @@ test.each`
     ({ a, b, expected }: Case) => {
         expect(a + b).toBe(expected);
     },
-    5000
+    5000,
 );
 
 test.each([
-    [1, "1"],
-    [2, "2"]
-])("", (a, b) => {
+    [1, '1'],
+    [2, '2'],
+])('', (a, b) => {
     a; // $ExpectType number
     b; // $ExpectType string
 });
 
-test.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+test.only.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     expect(a + b).toBe(expected);
 });
 
@@ -1522,7 +1597,7 @@ test(`returns a Promise<any>`, () => {
 
 /* Test function can take and call the done callback function */
 
-test(`uses done`, (done) => {
+test(`uses done`, done => {
     done();
 });
 
@@ -1547,28 +1622,28 @@ test(`returns a number`, () => {
 // $ExpectError
 test(`returns an object`, () => {
     return {
-        isAnObject: true
+        isAnObject: true,
     };
 });
 
 /* Test function should not return promise and takes done callback function */
 
 // $ExpectError
-test(`returns a Promise<boolean> and takes done`, (done) => {
+test(`returns a Promise<boolean> and takes done`, done => {
     return Promise.resolve(true);
 });
 
 // $ExpectError
-test(`returns a Promise<{ isAnObject: boolean }> and takes done`, (done) => {
+test(`returns a Promise<{ isAnObject: boolean }> and takes done`, done => {
     return Promise.resolve({ isAnObject: true });
 });
 
 // $ExpectError
-test(`returns a Promise<any> and takes done`, (done) => {
+test(`returns a Promise<any> and takes done`, done => {
     return Promise.resolve('any' as any);
 });
 
 // $ExpectError
-test(`async function takes done`, async (done) => {
+test(`async function takes done`, async done => {
     done();
 });
