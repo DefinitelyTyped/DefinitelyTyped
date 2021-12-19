@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { HttpRequest, HttpHeaders } from '../http_client';
 import { Serializer } from './serializer';
 
