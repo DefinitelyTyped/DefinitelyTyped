@@ -27,7 +27,7 @@ export interface HttpResponse<R> extends ServerResponse {
 export type HttpInjector = (request: HttpRequest) => void;
 
 export class HttpClient {
-    readonly encoder: Encoder<typeof Json | typeof Text | typeof Multipart | typeof FormEncoded>;
+    readonly encoder: Encoder<[typeof Json, typeof Text, typeof Multipart, typeof FormEncoded]>;
     readonly environment: Environment;
 
     constructor(environment: Environment);

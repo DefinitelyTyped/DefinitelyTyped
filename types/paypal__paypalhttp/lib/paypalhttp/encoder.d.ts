@@ -2,8 +2,8 @@
 
 import { HttpRequest, HttpHeaders } from './http_client';
 
-export class Encoder<T = any> {
-    constructor(encoders: T[]);
+export class Encoder<T extends any[] = any[]> {
+    constructor(encoders: T);
 
     serializeRequest(request: HttpRequest): Buffer;
 
