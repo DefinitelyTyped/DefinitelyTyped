@@ -342,7 +342,7 @@ declare namespace Dockerode {
     interface ImageInfo {
         Id: string;
         ParentId: string;
-        RepoTags: string[];
+        RepoTags: string[] | null;
         RepoDigests?: string[] | undefined;
         Created: number;
         Size: number;
