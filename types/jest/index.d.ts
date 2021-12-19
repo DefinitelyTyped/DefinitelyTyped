@@ -341,14 +341,14 @@ declare namespace jest {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
 
-    interface MockWithArgs<T extends MockableFunction> extends jest.MockInstance<ReturnType<T>, ArgumentsOf<T>> {
+    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>> {
         new (...args: ConstructorArgumentsOf<T>): T;
         (...args: ArgumentsOf<T>): ReturnType<T>;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
-        ? jest.MockInstance<R, ConstructorArgumentsOf<T>>
+        ? MockInstance<R, ConstructorArgumentsOf<T>>
         : T;
     type MockedFunction<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
     type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;

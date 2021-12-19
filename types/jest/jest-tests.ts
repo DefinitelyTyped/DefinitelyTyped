@@ -655,7 +655,7 @@ if (TestClass_testClassMethod_0_ret.type === 'return') {
     TestClass_testClassMethod_0_ret.value; // $ExpectType boolean
 }
 
-const mockedTestFunction = module.testFunction as jest.MockedFunction<typeof module.testFunction>;
+const mockedTestFunction = module.testFunction as jest.MockedFn<typeof module.testFunction>;
 mockedTestFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestFunction.mock.calls[0][1]; // $ExpectType string
 const mockedTestFunction_0_ret = mockedTestFunction.mock.results[0];
@@ -663,7 +663,7 @@ if (mockedTestFunction_0_ret.type === 'return') {
     mockedTestFunction_0_ret.value; // $ExpectType boolean
 }
 
-const mockedTestLambdaFunction = module.testLambdaFunction as jest.MockedFunction<typeof module.testLambdaFunction>;
+const mockedTestLambdaFunction = module.testLambdaFunction as jest.MockedFn<typeof module.testLambdaFunction>;
 mockedTestLambdaFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestLambdaFunction.mock.calls[0][1]; // $ExpectType string
 const mockedTestLambdaFunction_0_ret = mockedTestLambdaFunction.mock.results[0];
