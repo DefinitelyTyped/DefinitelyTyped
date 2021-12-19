@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.0
+// Type definitions for Jest 27.4
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>

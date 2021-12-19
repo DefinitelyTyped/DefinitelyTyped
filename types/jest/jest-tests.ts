@@ -1576,5 +1576,5 @@ test(`async function takes done`, async (done) => {
 // $ExpectError
 jest.mocked();
 
-// $ExpectType any
+// $ExpectType MockedObject<{}>
 jest.mocked({});
