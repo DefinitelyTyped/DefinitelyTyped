@@ -778,7 +778,7 @@ declare module 'http' {
          * The `message.aborted` property will be `true` if the request has
          * been aborted.
          * @since v10.1.0
-         * @deprecated Since v17.0.0 - Check `message.destroyed` from <a href="stream.html#class-streamreadable" class="type">stream.Readable</a>.
+         * @deprecated Since v17.0.0 - Check `message.destroyed` from [stream.Readable](https://nodejs.org/dist/latest-v17.x/docs/api/stream.html#class-streamreadable).
          */
         aborted: boolean;
         /**
