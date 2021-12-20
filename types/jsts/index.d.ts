@@ -2322,7 +2322,7 @@ declare namespace jsts {
         }
 
         export class GeoJSONReader {
-            constructor();
+            constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
              * Converts a GeoJSON to its <code>Geometry</code> representation.

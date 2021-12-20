@@ -164,6 +164,9 @@ n = poly.getNumInteriorRing();
 var gjw: jsts.io.GeoJSONWriter = new jsts.io.GeoJSONWriter();
 obj = gjw.write(g);
 
+var gjr: jsts.io.GeoJSONReader = new jsts.io.GeoJSONReader(factory);
+g = gjr.read(obj);
+
 var wr: jsts.io.WKTReader = new jsts.io.WKTReader();
 g = wr.read(str);
 wr.reducePrecision(g);
