@@ -22,6 +22,7 @@
 
 /// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
+/// <reference path="./chrome-cast/index.d.ts" />
 
 ////////////////////
 // Global object
