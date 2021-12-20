@@ -20,6 +20,6 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
-	    "test/chrome-cast.ts"
+        "test/chrome-cast.ts"
     ]
 }
