@@ -1364,6 +1364,55 @@ declare class WaterfallView extends React.Component<WaterfallViewProps> {
     scrollToContentOffset: (obj: { xOffset: number; yOffset: number; animated: boolean }) => void;
 }
 
+interface LoadEvent {
+    url: string;
+}
+interface WebViewProps {
+    /**
+     * WebView loads url
+     */
+    source: {
+        uri: string;
+    };
+
+    /**
+     * Custom user agent.
+     */
+    userAgent?: string;
+
+    /**
+     * Request method
+     */
+    method?: 'get' | 'post';
+
+    style?: ViewStyleProp;
+
+    /**
+     * Invoke when web page loaded.
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoad?(evt: LoadEvent): void;
+
+    /**
+     * Invoke when web page start to load.
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoadStart?(evt: LoadEvent): void;
+
+    /**
+     * Invoke when web page load completed
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoadEnd(evt: LoadEvent): void;
+}
+declare class WebView extends React.Component<WebViewProps> {}
+
 //
 // Hippy React Event
 // ----------------------------------------------------------------------
@@ -1506,6 +1555,21 @@ interface BackAndroid {
 }
 declare const BackAndroid: BackAndroid;
 
+interface Clipboard {
+    getString: () => Promise<string>;
+    setString: (value: string) => void;
+}
+declare const Clipboard: Clipboard;
+
+type logFn = (...value: string[]) => void;
+interface ConsoleModule {
+    log: logFn;
+    info: logFn;
+    warn: logFn;
+    error: logFn;
+}
+declare const ConsoleModule: ConsoleModule;
+
 interface Bridge {
     callNative(moduleName: string, methodName: string, ...args: any[]): void;
     callNativeWithCallbackId(moduleName: string, methodName: string, ...args: any[]): number;
@@ -1559,6 +1623,17 @@ interface NetInfo {
     removeEventListener(eventName: string, handler: NetInfoRevoker | (() => void)): void;
 }
 export const NetInfo: NetInfo;
+
+interface NetworkModule {
+    getCookies(url: string): Promise<string>;
+    setCookie(url: string, keyValue: string, expires?: string): Promise<void>;
+}
+export const NetworkModule: NetworkModule;
+
+interface PixelRatio {
+    get: () => number;
+}
+export const PixelRatio: PixelRatio;
 
 interface Route {
     routeName: string;

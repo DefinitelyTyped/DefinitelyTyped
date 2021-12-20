@@ -21,6 +21,12 @@ import {
     AsyncStorage,
     NetInfo,
     Hippy,
+    Clipboard,
+    ConsoleModule,
+    // ImageBackground,
+    NetworkModule,
+    PixelRatio,
+    WebView,
 } from '@hippy/react';
 
 function Comp() {
@@ -33,6 +39,14 @@ function Comp() {
     React.useEffect(() => {
         NetInfo.addEventListener('change', () => {});
     }, [NetInfo]);
+
+    React.useEffect(() => {
+        (async () => {
+            const str = await Clipboard.getString();
+            ConsoleModule.log('Clipboard.getString', str);
+            Clipboard.setString('something');
+        })();
+    }, []);
 
     return (
         <View>
