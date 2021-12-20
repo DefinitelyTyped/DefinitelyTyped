@@ -26,11 +26,11 @@ export type CognitoVerifyFunctionWithSession = (
   idToken: string,
   refreshToken: string,
   user: object,
-	session: {
-		getIdToken: () => {
-			getExpiration: () => number;
-		};
-	},
+  session: {
+    getIdToken: () => {
+      getExpiration: () => number;
+    };
+  },
   done: (error: any, user?: any) => void,
 ) => any;
 
