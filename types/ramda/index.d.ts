@@ -1209,18 +1209,18 @@ export function mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResu
 type PartialRecord<K extends keyof any, T> = {
     [P in K]?: T;
 };
-export function mapObjIndexed<T, TResult, TKey extends string>(
+export function mapObjIndexed<T, TResult, TKey extends string | number | symbol>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
     obj: Record<TKey, T>
 ): Record<TKey, TResult>;
-export function mapObjIndexed<T, TResult, TKey extends string>(
+export function mapObjIndexed<T, TResult, TKey extends string | number | symbol>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
     obj: PartialRecord<TKey, T>
 ): PartialRecord<TKey, TResult>;
-export function mapObjIndexed<T, TResult, TKey extends string>(
+export function mapObjIndexed<T, TResult, TKey extends string | number | symbol>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
 ): (obj: Record<TKey, T>) => Record<TKey, TResult>;
-export function mapObjIndexed<T, TResult, TKey extends string>(
+export function mapObjIndexed<T, TResult, TKey extends string | number | symbol>(
     fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult
 ): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
