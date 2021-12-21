@@ -194,8 +194,8 @@ declare namespace Glider {
 declare class Glider<T extends HTMLElement = HTMLDivElement> {
     animate_id: number;
     arrows: {
-        next: Glider.Arrow;
-        prev: Glider.Arrow;
+        next?: Glider.Arrow;
+        prev?: Glider.Arrow;
     };
     breakpoint: number;
     containerWidth: number;
@@ -275,6 +275,8 @@ declare class Glider<T extends HTMLElement = HTMLDivElement> {
     mouse(): void;
 
     resize(): void;
+
+    init(): void;
 }
 
 declare function Glider<T extends HTMLElement = HTMLDivElement>(element: T): Glider<T>;
