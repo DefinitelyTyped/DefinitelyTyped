@@ -47,3 +47,7 @@ for (let i = 0; i < triangles.length; i += 3) {
 
 // both approaches should give the same result
 JSON.stringify(coordinates) === JSON.stringify(coordinates2);
+
+// update call
+(zipped.coords as Float64Array)[0] = 1;
+zipped.update();
