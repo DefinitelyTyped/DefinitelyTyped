@@ -50,6 +50,7 @@ export interface PoolConfig extends ClientConfig {
     idleTimeoutMillis?: number | undefined;
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
+    allowExitOnIdle?: boolean | undefined;
 }
 
 export interface QueryConfig<I extends any[] = any[]> {
