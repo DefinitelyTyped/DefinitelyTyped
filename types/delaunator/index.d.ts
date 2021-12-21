@@ -1,4 +1,4 @@
-// Type definitions for delaunator 3.0
+// Type definitions for delaunator 5.0
 // Project: https://github.com/mapbox/delaunator#readme
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 //                 Bradley Odell <https://github.com/BTOdell>
