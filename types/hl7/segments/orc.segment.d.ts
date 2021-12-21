@@ -1,5 +1,5 @@
 /**
- * @name Common Order
+ * Common Order
  * @description The Common Order segment (ORC) is used to transmit fields that are common to all orders (all types of services that are requested).
  * The ORC segment is required in the Order (ORM) message.
  * ORC is mandatory in Order Acknowledgment (ORR) messages if an order detail segment is present, but is not required otherwise.

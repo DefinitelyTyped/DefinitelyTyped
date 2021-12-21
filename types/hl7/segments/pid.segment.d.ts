@@ -1,5 +1,5 @@
 /**
- * @name Patient Identification
+ * Patient Identification
  * @description The PID segment is used by all applications as the primary means of communicating patient identification information.
  * This segment contains permanent patient identifying and demographic information that, for the most part, is not likely to change frequently.
  *

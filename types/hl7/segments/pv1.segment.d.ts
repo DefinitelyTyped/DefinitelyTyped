@@ -1,5 +1,5 @@
 /**
- * @name Patient Visit
+ * Patient Visit
  * @description The PV1 segment is used by Registration/Patient Administration applications to communicate information on an account or visit-specific basis.
  * The default is to send account level data. To use this segment for visit level data PV1-51 - Visit Indicator must be valued to V.
  * The value of PV-51 affects the level of data being sent on the PV1, PV2, and any other segments that are part of the associated PV1 hierarchy (e.g. ROL, DG1, or OBX).

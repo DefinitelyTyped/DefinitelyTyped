@@ -1,5 +1,5 @@
 /**
- * @name Appointment Information - Location Resource
+ * Appointment Information - Location Resource
  * @description The AIL segment contains information about location resources (meeting rooms, operating rooms, examination rooms, or other locations) that can be scheduled.
  * Resources included in a transaction using this segment are assumed to be controlled by a schedule on a schedule filler application.
  * Resources not controlled by a schedule are not identified on a schedule request using this segment.

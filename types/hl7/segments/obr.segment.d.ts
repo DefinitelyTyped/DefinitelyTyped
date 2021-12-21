@@ -1,5 +1,5 @@
 /**
- * @name Observation Request
+ * Observation Request
  * @description The Observation Request (OBR) segment is used to transmit information specific to an order for a diagnostic study or observation, physical exam, or assessment.
  *
  * [documentation](https://hl7-definition.caristix.com/v2/HL7v2.5.1/Segments/OBR)

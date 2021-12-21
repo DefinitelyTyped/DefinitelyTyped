@@ -1,5 +1,5 @@
 /**
- * @name Observation/Result
+ * Observation/Result
  * @description The OBX segment is used to transmit a single observation or observation fragment.
  * It represents the smallest indivisible unit of a report.
  * The OBX segment can also contain encapsulated data, e.g., a CDA document or a DICOM image.

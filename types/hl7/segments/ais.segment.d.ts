@@ -1,5 +1,5 @@
 /**
- * @name Appointment Information - Location Resource
+ * Appointment Information - Location Resource
  * @description The AIS segment contains information about various kinds of services that can be scheduled.
  * Services included in a transaction using this segment are assumed to be controlled by a schedule on a schedule filler application.
  * Services not controlled by a schedule are not identified on a schedule request using this segment.
