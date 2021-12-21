@@ -216,6 +216,7 @@ map.removeEventListener('dblclick', (_e: L.LeafletMouseEvent) => {});
 map.removeEventListener('locationerror', (_e: L.ErrorEvent) => {}, {});
 
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
+map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100], animate: true, duration: 0.5 });
 
 // map.getRenderer
 
