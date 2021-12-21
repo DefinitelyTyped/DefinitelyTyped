@@ -5407,6 +5407,10 @@
             "libraryName": "webpack-dev-middleware",
             "asOfVersion": "5.3.0"
         },
+        "webpack-dev-server": {
+            "libraryName": "webpack-dev-server",
+            "asOfVersion": "4.7.0"
+        },
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
