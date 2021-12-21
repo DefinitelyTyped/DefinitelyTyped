@@ -327,9 +327,10 @@ declare namespace jest {
      */
     function useRealTimers(): typeof jest;
 
-    interface MockOptions { // tslint:disable-next-line: no-trailing-whitespace
-        virtual?: boolean | undefined; // tslint:disable-next-line: no-trailing-whitespace
-    }    
+    interface MockOptions {
+        virtual?: boolean | undefined;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type MockableFunction = (...args: any[]) => any;
     type MethodKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? K : never }[keyof T];
@@ -348,10 +349,10 @@ declare namespace jest {
     type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
         ? MockInstance<R, ConstructorArgumentsOf<T>>
         : T;
-    type MockedFunction<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
+    type MockedFn<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
     type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;
     type MockedObject<T> = MaybeMockedConstructor<T> & {
-        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunction<T[K]> : T[K];
+        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFn<T[K]> : T[K];
     } & { [K in PropertyKeysOf<T>]: T[K] };
     type MockedObjectDeep<T> = MaybeMockedConstructor<T> & {
         [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunctionDeep<T[K]> : T[K];
@@ -363,7 +364,7 @@ declare namespace jest {
         ? MockedObjectDeep<T>
         : T;
     // eslint-disable-next-line @typescript-eslint/ban-types
-    type MaybeMocked<T> = T extends MockableFunction ? MockedFunction<T> : T extends object ? MockedObject<T> : T;
+    type MaybeMocked<T> = T extends MockableFunction ? MockedFn<T> : T extends object ? MockedObject<T> : T;
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
     type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
@@ -1147,7 +1148,7 @@ declare namespace jest {
      *  const mockMyFunction = myFunction as jest.MockedFunction<typeof myFunction>;
      *  expect(mockMyFunction.mock.calls[0][0]).toBe(42);
      */
-    type MockedFn<T extends (...args: any[]) => any> = MockInstance<ReturnType<T>, ArgsType<T>> & T;
+    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<ReturnType<T>, ArgsType<T>> & T;
 
     /**
      * Wrap a class with mock definitions
