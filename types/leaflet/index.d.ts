@@ -1615,7 +1615,7 @@ export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     maxZoom?: number | undefined;
 }
 
-export interface PanInsideOptions {
+export interface PanInsideOptions extends ZoomOptions, PanOptions {
     paddingTopLeft?: PointExpression | undefined;
     paddingBottomRight?: PointExpression | undefined;
     padding?: PointExpression | undefined;
