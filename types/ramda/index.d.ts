@@ -1883,7 +1883,10 @@ export function reject<T, C extends (readonly T[] | Dictionary<T>)>(pred: (value
  * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
  */
 export function remove<T>(start: number, count: number, list: readonly T[]): T[];
-export function remove<T>(start: number): (count: number, list: readonly T[]) => T[];
+export function remove<T>(start: number): {
+    (count: number, list: readonly T[]): T[];
+    (count: number): (list: readonly T[]) => T[];
+}
 export function remove<T>(start: number, count: number): (list: readonly T[]) => T[];
 
 /**
