@@ -16,6 +16,8 @@ declare namespace c {
     // see https://github.com/lorenwest/node-config/wiki/Using-Config-Utilities
     interface IUtil {
         // Extend an object (and any object it contains) with one or more objects (and objects contained in them).
+        extendDeep(mergeInto: any, mergeFrom: any, depth?: number): any;
+        extendDeep(mergeInto: any, mergeFrom1: any, mergeFrom2: any, depth?: number): any;
         extendDeep(mergeInto: any, ...mergeFrom: any): any;
 
         // Return a deep copy of the specified object.
