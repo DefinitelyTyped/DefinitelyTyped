@@ -331,21 +331,16 @@ declare namespace jest {
         virtual?: boolean | undefined;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type MockableFunction = (...args: any[]) => any;
     type MethodKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? K : never }[keyof T];
     type PropertyKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? never : K }[keyof T];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type ArgumentsOf<T> = T extends (...args: infer A) => any ? A : never;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
 
     interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>> {
         new (...args: ConstructorArgumentsOf<T>): T;
         (...args: ArgumentsOf<T>): ReturnType<T>;
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
         ? MockInstance<R, ConstructorArgumentsOf<T>>
         : T;
@@ -357,7 +352,6 @@ declare namespace jest {
     type MockedObjectDeep<T> = MaybeMockedConstructor<T> & {
         [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunctionDeep<T[K]> : T[K];
     } & { [K in PropertyKeysOf<T>]: MaybeMockedDeep<T[K]> };
-
     type MaybeMockedDeep<T> = T extends MockableFunction
         ? MockedFunctionDeep<T>
         : T extends object // eslint-disable-line @typescript-eslint/ban-types
