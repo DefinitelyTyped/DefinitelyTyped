@@ -38,15 +38,15 @@ export interface PNGlib {
 
 export interface Svg {
     size: number;
-    foreground: Color;
-    background: Color;
+    foreground: string;
+    background: string;
     rectangles: [
         {
             x: number;
             y: number;
             width: number;
             height: number;
-            color: Color;
+            color: string;
         }
     ];
 
@@ -105,7 +105,7 @@ export default class Identicon {
         y: number,
         w: number,
         h: number,
-        color: Color,
+        color: string | Color,
         image: Svg | PNGlib
     ): void;
 
