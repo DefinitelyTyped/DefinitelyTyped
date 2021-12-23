@@ -221,6 +221,8 @@ export namespace SourceCode {
         [nodeType: string]: string[];
     }
 
+    type TokenFilter<T = AST.Token> = (token: T) => boolean
+
     interface UnaryNodeCursorWithSkipOptions<Node> {
         <T extends AST.Token>(
             node: Node,
@@ -231,7 +233,7 @@ export namespace SourceCode {
         <T extends AST.Token | ESTree.Comment>(
             node: Node,
             options: {
-                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                filter: (token: AST.Token | ESTree.Comment) => token is T;
                 includeComments: boolean;
                 skip?: number;
             },
@@ -239,14 +241,14 @@ export namespace SourceCode {
         (
             node: Node,
             options?:
-                | { filter?: ((token: AST.Token) => boolean); includeComments?: false; skip?: number  }
-                | ((token: AST.Token) => boolean)
+                | TokenFilter
+                | { filter?: TokenFilter; includeComments?: false; skip?: number  }
                 | number,
         ): AST.Token | null;
         (
             node: Node,
             options: {
-                filter?: ((token: AST.Token | ESTree.Comment) => boolean);
+                filter?: TokenFilter<AST.Token | ESTree.Comment>;
                 includeComments: boolean;
                 skip?: number;
             },
@@ -263,7 +265,7 @@ export namespace SourceCode {
         <T extends AST.Token | ESTree.Comment>(
             node: Node,
             options: {
-                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                filter: (token: AST.Token | ESTree.Comment) => token is T;
                 includeComments: boolean;
                 count?: number;
             },
@@ -271,14 +273,14 @@ export namespace SourceCode {
         (
             node: Node,
             options?:
-                | { filter?: ((token: AST.Token) => boolean); includeComments?: false; count?: number  }
-                | ((token: AST.Token) => boolean)
+                | TokenFilter
+                | { filter?: TokenFilter; includeComments?: false; count?: number  }
                 | number,
         ): AST.Token[];
         (
             node: Node,
             options: {
-                filter?: ((token: AST.Token | ESTree.Comment) => boolean);
+                filter?: TokenFilter<AST.Token | ESTree.Comment>;
                 includeComments: boolean;
                 count?: number;
             },
@@ -295,7 +297,7 @@ export namespace SourceCode {
         <T extends AST.Token | ESTree.Comment>(
             node: Node | AST.Token | ESTree.Comment,
             options: {
-                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                filter: (token: AST.Token | ESTree.Comment) => token is T;
                 includeComments: boolean;
                 skip?: number;
             },
@@ -303,14 +305,14 @@ export namespace SourceCode {
         (
             node: Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean); includeComments?: false; skip?: number  }
-                | ((token: AST.Token) => boolean)
+                | TokenFilter
+                | { filter?: TokenFilter; includeComments?: false; skip?: number  }
                 | number,
         ): AST.Token | null;
         (
             node: Node | AST.Token | ESTree.Comment,
             options: {
-                filter?: ((token: AST.Token | ESTree.Comment) => boolean);
+                filter?: TokenFilter<AST.Token | ESTree.Comment>;
                 includeComments: boolean;
                 skip?: number;
             },
@@ -327,7 +329,7 @@ export namespace SourceCode {
         <T extends AST.Token | ESTree.Comment>(
             node: Node | AST.Token | ESTree.Comment,
             options: {
-                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                filter: (token: AST.Token | ESTree.Comment) => token is T;
                 includeComments: boolean;
                 count?: number;
             },
@@ -335,14 +337,14 @@ export namespace SourceCode {
         (
             node: Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean); includeComments?: false; count?: number  }
-                | ((token: AST.Token) => boolean)
+                | TokenFilter
+                | { filter?: TokenFilter; includeComments?: false; count?: number  }
                 | number,
         ): AST.Token[];
         (
             node: Node | AST.Token | ESTree.Comment,
             options: {
-                filter?: ((token: AST.Token | ESTree.Comment) => boolean);
+                filter?: TokenFilter<AST.Token | ESTree.Comment>
                 includeComments: boolean;
                 count?: number;
             },
@@ -361,7 +363,7 @@ export namespace SourceCode {
             left: Node | AST.Token | ESTree.Comment,
             right: Node | AST.Token | ESTree.Comment,
             options: {
-                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                filter: (token: AST.Token | ESTree.Comment) => token is T;
                 includeComments: boolean;
                 skip?: number;
             },
@@ -370,15 +372,15 @@ export namespace SourceCode {
             left: Node | AST.Token | ESTree.Comment,
             right: Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean); includeComments?: false; skip?: number  }
-                | ((token: AST.Token) => boolean)
+                | { filter?: TokenFilter; includeComments?: false; skip?: number  }
+                | TokenFilter
                 | number,
         ): AST.Token | null;
         (
             left: Node | AST.Token | ESTree.Comment,
             right: Node | AST.Token | ESTree.Comment,
             options: {
-                filter?: ((token: AST.Token | ESTree.Comment) => boolean);
+                filter?: TokenFilter<AST.Token | ESTree.Comment>;
                 includeComments: boolean;
                 skip?: number;
             },
@@ -397,7 +399,7 @@ export namespace SourceCode {
             left: Node | AST.Token | ESTree.Comment,
             right: Node | AST.Token | ESTree.Comment,
             options: {
-                filter: (tokenOrComment: AST.Token | ESTree.Comment) => tokenOrComment is T;
+                filter: (token: AST.Token | ESTree.Comment) => token is T;
                 includeComments: boolean;
                 count?: number;
             },
@@ -406,15 +408,15 @@ export namespace SourceCode {
             left: Node | AST.Token | ESTree.Comment,
             right: Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean); includeComments?: false; count?: number  }
-                | ((token: AST.Token) => boolean)
+                | { filter?: TokenFilter<AST.Token>; includeComments?: false; count?: number  }
+                | TokenFilter<AST.Token>
                 | number,
         ): AST.Token[];
         (
             left: Node | AST.Token | ESTree.Comment,
             right: Node | AST.Token | ESTree.Comment,
             options: {
-                filter?: ((token: AST.Token | ESTree.Comment) => boolean);
+                filter?: TokenFilter<AST.Token | ESTree.Comment>;
                 includeComments: boolean;
                 count?: number;
             },
