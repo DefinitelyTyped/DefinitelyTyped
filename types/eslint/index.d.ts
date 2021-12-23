@@ -221,7 +221,7 @@ export namespace SourceCode {
         [nodeType: string]: string[];
     }
 
-    type TokenFilter<T = AST.Token> = (token: T) => boolean
+    type TokenFilter<T = AST.Token> = (token: T) => boolean;
 
     interface UnaryNodeCursorWithSkipOptions<Node> {
         <T extends AST.Token>(
@@ -408,8 +408,8 @@ export namespace SourceCode {
             left: Node | AST.Token | ESTree.Comment,
             right: Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: TokenFilter<AST.Token>; includeComments?: false; count?: number  }
-                | TokenFilter<AST.Token>
+                | { filter?: TokenFilter; includeComments?: false; count?: number  }
+                | TokenFilter
                 | number,
         ): AST.Token[];
         (
