@@ -153,6 +153,14 @@ interface OBSSceneInfo {
     height: number;
 }
 
+interface VisibleInfo {
+    visible: boolean;
+}
+
+interface ActiveInfo {
+    active: boolean;
+}
+
 interface OBSStudioEventMap {
     obsStreamingStarting: CustomEvent<null>;
     obsStreamingStarted: CustomEvent<null>;
@@ -175,6 +183,9 @@ interface OBSStudioEventMap {
     obsVirtualcamStopped: CustomEvent<null>;
 
     obsSceneChanged: CustomEvent<OBSSceneInfo>;
+
+    obsSourceVisibleChanged: CustomEvent<VisibleInfo>;
+    obsSourceActiveChanged: CustomEvent<ActiveInfo>;
 
     obsExit: CustomEvent<null>;
 }

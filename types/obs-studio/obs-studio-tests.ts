@@ -130,6 +130,18 @@ window.addEventListener('obsExit', (event: CustomEvent<null>) => {
     event.detail;
 });
 
+window.addEventListener('obsSourceActiveChanged', (event: CustomEvent<ActiveInfo>) => {
+    event;
+    event.detail;
+    event.detail.active;
+});
+
+window.addEventListener('obsSourceVisibleChanged', (event: CustomEvent<VisibleInfo>) => {
+    event;
+    event.detail;
+    event.detail.visible;
+});
+
 window.obsstudio.onVisibilityChange = (visibility: boolean) => {
     visibility;
 };
