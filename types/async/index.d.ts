@@ -5,7 +5,6 @@
 //                 Joe Herman <https://github.com/Penryn>
 //                 Angus Fenying <https://github.com/fenying>
 //                 Pascal Martin <https://github.com/pascalmartin>
-//                 Dmitri Trofimov <https://github.com/Dmitri1337>
 //                 Etienne Rossignon <https://github.com/erossignon>
 //                 Lifeng Zhu <https://github.com/Juliiii>
 //                 Tümay Çeber <https://github.com/brendtumi>
