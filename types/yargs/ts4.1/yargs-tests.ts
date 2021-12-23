@@ -110,23 +110,6 @@ function line_count() {
         .argv;
 }
 
-// ts4.2+ types only
-function camelCase() {
-    const args: Arguments<{ someOpt: number }> = yargs
-    .usage('Usage: $0 options')
-    .describe('some-opt', 'Some option')
-    .default('some-opt', 2)
-    .parseSync();
-
-    yargs
-    .command(
-        'my-command',
-        'a command',
-        { 'some-opt-in-command': { describe: 'Some option', default: 2 } },
-        (args: Arguments<{ someOptInCommand: number }>) => {}
-    );
-}
-
 // Below are tests for individual methods.
 // Not all methods are covered yet, and neither are all possible invocations of methods.
 
@@ -574,20 +557,6 @@ function Argv$version() {
 
     const argv5 = yargs
         .version(false);
-}
-
-function Argv$showVersion() {
-    const argv1 = yargs
-        .showVersion();
-
-    const argv2 = yargs
-        .showVersion('error');
-
-    const argv3 = yargs
-        .showVersion('log');
-
-    const argv4 = yargs
-        .showVersion(s => console.log(`Thar be a version! ${s}`));
 }
 
 function Argv$wrap() {
