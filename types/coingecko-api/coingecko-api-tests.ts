@@ -28,6 +28,18 @@ const client = new CoinGecko();
     });
 
     (await client.coins.fetch("bitcoin", {
+        tickers: false
+    })).data.market_data.circulating_supply;
+
+    (await client.coins.fetch("bitcoin", {
+        tickers: false
+    })).data.market_data.total_value_locked.usd;
+
+    (await client.coins.fetch("bitcoin", {
+        tickers: false
+    })).data.market_data.total_volume.cad;
+
+    (await client.coins.fetch("bitcoin", {
         tickers: true
     })).data.tickers.map(e => e.converted_volume)[0].btc;
 

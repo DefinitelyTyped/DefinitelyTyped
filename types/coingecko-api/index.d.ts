@@ -292,18 +292,16 @@ interface CoinsFetchData {
         current_price: Record<Currency & string, number>;
         market_cap: Record<Currency & string, number>;
         total_volume: Record<Currency & string, number>;
-        market_data: {
-            fully_diluted_valuation: Record<Currency & string, number>;
-            total_value_locked: {
-                btc: number
-                usd: number
-            }
-            fdv_to_tvl_ratio: number
-            mcap_to_tvl_ratio: number
-            circulating_supply: number
-            total_supply: number
-            max_supply: number
+        fully_diluted_valuation: Record<Currency & string, number>;
+        total_value_locked: {
+            btc: number
+            usd: number
         }
+        fdv_to_tvl_ratio: number
+        mcap_to_tvl_ratio: number
+        circulating_supply: number
+        total_supply: number
+        max_supply: number
     };
     community_data: {
         facebook_likes: null | number;
