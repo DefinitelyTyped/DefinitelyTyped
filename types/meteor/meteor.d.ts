@@ -305,8 +305,6 @@ declare module 'meteor/meteor' {
             callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
         ): void;
 
-        function loggingIn(): boolean;
-
         function loginWith<ExternalService>(
             options?: {
                 requestPermissions?: ReadonlyArray<string> | undefined;
@@ -329,6 +327,8 @@ declare module 'meteor/meteor' {
             token: string,
             callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
         ): void;
+
+        function loggingIn(): boolean;
 
         function loggingOut(): boolean;
 
