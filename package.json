@@ -28,6 +28,7 @@
         "@definitelytyped/definitions-parser": "latest",
         "@definitelytyped/dtslint": "latest",
         "@definitelytyped/dtslint-runner": "latest",
+        "@definitelytyped/header-parser": "^0.0.100",
         "@definitelytyped/utils": "latest",
         "@octokit/rest": "^16.0.0",
         "d3-array": "^3.0.2",
