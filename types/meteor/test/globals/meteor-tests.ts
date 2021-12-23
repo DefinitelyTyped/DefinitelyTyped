@@ -579,6 +579,7 @@ namespace MeteorTests {
         },
     );
 
+    Meteor.loggingIn(); // $ExpectType boolean
     Meteor.loggingOut(); // $ExpectType boolean
 
     Meteor.user();
