@@ -1,6 +1,6 @@
 // Type definitions for bliss
 // Project: http://blissfuljs.com/
-// Definitions by: François Skorzec <https://github.com/fskorzec>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Element {

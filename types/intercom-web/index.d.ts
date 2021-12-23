@@ -5,7 +5,6 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Samer Albahra <https://github.com/salbahra>
 //                 Onat Yigit Mercan <https://github.com/onatm>
-//                 Chia-Lun Wu <https://github.com/bingo4508>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Intercom_ {

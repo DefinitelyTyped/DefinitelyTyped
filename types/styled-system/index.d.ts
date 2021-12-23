@@ -5,7 +5,6 @@
 //                 Christopher Pappas <https://github.com/damassi>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Matthieu Vachon <https://github.com/maoueh>
-//                 Adam Lavin <https://github.com/lavoaster>
 //                 Joachim Schuler <https://github.com/jschuler>
 //                 Adam Misiorny <https://github.com/adam187>
 //                 Sara F-P <https://github.com/gretzky>

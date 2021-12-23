@@ -1,6 +1,6 @@
 // Type definitions for webpack-plugin-serve 1.4
 // Project: https://github.com/shellscape/webpack-plugin-serve
-// Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 /// <reference types="node" />
