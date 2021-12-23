@@ -91,7 +91,14 @@ declare namespace gapi.client.people {
         person: Person;
     }
 
-    type SourceType = 'SOURCE_TYPE_UNSPECIFIED' | 'ACCOUNT' | 'PROFILE' | 'DOMAIN_PROFILE' | 'CONTACT';
+    type SourceType =
+        | 'SOURCE_TYPE_UNSPECIFIED'
+        | 'ACCOUNT'
+        | 'PROFILE'
+        | 'DOMAIN_PROFILE'
+        | 'CONTACT'
+        | 'OTHER_CONTACT'
+        | 'DOMAIN_CONTACT';
 
     interface Source {
         type: SourceType;

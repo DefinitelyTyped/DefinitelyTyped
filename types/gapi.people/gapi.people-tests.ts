@@ -149,4 +149,18 @@
         var textContent = document.createTextNode(message + '\n');
         pre.appendChild(textContent);
     }
+
+    function get() {
+        const request = gapi.client.people.people.get({
+            resourceName: 'resourceName',
+            personFields: 'personFields',
+        });
+
+        request.execute(response => {
+            // $ExpectType Person
+            response;
+            // $ExpectType SourceType
+            response.metadata.sources[0].type;
+        });
+    }
 }
