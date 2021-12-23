@@ -683,7 +683,7 @@ formatterPromise = eslint.loadFormatter("codeframe");
 formatterPromise = eslint.loadFormatter();
 
 let data: ESLint.LintResultData;
-const meta: Rule.RuleMetaData = {
+const meta: Rule.RuleMetadata = {
     type: "suggestion",
     docs: {
         description: "disallow unnecessary semicolons",
