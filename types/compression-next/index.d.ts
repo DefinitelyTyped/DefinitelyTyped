@@ -1,10 +1,6 @@
 // Type definitions for compression-next 1.0
-// Project: https://github.com/expressjs/compression
-// Definitions by: Santi Albo <https://github.com/santialbo>
-//                 Rob van der Burgt <https://github.com/rburgt>
-//                 Neil Bryson Cargamento <https://github.com/neilbryson>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Akira Miyakoda <https://github.com/AkiraMiyakoda>
+// Project: https://github.com/Econify/compression-next
+// Definitions by: Akira Miyakoda <https://github.com/AkiraMiyakoda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');
