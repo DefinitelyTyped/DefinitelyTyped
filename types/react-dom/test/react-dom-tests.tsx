@@ -61,6 +61,9 @@ describe('ReactDOM', () => {
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'));
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), null);
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
+        ReactDOM.createPortal(<div />, document.createElement('div').attachShadow({
+            mode: 'open',
+        }));
 
         ReactDOM.render(<ClassComponent />, rootElement);
     });
