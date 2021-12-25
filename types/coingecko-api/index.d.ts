@@ -240,6 +240,12 @@ interface CoinsFetchHistoryData {
     public_interest_stats: { alexa_rank: number; bing_matches: null };
 }
 
+interface CoinsFetchMarketChart {
+    market_caps: number[][];
+    prices: number[][];
+    total_volumes: number[][];
+}
+
 interface CoinsFetchParams {
     /**
      * Set to false to exclude localized languages in response
@@ -480,7 +486,7 @@ declare class CoinGecko {
          * @param coinId - The coin id (can be obtained from coins.list()) eg. bitcoin.
          * @param params - Parameters to pass through to the request.
          */
-        fetchMarketChart(coinId: string, params: CoinsFetchMarketChartParams): Promise<Response>;
+        fetchMarketChart(coinId: string, params: CoinsFetchMarketChartParams): Promise<Response<CoinsFetchMarketChart>>;
 
         /**
          * List all coins with data (name, price, market, developer, community, etc) - paginated by 50
