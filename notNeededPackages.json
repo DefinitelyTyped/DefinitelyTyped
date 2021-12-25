@@ -4967,6 +4967,10 @@
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
         },
+        "swiper": {
+            "libraryName": "swiper",
+            "asOfVersion": "6.0.0"
+        },
         "syllable": {
             "libraryName": "syllable",
             "asOfVersion": "5.0.0"
