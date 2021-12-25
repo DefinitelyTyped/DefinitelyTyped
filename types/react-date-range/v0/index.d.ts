@@ -1,7 +1,6 @@
 // Type definitions for react-date-range 0.95
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
-//                 John Demetriou <https://github.com/DevsAnon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

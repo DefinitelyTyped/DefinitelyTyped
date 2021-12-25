@@ -1,6 +1,6 @@
 // Type definitions for osenv 0.1
 // Project: https://github.com/npm/osenv
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

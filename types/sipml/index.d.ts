@@ -1,6 +1,6 @@
 // Type definitions for SIPml5
 // Project: http://sipml5.org/
-// Definitions by: A. Groenenboom <https://github.com/chookies>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace SIPml {

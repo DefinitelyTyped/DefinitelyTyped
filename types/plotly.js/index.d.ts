@@ -12,7 +12,6 @@
 //                 Megan Riel-Mehan <https://github.com/meganrm>
 //                 Josh Miles <https://github.com/milesjos>
 //                 Pramod Mathai  <https://github.com/skippercool>
-//                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>

@@ -1,7 +1,6 @@
 // Type definitions for mongoose-paginate-v2 1.4
 // Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
-//                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
 //                 Dongjun Lee <https://github.com/ChazEpps>

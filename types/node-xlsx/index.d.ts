@@ -1,7 +1,6 @@
 // Type definitions for node-xlsx 0.15
 // Project: https://github.com/mgcrea/node-xlsx#readme
-// Definitions by: chenc <https://github.com/cWatermelon>
-//                 kinuxroot <https://github.com/kinuxroot>
+// Definitions by: kinuxroot <https://github.com/kinuxroot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

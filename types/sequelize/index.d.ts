@@ -9,7 +9,6 @@
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Carven Zhang <https://github.com/zjy01>
-//                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>

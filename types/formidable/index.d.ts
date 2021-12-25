@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Stream } from "stream";
+import { Stream, Writable } from "stream";
 import Formidable = require("./Formidable");
 import parsers = require("./parsers/index");
 import PersistentFile = require("./PersistentFile");
@@ -159,7 +159,7 @@ declare namespace formidable {
          *
          * @default null
          */
-        fileWriteStreamHandler?: (() => void) | undefined;
+        fileWriteStreamHandler?: (() => Writable) | undefined;
 
         /**
          * when you call the .parse method, the files argument (of the callback) will contain arrays of

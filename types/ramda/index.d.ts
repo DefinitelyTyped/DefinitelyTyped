@@ -22,7 +22,6 @@
 //                 John Ottenlips <https://github.com/jottenlips>
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
-//                 Pierre-Antoine Mills <https://github.com/pirix-gh>
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>

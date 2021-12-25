@@ -3,7 +3,6 @@
 // Definitions by: Anatoliy Ostapenko <https://github.com/KOPTE3>
 //                 Orta Therox <https://github.com/orta>
 //                 Robert Kesterson <https://github.com/rkesters>
-//                 Lemeasle Quentin <https://github.com/Worlor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

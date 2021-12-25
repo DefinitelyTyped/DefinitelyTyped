@@ -6,7 +6,6 @@
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
-//                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>

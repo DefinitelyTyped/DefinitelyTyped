@@ -1,8 +1,7 @@
 // Type definitions for react-datepicker 4.3
 // Project: https://github.com/Hacker0x01/react-datepicker
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>,
-//                 Andrey Balokha <https://github.com/andrewBalekha>,
-//                 Greg Smith <https://github.com/smrq>,
+// Definitions by: Rajab Shakirov <https://github.com/radziksh>
+//                 Greg Smith <https://github.com/smrq>
 //                 Roy Xue <https://github.com/royxue>
 //                 Koala Human <https://github.com/KoalaHuman>
 //                 Justin Grant <https://github.com/justingrant>
