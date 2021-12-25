@@ -1,4 +1,4 @@
-import fakeDiff from "fake-diff";
+import fakeDiff = require("fake-diff");
 
 fakeDiff('a', 'b'); // $ExpectType string
 fakeDiff('a', 'b', {hideLines: true}); // $ExpectType string
