@@ -111,6 +111,7 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
     // Identification
     uuid?: string | undefined;
     comment_id?: string | undefined;
+    featured?: boolean | undefined;
 
     // Post or Page
     title?: string | undefined;
@@ -119,7 +120,8 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
 
     // Image
     feature_image?: Nullable<string> | undefined;
-    featured?: boolean | undefined;
+    feature_image_alt?: string | undefined;
+    feature_image_caption?: string | undefined;
 
     // Dates
     created_at?: string | undefined;
