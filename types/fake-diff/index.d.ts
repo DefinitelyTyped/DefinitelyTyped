@@ -3,10 +3,9 @@
 // Definitions by: Álvaro Mondéjar Rubio <https://github.com/mondeja>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = fakeDiff;
 declare function fakeDiff(
     previous: string,
     next: string,
     options?: { hideLines?: boolean; maxAdjacentStaticLines?: number }
 ): string;
-
-export = fakeDiff;
