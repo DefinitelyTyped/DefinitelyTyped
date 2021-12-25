@@ -191,4 +191,16 @@ interface Window {
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions,
     ): void;
+
+    removeEventListener<K extends keyof OBSStudioEventMap>(
+        type: K,
+        // tslint:disable-next-line:no-any
+        listener: (event: Event & OBSStudioEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }

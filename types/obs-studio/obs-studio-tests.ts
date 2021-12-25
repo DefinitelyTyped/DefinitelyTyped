@@ -37,13 +37,16 @@ window.obsstudio.stopRecording();
 window.obsstudio.startVirtualcam();
 window.obsstudio.stopVirtualcam();
 
-window.addEventListener('obsSceneChanged', (event: CustomEvent<OBSSceneInfo>) => {
+const sceneChangeCb = (event: CustomEvent<OBSSceneInfo>) => {
     event;
     event.detail;
     event.detail.name;
     event.detail.width;
     event.detail.height;
-});
+};
+
+window.addEventListener('obsSceneChanged', sceneChangeCb);
+window.removeEventListener('obsSceneChanged', sceneChangeCb);
 
 window.addEventListener('obsStreamingStarting', (event: CustomEvent<null>) => {
     event;
