@@ -1,7 +1,6 @@
 // Type definitions for Amplitude SDK 8.0
 // Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Arvydas Sidorenko <https://github.com/Asido>
-//                 Dan Manastireanu <https://github.com/danmana>
+// Definitions by: Dan Manastireanu <https://github.com/danmana>
 //                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
