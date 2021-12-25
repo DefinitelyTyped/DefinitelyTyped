@@ -161,6 +161,17 @@ interface CoinsAllParams {
     sparkline?: boolean | undefined;
 }
 
+interface CoinsFetchMarketChartParams {
+    /**
+     * The target currency of market data (usd, eur, jpy, etc.)
+     */
+    vs_currency: string;
+    /**
+     * Data up to number of days ago (eg. 1, 14, 30, max)
+     */
+    days: string;
+}
+
 interface CoinsFetchMarketChartRangeParams {
     /**
      * The target currency of market data (usd, eur, jpy, etc.)
@@ -459,6 +470,13 @@ declare class CoinGecko {
          * @param params - Parameters to pass through to the request.
          */
         fetchMarketChartRange(coinId: string, params: CoinsFetchMarketChartRangeParams): Promise<Response>;
+
+        /**
+         * Get historical market data include price, market cap, and 24h volume (granularity auto).
+         * @param coinId - The coin id (can be obtained from coins.list()) eg. bitcoin.
+         * @param params - Parameters to pass through to the request.
+         */
+        fetchMarketChart(coinId: string, params: CoinsFetchMarketChartParams): Promise<Response>;
 
         /**
          * List all coins with data (name, price, market, developer, community, etc) - paginated by 50

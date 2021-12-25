@@ -39,6 +39,8 @@ const client = new CoinGecko();
         tickers: false
     })).data.market_data.total_volume.cad;
 
+    (await client.coins.fetchMarketChart("bitcoin", {vs_currency: "usd", days: "1"}));
+
     (await client.coins.fetch("bitcoin", {
         tickers: true
     })).data.tickers.map(e => e.converted_volume)[0].btc;
