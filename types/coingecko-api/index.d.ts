@@ -170,6 +170,10 @@ interface CoinsFetchMarketChartParams {
      * Data up to number of days ago (eg. 1, 14, 30, max)
      */
     days: string;
+    /**
+     * Data interval. Possible value: daily
+     */
+    interval?: string;
 }
 
 interface CoinsFetchMarketChartRangeParams {
