@@ -4,8 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = fakeDiff;
+
+interface fakeDiffOptions {
+    /**
+     * Hide not changed lines (as default `true`).
+     */
+    hideLines?: boolean;
+
+    /**
+     * Maximum number of adjacent not changed lines shown.
+     * Only takes effect if `hideLines` is `true` (as default `2`).
+     */
+    maxAdjacentStaticLines?: number;
+}
+
 declare function fakeDiff(
     previous: string,
     next: string,
-    options?: { hideLines?: boolean; maxAdjacentStaticLines?: number }
+    options?: fakeDiffOptions
 ): string;
