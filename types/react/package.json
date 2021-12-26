@@ -2,5 +2,22 @@
   "private": true,
   "dependencies": {
     "csstype": "^3.0.2"
+  },
+  "exports": {
+      ".": {
+          "types": "./index.d.ts"
+      },
+      "./jsx-runtime": {
+          "types": "./jsx-runtime.d.ts"
+      },
+      "./jsx-dev-runtime": {
+          "types": "./jsx-dev-runtime.d.ts"
+      },
+      "./next": {
+          "types": "./next.d.ts"
+      },
+      "./experimental": {
+          "types": "./experimental.d.ts"
+      }
   }
 }
