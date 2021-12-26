@@ -16,6 +16,7 @@ import {
     TlsOptions,
 } from 'node:tls';
 import * as fs from 'node:fs';
+import * as stream from 'node:stream';
 
 {
     const ctx: SecureContext = createSecureContext({
@@ -289,6 +290,14 @@ import * as fs from 'node:fs';
     socket = socket.prependOnceListener("secureConnect", () => { });
 
     socket.once('session', (buff: Buffer) => {});
+}
+
+{
+    const duplex = new stream.PassThrough();
+    const connOpts: ConnectionOptions = {
+        socket: duplex,
+    };
+    const tlsSocket = connect(connOpts);
 }
 
 {
