@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        },
+        "./server": {
+            "types": "./server.d.ts"
+        },
+        "./next": {
+            "types": "./next.d.ts"
+        },
+        "./experimental": {
+            "types": "./experimental.d.ts"
+        }
+    }
+}
