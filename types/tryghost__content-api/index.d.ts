@@ -120,8 +120,8 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
 
     // Image
     feature_image?: Nullable<string> | undefined;
-    feature_image_alt?: string | undefined;
-    feature_image_caption?: string | undefined;
+    feature_image_alt?: Nullable<string> | undefined;
+    feature_image_caption?: Nullable<string> | undefined;
 
     // Dates
     created_at?: string | undefined;
