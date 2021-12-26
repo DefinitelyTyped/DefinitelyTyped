@@ -5,7 +5,7 @@
 
 export = fakeDiff;
 
-interface fakeDiffOptions {
+interface FakeDiffOptions {
     /** Hide not changed lines (as default `true`). */
     hideLines?: boolean;
 
@@ -19,5 +19,5 @@ interface fakeDiffOptions {
 declare function fakeDiff(
     previous: string,
     next: string,
-    options?: fakeDiffOptions
+    options?: FakeDiffOptions
 ): string;
