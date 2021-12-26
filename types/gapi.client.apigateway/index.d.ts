@@ -1,5 +1,5 @@
-// Type definitions for non-npm package API Gateway API v1beta 1.0
-// Project:  https://cloud.google.com/api-gateway/docs
+// Type definitions for non-npm package API Gateway API v1 1.0
+// Project: https://cloud.google.com/api-gateway/docs
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

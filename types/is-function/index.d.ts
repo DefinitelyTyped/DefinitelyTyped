@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = isFunction;
-declare function isFunction(fn: any): boolean;
+declare function isFunction(fn?: any): boolean;

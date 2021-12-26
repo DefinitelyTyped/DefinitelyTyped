@@ -14,41 +14,41 @@ declare namespace SSH {
 
     interface ConfigGiven {
         host: string;
-        port?: number;
+        port?: number | undefined;
         username: string;
-        password?: string;
-        privateKey?: string;
-        onKeyboardInteractive?: () => void | boolean;
+        password?: string | undefined;
+        privateKey?: string | undefined;
+        onKeyboardInteractive?: (() => void | boolean) | undefined;
     }
 
     interface ExecOptions {
-        cwd?: string;
-        stdin?: string;
-        options?: ssh2ExecOptions;
-        onStdout?: (chunk: Buffer) => void;
-        onStderr?: (chunk: Buffer) => void;
+        cwd?: string | undefined;
+        stdin?: string | undefined;
+        options?: ssh2ExecOptions | undefined;
+        onStdout?: ((chunk: Buffer) => void) | undefined;
+        onStderr?: ((chunk: Buffer) => void) | undefined;
     }
 
     interface ExecResult {
         stdout: string;
         stderr: string;
         code: number;
-        signal?: string;
+        signal?: string | undefined;
     }
 
     interface PutFilesOptions {
-        sftp?: SFTP;
-        sftpOptions?: TransferOptions;
-        concurrency?: number;
+        sftp?: SFTP | undefined;
+        sftpOptions?: TransferOptions | undefined;
+        concurrency?: number | undefined;
     }
 
     interface PutDirectoryOptions {
-        sftp?: SFTP;
-        sftpOptions?: TransferOptions;
-        concurrency?: number;
-        recursive?: boolean;
-        tick?: (localPath: string, remotePath: string, error: Error | null | undefined) => void;
-        validate?: (localPath: string) => boolean;
+        sftp?: SFTP | undefined;
+        sftpOptions?: TransferOptions | undefined;
+        concurrency?: number | undefined;
+        recursive?: boolean | undefined;
+        tick?: ((localPath: string, remotePath: string, error: Error | null | undefined) => void) | undefined;
+        validate?: ((localPath: string) => boolean) | undefined;
     }
 }
 
@@ -66,7 +66,7 @@ declare class SSH {
     mkdir(path: string, type?: "sftp", givenSftp?: SSH.SFTP): Promise<void>;
 
     exec(command: string, parameters?: ReadonlyArray<string>,
-        options?: SSH.ExecOptions & { stream?: "stdout"|"stderr" }): Promise<string>;
+        options?: SSH.ExecOptions & { stream?: "stdout"|"stderr" | undefined }): Promise<string>;
 
     exec(command: string, parameters?: ReadonlyArray<string>,
         options?: SSH.ExecOptions & { stream: "both" }): Promise<SSH.ExecResult>;

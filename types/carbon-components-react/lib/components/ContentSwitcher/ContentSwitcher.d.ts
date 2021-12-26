@@ -5,11 +5,14 @@ import { SwitchOnKeyDownData } from "../Switch";
 export type ContentSwitcherOnChangeData = Omit<SwitchOnKeyDownData, "key"> & Partial<Pick<SwitchOnKeyDownData, "key">>;
 
 export interface ContentSwitcherProps extends Omit<ReactDivAttr, "onChange" | "role"> {
-    light?: boolean,
+    /**
+     * @deprecated
+     */
+    light?: boolean | undefined,
     onChange?(data: ContentSwitcherOnChangeData): void,
-    selectedIndex?: number,
-    selectionMode?: "automatic" | "manual";
-    size?: "sm" | "xl";
+    selectedIndex?: number | undefined,
+    selectionMode?: "automatic" | "manual" | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined;
 }
 
 declare class ContentSwitcher extends React.Component<ContentSwitcherProps> {}

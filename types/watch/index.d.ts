@@ -22,12 +22,12 @@ export interface Monitor extends events.EventEmitter {
 }
 
 export interface Options {
-    ignoreDotFiles?: boolean;
+    ignoreDotFiles?: boolean | undefined;
     filter?(path: string, stat: fs.Stats): boolean;
-    interval?: number;
-    ignoreUnreadableDir?: boolean;
-    ignoreNotPermitted?: boolean;
-    ignoreDirectoryPattern?: RegExp;
+    interval?: number | undefined;
+    ignoreUnreadableDir?: boolean | undefined;
+    ignoreNotPermitted?: boolean | undefined;
+    ignoreDirectoryPattern?: RegExp | undefined;
 }
 
 export function watchTree(root: string, callback: (f: FileOrFiles, curr: fs.Stats, prev: fs.Stats) => void): void;

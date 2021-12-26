@@ -14,21 +14,21 @@ interface QrCodePorps {
   // The options for the QR code generator.
   options: {
     // QR Code version.
-    version?: number;
+    version?: number | undefined;
     // Error correction level.
-    errorCorrectionLevel?: 'low' | 'medium' | 'quartile' | 'high' | 'L' | 'M' | 'Q' | 'H';
+    errorCorrectionLevel?: 'low' | 'medium' | 'quartile' | 'high' | 'L' | 'M' | 'Q' | 'H' | undefined;
     // Mask pattern used to mask the symbol.
-    maskPattern?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+    maskPattern?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | undefined;
     // Define how much wide the quiet zone should be.
-    margin?: number;
+    margin?: number | undefined;
     // Scale factor.
-    scale?: number;
+    scale?: number | undefined;
     // Forces a specific width for the output image.
-    width?: number;
+    width?: number | undefined;
     color?: {
-      dark?: string;
-      light?: string;
-    }
+      dark?: string | undefined;
+      light?: string | undefined;
+    } | undefined
   };
   // The tag name of the component's root element.
   tag: string;

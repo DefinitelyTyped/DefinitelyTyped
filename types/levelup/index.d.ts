@@ -10,6 +10,7 @@
 
 import { EventEmitter } from 'events';
 import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions, AbstractIterator } from 'abstract-leveldown';
+import { LevelUPError, InitializationError, OpenError, ReadError, WriteError, NotFoundError, EncodingError } from 'level-errors';
 
 type LevelUpPut<K, V, O> =
     ((key: K, value: V, callback: ErrorCallback) => void) &
@@ -57,12 +58,12 @@ type InferDBClear<DB> =
     LevelUpClear<AbstractClearOptions>;
 
 interface AbstractClearOptions<K = any> extends AbstractOptions {
-    gt?: K;
-    gte?: K;
-    lt?: K;
-    lte?: K;
-    reverse?: boolean;
-    limit?: number;
+    gt?: K | undefined;
+    gte?: K | undefined;
+    lt?: K | undefined;
+    lte?: K | undefined;
+    reverse?: boolean | undefined;
+    limit?: number | undefined;
 }
 
 export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>> extends EventEmitter {
@@ -131,7 +132,15 @@ interface LevelUpConstructor {
         db: DB,
         cb?: ErrorCallback): LevelUp<DB>;
 
-    errors: /*typeof levelerrors*/ any; // ? level-errors is not in DT
+    errors: {
+        LevelUPError: typeof LevelUPError;
+        InitializationError: typeof InitializationError;
+        OpenError: typeof OpenError;
+        ReadError: typeof ReadError;
+        WriteError: typeof WriteError;
+        NotFoundError: typeof NotFoundError;
+        EncodingError: typeof EncodingError;
+    };
 }
 
 export interface LevelUpChain<K = any, V = any> {
@@ -143,7 +152,7 @@ export interface LevelUpChain<K = any, V = any> {
     write(): Promise<this>;
 }
 
-export const errors: /*typeof levelerrors*/ any; // ? level-errors is not in DT
+export const errors: LevelUpConstructor["errors"];
 
 declare const LevelUp: LevelUpConstructor;
 export default LevelUp;

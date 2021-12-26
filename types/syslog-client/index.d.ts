@@ -40,27 +40,27 @@ export enum Severity {
 }
 
 export interface ClientOptions {
-    syslogHostname?: string;
-    port?: number;
-    tcpTimeout?: number;
-    facility?: Facility;
-    severity?: Severity;
-    rfc3164?: boolean;
-    appName?: string;
-    dateFormatter?: (() => string);
-    transport?: Transport;
-    timestamp?: Date;
-    msgid?: string;
+    syslogHostname?: string | undefined;
+    port?: number | undefined;
+    tcpTimeout?: number | undefined;
+    facility?: Facility | undefined;
+    severity?: Severity | undefined;
+    rfc3164?: boolean | undefined;
+    appName?: string | undefined;
+    dateFormatter?: (() => string) | undefined;
+    transport?: Transport | undefined;
+    timestamp?: Date | undefined;
+    msgid?: string | undefined;
 }
 
 export interface MessageOptions {
-    syslogHostname?: string;
-    facility?: Facility;
-    severity?: Severity;
-    rfc3164?: boolean;
-    appName?: string;
-    timestamp?: Date;
-    msgid?: string;
+    syslogHostname?: string | undefined;
+    facility?: Facility | undefined;
+    severity?: Severity | undefined;
+    rfc3164?: boolean | undefined;
+    appName?: string | undefined;
+    timestamp?: Date | undefined;
+    msgid?: string | undefined;
 }
 
 export class Client extends EventEmitter {

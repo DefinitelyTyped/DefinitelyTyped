@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Document, Page, pdfjs, PDFPageProxy } from 'react-pdf';
-import { PDFDocumentProxy } from 'pdfjs-dist';
+import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 
 // Test special entry points
 import { Document as DocumentEsmWebpack, Page as PageEsmWebpack } from 'react-pdf/dist/esm/entry.webpack';
@@ -18,6 +18,8 @@ interface State {
 }
 
 export class MyApp extends React.Component<{}, State> {
+    canvas: HTMLCanvasElement | null = null;
+
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -44,8 +46,16 @@ export class MyApp extends React.Component<{}, State> {
 
         return (
             <div>
-                <Document file="somefile.pdf" onLoadSuccess={this.onDocumentLoadSuccess}>
-                    <Page pageNumber={pageNumber} onLoadSuccess={this.onPageLoadSuccess} />
+                <Document
+                    file="somefile.pdf"
+                    onLoadSuccess={this.onDocumentLoadSuccess}
+                    imageResourcesPath="/public"
+                >
+                    <Page
+                        pageNumber={pageNumber}
+                        onLoadSuccess={this.onPageLoadSuccess}
+                        canvasRef={c => { this.canvas = c; }}
+                     />
                 </Document>
 
                 <DocumentEsmWebpack file="somefile.pdf" onLoadSuccess={this.onDocumentLoadSuccess}>

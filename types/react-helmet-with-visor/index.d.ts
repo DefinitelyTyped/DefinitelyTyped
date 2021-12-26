@@ -29,22 +29,23 @@ export interface HelmetTags {
 }
 
 export interface HelmetProps {
-    async?: boolean;
+    async?: boolean | undefined;
     base?: any;
-    bodyAttributes?: BodyProps;
-    defaultTitle?: string;
-    defer?: boolean;
-    encodeSpecialCharacters?: boolean;
-    htmlAttributes?: HtmlProps;
-    onChangeClientState?: (newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void;
-    link?: LinkProps[];
-    meta?: MetaProps[];
-    noscript?: any[];
-    script?: any[];
-    style?: any[];
-    title?: string;
-    titleAttributes?: object;
-    titleTemplate?: string;
+    bodyAttributes?: BodyProps | undefined;
+    children?: React.ReactNode;
+    defaultTitle?: string | undefined;
+    defer?: boolean | undefined;
+    encodeSpecialCharacters?: boolean | undefined;
+    htmlAttributes?: HtmlProps | undefined;
+    onChangeClientState?: ((newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void) | undefined;
+    link?: LinkProps[] | undefined;
+    meta?: MetaProps[] | undefined;
+    noscript?: any[] | undefined;
+    script?: any[] | undefined;
+    style?: any[] | undefined;
+    title?: string | undefined;
+    titleAttributes?: object | undefined;
+    titleTemplate?: string | undefined;
 }
 
 export class Helmet extends React.Component<HelmetProps> {
@@ -70,7 +71,7 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.Component<any>;
+    toComponent(): React.ReactElement;
 }
 
 export interface HelmetHTMLBodyDatum {

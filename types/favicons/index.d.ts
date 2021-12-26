@@ -11,11 +11,11 @@ import { Duplex } from 'stream';
 
 declare namespace favicons {
     interface IconOptions {
-        offset?: number;
-        background?: boolean | string;
-        mask?: boolean;
-        overlayGlow?: boolean;
-        ovelayShadow?: boolean;
+        offset?: number | undefined;
+        background?: boolean | string | undefined;
+        mask?: boolean | undefined;
+        overlayGlow?: boolean | undefined;
+        ovelayShadow?: boolean | undefined;
     }
 
     interface FaviconOptions {
@@ -77,21 +77,21 @@ declare namespace favicons {
          */
         icons: Partial<{
             /* Create Android homescreen icon. */
-            android: boolean | IconOptions;
+            android: boolean | IconOptions | string[];
             /* Create Apple touch icons. */
-            appleIcon: boolean | IconOptions;
+            appleIcon: boolean | IconOptions | string[];
             /* Create Apple startup images. */
-            appleStartup: boolean | IconOptions;
+            appleStartup: boolean | IconOptions | string[];
             /* Create Opera Coast icon. */
-            coast: boolean | IconOptions;
+            coast: boolean | IconOptions | string[];
             /* Create regular favicons. */
-            favicons: boolean | IconOptions;
+            favicons: boolean | IconOptions | string[];
             /* Create Firefox OS icons. */
-            firefox: boolean | IconOptions;
+            firefox: boolean | IconOptions | string[];
             /* Create Windows 8 tile icons. */
-            windows: boolean | IconOptions;
+            windows: boolean | IconOptions | string[];
             /* Create Yandex browser icon. */
-            yandex: boolean | IconOptions;
+            yandex: boolean | IconOptions | string[];
         }>;
     }
 

@@ -20,8 +20,8 @@ declare global {
         interface User {}
 
         interface Request {
-            authInfo?: AuthInfo;
-            user?: User;
+            authInfo?: AuthInfo | undefined;
+            user?: User | undefined;
 
             // These declarations are merged into express's Request type
             login(user: User, done: (err: any) => void): void;
@@ -50,23 +50,23 @@ import express = require('express');
 
 declare namespace passport {
     interface AuthenticateOptions {
-        authInfo?: boolean;
-        assignProperty?: string;
-        failureFlash?: string | boolean;
-        failureMessage?: boolean | string;
-        failureRedirect?: string;
-        failWithError?: boolean;
-        session?: boolean;
-        scope?: string | string[];
-        successFlash?: string | boolean;
-        successMessage?: boolean | string;
-        successRedirect?: string;
-        successReturnToOrRedirect?: string;
-        state?: string;
-        pauseStream?: boolean;
-        userProperty?: string;
-        passReqToCallback?: boolean;
-        prompt?: string;
+        authInfo?: boolean | undefined;
+        assignProperty?: string | undefined;
+        failureFlash?: string | boolean | undefined;
+        failureMessage?: boolean | string | undefined;
+        failureRedirect?: string | undefined;
+        failWithError?: boolean | undefined;
+        session?: boolean | undefined;
+        scope?: string | string[] | undefined;
+        successFlash?: string | boolean | undefined;
+        successMessage?: boolean | string | undefined;
+        successRedirect?: string | undefined;
+        successReturnToOrRedirect?: string | undefined;
+        state?: string | undefined;
+        pauseStream?: boolean | undefined;
+        userProperty?: string | undefined;
+        passReqToCallback?: boolean | undefined;
+        prompt?: string | undefined;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
@@ -83,8 +83,8 @@ declare namespace passport {
         authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
         serializeUser<TID>(fn: (user: Express.User, done: (err: any, id?: TID) => void) => void): void;
         serializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, user: Express.User, done: (err: any, id?: TID) => void) => void): void;
-        deserializeUser<TID>(fn: (id: TID, done: (err: any, user?: Express.User) => void) => void): void;
-        deserializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: Express.User) => void) => void): void;
+        deserializeUser<TID>(fn: (id: TID, done: (err: any, user?: Express.User | false | null) => void) => void): void;
+        deserializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: Express.User | false | null) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
@@ -95,7 +95,7 @@ declare namespace passport {
     }
 
     interface Strategy {
-        name?: string;
+        name?: string | undefined;
         authenticate(this: StrategyCreated<this>, req: express.Request, options?: any): any;
     }
 
@@ -151,19 +151,19 @@ declare namespace passport {
         provider: string;
         id: string;
         displayName: string;
-        username?: string;
+        username?: string | undefined;
         name?: {
             familyName: string;
             givenName: string;
-            middleName?: string;
-        };
+            middleName?: string | undefined;
+        } | undefined;
         emails?: Array<{
             value: string;
-            type?: string;
-        }>;
+            type?: string | undefined;
+        }> | undefined;
         photos?: Array<{
             value: string;
-        }>;
+        }> | undefined;
     }
 
     interface Framework<InitializeRet = any, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {

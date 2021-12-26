@@ -16,11 +16,11 @@ export const LOCATION_CHANGE: string;
 
 export interface LocationActionPayload {
     method: string;
-    args?: any[];
+    args?: any[] | undefined;
 }
 
 export interface RouterAction extends Action {
-    payload?: LocationActionPayload;
+    payload?: LocationActionPayload | undefined;
 }
 
 export type LocationAction = (nextLocation: LocationDescriptor) => RouterAction;
@@ -50,8 +50,8 @@ export interface RouterState {
 export type DefaultSelectLocationState = (state: any) => RouterState;
 
 export interface SyncHistoryWithStoreOptions {
-    selectLocationState?: DefaultSelectLocationState;
-    adjustUrlOnReplay?: boolean;
+    selectLocationState?: DefaultSelectLocationState | undefined;
+    adjustUrlOnReplay?: boolean | undefined;
 }
 
 export interface HistoryUnsubscribe {

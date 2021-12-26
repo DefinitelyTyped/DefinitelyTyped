@@ -6,21 +6,21 @@
 export interface Profile {
     issuer: string;
     claims: any;
-    audience?: string;
-    sessionIndex?: string; // only SAML 2.0
+    audience?: string | undefined;
+    sessionIndex?: string | undefined; // only SAML 2.0
 }
 
 export type ValidationOptions = ValidationOptionsWithKey | ValidationOptionsWithPrint;
 
 export interface ValidationOptionsWithKey {
     publicKey: string;
-    bypassExpiration?: boolean;
+    bypassExpiration?: boolean | undefined;
     audience?: any;
 }
 
 export interface ValidationOptionsWithPrint {
     thumbprint: string;
-    bypassExpiration?: boolean;
+    bypassExpiration?: boolean | undefined;
     audience?: any;
 }
 

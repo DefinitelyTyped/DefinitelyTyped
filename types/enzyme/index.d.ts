@@ -29,7 +29,7 @@ export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
 export class ElementClass extends Component<any, any> {}
 
-/* These are purposefully stripped down versions of React.ComponentClass and React.StatelessComponent.
+/* These are purposefully stripped down versions of React.ComponentClass and React.FunctionComponent.
  * The optional static properties on them break overload ordering for wrapper methods if they're not
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
@@ -37,9 +37,9 @@ export interface ComponentClass<Props> {
     new (props: Props, context?: any): Component<Props>;
 }
 
-export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element | null;
+export type FunctionComponent<Props> = (props: Props, context?: any) => JSX.Element | null;
 
-export type ComponentType<Props> = ComponentClass<Props> | StatelessComponent<Props>;
+export type ComponentType<Props> = ComponentClass<Props> | FunctionComponent<Props>;
 
 /**
  * Many methods in Enzyme's API accept a selector as an argument. Selectors in Enzyme can fall into one of the
@@ -54,7 +54,7 @@ export type ComponentType<Props> = ComponentClass<Props> | StatelessComponent<Pr
 export interface EnzymePropSelector {
     [key: string]: any;
 }
-export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<any> | EnzymePropSelector;
+export type EnzymeSelector = string | FunctionComponent<any> | ComponentClass<any> | EnzymePropSelector;
 
 export type Intercepter<T> = (intercepter: T) => void;
 
@@ -311,9 +311,9 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      */
     debug(options?: {
         /** Whether props should be omitted in the resulting string. Props are included by default. */
-        ignoreProps?: boolean;
+        ignoreProps?: boolean | undefined;
         /** Whether arrays and objects passed as props should be verbosely printed. */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }): string;
 
     /**
@@ -389,7 +389,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    type(): string | ComponentClass<P> | StatelessComponent<P>;
+    type(): string | ComponentClass<P> | FunctionComponent<P>;
 
     length: number;
 }
@@ -406,7 +406,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Find every node in the render tree that matches the provided selector.
      * @param selector The selector to match.
      */
-    find<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    find<P2>(statelessComponent: FunctionComponent<P2>): ShallowWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     find<C2 extends Component>(
         componentClass: ComponentClass<C2['props']>,
@@ -418,7 +418,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    filter<P2>(statelessComponent: FunctionComponent<P2>): ShallowWrapper<P2, never>;
     filter<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     filter(props: EnzymePropSelector | string): ShallowWrapper<P, S>;
 
@@ -431,7 +431,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
      * can be provided and it will filter the children by this selector.
      */
-    children<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    children<P2>(statelessComponent: FunctionComponent<P2>): ShallowWrapper<P2, never>;
     children<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     children(selector: string): ShallowWrapper<HTMLAttributes, any>;
     children(props?: EnzymePropSelector): ShallowWrapper<any, any>;
@@ -466,7 +466,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    parents<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    parents<P2>(statelessComponent: FunctionComponent<P2>): ShallowWrapper<P2, never>;
     parents<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     parents(selector: string): ShallowWrapper<HTMLAttributes, any>;
     parents(props?: EnzymePropSelector): ShallowWrapper<any, any>;
@@ -477,7 +477,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    closest<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    closest<P2>(statelessComponent: FunctionComponent<P2>): ShallowWrapper<P2, never>;
     closest<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     closest(props: EnzymePropSelector): ShallowWrapper<any, any>;
     closest(selector: string): ShallowWrapper<HTMLAttributes, any>;
@@ -541,7 +541,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Find every node in the render tree that matches the provided selector.
      * @param selector The selector to match.
      */
-    find<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    find<P2>(statelessComponent: FunctionComponent<P2>): ReactWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     find<C2 extends Component>(componentClass: ComponentClass<C2['props']>): ReactWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
@@ -556,7 +556,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    filter<P2>(statelessComponent: FunctionComponent<P2>): ReactWrapper<P2, never>;
     filter<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     filter(props: EnzymePropSelector | string): ReactWrapper<P, S>;
 
@@ -564,7 +564,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
      * can be provided and it will filter the children by this selector.
      */
-    children<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    children<P2>(statelessComponent: FunctionComponent<P2>): ReactWrapper<P2, never>;
     children<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     children(selector: string): ReactWrapper<HTMLAttributes, any>;
     children(props?: EnzymePropSelector): ReactWrapper<any, any>;
@@ -581,7 +581,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    parents<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    parents<P2>(statelessComponent: FunctionComponent<P2>): ReactWrapper<P2, never>;
     parents<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     parents(selector: string): ReactWrapper<HTMLAttributes, any>;
     parents(props?: EnzymePropSelector): ReactWrapper<any, any>;
@@ -592,7 +592,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    closest<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    closest<P2>(statelessComponent: FunctionComponent<P2>): ReactWrapper<P2, never>;
     closest<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     closest(props: EnzymePropSelector): ReactWrapper<any, any>;
     closest(selector: string): ReactWrapper<HTMLAttributes, any>;
@@ -614,12 +614,12 @@ export interface Lifecycles {
     componentDidUpdate?: {
         onSetState: boolean;
         prevContext: boolean;
-    };
-    getDerivedStateFromProps?: { hasShouldComponentUpdateBug: boolean } | boolean;
+    } | undefined;
+    getDerivedStateFromProps?: { hasShouldComponentUpdateBug: boolean } | boolean | undefined;
     getChildContext?: {
         calledByRenderer: boolean;
         [key: string]: any;
-    };
+    } | undefined;
     setState?: any;
     // TODO Maybe some life cycle are missing
     [lifecycleName: string]: any;
@@ -631,11 +631,11 @@ export interface ShallowRendererProps {
      * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
      * setProps and setContext. Default to false.
      */
-    disableLifecycleMethods?: boolean;
+    disableLifecycleMethods?: boolean | undefined;
     /**
      * Enable experimental support for full react lifecycle methods
      */
-    lifecycleExperimental?: boolean;
+    lifecycleExperimental?: boolean | undefined;
     /**
      * Context to be passed into the component
      */
@@ -644,31 +644,31 @@ export interface ShallowRendererProps {
      * The legacy enableComponentDidUpdateOnSetState option should be matched by
      * `lifecycles: { componentDidUpdate: { onSetState: true } }`, for compatibility
      */
-    enableComponentDidUpdateOnSetState?: boolean;
+    enableComponentDidUpdateOnSetState?: boolean | undefined;
     /**
      * the legacy supportPrevContextArgumentOfComponentDidUpdate option should be matched by
      * `lifecycles: { componentDidUpdate: { prevContext: true } }`, for compatibility
      */
-    supportPrevContextArgumentOfComponentDidUpdate?: boolean;
-    lifecycles?: Lifecycles;
+    supportPrevContextArgumentOfComponentDidUpdate?: boolean | undefined;
+    lifecycles?: Lifecycles | undefined;
     /**
      * A component that will render as a parent of the node.
      * It can be used to provide context to the `node`, among other things.
      * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
      * **Note**: `wrappingComponent` must render its children.
      */
-    wrappingComponent?: ComponentType<any>;
+    wrappingComponent?: ComponentType<any> | undefined;
     /**
      * Initial props to pass to the `wrappingComponent` if it is specified.
      */
-    wrappingComponentProps?: {};
+    wrappingComponentProps?: {} | undefined;
     /**
      * If set to true, when rendering Suspense enzyme will replace all the lazy components in children
      * with fallback element prop. Otherwise it won't handle fallback of lazy component.
      * Default to true. Note: not supported in React < 16.6.
      */
-    suspenseFallback?: boolean;
-    adapter?: EnzymeAdapter;
+    suspenseFallback?: boolean | undefined;
+    adapter?: EnzymeAdapter | undefined;
     /* TODO what are these doing??? */
     attachTo?: any;
     hydrateIn?: any;
@@ -679,26 +679,26 @@ export interface MountRendererProps {
     /**
      * Context to be passed into the component
      */
-    context?: {};
+    context?: {} | undefined;
     /**
      * DOM Element to attach the component to
      */
-    attachTo?: HTMLElement | null;
+    attachTo?: HTMLElement | null | undefined;
     /**
      * Merged contextTypes for all children of the wrapper
      */
-    childContextTypes?: {};
+    childContextTypes?: {} | undefined;
     /**
      * A component that will render as a parent of the node.
      * It can be used to provide context to the `node`, among other things.
      * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
      * **Note**: `wrappingComponent` must render its children.
      */
-    wrappingComponent?: ComponentType<any>;
+    wrappingComponent?: ComponentType<any> | undefined;
     /**
      * Initial props to pass to the `wrappingComponent` if it is specified.
      */
-    wrappingComponentProps?: {};
+    wrappingComponentProps?: {} | undefined;
 }
 
 /**
@@ -729,7 +729,7 @@ export function render<P, S>(node: ReactElement<P>, options?: any): cheerio.Chee
 
 // See https://github.com/airbnb/enzyme/blob/v3.10.0/packages/enzyme/src/EnzymeAdapter.js
 export class EnzymeAdapter {
-    wrapWithWrappingComponent?: (node: ReactElement, options?: ShallowRendererProps) => any;
+    wrapWithWrappingComponent?: ((node: ReactElement, options?: ShallowRendererProps) => any) | undefined;
 }
 
 /**
@@ -745,5 +745,5 @@ export function configure(options: {
      * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
      * setProps and setContext. Default to false.
      */
-    disableLifecycleMethods?: boolean;
+    disableLifecycleMethods?: boolean | undefined;
 }): void;

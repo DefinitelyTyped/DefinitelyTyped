@@ -10,10 +10,10 @@ type ISO6393 = string;
 type Confidence = number;
 
 interface Options {
-    minLength?: number;
-    whitelist?: ISO6393[];
-    blacklist?: ISO6393[];
-    only?: ISO6393[];
+    minLength?: number | undefined;
+    whitelist?: ISO6393[] | undefined;
+    blacklist?: ISO6393[] | undefined;
+    only?: ISO6393[] | undefined;
 }
 
 declare function detect(text: string, options?: Options): ISO6393;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, ReactNode } from "react";
+import { ComponentClass, ReactNode } from 'react';
 
 /**
  * Props for a Highlight component.
@@ -16,9 +16,19 @@ export interface HighlightProps {
     language: string;
 
     /**
+     * Language name to use as a class to signal type to highlight.js.
+     */
+    className?: string | undefined;
+
+    /**
+     * Inline styles to apply to the rendered <pre> tag.
+     */
+    style?: React.CSSProperties | undefined;
+
+    /**
      * Content that will be highlighted
      */
-    children?: ReactNode;
+    children?: ReactNode | undefined;
 }
 
 /**

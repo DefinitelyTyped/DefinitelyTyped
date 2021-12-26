@@ -32,9 +32,9 @@ export = Lowdb;
 
 declare namespace Lowdb {
   interface AdapterOptions<SchemaT = any> {
-    defaultValue?: SchemaT;
-    serialize?: (data: SchemaT) => string;
-    deserialize?: (serializedData: string) => SchemaT;
+    defaultValue?: SchemaT | undefined;
+    serialize?: ((data: SchemaT) => string) | undefined;
+    deserialize?: ((serializedData: string) => SchemaT) | undefined;
   }
 
   interface BaseAdapter<SchemaT = any> extends AdapterOptions<SchemaT> {

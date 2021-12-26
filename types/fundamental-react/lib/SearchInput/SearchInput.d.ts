@@ -1,28 +1,28 @@
 import * as React from "react";
 
 export type SearchInputProps = {
-    className?: string;
-    compact?: boolean;
-    disableStyles?: boolean;
+    className?: string | undefined;
+    compact?: boolean | undefined;
+    disableStyles?: boolean | undefined;
     inputGroupAddonProps?: any;
     inputGroupProps?: any;
     inputProps?: any;
-    inShellbar?: boolean;
+    inShellbar?: boolean | undefined;
     listProps?: any;
-    noSearchBtn?: boolean;
-    placeholder?: string;
+    noSearchBtn?: boolean | undefined;
+    placeholder?: string | undefined;
     popoverProps?: any;
     searchBtnProps?: any;
     searchList?: Array<{
       text: string,
-      callback?: (...args: any[]) => any
-    }>;
+      callback?: ((...args: any[]) => any) | undefined
+    }> | undefined;
     validationState?: {
       state?: any,
-      text?: string
-    };
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    onEnter?: (value?: string | number | string[]) => void;
+      text?: string | undefined
+    } | undefined;
+    onChange?: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
+    onEnter?: ((value?: string | number | string[]) => void) | undefined;
 } & { [x: string]: any };
 
 declare class SearchInput extends React.Component<SearchInputProps> {

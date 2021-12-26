@@ -54,19 +54,19 @@ declare namespace sprite {
          * Main output directory
          * @default '.'
          */
-        dest?: string;
+        dest?: string | undefined;
         /**
          * Logging verbosity or custom logger
          */
-        log?: string | Logger;
+        log?: string | Logger | undefined;
         /**
          * SVG shape configuration
          */
-        shape?: Shape;
+        shape?: Shape | undefined;
         /**
          * Sprite SVG options
          */
-        svg?: Svg;
+        svg?: Svg | undefined;
         /**
          * Custom templating variables
          */
@@ -74,7 +74,7 @@ declare namespace sprite {
         /**
          * Output mode configurations
          */
-        mode?: Mode;
+        mode?: Mode | undefined;
     }
 
     /**
@@ -88,20 +88,20 @@ declare namespace sprite {
             /**
              * Separator for directory name traversal
              */
-            separator?: string;
+            separator?: string | undefined;
             /**
              * SVG shape ID generator callback
              */
-            generator?: string | ((svg: string) => string);
+            generator?: string | ((svg: string) => string) | undefined;
             /**
              * File name separator for shape states (e.g. ':hover')
              */
-            pseudo?: string;
+            pseudo?: string | undefined;
             /**
              * Whitespace replacement for shape IDs
              */
-            whitespace?: string;
-        };
+            whitespace?: string | undefined;
+        } | undefined;
         /**
          * Dimension related options
          */
@@ -109,20 +109,20 @@ declare namespace sprite {
             /**
              * Max. shape width
              */
-            maxWidth?: number;
+            maxWidth?: number | undefined;
             /**
              * Max. shape height
              */
-            maxHeight?: number;
+            maxHeight?: number | undefined;
             /**
              * Floating point precision
              */
-            precision?: number;
+            precision?: number | undefined;
             /**
              * Width and height attributes on embedded shapes
              */
-            attributes?: boolean;
-        };
+            attributes?: boolean | undefined;
+        } | undefined;
         /**
          * Spacing related options
          */
@@ -130,28 +130,28 @@ declare namespace sprite {
             /**
              * Padding around all shapes
              */
-            padding?: number | number[];
+            padding?: number | number[] | undefined;
             /**
              * Padding strategy (similar to CSS `box-sizing`)
              */
-            box?: string;
-        };
+            box?: string | undefined;
+        } | undefined;
         /**
          * List of transformations / optimizations
          */
-        transform?: (string | CustomConfigurationTransform | CustomCallbackTransform)[];
+        transform?: (string | CustomConfigurationTransform | CustomCallbackTransform)[] | undefined;
         /**
          * Path to YAML file with meta / accessibility data
          */
-        meta?: string;
+        meta?: string | undefined;
         /**
          * Path to YAML file with extended alignment data
          */
-        align?: string;
+        align?: string | undefined;
         /**
          * Output directory for optimized intermediate SVG shapes
          */
-        dest?: string;
+        dest?: string | undefined;
     }
 
     /**
@@ -159,7 +159,7 @@ declare namespace sprite {
      */
     interface CustomConfigurationTransform {
         [transformationName: string]: {
-            plugins?: { [transformationName: string]: boolean }[];
+            plugins?: { [transformationName: string]: boolean }[] | undefined;
         }
     }
 
@@ -185,32 +185,32 @@ declare namespace sprite {
          * If you set this to TRUE, *svg-sprite* will look at the registered shapes for an XML declaration and use the first one it can find.
          * @default true
          */
-        xmlDeclaration?: boolean | string;
+        xmlDeclaration?: boolean | string | undefined;
         /**
          * Include a <DOCTYPE> declaration in each compiled sprite. If you provide a non-empty string here,
          * it will be used one-to-one as declaration (e.g. <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Basic//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd">).
          * If you set this to TRUE, *svg-sprite* will look at the registered shapes for a DOCTYPE declaration and use the first one it can find.
          * @default true
          */
-        doctypeDeclaration?: boolean | string;
+        doctypeDeclaration?: boolean | string | undefined;
         /**
          * In order to avoid ID clashes, the default behavior is to namespace all IDs in the source SVGs before compiling them into a sprite.
          * Each ID is prepended with a unique string. In some situations, it might be desirable to disable ID namespacing, e.g. when you want to script the resulting sprite.
          * Just set svg.namespaceIDs to FALSE then and be aware that you might also want to disable SVGO's ID minification (shape.transform.svgo.plugins: [{cleanupIDs: false}]).
          * @default true
          */
-        namespaceIDs?: boolean;
+        namespaceIDs?: boolean | undefined;
         /**
          * In order to avoid CSS class name ambiguities, the default behavior is to namespace CSS class names in the source SVGs before compiling them into a sprite.
          * Each class name is prepended with a unique string. Disable this option to keep the class names untouched.
          * @default true
          */
-        namespaceClassnames?: boolean;
+        namespaceClassnames?: boolean | undefined;
         /**
          * If truthy, width and height attributes will be set on the sprite's <svg> element (where applicable).
          * @default true
          */
-        dimensionAttributes?: boolean;
+        dimensionAttributes?: boolean | undefined;
         /**
          * Shorthand for applying custom attributes to the outermost <svg> element.
          * Please be aware that certain attributes (e.g. viewBox) will be calculated dynamically and override custom rootAttributes in any case.
@@ -219,12 +219,12 @@ declare namespace sprite {
         /**
          * Floating point precision for CSS positioning values (defaults to -1 meaning highest possible precision).
          */
-        precision?: number;
+        precision?: number | undefined;
         /**
          * Callback (or list of callbacks) that will be applied to the resulting SVG sprites as global [post-processing transformation](#svg-sprite-customization).
          * transform: Function∣Array
          */
-        transform?: SvgTransformer | SvgTransformer[];
+        transform?: SvgTransformer | SvgTransformer[] | undefined;
     }
 
     interface SvgTransformer {
@@ -237,11 +237,11 @@ declare namespace sprite {
     }
 
     interface Mode {
-        css?: CssAndViewSpecificModeConfig | boolean;
-        view?: CssAndViewSpecificModeConfig | boolean;
-        defs?: DefsAndSymbolSpecificModeConfig | boolean;
-        symbol?: DefsAndSymbolSpecificModeConfig | boolean;
-        stack?: ModeConfig | boolean;
+        css?: CssAndViewSpecificModeConfig | boolean | undefined;
+        view?: CssAndViewSpecificModeConfig | boolean | undefined;
+        defs?: DefsAndSymbolSpecificModeConfig | boolean | undefined;
+        symbol?: DefsAndSymbolSpecificModeConfig | boolean | undefined;
+        stack?: ModeConfig | boolean | undefined;
         [customConfigName: string]: ModeConfig | boolean;
     }
 
@@ -250,7 +250,7 @@ declare namespace sprite {
          * Base directory for sprite and CSS file output. If not absolute, the path will be resolved using the main output directory (see global dest option).
          * @default "<mode>"
          */
-        dest?: string;
+        dest?: string | undefined;
         /**
          * Used for prefixing the [shape ID](#shape-ids) during CSS selector construction. If the value is empty,
          * no prefix will be used. The prefix may contain the placeholder "%s" (e.g. ".svg %s-svg"),
@@ -259,7 +259,7 @@ declare namespace sprite {
          * to output it to your stylesheets (e.g. for a [Sass placeholder selector](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#placeholder_selectors_)).
          * @default ".svg-%s"
          */
-        prefix?: string;
+        prefix?: string | undefined;
         /**
          * A non-empty string value will trigger the creation of additional CSS rules specifying the dimensions of each shape in the sprite.
          * The string will be used as suffix to mode.<mode>.prefix during CSS selector construction and may contain the placeholder "%s",
@@ -267,19 +267,19 @@ declare namespace sprite {
          * A boolean TRUE will cause the dimensions to be included directly into each shape's CSS rule (only available for «css» and «view» sprites).
          * @default "-dims"
          */
-        dimensions?: string | boolean;
+        dimensions?: string | boolean | undefined;
         /**
          * SVG sprite path and file name, relative to the mode.<mode>.dest directory.
          * You may omit the file extension, in which case it will be set to ".svg" automatically.
          * @default "svg/sprite.<mode>.svg"
          */
-        sprite?: string;
+        sprite?: string | undefined;
         /**
          * Add a content based hash to the name of the sprite file so that clients reliably reload the sprite
          * when it's content changes («cache busting»). Defaults to false except for «css» and «view» sprites.
          * @default true∣false
          */
-        bust?: boolean;
+        bust?: boolean | undefined;
         /**
          * Collection of [stylesheet rendering configurations](#rendering-configurations).
          * The keys are used as file extensions as well as file return keys. At present,
@@ -288,16 +288,16 @@ declare namespace sprite {
          * which all reside in the directory tmpl/css. Example: {css: true, scss: {dest: '_sprite.scss'}}
          * @default {}
          */
-        render?: { [key: string]: RenderingConfiguration | boolean };
+        render?: { [key: string]: RenderingConfiguration | boolean } | undefined;
         /**
          * Enabling this will trigger the creation of an HTML document demoing the usage of the sprite. Please see below for details on [rendering configurations](#rendering-configurations).
          * @default false
          */
-        example?: RenderingConfiguration | boolean;
+        example?: RenderingConfiguration | boolean | undefined;
         /**
          * Specify svg-sprite which output mode to use with this configuration
          */
-        mode?: string;
+        mode?: string | undefined;
     }
 
     interface RenderingConfiguration {
@@ -305,12 +305,12 @@ declare namespace sprite {
          * HTML document Mustache template
          * @default "tmpl/<mode>/sprite.html"
          */
-        template?: string;
+        template?: string | undefined;
         /**
          * HTML document destination
          * @default "sprite.<mode>.html"
          */
-        dest?: string;
+        dest?: string | undefined;
     }
 
     interface CssAndViewSpecificModeConfig extends ModeConfig {
@@ -319,19 +319,19 @@ declare namespace sprite {
          * (with the latter being the most compact type). It depends on your project which layout is best for you.
          * @default "packed"
          */
-        layout?: string;
+        layout?: string | undefined;
         /**
          * If given and not empty, this will be the selector name of a CSS rule commonly specifying the background-image
          * and background-repeat properties for all the shapes in the sprite (thus saving some bytes by not unnecessarily repeating them for each shape)
          */
-        common?: string;
+        common?: string | undefined;
         /**
          * If given and not empty, a mixin with this name will be added to supporting output formats (e.g. Sass, LESS, Stylus),
          * specifying the background-image and background-repeat properties for all the shapes in the sprite.
          * You may use it for creating custom CSS within @media rules. The mixin acts much like the common rule.
          * In fact, you can even combine the two - if both are enabled, the common rule will use the mixin internally.
          */
-        mixin?: string;
+        mixin?: string | undefined;
     }
 
     interface DefsAndSymbolSpecificModeConfig extends ModeConfig {
@@ -340,7 +340,7 @@ declare namespace sprite {
          * in order to prevent the creation of SVG namespace declarations and to set some other attributes for effectively hiding the library sprite.
          * @default false
          */
-        inline?: boolean;
+        inline?: boolean | undefined;
     }
 
     interface CompileCallback {

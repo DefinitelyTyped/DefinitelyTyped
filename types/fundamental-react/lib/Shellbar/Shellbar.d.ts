@@ -3,51 +3,51 @@ import { IconSize } from "../Icon/Icon";
 
 export type ShellbarProps = {
     actions?: Array<{
-        menu?: React.ReactNode;
-        label?: string;
+        menu?: React.ReactNode | undefined;
+        label?: string | undefined;
         glyph: string;
         notificationCount: number;
-        callback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    }>;
-    backAction?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    className?: string;
-    copilot?: boolean;
-    disableStyles?: boolean;
+        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    }> | undefined;
+    backAction?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    className?: string | undefined;
+    copilot?: boolean | undefined;
+    disableStyles?: boolean | undefined;
     localizedText?: {
         counterLabel: string;
         notificationsButton: string;
-    };
-    logo?: React.ReactNode;
-    logoSAP?: boolean;
+    } | undefined;
+    logo?: React.ReactNode | undefined;
+    logoSAP?: boolean | undefined;
     notifications?: {
-        notificationsBody?: React.ReactNode;
-        noNotificationsBody?: React.ReactNode;
+        notificationsBody?: React.ReactNode | undefined;
+        noNotificationsBody?: React.ReactNode | undefined;
         notificationCount: number;
-        label?: string;
-        callback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    };
+        label?: string | undefined;
+        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    } | undefined;
     productMenu?: Array<{
-        link?: string;
-        callback?: (...args: any[]) => void;
-        url?: string;
-        glyph?: string;
-        size?: IconSize;
-        name?: React.ReactNode;
-    }>;
-    productSwitch?: object;
+        link?: string | undefined;
+        callback?: ((...args: any[]) => void) | undefined;
+        url?: string | undefined;
+        glyph?: string | undefined;
+        size?: IconSize | undefined;
+        name?: React.ReactNode | undefined;
+    }> | undefined;
+    productSwitch?: object | undefined;
     productSwitchList?: Array<{
         title: string;
-        link?: string;
-        url?: string;
+        link?: string | undefined;
+        url?: string | undefined;
         glyph: string;
         image: string;
-        callback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    }>;
-    productTitle?: string;
-    profile?: { [x: string]: any };
-    profileMenu?: Array<{ [x: string]: any }>;
-    searchInput?: { [x: string]: any };
-    subtitle?: string;
+        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    }> | undefined;
+    productTitle?: string | undefined;
+    profile?: { [x: string]: any } | undefined;
+    profileMenu?: Array<{ [x: string]: any }> | undefined;
+    searchInput?: { [x: string]: any } | undefined;
+    subtitle?: string | undefined;
 } & React.HTMLAttributes<Element>;
 
 declare class Shellbar extends React.Component<ShellbarProps> {

@@ -14,6 +14,8 @@ const serverRoutes: ServerRoute[] = [
             const response = h.response('success');
             response.type('text/plain');
             response.header('X-Custom', 'some-value');
+            response.charset('iso-8859-1');
+            response.charset();
             return response;
         }
     },

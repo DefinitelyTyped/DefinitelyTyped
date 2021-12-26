@@ -8,13 +8,13 @@
 /// <reference types="jquery"/>
 
 interface TimeagoSetings {
-    refreshMillis?: number;
-    allowFuture?: boolean;
+    refreshMillis?: number | undefined;
+    allowFuture?: boolean | undefined;
     strings?: {
-        prefixAgo?: string;
-        prefixFromNow?: string;
-        suffixAgo?: string;
-        suffixFromNow?: string;
+        prefixAgo?: string | undefined;
+        prefixFromNow?: string | undefined;
+        suffixAgo?: string | undefined;
+        suffixFromNow?: string | undefined;
 
         // Those can be string or Function
         seconds?: any;
@@ -29,9 +29,9 @@ interface TimeagoSetings {
         year?: any;
         years?: any;
         
-        wordSeparator?: string;
-        numbers?: any[];
-    };
+        wordSeparator?: string | undefined;
+        numbers?: any[] | undefined;
+    } | undefined;
 }
 
 interface TimeagoStatic {

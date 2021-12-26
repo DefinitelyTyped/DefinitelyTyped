@@ -1,4 +1,5 @@
 import { MailParser, simpleParser } from 'mailparser';
+import { getDecoder } from 'iconv-lite';
 
 const mailparser = new MailParser();
 
@@ -20,6 +21,20 @@ mailparser.on('data', data => {
         console.log(data.html);
     }
 });
+
+// Validate options
+const mailparser2 = new MailParser(
+    {
+       skipHtmlToText: true,
+       maxHtmlLengthToParse: 88,
+       formatDateString: (d: Date) => d.toDateString(),
+       skipImageLinks: true,
+       skipTextToHtml: true,
+       skipTextLinks: true,
+       Iconv: getDecoder("ascii"),
+       keepCidLinks: true
+    }
+);
 
 // Pipe file to MailParser
 // This example pipes a readableStream file to MailParser
@@ -52,8 +67,19 @@ simpleParser(sourceString, (err, mail) => {
     // Attachments
     mail.attachments.forEach(attachment => console.log(attachment.filename));
 
-    // Text
+    // TO Recipieints
+    if (Array.isArray(mail.to)) {
+        mail.to.forEach(recipient => console.log(recipient));
+    } else {
+        console.log(mail.to);
+    }
+
+    // Texte
     console.log(mail.text);
     console.log(mail.html);
     console.log(mail.textAsHtml);
+
+    // References are either arrays or strings
+    if (mail.references && !Array.isArray(mail.references))
+        mail.references.toLowerCase();
 });

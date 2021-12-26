@@ -36,13 +36,26 @@ class Foo extends EmberObject {
         },
     });
     b = 5;
+    c = computed({
+        get() {
+            return '';
+        },
+        set(key: string, newVal: string | number) {
+            return '';
+        }
+    });
     baz() {
+        const x = this.a; // $ExpectType ComputedProperty<string, string>
         const y = this.b; // $ExpectType number
-        const z = this.a; // $ExpectType ComputedProperty<string, string>
+        const z = this.c; // $ExpectType ComputedProperty<string, string | number>
         this.b = 10;
         this.get('b').toFixed(4); // $ExpectType string
         this.set('a', 'abc').split(','); // $ExpectType string[]
         this.set('b', 10).toFixed(4); // $ExpectType string
+        this.get('c').split(','); // $ExpectType string[]
+        this.set('c', '10').split(','); // $ExpectType string[]
+        this.set('c', 10);
+        this.set('c', 10).split(','); // $ExpectError
 
         this.setProperties({ b: 11 });
         // this.setProperties({ b: '11' }); // $ExpectError

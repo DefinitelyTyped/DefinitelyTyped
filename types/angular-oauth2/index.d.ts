@@ -11,9 +11,9 @@ declare module 'angular' {
         interface OAuthConfig {
             baseUrl: string;
             clientId: string;
-            clientSecret?: string;
-            grantPath?: string;
-            revokePath?: string;
+            clientSecret?: string | undefined;
+            grantPath?: string | undefined;
+            revokePath?: string | undefined;
         }
 
         interface OAuthProvider {

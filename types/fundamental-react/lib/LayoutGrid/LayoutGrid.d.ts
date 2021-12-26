@@ -1,12 +1,12 @@
 import * as React from "react";
 
 export type LayoutGridProps = {
-    className?: string,
-    cols?: 1 | 2 | 3 | 4 | 5 | 6;
+    className?: string | undefined,
+    cols?: 1 | 2 | 3 | 4 | 5 | 6 | undefined;
     colSpan?: any,
-    disableStyles?: boolean,
-    nogap?: boolean
-    ref?: React.Ref<HTMLDivElement>;
+    disableStyles?: boolean | undefined,
+    nogap?: boolean | undefined
+    ref?: React.Ref<HTMLDivElement> | undefined;
 } & React.HTMLAttributes<HTMLAnchorElement>;
 
 declare const LayoutGrid: React.FunctionComponent<LayoutGridProps> & {

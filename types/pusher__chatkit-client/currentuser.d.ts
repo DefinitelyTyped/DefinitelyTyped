@@ -5,19 +5,19 @@ import { PusherMessage, SendMessagePayload } from './message';
 import { UserHook, UserPresenceHook, ReadCursorHook, RoomParams, UserAndRoomParams } from './hooks';
 
 export interface RoomSubscriptionHooks {
-    onMessage?: (message: PusherMessage) => void;
-    onMessageDeleted?: (messageId: number) => void;
-    onUserStartedTyping?: UserHook;
-    onUserStoppedTyping?: UserHook;
-    onUserJoined?: UserHook;
-    onUserLeft?: UserHook;
-    onPresenceChanged?: UserPresenceHook;
-    onNewReadCursor?: ReadCursorHook;
+    onMessage?: ((message: PusherMessage) => void) | undefined;
+    onMessageDeleted?: ((messageId: number) => void) | undefined;
+    onUserStartedTyping?: UserHook | undefined;
+    onUserStoppedTyping?: UserHook | undefined;
+    onUserJoined?: UserHook | undefined;
+    onUserLeft?: UserHook | undefined;
+    onPresenceChanged?: UserPresenceHook | undefined;
+    onNewReadCursor?: ReadCursorHook | undefined;
 }
 
 export interface RoomSubscription {
     roomId: string;
-    hooks?: RoomSubscriptionHooks;
+    hooks?: RoomSubscriptionHooks | undefined;
     messageLimit: number;
     disableCursors: boolean;
     cancel: () => Promise<void>;
@@ -25,9 +25,9 @@ export interface RoomSubscription {
 
 interface RoomSubcriptionParams {
     roomId: string;
-    hooks?: RoomSubscriptionHooks;
-    messageLimit?: number;
-    disableCursors?: boolean;
+    hooks?: RoomSubscriptionHooks | undefined;
+    messageLimit?: number | undefined;
+    disableCursors?: boolean | undefined;
 }
 
 interface RoomIdParams {
@@ -35,25 +35,25 @@ interface RoomIdParams {
 }
 
 interface CreateRoomParams {
-    id?: string;
+    id?: string | undefined;
     name: string;
-    private?: boolean;
-    addUserIds?: string[];
+    private?: boolean | undefined;
+    addUserIds?: string[] | undefined;
     customData?: any;
 }
 
 interface UpdateRoomParams {
     roomId: string;
-    name?: string;
-    private?: boolean;
+    name?: string | undefined;
+    private?: boolean | undefined;
     customData?: any;
 }
 
 interface FetchMultipartMessagesParams {
     roomId: string;
-    initialId?: number;
-    direction?: 'older' | 'newer';
-    limit?: number;
+    initialId?: number | undefined;
+    direction?: 'older' | 'newer' | undefined;
+    limit?: number | undefined;
 }
 
 interface SendSimpleMessageParams {

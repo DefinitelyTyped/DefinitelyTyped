@@ -16,13 +16,13 @@
 //                 Andrew Gaspar <https://github.com/AndrewGaspar>
 //                 Seikichi Kondo <https://github.com/seikichi>
 //                 Benjamin Jackman <https://github.com/benjaminjackman>
-//                 Poul Sorensen <https://github.com/s093294>
 //                 Josh Strobl <https://github.com/JoshStrobl>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Terry Mun <https://github.com/terrymun>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 

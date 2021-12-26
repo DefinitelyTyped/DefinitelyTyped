@@ -1,4 +1,5 @@
-import bem, { join } from 'bero';
+import bem = require('bero');
+import { join } from 'bero';
 
 const check1 = bem();
 

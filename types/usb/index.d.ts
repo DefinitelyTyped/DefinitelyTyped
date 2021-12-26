@@ -2,7 +2,7 @@
 // Project: https://github.com/tessel/node-usb
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
 //                 Rob Moran <https://github.com/thegecko>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -547,6 +547,12 @@ export function on(event: string, callback: (device: Device) => void): void;
  * @param callback The callback to remove
  */
 export function removeListener(event: string, callback: (device: Device) => void): void;
+
+/**
+ * Removes a callback from all event handlers or those specified by the event param
+ * @param event The event to remove from
+ */
+export function removeAllListeners(event?: string): void;
 
 /**
  * Return a list of `Device` objects for the USB devices attached to the system.

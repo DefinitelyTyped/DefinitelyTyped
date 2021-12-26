@@ -6,31 +6,34 @@ import { Extent } from '../extent';
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import SimpleGeometry from '../geom/SimpleGeometry';
+import BaseVectorLayer from '../layer/BaseVector';
 import VectorLayer from '../layer/Vector';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
 import VectorSource from '../source/Vector';
+import VectorTile from '../source/VectorTile';
 import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    condition?: Condition;
-    deleteCondition?: Condition;
-    insertVertexCondition?: Condition;
-    pixelTolerance?: number;
-    style?: StyleLike;
-    source?: VectorSource<Geometry>;
-    features?: Collection<Feature<Geometry>>;
-    wrapX?: boolean;
+    condition?: Condition | undefined;
+    deleteCondition?: Condition | undefined;
+    insertVertexCondition?: Condition | undefined;
+    pixelTolerance?: number | undefined;
+    style?: StyleLike | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    hitDetection?: boolean | BaseVectorLayer<VectorSource<Geometry> | VectorTile> | undefined;
+    features?: Collection<Feature<Geometry>> | undefined;
+    wrapX?: boolean | undefined;
 }
 export interface SegmentData {
-    depth?: number[];
+    depth?: number[] | undefined;
     feature: Feature<Geometry>;
     geometry: SimpleGeometry;
-    index?: number;
+    index?: number | undefined;
     segment: Extent[];
-    featureSegments?: SegmentData[];
+    featureSegments?: SegmentData[] | undefined;
 }
 declare enum ModifyEventType {
     MODIFYSTART = 'modifystart',
@@ -39,7 +42,7 @@ declare enum ModifyEventType {
 export default class Modify extends PointerInteraction {
     constructor(options: Options);
     /**
-     * Get the overlay layer that this interaction renders sketch features to.
+     * Get the overlay layer that this interaction renders the modification point or vertex to.
      */
     getOverlay(): VectorLayer;
     /**

@@ -2,7 +2,6 @@
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
-//                 Adam Lavin <https://github.com/lavoaster>
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
@@ -10,7 +9,7 @@
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
-//                 Danilo Fuchs <https://github.com/danilofuchs>
+//                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
@@ -50,12 +49,24 @@ export type IntrinsicElementsKeys = keyof JSX.IntrinsicElements;
 type Defaultize<P, D> = P extends any
     ? string extends keyof P
         ? P
-        : Pick<P, Exclude<keyof P, keyof D>> &
-              Partial<Pick<P, Extract<keyof P, keyof D>>> &
-              Partial<Pick<D, Exclude<keyof D, keyof P>>>
+        : PickU<P, Exclude<keyof P, keyof D>> &
+              Partial<PickU<P, Extract<keyof P, keyof D>>> &
+              Partial<PickU<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
+
+type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends object, A extends keyof any> = OmitU<
+    ReactDefaultizedProps<
+        C,
+        React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>
+    > &
+        O,
+    A
+> &
+    Partial<
+        PickU<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>
+    >;
 
 export type StyledComponentProps<
     // The Component from whose props are derived
@@ -65,30 +76,14 @@ export type StyledComponentProps<
     // The other props added by the template
     O extends object,
     // The props that are made optional by .attrs
-    A extends keyof any
+    A extends keyof any,
+    // The Component passed with "forwardedAs" prop
+    FAsC extends string | React.ComponentType<any> = C
 > =
     // Distribute O if O is a union type
     O extends object
         ? WithOptionalTheme<
-              Omit<
-                  ReactDefaultizedProps<
-                      C,
-                      React.ComponentPropsWithRef<
-                          C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                      >
-                  > &
-                      O,
-                  A
-              > &
-                  Partial<
-                      Pick<
-                          React.ComponentPropsWithRef<
-                              C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                          > &
-                              O,
-                          A
-                      >
-                  >,
+              MakeAttrsOptional<C, O, A> & MakeAttrsOptional<FAsC, O, A>,
               T
           > &
               WithChildrenIfReactComponentClass<C>
@@ -101,7 +96,7 @@ export type StyledComponentProps<
 type WithChildrenIfReactComponentClass<C extends string | React.ComponentType<any>> = C extends React.ComponentClass<
     any
 >
-    ? { children?: React.ReactNode }
+    ? { children?: React.ReactNode | undefined }
     : {};
 
 type StyledComponentPropsWithAs<
@@ -109,8 +104,9 @@ type StyledComponentPropsWithAs<
     T extends object,
     O extends object,
     A extends keyof any,
-    F extends string | React.ComponentType<any> = C
-> = StyledComponentProps<C, T, O, A> & { as?: C; forwardedAs?: F };
+    AsC extends string | React.ComponentType<any> = C,
+    FAsC extends string | React.ComponentType<any> = C
+> = StyledComponentProps<C, T, O, A, FAsC> & { as?: AsC | undefined; forwardedAs?: FAsC | undefined };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> = InterpolationValue | InterpolationFunction<P> | FlattenInterpolation<P>;
@@ -126,23 +122,25 @@ export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 type Attrs<P, A extends Partial<P>, T> = ((props: ThemedStyledProps<P, T>) => A) | A;
 
 export type ThemedGlobalStyledClassProps<P, T> = WithOptionalTheme<P, T> & {
-    suppressMultiMountWarning?: boolean;
+    suppressMultiMountWarning?: boolean | undefined;
 };
 
 export interface GlobalStyleComponent<P, T> extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
 type StyledComponentInterpolation =
-    | Pick<StyledComponentBase<any, any, any, any>, keyof StyledComponentBase<any, any>>
-    | Pick<StyledComponentBase<any, any, any>, keyof StyledComponentBase<any, any>>;
+    | PickU<StyledComponentBase<any, any, any, any>, keyof StyledComponentBase<any, any>>
+    | PickU<StyledComponentBase<any, any, any>, keyof StyledComponentBase<any, any>>;
 
 // abuse Pick to strip the call signature from ForwardRefExoticComponent
-type ForwardRefExoticBase<P> = Pick<React.ForwardRefExoticComponent<P>, keyof React.ForwardRefExoticComponent<any>>;
+type ForwardRefExoticBase<P> = PickU<React.ForwardRefExoticComponent<P>, keyof React.ForwardRefExoticComponent<any>>;
 
 // Config to be used with withConfig
 export interface StyledConfig<O extends object = {}> {
     // TODO: Add all types from the original StyledComponentWrapperProperties
-    shouldForwardProp?: (prop: keyof O, defaultValidatorFn: (prop: keyof O) => boolean) => boolean;
+    componentId?: string;
+    displayName?: string;
+    shouldForwardProp?: ((prop: keyof O, defaultValidatorFn: (prop: keyof O) => boolean) => boolean) | undefined;
 }
 
 // extracts React defaultProps
@@ -169,12 +167,12 @@ export interface StyledComponentBase<
     A extends keyof any = never
 > extends ForwardRefExoticBase<StyledComponentProps<C, T, O, A>> {
     // add our own fake call signature to implement the polymorphic 'as' prop
-    (props: StyledComponentProps<C, T, O, A> & { as?: never; forwardedAs?: never }): React.ReactElement<
+    (props: StyledComponentProps<C, T, O, A> & { as?: never | undefined; forwardedAs?: never | undefined }): React.ReactElement<
         StyledComponentProps<C, T, O, A>
     >;
     <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = AsC>(
-        props: StyledComponentPropsWithAs<AsC, T, O, A, FAsC>,
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, FAsC>>;
+        props: StyledComponentPropsWithAs<AsC, T, O, A, AsC, FAsC>,
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, AsC, FAsC>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC,
@@ -304,9 +302,11 @@ export interface BaseThemedCssFunction<T extends object> {
 export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<AnyIfEmpty<T>>;
 
 // Helper type operators
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, 'theme'> & {
-    theme?: T;
+// Pick that distributes over union types
+export type PickU<T, K extends keyof T> = T extends any ? {[P in K]: T[P]} : never;
+export type OmitU<T, K extends keyof T> = T extends any ? PickU<T, Exclude<keyof T, K>> : never;
+type WithOptionalTheme<P extends { theme?: T | undefined }, T> = OmitU<P, 'theme'> & {
+    theme?: T | undefined;
 };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
@@ -316,15 +316,15 @@ export interface ThemedStyledComponentsModule<T extends object, U extends object
     css: ThemedCssFunction<T>;
 
     // unfortunately keyframes can't interpolate props from the theme
-    keyframes(strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]): Keyframes;
+    keyframes: (strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]) => Keyframes;
 
-    createGlobalStyle<P extends object = {}>(
+    createGlobalStyle: <P extends object = {}>(
         first: TemplateStringsArray | CSSObject | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): GlobalStyleComponent<P, T>;
+    ) => GlobalStyleComponent<P, T>;
 
-    withTheme: WithThemeFnInterface<T>;
-    ThemeProvider: ThemeProviderComponent<T, U>;
+    withTheme: BaseWithThemeFnInterface<T>;
+    ThemeProvider: BaseThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
     useTheme(): T;
@@ -343,7 +343,7 @@ export const css: ThemedCssFunction<DefaultTheme>;
 export type BaseWithThemeFnInterface<T extends object> = <C extends React.ComponentType<any>>(
     // this check is roundabout because the extends clause above would
     // not allow any component that accepts _more_ than theme as a prop
-    component: React.ComponentProps<C> extends { theme?: T } ? C : never,
+    component: React.ComponentProps<C> extends { theme?: T | undefined } ? C : never,
 ) => React.ForwardRefExoticComponent<WithOptionalTheme<React.ComponentPropsWithRef<C>, T>>;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<AnyIfEmpty<T>>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
@@ -360,7 +360,7 @@ export function useTheme(): DefaultTheme;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     theme: T | ((theme: U) => T);
 }
 export type BaseThemeProviderComponent<T extends object, U extends object = T> = React.ComponentClass<
@@ -412,11 +412,12 @@ export type StylisPlugin = (
 ) => string | void;
 
 export interface StyleSheetManagerProps {
-    disableCSSOMInjection?: boolean;
-    disableVendorPrefixes?: boolean;
-    stylisPlugins?: StylisPlugin[];
-    sheet?: ServerStyleSheet;
-    target?: HTMLElement;
+    children?: React.ReactNode;
+    disableCSSOMInjection?: boolean | undefined;
+    disableVendorPrefixes?: boolean | undefined;
+    stylisPlugins?: StylisPlugin[] | undefined;
+    sheet?: ServerStyleSheet | undefined;
+    target?: HTMLElement | undefined;
 }
 
 export class StyleSheetManager extends React.Component<StyleSheetManagerProps> {}

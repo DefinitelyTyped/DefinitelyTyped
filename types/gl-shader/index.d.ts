@@ -1,6 +1,6 @@
 // Type definitions for gl-shader 4.2
 // Project: https://github.com/stackgl/gl-shader
-// Definitions by: Mathias Paumgarten <https://github.com/MathiasPaumgarten>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -44,8 +44,8 @@ declare function createShader(
     options: {
         vertex: string,
         fragment: string,
-        uniforms?: Parameter[],
-        attributes?: Parameter[],
+        uniforms?: Parameter[] | undefined,
+        attributes?: Parameter[] | undefined,
     }): Shader;
 
 export = createShader;

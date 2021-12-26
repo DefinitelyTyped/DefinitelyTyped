@@ -3,28 +3,30 @@
 // Definitions by: hyun <https://github.com/KoreanThinker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ComponentClass, ReactElement, Component } from 'react';
+import { ComponentClass, ReactElement, Component, ReactNode } from 'react';
 import { StyleProp, TextStyle, TextProps, ViewStyle } from 'react-native';
 
 export interface MenuProps {
-    button?: ReactElement;
-    testID?: string;
-    style?: StyleProp<ViewStyle>;
-    onHidden?: () => void;
-    animationDuration?: number;
+    button?: ReactElement | undefined;
+    children?: ReactNode;
+    testID?: string | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
+    onHidden?: (() => void) | undefined;
+    animationDuration?: number | undefined;
 }
 export interface MenuItemProps {
-    disabled?: boolean;
-    testID?: string;
-    disabledTextColor?: string;
-    ellipsizeMode?: TextProps['ellipsizeMode'];
-    onPress?: () => void;
-    style?: StyleProp<ViewStyle>;
-    textStyle?: TextStyle;
-    underlayColor?: string;
+    children?: ReactNode;
+    disabled?: boolean | undefined;
+    testID?: string | undefined;
+    disabledTextColor?: string | undefined;
+    ellipsizeMode?: TextProps['ellipsizeMode'] | undefined;
+    onPress?: (() => void) | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
+    textStyle?: TextStyle | undefined;
+    underlayColor?: string | undefined;
 }
 export interface MenuDividerProps {
-    color?: string;
+    color?: string | undefined;
 }
 
 export class MenuDivider extends Component<MenuDividerProps> {}

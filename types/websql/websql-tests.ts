@@ -10,7 +10,7 @@ interface DbState {
 
 interface SqlQuery {
     sql: DOMString;
-    args?: ObjectArray;
+    args?: ObjectArray | undefined;
 }
 
 interface Results {

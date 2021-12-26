@@ -14,11 +14,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "leaflet": [
-                "leaflet/v0"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

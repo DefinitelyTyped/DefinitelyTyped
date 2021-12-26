@@ -2,7 +2,6 @@
 // Project: https://github.com/Shopify/js-buy-sdk#readme
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
-//                 Rosana Ruiz <https://github.com/totemika>
 //                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
 //                 Chris Worman <https://github.com/chrisworman-pela>
 //                 Maciej Baron <https://github.com/MaciekBaron>
@@ -33,7 +32,7 @@ declare namespace ShopifyBuy {
     export interface Config {
         domain: string;
         storefrontAccessToken: string;
-        language?: string;
+        language?: string | undefined;
     }
 
     export interface ProductResource {
@@ -88,6 +87,11 @@ declare namespace ShopifyBuy {
         removeLineItems(checkoutId: string | number, lineItemIds: string[]): Promise<Cart>;
 
         /**
+         * Add discount to cart
+         */
+        addDiscount(checkoutId: string | number, discountCode: string): Promise<Cart>;
+
+        /**
          * Remove discounts from cart
          */
         removeDiscount(checkoutId: string | number): Promise<Cart>;
@@ -110,12 +114,12 @@ declare namespace ShopifyBuy {
          * as their  community guidelines
          */
         query: string;
-        sortBy: string;
-        after?: string;
-        before?: string;
-        first?: number;
-        last?: number;
-        reverse?: boolean;
+        sortKey: string;
+        after?: string | undefined;
+        before?: string | undefined;
+        first?: number | undefined;
+        last?: number | undefined;
+        reverse?: boolean | undefined;
     }
 
     export interface Product extends GraphModel {
@@ -389,7 +393,7 @@ declare namespace ShopifyBuy {
     export interface LineItemToAdd {
         variantId: string | number;
         quantity: number;
-        customAttributes?: CustomAttribute[];
+        customAttributes?: CustomAttribute[] | undefined;
     }
 
     export interface Item {
@@ -415,11 +419,11 @@ declare namespace ShopifyBuy {
      *  https://help.shopify.com/api/custom-storefronts/storefront-api/reference/input_object/checkoutlineitemupdateinput
      */
     export interface AttributeInput {
-        key?: string;
-        value?: string;
-        id?: string | number;
-        quantity?: number;
-        variantId?: string;
+        key?: string | undefined;
+        value?: string | undefined;
+        id?: string | number | undefined;
+        quantity?: number | undefined;
+        variantId?: string | undefined;
     }
 
     /**
@@ -478,7 +482,7 @@ declare namespace ShopifyBuy {
      */
     export interface GraphModel {
         attrs?: any;
-        onlineStoreUrl?: string;
+        onlineStoreUrl?: string | undefined;
     }
 }
 

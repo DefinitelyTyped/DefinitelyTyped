@@ -9,19 +9,19 @@ import VectorLayer from './Vector';
 import VectorRenderType from './VectorRenderType';
 
 export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    gradient?: string[];
-    radius?: number;
-    blur?: number;
-    shadow?: number;
-    weight?: string | ((p0: Feature) => number);
-    renderMode?: VectorRenderType | string;
-    source?: VectorSource;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    gradient?: string[] | undefined;
+    radius?: number | undefined;
+    blur?: number | undefined;
+    shadow?: number | undefined;
+    weight?: string | ((p0: Feature) => number) | undefined;
+    renderMode?: VectorRenderType | string | undefined;
+    source?: VectorSource | undefined;
 }
 export default class Heatmap extends VectorLayer {
     constructor(opt_options?: Options);

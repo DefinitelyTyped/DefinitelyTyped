@@ -1,4 +1,6 @@
-import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool } from 'pg';
+import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError } from 'pg';
+import TypeOverrides = require('pg/lib/type-overrides');
+import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -20,6 +22,7 @@ const host: string = client.host;
 const password: string | undefined = client.password;
 const ssl: boolean = client.ssl;
 
+client.on('notice', (notice: NoticeMessage) => console.warn(`${notice.severity}: ${notice.message}`));
 client.connect(err => {
     if (err) {
         console.error('Could not connect to postgres', err);
@@ -183,6 +186,12 @@ clientCustomQueryTypes
     .then(() => console.log('client has disconnected'))
     .catch(err => console.error('error during disconnection', err.stack));
 
+const customTypeOverrides = new TypeOverrides();
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+const customCustomTypeOverrides = new TypeOverrides(customTypes);
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
 // pg.Pool
 // https://node-postgres.com/api/pool
 
@@ -268,9 +277,21 @@ pool.end().then(() => console.log('pool has ended'));
 
 (async () => {
     const client = await pool.connect();
-    await client.query('SELECT NOW()');
+    try {
+        await client.query('SELECT NOW()');
+    } catch (err) {
+        if (err instanceof DatabaseError) {
+            if (err.position !== undefined) {
+                const position: string = err.position;
+                console.log(position);
+            }
+        }
+    }
     client.release();
 })();
+
+// Set allowExitOnIdle on pool constructor
+const poolExitOnIdle = new Pool({ allowExitOnIdle: true });
 
 // client constructor tests
 // client config object tested above

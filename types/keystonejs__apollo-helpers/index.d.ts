@@ -21,7 +21,7 @@ declare module '@keystonejs/apollo-helpers' {
 
     interface KeystoneMutationTypeProps {
         mutation: string;
-        invalidatesTypes?: boolean;
+        invalidatesTypes?: boolean | undefined;
     }
     type KeystoneMutationType = React.ComponentType<KeystoneMutationTypeProps>;
     const Mutation: KeystoneMutationType;

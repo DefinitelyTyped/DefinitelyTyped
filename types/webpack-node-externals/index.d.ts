@@ -4,12 +4,18 @@
 //                 Manuel Pogge <https://github.com/MrSpoocy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
-import { ExternalsFunctionElement } from 'webpack';
+/// <reference types="node" />
+import { ExternalsPlugin } from 'webpack';
 
 export = webpackNodeExternals;
 
-declare function webpackNodeExternals(options?: webpackNodeExternals.Options): ExternalsFunctionElement;
+type GetArrayInnerType<T> = T extends Array<infer U> ? U : never;
+/** The webpack types don't export this so we have to derive it. */
+type ExternalItem = GetArrayInnerType<ExternalsPlugin['externals']>;
+
+declare function webpackNodeExternals(options?: webpackNodeExternals.Options): ExternalItem;
 
 declare namespace webpackNodeExternals {
     type AllowlistOption = string | RegExp | AllowlistFunctionType;
@@ -17,8 +23,8 @@ declare namespace webpackNodeExternals {
     /** a function that accepts the module name and returns whether it should be included */
     type AllowlistFunctionType = (moduleName: string) => boolean;
     interface ModulesFromFileType {
-        exclude?: string | string[];
-        include?: string | string[];
+        exclude?: string | string[] | undefined;
+        include?: string | string[] | undefined;
     }
 
     interface Options {
@@ -31,34 +37,34 @@ declare namespace webpackNodeExternals {
          * they should be bundled.
          * @default []
          */
-        allowlist?: AllowlistOption[] | AllowlistOption;
+        allowlist?: AllowlistOption[] | AllowlistOption | undefined;
         /**
          * @default ['.bin']
          */
-        binaryDirs?: string[];
+        binaryDirs?: string[] | undefined;
         /**
          * The method in which unbundled modules will be required in the code. Best to leave as
          * 'commonjs' for node modules.
          * @default 'commonjs'
          */
-        importType?: 'var' | 'this' | 'commonjs' | 'amd' | 'umd' | ImportTypeCallback;
+        importType?: 'var' | 'this' | 'commonjs' | 'amd' | 'umd' | ImportTypeCallback | undefined;
         /**
          * The folder in which to search for the node modules.
          * @default 'node_modules'
          */
-        modulesDir?: string;
+        modulesDir?: string | undefined;
         /**
          * Additional folders to look for node modules.
          */
-        additionalModuleDirs?: string[];
+        additionalModuleDirs?: string[] | undefined;
         /**
          * Read the modules from the package.json file instead of the node_modules folder.
          * @default false
          */
-        modulesFromFile?: boolean | ModulesFromFileType;
+        modulesFromFile?: boolean | ModulesFromFileType | undefined;
         /**
          * @default false
          */
-        includeAbsolutePaths?: boolean;
+        includeAbsolutePaths?: boolean | undefined;
     }
 }

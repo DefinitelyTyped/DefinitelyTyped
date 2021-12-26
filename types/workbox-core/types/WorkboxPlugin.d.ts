@@ -1,11 +1,11 @@
 export interface WorkboxPlugin {
-    cacheDidUpdate?: CacheDidUpdateCallback;
-    cacheKeyWillBeUsed?: CacheKeyWillBeUsedCallback;
-    cacheWillUpdate?: CacheWillUpdateCallback;
-    cachedResponseWillBeUsed?: CachedResponseWillBeUsedCallback;
-    fetchDidFail?: FetchDidFailCallback;
-    fetchDidSucceed?: FetchDidSucceedCallback;
-    requestWillFetch?: RequestWillFetchCallback;
+    cacheDidUpdate?: CacheDidUpdateCallback | undefined;
+    cacheKeyWillBeUsed?: CacheKeyWillBeUsedCallback | undefined;
+    cacheWillUpdate?: CacheWillUpdateCallback | undefined;
+    cachedResponseWillBeUsed?: CachedResponseWillBeUsedCallback | undefined;
+    fetchDidFail?: FetchDidFailCallback | undefined;
+    fetchDidSucceed?: FetchDidSucceedCallback | undefined;
+    requestWillFetch?: RequestWillFetchCallback | undefined;
 }
 
 export interface CacheDidUpdateCallback {
@@ -15,9 +15,9 @@ export interface CacheDidUpdateCallback {
 export interface CacheDidUpdateCallbackParam {
     cacheName: string;
     newResponse: Response;
-    oldResponse?: Response | null;
+    oldResponse?: Response | null | undefined;
     request: Request;
-    event?: Event;
+    event?: Event | undefined;
 }
 
 export interface CacheKeyWillBeUsedCallback {
@@ -36,7 +36,7 @@ export interface CacheWillUpdateCallback {
 export interface CacheWillUpdateCallbackParamParam {
     request: Request;
     response: Response;
-    event?: ExtendableEvent;
+    event?: ExtendableEvent | undefined;
 }
 
 export interface CachedResponseWillBeUsedCallback {
@@ -45,10 +45,10 @@ export interface CachedResponseWillBeUsedCallback {
 
 export interface CachedResponseWillBeUsedCallbackParam {
     cacheName: string;
-    cachedResponse?: Response;
-    matchOptions?: CacheQueryOptions;
+    cachedResponse?: Response | undefined;
+    matchOptions?: CacheQueryOptions | undefined;
     request: Request;
-    event?: ExtendableEvent;
+    event?: ExtendableEvent | undefined;
 }
 
 export interface FetchDidFailCallback {
@@ -59,7 +59,7 @@ export interface FetchDidFailCallbackParam {
     error: Error;
     originalRequest: Request;
     request: Request;
-    event?: ExtendableEvent;
+    event?: ExtendableEvent | undefined;
 }
 
 export interface FetchDidSucceedCallback {

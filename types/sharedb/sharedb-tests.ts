@@ -3,6 +3,7 @@ import * as http from 'http';
 import * as WebSocket from 'ws';
 import { Duplex } from 'stream';
 import * as ShareDBClient from 'sharedb/lib/client';
+import Agent = require('sharedb/lib/agent');
 
 // Adapted from https://github.com/avital/websocket-json-stream
 class WebSocketJSONStream extends Duplex {
@@ -42,9 +43,13 @@ const backend = new ShareDB({
     milestoneDb: new MyMilestoneDB(),
     suppressPublish: false,
     maxSubmitRetries: 3,
+    errorHandler: (error, context) => {
+        console.log(error, context.agent.custom);
+    },
 });
 console.log(backend.db);
 backend.on('error', (error) => console.error(error));
+backend.on('send', (agent, context) => console.log(agent, context));
 backend.addListener('timing', (type, time, request) => console.log(type, new Date(time), request));
 
 // getOps allows for `from` and `to` to both be `null`:
@@ -56,21 +61,34 @@ console.log(backend.pubsub);
 console.log(backend.extraDbs);
 
 backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
+const readonlyProjection = backend.projections['notes_minimal'];
+console.log(readonlyProjection.target, readonlyProjection.fields);
+// backend.projections is used by sharedb internally, so they shouldn't be messed with.
+// Test that marking as readonly in API prevents external modification.
+// $ExpectError
+delete backend.projections;
+// $ExpectError
+delete backend.projections.notes_minimal;
+// $ExpectError
+backend.projections['notes_minimal'].target = 'notes2';
+// $ExpectError
+backend.projections['notes_minimal'].fields = {};
+// $ExpectError
+backend.projections['notes_minimal'].fields['title'] = true;
 
-// Test module augmentation to attach custom typed properties to `agent.custom`.
-import _ShareDbAgent = require('sharedb/lib/agent');
-declare module 'sharedb/lib/agent' {
-    interface Custom {
-        user?: {id: string};
-    }
-}
 // Exercise middleware (backend.use)
 type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
 const submitRelatedActions: SubmitRelatedActions[] = ['afterWrite', 'apply', 'commit', 'submit'];
 for (const action of submitRelatedActions) {
     backend.use(action, (request, callback) => {
-        if (request.agent.custom.user) {
-            console.log(request.agent.custom.user.id);
+        const agent = request.agent as Agent<{
+            user: {
+                id: string
+            }
+        }>;
+
+        if (agent.custom.user) {
+            console.log(agent.custom.user.id);
         }
         console.log(
             request.action,
@@ -88,6 +106,7 @@ for (const action of submitRelatedActions) {
             request.op.op,
             request.op.create,
             request.op.del,
+            request.extra.source,
         );
         callback();
     });
@@ -174,10 +193,34 @@ backend.use('readSnapshots', (context, callback) => {
     callback();
 });
 
+backend.use('receivePresence', (context, callback) => {
+    console.log(
+        context.presence.ch,
+        context.presence.id,
+    );
+});
+
+backend.use('sendPresence', (context, callback) => {
+    console.log(
+        context.presence.ch,
+        context.presence.id,
+    );
+    callback();
+});
+
+backend.on('submitRequestEnd', (error, request) => {
+    console.log(request.op);
+});
+
 const connection = backend.connect();
+const agent = connection.agent;
 const netRequest = {};  // Passed through to 'connect' middleware, not used by sharedb itself
 const connectionWithReq = backend.connect(null, netRequest);
 const reboundConnection = backend.connect(backend.connect(), netRequest);
+
+const connectionHasPending: boolean = connection.hasPending();
+connection.whenNothingPending(() => console.log('whenNothingPending resolved'));
+connection.send({ a: 'nonExistentAction', some: 'data' });
 
 const doc = connection.get('examples', 'counter');
 
@@ -238,6 +281,10 @@ ShareDBClient.logger.setMethods({
     error: (message: string) => console.error(message),
 });
 
+ShareDBClient.logger.info('foo', 'bar');
+ShareDBClient.logger.warn('foo', 'bar');
+ShareDBClient.logger.error('foo', 'bar');
+
 function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');
     const connection = new ShareDBClient.Connection(socket);
@@ -268,14 +315,40 @@ function startClient(callback) {
         bar: 'abc',
     });
 
+    typedDoc.ingestSnapshot({
+        v: 10,
+        type: 'json0',
+        data: {
+            foo: 456,
+            bar: 'xyz',
+        },
+    });
+
     // sharedb-mongo query object
     connection.createSubscribeQuery('examples', {numClicks: {$gte: 5}}, null, (err, results) => {
         console.log(err, results);
     });
     // SQL-ish query adapter that takes a string query condition
-    connection.createSubscribeQuery('examples', 'numClicks >= 5', null, (err, results) => {
-        console.log(err, results);
+    const query = connection.createSubscribeQuery<MyDoc>('examples', 'numClicks >= 5', null, (err, results) => {
+        results.forEach((result) => result.data.foo > 0);
     });
+
+    query.on('ready', () => {});
+    query.on('error', (error) => console.log(error));
+    query.on('insert', async (inserted) => {
+        inserted.forEach((i) => i.data.foo);
+        await new Promise<void>((resolve) => resolve());
+    });
+    query.on('remove', (removed) => {
+        removed.forEach((r) => r.data.bar);
+    });
+    query.on('move', (moved, from, to) => {
+        moved.forEach(() => console.log(from - to));
+    });
+    query.on('changed', (results) => {
+        results.forEach((result) => result.data.foo);
+    });
+    query.on('extra', (extra) => console.log(extra));
 
     const anotherDoc = doc.connection.get('examples', 'another-counter');
     console.log(anotherDoc.collection);
@@ -291,7 +364,21 @@ function startClient(callback) {
         if (doc.hasWritePending()) throw new Error();
     });
 
-    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
+    doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
+
+    doc.on('load', () => {});
+    doc.on('no write pending', () => {});
+    doc.on('nothing pending', () => {});
+    doc.on('create', (source: any) => {});
+    doc.on('op', (ops: [any], source: any, clientId: string) => {});
+    doc.on('op batch', (ops: any[], source: any) => {});
+    doc.on('before op', (ops: [any], source: any, clientId: string) => {});
+    doc.on('before op batch', (ops: any[], source: any) => {});
+    doc.on('del', (data: MyDoc, source: any) => {});
+    doc.on('error', (error: ShareDB.Error) => {});
+    doc.on('destroy', () => {});
+
+    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
     });
@@ -300,6 +387,8 @@ function startClient(callback) {
         if (error) throw error;
         console.log(snapshot.data);
     });
+
+    console.log(connection.id + connection.seq);
 
     interface PresenceValue {
         foo: number;
@@ -312,3 +401,26 @@ function startClient(callback) {
 
     connection.close();
 }
+
+backend.getOps(agent, 'collection', 'id', 0, 5, {opsOptions: {metadata: true}}, (error, ops) => {
+    ops.forEach(console.log);
+});
+
+backend.getOpsBulk(agent, 'collection', 'id', {abc: 0}, {abc: 5}, {opsOptions: {metadata: true}}, (error, ops) => {
+    ops.forEach(console.log);
+});
+
+class SocketLike {
+    readyState = 1;
+
+    close(reason?: number): void {}
+    send(data: any): void {}
+
+    onmessage: (event: any) => void;
+    onclose: (event: any) => void;
+    onerror: (event: any) => void;
+    onopen: (event: any) => void;
+}
+
+const socketLike = new SocketLike();
+new ShareDBClient.Connection(socketLike);

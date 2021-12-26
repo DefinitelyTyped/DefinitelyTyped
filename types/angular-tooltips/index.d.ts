@@ -13,15 +13,15 @@ declare namespace AngularTooltips {
     }
 
     interface TooltipsConfProviderOptions {
-        side?: 'left' | 'right' | 'top' | 'bottom' | 'top left' | 'top right' | 'bottom left' | 'bottom right';
-        showTrigger?: string;
-        hideTrigger?: string;
-        class?: string;
-        smart?: boolean;
-        closeButton?: boolean;
-        size?: 'small' | 'medium' | 'large';
-        speed?: 'slow' | 'medium' | 'fast';
-        tooltipTemplateUrlCache?: boolean;
-        show?: boolean;
+        side?: 'left' | 'right' | 'top' | 'bottom' | 'top left' | 'top right' | 'bottom left' | 'bottom right' | undefined;
+        showTrigger?: string | undefined;
+        hideTrigger?: string | undefined;
+        class?: string | undefined;
+        smart?: boolean | undefined;
+        closeButton?: boolean | undefined;
+        size?: 'small' | 'medium' | 'large' | undefined;
+        speed?: 'slow' | 'medium' | 'fast' | undefined;
+        tooltipTemplateUrlCache?: boolean | undefined;
+        show?: boolean | undefined;
     }
 }

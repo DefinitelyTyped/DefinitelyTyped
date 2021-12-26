@@ -3,17 +3,18 @@ import * as factory from 'factory-girl';
 import { factory as namedImportedFactory } from 'factory-girl';
 
 interface User {
-    username?: string;
-    score?: number;
-    email?: string;
-    roles?: Role[];
+    username?: string | undefined;
+    score?: number | undefined;
+    email?: string | undefined;
+    roles?: Role[] | undefined;
     creditCard?: any;
-    boss?: User;
+    boss?: User | undefined;
+    addresses?: any[] | undefined;
 }
 
 interface Role {
-    id?: number;
-    name?: string;
+    id?: number | undefined;
+    name?: string | undefined;
 }
 
 interface SuperUser extends User {
@@ -60,12 +61,29 @@ factory.define<User>(
         score: scoreSequence,
         email: factory.seq<string>('User.email', num => `email-${1}@users.com`),
         roles: factory.assocMany('Role', 3, 'id'),
-        creditCard: factory.assocAttrs('CreditCard', 'creditCard', { number: '1234' }),
+        creditCard: factory.assocAttrs('CreditCard', 'creditCard', { number: '1234' }, { option: true }),
         boss: factory.assoc('User', 'boss'),
+        addresses: factory.assocAttrsMany('Address', 3, 'id', { type: 1 })
     },
     {
-        afterBuild: (model, attrs, options) => {},
-        afterCreate: (model, attrs, options) => {},
+        afterBuild: (model, attrs, options) => {
+            if (Array.isArray(attrs)) {
+                // for buildMany
+                attrs[0].email;
+            } else {
+                // for build
+                attrs.email;
+            }
+        },
+        afterCreate: (model, attrs, options) => {
+            if (Array.isArray(attrs)) {
+                // for createMany
+                attrs[0].email;
+            } else {
+                // for create
+                attrs.email;
+            }
+        },
     },
 );
 
@@ -77,8 +95,8 @@ factory.extend(
     'superuser',
     { superpower: 'flight' },
     {
-        afterBuild: (model, attrs, options) => {},
-        afterCreate: (model, attrs, options) => {},
+        afterBuild: (model, attrs, options) => { },
+        afterCreate: (model, attrs, options) => { },
     },
 );
 
@@ -128,6 +146,7 @@ factory
     .create<User>('user', { score: 10 })
     .then(user => user.username);
 factory.create<User>('user', {}, { isAdmin: true }).then(user => user.username);
+factory.create<User>('user', {}, { isAdmin: true }).then(user => user.username);
 
 // Testing createMany, with and without attributes
 factory.createMany<User>('user', 3).then(users => users.map(user => user.username));
@@ -155,6 +174,9 @@ factory
         [{ isAdmin: true }, { isAdmin: false }],
     )
     .then(users => users.map(user => user.username));
+
+// testing chance
+factory.chance('name', { middle: true });
 
 // Testing cleanUp
 factory.cleanUp();

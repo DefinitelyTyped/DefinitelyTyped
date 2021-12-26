@@ -3,7 +3,7 @@ import { Overwrite, ReactAnchorAttr, SideNavSharedProps, FCReturn, ForwardRefPro
 
 type InnerElementProps<P> = Omit<P, "element">;
 export interface LinkPropsBase<P = ReactAnchorAttr> extends SideNavSharedProps {
-    element?: string | React.JSXElementConstructor<InnerElementProps<P>>; // required but has default value
+    element?: string | React.JSXElementConstructor<InnerElementProps<P>> | undefined; // required but has default value
 }
 
 export type LinkProps<P extends object = ReactAnchorAttr, IP = P> = Overwrite<P, LinkPropsBase<IP>>;

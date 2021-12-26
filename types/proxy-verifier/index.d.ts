@@ -30,9 +30,9 @@ export interface Proxy {
     /**
      * Proxy-Authorization header
      */
-    auth?: string;
-    protocol?: Protocol;
-    protocols?: Protocol[];
+    auth?: string | undefined;
+    protocol?: Protocol | undefined;
+    protocols?: Protocol[] | undefined;
 }
 
 export type Protocol = "http" | "https" | "socks5" | "socks4";
@@ -40,9 +40,9 @@ export type Protocol = "http" | "https" | "socks5" | "socks4";
 export type AnonymityLevel = "transparent" | "anonymous" | "elite";
 
 export interface AllResults {
-    anonymityLevel?: AnonymityLevel;
-    protocols?: ProtocolResult;
-    tunnel?: Result;
+    anonymityLevel?: AnonymityLevel | undefined;
+    protocols?: ProtocolResult | undefined;
+    tunnel?: Result | undefined;
 }
 
 export type Result = WorkingResult | NotWorkingResult;

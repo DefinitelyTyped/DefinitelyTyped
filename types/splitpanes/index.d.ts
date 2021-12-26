@@ -37,9 +37,9 @@ export interface SumsPanesType {
 
 export interface RequestUpdateType {
     target: Pane;
-    min?: number;
-    max?: number;
-    size?: number;
+    min?: number | undefined;
+    max?: number | undefined;
+    size?: number | undefined;
 }
 
 export interface RemovedPaneType {
@@ -49,8 +49,8 @@ export interface RemovedPaneType {
 }
 
 export interface ChangedPaneType {
-    addedPane?: Pane;
-    removedPane?: RemovedPaneType;
+    addedPane?: Pane | undefined;
+    removedPane?: RemovedPaneType | undefined;
 }
 
 // Splitpane

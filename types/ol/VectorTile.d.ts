@@ -24,7 +24,6 @@ export default class VectorTile extends Tile {
      * Get the feature format assigned for reading this tile's features.
      */
     getFormat(): FeatureFormat;
-    getKey(): string;
     /**
      * Load not yet loaded URI.
      */

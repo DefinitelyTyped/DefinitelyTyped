@@ -28,13 +28,13 @@ declare namespace fitvids {
          * If you'd like to ignore certain videos, you can pass a selector via the ignore option.
          * @default ""
          */
-        ignore?: string | string[];
+        ignore?: string | string[] | undefined;
         /**
          * By default, fitvids automatically wraps Youtube, Vimeo, and Kickstarter players,
          * but if you'd like it to wrap others too, you can pass them in as selectors via the players property.
          * @default ""
          */
-        players?: string | string[];
+        players?: string | string[] | undefined;
     }
 }
 

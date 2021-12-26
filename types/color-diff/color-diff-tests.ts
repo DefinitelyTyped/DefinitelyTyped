@@ -1,4 +1,4 @@
-import diff from "color-diff";
+import diff = require("color-diff");
 
 const color = { R: 255, G: 1, B: 30 };
 // red, green, blue
@@ -15,3 +15,4 @@ const color1 = { R: 255, G: 255, B: 255 };
 const palette1 = [{ R: 0, G: 0, B: 0 }, { R: 255, G: 255, B: 255 }];
 
 diff.furthest(color1, palette1); // {R: 0, G: 0, B: 0 }, black
+diff.normalize_rgb({ R: 55, G: 255, B: 0 }); // $ExpectType RGBColor

@@ -1,6 +1,6 @@
 // Type definitions for kcors 2.2
 // Project: https://github.com/koajs/cors
-// Definitions by: Xavier Stouder <https://github.com/Xstoudi>, Izayoi Ko <https://github.com/izayoiko>
+// Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -11,12 +11,12 @@ export = cors;
 
 declare namespace cors {
     interface Options {
-        origin?: ((ctx: Koa.Context) => string) | string;
-        allowMethods?: string[] | string;
-        exposeHeaders?: string[] | string;
-        allowHeaders?: string[] | string;
-        maxAge?: number | string;
-        credentials?: boolean;
-        keepHeadersOnError?: boolean;
+        origin?: ((ctx: Koa.Context) => string) | string | undefined;
+        allowMethods?: string[] | string | null | undefined;
+        exposeHeaders?: string[] | string | undefined;
+        allowHeaders?: string[] | string | undefined;
+        maxAge?: number | string | undefined;
+        credentials?: boolean | undefined;
+        keepHeadersOnError?: boolean | undefined;
     }
 }

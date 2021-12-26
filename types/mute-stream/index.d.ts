@@ -13,7 +13,7 @@ declare namespace MuteStream {
          * Set to a string to replace each character with the specified string when muted.
          * (So you can show **** instead of the password, for example.)
          */
-        replace?: string;
+        replace?: string | undefined;
 
         /**
          * If you are using a replacement char, and also using a prompt with a readline stream
@@ -21,7 +21,7 @@ declare namespace MuteStream {
          * will work properly. Otherwise, pressing backspace will overwrite the prompt with the
          * replacement character, which is weird.
          */
-        prompt?: string;
+        prompt?: string | undefined;
     }
 }
 

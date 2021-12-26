@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.0
+// Type definitions for google-spreadsheet 3.1
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -8,7 +8,7 @@
 
 export type WorksheetType = 'GRID' | 'OBJECT';
 
-export type WorksheetDimension = 'ROW' | 'COLUMN';
+export type WorksheetDimension = 'ROWS' | 'COLUMNS';
 
 export type HyperlinkDisplayType = 'LINKED' | 'PLAIN_TEXT';
 
@@ -73,13 +73,13 @@ export interface WorksheetGridRange {
 }
 
 export interface WorksheetGridProperties {
-    rowCount?: number;
-    columnCount?: number;
-    frozenRowCount?: number;
-    frozenColumnCount?: number;
-    hideGridlines?: boolean;
-    rowGroupControlAfter?: boolean;
-    columnGroupControlAfter?: boolean;
+    rowCount?: number | undefined;
+    columnCount?: number | undefined;
+    frozenRowCount?: number | undefined;
+    frozenColumnCount?: number | undefined;
+    hideGridlines?: boolean | undefined;
+    rowGroupControlAfter?: boolean | undefined;
+    columnGroupControlAfter?: boolean | undefined;
 }
 
 export interface DimensionRange {
@@ -133,14 +133,14 @@ export interface ColorStyle {
 }
 
 export interface TextFormat {
-    foregroundColor?: Color;
-    foregroundColorStyle?: ColorStyle;
-    fontFamily?: string;
-    fontSize?: number;
-    bold?: boolean;
-    italic?: boolean;
-    strikethrough?: boolean;
-    underline?: boolean;
+    foregroundColor?: Color | undefined;
+    foregroundColorStyle?: ColorStyle | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: number | undefined;
+    bold?: boolean | undefined;
+    italic?: boolean | undefined;
+    strikethrough?: boolean | undefined;
+    underline?: boolean | undefined;
 }
 
 export interface NumberFormat {
@@ -284,6 +284,14 @@ export interface ServiceAccountCredentials {
      * service account private key
      */
     private_key: string;
+}
+
+export interface GetAccessTokenResponse {
+    token?: string | null;
+}
+
+export interface OAuth2Client {
+    getAccessToken: () => Promise<GetAccessTokenResponse> ;
 }
 
 // #endregion
@@ -549,43 +557,43 @@ export interface WorksheetBasicProperties {
      * - used in row-based interactions
      * - defines the dynamic properties of the Worksheet's GoogleSpreadsheetRows
      */
-    headerValues?: string[];
+    headerValues?: string[] | undefined;
 
     /**
      * @description
      * name of the worksheet tab
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * @description
      * tab index in the worksheet doc (based on rightToLeft property)
      */
-    index?: number;
+    index?: number | undefined;
 
     /**
      * @description
      * additional properties of the worksheet if this sheet is a grid
      */
-    gridProperties?: WorksheetGridProperties;
+    gridProperties?: WorksheetGridProperties | undefined;
 
     /**
      * @description
      * true if the worksheet is hidden in the UI, false if it's visible
      */
-    hidden?: boolean;
+    hidden?: boolean | undefined;
 
     /**
      * @description
      * the color of the worksheet tab
      */
-    tabColor?: Color;
+    tabColor?: Color | undefined;
 
     /**
      * @description
      * true if the worksheet is an RTL sheet instead of an LTR sheet
      */
-    rightToLeft?: boolean;
+    rightToLeft?: boolean | undefined;
 
     // #endregion
 }
@@ -732,8 +740,9 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * @param filters single or array of filters
      * - strings are treated as an A1 range
      * - objects are treated as a WorksheetGridRange
+     * - if skipped, all cells are loaded
      */
-    loadCells(filters: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
+    loadCells(filters?: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
 
     /**
      * @description
@@ -864,7 +873,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      *
      * @param destinationSpreadsheetId destination spreadsheet doc ID
      */
-    copyToSpreadSheet(destinationSpreadsheetId: string): Promise<void>;
+    copyToSpreadsheet(destinationSpreadsheetId: string): Promise<void>;
 
     // #endregion
 }
@@ -883,7 +892,7 @@ export interface SpreadsheetBasicProperties {
      * @description
      * document title
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * @description
@@ -891,7 +900,7 @@ export interface SpreadsheetBasicProperties {
      * - ISO code format
      * - ex: "en", "en_US"
      */
-    locale?: string;
+    locale?: string | undefined;
 
     /**
      * @description
@@ -899,31 +908,31 @@ export interface SpreadsheetBasicProperties {
      * - CLDR format
      * - ex: "America/New_York", "GMT-07:00"
      */
-    timeZone?: string;
+    timeZone?: string | undefined;
 
     /**
      * @description
      * when volatile functions should be recalculated
      */
-    autoRecalc?: RecalculationInterval;
+    autoRecalc?: RecalculationInterval | undefined;
 
     /**
      * @description
      * default format for all cells in all worksheets of the document
      */
-    defaultFormat?: CellFormat;
+    defaultFormat?: CellFormat | undefined;
 
     /**
      * @description
      * theme applied to all worksheets of the document
      */
-    spreadsheetTheme?: SpreadsheetTheme;
+    spreadsheetTheme?: SpreadsheetTheme | undefined;
 
     /**
      * @description
      * how circular dependencies are resolved with iterative calculations
      */
-    iterativeCalculationSettings?: IterativeCalculationSetting;
+    iterativeCalculationSettings?: IterativeCalculationSetting | undefined;
 
     // #endregion
 }
@@ -935,7 +944,7 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      *
      * @param sheetId document ID from the URL of the Spreadsheet
      */
-    constructor(sheetId: string);
+    constructor(sheetId?: string);
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the SpreadsheetBasicProperties interface
@@ -1043,6 +1052,14 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
 
     /**
      * @description
+     * Use Google's OAuth2Client to authenticate on behalf of a user
+     *
+     * @param oAuth2Client Configured OAuth2Client
+     */
+    useOAuth2Client(oAuth2Client: OAuth2Client): void;
+
+    /**
+     * @description
      * Set an access token to use for externally managed auth
      * - this method assumes you are creating and managing/refreshing the token yourself
      */
@@ -1144,6 +1161,16 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param rangeId unique ID of the range to delete
      */
     deleteNamedRange(rangeId: string): Promise<void>;
+
+    /**
+     * @description
+     * create a new google spreadsheet document
+     *
+     * You must initialize the GoogleSpreadsheet without an id in order to call this method
+     *
+     * @param properties basic Spreadsheet document properties to set
+     */
+    createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>;
 
     // #endregion
 }

@@ -1,7 +1,6 @@
 // Type definitions for write-file-atomic 3.0
 // Project: https://github.com/npm/write-file-atomic
 // Definitions by: BendingBender <https://github.com/BendingBender>
-//                 Jay Rylan <https://github.com/jayrylan>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -20,12 +19,12 @@ declare namespace writeFile {
         chown?: {
             uid: number;
             gid: number;
-        };
+        } | undefined;
         /**
          * @default 'utf8'
          */
-        encoding?: BufferEncoding;
-        fsync?: boolean;
-        mode?: number;
+        encoding?: BufferEncoding | undefined;
+        fsync?: boolean | undefined;
+        mode?: number | undefined;
     }
 }

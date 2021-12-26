@@ -48,19 +48,19 @@ declare namespace BMap {
         getContainer(): HTMLElement | undefined;
     }
     interface NavigationControlOptions {
-        anchor?: ControlAnchor;
-        offset?: Size;
-        type?: NavigationControlType;
-        showZoomInfo?: boolean;
-        enableGeolocation?: boolean;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
+        type?: NavigationControlType | undefined;
+        showZoomInfo?: boolean | undefined;
+        enableGeolocation?: boolean | undefined;
     }
     interface ScaleControlOptions {
-        anchor?: ControlAnchor;
-        offset?: Size;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
     }
     interface CopyrightControlOptions {
-        anchor?: ControlAnchor;
-        offset?: Size;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
     }
     type ControlAnchor = number;
     class OverviewMapControl extends Control {
@@ -81,10 +81,10 @@ declare namespace BMap {
         setType(type: NavigationControlType): void;
     }
     interface OverviewMapControlOptions {
-        anchor?: ControlAnchor;
-        offset?: Size;
-        size?: Size;
-        isOpen?: boolean;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
+        size?: Size | undefined;
+        isOpen?: boolean | undefined;
     }
     class CopyrightControl extends Control {
         constructor(opts?: CopyrightControlOptions);
@@ -94,8 +94,8 @@ declare namespace BMap {
         getCopyrightCollection(): Copyright[];
     }
     interface MapTypeControlOptions {
-        type?: MapTypeControlType;
-        mapTypes?: MapType[];
+        type?: MapTypeControlType | undefined;
+        mapTypes?: MapType[] | undefined;
     }
     type NavigationControlType = number;
     class ScaleControl extends Control {
@@ -104,20 +104,20 @@ declare namespace BMap {
         setUnit(unit: LengthUnit): void;
     }
     interface Copyright {
-        id?: number;
-        content?: string;
-        bounds?: Bounds;
+        id?: number | undefined;
+        content?: string | undefined;
+        bounds?: Bounds | undefined;
     }
     type MapTypeControlType = number;
     class GeolocationControl extends Control {
         constructor(opts?: GeolocationControlOptions);
     }
     interface GeolocationControlOptions {
-        anchor?: ControlAnchor;
-        offset?: Size;
-        showAddressBar?: boolean;
-        enableAutoLocation?: boolean;
-        locationIcon?: Icon;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
+        showAddressBar?: boolean | undefined;
+        enableAutoLocation?: boolean | undefined;
+        locationIcon?: Icon | undefined;
     }
     type StatusCode = number;
     class PanoramaControl extends Control {

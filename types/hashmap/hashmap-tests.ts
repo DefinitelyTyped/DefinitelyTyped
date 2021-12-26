@@ -12,7 +12,8 @@ emptyMap.set("foo", 123).set("foo2", 234);
 emptyMap.multi("foo3", 345, "foo4", 456).multi("foo5", 567, "foo6", "678");
 emptyMap.copy(filledMap).copy(copiedMap);
 
-const value: number = emptyMap.get("foo");
+const value: number = emptyMap.get("foo") as number;
+const missingValue: undefined = emptyMap.get("bar") as undefined;
 
 const hasFoo: boolean = emptyMap.has("foo");
 

@@ -281,607 +281,607 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface About {
-        additionalRoleInfo?: Drive.Schema.AboutAdditionalRoleInfo[];
-        canCreateDrives?: boolean;
-        canCreateTeamDrives?: boolean;
-        domainSharingPolicy?: string;
-        driveThemes?: Drive.Schema.AboutDriveThemes[];
-        etag?: string;
-        exportFormats?: Drive.Schema.AboutExportFormats[];
-        features?: Drive.Schema.AboutFeatures[];
-        folderColorPalette?: string[];
-        importFormats?: Drive.Schema.AboutImportFormats[];
-        isCurrentAppInstalled?: boolean;
-        kind?: string;
-        languageCode?: string;
-        largestChangeId?: string;
-        maxUploadSizes?: Drive.Schema.AboutMaxUploadSizes[];
-        name?: string;
-        permissionId?: string;
-        quotaBytesByService?: Drive.Schema.AboutQuotaBytesByService[];
-        quotaBytesTotal?: string;
-        quotaBytesUsed?: string;
-        quotaBytesUsedAggregate?: string;
-        quotaBytesUsedInTrash?: string;
-        quotaType?: string;
-        remainingChangeIds?: string;
-        rootFolderId?: string;
-        selfLink?: string;
-        teamDriveThemes?: Drive.Schema.AboutTeamDriveThemes[];
-        user?: Drive.Schema.User;
+        additionalRoleInfo?: Drive.Schema.AboutAdditionalRoleInfo[] | undefined;
+        canCreateDrives?: boolean | undefined;
+        canCreateTeamDrives?: boolean | undefined;
+        domainSharingPolicy?: string | undefined;
+        driveThemes?: Drive.Schema.AboutDriveThemes[] | undefined;
+        etag?: string | undefined;
+        exportFormats?: Drive.Schema.AboutExportFormats[] | undefined;
+        features?: Drive.Schema.AboutFeatures[] | undefined;
+        folderColorPalette?: string[] | undefined;
+        importFormats?: Drive.Schema.AboutImportFormats[] | undefined;
+        isCurrentAppInstalled?: boolean | undefined;
+        kind?: string | undefined;
+        languageCode?: string | undefined;
+        largestChangeId?: string | undefined;
+        maxUploadSizes?: Drive.Schema.AboutMaxUploadSizes[] | undefined;
+        name?: string | undefined;
+        permissionId?: string | undefined;
+        quotaBytesByService?: Drive.Schema.AboutQuotaBytesByService[] | undefined;
+        quotaBytesTotal?: string | undefined;
+        quotaBytesUsed?: string | undefined;
+        quotaBytesUsedAggregate?: string | undefined;
+        quotaBytesUsedInTrash?: string | undefined;
+        quotaType?: string | undefined;
+        remainingChangeIds?: string | undefined;
+        rootFolderId?: string | undefined;
+        selfLink?: string | undefined;
+        teamDriveThemes?: Drive.Schema.AboutTeamDriveThemes[] | undefined;
+        user?: Drive.Schema.User | undefined;
       }
       interface AboutAdditionalRoleInfo {
-        roleSets?: Drive.Schema.AboutAdditionalRoleInfoRoleSets[];
-        type?: string;
+        roleSets?: Drive.Schema.AboutAdditionalRoleInfoRoleSets[] | undefined;
+        type?: string | undefined;
       }
       interface AboutAdditionalRoleInfoRoleSets {
-        additionalRoles?: string[];
-        primaryRole?: string;
+        additionalRoles?: string[] | undefined;
+        primaryRole?: string | undefined;
       }
       interface AboutDriveThemes {
-        backgroundImageLink?: string;
-        colorRgb?: string;
-        id?: string;
+        backgroundImageLink?: string | undefined;
+        colorRgb?: string | undefined;
+        id?: string | undefined;
       }
       interface AboutExportFormats {
-        source?: string;
-        targets?: string[];
+        source?: string | undefined;
+        targets?: string[] | undefined;
       }
       interface AboutFeatures {
-        featureName?: string;
-        featureRate?: number;
+        featureName?: string | undefined;
+        featureRate?: number | undefined;
       }
       interface AboutImportFormats {
-        source?: string;
-        targets?: string[];
+        source?: string | undefined;
+        targets?: string[] | undefined;
       }
       interface AboutMaxUploadSizes {
-        size?: string;
-        type?: string;
+        size?: string | undefined;
+        type?: string | undefined;
       }
       interface AboutQuotaBytesByService {
-        bytesUsed?: string;
-        serviceName?: string;
+        bytesUsed?: string | undefined;
+        serviceName?: string | undefined;
       }
       interface AboutTeamDriveThemes {
-        backgroundImageLink?: string;
-        colorRgb?: string;
-        id?: string;
+        backgroundImageLink?: string | undefined;
+        colorRgb?: string | undefined;
+        id?: string | undefined;
       }
       interface App {
-        authorized?: boolean;
-        createInFolderTemplate?: string;
-        createUrl?: string;
-        hasDriveWideScope?: boolean;
-        icons?: Drive.Schema.AppIcons[];
-        id?: string;
-        installed?: boolean;
-        kind?: string;
-        longDescription?: string;
-        name?: string;
-        objectType?: string;
-        openUrlTemplate?: string;
-        primaryFileExtensions?: string[];
-        primaryMimeTypes?: string[];
-        productId?: string;
-        productUrl?: string;
-        secondaryFileExtensions?: string[];
-        secondaryMimeTypes?: string[];
-        shortDescription?: string;
-        supportsCreate?: boolean;
-        supportsImport?: boolean;
-        supportsMultiOpen?: boolean;
-        supportsOfflineCreate?: boolean;
-        useByDefault?: boolean;
+        authorized?: boolean | undefined;
+        createInFolderTemplate?: string | undefined;
+        createUrl?: string | undefined;
+        hasDriveWideScope?: boolean | undefined;
+        icons?: Drive.Schema.AppIcons[] | undefined;
+        id?: string | undefined;
+        installed?: boolean | undefined;
+        kind?: string | undefined;
+        longDescription?: string | undefined;
+        name?: string | undefined;
+        objectType?: string | undefined;
+        openUrlTemplate?: string | undefined;
+        primaryFileExtensions?: string[] | undefined;
+        primaryMimeTypes?: string[] | undefined;
+        productId?: string | undefined;
+        productUrl?: string | undefined;
+        secondaryFileExtensions?: string[] | undefined;
+        secondaryMimeTypes?: string[] | undefined;
+        shortDescription?: string | undefined;
+        supportsCreate?: boolean | undefined;
+        supportsImport?: boolean | undefined;
+        supportsMultiOpen?: boolean | undefined;
+        supportsOfflineCreate?: boolean | undefined;
+        useByDefault?: boolean | undefined;
       }
       interface AppIcons {
-        category?: string;
-        iconUrl?: string;
-        size?: number;
+        category?: string | undefined;
+        iconUrl?: string | undefined;
+        size?: number | undefined;
       }
       interface AppList {
-        defaultAppIds?: string[];
-        etag?: string;
-        items?: Drive.Schema.App[];
-        kind?: string;
-        selfLink?: string;
+        defaultAppIds?: string[] | undefined;
+        etag?: string | undefined;
+        items?: Drive.Schema.App[] | undefined;
+        kind?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface Change {
-        deleted?: boolean;
-        drive?: Drive.Schema.Drive;
-        driveId?: string;
-        file?: Drive.Schema.File;
-        fileId?: string;
-        id?: string;
-        kind?: string;
-        modificationDate?: string;
-        selfLink?: string;
-        teamDrive?: Drive.Schema.TeamDrive;
-        teamDriveId?: string;
-        type?: string;
+        deleted?: boolean | undefined;
+        drive?: Drive.Schema.Drive | undefined;
+        driveId?: string | undefined;
+        file?: Drive.Schema.File | undefined;
+        fileId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        modificationDate?: string | undefined;
+        selfLink?: string | undefined;
+        teamDrive?: Drive.Schema.TeamDrive | undefined;
+        teamDriveId?: string | undefined;
+        type?: string | undefined;
       }
       interface ChangeList {
-        etag?: string;
-        items?: Drive.Schema.Change[];
-        kind?: string;
-        largestChangeId?: string;
-        newStartPageToken?: string;
-        nextLink?: string;
-        nextPageToken?: string;
-        selfLink?: string;
+        etag?: string | undefined;
+        items?: Drive.Schema.Change[] | undefined;
+        kind?: string | undefined;
+        largestChangeId?: string | undefined;
+        newStartPageToken?: string | undefined;
+        nextLink?: string | undefined;
+        nextPageToken?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface Channel {
-        address?: string;
-        expiration?: string;
-        id?: string;
-        kind?: string;
-        params?: object;
-        payload?: boolean;
-        resourceId?: string;
-        resourceUri?: string;
-        token?: string;
-        type?: string;
+        address?: string | undefined;
+        expiration?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        params?: object | undefined;
+        payload?: boolean | undefined;
+        resourceId?: string | undefined;
+        resourceUri?: string | undefined;
+        token?: string | undefined;
+        type?: string | undefined;
       }
       interface ChildList {
-        etag?: string;
-        items?: Drive.Schema.ChildReference[];
-        kind?: string;
-        nextLink?: string;
-        nextPageToken?: string;
-        selfLink?: string;
+        etag?: string | undefined;
+        items?: Drive.Schema.ChildReference[] | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        nextPageToken?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface ChildReference {
-        childLink?: string;
-        id?: string;
-        kind?: string;
-        selfLink?: string;
+        childLink?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface Comment {
-        anchor?: string;
-        author?: Drive.Schema.User;
-        commentId?: string;
-        content?: string;
-        context?: Drive.Schema.CommentContext;
-        createdDate?: string;
-        deleted?: boolean;
-        fileId?: string;
-        fileTitle?: string;
-        htmlContent?: string;
-        kind?: string;
-        modifiedDate?: string;
-        replies?: Drive.Schema.CommentReply[];
-        selfLink?: string;
-        status?: string;
+        anchor?: string | undefined;
+        author?: Drive.Schema.User | undefined;
+        commentId?: string | undefined;
+        content?: string | undefined;
+        context?: Drive.Schema.CommentContext | undefined;
+        createdDate?: string | undefined;
+        deleted?: boolean | undefined;
+        fileId?: string | undefined;
+        fileTitle?: string | undefined;
+        htmlContent?: string | undefined;
+        kind?: string | undefined;
+        modifiedDate?: string | undefined;
+        replies?: Drive.Schema.CommentReply[] | undefined;
+        selfLink?: string | undefined;
+        status?: string | undefined;
       }
       interface CommentContext {
-        type?: string;
-        value?: string;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface CommentList {
-        items?: Drive.Schema.Comment[];
-        kind?: string;
-        nextLink?: string;
-        nextPageToken?: string;
-        selfLink?: string;
+        items?: Drive.Schema.Comment[] | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        nextPageToken?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface CommentReply {
-        author?: Drive.Schema.User;
-        content?: string;
-        createdDate?: string;
-        deleted?: boolean;
-        htmlContent?: string;
-        kind?: string;
-        modifiedDate?: string;
-        replyId?: string;
-        verb?: string;
+        author?: Drive.Schema.User | undefined;
+        content?: string | undefined;
+        createdDate?: string | undefined;
+        deleted?: boolean | undefined;
+        htmlContent?: string | undefined;
+        kind?: string | undefined;
+        modifiedDate?: string | undefined;
+        replyId?: string | undefined;
+        verb?: string | undefined;
       }
       interface CommentReplyList {
-        items?: Drive.Schema.CommentReply[];
-        kind?: string;
-        nextLink?: string;
-        nextPageToken?: string;
-        selfLink?: string;
+        items?: Drive.Schema.CommentReply[] | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        nextPageToken?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface Drive {
-        backgroundImageFile?: Drive.Schema.DriveBackgroundImageFile;
-        backgroundImageLink?: string;
-        capabilities?: Drive.Schema.DriveCapabilities;
-        colorRgb?: string;
-        createdDate?: string;
-        hidden?: boolean;
-        id?: string;
-        kind?: string;
-        name?: string;
-        restrictions?: Drive.Schema.DriveRestrictions;
-        themeId?: string;
+        backgroundImageFile?: Drive.Schema.DriveBackgroundImageFile | undefined;
+        backgroundImageLink?: string | undefined;
+        capabilities?: Drive.Schema.DriveCapabilities | undefined;
+        colorRgb?: string | undefined;
+        createdDate?: string | undefined;
+        hidden?: boolean | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        restrictions?: Drive.Schema.DriveRestrictions | undefined;
+        themeId?: string | undefined;
       }
       interface DriveBackgroundImageFile {
-        id?: string;
-        width?: number;
-        xCoordinate?: number;
-        yCoordinate?: number;
+        id?: string | undefined;
+        width?: number | undefined;
+        xCoordinate?: number | undefined;
+        yCoordinate?: number | undefined;
       }
       interface DriveCapabilities {
-        canAddChildren?: boolean;
-        canChangeCopyRequiresWriterPermissionRestriction?: boolean;
-        canChangeDomainUsersOnlyRestriction?: boolean;
-        canChangeDriveBackground?: boolean;
-        canChangeDriveMembersOnlyRestriction?: boolean;
-        canComment?: boolean;
-        canCopy?: boolean;
-        canDeleteChildren?: boolean;
-        canDeleteDrive?: boolean;
-        canDownload?: boolean;
-        canEdit?: boolean;
-        canListChildren?: boolean;
-        canManageMembers?: boolean;
-        canReadRevisions?: boolean;
-        canRename?: boolean;
-        canRenameDrive?: boolean;
-        canShare?: boolean;
-        canTrashChildren?: boolean;
+        canAddChildren?: boolean | undefined;
+        canChangeCopyRequiresWriterPermissionRestriction?: boolean | undefined;
+        canChangeDomainUsersOnlyRestriction?: boolean | undefined;
+        canChangeDriveBackground?: boolean | undefined;
+        canChangeDriveMembersOnlyRestriction?: boolean | undefined;
+        canComment?: boolean | undefined;
+        canCopy?: boolean | undefined;
+        canDeleteChildren?: boolean | undefined;
+        canDeleteDrive?: boolean | undefined;
+        canDownload?: boolean | undefined;
+        canEdit?: boolean | undefined;
+        canListChildren?: boolean | undefined;
+        canManageMembers?: boolean | undefined;
+        canReadRevisions?: boolean | undefined;
+        canRename?: boolean | undefined;
+        canRenameDrive?: boolean | undefined;
+        canShare?: boolean | undefined;
+        canTrashChildren?: boolean | undefined;
       }
       interface DriveList {
-        items?: Drive.Schema.Drive[];
-        kind?: string;
-        nextPageToken?: string;
+        items?: Drive.Schema.Drive[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface DriveRestrictions {
-        adminManagedRestrictions?: boolean;
-        copyRequiresWriterPermission?: boolean;
-        domainUsersOnly?: boolean;
-        driveMembersOnly?: boolean;
+        adminManagedRestrictions?: boolean | undefined;
+        copyRequiresWriterPermission?: boolean | undefined;
+        domainUsersOnly?: boolean | undefined;
+        driveMembersOnly?: boolean | undefined;
       }
       interface File {
-        alternateLink?: string;
-        appDataContents?: boolean;
-        canComment?: boolean;
-        canReadRevisions?: boolean;
-        capabilities?: Drive.Schema.FileCapabilities;
-        copyRequiresWriterPermission?: boolean;
-        copyable?: boolean;
-        createdDate?: string;
-        defaultOpenWithLink?: string;
-        description?: string;
-        downloadUrl?: string;
-        driveId?: string;
-        editable?: boolean;
-        embedLink?: string;
-        etag?: string;
-        explicitlyTrashed?: boolean;
-        exportLinks?: object;
-        fileExtension?: string;
-        fileSize?: string;
-        folderColorRgb?: string;
-        fullFileExtension?: string;
-        hasAugmentedPermissions?: boolean;
-        hasThumbnail?: boolean;
-        headRevisionId?: string;
-        iconLink?: string;
-        id?: string;
-        imageMediaMetadata?: Drive.Schema.FileImageMediaMetadata;
-        indexableText?: Drive.Schema.FileIndexableText;
-        isAppAuthorized?: boolean;
-        kind?: string;
-        labels?: Drive.Schema.FileLabels;
-        lastModifyingUser?: Drive.Schema.User;
-        lastModifyingUserName?: string;
-        lastViewedByMeDate?: string;
-        markedViewedByMeDate?: string;
-        md5Checksum?: string;
-        mimeType?: string;
-        modifiedByMeDate?: string;
-        modifiedDate?: string;
-        openWithLinks?: object;
-        originalFilename?: string;
-        ownedByMe?: boolean;
-        ownerNames?: string[];
-        owners?: Drive.Schema.User[];
-        parents?: Drive.Schema.ParentReference[];
-        permissionIds?: string[];
-        permissions?: Drive.Schema.Permission[];
-        properties?: Drive.Schema.Property[];
-        quotaBytesUsed?: string;
-        selfLink?: string;
-        shareable?: boolean;
-        shared?: boolean;
-        sharedWithMeDate?: string;
-        sharingUser?: Drive.Schema.User;
-        shortcutDetails?: Drive.Schema.ShortcutDetails;
-        spaces?: string[];
-        teamDriveId?: string;
-        thumbnail?: Drive.Schema.FileThumbnail;
-        thumbnailLink?: string;
-        thumbnailVersion?: string;
-        title?: string;
-        trashedDate?: string;
-        trashingUser?: Drive.Schema.User;
-        userPermission?: Drive.Schema.Permission;
-        version?: string;
-        videoMediaMetadata?: Drive.Schema.FileVideoMediaMetadata;
-        webContentLink?: string;
-        webViewLink?: string;
-        writersCanShare?: boolean;
+        alternateLink?: string | undefined;
+        appDataContents?: boolean | undefined;
+        canComment?: boolean | undefined;
+        canReadRevisions?: boolean | undefined;
+        capabilities?: Drive.Schema.FileCapabilities | undefined;
+        copyRequiresWriterPermission?: boolean | undefined;
+        copyable?: boolean | undefined;
+        createdDate?: string | undefined;
+        defaultOpenWithLink?: string | undefined;
+        description?: string | undefined;
+        downloadUrl?: string | undefined;
+        driveId?: string | undefined;
+        editable?: boolean | undefined;
+        embedLink?: string | undefined;
+        etag?: string | undefined;
+        explicitlyTrashed?: boolean | undefined;
+        exportLinks?: object | undefined;
+        fileExtension?: string | undefined;
+        fileSize?: string | undefined;
+        folderColorRgb?: string | undefined;
+        fullFileExtension?: string | undefined;
+        hasAugmentedPermissions?: boolean | undefined;
+        hasThumbnail?: boolean | undefined;
+        headRevisionId?: string | undefined;
+        iconLink?: string | undefined;
+        id?: string | undefined;
+        imageMediaMetadata?: Drive.Schema.FileImageMediaMetadata | undefined;
+        indexableText?: Drive.Schema.FileIndexableText | undefined;
+        isAppAuthorized?: boolean | undefined;
+        kind?: string | undefined;
+        labels?: Drive.Schema.FileLabels | undefined;
+        lastModifyingUser?: Drive.Schema.User | undefined;
+        lastModifyingUserName?: string | undefined;
+        lastViewedByMeDate?: string | undefined;
+        markedViewedByMeDate?: string | undefined;
+        md5Checksum?: string | undefined;
+        mimeType?: string | undefined;
+        modifiedByMeDate?: string | undefined;
+        modifiedDate?: string | undefined;
+        openWithLinks?: object | undefined;
+        originalFilename?: string | undefined;
+        ownedByMe?: boolean | undefined;
+        ownerNames?: string[] | undefined;
+        owners?: Drive.Schema.User[] | undefined;
+        parents?: Drive.Schema.ParentReference[] | undefined;
+        permissionIds?: string[] | undefined;
+        permissions?: Drive.Schema.Permission[] | undefined;
+        properties?: Drive.Schema.Property[] | undefined;
+        quotaBytesUsed?: string | undefined;
+        selfLink?: string | undefined;
+        shareable?: boolean | undefined;
+        shared?: boolean | undefined;
+        sharedWithMeDate?: string | undefined;
+        sharingUser?: Drive.Schema.User | undefined;
+        shortcutDetails?: Drive.Schema.ShortcutDetails | undefined;
+        spaces?: string[] | undefined;
+        teamDriveId?: string | undefined;
+        thumbnail?: Drive.Schema.FileThumbnail | undefined;
+        thumbnailLink?: string | undefined;
+        thumbnailVersion?: string | undefined;
+        title?: string | undefined;
+        trashedDate?: string | undefined;
+        trashingUser?: Drive.Schema.User | undefined;
+        userPermission?: Drive.Schema.Permission | undefined;
+        version?: string | undefined;
+        videoMediaMetadata?: Drive.Schema.FileVideoMediaMetadata | undefined;
+        webContentLink?: string | undefined;
+        webViewLink?: string | undefined;
+        writersCanShare?: boolean | undefined;
       }
       interface FileCapabilities {
-        canAddChildren?: boolean;
-        canChangeCopyRequiresWriterPermission?: boolean;
-        canChangeRestrictedDownload?: boolean;
-        canComment?: boolean;
-        canCopy?: boolean;
-        canDelete?: boolean;
-        canDeleteChildren?: boolean;
-        canDownload?: boolean;
-        canEdit?: boolean;
-        canListChildren?: boolean;
-        canMoveChildrenOutOfDrive?: boolean;
-        canMoveChildrenOutOfTeamDrive?: boolean;
-        canMoveChildrenWithinDrive?: boolean;
-        canMoveChildrenWithinTeamDrive?: boolean;
-        canMoveItemIntoTeamDrive?: boolean;
-        canMoveItemOutOfDrive?: boolean;
-        canMoveItemOutOfTeamDrive?: boolean;
-        canMoveItemWithinDrive?: boolean;
-        canMoveItemWithinTeamDrive?: boolean;
-        canMoveTeamDriveItem?: boolean;
-        canReadRevisions?: boolean;
-        canReadDrive?: boolean;
-        canReadTeamDrive?: boolean;
-        canRemoveChildren?: boolean;
-        canRename?: boolean;
-        canShare?: boolean;
-        canTrash?: boolean;
-        canTrashChildren?: boolean;
-        canUntrash?: boolean;
+        canAddChildren?: boolean | undefined;
+        canChangeCopyRequiresWriterPermission?: boolean | undefined;
+        canChangeRestrictedDownload?: boolean | undefined;
+        canComment?: boolean | undefined;
+        canCopy?: boolean | undefined;
+        canDelete?: boolean | undefined;
+        canDeleteChildren?: boolean | undefined;
+        canDownload?: boolean | undefined;
+        canEdit?: boolean | undefined;
+        canListChildren?: boolean | undefined;
+        canMoveChildrenOutOfDrive?: boolean | undefined;
+        canMoveChildrenOutOfTeamDrive?: boolean | undefined;
+        canMoveChildrenWithinDrive?: boolean | undefined;
+        canMoveChildrenWithinTeamDrive?: boolean | undefined;
+        canMoveItemIntoTeamDrive?: boolean | undefined;
+        canMoveItemOutOfDrive?: boolean | undefined;
+        canMoveItemOutOfTeamDrive?: boolean | undefined;
+        canMoveItemWithinDrive?: boolean | undefined;
+        canMoveItemWithinTeamDrive?: boolean | undefined;
+        canMoveTeamDriveItem?: boolean | undefined;
+        canReadRevisions?: boolean | undefined;
+        canReadDrive?: boolean | undefined;
+        canReadTeamDrive?: boolean | undefined;
+        canRemoveChildren?: boolean | undefined;
+        canRename?: boolean | undefined;
+        canShare?: boolean | undefined;
+        canTrash?: boolean | undefined;
+        canTrashChildren?: boolean | undefined;
+        canUntrash?: boolean | undefined;
       }
       interface FileImageMediaMetadata {
-        aperture?: number;
-        cameraMake?: string;
-        cameraModel?: string;
-        colorSpace?: string;
-        date?: string;
-        exposureBias?: number;
-        exposureMode?: string;
-        exposureTime?: number;
-        flashUsed?: boolean;
-        focalLength?: number;
-        height?: number;
-        isoSpeed?: number;
-        lens?: string;
-        location?: Drive.Schema.FileImageMediaMetadataLocation;
-        maxApertureValue?: number;
-        meteringMode?: string;
-        rotation?: number;
-        sensor?: string;
-        subjectDistance?: number;
-        whiteBalance?: string;
-        width?: number;
+        aperture?: number | undefined;
+        cameraMake?: string | undefined;
+        cameraModel?: string | undefined;
+        colorSpace?: string | undefined;
+        date?: string | undefined;
+        exposureBias?: number | undefined;
+        exposureMode?: string | undefined;
+        exposureTime?: number | undefined;
+        flashUsed?: boolean | undefined;
+        focalLength?: number | undefined;
+        height?: number | undefined;
+        isoSpeed?: number | undefined;
+        lens?: string | undefined;
+        location?: Drive.Schema.FileImageMediaMetadataLocation | undefined;
+        maxApertureValue?: number | undefined;
+        meteringMode?: string | undefined;
+        rotation?: number | undefined;
+        sensor?: string | undefined;
+        subjectDistance?: number | undefined;
+        whiteBalance?: string | undefined;
+        width?: number | undefined;
       }
       interface FileImageMediaMetadataLocation {
-        altitude?: number;
-        latitude?: number;
-        longitude?: number;
+        altitude?: number | undefined;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
       }
       interface FileIndexableText {
-        text?: string;
+        text?: string | undefined;
       }
       interface FileLabels {
-        hidden?: boolean;
-        modified?: boolean;
-        restricted?: boolean;
-        starred?: boolean;
-        trashed?: boolean;
-        viewed?: boolean;
+        hidden?: boolean | undefined;
+        modified?: boolean | undefined;
+        restricted?: boolean | undefined;
+        starred?: boolean | undefined;
+        trashed?: boolean | undefined;
+        viewed?: boolean | undefined;
       }
       interface FileList {
-        etag?: string;
-        incompleteSearch?: boolean;
-        items?: Drive.Schema.File[];
-        kind?: string;
-        nextLink?: string;
-        nextPageToken?: string;
-        selfLink?: string;
+        etag?: string | undefined;
+        incompleteSearch?: boolean | undefined;
+        items?: Drive.Schema.File[] | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        nextPageToken?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface FileThumbnail {
-        image?: string;
-        mimeType?: string;
+        image?: string | undefined;
+        mimeType?: string | undefined;
       }
       interface FileVideoMediaMetadata {
-        durationMillis?: string;
-        height?: number;
-        width?: number;
+        durationMillis?: string | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
       }
       interface GeneratedIds {
-        ids?: string[];
-        kind?: string;
-        space?: string;
+        ids?: string[] | undefined;
+        kind?: string | undefined;
+        space?: string | undefined;
       }
       interface ParentList {
-        etag?: string;
-        items?: Drive.Schema.ParentReference[];
-        kind?: string;
-        selfLink?: string;
+        etag?: string | undefined;
+        items?: Drive.Schema.ParentReference[] | undefined;
+        kind?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface ParentReference {
-        id?: string;
-        isRoot?: boolean;
-        kind?: string;
-        parentLink?: string;
-        selfLink?: string;
+        id?: string | undefined;
+        isRoot?: boolean | undefined;
+        kind?: string | undefined;
+        parentLink?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface Permission {
-        additionalRoles?: string[];
-        authKey?: string;
-        deleted?: boolean;
-        domain?: string;
-        emailAddress?: string;
-        etag?: string;
-        expirationDate?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        permissionDetails?: Drive.Schema.PermissionPermissionDetails[];
-        photoLink?: string;
-        role?: "owner" | "organizer" | "fileOrganizer" | "writer" | "reader";
-        selfLink?: string;
-        teamDrivePermissionDetails?: Drive.Schema.PermissionTeamDrivePermissionDetails[];
-        type?: string;
-        value?: string;
-        withLink?: boolean;
+        additionalRoles?: string[] | undefined;
+        authKey?: string | undefined;
+        deleted?: boolean | undefined;
+        domain?: string | undefined;
+        emailAddress?: string | undefined;
+        etag?: string | undefined;
+        expirationDate?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        permissionDetails?: Drive.Schema.PermissionPermissionDetails[] | undefined;
+        photoLink?: string | undefined;
+        role?: "owner" | "organizer" | "fileOrganizer" | "writer" | "reader" | undefined;
+        selfLink?: string | undefined;
+        teamDrivePermissionDetails?: Drive.Schema.PermissionTeamDrivePermissionDetails[] | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
+        withLink?: boolean | undefined;
       }
       interface PermissionId {
-        id?: string;
-        kind?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
       }
       interface PermissionList {
-        etag?: string;
-        items?: Drive.Schema.Permission[];
-        kind?: string;
-        nextPageToken?: string;
-        selfLink?: string;
+        etag?: string | undefined;
+        items?: Drive.Schema.Permission[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface PermissionPermissionDetails {
-        additionalRoles?: string[];
-        inherited?: boolean;
-        inheritedFrom?: string;
-        permissionType?: string;
-        role?: "organizer" | "fileOrganizer" | "writer" | "reader";
+        additionalRoles?: string[] | undefined;
+        inherited?: boolean | undefined;
+        inheritedFrom?: string | undefined;
+        permissionType?: string | undefined;
+        role?: "organizer" | "fileOrganizer" | "writer" | "reader" | undefined;
       }
       interface PermissionTeamDrivePermissionDetails {
-        additionalRoles?: string[];
-        inherited?: boolean;
-        inheritedFrom?: string;
-        role?: string;
-        teamDrivePermissionType?: string;
+        additionalRoles?: string[] | undefined;
+        inherited?: boolean | undefined;
+        inheritedFrom?: string | undefined;
+        role?: string | undefined;
+        teamDrivePermissionType?: string | undefined;
       }
       interface Property {
-        etag?: string;
-        key?: string;
-        kind?: string;
-        selfLink?: string;
-        value?: string;
-        visibility?: string;
+        etag?: string | undefined;
+        key?: string | undefined;
+        kind?: string | undefined;
+        selfLink?: string | undefined;
+        value?: string | undefined;
+        visibility?: string | undefined;
       }
       interface PropertyList {
-        etag?: string;
-        items?: Drive.Schema.Property[];
-        kind?: string;
-        selfLink?: string;
+        etag?: string | undefined;
+        items?: Drive.Schema.Property[] | undefined;
+        kind?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface Revision {
-        downloadUrl?: string;
-        etag?: string;
-        exportLinks?: object;
-        fileSize?: string;
-        id?: string;
-        kind?: string;
-        lastModifyingUser?: Drive.Schema.User;
-        lastModifyingUserName?: string;
-        md5Checksum?: string;
-        mimeType?: string;
-        modifiedDate?: string;
-        originalFilename?: string;
-        pinned?: boolean;
-        publishAuto?: boolean;
-        published?: boolean;
-        publishedLink?: string;
-        publishedOutsideDomain?: boolean;
-        selfLink?: string;
+        downloadUrl?: string | undefined;
+        etag?: string | undefined;
+        exportLinks?: object | undefined;
+        fileSize?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lastModifyingUser?: Drive.Schema.User | undefined;
+        lastModifyingUserName?: string | undefined;
+        md5Checksum?: string | undefined;
+        mimeType?: string | undefined;
+        modifiedDate?: string | undefined;
+        originalFilename?: string | undefined;
+        pinned?: boolean | undefined;
+        publishAuto?: boolean | undefined;
+        published?: boolean | undefined;
+        publishedLink?: string | undefined;
+        publishedOutsideDomain?: boolean | undefined;
+        selfLink?: string | undefined;
       }
       interface RevisionList {
-        etag?: string;
-        items?: Drive.Schema.Revision[];
-        kind?: string;
-        nextPageToken?: string;
-        selfLink?: string;
+        etag?: string | undefined;
+        items?: Drive.Schema.Revision[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface ShortcutDetails {
-        targetId?: string;
-        targetMimeType?: string;
+        targetId?: string | undefined;
+        targetMimeType?: string | undefined;
       }
       interface StartPageToken {
-        kind?: string;
-        startPageToken?: string;
+        kind?: string | undefined;
+        startPageToken?: string | undefined;
       }
       interface TeamDrive {
-        backgroundImageFile?: Drive.Schema.TeamDriveBackgroundImageFile;
-        backgroundImageLink?: string;
-        capabilities?: Drive.Schema.TeamDriveCapabilities;
-        colorRgb?: string;
-        createdDate?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        restrictions?: Drive.Schema.TeamDriveRestrictions;
-        themeId?: string;
+        backgroundImageFile?: Drive.Schema.TeamDriveBackgroundImageFile | undefined;
+        backgroundImageLink?: string | undefined;
+        capabilities?: Drive.Schema.TeamDriveCapabilities | undefined;
+        colorRgb?: string | undefined;
+        createdDate?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        restrictions?: Drive.Schema.TeamDriveRestrictions | undefined;
+        themeId?: string | undefined;
       }
       interface TeamDriveBackgroundImageFile {
-        id?: string;
-        width?: number;
-        xCoordinate?: number;
-        yCoordinate?: number;
+        id?: string | undefined;
+        width?: number | undefined;
+        xCoordinate?: number | undefined;
+        yCoordinate?: number | undefined;
       }
       interface TeamDriveCapabilities {
-        canAddChildren?: boolean;
-        canChangeCopyRequiresWriterPermissionRestriction?: boolean;
-        canChangeDomainUsersOnlyRestriction?: boolean;
-        canChangeTeamDriveBackground?: boolean;
-        canChangeTeamMembersOnlyRestriction?: boolean;
-        canComment?: boolean;
-        canCopy?: boolean;
-        canDeleteChildren?: boolean;
-        canDeleteTeamDrive?: boolean;
-        canDownload?: boolean;
-        canEdit?: boolean;
-        canListChildren?: boolean;
-        canManageMembers?: boolean;
-        canReadRevisions?: boolean;
-        canRemoveChildren?: boolean;
-        canRename?: boolean;
-        canRenameTeamDrive?: boolean;
-        canShare?: boolean;
-        canTrashChildren?: boolean;
+        canAddChildren?: boolean | undefined;
+        canChangeCopyRequiresWriterPermissionRestriction?: boolean | undefined;
+        canChangeDomainUsersOnlyRestriction?: boolean | undefined;
+        canChangeTeamDriveBackground?: boolean | undefined;
+        canChangeTeamMembersOnlyRestriction?: boolean | undefined;
+        canComment?: boolean | undefined;
+        canCopy?: boolean | undefined;
+        canDeleteChildren?: boolean | undefined;
+        canDeleteTeamDrive?: boolean | undefined;
+        canDownload?: boolean | undefined;
+        canEdit?: boolean | undefined;
+        canListChildren?: boolean | undefined;
+        canManageMembers?: boolean | undefined;
+        canReadRevisions?: boolean | undefined;
+        canRemoveChildren?: boolean | undefined;
+        canRename?: boolean | undefined;
+        canRenameTeamDrive?: boolean | undefined;
+        canShare?: boolean | undefined;
+        canTrashChildren?: boolean | undefined;
       }
       interface TeamDriveList {
-        items?: Drive.Schema.TeamDrive[];
-        kind?: string;
-        nextPageToken?: string;
+        items?: Drive.Schema.TeamDrive[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface TeamDriveRestrictions {
-        adminManagedRestrictions?: boolean;
-        copyRequiresWriterPermission?: boolean;
-        domainUsersOnly?: boolean;
-        teamMembersOnly?: boolean;
+        adminManagedRestrictions?: boolean | undefined;
+        copyRequiresWriterPermission?: boolean | undefined;
+        domainUsersOnly?: boolean | undefined;
+        teamMembersOnly?: boolean | undefined;
       }
       interface User {
-        displayName?: string;
-        emailAddress?: string;
-        isAuthenticatedUser?: boolean;
-        kind?: string;
-        permissionId?: string;
-        picture?: Drive.Schema.UserPicture;
+        displayName?: string | undefined;
+        emailAddress?: string | undefined;
+        isAuthenticatedUser?: boolean | undefined;
+        kind?: string | undefined;
+        permissionId?: string | undefined;
+        picture?: Drive.Schema.UserPicture | undefined;
       }
       interface UserPicture {
-        url?: string;
+        url?: string | undefined;
       }
     }
   }
   interface Drive {
-    About?: Drive.Collection.AboutCollection;
-    Apps?: Drive.Collection.AppsCollection;
-    Changes?: Drive.Collection.ChangesCollection;
-    Channels?: Drive.Collection.ChannelsCollection;
-    Children?: Drive.Collection.ChildrenCollection;
-    Comments?: Drive.Collection.CommentsCollection;
-    Drives?: Drive.Collection.DrivesCollection;
-    Files?: Drive.Collection.FilesCollection;
-    Parents?: Drive.Collection.ParentsCollection;
-    Permissions?: Drive.Collection.PermissionsCollection;
-    Properties?: Drive.Collection.PropertiesCollection;
-    Realtime?: Drive.Collection.RealtimeCollection;
-    Replies?: Drive.Collection.RepliesCollection;
-    Revisions?: Drive.Collection.RevisionsCollection;
-    Teamdrives?: Drive.Collection.TeamdrivesCollection;
+    About?: Drive.Collection.AboutCollection | undefined;
+    Apps?: Drive.Collection.AppsCollection | undefined;
+    Changes?: Drive.Collection.ChangesCollection | undefined;
+    Channels?: Drive.Collection.ChannelsCollection | undefined;
+    Children?: Drive.Collection.ChildrenCollection | undefined;
+    Comments?: Drive.Collection.CommentsCollection | undefined;
+    Drives?: Drive.Collection.DrivesCollection | undefined;
+    Files?: Drive.Collection.FilesCollection | undefined;
+    Parents?: Drive.Collection.ParentsCollection | undefined;
+    Permissions?: Drive.Collection.PermissionsCollection | undefined;
+    Properties?: Drive.Collection.PropertiesCollection | undefined;
+    Realtime?: Drive.Collection.RealtimeCollection | undefined;
+    Replies?: Drive.Collection.RepliesCollection | undefined;
+    Revisions?: Drive.Collection.RevisionsCollection | undefined;
+    Teamdrives?: Drive.Collection.TeamdrivesCollection | undefined;
     // Create a new instance of Channel
     newChannel(): Drive.Schema.Channel;
     // Create a new instance of ChildReference

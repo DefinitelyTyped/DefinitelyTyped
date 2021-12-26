@@ -280,7 +280,7 @@ declare namespace AP {
      * A Confluence specific JavaScript module which provides functions to interact with the custom content.
      */
     namespace customContent {
-        enum InterceptableEvent {
+        type InterceptableEvent =
             /**
              * Add-on **must** intercept this event to provide the content body.
              * The `confluence.customcontent.submit` event will be emitted when user clicks the save button on the custom content edit component.
@@ -315,7 +315,7 @@ declare namespace AP {
              *     // editComponent.submitCallback(false, 'Cannot save the content');
              * });
              */
-            Submit = 'confluence.customcontent.submit',
+            | 'confluence.customcontent.submit'
 
             /**
              * The `confluence.customcontent.submitSuccess` event will be emitted when Confluence successfully saved the content.
@@ -341,7 +341,7 @@ declare namespace AP {
              *     editComponent.submitSuccessCallback(true);
              * });
              */
-            SubmitSuccess = 'confluence.customcontent.submitSuccess',
+            | 'confluence.customcontent.submitSuccess'
 
             /**
              * The `confluence.customcontent.submitError` event will be emitted when Confluence encountered problem when saving the content.
@@ -363,10 +363,10 @@ declare namespace AP {
              *     editComponent.submitErrorCallback(true);
              * });
              */
-            SubmitError = 'confluence.customcontent.submitError',
+            | 'confluence.customcontent.submitError'
 
             /**
-             * The confluence.customcontent.cancel event will be emitted when user clicks close button.
+             * The `confluence.customcontent.cancel` event will be emitted when user clicks close button.
              * If add-on didn't intercept this event, user will be redirected to the custom content list or the container page depending on the content type.
              * You can call cancelCallback function to return the data:
              * @example <caption>**Return false** Return `false` will prevent user being redirected.
@@ -387,52 +387,49 @@ declare namespace AP {
              *     editComponent.cancelCallback(true);
              * });
              */
-            Cancel = 'confluence.customcontent.cancel',
-        }
+            | 'confluence.customcontent.cancel';
+
         interface EditComponent {
             /**
-             * See docs on InterceptableEvent enum
+             * See docs on InterceptableEvent type
              * @param event Event to intercept
-             * @see InterceptableEvent#Submit
-             * @see InterceptableEvent#SubmitSuccess
-             * @see InterceptableEvent#SubmitError
-             * @see InterceptableEvent#Cancel
+             * @see InterceptableEvent
              */
             intercept: (event: InterceptableEvent) => void;
 
             /**
-             * Used inside an event listener for a {@link InterceptableEvent#Submit} event to submit the content of the macro.
+             * Used inside an event listener for a `confluence.customcontent.submit` event to submit the content of the macro.
              * @param contentBody can be either content body string, a complete content object or false (cancels submit action)
-             * @see InterceptableEvent#Submit
+             * @see InterceptableEvent
              */
             submitCallback: (contentBody: string | object | false) => void;
 
             /**
-             * Used inside an event listener for a {@link InterceptableEvent#SubmitSuccess} event to do something before the user is redirected and/or
+             * Used inside an event listener for a `confluence.customcontent.submitSuccess` event to do something before the user is redirected and/or
              * to instruct Confluence on whether to redirect the user to the content page view after the content was saved successfully.
              * If no redirect is desired, an error message can also be shown.
              * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
              * @param error The error to display if no redirect is desired
-             * @see InterceptableEvent#SubmitSuccess
+             * @see InterceptableEvent
              */
             submitSuccessCallback: (doRedirect: boolean, error?: string) => void;
 
             /**
-             * Used inside an event listener for a {@link InterceptableEvent#SubmitError} event to do something before the error is being shown and/or
+             * Used inside an event listener for a `confluence.customcontent.submitError` event to do something before the error is being shown and/or
              * prevent Confluence from showing the default error message and optionally providing a custom one.
              * @param preventDefaultErrorMessage Whether to show the default error message. If false, a custom error can be shown
              * @param customError The error to show instead of the default Confluence one
-             * @see InterceptableEvent#SubmitError
+             * @see InterceptableEvent
              */
             submitErrorCallback: (preventDefaultErrorMessage: boolean, customError?: string) => void;
 
             /**
-             * Used inside an event listener for a {@link InterceptableEvent#Cancel} event to do something before the user is redirected and/or
+             * Used inside an event listener for a `confluence.customcontent.cancel` event to do something before the user is redirected and/or
              * to instruct Confluence on whether to redirect the user to the content page view after the user clicked the "Close" button.
              * If no redirect is desired, an error message can also be shown.
              * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
              * @param error The error to display if no redirect is desired
-             * @see InterceptableEvent#Cancel
+             * @see InterceptableEvent
              */
             cancelCallback: (doRedirect: boolean, error?: string) => void;
         }
@@ -462,57 +459,57 @@ declare namespace AP {
             /**
              * Opens the dialog at a preset size: small, medium, large, x-large or fullscreen (with chrome).
              */
-            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen';
+            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen' | undefined;
 
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width?: number;
+            width?: number | undefined;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * (optional) opens the dialog with heading and buttons.
              */
-            chrome?: boolean;
+            chrome?: boolean | undefined;
 
             /**
              * (optional) text to display in the header if opening a dialog with chrome.
              */
-            header?: string;
+            header?: string | undefined;
 
             /**
              * (optional) text for the submit button if opening a dialog with chrome.
              */
-            submitText?: string;
+            submitText?: string | undefined;
 
             /**
              * (optional) text for the cancel button if opening a dialog with chrome.
              */
-            cancelText?: string;
+            cancelText?: string | undefined;
 
             /**
              * (optional) custom data object that can be accessed from the actual dialog iFrame.
              */
-            customData?: object;
+            customData?: object | undefined;
 
             /**
              * (optional) if true, pressing ESC inside the dialog will close the dialog (default is true).
              */
-            closeOnEscape?: boolean;
+            closeOnEscape?: boolean | undefined;
 
             /**
              * (optional) an array of custom buttons to be added to the dialog if opening a dialog with chrome.
              */
-            buttons?: Array<{ text: string; identifier: string }>;
+            buttons?: Array<{ text: string; identifier: string }> | undefined;
 
             /**
              * (optional) Suggested actions or helpful info that will be added to the dialog if opening with chrome.
              */
-            hint?: string;
+            hint?: string | undefined;
         }
 
         interface DialogButton {
@@ -997,89 +994,87 @@ declare namespace AP {
      * The Navigator API allows your add-on to change the current page using JavaScript.
      */
     namespace navigator {
-        enum NavigatorTargetJira {
+        type NavigatorTargetJira =
             /**
              * A specific dashboard in Jira. Takes a `dashboardId` to identify the dashboard.
              */
-            dashboard = 'dashboard',
+            'dashboard' |
 
             /**
              * A specific Issue in Jira. Takes an `issueKey` to identify the issue.
              */
-            issue = 'issue',
+            'issue' |
 
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            addonModule = 'addonModule',
+            'addonModule' |
 
             /**
              * The profile page for a Jira User. Takes a `username` or `userAccountId` to identify the user.
              */
-            userProfile = 'userProfile',
+            'userProfile' |
 
             /**
              * The admin details of a specific Jira Project. Takes a `projectKey` to identify the project. Only accessible to administrators.
              */
-            projectAdminSummary = 'projectAdminSummary',
+            'projectAdminSummary' |
 
             /**
              * The admin panel definted by a connect addon. Takes an `addonKey`, `adminPageKey`, `projectKey` and `projectId`. Only accessible to administrators.
              */
-            projectAdminTabPanel = 'projectAdminTabPanel',
+            'projectAdminTabPanel' |
 
             /**
              * A specific location contained within the site. Takes either a `relativeUrl` or `absoluteUrl` to identify the path.
              */
-            site = 'site',
-        }
+            'site';
 
-        enum NavigatorTargetConfluence {
+        type NavigatorTargetConfluence =
             /**
              * The view page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            contentview = 'contentview',
+            | 'contentview'
 
             /**
              * The edit page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            contentedit = 'contentedit',
+            | 'contentedit'
 
             /**
              * The space view page. Takes a `spaceKey` to identify the space.
              */
-            spaceview = 'spaceview',
+            | 'spaceview'
 
             /**
              * The space tools page. Takes a `spaceKey` to identify the space.
              */
-            spacetools = 'spacetools',
+            | 'spacetools'
 
             /**
              * The dashboard of Confluence.
              */
-            dashboard = 'dashboard',
+            | 'dashboard'
 
             /**
              * The profile page for a specific user. Takes a `username` or `userAccountId` to identify the user.
              */
-            userProfile = 'userProfile',
+            | 'userProfile'
 
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            addonModule = 'addonModule',
+            | 'addonModule'
 
             /**
              * The list/collector page for pages, blogs and custom content contained in a space. Takes a `spaceKey` and a `contentType` to identify the content type.
              */
-            contentlist = 'contentlist',
+            | 'contentlist'
 
             /**
              * A specific location contained within a site. Takes a `relativeUrl` to identify the path.
              */
-            site = 'site',
-        }
+            | 'site';
 
         interface NavigatorContext {
             /**
@@ -1161,7 +1156,7 @@ declare namespace AP {
              *
              * This parameter is optional and defaults to `current`.
              */
-            embeddedContentRender?: 'current' | 'version-at-save';
+            embeddedContentRender?: 'current' | 'version-at-save' | undefined;
 
             /**
              * Identifies a specific page within a site. Required for the `site` target and must begin with `/`.

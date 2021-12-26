@@ -12,9 +12,9 @@ export default ProcessImage;
 declare namespace ReactImgpro {
     type Mode = "neighbor" | "bilinear" | "bicubic" | "hermite" | "bezier";
     interface Shape {
-        width?: number;
-        height?: number;
-        mode?: Mode;
+        width?: number | undefined;
+        height?: number | undefined;
+        mode?: Mode | undefined;
     }
     interface Size {
         width: number;
@@ -29,58 +29,58 @@ declare namespace ReactImgpro {
     }
     interface ProcessImageProps {
         image: string;
-        resize?: Shape;
-        quality?: number;
-        greyscale?: boolean;
-        normalize?: boolean;
-        invert?: boolean;
-        opaque?: boolean;
-        sepia?: boolean;
-        dither565?: boolean;
-        scale?: boolean;
+        resize?: Shape | undefined;
+        quality?: number | undefined;
+        greyscale?: boolean | undefined;
+        normalize?: boolean | undefined;
+        invert?: boolean | undefined;
+        opaque?: boolean | undefined;
+        sepia?: boolean | undefined;
+        dither565?: boolean | undefined;
+        scale?: boolean | undefined;
         scaleToFitImage?: {
             width: number;
             height: number;
-        };
+        } | undefined;
         flip?: {
-            horizontal?: boolean;
-            vertical?: boolean;
-        };
+            horizontal?: boolean | undefined;
+            vertical?: boolean | undefined;
+        } | undefined;
         rotate?: {
             degree: number;
             mode: Mode;
-        };
-        brightness?: number; /* should be -1 to 1 */
-        contrast?: number; /* should be -1 to 1 */
-        fade?: number; /* should be 0 - 1 */
-        opacity?: number; /* should be 0 - 1 */
-        blur?: number; /* should be 0 - 100 */
-        posterize?: number; /* should be 0 - 100 */
-        cover?: Size;
-        contain?: Size;
+        } | undefined;
+        brightness?: number | undefined; /* should be -1 to 1 */
+        contrast?: number | undefined; /* should be -1 to 1 */
+        fade?: number | undefined; /* should be 0 - 1 */
+        opacity?: number | undefined; /* should be 0 - 1 */
+        blur?: number | undefined; /* should be 0 - 100 */
+        posterize?: number | undefined; /* should be 0 - 100 */
+        cover?: Size | undefined;
+        contain?: Size | undefined;
         colors?: {
-            lighten?: number;
-            brighten?: number;
-            darken?: number;
-            desaturate?: number;
-            saturate?: number;
-            greyscale?: number;
-            spin?: number;
+            lighten?: number | undefined;
+            brighten?: number | undefined;
+            darken?: number | undefined;
+            desaturate?: number | undefined;
+            saturate?: number | undefined;
+            greyscale?: number | undefined;
+            spin?: number | undefined;
             mix?: {
-                color?: string;
-                amount?: number;
-            },
-            tint?: number;
-            xor?: number;
-            shade?: number;
-            red?: number;
-            green?: number;
-            blue?: number;
-        };
-        storage?: boolean;
-        disableWebWorker?: boolean;
-        disableRerender?: boolean;
-        customCdn?: string;
+                color?: string | undefined;
+                amount?: number | undefined;
+            } | undefined,
+            tint?: number | undefined;
+            xor?: number | undefined;
+            shade?: number | undefined;
+            red?: number | undefined;
+            green?: number | undefined;
+            blue?: number | undefined;
+        } | undefined;
+        storage?: boolean | undefined;
+        disableWebWorker?: boolean | undefined;
+        disableRerender?: boolean | undefined;
+        customCdn?: string | undefined;
         onProcessFinish: () => void;
     }
 

@@ -16,11 +16,14 @@ declare module 'ember-data/types/registries/model' {
 }
 
 const folder = Folder.create();
-assertType<Folder>(folder.get('parent'));
-assertType<string>(folder.get('parent').get('name'));
+assertType<DS.AsyncBelongsTo<Folder | null>>(folder.get('parent'));
+assertType<string | undefined>(folder.get('parent').get('name'));
+folder.get('parent').set('name', 'New');
 folder.get('parent').then(parent => {
-    assertType<Folder>(parent);
-    assertType<string>(parent.get('name'));
+    assertType<Folder | null>(parent);
+    if (parent) {
+        assertType<string>(parent.get('name'));
+    }
     folder.set('parent', parent);
 });
 

@@ -21,11 +21,11 @@ export interface CreateID {
   vendor: number;
   product: number;
   version: number;
-  ff_effects_max?: number;
-  absmax?: number[];
-  absmin?: number[];
-  absfuzz?: number[];
-  absflat?: number[];
+  ff_effects_max?: number | undefined;
+  absmax?: number[] | undefined;
+  absmin?: number[] | undefined;
+  absfuzz?: number[] | undefined;
+  absflat?: number[] | undefined;
 }
 
 export function setup(

@@ -19,7 +19,7 @@ interface ComponentProps {
   text: string;
 }
 
-const Component: React.SFC<ComponentProps> = ({ text }) => <div>{text}</div>;
+const Component: React.FC<ComponentProps> = ({ text }) => <div>{text}</div>;
 
 const Loadable100 = Loadable({
   // a module shape with 'export = Component' / 'module.exports = Component'

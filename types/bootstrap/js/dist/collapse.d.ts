@@ -1,7 +1,28 @@
-/// <reference types="jquery"/>
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
-declare class Collapse {
-    constructor(element: Element, options?: Partial<Collapse.Options>);
+declare class Collapse extends BaseComponent {
+    /**
+     * Static method which allows you to get the collapse instance associated
+     * with a DOM element.
+     */
+    static getInstance: GetInstanceFactory<Collapse>;
+
+    /**
+     * Static method which returns a collapse instance associated to a DOM element
+     *  or create a new one in case it wasn't initialised.
+     * You can use it like this: bootstrap.Collapse.getOrCreateInstance(element)
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Collapse, Partial<Collapse.Options>>;
+
+    static jQueryInterface: Collapse.jQueryInterface;
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Collapse.Options;
+    constructor(element: string | Element, options?: Partial<Collapse.Options>);
 
     /**
      * Toggles a collapsible element to shown or hidden. Returns to the caller
@@ -23,17 +44,6 @@ declare class Collapse {
      * event occurs).
      */
     hide(): void;
-
-    /**
-     * Destroys an element's collapse.
-     */
-    dispose(): void;
-
-    /**
-     * Static method which allows you to get the collapse instance associated
-     * with a DOM element.
-     */
-    static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse;
 }
 
 declare namespace Collapse {
@@ -78,6 +88,8 @@ declare namespace Collapse {
          */
         toggle: boolean;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'toggle' | 'dispose') => void;
 }
 
 export default Collapse;

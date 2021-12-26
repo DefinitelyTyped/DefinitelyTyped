@@ -2,13 +2,13 @@ import * as React from 'react';
 
 declare namespace CarouselItem {
     interface CarouselItemProps extends React.HTMLProps<CarouselItem> {
-        active?: boolean;
-        animtateIn?: boolean;
-        animateOut?: boolean;
-        direction?: string;
-        index?: number;
+        active?: boolean | undefined;
+        animtateIn?: boolean | undefined;
+        animateOut?: boolean | undefined;
+        direction?: string | undefined;
+        index?: number | undefined;
         // TODO: Add more specific type
-        onAnimateOutEnd?: Function;
+        onAnimateOutEnd?: Function | undefined;
     }
 }
 declare class CarouselItem extends React.Component<CarouselItem.CarouselItemProps> { }

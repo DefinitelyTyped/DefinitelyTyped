@@ -1,5 +1,5 @@
 // Type definitions for r-script 0.0
-// Project: http://github.com/joshkatz/r-script
+// Project: https://github.com/joshkatz/r-script
 // Definitions by: Adrian Leonhard <https://github.com/NaridaL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -12,19 +12,19 @@ interface R {
 }
 declare namespace R {
     interface Options {
-        dataframe?: "rows" | "colums" | "values";
-        matrix?: "rowmajor" | "columnmajor";
-        Date?: "ISO8601" | "epoch";
-        POSIXt?: "string" | "ISO8601" | "epoch" | "mongo";
-        factor?: "string" | "integer";
-        complex?: "string" | "list";
-        raw?: "base64" | "hex" | "mongo";
-        null?: "list" | "null";
-        na?: "null" | "string";
-        auto_unbox?: boolean;
-        digits?: number;
-        pretty?: boolean;
-        force?: boolean;
+        dataframe?: "rows" | "colums" | "values" | undefined;
+        matrix?: "rowmajor" | "columnmajor" | undefined;
+        Date?: "ISO8601" | "epoch" | undefined;
+        POSIXt?: "string" | "ISO8601" | "epoch" | "mongo" | undefined;
+        factor?: "string" | "integer" | undefined;
+        complex?: "string" | "list" | undefined;
+        raw?: "base64" | "hex" | "mongo" | undefined;
+        null?: "list" | "null" | undefined;
+        na?: "null" | "string" | undefined;
+        auto_unbox?: boolean | undefined;
+        digits?: number | undefined;
+        pretty?: boolean | undefined;
+        force?: boolean | undefined;
         [key: string]: any;
     }
 }

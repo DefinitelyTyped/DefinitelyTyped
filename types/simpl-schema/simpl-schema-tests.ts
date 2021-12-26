@@ -1,4 +1,5 @@
 import SimpleSchema, { SimpleSchemaDefinition, SchemaDefinition } from 'simpl-schema';
+import { check } from 'meteor/check';
 
 const schema: SimpleSchemaDefinition = {
     basicString: {
@@ -66,16 +67,44 @@ const schema: SimpleSchemaDefinition = {
 
 const StringSchema = new SimpleSchema(schema);
 
-StringSchema.validate({
+const testData = {
     basicString: 'Test',
     limitedString: 'pro',
     regExpString: 'id',
-}, {keys: ['basicString']});
+};
+
+const testOptions = {keys: ['basicString']};
+
+StringSchema.validate(testData);
+
+StringSchema.validate(testData, testOptions);
+
+// Static versions
+SimpleSchema.validate(testData, StringSchema);
+
+SimpleSchema.validate(testData, StringSchema, testOptions);
 
 StringSchema.validator();
 
 StringSchema.validator({
-    clean: true
+    modifier: true,
+    upsert: true,
+    extendedCustomContext: {},
+    ignore: ['Error'],
+    keys: ['key']
+});
+
+// If clean: true, clean options can be provided
+StringSchema.validator({
+    clean: true,
+    trimStrings: true,
+    removeNullsFromArrays: true
+});
+
+StringSchema.clean({title: ''}, {
+    removeEmptyStrings: true,
+    removeNullsFromArrays: true,
+    isUpsert: false
 });
 
 const StringSchemaWithOptions = new SimpleSchema({
@@ -106,7 +135,8 @@ const StringSchemaWithOptions = new SimpleSchema({
         trimStrings: true,
         getAutoValues: true,
         removeNullsFromArrays: true,
-    }
+    },
+    check,
 });
 
 new SimpleSchema({
@@ -116,6 +146,11 @@ new SimpleSchema({
     shortInteger: SimpleSchema.Integer,
     shortDate: Date,
     shortArray: Array,
+    arrayOfString: [String],
+    arrayOfNumber: [Number],
+    arrayOfInteger: [SimpleSchema.Integer],
+    arrayOfSchema: [StringSchema],
+    oneOfTest: SimpleSchema.oneOf(String, SimpleSchema.Integer, Number, Boolean, /regextest/),
     subSchema: StringSchemaWithOptions
 });
 
@@ -129,3 +164,21 @@ StringSchema.extend({
 });
 
 SimpleSchema.extendOptions(['autoform']);
+
+SimpleSchema.setDefaultMessages({
+    messages: {
+        en: {
+            required: '{{{label}}} is required',
+        },
+    },
+});
+
+const objectKeysTestSchema = new SimpleSchema({});
+
+// No prefix passed
+// $ExpectType any[]
+objectKeysTestSchema.objectKeys();
+
+// Prefix passed
+// $ExpectType any[]
+objectKeysTestSchema.objectKeys("_prefix");

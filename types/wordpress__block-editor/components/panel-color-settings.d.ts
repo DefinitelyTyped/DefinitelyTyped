@@ -6,7 +6,7 @@ declare namespace PanelColorSettings {
         Pick<ColorPalette.Props, 'onChange' | 'value'> & { label: string };
     interface Props extends Omit<PanelBody.Props, 'children'> {
         colorSettings: ColorSetting[];
-        disableCustomColors?: boolean;
+        disableCustomColors?: boolean | undefined;
     }
 }
 declare const PanelColorSettings: ComponentType<PanelColorSettings.Props>;

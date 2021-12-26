@@ -36,16 +36,16 @@ declare namespace msgpack {
     /**
      * use WebWorker if true.
      */
-    worker?: boolean;
+    worker?: boolean | undefined;
 
     /**
      * timeout sec.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
-    before?: (xhr: XMLHttpRequest, option: MsgPackUploadOption) => void;
+    before?: ((xhr: XMLHttpRequest, option: MsgPackUploadOption) => void) | undefined;
 
-    after?: (xhr: XMLHttpRequest, option: MsgPackUploadOption, result: MsgPackCallbackResult) => void;
+    after?: ((xhr: XMLHttpRequest, option: MsgPackUploadOption, result: MsgPackCallbackResult) => void) | undefined;
   }
 
   interface MsgPackUploadCallback {
@@ -56,16 +56,16 @@ declare namespace msgpack {
     /**
      * use WebWorker if true.
      */
-    worker?: boolean;
+    worker?: boolean | undefined;
 
     /**
      * timeout sec.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
-    before?: (xhr: XMLHttpRequest, option: MsgPackDownloadOption) => void;
+    before?: ((xhr: XMLHttpRequest, option: MsgPackDownloadOption) => void) | undefined;
 
-    after?: (xhr: XMLHttpRequest, option: MsgPackDownloadOption, result: MsgPackCallbackResult) => void;
+    after?: ((xhr: XMLHttpRequest, option: MsgPackDownloadOption, result: MsgPackCallbackResult) => void) | undefined;
   }
 
   interface MsgPackDownloadCallback {

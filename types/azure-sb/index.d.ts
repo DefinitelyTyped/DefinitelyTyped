@@ -39,8 +39,8 @@ export namespace Azure.ServiceBus {
     }
 
     export interface ReceiveQueueMessageOptions {
-        isPeekLock?: boolean;
-        timeoutIntervalInS?: number;
+        isPeekLock?: boolean | undefined;
+        timeoutIntervalInS?: number | undefined;
     }
 
     export interface ReceiveSubscriptionMessageOptions
@@ -68,9 +68,9 @@ export namespace Azure.ServiceBus {
 
     export interface Message {
         body: string;
-        brokerProperties?: BrokerProperties;
-        contentType?: string;
-        customProperties?: Dictionary<any>;
+        brokerProperties?: BrokerProperties | undefined;
+        contentType?: string | undefined;
+        customProperties?: Dictionary<any> | undefined;
     }
 
     /*
@@ -139,48 +139,48 @@ export namespace Azure.ServiceBus {
             ContentRootElement: string;
         };
         BodyTemplate?: any;
-        ChannelUri?: string;
-        DeviceToken?: string;
-        Expiry?: Date;
-        GcmRegistrationId?: string;
+        ChannelUri?: string | undefined;
+        DeviceToken?: string | undefined;
+        Expiry?: Date | undefined;
+        GcmRegistrationId?: string | undefined;
         MpnsHeaders?: any;
         RegistrationId: string;
-        Tags?: string;
+        Tags?: string | undefined;
         WnsHeaders?: any;
     }
 
     export interface NotificationHubInstallation {
         installationId: string;
-        userId?: string;
-        readonly lastActiveOn?: string;
-        readonly expirationTime?: string;
-        readonly lastUpdate?: string;
+        userId?: string | undefined;
+        readonly lastActiveOn?: string | undefined;
+        readonly expirationTime?: string | undefined;
+        readonly lastUpdate?: string | undefined;
         platform: "apns" | "wns" | "mpns" | "adm" | "gcm";
         pushChannel: string;
-        readonly expiredPushChannel?: string;
-        tags?: Array<string>;
+        readonly expiredPushChannel?: string | undefined;
+        tags?: Array<string> | undefined;
         templates?: {
             [name: string]: {
                 body: string;
                 headers?: any;
-                expiry?: string;
-                tags?: Array<string>;
+                expiry?: string | undefined;
+                tags?: Array<string> | undefined;
             };
-        };
+        } | undefined;
         secondaryTile?: {
             [titleId: string]: {
                 pushChannel: string;
-                tags?: Array<string>;
+                tags?: Array<string> | undefined;
                 templates?: any;
             };
-        };
+        } | undefined;
     }
 
     export interface Response {
         body: Dictionary<string | object>;
         headers: Dictionary<string>;
         isSuccessful: boolean;
-        md5?: string;
+        md5?: string | undefined;
         statusCode: number;
     }
 
@@ -223,7 +223,7 @@ export namespace Azure.ServiceBus {
                 updated: DateString;
                 author?: {
                     name: string;
-                };
+                } | undefined;
                 link: string;
             };
             CreatedAt: DateString;
@@ -295,8 +295,8 @@ export namespace Azure.ServiceBus {
          */
         interface SqlFilter {
             readonly CompatibilityLevel: string;
-            Parameters?: Dictionary<any>;
-            RequiresPreprocessing?: string;
+            Parameters?: Dictionary<any> | undefined;
+            RequiresPreprocessing?: string | undefined;
             SqlExpression: string;
         }
 

@@ -52,6 +52,8 @@ nova.commands.register(
 );
 
 nova.commands.invoke('apexskier.bar', 'foo');
+// You're allowed to pass an editor in your own extension's commands
+nova.commands.invoke('apexskier.bar', editor, 'foo');
 
 // after 3.4: $ExpectType unknown
 nova.config.get('test');
@@ -285,10 +287,21 @@ task.setAction(
 /// https://docs.nova.app/api-reference/task-command-action/
 
 const action = new TaskCommandAction('myextension.runAction', {
-    args: ["I'm Running!"]
+    args: ["I'm Running!"],
 });
 
 task.setAction(Task.Run, action);
+
+/// https://docs.nova.app/api-reference/task-resolvable-action/
+
+const action2 = new TaskResolvableAction({
+    data: [1, 2, 3],
+});
+
+task.setAction(Task.Run, action2);
+
+// $ExpectType number[]
+action2.data;
 
 /// https://novadocs.panic.com/api-reference/text-editor/
 
@@ -308,6 +321,9 @@ class MyDataProvider implements TreeDataProvider<{ name: string }> {
     getTreeItem(element: { name: string }): TreeItem {
         throw new Error('Method not implemented.');
     }
+    getParent(element: { name: string }): TreeItem | null {
+        return null;
+    }
 }
 
 // Create the TreeView
@@ -322,3 +338,35 @@ treeView.onDidExpandElement(element => {});
 treeView.onDidCollapseElement(element => {});
 
 treeView.onDidChangeVisibility(() => {});
+
+/// https://novadocs.panic.com/api-reference/text-editor/
+
+nova.workspace.showInputPalette('This is an input');
+
+nova.workspace.showInputPalette('This is an input', {
+    placeholder: "Help text"
+});
+
+nova.workspace.showInputPalette('This is an input', {
+    placeholder: "Help text",
+    // after 6.0
+    value: "Default value"
+});
+
+/// https://docs.nova.app/api-reference/workspace/
+
+nova.workspace.openFile("file:///tmp/test/txt");
+nova.workspace.openFile("file:///tmp/test/txt", { line: 1 });
+nova.workspace.openFile("file:///tmp/test/txt", { line: 1, column: 2 });
+// $ExpectError
+nova.workspace.openFile("file:///tmp/test/txt", { column: 2 });
+nova.workspace.openNewTextDocument();
+nova.workspace.openNewTextDocument({ content: "<!doctype html>" });
+nova.workspace.openNewTextDocument({ syntax: "html" });
+nova.workspace.openNewTextDocument({ content: "<!doctype html>", syntax: "html" });
+nova.workspace.openNewTextDocument({ line: 1 });
+nova.workspace.openNewTextDocument({ line: 1, column: 2 });
+nova.workspace.openNewTextDocument({ syntax: "html", line: 1 });
+// $ExpectError
+nova.workspace.openNewTextDocument({ syntax: "html", column: 2 });
+nova.workspace.openNewTextDocument({ content: "<!doctype html>", syntax: "html", line: 1, column: 2 });

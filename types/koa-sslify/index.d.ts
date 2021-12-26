@@ -2,7 +2,6 @@
 // Project: https://github.com/turboMaCk/koa-sslify#readme
 // Definitions by: Matthew Bull <https://github.com/wingsbob>
 //                 Mihkel Sokk <https://github.com/msokk>
-//                 wujingtao <https://github.com/mx601595686>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,35 +11,35 @@ export interface Options {
     /**
      * Function used to test if request is secure
      */
-    resolver?: (ctx: koa.Context) => boolean;
+    resolver?: ((ctx: koa.Context) => boolean) | undefined;
     /**
      * Hostname for redirect (uses request host if not set)
      */
-    hostname?: string;
+    hostname?: string | undefined;
     /**
      * Port of HTTPS server
      */
-    port?: number;
+    port?: number | undefined;
     /**
      * Avoid :443 port in redirect url
      */
-    skipDefaultPort?: boolean;
+    skipDefaultPort?: boolean | undefined;
     /**
      * Ignore url path (redirect to domain)
      */
-    ignoreUrl?: boolean;
+    ignoreUrl?: boolean | undefined;
     /**
      * Temporary mode (use 307 Temporary Redirect)
      */
-    temporary?: boolean;
+    temporary?: boolean | undefined;
     /**
      * Whitelist methods that should be redirected
      */
-    redirectMethods?: string[];
+    redirectMethods?: string[] | undefined;
     /**
      * Status returned for disallowed methods
      */
-    disallowStatus?: number;
+    disallowStatus?: number | undefined;
 }
 
 /**

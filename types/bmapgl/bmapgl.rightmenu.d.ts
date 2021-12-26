@@ -1,6 +1,6 @@
 // Type definitions for BaiduMap JsAPI GL v1.0
 // Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
-// Definitions by: Junior2ran <http://github.com/Junior2ran>
+// Definitions by: Junior2ran <https://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
@@ -33,9 +33,9 @@ SOFTWARE.
 declare namespace BMapGL {
     type ContextMenuIcon = string;
     interface MenuItemOptions {
-        width?: number;
-        id?: string;
-        iconUrl?: string;
+        width?: number | undefined;
+        id?: string | undefined;
+        iconUrl?: string | undefined;
     }
     class MenuItem {
         constructor(text: string, callback: (point: Point) => void, opts?: MenuItemOptions);

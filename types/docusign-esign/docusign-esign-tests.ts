@@ -22,7 +22,10 @@ const apiClient = () => {
     return new docusign.ApiClient({ basePath, oAuthBasePath });
 };
 
-const getEnvelope = async (envelopeId: string, options: { advancedUpdate?: string; include?: string }) => {
+const getEnvelope = async (
+    envelopeId: string,
+    options: { advancedUpdate?: string | undefined; include?: string | undefined },
+) => {
     const params = await getDsRequestParams();
     const client = await getClient(params.token);
     const envelopesApi = new docusign.EnvelopesApi(client);
@@ -57,13 +60,7 @@ const getAccessToken = async (): Promise<AccessToken> => {
     const integratorKey = 'integrator key';
     const apiUserGuid = 'api user id';
     const client = apiClient();
-    const results = await client.requestJWTUserToken(
-        integratorKey,
-        apiUserGuid,
-        scopes,
-        privateKey,
-        3600,
-    );
+    const results = await client.requestJWTUserToken(integratorKey, apiUserGuid, scopes, privateKey, 3600);
 
     return {
         jwtToken: results.body.access_token,
@@ -77,4 +74,12 @@ const getUserInfo = async (token: string) => {
     client.setOAuthBasePath('set oauth base path');
     const results = await client.getUserInfo(token);
     return results.accounts.find((account: { isDefault: string }) => account.isDefault === 'true');
+};
+
+const getDocument = async (envelopeId: string, documentId: string, options: docusign.DocumentOptions) => {
+    const params = await getDsRequestParams();
+    const client = apiClient();
+    const envelopesApi = new docusign.EnvelopesApi(client);
+    const results = await envelopesApi.getDocument(params.accountId, envelopeId, documentId, options);
+    return results;
 };

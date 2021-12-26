@@ -1,4 +1,4 @@
-import { WASI } from "wasi";
+import { WASI } from 'wasi';
 import * as fs from 'fs';
 
 {

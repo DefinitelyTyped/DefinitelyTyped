@@ -13,8 +13,8 @@ export interface KeyframesPercentageObject {
 }
 
 export type KeyframesObject = KeyframesPercentageObject & {
-    from?: Properties;
-    to?: Properties;
+    from?: Properties | undefined;
+    to?: Properties | undefined;
 };
 
 // Unrecognized properties are assumed to be media queries

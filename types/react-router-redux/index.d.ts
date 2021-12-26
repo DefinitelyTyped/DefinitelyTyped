@@ -23,7 +23,8 @@ import * as React from 'react';
 import { match } from 'react-router';
 
 export interface ConnectedRouterProps<State> {
-    store?: Store<State>;
+    children?: React.ReactNode;
+    store?: Store<State> | undefined;
     history: History;
 }
 export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
@@ -54,7 +55,7 @@ export const routerActions: {
 
 export interface LocationActionPayload {
     method: string;
-    args?: any[];
+    args?: any[] | undefined;
 }
 
 export interface RouterAction {
@@ -74,7 +75,7 @@ export interface LocationChangeAction {
             },
             location: Location;
             history: History;
-        }
+        } | undefined
     };
 }
 

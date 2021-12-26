@@ -111,7 +111,7 @@ interface CustomEvent {
 }
 interface CustomResult {
     resultString: string;
-    resultBool?: boolean;
+    resultBool?: boolean | undefined;
 }
 type CustomHandler = AWSLambda.Handler<CustomEvent, CustomResult>;
 type CustomCallback = AWSLambda.Callback<CustomResult>;

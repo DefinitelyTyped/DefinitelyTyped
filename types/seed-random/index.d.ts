@@ -14,8 +14,8 @@ declare function SeedRandom(seed?: string, options?: SeedRandom.Options): () => 
 
 declare namespace SeedRandom {
   interface Options {
-    global?: boolean;
-    entropy?: boolean;
+    global?: boolean | undefined;
+    entropy?: boolean | undefined;
   }
 
   function resetGlobal(): void;

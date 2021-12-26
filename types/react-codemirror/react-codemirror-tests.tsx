@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import Codemirror = require("react-codemirror");
 
-class CodemirrorTest extends React.Component<React.Props<{}>> {
+class CodemirrorTest extends React.Component {
     private editorRef: ReactCodeMirror.ReactCodeMirror;
 
     componentDidMount() {

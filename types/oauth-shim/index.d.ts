@@ -28,14 +28,14 @@ declare namespace oauthShim {
         oauthshim?: {
             options?: {
                 [key: string]: any;
-                path?: string;
-            };
-            redirect?: string;
+                path?: string | undefined;
+            } | undefined;
+            redirect?: string | undefined;
             data?: {
                 [key: string]: any;
-                access_token?: string;
-            };
-        };
+                access_token?: string | undefined;
+            } | undefined;
+        } | undefined;
     }
 
     interface Config {

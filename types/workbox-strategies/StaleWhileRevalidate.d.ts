@@ -13,8 +13,8 @@ export class StaleWhileRevalidate implements RouteHandlerObject {
 }
 
 export interface StaleWhileRevalidateOptions {
-    cacheName?: string;
-    fetchOptions?: RequestInit;
-    matchOptions?: CacheQueryOptions;
-    plugins?: WorkboxPlugin[];
+    cacheName?: string | undefined;
+    fetchOptions?: RequestInit | undefined;
+    matchOptions?: CacheQueryOptions | undefined;
+    plugins?: WorkboxPlugin[] | undefined;
 }

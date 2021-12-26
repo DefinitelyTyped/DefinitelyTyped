@@ -10,11 +10,11 @@ import VectorSource, { VectorSourceEvent } from '../source/Vector';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    features?: Collection<Feature>;
-    edge?: boolean;
-    vertex?: boolean;
-    pixelTolerance?: number;
-    source?: VectorSource;
+    features?: Collection<Feature> | undefined;
+    edge?: boolean | undefined;
+    vertex?: boolean | undefined;
+    pixelTolerance?: number | undefined;
+    source?: VectorSource | undefined;
 }
 export interface Result {
     snapped: boolean;

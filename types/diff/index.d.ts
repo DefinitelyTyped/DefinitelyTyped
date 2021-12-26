@@ -2,7 +2,6 @@
 // Project: https://github.com/kpdecker/jsdiff
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 szdc <https://github.com/szdc>
-//                 moc-yuto <https://github.com/moc-yuto>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,21 +22,21 @@ export interface BaseOptions {
      * `true` to ignore casing difference.
      * @default false
      */
-    ignoreCase?: boolean;
+    ignoreCase?: boolean | undefined;
 }
 
 export interface WordsOptions extends BaseOptions {
     /**
      * `true` to ignore leading and trailing whitespace. This is the same as `diffWords()`.
      */
-    ignoreWhitespace?: boolean;
+    ignoreWhitespace?: boolean | undefined;
 }
 
 export interface LinesOptions extends BaseOptions {
     /**
      * `true` to ignore leading and trailing whitespace. This is the same as `diffTrimmedLines()`.
      */
-    ignoreWhitespace?: boolean;
+    ignoreWhitespace?: boolean | undefined;
 
     /**
      * `true` to treat newline characters as separate tokens. This allows for changes to the newline structure
@@ -45,14 +44,14 @@ export interface LinesOptions extends BaseOptions {
      * human friendly form of `diffLines()` and `diffLines()` is better suited for patches and other computer
      * friendly output.
      */
-    newlineIsToken?: boolean;
+    newlineIsToken?: boolean | undefined;
 }
 
 export interface JsonOptions extends LinesOptions {
     /**
      * Replacer used to stringify the properties of the passed objects.
      */
-    stringifyReplacer?: (key: string, value: any) => any;
+    stringifyReplacer?: ((key: string, value: any) => any) | undefined;
 
     /**
      * The value to use when `undefined` values in the passed objects are encountered during stringification.
@@ -66,7 +65,7 @@ export interface ArrayOptions<TLeft, TRight> extends BaseOptions {
     /**
      * Comparator for custom equality checks.
      */
-    comparator?: (left: TLeft, right: TRight) => boolean;
+    comparator?: ((left: TLeft, right: TRight) => boolean) | undefined;
 }
 
 export interface PatchOptions extends LinesOptions {
@@ -74,7 +73,7 @@ export interface PatchOptions extends LinesOptions {
      * Describes how many lines of context should be included.
      * @default 4
      */
-    context?: number;
+    context?: number | undefined;
 }
 
 export interface ApplyPatchOptions {
@@ -82,7 +81,7 @@ export interface ApplyPatchOptions {
      * Number of lines that are allowed to differ before rejecting a patch.
      * @default 0
      */
-    fuzzFactor?: number;
+    fuzzFactor?: number | undefined;
 
     /**
      * Callback used to compare to given lines to determine if they should be considered equal when patching.
@@ -90,12 +89,12 @@ export interface ApplyPatchOptions {
      *
      * @default strict equality
      */
-    compareLine?: (
+    compareLine?: ((
         lineNumber: number,
         line: string,
         operation: '-' | ' ',
         patchContent: string
-    ) => boolean;
+    ) => boolean) | undefined;
 }
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
@@ -105,7 +104,7 @@ export interface ApplyPatchesOptions extends ApplyPatchOptions {
 }
 
 export interface Change {
-    count?: number;
+    count?: number | undefined;
     /**
      * Text content.
      */
@@ -113,26 +112,26 @@ export interface Change {
     /**
      * `true` if the value was inserted into the new string.
      */
-    added?: boolean;
+    added?: boolean | undefined;
     /**
      * `true` if the value was removed from the old string.
      */
-    removed?: boolean;
+    removed?: boolean | undefined;
 }
 
 export interface ArrayChange<T> {
     value: T[];
-    count?: number;
-    added?: boolean;
-    removed?: boolean;
+    count?: number | undefined;
+    added?: boolean | undefined;
+    removed?: boolean | undefined;
 }
 
 export interface ParsedDiff {
-    index?: string;
-    oldFileName?: string;
-    newFileName?: string;
-    oldHeader?: string;
-    newHeader?: string;
+    index?: string | undefined;
+    oldFileName?: string | undefined;
+    newFileName?: string | undefined;
+    oldHeader?: string | undefined;
+    newHeader?: string | undefined;
     hunks: Hunk[];
 }
 
@@ -386,7 +385,7 @@ export function applyPatches(patch: string | ParsedDiff[], options: ApplyPatches
  *
  * @returns A JSON object representation of the a patch, suitable for use with the `applyPatch()` method.
  */
-export function parsePatch(diffStr: string, options?: { strict?: boolean }): ParsedDiff[];
+export function parsePatch(diffStr: string, options?: { strict?: boolean | undefined }): ParsedDiff[];
 
 /**
  * Converts a list of changes to a serialized XML format.

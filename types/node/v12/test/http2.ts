@@ -30,13 +30,13 @@ import {
     OutgoingHttpHeaders,
     createServer,
     constants,
-    ServerOptions
-} from "http2";
-import { EventEmitter } from "events";
-import { Stats } from "fs";
-import { Socket, Server } from "net";
-import { TLSSocket } from "tls";
-import { Duplex, Readable } from "stream";
+    ServerOptions,
+} from 'http2';
+import EventEmitter = require('events');
+import { Stats } from 'fs';
+import { Socket, Server } from 'net';
+import { TLSSocket } from 'tls';
+import { Duplex, Readable } from 'stream';
 import { URL } from 'url';
 
 // Headers & Settings
@@ -272,6 +272,7 @@ import { URL } from 'url';
         let socket: Socket | TLSSocket = request.socket;
         let stream: ServerHttp2Stream = request.stream;
         const url: string = request.url;
+        request.url = "new url";
 
         request.setTimeout(0, () => {});
         request.on('aborted', (hadError: boolean, code: number) => {});
@@ -323,6 +324,7 @@ import { URL } from 'url';
         response.end('', 'utf8', () => {});
         response.end(Buffer.from([]));
         response.end(Buffer.from([]), () => {});
+        const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});
         request.on('close', () => {});

@@ -7,15 +7,15 @@ declare namespace GalleriaJS {
 
     interface GalleriaOptions {
         dataSource: GalleriaEntry[];
-        autoplay?: boolean;
-        lightbox?: boolean;
+        autoplay?: boolean | undefined;
+        lightbox?: boolean | undefined;
     }
 
     interface GalleriaEntry {
-        image?: string;
-        thumbnail?: string;
-        title?: string;
-        description?: string;
+        image?: string | undefined;
+        thumbnail?: string | undefined;
+        title?: string | undefined;
+        description?: string | undefined;
     }
 
     interface GalleriaFactory {

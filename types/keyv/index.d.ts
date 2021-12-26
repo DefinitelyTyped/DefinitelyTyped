@@ -22,7 +22,10 @@ declare class Keyv<TValue = any> extends EventEmitter {
     constructor(uri?: string, opts?: Keyv.Options<TValue>);
 
     /** Returns the value. */
-    get(key: string): Promise<TValue | undefined>;
+    get<TRaw extends boolean = false>(key: string, options?: { raw?: TRaw }):
+      Promise<(TRaw extends false
+        ? TValue
+        : Keyv.DeserializedData<TValue>)  | undefined>;
     /**
      * Set a value.
      *
@@ -42,21 +45,25 @@ declare class Keyv<TValue = any> extends EventEmitter {
 declare namespace Keyv {
     interface Options<TValue> {
         /** Namespace for the current instance. */
-        namespace?: string;
+        namespace?: string | undefined;
         /** A custom serialization function. */
-        serialize?: (data: TValue) => string;
+        serialize?: ((data: DeserializedData<TValue>) => string) | undefined;
         /** A custom deserialization function. */
-        deserialize?: (data: string) => TValue;
+        deserialize?: ((data: string) => DeserializedData<TValue> | undefined) | undefined;
         /** The connection string URI. */
-        uri?: string;
+        uri?: string | undefined;
         /** The storage adapter instance to be used by Keyv. */
-        store?: Store<TValue>;
+        store?: Store<TValue> | undefined;
         /** Default TTL. Can be overridden by specififying a TTL on `.set()`. */
-        ttl?: number;
+        ttl?: number | undefined;
         /** Specify an adapter to use. e.g `'redis'` or `'mongodb'`. */
-        adapter?: 'redis' | 'mongodb' | 'mongo' | 'sqlite' | 'postgresql' | 'postgres' | 'mysql';
+        adapter?: 'redis' | 'mongodb' | 'mongo' | 'sqlite' | 'postgresql' | 'postgres' | 'mysql' | undefined;
 
         [key: string]: any;
+    }
+
+    interface DeserializedData<TValue> {
+        value: TValue; expires: number | null;
     }
 
     interface Store<TValue> {

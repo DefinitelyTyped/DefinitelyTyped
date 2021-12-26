@@ -104,7 +104,7 @@ declare global {
     }
 
     interface NotificationOptions {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface NotificationHandler {
@@ -112,13 +112,13 @@ declare global {
     }
 
     interface ShowUIOptions {
-        visible?: boolean;
-        width?: number;
-        height?: number;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface UIPostMessageOptions {
-        origin?: string;
+        origin?: string | undefined;
     }
 
     interface OnMessageProperties {
@@ -222,22 +222,22 @@ declare global {
     }
 
     interface ImageFilters {
-        readonly exposure?: number;
-        readonly contrast?: number;
-        readonly saturation?: number;
-        readonly temperature?: number;
-        readonly tint?: number;
-        readonly highlights?: number;
-        readonly shadows?: number;
+        readonly exposure?: number | undefined;
+        readonly contrast?: number | undefined;
+        readonly saturation?: number | undefined;
+        readonly temperature?: number | undefined;
+        readonly tint?: number | undefined;
+        readonly highlights?: number | undefined;
+        readonly shadows?: number | undefined;
     }
 
     interface SolidPaint {
         readonly type: 'SOLID';
         readonly color: RGB;
 
-        readonly visible?: boolean;
-        readonly opacity?: number;
-        readonly blendMode?: BlendMode;
+        readonly visible?: boolean | undefined;
+        readonly opacity?: number | undefined;
+        readonly blendMode?: BlendMode | undefined;
     }
 
     interface GradientPaint {
@@ -245,22 +245,22 @@ declare global {
         readonly gradientTransform: Transform;
         readonly gradientStops: ReadonlyArray<ColorStop>;
 
-        readonly visible?: boolean;
-        readonly opacity?: number;
-        readonly blendMode?: BlendMode;
+        readonly visible?: boolean | undefined;
+        readonly opacity?: number | undefined;
+        readonly blendMode?: BlendMode | undefined;
     }
 
     interface ImagePaint {
         readonly type: 'IMAGE';
         readonly scaleMode: 'FILL' | 'FIT' | 'CROP' | 'TILE';
         readonly imageHash: string | null;
-        readonly imageTransform?: Transform; // setting for "CROP"
-        readonly scalingFactor?: number; // setting for "TILE"
-        readonly filters?: ImageFilters;
+        readonly imageTransform?: Transform | undefined; // setting for "CROP"
+        readonly scalingFactor?: number | undefined; // setting for "TILE"
+        readonly filters?: ImageFilters | undefined;
 
-        readonly visible?: boolean;
-        readonly opacity?: number;
-        readonly blendMode?: BlendMode;
+        readonly visible?: boolean | undefined;
+        readonly opacity?: number | undefined;
+        readonly blendMode?: BlendMode | undefined;
     }
 
     type Paint = SolidPaint | GradientPaint | ImagePaint;
@@ -276,19 +276,19 @@ declare global {
         readonly gutterSize: number;
 
         readonly count: number; // Infinity when "Auto" is set in the UI
-        readonly sectionSize?: number; // Not set for alignment: "STRETCH"
-        readonly offset?: number; // Not set for alignment: "CENTER"
+        readonly sectionSize?: number | undefined; // Not set for alignment: "STRETCH"
+        readonly offset?: number | undefined; // Not set for alignment: "CENTER"
 
-        readonly visible?: boolean;
-        readonly color?: RGBA;
+        readonly visible?: boolean | undefined;
+        readonly color?: RGBA | undefined;
     }
 
     interface GridLayoutGrid {
         readonly pattern: 'GRID';
         readonly sectionSize: number;
 
-        readonly visible?: boolean;
-        readonly color?: RGBA;
+        readonly visible?: boolean | undefined;
+        readonly color?: RGBA | undefined;
     }
 
     type LayoutGrid = RowsColsLayoutGrid | GridLayoutGrid;
@@ -300,24 +300,24 @@ declare global {
 
     interface ExportSettingsImage {
         readonly format: 'JPG' | 'PNG';
-        readonly contentsOnly?: boolean; // defaults to true
-        readonly suffix?: string;
-        readonly constraint?: ExportSettingsConstraints;
+        readonly contentsOnly?: boolean | undefined; // defaults to true
+        readonly suffix?: string | undefined;
+        readonly constraint?: ExportSettingsConstraints | undefined;
     }
 
     interface ExportSettingsSVG {
         readonly format: 'SVG';
-        readonly contentsOnly?: boolean; // defaults to true
-        readonly suffix?: string;
-        readonly svgOutlineText?: boolean; // defaults to true
-        readonly svgIdAttribute?: boolean; // defaults to false
-        readonly svgSimplifyStroke?: boolean; // defaults to true
+        readonly contentsOnly?: boolean | undefined; // defaults to true
+        readonly suffix?: string | undefined;
+        readonly svgOutlineText?: boolean | undefined; // defaults to true
+        readonly svgIdAttribute?: boolean | undefined; // defaults to false
+        readonly svgSimplifyStroke?: boolean | undefined; // defaults to true
     }
 
     interface ExportSettingsPDF {
         readonly format: 'PDF';
-        readonly contentsOnly?: boolean; // defaults to true
-        readonly suffix?: string;
+        readonly contentsOnly?: boolean | undefined; // defaults to true
+        readonly suffix?: string | undefined;
     }
 
     type ExportSettings = ExportSettingsImage | ExportSettingsSVG | ExportSettingsPDF;
@@ -327,17 +327,17 @@ declare global {
     interface VectorVertex {
         readonly x: number;
         readonly y: number;
-        readonly strokeCap?: StrokeCap;
-        readonly strokeJoin?: StrokeJoin;
-        readonly cornerRadius?: number;
-        readonly handleMirroring?: HandleMirroring;
+        readonly strokeCap?: StrokeCap | undefined;
+        readonly strokeJoin?: StrokeJoin | undefined;
+        readonly cornerRadius?: number | undefined;
+        readonly handleMirroring?: HandleMirroring | undefined;
     }
 
     interface VectorSegment {
         readonly start: number;
         readonly end: number;
-        readonly tangentStart?: Vector; // Defaults to { x: 0, y: 0 }
-        readonly tangentEnd?: Vector; // Defaults to { x: 0, y: 0 }
+        readonly tangentStart?: Vector | undefined; // Defaults to { x: 0, y: 0 }
+        readonly tangentEnd?: Vector | undefined; // Defaults to { x: 0, y: 0 }
     }
 
     interface VectorRegion {
@@ -348,7 +348,7 @@ declare global {
     interface VectorNetwork {
         readonly vertices: ReadonlyArray<VectorVertex>;
         readonly segments: ReadonlyArray<VectorSegment>;
-        readonly regions?: ReadonlyArray<VectorRegion>; // Defaults to []
+        readonly regions?: ReadonlyArray<VectorRegion> | undefined; // Defaults to []
     }
 
     interface VectorPath {
@@ -414,7 +414,7 @@ declare global {
 
               // Only present if navigation == "OVERLAY" and the destination uses
               // overlay position type "RELATIVE"
-              readonly overlayRelativePosition?: Vector;
+              readonly overlayRelativePosition?: Vector | undefined;
           };
 
     interface SimpleTransition {

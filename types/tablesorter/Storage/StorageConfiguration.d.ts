@@ -7,25 +7,25 @@ export interface StorageConfiguration {
     /**
      * The id of the storage to save to.
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * The `data-attribute`-name to automatically get the id of the table from.
      */
-    group?: string;
+    group?: string | undefined;
 
     /**
      * The url to save the storage to.
      */
-    url?: string;
+    url?: string | undefined;
 
     /**
      * The `data-attribute`-name to automatically get the url of the table from.
      */
-    page?: string;
+    page?: string | undefined;
 
     /**
      * The medium to save the storage to.
      */
-    storageType?: StorageType;
+    storageType?: StorageType | undefined;
 }

@@ -10,15 +10,15 @@ declare namespace QrReader {
   interface props {
     onScan: (data: string | null) => void;
     onError: (err: any) => void;
-    onLoad?: () => void;
-    onImageLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
-    delay?: number | false;
-    facingMode?: 'user' | 'environment';
-    legacyMode?: boolean;
-    resolution?: number;
-    showViewFinder?: boolean;
+    onLoad?: (() => void) | undefined;
+    onImageLoad?: ((event: React.SyntheticEvent<HTMLImageElement>) => void) | undefined;
+    delay?: number | false | undefined;
+    facingMode?: 'user' | 'environment' | undefined;
+    legacyMode?: boolean | undefined;
+    resolution?: number | undefined;
+    showViewFinder?: boolean | undefined;
     style?: any;
-    className?: string;
+    className?: string | undefined;
   }
 }
 

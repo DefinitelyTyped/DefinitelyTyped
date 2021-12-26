@@ -33,10 +33,10 @@ interface WorkerClusterExitInfo {
 
 interface KillWorkersOptions {
     // Shut down the workers immediately without waiting for termination timeout.
-    immediate?: boolean;
+    immediate?: boolean | undefined;
 
     // Shut down the cluster master (load balancer) as well as all the workers.
-    killClusterMaster?: boolean;
+    killClusterMaster?: boolean | undefined;
 }
 
 type ColorCodes = "red" | "green" | "yellow";

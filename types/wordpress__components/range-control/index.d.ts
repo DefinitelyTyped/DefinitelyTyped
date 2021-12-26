@@ -11,33 +11,33 @@ declare namespace RangeControl {
          * If this property is added, a `DashIcon` component will be rendered
          * after the slider with the `icon` equal to `afterIcon`.
          */
-        afterIcon?: Dashicon.Icon;
+        afterIcon?: Dashicon.Icon | undefined;
         /**
          * If this property is `true`, a button to reset the the slider is
          * rendered.
          */
-        allowReset?: boolean;
+        allowReset?: boolean | undefined;
         /**
          * If this property is added, a `DashIcon` component will be rendered
          * before the slider with the `icon` equal to `beforeIcon`.
          */
-        beforeIcon?: Dashicon.Icon;
+        beforeIcon?: Dashicon.Icon | undefined;
         /**
          * If no `value` exists this prop contains the slider starting position.
          */
-        initialPosition?: number;
+        initialPosition?: number | undefined;
         /**
          * The maximum value accepted. If higher values are inserted `onChange`
          * will not be called and the value gets reverted when blur event
          * fires.
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * The minimum value accepted. If smaller values are inserted
          * `onChange` will not be called and the value gets reverted when blur
          * event fires.
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * The current value of the range slider.
          */

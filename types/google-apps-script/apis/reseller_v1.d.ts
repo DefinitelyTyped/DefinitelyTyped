@@ -59,99 +59,99 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Address {
-        addressLine1?: string;
-        addressLine2?: string;
-        addressLine3?: string;
-        contactName?: string;
-        countryCode?: string;
-        kind?: string;
-        locality?: string;
-        organizationName?: string;
-        postalCode?: string;
-        region?: string;
+        addressLine1?: string | undefined;
+        addressLine2?: string | undefined;
+        addressLine3?: string | undefined;
+        contactName?: string | undefined;
+        countryCode?: string | undefined;
+        kind?: string | undefined;
+        locality?: string | undefined;
+        organizationName?: string | undefined;
+        postalCode?: string | undefined;
+        region?: string | undefined;
       }
       interface ChangePlanRequest {
-        dealCode?: string;
-        kind?: string;
-        planName?: string;
-        purchaseOrderId?: string;
-        seats?: AdminReseller.Schema.Seats;
+        dealCode?: string | undefined;
+        kind?: string | undefined;
+        planName?: string | undefined;
+        purchaseOrderId?: string | undefined;
+        seats?: AdminReseller.Schema.Seats | undefined;
       }
       interface Customer {
-        alternateEmail?: string;
-        customerDomain?: string;
-        customerDomainVerified?: boolean;
-        customerId?: string;
-        kind?: string;
-        phoneNumber?: string;
-        postalAddress?: AdminReseller.Schema.Address;
-        resourceUiUrl?: string;
+        alternateEmail?: string | undefined;
+        customerDomain?: string | undefined;
+        customerDomainVerified?: boolean | undefined;
+        customerId?: string | undefined;
+        kind?: string | undefined;
+        phoneNumber?: string | undefined;
+        postalAddress?: AdminReseller.Schema.Address | undefined;
+        resourceUiUrl?: string | undefined;
       }
       interface RenewalSettings {
-        kind?: string;
-        renewalType?: string;
+        kind?: string | undefined;
+        renewalType?: string | undefined;
       }
       interface ResellernotifyGetwatchdetailsResponse {
-        serviceAccountEmailAddresses?: string[];
-        topicName?: string;
+        serviceAccountEmailAddresses?: string[] | undefined;
+        topicName?: string | undefined;
       }
       interface ResellernotifyResource {
-        topicName?: string;
+        topicName?: string | undefined;
       }
       interface Seats {
-        kind?: string;
-        licensedNumberOfSeats?: number;
-        maximumNumberOfSeats?: number;
-        numberOfSeats?: number;
+        kind?: string | undefined;
+        licensedNumberOfSeats?: number | undefined;
+        maximumNumberOfSeats?: number | undefined;
+        numberOfSeats?: number | undefined;
       }
       interface Subscription {
-        billingMethod?: string;
-        creationTime?: string;
-        customerDomain?: string;
-        customerId?: string;
-        dealCode?: string;
-        kind?: string;
-        plan?: AdminReseller.Schema.SubscriptionPlan;
-        purchaseOrderId?: string;
-        renewalSettings?: AdminReseller.Schema.RenewalSettings;
-        resourceUiUrl?: string;
-        seats?: AdminReseller.Schema.Seats;
-        skuId?: string;
-        skuName?: string;
-        status?: string;
-        subscriptionId?: string;
-        suspensionReasons?: string[];
-        transferInfo?: AdminReseller.Schema.SubscriptionTransferInfo;
-        trialSettings?: AdminReseller.Schema.SubscriptionTrialSettings;
+        billingMethod?: string | undefined;
+        creationTime?: string | undefined;
+        customerDomain?: string | undefined;
+        customerId?: string | undefined;
+        dealCode?: string | undefined;
+        kind?: string | undefined;
+        plan?: AdminReseller.Schema.SubscriptionPlan | undefined;
+        purchaseOrderId?: string | undefined;
+        renewalSettings?: AdminReseller.Schema.RenewalSettings | undefined;
+        resourceUiUrl?: string | undefined;
+        seats?: AdminReseller.Schema.Seats | undefined;
+        skuId?: string | undefined;
+        skuName?: string | undefined;
+        status?: string | undefined;
+        subscriptionId?: string | undefined;
+        suspensionReasons?: string[] | undefined;
+        transferInfo?: AdminReseller.Schema.SubscriptionTransferInfo | undefined;
+        trialSettings?: AdminReseller.Schema.SubscriptionTrialSettings | undefined;
       }
       interface SubscriptionPlan {
-        commitmentInterval?: AdminReseller.Schema.SubscriptionPlanCommitmentInterval;
-        isCommitmentPlan?: boolean;
-        planName?: string;
+        commitmentInterval?: AdminReseller.Schema.SubscriptionPlanCommitmentInterval | undefined;
+        isCommitmentPlan?: boolean | undefined;
+        planName?: string | undefined;
       }
       interface SubscriptionPlanCommitmentInterval {
-        endTime?: string;
-        startTime?: string;
+        endTime?: string | undefined;
+        startTime?: string | undefined;
       }
       interface SubscriptionTransferInfo {
-        minimumTransferableSeats?: number;
-        transferabilityExpirationTime?: string;
+        minimumTransferableSeats?: number | undefined;
+        transferabilityExpirationTime?: string | undefined;
       }
       interface SubscriptionTrialSettings {
-        isInTrial?: boolean;
-        trialEndTime?: string;
+        isInTrial?: boolean | undefined;
+        trialEndTime?: string | undefined;
       }
       interface Subscriptions {
-        kind?: string;
-        nextPageToken?: string;
-        subscriptions?: AdminReseller.Schema.Subscription[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        subscriptions?: AdminReseller.Schema.Subscription[] | undefined;
       }
     }
   }
   interface AdminReseller {
-    Customers?: AdminReseller.Collection.CustomersCollection;
-    Resellernotify?: AdminReseller.Collection.ResellernotifyCollection;
-    Subscriptions?: AdminReseller.Collection.SubscriptionsCollection;
+    Customers?: AdminReseller.Collection.CustomersCollection | undefined;
+    Resellernotify?: AdminReseller.Collection.ResellernotifyCollection | undefined;
+    Subscriptions?: AdminReseller.Collection.SubscriptionsCollection | undefined;
     // Create a new instance of Address
     newAddress(): AdminReseller.Schema.Address;
     // Create a new instance of ChangePlanRequest

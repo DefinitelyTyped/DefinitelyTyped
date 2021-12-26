@@ -7,11 +7,11 @@
 import { mat4 } from 'gl-matrix';
 
 export interface ProjectOptions {
-    topLeft?: boolean;
+    topLeft?: boolean | undefined;
 }
 
 export interface UnprojectOptions extends ProjectOptions {
-    targetZ?: number;
+    targetZ?: number | undefined;
 }
 
 export type Coordinates = [number, number];
@@ -21,10 +21,10 @@ export type CoordinatesZ = [number, number, number];
 export type ViewMatrix = number[];
 
 export interface ViewportOptions {
-    width?: number;
-    height?: number;
-    viewMatrix?: ViewMatrix;
-    projectionMatrix?: ViewMatrix;
+    width?: number | undefined;
+    height?: number | undefined;
+    viewMatrix?: ViewMatrix | undefined;
+    projectionMatrix?: ViewMatrix | undefined;
 }
 
 export class Viewport {
@@ -48,16 +48,16 @@ export type Padding = number | { top: number; right: number; bottom: number; lef
 export type Bounds = [Coordinates, Coordinates];
 
 export interface WebMercatorViewportOptions {
-    width?: number;
-    height?: number;
-    longitude?: number;
-    latitude?: number;
-    zoom?: number;
-    pitch?: number;
-    bearing?: number;
-    altitude?: number;
-    nearZMultiplier?: number;
-    farZMultiplier?: number;
+    width?: number | undefined;
+    height?: number | undefined;
+    longitude?: number | undefined;
+    latitude?: number | undefined;
+    zoom?: number | undefined;
+    pitch?: number | undefined;
+    bearing?: number | undefined;
+    altitude?: number | undefined;
+    nearZMultiplier?: number | undefined;
+    farZMultiplier?: number | undefined;
 }
 
 export class WebMercatorViewport extends Viewport {
@@ -74,7 +74,7 @@ export class WebMercatorViewport extends Viewport {
     projectFlat(lngLat: Coordinates, scale?: number): Coordinates;
     unprojectFlat(xy: Coordinates, scale?: number): Coordinates;
     getMapCenterByLngLatPosition(opts: { lngLat: Coordinates; pos: Coordinates }): Coordinates;
-    fitBounds(bounds: Bounds, opts?: { padding?: Padding; offset?: Coordinates }): WebMercatorViewport;
+    fitBounds(bounds: Bounds, opts?: { padding?: Padding | undefined; offset?: Coordinates | undefined }): WebMercatorViewport;
 }
 
 export default WebMercatorViewport;
@@ -85,7 +85,7 @@ export interface FittedBounds {
     zoom: number;
 }
 
-export function fitBounds(options: { width: number; height: number; bounds: Bounds; padding?: Padding; offset?: Coordinates }): FittedBounds;
+export function fitBounds(options: { width: number; height: number; bounds: Bounds; padding?: Padding | undefined; offset?: Coordinates | undefined }): FittedBounds;
 
 export interface TransitionViewport {
     longitude: number;
@@ -99,8 +99,8 @@ export interface FlyToViewportProps extends TransitionViewport {
 }
 
 export interface ViewportProps extends FlyToViewportProps {
-    pitch?: number;
-    bearing?: number;
+    pitch?: number | undefined;
+    bearing?: number | undefined;
 }
 
 export interface NormalizedViewportProps extends FlyToViewportProps {
@@ -153,15 +153,15 @@ export function getDistanceScales(input: HighPrecisionDistanceScalesInput): High
 export function addMetersToLngLat(lngLat: Coordinates, xy: Coordinates): Coordinates;
 export function addMetersToLngLat(lngLatZ: CoordinatesZ, xyz: CoordinatesZ): CoordinatesZ;
 
-export function getViewMatrix(input: { height: number; pitch: number; bearing: number; altitude: number; center?: CoordinatesZ; flipY?: boolean }): ViewMatrix;
+export function getViewMatrix(input: { height: number; pitch: number; bearing: number; altitude: number; center?: CoordinatesZ | undefined; flipY?: boolean | undefined }): ViewMatrix;
 
 export interface ProjectionParametersInput {
     width: number;
     height: number;
-    pitch?: number;
-    altitude?: number;
-    nearZMultiplier?: number;
-    farZMultiplier?: number;
+    pitch?: number | undefined;
+    altitude?: number | undefined;
+    nearZMultiplier?: number | undefined;
+    farZMultiplier?: number | undefined;
 }
 
 export interface ProjectionParameters {

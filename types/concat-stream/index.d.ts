@@ -8,7 +8,7 @@
 import { Writable } from "stream";
 
 interface ConcatOpts {
-  encoding?: string;
+  encoding?: string | undefined;
 }
 
 declare function concat(cb: (buf: Buffer) => void): Writable;

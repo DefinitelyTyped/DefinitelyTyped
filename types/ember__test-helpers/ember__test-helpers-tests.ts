@@ -9,6 +9,7 @@ import {
     tap,
     focus,
     blur,
+    tab,
     triggerEvent,
     triggerKeyEvent,
     typeIn,
@@ -19,6 +20,8 @@ import {
     getRootElement,
     pauseTest,
     resumeTest,
+    scrollTo,
+    select,
     waitFor,
     waitUntil,
     settled,
@@ -56,8 +59,14 @@ test('DOM interactions', async () => {
     await blur(messageElement);
     await triggerEvent(messageElement, 'custom-event');
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
+    await tab();
     await fillIn(messageElement, 'content');
     await typeIn(messageElement, 'content');
+    await select(messageElement, 'content');
+    await scrollTo(messageElement, 0, 0);
+
+    await triggerEvent(document, 'custom-event');
+    await triggerKeyEvent(document, 'keydown', 'Enter', { ctrlKey: true });
 
     const allMessages = findAll('.message');
     for (const element of allMessages) {

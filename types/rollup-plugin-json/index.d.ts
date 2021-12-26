@@ -13,18 +13,18 @@ declare namespace json {
         /**
          *  All JSON files will be parsed by default, but you can also specifically include/exclude files
          */
-        include?: string | string[];
-        exclude?: string | string[];
+        include?: string | string[] | undefined;
+        exclude?: string | string[] | undefined;
         /**
          *  for tree-shaking, properties will be declared as variables, using either `var` or `const`
          *  @default false
          */
-        preferConst?: boolean;
+        preferConst?: boolean | undefined;
         /**
          * specify indentation for the generated default export — defaults to '\t'
          * @default '\t'
          */
-        indent?: string;
+        indent?: string | undefined;
     }
 }
 

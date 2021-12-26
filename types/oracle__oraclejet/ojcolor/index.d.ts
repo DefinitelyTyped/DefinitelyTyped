@@ -162,21 +162,21 @@ declare namespace Color {
         h: number;
         s: number;
         l: number;
-        a?: number;
+        a?: number | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type HSVA = {
         h: number;
         s: number;
         v: number;
-        a?: number;
+        a?: number | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type RGBA = {
         r: number;
         g: number;
         b: number;
-        a?: number;
+        a?: number | undefined;
     };
 }
 export = Color;

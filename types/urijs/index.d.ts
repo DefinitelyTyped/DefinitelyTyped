@@ -31,14 +31,14 @@ declare const URI: {
 
     new(value?: string | URI.URIOptions | HTMLElement): URI;
 
-    addQuery(data: object, prop: string, value: string): object;
-    addQuery(data: object, qryObj: object): object;
+    addQuery(data: URI.QueryDataMap, prop: string, value: string): object;
+    addQuery(data: URI.QueryDataMap, qryObj: object): object;
 
     build(parts: URI.URIOptions): string;
-    buildAuthority(parts: { username?: string; password?: string; hostname?: string; port?: string }): string;
-    buildHost(parts: { hostname?: string; port?: string }): string;
-    buildQuery(qry: object, duplicates?: boolean): string;
-    buildUserinfo(parts: { username?: string; password?: string }): string;
+    buildAuthority(parts: { username?: string | undefined; password?: string | undefined; hostname?: string | undefined; port?: string | undefined }): string;
+    buildHost(parts: { hostname?: string | undefined; port?: string | undefined }): string;
+    buildQuery(data: URI.QueryDataMap, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
+    buildUserinfo(parts: { username?: string | undefined; password?: string | undefined }): string;
 
     commonPath(path1: string, path2: string): string;
 
@@ -57,7 +57,7 @@ declare const URI: {
      * @description Wrapper for `URITemplate#expand`. Only present after
      *              importing `urijs/src/URITemplate` explicitly.
      */
-    expand?: (template: string, vals: object) => string;
+    expand?: ((template: string, vals: object) => string) | undefined;
 
     iso8859(): void;
 
@@ -67,25 +67,25 @@ declare const URI: {
     parseAuthority(
         url: string,
         parts: {
-            username?: string;
-            password?: string;
-            hostname?: string;
-            port?: string;
+            username?: string | undefined;
+            password?: string | undefined;
+            hostname?: string | undefined;
+            port?: string | undefined;
         },
     ): string;
     parseHost(
         url: string,
         parts: {
-            hostname?: string;
-            port?: string;
+            hostname?: string | undefined;
+            port?: string | undefined;
         },
     ): string;
     parseQuery(url: string): URI.QueryDataMap;
     parseUserinfo(
         url: string,
         parts: {
-            username?: string;
-            password?: string;
+            username?: string | undefined;
+            password?: string | undefined;
         },
     ): string;
 
@@ -101,15 +101,15 @@ declare const URI: {
 
 declare namespace URI {
     interface URIOptions {
-        protocol?: string;
-        username?: string;
-        password?: string;
-        hostname?: string;
-        port?: string;
-        path?: string;
-        query?: string;
-        fragment?: string;
-        urn?: boolean;
+        protocol?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        hostname?: string | undefined;
+        port?: string | undefined;
+        path?: string | undefined;
+        query?: string | undefined;
+        fragment?: string | undefined;
+        urn?: boolean | undefined;
     }
 
     interface Parts extends URIOptions {
@@ -118,17 +118,15 @@ declare namespace URI {
         preventInvalidHostname: boolean;
     }
 
-    interface QueryDataMap {
-        [key: string]: string | null | Array<string | null>;
-    }
+    type QueryDataMap = Partial<Record<string, any>>;
 }
 
 interface URI {
     absoluteTo(path: string | URI): URI;
     addFragment(fragment: string): URI;
-    addQuery(qry: string | object): URI;
+    addQuery(qry: string | URI.QueryDataMap): URI;
     addQuery(qry: string, value: any): URI;
-    addSearch(qry: string | object): URI;
+    addSearch(qry: string | URI.QueryDataMap): URI;
     addSearch(key: string, value: any): URI;
     authority(): string;
     authority(authority: string): URI;
@@ -216,9 +214,9 @@ interface URI {
 
     readable(): string;
     relativeTo(path: string): URI;
-    removeQuery(qry: string | object): URI;
+    removeQuery(qry: string | URI.QueryDataMap): URI;
     removeQuery(name: string, value: string): URI;
-    removeSearch(qry: string | object): URI;
+    removeSearch(qry: string | URI.QueryDataMap): URI;
     removeSearch(name: string, value: string): URI;
     resource(): string;
     resource(resource: string): URI;
@@ -237,10 +235,10 @@ interface URI {
     segmentCoded(segments: string[] | string): URI;
     segmentCoded(position: number): string;
     segmentCoded(position: number, level: string): URI;
-    setQuery(key: string, value: string): URI;
-    setQuery(qry: object): URI;
-    setSearch(key: string, value: string): URI;
-    setSearch(qry: object): URI;
+    setQuery(key: string, value: any): URI;
+    setQuery(qry: URI.QueryDataMap): URI;
+    setSearch(key: string, value: any): URI;
+    setSearch(qry: URI.QueryDataMap): URI;
     hasQuery(
         name: /*string | */ any,
         value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),

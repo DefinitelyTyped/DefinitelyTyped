@@ -27,14 +27,14 @@ declare namespace toIco {
          *
          * @default false
          */
-        resize?: boolean;
+        resize?: boolean | undefined;
 
         /**
          * Array of sizes to use when resizing.
          *
          * @default [16, 24, 32, 48, 64, 128, 256]
          */
-        sizes?: number[];
+        sizes?: number[] | undefined;
     }
 }
 

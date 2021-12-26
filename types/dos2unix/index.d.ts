@@ -7,8 +7,8 @@ import { IOptions as GlobOptions } from 'glob';
 import { EventEmitter } from 'events';
 
 interface Options {
-    glob?: GlobOptions;
-    maxConcurrency?: number;
+    glob?: GlobOptions | undefined;
+    maxConcurrency?: number | undefined;
 }
 
 interface Stats {

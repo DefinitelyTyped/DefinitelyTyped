@@ -3,7 +3,7 @@
 // Definitions by: James Hill <https://github.com/jhukdev>
 //                Michel Albers <https://github.com/michelalbers>
 //                Joe Flateau <https://github.com/joeflateau>
-//                Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                Yuichiro Tsuchiya <https://github.com/whitphx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -60,33 +60,48 @@ declare namespace kurento {
 
     type Callback<T> = (error: Error, result: T) => void;
 
+    // Ref: https://github.com/Kurento/kurento-client-elements-js/blob/master/lib/complexTypes/MediaProfileSpecType.js
+    type MediaProfileSpecType =
+        | 'WEBM'
+        | 'MKV'
+        | 'MP4'
+        | 'WEBM_VIDEO_ONLY'
+        | 'WEBM_AUDIO_ONLY'
+        | 'MKV_VIDEO_ONLY'
+        | 'MKV_AUDIO_ONLY'
+        | 'MP4_VIDEO_ONLY'
+        | 'MP4_AUDIO_ONLY'
+        | 'JPEG_VIDEO_ONLY'
+        | 'KURENTO_SPLIT_RECORDER';
+
     interface RecorderEndpointOptions {
         uri: string;
-        stopOnEndOfStream?: boolean;
+        mediaProfile?: MediaProfileSpecType | undefined;
+        stopOnEndOfStream?: boolean | undefined;
     }
 
     interface Options {
-        failAfter?: number;
-        enableTransactions?: boolean;
-        useImplicitTransactions?: boolean;
-        strict?: boolean;
-        request_timeout?: number;
-        response_timeout?: number;
-        duplicates_timeout?: number;
-        access_token?: string;
+        failAfter?: number | undefined;
+        enableTransactions?: boolean | undefined;
+        useImplicitTransactions?: boolean | undefined;
+        strict?: boolean | undefined;
+        request_timeout?: number | undefined;
+        response_timeout?: number | undefined;
+        duplicates_timeout?: number | undefined;
+        access_token?: string | undefined;
         socket?: any;
     }
 
     interface ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
-        create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean }): Promise<WebRtcEndpoint>;
+        create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean | undefined }): Promise<WebRtcEndpoint>;
         create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
         create(
             type: 'PlayerEndpoint',
             options?: {
-                networkCache?: number;
+                networkCache?: number | undefined;
                 uri: string;
-                useEncodedMedia?: boolean;
+                useEncodedMedia?: boolean | undefined;
             },
         ): Promise<PlayerEndpoint>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
@@ -410,9 +425,9 @@ declare namespace kurento {
 
     interface PlayerEndpoint extends UriEndpoint {
         mediaPipeline: MediaPipeline;
-        networkCache?: number;
+        networkCache?: number | undefined;
         uri: string;
-        useEncodedMedia?: boolean;
+        useEncodedMedia?: boolean | undefined;
 
         play(callback?: (error: Error) => void): Promise<void>;
 

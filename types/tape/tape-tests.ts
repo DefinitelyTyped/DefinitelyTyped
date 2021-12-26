@@ -234,4 +234,7 @@ tape(name, (test: tape.Test) => {
     test.doesNotMatch(actual, regex);
     test.doesNotMatch(actual, regex, msg);
     test.doesNotMatch(actual, regex, msg, extra);
+
+    test.teardown(() => {});
+    test.teardown(async () => {});
 });

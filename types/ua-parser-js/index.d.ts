@@ -4,10 +4,11 @@
 //                 Lucas Woo <https://github.com/legendecas>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace UAParser {
-    // tslint:disable:interface-name backward compatible exlusion
+    // tslint:disable:interface-name backward compatible exclusion
 
     interface IBrowser {
         /**
@@ -107,100 +108,104 @@ declare namespace UAParser {
     }
 
     interface BROWSER {
-        NAME: string;
+        NAME: "name";
         /**
          * @deprecated
          */
-        MAJOR: string;
-        VERSION: string;
+        MAJOR: "major";
+        VERSION: "version";
     }
 
     interface CPU {
-        ARCHITECTURE: string;
+        ARCHITECTURE: "architecture";
     }
 
     interface DEVICE {
-        MODEL: string;
-        VENDOR: string;
-        TYPE: string;
-        CONSOLE: string;
-        MOBILE: string;
-        SMARTTV: string;
-        TABLET: string;
-        WEARABLE: string;
-        EMBEDDED: string;
+        MODEL: "model";
+        VENDOR: "vendor";
+        TYPE: "type";
+        CONSOLE: "console";
+        MOBILE: "mobile";
+        SMARTTV: "smarttv";
+        TABLET: "tablet";
+        WEARABLE: "wearable";
+        EMBEDDED: "embedded";
     }
 
     interface ENGINE {
-        NAME: string;
-        VERSION: string;
+        NAME: "name";
+        VERSION: "version";
     }
 
     interface OS {
-        NAME: string;
-        VERSION: string;
+        NAME: "name";
+        VERSION: "version";
     }
 
-    // alias for older syntax
-    const UAParser: typeof UAParserAlias;
+    interface UAParserInstance {
+        /**
+         *  Returns browser information
+         */
+        getBrowser(): IBrowser;
+
+        /**
+         *  Returns OS information
+         */
+        getOS(): IOS;
+
+        /**
+         *  Returns browsers engine information
+         */
+        getEngine(): IEngine;
+
+        /**
+         *  Returns device information
+         */
+        getDevice(): IDevice;
+
+        /**
+         *  Returns parsed CPU information
+         */
+        getCPU(): ICPU;
+
+        /**
+         *  Returns UA string of current instance
+         */
+        getUA(): string;
+
+        /**
+         *  Set & parse UA string
+         */
+        setUA(uastring: string): UAParserInstance;
+
+        /**
+         *  Returns parse result
+         */
+        getResult(): IResult;
+    }
 }
 
-// support re-export
-declare const UAParserAlias: typeof UAParser;
+type UAParser = UAParser.UAParserInstance;
 
-declare class UAParser {
-    static VERSION: string;
-    static BROWSER: UAParser.BROWSER;
-    static CPU: UAParser.CPU;
-    static DEVICE: UAParser.DEVICE;
-    static ENGINE: UAParser.ENGINE;
-    static OS: UAParser.OS;
+declare const UAParser: {
+    VERSION: string;
+    BROWSER: UAParser.BROWSER;
+    CPU: UAParser.CPU;
+    DEVICE: UAParser.DEVICE;
+    ENGINE: UAParser.ENGINE;
+    OS: UAParser.OS;
 
     /**
      * Create a new parser with UA prepopulated and extensions extended
      */
-    constructor(uastring?: string, extensions?: any);
+    new (uastring?: string, extensions?: Record<string, unknown>): UAParser.UAParserInstance;
+    new (extensions?: Record<string, unknown>): UAParser.UAParserInstance;
+    (uastring?: string, extensions?: Record<string, unknown>): UAParser.IResult;
+    (extensions?: Record<string, unknown>): UAParser.IResult;
 
-    /**
-     *  Returns browser information
-     */
-    getBrowser(): UAParser.IBrowser;
-
-    /**
-     *  Returns OS information
-     */
-    getOS(): UAParser.IOS;
-
-    /**
-     *  Returns browsers engine information
-     */
-    getEngine(): UAParser.IEngine;
-
-    /**
-     *  Returns device information
-     */
-    getDevice(): UAParser.IDevice;
-
-    /**
-     *  Returns parsed CPU information
-     */
-    getCPU(): UAParser.ICPU;
-
-    /**
-     *  Returns UA string of current instance
-     */
-    getUA(): string;
-
-    /**
-     *  Set & parse UA string
-     */
-    setUA(uastring: string): UAParser;
-
-    /**
-     *  Returns parse result
-     */
-    getResult(): UAParser.IResult;
-}
+    // alias for older syntax
+    UAParser: typeof UAParser;
+};
 
 export as namespace UAParser;
 export = UAParser;

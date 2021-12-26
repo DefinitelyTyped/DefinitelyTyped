@@ -23,19 +23,19 @@ export type IconType =
     | 'video';
 
 export interface FileIconProps {
-    color?: string;
-    extension?: string;
-    fold?: boolean;
-    foldColor?: string;
-    glyphColor?: string;
-    gradientColor?: string;
-    gradientOpacity?: number;
-    labelColor?: string;
-    labelTextColor?: string;
-    labelTextStyle?: object;
-    labelUppercase?: boolean;
-    radius?: number;
-    type?: IconType;
+    color?: string | undefined;
+    extension?: string | undefined;
+    fold?: boolean | undefined;
+    foldColor?: string | undefined;
+    glyphColor?: string | undefined;
+    gradientColor?: string | undefined;
+    gradientOpacity?: number | undefined;
+    labelColor?: string | undefined;
+    labelTextColor?: string | undefined;
+    labelTextStyle?: object | undefined;
+    labelUppercase?: boolean | undefined;
+    radius?: number | undefined;
+    type?: IconType | undefined;
 }
 
 export type DefaultExtensionType =

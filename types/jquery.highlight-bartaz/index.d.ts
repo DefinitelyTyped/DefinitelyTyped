@@ -9,13 +9,13 @@
 
 interface JQuery {
     unhighlight(options?: {
-        element?: string,
-        className?: string
+        element?: string | undefined,
+        className?: string | undefined
     }): JQuery;
     highlight(words: string | string[], options?: {
-        element?: string,
-        className?: string
-        caseSensitive?: boolean,
-        wordsOnly?: boolean
+        element?: string | undefined,
+        className?: string | undefined
+        caseSensitive?: boolean | undefined,
+        wordsOnly?: boolean | undefined
     }): JQuery;
 }

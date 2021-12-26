@@ -21,6 +21,11 @@ newrelic.addCustomAttribute('foo', 42); // $ExpectType void
 newrelic.addCustomAttributes({ foo: 'bar', baz: 'bang' }); // $ExpectType void
 newrelic.addCustomAttributes({ foo: 'bar', baz: 42 }); // $ExpectType void
 
+newrelic.addCustomSpanAttribute('foo', 'bar'); // $ExpectType void
+newrelic.addCustomSpanAttribute('foo', 42); // $ExpectType void
+newrelic.addCustomSpanAttributes({ foo: 'bar', baz: 'bang' }); // $ExpectType void
+newrelic.addCustomSpanAttributes({ foo: 'bar', baz: 42 }); // $ExpectType void
+
 newrelic.noticeError(Error('Oh no!')); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: 'bar' }); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: 42 }); // $ExpectType void

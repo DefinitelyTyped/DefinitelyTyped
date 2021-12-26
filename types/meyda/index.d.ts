@@ -34,16 +34,16 @@ export interface MeydaAnalyzerOptions {
     audioContext: AudioContext;
     source: AudioNode;
     bufferSize: number;
-    hopSize?: number;
-    sampleRate?: number;
-    startImmediately?: boolean;
-    channel?: number;
-    windowingFunction?: MeydaWindowingFunction;
-    featureExtractors?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>;
-    inputs?: number;
-    outputs?: number;
-    numberOfMFCCCoefficients?: number;
-    callback?: (features: Partial<MeydaFeaturesObject>) => void;
+    hopSize?: number | undefined;
+    sampleRate?: number | undefined;
+    startImmediately?: boolean | undefined;
+    channel?: number | undefined;
+    windowingFunction?: MeydaWindowingFunction | undefined;
+    featureExtractors?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature> | undefined;
+    inputs?: number | undefined;
+    outputs?: number | undefined;
+    numberOfMFCCCoefficients?: number | undefined;
+    callback?: ((features: Partial<MeydaFeaturesObject>) => void) | undefined;
 }
 
 export type MeydaSignal = SliceableArrayLike<number>;

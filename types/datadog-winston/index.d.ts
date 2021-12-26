@@ -9,11 +9,11 @@ import TransportStream = require("winston-transport");
 declare namespace DatadogWinston {
     interface DatadogTransportOptions extends TransportStream.TransportStreamOptions {
         apiKey: string;
-        hostname?: string;
-        service?: string;
-        ddsource?: string;
-        ddtags?: string;
-        intakeRegion?: string;
+        hostname?: string | undefined;
+        service?: string | undefined;
+        ddsource?: string | undefined;
+        ddtags?: string | undefined;
+        intakeRegion?: string | undefined;
     }
 }
 

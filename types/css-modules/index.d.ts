@@ -17,7 +17,7 @@ declare module '*.css' {
      * A CSS module.
      */
     const styles: CSSModule;
-    export = styles;
+    export default styles;
 }
 
 declare module '*.scss' {
@@ -27,7 +27,7 @@ declare module '*.scss' {
      * https://sass-lang.com
      */
     const styles: CSSModule;
-    export = styles;
+    export default styles;
 }
 
 declare module '*.sass' {
@@ -37,7 +37,7 @@ declare module '*.sass' {
      * https://sass-lang.com
      */
     const styles: CSSModule;
-    export = styles;
+    export default styles;
 }
 
 declare module '*.less' {
@@ -47,7 +47,7 @@ declare module '*.less' {
      * http://lesscss.org
      */
     const styles: CSSModule;
-    export = styles;
+    export default styles;
 }
 
 declare module '*.styl' {
@@ -57,5 +57,5 @@ declare module '*.styl' {
      * https://stylus-lang.com
      */
     const styles: CSSModule;
-    export = styles;
+    export default styles;
 }

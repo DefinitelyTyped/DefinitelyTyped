@@ -259,7 +259,7 @@ var tray = new nw.Tray({ title: 'Tray', icon: 'img/icon.png' });
 
 // Give it a menu
 var menu = new nw.Menu();
-menu.append(new nw.MenuItem({ type: 'checkbox', label: 'box1' }));
+menu.append(new nw.MenuItem({ type: 'checkbox', label: 'box1', enabled: true }));
 tray.menu = menu;
 
 // Remove the tray
@@ -332,6 +332,16 @@ nw.Window.open('popup.html', {}, function (win) {
     // Release the 'win' object here after the new window is closed.
     win.on('closed', function () {
         win = null;
+    });
+
+    // Listen for window click event
+    win.window.addEventListener('on', function () {
+        // Create div element notifying of click
+        var el = win.window.document.createElement('div');
+        el.innerText = 'Window clicked!';
+
+        // Append it to the body
+        win.window.document.body.append(el);
     });
 
     // Listen to main window's close event

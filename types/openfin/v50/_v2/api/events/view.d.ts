@@ -44,7 +44,7 @@ export interface InputEvent {
     key: string;
     code: string;
     repeat: boolean;
-    command?: string;
+    command?: string | undefined;
 }
 export interface TargetChangedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     previousTarget: Identity;

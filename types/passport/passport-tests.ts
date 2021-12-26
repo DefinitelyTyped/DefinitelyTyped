@@ -6,7 +6,7 @@ declare global {
     namespace Express {
         interface User {
             username: string;
-            id?: number;
+            id?: number | undefined;
         }
     }
 }
@@ -58,8 +58,20 @@ passport.serializeUser<number>((user, done) => {
         done(new Error('user ID is invalid'));
     }
 });
+passport.serializeUser((user, done) => {
+    done(null, { id: user.id });
+});
 passport.deserializeUser((id, done) => {
     done(null, { username: `${id}` });
+});
+passport.deserializeUser((id, done) => {
+    done(null, false);
+});
+passport.deserializeUser((id, done) => {
+    done(null, null);
+});
+passport.deserializeUser((id, done) => {
+    done('Error', false);
 });
 passport.deserializeUser<number>((id, done) => {
     const fetchUser = (id: number): Promise<Express.User> => {

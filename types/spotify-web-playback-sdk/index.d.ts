@@ -14,8 +14,6 @@ interface Window {
 }
 
 declare namespace Spotify {
-    const Player: typeof SpotifyPlayer;
-
     interface Album {
         uri: string;
         name: string;
@@ -34,9 +32,9 @@ declare namespace Spotify {
     type ErrorTypes = 'account_error' | 'authentication_error' | 'initialization_error' | 'playback_error';
 
     interface Image {
-        height?: number | null;
+        height?: number | null | undefined;
         url: string;
-        width?: number | null;
+        width?: number | null | undefined;
     }
 
     interface PlaybackContext {
@@ -70,6 +68,7 @@ declare namespace Spotify {
         duration: number;
         paused: boolean;
         position: number;
+        loading: boolean;
         /**
          * 0: NO_REPEAT
          * 1: ONCE_REPEAT
@@ -90,19 +89,22 @@ declare namespace Spotify {
     interface PlayerInit {
         name: string;
         getOAuthToken(cb: (token: string) => void): void;
-        volume?: number;
+        volume?: number | undefined;
     }
 
     type ErrorListener = (err: Error) => void;
     type PlaybackInstanceListener = (inst: WebPlaybackInstance) => void;
     type PlaybackStateListener = (s: PlaybackState) => void;
+    type EmptyListener = () => void;
 
     type AddListenerFn =
         & ((event: 'ready' | 'not_ready', cb: PlaybackInstanceListener) => void)
+        & ((event: 'autoplay_failed', cb: EmptyListener) => void)
         & ((event: 'player_state_changed', cb: PlaybackStateListener) => void)
         & ((event: ErrorTypes, cb: ErrorListener) => void);
 
-    class SpotifyPlayer {
+    class Player {
+        readonly _options: PlayerInit & {id: string};
         constructor(options: PlayerInit);
 
         connect(): Promise<boolean>;

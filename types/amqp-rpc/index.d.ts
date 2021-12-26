@@ -9,43 +9,43 @@
 
 export interface Options {
     connection?: any;
-    url?: string;
+    url?: string | undefined;
     exchangeInstance?: any;
-    exchange?: string;
+    exchange?: string | undefined;
     exchange_options?: {
-        exclusive?: boolean;
-        autoDelete?: boolean;
-    };
+        exclusive?: boolean | undefined;
+        autoDelete?: boolean | undefined;
+    } | undefined;
     ipml_options?: {
-        defaultExchangeName?: string;
-    }
+        defaultExchangeName?: string | undefined;
+    } | undefined
     conn_options?: any;
 }
 
 export interface CallOptions {
-    correlationId?: string;
+    correlationId?: string | undefined;
     autoDeleteCallback?: any;
 }
 
 export interface HandlerOptions {
-    queueName?: string;
-    durable?: boolean;
-    exclusive?: boolean;
-    autoDelete?: boolean;
+    queueName?: string | undefined;
+    durable?: boolean | undefined;
+    exclusive?: boolean | undefined;
+    autoDelete?: boolean | undefined;
 }
 
 export interface BroadcastOptions {
-    ttl?: number;
+    ttl?: number | undefined;
     onResponse?: any;
     context?: any;
     onComplete?: any;
 }
 
 export interface CommandInfo {
-    cmd?: string;
-    exchange?: string;
-    contentType?: string;
-    size?: number;
+    cmd?: string | undefined;
+    exchange?: string | undefined;
+    contentType?: string | undefined;
+    size?: number | undefined;
 }
 
 export interface Callback {

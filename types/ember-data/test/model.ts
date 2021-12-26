@@ -25,6 +25,9 @@ const person = Person.create();
 assertType<Point>(person.get('point'));
 assertType<Point>(person.get('oldPoint'));
 
+assertType<DS.Errors>(person.get('errors'));
+assertType<DS.Errors>(person.errors);
+
 const User = DS.Model.extend({
     username: DS.attr('string'),
     email: DS.attr('string'),

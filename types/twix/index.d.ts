@@ -6,35 +6,35 @@
 import { Moment, Duration } from 'moment';
 
 export interface TwixFormatOptions {
-    groupMeridiems?: boolean;
-    spaceBeforeMeridiem?: boolean;
-    showDate?: boolean;
-    showDayOfWeek?: boolean;
-    twentyFourHour?: boolean;
-    implicitMinutes?: boolean;
-    implicitYear?: boolean;
-    yearFormat?: string;
-    monthFormat?: string;
-    weekdayFormat?: string;
-    dayFormat?: string;
-    meridiemFormat?: string;
-    hourFormat?: string;
-    minuteFormat?: string;
+    groupMeridiems?: boolean | undefined;
+    spaceBeforeMeridiem?: boolean | undefined;
+    showDate?: boolean | undefined;
+    showDayOfWeek?: boolean | undefined;
+    twentyFourHour?: boolean | undefined;
+    implicitMinutes?: boolean | undefined;
+    implicitYear?: boolean | undefined;
+    yearFormat?: string | undefined;
+    monthFormat?: string | undefined;
+    weekdayFormat?: string | undefined;
+    dayFormat?: string | undefined;
+    meridiemFormat?: string | undefined;
+    hourFormat?: string | undefined;
+    minuteFormat?: string | undefined;
     allDay?: any; // boolean | string
-    explicitAllDay?: boolean;
-    lastNightEndsAt?: number;
-    hideTime?: boolean;
-    hideDate?: boolean;
-    hideYear?: boolean;
+    explicitAllDay?: boolean | undefined;
+    lastNightEndsAt?: number | undefined;
+    hideTime?: boolean | undefined;
+    hideDate?: boolean | undefined;
+    hideYear?: boolean | undefined;
 }
 
 export interface TwixParseAndFormatOptions extends TwixFormatOptions {
-    parseStrict?: boolean;
+    parseStrict?: boolean | undefined;
 }
 
 export interface TwixSimpleFormatOptions {
-    allDay?: string;
-    template?: (left: any, right: any) => any;
+    allDay?: string | undefined;
+    template?: ((left: any, right: any) => any) | undefined;
 }
 
 export interface TwixIter {
@@ -87,7 +87,7 @@ export interface Twix {
 }
 
 export interface TwixStatic {
-    formatTemplate?: (left: any, right: any) => any;
+    formatTemplate?: ((left: any, right: any) => any) | undefined;
 }
 
 declare module "moment" {

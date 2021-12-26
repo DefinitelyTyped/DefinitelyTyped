@@ -14,9 +14,9 @@ declare function promiseMemoize<T extends (...args: any[]) => PromiseLike<any>>(
 
 declare namespace promiseMemoize {
     interface Options {
-        maxAge?: number;
-        maxErrorAge?: number;
-        resolve?: KeyResolver;
+        maxAge?: number | undefined;
+        maxErrorAge?: number | undefined;
+        resolve?: KeyResolver | undefined;
     }
     type KeyResolver = 'simple' | 'json' | ((args: any[]) => any) | ReadonlyArray<'json' | ((arg: any) => any)>;
 }

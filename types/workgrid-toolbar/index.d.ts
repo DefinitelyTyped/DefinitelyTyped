@@ -1,8 +1,7 @@
-// Type definitions for non-npm package workgrid-toolbar 1.0
+// Type definitions for non-npm package workgrid-toolbar 1.3
 // Project: https://github.com/jguardino-workgrid/workgrid-toolbar
 // Definitions by: J Guardino <https://github.com/jguardino-workgrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
 
 export interface WorkgridToolbarOptions {
     // Required
@@ -12,15 +11,16 @@ export interface WorkgridToolbarOptions {
     tenantId: string;
     authorizerUrl: string;
     // Optional
-    confirmUser?: boolean | false;
-    debug?: boolean | false;
-    htmlDisplay?: string | 'block';
-    responsive?: boolean | true;
-    responsiveBreakpoints?: number[][]  | [[0, 0], [775, 50], [992, 100]];
-    responsiveCssProperty?: string | null;
-    responsiveElement?: object | null;
-    responsiveElementId?: string | null;
-    version?: string | 'v2';
+    confirmUser?: boolean | undefined;
+    debug?: boolean | undefined;
+    deferDisplay?: boolean | undefined;
+    htmlDisplay?: string | null | undefined;
+    listener?: ((event: string) => void | null) | undefined;
+    preventPageHide?: boolean | undefined;
+    toolbarId?: string | null | undefined;
+    version?: string | null | undefined;
+    cssRules?: string[] | undefined;
+    msIdToken?: string | null | undefined;
 }
 
 export function showWorkgridToolbar(options: WorkgridToolbarOptions): void;

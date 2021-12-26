@@ -1,5 +1,5 @@
 // Type definitions for graylog2 0.2
-// Project: http://github.com/Wizcorp/node-graylog2
+// Project: https://github.com/Wizcorp/node-graylog2
 // Definitions by: Andrey Kun <https://github.com/scalder27>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -25,13 +25,13 @@ export interface GraylogConfig {
      * The name of a host.
      * The default value is "os.hostname()"
      */
-    hostname?: string;
+    hostname?: string | undefined;
 
     /**
      * The facility - log's field type in Graylog.
      * The default value is "Node.js"
      */
-    facility?: string;
+    facility?: string | undefined;
 
     /**
      * The strategy for a message compression:
@@ -41,13 +41,13 @@ export interface GraylogConfig {
      *
      *  The default value is "optimal"
      */
-    deflate?: GraylogDeflate;
+    deflate?: GraylogDeflate | undefined;
 
     /**
      * The max UDP packet size. Should never exceed the MTU of your system.
      * The default value is 1400
      */
-    bufferSize?: number;
+    bufferSize?: number | undefined;
 
     /**
      * The list of graylog servers

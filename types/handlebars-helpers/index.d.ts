@@ -39,8 +39,8 @@ interface Utils {
 
 declare namespace helpers {
     interface Options {
-        handlebars?: typeof Handlebars;
-        hbs?: typeof Handlebars;
+        handlebars?: typeof Handlebars | undefined;
+        hbs?: typeof Handlebars | undefined;
     }
 
     const utils: Utils;

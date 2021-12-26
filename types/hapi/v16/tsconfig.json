@@ -80,7 +80,6 @@
         "test/server/info.ts",
         "test/server/initialize.ts",
         "test/server/inject.ts",
-        "test/server/listener.ts",
         "test/server/load.ts",
         "test/server/log.ts",
         "test/server/lookup.ts",

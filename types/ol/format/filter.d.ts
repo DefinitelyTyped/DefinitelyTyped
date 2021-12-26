@@ -3,7 +3,9 @@ import Geometry from '../geom/Geometry';
 import And from './filter/And';
 import Bbox from './filter/Bbox';
 import Contains from './filter/Contains';
+import Disjoint from './filter/Disjoint';
 import During from './filter/During';
+import DWithin from './filter/DWithin';
 import EqualTo from './filter/EqualTo';
 import Filter from './filter/Filter';
 import GreaterThan from './filter/GreaterThan';
@@ -39,9 +41,25 @@ export function between(propertyName: string, lowerBoundary: number, upperBounda
  */
 export function contains(geometryName: string, geometry: Geometry, opt_srsName?: string): Contains;
 /**
+ * Create a <Disjoint> operator to test whether a geometry-valued property
+ * is disjoint to a given geometry.
+ */
+export function disjoint(geometryName: string, geometry: Geometry, opt_srsName?: string): Disjoint;
+/**
  * Create a <During> temporal operator.
  */
 export function during(propertyName: string, begin: string, end: string): During;
+/**
+ * Create a <DWithin> operator to test whether a geometry-valued property
+ * is within a distance to a given geometry.
+ */
+export function dwithin(
+    geometryName: string,
+    geometry: Geometry,
+    distance: number,
+    unit: string,
+    opt_srsName?: string,
+): DWithin;
 /**
  * Creates a <PropertyIsEqualTo> comparison operator.
  */

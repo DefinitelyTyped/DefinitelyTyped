@@ -9,13 +9,13 @@ export interface User {
     firstName: string;
     lastName: string;
     displayName: string;
-    title?: string;
-    company?: string;
-    department?: string;
-    accountType?: string;
-    location?: string;
-    username?: string;
-    avatars?: Avatar[];
+    title?: string | undefined;
+    company?: string | undefined;
+    department?: string | undefined;
+    accountType?: string | undefined;
+    location?: string | undefined;
+    username?: string | undefined;
+    avatars?: Avatar[] | undefined;
 }
 
 export interface UsersList {
@@ -23,9 +23,9 @@ export interface UsersList {
 }
 
 export interface UserFilter {
-    title?: string;
-    location?: string;
-    company?: string;
+    title?: string | undefined;
+    location?: string | undefined;
+    company?: string | undefined;
 }
 
 export interface SearchUserResponse extends UsersList {

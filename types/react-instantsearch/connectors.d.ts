@@ -16,6 +16,7 @@ export { connectRange } from 'react-instantsearch-core';
 export { connectRefinementList, RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 export { connectScrollTo } from 'react-instantsearch-core';
 export { connectSearchBox, SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
+export { connectRelevantSort } from 'react-instantsearch-core';
 export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults, StateResultsProvided, SearchState, SearchResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';

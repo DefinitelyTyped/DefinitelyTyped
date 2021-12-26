@@ -19,10 +19,19 @@ $(".my_select_box").chosen("destroy");
 
 // Triggered Events
 $(".my_select_box").on("change", (evt, params) => {
+    // $ExpectType TriggeredEvent<any, any, any, any>
+    evt;
     evt.preventDefault();
-    const s: string = params.selected;
-    const d: string = params.deselected;
-    console.log(s, d);
+    if ("selected" in params) {
+        const s: string = params.selected;
+    } else {
+        const d: string = params.deselected;
+    }
+    if ("deselected" in params) {
+        const s: string = params.deselected;
+    } else {
+        const d: string = params.selected;
+    }
 });
 
 $(".chosen-select").on("chosen:maxselected", () => {

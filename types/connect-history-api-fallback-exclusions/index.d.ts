@@ -14,13 +14,13 @@ declare function historyApiFallback(options?: historyApiFallback.Options): core.
 
 declare namespace historyApiFallback {
     interface Options {
-        exclusions?: string[];
-        disableDotRule?: true;
-        htmlAcceptHeaders?: string[];
-        index?: string;
-        logger?: typeof console.log;
-        rewrites?: Rewrite[];
-        verbose?: boolean;
+        exclusions?: string[] | undefined;
+        disableDotRule?: true | undefined;
+        htmlAcceptHeaders?: string[] | undefined;
+        index?: string | undefined;
+        logger?: typeof console.log | undefined;
+        rewrites?: Rewrite[] | undefined;
+        verbose?: boolean | undefined;
     }
 
     interface Context {

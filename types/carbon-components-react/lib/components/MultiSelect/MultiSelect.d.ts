@@ -17,29 +17,34 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     MultiSelectSortingProps<T>,
     InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>
 {
-    direction?: VerticalDirection,
-    disabled?: ListBoxProps["disabled"],
+    clearSelectionDescription?: string | undefined;
+    clearSelectionText?: string | undefined;
+    direction?: VerticalDirection | undefined,
+    disabled?: ListBoxProps["disabled"] | undefined,
     downshiftProps?: any, // TODO
+    helperText?: React.ReactNode | undefined,
+    hideLabel?: boolean | undefined;
     id: string,
-    initialSelectedItems?: readonly T[],
+    initialSelectedItems?: readonly T[] | undefined,
     items: readonly T[],
-    itemToString?(item: T | null | undefined): string;
-    inline?: boolean,
-    invalid?: boolean,
-    invalidText?: React.ReactNode,
-    label?: React.ReactNode,
-    light?: boolean,
-    locale?: string,
+    itemToElement?: React.JSXElementConstructor<T>;
+    itemToString?(item: T): string;
+    inline?: boolean | undefined,
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
+    label?: React.ReactNode | undefined,
+    light?: boolean | undefined,
+    locale?: string | undefined,
     onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
     onMenuChange?(open: boolean): void;
-    open?: boolean,
-    selectionFeedback?: "fixed" | "top" | "top-after-reopen",
-    size?: ListBoxSize,
-    titleText?: string,
-    type?: ListBoxProps["type"],
-    useTitleInItem?: boolean,
-    warn?: boolean,
-    warnText?: React.ReactNode,
+    open?: boolean | undefined,
+    selectionFeedback?: "fixed" | "top" | "top-after-reopen" | undefined,
+    size?: ListBoxSize | undefined,
+    titleText?: React.ReactNode | undefined,
+    type?: ListBoxProps["type"] | undefined,
+    useTitleInItem?: boolean | undefined,
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
 interface MultiSelect {

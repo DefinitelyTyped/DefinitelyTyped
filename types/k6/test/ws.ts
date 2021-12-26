@@ -1,3 +1,4 @@
+import { CookieJar } from 'k6/http';
 import { Response, Socket, WebSocketError, connect } from 'k6/ws';
 
 const address = 'http://example.com';
@@ -19,6 +20,12 @@ response = connect(address, {
     headers: { 'User-Agent': 'ITS' },
     tags: { user: 'zbt' }
 }, executor);
+response = connect(address, {
+    compression: 'deflate'
+}, executor);
+response = connect(address, {
+    jar: new CookieJar()
+}, executor);
 connect(address, executor, 5); // $ExpectError
 connect(address, {}, executor, 5); // $ExpectError
 
@@ -37,12 +44,16 @@ connect(address, (socket: Socket) => {
     socket.on('not-an-event'); // $ExpectError
     socket.on('message'); // $ExpectError
     socket.on('message', 5); // $ExpectError
+    socket.on('binaryMessage'); // $ExpectError
+    socket.on('binaryMessage', 5); // $ExpectError
     socket.on('close', badHandler); // $ExpectError
     socket.on('close', (code: number) => {});
     socket.on('error', badHandler); // $ExpectError
     socket.on('error', (error: WebSocketError) => {});
     socket.on('message', badHandler); // $ExpectError
     socket.on('message', (message: string) => {});
+    socket.on('binaryMessage', badHandler); // $ExpectError
+    socket.on('binaryMessage', (message: ArrayBuffer) => {});
     socket.on('open', badHandler); // $ExpectError
     socket.on('open', () => {});
     socket.on('ping', badHandler); // $ExpectError
@@ -64,6 +75,14 @@ connect(address, (socket: Socket) => {
     socket.send(5); // $ExpectError
     socket.send('super secret information'); // $ExpectType void
     socket.send('super secret information', 5); // $ExpectError
+});
+
+// Socket.sendBinary
+connect(address, (socket: Socket) => {
+    socket.sendBinary(); // $ExpectError
+    socket.sendBinary(5); // $ExpectError
+    socket.sendBinary(new Uint8Array([10, 12]).buffer); // $ExpectType void
+    socket.sendBinary(new Uint8Array([10, 12]).buffer, 5); // $ExpectError
 });
 
 // Socket.setInterval

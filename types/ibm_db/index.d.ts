@@ -14,27 +14,27 @@ export interface ConnStr {
 }
 
 export interface Options {
-    odbc?: ODBC;
-    queue?: SimpleQueue | any[];
-    fetchMode?: number | null;
-    connected?: boolean;
-    connectTimeout?: number | null;
-    systemNaming?: boolean;
+    odbc?: ODBC | undefined;
+    queue?: SimpleQueue | any[] | undefined;
+    fetchMode?: number | null | undefined;
+    connected?: boolean | undefined;
+    connectTimeout?: number | null | undefined;
+    systemNaming?: boolean | undefined;
 }
 
 export interface DescribeObject {
     database: string;
-    schema?: string;
-    type?: string;
-    table?: string;
-    column?: string;
+    schema?: string | undefined;
+    type?: string | undefined;
+    table?: string | undefined;
+    column?: string | undefined;
 }
 
 export interface PoolOptions {
-    idleTimeout?: number;
-    autoCleanIdle?: boolean;
-    maxPoolSize?: number;
-    connectTimeout?: number;
+    idleTimeout?: number | undefined;
+    autoCleanIdle?: boolean | undefined;
+    maxPoolSize?: number | undefined;
+    connectTimeout?: number | undefined;
     systemNaming?: any;
 }
 
@@ -54,7 +54,7 @@ export class Database implements Options {
     fetchMode: number | null;
     connected: boolean;
     connectTimeout: number | null;
-    conn?: ODBCConnection;
+    conn?: ODBCConnection | undefined;
 
     constructor(options?: Options);
 
@@ -119,13 +119,13 @@ export class Database implements Options {
 } // Class Database
 
 export class ODBC {
-    SQSQL_CLOSE?: string;
-    SQL_DROP?: string;
-    SQL_UNBIND?: string;
-    SQL_RESET_PARAMS?: string;
-    SQL_DESTROY?: string;
-    FETCH_ARRAY?: string;
-    FETCH_OBJECT?: string;
+    SQSQL_CLOSE?: string | undefined;
+    SQL_DROP?: string | undefined;
+    SQL_UNBIND?: string | undefined;
+    SQL_RESET_PARAMS?: string | undefined;
+    SQL_DESTROY?: string | undefined;
+    FETCH_ARRAY?: string | undefined;
+    FETCH_OBJECT?: string | undefined;
 } // Class ODBC
 
 export let SQSQL_CLOSE: string;
@@ -178,6 +178,8 @@ export class ODBCStatement {
     executeNonQuery(cb: (err: Error, res: any[]) => void): void;
     executeNonQuery(params?: any[]): Promise<void>;
 
+    executeNonQuerySync(params?: any[]): number;
+
     prepare(sql: string, cb: (err: Error, result: any[]) => void): void;
 
     bind(ary: any[], cb: (err: Error) => void): void;
@@ -191,6 +193,8 @@ export class ODBCResult {
     fetchAllSync(): any[];
     moreResultsSync(): any[];
     closeSync(): void;
+    getColumnMetadataSync(): any[];
+    fetchAll(option: object, cb: (err: Error, data: any[], noOfColumns?: number) => void): void;
 } // Class ODBCResult
 
 export function getElapsedTime(): string;
@@ -206,10 +210,10 @@ export function openSync(connStr: string | ConnStr, options?: Options): Database
 export function close(db: Database): void;
 
 export class Pool implements PoolOptions {
-  idleTimeout?: number;
-  autoCleanIdle?: boolean;
-  maxPoolSize?: number;
-  connectTimeout?: number;
+  idleTimeout?: number | undefined;
+  autoCleanIdle?: boolean | undefined;
+  maxPoolSize?: number | undefined;
+  connectTimeout?: number | undefined;
   systemNaming?: any;
 
   options: PoolOptions;
@@ -218,6 +222,7 @@ export class Pool implements PoolOptions {
   usedPool: object;
   poolsize: number;
   odbc: ODBC;
+  openSync(connStr: string): Database;
   constructor(options?: PoolOptions)
     open(connStr: string, cb: (err: Error, db: Database) => void): void;
     init(count: number, connStr: string): boolean;

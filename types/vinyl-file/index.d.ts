@@ -5,20 +5,20 @@
 // TypeScript Version: 3.8
 
 /// <reference types="node" />
-import * as File from 'vinyl';
+import File = require('vinyl');
 
 export interface VinylFileOptions {
     /** Specifies the working directory the folder is relative to */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /** Specifies the folder relative to the cwd */
-    base?: string;
+    base?: string | undefined;
 
     /** Setting this to false will retuurn file.contents as a stream */
-    buffer?: boolean;
+    buffer?: boolean | undefined;
 
     /** Setting this to false will return file.contents as null and not read the file at all */
-    read?: boolean;
+    read?: boolean | undefined;
 }
 export interface VinylFile extends File {
     /** Returns true if the file contents are a Buffer, otherwise false */
@@ -37,7 +37,7 @@ export interface VinylFile extends File {
     isSymbolic: () => boolean;
 
     /** Returns a new Vinyl object with all attributes cloned. */
-    clone(opts?: { contents?: boolean, deep?: boolean } | boolean): this;
+    clone(opts?: { contents?: boolean | undefined, deep?: boolean | undefined } | boolean): this;
 
     /** Returns a formatted-string interpretation of the Vinyl object */
     inspect: () => string;

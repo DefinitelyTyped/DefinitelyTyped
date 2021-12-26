@@ -37,7 +37,7 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  * Set RTL Text Plugin
  */
 // $ExpectType void
-mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false);
+mapboxgl.setRTLTextPlugin('https://github.com', e => {}, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -75,6 +75,7 @@ let map = new mapboxgl.Map({
         'FullscreenControl.Enter': 'Розгорнути на весь екран',
         'FullscreenControl.Exit': 'Вийти з повоноеранного режиму',
     },
+    optimizeForTerrain: false,
 });
 
 /**
@@ -109,6 +110,37 @@ expectType<mapboxgl.MapboxOptions>({
 expectType<mapboxgl.MapboxOptions>({
     container: 'map',
     touchPitch: true,
+});
+
+/**
+ * Check `touchPitch`, `touchZoomRotate`, `scrollZoom` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    touchPitch: { around: 'center' },
+    touchZoomRotate: { around: 'center' },
+    scrollZoom: { around: 'center' },
+});
+
+/**
+ * Check `dragPan` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    dragPan: {
+        linearity: 0.3,
+        easing: t => t,
+        maxSpeed: 1400,
+        deceleration: 2500,
+    },
+});
+
+/**
+ * Check `cooperativeGestures`
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    cooperativeGestures: true,
 });
 
 /**
@@ -449,6 +481,24 @@ popup.toggleClassName('class3');
 popup.setOffset([10, 20]);
 
 /**
+ * Add terrain
+ */
+const terrainStyle: mapboxgl.Style = {
+    version: 8,
+    name: 'terrain',
+    sources: {
+        dem: {
+            type: 'raster-dem',
+            url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        },
+    },
+    terrain: {
+        source: 'dem',
+        exaggeration: 1.5,
+    },
+};
+
+/**
  * Add an image
  */
 var mapStyle: mapboxgl.Style = {
@@ -645,6 +695,9 @@ map = new mapboxgl.Map({
     hash: 'customHash',
 });
 
+const syncOnce: mapboxgl.Map = map.once('load', () => {});
+const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once('load');
+
 /**
  * Marker
  */
@@ -728,7 +781,7 @@ new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
 
-// $expectType boolean
+// $ExpectType boolean
 map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;
@@ -859,11 +912,11 @@ let cameraOpts: mapboxgl.CameraOptions = {
     bearing: 0,
     pitch: 0,
     zoom: 0,
+    padding,
 };
 let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
     offset: pointlike,
     maxZoom: 10,
-    padding,
     ...cameraOpts,
 };
 
@@ -1333,10 +1386,12 @@ new mapboxgl.Map().scrollZoom.setZoomRate(1);
 
 // $ExpectType void
 new mapboxgl.Map().scrollZoom.setWheelZoomRate(1);
+new mapboxgl.Map().scrollZoom.enable({ around: 'center' });
 
 const touchPitchHandler = new mapboxgl.TouchPitchHandler(map);
 // $ExpectType void
 touchPitchHandler.enable();
+touchPitchHandler.enable({ around: 'center' });
 // $ExpectType boolean
 touchPitchHandler.isActive();
 // $ExpectType boolean
@@ -1345,6 +1400,30 @@ touchPitchHandler.isEnabled();
 touchPitchHandler.disable();
 
 new mapboxgl.Map().touchPitch = touchPitchHandler;
+
+/**
+ * `dragPan`
+ */
+// $ExpectType void
+new mapboxgl.Map().dragPan.enable({
+    linearity: 0.3,
+    easing: t => t,
+    maxSpeed: 1400,
+    deceleration: 2500,
+});
+
+/**
+ * `touchZoomRotate`
+ */
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({
+    around: 'center',
+});
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable();
+
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({});
 
 /*
  * Visibility
@@ -1478,7 +1557,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'symbol-avoid-edges': false,
     'symbol-z-order': eitherType('viewport-y', 'source'),
     'icon-allow-overlap': eitherType(false, styleFunction, expression),
-    'icon-ignore-placement': false,
+    'icon-ignore-placement': eitherType(false, expression),
     'icon-optional': false,
     'icon-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'icon-size': eitherType(0, styleFunction, expression),
@@ -1499,7 +1578,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),
     'text-letter-spacing': eitherType(0, expression),
-    'text-justify': eitherType('left', 'center', 'right', expression),
+    'text-justify': eitherType('auto', 'left', 'center', 'right', expression),
     'text-anchor': eitherType('center', styleFunction, expression),
     'text-max-angle': eitherType(0, expression),
     'text-rotate': eitherType(0, styleFunction, expression),
@@ -1761,7 +1840,7 @@ createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
     map.addImage('foo', fooImageBitmap);
 });
 
-// $ExpectType Map
+// $ExpectType void
 map.loadImage('foo', (error, result) => {});
 
 // KeyboardHandler

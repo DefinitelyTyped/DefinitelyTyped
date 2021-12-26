@@ -9,7 +9,7 @@
 declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {
-            idb_attachment_format?: 'base64' | 'binary';
+            idb_attachment_format?: 'base64' | 'binary' | undefined;
         }
     }
 
@@ -21,7 +21,7 @@ declare namespace PouchDB {
              *
              * Only works in Firefox 26+.
              */
-            storage?: 'persistent' | 'temporary';
+            storage?: 'persistent' | 'temporary' | undefined;
             adapter: 'idb';
         }
     }

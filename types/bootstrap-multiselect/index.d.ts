@@ -7,76 +7,76 @@
 /// <reference types="jquery"/>
 
 interface Templates {
-    button?: string;
-    ul?: string;
-    filter?: string;
-    filterClearBtn?: string;
-    li?: string;
-    divider?: string;
-    liGroup?: string;
+    button?: string | undefined;
+    ul?: string | undefined;
+    filter?: string | undefined;
+    filterClearBtn?: string | undefined;
+    li?: string | undefined;
+    divider?: string | undefined;
+    liGroup?: string | undefined;
 }
 
 interface MultiSelectOptionElement {
     label: string;
-    title?: string;
-    value?: string | number;
-    selected?: boolean;
-    disabled?: boolean;
-    children?: MultiSelectOptionElement[];
-    attributes?: {[name: string]: any};
+    title?: string | undefined;
+    value?: string | number | undefined;
+    selected?: boolean | undefined;
+    disabled?: boolean | undefined;
+    children?: MultiSelectOptionElement[] | undefined;
+    attributes?: {[name: string]: any} | undefined;
 }
 
 interface MultiSelectOptions {
     /**
      * XSS injection is a serious threat for all modern web applications. Setting enableHTML to false (default setting) will create a XSS safe multiselect.
      */
-    enableHTML?: boolean;
+    enableHTML?: boolean | undefined;
 
     /**
      * If set to true, optgroup's will be clickable, allowing to easily select multiple options belonging to the same group.
      * enableClickableOptGroups is not available in single selection mode, i.e. when the multiple attribute is not present.
      * When using selectedClass, the selected classes are also applied on the option groups.
      */
-    enableClickableOptGroups?: boolean;
+    enableClickableOptGroups?: boolean | undefined;
 
     /**
      * If set to true, optgroup's will be collapsible.
      */
-    enableCollapsibleOptGroups?: boolean;
+    enableCollapsibleOptGroups?: boolean | undefined;
 
     /**
      * If set to true, the multiselect will be disabled if no options are given.
      */
-    disableIfEmpty?: boolean;
+    disableIfEmpty?: boolean | undefined;
 
     /**
      * The text shown if the multiselect is disabled.
      * Note that this option is set to the empty string '' by default,
      * that is nonSelectedText is shown if the multiselect is disabled and no options are selected.
      */
-    disabledText?: string;
+    disabledText?: string | undefined;
 
     /**
      * The dropdown can also be dropped right.
      */
-    dropRight?: boolean;
+    dropRight?: boolean | undefined;
 
     /**
      * The dropdown can also be dropped up. Note that it is recommended to also set {@link maxHeight}.
      * The plugin calculates the necessary height of the dropdown and takes the minimum of the calculated value and maxHeight.
      */
-    dropUp?: boolean;
+    dropUp?: boolean | undefined;
 
     /**
      * The maximum height of the dropdown. This is useful when using the plugin with plenty of options.
      */
-    maxHeight?: number;
+    maxHeight?: number | undefined;
 
     /**
      * The name used for the generated checkboxes.
      * See {@link https://davidstutz.github.io/bootstrap-multiselect/#post|Server-Side Processing} for details.
      */
-    checkboxName?: string;
+    checkboxName?: string | undefined;
 
     /**
      * A function which is triggered on the change event of the options.
@@ -84,36 +84,36 @@ interface MultiSelectOptions {
      * @param option The option item that was changed, wrapped in a JQuery object.
      * @param checked Whether the checkbox was checked or not.
      */
-    onChange?: (option: JQuery, checked: boolean) => void;
+    onChange?: ((option: JQuery, checked: boolean) => void) | undefined;
 
     /**
      * A function which is triggered when the multiselect is finished initializing.
      */
-    onInitialized?: (select: HTMLSelectElement, container: HTMLElement) => void;
+    onInitialized?: ((select: HTMLSelectElement, container: HTMLElement) => void) | undefined;
 
     /**
      * A callback called when the dropdown is shown.
      * The onDropdownShow option is not available when using Twitter Bootstrap 2.3.
      */
-    onDropdownShow?: (event: Event) => void;
+    onDropdownShow?: ((event: Event) => void) | undefined;
 
     /**
      * A callback called when the dropdown is closed.
      * The onDropdownHide option is not available when using Twitter Bootstrap 2.3.
      */
-    onDropdownHide?: (event: Event) => void;
+    onDropdownHide?: ((event: Event) => void) | undefined;
 
     /**
      * A callback called after the dropdown has been shown.
      * The onDropdownShown option is not available when using Twitter Bootstrap 2.3.
      */
-    onDropdownShown?: (event: Event) => void;
+    onDropdownShown?: ((event: Event) => void) | undefined;
 
     /**
      * A callback called after the dropdown has been closed.
      * The onDropdownHidden option is not available when using Twitter Bootstrap 2.3.
      */
-    onDropdownHidden?: (event: Event) => void;
+    onDropdownHidden?: ((event: Event) => void) | undefined;
 
     /**
      * The class of the multiselect button.
@@ -122,12 +122,12 @@ interface MultiSelectOptions {
      *      buttonClass: 'btn btn-link'
      *   });
      */
-    buttonClass?: string;
+    buttonClass?: string | undefined;
 
     /**
      * Inherit the class of the button from the original select.
      */
-    inheritClass?: boolean;
+    inheritClass?: boolean | undefined;
 
     /**
      * The container holding both the button as well as the dropdown.
@@ -136,7 +136,7 @@ interface MultiSelectOptions {
      *       buttonContainer: '<div class="btn-group" />'
      *   });
      */
-    buttonContainer?: string;
+    buttonContainer?: string | undefined;
 
     /**
      * The width of the multiselect button may be fixed using this option.
@@ -146,7 +146,7 @@ interface MultiSelectOptions {
      *       buttonWidth: '400px'
      *   });
      */
-    buttonWidth?: string;
+    buttonWidth?: string | undefined;
 
     /**
      * A callback specifying the text shown on the button dependent on the currently selected options.
@@ -157,7 +157,7 @@ interface MultiSelectOptions {
      * @param options
      * @param select
      */
-    buttonText?: (options: HTMLOptionsCollection, select: HTMLSelectElement) => string;
+    buttonText?: ((options: HTMLOptionsCollection, select: HTMLSelectElement) => string) | undefined;
 
     /**
      * A callback specifying the title of the button.
@@ -167,80 +167,80 @@ interface MultiSelectOptions {
      * @param options
      * @param select
      */
-    buttonTitle?: (options: HTMLOptionElement[], select: HTMLSelectElement) => string;
+    buttonTitle?: ((options: HTMLOptionElement[], select: HTMLSelectElement) => string) | undefined;
 
     /**
      * The text displayed when no option is selected. This option is used in the default buttonText and buttonTitle functions.
      */
-    nonSelectedText?: string;
+    nonSelectedText?: string | undefined;
 
     /**
      * The text displayed if more than  {@link numberDisplayed} options are selected. This option is used by the default buttonText and buttonTitle callbacks.
      */
-    nSelectedText?: string;
+    nSelectedText?: string | undefined;
 
     /**
      * allSelectedText is the text displayed if all options are selected. You can disable displaying the allSelectedText by setting it to false.
      */
-    allSelectedText?: string | boolean;
+    allSelectedText?: string | boolean | undefined;
 
     /**
      * This option is used by the buttonText and buttonTitle functions to determine of too much options would be displayed.
      */
-    numberDisplayed?: number;
+    numberDisplayed?: number | undefined;
 
     /**
      * Sets the separator for the list of selected items for mouse-over. Defaults to ', '. Set to '\n' for a neater display.
      */
-    delimiterText?: string;
+    delimiterText?: string | undefined;
 
     /**
      * A callback used to define the labels of the options.
      */
-    optionLabel?: (element: HTMLElement) => string;
+    optionLabel?: ((element: HTMLElement) => string) | undefined;
 
     /**
      * A callback used to define the classes for the li elements containing checkboxes and labels.
      */
-    optionClass?: (element: HTMLElement) => string;
+    optionClass?: ((element: HTMLElement) => string) | undefined;
 
     /**
      * The class(es) applied on selected options.
      */
-    selectedClass?: string;
+    selectedClass?: string | undefined;
 
     /**
      *  Set to true or false to enable or disable the select all option.
      */
-    includeSelectAllOption?: boolean;
+    includeSelectAllOption?: boolean | undefined;
 
     /**
      * Setting both {@link includeSelectAllOption} and {@link enableFiltering} to true, the select all option does always select only the visible option.
      * With setting selectAllJustVisible to false this behavior is changed such that always all options (irrespective of whether they are visible) are selected.
      */
-    selectAllJustVisible?: boolean;
+    selectAllJustVisible?: boolean | undefined;
 
     /**
      * The text displayed for the select all option.
      */
-    selectAllText?: string;
+    selectAllText?: string | undefined;
 
     /**
      * The select all option is added as additional option within the select.
      * To distinguish this option from the original options the value used for the select all option can be configured using the selectAllValue option.
      */
-    selectAllValue?: string | number;
+    selectAllValue?: string | number | undefined;
 
     /**
      * This option allows to control the name given to the select all option.
      * See {@link https://davidstutz.github.io/bootstrap-multiselect/#post|Server-Side Processing} for more details.
      */
-    selectAllName?: string;
+    selectAllName?: string | undefined;
 
     /**
      * If set to true (default), the number of selected options will be shown in parantheses when all options are seleted.
      */
-    selectAllNumber?: boolean;
+    selectAllNumber?: boolean | undefined;
 
     /**
      * This function is triggered when the select all option is used to select all options.
@@ -249,7 +249,7 @@ interface MultiSelectOptions {
      * The onSelectAll option is only triggered if the select all option was checked.
      * it is not triggered if all options were checked manually (causing the select all option to be checked as well).
      */
-    onSelectAll?: () => void;
+    onSelectAll?: (() => void) | undefined;
 
     /**
      * This function is triggered when the select all option is used to deselect all options.
@@ -258,28 +258,28 @@ interface MultiSelectOptions {
      * The onDeselectAll option is only triggered if the select all option was unchecked.
      * it is not triggered if all options were unchecked manually (causing the select all option to be unchecked as well).
      */
-    onDeselectAll?: () => void;
+    onDeselectAll?: (() => void) | undefined;
 
     /**
      * Set to true or false to enable or disable the filter. A filter input will be added to dynamically filter all options.
      */
-    enableFiltering?: boolean;
+    enableFiltering?: boolean | undefined;
 
     /**
      * The filter as configured above will use case sensitive filtering.
      * by setting enableCaseInsensitiveFiltering to true this behavior can be changed to use case insensitive filtering.
      */
-    enableCaseInsensitiveFiltering?: boolean;
+    enableCaseInsensitiveFiltering?: boolean | undefined;
 
     /**
      * Set to true to enable full value filtering, that is all options are shown where the query is a prefix of.
      */
-    enableFullValueFiltering?: boolean;
+    enableFullValueFiltering?: boolean | undefined;
 
     /**
      * The options are filtered based on their text. This behavior can be changed to use the value of the options or both the text and the value.
      */
-    filterBehavior?: 'text' | 'value' | 'both';
+    filterBehavior?: 'text' | 'value' | 'both' | undefined;
 
     /**
      * The placeholder used for the filter input.
@@ -288,12 +288,12 @@ interface MultiSelectOptions {
      *        filterPlaceholder: 'Search for something...'
      *   });
      */
-    filterPlaceholder?: string;
+    filterPlaceholder?: string | undefined;
 
     /**
      * The generated HTML markup can be controlled using templates. Basically, templates are simple configuration options.
      */
-    templates?: Templates;
+    templates?: Templates | undefined;
 }
 
 interface JQuery {

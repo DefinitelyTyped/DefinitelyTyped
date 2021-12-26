@@ -1,58 +1,57 @@
 // Example 1 (from the spec):
-const updateZoomAndTakePhoto = () => {
+const updateCameraPanZoomTiltAndTakePhoto = async () => {
     let imageCapture: ImageCapture;
+    async function getMedia() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: {pan: true, tilt: true, zoom: true},
+            });
+            const video = <HTMLVideoElement> document.querySelector('video');
+            video.srcObject = stream;
 
-    const gotMedia = (mediastream: MediaStream) => {
-        const video = document.querySelector('video');
-        if (!video) {
-            return;
+            const [track] = stream.getVideoTracks();
+            imageCapture = new ImageCapture(track);
+
+            const capabilities = track.getCapabilities();
+            const settings = track.getSettings();
+
+            for (const ptz of (['pan', 'tilt', 'zoom'] as ['pan', 'tilt', 'zoom'])) {
+                // Check whether pan/tilt/zoom is available or not.
+                if (!(ptz in settings)) continue;
+
+                // Map it to a slider element.
+                const input = <HTMLInputElement> document.getElementById(ptz);
+                input.min = capabilities[ptz].min.toString();
+                input.max = capabilities[ptz].max.toString();
+                input.step = capabilities[ptz].step.toString();
+                const settingsPtz = settings[ptz];
+                input.value = (settingsPtz && settingsPtz.toString()) || '0';
+                input.disabled = false;
+                input.oninput = async event => {
+                    try {
+                        // Warning: Chrome requires advanced constraints.
+                        await track.applyConstraints({[ptz]: input.value});
+                    } catch (err) {
+                        console.error("applyConstraints() failed: ", err);
+                    }
+                };
+            }
+        } catch (err) {
+            console.error(err);
         }
-        video.srcObject = mediastream;
+    }
 
-        const track = mediastream.getVideoTracks()[0];
-        imageCapture = new ImageCapture(track);
+    async function takePhoto() {
+        try {
+            const blob = await imageCapture.takePhoto();
+            console.log(`Photo taken: ${blob.type}, ${blob.size}B`);
 
-        const capabilities = track.getCapabilities();
-        // Check whether zoom is supported or not.
-        if (!capabilities.zoom) {
-            return;
+            const image = <HTMLImageElement> document.querySelector('img');
+            image.src = URL.createObjectURL(blob);
+        } catch (err) {
+            console.error(`takePhoto() failed: `, err);
         }
-
-        // Map zoom to a slider element.
-        const input = document.querySelector('input[type="range"]');
-        if (!input) {
-            return;
-        }
-        const inputRange = <HTMLInputElement> input;
-        inputRange.min = capabilities.zoom.min.toString();
-        inputRange.max = capabilities.zoom.max.toString();
-        inputRange.step = capabilities.zoom.step.toString();
-        inputRange.value = track.getSettings().zoom.toString();
-
-        inputRange.oninput = (event) => {
-            const input: HTMLInputElement = <HTMLInputElement> event.target;
-            track.applyConstraints({advanced: [{zoom: Number(input.value)}]});
-        };
-        inputRange.hidden = false;
-    };
-
-    navigator.mediaDevices.getUserMedia({video: true})
-        .then(gotMedia)
-        .catch(err => console.error('getUserMedia() failed: ', err));
-
-    const takePhoto = () => {
-        imageCapture.takePhoto()
-            .then(blob => {
-                console.log(`Photo taken: ${blob.type}, ${blob.size}B`);
-
-                const image = document.querySelector('img');
-                if (!image) {
-                    return;
-                }
-                image.src = URL.createObjectURL(blob);
-            })
-            .catch(err => console.error('takePhoto() failed: ', err));
-    };
+    }
 };
 
 // Example 2 (from the spec):
@@ -159,7 +158,8 @@ const updateFocusAndTrakePhoto = () => {
         input.min = capabilities.focusDistance.min.toString();
         input.max = capabilities.focusDistance.max.toString();
         input.step = capabilities.focusDistance.step.toString();
-        input.value = track.getSettings().focusDistance.toString();
+        const focusDistance = track.getSettings().focusDistance;
+        input.value = (focusDistance && focusDistance.toString()) || '0';
 
         input.oninput = (event) => {
             track.applyConstraints({

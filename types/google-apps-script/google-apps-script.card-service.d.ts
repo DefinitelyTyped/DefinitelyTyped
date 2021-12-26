@@ -3,6 +3,7 @@
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
 //                 Safal Pillai <https://github.com/malienist>
+//                 Oleg Valter <https://github.com/Oaphi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -151,6 +152,10 @@ declare namespace GoogleAppsScript {
       setText(text: string): CardAction;
     }
     /**
+     * An enum that defines the display style of card.
+     */
+     enum DisplayStyle { PEEK, REPLACE }
+    /**
      * A builder for Card objects.
      */
     interface CardBuilder {
@@ -159,6 +164,9 @@ declare namespace GoogleAppsScript {
       build(): Card;
       setHeader(cardHeader: CardHeader): CardBuilder;
       setName(name: string): CardBuilder;
+      setFixedFooter(fixedFooter: FixedFooter): CardBuilder;
+      setDisplayStyle(displayStyle: DisplayStyle):	CardBuilder;
+      setPeekCardHeader(peekCardHeader: CardHeader): CardBuilder;
     }
     /**
      * The header of a Card.
@@ -240,9 +248,13 @@ declare namespace GoogleAppsScript {
      *     }
      */
     interface CardService {
+      BorderType: typeof BorderType;
       ComposedEmailType: typeof ComposedEmailType;
       ContentType: typeof ContentType;
+      GridItemLayout: typeof GridItemLayout;
+      HorizontalAlignment: typeof HorizontalAlignment;
       Icon: typeof Icon;
+      ImageCropType: typeof ImageCropType;
       ImageStyle: typeof ImageStyle;
       LoadIndicator: typeof LoadIndicator;
       OnClose: typeof OnClose;
@@ -255,6 +267,10 @@ declare namespace GoogleAppsScript {
       newActionResponseBuilder(): ActionResponseBuilder;
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
+      /**
+       * Creates a new BorderStyle.
+       */
+      newBorderStyle(): BorderStyle;
       newButtonSet(): ButtonSet;
       newCalendarEventActionResponseBuilder(): CalendarEventActionResponseBuilder;
       newCardAction(): CardAction;
@@ -267,8 +283,25 @@ declare namespace GoogleAppsScript {
       newDecoratedText(): DecoratedText;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
       newFixedFooter(): FixedFooter;
+      newIconImage(): IconImage;
+      /**
+       * Creates a new Grid
+       */
+      newGrid(): Grid;
+      /**
+       * Creates a new GridItem.
+       */
+      newGridItem(): GridItem;
       newImage(): Image;
       newImageButton(): ImageButton;
+      /**
+       * Creates a new ImageComponent.
+       */
+      newImageComponent(): ImageComponent;
+      /**
+       * Creates a new ImageCropStyle.
+       */
+      newImageCropStyle(): ImageCropStyle;
       newKeyValue(): KeyValue;
       newNavigation(): Navigation;
       newNotification(): Notification;
@@ -282,7 +315,11 @@ declare namespace GoogleAppsScript {
       newTextParagraph(): TextParagraph;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
+      newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
       newUpdateDraftBodyAction(): UpdateDraftBodyAction;
+      newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
+      newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
+      newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
     }
     /**
      * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -323,6 +360,17 @@ declare namespace GoogleAppsScript {
      * Predefined icons that can be used in various UI objects, such as ImageButton or KeyValue widgets.
      */
     enum Icon { NONE, AIRPLANE, BOOKMARK, BUS, CAR, CLOCK, CONFIRMATION_NUMBER_ICON, DOLLAR, DESCRIPTION, EMAIL, EVENT_PERFORMER, EVENT_SEAT, FLIGHT_ARRIVAL, FLIGHT_DEPARTURE, HOTEL, HOTEL_ROOM_TYPE, INVITE, MAP_PIN, MEMBERSHIP, MULTIPLE_PEOPLE, OFFER, PERSON, PHONE, RESTAURANT_ICON, SHOPPING_CART, STAR, STORE, TICKET, TRAIN, VIDEO_CAMERA, VIDEO_PLAY }
+    /**
+     * A widget that shows an icon image.
+     *
+     *     var icon = CardService.newIconImage().setAltText("A nice icon").setIconUrl("https://example.com/icon.png");
+     */
+     interface IconImage {
+      setAltText(altText: string): IconImage;
+      setIcon(icon: Icon): IconImage;
+      setIconUrl(url: string): IconImage;
+      setImageCropType(imageCropType: ImageCropType): IconImage;
+    }
     /**
      * A widget that shows a single image.
      *
@@ -692,7 +740,11 @@ declare namespace GoogleAppsScript {
      */
     interface UpdateDraftActionResponseBuilder {
       build(): UpdateDraftActionResponse;
+      setUpdateDraftBccRecipientsAction(updateDraftBccRecipientsAction: UpdateDraftBccRecipientsAction): UpdateDraftActionResponseBuilder;
       setUpdateDraftBodyAction(updateDraftBodyAction: UpdateDraftBodyAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftCcRecipientsAction(updateDraftCcRecipientsAction: UpdateDraftCcRecipientsAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftSubjectAction(updateDraftSubjectAction: UpdateDraftSubjectAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftToRecipientsAction(updateDraftToRecipientsAction: UpdateDraftToRecipientsAction): UpdateDraftActionResponseBuilder;
     }
     /**
      * Represents an action that updates the email draft body.
@@ -700,6 +752,34 @@ declare namespace GoogleAppsScript {
     interface UpdateDraftBodyAction {
       addUpdateContent(content: string, contentType: ContentType): UpdateDraftBodyAction;
       setUpdateType(updateType: UpdateDraftBodyType): UpdateDraftBodyAction;
+    }
+
+    /**
+     * Sets an action that updates the email Bcc recipients of a draft.
+     */
+    interface UpdateDraftBccRecipientsAction {
+      addUpdateBccRecipients(bccRecipientEmails: string[]): UpdateDraftBccRecipientsAction;
+    }
+
+    /**
+     * Sets an action that updates the Cc recipients of a draft.
+     */
+    interface UpdateDraftCcRecipientsAction {
+      addUpdateCcRecipients(ccRecipientEmails: string[]): UpdateDraftCcRecipientsAction;
+    }
+
+    /**
+     * Updates the subject line of an email draft.
+     */
+    interface UpdateDraftSubjectAction {
+      addUpdateSubject(subject: string): UpdateDraftSubjectAction;
+    }
+
+    /**
+     * Updates the To recipients of an email draft.
+     */
+    interface UpdateDraftToRecipientsAction {
+      addUpdateToRecipients(toRecipientEmails: string[]): UpdateDraftToRecipientsAction;
     }
     /**
      * The fixed footer shown at the bottom of an add-on Card.
@@ -759,16 +839,192 @@ declare namespace GoogleAppsScript {
       setBottomLabel(text: string): DecoratedText;
       setButton(button: Button): DecoratedText;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
+      setEndIcon(endIcon: IconImage): DecoratedText;
       setIcon(icon: Icon): DecoratedText;
       setIconAltText(altText: string): DecoratedText;
       setIconUrl(url: string): DecoratedText;
       setOnClickAction(action: Action): DecoratedText;
       setOnClickOpenLinkAction(action: Action): DecoratedText;
       setOpenLink(openLink: OpenLink): DecoratedText;
+      setStartIcon(startIcon: IconImage): DecoratedText;
       setSwitchControl(switchToSet: Switch): DecoratedText;
       setText(text: string): DecoratedText;
       setTopLabel(text: string): DecoratedText;
       setWrapText(wrapText: boolean): DecoratedText;
+    }
+
+    /**
+     * An enum that represents the border types that can be applied to widgets.
+     */
+    enum BorderType {
+      /** No border style. */
+      NO_BORDER,
+      /** Stroke border style. */
+      STROKE,
+    }
+
+    /**
+     * An enum that defines the image and text style of a GridItem.
+     */
+    enum GridItemLayout {
+      /** The title and subtitle are shown below the grid item's image. */
+      TEXT_BELOW,
+      /** The title and subtitle are shown above the grid item's image. */
+      TEXT_ABOVE,
+    }
+
+    /**
+     * An enum that specifies the horizontal alignment of a widget.
+     */
+    enum HorizontalAlignment {
+      /** Align the widget to the start of the sentence side. */
+      START,
+      /** Align the widget to the center. */
+      CENTER,
+      /** Align the widget to the end of the sentence side. */
+      END,
+    }
+
+    /**
+     * An enum that represents the crop styles applied to image components.
+     * If you want to apply a crop style to an IconImage, you can only use SQUARE or CIRCLE.
+     */
+    enum ImageCropType {
+      /** Square shape crop style. */
+      SQUARE,
+      /** Circle shape crop style. */
+      CIRCLE,
+      /** Rectangle shape crop style with custom ratio. */
+      RECTANGLE_CUSTOM,
+      /** Rectangle shape crop style with 4:3 ratio. */
+      RECTANGLE_4_3,
+    }
+
+    /**
+     * A class that represents a complete border style that can be applied to widgets.
+     */
+    interface BorderStyle {
+      /**
+       * Sets the corner radius of the border, for example 8.
+       */
+      setCornerRadius(radius: number): BorderStyle;
+      /**
+       * The color in #RGB format to be applied to the border.
+       */
+      setStrokeColor(color: string): BorderStyle;
+      /**
+       * Sets the type of the border.
+       */
+      setType(type: BorderType): BorderStyle;
+    }
+
+    /**
+     * A class that represents a crop style that can be applied to image components.
+     */
+    interface ImageCropStyle {
+      /**
+       * Sets the aspect ratio to use if the crop type is RECTANGLE_CUSTOM. The ratio must be a positive value.
+       */
+      setAspectRatio(ratio: number): ImageCropStyle;
+      /**
+       * Sets the crop type for the image.
+       */
+      setImageCropType(type: ImageCropType): ImageCropStyle;
+    }
+
+    /**
+     * An image component that can be added to grid items.
+     */
+    interface ImageComponent {
+      /**
+       * Sets the alternative text of the image.
+       */
+      setAltText(altText: string): ImageComponent;
+      /**
+       * Sets the border style applied to the image.
+       */
+      setBorderStyle(borderStyle: BorderStyle): ImageComponent;
+      /**
+       * Sets the crop style for the image.
+       */
+      setCropStyle(imageCropStyle: ImageCropStyle): ImageComponent;
+      /**
+       * Sets the URL of the image.
+       */
+      setImageUrl(url: string): ImageComponent;
+    }
+
+    /**
+     * The items users interact with within a grid widget.
+     */
+    interface GridItem {
+      /**
+       * Sets the identifier for the grid item. When a user clicks this grid item,
+       * this ID is returned in the parent grid's on_click call back parameters.
+       */
+      setIdentifier(id: string): GridItem;
+      /**
+       * Sets the image for this grid item.
+       */
+      setImage(image: ImageComponent): GridItem;
+      /**
+       * Sets the layout of text and image for the grid item. Default is TEXT_BELOW
+       */
+      setLayout(layout: GridItemLayout): GridItem;
+      /**
+       * Sets the subtitle of the grid item.
+       */
+      setSubtitle(subtitle: string): GridItem;
+      /**
+       * Sets the horizontal alignment of the grid item. Default is START.
+       */
+      setTextAlignment(alignment: HorizontalAlignment): GridItem;
+      /**
+       * Sets the title text of the grid item.
+       */
+      setTitle(title: string): GridItem;
+    }
+
+    /**
+     * An organized grid to display a collection of grid items.
+     */
+    interface Grid {
+      /**
+       * Adds a new grid item to the grid.
+       */
+      addItem(gridItem: GridItem): Grid;
+      /**
+       * Sets an authorization action that opens a URL to the authorization flow when the object is clicked.
+       */
+      setAuthorizationAction(action: AuthorizationAction): Grid;
+      /**
+       * Sets the border style applied to each grid item.
+       */
+      setBorderStyle(borderStyle: BorderStyle): Grid;
+      /**
+       * Sets an action that composes a draft email when the object is clicked.
+       */
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): Grid;
+      /**
+       * The number of columns to display in the grid.
+       */
+      setNumColumns(numColumns: number): Grid;
+      /**
+       * Sets an action that executes when the object is clicked.
+       */
+      setOnClickAction(action: Action): Grid;
+      /**
+       * Sets an action that opens a URL in a tab when the object is clicked.
+       */
+      setOnClickOpenLinkAction(action: Action): Grid;
+      /**
+       * Sets a URL to be opened when the object is clicked.
+       */
+      setOpenLink(openLink: OpenLink): Grid;
+      /**
+       * Sets the title text of the grid.
+       */
+      setTitle(title: string): Grid;
     }
 
     /**

@@ -8,15 +8,15 @@ declare namespace protect {
     type HttpFrameworkSelection = 'express' | 'http' | 'restify';
 
     interface ProtectionConfig {
-        production?: boolean;
-        clientRetrySecs?: number;
-        sampleInterval?: number;
-        maxEventLoopDelay?: number;
-        maxHeapUsedBytes?: number;
-        maxRssBytes?: number;
-        errorPropagationMode?: boolean;
-        logging?: boolean | string | ((msg: string) => void);
-        logStatsOnReq?: false;
+        production?: boolean | undefined;
+        clientRetrySecs?: number | undefined;
+        sampleInterval?: number | undefined;
+        maxEventLoopDelay?: number | undefined;
+        maxHeapUsedBytes?: number | undefined;
+        maxRssBytes?: number | undefined;
+        errorPropagationMode?: boolean | undefined;
+        logging?: boolean | string | ((msg: string) => void) | undefined;
+        logStatsOnReq?: false | undefined;
     }
 
     interface ProtectionInstance {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Cat, Planet, Mug, Browser, Backpack, Ghost, File, SpeechBubble, KawaiiMood, KawaiiProps, IceCream } from 'react-kawaii';
+import { Cat, Planet, Mug, Browser, Backpack, Ghost, File, SpeechBubble, KawaiiMood, KawaiiProps, IceCream, Chocolate, Folder } from 'react-kawaii';
 
 const PlanetExample = () => <Planet size={200} mood="blissful" color="#FDA7DC" />;
 const MugExample = () => <Mug size={200} mood="ko" color="rebeccapurple" />;
@@ -10,6 +10,8 @@ const BrowserExample = () => <Browser size={500} />;
 const BackpackExample = () => <Backpack />;
 const SpeechBubbleExample = () => <SpeechBubble />;
 const CatExample = () => <Cat />;
+const ChocolateExample = () => <Chocolate />;
+const FolderExample = () => <Folder />;
 
 // $ExpectError
 const invalidMoodNumber: KawaiiMood = 5;

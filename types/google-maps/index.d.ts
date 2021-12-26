@@ -5,7 +5,7 @@
 
 // TypeScript Version: 3.0
 
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 
 declare namespace GoogleMapsLoader {
     type google = { maps: typeof google.maps };

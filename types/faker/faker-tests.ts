@@ -2,7 +2,9 @@ let resultStr: string;
 let resultBool: boolean;
 let resultNum: number;
 let resultStrArr: string[];
+let resultStrNumArray: Array<string | number>;
 let resultDate: Date;
+let resultDateArray: Date[];
 
 import faker = require('faker');
 faker.locale = 'en';
@@ -15,7 +17,8 @@ resultStr = faker.address.zipCodeByState('foo');
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
 resultStr = faker.address.city();
-resultStr = faker.address.city(0);
+resultStr = faker.address.city('{{name.lastName}}{{address.citySuffix}}');
+resultStr = faker.address.cityName();
 resultStr = faker.address.cityPrefix();
 resultStr = faker.address.citySuffix();
 resultStr = faker.address.streetName();
@@ -43,7 +46,23 @@ resultStr = faker.address.ordinalDirection();
 resultStr = faker.address.ordinalDirection(true);
 resultStrArr = faker.address.nearbyGPSCoordinate();
 resultStrArr = faker.address.nearbyGPSCoordinate(['0', '0'], 0, true);
+resultStrArr = faker.address.nearbyGPSCoordinate([0, 0], 0, true);
 resultStr = faker.address.timeZone();
+
+resultStr = faker.animal.dog();
+resultStr = faker.animal.cat();
+resultStr = faker.animal.snake();
+resultStr = faker.animal.bear();
+resultStr = faker.animal.lion();
+resultStr = faker.animal.cetacean();
+resultStr = faker.animal.horse();
+resultStr = faker.animal.bird();
+resultStr = faker.animal.cow();
+resultStr = faker.animal.fish();
+resultStr = faker.animal.crocodilia();
+resultStr = faker.animal.insect();
+resultStr = faker.animal.rabbit();
+resultStr = faker.animal.type();
 
 resultStr = faker.commerce.color();
 resultStr = faker.commerce.department();
@@ -73,10 +92,47 @@ resultStr = faker.database.type();
 resultStr = faker.database.collation();
 resultStr = faker.database.engine();
 
+resultNum = faker.datatype.number();
+resultNum = faker.datatype.number(0);
+resultNum = faker.datatype.number({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultNum = faker.datatype.float();
+resultNum = faker.datatype.float(0);
+resultNum = faker.datatype.float({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultDate = faker.datatype.datetime();
+resultDate = faker.datatype.datetime(0);
+resultDate = faker.datatype.datetime({
+    min: 0,
+    max: 0,
+});
+resultStr = faker.datatype.string();
+resultStr = faker.datatype.string(0);
+resultStr = faker.datatype.uuid();
+resultBool = faker.datatype.boolean();
+resultStr = faker.datatype.hexaDecimal();
+resultStr = faker.datatype.hexaDecimal(0);
+resultStr = faker.datatype.json();
+resultStrNumArray = faker.datatype.array();
+resultStrNumArray = faker.datatype.array(0);
+
 resultDate = faker.date.past();
 resultDate = faker.date.future();
 resultDate = faker.date.between('foo', 'bar');
+resultDate = faker.date.between(1234, 5678);
 resultDate = faker.date.between(new Date(), new Date());
+resultDateArray = faker.date.betweens('foo', 'bar');
+resultDateArray = faker.date.betweens('foo', 'bar', 1);
+resultDateArray = faker.date.betweens(1234, 5678);
+resultDateArray = faker.date.betweens(1234, 5678, 2);
+resultDateArray = faker.date.betweens(new Date(), new Date());
+resultDateArray = faker.date.betweens(new Date(), new Date(), 2);
 resultDate = faker.date.recent();
 resultDate = faker.date.recent(100, new Date());
 resultDate = faker.date.soon();
@@ -112,6 +168,7 @@ resultStr = faker.finance.creditCardCVV();
 resultStr = faker.finance.ethereumAddress();
 resultStr = faker.finance.iban();
 resultStr = faker.finance.iban(true);
+resultStr = faker.finance.iban(false, "de");
 resultStr = faker.finance.bic();
 resultStr = faker.finance.transactionDescription();
 
@@ -185,11 +242,13 @@ resultStr = faker.internet.email('foo', 'bar', 'quux');
 resultStr = faker.internet.exampleEmail();
 resultStr = faker.internet.exampleEmail('foo', 'bar');
 resultStr = faker.internet.protocol();
+resultStr = faker.internet.httpMethod();
 resultStr = faker.internet.url();
 resultStr = faker.internet.domainName();
 resultStr = faker.internet.domainSuffix();
 resultStr = faker.internet.domainWord();
 resultStr = faker.internet.ip();
+resultNum = faker.internet.port();
 resultStr = faker.internet.userAgent();
 resultStr = faker.internet.color();
 resultStr = faker.internet.color(0, 0, 0);
@@ -278,12 +337,14 @@ resultStr = faker.random.alphaNumeric(0);
 resultStr = faker.random.hexaDecimal();
 resultStr = faker.random.hexaDecimal(0);
 
-resultStr = faker.system.fileName('foo', 'bar');
-resultStr = faker.system.commonFileName('foo', 'bar');
+resultStr = faker.system.fileName();
+resultStr = faker.system.commonFileName();
+resultStr = faker.system.commonFileName('foo');
 resultStr = faker.system.mimeType();
 resultStr = faker.system.commonFileType();
 resultStr = faker.system.commonFileExt();
 resultStr = faker.system.fileType();
+resultStr = faker.system.fileExt();
 resultStr = faker.system.fileExt('foo');
 resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
@@ -301,6 +362,20 @@ resultStr = faker.vehicle.type();
 resultStr = faker.vehicle.fuel();
 resultStr = faker.vehicle.vin();
 resultStr = faker.vehicle.color();
+resultStr = faker.vehicle.vrm();
+resultStr = faker.vehicle.bicycle();
+
+resultNum = faker.unique(faker.random.number);
+resultNum = faker.unique(faker.random.number, undefined, { maxTime: new Date('3000-01-01').getTime() });
+resultNum = faker.unique(faker.random.number, undefined, { maxRetries: 999 });
+resultNum = faker.unique(faker.random.number, [{ min: 0, max: 100, precision: 2 }]);
+resultStr = faker.unique(faker.random.word);
+resultStr = faker.unique(faker.random.word, ['noun']);
+resultStr = faker.unique(faker.random.words, [10]);
+resultDate = faker.unique(faker.date.past);
+resultDate = faker.unique<typeof faker.date.between>(faker.date.between, ['foo', 'bar']);
+resultDate = faker.unique(faker.date.between, [new Date(), new Date()]);
+resultDate = faker.unique(faker.date.soon, [100, new Date()]);
 
 import fakerAz = require('faker/locale/az');
 resultStr = fakerAz.name.firstName();

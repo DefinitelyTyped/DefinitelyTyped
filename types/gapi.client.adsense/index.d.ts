@@ -1,5 +1,5 @@
-// Type definitions for non-npm package AdSense Management API v1.4 1.4
-// Project: https://developers.google.com/adsense/management/
+// Type definitions for non-npm package AdSense Management API v2 2.0
+// Project: http://code.google.com/apis/adsense/management/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

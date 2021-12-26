@@ -2,7 +2,6 @@
 // Project: https://github.com/domenic/sinon-chai
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 Jed Mao <https://github.com/jedmao>
-//                 Eyal Lapid <https://github.com/elpdpt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -43,11 +42,11 @@ declare global {
             /**
              * Returns true if the spy was called before anotherSpy.
              */
-            calledBefore(anotherSpy: Sinon.SinonSpy): Assertion;
+            calledBefore(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall): Assertion;
             /**
              * Returns true if the spy was called after anotherSpy.
              */
-            calledAfter(anotherSpy: Sinon.SinonSpy): Assertion;
+            calledAfter(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall): Assertion;
             /**
              * Returns true if spy was called before anotherSpy, and no spy calls occurred
              * between spy and anotherSpy.

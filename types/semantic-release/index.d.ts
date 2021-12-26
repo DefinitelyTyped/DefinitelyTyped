@@ -9,6 +9,12 @@
 
 declare namespace SemanticRelease {
     /**
+     * A semver release type.
+     * See https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-types.js
+     */
+    type ReleaseType = "prerelease" | "prepatch" | "patch" | "preminor" | "minor" | "premajor" | "major";
+
+    /**
      * semantic-release options.
      *
      * Can be used to set any core option or plugin options.
@@ -28,7 +34,7 @@ declare namespace SemanticRelease {
          * file will take precedence over the ones defined in any shareable
          * configuration.
          */
-        extends?: ReadonlyArray<string> | string;
+        extends?: ReadonlyArray<string> | string | undefined;
 
         /**
          * The branches on which releases should happen. By default
@@ -62,7 +68,7 @@ declare namespace SemanticRelease {
          * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
          * for more details.
          */
-        branches?: ReadonlyArray<BranchSpec> | BranchSpec;
+        branches?: ReadonlyArray<BranchSpec> | BranchSpec | undefined;
 
         /**
          * The git repository URL.
@@ -72,7 +78,7 @@ declare namespace SemanticRelease {
          *
          * Default: `repository` property in `package.json`, or git origin url.
          */
-        repositoryUrl?: string;
+        repositoryUrl?: string | undefined;
 
         /**
          * The git tag format used by **semantic-release** to identify
@@ -83,7 +89,7 @@ declare namespace SemanticRelease {
          * exactly once and compile to a
          * [valid git reference](https://git-scm.com/docs/git-check-ref-format#_description).
          */
-        tagFormat?: string;
+        tagFormat?: string | undefined;
 
         /**
          * Define the list of plugins to use. Plugins will run in series, in
@@ -103,18 +109,18 @@ declare namespace SemanticRelease {
          *     "@semantic-release/github"
          * ]`
          */
-        plugins?: ReadonlyArray<PluginSpec>;
+        plugins?: ReadonlyArray<PluginSpec> | undefined;
 
         /**
          * Dry-run mode, skip publishing, print next version and release notes.
          */
-        dryRun?: boolean;
+        dryRun?: boolean | undefined;
 
         /**
          * Set to false to skip Continuous Integration environment verifications.
          * This allows for making releases from a local machine.
          */
-        ci?: boolean;
+        ci?: boolean | undefined;
 
         /**
          * Any other options supported by plugins.
@@ -248,7 +254,7 @@ declare namespace SemanticRelease {
          * For example `{name: 'next', channel: 'channel-${name}'}` will be
          * expanded to `{name: 'next', channel: 'channel-next'}`.
          */
-        channel?: string | false;
+        channel?: string | false | undefined;
 
         /**
          * The range of [semantic versions](https://semver.org/) to support on
@@ -263,7 +269,7 @@ declare namespace SemanticRelease {
          * Required for maintenance branches, unless `name` is formatted like
          * `N.N.x` or `N.x` (`N` is a number).
          */
-        range?: string;
+        range?: string | undefined;
 
         /**
          * The pre-release identifier to append to [semantic versions](https://semver.org/)
@@ -285,7 +291,7 @@ declare namespace SemanticRelease {
          *
          * Required for pre-release branches.
          */
-        prerelease?: string | boolean;
+        prerelease?: string | boolean | undefined;
     };
 
     /**
@@ -309,7 +315,7 @@ declare namespace SemanticRelease {
          *
          * @default process.cwd
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * The environment variables to use.
@@ -319,7 +325,7 @@ declare namespace SemanticRelease {
          *
          * @default process.env
          */
-        env?: { [name: string]: string };
+        env?: { [name: string]: string } | undefined;
 
         /**
          * The writable stream used to log information.
@@ -329,7 +335,7 @@ declare namespace SemanticRelease {
          *
          * @default process.stdout
          */
-        stdout?: NodeJS.WriteStream;
+        stdout?: NodeJS.WriteStream | undefined;
 
         /**
          * The writable stream used to log errors.
@@ -339,7 +345,7 @@ declare namespace SemanticRelease {
          *
          * @default process.stderr
          */
-        stderr?: NodeJS.WriteStream;
+        stderr?: NodeJS.WriteStream | undefined;
     }
 
     interface LastRelease {
@@ -363,7 +369,32 @@ declare namespace SemanticRelease {
         /**
          * The semver type of the release.
          */
-        type: "patch" | "minor" | "major";
+        type: ReleaseType;
+
+        /**
+         * The release channel of the release.
+         */
+        channel?: string | undefined;
+
+        /**
+         * The git hash of the release.
+         */
+        gitHead: string;
+
+        /**
+         * The version without v
+         */
+        version: string;
+
+        /**
+         * The version with v prefix
+         */
+        gitTag: string;
+
+        /**
+         * The release name
+         */
+        name?: string;
 
         /**
          * The release notes of the next release.
@@ -375,17 +406,17 @@ declare namespace SemanticRelease {
         /**
          * The semantic release configuration itself.
          */
-        options?: GlobalConfig;
+        options?: GlobalConfig | undefined;
 
         /**
          * The previous release details.
          */
-        lastRelease?: LastRelease;
+        lastRelease?: LastRelease | undefined;
 
         /**
          * The next release details.
          */
-        nextRelease?: NextRelease;
+        nextRelease?: NextRelease | undefined;
 
         /**
          * The shared logger instance of semantic release.
@@ -401,6 +432,11 @@ declare namespace SemanticRelease {
         env: {
             [key: string]: string;
         };
+
+        /**
+         * Commits to analyze.
+         */
+        commits?: Commit[];
     }
 
     interface Commit {
@@ -507,17 +543,17 @@ declare namespace SemanticRelease {
         /**
          * The release name, only if set by the corresponding publish plugin.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The release URL, only if set by the corresponding publish plugin.
          */
-        url?: string;
+        url?: string | undefined;
 
         /**
          * The semver type of the release.
          */
-        type: "patch" | "minor" | "major";
+        type: ReleaseType;
 
         /**
          * The version of the release.

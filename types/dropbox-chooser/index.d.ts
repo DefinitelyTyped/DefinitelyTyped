@@ -16,19 +16,19 @@ declare namespace Dropbox {
         cancel?(): void;
 
         // default: 'preview'
-        linkType?: 'preview' | 'direct';
+        linkType?: 'preview' | 'direct' | undefined;
 
         // default: false
-        multiselect?: boolean;
+        multiselect?: boolean | undefined;
 
         // eg. '.png'
-        extensions?: string[];
+        extensions?: string[] | undefined;
 
         // default: false
-        folderselect?: boolean;
+        folderselect?: boolean | undefined;
 
         // any positive number
-        sizeLimit?: number;
+        sizeLimit?: number | undefined;
     }
 
     interface ChooserFile {
@@ -50,7 +50,7 @@ declare namespace Dropbox {
 
         // A thumbnail URL generated when the user selects images and videos.
         // If the user didn't select an image or video, no thumbnail will be included.
-        thumbnailLink?: string;
+        thumbnailLink?: string | undefined;
 
         // whether or not the file is actually a directory
         isDir: boolean;
@@ -62,5 +62,5 @@ declare namespace Dropbox {
 }
 
 interface Window {
-    Dropbox?: Dropbox.Chooser;
+    Dropbox?: Dropbox.Chooser | undefined;
 }

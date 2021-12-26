@@ -7,7 +7,7 @@ import { ExtensionDefinition, TemplateBase } from 'jsreport-core';
 
 declare namespace JsReportTemplates {
     interface NamedTemplate extends TemplateBase {
-        name?: string;
+        name?: string | undefined;
     }
 }
 

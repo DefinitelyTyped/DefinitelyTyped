@@ -98,11 +98,11 @@ interface StringJS {
     
     toCSV(delimiter?: string, qualifier?: string): StringJS;
     toCSV(options: {
-        delimiter?: string,
-        qualifier?: string,
-        escape?: string,
-        encloseNumbers?: boolean,
-        keys?: boolean
+        delimiter?: string | undefined,
+        qualifier?: string | undefined,
+        escape?: string | undefined,
+        encloseNumbers?: boolean | undefined,
+        keys?: boolean | undefined
     }): StringJS;
     
     toFloat(precision?: number): number;

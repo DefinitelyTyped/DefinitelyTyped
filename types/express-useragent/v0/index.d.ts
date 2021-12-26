@@ -8,7 +8,7 @@
 
 declare namespace Express {
     interface Request {
-        useragent?: ExpressUseragent.UserAgent;
+        useragent?: ExpressUseragent.UserAgent | undefined;
     }
 }
 

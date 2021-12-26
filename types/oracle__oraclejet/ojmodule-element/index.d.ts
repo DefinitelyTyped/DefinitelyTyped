@@ -27,7 +27,7 @@ export interface ModuleElementAnimation {
 export interface ojModule extends JetElement<ojModuleSettableProperties> {
     animation: object;
     config: {
-        cleanupMode?: 'onDisconnect' | 'none';
+        cleanupMode?: 'onDisconnect' | 'none' | undefined;
         view: Node[];
         viewModel: object | null;
     };
@@ -79,7 +79,7 @@ export interface ojModuleEventMap extends HTMLElementEventMap {
 export interface ojModuleSettableProperties extends JetSettableProperties {
     animation: object;
     config: {
-        cleanupMode?: 'onDisconnect' | 'none';
+        cleanupMode?: 'onDisconnect' | 'none' | undefined;
         view: Node[];
         viewModel: object | null;
     };

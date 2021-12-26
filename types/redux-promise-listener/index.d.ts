@@ -20,9 +20,9 @@ declare namespace ReduxPromiseListener {
         start: string;
         resolve: string | ActionMatcher;
         reject: string | ActionMatcher;
-        setPayload?: (action: StartAction, payload: any) => AnyAction;
-        getPayload?: (action: ResolveAction) => TReturn;
-        getError?: (action: RejectAction) => any;
+        setPayload?: ((action: StartAction, payload: any) => AnyAction) | undefined;
+        getPayload?: ((action: ResolveAction) => TReturn) | undefined;
+        getError?: ((action: RejectAction) => any) | undefined;
     }
 
     interface AsyncFunction<TReturn> {

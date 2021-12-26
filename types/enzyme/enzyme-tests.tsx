@@ -11,7 +11,7 @@ import {
     ShallowRendererProps,
     ComponentClass as EnzymeComponentClass
 } from "enzyme";
-import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
+import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, FunctionComponent } from "react";
 
 // Help classes/interfaces
 interface MyComponentProps {
@@ -20,8 +20,8 @@ interface MyComponentProps {
 }
 
 interface AnotherComponentProps {
-    anotherStringProp?: string;
-    anotherNumberProp?: number;
+    anotherStringProp?: string | undefined;
+    anotherNumberProp?: number | undefined;
 }
 
 interface StatelessProps {
@@ -45,7 +45,7 @@ interface MyProviderProps {
     value: string;
 }
 
-function toComponentType<T>(Component: ComponentClass<T> | StatelessComponent<T>): ComponentClass<T> | StatelessComponent<T> {
+function toComponentType<T>(Component: ComponentClass<T> | FunctionComponent<T>): ComponentClass<T> | FunctionComponent<T> {
   return Component;
 }
 
@@ -79,7 +79,7 @@ interface OptionalFunctionProp {
     singleArg(arg: any): void;
     multipleArg(arg1: number, arg2: string, arg3: boolean): void;
     multipleReturn(): void | number | boolean | undefined | null | string;
-    nonFun?: number;
+    nonFun?: number | undefined;
 }
 
 class MyRenderPropComponent extends Component<MyRenderPropProps> {}
@@ -99,7 +99,7 @@ const CommonWrapperHelper = {
         wrapper.invoke('requiredFunctionProp'); // $ExpectType () => void
         wrapper.invoke('singleArg'); // $ExpectType (arg: any) => void
         wrapper.invoke('multipleArg'); // $ExpectType (arg1: number, arg2: string, arg3: boolean) => void
-        wrapper.invoke('multipleReturn'); // $ExpectType () => string | number | boolean | void | null | undefined
+        wrapper.invoke('multipleReturn'); // $ExpectType () => string | number | boolean | void | null | undefined || () => string | number | boolean | void | null
         wrapper.invoke(undefined); // $ExpectError
         wrapper.invoke(null); // $ExpectError
         wrapper.invoke('nonFun'); // $ExpectError
@@ -467,7 +467,7 @@ function ShallowWrapperTest() {
     }
 
     function test_type() {
-        const type: string | StatelessComponent<MyComponentProps> | ComponentClass<MyComponentProps> = shallowWrapper.type();
+        const type: string | FunctionComponent<MyComponentProps> | ComponentClass<MyComponentProps> = shallowWrapper.type();
     }
 
     function test_name() {
@@ -904,7 +904,7 @@ function ReactWrapperTest() {
     }
 
     function test_type() {
-        const type: string | StatelessComponent<MyComponentProps> | ComponentClass<MyComponentProps> = reactWrapper.type();
+        const type: string | FunctionComponent<MyComponentProps> | ComponentClass<MyComponentProps> = reactWrapper.type();
     }
 
     function test_name() {

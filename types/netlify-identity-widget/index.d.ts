@@ -5,7 +5,7 @@
 
 export interface InitOptions {
     // The container to attach to. e.g.: '#some-query-selector'
-    container?: string;
+    container?: string | undefined;
 
     // Absolute url to endpoint. ONLY USE IN SPECIAL CASES!
     // e.g. https://www.example.com/.netlify/functions/identity
@@ -13,16 +13,16 @@ export interface InitOptions {
     // your app is served from a domain that differs from where the
     // identity endpoint is served.This is common for Cordova or Electron
     // apps where you host from localhost or a file.
-    APIUrl?: string;
+    APIUrl?: string | undefined;
 
     // Enable Netlify logo
-    logo?: boolean;
+    logo?: boolean | undefined;
 
     // Initial language
-    locale?: string;
+    locale?: string | undefined;
 
     // custom placeholder for name input form
-    namePlaceholder?: string;
+    namePlaceholder?: string | undefined;
 }
 
 export interface Token {
@@ -35,7 +35,7 @@ export interface Token {
 
 export interface User {
     api: {
-        _sameOrigin?: boolean;
+        _sameOrigin?: boolean | undefined;
         apiURL: string;
         defaultHeaders: {
             [header: string]: string | string[] | undefined;
@@ -55,7 +55,7 @@ export interface User {
     email: string;
     id: string;
     role: string;
-    token?: Token;
+    token?: Token | undefined;
     url: string;
     user_metadata: {
         avatar_url: string;

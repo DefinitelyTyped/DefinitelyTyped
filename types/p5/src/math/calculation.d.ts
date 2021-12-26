@@ -1,5 +1,3 @@
-// This file was auto-generated. Please do not edit it.
-
 import * as p5 from '../../index';
 
 declare module '../../index' {
@@ -142,7 +140,7 @@ declare module '../../index' {
             stop1: number,
             start2: number,
             stop2: number,
-            withinBounds?: boolean
+            withinBounds?: boolean,
         ): number;
 
         /**
@@ -219,9 +217,10 @@ declare module '../../index' {
          *   For example, round(133.8) returns the value 134.
          *   Maps to Math.round().
          *   @param n number to round
+         *   @param decimals number of decimal places to round to, default is 0
          *   @return rounded number
          */
-        round(n: number): number;
+        round(n: number, decimals?: number): number;
 
         /**
          *   Squares a number (multiplies a number by itself).
@@ -243,5 +242,13 @@ declare module '../../index' {
          *   @return square root of number
          */
         sqrt(n: number): number;
+
+        /**
+         * Calculates the fractional part of a number.
+         *
+         * @param [num] Number whose fractional part needs to be found out
+         * @returns fractional part of x, i.e, {x}
+         */
+        fract(num: number): number;
     }
 }

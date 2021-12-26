@@ -1,5 +1,27 @@
-declare class Toast {
-    constructor(element: Element, options?: Partial<Toast.Options>);
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+
+declare class Toast extends BaseComponent {
+    /**
+     * Static method which allows you to get the toast instance associated
+     * with a DOM element
+     */
+    static getInstance: GetInstanceFactory<Toast>;
+
+    /**
+     * Static method which allows you to get the scrollspy instance associated with a
+     * DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Toast, Partial<Toast.Options>>;
+
+    static jQueryInterface: Toast.jQueryInterface;
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Toast.Options;
+    constructor(element: string | Element, options?: Partial<Toast.Options>);
 
     /**
      * Reveals an element’s toast. Returns to the caller before the toast has actually
@@ -14,17 +36,6 @@ declare class Toast {
      * You have to manually call this method if you made autohide to false.
      */
     hide(): void;
-
-    /**
-     * Hides an element’s toast. Your toast will remain on the DOM but won’t show anymore.
-     */
-    dispose(): void;
-
-    /**
-     * Static method which allows you to get the toast instance associated
-     * with a DOM element
-     */
-    static getInstance(element: Element): Toast;
 }
 
 declare namespace Toast {
@@ -74,6 +85,8 @@ declare namespace Toast {
          */
         delay: number;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'dispose') => void;
 }
 
 export default Toast;

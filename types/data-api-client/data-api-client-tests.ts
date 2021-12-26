@@ -12,6 +12,18 @@ client.query('SELECT * FROM Users;').then(res => {
     }
 });
 
+client.query({ sql: 'SELECT * FROM Users;', transactionId: '' }).then(res => {
+    if (res.records?.length) {
+        // ...
+    }
+});
+
+client.query({ sql: 'SELECT * FROM Users;', parameters: {}, transactionId: '' }).then(res => {
+    if (res.records?.length) {
+        // ...
+    }
+});
+
 client
     .query<{ id: string; name: string }>('SELECT * FROM Users WHERE id = :id;', { id: 'id' })
     .then(res => {

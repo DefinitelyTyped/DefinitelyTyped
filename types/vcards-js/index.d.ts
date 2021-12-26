@@ -38,7 +38,7 @@ interface vCard {
     /**
      * The address for work-related electronic mail communication
      */
-    workEmail: string;
+    workEmail: string | string[];
 
     otherEmail: string | string[];
 

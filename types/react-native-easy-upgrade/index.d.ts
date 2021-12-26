@@ -38,14 +38,14 @@ declare class AppUpgrade {
      */
     downloadFile(fileUrl: string, downloadConf?: {
         tempDownloadPath: string;
-        downloadTitle?: string;
-        downloadDescription?: string;
-        saveAsName?: string;
-        allowedInRoaming?: boolean;
-        allowedInMetered?: boolean;
-        showInDownloads?: boolean;
-        external?: boolean;
-        path?: string;
+        downloadTitle?: string | undefined;
+        downloadDescription?: string | undefined;
+        saveAsName?: string | undefined;
+        allowedInRoaming?: boolean | undefined;
+        allowedInMetered?: boolean | undefined;
+        showInDownloads?: boolean | undefined;
+        external?: boolean | undefined;
+        path?: string | undefined;
     }): void;
 
     /**

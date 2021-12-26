@@ -1,14 +1,14 @@
 // Type definitions for webpack-watched-glob-entries-plugin 2.1
 // Project: https://github.com/Milanzor/webpack-watched-glob-entries-plugin#readme
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { IOptions } from 'glob';
 import { EntryFunc, Plugin } from 'webpack';
 
 interface PluginOptions {
-    basename_as_entry_name?: boolean;
+    basename_as_entry_name?: boolean | undefined;
 }
 
 declare class WebpackWatchedGlobEntries extends Plugin {

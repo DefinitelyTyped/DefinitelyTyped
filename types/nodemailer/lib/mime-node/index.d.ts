@@ -7,12 +7,12 @@ import SMTPConnection = require('../smtp-connection');
 
 declare namespace MimeNode {
     interface Addresses {
-        from?: string[];
-        sender?: string[];
-        'reply-to'?: string[];
-        to?: string[];
-        cc?: string[];
-        bcc?: string[];
+        from?: string[] | undefined;
+        sender?: string[] | undefined;
+        'reply-to'?: string[] | undefined;
+        to?: string[] | undefined;
+        cc?: string[] | undefined;
+        bcc?: string[] | undefined;
     }
 
     interface Envelope {
@@ -24,17 +24,17 @@ declare namespace MimeNode {
 
     interface Options {
         /** root node for this tree */
-        rootNode?: MimeNode;
+        rootNode?: MimeNode | undefined;
         /** immediate parent for this node */
-        parentNode?: MimeNode;
+        parentNode?: MimeNode | undefined;
         /** filename for an attachment node */
-        filename?: string;
+        filename?: string | undefined;
         /** shared part of the unique multipart boundary */
-        baseBoundary?: string;
+        baseBoundary?: string | undefined;
         /** If true, do not exclude Bcc from the generated headers */
-        keepBcc?: boolean;
+        keepBcc?: boolean | undefined;
         /** either 'Q' (the default) or 'B' */
-        textEncoding?: 'B' | 'Q';
+        textEncoding?: 'B' | 'Q' | undefined;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
     }

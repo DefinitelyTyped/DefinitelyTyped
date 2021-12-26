@@ -9,6 +9,15 @@ agent.toString(); // user agent string
 const agent2 = new UserAgent(/Safari/);
 agent2.data; // random with safari
 
-const agent3 = new UserAgent({ platform: 'Win32' });
-agent3.data; // random with win32
-agent3.data.userAgent; // userAgent
+const agent3 = new UserAgent(new RegExp('MacIntel'));
+agent3.data; // $ExpectType Data
+
+const agent4 = new UserAgent({ platform: 'Win32' });
+agent4.data; // $ExpectType Data
+agent4.data.userAgent; // $ExpectType string
+
+const agent5 = new UserAgent([{ platform: 'Win32' }, /Mozilla/]);
+agent5.data; // random with multiple filters
+agent5.data.userAgent; // userAgent
+
+new UserAgent([{ platform: 'Win32' }, /Mozilla/, undefined, 20]); // $ExpectError

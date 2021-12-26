@@ -110,8 +110,8 @@ TPDirect.paymentRequestApi.getPrime((result) => {
      * Only test different field with other payment response
      */
     result.client_ip; // $ExpectType string
-    result.card_info.country_code; // $ExpectType string
-    result.card_info.last_four; // $ExpectType string
+    result.card_info.countrycode; // $ExpectType string
+    result.card_info.lastfour; // $ExpectType string
     result.card.lastfour; // $ExpectType string
 });
 
@@ -128,8 +128,8 @@ TPDirect.googlePay.getPrime((error, prime, result) => {
      * Only test different field with other payment response
      */
     result.client_ip; // $ExpectType string
-    result.card_info.country_code; // $ExpectType string
-    result.card_info.last_four; // $ExpectType string
+    result.card_info.countrycode; // $ExpectType string
+    result.card_info.lastfour; // $ExpectType string
 });
 
 // $ExpectType void
@@ -160,8 +160,8 @@ TPDirect.googlePay.setupGooglePayButton({
          * Only test different field with other payment response
          */
         result.client_ip; // $ExpectType string
-        result.card_info.country_code; // $ExpectType string
-        result.card_info.last_four; // $ExpectType string
+        result.card_info.countrycode; // $ExpectType string
+        result.card_info.lastfour; // $ExpectType string
     }
 });
 
@@ -180,8 +180,8 @@ TPDirect.googlePay.getPrime((error, prime, result) => {
      * Only test different field with other payment response
      */
     result.client_ip; // $ExpectType string
-    result.card_info.country_code; // $ExpectType string
-    result.card_info.last_four; // $ExpectType string
+    result.card_info.countrycode; // $ExpectType string
+    result.card_info.lastfour; // $ExpectType string
 });
 
 /**
@@ -199,8 +199,8 @@ TPDirect.samsungPay.getPrime((result) => {
      * Only test different field with other payment response
      */
     result.client_ip; // $ExpectType string
-    result.card_info.country_code; // $ExpectType string
-    result.card_info.last_four; // $ExpectType string
+    result.card_info.countrycode; // $ExpectType string
+    result.card_info.lastfour; // $ExpectType string
 });
 
 // $ExpectType void

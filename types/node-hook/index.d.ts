@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    verbose?: boolean;
+    verbose?: boolean | undefined;
 }
 
 type Transform = (source: string, filename: string) => string;

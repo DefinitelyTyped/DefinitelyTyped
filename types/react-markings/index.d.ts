@@ -19,7 +19,7 @@ declare namespace md {
     type Renderers = CommonmarkReactRenderer.Renderers;
 
     interface Options {
-        renderers?: Partial<Renderers>;
+        renderers?: Partial<Renderers> | undefined;
     }
 
     type Markings = (...strings: Array<TemplateStringsArray | React.ReactElement>) => React.ReactElement;

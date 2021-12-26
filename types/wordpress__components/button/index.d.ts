@@ -9,81 +9,81 @@ declare namespace Button {
          * Renders a default button style.
          * @deprecated use `isSecondary`
          */
-        isDefault?: boolean;
+        isDefault?: boolean | undefined;
         /**
          * Renders a primary button style.
          */
-        isPrimary?: boolean;
+        isPrimary?: boolean | undefined;
         /**
          * Renders a default button style.
          */
-        isSecondary?: boolean;
+        isSecondary?: boolean | undefined;
         /**
          * Renders a text-based button style.
          */
-        isTertiary?: boolean;
+        isTertiary?: boolean | undefined;
         /**
          * Renders a red text-based button style to indicate destructive
          * behavior.
          */
-        isDestructive?: boolean;
+        isDestructive?: boolean | undefined;
         /**
          * Increases the size of the button.
          */
-        isLarge?: boolean;
+        isLarge?: boolean | undefined;
         /**
          * Decreases the size of the button.
          */
-        isSmall?: boolean;
+        isSmall?: boolean | undefined;
         /**
          * Renders a toggled button style.
          */
-        isPressed?: boolean;
+        isPressed?: boolean | undefined;
         /** @deprecated Use `isPressed` instead. */
-        isToggled?: never;
+        isToggled?: never | undefined;
         /**
          * Indicates activity while a action is being performed.
          */
-        isBusy?: boolean;
+        isBusy?: boolean | undefined;
         /**
          * Renders a button with an anchor style.
          */
-        isLink?: boolean;
+        isLink?: boolean | undefined;
         /**
          * Renders a disabled button.
          */
-        disabled?: boolean;
-        className?: string;
+        disabled?: boolean | undefined;
+        className?: string | undefined;
         /**
          * The icon to render. Supported values are: Dashicons (specified as
          * strings), functions, WPComponent instances and `null`.
          * @defaultValue null
          */
-        icon?: Icon.Props<any>['icon'];
+        icon?: Icon.Props<any>['icon'] | undefined;
         /**
          * The size (width and height) of the icon.
          * @defaultValue `20` (when using Dashicon), `24` otherwise
          */
-        iconSize?: Icon.Props<any>['size'];
+        iconSize?: Icon.Props<any>['size'] | undefined;
         /**
          * Renders a with the `label` prop when `true`.
          * @defaultValue false
          */
-        showTooltip?: boolean;
+        showTooltip?: boolean | undefined;
         /**
          * The direction in which the tooltip should open relative to its
          * parent node.
          */
-        tooltipPosition?: Tooltip.Props['position'];
-        shortcut?: Tooltip.Props['shortcut'];
+        tooltipPosition?: Tooltip.Props['position'] | undefined;
+        shortcut?: Tooltip.Props['shortcut'] | undefined;
         /**
          * Used as the Tooltip text and `aria-label` if one is not provided.
          */
-        label?: string;
+        label?: string | undefined;
     }
     interface AnchorProps extends BaseProps, HTMLProps<HTMLAnchorElement> {}
     interface ButtonProps extends BaseProps, HTMLProps<HTMLButtonElement> {
-        href?: never;
+        href?: never | undefined;
     }
     type Props = AnchorProps | ButtonProps;
 }

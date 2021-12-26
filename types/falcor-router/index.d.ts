@@ -3,7 +3,7 @@
 // Definitions by: Quramy <https://github.com/Quramy>
 //                 cdhgee <https://github.com/cdhgee>
 //                 LukeRielley <https://github.com/lukerielley>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="falcor" />
@@ -54,9 +54,9 @@ declare namespace FalcorRouter {
     type CallRouteResult = FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath | Array<FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath> | FalcorJsonGraph.JSONGraphEnvelope;
 
     interface RouterOptions {
-        debug?: boolean;
-        maxPaths?: number;
-        maxRefFollow?: number;
+        debug?: boolean | undefined;
+        maxPaths?: number | undefined;
+        maxRefFollow?: number | undefined;
     }
 }
 

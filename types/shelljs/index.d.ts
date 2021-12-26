@@ -1,5 +1,5 @@
 // Type definitions for ShellJS 0.8
-// Project: http://shelljs.org, http://github.com/shelljs/shelljs
+// Project: http://shelljs.org, https://github.com/shelljs/shelljs
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 //                 Vojtech Jasny <https://github.com/voy>
 //                 George Kalpakas <https://github.com/gkalpak>
@@ -758,7 +758,7 @@ export interface ExecFunction {
      * @return        Returns an object containing the return code and output as string,
      *                or if `{async: true}` was passed, a `ChildProcess`.
      */
-    (command: string, options: ExecOptions & { async?: false }): ShellString;
+    (command: string, options: ExecOptions & { async?: false | undefined }): ShellString;
 
     /**
      * Executes the given command asynchronously.
@@ -833,14 +833,14 @@ export interface ExecOptions extends child.ExecOptions {
      *
      * @default false
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
 
     /**
      * Exit when command return code is non-zero.
      *
      * @default false
      */
-    fatal?: boolean;
+    fatal?: boolean | undefined;
 
     /**
      * Asynchronous execution.
@@ -849,7 +849,7 @@ export interface ExecOptions extends child.ExecOptions {
      *
      * @default false
      */
-    async?: boolean;
+    async?: boolean | undefined;
 
     /**
      * Character encoding to use.
@@ -859,7 +859,7 @@ export interface ExecOptions extends child.ExecOptions {
      *
      * @default "utf8"
      */
-    encoding?: string;
+    encoding?: string | undefined;
 }
 
 export interface ExecOutputReturnValue {
@@ -1096,8 +1096,8 @@ export function error(): ShellString;
 export type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
 
 export interface TouchOptionsArray {
-    "-d"?: string;
-    "-r"?: string;
+    "-d"?: string | undefined;
+    "-r"?: string | undefined;
 }
 
 export interface TouchFunction {

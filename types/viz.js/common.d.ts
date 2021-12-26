@@ -1,9 +1,9 @@
 interface Options {
-  format?: string;
-  engine?: string;
-  files?: string[];
-  images?: string[];
-  yInvert?: boolean;
+  format?: string | undefined;
+  engine?: string | undefined;
+  files?: string[] | undefined;
+  images?: string[] | undefined;
+  yInvert?: boolean | undefined;
 }
 
 /**
@@ -20,4 +20,7 @@ type RenderFunction = (instance: Module, src: string, options: Options) => strin
 declare class Viz {
   constructor(arg: { Module: Module; render: RenderFunction });
   renderString(src: string, options?: Options): Promise<string>;
+  renderSVGElement(src: string, options?: Options): Promise<SVGSVGElement>;
+  renderImageElement(src: string, options?: Options): Promise<HTMLImageElement>;
+  renderJSONObject(src: string, options?: Options): Promise<object>;
 }

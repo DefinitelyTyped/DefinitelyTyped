@@ -175,9 +175,9 @@ declare namespace lf {
     type Table = ITable & { [index: string]: Column };
 
     interface ConnectOptions {
-      onUpgrade?: (rawDb: raw.BackStore) => Promise<void>;
-      storeType?: DataStoreType;
-      webSqlDbSize?: number;
+      onUpgrade?: ((rawDb: raw.BackStore) => Promise<void>) | undefined;
+      storeType?: DataStoreType | undefined;
+      webSqlDbSize?: number | undefined;
       // TODO(dpapad): firebase?
     }
 
@@ -197,8 +197,8 @@ declare namespace lf {
     type RawForeignKeySpec = {
       local: string
       ref: string
-      action?: ConstraintAction
-      timing?: ConstraintTiming
+      action?: ConstraintAction | undefined
+      timing?: ConstraintTiming | undefined
     };
 
     interface TableBuilder {

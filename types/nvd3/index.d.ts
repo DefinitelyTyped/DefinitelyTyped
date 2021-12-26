@@ -14,10 +14,10 @@ declare namespace nv {
 
 //#region Core Interfaces
     interface Margin {
-        left?: number,
-        right?: number,
-        top?: number,
-        bottom?: number
+        left?: number | undefined,
+        right?: number | undefined,
+        top?: number | undefined,
+        bottom?: number | undefined
     }
 
     interface Size {
@@ -31,8 +31,8 @@ declare namespace nv {
     }
 
     interface Offset {
-        left?: number;
-        top?: number;
+        left?: number | undefined;
+        top?: number | undefined;
     }
 
     interface State {
@@ -63,7 +63,7 @@ declare namespace nv {
 
     interface ChartFactory<TChart extends Nvd3Element> {
         generate: () => TChart;
-        callback?: (chart: TChart) => void;
+        callback?: ((chart: TChart) => void) | undefined;
     }
 
     interface Nvd3TooltipStatic {

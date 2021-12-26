@@ -11,6 +11,6 @@ declare namespace ngWYSIWYG {
 
     interface Config {
         sanitize: boolean;
-        toolbar?: Toolbar[];
+        toolbar?: Toolbar[] | undefined;
     }
 }

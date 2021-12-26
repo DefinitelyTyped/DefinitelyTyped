@@ -12,11 +12,11 @@ export interface ServiceConfiguration {
   log: {
     config: LoggerConfiguration,
     file?: {
-      source?: FileConfiguration;
-    },
+      source?: FileConfiguration | undefined;
+    } | undefined,
     source?: {
-      source?: SourcesConfiguration
-    }
+      source?: SourcesConfiguration | undefined
+    } | undefined
   };
 }
 

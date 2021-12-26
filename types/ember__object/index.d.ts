@@ -26,48 +26,48 @@ import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
  */
 export default class EmberObject extends CoreObject.extend(Observable) {}
 declare function computed(...deps: string[]): MethodDecorator;
-declare function computed<T>(
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+declare function computed<Get, Set = Get>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     k4: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     k4: string,
     k5: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     k4: string,
     k5: string,
     k6: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
 declare function computed(
     k1: string,
     k2: string,

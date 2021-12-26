@@ -86,16 +86,16 @@ declare namespace PleaseJS{
     }
 
     export interface MakeColorOption{
-        hue?: number;
-        saturation?: number;
-        value?: number;
-        base_color?: string;
-        greyscale?: boolean;
-        grayscale?: boolean;
-        golden?: boolean;
-        full_random?: boolean;
-        colors_returned?: number;
-        format?: string;
+        hue?: number | undefined;
+        saturation?: number | undefined;
+        value?: number | undefined;
+        base_color?: string | undefined;
+        greyscale?: boolean | undefined;
+        grayscale?: boolean | undefined;
+        golden?: boolean | undefined;
+        full_random?: boolean | undefined;
+        colors_returned?: number | undefined;
+        format?: string | undefined;
     }
 
     export interface MakeSchemeOption{

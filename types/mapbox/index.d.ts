@@ -24,12 +24,12 @@ declare global {
         function map(element: string|Element, idOrTileJson: any, options?: MapOptions): Map;
 
         interface MapOptions extends Leaflet.Map.MapOptions {
-            featureLayer?: FeatureLayerOptions;
+            featureLayer?: FeatureLayerOptions | undefined;
             gridLayer?: any;
-            tileLayer?: TileLayerOptions;
-            infoControl?: ControlOptions;
-            legendControl?: ControlOptions;
-            shareControl?: ShareControlOptions;
+            tileLayer?: TileLayerOptions | undefined;
+            infoControl?: ControlOptions | undefined;
+            legendControl?: ControlOptions | undefined;
+            shareControl?: ShareControlOptions | undefined;
         }
 
         type FilterFunction = (feature: any) => boolean;
@@ -60,7 +60,7 @@ declare global {
         function tileLayer(idOrTileJson: string, options?: TileLayerOptions): TileLayer;
 
         interface TileLayerOptions extends Leaflet.TileLayerOptions {
-            retinaVersion?: string;
+            retinaVersion?: string | undefined;
         }
 
         interface TileLayer extends Leaflet.TileLayer {
@@ -115,7 +115,7 @@ declare global {
         function featureLayer(idOrGeoJson?: any, options?: FeatureLayerOptions): FeatureLayer;
 
         interface FeatureLayerOptions {
-            filter?: FilterFunction;
+            filter?: FilterFunction | undefined;
             sanitizer?(template: string): string;
         }
 
@@ -263,11 +263,11 @@ declare global {
         function gridControl(layer: string, options?: GridControlOptions): GridControl;
 
         interface GridControlOptions extends ControlOptions {
-            template?: string;
-            follow?: boolean;
-            pinnable?: boolean;
-            touchTeaser?: boolean;
-            location?: boolean;
+            template?: string | undefined;
+            follow?: boolean | undefined;
+            pinnable?: boolean | undefined;
+            touchTeaser?: boolean | undefined;
+            location?: boolean | undefined;
         }
 
         interface GridControl extends Control {
@@ -294,7 +294,7 @@ declare global {
         function geocoderControl(id: string, options?: GeocoderControlOptions): GeocoderControl;
 
         interface GeocoderControlOptions extends Leaflet.ControlOptions {
-            keepOpen?: boolean;
+            keepOpen?: boolean | undefined;
         }
 
         interface GeocoderControl {
@@ -331,7 +331,7 @@ declare global {
         function shareControl(id: string, options?: ShareControlOptions): ShareControl;
 
         interface ShareControlOptions extends ControlOptions {
-            url?: string;
+            url?: string | undefined;
         }
 
         interface ShareControl extends Control {

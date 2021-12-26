@@ -15,7 +15,7 @@ declare function AsyncRetry<A>(
 
 declare namespace AsyncRetry {
     interface Options extends OperationOptions {
-        onRetry?: (e: Error, attempt: number) => any;
+        onRetry?: ((e: Error, attempt: number) => any) | undefined;
     }
 
     type RetryFunction<A> = (bail: (e: Error) => void, attempt: number) => A|Promise<A>;

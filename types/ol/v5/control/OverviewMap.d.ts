@@ -9,16 +9,16 @@ import View from '../View';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    collapsed?: boolean;
-    collapseLabel?: string | HTMLElement;
-    collapsible?: boolean;
-    label?: string | HTMLElement;
-    layers?: Layer[] | Collection<Layer>;
-    render?: (p0: MapEvent) => void;
-    target?: HTMLElement | string;
-    tipLabel?: string;
-    view?: View;
+    className?: string | undefined;
+    collapsed?: boolean | undefined;
+    collapseLabel?: string | HTMLElement | undefined;
+    collapsible?: boolean | undefined;
+    label?: string | HTMLElement | undefined;
+    layers?: Layer[] | Collection<Layer> | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
+    target?: HTMLElement | string | undefined;
+    tipLabel?: string | undefined;
+    view?: View | undefined;
 }
 export default class OverviewMap extends Control {
     constructor(opt_options?: Options);

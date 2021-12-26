@@ -2,18 +2,18 @@
 // Project: https://github.com/pirelenito/git-revision-webpack-plugin
 // Definitions by: Anders Kaseorg <https://github.com/andersk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { Compiler, WebpackPluginInstance } from 'webpack';
 
 declare namespace GitRevisionPlugin {
     interface Options {
-        lightweightTags?: boolean;
-        branch?: boolean;
-        commithashCommand?: string;
-        versionCommand?: string;
-        branchCommand?: string;
-        gitWorkTree?: string;
+        lightweightTags?: boolean | undefined;
+        branch?: boolean | undefined;
+        commithashCommand?: string | undefined;
+        versionCommand?: string | undefined;
+        branchCommand?: string | undefined;
+        gitWorkTree?: string | undefined;
     }
 }
 

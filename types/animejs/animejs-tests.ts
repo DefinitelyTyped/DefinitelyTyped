@@ -1,4 +1,4 @@
-import anime from 'animejs';
+import anime, { AnimeInstance } from 'animejs';
 
 const test1 = anime({
     targets: 'div',
@@ -6,8 +6,10 @@ const test1 = anime({
     color: "#FFFFFF"
 });
 
-const callback = (anim: any) => {
+const callback = (anim: AnimeInstance) => {
     console.log(anim.completed);
+    console.log(anim.animatables[0].id);
+    console.log(anim.animations[0].duration);
 };
 
 const test2 = anime({

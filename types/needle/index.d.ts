@@ -18,7 +18,7 @@ declare namespace core {
         body: any;
         raw: Buffer;
         bytes: number;
-        cookies?: Cookies;
+        cookies?: Cookies | undefined;
     }
 
     type ReadableStream = NodeJS.ReadableStream;
@@ -42,63 +42,63 @@ declare namespace core {
          * Returns error if connection takes longer than X milisecs to establish.
          * Defaults to 10000 (10 secs). 0 means no timeout.
          */
-        open_timeout?: number;
+        open_timeout?: number | undefined;
         /**
          * Alias for open_timeout
          */
-        timeout?: RequestOptions['open_timeout'];
+        timeout?: RequestOptions['open_timeout'] | undefined;
 
         /**
          * Returns error if no response headers are received in X milisecs,
          * counting from when the connection is opened. Defaults to `0` (no response timeout).
          */
-        response_timeout?: number;
+        response_timeout?: number | undefined;
 
         /**
          * Returns error if data transfer takes longer than X milisecs,
          * after connection is established. Defaults to 0 (no timeout).
          */
-        read_timeout?: number;
+        read_timeout?: number | undefined;
         /**
          * Number of redirects to follow. Defaults to 0.
          */
-        follow_max?: number;
+        follow_max?: number | undefined;
         /**
          * Alias for follow_max
          */
-        follow?: RequestOptions['follow_max'];
+        follow?: RequestOptions['follow_max'] | undefined;
 
         /**
          * Enables multipart/form-data encoding. Defaults to false.
          * Use it when uploading files.
          */
-        multipart?: boolean;
+        multipart?: boolean | undefined;
         /**
          * Uses an http.Agent of your choice, instead of the global, default one.
          * Useful for tweaking the behaviour at the connection level, such as when doing tunneling.
          */
-        agent?: http.Agent | boolean;
+        agent?: http.Agent | boolean | undefined;
         /**
          * Forwards request through HTTP(s) proxy.
          * Eg. proxy: 'http://user:pass@proxy.server.com:3128'.
          * For more advanced proxying/tunneling use a custom agent.
          */
-        proxy?: string;
+        proxy?: string | undefined;
         /**
          * Object containing custom HTTP headers for request.
          */
-        headers?: {};
+        headers?: {} | undefined;
         /**
          * Determines what to do with provided username/password.
          * Options are auto, digest or basic (default).
          * auto will detect the type of authentication depending on the response headers.
          */
-        auth?: "auto" | "digest" | "basic";
+        auth?: "auto" | "digest" | "basic" | undefined;
         /**
          * When true, sets content type to application/json and sends request body as JSON string,
          * instead of a query string.
          */
-        json?: boolean;
+        json?: boolean | undefined;
         /**
          * When sending streams, this lets manually set the Content-Length header
          * --if the stream's bytecount is known beforehand--,
@@ -108,54 +108,54 @@ declare namespace core {
          * or leave unset for the default behavior,
          * which is no Content-Length header for stream payloads.
          */
-        stream_length?: number;
+        stream_length?: number | undefined;
 
         /**
          * IP address. Passed to http/https request. Local interface from which the request should be emitted.
          */
-        localAddress?: string;
+        localAddress?: string | undefined;
 
         /**
          * Anonymous function taking request (or redirect location if following redirects) URI as an argument and modifying it given logic.
          * It has to return a valid URI string for successful request.
          */
-        uri_modifier?: (uri: string) => string;
+        uri_modifier?: ((uri: string) => string) | undefined;
 
         // These properties are overwritten by those in the 'headers' field
         /**
          * Builds and sets a Cookie header from a { key: 'value' } object.
          */
-        cookies?: Cookies;
+        cookies?: Cookies | undefined;
         /**
          * If true, sets 'Accept-Encoding' header to 'gzip,deflate',
          * and inflates content if zipped.
          * Defaults to false.
          */
-        compressed?: boolean;
+        compressed?: boolean | undefined;
         // Overwritten if present in the URI
         /**
          * For HTTP basic auth.
          */
-        username?: string;
+        username?: string | undefined;
         /**
          * For HTTP basic auth. Requires username to be passed, but is optional.
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * Sets 'Accept' HTTP header. Defaults to &#x2a;&#x2f;&#x2a;.
          */
-        accept?: string;
+        accept?: string | undefined;
         /**
          * Sets 'Connection' HTTP header.
          * Not set by default, unless running Node < 0.11.4
          * in which case it defaults to close.
          */
-        connection?: string;
+        connection?: string | undefined;
         /**
          * Sets the 'User-Agent' HTTP header.
          * Defaults to Needle/{version} (Node.js {node_version}).
          */
-        user_agent?: string;
+        user_agent?: string | undefined;
         /**
          * Sets the 'Content-Type' header.
          * Unset by default, unless you're sending data
@@ -164,7 +164,7 @@ declare namespace core {
          * That is, of course, unless the option is passed,
          * either here or through options.headers.
          */
-        content_type?: string;
+        content_type?: string | undefined;
     }
 
     interface ResponseOptions {
@@ -172,11 +172,11 @@ declare namespace core {
          * Whether to decode the text responses to UTF-8,
          * if Content-Type header shows a different charset. Defaults to true.
          */
-        decode_response?: boolean;
+        decode_response?: boolean | undefined;
         /**
          * Alias for decode_response
          */
-        decode?: ResponseOptions['decode_response'];
+        decode?: ResponseOptions['decode_response'] | undefined;
 
         /**
          * Whether to parse XML or JSON response bodies automagically.
@@ -184,23 +184,23 @@ declare namespace core {
          * You can also set this to 'xml' or 'json' in which case Needle
          * will only parse the response if the content type matches.
          */
-        parse_response?: boolean | 'json' | 'xml';
+        parse_response?: boolean | 'json' | 'xml' | undefined;
         /**
          * Alias for parse_response
          */
-        parse?: ResponseOptions['parse_response'];
+        parse?: ResponseOptions['parse_response'] | undefined;
 
         /**
          * Whether to parse response’s Set-Cookie header.
          * Defaults to true.
          * If parsed, response cookies will be available at resp.cookies.
          */
-        parse_cookies?: boolean;
+        parse_cookies?: boolean | undefined;
         /**
          * Dump response output to file.
          * This occurs after parsing and charset decoding is done.
          */
-        output?: string;
+        output?: string | undefined;
     }
 
     interface RedirectOptions {
@@ -209,35 +209,35 @@ declare namespace core {
          * as part of the following request.
          * false by default.
          */
-        follow_set_cookie?: boolean;
+        follow_set_cookie?: boolean | undefined;
         /**
          * Sets the 'Referer' header to the requested URI
          * when following a redirect.
          * false by default.
          */
-        follow_set_referer?: boolean;
+        follow_set_referer?: boolean | undefined;
         /**
          * If enabled, resends the request using the original verb
          * instead of being rewritten to get with no data.
          * false by default.
          */
-        follow_keep_method?: boolean;
+        follow_keep_method?: boolean | undefined;
         /**
          * When true, Needle will only follow redirects that point to the same host
          * as the original request.
          * false by default.
          */
-        follow_if_same_host?: boolean;
+        follow_if_same_host?: boolean | undefined;
         /**
          * When true, Needle will only follow redirects that point to the same protocol
          * as the original request.
          * false by default.
          */
-        follow_if_same_protocol?: boolean;
+        follow_if_same_protocol?: boolean | undefined;
         /**
          * Unless true, Needle will not follow redirects that point to same location (as set in the response header) as the original request URL. false by default.
          */
-        follow_if_same_location?: boolean;
+        follow_if_same_location?: boolean | undefined;
     }
 
     interface KeyValue {

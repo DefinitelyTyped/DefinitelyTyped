@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Artifact Registry API v1beta2 1.0
+// Type definitions for non-npm package Artifact Registry API v1 1.0
 // Project: https://cloud.google.com/artifacts/docs/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

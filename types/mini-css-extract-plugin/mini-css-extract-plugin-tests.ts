@@ -6,9 +6,8 @@ let configuration: webpack.Configuration;
 const loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
     publicPath: '/',
     esModule: true,
-    modules: {
-        namedExport: true,
-    }
+    emit: false,
+    layer: 'layer',
 };
 
 configuration = {
@@ -62,8 +61,18 @@ configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
-            filename: ({ chunk }) => `${chunk.name.replace('/js/', '/css/')}.css`,
+            filename: ({ chunk }) => (chunk?.name ? `${chunk.name.replace('/js/', '/css/')}.css` : 'unknown'),
             chunkFilename: 'style.css',
+        }),
+    ],
+};
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+            chunkFilename: ({ chunk }) => (chunk?.name ? `${chunk.name.replace('/js/', '/css/')}.css` : 'unknown'),
         }),
     ],
 };
@@ -100,4 +109,30 @@ configuration = {
     ],
 };
 
-new MiniCssExtractPlugin().apply(new webpack.Compiler());
+configuration = {
+    // `experimentalUseImportModule`
+    plugins: [
+        new MiniCssExtractPlugin({
+            experimentalUseImportModule: true,
+        }),
+        new MiniCssExtractPlugin({
+            experimentalUseImportModule: false,
+        }),
+        new MiniCssExtractPlugin({
+            experimentalUseImportModule: undefined,
+        }),
+    ],
+};
+
+{
+    // runtime
+    new MiniCssExtractPlugin({});
+    new MiniCssExtractPlugin({
+        runtime: false,
+    });
+    new MiniCssExtractPlugin({
+        runtime: true,
+    });
+}
+
+new MiniCssExtractPlugin().apply(new webpack.Compiler('context'));

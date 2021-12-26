@@ -93,6 +93,7 @@ export enum EventType {
     TIMED_METADATA_EXIT = 'TIMED_METADATA_EXIT',
     LIVE_IS_MOVING_WINDOW_CHANGED = 'LIVE_IS_MOVING_WINDOW_CHANGED',
     LIVE_ENDED = 'LIVE_ENDED',
+    TRACKS_CHANGED = 'TRACKS_CHANGED',
 }
 
 export enum DetailedErrorCode {
@@ -149,12 +150,12 @@ export class SegmentDownloadedEvent extends Event {
     /**
      * The time it took to download the segment; in milliseconds.
      */
-    downloadTime?: number;
+    downloadTime?: number | undefined;
 
     /**
      * The number of bytes in the segment.
      */
-    size?: number;
+    size?: number | undefined;
 }
 
 /**
@@ -166,12 +167,12 @@ export class RequestEvent extends Event {
     /**
      * The data that was sent with the request.
      */
-    requestData?: RequestData;
+    requestData?: RequestData | undefined;
 
     /**
      * The sender id the request came from.
      */
-    senderId?: string;
+    senderId?: string | undefined;
 }
 
 /**
@@ -194,7 +195,7 @@ export class MediaStatusEvent extends Event {
     /**
      * The media status that was sent.
      */
-    mediaStatus?: MediaStatus;
+    mediaStatus?: MediaStatus | undefined;
 }
 /**
  * Event data for pause events forwarded from the MediaElement.
@@ -205,7 +206,7 @@ export class MediaPauseEvent extends Event {
     /**
      * Indicate if the media ended (indicates the pause was fired due to stream reached the end).
      */
-    ended?: boolean;
+    ended?: boolean | undefined;
 }
 /**
  * Event data for @see{@link EventType.MEDIA_FINISHED} event.
@@ -216,12 +217,12 @@ export class MediaFinishedEvent extends Event {
     /**
      * The time when the media finished (in seconds). For an item in a queue; this value represents the time in the currently playing queue item ( where 0 means the queue item has just started).
      */
-    currentMediaTime?: number;
+    currentMediaTime?: number | undefined;
 
     /**
      * The reason the media finished.
      */
-    endedReason?: EndedReason;
+    endedReason?: EndedReason | undefined;
 }
 /**
  * Event data for all events forwarded from the MediaElement.
@@ -232,7 +233,7 @@ export class MediaElementEvent extends Event {
     /**
      * The time in the currently playing clip when the event was fired (in seconds). Undefined if playback has not started yet.
      */
-    currentMediaTime?: number;
+    currentMediaTime?: number | undefined;
 }
 /**
  * Event data for all events pertaining to processing a load / preload request. made to the player.
@@ -243,7 +244,7 @@ export class LoadEvent extends Event {
     /**
      * Information about the media being loaded.
      */
-    media: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 /**
  * Event data for @see{@link EventType.INBAND_TRACK_ADDED} event.
@@ -272,7 +273,8 @@ export class Id3Event extends Event {
     timestamp: number;
 }
 /**
- * Event data for @see{@link EventType.EMSG} event.
+ * Event data for {@link EventType.EMSG} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.EmsgEvent
  */
 export class EmsgEvent extends Event {
     constructor(emsgData: any);
@@ -280,52 +282,54 @@ export class EmsgEvent extends Event {
     /**
      * The time that the event ends (in presentation time). Undefined if using legacy Dash support.
      */
-    endTime: any;
+    endTime?: number | undefined;
 
     /**
      * The duration of the event (in units of timescale). Undefined if using legacy Dash support.
      */
-    eventDuration: any;
+    eventDuration?: number | undefined;
 
     /**
      * A field identifying this instance of the message. Undefined if using legacy Dash support.
      */
-    id: any;
+    id?: number | undefined;
 
     /**
-     * Body of the message. Undefined if using legacy Dash support.
+     * Body of the message, which can contain ID3 metadata if signaled by the
+     * schemeIdUri value. The schemeIdUri "https://aomedia.org/emsg/ID3" and
+     * "https://developer.apple.com/streaming/emsg-id3" will always signal ID3 metadata.
      */
-    messageData: any;
+    messageData?: Uint8Array | undefined;
 
     /**
      * The offset that the event starts; relative to the start of the segment this is contained in (in units of timescale). Undefined if using legacy Dash support.
      */
-    presentationTimeDelta: any;
+    presentationTimeDelta?: number | undefined;
 
     /**
      * Identifies the message scheme. Undefined if using legacy Dash support.
      */
-    schemeIdUri: any;
+    schemeIdUri?: string | undefined;
 
     /**
      * The segment data. This is only defined if using legacy Dash support.
      */
-    segmentData: any;
+    segmentData?: Uint8Array | undefined;
 
     /**
      * The time that the event starts (in presentation time). Undefined if using legacy Dash support.
      */
-    startTime: any;
+    startTime?: number | undefined;
 
     /**
      * Provides the timescale; in ticks per second. Undefined if using legacy Dash support.
      */
-    timescale: any;
+    timescale?: number | undefined;
 
     /**
      * Specifies the value for the event. Undefined if using legacy Dash support.
      */
-    value: any;
+    value?: string | undefined;
 }
 /**
  * Event data for @see{@link EventType.CLIP_ENDED} event.
@@ -341,11 +345,12 @@ export class ClipEndedEvent extends Event {
     /**
      * The reason the clip ended.
      */
-    endedReason?: EndedReason;
+    endedReason?: EndedReason | undefined;
 }
 
 /**
- * Event data for @see{@link EventType.CACHE_LOADED} event.
+ * Event data for {@link EventType.CACHE_LOADED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.CacheLoadedEvent
  */
 export class CacheLoadedEvent extends Event {
     constructor(media?: MediaInformation);
@@ -353,7 +358,7 @@ export class CacheLoadedEvent extends Event {
     /**
      * Information about the media being cached.
      */
-    media: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 
 export class CacheItemEvent extends Event {
@@ -374,6 +379,10 @@ export class BufferingEvent extends Event {
     isBuffering: boolean;
 }
 
+/**
+ * Event data for all events pertaining to breaks.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.BreaksEvent
+ */
 export class BreaksEvent extends Event {
     constructor(
         type: EventType,
@@ -389,47 +398,48 @@ export class BreaksEvent extends Event {
     /**
      * The break's id. Refer to Break.id
      */
-    breakId?: string;
+    breakId?: string | undefined;
 
     /**
      * The break clip's id. Refer to BreakClip.id
      */
-    breakClipId?: string;
+    breakClipId?: string | undefined;
 
     /**
      * The time in the currently playing media when the break event occurred.
      */
-    currentMediaTime?: number;
+    currentMediaTime?: number | undefined;
 
     /**
      * The reason the break clip ended.
      */
-    endedReason?: EndedReason;
+    endedReason?: EndedReason | undefined;
 
     /**
      * Index of break clip; which starts from 1.
      */
-    index: number;
+    index?: number | undefined;
 
     /**
      * Total number of break clips.
      */
-    total: number;
+    total?: number | undefined;
 
     /**
      * When to skip current break clip in sec; after break clip begins to play.
      */
-    whenSkippable?: number;
+    whenSkippable?: number | undefined;
 }
 
 /**
- * Event data for @see {@link EventType.BITRATE_CHANGED} event.
+ * Event data for {@link EventType.BITRATE_CHANGED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.BitrateChangedEvent
  */
 export class BitrateChangedEvent extends Event {
     constructor(totalBitrate?: number);
 
     /** The bitrate of the media (audio and video) in bits per second. */
-    totalBitrate: number;
+    totalBitrate?: number | undefined;
 }
 
 /**
@@ -441,7 +451,7 @@ export class ErrorEvent extends Event {
     /**
      * An error code representing the cause of the error.
      */
-    detailedErrorCode?: DetailedErrorCode;
+    detailedErrorCode?: DetailedErrorCode | undefined;
 
     /**
      * The error object. This could be an Error object (e.g., if an Error was thrown in an event handler) or an object with error information (e.g., if the receiver received an invalid command).
@@ -451,7 +461,7 @@ export class ErrorEvent extends Event {
     /**
      * Optional error reason.
      */
-    reason?: ErrorReason;
+    reason?: ErrorReason | undefined;
 }
 
 /**
@@ -469,7 +479,7 @@ export class CustomStateEvent extends Event {
 export class MediaInformationChangedEvent extends Event {
     constructor(media?: MediaInformation);
 
-    media?: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 
 /**

@@ -2,6 +2,7 @@
 // Project: https://github.com/pigcan/extra-watch-webpack-plugin#readme
 // Definitions by: Dave Cardwell <https://github.com/davecardwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin } from "webpack";
 
@@ -22,11 +23,11 @@ declare namespace ExtraWatchWebpackPlugin {
          * (absolute path or glob pattern), attach extra files to webpack's watch system
          * @default []
          */
-        files?: string | ReadonlyArray<string>;
+        files?: string | ReadonlyArray<string> | undefined;
         /**
          * attach extra dirs to webpack's watch system
          * @default []
          */
-        dirs?: string | ReadonlyArray<string>;
+        dirs?: string | ReadonlyArray<string> | undefined;
     }
 }

@@ -1,5 +1,20 @@
-declare class Tab {
-    constructor(element: Element);
+import { GetInstanceFactory } from './base-component.d';
+import BaseComponent, { GetOrCreateInstanceFactory } from './base-component';
+
+declare class Tab extends BaseComponent {
+    /**
+     * Static method which allows you to get the tab instance associated with a
+     * DOM element
+     */
+    static getInstance: GetInstanceFactory<Tab>;
+
+    /**
+     * Static method which allows you to get the tab instance associated with a
+     * DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Tab>;
+
+    static jQueryInterface: Tab.jQueryInterface;
 
     /**
      * Selects the given list item and shows its associated pane. Any other
@@ -9,17 +24,6 @@ declare class Tab {
      * occurs).
      */
     show(): void;
-
-    /**
-     * Destroys an element’s tab.
-     */
-    dispose(): void;
-
-    /**
-     * Static method which allows you to get the tab instance associated with a
-     * DOM element
-     */
-    static getInstance(element: Element): Tab;
 }
 
 declare namespace Tab {
@@ -53,6 +57,8 @@ declare namespace Tab {
          */
         hidden = 'hidden.bs.tab',
     }
+
+    type jQueryInterface = (config?: 'show' | 'dispose') => void;
 }
 
 export default Tab;

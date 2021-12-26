@@ -6,7 +6,7 @@ interface Params {
 }
 
 interface OptionalParams {
-    id?: string;
+    id?: string | undefined;
     s: string | undefined;
 }
 

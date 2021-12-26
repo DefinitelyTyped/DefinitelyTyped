@@ -1,7 +1,12 @@
-import mixpanel = require('mixpanel-browser');
+import mixpanel from "mixpanel-browser";
 
-const lib = mixpanel.init('new token', { secure_cookie: true }, 'library_name');
+mixpanel; // $ExpectType OverridedMixpanel
+
+const lib = mixpanel.init('new token', { secure_cookie: true }, 'library_name'); // $ExpectType Mixpanel
 lib.track('event name');
+lib.init('token', {}, "name");  // $ExpectType Mixpanel
+mixpanel.init("token");  // $ExpectType undefined
+mixpanel.init("token", {});  // $ExpectType undefined
 mixpanel.push(['register', { a: 'b' }]);
 mixpanel.disable();
 mixpanel.track('Registered', { Gender: 'Male', Age: 21 });
@@ -10,6 +15,7 @@ mixpanel.track_forms('#register', 'Created Account');
 mixpanel.time_event('Registered');
 mixpanel.track('Registered', { Gender: 'Male', Age: 21 });
 mixpanel.track('Left page', { duration_seconds: 35 }, { transport: 'sendBeacon' });
+mixpanel.track('Left page', { duration_seconds: 35 }, { send_immediately: true });
 mixpanel.track('Left page', { duration_seconds: 35 }, () => {
     /* callback function */
 });
@@ -309,7 +315,7 @@ mixpanel.get_group('test', 'id').set(
         }
     },
 );
-mixpanel.get_group('test', 'id').setOnce('prop', 'value', response => {
+mixpanel.get_group('test', 'id').set_once('prop', 'value', response => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {

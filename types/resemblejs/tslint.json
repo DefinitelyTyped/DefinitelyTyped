@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "dt-header": false,
         "no-consecutive-blank-lines": false,
@@ -7,6 +7,7 @@
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "trim-file": false
+        "trim-file": false,
+        "no-empty-interface": false
     }
 }

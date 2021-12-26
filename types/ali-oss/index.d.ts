@@ -1,4 +1,4 @@
-// Type definitions for ali-oss 6.0
+// Type definitions for ali-oss 6.16
 // Project: https://github.com/aliyun/oss-nodejs-sdk
 // Definitions by: Ptrdu <https://github.com/ptrdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,21 +14,25 @@ declare namespace OSS {
         /** access secret you create */
         accessKeySecret: string;
         /** used by temporary authorization */
-        stsToken?: string;
+        stsToken?: string | undefined;
         /** the default bucket you want to access If you don't have any bucket, please use putBucket() create one first. */
-        bucket?: string;
+        bucket?: string | undefined;
         /** oss region domain. It takes priority over region. */
-        endpoint?: string;
+        endpoint?: string | undefined;
         /** the bucket data region location, please see Data Regions, default is oss-cn-hangzhou. */
-        region?: string;
+        region?: string | undefined;
         /** access OSS with aliyun internal network or not, default is false. If your servers are running on aliyun too, you can set true to save lot of money. */
-        internal?: boolean;
+        internal?: boolean | undefined;
         /** instruct OSS client to use HTTPS (secure: true) or HTTP (secure: false) protocol. */
-        secure?: boolean;
+        secure?: boolean | undefined;
         /** instance level timeout for all operations, default is 60s */
-        timeout?: string | number;
+        timeout?: string | number | undefined;
         /** use custom domain name */
-        cname?: boolean;
+        cname?: boolean | undefined;
+        /** use time (ms) of refresh STSToken interval it should be less than sts info expire interval, default is 300000ms(5min) when sts info expires. */
+        refreshSTSTokenInterval?: number;
+        /** used by auto set stsToken、accessKeyId、accessKeySecret when sts info expires. return value must be object contains stsToken、accessKeyId、accessKeySecret */
+        refreshSTSToken?: () => Promise<{ accessKeyId: string, accessKeySecret: string, stsToken: string }>;
     }
 
     /**
@@ -102,22 +106,24 @@ declare namespace OSS {
 
     type HTTPMethods = 'GET' | 'POST' | 'DELETE' | 'PUT';
 
+    type RedundancyType = 'LRS' | 'ZRS';
+
     interface RequestOptions {
         // the operation timeout
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     type RuleStatusType = 'Enabled' | 'Disabled';
 
     interface LifecycleRule {
         /** rule id, if not set, OSS will auto create it with random string. */
-        id?: string;
+        id?: string | undefined;
         /** store prefix */
         prefix: string;
         /** rule status, allow values: Enabled or Disabled */
         status: RuleStatusType;
         /** expire after the days */
-        days?: number | string;
+        days?: number | string | undefined;
         /** expire date, e.g.: 2022-10-11T00:00:00.000Z date and days only set one. */
         date: string;
     }
@@ -128,11 +134,11 @@ declare namespace OSS {
         /** configure for Access-Control-Allow-Methods header */
         allowedMethod: string | string[];
         /** configure for Access-Control-Allow-Headers header */
-        allowedHeader?: string | string[];
+        allowedHeader?: string | string[] | undefined;
         /** configure for Access-Control-Expose-Headers header */
-        exposeHeader?: string | string[];
+        exposeHeader?: string | string[] | undefined;
         /** configure for Access-Control-Max-Age header */
-        maxAgeSeconds?: string | string[];
+        maxAgeSeconds?: string | string[] | undefined;
     }
 
     interface OwnerType {
@@ -143,6 +149,8 @@ declare namespace OSS {
     interface ObjectMeta {
         /** object name on oss */
         name: string;
+        /** object url */
+        url: string;
         /** object last modified GMT date, e.g.: 2015-02-19T08:39:44.000Z */
         lastModified: string;
         /** object etag contains ", e.g.: "5B3C1A2E053D763E1B002CC607C5A0FE" */
@@ -152,7 +160,17 @@ declare namespace OSS {
         /** object size, e.g.: 344606 */
         size: number;
         storageClass: StorageType;
-        owner: OwnerType;
+        owner?: OwnerType;
+    }
+
+    interface BucketPolicy {
+        Version: string;
+        Statement: Array<{
+            Action: string[];
+            Effect: 'Allow' | 'Deny';
+            Principal: string[];
+            Resource: string[];
+        }>;
     }
 
     interface NormalSuccessResponse {
@@ -176,14 +194,14 @@ declare namespace OSS {
         /** After a file is uploaded successfully, the OSS sends a callback request to this URL. */
         url: string;
         /** The host header value for initiating callback requests. */
-        host?: string;
+        host?: string | undefined;
         /** The value of the request body when a callback is initiated, for example, key=$(key)&etag=$(etag)&my_var=$(x:my_var). */
         body: string;
         /** The Content-Type of the callback requests initiatiated, It supports application/x-www-form-urlencoded and application/json, and the former is the default value. */
-        contentType?: string;
-        customValue?: object;
+        contentType?: string | undefined;
+        customValue?: object | undefined;
         /** extra headers, detail see RFC 2616 */
-        headers?: object;
+        headers?: object | undefined;
     }
 
     interface ModifyData {
@@ -236,14 +254,16 @@ declare namespace OSS {
     // parameters type
     interface ListBucketsQueryType {
         /** search buckets using prefix key */
-        prefix?: string;
+        prefix?: string | undefined;
         /** search start from marker, including marker key */
-        marker?: string;
+        marker?: string | undefined;
         /** max buckets, default is 100, limit to 1000 */
-        'max-keys'?: string | number;
+        'max-keys'?: string | number | undefined;
     }
 
     interface PutBucketOptions {
+        acl: ACLType;
+        dataRedundancyType: RedundancyType;
         timeout: number;
         storageClass: StorageType;
     }
@@ -252,18 +272,40 @@ declare namespace OSS {
         /** default page, e.g.: index.html */
         index: string;
         /** error page, e.g.: 'error.html' */
-        error?: string;
+        error?: string | undefined;
     }
 
     interface ListObjectsQuery {
         /** search object using prefix key */
-        prefix?: string;
+        prefix?: string | undefined;
         /** search start from marker, including marker key */
-        marker?: string;
+        marker?: string | undefined;
         /** only search current dir, not including subdir */
-        delimiter?: string; // delimiter search scope e.g.
+        delimiter?: string | undefined; // delimiter search scope e.g.
         /** max objects, default is 100, limit to 1000 */
         'max-keys': string | number;
+        /** Specifies that the object names in the response are URL-encoded. */
+        'encoding-type'?: 'url' | '';
+    }
+
+    interface ListV2ObjectsQuery {
+        /** search object using prefix key */
+        prefix?: string;
+        /** search start from token, including token key */
+        'continuation-token'?: string;
+        /** only search current dir, not including subdir */
+        delimiter?: string | number;
+        /** max objects, default is 100, limit to 1000  */
+        'max-keys'?: string;
+        /**
+         * The name of the object from which the list operation begins.
+         * If this parameter is specified, objects whose names are alphabetically greater than the start-after parameter value are returned.
+         */
+        'start-after'?: string;
+        /** Specifies whether to include the information about object owners in the response. */
+        'fetch-owner'?: boolean;
+        /** Specifies that the object names in the response are URL-encoded. */
+        'encoding-type'?: 'url' | '';
     }
 
     interface ListObjectResult {
@@ -276,13 +318,13 @@ declare namespace OSS {
 
     interface PutObjectOptions {
         /** the operation timeout */
-        timeout?: number;
+        timeout?: number | undefined;
         /** custom mime, will send with Content-Type entity header */
-        mime?: string;
+        mime?: string | undefined;
         /** user meta, will send with x-oss-meta- prefix string e.g.: { uid: 123, pid: 110 } */
-        meta?: UserMeta;
-        callback?: ObjectCallback;
-        headers?: object;
+        meta?: UserMeta | undefined;
+        callback?: ObjectCallback | undefined;
+        headers?: object | undefined;
     }
 
     interface PutObjectResult {
@@ -294,25 +336,25 @@ declare namespace OSS {
 
     interface PutStreamOptions {
         /** the stream length, chunked encoding will be used if absent */
-        contentLength?: number;
+        contentLength?: number | undefined;
         /** the operation timeout */
         timeout: number;
         /** custom mime, will send with Content-Type entity header */
         mime: string;
         meta: UserMeta;
         callback: ObjectCallback;
-        headers?: object;
+        headers?: object | undefined;
     }
 
     interface AppendObjectOptions {
         /** specify the position which is the content length of the latest object */
-        position?: string;
+        position?: string | undefined;
         /** the operation timeout */
-        timeout?: number;
+        timeout?: number | undefined;
         /** custom mime, will send with Content-Type entity header */
-        mime?: string;
-        meta?: UserMeta;
-        headers?: object;
+        mime?: string | undefined;
+        meta?: UserMeta | undefined;
+        headers?: object | undefined;
     }
 
     interface AppendObjectResult {
@@ -325,8 +367,8 @@ declare namespace OSS {
     }
 
     interface HeadObjectOptions {
-        timeout?: number;
-        headers?: object;
+        timeout?: number | undefined;
+        headers?: object | undefined;
     }
 
     interface HeadObjectResult {
@@ -337,10 +379,10 @@ declare namespace OSS {
     }
 
     interface GetObjectOptions {
-        timeout?: number;
+        timeout?: number | undefined;
         /** The Content-Type of the callback requests initiatiated, It supports application/x-www-form-urlencoded and application/json, and the former is the default value. */
-        process?: string;
-        headers?: object;
+        process?: string | undefined;
+        headers?: object | undefined;
     }
 
     interface GetObjectResult {
@@ -350,10 +392,10 @@ declare namespace OSS {
     }
 
     interface GetStreamOptions {
-        timeout?: number;
+        timeout?: number | undefined;
         /** The Content-Type of the callback requests initiatiated, It supports application/x-www-form-urlencoded and application/json, and the former is the default value. */
-        process?: string;
-        headers?: object;
+        process?: string | undefined;
+        headers?: object | undefined;
     }
 
     interface GetStreamResult {
@@ -363,9 +405,9 @@ declare namespace OSS {
     }
 
     interface CopyObjectOptions {
-        timeout?: number;
-        meta?: UserMeta;
-        headers?: object;
+        timeout?: number | undefined;
+        meta?: UserMeta | undefined;
+        headers?: object | undefined;
     }
 
     interface CopyAndPutMetaResult {
@@ -375,33 +417,33 @@ declare namespace OSS {
 
     interface DeleteMultiOptions {
         /** quite mode or verbose mode, default is false */
-        quite?: boolean;
-        timeout?: number;
+        quiet?: boolean | undefined;
+        timeout?: number | undefined;
     }
 
     interface DeleteMultiResult {
         /** deleted object names list */
-        deleted?: string[];
+        deleted?: string[] | undefined;
         res: NormalSuccessResponse;
     }
 
     interface ResponseHeaderType {
-        'content-type'?: string;
-        'content-disposition'?: string;
-        'cache-control'?: string;
+        'content-type'?: string | undefined;
+        'content-disposition'?: string | undefined;
+        'cache-control'?: string | undefined;
     }
 
     interface SignatureUrlOptions {
         /** after expires seconds, the url will become invalid, default is 1800 */
-        expires?: number;
+        expires?: number | undefined;
         /** the HTTP method, default is 'GET' */
-        method?: HTTPMethods;
+        method?: HTTPMethods | undefined;
         /** set the request content type */
-        'Content-Type'?: string;
-        process?: string;
+        'Content-Type'?: string | undefined;
+        process?: string | undefined;
         /** set the response headers for download */
-        response?: ResponseHeaderType;
-        callback?: ObjectCallback;
+        response?: ResponseHeaderType | undefined;
+        callback?: ObjectCallback | undefined;
     }
 
     interface GetACLResult {
@@ -410,11 +452,11 @@ declare namespace OSS {
     }
 
     interface InitMultipartUploadOptions {
-        timeout?: number;
+        timeout?: number | undefined;
         /** Mime file type */
-        mime?: string;
-        meta?: UserMeta;
-        headers?: object;
+        mime?: string | undefined;
+        meta?: UserMeta | undefined;
+        headers?: object | undefined;
     }
 
     interface InitMultipartUploadResult {
@@ -434,9 +476,9 @@ declare namespace OSS {
     }
 
     interface CompleteMultipartUploadOptions {
-        timeout?: number;
-        callback?: ObjectCallback;
-        headers?: object;
+        timeout?: number | undefined;
+        callback?: ObjectCallback | undefined;
+        headers?: object | undefined;
     }
 
     interface CompleteMultipartUploadResult {
@@ -449,20 +491,20 @@ declare namespace OSS {
 
     interface MultipartUploadOptions {
         /** the number of parts to be uploaded in parallel */
-        parallel?: number;
+        parallel?: number | undefined;
         /** the suggested size for each part */
-        partSize?: number;
+        partSize?: number | undefined;
         /** the progress callback called after each successful upload of one part */
-        progress?: (...args: any[]) => any;
+        progress?: ((...args: any[]) => any) | undefined;
         /** the checkpoint to resume upload, if this is provided, it will continue the upload from where interrupted, otherwise a new multipart upload will be created. */
-        checkpoint?: Checkpoint;
-        meta?: UserMeta;
-        mime?: string;
-        callback?: ObjectCallback;
-        headers?: object;
-        timeout?: number;
+        checkpoint?: Checkpoint | undefined;
+        meta?: UserMeta | undefined;
+        mime?: string | undefined;
+        callback?: ObjectCallback | undefined;
+        headers?: object | undefined;
+        timeout?: number | undefined;
         /** {Object} only uploadPartCopy api used, detail */
-        copyheaders?: object;
+        copyheaders?: object | undefined;
     }
 
     interface MultipartUploadResult {
@@ -513,10 +555,10 @@ declare namespace OSS {
     }
 
     interface ListUploadsQuery {
-        prefix?: string;
-        'max-uploads'?: number;
-        'key-marker'?: string;
-        'upload-id-marker'?: string;
+        prefix?: string | undefined;
+        'max-uploads'?: number | undefined;
+        'key-marker'?: string | undefined;
+        'upload-id-marker'?: string | undefined;
     }
 
     interface ListUploadsResult {
@@ -529,14 +571,14 @@ declare namespace OSS {
     }
 
     interface PutChannelConf {
-        Description?: string;
-        Status?: string;
+        Description?: string | undefined;
+        Status?: string | undefined;
         Target?: {
             Type: string;
             FragDuration: number;
             FragCount: number;
             PlaylistName: string;
-        };
+        } | undefined;
     }
 
     interface PutChannelResult {
@@ -547,10 +589,10 @@ declare namespace OSS {
 
     interface GetChannelResult {
         Status: string;
-        ConnectedTime?: string;
-        RemoteAddr?: string;
-        Video?: object;
-        Audio?: object;
+        ConnectedTime?: string | undefined;
+        RemoteAddr?: string | undefined;
+        Video?: object | undefined;
+        Audio?: object | undefined;
         res: NormalSuccessResponse;
     }
 
@@ -577,11 +619,23 @@ declare namespace OSS {
 
     interface GetRtmpUrlOptions {
         /** the expire time in seconds of the url */
-        expires?: number;
+        expires?: number | undefined;
         /** the additional parameters for url, e.g.: {playlistName: 'play.m3u8'} */
-        params?: object;
+        params?: object | undefined;
         /** the operation timeout */
-        timeout?: number;
+        timeout?: number | undefined;
+    }
+
+    interface GetBucketPolicyResult {
+        policy: BucketPolicy | null;
+        status: number;
+        res: NormalSuccessResponse;
+    }
+
+    interface PostObjectParams {
+        policy: string;
+        OSSAccessKeyId: string;
+        Signature: string;
     }
 }
 
@@ -595,13 +649,18 @@ declare namespace OSS {
 
     interface ClusterOptions {
         clusters: ClusterType[];
-        schedule?: string;
+        schedule?: string | undefined;
     }
 
-    class Cluster {
+    class ClusterClient {
         constructor(options: ClusterOptions);
 
         list(query: ListObjectsQuery | null, options: RequestOptions): Promise<ListObjectResult>;
+
+        /**
+         * @since 6.12.0
+         */
+        listV2(query: ListV2ObjectsQuery | null, options: RequestOptions): Promise<ListObjectResult>;
 
         put(name: string, file: any, options?: PutObjectOptions): Promise<PutObjectResult>;
 
@@ -645,16 +704,16 @@ declare namespace OSS {
         /** the default bucket you want to access If you don't have any bucket, please use putBucket() create one first. */
         bucket: string;
         /** the bucket data region location, please see Data Regions, default is oss-cn-hangzhou */
-        region?: string;
+        region?: string | undefined;
         /** access OSS with aliyun internal network or not, default is false If your servers are running on aliyun too, you can set true to save lot of money. */
-        internal?: boolean;
+        internal?: boolean | undefined;
         /** instance level timeout for all operations, default is 60s */
-        timeout?: string | number;
+        timeout?: string | number | undefined;
     }
 
     interface ImageGetOptions {
-        timeout?: number;
-        headers?: object;
+        timeout?: number | undefined;
+        headers?: object | undefined;
     }
 
     interface StyleData {
@@ -718,7 +777,7 @@ declare namespace OSS {
         /**
          * Create a signature url for directly download.
          */
-        signatureUrl(name: string, options?: { expires?: string; timeout?: string }): string;
+        signatureUrl(name: string, options?: { expires?: string | undefined; timeout?: string | undefined }): string;
     }
 }
 
@@ -878,6 +937,35 @@ declare class OSS {
      */
     deleteBucketCORS(name: string): Promise<OSS.NormalSuccessResponse>;
 
+    // policy operations
+    /**
+     * Adds or modify policy for a bucket.
+     */
+    putBucketPolicy(
+        name: string,
+        policy: OSS.BucketPolicy,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
+
+    /**
+     * Obtains the policy for a bucket.
+     */
+    getBucketPolicy(name: string, options?: OSS.RequestOptions): Promise<OSS.GetBucketPolicyResult>;
+
+    /**
+     * Deletes the policy added for a bucket.
+     */
+    deleteBucketPolicy(
+        name: string,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
+
     /********************************************************** Object operations ********************************************/
     /**
      * List objects in the bucket.
@@ -996,7 +1084,7 @@ declare class OSS {
         partNo: number,
         range: string,
         sourceData: { sourceKey: string; sourceBucketName: string },
-        options: { timeout?: number; headers?: object },
+        options: { timeout?: number | undefined; headers?: object | undefined },
     ): Promise<OSS.UploadPartResult>;
 
     /**
@@ -1048,6 +1136,16 @@ declare class OSS {
         uploadId: string,
         options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
+
+    /**
+     * get postObject params.
+     */
+    calculatePostSignature(
+        /**
+         * policy config object or JSON string
+         */
+        policy: object | string
+    ): OSS.PostObjectParams;
 
     /************************************************ RTMP Operations *************************************************************/
     /**

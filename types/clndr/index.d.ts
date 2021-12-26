@@ -76,18 +76,18 @@ export interface ClndrOptions {
      * the template: this could be stored in markup as a <script type="text/template"></script>
      * or pulled in as a string
      */
-    template?: string;
+    template?: string | undefined;
     /**
      * determines which month to start with using either a date string or a moment object.
      */
-    startWithMonth?: string | moment.Moment;
+    startWithMonth?: string | moment.Moment | undefined;
     /**
      * Start the week off on Sunday (0), Monday (1), etc. Sunday is the default.
      * WARNING: if you are dealing with i18n and multiple languages, you
      * probably don't want this! See the "Internationalization" section below
      * for more.
      */
-    weekOffset?: number;
+    weekOffset?: number | undefined;
     /**
      * An array of day abbreviation labels. If you have moment.js set to a
      * different language, it will guess these for you! If for some reason that
@@ -96,24 +96,24 @@ export interface ClndrOptions {
      * probably don't want this! See the "Internationalization" section below
      * for more.
      */
-    daysOfTheWeek?: string[];
+    daysOfTheWeek?: string[] | undefined;
     /**
      * the target classnames that CLNDR will look for to bind events. these are the defaults.
      */
-    targets?: Targets;
+    targets?: Targets | undefined;
     /**
      * Custom classes to avoid styling issues. pass in only the classnames that
      * you wish to override. These are the defaults.
      */
-    classes?: Classes;
+    classes?: Classes | undefined;
     /**
      * callbacks!
      */
-    clickEvents?: ClickEvents;
+    clickEvents?: ClickEvents | undefined;
     /**
      * Use the 'touchstart' event instead of 'click'
      */
-    useTouchEvents?: boolean;
+    useTouchEvents?: boolean | undefined;
     /**
      * This is called only once after clndr has been initialized and rendered.
      * use this to bind custom event handlers that don't need to be re-attached
@@ -129,39 +129,39 @@ export interface ClndrOptions {
      */
     doneRendering?(): void;
     /** an array of event objects */
-    events?: any[];
+    events?: any[] | undefined;
     /**
      * if you're supplying an events array, dateParameter points to the field in your event object containing a date string. It's set to 'date' by default.
      */
-    dateParameter?: string;
+    dateParameter?: string | undefined;
     /**
      * CLNDR can accept events lasting more than one day! just pass in the
      * multiDayEvents option and specify what the start and end fields are
      * called within your event objects. See the example file for a working
      * instance of this.
      */
-    multiDayEvents?: MultiDayEvents;
+    multiDayEvents?: MultiDayEvents | undefined;
     /**
      * show the numbers of days in months adjacent to the current month (and populate them with their events). defaults to true.
      */
-    showAdjacentMonths?: boolean;
+    showAdjacentMonths?: boolean | undefined;
     /**
      * when days from adjacent months are clicked, switch the current month.
      * fires nextMonth/previousMonth/onMonthChange click callbacks. defaults to false.
      */
-    adjacentDaysChangeMonth?: boolean;
+    adjacentDaysChangeMonth?: boolean | undefined;
     /**
      * Always make the calendar six rows tall (42 days) so that every month has
      * a consistent height. defaults to 'false'.
      */
-    forceSixRows?: boolean | null;
+    forceSixRows?: boolean | null | undefined;
     /**
      * Set this to true, if you want the plugin to track the last clicked day.
      * If trackSelectedDate is true, "selected" class will always be applied
      * only to the most recently clicked date; otherwise - selectedDate will
      * not change.
      */
-    trackSelectedDate?: boolean;
+    trackSelectedDate?: boolean | undefined;
     /**
      * Set this, if you want a date to be "selected" (see classes.selected)
      * after plugin init. Defualts to null, no initially selected date.
@@ -171,13 +171,13 @@ export interface ClndrOptions {
      * Set this to true if you don't want `inactive` dates to be selectable.
      * This will only matter if you are using the `constraints` option.
      */
-    ignoreInactiveDaysInSelection?: boolean | null;
+    ignoreInactiveDaysInSelection?: boolean | null | undefined;
     // CLNDR can render in any time interval!
     // You can specify if you want to render one or more months, or one ore more
     // days in the calendar, as well as the paging interval whenever forward or
     // back is triggered. If both months and days are null, CLNDR will default
     // to the standard monthly view.
-    lengthOfTime?: LengthOfTime;
+    lengthOfTime?: LengthOfTime | undefined;
     /**
      * Any other data variables you want access to in your template. This gets
      * passed into the template function.
@@ -197,11 +197,11 @@ export interface ClndrOptions {
     // either the startDate, endDate, or both in the constraints option. You
     // can change these while the calendar is on the page... See documentation
     // below for more on this!
-    constraints?: Constraints;
+    constraints?: Constraints | undefined;
     /**
      * Optionally, you can pass a Moment instance to use instead of the global
      */
-    moment?: moment.Moment | null;
+    moment?: moment.Moment | null | undefined;
 }
 
 export interface ClickEvents {
@@ -275,13 +275,13 @@ export interface Target {
  * the target classnames that CLNDR will look for to bind events. these are the defaults.
  */
 export interface Targets {
-    day?: string;
-    empty?: string;
-    nextButton?: string;
-    todayButton?: string;
-    previousButton?: string;
-    nextYearButton?: string;
-    previousYearButton?: string;
+    day?: string | undefined;
+    empty?: string | undefined;
+    nextButton?: string | undefined;
+    todayButton?: string | undefined;
+    previousButton?: string | undefined;
+    nextYearButton?: string | undefined;
+    previousYearButton?: string | undefined;
 }
 
 /**
@@ -289,14 +289,14 @@ export interface Targets {
  * you wish to override. These are the defaults.
  */
 export interface Classes {
-    past?: string;
-    today?: string;
-    event?: string;
-    selected?: string;
-    inactive?: string;
-    lastMonth?: string;
-    nextMonth?: string;
-    adjacentMonth?: string;
+    past?: string | undefined;
+    today?: string | undefined;
+    event?: string | undefined;
+    selected?: string | undefined;
+    inactive?: string | undefined;
+    lastMonth?: string | undefined;
+    nextMonth?: string | undefined;
+    adjacentMonth?: string | undefined;
 }
 
 /**
@@ -306,13 +306,13 @@ export interface Classes {
  * instance of this.
  */
 export interface MultiDayEvents {
-    endDate?: string;
-    startDate?: string;
+    endDate?: string | undefined;
+    startDate?: string | undefined;
     /**
      * If you also have single day events with a different date field,
      * use the singleDay property and point it to the date field.
      */
-    singleDay?: string;
+    singleDay?: string | undefined;
 }
 
 /**
@@ -327,19 +327,19 @@ export interface LengthOfTime {
      * Set to an integer if you want to render one or more months, otherwise
      * leave this null
      */
-    months?: number | null;
+    months?: number | null | undefined;
     /**
      * Set to an integer if you want to render one or more days, otherwise
      * leave this null. Setting this to 14 would render a 2-week calendar.
      *
      */
-    days?: number | null;
+    days?: number | null | undefined;
     /**
      * This is the amount of months or days that will move forward/back when
      * paging the calendar. With days=14 and interval=7, you would have a
      * 2-week calendar that pages forward and backward 1 week at a time.
      */
-    interval?: number;
+    interval?: number | undefined;
 }
 
 export interface RenderData {
@@ -347,11 +347,11 @@ export interface RenderData {
     daysOfTheWeek: string[];
     eventsLastMonth: any[];
     eventsNextMonth: any[];
-    eventsThisInterval?: any[];
+    eventsThisInterval?: any[] | undefined;
     eventsThisMonth: any[];
     extras?: any;
-    intervalEnd?: moment.Moment;
-    intervalStart?: moment.Moment;
+    intervalEnd?: moment.Moment | undefined;
+    intervalStart?: moment.Moment | undefined;
     month: string;
     months: Month[];
     numberOfRows: number;
@@ -385,8 +385,8 @@ export interface CalendarDayProperties {
  * below for more on this!
  */
 export interface Constraints {
-    startDate?: string;
-    endDate?: string;
+    startDate?: string | undefined;
+    endDate?: string | undefined;
 }
 
 declare global {

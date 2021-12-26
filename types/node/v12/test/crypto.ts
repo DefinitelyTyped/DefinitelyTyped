@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import * as assert from 'assert';
+import assert = require('assert');
 import { promisify } from 'util';
 
 {

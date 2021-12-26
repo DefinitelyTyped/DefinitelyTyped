@@ -242,6 +242,21 @@ numOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNum
 strOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 numOrUndefinedExtent = d3Array.extent(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// mode() -----------------------------------------------------------------------
+
+numOrUndefined = d3Array.mode(numbersArray);
+numOrUndefined = d3Array.mode(numericArray);
+numOrUndefined = d3Array.mode(numbersOrUndefinedArray);
+
+numOrUndefined = d3Array.mode(typedArray);
+numOrUndefined = d3Array.mode(readonlyNumbersArray);
+numOrUndefined = d3Array.mode(readonlyNumericArray);
+numOrUndefined = d3Array.mode(readonlyNumbersOrUndefinedArray);
+
+numOrUndefined = d3Array.mode(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.mode(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.mode(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // mean() ----------------------------------------------------------------------
 
 numOrUndefined = d3Array.mean(numbersArray);
@@ -339,6 +354,21 @@ numOrUndefined = d3Array.deviation(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.deviation(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.deviation(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// rank() ------------------------------------------------------------------
+
+float64Array = d3Array.rank(numbersArray);
+float64Array = d3Array.rank(numericArray);
+float64Array = d3Array.rank(numbersOrUndefinedArray);
+
+float64Array = d3Array.rank(typedArray);
+float64Array = d3Array.rank(readonlyNumbersArray);
+float64Array = d3Array.rank(readonlyNumericArray);
+float64Array = d3Array.rank(readonlyNumbersOrUndefinedArray);
+
+float64Array = d3Array.rank(mixedObjectArray, accessorMixedObjectToNum);
+float64Array = d3Array.rank(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+float64Array = d3Array.rank(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // variance() ------------------------------------------------------------------
 
 numOrUndefined = d3Array.variance(numbersArray);
@@ -368,6 +398,24 @@ numOrUndefined = d3Array.fsum(readonlyNumbersOrUndefinedArray);
 numOrUndefined = d3Array.fsum(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.fsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.fsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
+// fcumsum() ----------------------------------------------------------------------
+
+float64Array = d3Array.fcumsum(numbersArray);
+float64Array = d3Array.fcumsum(numericArray);
+float64Array = d3Array.fcumsum(numbersOrUndefinedArray);
+
+float64Array = d3Array.fcumsum(typedArray);
+float64Array = d3Array.fcumsum(readonlyNumbersArray);
+float64Array = d3Array.fcumsum(readonlyNumericArray);
+float64Array = d3Array.fcumsum(readonlyNumbersOrUndefinedArray);
+
+float64Array = d3Array.fcumsum(mixedObjectArray, accessorMixedObjectToNum);
+float64Array = d3Array.fcumsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+float64Array = d3Array.fcumsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
+// $ExpectError
+float64Array = d3Array.fcumsum(['test']);
 
 // Adder() ---------------------------------------------------------------------
 
@@ -742,16 +790,16 @@ const objArray: ObjDefinition[] = [
     { name: "stacy", amount: "34.05", date: "01/04/2016" }
 ];
 
-const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
-const grouped2: Map<string, Map<string, ObjDefinition[]>> = d3Array.group(objArray, d => d.name, d => d.date);
-const grouped3: Map<string, Map<string, Map<string, ObjDefinition[]>>> = d3Array.group(objArray, d => d.name, d => d.date, d => d.amount);
-const indexed: Map<string, ObjDefinition> = d3Array.index(objArray, d => d.name);
-const indexed2: Map<string, Map<string, ObjDefinition>> = d3Array.index(objArray, d => d.name, d => d.date);
-const indexed3: Map<string, Map<string, Map<string, ObjDefinition>>> = d3Array.index(objArray, d => d.name, d => d.date, d => d.amount);
-const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
-const rolledup2: Map<string, Map<string, number>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date);
-const rolledup3: Map<string, Map<string, Map<string, number>>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
-const rolledupAlternate: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
+const grouped: d3Array.InternMap<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
+const grouped2: d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition[]>> = d3Array.group(objArray, d => d.name, d => d.date);
+const grouped3: d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition[]>>> = d3Array.group(objArray, d => d.name, d => d.date, d => d.amount);
+const indexed: d3Array.InternMap<string, ObjDefinition> = d3Array.index(objArray, d => d.name);
+const indexed2: d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition>> = d3Array.index(objArray, d => d.name, d => d.date);
+const indexed3: d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition>>> = d3Array.index(objArray, d => d.name, d => d.date, d => d.amount);
+const rolledup: d3Array.InternMap<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
+const rolledup2: d3Array.InternMap<string, d3Array.InternMap<string, number>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date);
+const rolledup3: d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, number>>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
+const rolledupAlternate: d3Array.InternMap<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
 const groups: Array<[string, ObjDefinition[]]> = d3Array.groups(objArray, d => d.name);
 const groups2: Array<[string, Array<[string, ObjDefinition[]]>]> = d3Array.groups(objArray, d => d.name, d => d.date);
@@ -764,12 +812,34 @@ const rolledups2: Array<[string, Array<[string, number]>]> = d3Array.rollups(obj
 const rolledups3: Array<[string, Array<[string, Array<[string, number]>]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
 const rolledupsAlternate: Array<[string, string]> = d3Array.rollups(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
+const flatGroup: Array<[string, ObjDefinition[]]> = d3Array.flatGroup(objArray, d => d.name);
+const flatGroup2: Array<[string, string, ObjDefinition[]]> = d3Array.flatGroup(objArray, d => d.name, d => d.date);
+const flatGroup3: Array<[string, string, string, ObjDefinition[]]> = d3Array.flatGroup(objArray, d => d.name, d => d.date, d => d.amount);
+const flatRolledup: Array<[string, number]> = d3Array.flatRollup(objArray, d => d.length, d => d.name);
+const flatRolledup2: Array<[string, string, number]> = d3Array.flatRollup(objArray, d => d.length, d => d.name, d => d.date);
+const flatRolledup3: Array<[string, string, string, number]> = d3Array.flatRollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
+const flatRolledupAlternate: Array<[string, string]> = d3Array.flatRollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
+
+// groupSort() -------------------
+
+interface Barley {
+    yield: number;
+    variety: string;
+    year: number;
+    site: string;
+}
+
+declare const barley: Barley[];
+
+const keysAccessor: string[] = d3Array.groupSort(barley, g => d3Array.median(g, d => d.yield), d => d.variety);
+const keysComparator: string[] = d3Array.groupSort(barley, (a, b) => d3Array.ascending(d3Array.median(a, d => d.yield), d3Array.median(b, d => d.yield)), d => d.variety);
+
 // count() -----------------------
 
 let count: number;
 
 count = d3Array.count([1, 2, NaN]); // 2
-count = d3Array.count<{ n: string, age?: number; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
+count = d3Array.count<{ n: string, age?: number | undefined; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
 
 // cross() ---------------------------------------------------------------------
 
@@ -943,6 +1013,8 @@ const sorted: number[] = d3Array.sort(new Set([0, 2, 3, 1]));
 const sortedComparator: number[] = d3Array.sort(new Set([0, 2, 3, 1]), (a, b) => a - b);
 
 const sortedAccessor: Array<{ value: number }> = d3Array.sort([{ value: 5 }, { value: 3 }], (a) => a.value);
+const points: Array<[number, number]> = [[1, 0], [2, 1], [2, 0], [1, 1], [3, 0]];
+const sortedWithMultipleAccessors: Array<[number, number]> = d3Array.sort(points, ([x]) => x, ([, y]) => y);
 
 // -----------------------------------------------------------------------------
 // Test Sets
@@ -1247,3 +1319,13 @@ num = d3Array.thresholdScott(readonlyNumbersArray, -1, 234);
 num = d3Array.thresholdSturges(numbersArray);
 num = d3Array.thresholdSturges(typedArray);
 num = d3Array.thresholdSturges(readonlyNumbersArray);
+
+// Interning ====================================================================
+
+const internMap = new d3Array.InternMap<string, number>();
+internMap.set('5', 3);
+const map: Map<string, number> = internMap;
+
+const internSet = new d3Array.InternSet<string>();
+internSet.add('5');
+const set: Set<string> = internSet;

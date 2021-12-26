@@ -36,8 +36,10 @@ const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
     }
 };
 
-const serverOptions: OAuth2Server.ServerOptions = {
+const serverOptions: ExpressOAuthServer.Options = {
     model: oauth2Model,
+    useErrorHandler: true,
+    continueMiddleware: false,
 };
 const expressOAuthServer: ExpressOAuthServer = new ExpressOAuthServer(serverOptions);
 
@@ -73,7 +75,7 @@ expressApp.all(
 expressApp.get(
     "/profile",
     expressOAuthServer.authenticate({scope: "profile"}),
-    (req: express.Request & {user?: OAuth2Server.Token}, res: express.Response, next: express.NextFunction) => {
+    (req: express.Request & {user?: OAuth2Server.Token | undefined}, res: express.Response, next: express.NextFunction) => {
         res.json({
             profile: req.user
         });

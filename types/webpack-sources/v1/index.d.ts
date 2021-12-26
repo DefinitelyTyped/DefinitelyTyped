@@ -16,12 +16,12 @@ export interface MapOptions {
      * If set to false the implementation may omit mappings for columns
      * @default true
      */
-    columns?: boolean;
+    columns?: boolean | undefined;
     /**
      * If set to false the implementation may omit inner mappings for modules.
      * @default true
      */
-    module?: boolean;
+    module?: boolean | undefined;
 }
 
 export interface SourceAndMapResult {

@@ -4,6 +4,15 @@ import * as t from '@babel/types';
 const options: babel.TransformOptions = {
     ast: true,
     sourceMaps: true,
+    inputSourceMap: {
+        file: 'foo.ts',
+        mappings: 'AAAA',
+        names: ['foo'],
+        sources: ['foo.ts'],
+        version: 3,
+        sourceRoot: '',
+        sourcesContent: ['foo'],
+    },
 };
 
 babel.transform('code();', options, (err, result) => {
@@ -127,6 +136,9 @@ checkConfigFunction(api => {
 // $ExpectType Readonly<PartialConfig> | null
 const partialConfig = babel.loadPartialConfig();
 
+// $ExpectType Promise<Readonly<PartialConfig> | null>
+const partialConfigPromise = babel.loadPartialConfigAsync();
+
 if (partialConfig) {
     // $ExpectType boolean
     partialConfig.hasFilesystemConfig();
@@ -134,6 +146,8 @@ if (partialConfig) {
 
 function withPluginPass(state: babel.PluginPass) {
     state.file.hub.addHelper('something');
+    if (!state.get('jsxDetected')) return;
+    state.set('jsxDetected', true);
 }
 
 const plugin: babel.PluginObj = {

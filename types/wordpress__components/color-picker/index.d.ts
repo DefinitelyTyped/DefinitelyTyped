@@ -20,7 +20,7 @@ declare namespace ColorPicker {
          * Machine-readable color value.
          * @defaultValue "0071a1"
          */
-        color?: string;
+        color?: string | undefined;
         /**
          * Function to be called when color value changes.
          */
@@ -28,7 +28,7 @@ declare namespace ColorPicker {
         /**
          * Should alpha be disabled?
          */
-        disableAlpha?: boolean;
+        disableAlpha?: boolean | undefined;
         /**
          * A reference to the hue of the previous color, otherwise
          * dragging the saturation to zero will reset the current
@@ -36,7 +36,7 @@ declare namespace ColorPicker {
          *
          * @see https://github.com/casesandberg/react-color/issues/29#issuecomment-132686909.
          */
-        oldHue?: number;
+        oldHue?: number | undefined;
     }
 }
 declare const ColorPicker: ComponentType<ColorPicker.Props>;

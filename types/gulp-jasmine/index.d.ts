@@ -11,35 +11,35 @@ interface JasmineOptions {
     /**
      *  Display spec names in default reporter.
      */
-    verbose?: boolean;
+    verbose?: boolean | undefined;
 
     /**
      * Include stack traces in failures in default reporter.
      * @default false
      */
-    includeStackTrace?: boolean;
+    includeStackTrace?: boolean | undefined;
 
     /**
      * Reporter(s) to use.
      */
-    reporter?: jasmine.CustomReporter | ReadonlyArray<jasmine.CustomReporter>;
+    reporter?: jasmine.CustomReporter | ReadonlyArray<jasmine.CustomReporter> | undefined;
 
     /**
      * Time to wait in milliseconds before a test automatically fails.
      * @default 5000
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * Stops the stream on failed tests.
      * @default true
      */
-    errorOnFail?: boolean;
+    errorOnFail?: boolean | undefined;
 
     /**
      * Passes the config to Jasmine's loadConfig method.
      */
-    config?: object;
+    config?: object | undefined;
 }
 
 /**

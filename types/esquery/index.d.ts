@@ -68,7 +68,7 @@ declare namespace query {
         type: string;
     }
     interface SubjectSelectorAtom extends Atom {
-        subject?: boolean;
+        subject?: boolean | undefined;
     }
     interface NthSelectorAtom extends SubjectSelectorAtom {
         index: NumericLiteral;
@@ -125,8 +125,8 @@ declare namespace query {
     interface Attribute extends SubjectSelectorAtom {
         type: 'attribute';
         name: string;
-        operator?: '=' | '!=' | '>' | '<' | '>=' | '<=';
-        value?: Literal | RegExpLiteral | Type;
+        operator?: '=' | '!=' | '>' | '<' | '>=' | '<=' | undefined;
+        value?: Literal | RegExpLiteral | Type | undefined;
     }
     interface NthChild extends NthSelectorAtom {
         type: 'nth-child';

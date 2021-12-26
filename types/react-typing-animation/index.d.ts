@@ -8,24 +8,24 @@ import { Component } from 'react';
 
 export interface TypingProps {
     children: React.ReactNode;
-    className?: string;
-    cursorClassName?: string;
-    cursor?: React.ReactNode;
-    hideCursor?: boolean;
-    speed?: number;
-    startDelay?: number;
-    loop?: boolean;
-    onStartedTyping?: () => void;
-    onBeforeType?: () => void;
-    onAfterType?: () => void;
-    onFinishedTyping?: () => void;
+    className?: string | undefined;
+    cursorClassName?: string | undefined;
+    cursor?: React.ReactNode | undefined;
+    hideCursor?: boolean | undefined;
+    speed?: number | undefined;
+    startDelay?: number | undefined;
+    loop?: boolean | undefined;
+    onStartedTyping?: (() => void) | undefined;
+    onBeforeType?: (() => void) | undefined;
+    onAfterType?: (() => void) | undefined;
+    onFinishedTyping?: (() => void) | undefined;
 }
 
 declare namespace Typing {
     interface BackspaceProperties {
-        count?: number;
-        delay?: number;
-        speed?: number;
+        count?: number | undefined;
+        delay?: number | undefined;
+        speed?: number | undefined;
     }
     class Backspace extends Component<BackspaceProperties> {}
 
@@ -40,9 +40,9 @@ declare namespace Typing {
     class Speed extends Component<SpeedProperties> {}
 
     interface ResetProperties {
-        count?: number;
-        delay?: number;
-        speed?: number;
+        count?: number | undefined;
+        delay?: number | undefined;
+        speed?: number | undefined;
     }
     class Reset extends Component<ResetProperties> {}
 }

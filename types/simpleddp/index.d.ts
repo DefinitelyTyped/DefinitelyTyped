@@ -42,28 +42,28 @@ export interface simpleDDPOptions {
      * Whether to establish the connection to the server upon instantiation. When false, one can manually establish the connection with the connect method.
      * @defaultValue true
      */
-    autoConnect?: boolean;
+    autoConnect?: boolean | undefined;
     /**
      * Whether to try to reconnect to the server when the socket connection closes, unless the closing was initiated by a call to the disconnect method.
      * @defaultValue true
      */
-    autoReconnect?: boolean;
+    autoReconnect?: boolean | undefined;
     /**
      * The interval in ms between reconnection attempts.
      * @defaultValue 1000
      */
-    reconnectInterval?: number;
+    reconnectInterval?: number | undefined;
 
     /**
      * Whether to clear all collections data after a reconnection. This invokes fake removed messages on every document.
      * @defaultValue true
      */
-    clearDataOnReconnection?: boolean;
+    clearDataOnReconnection?: boolean | undefined;
     /**
      * Maximum wait for a response from the server to the method call. Default no maxTimeout.
      * @defaultValue undefined
      */
-    maxTimeout?: number;
+    maxTimeout?: number | undefined;
 }
 
 export default class simpleDDP {

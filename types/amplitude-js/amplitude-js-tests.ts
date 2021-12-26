@@ -102,6 +102,8 @@ import amplitude = require('amplitude-js');
     identify.append('some_list', [1, 2, 3, 4, 'values']);
     identify = new amplitude.Identify().prepend('ab-tests', 'new-user-tests');
     identify.prepend('some_list', [1, 2, 3, 4, 'values']);
+    identify = new amplitude.Identify().preInsert('ab-tests', 'new-user-tests');
+    identify.preInsert('some_list', [1, 2, 3, 4, 'values']);
     identify = new amplitude.Identify().set('user_type', 'beta');
     identify.set('name', { first: 'John', last: 'Doe' });
     identify = new amplitude.Identify().setOnce('sign_up_date', '2016-04-01');
@@ -181,6 +183,7 @@ const defaults: amplitude.Config = {
     eventUploadPeriodMillis: 30 * 1000, // 30s
     eventUploadThreshold: 30,
     forceHttps: true,
+    includeFbclid: false,
     includeGclid: false,
     includeReferrer: false,
     includeUtm: false,

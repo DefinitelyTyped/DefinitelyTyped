@@ -8,6 +8,7 @@
 //                 orzarchi <https://github.com/orzarchi>
 //                 ilaiwi <https://github.com/ilaiwi>
 //                 mrkosima <https://github.com/mrkosima>
+//                 rafaelalmeidatk <https://github.com/rafaelalmeidatk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -21,8 +22,8 @@ export {};
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export interface BaseProps extends React.RefAttributes<any> {
-    as?: React.ElementType;
-    css?: StyledComponents.CSSObject | StyledComponents.FlattenSimpleInterpolation | string;
+    as?: React.ElementType | undefined;
+    css?: StyledComponents.CSSObject | StyledComponents.FlattenSimpleInterpolation | string | undefined;
 }
 
 /**
@@ -43,21 +44,19 @@ export interface SxProps {
     /**
      * The sx prop lets you style elements inline, using values from your theme.
      */
-    sx?: SxStyleProp;
+    sx?: SxStyleProp | undefined;
 }
 
 interface BoxKnownProps
     extends BaseProps,
         StyledSystem.SpaceProps,
         StyledSystem.LayoutProps,
-        StyledSystem.FontSizeProps,
+        StyledSystem.TypographyProps,
         StyledSystem.ColorProps,
-        StyledSystem.FlexProps,
-        StyledSystem.OrderProps,
-        StyledSystem.AlignSelfProps,
+        StyledSystem.FlexboxProps,
         SxProps {
-    variant?: StyledSystem.ResponsiveValue<string>;
-    tx?: string;
+    variant?: StyledSystem.ResponsiveValue<string> | undefined;
+    tx?: string | undefined;
 }
 export interface BoxProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
 export const Box: React.FunctionComponent<BoxProps>;
@@ -69,20 +68,10 @@ export interface ButtonProps
 export const Button: React.FunctionComponent<ButtonProps>;
 
 export interface CardProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
-export const Card: React.FunctionComponent<BoxKnownProps>;
+export const Card: React.FunctionComponent<CardProps>;
 
-interface FlexKnownProps
-    extends BoxKnownProps,
-        StyledSystem.FlexGrowProps,
-        StyledSystem.FlexShrinkProps,
-        StyledSystem.FlexWrapProps,
-        StyledSystem.FlexDirectionProps,
-        StyledSystem.AlignItemsProps,
-        StyledSystem.AlignContentProps,
-        StyledSystem.AlignSelfProps,
-        StyledSystem.JustifyItemsProps,
-        StyledSystem.JustifyContentProps,
-        StyledSystem.JustifySelfProps {}
+// tslint:disable-next-line no-empty-interface
+interface FlexKnownProps extends BoxKnownProps {}
 export interface FlexProps extends FlexKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
 export const Flex: React.FunctionComponent<FlexProps>;
 
@@ -94,14 +83,8 @@ interface LinkKnownProps extends BoxKnownProps {}
 export interface LinkProps extends LinkKnownProps, Omit<React.HTMLProps<HTMLAnchorElement>, keyof LinkKnownProps> {}
 export const Link: React.FunctionComponent<LinkProps>;
 
-interface TextKnownProps
-    extends BoxKnownProps,
-        StyledSystem.FontFamilyProps,
-        StyledSystem.FontWeightProps,
-        StyledSystem.FontStyleProps,
-        StyledSystem.TextAlignProps,
-        StyledSystem.LineHeightProps,
-        StyledSystem.LetterSpacingProps {}
+// tslint:disable-next-line no-empty-interface
+interface TextKnownProps extends BoxKnownProps {}
 export interface TextProps extends TextKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof TextKnownProps> {}
 export const Text: React.FunctionComponent<TextProps>;
 

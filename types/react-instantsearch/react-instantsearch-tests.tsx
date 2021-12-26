@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { connectMenu, connectRefinementList, connectStateResults, SearchState } from "react-instantsearch/connectors";
+import { connectMenu, connectRefinementList, connectStateResults, SearchState, StateResultsProvided } from "react-instantsearch/connectors";
 import { InstantSearch, SearchBox, Index, Hits, Highlight, Menu } from "react-instantsearch/dom";
 import { values } from 'lodash';
 
@@ -31,6 +31,7 @@ import { values } from 'lodash';
     toggle: {
       freeShipping: true
     },
+    relevancyStrictness: 98,
     hitsPerPage: 10,
     sortBy: 'mostPopular',
     query: 'ora',
@@ -295,7 +296,7 @@ import { values } from 'lodash';
   );
 
   const IndexResults = connectStateResults(
-    ({ searchState, searchResults, children }) =>
+    ({ searchState, searchResults, children }: React.PropsWithChildren<StateResultsProvided>) =>
       searchResults && searchResults.nbHits !== 0 ? (
         children as React.ReactElement
       ) : (
@@ -306,7 +307,7 @@ import { values } from 'lodash';
       )
   );
 
-  const AllResults = connectStateResults(({ allSearchResults, children }) => {
+  const AllResults = connectStateResults(({ allSearchResults, children }: React.PropsWithChildren<StateResultsProvided>) => {
     const hasResults =
       allSearchResults &&
         values(allSearchResults).some(results => results.nbHits > 0);

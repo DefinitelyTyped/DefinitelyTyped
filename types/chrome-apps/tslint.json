@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
@@ -19,6 +19,7 @@
         "no-mergeable-namespace": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

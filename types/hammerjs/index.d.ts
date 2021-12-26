@@ -1,6 +1,6 @@
 // Type definitions for Hammer.js 2.0.8
 // Project: http://hammerjs.github.io/
-// Definitions by: Philip Bulley <https://github.com/milkisevil>, Han Lin Yap <https://github.com/codler>
+// Definitions by: Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Hammer:HammerStatic;
@@ -98,15 +98,15 @@ interface CssProps
 
 interface HammerOptions
 {
-  cssProps?:CssProps;
-  domEvents?:boolean;
-  enable?:boolean | ((manager: HammerManager) => boolean);
-  preset?:RecognizerTuple[];
-  touchAction?:string;
-  recognizers?:RecognizerTuple[];
+  cssProps?:CssProps | undefined;
+  domEvents?:boolean | undefined;
+  enable?:boolean | ((manager: HammerManager) => boolean) | undefined;
+  preset?:RecognizerTuple[] | undefined;
+  touchAction?:string | undefined;
+  recognizers?:RecognizerTuple[] | undefined;
 
-  inputClass?:HammerInput;
-  inputTarget?:EventTarget;
+  inputClass?:HammerInput | undefined;
+  inputTarget?:EventTarget | undefined;
 }
 
 interface HammerManagerConstructor {
@@ -202,7 +202,10 @@ declare class HammerInput
   pointerType:string;
 
   /** Event type, matches the INPUT constants. */
-  eventType:number;
+  eventType: HammerStatic['INPUT_START'] |
+             HammerStatic['INPUT_MOVE'] |
+             HammerStatic['INPUT_END'] |
+             HammerStatic['INPUT_CANCEL'];
 
   /** true when the first input. */
   isFirst:boolean;
@@ -252,16 +255,16 @@ declare class TouchMouseInput extends HammerInput
 }
 
 interface RecognizerOptions {
-  direction?: number;
-  enable?: boolean | ((recognizer: Recognizer, inputData: HammerInput) => boolean);
-  event?: string;
-  interval?: number;
-  pointers?: number;
-  posThreshold?: number;
-  taps?: number
-  threshold?: number;
-  time?: number;
-  velocity?: number;
+  direction?: number | undefined;
+  enable?: boolean | ((recognizer: Recognizer, inputData: HammerInput) => boolean) | undefined;
+  event?: string | undefined;
+  interval?: number | undefined;
+  pointers?: number | undefined;
+  posThreshold?: number | undefined;
+  taps?: number | undefined
+  threshold?: number | undefined;
+  time?: number | undefined;
+  velocity?: number | undefined;
 }
 
 interface RecognizerStatic

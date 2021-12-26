@@ -2,7 +2,7 @@
 // Project: https://github.com/slackhq/csp-html-webpack-plugin
 // Definitions by: Porama Ruengrairatanaroj <https://github.com/Seally>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import { Compiler as WebpackCompiler } from 'webpack';
 import { AsyncSeriesWaterfallHook } from 'tapable';
@@ -79,30 +79,30 @@ declare namespace CspHtmlWebpackPlugin {
          * * If `enabled` is set the false, it will disable generating a CSP for
          *   all instances of HtmlWebpackPlugin in your webpack config.
          */
-        enabled?: boolean | ((htmlPluginData: HtmlPluginData) => boolean);
+        enabled?: boolean | ((htmlPluginData: HtmlPluginData) => boolean) | undefined;
         /**
          * The hashing method. Your node version must also accept this hashing
          * method.
          */
-        hashingMethod?: 'sha256' | 'sha384' | 'sha512';
+        hashingMethod?: 'sha256' | 'sha384' | 'sha512' | undefined;
         /**
          * A `<string, boolean>` entry for which policy rules are allowed to
          * include hashes.
          */
-        hashEnabled?: { [directive: string]: boolean };
+        hashEnabled?: { [directive: string]: boolean } | undefined;
         /**
          * A `<string, boolean>` entry for which policy rules are allowed to
          * include nonces.
          */
-        nonceEnabled?: { [directive: string]: boolean };
+        nonceEnabled?: { [directive: string]: boolean } | undefined;
     }
 }
 
 declare module 'html-webpack-plugin' {
     interface Options {
         cspPlugin?: CspHtmlWebpackPlugin.AdditionalOptions & {
-            policy?: CspHtmlWebpackPlugin.Policy
-        };
+            policy?: CspHtmlWebpackPlugin.Policy | undefined
+        } | undefined;
     }
 }
 

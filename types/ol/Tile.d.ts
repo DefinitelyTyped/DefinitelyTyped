@@ -6,13 +6,33 @@ import TileState from './TileState';
 /**
  * A function that takes an {@link module:ol/Tile} for the tile and a
  * {string} for the url as arguments. The default is
- * For more fine grained control, the load function can use fetch or XMLHttpRequest and involve
+ * <code>source.setTileLoadFunction(function(tile, src) {
+ *   tile.getImage().src = src;
+ * });</code>For more fine grained control, the load function can use fetch or XMLHttpRequest and involve
  * error handling:
+ * <code>import TileState from 'ol/TileState';
  *
+ * source.setTileLoadFunction(function(tile, src) {
+ *   var xhr = new XMLHttpRequest();
+ *   xhr.responseType = 'blob';
+ *   xhr.addEventListener('loadend', function (evt) {
+ *     var data = this.response;
+ *     if (data !== undefined) {
+ *       tile.getImage().src = URL.createObjectURL(data);
+ *     } else {
+ *       tile.setState(TileState.ERROR);
+ *     }
+ *   });
+ *   xhr.addEventListener('error', function () {
+ *     tile.setState(TileState.ERROR);
+ *   });
+ *   xhr.open('GET', src);
+ *   xhr.send();
+ * });</code>
  */
 export type LoadFunction = (p0: Tile, p1: string) => void;
 export interface Options {
-    transition?: number;
+    transition?: number | undefined;
 }
 /**
  * {@link module:ol/source/Tile~Tile} sources use a function of this type to get

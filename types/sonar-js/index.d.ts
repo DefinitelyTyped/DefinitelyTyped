@@ -12,7 +12,7 @@ export as namespace Sonar;
  * letting them know they can receive new posts by email if they submit their email address.
  */
 declare class Sonar {
-    withinRangeOfPageBottom?: boolean;
+    withinRangeOfPageBottom?: boolean | undefined;
 
     constructor(window: Window);
 

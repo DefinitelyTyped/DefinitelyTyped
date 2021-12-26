@@ -1,4 +1,4 @@
-import * as asciichart from 'asciichart';
+import asciichart = require('asciichart');
 
 asciichart.black; // $ExpectType string
 asciichart.red; // $ExpectType string

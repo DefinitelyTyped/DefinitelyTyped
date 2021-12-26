@@ -3,7 +3,7 @@ import { ComponentType, ReactNode } from 'react';
 
 declare namespace URLPopover {
     interface Props extends Popover.Props {
-        additionalControls?: ReactNode;
+        additionalControls?: ReactNode | undefined;
         /**
          * Callback used to return the React Elements that will be rendered inside the settings
          * drawer. When this function is provided, a toggle button will be rendered in the popover

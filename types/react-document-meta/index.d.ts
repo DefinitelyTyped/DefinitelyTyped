@@ -7,9 +7,10 @@
 import * as React from 'react';
 
 export interface DocumentMetaProps {
-    readonly title?: string;
-    readonly description?: string;
-    readonly canonical?: string;
+    children?: React.ReactNode;
+    readonly title?: string | undefined;
+    readonly description?: string | undefined;
+    readonly canonical?: string | undefined;
 }
 
 declare class DocumentMeta extends React.Component<DocumentMetaProps> { }

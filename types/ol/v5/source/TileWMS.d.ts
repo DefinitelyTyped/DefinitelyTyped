@@ -14,22 +14,22 @@ import TileImage from './TileImage';
 import WMSServerType from './WMSServerType';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: string | undefined;
     params: { [key: string]: any };
-    gutter?: number;
-    hidpi?: boolean;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    tileClass?: ImageTile;
-    tileGrid?: TileGrid;
-    serverType?: WMSServerType | string;
-    tileLoadFunction?: LoadFunction;
-    url?: string;
-    urls?: string[];
-    wrapX?: boolean;
-    transition?: number;
+    gutter?: number | undefined;
+    hidpi?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileClass?: ImageTile | undefined;
+    tileGrid?: TileGrid | undefined;
+    serverType?: WMSServerType | string | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
 }
 export default class TileWMS extends TileImage {
     constructor(opt_options?: Options);

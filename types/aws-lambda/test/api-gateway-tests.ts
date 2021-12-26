@@ -5,6 +5,7 @@ import {
     APIGatewayAuthorizerWithContextHandler,
     APIGatewayAuthorizerWithContextResult,
     APIGatewayEvent,
+    APIGatewayEventClientCertificate,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventLambdaAuthorizerContext,
     APIGatewayEventRequestContext,
@@ -113,6 +114,17 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = requestContext.identity.apiKey;
     strOrNull = requestContext.identity.apiKeyId;
     strOrNull = requestContext.identity.caller;
+    let clientCertOrNull: APIGatewayEventClientCertificate | null;
+    clientCertOrNull = requestContext.identity.clientCert;
+    if (clientCertOrNull) {
+        str = clientCertOrNull.clientCertPem;
+        str = clientCertOrNull.issuerDN;
+        str = clientCertOrNull.serialNumber;
+        str = clientCertOrNull.subjectDN;
+        str = clientCertOrNull.validity.notAfter;
+        str = clientCertOrNull.validity.notBefore;
+    }
+
     strOrNull = requestContext.identity.cognitoAuthenticationProvider;
     strOrNull = requestContext.identity.cognitoAuthenticationType;
     strOrNull = requestContext.identity.cognitoIdentityId;
@@ -140,6 +152,7 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
 };
 
 const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    str = event.version;
     strOrUndefined = event.body;
     str = event.headers['example']!;
     str = event.routeKey;
@@ -163,6 +176,15 @@ const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback
     str = event.requestContext.requestId;
     str = event.requestContext.time;
     num = event.requestContext.timeEpoch;
+
+    if (event.requestContext.authentication) {
+        str = event.requestContext.authentication.clientCert.clientCertPem;
+        str = event.requestContext.authentication.clientCert.issuerDN;
+        str = event.requestContext.authentication.clientCert.serialNumber;
+        str = event.requestContext.authentication.clientCert.subjectDN;
+        str = event.requestContext.authentication.clientCert.validity.notAfter;
+        str = event.requestContext.authentication.clientCert.validity.notBefore;
+    }
 
     const result = createProxyResultV2();
 

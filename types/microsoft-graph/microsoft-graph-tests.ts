@@ -131,4 +131,67 @@ const todoTask: MicrosoftGraph.TodoTask = {
 
 const lobbyBypassScope: MicrosoftGraph.LobbyBypassScope = "organizer";
 
-const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole  = "Owner";
+const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole = "Owner";
+
+const conditionalAccessGrantControl: MicrosoftGraph.ConditionalAccessGrantControl = "passwordChange";
+
+const authenticationMethodState: MicrosoftGraph.AuthenticationMethodState = "disabled";
+
+const applicationTemplate: MicrosoftGraph.ApplicationTemplate = {
+    categories: [],
+    logoUrl: "test"
+};
+
+const chatType: MicrosoftGraph.ChatType = "group";
+
+const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
+    description: "TEST_DESC",
+    displayName: "TEST_NAME"
+};
+
+const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = "reviewer";
+
+const initiatorType: MicrosoftGraph.InitiatorType = "user";
+
+const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = "string";
+
+const enrollmentState: MicrosoftGraph.EnrollmentState = "enrolled";
+
+const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
+    guestUserRoleId: "TEST_ID",
+    displayName: "TEST_NAME"
+};
+
+const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";
+
+const applicationStatus: MicrosoftGraph.Application = {
+    disabledByMicrosoftStatus: "TEST_VAL"
+};
+
+const bodyType: MicrosoftGraph.BodyType = "text";
+
+const channel: MicrosoftGraph.Channel = {
+    description: "Test",
+};
+
+const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
+
+const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";
+
+const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = "foreground";
+
+const compliance: MicrosoftGraph.Compliance = {};
+
+const columnTypes: MicrosoftGraph.ColumnTypes = "approvalStatus";
+
+const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unknownFutureValue";
+
+const filterMode: MicrosoftGraph.FilterMode = "include";
+
+const policyPlatformType: MicrosoftGraph.PolicyPlatformType = "androidForWork";
+
+const dataSubjectType: MicrosoftGraph.DataSubjectType = "teacher";
+
+const advancedConfigState: MicrosoftGraph.AdvancedConfigState = "disabled";
+
+const contactRelationship: MicrosoftGraph.ContactRelationship = "unknownFutureValue";

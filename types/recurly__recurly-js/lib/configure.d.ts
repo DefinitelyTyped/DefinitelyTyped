@@ -17,6 +17,11 @@ export type RecurlyOptions = {
       sessionId?: string;
     };
   };
+  risk?: {
+    threeDSecure?: {
+      preflightDeviceDataCollector?: boolean;
+    }
+  };
 
   /**
    * @deprecated Use {@link https://developers.recurly.com/reference/recurly-js/index.html#elements|Elements} instead.

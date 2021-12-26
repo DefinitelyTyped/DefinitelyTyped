@@ -1,4 +1,4 @@
-// Type definitions for typopo 2.4
+// Type definitions for typopo 2.5
 // Project: https://github.com/surfinzap/typopo#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,8 +15,12 @@ export function fixTypos(string: string, locale?: Locale, configuration?: Config
 export type Locale = 'en-us' | 'de-de' | 'cs' | 'rue' | 'sk';
 
 export interface Configuration {
-    removeLines?: boolean;
-    removeWhitespacesBeforeMarkdownList?: boolean;
+    /**
+     * keep Markdown code blocks in your Markdown files
+     */
+    keepMarkdownCodeBlocks?: boolean | undefined;
+    removeLines?: boolean | undefined;
+    removeWhitespacesBeforeMarkdownList?: boolean | undefined;
 }
 
 export as namespace typopo;

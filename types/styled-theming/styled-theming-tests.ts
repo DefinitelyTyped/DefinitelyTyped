@@ -36,7 +36,7 @@ const cssPropsTheme = theme('mode', {
 });
 
 interface buttonProps {
-    hidden?: boolean;
+    hidden?: boolean | undefined;
 }
 
 const button = theme.variants('mode', 'kind', {

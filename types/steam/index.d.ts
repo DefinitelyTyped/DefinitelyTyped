@@ -15,8 +15,8 @@ declare namespace Steam {
     export interface LogonOptions {
         accountName: string;
         password: string;
-        shaSentryfile?: string;
-        authCode?: string;
+        shaSentryfile?: string | undefined;
+        authCode?: string | undefined;
     }
 
     export enum EResult {

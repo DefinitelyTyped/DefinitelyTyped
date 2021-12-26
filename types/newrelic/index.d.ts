@@ -1,5 +1,5 @@
 // Type definitions for newrelic 7.0
-// Project: http://github.com/newrelic/node-newrelic
+// Project: https://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
 //                 Michael Bond <https://github.com/MichaelRBond>
@@ -79,6 +79,23 @@ export function addCustomAttribute(key: string, value: string | number | boolean
  * See documentation for `addCustomAttribute` for more information on setting custom attributes.
  */
 export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
+
+/**
+ * Add a custom attribute to the the currently executing span.
+ *
+ * Some attributes are reserved (see CUSTOM_BLACKLIST in the docs for the current, very short list), and
+ * as with most API methods, this must be called in the context of an active segment/span.
+ *
+ * Most recently set value wins.
+ */
+ export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
+
+ /**
+  * Adds all custom attributes in an object to the the currently executing span.
+  *
+  * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
+  */
+ export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
  * Send errors to New Relic that you've already handled yourself.
@@ -327,7 +344,7 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean; timeout?: number; waitForIdle?: boolean },
+    options?: { collectPendingData?: boolean | undefined; timeout?: number | undefined; waitForIdle?: boolean | undefined },
     cb?: (error?: Error) => void,
 ): void;
 
@@ -353,7 +370,7 @@ export function getTraceMetadata(): TraceMetadata;
 export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
 
 export interface Instrument {
-    (opts: { moduleName: string; onRequire: () => void; onError?: (err: Error) => void }): void;
+    (opts: { moduleName: string; onRequire: () => void; onError?: ((err: Error) => void) | undefined }): void;
     (moduleName: string, onRequire: () => void, onError?: (err: Error) => void): void;
 }
 
@@ -418,12 +435,12 @@ export interface LinkingMetadata {
     /**
      * The current trace ID
      */
-    'trace.id'?: string;
+    'trace.id'?: string | undefined;
 
     /**
      * The current span ID
      */
-    'span.id'?: string;
+    'span.id'?: string | undefined;
 
     /**
      * The application name specified in the connect request as
@@ -440,7 +457,7 @@ export interface LinkingMetadata {
     /**
      * The entity ID returned in the connect reply as entity_guid
      */
-    'entity.guid'?: string;
+    'entity.guid'?: string | undefined;
 
     /**
      * The hostname as specified in the connect request as
@@ -454,10 +471,10 @@ export interface TraceMetadata {
     /**
      * The current trace ID
      */
-    traceId?: string;
+    traceId?: string | undefined;
 
     /**
      * The current span ID
      */
-    spanId?: string;
+    spanId?: string | undefined;
 }

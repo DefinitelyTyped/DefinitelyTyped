@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    inline?: boolean;
-    muted?: boolean;
-    timeout?: number;
+    inline?: boolean | undefined;
+    muted?: boolean | undefined;
+    timeout?: number | undefined;
 }
 
 export interface CheckResponse {

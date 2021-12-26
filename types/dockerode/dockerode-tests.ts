@@ -111,6 +111,12 @@ container.remove((err, data) => {
     // NOOP
 });
 
+const abortController = new AbortController();
+container.wait({
+    condition: 'next-exit',
+    abortSignal: abortController.signal
+});
+
 docker.listContainers((err, containers) => {
     containers.forEach(container => {
         docker.getContainer(container.Id).stop((err, data) => {
@@ -131,7 +137,27 @@ docker.buildImage({ context: '.', src: ['Dockerfile', 'test.sh'] }, { t: 'imageN
     // NOOP
 });
 
+docker.buildImage(
+    'archive.tar',
+    {
+        registryconfig: {
+            'https://index.docker.io/v1/': {
+                username: 'user',
+                password: 'pass'
+            }
+        }
+    },
+    (err, response) => {
+        /* NOOP*/
+    });
+
 docker.createContainer({ Tty: true }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createContainer({ HostConfig: { Init: true } }, (err, container) => {
     container.start((err, data) => {
         // NOOP
     });

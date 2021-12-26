@@ -10,9 +10,9 @@ import * as React from 'react';
 export as namespace Reflux;
 
 export interface StoreDefinition {
-    listenables?: any[];
-    init?: Function;
-    getInitialState?: Function;
+    listenables?: any[] | undefined;
+    init?: Function | undefined;
+    getInitialState?: Function | undefined;
     [propertyName: string]: any;
 }
 
@@ -62,15 +62,15 @@ export class PureComponent<TOfStore extends typeof Store = typeof Store, P = any
 }
 
 export interface ActionParameters {
-    children?: string[];
-    asyncResult?: boolean;
-    sync?: boolean;
-    preEmit?: (...args: any[]) => undefined | any[];
-    shouldEmit?: (...args: any[]) => boolean;
+    children?: string[] | undefined;
+    asyncResult?: boolean | undefined;
+    sync?: boolean | undefined;
+    preEmit?: ((...args: any[]) => undefined | any[]) | undefined;
+    shouldEmit?: ((...args: any[]) => boolean) | undefined;
 }
 
 export interface ActionDefinition extends ActionParameters {
-    actionName?: string;
+    actionName?: string | undefined;
 }
 
 export interface ActionObjectDefinition {

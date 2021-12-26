@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Hangouts Chat API v1 1.0
+// Type definitions for non-npm package Google Chat API v1 1.0
 // Project: https://developers.google.com/hangouts/chat
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

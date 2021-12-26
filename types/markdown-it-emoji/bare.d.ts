@@ -1,4 +1,4 @@
-import emoji = require('./index');
+import emoji = require("./index");
 
 declare namespace bare {}
 

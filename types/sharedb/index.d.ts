@@ -1,4 +1,4 @@
-// Type definitions for sharedb 1.0
+// Type definitions for sharedb 2.2
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
@@ -30,6 +30,11 @@ declare class sharedb extends EventEmitter {
     pubsub: sharedb.PubSub;
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
     milestoneDb?: sharedb.MilestoneDB;
+    errorHandler: ErrorHandler;
+
+    readonly projections: {
+        readonly [name: string]: ReadonlyProjection;
+    };
 
     constructor(options?: {
         db?: any,
@@ -38,6 +43,8 @@ declare class sharedb extends EventEmitter {
         milestoneDb?: sharedb.MilestoneDB,
         suppressPublish?: boolean,
         maxSubmitRetries?: number,
+        doNotForwardSendPresenceErrorsToClient?: boolean,
+        errorHandler?: ErrorHandler;
 
         presence?: boolean,
         /**
@@ -91,10 +98,16 @@ declare class sharedb extends EventEmitter {
     ): void;
 
     on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
+    on(event: 'send', callback: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
+
+    getOps(agent: Agent, index: string, id: string, from: number, to: number, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
+    getOpsBulk(agent: Agent, index: string, id: string, fromMap: Record<string, number>, toMap: Record<string, number>, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
 
     static types: ShareDB.Types;
     static logger: ShareDB.Logger;
@@ -105,7 +118,7 @@ declare namespace sharedb {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
         close(callback?: BasicCallback): void;
-        commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
+        commit(collection: string, id: string, op: any, snapshot: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshotBulk(collection: string, ids: string[], fields: any, options: any, callback: (...args: any[]) => any): void;
         getOps(collection: string, id: string, from: number | null, to: number | null, options: any, callback: (...args: any[]) => any): void;
@@ -127,8 +140,8 @@ declare namespace sharedb {
         close(callback?: BasicCallback): void;
     }
 
-    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields | undefined, options: any, callback: DBQueryCallback) => void;
-    type DBQueryCallback = (err: Error | null, snapshots: ShareDB.Snapshot[], extra?: any) => void;
+    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields, options: any, callback: DBQueryCallback) => void;
+    type DBQueryCallback = (err: Error | null, snapshots: Snapshot[], extra?: any) => void;
 
     abstract class PubSub {
         private static shallowCopy(obj: any): any;
@@ -156,7 +169,7 @@ declare namespace sharedb {
     abstract class MilestoneDB {
         close(callback?: BasicCallback): void;
         getMilestoneSnapshot(collection: string, id: string, version: number, callback?: BasicCallback): void;
-        saveMilestoneSnapshot(collection: string, snapshot: ShareDB.Snapshot, callback?: BasicCallback): void;
+        saveMilestoneSnapshot(collection: string, snapshot: Snapshot, callback?: BasicCallback): void;
         getMilestoneSnapshotAtOrBeforeTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
         getMilestoneSnapshotAtOrAfterTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
     }
@@ -166,12 +179,13 @@ declare namespace sharedb {
      *   lives in the actual source code.
      */
     class Connection {
-        constructor(ws: WebSocket);
+        constructor(socket: ShareDB.Socket);
         get(collectionName: string, documentID: string): ShareDB.Doc;
         createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
         createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
     }
     type Doc = ShareDB.Doc;
+    type Snapshot = ShareDB.Snapshot;
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
     type Op = ShareDB.Op;
@@ -211,7 +225,9 @@ declare namespace sharedb {
             query: QueryContext;
             readSnapshots: ReadSnapshotsContext;
             receive: ReceiveContext;
+            receivePresence: PresenceContext;
             reply: ReplyContext;
+            sendPresence: PresenceContext;
             submit: SubmitContext;
         }
 
@@ -235,30 +251,35 @@ declare namespace sharedb {
         interface DocContext extends BaseContext {
             collection: string;
             id: string;
-            snapshot: ShareDB.Snapshot;
+            snapshot: Snapshot;
         }
 
         interface OpContext extends BaseContext {
             collection: string;
             id: string;
-            op: ShareDB.Op;
+            op: any;
+        }
+
+        interface PresenceContext extends BaseContext {
+            presence: PresenceMessage;
+            collection?: string;
         }
 
         interface QueryContext extends BaseContext {
             index: string;
             collection: string;
-            projection: Projection | undefined;
-            fields: ProjectionFields | undefined;
+            projection: ReadonlyProjection;
+            fields: ProjectionFields;
             channel: string;
             query: any;
             options?: {[key: string]: any};
             db: DB | null;
-            snapshotProjection: Projection | null;
+            snapshotProjection: ReadonlyProjection | null;
         }
 
         interface ReadSnapshotsContext extends BaseContext {
             collection: string;
-            snapshots: ShareDB.Snapshot[];
+            snapshots: Snapshot[];
             snapshotType: SnapshotType;
         }
 
@@ -278,9 +299,9 @@ declare namespace sharedb {
     }
 }
 
-interface Projection {
-    target: string;
-    fields: ProjectionFields;
+interface ReadonlyProjection {
+    readonly target: Readonly<string>;
+    readonly fields: Readonly<ProjectionFields>;
 }
 
 interface ProjectionFields {
@@ -289,21 +310,48 @@ interface ProjectionFields {
 
 interface SubmitRequest {
     index: string;
-    projection: Projection | undefined;
+    projection: ReadonlyProjection;
     collection: string;
     id: string;
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
     options: any;
     start: number;
+    extra: {
+        source?: any;
+    };
 
     saveMilestoneSnapshot: boolean | null;
     suppressPublish: boolean | null;
     maxRetries: number | null;
     retries: number;
 
-    snapshot: ShareDB.Snapshot | null;
-    ops: ShareDB.Op[];
+    snapshot: sharedb.Snapshot | null;
+    ops: any[];
     channels: string[] | null;
 }
 
+interface GetOpsOptions {
+    opsOptions?: {
+        metadata?: boolean;
+    };
+}
+
+interface PresenceMessage {
+    a: 'p';
+    ch: string; // channel
+    src: string; // client ID
+    id: string; // presence ID
+    p: any; // presence payload
+    pv: number; // presence version
+    c?: string; // document collection
+    d?: string; // document ID
+    v?: number; // document version
+    t?: string; // document OT type
+}
+
 type BasicCallback = (err?: Error) => void;
+
+type ErrorHandler = (error: Error, context: ErrorHandlerContext) => void;
+interface ErrorHandlerContext {
+    agent?: Agent;
+}

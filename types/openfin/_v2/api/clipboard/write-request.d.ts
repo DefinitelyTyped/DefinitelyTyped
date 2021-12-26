@@ -1,12 +1,12 @@
 export interface WriteRequestType {
     data: string;
-    type?: string;
+    type?: string | undefined;
 }
 export interface WriteAnyRequestType {
     data: {
-        text?: string;
-        html?: string;
-        rtf?: string;
+        text?: string | undefined;
+        html?: string | undefined;
+        rtf?: string | undefined;
     };
-    type?: string;
+    type?: string | undefined;
 }

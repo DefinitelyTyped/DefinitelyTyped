@@ -2,8 +2,8 @@
 import { Identity } from '../../identity';
 import { LayoutPresetTypes } from './utils';
 export interface InitLayoutOptions {
-    containerId?: string;
-    layout?: GoldenLayout.Config;
+    containerId?: string | undefined;
+    layout?: GoldenLayout.Config | undefined;
 }
 export interface PresetLayoutOptions {
     presetType: LayoutPresetTypes;

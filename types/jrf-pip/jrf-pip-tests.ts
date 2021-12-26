@@ -7,9 +7,9 @@ interface ParallelProcessingParams<T> {
 
     nextValueFn?(params: NextValueFnParams<T>): boolean | Promise<boolean>;
 
-    cycleTimeout?: number;
-    parallel?: number;
-    awaitRes?: boolean;
+    cycleTimeout?: number | undefined;
+    parallel?: number | undefined;
+    awaitRes?: boolean | undefined;
 
     cb?(stackError: StackError<T>): void | Promise<void>;
 }

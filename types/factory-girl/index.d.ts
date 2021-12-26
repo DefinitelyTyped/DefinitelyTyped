@@ -4,8 +4,8 @@
 //                 Sebastián Estrella <https://github.com/sestrella>
 //                 Luis Fernando Alvarez <https://github.com/elcuy>
 //                 Olivier Kamers <https://github.com/OlivierKamers>
+//                 Dan McNamara <https://github.com/DMcNamara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 declare const factory: factory.Static;
 
@@ -33,17 +33,28 @@ declare namespace factory {
         /**
          * Associate the factory to other model
          */
-        assoc(model: string, attributes: string): any;
+        assoc(name: string, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any;
 
         /**
          * Associate the factory to a model that's not persisted
          */
-        assocAttrs(name: string, key?: string, attributes?: any): any;
+        assocAttrs(name: string, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any;
 
         /**
          * Associate the factory to multiple other models
          */
-        assocMany(model: string, num: number, attributes: string): any[];
+        assocMany(name: string, num: number, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any[];
+
+        /**
+         * Associate the factory to multiple other models that aren't persisted
+         */
+        assocAttrsMany(
+            name: string,
+            num: number,
+            key?: string,
+            attrs?: Attributes<any>,
+            buildOptions?: BuildOptions,
+        ): any[];
 
         /**
          * Generates and returns model attributes as an object hash instead of the model instance
@@ -66,7 +77,7 @@ declare namespace factory {
         build<T>(name: string, attrs?: Attributes<Partial<T>>, buildOptions?: BuildOptions): Promise<T>;
 
         /**
-         * Builds an array of model instances that are persisted
+         * Builds an array of model instances that are not persisted
          */
         buildMany<T>(
             name: string,
@@ -132,14 +143,16 @@ declare namespace factory {
          */
         resetSequence(name?: string): void;
         resetSeq(name?: string): void;
+
+        chance(chanceMethod: string, ...options: any): any;
     }
 
     interface Options<T> {
-        afterBuild?: Hook<T>;
-        afterCreate?: Hook<T>;
+        afterBuild?: Hook<T> | undefined;
+        afterCreate?: Hook<T> | undefined;
     }
 
-    type Hook<T> = (model: any, attrs: T[], options: any) => void;
+    type Hook<T> = (model: any, attrs: T | T[], options: any) => void;
 }
 
 export = factory;

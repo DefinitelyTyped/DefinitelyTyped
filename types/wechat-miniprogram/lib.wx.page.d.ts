@@ -10,7 +10,11 @@ declare namespace WechatMiniprogram.Page {
     type Options<
         TData extends DataOption,
         TCustom extends CustomOption
-    > = (TCustom & Partial<Data<TData>> & Partial<ILifetime>) &
+    > = (TCustom &
+        Partial<Data<TData>> &
+        Partial<ILifetime> & {
+            options?: Component.ComponentOptions
+        }) &
         ThisType<Instance<TData, TCustom>>
     type TrivialInstance = Instance<IAnyObject, IAnyObject>
     interface Constructor {
@@ -143,20 +147,20 @@ declare namespace WechatMiniprogram.Page {
 
     interface ICustomShareContent {
         /** 转发标题。默认值：当前小程序名称 */
-        title?: string
+        title?: string | undefined
         /** 转发路径，必须是以 / 开头的完整路径。默认值：当前页面 path */
-        path?: string
+        path?: string | undefined
         /** 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持PNG及JPG。显示图片长宽比是 5:4，最低基础库： `1.5.0`。默认值：使用默认截图 */
-        imageUrl?: string
+        imageUrl?: string | undefined
     }
 
     interface ICustomTimelineContent {
         /** 自定义标题，即朋友圈列表页上显示的标题。默认值：当前小程序名称 */
-        title?: string
+        title?: string | undefined
         /** 自定义页面路径中携带的参数，如 `path?a=1&b=2` 的 “?” 后面部分 默认值：当前页面路径携带的参数 */
-        query?: string
+        query?: string | undefined
         /** 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持 PNG 及 JPG。显示图片长宽比是 1:1。默认值：默认使用小程序 Logo*/
-        imageUrl?: string
+        imageUrl?: string | undefined
     }
 
     interface IPageScrollOption {
@@ -182,7 +186,7 @@ declare namespace WechatMiniprogram.Page {
          *
          * 最低基础库： `1.6.4`
          */
-        webViewUrl?: string
+        webViewUrl?: string | undefined
     }
 
     interface ITabItemTapOption {
@@ -205,16 +209,16 @@ declare namespace WechatMiniprogram.Page {
 
     interface IAddToFavoritesOption {
         /** 页面中包含web-view组件时，返回当前web-view的url */
-        webviewUrl?: string
+        webviewUrl?: string | undefined
     }
 
     interface IAddToFavoritesContent {
         /** 自定义标题，默认值：页面标题或账号名称 */
-        title?: string
+        title?: string | undefined
         /** 自定义图片，显示图片长宽比为 1：1，默认值：页面截图 */
-        imageUrl?: string
+        imageUrl?: string | undefined
         /** 自定义query字段，默认值：当前页面的query */
-        query?: string
+        query?: string | undefined
     }
 
     interface GetCurrentPages {

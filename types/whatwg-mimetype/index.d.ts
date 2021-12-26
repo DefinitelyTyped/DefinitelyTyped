@@ -18,5 +18,5 @@ declare class MIMEType {
 
   isHTML(): boolean;
   isXML(): boolean;
-  isJavaScript(opts?: { allowParameters?: boolean }): boolean;
+  isJavaScript(opts?: { allowParameters?: boolean | undefined }): boolean;
 }

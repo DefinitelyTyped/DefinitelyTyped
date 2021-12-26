@@ -3,20 +3,20 @@ import { Store } from 'rdf-js';
 import '@rdfjs/express-handler';
 import 'set-link';
 import 'absolute-url';
-import Api = require('./Api');
+import { Api } from './Api';
 import { ResourceLoader } from '.';
 
 declare namespace middleware {
     interface HydraBoxMiddleware {
-        resource?: express.RequestHandler | express.RequestHandler[];
-        operations?: express.RequestHandler | express.RequestHandler[];
+        resource?: express.RequestHandler | express.RequestHandler[] | undefined;
+        operations?: express.RequestHandler | express.RequestHandler[] | undefined;
     }
 
     interface Options {
-        baseIriFromRequest?: boolean;
-        loader?: ResourceLoader;
-        store?: Store;
-        middleware?: HydraBoxMiddleware;
+        baseIriFromRequest?: boolean | undefined;
+        loader?: ResourceLoader | undefined;
+        store?: Store | undefined;
+        middleware?: HydraBoxMiddleware | undefined;
     }
 }
 

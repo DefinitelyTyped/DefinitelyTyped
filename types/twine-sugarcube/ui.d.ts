@@ -2,9 +2,9 @@
 
 export interface DialogOptions {
     /** Top y-coordinate of the dialog (default: 50; in pixels, but without the unit). */
-    top?: number;
+    top?: number | undefined;
     /** Opacity of the overlay (default: 0.8). */
-    opacity?: number;
+    opacity?: number | undefined;
 }
 
 export interface DialogAPI {

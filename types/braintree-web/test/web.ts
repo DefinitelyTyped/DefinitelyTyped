@@ -1,4 +1,5 @@
 import * as braintree from 'braintree-web';
+import { HostedFieldsBinPayload } from 'braintree-web/modules/hosted-fields';
 
 const version: string = braintree.VERSION;
 
@@ -216,7 +217,7 @@ braintree.client.create(
                     false,
                 );
 
-                hostedFieldsInstance.on('focus', (event: braintree.HostedFieldsStateObject) => {
+                hostedFieldsInstance.on('focus', (event: braintree.HostedFieldsEvent) => {
                     console.log(event.emittedBy, 'has been focused');
                 });
 
@@ -267,7 +268,7 @@ braintree.client.create(
                     },
                 );
 
-                hostedFieldsInstance.on('cardTypeChange', (event: braintree.HostedFieldsStateObject) => {
+                hostedFieldsInstance.on('cardTypeChange', (event: braintree.HostedFieldsEvent) => {
                     // Update the placeholder value if there is only one possible card type
                     if (event.cards.length === 1) {
                         braintree.hostedFields.setPlaceholder(
@@ -294,12 +295,36 @@ braintree.client.create(
                 hostedFieldsInstance.clear('expirationDate');
 
                 const state = braintree.hostedFields.getState();
+                Object.keys(state.fields)
+                    .map(k => k as keyof typeof state.fields)
+                    .every(k => state.fields[k].isValid);
 
-                const formValid = Object.keys(state.fields).every(key => {
-                    return state.fields[key].isValid;
+                hostedFieldsInstance.focus('cardholderName');
+                hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {
+                    if (focusErr) {
+                        console.error(focusErr);
+                    }
                 });
+
+                function onValidityChange(fieldState: braintree.HostedFieldsEvent): void {
+                    console.log(fieldState);
+                }
+
+                hostedFieldsInstance.on('validityChange', onValidityChange);
+                hostedFieldsInstance.off('validityChange', onValidityChange);
+
+                function onBinAvailable(event: HostedFieldsBinPayload) {
+                    console.log(event.bin);
+                }
+
+                hostedFieldsInstance.on('binAvailable', onBinAvailable);
+                hostedFieldsInstance.off('binAvailable', onBinAvailable);
             },
         );
+
+        braintree.ApplePaySession.canMakePayments(); // boolean
+        braintree.ApplePaySession.canMakePaymentsWithActiveCard('merchantIdentifier'); // boolean
+        braintree.ApplePaySession.supportsVersion(3); // boolean
 
         braintree.applePay.create(
             { client: clientInstance },
@@ -372,14 +397,16 @@ braintree.client.create(
                     {
                         token: event.payment.token,
                     },
-                    (err, tokenizedPayload) => {
+                    (err: braintree.BraintreeError, tokenizedPayload: braintree.ApplePayPayload) => {
                         if (err) {
                             session.completePayment(braintree.ApplePayStatusCodes.STATUS_FAILURE);
                             return;
                         }
-                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
 
                         // Send the tokenizedPayload to your server.
+                        console.log(tokenizedPayload.nonce);
+
+                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
                     },
                 );
             };
@@ -552,6 +579,17 @@ braintree.client.create(
             },
         );
 
+        braintree.paypalCheckout
+            .loadPayPalSDK({
+                'client-id': 'PayPal Client Id',
+                currency: 'USD',
+                intent: 'capture',
+                vault: true,
+            })
+            .then((paypalCheckout: braintree.PayPalCheckout) => {
+                // window.paypal.Buttons is now available to use
+            });
+
         braintree.unionpay.create({ client: clientInstance }, (createErr, unionpayInstance) => {
             if (createErr) {
                 console.error(createErr);
@@ -685,7 +723,19 @@ braintree.client.create(
             });
         });
 
-        clientInstance.teardown((err) => {
+        // Vault Manager
+        braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
+            vaultManagerInstance
+                .fetchPaymentMethods()
+                .then((payload: braintree.FetchPaymentMethodsPayload[]) => {
+                    payload.forEach(paymentMethod => console.log(paymentMethod.nonce));
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
+        });
+
+        clientInstance.teardown(err => {
             // implementation
         });
     },
@@ -733,7 +783,7 @@ braintree.threeDSecure.verifyCard(
     {
         nonce: existingNonce,
         amount: 123.45, // $ExpectType number
-        bin: "1234",
+        bin: '1234',
         addFrame: (err, iframe) => {
             // Set up your UI and add the iframe.
             const my3DSContainer = document.createElement('div');
@@ -766,6 +816,21 @@ braintree.threeDSecure.verifyCard(
     },
 );
 
+// Check if verifyCard can be called without addFrame and removeFrame
+braintree.threeDSecure.verifyCard(
+    {
+        nonce: existingNonce,
+        amount: 123.45, // $ExpectType number
+        bin: '1234',
+    },
+    (err: braintree.BraintreeError) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    },
+);
+
 braintree.threeDSecure.cancelVerifyCard(
     (err: braintree.BraintreeError, verifyPayload: braintree.ThreeDSecureVerifyPayload) => {
         if (err) {
@@ -775,7 +840,45 @@ braintree.threeDSecure.cancelVerifyCard(
         }
 
         verifyPayload.nonce; // The nonce returned from the 3ds lookup call
-        verifyPayload.liabilityShifted; // boolean
-        verifyPayload.liabilityShiftPossible; // boolean
+        verifyPayload.type; // The payment method type.
+        verifyPayload.liabilityShifted || verifyPayload.threeDSecureInfo.liabilityShifted; // boolean
+        verifyPayload.liabilityShiftPossible || verifyPayload.threeDSecureInfo.liabilityShiftPossible; // boolean
+        verifyPayload.binData.issuingBank; // The issuing bank.
     },
 );
+
+// Check if 'number' field is optional (#56167)
+braintree.hostedFields.create({
+    fields: {
+        cvv: {
+            container: '#cvv',
+            type: 'password',
+        },
+        cardholderName: {
+            container: '#cardholder-name',
+        },
+        expirationMonth: {
+            container: '#expiration-month',
+            select: {
+                options: [
+                    '01 - Jan',
+                    '02 - Feb',
+                    '03 - Mar',
+                    '04 - Apr',
+                    '05 - May',
+                    '06 - Jun',
+                    '07 - Jul',
+                    '08 - Aug',
+                    '09 - Sep',
+                    '10 - Oct',
+                    '11 - Nov',
+                    '12 - Dec',
+                ],
+            },
+        },
+        expirationYear: {
+            container: '#expiration-year',
+            select: true,
+        },
+    },
+});

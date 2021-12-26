@@ -7,12 +7,12 @@ export interface CirclePickerStylesProps {
 }
 
 export interface CirclePickerProps extends CustomPickerProps {
-    colors?: string[];
-    width?: string;
-    circleSize?: number;
-    circleSpacing?: number;
-    onSwatchHover?: (color: ColorState, event: MouseEvent) => void;
-    styles?: Partial<Classes<CirclePickerStylesProps>>;
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    circleSize?: number | undefined;
+    circleSpacing?: number | undefined;
+    onSwatchHover?: ((color: ColorState, event: MouseEvent) => void) | undefined;
+    styles?: Partial<Classes<CirclePickerStylesProps>> | undefined;
 }
 
 export default class CirclePicker extends Component<CirclePickerProps> { }

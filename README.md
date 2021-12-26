@@ -2,33 +2,10 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
-
-## Contents
-
-* [Current status](#current-status)
-* [What are declaration files and how do I get them?](#what-are-declaration-files-and-how-do-i-get-them)
-* [How can I contribute?](#how-can-i-contribute)
-  - [Testing](#testing)
-  - [Make a pull request](#make-a-pull-request)<details><summary></summary>
-    - [Edit an existing package](#edit-an-existing-package)
-    - [Create a new package](#create-a-new-package)
-    - [Removing a package](#removing-a-package)
-    - [Running tests](#running-tests)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [Common mistakes](#common-mistakes)
-    </details>
-  - [Definition owners](#definition-owners)
-* [FAQ](#faq)
-* [License](#license)
-
 
 ## Current status
 
@@ -37,7 +14,7 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 
 * Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
@@ -45,7 +22,7 @@ If anything here seems wrong, or any of the above are failing, please let us kno
 
 ## What are declaration files and how do I get them?
 
-See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
+See the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
 ### npm
 
@@ -62,40 +39,28 @@ You may need to add a `types` reference if you're not using modules:
 /// <reference types="node" />
 ```
 
-See more in the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
+See more in the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 For an npm package "foo", typings for it will be at "@types/foo".
 If you can't find your package, look for it on [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
-If you still can't find it, check if it [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own typings.
+If you still can't find it, check if it [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own typings.
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (3.3 and earlier)
+### Support Window
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 3.4 and above are tested.
-If you're using TypeScript 2.0 to 3.3, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+
+<details>
+<summary>Currently versions 3.8 and above are tested...</summary>
+
+If you're using TypeScript 2.0 to 3.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
-| Version | Released       | End of Support |
-| ------- | -------------- | -------------- |
-| 2.8     | March 2018     | March 2020     |
-| 2.9     | May 2018       | May 2020       |
-| 3.0     | July 2018      | August 2020    |
-| 3.1     | September 2018 | September 2020 |
-| 3.2     | November 2018  | November 2020  |
-| 3.3     | January 2019   | January 2021   |
-| 3.4     | March 2019     | March 2021     |
-| 3.5     | May 2019       | May 2021       |
-| 3.6     | August 2019    | August 2021    |
-| 3.7     | November 2019  | November 2021  |
-| 3.8     | February 2020  | February 2022  |
-| 3.9     | May 2020       | May 2022       |
-| 4.0     | August 2020    | August 2022    |
-| 4.1     | November 2020  | November 2022  |
-| 4.2     | February 2021  | February 2023  |
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -114,22 +79,32 @@ For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript
 
 * Manually download from the `master` branch of this repository and place them in your project
 * ~~[Typings](https://github.com/typings/typings)~~ (use preferred alternatives, typings is deprecated)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
+* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
 
-You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+You may need to add manual [references](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+
+</details>
 
 ## How can I contribute?
 
-Definitely Typed only works because of contributions by users like you!
+Definitely Typed only works because of contributions by users like you! 
 
 ### Testing
 
-Before you share your improvement with the world, use it yourself.
+Before you share your improvement with the world, use the types yourself by creating a `typename.d.ts` file in your project and filling out its exports:
+
+```ts
+declare module "libname" { 
+  // Types inside here
+  export function helloWorldMessage(): string
+}
+```
 
 #### Test editing an existing package
 
-To test local to your app, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module you want to work on.
-Alternatively, you can also edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
+You can edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
+
+Alternatively, you can use [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module or use the `declare module` technique above which will override the version in `node_modules`.
 
 #### Adding tests to a new package
 
@@ -152,11 +127,30 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
+First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
 <img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+
+#### Partial clone
+
+<details>
+<summary>You can clone the entire repository <a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>as per usual</a>, but it's large and includes a massive directory of type packages.</summary>
+
+You can clone the entire repository [as per usual](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), but it's large and includes a massive directory of type packages. This will take some time to clone and may be unnecessarily unwieldy.
+
+For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt), and [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) features. This will reduce clone time and improve git performance.
+
+>:warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
+
+1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
+    - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
+    - `--filter=blob:none` will exclude files, fetching them only as needed.
+    - `--depth=1` will further improve clone speed by truncating commit history, but it may cause issues as summarized [here](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
+2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
+
+</details>
 
 #### Edit an existing package
 
@@ -170,7 +164,7 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
 
-If you are the library author and your package is written in TypeScript, [bundle the autogenerated declaration files](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) in your package instead of publishing to Definitely Typed.
+If you are the library author and your package is written in TypeScript, [bundle the autogenerated declaration files](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) in your package instead of publishing to Definitely Typed.
 
 If you are adding typings for an npm package, create a directory with the same name.
 If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
@@ -196,7 +190,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 #### Removing a package
 
-When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
+When a package [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
 You can remove it by running `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 * `<typingsPackageName>`: This is the name of the directory to delete.
@@ -226,6 +220,8 @@ If a package was never on Definitely Typed, it does not need to be added to `not
 Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+
+Once you have all your changes ready, use `npm run test-all` to see how your changes affect other modules.
 
 #### Naming
 
@@ -296,6 +292,31 @@ If for some reason some rule needs to be disabled, [disable it for that specific
 
 You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
+##### `esModuleInterop`/`allowSyntheticDefaultImports`
+
+TL;DR: `esModuleInterop` and `allowSyntheticDefaultImports` are *not allowed* in your `tsconfig.json`.
+
+> These options make it possible to write a default import for a CJS export, modeling the built-in interoperability between CJS and ES modules in Node and in some JS bundlers:
+>
+> ```tsx
+> // component.d.ts
+> declare class Component {​​​​​}​​​​​
+> // CJS export, modeling `module.exports = Component` in JS
+> export = Component;
+>
+> // index.d.ts
+> // ESM default import, only allowed under 'esModuleInterop' or 'allowSyntheticDefaultExports'
+> import Component from "./component";
+> ```
+>
+> Since the compile-time validity of the import in `index.d.ts` is dependent upon specific compilation settings, which users of your types do not inherit, using this pattern in DefinitelyTyped would force users to change their own compilation settings, which might be incorrect for their runtime. Instead, you must write a CJS import for a CJS export to ensure widespread, config-independent compatibility:
+>
+> ```ts
+> // index.d.ts
+> // CJS import, modeling `const Component = require("./component")` in JS
+> import Component = require("./component");
+> ```
+
 #### `package.json`
 
 Usually you won't need this.
@@ -315,7 +336,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 
 #### Common mistakes
 
-* First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* First, follow advice from the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
   ```tsx
   // prettier-ignore
@@ -332,12 +353,14 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
   Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
   Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
 * `var foo: string | any`:
   When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 ### Definition owners
+
+> TL;DR: do not modify `.github/CODEOWNERS`, always modify list of the owners in the `index.d.ts` header
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
@@ -374,6 +397,13 @@ Roughly:
 
 PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
 
+#### I'd like to submit a change to a very popular project, why are they treated differently?
+
+For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher. 
+Changes to these projects can have massive ecosystem effects, and so we treat changes to them with a lot of care.
+These modules require both a sign-off from a DT maintainer, and enthusiastic support from the module owners. The bar for passing this can be quite high, and often PRs can go stale because it doesn't have a champion.
+If you're finding that no-one is committing, try to make your PR have a smaller focus.
+
 #### My PR is merged; when will the `@types` npm package be updated?
 
 npm packages should update within a few minutes. If it's been more than an hour, mention the PR number on [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) and the current maintainer will get the correct team member to investigate.
@@ -387,13 +417,17 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 
 Then they are wrong, and we've not noticed yet. You can help by submitting a pull request to fix them.
 
+#### Can I change/enforce formatting settings for modules?
+
+No. We've explored trying to make DT's code-formatting consistent before but reached an impasse due to the high activity on the repo. We include formatting settings via a [`.editorconfig`](.editorconfig) and [`.prettierrc.json`](.prettierrc.json). These are exclusively for tooling in your editor, their settings don't conflict and we don't plan on changing them. Nor do we plan on enforcing a specific style in the repo. We want to keep the barriers to contributions low.
+
 #### Can I request a definition?
 
 Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
 
 #### What about type definitions for the DOM?
 
-If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+If types are part of a web standard, they should be contributed to [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
 #### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
 
@@ -459,11 +493,11 @@ Here's a short example to get you started:
 4. Back in the root of the package, add the TypeScript 3.7 features you want to use.
    When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
 
-   You can look at [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) for an example.
+   You can look at [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) for an example.
 
 #### I want to add a DOM API not present in TypeScript by default.
 
-This may belong in [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). See the guidelines there.
+This may belong in [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator#readme). See the guidelines there.
 If the standard is still a draft, it belongs here.
 Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
 When it graduates draft mode, we may remove it from Definitely Typed and deprecate the associated `@types` package.
@@ -478,7 +512,7 @@ For example, here are the first few lines of [Node's type declarations](https://
 
 ```js
 // Type definitions for Node.js 10.12
-// Project: http://nodejs.org/
+// Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 Definitely Typed <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -571,7 +605,7 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 #### The file history in GitHub looks incomplete.
 
-GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
+GitHub doesn't [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 ## License
 

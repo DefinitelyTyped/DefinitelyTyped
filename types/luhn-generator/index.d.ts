@@ -15,7 +15,7 @@ export function validate(input: number | string): boolean;
 
 export interface InputOptions {
     /** @default 0 */
-    pad?: number;
+    pad?: number | undefined;
     /** @default 2 */
-    weightFactor?: number;
+    weightFactor?: number | undefined;
 }

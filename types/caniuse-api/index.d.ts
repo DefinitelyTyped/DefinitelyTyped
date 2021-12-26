@@ -8,11 +8,11 @@ export const features: string[];
 
 export interface BrowserSupport {
     [browser: string]: {
-        y?: number;
-        n?: number;
-        a?: number;
-        x?: number;
-        p?: number;
+        y?: number | undefined;
+        n?: number | undefined;
+        a?: number | undefined;
+        x?: number | undefined;
+        p?: number | undefined;
     };
 }
 

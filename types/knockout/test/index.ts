@@ -630,6 +630,13 @@ function testUnwrapUnion() {
 
 }
 
+function testPeekUnion() {
+
+    var possibleObs: KnockoutObservable<number> | number = 0;
+    var num = ko.utils.peekObservable(possibleObs);
+
+}
+
 function test_tasks() {
     // Schedule an empty task
     ko.tasks.schedule(function () {
@@ -691,19 +698,19 @@ function observableArrayEventsTests() {
 }
 
 interface MySubscribable extends KnockoutSubscribable<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 interface MyObservable extends KnockoutObservable<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 interface MyObservableArray extends KnockoutObservableArray<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 interface MyComputed extends KnockoutComputed<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 function observableAny() {

@@ -10,6 +10,11 @@ class TestClass {}
 var thenableNum: PromiseLike<number> = Promise.resolve(3);
 thenableNum = chai.expect(thenableNum).to.eventually.equal(3);
 thenableNum = chai.expect(thenableNum).to.eventually.have.property('foo');
+thenableNum = chai.expect(thenableNum).to.eventually.have.property(Symbol.for('bar'));
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownProperty('foo');
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownProperty(Symbol.for('bar'));
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownPropertyDescriptor('foo');
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownPropertyDescriptor(Symbol.for('bar'));
 thenableNum = chai.expect(thenableNum).to.become(3);
 thenableNum = chai.expect(thenableNum).to.be.fulfilled;
 thenableNum = chai.expect(thenableNum).to.be.rejected;

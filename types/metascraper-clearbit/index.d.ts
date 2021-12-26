@@ -12,7 +12,7 @@ import metascraper = require('metascraper');
 declare namespace getData {
     interface Options {
         /** Any option provided here will passed to `got#options`. */
-        gotOpts?: http.ClientRequestArgs;
+        gotOpts?: http.ClientRequestArgs | undefined;
     }
 }
 

@@ -14,6 +14,7 @@ export { default as HeaderSideNavItems } from "./HeaderSideNavItems";
 
 export { default as SideNav } from "./SideNav";
 export { default as SideNavDetails } from "./SideNavDetails";
+export { default as SideNavDivider } from "./SideNavDivider";
 export { default as SideNavFooter } from "./SideNavFooter";
 export { default as SideNavHeader } from "./SideNavHeader";
 export { default as SideNavIcon } from "./SideNavIcon";
@@ -47,6 +48,7 @@ export * from "./HeaderSideNavItems";
 
 export * from "./SideNav";
 export * from "./SideNavDetails";
+export * from "./SideNavDivider";
 export * from "./SideNavFooter";
 export * from "./SideNavHeader";
 export * from "./SideNavIcon";

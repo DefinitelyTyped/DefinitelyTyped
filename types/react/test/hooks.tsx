@@ -12,12 +12,12 @@ export function Person(props: PersonProps) {
 
 export interface FancyButtonProps {
     onClick: () => void;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
-export interface FancyButton {
+export interface FancyButtonMethod {
     fancyClick(): void;
 }
-export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButton>) => {
+export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButtonMethod>) => {
     const buttonRef = React.useRef<HTMLButtonElement | null>(null);
     const [count, setCount] = React.useState(0);
 
@@ -60,7 +60,7 @@ const initialState = {
 
 export function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
-    const birthdayRef = React.useRef<FancyButton>(null);
+    const birthdayRef = React.useRef<React.ComponentRef<typeof FancyButton>>(null);
 
     React.useLayoutEffect(() => {
         if (birthdayRef.current !== null) {
@@ -101,6 +101,25 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
 
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: 'The Answer' });
+
+    // TODO (TypeScript 3.0): Decide whether implicit `any` should trigger `noImplicitAny` or if it should default to `unknown` or `never`
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873
+    // $ExpectType (value: any) => any
+    const anyCallback = React.useCallback(value => {
+        // $ExpectType any
+        return value;
+    }, []);
+    // $ExpectType any
+    anyCallback({});
+    // $ExpectType (value: string) => number
+    const typedCallback = React.useCallback((value: string) => {
+        return Number(value);
+    }, []);
+    // $ExpectType number
+    typedCallback("1");
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // $ExpectError
+    typedCallback({});
 
     // test useRef and its convenience overloads
     // $ExpectType MutableRefObject<number>
@@ -230,5 +249,7 @@ const UsesEveryHook = React.forwardRef(
 const everyHookRef = React.createRef<{ id: number }>();
 <UsesEveryHook ref={everyHookRef}/>;
 
-// TODO: "implicit any" in typescript@3.0 but not in typescript@3.1
-// <UsesEveryHook ref={ref => { ref && console.log(ref.id); }}/>;
+<UsesEveryHook ref={ref => {
+    // $ExpectType { id: number; } | null
+    ref;
+ }}/>;

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import degit from 'degit';
+import degit = require('degit');
 import { DegitError } from 'degit/utils';
 
 degit('user/repo');

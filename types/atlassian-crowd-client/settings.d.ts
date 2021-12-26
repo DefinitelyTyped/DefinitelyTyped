@@ -4,9 +4,9 @@ export interface Settings {
         readonly name: string;
         readonly password: string;
     };
-    readonly nesting?: boolean;
-    readonly sessionTimeout?: number;
-    readonly debug?: boolean;
-    readonly attributesParser?: (json: string) => any;
-    readonly attributesEncoder?: (obj: any) => string;
+    readonly nesting?: boolean | undefined;
+    readonly sessionTimeout?: number | undefined;
+    readonly debug?: boolean | undefined;
+    readonly attributesParser?: ((json: string) => any) | undefined;
+    readonly attributesEncoder?: ((obj: any) => string) | undefined;
 }

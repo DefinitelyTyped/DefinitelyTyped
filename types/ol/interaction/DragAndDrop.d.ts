@@ -11,10 +11,10 @@ import VectorSource from '../source/Vector';
 import Interaction from './Interaction';
 
 export interface Options {
-    formatConstructors?: FeatureFormat[];
-    source?: VectorSource<Geometry>;
-    projection?: ProjectionLike;
-    target?: HTMLElement;
+    formatConstructors?: (typeof FeatureFormat | FeatureFormat)[] | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    projection?: ProjectionLike | undefined;
+    target?: HTMLElement | undefined;
 }
 declare enum DragAndDropEventType {
     ADD_FEATURES = 'addfeatures',
@@ -52,7 +52,7 @@ export default class DragAndDrop extends Interaction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-declare class DragAndDropEvent extends BaseEvent {
+export class DragAndDropEvent extends BaseEvent {
     constructor(
         type: DragAndDropEventType,
         file: File,

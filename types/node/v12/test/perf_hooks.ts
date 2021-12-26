@@ -1,20 +1,17 @@
 import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver } from 'perf_hooks';
 
 performance.mark('start');
-(
-    () => {}
-)();
+(() => {})();
 performance.mark('end');
+
+performance.measure('name', 'startMark', 'endMark');
+performance.measure('name', 'startMark');
+performance.measure('name');
 
 const timeOrigin = performance.timeOrigin;
 
 const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
-    const {
-        duration,
-        entryType,
-        name,
-        startTime,
-    } = list.getEntries()[0];
+    const { duration, entryType, name, startTime } = list.getEntries()[0];
     obs.disconnect();
 };
 const obs = new PerformanceObserver(performanceObserverCallback);

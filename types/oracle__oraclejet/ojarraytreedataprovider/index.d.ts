@@ -4,11 +4,11 @@ import ArrayDataProvider = require('../ojarraydataprovider');
 import TreeDataProvider = require('../ojtreedataprovider');
 declare class ArrayTreeDataProvider<K, D> implements TreeDataProvider<K, D> {
     constructor(data: any[] | (() => any[]), options?: {
-        sortComparators?: ArrayDataProvider.SortComparators<D>;
-        implicitSort?: Array<SortCriterion<D>>;
-        keyAttributes?: string | string[];
-        keyAttributesScope?: 'global' | 'siblings';
-        childrenAttribute?: string;
+        sortComparators?: ArrayDataProvider.SortComparators<D> | undefined;
+        implicitSort?: Array<SortCriterion<D>> | undefined;
+        keyAttributes?: string | string[] | undefined;
+        keyAttributesScope?: 'global' | 'siblings' | undefined;
+        childrenAttribute?: string | undefined;
     });
     addEventListener(eventType: string, listener: EventListener): void;
     containsKeys(params: FetchByKeysParameters<K>): Promise<ContainsKeysResults<K>>;

@@ -51,3 +51,4 @@ vCard.version = '3.0';
 vCard.saveToFile('./eric-nesser.vcf');
 vCard.email = ['e.nesser@emailhost.tld', 'e.nesser@emailhost2.tld', 'e.nesser@emailhost3.tld'];
 vCard.cellPhone = ['312-555-1414', '312-555-1415', '312-555-1416'];
+vCard.workEmail = ['e.nesser@emailhost.tld', 'e.nesser@emailhost2.tld', 'e.nesser@emailhost3.tld'];

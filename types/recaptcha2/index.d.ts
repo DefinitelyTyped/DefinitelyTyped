@@ -21,7 +21,7 @@ declare namespace Recaptcha2 {
   interface Options {
     siteKey: string;
     secretKey: string;
-    ssl?: boolean;
+    ssl?: boolean | undefined;
   }
 
   interface RequestOptions<T> {

@@ -51,7 +51,7 @@ export namespace Api {
     methodsList: Array<Method.AsObject>,
     optionsList: Array<google_protobuf_type_pb.Option.AsObject>,
     version: string,
-    sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject,
+    sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject | undefined,
     mixinsList: Array<Mixin.AsObject>,
     syntax: google_protobuf_type_pb.Syntax,
   }

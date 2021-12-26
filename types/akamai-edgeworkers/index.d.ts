@@ -4,7 +4,11 @@
 //                 Will Bain <https://github.com/wabain>
 //                 Swathi Bala <https://github.com/swathimr>
 //                 Aman Nanner <https://github.com/ananner>
+//                 Ben Matthews <https://github.com/bmatthew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//
+// Modifyed by: Shige Fukushima <sfukushi@akamai.com>
+//
 
 declare namespace EW {
     interface ReadsHeaders {
@@ -12,6 +16,15 @@ declare namespace EW {
          * Provides header values by header name
          */
         getHeader(name: string): string[] | null;
+    }
+
+    // This is what we return from the API. Hence the type is string[]
+    interface Headers {
+        [others: string]: string[];
+    }
+
+    interface ReadAllHeader {
+        getHeaders(): Headers;
     }
 
     interface MutatesHeaders {
@@ -227,24 +240,24 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader {
     }
 
     interface Destination {
         /**
          * The identifier of the pre-configured origin to send the outgoing request to.
          */
-        origin?: string;
+        origin?: string | undefined;
 
         /**
          * The new path to use in the outgoing request.
          */
-        path?: string;
+        path?: string | undefined;
 
         /**
          * The new query string to use in the outgoing request.
          */
-        query?: string;
+        query?: string | undefined;
     }
 
     /**
@@ -486,15 +499,15 @@ declare module "cookies" {
          * header representation.
          */
         constructor(opts?: {
-            name?: string;
-            value?: string;
-            maxAge?: number;
-            domain?: string;
-            path?: string;
-            expires?: { toUTCString: () => string };
-            httpOnly?: boolean;
-            secure?: boolean;
-            sameSite?: "Strict" | "Lax" | "None" | true;
+            name?: string | undefined;
+            value?: string | undefined;
+            maxAge?: number | undefined;
+            domain?: string | undefined;
+            path?: string | undefined;
+            expires?: { toUTCString: () => string } | undefined;
+            httpOnly?: boolean | undefined;
+            secure?: boolean | undefined;
+            sameSite?: "Strict" | "Lax" | "None" | true | undefined;
         });
 
         /**
@@ -553,7 +566,7 @@ declare module "create-response" {
      */
     function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
     function createResponse(body?: CreateResponseBody, opts?: {
-        status?: number, headers?: Headers, body?: object, denyReason?: string
+        status?: number | undefined, headers?: Headers | undefined, body?: object | undefined, denyReason?: string | undefined
     }): object;
 }
 
@@ -574,16 +587,16 @@ declare module "http-request" {
      *  - `timeout` The request timeout, in milliseconds.
      */
     function httpRequest(url: string, options?: {
-        method?: string,
-        headers?: { [others: string]: string | string[] },
-        body?: string,
-        timeout?: number
+        method?: string | undefined,
+        headers?: { [others: string]: string | string[] } | undefined,
+        body?: string | undefined,
+        timeout?: number | undefined
     }): Promise<HttpResponse>;
 
     /**
      * Describes the result of a `httpRequest()`.
      */
-    interface HttpResponse extends EW.ReadsHeaders {
+    interface HttpResponse extends EW.ReadsHeaders, EW.ReadAllHeader {
         /**
          * The HTTP status code
          */
@@ -635,10 +648,10 @@ declare module "streams" {
     }
 
     interface UnderlyingByteSource {
-        autoAllocateChunkSize?: number;
-        cancel?: ReadableStreamErrorCallback;
-        pull?: ReadableByteStreamControllerCallback;
-        start?: ReadableByteStreamControllerCallback;
+        autoAllocateChunkSize?: number | undefined;
+        cancel?: ReadableStreamErrorCallback | undefined;
+        pull?: ReadableByteStreamControllerCallback | undefined;
+        start?: ReadableByteStreamControllerCallback | undefined;
         type: "bytes";
     }
 
@@ -661,9 +674,9 @@ declare module "streams" {
      * https://streams.spec.whatwg.org/#underlying-source-api
      */
     interface UnderlyingSource<R = any> {
-        start?: ReadableStreamDefaultControllerCallback<R>;
-        pull?: ReadableStreamDefaultControllerCallback<R>;
-        cancel?: ReadableStreamErrorCallback;
+        start?: ReadableStreamDefaultControllerCallback<R> | undefined;
+        pull?: ReadableStreamDefaultControllerCallback<R> | undefined;
+        cancel?: ReadableStreamErrorCallback | undefined;
         type?: undefined;
     }
 
@@ -688,10 +701,10 @@ declare module "streams" {
     }
 
     interface UnderlyingSink<W = any> {
-        start?: WritableStreamDefaultControllerStartCallback;
-        write?: WritableStreamDefaultControllerWriteCallback<W>;
-        close?: WritableStreamDefaultControllerCloseCallback;
-        abort?: WritableStreamErrorCallback;
+        start?: WritableStreamDefaultControllerStartCallback | undefined;
+        write?: WritableStreamDefaultControllerWriteCallback<W> | undefined;
+        close?: WritableStreamDefaultControllerCloseCallback | undefined;
+        abort?: WritableStreamErrorCallback | undefined;
         type?: undefined;
     }
 
@@ -701,10 +714,10 @@ declare module "streams" {
     }
 
     interface PipeOptions {
-        preventAbort?: boolean;
-        preventCancel?: boolean;
-        preventClose?: boolean;
-        signal?: { aborted: boolean };
+        preventAbort?: boolean | undefined;
+        preventCancel?: boolean | undefined;
+        preventClose?: boolean | undefined;
+        signal?: { aborted: boolean } | undefined;
     }
 
     interface QueuingStrategySizeCallback<T = any> {
@@ -712,8 +725,8 @@ declare module "streams" {
     }
 
     interface QueuingStrategy<T = any> {
-        highWaterMark?: number;
-        size?: QueuingStrategySizeCallback<T>;
+        highWaterMark?: number | undefined;
+        size?: QueuingStrategySizeCallback<T> | undefined;
     }
 
     interface WritableStreamDefaultWriter<W = any> {
@@ -750,7 +763,7 @@ declare module "streams" {
 
     const ReadableStream: {
         prototype: ReadableStream;
-        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
+        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number | undefined, size?: undefined }): ReadableStream<Uint8Array>;
         new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
 
@@ -771,6 +784,38 @@ declare module "streams" {
     interface TransformStream<I = any, O = any> {
         readonly readable: ReadableStream<O>;
         readonly writable: WritableStream<I>;
+    }
+
+    const TransformStream: {
+        prototype: TransformStream;
+        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
+    };
+
+    interface Transformer<I = any, O = any> {
+        flush?: TransformerFlushCallback<O>;
+        readableType?: undefined;
+        start?: TransformerStartCallback<O>;
+        transform?: TransformerTransformCallback<I, O>;
+        writableType?: undefined;
+    }
+
+    interface TransformerFlushCallback<O> {
+        (controller: TransformStreamDefaultController<O>): void | Promise<void>;
+    }
+
+    interface TransformerStartCallback<O> {
+        (controller: TransformStreamDefaultController<O>): void | Promise<void>;
+    }
+
+    interface TransformerTransformCallback<I, O> {
+        (chunk: I, controller: TransformStreamDefaultController<O>): void | Promise<void>;
+    }
+
+    interface TransformStreamDefaultController<O = any> {
+        readonly desiredSize: number | null;
+        enqueue(chunk: O): void;
+        error(reason?: any): void;
+        terminate(): void;
     }
 
     interface CountQueuingStrategy {
@@ -814,8 +859,8 @@ declare module "text-encode-transform" {
     type BufferSource = ArrayBufferView | ArrayBuffer;
 
     interface TextDecoderOptions {
-        fatal?: boolean;
-        ignoreBOM?: boolean;
+        fatal?: boolean | undefined;
+        ignoreBOM?: boolean | undefined;
     }
 
     interface GenericTransformStream {

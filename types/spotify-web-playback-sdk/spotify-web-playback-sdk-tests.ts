@@ -11,6 +11,8 @@ const player = new window.Spotify.Player({
     },
     volume: 0.5
 });
+// https://developer.spotify.com/documentation/web-playback-sdk/reference/#playing-a-spotify-uri
+const {id: device_id} = player._options;
 
 player.connect().then((success: boolean) => {
     if (success) {
@@ -26,6 +28,10 @@ player.addListener("ready", (data) => {
 
 player.addListener("not_ready", ({ device_id }) => {
     console.log("The Web Playback SDK is not ready to play music!");
+});
+
+player.addListener("autoplay_failed", () => {
+    console.log("Autoplay is turned off for your browser");
 });
 
 player.getCurrentState().then((playbackState: Spotify.PlaybackState | null) => {
@@ -89,6 +95,10 @@ player.on("ready", (data: Spotify.WebPlaybackInstance) => {
 player.on("not_ready", (data: Spotify.WebPlaybackInstance) => {
     const { device_id } = data;
     console.log("Connected with Device ID", device_id);
+});
+
+player.on("autoplay_failed", () => {
+    console.log("Autoplay failed");
 });
 
 player.on("player_state_changed", (playbackState: Spotify.PlaybackState) => {

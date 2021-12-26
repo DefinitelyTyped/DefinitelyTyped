@@ -18,6 +18,14 @@ httpRequest("url").then(response => {
 
     response.getHeader("Date");
 
+    // Verify getHeaders
+    const headers = response.getHeaders();
+    Object.keys(headers).forEach(key => {
+        key.toUpperCase();
+        const values = headers[key];
+        values.forEach(val => val.toUpperCase());
+    });
+
     // Verify body
     response.body;
 

@@ -12,10 +12,10 @@ import swig = require('swig');
 type SwigRender<T> = (file: string, context: T, callback: (err: any, html: string, text: string) => any) => any;
 
 interface SwigEmailTemplatesOptions extends swig.SwigOptions {
-    root?: string;
+    root?: string | undefined;
     juice?: any;
-    rewriteUrl?: (href: string) => string;
-    rewrite?: ($: JQueryStatic) => void;
+    rewriteUrl?: ((href: string) => string) | undefined;
+    rewrite?: (($: JQueryStatic) => void) | undefined;
 }
 
 declare class EmailTemplates {

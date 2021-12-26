@@ -6,6 +6,8 @@
 //                 Frédéric Barthelet <https://github.com/fredericbarthelet>
 //                 Bryan Hunter <https://github.com/bryan-hunter>
 //                 Thomas Aribart <https://github.com/thomasaribart>
+//                 Gareth Jones <https://github.com/G-Rath>
+//                 Abdullah Ali <https://github.com/AbdullahAli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
@@ -18,12 +20,12 @@ import ApiGatewayValidate = require('./plugins/aws/package/compile/events/apiGat
 
 declare namespace Serverless {
     interface Options {
-        function?: string;
-        watch?: boolean;
-        extraServicePath?: string;
+        function?: string | undefined;
+        watch?: boolean | undefined;
+        extraServicePath?: string | undefined;
         stage: string | null;
         region: string | null;
-        noDeploy?: boolean;
+        noDeploy?: boolean | undefined;
     }
 
     interface Config {
@@ -31,15 +33,22 @@ declare namespace Serverless {
     }
 
     interface FunctionDefinition {
-        name?: string;
-        package?: Package;
-        reservedConcurrency?: number;
-        runtime?: string;
-        timeout?: number;
-        memorySize?: number;
-        environment?: { [name: string]: string };
+        name?: string | undefined;
+        package?: Package | undefined;
+        reservedConcurrency?: number | undefined;
+        runtime?: string | undefined;
+        timeout?: number | undefined;
+        memorySize?: number | undefined;
+        environment?: { [name: string]: string } | undefined;
         events: Event[];
-        tags?: { [key: string]: string };
+        tags?: { [key: string]: string } | undefined;
+    }
+
+    interface LogOptions {
+        color?: string | undefined;
+        bold?: boolean | undefined;
+        underline?: boolean | undefined;
+        entity?: string | undefined;
     }
 
     interface FunctionDefinitionHandler extends FunctionDefinition {
@@ -54,10 +63,13 @@ declare namespace Serverless {
     type Event = ApiGatewayValidate.ApiGatewayEvent | object;
 
     interface Package {
-        include: string[];
-        exclude: string[];
-        artifact?: string;
-        individually?: boolean;
+        /** @deprecated use `patterns` instead */
+        include?: string[] | undefined;
+        /** @deprecated use `patterns` instead */
+        exclude?: string[] | undefined;
+        patterns?: string[] | undefined;
+        artifact?: string | undefined;
+        individually?: boolean | undefined;
     }
 }
 
@@ -73,7 +85,7 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
-        log(message: string): null;
+        log(message: string, entity?: string, options?: Serverless.LogOptions): null;
     };
 
     providers: {};

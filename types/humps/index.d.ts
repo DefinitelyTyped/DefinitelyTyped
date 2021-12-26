@@ -22,9 +22,9 @@ export function depascalizeKeys(str: object[], optionsOrProcessor?: OptionOrProc
 export function depascalizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
 
 export interface HumpsOptions {
-    separator?: string;
-    split?: RegExp;
-    process?: HumpsProcessor;
+    separator?: string | undefined;
+    split?: RegExp | undefined;
+    process?: HumpsProcessor | undefined;
 }
 export interface HumpsProcessor {
     (key: string, convert: HumpsProcessorParameter, options?: HumpsOptions): string;

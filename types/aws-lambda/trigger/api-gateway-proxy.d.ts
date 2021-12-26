@@ -1,4 +1,5 @@
 import {
+    APIGatewayEventClientCertificate,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from "../common/api-gateway";
@@ -109,12 +110,12 @@ export interface APIGatewayProxyResult {
     statusCode: number;
     headers?: {
         [header: string]: boolean | number | string;
-    };
+    } | undefined;
     multiValueHeaders?: {
         [header: string]: Array<boolean | number | string>;
-    };
+    } | undefined;
     body: string;
-    isBase64Encoded?: boolean;
+    isBase64Encoded?: boolean | undefined;
 }
 
 /**
@@ -126,9 +127,9 @@ export interface APIGatewayProxyEventV2 {
     routeKey: string;
     rawPath: string;
     rawQueryString: string;
-    cookies?: string[];
+    cookies?: string[] | undefined;
     headers: APIGatewayProxyEventHeaders;
-    queryStringParameters?: APIGatewayProxyEventQueryStringParameters;
+    queryStringParameters?: APIGatewayProxyEventQueryStringParameters | undefined;
     requestContext: {
         accountId: string;
         apiId: string;
@@ -137,6 +138,9 @@ export interface APIGatewayProxyEventV2 {
                 claims: { [name: string]: string | number | boolean | string[] };
                 scopes: string[];
             };
+        } | undefined;
+        authentication?: {
+            clientCert: APIGatewayEventClientCertificate;
         };
         domainName: string;
         domainPrefix: string;
@@ -153,10 +157,10 @@ export interface APIGatewayProxyEventV2 {
         time: string;
         timeEpoch: number;
     };
-    body?: string;
-    pathParameters?: APIGatewayProxyEventPathParameters;
+    body?: string | undefined;
+    pathParameters?: APIGatewayProxyEventPathParameters | undefined;
     isBase64Encoded: boolean;
-    stageVariables?: APIGatewayProxyEventStageVariables;
+    stageVariables?: APIGatewayProxyEventStageVariables | undefined;
 }
 
 /**
@@ -171,13 +175,13 @@ export type APIGatewayProxyResultV2<T = never> = APIGatewayProxyStructuredResult
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
 export interface APIGatewayProxyStructuredResultV2 {
-    statusCode?: number;
+    statusCode?: number | undefined;
     headers?: {
         [header: string]: boolean | number | string;
-    };
-    body?: string;
-    isBase64Encoded?: boolean;
-    cookies?: string[];
+    } | undefined;
+    body?: string | undefined;
+    isBase64Encoded?: boolean | undefined;
+    cookies?: string[] | undefined;
 }
 
 // Legacy names

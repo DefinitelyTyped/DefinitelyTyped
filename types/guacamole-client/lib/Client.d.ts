@@ -1,5 +1,5 @@
 import { Mimetype } from './GuacCommon';
-import { WebSocketTunnel } from './WebSocketTunnel';
+import { Tunnel } from './Tunnel';
 import { OutputStream } from './OutputStream';
 import { InputStream } from './InputStream';
 import { Status } from './Status';
@@ -7,6 +7,7 @@ import { Display } from './Display';
 import { AudioPlayer } from './AudioPlayer';
 import { VideoPlayer } from './VideoPlayer';
 import { VisibleLayer } from './VisibleLayer';
+import { Mouse } from './Mouse';
 import * as Guacamole from './Object';
 
 export {};
@@ -24,7 +25,7 @@ export namespace Client {
     interface ExportLayerBase {
         height: number;
         width: number;
-        url?: string;
+        url?: string | undefined;
     }
 
     type ExportLayer =
@@ -54,7 +55,7 @@ export class Client {
     /**
      * @param tunnel The tunnel to use to send and receive Guacamole instructions.
      */
-    constructor(tunnel: WebSocketTunnel);
+    constructor(tunnel: Tunnel);
 
     /**
      * Sends a disconnect instruction to the server and closes the tunnel.
@@ -221,17 +222,17 @@ export class Client {
      * Sends a key event having the given properties as if the user
      * pressed or released a key.
      *
-     * @param pressed Whether the key is pressed (true) or released (false).
+     * @param pressed Whether the key is pressed (1) or released (0).
      * @param keysym The keysym of the key being pressed or released.
      */
-    sendKeyEvent(pressed: boolean, keysym: number): void;
+    sendKeyEvent(pressed: 0 | 1, keysym: number): void;
 
     /**
      * Sends a mouse event having the properties provided by the given mouse state.
      *
      * @param mouseState The state of the mouse to send in the mouse event.
      */
-    sendMouseState(state: Client.State): void;
+    sendMouseState(state: Mouse.State): void;
 
     /**
      * Sends the current size of the screen.

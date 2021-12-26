@@ -9,8 +9,8 @@ declare namespace xml_c14n {
     type canonicaliseCb = (err: any, data: string) => void;
 
     interface Options {
-        includeComments?: boolean;
-        inclusiveNamespaces?: boolean;
+        includeComments?: boolean | undefined;
+        inclusiveNamespaces?: boolean | undefined;
     }
 
     interface Canonicalize {

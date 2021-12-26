@@ -12,10 +12,10 @@ import ToolkitProvider, { InjectedSearchProps, Search, CSVExport } from 'react-b
 interface Product {
     id: number;
     name: string;
-    price?: number;
-    quality?: number;
-    inStockStatus?: number;
-    sales?: number;
+    price?: number | undefined;
+    quality?: number | undefined;
+    inStockStatus?: number | undefined;
+    sales?: number | undefined;
 }
 
 const products: Product[] = [
@@ -174,12 +174,7 @@ render(
 const { SearchBar, ClearSearchButton } = Search;
 
 render(
-    <ToolkitProvider
-        keyField="id"
-        data={products}
-        columns={productColumns}
-        search
-    >
+    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
         {({ baseProps, searchProps }) => (
             <>
                 <SearchBar {...searchProps} />
@@ -198,12 +193,7 @@ render(
 const { ExportCSVButton } = CSVExport;
 
 render(
-    <ToolkitProvider
-        keyField="id"
-        data={products}
-        columns={productColumns}
-        search
-    >
+    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
         {({ baseProps, csvProps }) => (
             <>
                 <ExportCSVButton {...csvProps}>Export</ExportCSVButton>

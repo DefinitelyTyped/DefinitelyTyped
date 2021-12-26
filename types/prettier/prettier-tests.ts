@@ -1,12 +1,17 @@
 import * as prettier from 'prettier';
 import { ExpressionStatement, CallExpression, Identifier } from 'babel-types';
 import * as prettierStandalone from 'prettier/standalone';
-import typescriptParser = require('prettier/parser-typescript');
-import graphqlParser = require('prettier/parser-graphql');
+import angularParser = require('prettier/parser-angular');
 import babelParser = require('prettier/parser-babel');
+import espreeParser = require('prettier/parser-espree');
+import flowParser = require('prettier/parser-flow');
+import glimmerParser = require('prettier/parser-glimmer');
+import graphqlParser = require('prettier/parser-graphql');
 import htmlParser = require('prettier/parser-html');
 import markdownParser = require('prettier/parser-markdown');
+import meriyahParser = require('prettier/parser-meriyah');
 import postcssParser = require('prettier/parser-postcss');
+import typescriptParser = require('prettier/parser-typescript');
 import yamlParser = require('prettier/parser-yaml');
 import * as doc from 'prettier/doc';
 
@@ -70,16 +75,25 @@ prettier.clearConfigCache();
 const currentSupportInfo = prettier.getSupportInfo();
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
+// $ExpectError
+prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeStart: 2 });
+// $ExpectError
+prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeEnd: 2 });
 
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
 
-typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+angularParser.parsers.__ng_action.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+espreeParser.parsers.espree.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+flowParser.parsers.flow.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+glimmerParser.parsers.glimmer.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+meriyahParser.parsers.meriyah.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 
 prettier.format('hello world', {
@@ -98,7 +112,7 @@ doc.utils.isEmpty;
 doc.debug.printDocToDebug;
 
 interface PluginAST {
-    kind: "line";
+    kind: 'line';
     value: string;
 }
 
@@ -106,32 +120,130 @@ const plugin: prettier.Plugin<PluginAST> = {
     parsers: {
         lines: {
             parse(text, parsers, options) {
-                return { kind: "line", value: "This is a line" };
+                return { kind: 'line', value: 'This is a line' };
             },
-            astFormat: "lines",
-            locStart: (node) => {
+            astFormat: 'lines',
+            locStart: node => {
                 node; // $ExpectType PluginAST
                 return 0;
             },
-            locEnd: (node) => {
+            locEnd: node => {
                 node; // $ExpectType PluginAST
                 return 0;
-            }
-        }
+            },
+        },
     },
     printers: {
         lines: {
             print(path, options, print) {
-                path; // $ExpectType FastPath<PluginAST>
-                print; // $ExpectType (path: FastPath<PluginAST>) => Doc
+                path; // $ExpectType AstPath<PluginAST>
+                print; // $ExpectType (path: AstPath<PluginAST>) => Doc
 
                 const node = path.getValue();
                 node; // $ExpectType PluginAST
 
                 return node.value;
-            }
-        }
-    }
+            },
+            printComment(commentPath, options) {
+                const comment = commentPath.getValue();
+                return comment.value;
+            },
+        },
+    },
+    options: {
+        testBoolOption: {
+            since: '1.0.1',
+            type: 'boolean',
+            category: 'Test',
+            default: true,
+            description: 'Move open brace for code blocks onto new line.',
+            oppositeDescription: "Don't move open brace for code blocks onto new line.",
+        },
+        testBoolArrOption: {
+            since: '1.0.1',
+            type: 'boolean',
+            array: true,
+            category: 'Test',
+            default: [{ value: [true, false, true] }],
+            deprecated: true,
+            description: 'Move open brace for code blocks onto new line.',
+        },
+        testIntOption: {
+            since: '1.0.2',
+            type: 'int',
+            category: 'Global',
+            default: 15,
+            range: {
+                start: 5,
+                end: 100,
+                step: 5,
+            },
+            deprecated: 'Deprecated can be a string describing deprecation status.',
+            description: 'This is a number.',
+        },
+        testIntArrOption: {
+            since: 'forever',
+            type: 'int',
+            category: 'Test',
+            default: [{ value: [3, 8, 12] }],
+            array: true,
+            description: 'This is a number.',
+        },
+        testChoiceOption: {
+            since: '1.0.3',
+            type: 'choice',
+            default: 'one',
+            choices: [
+                { value: 'one', description: 'The number one' },
+                { value: 'two', description: 'The number two' },
+                { value: 'three', description: 'The number three' },
+            ],
+            category: 'Test',
+            description: 'Choose one of three.',
+        },
+        testChoiceComplexOption: {
+            since: '1.0.5',
+            type: 'choice',
+            default: [{ since: '1.0.7', value: 'banana' }, { value: 'apple' }],
+            choices: [
+                { value: 'apple', description: 'A fruit.' },
+                { value: 'orange', since: '1.0.6', description: 'A different fruit.' },
+                { value: 'banana', since: '1.0.5', description: 'Added in 1.0.5, made default in 1.0.7.' },
+            ],
+            category: 'Test',
+            description: 'Choose one of three.',
+        },
+        testPathOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+            default: './path.js',
+        },
+        testPathArrOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+            array: true,
+            default: [{ value: ['./pathA.js', './pathB.js'] }],
+        },
+        testNoDefaultOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+        },
+    },
 };
 
-prettier.format("a line!", { parser: "lines", plugins: [plugin] });
+prettier.format('a line!', { parser: 'lines', plugins: [plugin] });
+
+prettier.format('pluginSearchDir is empty', {
+    pluginSearchDirs: [],
+});
+
+prettier.format('pluginSearchDir is not empty', {
+    pluginSearchDirs: ['/a', '/b'],
+});
+
+prettier.format('pluginSearchDir is not empty and mixed with weird stuff', {
+    pluginSearchDirs: ['c', 'd', ''],
+});

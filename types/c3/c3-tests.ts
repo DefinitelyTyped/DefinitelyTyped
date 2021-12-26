@@ -644,6 +644,8 @@ function stanford_examples() {
 function api() {
     const chart = c3.generate({ data: {} });
 
+    chart.element; // $ExpectType HTMLElement
+
     chart.focus('data1');
     chart.focus(['data1', 'data2']);
     chart.focus();

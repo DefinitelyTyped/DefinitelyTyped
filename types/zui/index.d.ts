@@ -11,67 +11,67 @@ type CallBack = () => void;
  * bootstrap
  */
 interface ModalOptions {
-    backdrop?: boolean | string;
-    keyboard?: boolean;
-    show?: boolean;
-    remote?: string;
+    backdrop?: boolean | string | undefined;
+    keyboard?: boolean | undefined;
+    show?: boolean | undefined;
+    remote?: string | undefined;
 }
 
 interface ModalOptionsBackdropString {
-    backdrop?: string; // for "static"
-    keyboard?: boolean;
-    show?: boolean;
-    remote?: string;
+    backdrop?: string | undefined; // for "static"
+    keyboard?: boolean | undefined;
+    show?: boolean | undefined;
+    remote?: string | undefined;
 }
 
 interface ScrollSpyOptions {
-    offset?: number;
-    target?: string;
+    offset?: number | undefined;
+    target?: string | undefined;
 }
 
 interface TooltipOptions {
-    animation?: boolean;
-    html?: boolean;
-    placement?: string | CallBack;
-    selector?: string;
-    title?: string | CallBack;
-    trigger?: string;
-    template?: string;
-    delay?: number | object;
-    container?: string | boolean;
-    viewport?: string | CallBack | object;
+    animation?: boolean | undefined;
+    html?: boolean | undefined;
+    placement?: string | CallBack | undefined;
+    selector?: string | undefined;
+    title?: string | CallBack | undefined;
+    trigger?: string | undefined;
+    template?: string | undefined;
+    delay?: number | object | undefined;
+    container?: string | boolean | undefined;
+    viewport?: string | CallBack | object | undefined;
 }
 
 interface PopoverOptions {
-    animation?: boolean;
-    html?: boolean;
-    placement?: string | CallBack;
-    selector?: string;
-    trigger?: string;
-    title?: string | CallBack;
-    template?: string;
+    animation?: boolean | undefined;
+    html?: boolean | undefined;
+    placement?: string | CallBack | undefined;
+    selector?: string | undefined;
+    trigger?: string | undefined;
+    title?: string | CallBack | undefined;
+    template?: string | undefined;
     content?: any;
-    delay?: number | object;
-    container?: string | boolean;
-    viewport?: string | CallBack | object;
+    delay?: number | object | undefined;
+    container?: string | boolean | undefined;
+    viewport?: string | CallBack | object | undefined;
 }
 
 interface CollapseOptions {
     parent?: any;
-    toggle?: boolean;
+    toggle?: boolean | undefined;
 }
 
 interface CarouselOptions {
-    interval?: number;
-    pause?: string;
-    wrap?: boolean;
-    keyboard?: boolean;
+    interval?: number | undefined;
+    pause?: string | undefined;
+    wrap?: boolean | undefined;
+    keyboard?: boolean | undefined;
 }
 
 interface TypeaheadOptions {
     source?: any;
-    items?: number;
-    minLength?: number;
+    items?: number | undefined;
+    minLength?: number | undefined;
     matcher?(item: any): boolean;
     sorter?(items: any[]): any[];
     updater?(item: any): any;
@@ -79,7 +79,7 @@ interface TypeaheadOptions {
 }
 
 interface AffixOptions {
-    offset?: number | CallBack | object;
+    offset?: number | CallBack | object | undefined;
     target?: any;
 }
 
@@ -134,50 +134,50 @@ interface DatetimepickerEventObject extends JQueryEventObject {
 }
 
 interface DatetimepickerIcons {
-    time?: string;
-    date?: string;
-    up?: string;
-    down?: string;
+    time?: string | undefined;
+    date?: string | undefined;
+    up?: string | undefined;
+    down?: string | undefined;
 }
 
 interface DatetimepickerOptions {
-    weekStart?: number;
-    todayBtn?: number | boolean;
-    autoclose?: number | boolean;
-    todayHighlight?: number | boolean;
-    startView?: number;
-    forceParse?: number | boolean;
-    showMeridian?: boolean | number;
-    minView?: number;
-    maxView?: number;
-    pickDate?: boolean;
-    pickTime?: boolean;
-    useMinutes?: boolean;
-    useSeconds?: boolean;
-    useCurrent?: boolean;
-    minuteStepping?: number;
-    minDate?: Date | string | any;
-    maxDate?: Date | string | any;
-    showToday?: boolean;
-    collapse?: boolean;
-    language?: string;
-    defaultDate?: Date | string | any;
-    disabledDates?: Array<Date | string | object>;
-    enabledDates?: Array<Date | string | object>;
-    icons?: DatetimepickerIcons;
-    useStrict?: boolean;
-    direction?: string;
-    sideBySide?: boolean;
-    daysOfWeekDisabled?: number[];
-    calendarWeeks?: boolean;
-    format?: string | boolean;
-    locale?: string;
-    showTodayButton?: boolean;
-    viewMode?: string;
-    inline?: boolean;
-    toolbarPlacement?: string;
-    showClear?: boolean;
-    ignoreReadonly?: boolean;
+    weekStart?: number | undefined;
+    todayBtn?: number | boolean | undefined;
+    autoclose?: number | boolean | undefined;
+    todayHighlight?: number | boolean | undefined;
+    startView?: number | undefined;
+    forceParse?: number | boolean | undefined;
+    showMeridian?: boolean | number | undefined;
+    minView?: number | undefined;
+    maxView?: number | undefined;
+    pickDate?: boolean | undefined;
+    pickTime?: boolean | undefined;
+    useMinutes?: boolean | undefined;
+    useSeconds?: boolean | undefined;
+    useCurrent?: boolean | undefined;
+    minuteStepping?: number | undefined;
+    minDate?: Date | string | any | undefined;
+    maxDate?: Date | string | any | undefined;
+    showToday?: boolean | undefined;
+    collapse?: boolean | undefined;
+    language?: string | undefined;
+    defaultDate?: Date | string | any | undefined;
+    disabledDates?: Array<Date | string | object> | undefined;
+    enabledDates?: Array<Date | string | object> | undefined;
+    icons?: DatetimepickerIcons | undefined;
+    useStrict?: boolean | undefined;
+    direction?: string | undefined;
+    sideBySide?: boolean | undefined;
+    daysOfWeekDisabled?: number[] | undefined;
+    calendarWeeks?: boolean | undefined;
+    format?: string | boolean | undefined;
+    locale?: string | undefined;
+    showTodayButton?: boolean | undefined;
+    viewMode?: string | undefined;
+    inline?: boolean | undefined;
+    toolbarPlacement?: string | undefined;
+    showClear?: boolean | undefined;
+    ignoreReadonly?: boolean | undefined;
 }
 
 interface Datetimepicker {
@@ -263,11 +263,11 @@ declare enum MessagerTypeEnum {
     'default', 'primary', 'success', 'info', 'warning', 'danger', 'important', 'special'
 }
 interface Action {
-    name?: string;
-    icon?: string;
-    text?: string;
-    html?: string;
-    action?: ActionFunc;
+    name?: string | undefined;
+    icon?: string | undefined;
+    text?: string | undefined;
+    html?: string | undefined;
+    action?: ActionFunc | undefined;
 }
 
 type ActionFunc = () => boolean;
@@ -275,20 +275,20 @@ type ActionFunc = () => boolean;
 type OnActionFunc = (name: string, action: string, messager: Messager) => any;
 
 interface MessagerOption {
-    type?: MessagerTypeEnum | string;
-    placement?: string;
-    time?: number;
-    message?: string;
-    parent?: string;
-    icon?: string;
-    close?: boolean;
-    fade?: boolean;
-    scale?: boolean;
-    actions?: Action[];
-    onAction?: OnActionFunc;
-    cssClass?: string;
-    contentClass?: string;
-    show?: boolean;
+    type?: MessagerTypeEnum | string | undefined;
+    placement?: string | undefined;
+    time?: number | undefined;
+    message?: string | undefined;
+    parent?: string | undefined;
+    icon?: string | undefined;
+    close?: boolean | undefined;
+    fade?: boolean | undefined;
+    scale?: boolean | undefined;
+    actions?: Action[] | undefined;
+    onAction?: OnActionFunc | undefined;
+    cssClass?: string | undefined;
+    contentClass?: string | undefined;
+    show?: boolean | undefined;
 }
 interface Messager {
     show(cb?: CallBack): any;
@@ -313,26 +313,26 @@ interface ZuiStatic {
  * modal trigger
  */
 interface ModalTriggerOption {
-    name?: string;
-    className?: string;
-    type?: string;
-    url?: string;
-    remote?: string;
-    iframe?: string;
-    size?: string;
-    width?: string;
-    height?: string;
-    showHeader?: boolean;
-    title?: string;
-    icon?: string;
-    fade?: boolean;
-    postion?: string;
-    backdrop?: boolean;
-    keyboard?: boolean;
-    moveable?: boolean;
-    rememberPos?: boolean;
-    waittime?: number;
-    loadingIcon?: string;
+    name?: string | undefined;
+    className?: string | undefined;
+    type?: string | undefined;
+    url?: string | undefined;
+    remote?: string | undefined;
+    iframe?: string | undefined;
+    size?: string | undefined;
+    width?: string | undefined;
+    height?: string | undefined;
+    showHeader?: boolean | undefined;
+    title?: string | undefined;
+    icon?: string | undefined;
+    fade?: boolean | undefined;
+    postion?: string | undefined;
+    backdrop?: boolean | undefined;
+    keyboard?: boolean | undefined;
+    moveable?: boolean | undefined;
+    rememberPos?: boolean | undefined;
+    waittime?: number | undefined;
+    loadingIcon?: string | undefined;
 
     show?(): any;
     onShow?(): any;
@@ -410,21 +410,21 @@ interface Postion {
     height: number;
 }
 interface DraggableEvent {
-    event?: object;
-    element?: JQuery | object;
-    target?: JQuery | object;
-    pos?: Postion;
-    offset?: object;
-    smallOffset?: object;
-    startOffset?: object;
+    event?: object | undefined;
+    element?: JQuery | object | undefined;
+    target?: JQuery | object | undefined;
+    pos?: Postion | undefined;
+    offset?: object | undefined;
+    smallOffset?: object | undefined;
+    startOffset?: object | undefined;
 }
 interface DraggableOption {
-    container?: string;
-    move?: boolean;
-    selector?: string;
-    handle?: string;
-    mouseButton?: string;
-    stopPropagation?: boolean;
+    container?: string | undefined;
+    move?: boolean | undefined;
+    selector?: string | undefined;
+    handle?: string | undefined;
+    mouseButton?: string | undefined;
+    stopPropagation?: boolean | undefined;
     before?(e?: DraggableEvent): boolean;
     drag?(e: DraggableEvent): void;
     finish?(e: DraggableEvent): void;
@@ -445,25 +445,25 @@ interface Postion {
 }
 
 interface DroppableEvent {
-    event?: object;
-    element?: JQuery;
-    target?: JQuery;
-    pos?: Postion;
-    offset?: object;
-    smallOffset?: object;
-    startOffset?: object;
+    event?: object | undefined;
+    element?: JQuery | undefined;
+    target?: JQuery | undefined;
+    pos?: Postion | undefined;
+    offset?: object | undefined;
+    smallOffset?: object | undefined;
+    startOffset?: object | undefined;
 }
 
 interface DroppableOption {
-    container?: string;
-    selector?: string;
-    handle?: string;
+    container?: string | undefined;
+    selector?: string | undefined;
+    handle?: string | undefined;
     target: JQuery | string;
 
-    flex?: boolean;
-    deviation?: number;
-    sensorOffsetX?: number;
-    sensorOffsetY?: number;
+    flex?: boolean | undefined;
+    deviation?: number | undefined;
+    sensorOffsetX?: number | undefined;
+    sensorOffsetY?: number | undefined;
 
     before?(e?: DroppableEvent): boolean;
     start?(e?: DroppableEvent): void;
@@ -487,12 +487,12 @@ interface SortEvent extends Event {
 }
 
 interface SortableOption {
-    selector?: string;
-    trigger?: string;
-    reverse?: boolean;
-    dragCssClass?: string;
-    sortingClass?: string;
-    mouseButton?: string;
+    selector?: string | undefined;
+    trigger?: string | undefined;
+    reverse?: boolean | undefined;
+    dragCssClass?: string | undefined;
+    sortingClass?: string | undefined;
+    mouseButton?: string | undefined;
     start?(e?: SortEvent): void;
     order?(e?: SortEvent): void;
     finish?(e?: SortEvent): void;
@@ -510,12 +510,12 @@ interface SelectableEvent extends Event {
     selected: number[];
 }
 interface SelectableOption {
-    selector?: string;
-    trigger?: string;
-    rangeStyle?: string | object;
-    clickBehavior?: string;
-    mouseButton?: string;
-    ignoreVal?: number;
+    selector?: string | undefined;
+    trigger?: string | undefined;
+    rangeStyle?: string | object | undefined;
+    clickBehavior?: string | undefined;
+    mouseButton?: string | undefined;
+    ignoreVal?: number | undefined;
 
     start?(e?: SelectableEvent): boolean;
     finish?(e?: SelectableEvent): void;
@@ -537,15 +537,15 @@ interface JQuery {
  */
 
 interface ImageCutterOption {
-    coverColor?: string;
-    coverOpacity?: number;
-    defaultWidth?: number;
-    defaultHeight?: number;
-    fixedRatio?: boolean;
-    minWidth?: number;
-    minHeight?: number;
-    post?: string;
-    get?: string;
+    coverColor?: string | undefined;
+    coverOpacity?: number | undefined;
+    defaultWidth?: number | undefined;
+    defaultHeight?: number | undefined;
+    fixedRatio?: boolean | undefined;
+    minWidth?: number | undefined;
+    minHeight?: number | undefined;
+    post?: string | undefined;
+    get?: string | undefined;
 }
 interface ImageData {
     originWidth: number;
@@ -575,19 +575,19 @@ interface JQuery {
  */
 
 interface TreeNode {
-    title?: string;
-    url?: string;
-    html?: string;
-    children?: TreeNode[];
-    open?: boolean;
-    id?: string;
+    title?: string | undefined;
+    url?: string | undefined;
+    html?: string | undefined;
+    children?: TreeNode[] | undefined;
+    open?: boolean | undefined;
+    id?: string | undefined;
 }
 interface TreeMenuOption {
-    animate?: boolean;
-    initialState?: string;
-    data?: TreeNode[];
+    animate?: boolean | undefined;
+    initialState?: string | undefined;
+    data?: TreeNode[] | undefined;
     itemCreator?(li: JQuery | object, item: TreeNode): any;
-    itemWrapper?: boolean;
+    itemWrapper?: boolean | undefined;
 }
 
 interface TreeMenu {
@@ -612,20 +612,20 @@ interface JQuery {
 }
 
 interface Column {
-    width?: number;
-    text?: string;
-    type?: string;
-    flex?: boolean;
-    colClass?: string;
-    sort?: string;
-    ignore?: boolean;
+    width?: number | undefined;
+    text?: string | undefined;
+    type?: string | undefined;
+    flex?: boolean | undefined;
+    colClass?: string | undefined;
+    sort?: string | undefined;
+    ignore?: boolean | undefined;
 }
 interface Row {
-    id?: string;
-    checked?: boolean;
-    cssClass?: string;
-    css?: string;
-    data?: [number, string, string];
+    id?: string | undefined;
+    checked?: boolean | undefined;
+    cssClass?: string | undefined;
+    css?: string | undefined;
+    data?: [number, string, string] | undefined;
 }
 interface DataTableData {
     rows: Row[];
@@ -655,25 +655,25 @@ interface ChecksChangeEvent extends Event {
     };
 }
 interface DataTableOption {
-    checkable?: boolean;
-    checkByClickRow?: boolean;
-    checkedClass?: string;
-    storage?: boolean;
-    sortable?: boolean;
-    fixedHeader?: boolean;
-    fixedHeaderOffset?: number;
-    fixedLeftWidth?: string;
-    fixedRightWidth?: string;
-    flexHeadDrag?: boolean;
-    scrollPos?: string;
-    rowHover?: boolean;
-    colHover?: boolean;
-    fixCellHeight?: boolean;
-    minColWidth?: number;
-    minFixedLeftWidth?: number;
-    minFixedRightWidth?: number;
-    minFlexAreaWidth?: number;
-    selectable?: boolean | object;
+    checkable?: boolean | undefined;
+    checkByClickRow?: boolean | undefined;
+    checkedClass?: string | undefined;
+    storage?: boolean | undefined;
+    sortable?: boolean | undefined;
+    fixedHeader?: boolean | undefined;
+    fixedHeaderOffset?: number | undefined;
+    fixedLeftWidth?: string | undefined;
+    fixedRightWidth?: string | undefined;
+    flexHeadDrag?: boolean | undefined;
+    scrollPos?: string | undefined;
+    rowHover?: boolean | undefined;
+    colHover?: boolean | undefined;
+    fixCellHeight?: boolean | undefined;
+    minColWidth?: number | undefined;
+    minFixedLeftWidth?: number | undefined;
+    minFixedRightWidth?: number | undefined;
+    minFlexAreaWidth?: number | undefined;
+    selectable?: boolean | object | undefined;
 
     afterLoad?(event: AfterLoadEvent): void;
     ready?(): void;
@@ -696,67 +696,67 @@ interface JQuery {
  */
 
 interface UploaderOption {
-    drop_element?: string;
-    browse_button?: string;
+    drop_element?: string | undefined;
+    browse_button?: string | undefined;
     url: string;
-    qiniu?: object;
+    qiniu?: object | undefined;
     filters?: {
         mime_type: Array<{
-            title?: string;
-            extensions?: string;
+            title?: string | undefined;
+            extensions?: string | undefined;
         }>,
-        max_file_size?: string;
-        prevent_duplicates?: string;
-    };
-    fileList?: string;
-    fileTemplate?: string;
+        max_file_size?: string | undefined;
+        prevent_duplicates?: string | undefined;
+    } | undefined;
+    fileList?: string | undefined;
+    fileTemplate?: string | undefined;
     fileFormater?($file: JQuery, file: FileObj, status: STATUS): void;
     fileIconCreator?(fileType: string, file: FileObj, uploader: Uploader): void;
     staticFiles?: Array<{
-        id?: string;
-        name?: string;
-        type?: string;
-        size?: string;
-        origSize?: string;
-        lastModifiedDate?: Date;
-    }>;
-    rename?: boolean;
-    renameExtension?: boolean;
-    renameByClick?: boolean;
-    autoUpload?: boolean;
-    browseByClickList?: boolean;
-    dropPlaceholder?: boolean;
-    previewImageIcon?: boolean;
-    sendFileName?: boolean;
-    sendFileId?: boolean;
-    responseHandler?: boolean | CallBack;
-    limitFilesCount?: boolean | number;
-    deleteConfirm?: boolean | string;
-    removeUploaded?: boolean;
+        id?: string | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
+        size?: string | undefined;
+        origSize?: string | undefined;
+        lastModifiedDate?: Date | undefined;
+    }> | undefined;
+    rename?: boolean | undefined;
+    renameExtension?: boolean | undefined;
+    renameByClick?: boolean | undefined;
+    autoUpload?: boolean | undefined;
+    browseByClickList?: boolean | undefined;
+    dropPlaceholder?: boolean | undefined;
+    previewImageIcon?: boolean | undefined;
+    sendFileName?: boolean | undefined;
+    sendFileId?: boolean | undefined;
+    responseHandler?: boolean | CallBack | undefined;
+    limitFilesCount?: boolean | number | undefined;
+    deleteConfirm?: boolean | string | undefined;
+    removeUploaded?: boolean | undefined;
     statusCreator?(total: UploadProgress, state: STATUS, uploader: Uploader): void;
-    previewImageSize?: { width: number, height: number };
-    uploadedMessage?: boolean;
-    deleteActionOnDone?: boolean;
-    renameActionOnDone?: boolean;
-    headers?: object;
-    multipart?: boolean;
-    multipart_params?: object | CallBack;
-    max_retries?: number;
-    chunk_size?: string;
+    previewImageSize?: { width: number, height: number } | undefined;
+    uploadedMessage?: boolean | undefined;
+    deleteActionOnDone?: boolean | undefined;
+    renameActionOnDone?: boolean | undefined;
+    headers?: object | undefined;
+    multipart?: boolean | undefined;
+    multipart_params?: object | CallBack | undefined;
+    max_retries?: number | undefined;
+    chunk_size?: string | undefined;
     resize?: {
-        width?: number;
-        height?: number;
-        crop?: boolean;
-        quuality?: number;
-        preserve_headers?: boolean;
-    };
-    multi_selection?: boolean;
-    unique_names?: boolean;
-    runtimes?: string;
-    file_data_name?: string;
-    flash_swf_url?: string;
-    silverlight_xap_url?: string;
-    lang?: string;
+        width?: number | undefined;
+        height?: number | undefined;
+        crop?: boolean | undefined;
+        quuality?: number | undefined;
+        preserve_headers?: boolean | undefined;
+    } | undefined;
+    multi_selection?: boolean | undefined;
+    unique_names?: boolean | undefined;
+    runtimes?: string | undefined;
+    file_data_name?: string | undefined;
+    flash_swf_url?: string | undefined;
+    silverlight_xap_url?: string | undefined;
+    lang?: string | undefined;
 
     onInit?(): void;
     onFilesAdded?(fiels: FileObj[]): void;
@@ -772,39 +772,39 @@ interface UploaderOption {
     onError?(error: { error: ERRORS, message: string, file: FileObj }): void;
 }
 interface ResponseObject {
-    response?: string;
-    responseHeaders?: object;
-    status?: number;
-    offset?: number;
-    total?: number;
+    response?: string | undefined;
+    responseHeaders?: object | undefined;
+    status?: number | undefined;
+    offset?: number | undefined;
+    total?: number | undefined;
 }
 declare enum STATUS {
     STOPPED = 1, STARTED = 2, QUEUED = 1, UPLOADING = 2, FAILED = 3, DONE = 4
 }
 interface FileObj {
-    id?: string;
-    name?: string;
-    type?: string;
-    ext?: string;
-    isImage?: boolean;
-    previewImage?: string;
-    size?: number;
-    origSize?: number;
-    loaded?: number;
-    percent?: number;
-    status?: STATUS;
-    lastModifiedDate?: Date;
+    id?: string | undefined;
+    name?: string | undefined;
+    type?: string | undefined;
+    ext?: string | undefined;
+    isImage?: boolean | undefined;
+    previewImage?: string | undefined;
+    size?: number | undefined;
+    origSize?: number | undefined;
+    loaded?: number | undefined;
+    percent?: number | undefined;
+    status?: STATUS | undefined;
+    lastModifiedDate?: Date | undefined;
     getNative(): File;
     destroy(): void;
 }
 interface UploadProgress {
-    size?: number;
-    loaded?: number;
-    uploaded?: number;
-    failed?: number;
-    queued?: number;
-    percent?: number;
-    bytesPerSec?: number;
+    size?: number | undefined;
+    loaded?: number | undefined;
+    uploaded?: number | undefined;
+    failed?: number | undefined;
+    queued?: number | undefined;
+    percent?: number | undefined;
+    bytesPerSec?: number | undefined;
 }
 declare enum ERRORS {
     GENERIC_ERROR = -100,

@@ -48,33 +48,33 @@ declare namespace AMap {
             /**
              * 线条是否带描边
              */
-            isOutline?: boolean;
+            isOutline?: boolean | undefined;
             /**
              * 线条描边颜色
              */
-            outlineColor?: string;
+            outlineColor?: string | undefined;
             /**
              * 是否绘制成大地线
              */
-            geodesic?: boolean;
+            geodesic?: boolean | undefined;
             /**
              * 方向箭头颜色
              */
-            dirColor?: string;
+            dirColor?: string | undefined;
             /**
              * 描边的宽度
              */
-            borderWeight?: number;
+            borderWeight?: number | undefined;
             /**
              * 是否延路径显示方向箭头
              */
-            showDir?: boolean;
+            showDir?: boolean | undefined;
 
             // internal
             /**
              * 折线的节点数组
              */
-            path?: LocationValue[];
+            path?: LocationValue[] | undefined;
         }
     }
 

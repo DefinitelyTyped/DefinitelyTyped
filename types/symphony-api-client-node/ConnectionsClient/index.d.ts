@@ -7,9 +7,9 @@ export const ALL: string;
 export interface Connection {
     userId: number;
     status: "REJECTED" | "ACCEPTED" | "PENDING_INCOMING" | 'PENDING_OUTGOING';
-    firstRequestedAt?: number;
-    updatedAt?: number;
-    requestCounter?: number;
+    firstRequestedAt?: number | undefined;
+    updatedAt?: number | undefined;
+    requestCounter?: number | undefined;
 }
 
 export interface RemoveConnectionReponse {

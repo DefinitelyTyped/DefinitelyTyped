@@ -11,11 +11,11 @@ import {
 } from 'relay-runtime';
 
 interface MockResolverContext {
-    parentType?: string;
-    name?: string;
-    alias?: string;
-    path?: ReadonlyArray<string>;
-    args?: { [key: string]: any };
+    parentType?: string | undefined;
+    name?: string | undefined;
+    alias?: string | undefined;
+    path?: ReadonlyArray<string> | undefined;
+    args?: { [key: string]: any } | undefined;
 }
 type MockResolver = (context: MockResolverContext, generateId: () => number) => unknown;
 export interface MockResolvers {

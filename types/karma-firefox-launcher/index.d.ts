@@ -12,20 +12,20 @@ declare module 'karma' {
          */
         prefs?: {
             [name: string]: any;
-        };
+        } | undefined;
         /**
          * extensions that you want loaded into the browser on startup
          */
-        extensions?: string[];
+        extensions?: string[] | undefined;
 
         /**
          * custom launcher name
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * location of the Firefox executable
          */
-        command?: string;
+        command?: string | undefined;
     }
 }

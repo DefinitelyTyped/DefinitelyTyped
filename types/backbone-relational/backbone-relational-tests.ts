@@ -1,13 +1,13 @@
-import * as BackboneRel from 'backbone-relational';
+import * as Backbone from 'backbone';
 
-class House extends BackboneRel.Model {
+class House extends Backbone.RelationalModel {
     // The 'relations' property, on the House's prototype. Initialized separately for each
     // instance of House. Each relation must define (as a minimum) the 'type', 'key' and
     // 'relatedModel'. Options include 'includeInJSON', 'createModels' and 'reverseRelation'.
 
     relations = [
         {
-            type: BackboneRel.HasMany, // Use the type, or the string 'HasOne' or 'HasMany'.
+            type: Backbone.HasMany, // Use the type, or the string 'HasOne' or 'HasMany'.
             key: 'occupants',
             relatedModel: 'Person',
             includeInJSON: true,
@@ -20,14 +20,14 @@ class House extends BackboneRel.Model {
 
 }
 
-class Person extends BackboneRel.Model {
+class Person extends Backbone.RelationalModel {
     relations = [
         { // Create a (recursive) one-to-one relationship
-            type: BackboneRel.HasOne,
+            type: Backbone.HasOne,
             key: 'user',
             relatedModel: 'User',
             reverseRelation: {
-                type: BackboneRel.HasOne,
+                type: Backbone.HasOne,
                 key: 'person'
             }
         }
@@ -39,7 +39,7 @@ class Person extends BackboneRel.Model {
     }
 }
 
-class User extends BackboneRel.Model {
+class User extends Backbone.RelationalModel {
 
 }
 
@@ -111,7 +111,7 @@ paul.set({ 'livesIn': theirHouse });
 
 alert('theirHouse.occupants=' + theirHouse.get('occupants').pluck('name'));
 
-BackboneRel.store.removeModelScope(window);
-BackboneRel.store.addModelScope(window);
-BackboneRel.store.unregister(Person);
-BackboneRel.store.reset();
+Backbone.store.removeModelScope(window);
+Backbone.store.addModelScope(window);
+Backbone.store.unregister(Person);
+Backbone.store.reset();

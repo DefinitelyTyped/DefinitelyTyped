@@ -13,15 +13,15 @@ export namespace DateRestrictionValidator {
     };
     // tslint:disable-next-line interface-over-type-literal
     type DayFormatterOutput = {
-        disabled?: boolean;
-        className?: string;
-        tooltip?: string;
+        disabled?: boolean | undefined;
+        className?: string | undefined;
+        tooltip?: string | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        dayFormatter?: ((param0: DayFormatterInput) => DayFormatterOutput | null | 'all');
-        messageSummary?: string;
-        messageDetail?: string;
+        dayFormatter?: ((param0: DayFormatterInput) => DayFormatterOutput | null | 'all') | undefined;
+        messageSummary?: string | undefined;
+        messageDetail?: string | undefined;
     };
 }
 export interface DateRestrictionValidatorFactory {
@@ -55,22 +55,22 @@ export namespace DateTimeRangeValidator {
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
         converter: DateTimeConverter;
-        min?: string;
-        max?: string;
+        min?: string | undefined;
+        max?: string | undefined;
         hint?: {
-            max?: string;
-            min?: string;
-            inRange?: string;
-        };
-        translationKey?: string;
+            max?: string | undefined;
+            min?: string | undefined;
+            inRange?: string | undefined;
+        } | undefined;
+        translationKey?: string | undefined;
         messageDetail?: {
-            rangeUnderflow?: string;
-            rangeOverflow?: string;
-        };
+            rangeUnderflow?: string | undefined;
+            rangeOverflow?: string | undefined;
+        } | undefined;
         messageSummary?: {
-            rangeUnderflow?: string;
-            rangeOverflow?: string;
-        };
+            rangeUnderflow?: string | undefined;
+            rangeOverflow?: string | undefined;
+        } | undefined;
     };
 }
 export interface DateTimeRangeValidatorFactory {
@@ -82,11 +82,11 @@ export class IntlDateTimeConverter extends DateTimeConverter {
     compareISODates(isoStr: string, isoStr2: string): number;
     format(value: string): string | null;
     formatRelative(value: string, relativeOptions?: {
-        formatUsing?: string;
-        dateField?: string;
-        relativeTime?: string;
-        dateOnly?: boolean;
-        timeZone?: string;
+        formatUsing?: string | undefined;
+        dateField?: string | undefined;
+        relativeTime?: string | undefined;
+        dateOnly?: boolean | undefined;
+        timeZone?: string | undefined;
     }): string | null;
     getAvailableTimeZones(): any[];
     getHint(): null;
@@ -106,25 +106,25 @@ export class IntlDateTimeConverter extends DateTimeConverter {
 export namespace IntlDateTimeConverter {
     // tslint:disable-next-line interface-over-type-literal
     type ConverterOptions = {
-        year?: '2-digit' | 'numeric';
-        'two-digit-year-start'?: number;
-        month?: '2-digit' | 'numeric' | 'narrow' | 'short' | 'long';
-        day?: '2-digit' | 'numeric';
-        hour?: '2-digit' | 'numeric';
-        minute?: '2-digit' | 'numeric';
-        second?: '2-digit' | 'numeric';
-        millisecond?: 'numeric';
-        weekday?: 'narrow' | 'short' | 'long';
-        era?: 'narrow' | 'short' | 'long';
-        timeZoneName?: 'short' | 'long';
-        timeZone?: string;
-        isoStrFormat?: 'offset' | 'zulu' | 'local' | 'auto';
-        dst?: boolean;
-        hour12?: boolean;
-        pattern?: string;
-        formatType?: 'date' | 'time' | 'datetime';
-        dateFormat?: 'short' | 'medium' | 'long' | 'full';
-        timeFormat?: 'short' | 'medium' | 'long' | 'full';
-        lenientParse?: 'full' | 'none';
+        year?: '2-digit' | 'numeric' | undefined;
+        'two-digit-year-start'?: number | undefined;
+        month?: '2-digit' | 'numeric' | 'narrow' | 'short' | 'long' | undefined;
+        day?: '2-digit' | 'numeric' | undefined;
+        hour?: '2-digit' | 'numeric' | undefined;
+        minute?: '2-digit' | 'numeric' | undefined;
+        second?: '2-digit' | 'numeric' | undefined;
+        millisecond?: 'numeric' | undefined;
+        weekday?: 'narrow' | 'short' | 'long' | undefined;
+        era?: 'narrow' | 'short' | 'long' | undefined;
+        timeZoneName?: 'short' | 'long' | undefined;
+        timeZone?: string | undefined;
+        isoStrFormat?: 'offset' | 'zulu' | 'local' | 'auto' | undefined;
+        dst?: boolean | undefined;
+        hour12?: boolean | undefined;
+        pattern?: string | undefined;
+        formatType?: 'date' | 'time' | 'datetime' | undefined;
+        dateFormat?: 'short' | 'medium' | 'long' | 'full' | undefined;
+        timeFormat?: 'short' | 'medium' | 'long' | 'full' | undefined;
+        lenientParse?: 'full' | 'none' | undefined;
     };
 }

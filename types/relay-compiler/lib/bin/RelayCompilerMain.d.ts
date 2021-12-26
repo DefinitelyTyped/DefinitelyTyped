@@ -9,15 +9,15 @@ export interface Config {
     exclude: string[];
     verbose: boolean;
     watchman: boolean;
-    watch?: boolean | null;
+    watch?: boolean | null | undefined;
     validate: boolean;
     quiet: boolean;
-    persistOutput?: string | null;
+    persistOutput?: string | null | undefined;
     noFutureProofEnums: boolean;
     language: string | PluginInitializer;
-    persistFunction?: string | ((text: string) => Promise<string>) | null;
-    artifactDirectory?: string | null;
-    customScalars?: ScalarTypeMapping;
+    persistFunction?: string | ((text: string) => Promise<string>) | null | undefined;
+    artifactDirectory?: string | null | undefined;
+    customScalars?: ScalarTypeMapping | undefined;
 }
 
 export function getLanguagePlugin(language: string | PluginInitializer): PluginInterface;

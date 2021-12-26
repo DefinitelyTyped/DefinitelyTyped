@@ -441,6 +441,20 @@ connection.query({
     }
 });
 
+connection.query({
+    sql: '...',
+    typeCast: (field, next: () => void) => {
+        if (field.type === 'JSON') {
+            const string = field.string();
+            if (string === null) {
+                return null;
+            }
+            return (JSON.parse(string));
+        }
+        next();
+    }
+});
+
 connection.query({ sql: '...', values: ['test'] }, (err: Error, results: any) => {
 });
 

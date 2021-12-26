@@ -8,28 +8,28 @@ export interface ojGantt<K1, K2, D1, D2> extends dvtTimeComponent<ojGanttSettabl
     animationOnDisplay: 'auto' | 'none';
     as: string;
     axisPosition: 'bottom' | 'top';
-    dependencyData?: (DataProvider<K1, D1>);
+    dependencyData?: (DataProvider<K1, D1>) | undefined;
     dnd: {
         move?: {
-            tasks?: 'disabled' | 'enabled';
-        };
+            tasks?: 'disabled' | 'enabled' | undefined;
+        } | undefined;
     };
     end: string;
     gridlines: {
-        horizontal?: 'hidden' | 'visible' | 'auto';
-        vertical?: 'hidden' | 'visible' | 'auto';
+        horizontal?: 'hidden' | 'visible' | 'auto' | undefined;
+        vertical?: 'hidden' | 'visible' | 'auto' | undefined;
     };
     majorAxis: {
-        converter?: (ojTimeAxis.Converters | Converter<string>);
-        height?: number;
+        converter?: (ojTimeAxis.Converters | Converter<string>) | undefined;
+        height?: number | undefined;
         scale: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'quarters' | 'years';
-        zoomOrder?: string[];
+        zoomOrder?: string[] | undefined;
     };
     minorAxis: {
-        converter?: (ojTimeAxis.Converters | Converter<string>);
-        height?: number;
+        converter?: (ojTimeAxis.Converters | Converter<string>) | undefined;
+        height?: number | undefined;
         scale: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'quarters' | 'years';
-        zoomOrder?: string[];
+        zoomOrder?: string[] | undefined;
     };
     referenceObjects: ojGantt.ReferenceObject[];
     rowAxis: {
@@ -37,42 +37,42 @@ export interface ojGantt<K1, K2, D1, D2> extends dvtTimeComponent<ojGanttSettabl
             renderer: ((context: ojGantt.RowAxisLabelRendererContext<K2, D2>) => ({
                 insert: Element;
             }));
-        };
-        maxWidth?: string;
-        rendered?: 'on' | 'off';
-        width?: string;
+        } | undefined;
+        maxWidth?: string | undefined;
+        rendered?: 'on' | 'off' | undefined;
+        width?: string | undefined;
     };
     rowDefaults: {
-        height?: number;
+        height?: number | undefined;
     };
     scrollPosition: {
-        offsetY?: number;
-        rowIndex?: number;
-        y?: number;
+        offsetY?: number | undefined;
+        rowIndex?: number | undefined;
+        y?: number | undefined;
     };
     selection: K2[];
     selectionMode: 'single' | 'multiple' | 'none';
     start: string;
-    taskData?: (DataProvider<K2, D2>);
+    taskData?: (DataProvider<K2, D2>) | undefined;
     taskDefaults: {
         baseline?: {
-            borderRadius?: string;
-            height?: number;
-            svgClassName?: string;
-            svgStyle?: object;
-        };
-        borderRadius?: string;
-        height?: number;
-        labelPosition?: (string | string[]);
+            borderRadius?: string | undefined;
+            height?: number | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+        } | undefined;
+        borderRadius?: string | undefined;
+        height?: number | undefined;
+        labelPosition?: (string | string[]) | undefined;
         progress?: {
-            borderRadius?: string;
-            height?: string;
-            svgClassName?: string;
-            svgStyle?: object;
-        };
-        svgClassName?: string;
-        svgStyle?: object;
-        type?: 'normal' | 'milestone' | 'summary' | 'auto';
+            borderRadius?: string | undefined;
+            height?: string | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+        } | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        type?: 'normal' | 'milestone' | 'summary' | 'auto' | undefined;
     };
     tooltip: {
         renderer: ((context: ojGantt.TooltipContext<K2, D2>) => ({
@@ -83,95 +83,95 @@ export interface ojGantt<K1, K2, D1, D2> extends dvtTimeComponent<ojGanttSettabl
     };
     valueFormats: {
         baselineDate?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         baselineEnd?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         baselineStart?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         date?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         end?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         label?: {
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         progress?: {
-            converter?: (Converter<number>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<number>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         row?: {
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         start?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
     };
     viewportEnd: string;
     viewportStart: string;
     translations: {
-        accessibleDependencyInfo?: string;
-        accessiblePredecessorInfo?: string;
-        accessibleSuccessorInfo?: string;
-        accessibleTaskTypeMilestone?: string;
-        accessibleTaskTypeSummary?: string;
-        componentName?: string;
-        finishFinishDependencyAriaDesc?: string;
-        finishStartDependencyAriaDesc?: string;
-        labelAndValue?: string;
-        labelBaselineDate?: string;
-        labelBaselineEnd?: string;
-        labelBaselineStart?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelDate?: string;
-        labelEnd?: string;
-        labelInvalidData?: string;
-        labelLabel?: string;
-        labelMoveBy?: string;
-        labelNoData?: string;
-        labelProgress?: string;
-        labelRow?: string;
-        labelStart?: string;
-        startFinishDependencyAriaDesc?: string;
-        startStartDependencyAriaDesc?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
-        taskMoveCancelled?: string;
-        taskMoveFinalized?: string;
-        taskMoveInitiated?: string;
-        taskMoveInitiatedInstruction?: string;
-        taskMoveSelectionInfo?: string;
-        tooltipZoomIn?: string;
-        tooltipZoomOut?: string;
+        accessibleDependencyInfo?: string | undefined;
+        accessiblePredecessorInfo?: string | undefined;
+        accessibleSuccessorInfo?: string | undefined;
+        accessibleTaskTypeMilestone?: string | undefined;
+        accessibleTaskTypeSummary?: string | undefined;
+        componentName?: string | undefined;
+        finishFinishDependencyAriaDesc?: string | undefined;
+        finishStartDependencyAriaDesc?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelBaselineDate?: string | undefined;
+        labelBaselineEnd?: string | undefined;
+        labelBaselineStart?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelDate?: string | undefined;
+        labelEnd?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelLabel?: string | undefined;
+        labelMoveBy?: string | undefined;
+        labelNoData?: string | undefined;
+        labelProgress?: string | undefined;
+        labelRow?: string | undefined;
+        labelStart?: string | undefined;
+        startFinishDependencyAriaDesc?: string | undefined;
+        startStartDependencyAriaDesc?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
+        taskMoveCancelled?: string | undefined;
+        taskMoveFinalized?: string | undefined;
+        taskMoveInitiated?: string | undefined;
+        taskMoveInitiatedInstruction?: string | undefined;
+        taskMoveSelectionInfo?: string | undefined;
+        tooltipZoomIn?: string | undefined;
+        tooltipZoomOut?: string | undefined;
     };
     onAnimationOnDataChangeChanged: ((event: JetElementCustomEvent<ojGantt<K1, K2, D1, D2>["animationOnDataChange"]>) => any) | null;
     onAnimationOnDisplayChanged: ((event: JetElementCustomEvent<ojGantt<K1, K2, D1, D2>["animationOnDisplay"]>) => any) | null;
@@ -246,24 +246,24 @@ export namespace ojGantt {
     type Dependency<K1, K2> = {
         id: K1;
         predecessorTaskId: K2;
-        shortDesc?: string;
+        shortDesc?: string | undefined;
         successorTaskId: K2;
-        svgClassName?: string;
-        svgStyle?: object;
-        type?: 'startStart' | 'startFinish' | 'finishFinish' | 'finishStart';
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        type?: 'startStart' | 'startFinish' | 'finishFinish' | 'finishStart' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type ReferenceObject = {
-        svgClassName?: string;
-        svgStyle?: object;
-        value?: string;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        value?: string | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Row<K2> = {
         id?: any;
-        label?: string;
-        labelStyle?: object;
-        tasks?: Array<RowTask<K2>>;
+        label?: string | undefined;
+        labelStyle?: object | undefined;
+        tasks?: Array<RowTask<K2>> | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type RowAxisLabelRendererContext<K2, D2> = {
@@ -276,33 +276,33 @@ export namespace ojGantt {
     };
     // tslint:disable-next-line interface-over-type-literal
     type RowTask<K2> = {
-        borderRadius?: string;
-        end?: string;
-        height?: number;
+        borderRadius?: string | undefined;
+        end?: string | undefined;
+        height?: number | undefined;
         id: K2;
-        label?: string;
-        labelPosition?: string | string[];
-        labelStyle?: object;
-        start?: string;
-        shortDesc?: string;
-        svgClassName?: string;
-        svgStyle?: object;
-        type?: 'normal' | 'milestone' | 'summary' | 'auto';
+        label?: string | undefined;
+        labelPosition?: string | string[] | undefined;
+        labelStyle?: object | undefined;
+        start?: string | undefined;
+        shortDesc?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        type?: 'normal' | 'milestone' | 'summary' | 'auto' | undefined;
         progress?: {
-            borderRadius?: string;
-            height?: string;
-            svgClassName?: string;
-            svgStyle?: object;
-            value?: number;
-        };
+            borderRadius?: string | undefined;
+            height?: string | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+            value?: number | undefined;
+        } | undefined;
         baseline?: {
-            borderRadius?: string;
-            end?: string;
-            height?: number;
-            start?: string;
-            svgClassName?: string;
-            svgStyle?: object;
-        };
+            borderRadius?: string | undefined;
+            end?: string | undefined;
+            height?: number | undefined;
+            start?: string | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+        } | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type TooltipContext<K2, D2> = {
@@ -346,28 +346,28 @@ export interface ojGanttSettableProperties<K1, K2, D1, D2> extends dvtTimeCompon
     animationOnDisplay: 'auto' | 'none';
     as: string;
     axisPosition: 'bottom' | 'top';
-    dependencyData?: (DataProvider<K1, D1>);
+    dependencyData?: (DataProvider<K1, D1>) | undefined;
     dnd: {
         move?: {
-            tasks?: 'disabled' | 'enabled';
-        };
+            tasks?: 'disabled' | 'enabled' | undefined;
+        } | undefined;
     };
     end: string;
     gridlines: {
-        horizontal?: 'hidden' | 'visible' | 'auto';
-        vertical?: 'hidden' | 'visible' | 'auto';
+        horizontal?: 'hidden' | 'visible' | 'auto' | undefined;
+        vertical?: 'hidden' | 'visible' | 'auto' | undefined;
     };
     majorAxis: {
-        converter?: (ojTimeAxis.Converters | Converter<string>);
-        height?: number;
+        converter?: (ojTimeAxis.Converters | Converter<string>) | undefined;
+        height?: number | undefined;
         scale: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'quarters' | 'years';
-        zoomOrder?: string[];
+        zoomOrder?: string[] | undefined;
     };
     minorAxis: {
-        converter?: (ojTimeAxis.Converters | Converter<string>);
-        height?: number;
+        converter?: (ojTimeAxis.Converters | Converter<string>) | undefined;
+        height?: number | undefined;
         scale: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'quarters' | 'years';
-        zoomOrder?: string[];
+        zoomOrder?: string[] | undefined;
     };
     referenceObjects: ojGantt.ReferenceObject[];
     rowAxis: {
@@ -375,42 +375,42 @@ export interface ojGanttSettableProperties<K1, K2, D1, D2> extends dvtTimeCompon
             renderer: ((context: ojGantt.RowAxisLabelRendererContext<K2, D2>) => ({
                 insert: Element;
             }));
-        };
-        maxWidth?: string;
-        rendered?: 'on' | 'off';
-        width?: string;
+        } | undefined;
+        maxWidth?: string | undefined;
+        rendered?: 'on' | 'off' | undefined;
+        width?: string | undefined;
     };
     rowDefaults: {
-        height?: number;
+        height?: number | undefined;
     };
     scrollPosition: {
-        offsetY?: number;
-        rowIndex?: number;
-        y?: number;
+        offsetY?: number | undefined;
+        rowIndex?: number | undefined;
+        y?: number | undefined;
     };
     selection: K2[];
     selectionMode: 'single' | 'multiple' | 'none';
     start: string;
-    taskData?: (DataProvider<K2, D2>);
+    taskData?: (DataProvider<K2, D2>) | undefined;
     taskDefaults: {
         baseline?: {
-            borderRadius?: string;
-            height?: number;
-            svgClassName?: string;
-            svgStyle?: object;
-        };
-        borderRadius?: string;
-        height?: number;
-        labelPosition?: (string | string[]);
+            borderRadius?: string | undefined;
+            height?: number | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+        } | undefined;
+        borderRadius?: string | undefined;
+        height?: number | undefined;
+        labelPosition?: (string | string[]) | undefined;
         progress?: {
-            borderRadius?: string;
-            height?: string;
-            svgClassName?: string;
-            svgStyle?: object;
-        };
-        svgClassName?: string;
-        svgStyle?: object;
-        type?: 'normal' | 'milestone' | 'summary' | 'auto';
+            borderRadius?: string | undefined;
+            height?: string | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+        } | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        type?: 'normal' | 'milestone' | 'summary' | 'auto' | undefined;
     };
     tooltip: {
         renderer: ((context: ojGantt.TooltipContext<K2, D2>) => ({
@@ -421,95 +421,95 @@ export interface ojGanttSettableProperties<K1, K2, D1, D2> extends dvtTimeCompon
     };
     valueFormats: {
         baselineDate?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         baselineEnd?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         baselineStart?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         date?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         end?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         label?: {
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         progress?: {
-            converter?: (Converter<number>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<number>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         row?: {
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
         start?: {
-            converter?: (Converter<string>);
-            tooltipDisplay?: 'off' | 'auto';
-            tooltipLabel?: string;
-        };
+            converter?: (Converter<string>) | undefined;
+            tooltipDisplay?: 'off' | 'auto' | undefined;
+            tooltipLabel?: string | undefined;
+        } | undefined;
     };
     viewportEnd: string;
     viewportStart: string;
     translations: {
-        accessibleDependencyInfo?: string;
-        accessiblePredecessorInfo?: string;
-        accessibleSuccessorInfo?: string;
-        accessibleTaskTypeMilestone?: string;
-        accessibleTaskTypeSummary?: string;
-        componentName?: string;
-        finishFinishDependencyAriaDesc?: string;
-        finishStartDependencyAriaDesc?: string;
-        labelAndValue?: string;
-        labelBaselineDate?: string;
-        labelBaselineEnd?: string;
-        labelBaselineStart?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelDate?: string;
-        labelEnd?: string;
-        labelInvalidData?: string;
-        labelLabel?: string;
-        labelMoveBy?: string;
-        labelNoData?: string;
-        labelProgress?: string;
-        labelRow?: string;
-        labelStart?: string;
-        startFinishDependencyAriaDesc?: string;
-        startStartDependencyAriaDesc?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
-        taskMoveCancelled?: string;
-        taskMoveFinalized?: string;
-        taskMoveInitiated?: string;
-        taskMoveInitiatedInstruction?: string;
-        taskMoveSelectionInfo?: string;
-        tooltipZoomIn?: string;
-        tooltipZoomOut?: string;
+        accessibleDependencyInfo?: string | undefined;
+        accessiblePredecessorInfo?: string | undefined;
+        accessibleSuccessorInfo?: string | undefined;
+        accessibleTaskTypeMilestone?: string | undefined;
+        accessibleTaskTypeSummary?: string | undefined;
+        componentName?: string | undefined;
+        finishFinishDependencyAriaDesc?: string | undefined;
+        finishStartDependencyAriaDesc?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelBaselineDate?: string | undefined;
+        labelBaselineEnd?: string | undefined;
+        labelBaselineStart?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelDate?: string | undefined;
+        labelEnd?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelLabel?: string | undefined;
+        labelMoveBy?: string | undefined;
+        labelNoData?: string | undefined;
+        labelProgress?: string | undefined;
+        labelRow?: string | undefined;
+        labelStart?: string | undefined;
+        startFinishDependencyAriaDesc?: string | undefined;
+        startStartDependencyAriaDesc?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
+        taskMoveCancelled?: string | undefined;
+        taskMoveFinalized?: string | undefined;
+        taskMoveInitiated?: string | undefined;
+        taskMoveInitiatedInstruction?: string | undefined;
+        taskMoveSelectionInfo?: string | undefined;
+        tooltipZoomIn?: string | undefined;
+        tooltipZoomOut?: string | undefined;
     };
 }
 export interface ojGanttSettablePropertiesLenient<K1, K2, D1, D2> extends Partial<ojGanttSettableProperties<K1, K2, D1, D2>> {
@@ -581,12 +581,12 @@ export interface ojGanttRowSettablePropertiesLenient extends Partial<ojGanttRowS
 }
 export interface ojGanttTask extends JetElement<ojGanttTaskSettableProperties> {
     baseline: {
-        borderRadius?: string;
-        end?: string;
-        height?: number;
-        start?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderRadius?: string | undefined;
+        end?: string | undefined;
+        height?: number | undefined;
+        start?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     borderRadius: string;
     end: string;
@@ -595,11 +595,11 @@ export interface ojGanttTask extends JetElement<ojGanttTaskSettableProperties> {
     labelPosition: 'start' | 'innerCenter' | 'innerStart' | 'innerEnd' | 'end' | 'none';
     labelStyle: object;
     progress: {
-        borderRadius?: string;
-        height?: string;
-        svgClassName?: string;
-        svgStyle?: object;
-        value?: number;
+        borderRadius?: string | undefined;
+        height?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        value?: number | undefined;
     };
     rowId?: any;
     shortDesc: string | null;
@@ -647,12 +647,12 @@ export interface ojGanttTaskEventMap extends HTMLElementEventMap {
 }
 export interface ojGanttTaskSettableProperties extends JetSettableProperties {
     baseline: {
-        borderRadius?: string;
-        end?: string;
-        height?: number;
-        start?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderRadius?: string | undefined;
+        end?: string | undefined;
+        height?: number | undefined;
+        start?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     borderRadius: string;
     end: string;
@@ -661,11 +661,11 @@ export interface ojGanttTaskSettableProperties extends JetSettableProperties {
     labelPosition: 'start' | 'innerCenter' | 'innerStart' | 'innerEnd' | 'end' | 'none';
     labelStyle: object;
     progress: {
-        borderRadius?: string;
-        height?: string;
-        svgClassName?: string;
-        svgStyle?: object;
-        value?: number;
+        borderRadius?: string | undefined;
+        height?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        value?: number | undefined;
     };
     rowId?: any;
     shortDesc: string | null;

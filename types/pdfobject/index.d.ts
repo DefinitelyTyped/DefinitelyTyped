@@ -1,16 +1,25 @@
-// Type definitions for PDFObject v2.0.201604172
+// Type definitions for PDFObject 2.2
 // Project: https://github.com/pipwerks/PDFObject
 // Definitions by: Niels Boogaard <https://github.com/nielsboogaard>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export as namespace PDFObject;
+export function embed(url: string, target?: any, options?: Options): HTMLElement;
+export const pdfobjectversion: "2.2.3";
+export const supportsPDFs: boolean;
 
-declare module "pdfobject" {
-    interface PDFObject {
-        embed(url:string, target?:any, options?:any): HTMLElement;
-        pdfobjectversion: string;
-        supportsPDFs: boolean;
-    }
-
-    var pdfObject: PDFObject;
-    export = pdfObject;
-
+export interface Options {
+    id?: string | undefined;
+    page?: boolean | undefined;
+    pdfOpenParams?: Record<string, string | number | boolean> | undefined;
+    fallbackLink?: boolean | string | undefined;
+    width?: string | undefined;
+    height?: string | undefined;
+    assumptionMode?: boolean | undefined;
+    forcePDFJS?: boolean | undefined;
+    supportRedirect?: boolean | undefined;
+    omitInlineStyles?: boolean | undefined;
+    suppressConsole?: boolean | undefined;
+    forceIframe?: boolean | undefined;
+    PDFJS_URL?: string | undefined;
 }

@@ -13,7 +13,7 @@ declare function bl(stream: NodeJS.ReadableStream, options?: bl.LineStreamOption
 declare namespace bl {
 
     export interface LineStreamOptions extends stream.TransformOptions {
-        keepEmptyLines?: boolean;
+        keepEmptyLines?: boolean | undefined;
     }
 
     export interface LineStream extends stream.Transform {

@@ -6,26 +6,26 @@
 
 export interface DiffNew<RHS> {
     kind: 'N';
-    path?: any[];
+    path?: any[] | undefined;
     rhs: RHS;
 }
 
 export interface DiffDeleted<LHS> {
     kind: 'D';
-    path?: any[];
+    path?: any[] | undefined;
     lhs: LHS;
 }
 
 export interface DiffEdit<LHS, RHS = LHS> {
     kind: 'E';
-    path?: any[];
+    path?: any[] | undefined;
     lhs: LHS;
     rhs: RHS;
 }
 
 export interface DiffArray<LHS, RHS = LHS> {
     kind: 'A';
-    path?: any[];
+    path?: any[] | undefined;
     index: number;
     item: Diff<LHS, RHS>;
 }

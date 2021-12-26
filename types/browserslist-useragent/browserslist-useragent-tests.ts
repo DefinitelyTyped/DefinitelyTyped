@@ -17,7 +17,8 @@ matchesUA(
         env: 'production',
         ignorePatch: true,
         ignoreMinor: false,
-        allowHigherVersions: false
+        allowHigherVersions: false,
+        path: './browsers/'
     }
 );
 

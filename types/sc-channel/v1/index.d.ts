@@ -42,8 +42,8 @@ declare namespace SCChannel {
     type HandlerFunction = (data: any) => void;
 
     interface SCChannelOptions {
-        waitForAuth?: boolean;
-        batch?: boolean;
+        waitForAuth?: boolean | undefined;
+        batch?: boolean | undefined;
         data?: any;
     }
 
