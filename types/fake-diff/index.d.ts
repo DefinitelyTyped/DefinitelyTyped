@@ -6,9 +6,7 @@
 export = fakeDiff;
 
 interface fakeDiffOptions {
-    /**
-     * Hide not changed lines (as default `true`).
-     */
+    /** Hide not changed lines (as default `true`). */
     hideLines?: boolean;
 
     /**
