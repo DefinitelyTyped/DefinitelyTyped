@@ -1275,7 +1275,7 @@ declare namespace naver.maps {
             point: {
                 x: string;
                 y: string;
-            }
+            };
         }
         interface GeocodeResponse {
             result: {
