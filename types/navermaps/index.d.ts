@@ -1272,6 +1272,10 @@ declare namespace naver.maps {
                 dongmyun: string;
                 rest: string;
             };
+            point: {
+                x: string;
+                y: string;
+            }
         }
         interface GeocodeResponse {
             result: {
