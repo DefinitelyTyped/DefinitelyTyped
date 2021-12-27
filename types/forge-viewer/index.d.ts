@@ -2842,6 +2842,7 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
         hasViewables: boolean;
+        surfaceShading: DataVisualization.Core.SurfaceShading;
         streamLineBuilder: DataVisualization.Core.StreamLineBuilder;
 
         constructor(viewer: Viewing.Viewer3D, options?: {
