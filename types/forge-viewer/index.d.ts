@@ -939,7 +939,7 @@ declare namespace Autodesk {
         }
 
         class ToolInterface {
-            getCursor(): string;
+            getCursor?(): string;
             getName(): string;
             getNames(): string[];
             register(): void;
@@ -947,19 +947,19 @@ declare namespace Autodesk {
             activate(name: string, viewerApi?: GuiViewer3D): void;
             deactivate(name: string): void;
             update(highResTimestamp?: number): boolean;
-            handleSingleClick(event: MouseEvent, button: number): boolean;
-            handleDoubleClick(event: MouseEvent, button: number): boolean;
-            handleSingleTap(event: Event): boolean;
-            handleDoubleTap(event: Event): boolean;
-            handleKeyDown(event: KeyboardEvent, keyCode: number): boolean;
-            handleKeyUp(event: KeyboardEvent, keyCode: number): boolean;
-            handleWheelInput(delta: number): boolean;
-            handleButtonDown(event: MouseEvent, button: number): boolean;
-            handleButtonUp(event: MouseEvent, button: number): boolean;
-            handleMouseMove(event: MouseEvent): boolean;
-            handleGesture(event: Event): boolean;
-            handleBlur(event: Event): boolean;
-            handleResize(): void;
+            handleSingleClick?(event: MouseEvent, button: number): boolean;
+            handleDoubleClick?(event: MouseEvent, button: number): boolean;
+            handleSingleTap?(event: Event): boolean;
+            handleDoubleTap?(event: Event): boolean;
+            handleKeyDown?(event: KeyboardEvent, keyCode: number): boolean;
+            handleKeyUp?(event: KeyboardEvent, keyCode: number): boolean;
+            handleWheelInput?(delta: number): boolean;
+            handleButtonDown?(event: MouseEvent, button: number): boolean;
+            handleButtonUp?(event: MouseEvent, button: number): boolean;
+            handleMouseMove?(event: MouseEvent): boolean;
+            handleGesture?(event: Event): boolean;
+            handleBlur?(event: Event): boolean;
+            handleResize?(): void;
         }
 
         class UnifiedCamera extends THREE.Camera {
