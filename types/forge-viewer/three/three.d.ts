@@ -288,7 +288,7 @@ declare namespace THREE {
         expandByScalar(scalar: number): Box3;
         expandByVector(vector: Vector3): Box3;
         getBoundingSphere(optionalTarget?: Sphere): Sphere;
-        getCenter(optionalTarget: Vector3): Vector3;
+        getCenter(optionalTarget?: Vector3): Vector3;
         getParameter(point: Vector3): Vector3;
         getSize(target: Vector3): Vector3;
         intersect(box: Box3): Box3;
