@@ -496,7 +496,7 @@ declare namespace chrome.bookmarks {
          * Since Chrome 37.
          * Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
          */
-        unmodifiable?: any;
+        unmodifiable?: 'managed';
     }
 
     export interface BookmarkRemoveInfo {
@@ -795,7 +795,7 @@ declare namespace chrome.browserAction {
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-        path?: any;
+        path?: string | { [index: number]: string };
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
         /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
@@ -1177,7 +1177,7 @@ declare namespace chrome.contentSettings {
         /** Optional. The resource identifier for the content type.  */
         resourceIdentifier?: ResourceIdentifier | undefined;
         /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
-        setting: any;
+        setting: 'allow' | 'ask' | 'block' | 'detect_important_content' | 'session_only';
         /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
         secondaryPattern?: string | undefined;
         /** Optional. Where to set the setting (default: regular).  */
@@ -1251,7 +1251,7 @@ declare namespace chrome.contentSettings {
 
     export interface ReturnedDetails {
         /** The content setting. See the description of the individual ContentSetting objects for the possible values. */
-        setting: any;
+        setting: 'allow' | 'ask' | 'block' | 'detect_important_content' | 'session_only';
     }
 
     export interface ContentSetting {
@@ -1283,54 +1283,67 @@ declare namespace chrome.contentSettings {
 
     export interface CookieContentSetting extends ContentSetting {
         set(details: CookieSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: CookieSetDetails) => void): void;
     }
 
     export interface PopupsContentSetting extends ContentSetting {
         set(details: PopupsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: PopupsSetDetails) => void): void;
     }
 
     export interface JavascriptContentSetting extends ContentSetting {
         set(details: JavascriptSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: JavascriptSetDetails) => void): void;
     }
 
     export interface NotificationsContentSetting extends ContentSetting {
         set(details: NotificationsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: NotificationsSetDetails) => void): void;
     }
 
     export interface PluginsContentSetting extends ContentSetting {
         set(details: PluginsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: PluginsSetDetails) => void): void;
     }
 
     export interface ImagesContentSetting extends ContentSetting {
         set(details: ImagesSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: ImagesSetDetails) => void): void;
     }
 
     export interface LocationContentSetting extends ContentSetting {
         set(details: LocationSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: LocationSetDetails) => void): void;
     }
 
     export interface FullscreenContentSetting extends ContentSetting {
         set(details: FullscreenSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: FullscreenSetDetails) => void): void;
     }
 
     export interface MouselockContentSetting extends ContentSetting {
         set(details: MouselockSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: MouselockSetDetails) => void): void;
     }
 
     export interface MicrophoneContentSetting extends ContentSetting {
         set(details: MicrophoneSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: MicrophoneSetDetails) => void): void;
     }
 
     export interface CameraContentSetting extends ContentSetting {
         set(details: CameraSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: CameraSetDetails) => void): void;
     }
 
     export interface PpapiBrokerContentSetting extends ContentSetting {
         set(details: PpapiBrokerSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: PpapiBrokerSetDetails) => void): void;
     }
 
     export interface MultipleAutomaticDownloadsContentSetting extends ContentSetting {
         set(details: MultipleAutomaticDownloadsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: MultipleAutomaticDownloadsSetDetails) => void): void;
     }
 
     /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
@@ -1576,7 +1589,7 @@ declare namespace chrome.contextMenus {
          */
         onclick?: ((info: OnClickData, tab: chrome.tabs.Tab) => void) | undefined;
         /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
-        parentId?: any;
+        parentId?: number | string;
         /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
         type?: ContextItemType | undefined;
         /**
@@ -2074,11 +2087,11 @@ declare namespace chrome.declarativeContent {
 declare namespace chrome.declarativeWebRequest {
     export interface HeaderFilter {
         nameEquals?: string | undefined;
-        valueContains?: any;
+        valueContains?: string | string[];
         nameSuffix?: string | undefined;
         valueSuffix?: string | undefined;
         valuePrefix?: string | undefined;
-        nameContains?: any;
+        nameContains?: string | string[];
         valueEquals?: string | undefined;
         namePrefix?: string | undefined;
     }
@@ -3182,7 +3195,7 @@ declare namespace chrome.events {
         /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
         urlSuffix?: string | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: any[] | undefined;
+        ports?: (number | number[])[];
         /**
          * Optional.
          * Since Chrome 28.
@@ -4284,7 +4297,7 @@ declare namespace chrome.i18n {
      * @param messageName The name of the message, as specified in the messages.json file.
      * @param substitutions Optional. Up to 9 substitution strings, if the message requires any.
      */
-    export function getMessage(messageName: string, substitutions?: any): string;
+    export function getMessage(messageName: string, substitutions?: string | string[]): string;
     /**
      * Gets the browser UI language of the browser. This is different from i18n.getAcceptLanguages which returns the preferred user languages.
      * @since Chrome 35.
@@ -5698,7 +5711,7 @@ declare namespace chrome.pageAction {
          * Optional.
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: any;
+        path?: string | { [index: number]: string };
     }
 
     /**
@@ -5769,7 +5782,7 @@ declare namespace chrome.pageCapture {
      * function(binary mhtmlData) {...};
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
-    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
+    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: ArrayBuffer) => void): void;
 }
 
 ////////////////////
@@ -5987,7 +6000,7 @@ declare namespace chrome.printerProvider {
 
     export interface PrinterCapabilities {
         /** Device capabilities in CDD format. */
-        capabilities: any;
+        capabilities: object;
     }
 
     export interface PrintJob {
@@ -6761,8 +6774,7 @@ declare namespace chrome.runtime {
         icons?: ManifestIcons | undefined;
 
         // Optional
-        author?: any;
-        automation?: any;
+        author?: string;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
@@ -6809,7 +6821,6 @@ declare namespace chrome.runtime {
             exclude_globs?: string[] | undefined;
         }[] | undefined;
         converted_from_user_script?: boolean | undefined;
-        copresence?: any;
         current_locale?: string | undefined;
         devtools_page?: string | undefined;
         event_rules?: {
@@ -6850,7 +6861,7 @@ declare namespace chrome.runtime {
             id?: string | undefined;
             description?: string | undefined;
             language?: string | undefined;
-            layouts?: any[] | undefined;
+            layouts?: string[];
         }[] | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
@@ -6892,7 +6903,6 @@ declare namespace chrome.runtime {
             content_security_policy?: string | undefined;
         } | undefined;
         short_name?: string | undefined;
-        signature?: any;
         spellcheck?: {
             dictionary_language?: string | undefined;
             dictionary_locale?: string | undefined;
@@ -6902,7 +6912,6 @@ declare namespace chrome.runtime {
         storage?: {
             managed_schema: string;
         } | undefined;
-        system_indicator?: any;
         tts_engine?: {
             voices: {
                 voice_name: string;
@@ -9843,7 +9852,7 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: string | undefined;
+        scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
     }
 
     export interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
@@ -9860,7 +9869,7 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: string | undefined;
+        scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
     }
 
     export interface ChromeSettingGetDetails {
@@ -9881,7 +9890,7 @@ declare namespace chrome.types {
          * • controllable_by_this_extension: can be controlled by this extension
          * • controlled_by_this_extension: controlled by this extension
          */
-        levelOfControl: string;
+        levelOfControl: 'not_controllable' | 'controlled_by_other_extensions' | 'controllable_by_this_extension' | 'controlled_by_this_extension';
         /** The value of the setting. */
         value: any;
         /**
@@ -10019,14 +10028,14 @@ declare namespace chrome.vpnProvider {
 declare namespace chrome.wallpaper {
     export interface WallpaperDetails {
         /** Optional. The jpeg or png encoded wallpaper image. */
-        data?: any;
+        data?: ArrayBuffer;
         /** Optional. The URL of the wallpaper to be set. */
         url?: string | undefined;
         /**
          * The supported wallpaper layouts.
          * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
          */
-        layout: string;
+        layout: "STRETCH" | "CENTER" | "CENTER_CROPPED";
         /** The file name of the saved wallpaper. */
         filename: string;
         /** Optional. True if a 128x60 thumbnail should be generated. */
@@ -10038,7 +10047,7 @@ declare namespace chrome.wallpaper {
      * @param callback
      * Optional parameter thumbnail: The jpeg encoded wallpaper thumbnail. It is generated by resizing the wallpaper to 128x60.
      */
-    export function setWallpaper(details: WallpaperDetails, callback: (thumbnail: any) => void): void;
+    export function setWallpaper(details: WallpaperDetails, callback: (thumbnail?: ArrayBuffer) => void): void;
 }
 
 ////////////////////
