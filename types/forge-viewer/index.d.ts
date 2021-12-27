@@ -1228,6 +1228,7 @@ declare namespace Autodesk {
             isSelectionDisabled(): boolean;
             loadExtension(extensionId: string, options?: object): Promise<Extension>;
             getExtension(extensionId: string, callback?: (ext: Extension) => void): Extension;
+            getExtensionAsync(extensionId: string): Promise<Extension>;
             unloadExtension(extensionId: string): boolean;
             loadExtensionAsync(extensionId: string, url: string, options?: object): Promise<Extension>;
             forEachExtension(callback: (ext: Extension) => void): void;
