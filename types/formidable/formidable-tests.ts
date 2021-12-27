@@ -67,6 +67,8 @@ Formidable.DEFAULT_OPTIONS;
 defaultOptions;
 defaultOptions.enabledPlugins; // $ExpectType EnabledPlugins
 
+options.fileWriteStreamHandler; // $ExpectType (() => Writable) | undefined
+
 // $ExpectType EnabledPlugins
 enabledPlugins;
 

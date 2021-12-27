@@ -62,9 +62,11 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
     entryTypes: ['gc'],
+    buffered: true,
 });
 obs.observe({
     type: 'gc',
+    buffered: true,
 });
 
 const monitor: IntervalHistogram = monitorEventLoopDelay({

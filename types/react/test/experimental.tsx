@@ -2,16 +2,6 @@
 
 import React = require('react');
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
-
-    React.unstable_useInsertionEffect(() => {});
-    React.unstable_useInsertionEffect(() => {}, []);
-    React.unstable_useInsertionEffect(() => {
-        return () => {};
-    }, [toggle]);
-}
-
 // Unsupported `revealOrder` triggers a runtime warning
 // $ExpectError
 <React.SuspenseList revealOrder="something">

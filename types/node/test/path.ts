@@ -1,6 +1,6 @@
 import * as path from 'node:path';
-import * as win32Path from 'path/win32';
-import * as posixPath from 'path/posix';
+import * as win32Path from 'node:path/win32';
+import * as posixPath from 'node:path/posix';
 
 path.normalize('/foo/bar//baz/asdf/quux/..');
 

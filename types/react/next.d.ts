@@ -126,6 +126,14 @@ declare module '.' {
     export function unstable_useMutableSource<T, TResult extends unknown>(MutableSource: MutableSource<T>, getSnapshot: (source: T) => TResult, subscribe: MutableSourceSubscribe<T>): TResult;
 
     /**
+     * @param effect Imperative function that can return a cleanup function
+     * @param deps If present, effect will only activate if the values in the list change.
+     *
+     * @see https://github.com/facebook/react/pull/21913
+     */
+     export function useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
+
+    /**
      * @param subscribe
      * @param getSnapshot
      *

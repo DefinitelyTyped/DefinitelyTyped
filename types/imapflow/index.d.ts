@@ -1,6 +1,7 @@
 // Type definitions for imapflow 1.0
 // Project: https://imapflow.com/
 // Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -44,7 +45,10 @@ export class ImapFlow extends EventEmitter {
 
     idle(): Promise<boolean>;
 
-    list(): Promise<ListResponse>;
+    /**
+     * @see {@link https://imapflow.com/module-imapflow-ImapFlow.html#list}
+     */
+    list(): Promise<ListResponse[]>;
 
     listTree(): Promise<ListTreeResponse>;
 
