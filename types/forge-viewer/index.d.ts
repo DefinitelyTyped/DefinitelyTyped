@@ -1236,7 +1236,7 @@ declare namespace Autodesk {
             deactivateExtension(extensionId: string): boolean;
             isExtensionActive(extensionId: string, mode: string): boolean;
             isExtensionLoaded(extensionId: string): boolean;
-            getLoadedExtensions(): string[];
+            getLoadedExtensions(): { [key: string]: Extension };
             getExtensionModes(extensionId: string): string[];
             reorderElements(element: object): void;
             appendOrderedElementToViewer(layerOrderId: string): void;
