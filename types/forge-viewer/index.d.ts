@@ -726,7 +726,7 @@ declare namespace Autodesk {
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
-            getDocumentNode(): any;
+            getDocumentNode(): BubbleNode;
             getDoNotCut(): boolean;
             getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
