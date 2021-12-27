@@ -582,7 +582,7 @@ declare namespace THREE {
         setFromQuaternion(q: Quaternion, order?: string, update?: boolean): Euler;
     }
 
-    class ExtrudeGeometry extends Geometry{
+    class ExtrudeGeometry extends Geometry {
         constructor(shapes?: Shape | Shape[], options?: any);
 
         WorldUVGenerator: {
