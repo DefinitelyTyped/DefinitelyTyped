@@ -409,6 +409,7 @@ declare namespace Autodesk {
           multiViewerFactory?: any;
           propagateInputEventTypes?: string[] | undefined;
           unloadUnfinishedModels?: boolean | undefined;
+          useConsolidation?: boolean;
           useDynamicGlobalOffset?: boolean | undefined;
           viewerConfig?: any;
           viewerStartOptions?: any;
