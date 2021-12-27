@@ -1115,6 +1115,7 @@ declare namespace Autodesk {
             getIsolatedNodes(): number[];
             isolate(node?: number[]|number, model?: Model): void;
             setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
+            setBackgroundOpacity(opacity: number): void;
             toggleSelect(dbId: number, model: Model, selectionType: number): void;
             select(dbIds?: number[]|number, model?: Model, selectionType?: number): void;
             clearSelection(): void;
@@ -1878,6 +1879,7 @@ declare namespace Autodesk {
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 setViewportBounds(model: Model, bounds?: THREE.Box3|THREE.Box2): void;
                 syncCamera(syncWorldUp?: boolean): void;
+                tick(highResTimeStamp: number): void;
                 viewportToRay(vpVec: THREE.Vector3, ray?: THREE.Ray, camera?: any): THREE.Ray;
                 worldToClient(pos: THREE.Vector3): THREE.Vector3;
                 worldUp(): THREE.Vector3;
