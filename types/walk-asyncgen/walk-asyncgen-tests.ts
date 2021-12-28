@@ -1,29 +1,27 @@
-import pathsGenerator  from "./"
+import pathsGenerator = require("walk-asyncgen");
 
 // $ExpectType AsyncGenerator<string, void, void>
-const generator = pathsGenerator(".")
+pathsGenerator(".");
 
-// $ExpectType Options
-const excludeOptions = {
+// $ExpectType AsyncGenerator<string, void, void>
+pathsGenerator(".", {
     excludeFiles: /tslint.\S+/,
     excludeDirs: /node_modules/,
     excludeExt: /mp3$/
-}
+});
 
-// $ExpectType Options
-const includeFilesoptions = {
+// $ExpectType AsyncGenerator<string, void, void>
+pathsGenerator(".", {
     includeFiles: /tslint.\S+/,
     includeExt: /json/,
     printDirs: false
-}
+});
 
-// $ExpectError
-const errorOptions = {
+pathsGenerator(".", {
+    // $ExpectError
     excludeFiles: "",
+    // $ExpectError
     excludeDirs: "",
+    // $ExpectError
     excludeExt: ".mp3"
-}
-
-// $ExpectError
-
-pathsGenerator(".", {includeDirs: true})
+});
