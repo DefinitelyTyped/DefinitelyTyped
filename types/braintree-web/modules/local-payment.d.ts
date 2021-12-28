@@ -44,10 +44,12 @@ export interface LocalPaymentStartPaymentOptions {
     currencyCode: string;
     paymentType: LocalPaymentTypes;
     fallback?: LocalPaymentFallback | undefined;
-    windowOptions?: {
-        width?: number | undefined;
-        height?: number | undefined;
-    } | undefined;
+    windowOptions?:
+        | {
+              width?: number | undefined;
+              height?: number | undefined;
+          }
+        | undefined;
     givenName?: string | undefined;
     surname?: string | undefined;
     displayName?: string | undefined;
