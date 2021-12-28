@@ -234,8 +234,8 @@ declare namespace jsrsasign.KJUR.jws {
          */
         function verify(
             sJWS: string,
-            key: string | RSAKey | crypto.DSA | crypto.ECDSA,
-            acceptAlgs?: string[] | { b64: string } | { hex: string } | { utf8: string },
+            key: string | RSAKey | crypto.ECDSA | { b64: string } | { hex: string } | { utf8: string } | { rstr: string } | { b64u: string },
+            acceptAlgs?: string[],
         ): boolean;
 
         /**
