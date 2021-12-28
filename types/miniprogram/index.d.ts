@@ -1976,7 +1976,8 @@ interface MiniprogramApi {
     watchShake: (args?: AsyncCallback) => void;
 
     /**
-     * Use this API to create a WebSocket connection. An Mini Program can only have one WebSocket connection at a time. If a WebSocket connection already exists when a new one is created, the existing one will be automatically disabled.
+     * Use this API to create a WebSocket connection. An Mini Program can only have one WebSocket connection at a time.
+     * If a WebSocket connection already exists when a new one is created, the existing one will be automatically disabled.
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_connectsocket)
      */
@@ -2095,7 +2096,8 @@ interface MiniprogramApi {
     getBatteryInfoSync: () => { level: number; isCharging: boolean };
 
     /**
-     * Use this API to open the Mini Program settings page and returns permission setting results. Only the permissions that have been requested by the Mini Program from the user are displayed on the settings page.
+     * Use this API to open the Mini Program settings page and returns permission setting results.
+     * Only the permissions that have been requested by the Mini Program from the user are displayed on the settings page.
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_setting_opensetting)
      */
@@ -2106,14 +2108,18 @@ interface MiniprogramApi {
     ) => void;
 
     /**
-     * Use this API to initialize the Bluetooth module in the mini program. You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called. The effective period is ended when the API my.closeBluetoothAdapter is called.
+     * Use this API to initialize the Bluetooth module in the mini program.
+     * You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called.
+     * The effective period is ended when the API my.closeBluetoothAdapter is called.
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_openbluetoothadapter)
      */
     openBluetoothAdapter: (args: AsyncCallback) => void;
 
     /**
-     * Use this API to close the Bluetooth module in the mini program. You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called. The effective period is ended when the API my.closeBluetoothAdapter is called.
+     * Use this API to close the Bluetooth module in the mini program.
+     * You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called.
+     * The effective period is ended when the API my.closeBluetoothAdapter is called.
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_closebluetoothadapter#Parameters)
      */
@@ -2203,7 +2209,7 @@ interface MiniprogramApi {
      */
     getBLEDeviceCharacteristics: (
         args: { deviceId: string; serviceId: string } & AsyncCallback<{
-            characteristic: {
+            characteristic: Array<{
                 characteristicId: string;
                 serviceId: string;
                 value: string;
@@ -2213,7 +2219,7 @@ interface MiniprogramApi {
                     notify: boolean;
                     indicate: boolean;
                 };
-            }[];
+            }>;
         }>,
     ) => void;
 
@@ -2223,7 +2229,7 @@ interface MiniprogramApi {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_getbledeviceservices)
      */
     getBLEDeviceServices: (
-        args: { deviceId: string } & AsyncCallback<{ services: { isPrimary: boolean; serviceId: string }[] }>,
+        args: { deviceId: string } & AsyncCallback<{ services: Array<{ isPrimary: boolean; serviceId: string }> }>,
     ) => void;
 
     /**
@@ -2270,7 +2276,8 @@ interface MiniprogramApi {
     onBLEConnectionStateChanged: (args: (arg: { deviceId: string; connected: boolean }) => void) => void;
 
     /**
-     * Use this API to read the data of Bluetooth Low Energy (BLE) device characteristics. The returned information must be obtained by using the callback in the my.onBLECharacteristicValueChange.
+     * Use this API to read the data of Bluetooth Low Energy (BLE) device characteristics.
+     * The returned information must be obtained by using the callback in the my.onBLECharacteristicValueChange.
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_readblecharacteristicvalue)
      */
