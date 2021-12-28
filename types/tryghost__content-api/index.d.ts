@@ -94,12 +94,14 @@ export interface Author extends Identification, Metadata {
 
 export type TagVisibility = 'public' | 'internal';
 
-export interface Tag extends Identification, Metadata {
+export interface Tag extends Identification, Metadata, SocialMedia {
     name?: string | undefined;
     description?: Nullable<string> | undefined;
     feature_image?: Nullable<string> | undefined;
     visibility?: TagVisibility | undefined;
     url?: string | undefined;
+    canonical_url?: Nullable<string> | undefined;
+    accent_color?: Nullable<string> | undefined;
     count?: {
         posts: number;
     } | undefined;

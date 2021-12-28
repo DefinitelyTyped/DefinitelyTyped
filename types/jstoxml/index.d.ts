@@ -1,5 +1,5 @@
 // Type definitions for jstoxml 2.0
-// Project: http://github.com/davidcalhoun/jstoxml
+// Project: https://github.com/davidcalhoun/jstoxml
 // Definitions by: Steven Snoeijen <https://github.com/stevensnoeijen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

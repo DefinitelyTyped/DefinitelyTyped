@@ -40,6 +40,7 @@
 //                 Sven Milewski <https://github.com/svenmilewski>
 //                 Benoit Boure <https://github.com/bboure>
 //                 James Lakin <https://github.com/jamesorlakin>
+//                 Ross Gerbasi <https://github.com/aphex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -77,6 +78,7 @@ export * from "./trigger/iot";
 export * from "./trigger/kinesis-firehose-transformation";
 export * from "./trigger/kinesis-stream";
 export * from "./trigger/lex";
+export * from "./trigger/lex-v2";
 // RDS events are delivered using SNS events...
 export * from "./trigger/s3";
 export * from "./trigger/s3-batch";

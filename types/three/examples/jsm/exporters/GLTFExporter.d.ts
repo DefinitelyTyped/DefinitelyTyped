@@ -16,4 +16,5 @@ export class GLTFExporter {
     constructor();
 
     parse(input: Object3D, onCompleted: (gltf: object) => void, options: GLTFExporterOptions): void;
+    parseAsync(input: Object3D, options: GLTFExporterOptions): Promise<void>;
 }

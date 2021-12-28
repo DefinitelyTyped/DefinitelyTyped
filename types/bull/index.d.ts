@@ -235,7 +235,7 @@ declare namespace Bull {
      * it atomic. If your queue does have a very large quantity of jobs, you may want to
      * avoid using this method.
      */
-    getState(): Promise<JobStatus>;
+    getState(): Promise<JobStatus | 'stuck'>;
 
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
@@ -591,8 +591,9 @@ declare namespace Bull {
      * Adds an array of jobs to the queue.
      * If the queue is empty the jobs will be executed directly,
      * otherwise they will be placed in the queue and executed as soon as possible.
+     * 'repeat' option is not supported in addBulk https://github.com/OptimalBits/bull/issues/1731
      */
-    addBulk(jobs: Array<{name?: string | undefined, data: T, opts?: JobOptions | undefined}>): Promise<Array<Job<T>>>;
+     addBulk(jobs: Array<{name?: string | undefined, data: T, opts?: Omit<JobOptions, "repeat"> | undefined}>): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that resolves when the queue is paused.

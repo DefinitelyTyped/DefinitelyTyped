@@ -141,6 +141,7 @@ secs.toFixed();
 nanos.toExponential();
 
 browserInstalledClock.performance.now();
+nodeInstalledClock.performance.now();
 nodeInstalledClock.nextTick(() => {});
 
 browserInstalledClock.uninstall();

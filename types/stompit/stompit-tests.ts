@@ -237,9 +237,13 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         console.log("Connecting to " + address);
     });
 
-    connections.on("error", error => {
+    connections.on("error", (error, server) => {
         const connectArgs = error.connectArgs as NetTcpConnectOptions;
         const address = `${connectArgs.host}:${connectArgs.port}`;
+
+        server.blacklist(error);
+        server.isBlacklisted();
+        const _error = server.getBlacklistError();
 
         console.log(`Connection error to ${address}: ${error.message}`);
     });

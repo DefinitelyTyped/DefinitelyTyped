@@ -35,6 +35,7 @@
         "test/iot-tests.ts",
         "test/kinesis-tests.ts",
         "test/lex-tests.ts",
+        "test/lex-v2-tests.ts",
         "test/s3-tests.ts",
         "test/ses-tests.ts",
         "test/sns-tests.ts",

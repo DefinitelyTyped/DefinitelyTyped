@@ -6,7 +6,7 @@
  * import async_hooks from 'async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/async_hooks.js)
  */
 declare module 'async_hooks' {
     /**
@@ -395,8 +395,9 @@ declare module 'async_hooks' {
         getStore(): T | undefined;
         /**
          * Runs a function synchronously within a context and returns its
-         * return value. The store is not accessible outside of the callback function or
-         * the asynchronous operations created within the callback.
+         * return value. The store is not accessible outside of the callback function.
+         * The store is accessible to any asynchronous operations created within the
+         * callback.
          *
          * The optional `args` are passed to the callback function.
          *
@@ -410,6 +411,9 @@ declare module 'async_hooks' {
          * try {
          *   asyncLocalStorage.run(store, () => {
          *     asyncLocalStorage.getStore(); // Returns the store object
+         *     setTimeout(() => {
+         *       asyncLocalStorage.getStore(); // Returns the store object
+         *     }, 200);
          *     throw new Error();
          *   });
          * } catch (e) {

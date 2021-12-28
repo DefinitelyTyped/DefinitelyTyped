@@ -1,6 +1,6 @@
-import * as crypto from 'crypto';
-import assert = require('assert');
-import { promisify } from 'util';
+import * as crypto from 'node:crypto';
+import assert = require('node:assert');
+import { promisify } from 'node:util';
 
 {
     const copied: crypto.Hash = crypto.createHash('md5').copy();

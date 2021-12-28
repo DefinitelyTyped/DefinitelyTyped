@@ -6,12 +6,40 @@ export interface ThreeDSecureAccountDetails {
     lastTwo: string;
 }
 
-export interface ThreeDSecureVerifyPayload {
-    nonce: string;
-    details: ThreeDSecureAccountDetails;
-    description: string;
+export interface ThreeDSecureBinData {
+    commercial: string;
+    countryOfIssuance: string;
+    debit: string;
+    durbinRegulated: string;
+    healthcare: string;
+    issuingBank: string;
+    payroll: string;
+    prepaid: string;
+    productId: string;
+}
+
+export interface ThreeDSecureInfo {
     liabilityShiftPossible: boolean;
     liabilityShifted: boolean;
+    cavv: string;
+    xid: string;
+    dsTransactionId: string;
+    threeDSecureVersion: string;
+    eciFlag: string;
+    threeDSecureAuthenticationId: string;
+}
+
+export interface ThreeDSecureVerifyPayload {
+    nonce: string;
+    type: string;
+    details: ThreeDSecureAccountDetails;
+    description: string;
+    binData: ThreeDSecureBinData;
+    /** @deprecated Use threeDSecureInfo.liabilityShiftPossible */
+    liabilityShiftPossible: boolean;
+    /** @deprecated Use threeDSecureInfo.liabilityShifted */
+    liabilityShifted: boolean;
+    threeDSecureInfo: ThreeDSecureInfo;
 }
 
 export interface ThreeDSecureBillingAddress {

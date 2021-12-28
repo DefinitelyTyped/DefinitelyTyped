@@ -1,7 +1,6 @@
 // Type definitions for agilite 6.4
 // Project: https://www.npmjs.com/package/agilite
 // Definitions by: Armand Smit <https://github.com/ArrieAgilite>
-//                 John Jardin <https://github.com/johnjardin>
 //                 Agilit-e <https://github.com/agilitehub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7

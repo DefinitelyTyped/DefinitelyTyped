@@ -179,6 +179,8 @@ interface IEvent<E extends Event = Event> {
     pointer?: Point | undefined;
     absolutePointer?: Point | undefined;
     transform?: { corner: string; original: Object; originX: string; originY: string; width: number } | undefined;
+    currentTarget?: Object | undefined;
+    currentSubTargets?: Object[] | undefined;
 }
 
 interface IFillOptions {

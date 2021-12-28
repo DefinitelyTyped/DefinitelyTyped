@@ -1,6 +1,6 @@
 // Type definitions for iconv 3.0
 // Project: https://github.com/bnoordhuis/node-iconv
-// Definitions by: delphinus <https://github.com/delphinus35>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

@@ -1,7 +1,6 @@
 // Type definitions for @google-cloud/kms 1.5
 // Project: https://github.com/googleapis/nodejs-kms
 // Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
-//                 Caian Ertl <https://github.com/caiertl>
 //                 Steven Collins <https://github.com/carboncollins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4

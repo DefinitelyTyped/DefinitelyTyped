@@ -237,7 +237,7 @@ declare module 'http' {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): this;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
@@ -484,4 +484,7 @@ declare module 'http' {
      * Defaults to 16KB. Configurable using the [`--max-http-header-size`][] CLI option.
      */
     const maxHeaderSize: number;
+}
+declare module 'node:http' {
+    export * from 'http';
 }

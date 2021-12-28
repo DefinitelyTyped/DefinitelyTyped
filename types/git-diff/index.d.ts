@@ -1,6 +1,6 @@
 // Type definitions for git-diff 2.0
 // Project: https://github.com/danday74/git-diff#readme
-// Definitions by: Sang Han <https://github.com/hantatsang>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

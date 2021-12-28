@@ -23,4 +23,4 @@ class MapController {
 import IdentityManager = require("esri/IdentityManager");
 
 const esriId: IdentityManager = IdentityManager as any;
-esriId.disablePostMessageAuth();
+esriId.enablePostMessageAuth();

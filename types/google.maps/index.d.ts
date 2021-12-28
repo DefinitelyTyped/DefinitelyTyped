@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.46
+// Type definitions for non-npm package Google Maps JavaScript API 3.47
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
@@ -9,7 +9,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.46
+// Google Maps JS API Version: 3.47
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -76,7 +76,8 @@ declare namespace google.maps {
      * A circle on the Earth&#39;s surface; also known as a &quot;spherical
      * cap&quot;.
      */
-    constructor(opts?: google.maps.CircleOptions|null);
+    constructor(circleOrCircleOptions?: google.maps.Circle|null|
+                google.maps.CircleLiteral|google.maps.CircleOptions);
     /**
      * Gets the <code>LatLngBounds</code> of this Circle.
      */
@@ -1159,8 +1160,6 @@ declare namespace google.maps {
      * The total duration of this leg, taking into account the traffic
      * conditions indicated by the <code>trafficModel</code> property. This
      * property may be <code>undefined</code> as the duration may be unknown.
-     * Only available to Premium Plan customers when <code>drivingOptions</code>
-     * is defined when making the request.
      */
     duration_in_traffic?: google.maps.Duration;
     /**
@@ -1197,6 +1196,11 @@ declare namespace google.maps {
      */
     steps: google.maps.DirectionsStep[];
     /**
+     * Information about traffic speed along the leg.
+     * @deprecated This array will always be empty.
+     */
+    traffic_speed_entry: any[];
+    /**
      * An array of non-stopover waypoints along this leg, which were specified
      * in the original request. <p> <strong>Deprecated in alternative
      * routes</strong>. Version 3.27 will be the last version of the API that
@@ -1207,6 +1211,20 @@ declare namespace google.maps {
      * an alternative route.
      */
     via_waypoints: google.maps.LatLng[];
+  }
+}
+declare namespace google.maps {
+  /**
+   * An object containing a <code>points</code> property to describe the
+   * polyline of a {@link google.maps.DirectionsStep}.
+   */
+  interface DirectionsPolyline {
+    /**
+     * An <a
+     * href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">encoded
+     * polyline</a>.
+     */
+    points: string;
   }
 }
 declare namespace google.maps {
@@ -1232,7 +1250,7 @@ declare namespace google.maps {
      * Returns the panel <code>&lt;div&gt;</code> in which the
      * <code>DirectionsResult</code> is rendered.
      */
-    getPanel(): Node|null;
+    getPanel(): HTMLElement|null;
     /**
      * Returns the current (zero-based) route index in use by this
      * <code>DirectionsRenderer</code> object.
@@ -1259,7 +1277,7 @@ declare namespace google.maps {
      * This method renders the directions in a <code>&lt;div&gt;</code>. Pass
      * <code>null</code> to remove the content from the panel.
      */
-    setPanel(panel: Node|null): void;
+    setPanel(panel: HTMLElement|null): void;
     /**
      * Set the (zero-based) index of the route in the
      * <code>DirectionsResult</code> object to render. By default, the first
@@ -1314,7 +1332,7 @@ declare namespace google.maps {
     /**
      * The <code>&lt;div&gt;</code> in which to display the directions steps.
      */
-    panel?: Node|null;
+    panel?: HTMLElement|null;
     /**
      * Options for the polylines. All polylines rendered by the
      * <code>DirectionsRenderer</code> will use these options.
@@ -1444,6 +1462,14 @@ declare namespace google.maps {
    */
   interface DirectionsResult {
     /**
+     * Contains an array of available travel modes. This field is returned when
+     * a request specifies a travel mode and gets no results. The array contains
+     * the available travel modes in the countries of the given set of
+     * waypoints. This field is not returned if one or more of the waypoints are
+     * &#39;via waypoints&#39;.
+     */
+    available_travel_modes?: google.maps.TravelMode[];
+    /**
      * An array of <code>DirectionsGeocodedWaypoint</code>s, each of which
      * contains information about the geocoding of origin, destination and
      * waypoints.
@@ -1501,6 +1527,11 @@ declare namespace google.maps {
      * is an approximate (smoothed) path of the resulting directions.
      */
     overview_polyline: string;
+    /**
+     * Contains a short textual description for the route, suitable for naming
+     * and disambiguating the route from alternatives.
+     */
+    summary: string;
     /**
      * Warnings to be displayed when showing these directions.
      */
@@ -1606,21 +1637,61 @@ declare namespace google.maps {
      */
     duration?: google.maps.Duration;
     /**
+     * An <a
+     * href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">encoded
+     * polyline representation</a> of the step. This is an approximate
+     * (smoothed) path of the step.
+     */
+    encoded_lat_lngs: string;
+    /**
      * The ending location of this step.
      */
     end_location: google.maps.LatLng;
+    /**
+     * The ending location of this step.
+     * @deprecated Please use {@link google.maps.DirectionsStep.end_location}.
+     */
+    end_point: google.maps.LatLng;
     /**
      * Instructions for this step.
      */
     instructions: string;
     /**
      * A sequence of <code>LatLng</code>s describing the course of this step.
+     * This is an approximate (smoothed) path of the step.
+     * @deprecated Please use {@link google.maps.DirectionsStep.path}.
+     */
+    lat_lngs: google.maps.LatLng[];
+    /**
+     * Contains the action to take for the current step (<code>turn-left</code>,
+     * <code>merge</code>, <code>straight</code>, etc.). Values are subject to
+     * change, and new values may be introduced without prior notice.
+     */
+    maneuver: string;
+    /**
+     * A sequence of <code>LatLng</code>s describing the course of this step.
+     * This is an approximate (smoothed) path of the step.
      */
     path: google.maps.LatLng[];
+    /**
+     * Contains an object with a single property, &#39;points&#39;, that holds
+     * an <a
+     * href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">encoded
+     * polyline</a> representation of the step. This polyline is an approximate
+     * (smoothed) path of the step.
+     * @deprecated Please use {@link
+     *     google.maps.DirectionsStep.encoded_lat_lngs}.
+     */
+    polyline?: google.maps.DirectionsStep[];
     /**
      * The starting location of this step.
      */
     start_location: google.maps.LatLng;
+    /**
+     * The starting location of this step.
+     * @deprecated Please use {@link google.maps.DirectionsStep.start_location}.
+     */
+    start_point: google.maps.LatLng;
     /**
      * Sub-steps of this step. Specified for non-transit sections of transit
      * routes.
@@ -1631,6 +1702,11 @@ declare namespace google.maps {
      * unless the travel mode of this step is <code>TRANSIT</code>.
      */
     transit?: google.maps.TransitDetails;
+    /**
+     * Details pertaining to this step if the travel mode is
+     * <code>TRANSIT</code>.
+     */
+    transit_details?: google.maps.TransitDetails;
     /**
      * The mode of travel used in this step.
      */
@@ -2491,13 +2567,13 @@ declare namespace google.maps {
     getOpacity(): number;
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
-        ownerDocument: Document|null): Node|null;
+        ownerDocument: Document|null): Element|null;
     maxZoom: number;
     minZoom: number;
     name: string|null;
     projection: google.maps.Projection|null;
     radius: number;
-    releaseTile(tileDiv: Node|null): void;
+    releaseTile(tileDiv: Element|null): void;
     /**
      * Sets the opacity level (<code>0</code> (transparent) to <code>1.0</code>)
      * of the <code>ImageMapType</code> tiles.
@@ -2559,7 +2635,7 @@ declare namespace google.maps {
      * Closes this InfoWindow by removing it from the DOM structure.
      */
     close(): void;
-    getContent(): string|Node|null|undefined;
+    getContent(): string|Element|null|Text|undefined;
     getPosition(): google.maps.LatLng|null|undefined;
     getZIndex(): number;
     /**
@@ -2585,7 +2661,7 @@ declare namespace google.maps {
         options?: google.maps.InfoWindowOpenOptions|null|google.maps.Map|
         google.maps.StreetViewPanorama,
         anchor?: google.maps.MVCObject|null): void;
-    setContent(content?: string|Node|null): void;
+    setContent(content?: string|Element|null|Text): void;
     setOptions(options?: google.maps.InfoWindowOptions|null): void;
     setPosition(position?: google.maps.LatLng|null|
                 google.maps.LatLngLiteral): void;
@@ -2631,7 +2707,7 @@ declare namespace google.maps {
      * sized according to the content. To set an explicit size for the content,
      * set content to be a HTML element with that size.
      */
-    content?: string|null|Node;
+    content?: string|null|Element|Text;
     /**
      * Disable auto-pan on open. By default, the InfoWindow will pan the map so
      * that it is fully visible when it opens.
@@ -2947,16 +3023,21 @@ declare namespace google.maps {
    * followed by the longitude.<br> Notice that you cannot modify the
    * coordinates of a <code>LatLng</code>. If you want to compute another point,
    * you have to create a new one.<br> <p> Most methods that accept
-   * <code>LatLng</code> objects also accept a <code><a
-   * href="#LatLngLiteral">LatLngLiteral</a></code> object, so that the
-   * following are equivalent: <pre> map.setCenter(new google.maps.LatLng(-34,
-   * 151));<br> map.setCenter({lat: -34, lng: 151});
-   * </pre> <p> The constructor also accepts literal objects, and converts them
-   * to instances of <code>LatLng</code>. The possible calls to the constructor
-   * are below: <pre> new google.maps.LatLng(-34, 151);<br> new
-   * google.maps.LatLng(-34, 151, true);<br> new google.maps.LatLng({lat: -34,
-   * lng: 151});<br> new google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
-   * google.maps.LatLng({lat: -34, lng: 151}, null, true); </pre>
+   * <code>LatLng</code> objects also accept a <code>{@link
+   * google.maps.LatLngLiteral}</code> object, so that the following are
+   * equivalent: <pre> map.setCenter(new google.maps.LatLng(-34, 151));<br>
+   * map.setCenter({lat: -34, lng: 151});
+   * </pre> <p> The constructor also accepts <code>{@link
+   * google.maps.LatLngLiteral}</code> and <code>LatLng</code> objects. If a
+   * <code>LatLng</code> instance is passed to the constructor, a copy is
+   * created. <p> The possible calls to the constructor are below: <pre> new
+   * google.maps.LatLng(-34, 151);<br> new google.maps.LatLng(-34, 151,
+   * true);<br> new google.maps.LatLng({lat: -34, lng: 151});<br> new
+   * google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
+   * google.maps.LatLng({lat: -34, lng: 151}, null, true);<br> new
+   * google.maps.LatLng(new google.maps.LatLng(-34, 151));<br> new
+   * google.maps.LatLng(new google.maps.LatLng(-34, 151), true);<br> new
+   * google.maps.LatLng(new google.maps.LatLng(-34, 151), null, true); </pre>
    */
   class LatLng {
     /**
@@ -2975,19 +3056,25 @@ declare namespace google.maps {
      * <em>first</em>, followed by the longitude.<br> Notice that you cannot
      * modify the coordinates of a <code>LatLng</code>. If you want to compute
      * another point, you have to create a new one.<br> <p> Most methods that
-     * accept <code>LatLng</code> objects also accept a <code><a
-     * href="#LatLngLiteral">LatLngLiteral</a></code> object, so that the
-     * following are equivalent: <pre> map.setCenter(new google.maps.LatLng(-34,
-     * 151));<br> map.setCenter({lat: -34, lng: 151});
-     * </pre> <p> The constructor also accepts literal objects, and converts
-     * them to instances of <code>LatLng</code>. The possible calls to the
-     * constructor are below: <pre> new google.maps.LatLng(-34, 151);<br> new
-     * google.maps.LatLng(-34, 151, true);<br> new google.maps.LatLng({lat: -34,
-     * lng: 151});<br> new google.maps.LatLng({lat: -34, lng: 151}, true);<br>
-     * new google.maps.LatLng({lat: -34, lng: 151}, null, true); </pre>
+     * accept <code>LatLng</code> objects also accept a <code>{@link
+     * google.maps.LatLngLiteral}</code> object, so that the following are
+     * equivalent: <pre> map.setCenter(new google.maps.LatLng(-34, 151));<br>
+     * map.setCenter({lat: -34, lng: 151});
+     * </pre> <p> The constructor also accepts <code>{@link
+     * google.maps.LatLngLiteral}</code> and <code>LatLng</code> objects. If a
+     * <code>LatLng</code> instance is passed to the constructor, a copy is
+     * created. <p> The possible calls to the constructor are below: <pre> new
+     * google.maps.LatLng(-34, 151);<br> new google.maps.LatLng(-34, 151,
+     * true);<br> new google.maps.LatLng({lat: -34, lng: 151});<br> new
+     * google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
+     * google.maps.LatLng({lat: -34, lng: 151}, null, true);<br> new
+     * google.maps.LatLng(new google.maps.LatLng(-34, 151));<br> new
+     * google.maps.LatLng(new google.maps.LatLng(-34, 151), true);<br> new
+     * google.maps.LatLng(new google.maps.LatLng(-34, 151), null, true); </pre>
      */
     constructor(
-        latOrLatLngLiteral: number|google.maps.LatLngLiteral,
+        latOrLatLngOrLatLngLiteral: number|google.maps.LatLngLiteral|
+        google.maps.LatLng,
         lngOrNoWrap?: number|boolean|null, noWrap?: boolean);
     /**
      * Comparison function.
@@ -3030,7 +3117,8 @@ declare namespace google.maps {
      * crosses the 180 degrees longitudinal meridian.
      */
     constructor(
-        sw?: google.maps.LatLng|null|google.maps.LatLngLiteral,
+        swOrLatLngBounds?: google.maps.LatLng|null|
+        google.maps.LatLngLiteral|google.maps.LatLngBounds,
         ne?: google.maps.LatLng|null|google.maps.LatLngLiteral);
     /**
      * Returns <code>true</code> if the given lat/lng is in this bounds.
@@ -3288,7 +3376,7 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   class Map extends google.maps.MVCObject {
-    constructor(mapDiv: Element, opts?: google.maps.MapOptions);
+    constructor(mapDiv: HTMLElement, opts?: google.maps.MapOptions);
     /**
      * Additional controls to attach to the map. To add a control to the map,
      * add the control&#39;s <code>&lt;div&gt;</code> to the
@@ -3344,7 +3432,7 @@ declare namespace google.maps {
      * <code>true</code>, then the icons are clickable on the map.
      */
     getClickableIcons(): boolean|undefined;
-    getDiv(): Element;
+    getDiv(): HTMLElement;
     /**
      * Returns the compass heading of the map. The heading value is measured in
      * degrees (clockwise) from cardinal direction North. If the map is not yet
@@ -3476,6 +3564,10 @@ declare namespace google.maps {
      * unpredictable effects.
      */
     setTilt(tilt: number): void;
+    /**
+     * Sets the zoom of the map.
+     * @param zoom Larger zoom values correspond to a higher resolution.
+     */
     setZoom(zoom: number): void;
   }
 }
@@ -3503,13 +3595,14 @@ declare namespace google.maps {
      * map&#39;s container element.
      */
     fromLatLngToContainerPixel(latLng: google.maps.LatLng|
-                               null): google.maps.Point|null;
+                               google.maps.LatLngLiteral): google.maps.Point
+        |null;
     /**
      * Computes the pixel coordinates of the given geographical location in the
      * DOM element that holds the draggable map.
      */
-    fromLatLngToDivPixel(latLng: google.maps.LatLng|null): google.maps.Point
-        |null;
+    fromLatLngToDivPixel(latLng: google.maps.LatLng|null|
+                         google.maps.LatLngLiteral): google.maps.Point|null;
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * The visible region of the map. Returns <code>null</code> if the map has
@@ -3690,8 +3783,8 @@ declare namespace google.maps {
     /**
      * The maximum zoom level which will be displayed on the map. If omitted, or
      * set to <code>null</code>, the maximum zoom from the current map type is
-     * used instead. Valid values: Integers between zero, and up to the
-     * supported <a
+     * used instead. Valid zoom values are numbers from zero up to the supported
+     * <a
      * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
      * zoom level</a>.
      */
@@ -3699,8 +3792,8 @@ declare namespace google.maps {
     /**
      * The minimum zoom level which will be displayed on the map. If omitted, or
      * set to <code>null</code>, the minimum zoom from the current map type is
-     * used instead. Valid values: Integers between zero, and up to the
-     * supported <a
+     * used instead. Valid zoom values are numbers from zero up to the supported
+     * <a
      * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
      * zoom level</a>.
      */
@@ -3803,10 +3896,10 @@ declare namespace google.maps {
      */
     tilt?: number|null;
     /**
-     * The initial Map zoom level. Valid values: Integers between zero, and up
-     * to the supported <a
+     * The initial Map zoom level. Valid zoom values are numbers from zero up to
+     * the supported <a
      * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
-     * zoom level</a>.
+     * zoom level</a>. Larger zoom values correspond to a higher resolution.
      */
     zoom?: number|null;
     /**
@@ -3892,7 +3985,7 @@ declare namespace google.maps {
      */
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
-        ownerDocument: Document|null): Node|null;
+        ownerDocument: Document|null): Element|null;
     /**
      * The maximum zoom level for the map when displaying this MapType. Required
      * for base MapTypes, ignored for overlay MapTypes.
@@ -3922,7 +4015,7 @@ declare namespace google.maps {
      * tile will have already been removed from the document. Optional.
      * @param tile Tile to release.
      */
-    releaseTile(tile: Node|null): void;
+    releaseTile(tile: Element|null): void;
     /**
      * The dimensions of each tile. Required.
      */
@@ -4069,7 +4162,7 @@ declare namespace google.maps {
     /**
      * Get the currently running animation.
      */
-    getAnimation(): google.maps.Animation|null;
+    getAnimation(): google.maps.Animation|null|undefined;
     /**
      * Get the clickable status of the {@link google.maps.Marker}.
      */
@@ -4077,7 +4170,7 @@ declare namespace google.maps {
     /**
      * Get the mouse cursor type shown on hover.
      */
-    getCursor(): string;
+    getCursor(): string|null|undefined;
     /**
      * Get the draggable status of the {@link google.maps.Marker}.
      */
@@ -4086,12 +4179,12 @@ declare namespace google.maps {
      * Get the icon of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.icon}.
      */
-    getIcon(): string|google.maps.Icon|null|google.maps.Symbol;
+    getIcon(): string|google.maps.Icon|null|google.maps.Symbol|undefined;
     /**
      * Get the label of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.label}.
      */
-    getLabel(): google.maps.MarkerLabel|null;
+    getLabel(): google.maps.MarkerLabel|null|undefined;
     /**
      * Get the map or panaroama the {@link google.maps.Marker} is rendered on.
      */
@@ -4099,7 +4192,7 @@ declare namespace google.maps {
     /**
      * Get the opacity of the {@link google.maps.Marker}.
      */
-    getOpacity(): number;
+    getOpacity(): number|null|undefined;
     /**
      * Get the position of the {@link google.maps.Marker}.
      */
@@ -4109,12 +4202,12 @@ declare namespace google.maps {
      * See {@link google.maps.MarkerOptions.shape} and {@link
      * google.maps.MarkerShape}.
      */
-    getShape(): google.maps.MarkerShape|null;
+    getShape(): google.maps.MarkerShape|null|undefined;
     /**
      * Get the title of the {@link google.maps.Marker} tooltip. See {@link
      * google.maps.MarkerOptions.title}.
      */
-    getTitle(): string;
+    getTitle(): string|null|undefined;
     /**
      * Get the visibility of the {@link google.maps.Marker}.
      */
@@ -4123,7 +4216,7 @@ declare namespace google.maps {
      * Get the zIndex of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.zIndex}.
      */
-    getZIndex(): number;
+    getZIndex(): number|null|undefined;
     /**
      * Start an animation. Any ongoing animation will be cancelled. Currently
      * supported animations are: {@link google.maps.Animation.BOUNCE}, {@link
@@ -4131,7 +4224,7 @@ declare namespace google.maps {
      * animation to stop.
      * @param animation The animation to play.
      */
-    setAnimation(animation: google.maps.Animation|null): void;
+    setAnimation(animation?: google.maps.Animation|null): void;
     /**
      * Set if the {@link google.maps.Marker} is clickable.
      * @param flag If <code>true</code>, the Marker can be clicked.
@@ -4141,7 +4234,7 @@ declare namespace google.maps {
      * Set the mouse cursor type shown on hover.
      * @param cursor Mouse cursor type.
      */
-    setCursor(cursor: string): void;
+    setCursor(cursor?: string|null): void;
     /**
      * Set if the {@link google.maps.Marker} is draggable.
      * @param flag If <code>true</code>, the Marker can be dragged.
@@ -4151,14 +4244,14 @@ declare namespace google.maps {
      * Set the icon for the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.icon}.
      */
-    setIcon(icon: string|google.maps.Icon|null|google.maps.Symbol): void;
+    setIcon(icon?: string|google.maps.Icon|null|google.maps.Symbol): void;
     /**
      * Set the label for the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.label}.
      * @param label The label can either be a character string or a {@link
      *     google.maps.MarkerLabel} object.
      */
-    setLabel(label: string|google.maps.MarkerLabel|null): void;
+    setLabel(label?: string|google.maps.MarkerLabel|null): void;
     /**
      * Renders the {@link google.maps.Marker} on the specified map or panorama.
      * If map is set to <code>null</code>, the marker will be removed.
@@ -4168,7 +4261,7 @@ declare namespace google.maps {
      * Set the opacity of the {@link google.maps.Marker}.
      * @param opacity A number between 0.0, transparent, and 1.0, opaque.
      */
-    setOpacity(opacity: number): void;
+    setOpacity(opacity?: number|null): void;
     /**
      * Set the options for the {@link google.maps.Marker}.
      */
@@ -4177,19 +4270,19 @@ declare namespace google.maps {
      * Set the postition for the {@link google.maps.Marker}.
      * @param latlng The new position.
      */
-    setPosition(latlng: google.maps.LatLng|null|google.maps.LatLngLiteral|
-                undefined): void;
+    setPosition(latlng?: google.maps.LatLng|null|
+                google.maps.LatLngLiteral): void;
     /**
      * Set the shape of the {@link google.maps.Marker} used for interaction.
      * See {@link google.maps.MarkerOptions.shape} and {@link
      * google.maps.MarkerShape}.
      */
-    setShape(shape: google.maps.MarkerShape|null): void;
+    setShape(shape?: google.maps.MarkerShape|null): void;
     /**
      * Set the title of the {@link google.maps.Marker} tooltip. See {@link
      * google.maps.MarkerOptions.title}.
      */
-    setTitle(title: string): void;
+    setTitle(title?: string|null): void;
     /**
      * Set if the {@link google.maps.Marker} is visible.
      * @param visible If <code>true</code>, the Marker is visible
@@ -4199,7 +4292,7 @@ declare namespace google.maps {
      * Set the zIndex of the {@link google.maps.Marker}. See {@link
      * google.maps.MarkerOptions.zIndex}.
      */
-    setZIndex(zIndex: number): void;
+    setZIndex(zIndex?: number|null): void;
     /**
      * The maximum default z-index that the API will assign to a marker. You may
      * set a higher z-index to bring a marker to the front.
@@ -5007,8 +5100,9 @@ declare namespace google.maps {
      * return <code>null</code> if the projection cannot calculate the
      * <code>Point</code>.
      */
-    fromLatLngToPoint(latLng: google.maps.LatLng, point?: google.maps.Point):
-        google.maps.Point|null;
+    fromLatLngToPoint(
+        latLng: google.maps.LatLng|google.maps.LatLngLiteral,
+        point?: google.maps.Point): google.maps.Point|null;
     /**
      * This interface specifies a function which implements translation from
      * world coordinates on a map projection to <code>LatLng</code> values. The
@@ -5363,14 +5457,15 @@ declare namespace google.maps {
      * <code>&lt;div&gt;</code> or bound to a <code>Map</code>.
      */
     constructor(
-        container: Element, opts?: google.maps.StreetViewPanoramaOptions|null);
+        container: HTMLElement,
+        opts?: google.maps.StreetViewPanoramaOptions|null);
     /**
      * Additional controls to attach to the panorama. To add a control to the
      * panorama, add the control&#39;s <code>&lt;div&gt;</code> to the
      * <code>MVCArray</code> corresponding to the <code>ControlPosition</code>
      * where it should be rendered.
      */
-    controls: (google.maps.MVCArray<any>|null)[];
+    controls: google.maps.MVCArray<any>[];
     /**
      * Returns the set of navigation links for the Street View panorama.
      */
@@ -5811,13 +5906,13 @@ declare namespace google.maps {
     alt: string;
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
-        ownerDocument: Document|null): Node|null;
+        ownerDocument: Document|null): Element|null;
     maxZoom: number;
     minZoom: number;
     name: string;
     projection: google.maps.Projection|null;
     radius: number;
-    releaseTile(tile: Node|null): void;
+    releaseTile(tile: Element|null): void;
     tileSize: google.maps.Size|null;
   }
 }
@@ -6535,11 +6630,21 @@ declare namespace google.maps {
         gl: WebGLRenderingContext,
         transformer: google.maps.CoordinateTransformer): void;
     /**
+     * Implement this method to handle any GL state updates outside of the
+     * render animation frame.
+     * @param gl rendering context for developers to access WebGL.
+     */
+    onGlStateUpdate(gl: WebGLRenderingContext): void;
+    /**
      * This method is called when the overlay is removed from the map with
      * <code>WebglOverlayView.setMap(null)</code>, and is where you should
      * remove all intermediate objects.
      */
     onRemove(): void;
+    /**
+     * Triggers the map to update GL state.
+     */
+    requestGlStateUpdate(): void;
     /**
      * Triggers the map to redraw a frame.
      */
@@ -6830,7 +6935,7 @@ declare namespace google.maps.geometry.encoding {
   /**
    * Encodes a sequence of LatLngs into an encoded path string.
    */
-  function encodePath(path: google.maps.LatLng[]|
+  function encodePath(path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
                       google.maps.MVCArray<any>): string;
 }
 declare namespace google.maps.geometry.poly {
@@ -6838,8 +6943,8 @@ declare namespace google.maps.geometry.poly {
    * Computes whether the given point lies inside the specified polygon.
    */
   function containsLocation(
-      point: google.maps.LatLng|null,
-      polygon: google.maps.Polygon|null): boolean;
+      point: google.maps.LatLng|google.maps.LatLngLiteral,
+      polygon: google.maps.Polygon): boolean;
 }
 declare namespace google.maps.geometry.poly {
   /**
@@ -6850,8 +6955,8 @@ declare namespace google.maps.geometry.poly {
    * tolerance defaults to 10<sup>-9</sup> degrees.
    */
   function isLocationOnEdge(
-      point: google.maps.LatLng|null,
-      poly: google.maps.Polygon|null|google.maps.Polyline,
+      point: google.maps.LatLng|google.maps.LatLngLiteral,
+      poly: google.maps.Polygon|google.maps.Polyline,
       tolerance?: number): boolean;
 }
 declare namespace google.maps.geometry.spherical {
@@ -6861,7 +6966,8 @@ declare namespace google.maps.geometry.spherical {
    * which case the area is in square meters.
    */
   function computeArea(
-      path: google.maps.LatLng[]|google.maps.MVCArray<any>,
+      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      google.maps.MVCArray<any>,
       radius?: number): number;
 }
 declare namespace google.maps.geometry.spherical {
@@ -6870,7 +6976,8 @@ declare namespace google.maps.geometry.spherical {
    * specify a custom radius. The radius defaults to the radius of the Earth.
    */
   function computeDistanceBetween(
-      from: google.maps.LatLng, to: google.maps.LatLng,
+      from: google.maps.LatLng|google.maps.LatLngLiteral,
+      to: google.maps.LatLng|google.maps.LatLngLiteral,
       radius?: number): number;
 }
 declare namespace google.maps.geometry.spherical {
@@ -6879,14 +6986,16 @@ declare namespace google.maps.geometry.spherical {
    * expressed in degrees clockwise from North within the range [-180,180).
    */
   function computeHeading(
-      from: google.maps.LatLng, to: google.maps.LatLng): number;
+      from: google.maps.LatLng|google.maps.LatLngLiteral,
+      to: google.maps.LatLng|google.maps.LatLngLiteral): number;
 }
 declare namespace google.maps.geometry.spherical {
   /**
    * Returns the length of the given path.
    */
   function computeLength(
-      path: google.maps.LatLng[]|google.maps.MVCArray<any>,
+      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      google.maps.MVCArray<any>,
       radius?: number): number;
 }
 declare namespace google.maps.geometry.spherical {
@@ -6895,8 +7004,8 @@ declare namespace google.maps.geometry.spherical {
    * specified heading (expressed in degrees clockwise from north).
    */
   function computeOffset(
-      from: google.maps.LatLng, distance: number, heading: number,
-      radius?: number): google.maps.LatLng;
+      from: google.maps.LatLng|google.maps.LatLngLiteral, distance: number,
+      heading: number, radius?: number): google.maps.LatLng;
 }
 declare namespace google.maps.geometry.spherical {
   /**
@@ -6906,8 +7015,8 @@ declare namespace google.maps.geometry.spherical {
    * solution is available.
    */
   function computeOffsetOrigin(
-      to: google.maps.LatLng, distance: number, heading: number,
-      radius?: number): google.maps.LatLng|null;
+      to: google.maps.LatLng|google.maps.LatLngLiteral, distance: number,
+      heading: number, radius?: number): google.maps.LatLng|null;
 }
 declare namespace google.maps.geometry.spherical {
   /**
@@ -6917,7 +7026,8 @@ declare namespace google.maps.geometry.spherical {
    * meters, in which case the area is in square meters.
    */
   function computeSignedArea(
-      loop: google.maps.LatLng[]|google.maps.MVCArray<any>,
+      loop: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      google.maps.MVCArray<any>,
       radius?: number): number;
 }
 declare namespace google.maps.geometry.spherical {
@@ -6926,7 +7036,8 @@ declare namespace google.maps.geometry.spherical {
    * origin LatLng and the destination LatLng.
    */
   function interpolate(
-      from: google.maps.LatLng, to: google.maps.LatLng,
+      from: google.maps.LatLng|google.maps.LatLngLiteral,
+      to: google.maps.LatLng|google.maps.LatLngLiteral,
       fraction: number): google.maps.LatLng;
 }
 declare namespace google.maps.localContext {

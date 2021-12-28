@@ -87,6 +87,8 @@ declare module 'meteor/accounts-base' {
 
         function loggingIn(): boolean;
 
+        function loggingOut(): boolean;
+
         function logout(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
         function logoutOtherClients(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
