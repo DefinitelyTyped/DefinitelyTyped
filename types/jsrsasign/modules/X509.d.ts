@@ -300,7 +300,7 @@ declare namespace jsrsasign {
          * x.readCertPEM(sCertPEM); // parseExt() will also be called internally.
          * x.getExtBasicConstraints() &rarr; {cA:true,pathLen:3,critical:true}
          */
-        getExtBasicConstraints(): { cA: boolean; pathLen: number; critical?: boolean; extname?: string };
+        getExtBasicConstraints(hExtV?: string, critical?: boolean): { cA: boolean; pathLen: number; critical?: boolean; extname?: string };
 
         /**
          * get KeyUsage extension value as binary string in the certificate
