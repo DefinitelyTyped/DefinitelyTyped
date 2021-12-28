@@ -12,11 +12,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@babel/*": [
+                "babel__*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "babel__helper-validator-identifier-tests.ts"
     ]
 }
