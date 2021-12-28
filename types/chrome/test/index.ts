@@ -1070,6 +1070,20 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateSessionRules({});
 }
 
+async function testDynamicRules() {
+    await chrome.declarativeNetRequest.updateDynamicRules({});
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [{
+        action: {
+          type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
+        },
+        condition: {},
+        id: 2,
+        priority: 3,
+      }],
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/storage
 function testStorageForPromise() {
     chrome.storage.sync.getBytesInUse().then(() => {});

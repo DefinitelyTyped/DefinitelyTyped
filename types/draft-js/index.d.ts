@@ -12,7 +12,6 @@
 //                 Claudio Procida <https://github.com/claudiopro>
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
-//                 Ben Salili-James <https://github.com/benhjames>
 //                 Peter Dekkers <https://github.com/PeterDekkers>
 //                 Ankit Ranjan <https://github.com/ankitr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -40,6 +40,7 @@
 //                 Sven Milewski <https://github.com/svenmilewski>
 //                 Benoit Boure <https://github.com/bboure>
 //                 James Lakin <https://github.com/jamesorlakin>
+//                 Ross Gerbasi <https://github.com/aphex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

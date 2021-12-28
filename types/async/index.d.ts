@@ -5,7 +5,6 @@
 //                 Joe Herman <https://github.com/Penryn>
 //                 Angus Fenying <https://github.com/fenying>
 //                 Pascal Martin <https://github.com/pascalmartin>
-//                 Dmitri Trofimov <https://github.com/Dmitri1337>
 //                 Etienne Rossignon <https://github.com/erossignon>
 //                 Lifeng Zhu <https://github.com/Juliiii>
 //                 Tümay Çeber <https://github.com/brendtumi>
@@ -29,6 +28,7 @@ export interface AsyncFunctionEx<T, E = Error> { (callback: (err?: E | null, ...
 export interface AsyncIterator<T, E = Error> { (item: T, callback: ErrorCallback<E>): void; }
 export interface AsyncForEachOfIterator<T, E = Error> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
 export interface AsyncResultIterator<T, R, E = Error> { (item: T, callback: AsyncResultCallback<R, E>): void; }
+export interface AsyncResultIteratorPromise<T, R> { (item: T): Promise<R>; }
 export interface AsyncMemoIterator<T, R, E = Error> { (memo: R | undefined, item: T, callback: AsyncResultCallback<R, E>): void; }
 export interface AsyncBooleanIterator<T, E = Error> { (item: T, callback: AsyncBooleanResultCallback<E>): void; }
 
@@ -245,11 +245,26 @@ export function forEachOfLimit<T, E = Error>(obj: IterableCollection<T>, limit: 
 export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
-export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
-export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>): Promise<R[]>;
+export function map<T, R, E = Error>(
+    arr: T[] | IterableIterator<T> | Dictionary<T>,
+    iterator: (AsyncResultIterator<T, R, E> | AsyncResultIteratorPromise<T, R>),
+    callback: AsyncResultArrayCallback<R, E>
+    ): void;
+export function map<T, R, E = Error>(
+    arr: T[] | IterableIterator<T> | Dictionary<T>,
+    iterator: (AsyncResultIterator<T, R, E> | AsyncResultIteratorPromise<T, R>)
+    ): Promise<R[]>;
+
 export const mapSeries: typeof map;
-export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
-export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>): Promise<R[]>;
+export function mapLimit<T, R, E = Error>(
+    arr: IterableCollection<T>,
+    limit: number, iterator: (AsyncResultIterator<T, R, E> | AsyncResultIteratorPromise<T, R>),
+    callback: AsyncResultArrayCallback<R, E>
+    ): void;
+export function mapLimit<T, R, E = Error>(
+    arr: IterableCollection<T>,
+    limit: number, iterator: (AsyncResultIterator<T, R, E> | AsyncResultIteratorPromise<T, R>)
+    ): Promise<R[]>;
 
 export function mapValuesLimit<T, R, E = Error>(
     obj: Dictionary<T>,
@@ -414,11 +429,21 @@ export function reflectAll<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Arr
 export function timeout<T, E = Error>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E>;
 export function timeout<T, R, E = Error>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E>;
 
-export function times<T, E = Error>(n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
-export function times<T, E = Error>(n: number, iterator: AsyncResultIterator<number, T, E>): Promise<T>;
+export function times<T, E = Error>(n: number, iterator: (AsyncResultIterator<number, T, E> | AsyncResultIteratorPromise<number, T>), callback: AsyncResultArrayCallback<T, E>): void;
+export function times<T, E = Error>(n: number, iterator: (AsyncResultIterator<number, T, E> | AsyncResultIteratorPromise<number, T>)): Promise<T>;
+
 export const timesSeries: typeof times;
-export function timesLimit<T, E = Error>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
-export function timesLimit<T, E = Error>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>): Promise<T>;
+export function timesLimit<T, E = Error>(
+    n: number,
+    limit: number,
+    iterator: (AsyncResultIterator<number, T, E> | AsyncResultIteratorPromise<number, T>),
+    callback: AsyncResultArrayCallback<T, E>
+    ): void;
+export function timesLimit<T, E = Error>(
+    n: number,
+    limit: number,
+    iterator: (AsyncResultIterator<number, T, E> | AsyncResultIteratorPromise<number, T>)
+    ): Promise<T>;
 
 export function transform<T, R, E = Error>(arr: T[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
 export function transform<T, R, E = Error>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;

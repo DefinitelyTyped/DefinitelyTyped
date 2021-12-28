@@ -1,7 +1,6 @@
 // Type definitions for styled-react-modal 1.2
 // Project: https://github.com/AlexanderRichey/styled-react-modal
-// Definitions by: Adam Lavin <https://github.com/Lavoaster>
-//                 Greg Perlman <https://github.com/gperl27>
+// Definitions by: Greg Perlman <https://github.com/gperl27>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 

@@ -1,8 +1,7 @@
 // Type definitions for react-redux 5.0.8
 // Project: https://github.com/rackt/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>,
-//                 Thomas Hasner <https://github.com/thasner>,
-//                 Kenzie Togami <https://github.com/kenzierocks>,
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Thomas Hasner <https://github.com/thasner>
 //                 Curits Layne <https://github.com/clayne11>
 //                 Frank Tan <https://github.com/tansongyang>
 //                 Nicholas Boll <https://github.com/nicholasboll>

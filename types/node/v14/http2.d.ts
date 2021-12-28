@@ -594,7 +594,7 @@ declare module 'http2' {
         readonly socket: net.Socket | tls.TLSSocket;
         readonly stream: ServerHttp2Stream;
         readonly trailers: IncomingHttpHeaders;
-        readonly url: string;
+        url: string;
 
         setTimeout(msecs: number, callback?: () => void): void;
         read(size?: number): Buffer | string | null;
