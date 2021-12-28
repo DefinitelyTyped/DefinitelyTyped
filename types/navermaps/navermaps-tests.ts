@@ -192,3 +192,13 @@ const getWorldMap = naver.maps.NaverStyleMapTypeOptions.getWorldMap();
 const point = new naver.maps.Point(37.1793196, 125.8795594);
 point.x;
 point.y;
+
+// 
+const geoAddress = '경기도 성남시 분당구 불정로 6';
+naver.maps.Service.gecode({
+    address: geoAddress,
+}, (status, response) => {
+    const point = response.result.items[0].point;
+    point.x;
+    point.y;
+});
