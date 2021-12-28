@@ -20,3 +20,23 @@ client.contacts.create({
 })
 .then(() => console.log('Lead created'))
 .catch(e => console.error('Error while creating lead:', e));
+
+client.users.bulk([
+    {
+        create: {
+            user_id: 'user_id'
+        }
+    }
+])
+    .then(() => console.log('User created in bulk'))
+    .catch(e => console.error('Error while creating user in bulk', e));
+
+client.events.bulk([
+    {
+        create: {
+            event_id: 'event_id'
+        },
+    }
+])
+    .then(() => console.log('Event created in bulk'))
+    .catch(e => console.error('Error while creating event in bulk', e));
