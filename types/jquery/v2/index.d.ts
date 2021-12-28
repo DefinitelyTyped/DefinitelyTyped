@@ -3639,6 +3639,13 @@ interface JQuery {
     /**
      * Remove elements from the set of matched elements.
      *
+     * @param selector An array of elements to match against the set.
+     * @see {@link https://api.jquery.com/not/#not-selector}
+     */
+     not(selector: any[]): JQuery;
+     /**
+     * Remove elements from the set of matched elements.
+     *
      * @param func A function used as a test for each element in the set. this is the current DOM element.
      * @see {@link https://api.jquery.com/not/#not-function}
      */
