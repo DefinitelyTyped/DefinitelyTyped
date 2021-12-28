@@ -9,25 +9,57 @@ function SpriteSheetTest(): React.ReactElement {
             return;
         }
 
+        // $ExpectType void
         instance.play();
+        // $ExpectType void
         instance.pause();
+        // $ExpectType void
         instance.goToAndPlay(3);
+        // $ExpectType void
         instance.goToAndPause(5);
+        // $ExpectType void
         instance.setStartAt(1);
+        // $ExpectType void
         instance.setEndAt(4);
+        // $ExpectType void
         instance.setFps(9);
+        // $ExpectType void
         instance.setDirection('rewind');
-
+        // $ExpectType number
         instance.getInfo('frame');
+        // $ExpectType number
         instance.getInfo('fps');
+        // $ExpectType number
         instance.getInfo('steps');
+        // $ExpectType number
         instance.getInfo('width');
+        // $ExpectType number
         instance.getInfo('height');
+        // $ExpectType number
         instance.getInfo('scale');
+        // $ExpectType Direction
         instance.getInfo('direction');
+        // $ExpectType boolean
         instance.getInfo('isPlaying');
+        // $ExpectType boolean
         instance.getInfo('isPaused');
+        // $ExpectType number
         instance.getInfo('completeLoopCicles');
+
+        // $ExpectError
+        instance.goToAndPlay('g');
+
+        // $ExpectError
+        instance.goToAndPlay();
+
+        // $ExpectError
+        instance.goToAndPause('g');
+
+        // $ExpectError
+        instance.goToAndPause();
+
+        // $ExpectError
+        instance.setDirection('no');
     }, [instance]);
 
     return (
