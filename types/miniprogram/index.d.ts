@@ -4,6 +4,8 @@
 //                 LynneXu <https://github.com/LynneXu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+type Common = Record<string, string | number | boolean>;
+
 interface AsyncCallbackFailObject {
     error: number;
     errorMessage?: string | undefined;
@@ -1248,6 +1250,69 @@ interface ShowActionSheetArgs extends AsyncCallback {
     badges?: Badge[];
 }
 
+interface SetTabBarStyleArgs extends AsyncCallback {
+    color: string;
+    selectedColor: string;
+    backgroundColor: string;
+    borderStyle: string;
+}
+
+interface DatePickerArgs extends AsyncCallback {
+    format?: string;
+    currentDate?: string;
+    startDate?: string;
+    endDate?: string;
+}
+
+interface ConnectSocketArgs extends AsyncCallback {
+    url: string;
+    data: Common;
+    header: Common;
+}
+
+interface SendSocketMessageArgs extends AsyncCallback {
+    data: string;
+    isBuffer?: boolean;
+}
+
+interface BluetoothDevices {
+    name: string;
+    deviceName: string;
+    localName: string;
+    deviceId: string;
+    RSSI: number;
+    advertisData: string;
+    manufacturerData: string;
+}
+
+interface StartBluetoothDevicesDiscoveryArgs extends AsyncCallback {
+    services?: string[];
+    allowDuplicatesKey?: boolean;
+    interval?: number;
+}
+
+interface ReadBLECharacteristicValueArgs
+    extends AsyncCallback<{ characteristic: { characteristicId: string; serviceId: string; value: string } }> {
+    deviceId: string;
+    serviceId: string;
+    characteristicId: string;
+}
+
+interface WriteBLECharacteristicValueArgs extends AsyncCallback {
+    deviceId: string;
+    serviceId: string;
+    characteristicId: string;
+    value: string;
+}
+
+interface OpenLocationArgs extends AsyncCallback {
+    longitude: string;
+    latitude: string;
+    name: string;
+    address: string;
+    scale?: number;
+}
+
 interface MiniprogramApi {
     /**
      * Show the navigation bar loading
@@ -1864,6 +1929,389 @@ interface MiniprogramApi {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_memory-warning_offmemorywarning)
      */
     offMemoryWarning: (arg?: (arg: { level: number }) => void) => void;
+
+    /**
+     * Use this API to obtain the Mini Program App ID synchronously.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_basic_getappidsync)
+     */
+    getAppIdSync: () => { appId: string };
+
+    /**
+     * Use this API to set the overall style of the tab bar, such as the text color, background color and border style.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_tabbar_settabbarstyle)
+     */
+    setTabBarStyle: (args: SetTabBarStyleArgs) => void;
+
+    /**
+     * Use this API to obtain the user's current settings. Only the permissions that have been requested by the Mini Program from the user are returned.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_setting_getsetting)
+     */
+    getSetting: (
+        args?: AsyncCallback<{
+            authSetting: {
+                camera: boolean;
+                location: boolean;
+                album: boolean;
+                userInfo: boolean;
+                phoneNumber: boolean;
+            };
+        }>,
+    ) => void;
+
+    /**
+     * Use this API to open the date selection list.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_choose-date_datepicker)
+     */
+    datePicker: (args?: DatePickerArgs) => void;
+
+    /**
+     * The watchshake function. Every time this API is called, a callback is triggered after the mobile phone is shaken. You must call this API again to continue to listen to this event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_watch-shake_watchshake)
+     */
+    watchShake: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to create a WebSocket connection. An Mini Program can only have one WebSocket connection at a time. If a WebSocket connection already exists when a new one is created, the existing one will be automatically disabled.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_connectsocket)
+     */
+    connectSocket: (args?: ConnectSocketArgs) => void;
+
+    /**
+     * Use this API to listen to the event of enabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketopen)
+     */
+    onSocketOpen: (args: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to the event of enabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_offsocketopen)
+     */
+    offSocketOpen: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to WebSocket error events.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketerror)
+     */
+    onSocketError: (args: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to WebSocket error events.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketerror)
+     */
+    offSocketError: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to send data over WebSocket connection. Call my.connectSocket first and send data after the my.onSocketOpen callback.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_sendsocketmessage)
+     */
+    sendSocketMessage: (args?: SendSocketMessageArgs) => void;
+
+    /**
+     * Use this API to listen to the event of receiving server messages by WebSocket.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketmessage)
+     */
+    onSocketMessage: (args: (arg: { data: string; isBuffer?: boolean }) => void) => void;
+
+    /**
+     * Use this API to unlisten to the event of receiving server messages by WebSocket.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_offsocketmessage)
+     */
+    offSocketMessage: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to disable the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_closesocket)
+     */
+    closeSocket: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to listen to the event of disabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketclose)
+     */
+    onSocketClose: (args: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to the event of disabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_offsocketclose)
+     */
+    offSocketClose: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to the acceleration data event. The callback interval is 500ms. After the interface is called, the listening is automatically started.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_accelerometer_onaccelerometerchange)
+     */
+    onAccelerometerChange: (args: (arg: { x: number; y: number; z: number }) => void) => void;
+
+    /**
+     * Use this API to stop listening to acceleration data event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_accelerometer_offaccelerometerchange)
+     */
+    offAccelerometerChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to the compass data change event. After the interface call, listening is automatically started. The callback interval is 500ms.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_compass_oncompasschange)
+     */
+    onCompassChange: (args?: (arg: { direction: number }) => void) => void;
+
+    /**
+     * Use this API to unlisten to the compass data.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_compass_offcompasschange)
+     */
+    offCompassChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to asynchronously obtain the battery level and the charging state of the current device. No parameters are required.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_battery_getbatteryinfo)
+     */
+    getBatteryInfo: (args?: AsyncCallback<{ level: number; isCharging: boolean }>) => void;
+
+    /**
+     * Use this API to synchronously obtain the battery level and the charging state of the current device. No parameters are required.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_battery_getbatteryinfosync)
+     */
+    getBatteryInfoSync: () => { level: number; isCharging: boolean };
+
+    /**
+     * Use this API to open the Mini Program settings page and returns permission setting results. Only the permissions that have been requested by the Mini Program from the user are displayed on the settings page.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_setting_opensetting)
+     */
+    openSetting: (
+        args?: AsyncCallback<{
+            authSetting: { camera: any; location: any; album: any; userInfo: any; phoneNumber: any };
+        }>,
+    ) => void;
+
+    /**
+     * Use this API to initialize the Bluetooth module in the mini program. You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called. The effective period is ended when the API my.closeBluetoothAdapter is called.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_openbluetoothadapter)
+     */
+    openBluetoothAdapter: (args: AsyncCallback) => void;
+
+    /**
+     * Use this API to close the Bluetooth module in the mini program. You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called. The effective period is ended when the API my.closeBluetoothAdapter is called.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_closebluetoothadapter#Parameters)
+     */
+    closeBluetoothAdapter: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to check the Bluetooth adapter status in the Mini Program.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_getbluetoothadapterstate#9097f31e)
+     */
+    getBluetoothAdapterState: (args: AsyncCallback<{ discovering: boolean; available: boolean }>) => void;
+
+    /**
+     * Use this API to get all the bluetooth devices that are discovered, including those that are connected to the current device.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_getbluetoothdevices)
+     */
+    getBluetoothDevices: (args: AsyncCallback<{ devices: BluetoothDevices[] }>) => void;
+
+    /**
+     * Use this API to get the bluetooth devices that are connected.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_getconnectedbluetoothdevices)
+     */
+    getConnectedBluetoothDevices: (args: { deviceId: string } & AsyncCallback) => void;
+
+    /**
+     * Use this API to remove the bluetooth adapter with a state change.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_offbluetoothadapterstatechange)
+     */
+    offBluetoothAdapterStateChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API when a new Bluetooth device is found.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_offbluetoothadapterstatechange)
+     */
+    onBluetoothDeviceFound: (args: AsyncCallback<{ devices: BluetoothDevices[] }>) => void;
+
+    /**
+     * Use this API to remove the bluetooth devices that are found.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_offbluetoothadapterstatechange)
+     */
+    offBluetoothDeviceFound: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to monitor the bluetooth adapter state changes.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_onbluetoothadapterstatechange#9097f31e)
+     */
+    onBluetoothAdapterStateChange: (args?: AsyncCallback<{ discovering: boolean; available: boolean }>) => void;
+
+    /**
+     * Use this API to start discovering bluetooth devices. You can find the results in the API my.onBluetoothDeviceFound.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_startbluetoothdevicesdiscovery)
+     */
+    startBluetoothDevicesDiscovery: (args?: StartBluetoothDevicesDiscoveryArgs) => void;
+
+    /**
+     * Use this API to stop discovering bluetooth devices.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_stopbluetoothdevicesdiscovery)
+     */
+    stopBluetoothDevicesDiscovery: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to connect to a Bluetooth Low Energy (BLE) device.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_connectbledevice)
+     */
+    connectBLEDevice: (args: { deviceId: string } & AsyncCallback) => void;
+
+    /**
+     * Use this API to disconnect from a Bluetooth Low Energy (BLE) device.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_disconnectbledevice)
+     */
+    disconnectBLEDevice: (args: { deviceId: string } & AsyncCallback) => void;
+
+    /**
+     * Use this API to obtain all characteristics in a Bluetooth device that is connected to the native.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_getbledevicecharacteristics)
+     */
+    getBLEDeviceCharacteristics: (
+        args: { deviceId: string; serviceId: string } & AsyncCallback<{
+            characteristic: {
+                characteristicId: string;
+                serviceId: string;
+                value: string;
+                properties: {
+                    read: boolean;
+                    write: boolean;
+                    notify: boolean;
+                    indicate: boolean;
+                };
+            }[];
+        }>,
+    ) => void;
+
+    /**
+     * Use this API to obtain all services of Bluetooth devices that are connected to the native.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_getbledeviceservices)
+     */
+    getBLEDeviceServices: (
+        args: { deviceId: string } & AsyncCallback<{ services: { isPrimary: boolean; serviceId: string }[] }>,
+    ) => void;
+
+    /**
+     * Use this API enable notification on change of Bluetooth Low Energy (BLE) device characteristics.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_notifyblecharacteristicvaluechange#Parameters)
+     */
+    notifyBLECharacteristicValueChange: (
+        args: {
+            deviceId: string;
+            serviceId: string;
+            characteristicId: string;
+            descriptorId?: string;
+            state?: boolean;
+        } & AsyncCallback,
+    ) => void;
+
+    /**
+     * Use this API to unlisten to the BLE device characteristic change event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_offblecharacteristicvaluechange)
+     */
+    offBLECharacteristicValueChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to the Bluetooth Low Energy (BLE) connection status change event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_offbleconnectionstatechanged#a4bc819d)
+     */
+    offBLEConnectionStateChanged: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to the Bluetooth Low Energy (BLE) device characteristic change event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_onblecharacteristicvaluechange)
+     */
+    onBLECharacteristicValueChange: (args: (arg: { deviceId: string; connected: boolean }) => void) => void;
+
+    /**
+     * Use this API to listen to the Bluetooth Low Energy (BLE) connection error event, including device loss and unusual disconnections.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_onbleconnectionstatechanged)
+     */
+    onBLEConnectionStateChanged: (args: (arg: { deviceId: string; connected: boolean }) => void) => void;
+
+    /**
+     * Use this API to read the data of Bluetooth Low Energy (BLE) device characteristics. The returned information must be obtained by using the callback in the my.onBLECharacteristicValueChange.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_readblecharacteristicvalue)
+     */
+    readBLECharacteristicValue: (args: ReadBLECharacteristicValueArgs) => void;
+
+    /**
+     * Use this API to write data to Bluetooth Low Energy (BLE) device characteristics.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_writeblecharacteristicvalue)
+     */
+    writeBLECharacteristicValue: (args: WriteBLECharacteristicValueArgs) => void;
+
+    /**
+     * The my.openDocument API enables users to preview a PDF file within the mini program.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_file_myopendocument)
+     */
+    openDocument: (args: { filePath: string; fileType: string } & AsyncCallback) => void;
+
+    /**
+     * View the location on the built-in map.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_location_openlocation)
+     */
+    openLocation: (args: OpenLocationArgs) => void;
+
+    /**
+     * Open the built-in map to choose a location.
+     *
+     * https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_location_chooselocation#ZxibZ
+     */
+    chooseLocation: (
+        args: AsyncCallback<{
+            name: string;
+            address: string;
+            longitude: number;
+            latitude: number;
+            provinceName: string;
+            cityName: string;
+        }>,
+    ) => void;
 }
 
 declare const my: MiniprogramApi;
