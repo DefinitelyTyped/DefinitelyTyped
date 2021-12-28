@@ -193,7 +193,6 @@ const point = new naver.maps.Point(37.1793196, 125.8795594);
 point.x;
 point.y;
 
-// 
 const geoAddress = '경기도 성남시 분당구 불정로 6';
 naver.maps.Service.geocode({
     address: geoAddress,
