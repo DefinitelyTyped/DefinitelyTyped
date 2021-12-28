@@ -35,15 +35,15 @@ interface TailwindColors {
     /**
      * @deprecated renamed to 'stone' in v3.0
      */
-     warmGray: TailwindColorGroup;
+    warmGray: TailwindColorGroup;
     /**
      * @deprecated renamed to 'neutral' in v3.0
      */
-     trueGray: TailwindColorGroup;
+    trueGray: TailwindColorGroup;
     /**
      * @deprecated renamed to 'gray' in v3.0
      */
-     coolGray: TailwindColorGroup;
+    coolGray: TailwindColorGroup;
     /**
      * @deprecated renamed to 'slate' in v3.0
      */
