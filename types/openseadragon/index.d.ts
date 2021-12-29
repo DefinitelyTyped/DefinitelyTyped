@@ -132,6 +132,8 @@ declare namespace OpenSeadragon {
 
     function getElementStyle(element: Element | string): any; // CSSStyle?
 
+    function getViewer(element: Element): Viewer;
+
     function getMousePosition(event?: OSDEvent<any>): Point;
 
     function getPageScroll(): Point;
@@ -683,6 +685,7 @@ declare namespace OpenSeadragon {
     interface EventProcessInfo {
         eventSource: MouseTracker;
         originalEvent: Event;
+        originalTarget: Element;
         eventPhase: number;
         eventType: string;
         pointerType: string;
@@ -964,6 +967,7 @@ declare namespace OpenSeadragon {
         getOpacity(): number;
         getPreload(): boolean;
         getRotation(current?: boolean): number;
+        getSizeInWindowCoordinates(): Point;
         getTileBounds(level: number, x: number, y: number): Rect;
         imageToViewerElementCoordinats(pixel: Point): Point;
         imageToViewportCoordinates(position: Point, current?: boolean): Point;
@@ -1045,6 +1049,7 @@ declare namespace OpenSeadragon {
             eventName: string,
             handler: EventHandler<TileSourceEvent>
         ): void;
+        setMaxLevel(level: number): void;
         supports(
             data: string | object | any[] | Document,
             url: string
