@@ -15,7 +15,7 @@ declare namespace jsrsasign {
     }
 
     interface AuthorityKeyIdentifierResult {
-        kid?: Hex;
+        kid: Hex;
         issuer?: Hex;
         sn?: Hex;
         critical?: boolean;
