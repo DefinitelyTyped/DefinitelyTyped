@@ -219,7 +219,7 @@ request.get("http://example.com/search").retry(2, callback).end(callback);
 })();
 
 // Attaching files
-const blob = {} as unknown as Blob;
+declare const blob: Blob;
 request
     .post("/upload")
     .attach("avatar", "path/to/tobi.png", "user.png")
@@ -282,7 +282,8 @@ request
     .get("/blob")
     .responseType("blob")
     .end((err, res) => {
-        console.log(res.xhr.response);
+        res.xhr; // $ExpectType any
+        res.xhr.response; // $ExpectType any
     });
 
 // HTTPS request, from: https://github.com/visionmedia/superagent/commit/6158efbf42cb93d77c1a70887284be783dd7dabe
