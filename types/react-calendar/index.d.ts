@@ -82,13 +82,13 @@ export interface CalendarProps {
 }
 
 export interface CalendarTileProperties {
-    action: string;
     activeStartDate: Date;
     date: Date;
     view: Detail;
 }
 
 export interface ViewCallbackProperties {
+    action: string;
     activeStartDate: Date;
     value: Date;
     view: Detail;
