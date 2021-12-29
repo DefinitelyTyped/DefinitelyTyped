@@ -4,7 +4,7 @@
 //                 andrew0687 <https://github.com/andrew0687>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Formula {
+export default class Formula {
     constructor(fStr: string, options?: object);
     setFormula(formulaString: string): this;
     enableMemoization(): void;
@@ -27,6 +27,3 @@ declare class Formula {
     static calc(formula: string, valueObj: object | object[], options?: object): any;
 }
 
-declare const _default: Formula;
-
-export = _default;
