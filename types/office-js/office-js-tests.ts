@@ -15,7 +15,7 @@ function test_excel() {
                 var vals = range.values;
                 for (var i = 0; i < vals.length; i++) {
                     for (var j = 0; j < vals[i].length; j++) {
-                        vals[i][j] = vals[i][j].toUpperCase();
+                        (vals as any[][])[i][j] = vals[i][j].toUpperCase();
                     }
                 }
                 range.values = vals;
@@ -25,6 +25,27 @@ function test_excel() {
         console.log(error);
     });
 
+    // Range fill formula
+    Excel.run(function (ctx) {
+        var sheet = ctx.workbook.worksheets.getFirst();
+        var range = sheet.getRange("A1:A3");
+        range.values = [
+            ["10-03-2021"],
+            ["11-04-2021"],
+            ["12-05-2021"]
+        ];
+
+        // Now fill the B-range with an 'auto-fill'
+        var copyDateRangeAddress = 'B1:B3';
+        var copyDatesRange = sheet.getRange(copyDateRangeAddress);
+        copyDatesRange.format.columnWidth = 90;
+        copyDatesRange.numberFormat = 'dd-mm-yyyy';
+        copyDatesRange.values = "=A2"; // Simple formula as example
+
+        return ctx.sync();
+    }).catch(function (error) {
+        console.log(error);
+    });
 
     // Chart
     Excel.run(function (ctx) {
