@@ -102,7 +102,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Invokes a function prop.
      * @param invokePropName The function prop to call.
-     * @param ...args The argments to the invokePropName function
+     * @param ...args The arguments to the invokePropName function
      * @returns The value of the function.
      */
     invoke<
