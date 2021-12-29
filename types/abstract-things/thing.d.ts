@@ -1,0 +1,34 @@
+import EventEmitter from './events';
+
+export interface EmitEventOptions {
+    multiple: boolean;
+}
+
+export class Thing {
+    constructor(...args: any);
+    new(...input: any[]): any;
+
+    get id(): string | null;
+    set id(identifier: string | null);
+
+    init(): Promise<undefined | this>;
+    initCallback(): Promise<void>;
+
+    destroy(): Promise<void>;
+    destroyCallback(): Promise<void>;
+
+    emitEvent(event: string, data: unknown, options?: EmitEventOptions): void;
+    on: InstanceType<typeof EventEmitter>['on'];
+    off: InstanceType<typeof EventEmitter>['off'];
+    onAny: InstanceType<typeof EventEmitter>['onAny'];
+    offAny: InstanceType<typeof EventEmitter>['offAny'];
+
+    debug(): void;
+    matches(...tags: string[]): boolean;
+
+    static type<T>(func: T): T & Thing;
+    static mixin<T>(func: T): T & Thing;
+    static mixinDynamic<T>(...mixins: T[]): T & Thing;
+
+    extendWith<T>(...mixins: T[]): T & Thing;
+}
