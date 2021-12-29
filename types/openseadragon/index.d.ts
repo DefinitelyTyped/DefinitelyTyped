@@ -614,7 +614,7 @@ declare namespace OpenSeadragon {
         contextMenuHandler?: EventHandler<OSDEvent<any>> | undefined;
         enterHandler?: EventHandler<OSDEvent<any>> | undefined;
         /**
-         * @deprecated
+         * @deprecated use leaveHandler instead
          */
         exitHandler?: EventHandler<OSDEvent<any>> | undefined;
         leaveHandler?: EventHandler<OSDEvent<any>> | undefined;
@@ -655,6 +655,9 @@ declare namespace OpenSeadragon {
         dragEndHandler: (event: OSDEvent<any>) => void;
         dragHandler: (event: OSDEvent<any>) => void;
         enterHandler: (event: OSDEvent<any>) => void;
+        /**
+         * @deprecated use leaveHandler instead
+         */
         exitHandler: (event: OSDEvent<any>) => void;
         leaveHandler: (event: OSDEvent<any>) => void;
         focusHandler: (event: OSDEvent<any>) => void;
