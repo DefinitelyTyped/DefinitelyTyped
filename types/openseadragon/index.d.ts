@@ -1,4 +1,4 @@
-// Type definitions for OpenSeadragon 2.4
+// Type definitions for OpenSeadragon 3.0
 // Project: https://openseadragon.github.io/
 // Definitions by:  Álvaro Martínez <https://github.com/alvaromartmart>
 //                  RobertYost <https://github.com/RobertYost>
